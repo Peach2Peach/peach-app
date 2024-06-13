@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import { useAccountStore } from "../../utils/account/account";
 import { peachAPI } from "../../utils/peachAPI";
-import { useTranslate } from "@tolgee/react";
 
 const possibleSources = [
   "twitter",
@@ -22,7 +22,7 @@ const possibleSources = [
 
 export function UserSource() {
   const { t } = useTranslate();
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();
   const { mutate: submitUserSource } = useSubmitUserSource();

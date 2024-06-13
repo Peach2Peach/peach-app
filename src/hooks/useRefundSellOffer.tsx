@@ -1,6 +1,7 @@
 import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSetOverlay } from "../Overlay";
+import { useTranslate } from "@tolgee/react";
+import { useSetGlobalOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
@@ -16,7 +17,6 @@ import { contractKeys } from "./query/useContractDetail";
 import { offerKeys } from "./query/useOfferDetail";
 import { useShowErrorBanner } from "./useShowErrorBanner";
 import { useStackNavigation } from "./useStackNavigation";
-import { useTranslate } from "@tolgee/react";
 
 export function useRefundSellOffer() {
   const setPopup = useSetPopup();
@@ -132,7 +132,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
     (state) => state.shouldShowBackupOverlay,
   );
   const { t } = useTranslate("global");
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const goToWallet = () => {
     closePopup();
@@ -159,7 +159,7 @@ function CloseAction() {
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
   const { t } = useTranslate("global");
 
   return (

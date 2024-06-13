@@ -1,4 +1,5 @@
 {
+  "match.feeWarning" : "Zapłacisz do $0% w opłatach za wydobycie!",
   "match.tradeRequested" : "żądanie transakcji",
   "match.waitingForSeller" : "oczekiwanie na sprzedawcę"
 }

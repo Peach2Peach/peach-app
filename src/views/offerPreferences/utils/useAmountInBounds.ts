@@ -1,14 +1,12 @@
 import { useCallback, useMemo } from "react";
-import { useMarketPrices } from "../../../hooks/query/useMarketPrices";
-import { getTradingAmountLimits } from "../../../utils/market/getTradingAmountLimits";
 import { sectionContainerPadding } from "../components/Section";
 import { sliderWidth } from "../components/Slider";
 import { horizontalTrackPadding } from "../components/SliderTrack";
 import { trackMin } from "./constants";
+import { useTradingAmountLimits } from "./useTradingAmountLimits";
 
 export const useAmountInBounds = (trackWidth: number, type: "buy" | "sell") => {
-  const { data } = useMarketPrices();
-  const [minLimit, maxLimit] = getTradingAmountLimits(data?.CHF || 0, type);
+  const [minLimit, maxLimit] = useTradingAmountLimits(type);
   const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth]);
   const trackDelta = trackMax - trackMin;
 

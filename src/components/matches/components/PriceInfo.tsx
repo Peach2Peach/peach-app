@@ -13,8 +13,15 @@ type Props = {
   price: number;
   currency: Currency;
   premium: number;
+  miningFeeWarning?: JSX.Element;
 };
-export function PriceInfo({ amount, price, currency, premium }: Props) {
+export function PriceInfo({
+  amount,
+  price,
+  currency,
+  premium,
+  miningFeeWarning,
+}: Props) {
   const btcPrice = Math.round((price / amount) * SATSINBTC);
   const { t } = useTranslate("global");
   return (
@@ -34,6 +41,7 @@ export function PriceInfo({ amount, price, currency, premium }: Props) {
         {/** @ts-ignore */}
         {btcPrice} {t(currency)} / {t("btc")}
       </PeachText>
+      {miningFeeWarning}
     </View>
   );
 }

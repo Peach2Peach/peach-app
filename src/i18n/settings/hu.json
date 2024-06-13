@@ -75,6 +75,7 @@
   "settings.networkFees.feeRateSet" : "díjarány beállítása",
   "settings.networkFees.help" : "Ezek a bitcoin hálózatnak fizetett díjak, amelyeket egy kereskedés után a satoshijaid fogadásához vagy visszatérítés esetén kell fizetned. Ezek a díjak idővel a hálózat forgalmának függvényében változnak.\n\nMinél forgalmasabb a hálózat, annál többet kell egy gyors jóváhagyásért fizetned.",
   "settings.networkFees.xSatsPerByte" : "{fees} sat/bájt",
+  "settings.networkFees.payoutInfo" : "Ez a beállítás nem vonatkozik a kifizetésekre. További információért lásd a tranzakciók kötegelését.",
   "settings.nodeSetup" : "saját csomópont használata",
   "settings.notifications" : "értesítések",
   "settings.notifications.popup" : "Az értesítések bekapcsolása nélkül nem fogsz arról értesülni, hogy ha van egy új partnered. \n\nHa túl sokáig tart, hogy valakinek válaszolj, az a hírnévedre negatív hatással lehet.",

@@ -1,6 +1,6 @@
 import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
-import { useSetOverlay } from "../../../../Overlay";
+import { useSetGlobalOverlay } from "../../../../Overlay";
 import { Icon } from "../../../../components/Icon";
 import { Button } from "../../../../components/buttons/Button";
 import { PeachText } from "../../../../components/text/PeachText";
@@ -10,7 +10,7 @@ import tw from "../../../../styles/tailwind";
 export const BackupCreated = () => {
   const { t } = useTranslate("settings");
   const navigation = useStackNavigation();
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
   const goToFileBackup = () => {
     setOverlay(undefined);
     navigation.navigate("backups");

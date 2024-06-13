@@ -9,7 +9,6 @@ import { migrateWalletStore } from "./migration/migrateWalletStore";
 
 export type WalletState = {
   balance: number;
-  addresses: string[];
   transactions: TransactionDetails[];
   fundedFromPeachWallet: string[];
   txOfferMap: { [offerId: string]: string[] | undefined };
@@ -17,7 +16,6 @@ export type WalletState = {
   fundMultipleMap: { [address: string]: string[] | undefined };
   showBalance: boolean;
   selectedUTXOIds: string[];
-  isSynced: boolean;
 };
 
 export type FundMultipleInfo = {
@@ -27,7 +25,6 @@ export type FundMultipleInfo = {
 
 export type WalletStore = WalletState & {
   reset: () => void;
-  setAddresses: (addresses: string[]) => void;
   setBalance: (balance: number) => void;
   setTransactions: (txs: TransactionDetails[]) => void;
   addTransaction: (transaction: TransactionDetails) => void;
@@ -42,11 +39,9 @@ export type WalletStore = WalletState & {
   getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined;
   toggleShowBalance: () => void;
   setSelectedUTXOIds: (utxos: string[]) => void;
-  setIsSynced: (isSynced: boolean) => void;
 };
 
 export const defaultWalletState: WalletState = {
-  addresses: [],
   balance: 0,
   transactions: [],
   fundedFromPeachWallet: [],
@@ -55,7 +50,6 @@ export const defaultWalletState: WalletState = {
   fundMultipleMap: {},
   showBalance: true,
   selectedUTXOIds: [],
-  isSynced: false,
 };
 export const walletStorage = createStorage("wallet");
 const storage = createPersistStorage(walletStorage);
@@ -65,7 +59,6 @@ export const useWalletState = create<WalletStore>()(
     (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
-      setAddresses: (addresses) => set({ addresses }),
       setBalance: (balance) => set({ balance }),
       setTransactions: (transactions) => set({ transactions }),
       addTransaction: (transaction) =>
@@ -117,17 +110,12 @@ export const useWalletState = create<WalletStore>()(
       toggleShowBalance: () =>
         set((state) => ({ showBalance: !state.showBalance })),
       setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
-      setIsSynced: (isSynced) => set({ isSynced }),
     }),
     {
       name: "wallet",
       version: 2,
       storage,
       migrate: migrateWalletStore,
-      partialize: (state) => {
-        const { isSynced: _unused, ...rest } = state;
-        return rest;
-      },
     },
   ),
 );

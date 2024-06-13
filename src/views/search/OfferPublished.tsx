@@ -1,4 +1,4 @@
-import { useSetOverlay } from "../../Overlay";
+import { useSetGlobalOverlay } from "../../Overlay";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -13,7 +13,7 @@ export const OfferPublished = ({
   offerId: string;
 }) => {
   const navigation = useStackNavigation();
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
   const closeOverlay = () => setOverlay(undefined);
   const goBackHome = () => {
     navigation.navigate("homeScreen", { screen: "home" });

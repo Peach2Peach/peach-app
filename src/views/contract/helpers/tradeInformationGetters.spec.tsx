@@ -9,10 +9,6 @@ import {
   tradeInformationGetters,
 } from "./tradeInformationGetters";
 
-jest.mock("../../../utils/offer/getWalletLabel", () => ({
-  getWalletLabel: jest.fn(() => "walletLabel"),
-}));
-
 jest.mock("../context", () => ({
   useContractContext: jest.fn(() => ({
     paymentData: "paymentData",

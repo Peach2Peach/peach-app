@@ -1,4 +1,4 @@
-import { useSetOverlay } from "../../../Overlay";
+import { useSetGlobalOverlay } from "../../../Overlay";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { BackupTime } from "../../overlays/BackupTime";
@@ -13,7 +13,7 @@ export const useWalletBalance = () => {
       state.setShowBackupReminder,
     ]);
 
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
   if (!showBackupReminder && balance > 0 && shouldShowBackupOverlay) {
     setShowBackupReminder(true);
     setOverlay(

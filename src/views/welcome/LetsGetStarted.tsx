@@ -4,7 +4,6 @@ import tw from "../../styles/tailwind";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslate } from "@tolgee/react";
 import { useCallback, useEffect, useState } from "react";
-import { getInstallReferrer } from "react-native-device-info";
 import { Loading } from "../../components/Loading";
 import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
@@ -57,14 +56,6 @@ export const LetsGetStarted = () => {
   useEffect(() => {
     Linking.getInitialURL().then((url) => handleRefCode({ url }));
   }, [handleRefCode]);
-
-  useEffect(() => {
-    getInstallReferrer().then((ref) => {
-      if (!ref || ref === "unknown") return;
-      setReferralCode((prev) => prev || ref);
-      setWillUseReferralCode(true);
-    });
-  }, [setReferralCode]);
 
   const updateReferralCode = (code: string) => {
     if (referralCode !== code) setWillUseReferralCode(false);

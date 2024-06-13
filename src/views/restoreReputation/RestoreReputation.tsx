@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Loading } from "../../components/Loading";
@@ -9,6 +8,7 @@ import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { useRoute } from "../../hooks/useRoute";
 import { useUserUpdate } from "../../init/useUserUpdate";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { storeAccount } from "../../utils/account/storeAccount";
@@ -21,10 +21,8 @@ export const RestoreReputation = () => {
   const route = useRoute<"restoreReputation">();
   const [isRestored, setIsRestored] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [account, setIsLoggedIn] = useAccountStore(
-    (state) => [state.account, state.setIsLoggedIn],
-    shallow,
-  );
+  const account = useAccountStore((state) => state.account);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const userUpdate = useUserUpdate();
 
   const restoreReputation = async () => {

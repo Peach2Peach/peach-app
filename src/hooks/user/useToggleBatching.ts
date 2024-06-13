@@ -27,6 +27,7 @@ export const useToggleBatching = ({ isBatchingEnabled }: Props) => {
     mutationFn: async () => {
       const { error } = await peachAPI.private.user.enableTransactionBatching({
         enableBatching: !isBatchingEnabled,
+        riskAcknowledged: true,
       });
       if (error) throw new Error(error.error || "Failed to toggle batching");
     },

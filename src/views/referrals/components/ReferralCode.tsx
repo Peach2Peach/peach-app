@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import Share from "react-native-share";
 import { Button } from "../../../components/buttons/Button";
@@ -5,9 +6,9 @@ import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import tw from "../../../styles/tailwind";
+import { languageState } from "../../../utils/i18n";
 import { info } from "../../../utils/log/info";
-import { getInviteLink } from "../helpers/getInviteLink";
-import { useTranslate } from "@tolgee/react";
+import { getLocalizedLink } from "../../../utils/web/getLocalizedLink";
 
 type Props = {
   referralCode: string;
@@ -21,13 +22,19 @@ export const ReferralCode = () => {
     return <></>;
   }
 
-  const inviteLink = getInviteLink(referralCode);
+  const inviteLink = getLocalizedLink(
+    `referral?code=${referralCode}`,
+    languageState.locale,
+  );
 
   return (
     <View style={tw`gap-4`}>
-      <YourCode {...{ referralCode }} />
-      <InviteLink {...{ inviteLink }} />
-      <InviteFriendsButton {...{ referralCode, inviteLink }} />
+      <YourCode referralCode={referralCode} />
+      <InviteLink inviteLink={inviteLink} />
+      <InviteFriendsButton
+        referralCode={referralCode}
+        inviteLink={inviteLink}
+      />
     </View>
   );
 };
@@ -39,8 +46,8 @@ function YourCode({ referralCode }: Props) {
       <PeachText style={tw`text-center text-black-65`}>
         {t("referrals.yourCode")}
       </PeachText>
-      <View style={tw`flex-row justify-center`}>
-        <PeachText style={tw`mr-1 text-center h4`}>{referralCode}</PeachText>
+      <View style={tw`flex-row justify-center gap-1`}>
+        <PeachText style={tw`text-center h4`}>{referralCode}</PeachText>
         <CopyAble
           value={referralCode}
           style={tw`w-7 h-7`}

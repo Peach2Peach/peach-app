@@ -46,8 +46,7 @@ describe("decryptSymmetricKey", () => {
       symmetricKeySignature,
       pgpPublicKeys,
     );
-    expect(errorSpy).toHaveBeenCalledWith(new Error("DECRYPTION_FAILED"));
-
+    expect(errorSpy).not.toHaveBeenCalled();
     expect(symmetricKeyResult).toEqual(null);
   });
   it("should handle invalid signature and still return symmetric key", async () => {

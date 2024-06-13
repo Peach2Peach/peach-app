@@ -1,15 +1,15 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import {
   AddressSummaryItem,
-  TextSummaryItem,
   TimerSummaryItem,
 } from "../../../components/summaryItem";
+import { PeachText } from "../../../components/text/PeachText";
 import { MSINASECOND } from "../../../constants";
 import { HelpPopup } from "../../../popups/HelpPopup";
 import tw from "../../../styles/tailwind";
 import { useContractContext } from "../context";
-import { useTranslate } from "@tolgee/react";
 
 const NO_ENTRY_VALUE = -2;
 
@@ -25,25 +25,25 @@ export const PendingPayoutInfo = () => {
     onPress: showHelp,
   };
   if (!batchInfo) return <></>;
-  const { timeRemaining, participants, maxParticipants } = batchInfo;
+  const { timeRemaining } = batchInfo;
   return (
     <View style={tw`justify-center gap-4 grow`}>
+      <PeachText style={tw`subtitle-1`}>
+        {t("settings.batching.youSave")}
+      </PeachText>
+      <PeachText style={tw`subtitle-1`}>
+        {t("batching.waitingForParticipants")}
+      </PeachText>
       <AddressSummaryItem
         title={t("batching.willBeSentTo")}
         address={releaseAddress}
       />
-      {timeRemaining === NO_ENTRY_VALUE ? (
-        <TextSummaryItem text={t("batching.eta.tba")} {...etaProps} />
-      ) : (
+      {timeRemaining !== NO_ENTRY_VALUE && (
         <TimerSummaryItem
           {...etaProps}
           end={Date.now() + timeRemaining * MSINASECOND}
         />
       )}
-      <TextSummaryItem
-        title={t("batching.slots")}
-        text={`${participants}/${maxParticipants}`}
-      />
     </View>
   );
 };

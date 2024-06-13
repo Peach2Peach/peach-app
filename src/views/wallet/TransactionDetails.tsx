@@ -1,3 +1,5 @@
+import { useTranslate } from "@tolgee/react";
+import { useMemo } from "react";
 import { RefreshControl } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -5,6 +7,7 @@ import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useMultipleOfferDetails } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
+import { getTransactionType } from "../../utils/transaction/getTransactionType";
 import { isDefined } from "../../utils/validation/isDefined";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
@@ -14,7 +17,6 @@ import { getOfferData } from "./helpers/getOfferData";
 import { getTxSummary } from "./helpers/getTxSummary";
 import { useMappedTransactionDetails } from "./hooks/useMappedTransactionDetails";
 import { useSyncWallet } from "./hooks/useSyncWallet";
-import { useTranslate } from "@tolgee/react";
 
 export const TransactionDetails = () => {
   const { txId } = useRoute<"transactionDetails">().params;
@@ -24,23 +26,18 @@ export const TransactionDetails = () => {
   const { t } = useTranslate("wallet");
   const { offers } = useMultipleOfferDetails(offerIds || []);
   const { contracts } = useContractSummaries();
-  const partialSummary = localTx
-    ? getTxSummary({
-        tx: localTx,
-        offer: offers.filter(isDefined)[0],
-      })
-    : undefined;
 
-  const transactionSummary = partialSummary
-    ? {
-        ...partialSummary,
-        offerData: getOfferData(
-          offers.filter(isDefined),
-          contracts,
-          partialSummary.type,
-        ),
-      }
-    : undefined;
+  const transactionSummary = useMemo(() => {
+    if (!localTx) return undefined;
+    const partialSummary = getTxSummary(localTx);
+    const type = getTransactionType(localTx, offers.filter(isDefined)[0]);
+    return {
+      ...partialSummary,
+      type,
+      offerData: getOfferData(offers.filter(isDefined), contracts, type),
+    };
+  }, [localTx, offers, contracts]);
+
   const { refetch: refresh, isRefetching } = useSyncWallet();
 
   if (!localTx || !transactionDetails || !transactionSummary)

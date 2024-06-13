@@ -19,7 +19,6 @@ export const decryptSymmetricKey = async (
     });
     if (!isValid) error(new Error("SYMMETRIC_KEY_SIGNATURE_INVALID"));
   } catch (err) {
-    error(err);
     return null;
   }
 

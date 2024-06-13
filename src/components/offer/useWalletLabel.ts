@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { shallow } from "zustand/shallow";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { getWalletLabel } from "../../utils/offer/getWalletLabel";
 import { useTranslate } from "@tolgee/react";
+import { useMemo } from "react";
+import { shallow } from "zustand/shallow";
+import { useIsMyAddress } from "../../hooks/wallet/useIsMyAddress";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 
 type Props = {
   address?: string;
@@ -10,38 +10,22 @@ type Props = {
 };
 
 export const useWalletLabel = ({ address, isPayoutWallet = false }: Props) => {
-  const { t } = useTranslate();
-  const [customAddress, customAddressLabel, isPeachWalletActive] =
-    useSettingsStore(
-      (state) =>
-        isPayoutWallet
-          ? [
-              state.payoutAddress,
-              state.payoutAddressLabel,
-              state.payoutToPeachWallet,
-            ]
-          : [
-              state.refundAddress,
-              state.refundAddressLabel,
-              state.refundToPeachWallet,
-            ],
-      shallow,
-    );
-  const [fallbackLabel, setFallbackLabel] = useState(t("loading"));
+  const { t: i18n } = useTranslate("offer");
+  const [customAddress, customAddressLabel] = useSettingsStore(
+    (state) =>
+      isPayoutWallet
+        ? [state.payoutAddress, state.payoutAddressLabel]
+        : [state.refundAddress, state.refundAddressLabel],
+    shallow,
+  );
+  const belongsToPeachWallet = useIsMyAddress(address || "");
 
-  useEffect(() => {
-    // this operation can be expensive, hence we delay execution
-    setTimeout(() => {
-      setFallbackLabel(
-        getWalletLabel({
-          address,
-          customAddress,
-          customAddressLabel,
-          isPeachWalletActive,
-        }),
-      );
-    });
-  }, [address, customAddress, customAddressLabel, isPeachWalletActive]);
+  const walletLabel = useMemo(() => {
+    if (belongsToPeachWallet) return i18n("peachWallet", { ns: "wallet" });
+    if (customAddress === address)
+      return customAddressLabel || i18n("offer.summary.customPayoutAddress");
+    return i18n("offer.summary.customPayoutAddress");
+  }, [belongsToPeachWallet, i18n, customAddress, address, customAddressLabel]);
 
-  return fallbackLabel;
+  return walletLabel;
 };

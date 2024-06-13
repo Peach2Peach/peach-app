@@ -6,3 +6,4 @@ export const isAirplaneModeSync = jest.fn();
 export const getBundleId = jest.fn(() => "com.example.bundleId");
 export const getInstallerPackageNameSync = jest.fn();
 export const getInstallReferrer = jest.fn(() => Promise.resolve(""));
+export const isEmulatorSync = jest.fn(() => false);

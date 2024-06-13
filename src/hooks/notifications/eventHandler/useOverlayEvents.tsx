@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useSetOverlay } from "../../../Overlay";
+import { useSetGlobalOverlay } from "../../../Overlay";
 import { PaymentMade } from "../../../views/contract/PaymentMade";
 import { NewBadge } from "../../../views/overlays/NewBadge";
 import { OfferPublished } from "../../../views/search/OfferPublished";
@@ -9,7 +9,7 @@ type PNEventHandlers = Partial<
 >;
 
 export const useOverlayEvents = () => {
-  const setOverlayContent = useSetOverlay();
+  const setOverlayContent = useSetGlobalOverlay();
 
   const overlayEvents: PNEventHandlers = useMemo(
     () => ({

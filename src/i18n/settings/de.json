@@ -74,6 +74,7 @@
   "settings.networkFees.estimatedTime.hourFee" : "~ 1 Stunde",
   "settings.networkFees.feeRateSet" : "Gebührenrate festgelegt",
   "settings.networkFees.help" : "Dies sind die Gebühren, die du an das Bitcoin-Netzwerk zahlst, um deine Sats nach einem Handel oder im Falle einer Rückerstattung zu erhalten. Diese Gebühren ändern sich ständig, je nachdem, wie stark das Netzwerk ausgelastet ist.\n\nJe stärker das Netzwerk ausgelastet ist, desto mehr musst du zahlen, um eine schnelle Bestätigung zu erhalten.",
+  "settings.networkFees.payoutInfo" : "Diese Einstellung gilt nicht für Auszahlungen. Weitere Informationen finden Sie unter Stapelverarbeitung von Transaktionen.",
   "settings.networkFees.xSatsPerByte" : "{fees} sat/vB",
   "settings.nodeSetup" : "Benutze deinen eigenen Node",
   "settings.notifications" : "Benachrichtigungen",

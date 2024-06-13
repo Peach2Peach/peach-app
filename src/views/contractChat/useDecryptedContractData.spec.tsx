@@ -5,7 +5,6 @@ import { defaultUser } from "../../../peach-api/src/testData/userData";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { useAccountStore } from "../../utils/account/account";
-import { error } from "../../utils/log/error";
 import { useDecryptedContractData } from "./useDecryptedContractData";
 
 jest.useFakeTimers();
@@ -104,10 +103,6 @@ describe("useDecryptedContractData", () => {
 
     await waitFor(() => {
       expect(result.current.isError).toBe(true);
-      expect(error).toHaveBeenNthCalledWith(
-        1,
-        Error("PAYMENT_DATA_SIGNATURE_INVALID"),
-      );
       expect(result.current.error).toStrictEqual(
         Error("SYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED"),
       );
@@ -143,10 +138,6 @@ describe("useDecryptedContractData", () => {
 
     await waitFor(() => {
       expect(result.current.isError).toBe(true);
-      expect(error).toHaveBeenNthCalledWith(
-        1,
-        Error("PAYMENT_DATA_SIGNATURE_INVALID"),
-      );
       expect(result.current.error).toStrictEqual(
         Error("ASYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED"),
       );

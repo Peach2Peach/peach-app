@@ -24,8 +24,10 @@ import { getMatchPrice } from "../../components/matches/utils/getMatchPrice";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
+import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
@@ -129,10 +131,11 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
 
   const [showMatchedCard, setShowMatchedCard] = useState(match.matched);
   const isMatched = match.matched || showMatchedCard;
+  const { maxMiningFeeRate } = useMaxMiningFee(match.amount);
 
   const matchOffer = () =>
     mutate(
-      { selectedCurrency, paymentData: selectedPaymentData },
+      { selectedCurrency, paymentData: selectedPaymentData, maxMiningFeeRate },
       { onError: () => setShowMatchedCard(false) },
     );
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
@@ -425,6 +428,40 @@ function BuyerPriceInfo({
       price={displayPrice}
       currency={selectedCurrency}
       premium={premium}
+      miningFeeWarning={<MiningFeeWarning amount={match.amount} />}
     />
+  );
+}
+
+const ESCROW_RELEASE_SIZE = 173;
+const FEE_WARNING_THRESHOLD = 0.1;
+function useMaxMiningFee(amount: number) {
+  const { estimatedFees } = useFeeEstimate();
+  const { user } = useSelfUser();
+  const feeRate =
+    user?.isBatchingEnabled === false
+      ? user?.feeRate || "halfHourFee"
+      : "halfHourFee";
+  const feeRateAmount =
+    typeof feeRate === "number" ? feeRate : estimatedFees[feeRate];
+  const currentTotalFee = feeRateAmount * ESCROW_RELEASE_SIZE;
+
+  const currentFeePercentage = round(currentTotalFee / amount, 2);
+  const maxMiningFeeRate =
+    currentFeePercentage > FEE_WARNING_THRESHOLD ? feeRateAmount : undefined;
+
+  return { currentFeePercentage, maxMiningFeeRate };
+}
+
+function MiningFeeWarning({ amount }: { amount: number }) {
+  const { currentFeePercentage, maxMiningFeeRate } = useMaxMiningFee(amount);
+  if (maxMiningFeeRate === undefined) return null;
+  return (
+    <PeachText style={tw`text-center subtitle-1 text-error-main`}>
+      {i18n(
+        "match.feeWarning",
+        String(Math.round(currentFeePercentage * CENT)),
+      )}
+    </PeachText>
   );
 }

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useRef } from "react";
 import { TextInput } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -16,7 +17,6 @@ import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { useSendReport } from "./useSendReport";
-import { useTranslate } from "@tolgee/react";
 
 const emailRules = { email: true, required: true };
 const required = { required: true };
@@ -36,7 +36,6 @@ export const Report = () => {
   const [shareDeviceID, toggleDeviceIDSharing] = useToggleBoolean(
     route.params.shareDeviceID || false,
   );
-  const [shareLogs, toggleShareLogs] = useToggleBoolean(false);
   const reason = route.params.reason;
   const publicKey = useAccountStore((state) => state.account.publicKey);
 
@@ -56,7 +55,6 @@ export const Report = () => {
         topic,
         message,
         shareDeviceID,
-        shareLogs,
       },
       {
         onError: (err) => showError(err.message),
@@ -107,9 +105,6 @@ export const Report = () => {
             {t("form.includeDeviceIDHash")}
           </Checkbox>
         )}
-        <Checkbox onPress={toggleShareLogs} checked={shareLogs}>
-          {t("form.shareLogs", { ns: "form" })}
-        </Checkbox>
       </PeachScrollView>
       <Button
         style={tw`self-center`}

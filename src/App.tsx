@@ -1,32 +1,23 @@
-import analytics from "@react-native-firebase/analytics";
-import {
-  DefaultTheme,
-  NavigationContainer,
-  NavigationState,
-} from "@react-navigation/native";
-import { useEffect, useReducer } from "react";
-import { enableScreens } from "react-native-screens";
-
-import {
-  getWebSocket,
-  PeachWSContext,
-  setPeachWS,
-} from "./utils/peachAPI/websocket";
-
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { TolgeeProvider } from "@tolgee/react";
+import { useReducer } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { enableScreens } from "react-native-screens";
 import { useDeviceContext } from "twrnc";
+import { GlobalOverlay } from "./Overlay";
 import { Drawer } from "./components/drawer/Drawer";
 import { GlobalPopup } from "./components/popup/GlobalPopup";
 import { Toast } from "./components/toast/Toast";
 import { useWebSocket } from "./init/websocket";
-import { Overlay } from "./Overlay";
 import { queryClient } from "./queryClient";
 import tw from "./styles/tailwind";
 import { tolgee } from "./tolgee";
-import { usePartialAppSetup } from "./usePartialAppSetup";
-import { info } from "./utils/log/info";
+import {
+  PeachWSContext,
+  getWebSocket,
+  setPeachWS,
+} from "./utils/peachAPI/websocket";
 import { Screens } from "./views/Screens";
 
 enableScreens();
@@ -43,33 +34,17 @@ export const App = () => {
   useDeviceContext(tw);
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket());
   useWebSocket(updatePeachWS);
-  usePartialAppSetup();
-
-  useEffect(() => {
-    analytics().logAppOpen();
-  }, []);
-
-  const onNavStateChange = (state?: NavigationState) => {
-    const newPage = state?.routes[state.routes.length - 1].name;
-    info("Navigation event", newPage);
-    analytics().logScreenView({
-      screen_name: newPage,
-    });
-  };
 
   return (
     <TolgeeProvider tolgee={tolgee}>
       <QueryClientProvider client={queryClient}>
         <PeachWSContext.Provider value={peachWS}>
           <SafeAreaProvider>
-            <NavigationContainer
-              theme={navTheme}
-              onStateChange={onNavStateChange}
-            >
+            <NavigationContainer theme={navTheme}>
               <Screens />
               <Drawer />
               <GlobalPopup />
-              <Overlay />
+              <GlobalOverlay />
               <Toast />
             </NavigationContainer>
           </SafeAreaProvider>

@@ -63,9 +63,11 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
     mutationFn: async ({
       selectedCurrency,
       paymentData,
+      maxMiningFeeRate,
     }: {
       selectedCurrency: Currency;
       paymentData: PaymentData | undefined;
+      maxMiningFeeRate?: number;
     }) => {
       if (!selectedCurrency || !paymentData) throw new Error("MISSING_VALUES");
 
@@ -78,8 +80,10 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
           pgpPublicKeys,
         });
       if (!matchOfferData) throw new Error(dataError || "UNKNOWN_ERROR");
-      const { result, error: err } =
-        await peachAPI.private.offer.matchOffer(matchOfferData);
+      const { result, error: err } = await peachAPI.private.offer.matchOffer({
+        ...matchOfferData,
+        maxMiningFeeRate,
+      });
 
       if (result) {
         return result;

@@ -169,7 +169,7 @@ function MatchOfferButton({
   currentPage,
 }: MatchButtonProps) {
   const currentOption = options[optionName];
-  const { mutate } = useAcceptMatch(offer, match, currentPage);
+  const { mutate, isPending } = useAcceptMatch(offer, match, currentPage);
   const { t } = useTranslate();
 
   const onPress = () => {
@@ -182,7 +182,7 @@ function MatchOfferButton({
     <TouchableOpacity
       style={tw`flex-row items-center justify-center py-2 gap-10px`}
       onPress={onPress}
-      disabled={optionName === "offerMatched"}
+      disabled={optionName === "offerMatched" || isPending}
     >
       <PeachText style={tw`button-large text-primary-background-light`}>
         {t(currentOption.text)}

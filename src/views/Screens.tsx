@@ -1,4 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import { useTranslate } from "@tolgee/react";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
@@ -10,20 +11,19 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import { requestUserPermissions } from "../init/requestUserPermissions";
 import { useInitApp } from "../init/useInitApp";
 import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPopup";
+import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
 import { useGlobalHandlers } from "../useGlobalHandlers";
-import { useAccountStore } from "../utils/account/account";
 import { screenTransition } from "../utils/layout/screenTransition";
 import { isIOS } from "../utils/system/isIOS";
 import { useWSQueryInvalidation } from "./useWSQueryInvalidation";
 import { onboardingViews, views } from "./views";
-import { useTranslate } from "@tolgee/react";
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
 export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
-  const isLoggedIn = useAccountStore((state) => state.isLoggedIn);
+  const isLoggedIn = useSettingsStore((state) => state.isLoggedIn);
   useGlobalHandlers();
   useWSQueryInvalidation();
 
@@ -66,9 +66,8 @@ function SplashScreenComponent({
   const initApp = useInitApp();
   const { t } = useTranslate();
   useEffect(() => {
-    (async () => {
+    const initialize = async () => {
       const statusResponse = await initApp();
-
       if (!statusResponse || statusResponse.error) {
         if (statusResponse?.error === "HUMAN_VERIFICATION_REQUIRED") {
           setPopup(<VerifyYouAreAHumanPopup />);
@@ -87,7 +86,8 @@ function SplashScreenComponent({
       requestUserPermissions();
       setIsLoading(false);
       SplashScreen.hide();
-    })();
+    };
+    initialize();
   }, [initApp, navigation, setIsLoading, setPopup, setToast, t]);
 
   return (

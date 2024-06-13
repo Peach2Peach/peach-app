@@ -31,42 +31,6 @@ describe("useSendReport", () => {
       topic,
       message,
       shareDeviceID: false,
-      shareLogs: false,
-    });
-    await waitFor(() => {
-      expect(sendReportSpy).toHaveBeenCalledWith({
-        email,
-        reason,
-        topic,
-        message: "it will blow your socks off!\n\nApp version: 1.0.0 (999)",
-      });
-    });
-    expect(result.current.isSuccess).toBe(true);
-  });
-  it("does not send error report if logs are not intended to be shared", async () => {
-    const { result } = renderHook(useSendReport);
-
-    result.current.mutate({
-      email,
-      reason,
-      topic,
-      message,
-      shareDeviceID: false,
-      shareLogs: false,
-    });
-    await waitFor(() => {
-      expect(sendErrors).not.toHaveBeenCalled();
-    });
-  });
-  it("does send error report if logs are intended to be shared", async () => {
-    const { result } = renderHook(useSendReport);
-    result.current.mutate({
-      email,
-      reason,
-      topic,
-      message,
-      shareDeviceID: false,
-      shareLogs: true,
     });
     await waitFor(() => {
       expect(sendReportSpy).toHaveBeenCalledWith({
@@ -77,6 +41,7 @@ describe("useSendReport", () => {
           "it will blow your socks off!\n\nApp version: 1.0.0 (999)\n\nUser shared app logs, please check crashlytics\nSession ID: SESSION_ID",
       });
     });
+    expect(result.current.isSuccess).toBe(true);
     await waitFor(() => {
       expect(sendErrors).toHaveBeenCalledWith([
         new Error(

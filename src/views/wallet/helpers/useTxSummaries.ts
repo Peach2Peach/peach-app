@@ -1,6 +1,7 @@
 import { useQueries } from "@tanstack/react-query";
 import { useContractSummaries } from "../../../hooks/query/useContractSummaries";
 import { getOffer } from "../../../utils/offer/getOffer";
+import { getTransactionType } from "../../../utils/transaction/getTransactionType";
 import { isNotNull } from "../../../utils/validation/isNotNull";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { walletKeys } from "../hooks/useUTXOs";
@@ -17,18 +18,13 @@ export function useTxSummaries() {
       queryFn: async () => {
         const offerIds = txOfferMap[tx.txid] || [];
         const offers = await Promise.all(offerIds.map(getOffer));
-        const partialSummary = getTxSummary({
-          tx,
-          offer: offers.filter(isNotNull)[0],
-        });
+        const partialSummary = getTxSummary(tx);
+        const type = getTransactionType(tx, offers.filter(isNotNull)[0]);
 
         return {
           ...partialSummary,
-          offerData: getOfferData(
-            offers.filter(isNotNull),
-            contracts,
-            partialSummary.type,
-          ),
+          type,
+          offerData: getOfferData(offers.filter(isNotNull), contracts, type),
         };
       },
       enabled: !!tx,

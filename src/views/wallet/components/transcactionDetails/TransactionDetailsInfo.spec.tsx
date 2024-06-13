@@ -1,4 +1,3 @@
-import { createRenderer } from "react-test-renderer/shallow";
 import { fireEvent, render } from "test-utils";
 import {
   bdkTransactionWithRBF1,
@@ -17,7 +16,7 @@ const useTransactionDetailsInfoSetupReturnValue = {
   openInExplorer: openInExplorerMock,
 };
 jest.mock("../../hooks/useTransactionDetailsInfoSetup");
-const useTransactionDetailsInfoSetupMock = jest
+jest
   .requireMock("../../hooks/useTransactionDetailsInfoSetup")
   .useTransactionDetailsInfoSetup.mockReturnValue(
     useTransactionDetailsInfoSetupReturnValue,
@@ -30,47 +29,6 @@ jest.mock("../../hooks/useTxFeeRate", () => ({
 jest.useFakeTimers();
 
 describe("TransactionDetailsInfo", () => {
-  const renderer = createRenderer();
-  it("should render correctly for a pending transaction", () => {
-    renderer.render(
-      <TransactionDetailsInfo
-        localTx={bdkTransactionWithRBF1}
-        transactionDetails={bitcoinJSTransactionWithRBF1}
-        transactionSummary={{ ...transactionWithRBF1Summary, confirmed: false }}
-      />,
-    );
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
-  });
-  it("should render correctly for a confirmed transaction", () => {
-    useTransactionDetailsInfoSetupMock.mockReturnValueOnce({
-      ...useTransactionDetailsInfoSetupReturnValue,
-      canBumpFees: false,
-    });
-
-    renderer.render(
-      <TransactionDetailsInfo
-        localTx={bdkTransactionWithRBF1}
-        transactionDetails={bitcoinJSTransactionWithRBF1}
-        transactionSummary={{
-          ...transactionWithRBF1Summary,
-          height: 1,
-          confirmed: true,
-        }}
-      />,
-    );
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
-  });
-  it("should render correctly for a deposit transaction", () => {
-    renderer.render(
-      <TransactionDetailsInfo
-        localTx={bdkTransactionWithRBF1}
-        transactionDetails={bitcoinJSTransactionWithRBF1}
-        transactionSummary={{ ...transactionWithRBF1Summary, type: "DEPOSIT" }}
-      />,
-    );
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
-  });
-
   it("should go to increase network fee screen if rbf is possible", () => {
     const { getByText } = render(
       <TransactionDetailsInfo

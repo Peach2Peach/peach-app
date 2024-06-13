@@ -1,4 +1,6 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
+import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
@@ -9,9 +11,10 @@ import { PeachText } from "../../components/text/PeachText";
 import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useToggleBatching } from "../../hooks/user/useToggleBatching";
+import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
+import { headerIcons } from "../../utils/layout/headerIcons";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { useTranslate } from "@tolgee/react";
 
 export const TransactionBatching = () => {
   const { t } = useTranslate("batching");
@@ -59,7 +62,7 @@ export const TransactionBatching = () => {
   return (
     <Screen
       style={tw`justify-center gap-8`}
-      header={t("settings.transactionBatching", { ns: "settings" })}
+      header={<TransactionBatchingHeader />}
     >
       <View style={tw`gap-4`}>
         <PeachText style={tw`body-l`}>
@@ -94,3 +97,18 @@ export const TransactionBatching = () => {
     </Screen>
   );
 };
+
+function TransactionBatchingHeader() {
+  const { t: i18n } = useTranslate("settings");
+  const setPopup = useSetPopup();
+  const showHelpPopup = () => {
+    setPopup(<HelpPopup id="transactionBatching" />);
+  };
+
+  return (
+    <Header
+      title={i18n("settings.transactionBatching")}
+      icons={[{ ...headerIcons.help, onPress: showHelpPopup }]}
+    />
+  );
+}

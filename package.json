@@ -1,6 +1,6 @@
 {
   "name": "peach",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "Peach Application",
   "author": "Peach2Peach",
   "private": true,
@@ -17,7 +17,7 @@
     "start:mainnet": "NODE_ENV=production react-native start --port=8081",
     "cache:clear": "react-native start --reset-cache",
     "postinstall": "rn-nodeify --install buffer,stream,util --hack",
-    "podinstall": "react-native setup-ios-permissions && cd ios && pod install --repo-update",
+    "podinstall": "cd ios && pod install --repo-update",
     "build:web": "cp -r ./assets ./public/assets/ && react-scripts build",
     "build:android:testnet": "./devUtils/buildAndroidTestnet.sh",
     "build:android:mainnet": "./devUtils/buildAndroidMainnet.sh",
@@ -29,7 +29,9 @@
     "build:ios:testnet": "./devUtils/buildIOSTestnet.sh",
     "build:ios:mainnet": "./devUtils/buildIOSMainnet.sh",
     "bump:version": "react-native-version --never-amend",
+    "version:minor": "npm version minor && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
     "version:patch": "npm version patch && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
+    "version:hotfix": "npm run bump:version && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
     "postversion": "react-native-version",
     "test": "jest ./src",
     "test:coverage": "jest --coverage ./src",
@@ -91,7 +93,7 @@
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-pager-view": "^6.2.3",
     "react-native-parsed-text": "^0.0.22",
-    "react-native-permissions": "^3.8.4",
+    "react-native-permissions": "^4.1.5",
     "react-native-promise-rejection-utils": "^0.0.1",
     "react-native-qrcode-svg": "^6.2.0",
     "react-native-reanimated": "^3.8.1",
@@ -184,9 +186,5 @@
     "_stream_duplex": "readable-stream/duplex",
     "_stream_passthrough": "readable-stream/passthrough",
     "stream": "stream-browserify"
-  },
-  "reactNativePermissionsIOS": [
-    "Camera",
-    "Notifications"
-  ]
+  }
 }

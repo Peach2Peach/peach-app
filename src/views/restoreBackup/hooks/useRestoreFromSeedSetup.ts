@@ -3,7 +3,6 @@ import { Keyboard } from "react-native";
 import { useSetToast } from "../../../components/toast/Toast";
 import { useValidatedState } from "../../../hooks/useValidatedState";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
-import { useAccountStore } from "../../../utils/account/account";
 import { createAccount } from "../../../utils/account/createAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
@@ -47,7 +46,7 @@ export const useRestoreFromSeedSetup = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [restored, setRestored] = useState(false);
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
 
   const onError = useCallback(
     (errorMsg = "UNKNOWN_ERROR") => {

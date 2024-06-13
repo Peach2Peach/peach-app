@@ -1,11 +1,16 @@
 {
   "batching.eta" : "ETA",
   "batching.eta.tba" : "TBA",
+  "batching.waitingForParticipants" : "Kova henüz dolmadı ve daha fazla katılımcının katılmasını bekliyoruz.",
   "batching.willBeSentTo" : "gönderilecek",
   "grouphug.announcement.title" : "Grup sarılması zamanı.",
   "grouphug.goToSettings" : "ayarlara gidin.",
+  "help.payoutPending.description" : "İşlemler kümeler halinde ödenir.  Küme dolana kadar veya maksimum bekleme zamanına ulaşılana kadar beklemeniz gerekir. Küme işlemler ile %23'e kadar ücret tasarrufu sağlayabilirsiniz.",
+  "help.payoutPending.title" : "ödeme bekliyor",
+  "help.transactionBatching.description" : "Emanetler, varsayılan olarak yarım saatlik bir ücretle toplu işlemler halinde ödenir. Bunu devre dışı bırakabilirsiniz ancak ilgili riskleri anladığınızdan emin olun!\nPeach bundan dolayı ek konsolidasyon maliyetlerine maruz kalacağından, kullanıcıdan bunları karşılamasını istiyoruz. Bunlar 30 dakikalık ücretin 41 ile çarpılmasıyla hesaplanır. Bu ücret dinamik olduğundan, ortaya çıkan maliyetler de dinamiktir, bu nedenle işlem tutarının önemli bir parçası haline gelebilirler.",
+  "help.transactionBatching.title" : "ödeme ücretleri",
   "offer.requiredAction.payoutPending" : "ödeme bekliyor",
-  "settings.batching.delayedPayouts" : "Emanet ödemeleri gecikebilir.",
+  "settings.batching.delayedPayouts" : "Emanet ödemeleri gecikir. Ücretsiz İşlemler anında ödenecektir.\nMadencilik ücretlerinde %10'dan fazla ödeme yaptığınızda uyarılacaksınız.",
   "settings.batching.immediatePayouts" : "Emanet ödemeleri hemen yapılıyor.",
   "settings.batching.title" : "işlemler kümeleniyor",
   "settings.batching.toggle" : "işlem kümeleme",
@@ -13,8 +18,8 @@
   "settings.batching.turnOff.no" : "hayır, bekle",
   "settings.batching.turnOff.title" : "işlem kümelemeyi kapat",
   "settings.batching.turnOff.yes" : "evet, öde",
-  "settings.batching.youPay" : "%30'e kadar yüksek ödüyorsunuz.",
-  "settings.batching.youPay.highlight" : "%30'e kadar",
+  "settings.batching.youPay" : "Dikkat! Peach'in maruz kaldığı ek maliyetler için ödeme yaparsınız. Bu maliyet dinamiktir ve ücret artışları sırasında önemli hale gelebilir.\nNe yaptığınızı anladığınızdan emin olun!",
+  "settings.batching.youPay.highlight" : "Dikkat!",
   "settings.batching.youSave" : "Ağ ücretlerinde %23'e kadar tasarruf sağlarsınız.",
   "settings.batching.youSave.highlight" : "%23'e kadar"
 }

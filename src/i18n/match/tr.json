@@ -1,4 +1,5 @@
 {
+  "match.feeWarning" : "Madencilik ücretlerinde %0'a kadar ödeme yapacaksınız!",
   "match.tradeRequested" : "ticaret istendi",
   "match.waitingForSeller" : "satıcı bekleniyor"
 }
