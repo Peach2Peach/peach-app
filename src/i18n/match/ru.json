@@ -1,5 +1,5 @@
 {
-  "match.feeWarning" : "Вы заплатите до $0% за добычу!",
+  "match.feeWarning" : "Вы будете платить до {percent}% за добычу!",
   "match.tradeRequested" : "торговля запрошена",
   "match.waitingForSeller" : "ожидание продавца"
 }

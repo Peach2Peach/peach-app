@@ -1,5 +1,5 @@
 {
-  "match.feeWarning" : "Pagherete fino allo 0% di tasse di estrazione!",
+  "match.feeWarning" : "Pagherete fino al {percent}% di tasse di estrazione!",
   "match.tradeRequested" : "commercio richiesto",
   "match.waitingForSeller" : "in attesa del venditore"
 }

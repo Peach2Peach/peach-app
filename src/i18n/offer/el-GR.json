@@ -11,6 +11,7 @@
   "offer.published.title" : "η προσφορά δημοσιεύτηκε!",
   "offer.publishing" : "δημοσίευση",
   "offer.requiredAction.confirmCancelation.buyer" : "ο πωλητής επιθυμεί ακύρωση",
+  "offer.requiredAction.confirmCancelation.seller" : "αποστολή αιτήματος ακύρωσης",
   "offer.requiredAction.confirmPaymentRequired" : "επιβεβαίωση πληρωμής",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "κερδίσατε τη διένεξη: αναμονή για αποζημίωση",
   "offer.requiredAction.dispute" : "ξεκίνησε διένεξη",

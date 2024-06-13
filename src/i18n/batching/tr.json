@@ -5,8 +5,6 @@
   "batching.willBeSentTo" : "gönderilecek",
   "grouphug.announcement.title" : "Grup sarılması zamanı.",
   "grouphug.goToSettings" : "ayarlara gidin.",
-  "help.payoutPending.description" : "İşlemler kümeler halinde ödenir.  Küme dolana kadar veya maksimum bekleme zamanına ulaşılana kadar beklemeniz gerekir. Küme işlemler ile %23'e kadar ücret tasarrufu sağlayabilirsiniz.",
-  "help.payoutPending.title" : "ödeme bekliyor",
   "help.transactionBatching.description" : "Emanetler, varsayılan olarak yarım saatlik bir ücretle toplu işlemler halinde ödenir. Bunu devre dışı bırakabilirsiniz ancak ilgili riskleri anladığınızdan emin olun!\nPeach bundan dolayı ek konsolidasyon maliyetlerine maruz kalacağından, kullanıcıdan bunları karşılamasını istiyoruz. Bunlar 30 dakikalık ücretin 41 ile çarpılmasıyla hesaplanır. Bu ücret dinamik olduğundan, ortaya çıkan maliyetler de dinamiktir, bu nedenle işlem tutarının önemli bir parçası haline gelebilirler.",
   "help.transactionBatching.title" : "ödeme ücretleri",
   "offer.requiredAction.payoutPending" : "ödeme bekliyor",

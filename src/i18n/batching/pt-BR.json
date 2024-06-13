@@ -7,8 +7,6 @@
   "grouphug.announcement.text" : "Com o GroupHug, agrupamos reembolsos de depósito de garantia para reduzir as taxas de transação.\n\nAtive, espere um pouco, economize mais.\n\nVocê está no controle. Pode mude a qualquer momento.",
   "grouphug.announcement.title" : "É hora de um GroupHug!",
   "grouphug.goToSettings" : "ir para configurações",
-  "help.payoutPending.description" : "As transações são pagas em lotes. Isso implica em um tempo de espera até que o lote esteja cheio ou o tempo máximo de espera seja atingido.\n\nIsso economiza até 23% em taxas de transação.",
-  "help.payoutPending.title" : "pagamento pendente",
   "help.transactionBatching.description" : "As cauções são pagas em transacções agrupadas com uma taxa de meia hora por defeito. Pode optar por não o fazer, mas certifique-se de que compreende os riscos envolvidos!\nUma vez que a Peach incorrerá em custos de consolidação adicionais, pedimos ao utilizador que os cubra. Estes são calculados multiplicando a taxa de 30 minutos por 41. Uma vez que esta taxa é dinâmica, os custos incorridos também o são, pelo que podem tornar-se uma parte significativa do montante da transação.",
   "help.transactionBatching.title" : "taxas de pagamento",
   "offer.requiredAction.payoutPending" : "pagamento pendente",

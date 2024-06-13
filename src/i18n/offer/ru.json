@@ -23,6 +23,7 @@
   "offer.requiredAction.offerHidden" : "предложение скрыто",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "выберите партнёра",
   "offer.requiredAction.paymentRequired" : "совершите платёж",
+  "offer.requiredAction.paymentTooLate" : "платёж не совершён вовремя",
   "offer.requiredAction.provideReturnAddress" : "укажите адрес для возврата",
   "offer.requiredAction.rateUser.buyer" : "оцените покупателя",
   "offer.requiredAction.rateUser.seller" : "оцените продавца",

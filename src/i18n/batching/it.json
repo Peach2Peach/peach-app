@@ -7,8 +7,6 @@
   "grouphug.announcement.text" : "Con GroupHug, raggruppiamo i rilasci dei depositi per avere commissioni di rete inferiori. Attiva, aspetta un po' , risparmia di più. Sei tu al comando, puoi cambiare in qualsiasi momento.",
   "grouphug.announcement.title" : "E' arrivato il momento di GroupHug!",
   "grouphug.goToSettings" : "vai alle impostazioni",
-  "help.payoutPending.description" : "Le transazioni sono pagate a gruppi. Questo si traduce in un attesa affinché il numero minimo di partecipanti o il massimo tempo di attesa sia raggiunto. Ciò ti consente di risparmiare fino al 23% in commissioni di transazione.",
-  "help.payoutPending.title" : "pagamento in attesa",
   "help.transactionBatching.description" : "Gli escrow vengono pagati in transazioni raggruppate con una commissione di mezz'ora per impostazione predefinita. È possibile scegliere di non farlo, ma assicuratevi di comprendere i rischi connessi!\nPoiché Peach dovrà sostenere ulteriori costi di consolidamento, chiediamo all'utente di coprirli. Tali costi sono calcolati moltiplicando la tariffa di 30 minuti per 41. Poiché questa tariffa è dinamica, lo sono anche i costi sostenuti, che possono diventare una parte significativa dell'importo dell'operazione.",
   "help.transactionBatching.title" : "commissioni di pagamento",
   "offer.requiredAction.payoutPending" : "pagamento in attesa",

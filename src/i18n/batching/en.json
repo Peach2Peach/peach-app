@@ -7,8 +7,6 @@
   "grouphug.announcement.text" : "With GroupHug, we bundle escrow releases for lower transaction fees.\n\nOpt in, wait a tad, save more.\n\nYou're in control, switch anytime.",
   "grouphug.announcement.title" : "It's time for a GroupHug!",
   "grouphug.goToSettings" : "go to settings",
-  "help.payoutPending.description" : "Transactions are paid out in batches. This implies a waiting time until the batch is full or the maximum waiting time is reached.\n\nThis saves you up to 23% in transaction fees.",
-  "help.payoutPending.title" : "payout pending",
   "help.transactionBatching.description" : "Escrows are paid out in batched transactions with a half hour fee by default. You can opt out of this but make sure to understand the risks involved!\nSince Peach will incur additional consolidation costs from this we ask the user to cover these. They are calculated by multiplying the 30 minute fee by 41. Since this fee is dynamic, the costs incurred are too, so they can become a significant part of the trade amount.",
   "help.transactionBatching.title" : "payout fees",
   "offer.requiredAction.payoutPending" : "payout pending",

@@ -1,5 +1,5 @@
 {
-  "match.feeWarning" : "Akár $0% bányászati díjat is fizethetsz!",
+  "match.feeWarning" : "Akár {percent}% bányajáradékot is fizethetsz!",
   "match.tradeRequested" : "kereskedés kérve",
   "match.waitingForSeller" : "eladóra várakozás"
 }
