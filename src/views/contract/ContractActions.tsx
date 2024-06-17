@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { EscrowButton } from "../../components/EscrowButton";
 import { Icon } from "../../components/Icon";
@@ -32,7 +33,6 @@ import {
   ResolveCancelRequestSliders,
 } from "./ContractSliders";
 import { useContractContext } from "./context";
-import { useTranslate } from "@tolgee/react";
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
@@ -166,7 +166,10 @@ function SellerSliders() {
       <ConfirmSlider
         enabled={false}
         onConfirm={() => null}
-        label1={t("offer.requiredAction.waiting", { who: t("buyer") })}
+        label1={t("offer.requiredAction.waiting", {
+          who: t("buyer"),
+          ns: "offer",
+        })}
       />
     );
   }

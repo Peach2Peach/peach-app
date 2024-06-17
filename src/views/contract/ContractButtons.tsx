@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -24,7 +25,6 @@ import { peachAPI } from "../../utils/peachAPI";
 import { thousands } from "../../utils/string/thousands";
 import { getNavigationDestinationForOffer } from "../yourTrades/utils/navigation/getNavigationDestinationForOffer";
 import { useContractContext } from "./context";
-import { useTranslate } from "@tolgee/react";
 
 export function NewOfferButton() {
   const navigation = useStackNavigation();
@@ -62,7 +62,7 @@ export function PayoutPendingButton() {
         showBatchInfo
           ? "contract.summary.tradeDetails"
           : "offer.requiredAction.payoutPending",
-        { ns: "batching" },
+        { ns: showBatchInfo ? "contract" : "batching" },
       )}
     </Button>
   );

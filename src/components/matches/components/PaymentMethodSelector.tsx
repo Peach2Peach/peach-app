@@ -83,7 +83,7 @@ export function PaymentMethodSelector({
       pointerEvents={disabled ? "none" : "auto"}
     >
       <PulsingText style={tw`self-center`} showPulse={showPaymentMethodPulse}>
-        {t("form.paymentMethod")}
+        {t("form.paymentMethod", { ns: "form" })}
       </PulsingText>
 
       <View style={tw`gap-3 pb-2`}>
