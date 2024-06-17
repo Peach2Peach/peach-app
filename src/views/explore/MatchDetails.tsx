@@ -455,13 +455,13 @@ function useMaxMiningFee(amount: number) {
 
 function MiningFeeWarning({ amount }: { amount: number }) {
   const { currentFeePercentage, maxMiningFeeRate } = useMaxMiningFee(amount);
+  const { t: i18n } = useTranslate("match");
   if (maxMiningFeeRate === undefined) return null;
   return (
     <PeachText style={tw`text-center subtitle-1 text-error-main`}>
-      {i18n(
-        "match.feeWarning",
-        String(Math.round(currentFeePercentage * CENT)),
-      )}
+      {i18n("match.feeWarning", {
+        percent: String(Math.round(currentFeePercentage * CENT)),
+      })}
     </PeachText>
   );
 }
