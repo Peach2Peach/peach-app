@@ -1,13 +1,14 @@
 import { useCallback } from "react";
 import { useSetToast } from "../components/toast/Toast";
-import i18n from "../utils/i18n";
 import { error } from "../utils/log/error";
 import { parseError } from "../utils/parseError";
 import { useStackNavigation } from "./useStackNavigation";
+import { useTranslate } from "@tolgee/react";
 
 export const useShowErrorBanner = () => {
   const navigation = useStackNavigation();
   const setToast = useSetToast();
+  const { t } = useTranslate();
 
   const showErrorBanner = useCallback(
     (err?: Error | string | null, bodyArgs?: string[]) => {
@@ -18,12 +19,12 @@ export const useShowErrorBanner = () => {
         color: "red",
         action: {
           onPress: () => navigation.navigate("contact"),
-          label: i18n("contactUs"),
+          label: t("contactUs"),
           iconId: "mail",
         },
       });
     },
-    [navigation, setToast],
+    [navigation, setToast, t],
   );
 
   return showErrorBanner;

@@ -1,6 +1,6 @@
 import { fireEvent, render } from "test-utils";
-import i18n from "../../../utils/i18n";
 import { UndoButton } from "./UndoButton";
+import { tolgee } from "../../../tolgee";
 
 jest.useFakeTimers();
 
@@ -16,7 +16,7 @@ describe("UndoButton", () => {
     const { getAllByText } = render(
       <UndoButton onPress={onPress} onTimerFinished={jest.fn()} />,
     );
-    const button = getAllByText(i18n("search.undo"))[0];
+    const button = getAllByText(tolgee.t("search.undo"))[0];
     fireEvent.press(button);
     expect(onPress).toHaveBeenCalled();
   });

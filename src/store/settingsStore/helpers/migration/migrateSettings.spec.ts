@@ -3,8 +3,8 @@ import {
   validSEPAData,
   validSEPADataHashes,
 } from "../../../../../tests/unit/data/paymentData";
-import { useOfferPreferences } from "../../../offerPreferenes";
-import { defaultPreferences } from "../../../offerPreferenes/useOfferPreferences";
+import { useOfferPreferences } from "../../../offerPreferences";
+import { defaultPreferences } from "../../../offerPreferences/useOfferPreferences";
 import { usePaymentDataStore } from "../../../usePaymentDataStore";
 import { migrateSettings } from "./migrateSettings";
 

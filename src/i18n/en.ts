@@ -18,7 +18,6 @@ import profile from "./profile/en.json";
 import referral from "./referral/en.json";
 import sell from "./sell/en.json";
 import settings from "./settings/en.json";
-import test from "./test/en.json";
 import unassigned from "./unassigned/en.json";
 import wallet from "./wallet/en.json";
 import welcome from "./welcome/en.json";
@@ -44,7 +43,6 @@ const en: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

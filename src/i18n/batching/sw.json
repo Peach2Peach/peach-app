@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "Pamoja na GroupHug, tunakusanya kutolewa kwa escrow kwa ada za manunuzi ya chini.\n\nJisajili, subiri kidogo, punguza zaidi.\n\nUnadhibiti, badilisha wakati wowote.",
   "grouphug.announcement.title" : "Ni wakati wa GroupHug!",
   "grouphug.goToSettings" : "enda kwenye mipangilio",
-  "help.payoutPending.description" : "Miamala inalipwa kwa kufungwa. Hii inamaanisha kusubiri hadi mafungu yajazwe au muda wa kusubiri wa juu ufikiwe.\n\nHii inakusaidia kuokoa hadi 23% kwenye ada za manunuzi.",
-  "help.payoutPending.title" : "malipo yanangoja",
   "offer.requiredAction.payoutPending" : "malipo yanangoja",
   "settings.batching.delayedPayouts" : "Malipo ya escrow yanacheleweshwa.",
   "settings.batching.immediatePayouts" : "Malipo ya escrow yanafanywa mara moja",

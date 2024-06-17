@@ -1,11 +1,11 @@
 {
-  "referrals.alreadyTraded" : "Your referrals have already traded $0 on Peach!",
+  "referrals.alreadyTraded" : "Your referrals have already traded {amount} on Peach!",
   "referrals.codeNotFound.text" : "It looks like that referral code doesn't exist. Please check if you entered it correctly, or use another one.",
   "referrals.codeNotFound.title" : "can't find it...",
   "referrals.continueSaving" : "Continue saving for cool stuff",
   "referrals.inviteFriends" : "invite friends",
   "referrals.inviteLink" : "invite link",
-  "referrals.inviteText" : "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code $0 or simply follow this link: $1",
+  "referrals.inviteText" : "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code {refCode} or simply follow this link: {link}",
   "referrals.myFavoriteCode.text" : "Yay! You have 1 FREE buy trade",
   "referrals.myFavoriteCode.title" : "my favorite code!",
   "referrals.notTraded" : "Your referrals haven't traded on Peach yet.",
@@ -17,7 +17,7 @@
   "referrals.selectReward" : "Select your reward, or continue saving for cool stuff",
   "referrals.shareCode" : "share referral code",
   "referrals.shareCode.text.1" : "Buying and selling bitcoin on Peach is super easy!",
-  "referrals.shareCode.text.2" : "Try it now with my referral code $0",
+  "referrals.shareCode.text.2" : "Try it now with my referral code {refCode}",
   "referrals.use" : "use",
   "referrals.used" : "used",
   "referrals.yourCode" : "your referral code:"

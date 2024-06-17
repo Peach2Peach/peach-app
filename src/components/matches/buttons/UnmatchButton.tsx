@@ -4,9 +4,9 @@ import { AppPopup } from "../../../popups/AppPopup";
 import tw from "../../../styles/tailwind";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { WarningPopup } from "../../../popups/WarningPopup";
-import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
 import { peachAPI } from "../../../utils/peachAPI";
 import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
@@ -33,24 +33,25 @@ export const UnmatchButton = ({
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId);
+  const { t } = useTranslate();
 
   const [showUnmatch, toggle] = useToggleBoolean(match.matched);
 
   const showUnmatchPopup = useCallback(() => {
     setPopup(
       <WarningPopup
-        title={i18n("search.popups.unmatch.title")}
-        content={i18n("search.popups.unmatch.text")}
+        title={t("search.popups.unmatch.title")}
+        content={t("search.popups.unmatch.text")}
         actions={
           <>
             <PopupAction
-              label={i18n("search.popups.unmatch.confirm")}
+              label={t("search.popups.unmatch.confirm")}
               iconId="minusCircle"
               textStyle={tw`text-black-100`}
               onPress={() => {
                 setPopup(
                   <WarningPopup
-                    title={i18n("search.popups.unmatched")}
+                    title={t("search.popups.unmatched")}
                     actions={
                       <ClosePopupAction
                         style={tw`justify-center`}
@@ -67,7 +68,7 @@ export const UnmatchButton = ({
               }}
             />
             <PopupAction
-              label={i18n("search.popups.unmatch.neverMind")}
+              label={t("search.popups.unmatch.neverMind")}
               textStyle={tw`text-black-100`}
               iconId="xSquare"
               onPress={closePopup}
@@ -77,7 +78,7 @@ export const UnmatchButton = ({
         }
       />,
     );
-  }, [closePopup, setPopup, setShowMatchedCard, unmatch]);
+  }, [closePopup, setPopup, setShowMatchedCard, unmatch, t]);
 
   const onUndoPress = () => {
     interruptMatching();
@@ -91,7 +92,7 @@ export const UnmatchButton = ({
       textColor={tw.color("error-main")}
       style={tw`bg-primary-background-light`}
     >
-      {i18n("search.unmatch")}
+      {t("search.unmatch")}
     </Button>
   ) : (
     <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />

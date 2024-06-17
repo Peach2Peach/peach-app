@@ -1,5 +1,5 @@
 {
-  "home.averagePremium" : "ortalama prim: $0%",
-  "home.openBuyOffers" : "$0 açık alım teklifleri",
-  "home.openSellOffers" : "$0 açık satış teklifleri"
+  "home.averagePremium" : "ortalama prim: {premium}%",
+  "home.openBuyOffers" : "{offers} açık alım teklifleri",
+  "home.openSellOffers" : "{offers} açık satış teklifleri"
 }

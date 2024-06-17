@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useRef } from "react";
 import { TextInput } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -15,7 +16,6 @@ import { useValidatedState } from "../../hooks/useValidatedState";
 import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
-import i18n from "../../utils/i18n";
 import { useSendReport } from "./useSendReport";
 
 const emailRules = { email: true, required: true };
@@ -42,6 +42,7 @@ export const Report = () => {
   const showError = useShowErrorBanner();
 
   const { mutate: submitReport } = useSendReport();
+  const { t } = useTranslate();
 
   const submit = () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid;
@@ -50,7 +51,7 @@ export const Report = () => {
     submitReport(
       {
         email,
-        reason: i18n(`contact.reason.${reason}`),
+        reason: t(`contact.reason.${reason}`, { ns: "contract" }),
         topic,
         message,
         shareDeviceID,
@@ -73,13 +74,13 @@ export const Report = () => {
   let $message = useRef<TextInput>(null).current;
 
   return (
-    <Screen header={i18n("contact.title")}>
+    <Screen header={t("contact.title", { ns: "contract" })}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <EmailInput
           onChangeText={setEmail}
           onSubmitEditing={() => $topic?.focus()}
           value={email}
-          placeholder={i18n("form.userEmail.placeholder")}
+          placeholder={t("form.userEmail.placeholder", { ns: "form" })}
           errorMessage={emailErrors}
         />
         <Input
@@ -87,7 +88,7 @@ export const Report = () => {
           onSubmitEditing={() => $message?.focus()}
           reference={(el) => ($topic = el)}
           value={topic}
-          placeholder={i18n("form.topic.placeholder")}
+          placeholder={t("form.topic.placeholder", { ns: "form" })}
           errorMessage={topicErrors}
         />
         <Input
@@ -96,12 +97,12 @@ export const Report = () => {
           reference={(el) => ($message = el)}
           value={message}
           multiline={true}
-          placeholder={i18n("form.message.placeholder")}
+          placeholder={t("form.message.placeholder", { ns: "form" })}
           errorMessage={messageErrors}
         />
         {!publicKey && (
           <Checkbox onPress={toggleDeviceIDSharing} checked={shareDeviceID}>
-            {i18n("form.includeDeviceIDHash")}
+            {t("form.includeDeviceIDHash")}
           </Checkbox>
         )}
       </PeachScrollView>
@@ -110,7 +111,7 @@ export const Report = () => {
         onPress={submit}
         disabled={!(isEmailValid && isTopicValid && isMessageValid)}
       >
-        {i18n("report.sendReport")}
+        {t("report.sendReport")}
       </Button>
     </Screen>
   );

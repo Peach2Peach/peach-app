@@ -1,12 +1,13 @@
+import { useTranslate } from "@tolgee/react";
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { LinedText } from "../../../components/ui/LinedText";
 import tw from "../../../styles/tailwind";
+import { tolgee } from "../../../tolgee";
 import { useAccountStore } from "../../../utils/account/account";
 import { toTimeFormat } from "../../../utils/date/toTimeFormat";
-import i18n from "../../../utils/i18n";
 
 type GetMessageMetaProps = {
   publicKey: string;
@@ -39,7 +40,7 @@ const getMessageMeta = ({
   const isSystemMessage = message.from === "system";
   const readByCounterParty = message.readBy?.includes(tradingPartner);
   const showName = !previous || previous.from !== message.from;
-  const name = i18n(
+  const name = tolgee.t(
     isSystemMessage
       ? "chat.systemMessage"
       : isMediator
@@ -47,6 +48,7 @@ const getMessageMeta = ({
         : isYou
           ? "chat.you"
           : "chat.tradePartner",
+    { ns: "chat" },
   );
   return {
     online,
@@ -115,6 +117,7 @@ export const ChatMessage = ({
   online,
   resendMessage,
 }: ChatMessageProps) => {
+  const { t } = useTranslate();
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const meta = getMessageMeta({
     message,
@@ -152,7 +155,7 @@ export const ChatMessage = ({
         )}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
           <PeachText style={tw`shrink-0`} selectable>
-            {message.message || i18n("chat.decyptionFailed")}
+            {message.message || t("chat.decyptionFailed", { ns: "chat" })}
           </PeachText>
           <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
             <PeachText style={tw`subtitle-2 leading-xs text-black-50`}>
@@ -175,9 +178,9 @@ export const ChatMessage = ({
             style={tw`flex-row justify-end items-center mt-1 pr-3 mr-0.5`}
           >
             <PeachText style={tw`mr-1 text-error-main`}>
-              {i18n("chat.failedToSend")}{" "}
+              {t("chat.failedToSend", { ns: "chat" })}{" "}
               <PeachText style={tw`underline text-error-main`}>
-                {i18n("retry")}
+                {t("retry")}
               </PeachText>
             </PeachText>
             <Icon
@@ -194,7 +197,8 @@ export const ChatMessage = ({
 
 function toDateFormat(date: Date): string {
   const day = `${date.getDate()}${getDateSuffix(date.getDate())}`;
-  return `${i18n(`month.short.${date.getMonth()}`)} ${day}, ${date.getFullYear()}`;
+  // @ts-ignore
+  return `${tolgee.t(`month.short.${date.getMonth()}`, { ns: "global" })} ${day}, ${date.getFullYear()}`;
 }
 
 function getDateSuffix(date: number) {

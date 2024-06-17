@@ -1,7 +1,7 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
-import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { useSetToast } from "../../toast/Toast";
@@ -12,6 +12,7 @@ export const useHandleMissingPaymentData = () => {
   const getAllPaymentDataByType = usePaymentDataStore(
     (state) => state.getAllPaymentDataByType,
   );
+  const { t } = useTranslate("paymentMethod");
 
   const openAddPaymentMethodDialog = useCallback(
     (
@@ -21,7 +22,8 @@ export const useHandleMissingPaymentData = () => {
     ) => {
       const existingPaymentMethodsOfType =
         getAllPaymentDataByType(paymentMethod).length + 1;
-      const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`;
+      // @ts-ignore
+      const label = `${t(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`;
 
       navigation.push("paymentMethodForm", {
         paymentData: {
@@ -35,7 +37,7 @@ export const useHandleMissingPaymentData = () => {
         origin: isBuyOffer(offer) ? "matchDetails" : "search",
       });
     },
-    [getAllPaymentDataByType, navigation],
+    [getAllPaymentDataByType, navigation, t],
   );
 
   const handleMissingPaymentData = useCallback(
@@ -52,13 +54,13 @@ export const useHandleMissingPaymentData = () => {
         action: {
           onPress: () =>
             openAddPaymentMethodDialog(offer, currency, paymentMethod),
-          label: i18n("PAYMENT_DATA_MISSING.action"),
+          label: t("PAYMENT_DATA_MISSING.action", { ns: "error" }),
           iconId: "edit3",
         },
         keepAlive: true,
       });
     },
-    [openAddPaymentMethodDialog, setToast],
+    [openAddPaymentMethodDialog, setToast, t],
   );
 
   return handleMissingPaymentData;

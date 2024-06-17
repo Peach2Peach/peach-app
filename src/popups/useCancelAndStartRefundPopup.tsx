@@ -2,9 +2,9 @@ import { useCallback } from "react";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { useRefundSellOffer } from "../hooks/useRefundSellOffer";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
-import i18n from "../utils/i18n";
 import { LoadingPopup } from "./LoadingPopup";
 import { useCancelOffer } from "./useCancelOffer";
+import { useTranslate } from "@tolgee/react";
 
 export const useCancelAndStartRefundPopup = () => {
   const { mutate: refundSellOffer } = useRefundSellOffer();
@@ -12,10 +12,11 @@ export const useCancelAndStartRefundPopup = () => {
   const setPopup = useSetPopup();
   const showError = useShowErrorBanner();
   const { mutate: cancelOffer } = useCancelOffer();
+  const { t } = useTranslate();
 
   const cancelAndStartRefundPopup = useCallback(
     (sellOffer: SellOffer) => {
-      setPopup(<LoadingPopup title={i18n("refund.loading.title")} />);
+      setPopup(<LoadingPopup title={t("refund.loading.title")} />);
 
       cancelOffer(sellOffer.id, {
         onError: (error) => {
@@ -30,7 +31,7 @@ export const useCancelAndStartRefundPopup = () => {
         },
       });
     },
-    [cancelOffer, closePopup, refundSellOffer, setPopup, showError],
+    [cancelOffer, closePopup, refundSellOffer, setPopup, showError, t],
   );
 
   return cancelAndStartRefundPopup;

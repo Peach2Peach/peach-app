@@ -11,7 +11,7 @@ import {
   GetMatchesResponseBody,
 } from "../../../../peach-api/src/@types/api/offerAPI";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { info } from "../../../utils/log/info";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { peachAPI } from "../../../utils/peachAPI";

@@ -5,7 +5,7 @@ import { Button } from "../../components/buttons/Button";
 import { badgeIconMap } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   const navigation = useStackNavigation();
@@ -13,6 +13,7 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   const badge = badges[0];
   const icon = `${badgeIconMap[badge]}CircleInverted` as IconType;
   const remainingBadges = badges.slice(1, badges.length);
+  const { t } = useTranslate("notification");
 
   const close = () =>
     setOverlay(
@@ -28,11 +29,10 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
 
   return (
     <OverlayComponent
-      title={i18n("notification.user.badge.unlocked.title")}
-      text={i18n(
-        "notification.user.badge.unlocked.text",
-        i18n(`peachBadges.${badge}`),
-      )}
+      title={t("notification.user.badge.unlocked.title")}
+      text={t("notification.user.badge.unlocked.text", {
+        badge: t(`peachBadges.${badge}`),
+      })}
       iconId={icon}
       buttons={
         <>
@@ -41,10 +41,10 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
             textColor={tw.color("primary-main")}
             onPress={goToProfile}
           >
-            {i18n("goToProfile")}
+            {t("goToProfile", { ns: "global" })}
           </Button>
           <Button onPress={close} ghost>
-            {i18n("close")}
+            {t("close", { ns: "global" })}
           </Button>
         </>
       }

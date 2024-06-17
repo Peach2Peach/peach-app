@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
@@ -14,7 +15,6 @@ import { InfoPopup } from "../../popups/InfoPopup";
 import { CustomReferralCodePopup } from "../../popups/referral/CustomReferralCodePopup";
 import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { peachAPI } from "../../utils/peachAPI";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
@@ -34,26 +34,28 @@ export const Referrals = () => (
 );
 
 function ReferralsHeader() {
+  const { t } = useTranslate("settings");
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<ReferralsPopup />);
   return (
     <Header
-      title={i18n("settings.referrals")}
+      title={t("settings.referrals")}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );
 }
 
 function ReferralsPopup() {
+  const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={i18n("help.referral.title")}
+      title={t("help.referral.title")}
       content={
         <>
           <PeachText style={tw`mb-2`}>
-            {i18n("help.referral.description.1")}
+            {t("help.referral.description.1")}
           </PeachText>
-          <PeachText>{i18n("help.referral.description.2")}</PeachText>
+          <PeachText>{t("help.referral.description.2")}</PeachText>
         </>
       }
     />
@@ -61,6 +63,7 @@ function ReferralsPopup() {
 }
 
 function ReferralRewards() {
+  const { t } = useTranslate("global");
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
   const { data: REWARDINFO } = useReferralRewardsInfo();
@@ -97,10 +100,11 @@ function ReferralRewards() {
   return (
     <>
       <PeachText style={tw`text-center`}>
-        {i18n(
+        {t(
           hasSufficientBalance
             ? "referrals.selectReward"
             : "referrals.continueSaving",
+          { ns: "referral" },
         )}
       </PeachText>
       <RadioButtons
@@ -114,6 +118,7 @@ function ReferralRewards() {
 }
 
 function RewardItem({ reward }: { reward: Reward }) {
+  const { t: i18n } = useTranslate("referral");
   return (
     <View style={tw`flex-row items-center justify-between py-1`}>
       <PeachText style={tw`subtitle-1`}>
@@ -129,6 +134,7 @@ function RedeemButton({
 }: {
   selectedReward: RewardType | undefined;
 }) {
+  const { t } = useTranslate("referral");
   const setPopup = useSetPopup();
   const redeem = () => {
     if (selectedReward === "customReferralCode") {
@@ -144,12 +150,13 @@ function RedeemButton({
       onPress={redeem}
       iconId={"gift"}
     >
-      {i18n("referrals.reward.select")}
+      {t("referrals.reward.select")}
     </Button>
   );
 }
 
 function BonusPointsBar() {
+  const { t } = useTranslate("referral");
   const BARLIMIT = 400;
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
@@ -163,7 +170,7 @@ function BonusPointsBar() {
         percent={balance / BARLIMIT}
       />
       <PeachText style={tw`pl-2 tooltip text-black-65`}>
-        {i18n("referrals.points")}
+        {t("referrals.points")}
         {": "}
         <PeachText style={tw`font-bold tooltip text-black-65`}>
           {balance}

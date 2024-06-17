@@ -5,10 +5,10 @@ import { PopupAction } from "../components/popup/PopupAction";
 import { PeachText } from "../components/text/PeachText";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { sum } from "../utils/math/sum";
 import { thousands } from "../utils/string/thousands";
 import { WarningPopup } from "./WarningPopup";
+import { useTranslate } from "@tolgee/react";
 
 export function FundingAmountDifferentPopup({
   sellOffer,
@@ -19,31 +19,31 @@ export function FundingAmountDifferentPopup({
   const closePopup = useClosePopup();
 
   const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
+  const { t } = useTranslate();
   return (
     <WarningPopup
-      title={i18n("warning.fundingAmountDifferent.title")}
+      title={t("warning.fundingAmountDifferent.title")}
       content={
         <View style={tw`gap-4`}>
           <PeachText>
-            {i18n("warning.fundingAmountDifferent.description.1")}
+            {t("warning.fundingAmountDifferent.description.1")}
           </PeachText>
           <BTCAmount amount={actualAmount} size="medium" />
           <PeachText>
-            {i18n("warning.fundingAmountDifferent.description.2")}
+            {t("warning.fundingAmountDifferent.description.2")}
           </PeachText>
           <BTCAmount amount={sellOffer.amount} size="medium" />
           <PeachText>
-            {i18n(
-              "warning.fundingAmountDifferent.description.3",
-              thousands(actualAmount),
-            )}
+            {t("warning.fundingAmountDifferent.description.3", {
+              amount: thousands(actualAmount),
+            })}
           </PeachText>
         </View>
       }
       actions={
         <PopupAction
           style={tw`justify-center`}
-          label={i18n("goToTrade")}
+          label={t({ key: "goToTrade", ns: "global" })}
           iconId="arrowRightCircle"
           textStyle={tw`text-black-100`}
           reverseOrder

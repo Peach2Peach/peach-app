@@ -17,7 +17,6 @@ import profile from "./profile/tr.json";
 import referral from "./referral/tr.json";
 import sell from "./sell/tr.json";
 import settings from "./settings/tr.json";
-import test from "./test/tr.json";
 import unassigned from "./unassigned/tr.json";
 import wallet from "./wallet/tr.json";
 import welcome from "./welcome/tr.json";
@@ -42,7 +41,6 @@ const tr: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

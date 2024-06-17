@@ -1,5 +1,5 @@
 {
-  "home.averagePremium" : "ada ya wastani: $0%",
-  "home.openBuyOffers" : "$0 zabuni za kununua zilizofunguliwa",
-  "home.openSellOffers" : "$0 zabuni za kuuza zilizofunguliwa"
+  "home.averagePremium" : "ada ya wastani: {premium}%",
+  "home.openBuyOffers" : "{offers} zabuni za kununua zilizofunguliwa",
+  "home.openSellOffers" : "{offers} zabuni za kuuza zilizofunguliwa"
 }

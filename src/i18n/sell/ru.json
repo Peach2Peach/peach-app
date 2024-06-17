@@ -1,6 +1,7 @@
 {
   "sell.discount" : "скидка",
   "sell.escrow.checkingFundingStatus" : "проверка статуса пополнения",
+  "sell.escrow.createEscrow" : "создать условное депонирование",
   "sell.escrow.loading" : "создаём эскроу-счёт, секундочку...",
   "sell.escrow.mempool" : "Транзакция попала в мемпул!",
   "sell.escrow.returnAddress.subtitle" : "(на всякий случай, если вам понадобится возврат средств)",
@@ -11,7 +12,7 @@
   "sell.funding.mempool.title" : "транзакция в обработке",
   "sell.meansOfPayment" : "как бы вы хотели получить деньги?",
   "sell.premium" : "наценка",
-  "sell.premium.currently" : "сейчас $0",
+  "sell.premium.currently" : "сейчас {premium}",
   "sell.premium.marketPrice" : "рыночная цена",
   "sell.premium.title" : "установите свою наценку/скидку",
   "sell.subtitle" : "Вы продаете:",
@@ -19,7 +20,7 @@
   "sell.summary.title" : "сводка предложений о продаже",
   "sell.title" : "продать биткойн",
   "sell.title.highlight" : "продать",
-  "warning.incorrectFunding.description" : "Ты финансировал своё предложение $0 транзакциями, что не разрешено из-за излишних сетевых сборов для покупателя.\n\nТебе вернут деньги.",
+  "warning.incorrectFunding.description" : "Ты финансировал своё предложение {utxos} транзакциями, что не разрешено из-за излишних сетевых сборов для покупателя.\n\nТебе вернут деньги.",
   "warning.incorrectFunding.title" : "Неправильное финансирование",
   "yourTrades.search.sell.subtitle" : "предложение о продаже за"
 }

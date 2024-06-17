@@ -1,21 +1,22 @@
 import { useCallback } from "react";
-import i18n from "../../utils/i18n";
 import { useStackNavigation } from "../useStackNavigation";
+import { useTranslate } from "@tolgee/react";
 
 export const useGetPNActionHandler = () => {
   const navigation = useStackNavigation();
+  const { t } = useTranslate("global");
   const getPNActionHandler = useCallback(
     ({ type, contractId, isChat, offerId }: PNData) => {
       if (contractId) {
         if (isChat) {
           return {
-            label: i18n("goToChat"),
+            label: t("goToChat"),
             iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("contractChat", { contractId }),
           };
         }
         return {
-          label: i18n("goToContract"),
+          label: t("goToContract"),
           iconId: "arrowLeftCircle",
           onPress: () => navigation.navigate("contract", { contractId }),
         };
@@ -23,21 +24,21 @@ export const useGetPNActionHandler = () => {
       if (offerId && type) {
         if (type === "offer.sellOfferExpired") {
           return {
-            label: i18n("goToOffer"),
+            label: t("goToOffer"),
             iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("offer", { offerId }),
           };
         }
         if (type === "offer.matchSeller") {
           return {
-            label: i18n("goToOffer"),
+            label: t("goToOffer"),
             iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("search", { offerId }),
           };
         }
         if (type === "offer.matchBuyer") {
           return {
-            label: i18n("goToOffer"),
+            label: t("goToOffer"),
             iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("explore", { offerId }),
           };
@@ -45,7 +46,7 @@ export const useGetPNActionHandler = () => {
       }
       return undefined;
     },
-    [navigation],
+    [navigation, t],
   );
   return getPNActionHandler;
 };

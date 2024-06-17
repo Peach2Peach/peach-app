@@ -1,9 +1,9 @@
+import { useTranslate } from "@tolgee/react";
 import { useSetGlobalOverlay } from "../../Overlay";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { StackNavigation } from "../../utils/navigation/handlePushNotification";
 
 type NavigationFunctionParams = Parameters<StackNavigation["navigate"]>;
@@ -15,6 +15,7 @@ export function BackupTime({
 }) {
   const navigation = useStackNavigation();
   const setOverlay = useSetGlobalOverlay();
+  const { t } = useTranslate();
   const closeOverlay = () => setOverlay(undefined);
   const goToBackups = () => {
     closeOverlay();
@@ -31,8 +32,8 @@ export function BackupTime({
 
   return (
     <OverlayComponent
-      title={i18n("backupTime.title")}
-      text={i18n("backupTime.description.mandatory")}
+      title={t("backupTime.title")}
+      text={t("backupTime.description.mandatory")}
       iconId="saveCircleInverted"
       buttons={
         <>
@@ -41,10 +42,10 @@ export function BackupTime({
             textColor={tw.color("primary-main")}
             onPress={goToBackups}
           >
-            {i18n("backupTime.makeABackup")}
+            {t("backupTime.makeABackup")}
           </Button>
           <Button ghost onPress={skip}>
-            {i18n("backupTime.skipForNow")}
+            {t("backupTime.skipForNow")}
           </Button>
         </>
       }

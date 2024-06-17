@@ -14,11 +14,11 @@ import { useInitialNavigation } from "./init/useInitialNavigation";
 import { AnalyticsPopup } from "./popups/AnalyticsPopup";
 import { VerifyYouAreAHumanPopup } from "./popups/warning/VerifyYouAreAHumanPopup";
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
-import i18n from "./utils/i18n";
 import { error } from "./utils/log/error";
 import { parseError } from "./utils/parseError";
 import { useUpdateUser } from "./utils/peachAPI/useUpdateUser";
 import { isNetworkError } from "./utils/system/isNetworkError";
+import { useTranslate } from "@tolgee/react";
 
 export const useGlobalHandlers = () => {
   const messageHandler = useMessageHandler();
@@ -39,6 +39,7 @@ export const useGlobalHandlers = () => {
   );
   const setToast = useSetToast();
   const navigation = useStackNavigation();
+  const { t } = useTranslate();
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err);
@@ -47,7 +48,7 @@ export const useGlobalHandlers = () => {
       color: "red",
       action: {
         onPress: () => navigation.navigate("contact"),
-        label: i18n("contactUs"),
+        label: t("contactUs"),
         iconId: "mail",
       },
     });
@@ -69,7 +70,7 @@ export const useGlobalHandlers = () => {
       color: "red",
       action: {
         onPress: () => navigation.navigate("contact"),
-        label: i18n("contactUs"),
+        label: t("contactUs"),
         iconId: "mail",
       },
     });

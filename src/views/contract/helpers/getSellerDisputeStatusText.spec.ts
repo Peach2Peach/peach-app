@@ -1,5 +1,5 @@
-import i18n from "../../../utils/i18n";
 import { getSellerDisputeStatusText } from "./getSellerDisputeStatusText";
+import { tolgee } from "../../../tolgee";
 
 describe("getSellerDisputeStatusText", () => {
   it("should return the correct text for a lost dispute", () => {
@@ -8,7 +8,7 @@ describe("getSellerDisputeStatusText", () => {
       tradeStatus: "releaseEscrow",
     } as const;
     expect(getSellerDisputeStatusText(contract)).toBe(
-      i18n("contract.seller.disputeLost.releaseEscrow"),
+      tolgee.t("contract.seller.disputeLost.releaseEscrow", { ns: "contract" }),
     );
   });
   it("should return the correct text for a lost dispute where the escrow has been released", () => {
@@ -17,7 +17,9 @@ describe("getSellerDisputeStatusText", () => {
       tradeStatus: "tradeCompleted",
     } as const;
     expect(getSellerDisputeStatusText(contract)).toBe(
-      i18n("contract.seller.disputeLost.escrowReleased"),
+      tolgee.t("contract.seller.disputeLost.escrowReleased", {
+        ns: "contract",
+      }),
     );
   });
   it("should return the correct text for a won dispute where the seller can republish", () => {
@@ -26,7 +28,9 @@ describe("getSellerDisputeStatusText", () => {
       tradeStatus: "refundOrReviveRequired",
     } as const;
     expect(getSellerDisputeStatusText(contract)).toBe(
-      i18n("contract.seller.disputeWon.refundOrRepublish"),
+      tolgee.t("contract.seller.disputeWon.refundOrRepublish", {
+        ns: "contract",
+      }),
     );
   });
   it("should return the correct text for a won dispute where the seller cannot republish", () => {
@@ -35,7 +39,7 @@ describe("getSellerDisputeStatusText", () => {
       tradeStatus: "refundTxSignatureRequired",
     } as const;
     expect(getSellerDisputeStatusText(contract)).toBe(
-      i18n("contract.seller.disputeWon.refund"),
+      tolgee.t("contract.seller.disputeWon.refund", { ns: "contract" }),
     );
   });
 });

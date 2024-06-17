@@ -16,7 +16,6 @@ import profile from "./profile/hu.json";
 import referral from "./referral/hu.json";
 import sell from "./sell/hu.json";
 import settings from "./settings/hu.json";
-import test from "./test/hu.json";
 import unassigned from "./unassigned/hu.json";
 import wallet from "./wallet/hu.json";
 import welcome from "./welcome/hu.json";
@@ -40,7 +39,6 @@ const hu: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

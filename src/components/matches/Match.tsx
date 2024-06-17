@@ -6,6 +6,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerAPI";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -13,7 +14,6 @@ import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
 import { isLimitReached } from "../../utils/match/isLimitReached";
 import { saveOffer } from "../../utils/offer/saveOffer";
@@ -63,6 +63,8 @@ export const Match = ({
     selectedPaymentMethod,
   );
 
+  const { t } = useTranslate();
+
   const currentOptionName = useMemo(
     () =>
       matched
@@ -103,7 +105,7 @@ export const Match = ({
 
           <View style={tw`gap-4`}>
             <PaymentDetail
-              label={i18n("match.selectedCurrency")}
+              label={t("match.selectedCurrency")}
               value={selectedCurrency}
             />
             {selectedPaymentMethod && (
@@ -112,8 +114,11 @@ export const Match = ({
                   <CashPaymentDetail method={selectedPaymentMethod} />
                 ) : (
                   <PaymentDetail
-                    label={i18n("match.selectedPaymentMethod")}
-                    value={i18n(`paymentMethod.${selectedPaymentMethod}`)}
+                    label={t("match.selectedPaymentMethod")}
+                    // @ts-ignore
+                    value={t(`paymentMethod.${selectedPaymentMethod}`, {
+                      ns: "paymentMethod",
+                    })}
                   />
                 )}
               </>
@@ -133,9 +138,10 @@ export const Match = ({
 
 function CashPaymentDetail({ method }: { method: `cash.${string}` }) {
   const value = useCashPaymentMethodName(method);
+  const { t } = useTranslate();
 
   return (
-    <PaymentDetail label={i18n("match.selectedPaymentMethod")} value={value} />
+    <PaymentDetail label={t("match.selectedPaymentMethod")} value={value} />
   );
 }
 
@@ -164,6 +170,7 @@ function MatchOfferButton({
 }: MatchButtonProps) {
   const currentOption = options[optionName];
   const { mutate, isPending } = useAcceptMatch(offer, match, currentPage);
+  const { t } = useTranslate();
 
   const onPress = () => {
     if (optionName === "acceptMatch") {
@@ -178,7 +185,7 @@ function MatchOfferButton({
       disabled={optionName === "offerMatched" || isPending}
     >
       <PeachText style={tw`button-large text-primary-background-light`}>
-        {i18n(currentOption.text)}
+        {t(currentOption.text)}
       </PeachText>
       <Icon
         id={currentOption.iconId}

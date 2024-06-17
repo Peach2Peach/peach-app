@@ -3,15 +3,17 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { NUMBER_OF_WORDS } from "../settings/components/backups/NUMBER_OF_WORDS";
 import { RestoreBackupError } from "./RestoreBackupError";
 import { RestoreBackupLoading } from "./RestoreBackupLoading";
 import { RestoreSuccess } from "./RestoreSuccess";
 import { SeedPhraseInput } from "./SeedPhraseInput";
 import { useRestoreFromSeedSetup } from "./hooks/useRestoreFromSeedSetup";
+import { useTranslate } from "@tolgee/react";
 
 export const RestoreFromSeed = () => {
+  const { t } = useTranslate();
+
   const {
     restored,
     error,
@@ -32,12 +34,12 @@ export const RestoreFromSeed = () => {
         contentStyle={tw`gap-4`}
       >
         <PeachText style={tw`text-center text-primary-background-light`}>
-          {i18n("restoreBackup.seedPhrase.useBackupFile")}
+          {t("restoreBackup.seedPhrase.useBackupFile")}
         </PeachText>
         <PeachText
           style={tw`text-center subtitle-1 text-primary-background-light`}
         >
-          {i18n("restoreBackup.seedPhrase.enter")}
+          {t("restoreBackup.seedPhrase.enter")}
         </PeachText>
         <View style={tw`flex-row gap-4`}>
           <View style={tw`flex-1`}>
@@ -66,7 +68,7 @@ export const RestoreFromSeed = () => {
           <PeachText
             style={[tw`text-center tooltip text-primary-background-light`]}
           >
-            {i18n("form.bip39.error")}
+            {t("form.bip39.error", { ns: "form" })}
           </PeachText>
         )}
       </PeachScrollView>
@@ -77,7 +79,7 @@ export const RestoreFromSeed = () => {
         iconId="save"
         onPress={submit}
       >
-        {i18n("restoreBackup")}
+        {t("restoreBackup")}
       </Button>
     </View>
   );

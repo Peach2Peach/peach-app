@@ -1,7 +1,7 @@
 import { Button } from "../../components/buttons/Button";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   onPress: () => void;
@@ -10,6 +10,7 @@ type Props = {
 };
 
 export function ShowOffersButton({ onPress, disabled, loading }: Props) {
+  const { t } = useTranslate("offerPreferences");
   const keyboardIsOpen = useKeyboard();
   if (keyboardIsOpen) return null;
   return (
@@ -19,7 +20,7 @@ export function ShowOffersButton({ onPress, disabled, loading }: Props) {
       disabled={disabled}
       loading={loading}
     >
-      {i18n("offerPreferences.showOffers")}
+      {t("offerPreferences.showOffers")}
     </Button>
   );
 }

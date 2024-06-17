@@ -3,8 +3,8 @@ import RatingPeach from "../../../../assets/icons/ratingPeach.svg";
 import { PeachText } from "../../../../components/text/PeachText";
 import { CENT } from "../../../../constants";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
 import { interpolate } from "../../../../utils/math/interpolate";
+import { useTranslate } from "@tolgee/react";
 
 type RatingProps = {
   rating: number;
@@ -18,12 +18,15 @@ export const CLIENT_RATING_RANGE = [0, MAX_NUMBER_OF_PEACHES] satisfies [
 ];
 export const SERVER_RATING_RANGE = [-1, 1] satisfies [number, number];
 
-export const Rating = ({ rating, isNewUser }: RatingProps) =>
-  isNewUser ? (
-    <PeachText style={tw`subtitle-2 text-black-65`}>
-      {i18n("newUser")}
-    </PeachText>
-  ) : (
+export const Rating = ({ rating, isNewUser }: RatingProps) => {
+  const { t } = useTranslate();
+
+  if (isNewUser) {
+    return (
+      <PeachText style={tw`subtitle-2 text-black-65`}>{t("newUser")}</PeachText>
+    );
+  }
+  return (
     <View style={tw`flex-row items-center`}>
       <View style={tw`flex-row gap-1`}>
         {[...Array(MAX_NUMBER_OF_PEACHES)].map((_value, index) => (
@@ -56,3 +59,4 @@ export const Rating = ({ rating, isNewUser }: RatingProps) =>
       </PeachText>
     </View>
   );
+};

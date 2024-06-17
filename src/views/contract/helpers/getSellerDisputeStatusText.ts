@@ -1,4 +1,4 @@
-import i18n from "../../../utils/i18n";
+import { tolgee } from "../../../tolgee";
 
 export const getSellerDisputeStatusText = ({
   disputeWinner,
@@ -6,13 +6,19 @@ export const getSellerDisputeStatusText = ({
 }: Pick<Contract, "disputeWinner" | "tradeStatus">) => {
   if (disputeWinner === "buyer") {
     if (tradeStatus === "releaseEscrow") {
-      return i18n("contract.seller.disputeLost.releaseEscrow");
+      return tolgee.t("contract.seller.disputeLost.releaseEscrow", {
+        ns: "contract",
+      });
     }
-    return i18n("contract.seller.disputeLost.escrowReleased");
+    return tolgee.t("contract.seller.disputeLost.escrowReleased", {
+      ns: "contract",
+    });
   }
   const isRepublishAvailable = tradeStatus === "refundOrReviveRequired";
   if (isRepublishAvailable) {
-    return i18n("contract.seller.disputeWon.refundOrRepublish");
+    return tolgee.t("contract.seller.disputeWon.refundOrRepublish", {
+      ns: "contract",
+    });
   }
-  return i18n("contract.seller.disputeWon.refund");
+  return tolgee.t("contract.seller.disputeWon.refund", { ns: "contract" });
 };

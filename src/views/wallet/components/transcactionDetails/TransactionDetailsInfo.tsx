@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useTranslate } from "@tolgee/react";
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { Transaction } from "bitcoinjs-lib";
 import { useState } from "react";
@@ -16,7 +17,6 @@ import tw from "../../../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../../../utils/bitcoin/getBitcoinAddressParts";
 import { contractIdToHex } from "../../../../utils/contract/contractIdToHex";
 import { toShortDateFormat } from "../../../../utils/date/toShortDateFormat";
-import i18n from "../../../../utils/i18n";
 import { offerIdToHex } from "../../../../utils/offer/offerIdToHex";
 import { priceFormat } from "../../../../utils/string/priceFormat";
 import { useTransactionDetailsInfoSetup } from "../../hooks/useTransactionDetailsInfoSetup";
@@ -34,6 +34,7 @@ export const TransactionDetailsInfo = ({
   transactionDetails,
   transactionSummary,
 }: Props) => {
+  const { t } = useTranslate("wallet");
   const { confirmed, height, date } = transactionSummary;
   const { receivingAddress, canBumpFees, goToBumpNetworkFees, openInExplorer } =
     useTransactionDetailsInfoSetup({
@@ -60,16 +61,22 @@ export const TransactionDetailsInfo = ({
       <Divider />
 
       <AmountSummaryItem amount={transactionSummary.amount} />
-      <AddressSummaryItem address={receivingAddress} title={i18n("to")} />
+      <AddressSummaryItem
+        address={receivingAddress}
+        title={t("to", { ns: "global" })}
+      />
 
       <Divider />
 
       <ConfirmationSummaryItem confirmed={confirmed} />
       {confirmed ? (
         <>
-          <CopyableSummaryItem title={i18n("block")} text={String(height)} />
           <CopyableSummaryItem
-            title={i18n("time")}
+            title={t("block", { ns: "global" })}
+            text={String(height)}
+          />
+          <CopyableSummaryItem
+            title={t("time", { ns: "global" })}
             text={toShortDateFormat(date)}
           />
         </>
@@ -85,7 +92,7 @@ export const TransactionDetailsInfo = ({
           iconSize={16}
           style={tw`self-center`}
         >
-          {i18n("wallet.bumpNetworkFees.button")}
+          {t("wallet.bumpNetworkFees.button")}
         </Bubble>
       )}
 
@@ -99,7 +106,7 @@ export const TransactionDetailsInfo = ({
         iconSize={16}
         onPress={openInExplorer}
       >
-        {i18n("transaction.viewInExplorer")}
+        {t("transaction.viewInExplorer")}
       </Bubble>
     </View>
   );
@@ -116,7 +123,7 @@ const Tab = createMaterialTopTabNavigator();
 type OutputInfoProps = {
   transactionSummary: TransactionSummary;
 };
-export function OfferData({
+function OfferData({
   transactionSummary: { type, offerData },
 }: OutputInfoProps) {
   const [tabsHeight, setTabsHeight] = useState(Number(tw`h-20`.height));
@@ -168,6 +175,7 @@ type OfferDataProps = {
   onLayout?: (event: LayoutChangeEvent) => void;
 };
 function PriceInfo({ price, currency, type }: OfferDataProps) {
+  const { t: i18n } = useTranslate("global");
   if (!price || !currency || type === "REFUND") return null;
   return (
     <CopyableSummaryItem

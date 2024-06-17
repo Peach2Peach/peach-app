@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { Header } from "../../../components/Header";
@@ -15,13 +16,13 @@ import { HelpPopup } from "../../../popups/HelpPopup";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import tw from "../../../styles/tailwind";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
-import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { peachAPI } from "../../../utils/peachAPI";
 import { AccountInfo } from "./AccountInfo";
 import { TradingLimits } from "./TradingLimits";
 
 export const MyProfile = () => {
+  const { t } = useTranslate("settings");
   const { user, isLoading } = useSelfUser();
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<HelpPopup id="tradingLimit" />);
@@ -31,7 +32,7 @@ export const MyProfile = () => {
     <Screen
       header={
         <Header
-          title={i18n("settings.myProfile")}
+          title={t("settings.myProfile")}
           icons={[{ ...headerIcons.help, onPress: showHelp }]}
         />
       }
@@ -54,6 +55,7 @@ export const MyProfile = () => {
 };
 
 function DeleteAccountButton({ style }: ComponentProps) {
+  const { t } = useTranslate("settings");
   const setPopup = useSetPopup();
   const { mutate: logoutUser } = useLogoutUser();
 
@@ -70,15 +72,16 @@ function DeleteAccountButton({ style }: ComponentProps) {
 
       setPopup(
         <ErrorPopup
-          title={i18n(
+          title={t(
             `settings.deleteAccount.${isSuccess ? "success" : "popup"}.title`,
           )}
-          content={i18n(`settings.deleteAccount.${title}`)}
+          // @ts-ignore
+          content={t(`settings.deleteAccount.${title}`)}
           actions={
             <>
               {!isSuccess && (
                 <PopupAction
-                  label={i18n("settings.deleteAccount")}
+                  label={t("settings.deleteAccount")}
                   iconId="trash"
                   onPress={onPress}
                 />
@@ -92,12 +95,12 @@ function DeleteAccountButton({ style }: ComponentProps) {
         />,
       );
     },
-    [logoutUser, setPopup],
+    [logoutUser, setPopup, t],
   );
 
   return (
     <TouchableRedText onPress={() => showPopup()} style={style} iconId="trash">
-      {i18n("settings.deleteAccount")}
+      {t("settings.deleteAccount")}
     </TouchableRedText>
   );
 }

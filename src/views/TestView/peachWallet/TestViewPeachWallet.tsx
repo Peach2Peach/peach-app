@@ -1,4 +1,5 @@
 import { NETWORK } from "@env";
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View } from "react-native";
 import { Divider } from "../../../components/Divider";
@@ -13,7 +14,6 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useValidatedState } from "../../../hooks/useValidatedState";
 import tw from "../../../styles/tailwind";
 import { showTransaction } from "../../../utils/bitcoin/showTransaction";
-import i18n from "../../../utils/i18n";
 import { fundAddress } from "../../../utils/regtest/fundAddress";
 import { thousands } from "../../../utils/string/thousands";
 import { peachWallet } from "../../../utils/wallet/setWallet";
@@ -23,6 +23,7 @@ import { useWalletBalance } from "../../wallet/hooks/useWalletBalance";
 const bitcoinAddressRules = { required: false, bitcoinAddress: true };
 
 export const TestViewPeachWallet = () => {
+  const { t } = useTranslate("wallet");
   const { refetch, isRefetching, isLoading } = useSyncWallet();
   const { balance } = useWalletBalance();
   const [address, setAddress, , addressErrors] = useValidatedState<string>(
@@ -64,7 +65,7 @@ export const TestViewPeachWallet = () => {
       <PeachScrollView>
         <View style={tw`gap-4`}>
           <PeachText style={tw`text-center button-medium`}>
-            {i18n("wallet.totalBalance")}:
+            {t("wallet.totalBalance")}:
           </PeachText>
           <BTCAmount
             style={[tw`self-center`, isRefetching && tw`opacity-60`]}
@@ -75,7 +76,7 @@ export const TestViewPeachWallet = () => {
 
           <View>
             <PeachText style={tw`button-medium`}>
-              {i18n("wallet.withdrawTo")}:
+              {t("wallet.withdrawTo")}:
             </PeachText>
             <BitcoinAddressInput
               style={tw`mt-4`}

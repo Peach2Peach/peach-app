@@ -8,43 +8,47 @@ import { isTradeStatus } from "./isTradeStatus";
 import { isWaiting } from "./isWaiting";
 
 export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
-  [
-    {
-      title: "priority",
-      data: trades.filter(
-        ({ tradeStatus }) => isPrioritary(tradeStatus) || isError(tradeStatus),
-      ),
-    },
-    {
-      title: "openActions",
-      data: trades.filter(({ type, tradeStatus }) =>
-        isOpenAction(type, tradeStatus),
-      ),
-    },
-    {
-      title: "waiting",
-      data: trades.filter(({ type, tradeStatus }) =>
-        isWaiting(type, tradeStatus),
-      ),
-    },
-    {
-      title: "newMessages",
-      data: trades
-        .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
-        .filter(
-          (trade) => "unreadMessages" in trade && trade.unreadMessages > 0,
+  (
+    [
+      {
+        title: "priority",
+        data: trades.filter(
+          ({ tradeStatus }) =>
+            isPrioritary(tradeStatus) || isError(tradeStatus),
         ),
-    },
-    {
-      title: "history",
-      data: trades
-        .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
-        .filter(
-          (trade) => !("unreadMessages" in trade) || trade.unreadMessages === 0,
+      },
+      {
+        title: "openActions",
+        data: trades.filter(({ type, tradeStatus }) =>
+          isOpenAction(type, tradeStatus),
         ),
-    },
-    {
-      title: "unknown",
-      data: trades.filter(({ tradeStatus }) => !isTradeStatus(tradeStatus)),
-    },
-  ].filter(({ data }) => data.length > 0);
+      },
+      {
+        title: "waiting",
+        data: trades.filter(({ type, tradeStatus }) =>
+          isWaiting(type, tradeStatus),
+        ),
+      },
+      {
+        title: "newMessages",
+        data: trades
+          .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+          .filter(
+            (trade) => "unreadMessages" in trade && trade.unreadMessages > 0,
+          ),
+      },
+      {
+        title: "history",
+        data: trades
+          .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+          .filter(
+            (trade) =>
+              !("unreadMessages" in trade) || trade.unreadMessages === 0,
+          ),
+      },
+      {
+        title: "unknown",
+        data: trades.filter(({ tradeStatus }) => !isTradeStatus(tradeStatus)),
+      },
+    ] as const
+  ).filter(({ data }) => data.length > 0);

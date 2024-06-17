@@ -1,12 +1,12 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
-import { useOfferPreferences } from "../../store/offerPreferenes";
-import { CurrencyType } from "../../store/offerPreferenes/types";
+import { useOfferPreferences } from "../../store/offerPreferences";
+import { CurrencyType } from "../../store/offerPreferences/types";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Currencies } from "./Currencies";
 import { defaultCurrencies } from "./constants";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   currency: Currency;
@@ -18,6 +18,7 @@ const CurrencyTab = createMaterialTopTabNavigator();
 const currencyTabs = ["europe", "latinAmerica", "africa", "other"] as const;
 
 export const CurrencyTabs = (props: Props) => {
+  const { t } = useTranslate("global");
   const [preferredCurrencyType, setPreferredCurrencyType] = useOfferPreferences(
     (state) => [state.preferredCurrenyType, state.setPreferredCurrencyType],
     shallow,
@@ -44,7 +45,7 @@ export const CurrencyTabs = (props: Props) => {
         <CurrencyTab.Screen
           key={currencyTab}
           name={currencyTab}
-          options={{ title: i18n(currencyTab) }}
+          options={{ title: t(currencyTab) }}
           children={() => <Currencies type={currencyTab} {...props} />}
         />
       ))}

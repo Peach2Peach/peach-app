@@ -1,5 +1,6 @@
 import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useSetGlobalOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
@@ -8,7 +9,6 @@ import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
-import i18n from "../utils/i18n";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
@@ -87,11 +87,12 @@ export function useRefundSellOffer() {
 
 function RefundEscrowPopup({ txId }: { txId: string }) {
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
+  const { t } = useTranslate();
 
   return (
     <PopupComponent
-      title={i18n("refund.title")}
-      content={i18n(
+      title={t("refund.title")}
+      content={t(
         isPeachWallet
           ? "refund.text.peachWallet"
           : "refund.text.externalWallet",
@@ -112,6 +113,7 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
 
 function ShowTxAction({ txId }: { txId: string }) {
   const closePopup = useClosePopup();
+  const { t } = useTranslate();
 
   const showTx = () => {
     closePopup();
@@ -119,11 +121,7 @@ function ShowTxAction({ txId }: { txId: string }) {
   };
 
   return (
-    <PopupAction
-      label={i18n("showTx")}
-      iconId="externalLink"
-      onPress={showTx}
-    />
+    <PopupAction label={t("showTx")} iconId="externalLink" onPress={showTx} />
   );
 }
 
@@ -133,6 +131,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
+  const { t } = useTranslate("global");
   const setOverlay = useSetGlobalOverlay();
 
   const goToWallet = () => {
@@ -149,11 +148,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
   };
 
   return (
-    <PopupAction
-      label={i18n("goToWallet")}
-      iconId="wallet"
-      onPress={goToWallet}
-    />
+    <PopupAction label={t("goToWallet")} iconId="wallet" onPress={goToWallet} />
   );
 }
 
@@ -165,10 +160,11 @@ function CloseAction() {
     (state) => state.shouldShowBackupOverlay,
   );
   const setOverlay = useSetGlobalOverlay();
+  const { t } = useTranslate("global");
 
   return (
     <PopupAction
-      label={i18n("close")}
+      label={t("close")}
       iconId="xSquare"
       onPress={() => {
         closePopup();

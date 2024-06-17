@@ -1,4 +1,5 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Contract } from "../../../peach-api/src/@types/contract";
@@ -22,7 +23,6 @@ import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { error } from "../../utils/log/error";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
@@ -40,6 +40,7 @@ export const ContractChat = () => {
 };
 
 function ChatScreen({ contract }: { contract: Contract }) {
+  const { t } = useTranslate("chat");
   const queryClient = useQueryClient();
   const { data: decryptedData, isPending } = useDecryptedContractData(contract);
   const { contractId } = useRoute<"contractChat">().params;
@@ -272,7 +273,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
         </View>
       ) : (
         <PeachText style={tw`p-4 text-center text-black-50`}>
-          {i18n("chat.disabled")}
+          {t("chat.disabled")}
         </PeachText>
       )}
     </Screen>

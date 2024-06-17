@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import Share from "react-native-share";
 import { Button } from "../../../components/buttons/Button";
@@ -5,7 +6,7 @@ import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import tw from "../../../styles/tailwind";
-import i18n, { languageState } from "../../../utils/i18n";
+import { languageState } from "../../../utils/i18n";
 import { info } from "../../../utils/log/info";
 import { getLocalizedLink } from "../../../utils/web/getLocalizedLink";
 
@@ -39,10 +40,11 @@ export const ReferralCode = () => {
 };
 
 function YourCode({ referralCode }: Props) {
+  const { t } = useTranslate("referral");
   return (
     <View>
       <PeachText style={tw`text-center text-black-65`}>
-        {i18n("referrals.yourCode")}
+        {t("referrals.yourCode")}
       </PeachText>
       <View style={tw`flex-row justify-center gap-1`}>
         <PeachText style={tw`text-center h4`}>{referralCode}</PeachText>
@@ -57,13 +59,14 @@ function YourCode({ referralCode }: Props) {
 }
 
 function InviteLink({ inviteLink }: { inviteLink: string }) {
+  const { t } = useTranslate("referral");
   return (
     <View
       style={tw`flex-row items-center justify-between p-4 border rounded-lg border-primary-main`}
     >
       <View>
         <PeachText style={tw`text-black-65`}>
-          {i18n("referrals.inviteLink")}
+          {t("referrals.inviteLink")}
         </PeachText>
         <PeachText style={tw`text-3xs`}>
           {inviteLink.replace("https://", "")}
@@ -81,9 +84,13 @@ function InviteFriendsButton({
   referralCode: string;
   inviteLink: string;
 }) {
+  const { t } = useTranslate("referral");
   const inviteFriend = () => {
     Share.open({
-      message: i18n("referrals.inviteText", referralCode, inviteLink),
+      message: t("referrals.inviteText", {
+        refCode: referralCode,
+        link: inviteLink,
+      }),
     }).catch((e) => {
       info("User cancel invite friends share", e);
     });
@@ -95,7 +102,7 @@ function InviteFriendsButton({
       ghost
       onPress={inviteFriend}
     >
-      {i18n("referrals.inviteFriends")}
+      {t("referrals.inviteFriends")}
     </Button>
   );
 }

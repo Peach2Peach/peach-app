@@ -1,8 +1,8 @@
 import { TouchableOpacity, View } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 type Props = ComponentProps & {
   value: number;
@@ -17,6 +17,7 @@ export const NumberStepper = ({
   max = Infinity,
   style,
 }: Props) => {
+  const { t } = useTranslate("form");
   const decrease = () => onChange(Math.max(value - 1, min));
   const increase = () => onChange(Math.min(value + 1, max));
 
@@ -27,7 +28,7 @@ export const NumberStepper = ({
     <View style={[tw`flex-row gap-3`, style]}>
       <TouchableOpacity
         onPress={decrease}
-        accessibilityHint={i18n("number.decrease")}
+        accessibilityHint={t("number.decrease")}
         disabled={!canDecrease}
         style={!canDecrease && tw`opacity-50`}
       >
@@ -36,7 +37,7 @@ export const NumberStepper = ({
       <PeachText style={tw`h5 w-11 text-center`}>x {value}</PeachText>
       <TouchableOpacity
         onPress={increase}
-        accessibilityHint={i18n("number.increase")}
+        accessibilityHint={t("number.increase")}
         disabled={!canIncrease}
         style={!canIncrease && tw`opacity-50`}
       >

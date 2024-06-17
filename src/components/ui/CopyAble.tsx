@@ -2,9 +2,9 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 import { Animated, TextStyle, TouchableOpacity } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 export type CopyRef = {
   copy: () => void;
@@ -46,6 +46,7 @@ function fadeAnimation(opacity: Animated.Value) {
 export const CopyAble = forwardRef<CopyAbleRef, Props>(
   ({ value, color, disabled, style, textPosition = "top" }, ref) => {
     const opacity = useRef(new Animated.Value(0)).current;
+    const { t } = useTranslate("global");
 
     const copy = useCallback(() => {
       if (!value) return;
@@ -77,7 +78,7 @@ export const CopyAble = forwardRef<CopyAbleRef, Props>(
           style={[tw`absolute`, textPositions[textPosition], { opacity }]}
         >
           <PeachText style={[tw`tooltip`, color || tw`text-primary-main`]}>
-            {i18n("copied")}
+            {t("copied")}
           </PeachText>
         </Animated.View>
       </TouchableOpacity>

@@ -1,4 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import { useTranslate } from "@tolgee/react";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
@@ -13,7 +14,6 @@ import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPop
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
 import { useGlobalHandlers } from "../useGlobalHandlers";
-import i18n from "../utils/i18n";
 import { screenTransition } from "../utils/layout/screenTransition";
 import { isIOS } from "../utils/system/isIOS";
 import { useWSQueryInvalidation } from "./useWSQueryInvalidation";
@@ -64,6 +64,7 @@ function SplashScreenComponent({
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const initApp = useInitApp();
+  const { t } = useTranslate();
   useEffect(() => {
     const initialize = async () => {
       const statusResponse = await initApp();
@@ -76,7 +77,7 @@ function SplashScreenComponent({
             color: "red",
             action: {
               onPress: () => navigation.navigate("contact"),
-              label: i18n("contactUs"),
+              label: t("contactUs"),
               iconId: "mail",
             },
           });
@@ -87,7 +88,7 @@ function SplashScreenComponent({
       SplashScreen.hide();
     };
     initialize();
-  }, [initApp, navigation, setIsLoading, setPopup, setToast]);
+  }, [initApp, navigation, setIsLoading, setPopup, setToast, t]);
 
   return (
     <View>

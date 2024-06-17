@@ -16,7 +16,6 @@ import profile from "./profile/nl.json";
 import referral from "./referral/nl.json";
 import sell from "./sell/nl.json";
 import settings from "./settings/nl.json";
-import test from "./test/nl.json";
 import unassigned from "./unassigned/nl.json";
 import wallet from "./wallet/nl.json";
 import welcome from "./welcome/nl.json";
@@ -40,7 +39,6 @@ const nl: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

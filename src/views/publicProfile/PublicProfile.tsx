@@ -4,20 +4,21 @@ import { Screen } from "../../components/Screen";
 import { TouchableRedText } from "../../components/text/TouchableRedText";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { AccountInfo } from "../settings/profile/AccountInfo";
 import { useBlockUser } from "./useBlockUser";
 import { useUnblockUser } from "./useUnblockUser";
 import { useUser } from "./useUser";
 import { useUserStatus } from "./useUserStatus";
+import { useTranslate } from "@tolgee/react";
 
 export const PublicProfile = () => {
+  const { t } = useTranslate("profile");
   const { userId } = useRoute<"publicProfile">().params;
   const { user, isLoading } = useUser(userId);
   if (isLoading || !user) return <></>;
 
   return (
-    <Screen header={i18n("profile.user.title")}>
+    <Screen header={t("profile.user.title")}>
       <View style={tw`gap-12 grow`}>
         <ProfileInfo user={user} />
         <AccountInfo user={user} />
@@ -28,6 +29,7 @@ export const PublicProfile = () => {
 };
 
 function BlockUser({ style }: { style?: ViewStyle }) {
+  const { t } = useTranslate("profile");
   const { userId } = useRoute<"publicProfile">().params;
   const { data } = useUserStatus(userId);
 
@@ -48,7 +50,7 @@ function BlockUser({ style }: { style?: ViewStyle }) {
       iconId={data?.isBlocked ? "rotateCounterClockwise" : "userX"}
       onPress={onPress}
     >
-      {i18n(data?.isBlocked ? "profile.unblockUser" : "profile.blockUser")}
+      {t(data?.isBlocked ? "profile.unblockUser" : "profile.blockUser")}
     </TouchableRedText>
   );
 }

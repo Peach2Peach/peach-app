@@ -6,10 +6,10 @@ import {
 } from "../../../../tests/unit/data/transactionDetailData";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
-import i18n from "../../../utils/i18n";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { ConfirmRbfPopup } from "./ConfirmRbfPopup";
+import { tolgee } from "../../../tolgee";
 
 const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
@@ -47,7 +47,7 @@ describe("ConfirmRbfPopup", () => {
     const { getByText } = render(<ConfirmRbfPopup {...props} />);
 
     fireEvent.press(
-      getByText(i18n("fundFromPeachWallet.confirm.confirmAndSend")),
+      getByText(tolgee.t("fundFromPeachWallet.confirm.confirmAndSend")),
     );
 
     await waitFor(() => {
@@ -67,7 +67,7 @@ describe("ConfirmRbfPopup", () => {
     const { getByText } = render(<ConfirmRbfPopup {...props} />);
 
     fireEvent.press(
-      getByText(i18n("fundFromPeachWallet.confirm.confirmAndSend")),
+      getByText(tolgee.t("fundFromPeachWallet.confirm.confirmAndSend")),
     );
 
     await waitFor(() => {

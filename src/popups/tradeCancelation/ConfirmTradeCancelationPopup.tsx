@@ -8,12 +8,12 @@ import { MSINAMINUTE } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
-import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { GrayPopup } from "../GrayPopup";
 import { patchSellOfferWithRefundTx } from "./patchSellOfferWithRefundTx";
 import { useCancelContract } from "./useCancelContract";
+import { useTranslate } from "@tolgee/react";
 
 export function ConfirmTradeCancelationPopup({
   contract,
@@ -27,6 +27,7 @@ export function ConfirmTradeCancelationPopup({
   const { mutate: cancelSeller } = useCancelContract({
     contractId: contract.id,
   });
+  const { t } = useTranslate("contract");
 
   const { mutate: cancelBuyer } = useCancelContract({
     contractId: contract.id,
@@ -45,12 +46,12 @@ export function ConfirmTradeCancelationPopup({
           onSuccess: () =>
             setPopup(
               <GrayPopup
-                title={i18n("contract.cancel.success")}
+                title={t("contract.cancel.success")}
                 actions={<ClosePopupAction style={tw`justify-center`} />}
               />,
             ),
         });
-  const title = i18n(
+  const title = t(
     isCashTrade(contract.paymentMethod)
       ? "contract.cancel.cash.title"
       : "contract.cancel.title",
@@ -60,18 +61,18 @@ export function ConfirmTradeCancelationPopup({
   return (
     <PopupComponent
       title={title}
-      content={i18n(
+      content={t(
         isCash ? "contract.cancel.cash.text" : `contract.cancel.${view}`,
       )}
       actions={
         <>
           <PopupAction
-            label={i18n("contract.cancel.confirm.back")}
+            label={t("contract.cancel.confirm.back")}
             iconId="arrowLeftCircle"
             onPress={closePopup}
           />
           <LoadingPopupAction
-            label={i18n("contract.cancel.title")}
+            label={t("contract.cancel.title")}
             iconId="xCircle"
             onPress={cancelAction}
             reverseOrder
@@ -91,10 +92,11 @@ function CancelPopup({ contract }: { contract: Contract }) {
   const sellOffer = offer && isSellOffer(offer) ? offer : null;
   const canRepublish = sellOffer ? !isOfferExpired(sellOffer) : false;
   const walletName = useWalletLabel({ address: sellOffer?.returnAddress });
+  const { t } = useTranslate("contract");
 
   return (
     <GrayPopup
-      title={i18n(
+      title={t(
         isCashTrade(paymentMethod)
           ? "contract.cancel.tradeCanceled"
           : "contract.cancel.requestSent",
@@ -102,9 +104,12 @@ function CancelPopup({ contract }: { contract: Contract }) {
       content={
         isCash
           ? canRepublish
-            ? i18n("contract.cancel.cash.refundOrRepublish.text")
-            : i18n("contract.cancel.cash.tradeCanceled.text", id, walletName)
-          : i18n("contract.cancel.requestSent.text")
+            ? t("contract.cancel.cash.refundOrRepublish.text")
+            : t("contract.cancel.cash.tradeCanceled.text", {
+                contractId: id,
+                wallet: walletName,
+              })
+          : t("contract.cancel.requestSent.text")
       }
       actions={<ClosePopupAction style={tw`justify-center`} />}
     />

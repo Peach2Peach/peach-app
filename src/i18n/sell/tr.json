@@ -1,6 +1,7 @@
 {
   "sell.discount" : "indirim",
   "sell.escrow.checkingFundingStatus" : "finansman durumu kontrol ediliyor",
+  "sell.escrow.createEscrow" : "emanet oluştur",
   "sell.escrow.loading" : "teminat oluşturuluyor,\nbir saniye...",
   "sell.escrow.mempool" : "İşlem Mempool'a ulaştı!",
   "sell.escrow.returnAddress.subtitle" : "(gerektiğinde iade için)",
@@ -11,7 +12,7 @@
   "sell.funding.mempool.title" : "işlem bekliyor",
   "sell.meansOfPayment" : "nasıl ödeme almak istersiniz?",
   "sell.premium" : "prim",
-  "sell.premium.currently" : "şu anki $0",
+  "sell.premium.currently" : "şu anki {premium}",
   "sell.premium.marketPrice" : "piyasa\nfiyatı",
   "sell.premium.title" : "priminizi / indiriminizi ayarlayın",
   "sell.subtitle" : "Satıyorsunuz:",
@@ -19,7 +20,7 @@
   "sell.summary.title" : "satış teklifi özeti",
   "sell.title" : "bitcoin sat",
   "sell.title.highlight" : "sat",
-  "warning.incorrectFunding.description" : "Teklifini $0 işlemlerle finanse ettin, bu da alıcı için aşırı ağ ücretleri nedeniyle izin verilmiyor.\n\nSana geri ödeme yapılacak.",
+  "warning.incorrectFunding.description" : "Teklifini {utxos} işlemlerle finanse ettin, bu da alıcı için aşırı ağ ücretleri nedeniyle izin verilmiyor.\n\nSana geri ödeme yapılacak.",
   "warning.incorrectFunding.title" : "Hatalı Finansman",
   "yourTrades.search.sell.subtitle" : "için satış teklif"
 }

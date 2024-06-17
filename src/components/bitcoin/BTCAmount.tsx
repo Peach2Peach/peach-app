@@ -2,10 +2,10 @@ import { memo, useMemo } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { SATSINBTC } from "../../constants";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { groupChars } from "../../utils/string/groupChars";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 export type BTCAmountProps = {
   amount: number;
@@ -58,20 +58,21 @@ export const BTCAmount = memo(
       () => [styles[size].amount, white && tw`text-primary-background-light`],
       [size, white],
     );
-    return (
-      <View
-        style={[
-          style,
-          tw`flex-row items-center justify-between`,
-          styles[size].container,
-        ]}
-      >
-        <View style={[tw`shrink-0`, styles[size].iconContainer]}>
-          <Icon
-            id={white ? "bitcoinTransparent" : "bitcoinLogo"}
-            size={styles[size].iconSize}
-          />
-        </View>
+    const { t } = useTranslate("global");
+  return (
+    <View
+      style={[
+        style,
+        tw`flex-row items-center justify-between`,
+        styles[size].container,
+      ]}
+    >
+      <View style={[tw`shrink-0`, styles[size].iconContainer]}>
+        <Icon
+          id={white ? "bitcoinTransparent" : "bitcoinLogo"}
+          size={styles[size].iconSize}
+        />
+      </View>
 
         <View
           style={[tw`flex-row items-center flex-1`, styles[size].textContainer]}
@@ -94,7 +95,7 @@ export const BTCAmount = memo(
               </PeachText>
             </View>
           )}
-          <PeachText style={textStyle}>{i18n("currency.SATS")}</PeachText>
+          <PeachText style={textStyle}>{t("currency.SATS")}</PeachText>
         </View>
       </View>
     );

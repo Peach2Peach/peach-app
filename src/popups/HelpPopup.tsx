@@ -1,4 +1,4 @@
-import i18n from "../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 import { InfoPopup } from "./InfoPopup";
 
 type Props = {
@@ -7,10 +7,13 @@ type Props = {
 };
 
 export function HelpPopup({ id, showTitle = true }: Props) {
+  const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={showTitle ? i18n(`help.${id}.title`) : undefined}
-      content={i18n(`help.${id}.description`)}
+      // @ts-ignore
+      title={showTitle ? t(`help.${id}.title`) : undefined}
+      // @ts-ignore
+      content={t(`help.${id}.description`)}
     />
   );
 }

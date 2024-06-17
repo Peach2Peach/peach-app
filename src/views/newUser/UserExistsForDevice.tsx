@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { TouchableOpacity, View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -6,7 +7,6 @@ import { PeachText } from "../../components/text/PeachText";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 
 export function UserExistsForDevice() {
   const route = useRoute<"userExistsForDevice">();
@@ -18,11 +18,13 @@ export function UserExistsForDevice() {
   const goToRestoreReputation = () =>
     navigation.navigate("restoreReputation", route.params);
 
+  const { t } = useTranslate();
+
   return (
     <Screen
       header={
         <Header
-          title={i18n("welcome.welcomeToPeach.title")}
+          title={t("welcome.welcomeToPeach.title", { ns: "welcome" })}
           theme="transparent"
           hideGoBackButton
         />
@@ -32,12 +34,12 @@ export function UserExistsForDevice() {
       <View style={tw`items-center justify-center gap-8 grow`}>
         <View>
           <PeachText style={tw`text-center h4 text-primary-background-light`}>
-            {i18n("newUser.accountNotCreated")}
+            {t("newUser.accountNotCreated")}
           </PeachText>
           <PeachText
             style={tw`text-center body-l text-primary-background-light`}
           >
-            {i18n("newUser.youAlreadyHaveOne")}
+            {t("newUser.youAlreadyHaveOne")}
           </PeachText>
         </View>
         <Icon
@@ -47,13 +49,13 @@ export function UserExistsForDevice() {
         />
         <View style={tw`items-center gap-8`}>
           <MenuItem onPress={goToRestoreFromFile}>
-            {i18n("restoreBackup.restoreFromFile")}
+            {t("restoreBackup.restoreFromFile")}
           </MenuItem>
           <MenuItem onPress={goToRestoreFromSeed}>
-            {i18n("restoreBackup.restoreFromSeed")}
+            {t("restoreBackup.restoreFromSeed")}
           </MenuItem>
           <MenuItem onPress={goToRestoreReputation}>
-            {i18n("restoreBackup.IdontHave")}
+            {t("restoreBackup.IdontHave")}
           </MenuItem>
         </View>
       </View>

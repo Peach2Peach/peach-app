@@ -6,7 +6,7 @@ import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { AppPopup } from "../../../popups/AppPopup";
-import { getHashedPaymentData } from "../../../store/offerPreferenes/helpers";
+import { getHashedPaymentData } from "../../../store/offerPreferences/helpers";
 import { getRandom } from "../../../utils/crypto/getRandom";
 import { error } from "../../../utils/log/error";
 import { info } from "../../../utils/log/info";

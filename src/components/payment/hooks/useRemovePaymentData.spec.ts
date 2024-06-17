@@ -5,7 +5,7 @@ import {
   validSEPAData2,
   validSEPADataHashes,
 } from "../../../../tests/unit/data/paymentData";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useRemovePaymentData } from "./useRemovePaymentData";

@@ -3,13 +3,13 @@ import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { EscrowButton } from "../../components/EscrowButton";
 import { Header } from "../../components/Header";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
-import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 export const CanceledOfferDetails = () => {
@@ -30,9 +30,10 @@ function OfferDetailsHeader({
   amount: number;
   premium: number;
 }) {
+  const { t } = useTranslate();
   return (
     <Header
-      title={i18n("yourTrades.offerCanceled.subtitle")}
+      title={t("yourTrades.offerCanceled.subtitle")}
       theme={"cancel"}
       subtitle={
         <Header.Subtitle
@@ -47,13 +48,14 @@ function OfferDetailsHeader({
 }
 
 function OfferDetailsScreen({ offer }: { offer: SellOffer }) {
+  const { t } = useTranslate("contract");
   const { returnAddress, escrow } = offer;
   const walletLabel = useWalletLabel({ address: returnAddress });
   return (
     <Screen header={<OfferDetailsHeader {...offer} />}>
       <View style={tw`justify-center grow`}>
         <PeachText style={tw`md:body-l`}>
-          {i18n("contract.seller.refunded", walletLabel)}
+          {t("contract.seller.refunded", { wallet: walletLabel })}
         </PeachText>
       </View>
 

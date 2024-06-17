@@ -1,3 +1,5 @@
 {
-  "backupRestored" : "backup restaurat"
+  "backupRestored" : "backup restaurat",
+  "escrow.wrongFundingAmount.continueOrRefund" : "Doriți să continuați tranzacția cu {actual} sats, sau doriți să fiți rambursat?",
+  "linkedin" : "Linkedin"
 }

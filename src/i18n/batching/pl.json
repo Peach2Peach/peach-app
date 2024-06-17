@@ -7,8 +7,6 @@
   "grouphug.announcement.text" : "Dzięki GroupHug, zbieramy wypłaty kaucji w pakiety, co pozwala zaoszczędzić na opłatach za transakcje.\n\nZapisz się, poczekaj chwilę i zaoszczędź jeszcze więcej.\n\nMasz pełną kontrolę, możesz zmienić to w każdej chwili.",
   "grouphug.announcement.title" : "Czas na GroupHug!",
   "grouphug.goToSettings" : "przejdź do ustawień",
-  "help.payoutPending.description" : "Transakcje są wypłacane grupowo, co oznacza oczekiwanie, aż partia zostanie wypełniona lub osiągnie maksymalny czas oczekiwania.\n\nTo pozwala zaoszczędzić nawet do 23% na opłatach za transakcje.",
-  "help.payoutPending.title" : "oczekująca wypłata",
   "help.transactionBatching.description" : "Escrows są domyślnie wypłacane w transakcjach grupowych z opłatą za pół godziny. Możesz z tego zrezygnować, ale upewnij się, że rozumiesz związane z tym ryzyko!\nPonieważ Peach poniesie z tego tytułu dodatkowe koszty konsolidacji, prosimy użytkownika o ich pokrycie. Są one obliczane poprzez pomnożenie 30-minutowej opłaty przez 41. Ponieważ opłata ta jest dynamiczna, poniesione koszty są również dynamiczne, więc mogą stać się znaczącą częścią kwoty transakcji.",
   "help.transactionBatching.title" : "opłaty za wypłatę",
   "offer.requiredAction.payoutPending" : "oczekująca wypłata",

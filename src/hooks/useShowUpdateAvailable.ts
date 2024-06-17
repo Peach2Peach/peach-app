@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useEffect } from "react";
 import { useSetToast } from "../components/toast/Toast";
 import { APPVERSION, BUILDNUMBER } from "../constants";
-import i18n from "../utils/i18n";
 import { peachAPI } from "../utils/peachAPI";
 import { compatibilityCheck } from "../utils/system/compatibilityCheck";
 import { linkToAppStore } from "../utils/system/linkToAppStore";
@@ -10,6 +10,7 @@ import { systemKeys } from "../views/addPaymentMethod/usePaymentMethodInfo";
 
 export const useShowUpdateAvailable = () => {
   const setToast = useSetToast();
+  const { t } = useTranslate("unassigned");
   const { data } = useQuery({
     queryKey: systemKeys.version(),
     queryFn: async () => {
@@ -18,7 +19,6 @@ export const useShowUpdateAvailable = () => {
       throw new Error("Could not fetch version");
     },
   });
-
   useEffect(() => {
     if (!data) return;
     const { latestAppVersion, minAppVersion } = data;
@@ -30,7 +30,7 @@ export const useShowUpdateAvailable = () => {
           keepAlive: true,
           action: {
             onPress: linkToAppStore,
-            label: i18n("download"),
+            label: t("download"),
             iconId: "download",
           },
         });
@@ -41,11 +41,11 @@ export const useShowUpdateAvailable = () => {
           keepAlive: true,
           action: {
             onPress: linkToAppStore,
-            label: i18n("download"),
+            label: t("download"),
             iconId: "download",
           },
         });
       }
     }
-  }, [data, setToast]);
+  }, [data, setToast, t]);
 };

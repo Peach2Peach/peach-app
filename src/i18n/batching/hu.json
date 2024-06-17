@@ -7,8 +7,6 @@
   "grouphug.announcement.text" : "A GroupHug segítségével a letéti kifizetéseket az alacsonyabb tranzakciós díjakért csoportosítjuk.\n\nEngedélyezd, várj egy kicsit, és spórolj többet.\n\nTe irányítasz, bármikor átválthatsz.",
   "grouphug.announcement.title" : "Itt az ideje egy GroupHug-nak!",
   "grouphug.goToSettings" : "menj a beállításokhoz",
-  "help.payoutPending.description" : "A tranzakciókat csoportosítva fizetjük ki. Ez várakozási időt jelent, amíg a csoport megtelik, vagy a maximális várakozási időt eléri.\n\nEz a tranzakciós díjakban neked akár 23% megtakarítással is járhat.",
-  "help.payoutPending.title" : "kifizetés függőben",
   "help.transactionBatching.description" : "A letéti számlák alapértelmezés szerint félórás díjjal, kötegelt tranzakciókban kerülnek kifizetésre. Ezt le lehet választani, de győződjön meg róla, hogy tisztában van az ezzel járó kockázatokkal!\nMivel a Peach-nek ebből további konszolidációs költségei keletkeznek, kérjük a felhasználót, hogy ezeket fedezze. Ezek kiszámítása úgy történik, hogy a 30 perces díjat megszorozzuk 41-gyel. Mivel ez a díj dinamikus, a felmerülő költségek is azok, így a kereskedési összeg jelentős részévé válhatnak.",
   "help.transactionBatching.title" : "kifizetési díjak",
   "offer.requiredAction.payoutPending" : "kifizetés függőben",

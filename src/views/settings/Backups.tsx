@@ -11,11 +11,11 @@ import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { BackupPasswordPrompt } from "./components/backups/BackupPasswordPrompt";
 import { FileBackupOverview } from "./components/backups/FileBackupOverview";
 import { SeedPhrase } from "./components/backups/SeedPhrase";
+import { useTranslate } from "@tolgee/react";
 
 const BackupTab = createMaterialTopTabNavigator();
 const tabs = ["fileBackup", "seedPhrase"] as const;
@@ -23,6 +23,7 @@ const TabType = z.enum(tabs);
 type TabType = z.infer<typeof TabType>;
 
 export const Backups = () => {
+  const { t } = useTranslate("settings");
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0]);
   const [showPasswordPrompt, toggle] = useToggleBoolean();
 
@@ -48,7 +49,7 @@ export const Backups = () => {
             <BackupTab.Screen
               key={tab}
               name={tab}
-              options={{ title: `${i18n(`settings.backups.${tab}`)}` }}
+              options={{ title: `${t(`settings.backups.${tab}`)}` }}
             >
               {() => (
                 <>
@@ -78,6 +79,7 @@ function BackupHeader({
   tab: "fileBackup" | "seedPhrase";
   showPasswordPrompt?: boolean;
 }) {
+  const { t } = useTranslate("settings");
   const setPopup = useSetPopup();
   const showSeedPhrasePopup = () => setPopup(<SeedPhrasePopup />);
   const showFileBackupPopup = () => setPopup(<HelpPopup id="fileBackup" />);
@@ -87,8 +89,8 @@ function BackupHeader({
     <Header
       title={
         tab === "fileBackup"
-          ? i18n("settings.backups.fileBackup.title")
-          : i18n("settings.backups.walletBackup")
+          ? t("settings.backups.fileBackup.title")
+          : t("settings.backups.walletBackup")
       }
       icons={[
         {
@@ -106,15 +108,16 @@ function BackupHeader({
 }
 
 function SeedPhrasePopup() {
+  const { t } = useTranslate("settings");
   return (
     <InfoPopup
-      title={i18n("settings.backups.seedPhrase.popup.title")}
+      title={t("settings.backups.seedPhrase.popup.title")}
       content={
         <PeachText>
-          {i18n("settings.backups.seedPhrase.popup.text.1")}
+          {t("settings.backups.seedPhrase.popup.text.1")}
           {"\n\n"}
           <PeachText style={tw`font-bold`}>
-            {i18n("settings.backups.seedPhrase.popup.text.2")}
+            {t("settings.backups.seedPhrase.popup.text.2")}
           </PeachText>
         </PeachText>
       }
@@ -123,33 +126,34 @@ function SeedPhrasePopup() {
 }
 
 function YourPasswordPopup() {
+  const { t } = useTranslate("settings");
   return (
     <InfoPopup
-      title={i18n("settings.backups.fileBackup.popup2.title")}
+      title={t("settings.backups.fileBackup.popup2.title")}
       content={
         <>
           <PeachText>
-            {i18n("settings.backups.fileBackup.popup2.content.1")}
+            {t("settings.backups.fileBackup.popup2.content.1")}
           </PeachText>
 
           <PeachText style={tw`mt-3`}>
-            {i18n("settings.backups.fileBackup.popup2.content.2")}
+            {t("settings.backups.fileBackup.popup2.content.2")}
           </PeachText>
 
           <View style={tw`pl-1 my-3`}>
             <PeachText>
-              {i18n("settings.backups.fileBackup.popup2.content.3")}
+              {t("settings.backups.fileBackup.popup2.content.3")}
             </PeachText>
             <PeachText>
-              {i18n("settings.backups.fileBackup.popup2.content.4")}
+              {t("settings.backups.fileBackup.popup2.content.4")}
             </PeachText>
             <PeachText>
-              {i18n("settings.backups.fileBackup.popup2.content.5")}
+              {t("settings.backups.fileBackup.popup2.content.5")}
             </PeachText>
           </View>
 
           <PeachText style={tw`font-bold`}>
-            {i18n("settings.backups.fileBackup.popup2.content.6")}
+            {t("settings.backups.fileBackup.popup2.content.6")}
           </PeachText>
         </>
       }

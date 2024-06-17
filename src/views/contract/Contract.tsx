@@ -1,6 +1,7 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useMemo } from "react";
 import { OverlayComponent } from "../../OverlayComponent";
 import { Header, HeaderIcon } from "../../components/Header";
@@ -12,13 +13,13 @@ import { useRoute } from "../../hooks/useRoute";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/ConfirmTradeCancelationPopup";
+import { tolgee } from "../../tolgee";
 import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -169,6 +170,7 @@ function ContractHeader() {
     releaseTxId ||
     (batchInfo && batchInfo.completed) ||
     tradeStatus === "payoutPending";
+  const { t } = useTranslate("contract");
 
   return (
     <Header
@@ -179,8 +181,8 @@ function ContractHeader() {
           text={
             isTradeCompleted
               ? view === "buyer"
-                ? i18n("contract.bought")
-                : i18n("contract.sold")
+                ? t("contract.bought")
+                : t("contract.sold")
               : undefined
           }
           viewer={view}
@@ -200,35 +202,48 @@ function getHeaderTitle(view: string, contract: Contract) {
     id: contractId,
   } = contract;
   if (view === "buyer") {
-    if (disputeWinner === "buyer") return i18n("contract.disputeWon");
-    if (disputeWinner === "seller") return i18n("contract.disputeLost");
+    if (disputeWinner === "buyer")
+      return tolgee.t("contract.disputeWon", { ns: "contract" });
+    if (disputeWinner === "seller")
+      return tolgee.t("contract.disputeLost", { ns: "contract" });
 
     if (tradeStatus === "paymentRequired") {
       if (isPaymentTooLate(contract))
-        return i18n("contract.paymentTimerHasRunOut.title");
-      return i18n("offer.requiredAction.paymentRequired");
+        return tolgee.t("contract.paymentTimerHasRunOut.title", {
+          ns: "contract",
+        });
+      return tolgee.t("offer.requiredAction.paymentRequired", { ns: "offer" });
     }
     if (tradeStatus === "confirmPaymentRequired")
-      return i18n("offer.requiredAction.waiting.seller");
+      return tolgee.t("offer.requiredAction.waiting.seller", { ns: "offer" });
     if (tradeStatus === "confirmCancelation")
-      return i18n("offer.requiredAction.confirmCancelation.buyer");
+      return tolgee.t("offer.requiredAction.confirmCancelation.buyer", {
+        ns: "offer",
+      });
   }
 
   if (view === "seller") {
-    if (disputeWinner === "seller") return i18n("contract.disputeWon");
-    if (disputeWinner === "buyer") return i18n("contract.disputeLost");
-    if (canceled) return i18n("contract.tradeCanceled");
+    if (disputeWinner === "seller")
+      return tolgee.t("contract.disputeWon", { ns: "contract" });
+    if (disputeWinner === "buyer")
+      return tolgee.t("contract.disputeLost", { ns: "contract" });
+    if (canceled) return tolgee.t("contract.tradeCanceled", { ns: "contract" });
   }
 
-  if (disputeActive) return i18n("offer.requiredAction.dispute");
+  if (disputeActive)
+    return tolgee.t("offer.requiredAction.dispute", { ns: "offer" });
   if (isPaymentTooLate(contract))
-    return i18n("contract.paymentTimerHasRunOut.title");
+    return tolgee.t("contract.paymentTimerHasRunOut.title", { ns: "contract" });
 
   if (tradeStatus === "confirmCancelation")
-    return i18n("offer.requiredAction.confirmCancelation.seller");
+    return tolgee.t("offer.requiredAction.confirmCancelation.seller", {
+      ns: "offer",
+    });
   if (tradeStatus === "paymentRequired")
-    return i18n("offer.requiredAction.waiting.buyer");
+    return tolgee.t("offer.requiredAction.waiting.buyer", { ns: "offer" });
   if (tradeStatus === "confirmPaymentRequired")
-    return i18n("offer.requiredAction.confirmPaymentRequired");
+    return tolgee.t("offer.requiredAction.confirmPaymentRequired", {
+      ns: "offer",
+    });
   return contractIdToHex(contractId);
 }

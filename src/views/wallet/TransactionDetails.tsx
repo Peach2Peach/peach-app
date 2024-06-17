@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useMemo } from "react";
 import { RefreshControl } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -6,7 +7,6 @@ import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useMultipleOfferDetails } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { getTransactionType } from "../../utils/transaction/getTransactionType";
 import { isDefined } from "../../utils/validation/isDefined";
 import { useWalletState } from "../../utils/wallet/walletStore";
@@ -23,6 +23,7 @@ export const TransactionDetails = () => {
   const localTx = useWalletState((state) => state.getTransaction(txId));
   const { data: transactionDetails } = useMappedTransactionDetails({ localTx });
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
+  const { t } = useTranslate("wallet");
   const { offers } = useMultipleOfferDetails(offerIds || []);
   const { contracts } = useContractSummaries();
 
@@ -43,7 +44,7 @@ export const TransactionDetails = () => {
     return <BitcoinLoading />;
 
   return (
-    <Screen header={i18n("wallet.transactionDetails")}>
+    <Screen header={t("wallet.transactionDetails")}>
       <PeachScrollView
         contentContainerStyle={tw`justify-center grow`}
         contentStyle={tw`gap-8`}

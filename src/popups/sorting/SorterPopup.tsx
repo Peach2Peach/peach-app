@@ -7,7 +7,7 @@ import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { NewDivider } from "../../components/ui/NewDivider";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 type Props<T> = {
   radioButtonProps: RadioButtonProps<T>;
@@ -15,11 +15,12 @@ type Props<T> = {
 };
 
 export function SorterPopup<T>({ radioButtonProps, applyAction }: Props<T>) {
+  const { t } = useTranslate("offer");
   return (
     <PopupComponent
       content={
         <View style={tw`w-full gap-4 shrink`}>
-          <NewDivider title={i18n("offer.sorting.sortMatchesBy")} />
+          <NewDivider title={t("offer.sorting.sortMatchesBy")} />
           <RadioButtons {...radioButtonProps} />
         </View>
       }

@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
@@ -7,7 +8,6 @@ import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 
 const possibleSources = [
@@ -21,6 +21,7 @@ const possibleSources = [
 ] as const;
 
 export function UserSource() {
+  const { t } = useTranslate();
   const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();
@@ -45,12 +46,12 @@ export function UserSource() {
       <View style={tw`items-center justify-center flex-1 gap-8`}>
         <View style={tw`items-center gap-2px`}>
           <PeachText style={tw`text-center h4 text-primary-background-light`}>
-            {i18n("userSource.title")}
+            {t("userSource.title")}
           </PeachText>
           <PeachText
             style={tw`text-center text-primary-background-light body-l`}
           >
-            {i18n("userSource.subtitle")}
+            {t("userSource.subtitle")}
           </PeachText>
         </View>
         <View style={tw`items-stretch gap-10px`}>
@@ -66,7 +67,7 @@ export function UserSource() {
               }
               onPress={() => submitSource(source)}
             >
-              {i18n(source)}
+              {t(source)}
             </Button>
           ))}
         </View>

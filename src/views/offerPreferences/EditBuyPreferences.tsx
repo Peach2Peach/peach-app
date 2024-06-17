@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { createContext, memo, useContext, useReducer, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -16,7 +17,6 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
-import i18n from "../../utils/i18n";
 import { interpolate } from "../../utils/math/interpolate";
 import { round } from "../../utils/math/round";
 import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
@@ -243,6 +243,7 @@ function OfferMarketInfo() {
 }
 
 function OfferMethods() {
+  const { t } = useTranslate("offerPreferences");
   const [{ meansOfPayment }] = usePreferenceContext();
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
   const backgroundColor = tw.color("success-mild-1");
@@ -254,9 +255,7 @@ function OfferMethods() {
           style={tw`self-stretch flex-1`}
         />
       ) : (
-        <Section.Title>
-          {i18n("offerPreferences.allPaymentMethods")}
-        </Section.Title>
+        <Section.Title>{t("offerPreferences.allPaymentMethods")}</Section.Title>
       )}
     </Section.Container>
   );
@@ -283,6 +282,7 @@ function AmountSelector({
 const ReputationFilter = memo(() => {
   const [{ minReputation }, dispatch] = usePreferenceContext();
   const handleToggle = () => dispatch({ type: "reputation_toggled" });
+  const { t } = useTranslate("offerPreferences");
 
   return (
     <Checkbox
@@ -291,7 +291,7 @@ const ReputationFilter = memo(() => {
       onPress={handleToggle}
       style={tw`self-stretch`}
     >
-      {i18n("offerPreferences.filters.minReputation", "4.5")}
+      {t("offerPreferences.filters.minReputation", { reputation: "4.5" })}
     </Checkbox>
   );
 });
@@ -339,10 +339,11 @@ const MaxPremiumFilter = memo(() => {
 
   const iconColor = tw.color("success-main");
 
+  const { t } = useTranslate("offerPreferences");
   return (
     <View style={tw`flex-row items-center self-stretch justify-between`}>
       <Checkbox green checked={maxPremium !== null} onPress={onCheckboxPress}>
-        {i18n("offerPreferences.filters.maxPremium")}
+        {t("offerPreferences.filters.maxPremium")}
       </Checkbox>
       <View style={tw`flex-row items-center gap-10px`}>
         <TouchableIcon

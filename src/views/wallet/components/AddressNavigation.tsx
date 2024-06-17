@@ -2,11 +2,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { View } from "react-native";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useLastUnusedAddress, useWalletAddress } from "../hooks";
 import { walletKeys } from "../hooks/useUTXOs";
 import { AddressLabelInput } from "./AddressLabelInput";
+import { useTranslate } from "@tolgee/react";
 
 function AddressLabelInputByIndex({
   index,
@@ -14,13 +14,14 @@ function AddressLabelInputByIndex({
 }: ComponentProps & { index: number }) {
   const fallback = { address: undefined, used: false, index };
   const { data: currentAddress = fallback } = useWalletAddress(index);
+  const { t } = useTranslate();
 
   return (
     <View
       style={[tw`flex-row items-center justify-center flex-1 gap-1`, style]}
     >
       <AddressLabelInput
-        address={currentAddress.address || i18n("loading")}
+        address={currentAddress.address || t("loading")}
         fallback={`address #${index}`}
       />
     </View>

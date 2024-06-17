@@ -2,6 +2,7 @@ import { Linking, View } from "react-native";
 import tw from "../../styles/tailwind";
 
 import { useMutation } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";
 import { Button } from "../../components/buttons/Button";
@@ -12,12 +13,12 @@ import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { useUserUpdate } from "../../init/useUserUpdate";
+import { tolgee } from "../../tolgee";
 import { useAccountStore } from "../../utils/account/account";
 import { createAccount } from "../../utils/account/createAccount";
 import { deleteAccount } from "../../utils/account/deleteAccount";
 import { storeAccount } from "../../utils/account/storeAccount";
 import { updateAccount } from "../../utils/account/updateAccount";
-import i18n from "../../utils/i18n";
 import { parseError } from "../../utils/parseError";
 import { peachAPI } from "../../utils/peachAPI";
 import { createRandomWallet } from "../../utils/wallet/createRandomWallet";
@@ -77,6 +78,7 @@ export const LetsGetStarted = () => {
     });
   };
 
+  const { t } = useTranslate();
   const { mutate: registerUser } = useRegisterUser();
   const userUpdate = useUserUpdate();
   const [isLoading, setIsLoading] = useState(false);
@@ -134,12 +136,12 @@ export const LetsGetStarted = () => {
         <PeachText
           style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}
         >
-          {i18n("welcome.letsGetStarted.title")}
+          {t("welcome.letsGetStarted.title", { ns: "welcome" })}
         </PeachText>
 
         <View>
           <PeachText style={tw`text-center text-primary-background-light`}>
-            {i18n("newUser.referralCode")}
+            {t("newUser.referralCode")}
           </PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
             <View style={tw`h-14`}>
@@ -147,7 +149,9 @@ export const LetsGetStarted = () => {
                 style={tw`w-40 mt-2`}
                 theme="inverted"
                 maxLength={16}
-                placeholder={i18n("form.optional").toUpperCase()}
+                placeholder={tolgee
+                  .t("form.optional", { ns: "form" })
+                  .toUpperCase()}
                 onChangeText={updateReferralCode}
                 onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
                 value={referralCode}
@@ -162,7 +166,9 @@ export const LetsGetStarted = () => {
               }
               onPress={checkReferralCode}
             >
-              {i18n(willUseReferralCode ? "referrals.used" : "referrals.use")}
+              {t(willUseReferralCode ? "referrals.used" : "referrals.use", {
+                ns: "referral",
+              })}
             </Button>
           </View>
         </View>
@@ -176,10 +182,10 @@ export const LetsGetStarted = () => {
           textColor={tw.color("primary-main")}
           iconId="plusCircle"
         >
-          {i18n("newUser")}
+          {t("newUser")}
         </Button>
         <Button onPress={goToRestoreBackup} iconId="save" ghost>
-          {i18n("restore")}
+          {t("restore")}
         </Button>
       </View>
     </View>
@@ -200,13 +206,14 @@ function useCheckReferralCode() {
 }
 
 function CreateAccountLoading() {
+  const { t } = useTranslate();
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>
-        {i18n("newUser.title.create")}
+        {t("newUser.title.create")}
       </PeachText>
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
-        {i18n("newUser.oneSec")}
+        {t("newUser.oneSec")}
       </PeachText>
       <Loading size={"large"} color={tw.color("primary-mild-1")} />
     </View>

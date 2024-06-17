@@ -1,6 +1,7 @@
 {
   "sell.discount" : "korting",
   "sell.escrow.checkingFundingStatus" : "financieringsstatus aan het controleren",
+  "sell.escrow.createEscrow" : "escrow aanmaken",
   "sell.escrow.loading" : "borg wordt aangemaakt, momentje...",
   "sell.escrow.mempool" : "Transactie is toegevoegd aan de Mempool!",
   "sell.escrow.returnAddress.subtitle" : "(in geval je een terugbetaling nodig hebt)",
@@ -11,7 +12,7 @@
   "sell.funding.mempool.title" : "transactie in behandeling",
   "sell.meansOfPayment" : "Hoe wil je betaald worden?",
   "sell.premium" : "toeslag",
-  "sell.premium.currently" : "momenteel $0",
+  "sell.premium.currently" : "momenteel {premium}",
   "sell.premium.marketPrice" : "marktprijs",
   "sell.premium.title" : "stel je toeslag / korting in",
   "sell.subtitle" : "Je verkoopt:",
@@ -19,7 +20,7 @@
   "sell.summary.title" : "verkoopaanbod overzicht",
   "sell.title" : "verkoop bitcoin",
   "sell.title.highlight" : "verkoop",
-  "warning.incorrectFunding.description" : "Je hebt je aanbieding gefinancierd met $0 transacties, wat niet is toegestaan vanwege de hoge netwerkkosten voor de koper.\n\nJe krijgt een terugbetaling.",
+  "warning.incorrectFunding.description" : "Je hebt je aanbieding gefinancierd met {utxos} transacties, wat niet is toegestaan vanwege de hoge netwerkkosten voor de koper.\n\nJe krijgt een terugbetaling.",
   "warning.incorrectFunding.title" : "Onjuiste financiering",
   "yourTrades.search.sell.subtitle" : "koop aanbod voor"
 }

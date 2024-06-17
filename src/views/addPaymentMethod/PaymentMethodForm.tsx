@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { Control, useController, useForm } from "react-hook-form";
 import { View } from "react-native";
@@ -15,7 +16,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { PAYMENTMETHODINFOS } from "../../paymentMethods";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useOfferPreferences } from "../../store/offerPreferences";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -53,6 +54,7 @@ export const PaymentMethodForm = () => {
     setValue,
   } = useForm<FormType>({ mode: "all" });
 
+  const { t } = useTranslate("global");
   const onValid = (data: FormType) => {
     const { paymentMethodName, ...rest } = data;
     const test = {
@@ -125,7 +127,7 @@ export const PaymentMethodForm = () => {
             disabled={!isValid}
             onPress={handleSubmit(onValid)}
           >
-            {i18n("confirm")}
+            {t("confirm")}
           </Button>
         </PeachScrollView>
       )}
@@ -145,6 +147,7 @@ function CurrencySelectionController({
   control: Control<FormType>;
   setValue: (name: keyof FormType, value: Currency[]) => void;
 }) {
+  const { t } = useTranslate("form");
   const { field } = useController({
     control,
     defaultValue: currencies,
@@ -152,7 +155,7 @@ function CurrencySelectionController({
     rules: {
       validate: (value: Currency[]) => {
         const isValid = value.length > 0;
-        return isValid || i18n("form.required.error");
+        return isValid || t("form.required.error");
       },
     },
   });
@@ -183,6 +186,7 @@ function hasMultipleAvailableCurrencies(paymentMethod: PaymentMethod) {
 }
 
 function PaymentMethodFormHeader() {
+  const { t } = useTranslate("paymentMethod");
   const {
     paymentData: { type: paymentMethod, id },
   } = useRoute<"paymentMethodForm">().params;
@@ -216,9 +220,10 @@ function PaymentMethodFormHeader() {
 
   return (
     <Header
-      title={i18n(
+      title={t(
         id ? "paymentMethod.edit.title" : "paymentMethod.select.title",
-        i18n(`paymentMethod.${paymentMethod}`),
+        // @ts-ignore
+        { method: t(`paymentMethod.${paymentMethod}`) },
       )}
       icons={getHeaderIcons()}
     />
@@ -226,9 +231,10 @@ function PaymentMethodFormHeader() {
 }
 
 function LNURLSwapsPopup() {
+  const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={i18n("help.lnurl.title")}
+      title={t("help.lnurl.title")}
       content={
         <ParsedPeachText
           parse={[
@@ -241,7 +247,7 @@ function LNURLSwapsPopup() {
             },
           ]}
         >
-          {i18n("help.lnurl.description")}
+          {t("help.lnurl.description")}
         </ParsedPeachText>
       }
     />

@@ -7,8 +7,6 @@
   "grouphug.announcement.text" : "Met GroupHug bundelen we borg vrijgaves voor lagere transactiekosten. Meld je aan, wacht eventjes en bespaar meer. Jij hebt de controle, je kunt op elk moment wisselen.",
   "grouphug.announcement.title" : "Het is tijd voor een groepsknuffel!",
   "grouphug.goToSettings" : "ga naar instellingen",
-  "help.payoutPending.description" : "Transacties worden in batches uitbetaald. Dit betekent dat de wachttijd is totdat de batch vol is, of de maximale wachttijd is bereikt. Dit bespaart jou tot 23% aan transactiekosten.",
-  "help.payoutPending.title" : "uitbetaling in behandeling",
   "help.transactionBatching.description" : "Escrows worden standaard uitbetaald in batches met een halfuurtarief. Je kunt dit uitschakelen, maar zorg ervoor dat je de risico's begrijpt!\nOmdat Peach hierdoor extra consolidatiekosten maakt, vragen we de gebruiker om deze te dekken. Deze worden berekend door de 30 minuten kosten te vermenigvuldigen met 41. Omdat deze vergoeding dynamisch is, zijn de gemaakte kosten dat ook, dus ze kunnen een aanzienlijk deel van het handelsbedrag worden.",
   "help.transactionBatching.title" : "uitbetalingsvergoedingen",
   "offer.requiredAction.payoutPending" : "uitbetaling in behandeling",

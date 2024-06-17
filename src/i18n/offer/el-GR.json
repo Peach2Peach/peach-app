@@ -11,6 +11,7 @@
   "offer.published.title" : "η προσφορά δημοσιεύτηκε!",
   "offer.publishing" : "δημοσίευση",
   "offer.requiredAction.confirmCancelation.buyer" : "ο πωλητής επιθυμεί ακύρωση",
+  "offer.requiredAction.confirmCancelation.seller" : "αποστολή αιτήματος ακύρωσης",
   "offer.requiredAction.confirmPaymentRequired" : "επιβεβαίωση πληρωμής",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "κερδίσατε τη διένεξη: αναμονή για αποζημίωση",
   "offer.requiredAction.dispute" : "ξεκίνησε διένεξη",
@@ -35,7 +36,7 @@
   "offer.requiredAction.releaseEscrow.dispute" : "χάσατε την διένεξη: αποδέσμευση εγγύησης",
   "offer.requiredAction.searchingForPeer" : "αναζήτηση συναλλαγών που σας ταιριάζουν",
   "offer.requiredAction.unknown" : "άγνωστο - ενημέρωσε την εφαρμογή σου!",
-  "offer.requiredAction.waiting" : "αναμονή για $0",
+  "offer.requiredAction.waiting" : "αναμονή για {who}",
   "offer.requiredAction.waiting.buyer" : "αναμονή για πληρωμή",
   "offer.requiredAction.waiting.seller" : "αναμονή για πωλητή",
   "offer.sorting.bestReputation" : "πρώτα η καλύτερη φήμη",
@@ -57,5 +58,6 @@
   "offer.summary.youAreBuying" : "θέλετε να αγοράσετε ανάμεσα σε",
   "offer.summary.youAreSelling" : "πωλείτε",
   "offer.summary.youWereSelling" : "πωλούσατε",
+  "yourTrades.newMessages" : "νέο μήνυμα συνομιλίας",
   "yourTrades.unknown" : "άγνωστο"
 }

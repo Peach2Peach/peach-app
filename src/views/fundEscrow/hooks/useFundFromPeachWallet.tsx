@@ -16,7 +16,6 @@ import { useFeeRate } from "../../../hooks/useFeeRate";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
@@ -28,6 +27,7 @@ import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
 import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
 import { ConfirmTxPopup } from "./ConfirmTxPopup";
 import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
+import { useTranslate } from "@tolgee/react";
 
 const getPropsFromFinishedTransaction = async (
   psbt: PartiallySignedTransaction,
@@ -58,6 +58,7 @@ export const useFundFromPeachWallet = () => {
   const handleTransactionError = useHandleTransactionError();
   const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate();
   const { refetch: syncPeachWallet } = useSyncWallet();
+  const { t } = useTranslate();
 
   const feeRate = useFeeRate();
   const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
@@ -130,15 +131,15 @@ export const useFundFromPeachWallet = () => {
             await getPropsFromFinishedTransaction(psbt, txDetails);
           return setPopup(
             <ConfirmTransactionPopup
-              title={i18n("fundFromPeachWallet.insufficientFunds.title")}
+              title={t("fundFromPeachWallet.insufficientFunds.title")}
               content={
                 <ConfirmTxPopup
                   amount={amountToConfirm}
                   {...{ address, fee, feeRate }}
-                  text={i18n(
+                  text={t(
                     "fundFromPeachWallet.insufficientFunds.description.1",
                   )}
-                  secondText={i18n(
+                  secondText={t(
                     "fundFromPeachWallet.insufficientFunds.description.2",
                   )}
                 />
@@ -161,10 +162,10 @@ export const useFundFromPeachWallet = () => {
       );
       return setPopup(
         <ConfirmTransactionPopup
-          title={i18n("fundFromPeachWallet.confirm.title")}
+          title={t("fundFromPeachWallet.confirm.title")}
           content={
             <ConfirmTxPopup
-              text={i18n("fundFromPeachWallet.confirm.description")}
+              text={t("fundFromPeachWallet.confirm.description")}
               amount={amountToConfirm}
               {...{ address, feeRate, fee }}
             />
@@ -184,6 +185,7 @@ export const useFundFromPeachWallet = () => {
       setPopup,
       showErrorBanner,
       syncPeachWallet,
+      t,
     ],
   );
 
@@ -197,17 +199,18 @@ function AmountTooLowPopup({
   available: number;
   needed: number;
 }) {
+  const { t } = useTranslate();
   return (
     <PopupComponent
-      title={i18n("fundFromPeachWallet.amountTooLow.title")}
+      title={t("fundFromPeachWallet.amountTooLow.title")}
       content={
         <View style={tw`gap-3`}>
           <PeachText>
-            {i18n("fundFromPeachWallet.amountTooLow.description.1")}
+            {t("fundFromPeachWallet.amountTooLow.description.1")}
           </PeachText>
           <BTCAmount amount={available} size="medium" />
           <PeachText>
-            {i18n("fundFromPeachWallet.amountTooLow.description.2")}
+            {t("fundFromPeachWallet.amountTooLow.description.2")}
           </PeachText>
           <BTCAmount amount={needed} size="medium" />
         </View>

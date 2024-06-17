@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
 import { useSetToast } from "../../toast/Toast";
+import { useTranslate } from "@tolgee/react";
 
 const colors: Record<string, "yellow"> = {
   NOT_FOUND: "yellow",
@@ -10,6 +10,7 @@ const colors: Record<string, "yellow"> = {
 
 export const useHandleError = () => {
   const setToast = useSetToast();
+  const { t } = useTranslate("error");
 
   const handleError = useCallback(
     (err: APIError | null) => {
@@ -19,15 +20,12 @@ export const useHandleError = () => {
         setToast({
           msgKey:
             msgKey ||
-            i18n(
-              "error.general",
-              ((err?.details as string[]) || []).join(", "),
-            ),
+            t("error.general", ((err?.details as string[]) || []).join(", ")),
           color: colors[err?.error] || "red",
         });
       }
     },
-    [setToast],
+    [setToast, t],
   );
 
   return handleError;

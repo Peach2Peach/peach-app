@@ -12,13 +12,13 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { getUTXOId } from "../../utils/wallet/getUTXOId";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { UTXOAddress } from "./components";
 import { useUTXOs } from "./hooks/useUTXOs";
+import { useTranslate } from "@tolgee/react";
 
 export const CoinSelection = () => {
   const storedSelection = useWalletState((state) => state.selectedUTXOIds);
@@ -58,15 +58,16 @@ type UTXOListProps = {
 
 function CoinSelectionHeader() {
   const setPopup = useSetPopup();
+  const { t } = useTranslate("wallet");
   const showHelp = () => setPopup(<HelpPopup id="coinControl" />);
   return (
     <Header
-      title={i18n("wallet.coinControl.title")}
+      title={t("wallet.coinControl.title")}
       icons={[
         {
           ...headerIcons.help,
           onPress: showHelp,
-          accessibilityHint: i18n("help"),
+          accessibilityHint: t("help", { ns: "help" }),
         },
       ]}
     />
@@ -128,6 +129,7 @@ function UTXOItem({
 
 function ConfirmButton({ selectedUTXOIds }: { selectedUTXOIds: string[] }) {
   const navigation = useStackNavigation();
+  const { t } = useTranslate("global");
   const setSelectedUTXOIds = useWalletState(
     (state) => state.setSelectedUTXOIds,
   );
@@ -138,7 +140,7 @@ function ConfirmButton({ selectedUTXOIds }: { selectedUTXOIds: string[] }) {
   };
   return (
     <Button style={tw`self-center`} onPress={onPress}>
-      {i18n("confirm")}
+      {t("confirm")}
     </Button>
   );
 }

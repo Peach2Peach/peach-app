@@ -18,7 +18,6 @@ import profile from "./profile/el-GR.json";
 import referral from "./referral/el-GR.json";
 import sell from "./sell/el-GR.json";
 import settings from "./settings/el-GR.json";
-import test from "./test/el-GR.json";
 import unassigned from "./unassigned/el-GR.json";
 import wallet from "./wallet/el-GR.json";
 import welcome from "./welcome/el-GR.json";
@@ -44,7 +43,6 @@ const el: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

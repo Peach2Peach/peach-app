@@ -9,23 +9,24 @@ import { InfoFrame } from "../../components/ui/InfoFrame";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { useIsMyAddress } from "../../hooks/wallet/useIsMyAddress";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { rules } from "../../utils/validation/rules";
+import { useTranslate } from "@tolgee/react";
 
 const addressRules = {
   bitcoinAddress: true,
 };
 
 export const AddressChecker = () => {
+  const { t } = useTranslate("wallet");
   const [address, setAddress, , errorMessage] = useValidatedState<string>(
     "",
     addressRules,
   );
 
   return (
-    <Screen header={i18n("wallet.addressChecker")}>
+    <Screen header={t("wallet.addressChecker")}>
       <View style={tw`items-center justify-center gap-16 grow`}>
-        <InfoFrame text={i18n("wallet.addressChecker.hint")} />
+        <InfoFrame text={t("wallet.addressChecker.hint")} />
         <BitcoinAddressInput
           value={address}
           onChangeText={setAddress}
@@ -39,6 +40,7 @@ export const AddressChecker = () => {
 
 function AddressInfo({ address }: { address: string }) {
   const isMine = useIsMyAddress(address);
+  const { t } = useTranslate("wallet");
 
   return (
     <View>
@@ -50,7 +52,7 @@ function AddressInfo({ address }: { address: string }) {
         )
       ) : (
         <TradeInfo
-          text={i18n(
+          text={t(
             isMine
               ? "wallet.addressChecker.belongsToWallet"
               : "wallet.addressChecker.doesNotbelongToWallet",

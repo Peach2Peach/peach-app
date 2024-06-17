@@ -2,12 +2,12 @@ import { Fragment } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { InfoPopup } from "../../../popups/InfoPopup";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { badges } from "../../../views/settings/profile/profileOverview/badges";
 import { Badge, RepeatTraderBadge } from "../../Badge";
 import { Icon } from "../../Icon";
 import { useSetPopup } from "../../popup/GlobalPopup";
 import { PeachText } from "../../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 export function Badges({
   unlockedBadges,
@@ -37,9 +37,10 @@ export function Badges({
 }
 
 function MyBadgesPopup() {
+  const { t } = useTranslate();
   return (
     <InfoPopup
-      title={i18n("peachBadges")}
+      title={t("peachBadges")}
       content={
         <>
           {badges.map(([icon, value], index) => (
@@ -55,10 +56,10 @@ function MyBadgesPopup() {
                   />
                 </View>
                 <PeachText style={tw`ml-1 subtitle-1`}>
-                  {i18n(`peachBadges.${value}`)}
+                  {t(`peachBadges.${value}`)}
                 </PeachText>
               </View>
-              <PeachText>{i18n(`peachBadges.${value}.description`)}</PeachText>
+              <PeachText>{t(`peachBadges.${value}.description`)}</PeachText>
             </Fragment>
           ))}
         </>

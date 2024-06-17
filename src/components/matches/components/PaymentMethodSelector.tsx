@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { keys } from "../../../utils/object/keys";
 import { getPaymentMethods } from "../../../utils/paymentMethod/getPaymentMethods";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
@@ -45,13 +45,15 @@ export function PaymentMethodSelector({
     paymentMethodAllowedForCurrency(p, selectedCurrency),
   );
   const { data: meetupEvents } = useMeetupEvents();
+  const { t } = useTranslate("paymentMethod");
   const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
     if (isCashTrade(paymentMethod)) {
       const eventId = paymentMethod.replace("cash.", "");
       const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
       return meetupEvent?.shortName ?? eventId;
     }
-    return i18n(`paymentMethod.${paymentMethod}`);
+    // @ts-ignore
+    return t(`paymentMethod.${paymentMethod}`);
   };
   const items = availablePaymentMethods.map((p) => ({
     value: p,
@@ -81,7 +83,7 @@ export function PaymentMethodSelector({
       pointerEvents={disabled ? "none" : "auto"}
     >
       <PulsingText style={tw`self-center`} showPulse={showPaymentMethodPulse}>
-        {i18n("form.paymentMethod")}
+        {t("form.paymentMethod", { ns: "form" })}
       </PulsingText>
 
       <View style={tw`gap-3 pb-2`}>
@@ -180,6 +182,7 @@ function PayementMethodBubble({
   const getAllPaymentDataByType = usePaymentDataStore(
     (state) => state.getAllPaymentDataByType,
   );
+  const { t } = useTranslate("paymentMethod");
   const paymentDataForType = getAllPaymentDataByType(paymentMethod);
   const hasPaymentData = paymentDataForType.length > 0;
   const hasMultiplePaymentData = paymentDataForType.length > 1;
@@ -198,14 +201,15 @@ function PayementMethodBubble({
       const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
       return meetupEvent?.shortName ?? eventId;
     }
-    return i18n(`paymentMethod.${methodType}`);
+    // @ts-ignore
+    return t(`paymentMethod.${methodType}`);
   };
   const onPressBubble = () => {
     if (onPress) {
       if (hasPaymentData) {
         if (hasMultiplePaymentData) {
           updateDrawer({
-            title: i18n("selectPaymentMethod.title"),
+            title: t("selectPaymentMethod.title"),
             options: paymentDataForType.map((p, index) => ({
               title: getPaymentMethodName(p.type),
               onPress: () => {
@@ -233,7 +237,8 @@ function PayementMethodBubble({
         navigation.navigate("paymentMethodForm", {
           paymentData: {
             type: paymentMethod,
-            label: i18n(`paymentMethod.${paymentMethod}`),
+            // @ts-ignore
+            label: t(`paymentMethod.${paymentMethod}`),
             currencies: [selectedCurrency],
             country,
           },

@@ -4,19 +4,20 @@ import { FIFTEEN_SECONDS } from "../constants";
 import { useRefundSellOffer } from "../hooks/useRefundSellOffer";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
-import i18n from "../utils/i18n";
 import { peachAPI } from "../utils/peachAPI";
 import { LoadingPopup } from "./LoadingPopup";
+import { useTranslate } from "@tolgee/react";
 
 export const useStartRefundPopup = () => {
   const { mutate: refundSellOffer } = useRefundSellOffer();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const showError = useShowErrorBanner();
+  const { t } = useTranslate();
 
   const startRefundPopup = useCallback(
     async (sellOffer: SellOffer) => {
-      setPopup(<LoadingPopup title={i18n("refund.loading.title")} />);
+      setPopup(<LoadingPopup title={t("refund.loading.title")} />);
 
       const { result: refundPsbtResult, error: refundPsbtError } =
         await peachAPI.private.offer.getRefundPSBT({
@@ -30,7 +31,7 @@ export const useStartRefundPopup = () => {
         closePopup();
       }
     },
-    [closePopup, refundSellOffer, setPopup, showError],
+    [closePopup, refundSellOffer, setPopup, showError, t],
   );
 
   return startRefundPopup;

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Header } from "../../components/Header";
@@ -11,13 +12,13 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
+import { estimatedFeeRates } from "../../constants";
 import { useHandleTransactionError } from "../../hooks/error/useHandleTransactionError";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
 import { removeNonDigits } from "../../utils/format/removeNonDigits";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { rules } from "../../utils/validation/rules";
 import { peachWallet } from "../../utils/wallet/setWallet";
@@ -41,6 +42,7 @@ export const SendBitcoin = () => {
   const setPopup = useSetPopup();
 
   const { selectedUTXOs } = useUTXOs();
+  const { t } = useTranslate("wallet");
 
   const maxAmount = selectedUTXOs.length
     ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
@@ -84,16 +86,16 @@ export const SendBitcoin = () => {
     <Screen header={<SendBitcoinHeader />}>
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
-          <Section title={i18n("wallet.sendBitcoin.to")}>
+          <Section title={t("wallet.sendBitcoin.to")}>
             <BitcoinAddressInput value={address} onChangeText={setAddress} />
           </Section>
 
           <HorizontalLine />
 
           <Section
-            title={i18n("wallet.sendBitcoin.amount")}
+            title={t("wallet.sendBitcoin.amount")}
             action={{
-              label: i18n("wallet.sendBitcoin.sendMax"),
+              label: t("wallet.sendBitcoin.sendMax"),
               onPress: () => {
                 setShouldDrainWallet(true);
                 setAmount(maxAmount);
@@ -114,7 +116,7 @@ export const SendBitcoin = () => {
 
           <HorizontalLine />
 
-          <Section title={i18n("wallet.sendBitcoin.fee")}>
+          <Section title={t("wallet.sendBitcoin.fee")}>
             <Fees updateFee={setFee} />
           </Section>
 
@@ -137,11 +139,12 @@ function SendBitcoinSlider({
   onConfirm: () => void;
   isFormValid: boolean;
 }) {
+  const { t } = useTranslate("wallet");
   const { isPending } = useSyncWallet({ enabled: true });
 
   return (
     <ConfirmSlider
-      label1={i18n("wallet.sendBitcoin.send")}
+      label1={t("wallet.sendBitcoin.send")}
       onConfirm={onConfirm}
       enabled={isFormValid && !isPending}
     />
@@ -172,15 +175,13 @@ function Section({ title, action, children }: SectionProps) {
   );
 }
 
-const feeRates = ["fastestFee", "halfHourFee", "hourFee", "custom"] as const;
-
 function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
   const [selectedFeeRate, setSelectedFeeRate] =
-    useState<(typeof feeRates)[number]>("fastestFee");
+    useState<(typeof estimatedFeeRates)[number]>("fastestFee");
   const [customFeeRate, setCustomFeeRate] = useState("");
   const { estimatedFees } = useFeeEstimate();
 
-  const onFeeRateChange = (feeRate: (typeof feeRates)[number]) => {
+  const onFeeRateChange = (feeRate: (typeof estimatedFeeRates)[number]) => {
     updateFee(
       feeRate === "custom"
         ? customFeeRate === ""
@@ -195,12 +196,12 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
     updateFee(feeRate === "" ? undefined : Number(feeRate));
   };
 
-  const onButtonPress = (feeRate: (typeof feeRates)[number]) => {
+  const onButtonPress = (feeRate: (typeof estimatedFeeRates)[number]) => {
     setSelectedFeeRate(feeRate);
     onFeeRateChange(feeRate);
   };
 
-  const options = feeRates.map((feeRate) => ({
+  const options = estimatedFeeRates.map((feeRate) => ({
     value: feeRate,
     display:
       feeRate === "custom" ? (
@@ -230,19 +231,21 @@ function SendBitcoinHeader() {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<WithdrawingFundsPopup />);
   const navigation = useStackNavigation();
+  const { t } = useTranslate("wallet");
+
   return (
     <Header
-      title={i18n("wallet.sendBitcoin.title")}
+      title={t("wallet.sendBitcoin.title")}
       icons={[
         {
           ...headerIcons.listFlipped,
           onPress: () => navigation.navigate("coinSelection"),
-          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.coinControl.title")}`,
+          accessibilityHint: `${t("goTo", { ns: "global" })} ${t("wallet.coinControl.title")}`,
         },
         {
           ...headerIcons.help,
           onPress: showHelp,
-          accessibilityHint: i18n("help"),
+          accessibilityHint: t("help", { ns: "help" }),
         },
       ]}
     />
@@ -250,20 +253,22 @@ function SendBitcoinHeader() {
 }
 
 function WithdrawingFundsPopup() {
+  const { t } = useTranslate("wallet");
+
   return (
     <InfoPopup
-      title={i18n("wallet.withdraw.help.title")}
+      title={t("wallet.withdraw.help.title")}
       content={
         <ParsedPeachText
           parse={[
             {
-              pattern: new RegExp(i18n("wallet.withdraw.help.text.link"), "u"),
+              pattern: new RegExp(t("wallet.withdraw.help.text.link"), "u"),
               style: tw`underline`,
               onPress: goToShiftCrypto,
             },
           ]}
         >
-          {i18n("wallet.withdraw.help.text")}
+          {t("wallet.withdraw.help.text")}
         </ParsedPeachText>
       }
     />
@@ -271,13 +276,14 @@ function WithdrawingFundsPopup() {
 }
 
 function SelectedUTXOs() {
+  const { t } = useTranslate("wallet");
   const { selectedUTXOs } = useUTXOs();
   if (selectedUTXOs.length === 0) return null;
 
   return (
     <>
       <HorizontalLine />
-      <Section title={i18n("wallet.sendBitcoin.sendingFrom.coins")}>
+      <Section title={t("wallet.sendBitcoin.sendingFrom.coins")}>
         <View style={tw`px-10px`}>
           {selectedUTXOs.map(({ txout: { script } }) => (
             <UTXOAddress key={script.id} script={script} />

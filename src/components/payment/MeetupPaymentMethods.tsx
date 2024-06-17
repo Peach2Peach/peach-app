@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { Icon } from "../Icon";
@@ -9,6 +8,7 @@ import { PeachText } from "../text/PeachText";
 import { LinedText } from "../ui/LinedText";
 import { PaymentDetailsCheckbox } from "./PaymentDetailsCheckbox";
 import { PaymentDataKeyFacts } from "./components/PaymentDataKeyFacts";
+import { useTranslate } from "@tolgee/react";
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
@@ -33,13 +33,14 @@ export const MeetupPaymentMethods = ({
   const paymentData = usePaymentDataStore((state) =>
     state.getPaymentDataArray(),
   );
+  const { t } = useTranslate("paymentMethod");
 
   return (
     <>
       {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (
         <LinedText style={tw`pb-3`}>
           <PeachText style={tw`mr-1 h6 text-black-65`}>
-            {i18n("paymentSection.meetups")}
+            {t("paymentSection.meetups")}
           </PeachText>
           <Icon color={tw.color("black-65")} id={"users"} />
         </LinedText>

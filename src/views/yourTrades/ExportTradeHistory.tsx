@@ -12,15 +12,16 @@ import { sortByKey } from "../../utils/array/sortByKey";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
 import { createCSV } from "../../utils/file/createCSV";
-import i18n from "../../utils/i18n";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { groupChars } from "../../utils/string/groupChars";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { getThemeForTradeItem } from "./utils/getThemeForTradeItem";
 import { isContractSummary } from "./utils/isContractSummary";
+import { useTranslate } from "@tolgee/react";
 
 export function ExportTradeHistory() {
   const { summaries } = useTradeSummaries();
+  const { t } = useTranslate();
 
   const onPress = async () => {
     const csvValue = createCSVValue(
@@ -30,20 +31,20 @@ export function ExportTradeHistory() {
   };
 
   return (
-    <Screen header={i18n("exportTradeHistory.title")}>
+    <Screen header={t("exportTradeHistory.title")}>
       <View style={tw`justify-center gap-8 grow`}>
         <PeachText style={tw`body-l`}>
-          {`${i18n("exportTradeHistory.description")}
+          {`${t("exportTradeHistory.description")}
 
-  • ${i18n("exportTradeHistory.date")}
-  • ${i18n("exportTradeHistory.tradeID")}
-  • ${i18n("exportTradeHistory.type")}
-  • ${i18n("exportTradeHistory.amount")}
-  • ${i18n("exportTradeHistory.price")}`}
+  • ${t("exportTradeHistory.date")}
+  • ${t("exportTradeHistory.tradeID")}
+  • ${t("exportTradeHistory.type")}
+  • ${t("exportTradeHistory.amount")}
+  • ${t("exportTradeHistory.price")}`}
         </PeachText>
       </View>
       <Button style={tw`self-center`} onPress={onPress}>
-        {i18n("exportTradeHistory.export")}
+        {t("exportTradeHistory.export")}
       </Button>
     </Screen>
   );

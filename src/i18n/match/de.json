@@ -1,5 +1,5 @@
 {
-  "match.feeWarning" : "Sie zahlen bis zu $0% an Mining-Gebühren!",
+  "match.feeWarning" : "Sie zahlen bis zu {percent}% an Mining-Gebühren!",
   "match.tradeRequested" : "Handel angefordert",
   "match.waitingForSeller" : "Warten auf Verkäufer"
 }

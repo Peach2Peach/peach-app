@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
@@ -31,10 +32,9 @@ import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
-import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useOfferPreferences } from "../../store/offerPreferences";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
@@ -130,6 +130,7 @@ function usePastOffersStats({
 
 function CompetingOfferStats() {
   const text = tw`text-center text-primary-main subtitle-2`;
+  const { t } = useTranslate("offerPreferences");
 
   const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment);
   const { data: pastOfferData } = usePastOffersStats({ meansOfPayment });
@@ -141,16 +142,14 @@ function CompetingOfferStats() {
   return (
     <Section.Container style={tw`gap-1 py-0`}>
       <PeachText style={text}>
-        {i18n(
-          "offerPreferences.competingSellOffers",
-          String(marketStats.offersWithinRange.length),
-        )}
+        {t("offerPreferences.competingSellOffers", {
+          offers: String(marketStats.offersWithinRange.length),
+        })}
       </PeachText>
       <PeachText style={text}>
-        {i18n(
-          "offerPreferences.premiumOfCompletedTrades",
-          String(pastOfferData?.avgPremium),
-        )}
+        {t("offerPreferences.premiumOfCompletedTrades", {
+          premium: String(pastOfferData?.avgPremium),
+        })}
       </PeachText>
     </Section.Container>
   );
@@ -194,9 +193,10 @@ function AmountSelectorContainer({
   slider?: JSX.Element;
   inputs?: JSX.Element;
 }) {
+  const { t } = useTranslate("offerPreferences");
   return (
     <Section.Container style={tw`bg-primary-background-dark`}>
-      <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
+      <Section.Title>{t("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
@@ -212,6 +212,7 @@ const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, ".");
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, "");
 const MIN_PREMIUM_INCREMENT = 0.01;
 function Premium() {
+  const { t } = useTranslate("offerPreferences");
   const preferences = useOfferPreferences(
     (state) => ({
       maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
@@ -225,10 +226,9 @@ function Premium() {
       <PremiumInputComponent />
       <CurrentPrice />
       <PeachText style={tw`text-center text-primary-main subtitle-2`}>
-        {i18n(
-          "offerPreferences.competingSellOffersBelowThisPremium",
-          String(data.offersWithinRange.length),
-        )}
+        {t("offerPreferences.competingSellOffersBelowThisPremium", {
+          offers: String(data.offersWithinRange.length),
+        })}
       </PeachText>
     </View>
   );
@@ -245,6 +245,7 @@ function PremiumInputComponent() {
 }
 
 function CurrentPrice() {
+  const { t } = useTranslate("offerPreferences");
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const [amount, premium] = useOfferPreferences(
     (state) => [state.sellAmount, state.premium],
@@ -258,10 +259,9 @@ function CurrentPrice() {
 
   return (
     <PeachText style={tw`text-center body-s`}>
-      {
-        (i18n("offerPreferences.currentPrice"),
-        `${priceWithPremium} ${displayCurrency}`)
-      }
+      {t("offerPreferences.currentPrice", {
+        price: `${priceWithPremium} ${displayCurrency}`,
+      })}
     </PeachText>
   );
 }
@@ -347,6 +347,7 @@ function SatsInput() {
 }
 
 function FiatInput() {
+  const { t } = useTranslate("offerPreferences");
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.sellAmount,
     state.setSellAmount,
@@ -396,10 +397,8 @@ function FiatInput() {
         onEndEditing={onEndEditing}
         keyboardType="decimal-pad"
       />
-      <PeachText style={tw.style(textStyle)}>
-        {" "}
-        {i18n(displayCurrency)}
-      </PeachText>
+      {/** @ts-ignore */}
+      <PeachText style={tw.style(textStyle)}> {t(displayCurrency)}</PeachText>
     </View>
   );
 }
@@ -421,6 +420,7 @@ function FundMultipleOffersContainer() {
 }
 
 function InstantTrade() {
+  const { t } = useTranslate("offerPreferences");
   const [
     enableInstantTrade,
     toggle,
@@ -464,7 +464,7 @@ function InstantTrade() {
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>
-          {i18n("offerPreferences.feature.instantTrade")}
+          {t("offerPreferences.feature.instantTrade")}
         </Section.Title>
         <TouchableIcon
           id="helpCircle"
@@ -479,14 +479,14 @@ function InstantTrade() {
             style={tw`self-stretch`}
             onPress={toggleMinTrades}
           >
-            {i18n("offerPreferences.filters.noNewUsers")}
+            {t("offerPreferences.filters.noNewUsers")}
           </Checkbox>
           <Checkbox
             checked={criteria.minReputation !== 0}
             style={tw`self-stretch`}
             onPress={toggleMinReputation}
           >
-            {i18n("offerPreferences.filters.minReputation", "4.5")}
+            {t("offerPreferences.filters.minReputation", { reputation: "4.5" })}
           </Checkbox>
           <View style={tw`flex-row items-start self-stretch gap-10px`}>
             <TouchableOpacity onPress={() => toggleBadge("fastTrader")}>
@@ -514,6 +514,7 @@ function FundWithPeachWallet() {
     shallow,
   );
   const toggle = () => setFundWithPeachWallet(!fundWithPeachWallet);
+  const { t } = useTranslate("offerPreferences");
   const { user } = useSelfUser();
   const feeRate = user?.feeRate || "halfHourFee";
   const feeEstimate = useFeeEstimate();
@@ -528,7 +529,9 @@ function FundWithPeachWallet() {
         onPress={toggle}
         style={tw`flex-1`}
       >
-        {i18n("offerPreferences.fundWithPeachWallet", String(estimatedFeeRate))}
+        {t("offerPreferences.fundWithPeachWallet", {
+          feeRate: String(estimatedFeeRate),
+        })}
       </Checkbox>
       <TouchableIcon id="bitcoin" onPress={onPress} />
     </Section.Container>
@@ -536,6 +539,7 @@ function FundWithPeachWallet() {
 }
 
 function FundEscrowButton() {
+  const { t } = useTranslate("offerPreferences");
   const amountRange = useTradingAmountLimits("sell");
   const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
     (state) => [
@@ -760,7 +764,7 @@ function FundEscrowButton() {
       onPress={onPress}
       loading={isPublishing}
     >
-      {i18n("offerPreferences.fundEscrow")}
+      {t("offerPreferences.fundEscrow")}
     </Button>
   );
 }
@@ -781,6 +785,7 @@ function RefundWalletSelector() {
     shallow,
   );
   const navigation = useStackNavigation();
+  const { t } = useTranslate("offerPreferences");
 
   const onExternalWalletPress = () => {
     if (refundAddress) {
@@ -794,7 +799,7 @@ function RefundWalletSelector() {
 
   return (
     <WalletSelector
-      title={i18n("offerPreferences.refundTo")}
+      title={t("offerPreferences.refundTo")}
       backgroundColor={tw.color("primary-background-dark")}
       bubbleColor="orange"
       peachWalletActive={refundToPeachWallet}
@@ -808,13 +813,14 @@ function RefundWalletSelector() {
 
 function SellHeader() {
   const setPopup = useSetPopup();
+  const { t } = useTranslate();
   const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
   return (
     <Header
       titleComponent={
         <>
           <PeachText style={tw`h7 md:h6 text-primary-main`}>
-            {i18n("sell")}
+            {t("sell")}
           </PeachText>
           <LogoIcons.bitcoinText
             style={tw`h-14px md:h-16px w-63px md:w-71px`}

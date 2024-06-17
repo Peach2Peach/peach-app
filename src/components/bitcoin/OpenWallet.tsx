@@ -2,9 +2,9 @@ import { TouchableOpacity } from "react-native";
 import "react-native-url-polyfill/auto";
 import tw from "../../styles/tailwind";
 import { openInWallet } from "../../utils/bitcoin/openInWallet";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 type OpenWalletProps = ComponentProps & {
   address?: string;
@@ -12,6 +12,7 @@ type OpenWalletProps = ComponentProps & {
 
 export const OpenWallet = ({ address, style }: OpenWalletProps) => {
   const openWalletApp = () => openInWallet(`bitcoin:${address ?? ""}`);
+  const { t } = useTranslate("wallet");
 
   return (
     <TouchableOpacity
@@ -19,7 +20,7 @@ export const OpenWallet = ({ address, style }: OpenWalletProps) => {
       onPress={openWalletApp}
     >
       <PeachText style={tw`underline uppercase button-medium text-black-65`}>
-        {i18n("wallet.openWalletApp")}
+        {t("wallet.openWalletApp")}
       </PeachText>
       <Icon
         id="externalLink"

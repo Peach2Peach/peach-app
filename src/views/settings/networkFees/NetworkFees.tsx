@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../../components/Header";
@@ -14,7 +15,6 @@ import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useValidatedState } from "../../../hooks/useValidatedState";
 import { InfoPopup } from "../../../popups/InfoPopup";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { useUpdateUser } from "../../../utils/peachAPI/useUpdateUser";
 import { CustomFeeItem } from "../components/networkFees/CustomFeeItem";
@@ -33,6 +33,7 @@ const customFeeRules = {
 };
 
 export const NetworkFees = () => {
+  const { t } = useTranslate("settings");
   const { estimatedFees } = useFeeEstimate();
   const { user } = useSelfUser();
   const feeRate = user?.feeRate;
@@ -96,7 +97,7 @@ export const NetworkFees = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
         {user?.isBatchingEnabled && (
           <PeachText style={tw`py-2 text-center text-black-65`}>
-            {i18n("settings.networkFees.payoutInfo")}
+            {t("settings.networkFees.payoutInfo")}
           </PeachText>
         )}
         <RadioButtons
@@ -106,13 +107,12 @@ export const NetworkFees = () => {
         />
         <HorizontalLine style={tw`mt-8`} />
         <PeachText style={tw`mt-4 text-center text-black-65`}>
-          {i18n("settings.networkFees.averageFees")}
+          {t("settings.networkFees.averageFees")}
         </PeachText>
         <PeachText style={tw`text-center subtitle-1`}>
-          {i18n(
-            "settings.networkFees.xSatsPerByte",
-            estimatedFees.economyFee.toString(),
-          )}
+          {t("settings.networkFees.xSatsPerByte", {
+            fees: estimatedFees.economyFee.toString(),
+          })}
         </PeachText>
       </PeachScrollView>
       <Button
@@ -120,31 +120,39 @@ export const NetworkFees = () => {
         disabled={!isValid || feeRateSet}
         style={tw`self-center min-w-52`}
       >
-        {i18n(feeRateSet ? "settings.networkFees.feeRateSet" : "confirm")}
+        {t(
+          feeRateSet
+            ? { key: "settings.networkFees.feeRateSet", ns: "settings" }
+            : { key: "confirm", ns: "global" },
+        )}
       </Button>
     </Screen>
   );
 };
 
 function NetworkFeesHeader() {
+  const { t } = useTranslate("settings");
+
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<NetworkFeesPopup />);
   return (
     <Header
-      title={i18n("settings.networkFees")}
+      title={t("settings.networkFees")}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );
 }
 
 function NetworkFeesPopup() {
+  const { t } = useTranslate("help");
+
   return (
     <InfoPopup
-      title={i18n("help.networkFees.title")}
+      title={t("help.networkFees.title")}
       content={
         <View style={tw`gap-2`}>
-          <PeachText>{i18n("help.networkFees.description.1")}</PeachText>
-          <PeachText>{i18n("help.networkFees.description.2")}</PeachText>
+          <PeachText>{t("help.networkFees.description.1")}</PeachText>
+          <PeachText>{t("help.networkFees.description.2")}</PeachText>
         </View>
       }
     />

@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -20,7 +21,6 @@ import { useConfigStore } from "../../store/configStore/configStore";
 import tw from "../../styles/tailwind";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { thousands } from "../../utils/string/thousands";
 import { getNavigationDestinationForOffer } from "../yourTrades/utils/navigation/getNavigationDestinationForOffer";
@@ -32,6 +32,7 @@ export function NewOfferButton() {
   const { offer } = useOfferDetail(
     contract ? getOfferIdFromContract(contract) : "",
   );
+  const { t } = useTranslate("contract");
   const newOfferId =
     !!offer && "newOfferId" in offer ? offer?.newOfferId : undefined;
   const goToNewOffer = useCallback(async () => {
@@ -48,20 +49,20 @@ export function NewOfferButton() {
     }
   }, [newOfferId, navigation]);
 
-  return (
-    <Button onPress={goToNewOffer}>{i18n("contract.goToNewTrade")}</Button>
-  );
+  return <Button onPress={goToNewOffer}>{t("contract.goToNewTrade")}</Button>;
 }
 
 export function PayoutPendingButton() {
   const { showBatchInfo, toggleShowBatchInfo } = useContractContext();
+  const { t } = useTranslate("contract");
 
   return (
     <Button style={tw`self-center`} iconId="eye" onPress={toggleShowBatchInfo}>
-      {i18n(
+      {t(
         showBatchInfo
           ? "contract.summary.tradeDetails"
           : "offer.requiredAction.payoutPending",
+        { ns: showBatchInfo ? "contract" : "batching" },
       )}
     </Button>
   );
@@ -69,12 +70,13 @@ export function PayoutPendingButton() {
 export function ProvideEmailButton() {
   const setPopup = useSetPopup();
   const { contract, view } = useContractContext();
+  const { t } = useTranslate("contract");
   const onPress = () =>
     setPopup(<DisputeRaisedPopup contract={contract} view={view} />);
 
   return (
     <Button style={tw`bg-error-main`} onPress={onPress} iconId="alertCircle">
-      {i18n("contract.provideEmail")}
+      {t("contract.provideEmail")}
     </Button>
   );
 }
@@ -86,6 +88,7 @@ function DisputeRaisedPopup({
   contract: Contract;
   view: ContractViewer;
 }) {
+  const { t } = useTranslate();
   const { id, disputeReason, amount } = contract;
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement();
   const [email, setEmail, , emailErrors] = useValidatedState<string>(
@@ -101,19 +104,21 @@ function DisputeRaisedPopup({
   };
   return (
     <ErrorPopup
-      title={i18n("dispute.opened")}
+      title={t("dispute.opened", { ns: "contract" })}
       content={
         <View style={tw`gap-4`}>
           <PeachText>
-            {i18n(
-              `dispute.opened.counterparty.text.1.withEmail.${view}`,
-              contractIdToHex(id),
-              thousands(amount),
-            )}
+            {t(`dispute.opened.counterparty.text.1.withEmail.${view}`, {
+              ns: "contract",
+              contractHexId: contractIdToHex(id),
+              disputeAmount: thousands(amount),
+            })}
           </PeachText>
 
           <PeachText>
-            {i18n("dispute.opened.counterparty.text.2.withEmail")}
+            {t("dispute.opened.counterparty.text.2.withEmail", {
+              ns: "contract",
+            })}
           </PeachText>
 
           <View>
@@ -131,7 +136,7 @@ function DisputeRaisedPopup({
         <>
           <ClosePopupAction />
           <LoadingPopupAction
-            label={i18n("send")}
+            label={t("send")}
             iconId="arrowRightCircle"
             disabled={emailErrors.length > 0}
             onPress={submit}
@@ -153,6 +158,7 @@ export function ChatButton() {
     () => setPopup(<DisputeDisclaimerPopup />),
     [setPopup],
   );
+  const { t } = useTranslate("chat");
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
     (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
     shallow,
@@ -183,29 +189,30 @@ export function ChatButton() {
       onPress={goToChat}
     >
       {unreadMessages === 0
-        ? i18n("chat")
-        : `${unreadMessages} ${i18n("contract.unread")}`}
+        ? t("chat")
+        : `${unreadMessages} ${t({ key: "contract.unread", ns: "contract" })}`}
     </Button>
   );
 }
 
 function DisputeDisclaimerPopup() {
+  const { t } = useTranslate("chat");
   return (
     <InfoPopup
-      title={i18n("trade.chat")}
+      title={t("trade.chat")}
       content={
         <PeachText>
-          {i18n("chat.disputeDisclaimer.1")}
+          {t("chat.disputeDisclaimer.1")}
           {"\n\n"}
-          {i18n("chat.disputeDisclaimer.2")}
+          {t("chat.disputeDisclaimer.2")}
 
           <PeachText style={tw`underline`}>
-            {i18n("chat.disputeDisclaimer.3")}
+            {t("chat.disputeDisclaimer.3")}
           </PeachText>
 
-          {i18n("chat.disputeDisclaimer.4")}
+          {t("chat.disputeDisclaimer.4")}
           {"\n\n"}
-          {i18n("chat.disputeDisclaimer.5")}
+          {t("chat.disputeDisclaimer.5")}
         </PeachText>
       }
     />

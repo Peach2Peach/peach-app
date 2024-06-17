@@ -13,10 +13,11 @@ import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { storeAccount } from "../../utils/account/storeAccount";
 import { updateAccount } from "../../utils/account/updateAccount";
-import i18n from "../../utils/i18n";
 import { LOGIN_DELAY } from "./LOGIN_DELAY";
+import { useTranslate } from "@tolgee/react";
 
 export const RestoreReputation = () => {
+  const { t } = useTranslate();
   const route = useRoute<"restoreReputation">();
   const [isRestored, setIsRestored] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,7 @@ export const RestoreReputation = () => {
     <Screen
       header={
         <Header
-          title={i18n("restoreBackup.restoreReputation")}
+          title={t("restoreBackup.restoreReputation")}
           theme="transparent"
           hideGoBackButton={isLoading || isRestored}
         />
@@ -56,7 +57,7 @@ export const RestoreReputation = () => {
         <View style={tw`justify-between grow`}>
           <View style={tw`items-center justify-center grow`}>
             <PeachText style={tw`subtitle-1 text-primary-background-light`}>
-              {i18n("restoreBackup.dontWorry")}
+              {t("restoreBackup.dontWorry")}
             </PeachText>
           </View>
 
@@ -65,7 +66,7 @@ export const RestoreReputation = () => {
             textColor={tw.color("primary-main")}
             onPress={restoreReputation}
           >
-            {i18n("restoreBackup.restoreReputation")}
+            {t("restoreBackup.restoreReputation")}
           </Button>
         </View>
       )}
@@ -74,13 +75,14 @@ export const RestoreReputation = () => {
 };
 
 function RestoreReputationLoading() {
+  const { t } = useTranslate();
   return (
     <View style={tw`items-center justify-center grow`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>
-        {i18n("restoreBackup.restoringReputation")}
+        {t("restoreBackup.restoringReputation")}
       </PeachText>
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
-        {i18n("newUser.oneSec")}
+        {t("newUser.oneSec")}
       </PeachText>
       <Loading size="large" color={tw.color("primary-mild-1")} />
     </View>
@@ -88,13 +90,14 @@ function RestoreReputationLoading() {
 }
 
 function ReputationRestored() {
+  const { t } = useTranslate();
   return (
     <View style={tw`items-center justify-center h-full`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>
-        {i18n("restoreBackup.reputationRestored")}
+        {t("restoreBackup.reputationRestored")}
       </PeachText>
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
-        {i18n("restoreBackup.welcomeBack")}
+        {t("restoreBackup.welcomeBack")}
       </PeachText>
       <Icon
         id="save"

@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
@@ -8,7 +9,6 @@ import { InfoPopup } from "../../../popups/InfoPopup";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
-import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
@@ -33,14 +33,13 @@ export function usePostBuyOffer({
   BuyOfferDraft,
   "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
 >) {
+  const { t } = useTranslate("error");
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
   const showHelp = () =>
-    setPopup(
-      <InfoPopup content={i18n("FORBIDDEN_PAYMENT_METHOD.paypal.text")} />,
-    );
+    setPopup(<InfoPopup content={t("FORBIDDEN_PAYMENT_METHOD.paypal.text")} />);
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
     useSettingsStore(
