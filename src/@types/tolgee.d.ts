@@ -20,7 +20,6 @@ import type profile from "../i18n/profile/en.json";
 import type referral from "../i18n/referral/en.json";
 import type sell from "../i18n/sell/en.json";
 import type settings from "../i18n/settings/en.json";
-import type test from "../i18n/test/en.json";
 import type unassigned from "../i18n/unassigned/en.json";
 import type wallet from "../i18n/wallet/en.json";
 import type welcome from "../i18n/welcome/en.json";
@@ -46,7 +45,6 @@ declare module "@tolgee/core/lib/types" {
     typeof referral &
     typeof sell &
     typeof settings &
-    typeof test &
     typeof unassigned &
     typeof wallet &
     typeof welcome;

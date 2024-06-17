@@ -18,7 +18,6 @@ import profile from "./profile/ru.json";
 import referral from "./referral/ru.json";
 import sell from "./sell/ru.json";
 import settings from "./settings/ru.json";
-import test from "./test/ru.json";
 import unassigned from "./unassigned/ru.json";
 import wallet from "./wallet/ru.json";
 import welcome from "./welcome/ru.json";
@@ -44,7 +43,6 @@ const ru: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

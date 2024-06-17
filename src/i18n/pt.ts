@@ -17,7 +17,6 @@ import profile from "./profile/pt.json";
 import referral from "./referral/pt.json";
 import sell from "./sell/pt.json";
 import settings from "./settings/pt.json";
-import test from "./test/pt.json";
 import unassigned from "./unassigned/pt.json";
 import wallet from "./wallet/pt.json";
 import welcome from "./welcome/pt.json";
@@ -42,7 +41,6 @@ const pt: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

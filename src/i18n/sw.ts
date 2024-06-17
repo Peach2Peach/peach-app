@@ -18,7 +18,6 @@ import profile from "./profile/sw.json";
 import referral from "./referral/sw.json";
 import sell from "./sell/sw.json";
 import settings from "./settings/sw.json";
-import test from "./test/sw.json";
 import unassigned from "./unassigned/sw.json";
 import wallet from "./wallet/sw.json";
 import welcome from "./welcome/sw.json";
@@ -44,7 +43,6 @@ const sw: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,

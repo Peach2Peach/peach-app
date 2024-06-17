@@ -18,7 +18,6 @@ import profile from "./profile/pt-BR.json";
 import referral from "./referral/pt-BR.json";
 import sell from "./sell/pt-BR.json";
 import settings from "./settings/pt-BR.json";
-import test from "./test/pt-BR.json";
 import unassigned from "./unassigned/pt-BR.json";
 import wallet from "./wallet/pt-BR.json";
 import welcome from "./welcome/pt-BR.json";
@@ -44,7 +43,6 @@ const ptBR: Record<string, string> = {
   ...referral,
   ...sell,
   ...settings,
-  ...test,
   ...unassigned,
   ...wallet,
   ...welcome,
