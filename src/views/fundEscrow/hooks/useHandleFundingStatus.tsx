@@ -44,10 +44,6 @@ export const useHandleFundingStatus = ({
 
     saveOffer(updatedOffer);
 
-    if (fundingStatus.status === "CANCELED") {
-      startRefund(sellOffer);
-      return;
-    }
     if (fundingStatus.status === "WRONG_FUNDING_AMOUNT") {
       setPopup(<WronglyFundedPopup sellOffer={sellOffer} />);
       return;
