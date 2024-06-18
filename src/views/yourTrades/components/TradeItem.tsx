@@ -322,6 +322,8 @@ function getActionLabel(
     if (disputeWinner) {
       if (tradeStatus === "releaseEscrow")
         return i18n("offer.requiredAction.releaseEscrow");
+      if (tradeStatus === "payoutPending")
+        return i18n("offer.requiredAction.payoutPending");
       return i18n(`offer.requiredAction.${translationStatusKey}.dispute`);
     }
 
