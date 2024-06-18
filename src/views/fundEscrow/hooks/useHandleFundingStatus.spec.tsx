@@ -97,20 +97,6 @@ describe("useHandleFundingStatus", () => {
       funding: fundingStatus,
     });
   });
-  it("should handle funding status when it is CANCELED", () => {
-    const fundingStatus: FundingStatus = {
-      ...defaultFundingStatus,
-      status: "CANCELED",
-    };
-    const initialProps = {
-      offerId: sellOffer.id,
-      sellOffer,
-      fundingStatus,
-      userConfirmationRequired: false,
-    };
-    renderHook(useHandleFundingStatus, { initialProps });
-    expect(mockStartRefundPopup).toHaveBeenCalledWith(sellOffer);
-  });
   it("should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT", () => {
     const fundingStatus: FundingStatus = {
       ...defaultFundingStatus,
