@@ -1,18 +1,23 @@
+import NotificationBadge from "@msml/react-native-notification-badge";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ContractSummary } from "../../../peach-api/src/@types/contract";
+import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { IconType } from "../../assets/icons";
 import { Icon } from "../../components/Icon";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
+import { useContractSummaries } from "../../hooks/query/useContractSummaries";
+import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { isIOS } from "../../utils/system/isIOS";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
-import { useNotificationStore } from "./notificationsStore";
 
 const Tab = createBottomTabNavigator();
 
@@ -97,10 +102,42 @@ const FooterItem = memo(
   ),
 );
 
+const statusWithRequiredAction: TradeStatus[] = [
+  "fundEscrow",
+  "fundingAmountDifferent",
+  "hasMatchesAvailable",
+  "refundAddressRequired",
+  "refundTxSignatureRequired",
+  "dispute",
+  "rateUser",
+  "confirmCancelation",
+  "refundOrReviveRequired",
+];
+
+const hasRequiredAction = ({
+  type,
+  tradeStatus,
+}: OfferSummary | ContractSummary) =>
+  statusWithRequiredAction.includes(tradeStatus) ||
+  (type === "bid" && tradeStatus === "paymentRequired") ||
+  (type === "ask" && tradeStatus === "confirmPaymentRequired");
+
 const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
   const navigation = useStackNavigation();
   const { summaries } = useTradeSummaries();
-  const notifications = useNotificationStore((state) => state.notifications);
+  const { offers } = useOfferSummaries();
+  const { contracts } = useContractSummaries();
+  const notifications = useMemo(() => {
+    const offersWithAction = offers
+      .filter(({ contractId }) => !contractId)
+      .filter((offer) => hasRequiredAction(offer)).length;
+    const contractsWithAction = contracts.filter(
+      (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
+    ).length;
+    return offersWithAction + contractsWithAction;
+  }, [offers, contracts]);
+
+  if (isIOS()) NotificationBadge.setNumber(notifications);
 
   const onPress = () => {
     const destinationTab =

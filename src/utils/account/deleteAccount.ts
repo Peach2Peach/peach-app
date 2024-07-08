@@ -4,10 +4,6 @@ import { offerPreferencesStorage } from "../../store/offerPreferenes/useOfferPre
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
-import {
-  notificationStorage,
-  useNotificationStore,
-} from "../../views/home/notificationsStore";
 import { info } from "../log/info";
 import { peachAPI } from "../peachAPI";
 import { clearPeachWallet } from "../wallet/setWallet";
@@ -27,11 +23,9 @@ export const deleteAccount = () => {
     offerPreferencesStorage,
     chatStorage,
     settingsStorage,
-    notificationStorage,
   ].forEach((storage) => storage.clearStore());
   [
     useAccountStore,
-    useNotificationStore,
     useConfigStore,
     useWalletState,
     useSettingsStore,

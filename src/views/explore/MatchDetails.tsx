@@ -188,9 +188,11 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
 
               <BuyerPriceInfo
                 match={match}
-                selectedCurrency={selectedCurrency}
+                selectedCurrency={match.selectedCurrency || selectedCurrency}
                 selectedPaymentMethod={
-                  selectedPaymentData?.type || allMethodsForCurrency[0]
+                  match.selectedPaymentMethod ||
+                  selectedPaymentData?.type ||
+                  allMethodsForCurrency[0]
                 }
               />
 
