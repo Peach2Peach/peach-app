@@ -134,10 +134,9 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length;
+    if (isIOS()) setNumber(offersWithAction + contractsWithAction);
     return offersWithAction + contractsWithAction;
   }, [offers, contracts]);
-
-  if (isIOS()) setNumber(notifications);
 
   const onPress = () => {
     const destinationTab =
