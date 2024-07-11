@@ -1,8 +1,8 @@
-import NotificationBadge from "@msml/react-native-notification-badge";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { memo, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { setNumber } from "rn-notification-badge";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { IconType } from "../../assets/icons";
@@ -137,7 +137,7 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
     return offersWithAction + contractsWithAction;
   }, [offers, contracts]);
 
-  if (isIOS()) NotificationBadge.setNumber(notifications);
+  if (isIOS()) setNumber(notifications);
 
   const onPress = () => {
     const destinationTab =
