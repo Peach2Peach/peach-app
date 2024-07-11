@@ -46,7 +46,6 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.5",
-    "@msml/react-native-notification-badge": "^0.1.6",
     "@react-native-clipboard/clipboard": "^1.11.2",
     "@react-native-community/cli-platform-android": "^12.3.6",
     "@react-native-community/netinfo": "^9.4.1",
@@ -114,7 +113,8 @@
     "util": "^0.12.5",
     "varuint-bitcoin": "^1.1.2",
     "zod": "^3.22.4",
-    "zustand": "^4.3.6"
+    "zustand": "^4.3.6",
+    "rn-notification-badge": "file:./modules/rn-notification-badge"
   },
   "react-native": {
     "path": "path-browserify",
