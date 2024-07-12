@@ -15,8 +15,8 @@ LogBox.ignoreAllLogs(isProduction());
 try {
   // eslint-disable-next-line require-await
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    if (isIOS()) increment();
     info("Message handled in the background!", remoteMessage);
+    if (isIOS()) increment();
   });
 } catch (e) {
   error(

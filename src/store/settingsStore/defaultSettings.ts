@@ -27,6 +27,5 @@ export const defaultSettings: Settings = {
   payoutToPeachWallet: true,
   derivationPath: undefined,
 
-  fcmToken: undefined,
   isLoggedIn: false,
 };

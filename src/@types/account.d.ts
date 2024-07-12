@@ -13,7 +13,6 @@ type Settings = {
   derivationPath?: string;
   displayCurrency: Currency;
   country?: string;
-  fcmToken?: string;
   lastFileBackupDate?: number;
   lastSeedBackupDate?: number;
   showBackupReminder: boolean;

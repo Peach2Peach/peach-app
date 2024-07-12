@@ -1,6 +1,5 @@
 import { renderHook } from "test-utils";
 import { account1 } from "../../tests/unit/data/accountData";
-import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { defaultAccount, setAccount } from "../utils/account/account";
 import { useUserUpdate } from "./useUserUpdate";
 
@@ -18,18 +17,12 @@ jest.mock("../utils/peachAPI/useUpdateUser", () => ({
 jest.useFakeTimers();
 
 describe("useUserUpdate", () => {
-  const fcmToken = "fcmToken";
   const referralCode = "referralCode";
   afterEach(() => {
     setAccount(defaultAccount);
   });
 
-  it("does not send updates to server if there is no data to send", async () => {
-    const { result } = renderHook(useUserUpdate);
-    await result.current();
-    expect(mockUpdateUser).not.toHaveBeenCalled();
-  });
-  it("does send updates to server if there is data to send", async () => {
+  it("sends updates to server", async () => {
     const newToken = "otherToken";
     setAccount(account1);
     const getTokenMock = jest.fn().mockResolvedValue(newToken);
@@ -38,7 +31,6 @@ describe("useUserUpdate", () => {
       .mockReturnValue({
         getToken: getTokenMock,
       });
-    useSettingsStore.setState({ fcmToken });
     const { result } = renderHook(useUserUpdate);
     await result.current(referralCode);
     expect(getTokenMock).toHaveBeenCalled();

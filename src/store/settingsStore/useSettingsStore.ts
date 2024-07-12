@@ -27,7 +27,6 @@ export type SettingsStore = Settings & {
   setShowBackupReminder: (showBackupReminder: boolean) => void;
   setRefundToPeachWallet: (refundToPeachWallet: boolean) => void;
   setPayoutToPeachWallet: (payoutToPeachWallet: boolean) => void;
-  setFCMToken: (fcmToken: string) => void;
   setCloudflareChallenge: (
     cloudflareChallenge: Settings["cloudflareChallenge"],
   ) => void;
@@ -88,7 +87,6 @@ export const useSettingsStore = create(
         set({ refundToPeachWallet }),
       setPayoutToPeachWallet: (payoutToPeachWallet) =>
         set({ payoutToPeachWallet }),
-      setFCMToken: (fcmToken) => set({ fcmToken }),
       setCloudflareChallenge: (cloudflareChallenge) =>
         set({ cloudflareChallenge }),
       setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
