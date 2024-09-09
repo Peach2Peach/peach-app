@@ -586,36 +586,32 @@ function FundEscrowButton() {
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
 
-  const getPaymentData = () => {
+  const getPaymentData = async () => {
     const { paymentData, originalPaymentData } = sellPreferences;
+    let finalPaymentData = paymentData;
     if (instantTrade) {
-      return keys(paymentData).reduce(
-        async (accPromise: Promise<OfferPaymentData>, paymentMethod) => {
-          const acc = await accPromise;
-          const originalData = originalPaymentData.find(
-            (e) => e.type === paymentMethod,
+      const selectedMethods = keys(paymentData);
+      for (const method of selectedMethods) {
+        const originalData = originalPaymentData.find((e) => e.type === method);
+        if (originalData) {
+          const cleanedData = cleanPaymentData(originalData);
+          // eslint-disable-next-line no-await-in-loop
+          const { encrypted, signature } = await signAndEncrypt(
+            JSON.stringify(cleanedData),
+            peachPGPPublicKey,
           );
-          if (originalData) {
-            const cleanedData = cleanPaymentData(originalData);
-            const { encrypted, signature } = await signAndEncrypt(
-              JSON.stringify(cleanedData),
-              peachPGPPublicKey,
-            );
-            return {
-              ...acc,
-              [paymentMethod]: {
-                ...paymentData[paymentMethod],
-                encrypted,
-                signature,
-              },
-            };
-          }
-          return acc;
-        },
-        Promise.resolve({}),
-      );
+          finalPaymentData = {
+            ...finalPaymentData,
+            [method]: {
+              ...finalPaymentData[method],
+              encrypted,
+              signature,
+            },
+          };
+        }
+      }
     }
-    return Promise.resolve(paymentData);
+    return finalPaymentData;
   };
 
   const showPublishingError = () => {
