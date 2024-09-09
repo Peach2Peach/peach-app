@@ -154,6 +154,7 @@ const PaymentMethodFields: {
   klasha: wrapInSharedFields(template19Fields),
   accrue: wrapInSharedFields(template19Fields),
   wirepay: wrapInSharedFields(template19Fields),
+  strike: wrapInSharedFields(template19Fields),
   bankera: wrapInSharedFields(template13Fields),
   postePay: wrapInSharedFields(template20Fields),
 };
