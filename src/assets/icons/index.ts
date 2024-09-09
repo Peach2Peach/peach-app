@@ -66,6 +66,7 @@ import info from "./info.svg";
 import link from "./link.svg";
 import list from "./list.svg";
 import listFlipped from "./listFlipped.svg";
+import lock from "./lock.svg";
 import mail from "./mail.svg";
 import map from "./map.svg";
 import maximize from "./maximize.svg";
@@ -103,6 +104,7 @@ import shiftCrypto from "./shiftCrypto.svg";
 import shuffle from "./shuffle.svg";
 import skipForward from "./skipForward.svg";
 import slash from "./slash.svg";
+import sliders from "./sliders.svg";
 import smile from "./smile.svg";
 import square from "./square.svg";
 import star from "./star.svg";
@@ -197,6 +199,7 @@ export const Icons = {
   link,
   list,
   listFlipped,
+  lock,
   mail,
   map,
   maximize,
@@ -234,6 +237,7 @@ export const Icons = {
   shuffle,
   skipForward,
   slash,
+  sliders,
   smile,
   square,
   star,
