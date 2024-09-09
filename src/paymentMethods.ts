@@ -107,6 +107,7 @@ const onlineWallet: PaymentMethod[] = [
   "revolut",
   "sinpeMovil",
   "skrill",
+  "strike",
   "swish",
   "twint",
   "vipps",
