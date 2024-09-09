@@ -44,6 +44,7 @@ import satispay from "./satispay.svg";
 import sepa from "./sepa.svg";
 import sinpeMovil from "./sinpeMovil.svg";
 import skrill from "./skrill.svg";
+import strike from "./strike.svg";
 import swish from "./swish.svg";
 import twint from "./twint.svg";
 import vipps from "./vipps.svg";
@@ -115,6 +116,7 @@ export const PaymentLogos = {
   sinpeMovil,
   skrill,
   straksbetaling: placeholder,
+  strike,
   swish,
   twint,
   vipps,
