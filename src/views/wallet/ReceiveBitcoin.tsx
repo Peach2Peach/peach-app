@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
-import QRCode from "react-native-qrcode-svg";
 import { Screen } from "../../components/Screen";
+import QRCode from "../../components/bitcoin/QRCode";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
@@ -44,11 +44,12 @@ function AddressQRCode({ index }: { index: number }) {
   const isMediumScreen = useIsMediumScreen();
   return (
     <>
-      <QRCode
-        value={data?.address}
-        size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE}
-        color={String(tw.color("black-100"))}
-      />
+      {!!data && (
+        <QRCode
+          value={data.address}
+          size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE}
+        />
+      )}
       {data?.used && (
         <PeachText
           style={[

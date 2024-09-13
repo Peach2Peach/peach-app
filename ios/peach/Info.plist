@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>253</string>
+	<string>254</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>bitcoin</string>
@@ -49,14 +49,10 @@
 	<true />
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
-			</dict>
-		</dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false />
+		<key>NSAllowsLocalNetworking</key>
+		<true />
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow access to your camera.</string>
