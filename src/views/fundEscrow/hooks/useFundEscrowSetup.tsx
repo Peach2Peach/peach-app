@@ -76,6 +76,9 @@ export const useFundEscrowSetup = () => {
     fundingStatus,
     fundingAmount,
     offerIdsWithoutEscrow,
-    isPending: !!(offersArePending || fundingStatusIsPending),
+    isPending: !!(
+      offersArePending ||
+      (canFetchFundingStatus && fundingStatusIsPending)
+    ),
   };
 };

@@ -1,7 +1,6 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { useRef } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
-import QRCode from "react-native-qrcode-svg";
 import "react-native-url-polyfill/auto";
 import { IconType } from "../../assets/icons";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
@@ -11,6 +10,7 @@ import { openInWallet } from "../../utils/bitcoin/openInWallet";
 import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
+import QRCode from "./QRCode";
 
 type BitcoinAddressProps = {
   address: string;
@@ -74,11 +74,7 @@ export const BitcoinAddress = ({
           onPress={openInWalletOrCopyPaymentRequest}
           onLongPress={copyPaymentRequest}
         >
-          <QRCode
-            size={width}
-            value={urn.toString()}
-            backgroundColor={String(tw`text-primary-background-main`.color)}
-          />
+          <QRCode size={width} value={urn.toString()} />
         </TouchableOpacity>
       </View>
 

@@ -1,32 +1,17 @@
-/**
- * Metro configuration for React Native
- * https://github.com/facebook/react-native
- *
- * @format
- */
-const { getDefaultConfig } = require("metro-config");
+const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config");
 
-module.exports = (async () => {
-  const {
-    resolver: { sourceExts, assetExts },
-  } = await getDefaultConfig();
-  return {
-    resetCache: true,
-    transformer: {
-      server: {
-        port: 8081,
-      },
-      babelTransformerPath: require.resolve("react-native-svg-transformer"),
-      getTransformOptions: async () => ({
-        transform: {
-          experimentalImportSupport: false,
-          inlineRequires: true,
-        },
-      }),
-    },
-    resolver: {
-      assetExts: assetExts.filter((ext) => ext !== "svg"),
-      sourceExts: [...sourceExts, "svg", "cjs"],
-    },
-  };
-})();
+const {
+  resolver: { sourceExts, assetExts },
+} = getDefaultConfig();
+const config = {
+  resetCache: true,
+  transformer: {
+    babelTransformerPath: require.resolve("react-native-svg-transformer"),
+  },
+  resolver: {
+    assetExts: assetExts.filter((ext) => ext !== "svg"),
+    sourceExts: [...sourceExts, "svg", "cjs"],
+  },
+};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
