@@ -3,7 +3,7 @@ import { sellOffer } from "../../../tests/unit/data/offerData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { defaultFundingStatus } from "../../utils/offer/constants";
 import { peachAPI } from "../../utils/peachAPI";
-import { useFundingStatus } from "./useFundingStatus";
+import { useFundingInfo } from "./useFundingInfo";
 
 const defaultFundingStatusResponse = {
   funding: defaultFundingStatus,
@@ -22,7 +22,7 @@ const inMempool = {
 
 const getFundingStatusMock = jest.spyOn(
   peachAPI.private.offer,
-  "getFundingStatus",
+  "getFundingInfo",
 );
 jest.useFakeTimers();
 
@@ -36,7 +36,7 @@ describe("useFundingStatus", () => {
       ...responseUtils,
     });
 
-    const { result } = renderHook(useFundingStatus, {
+    const { result } = renderHook(useFundingInfo, {
       initialProps: sellOffer.id,
     });
 
@@ -64,7 +64,7 @@ describe("useFundingStatus", () => {
       ...responseUtils,
     });
 
-    const { result } = renderHook(useFundingStatus, {
+    const { result } = renderHook(useFundingInfo, {
       initialProps: sellOffer.id,
     });
 
