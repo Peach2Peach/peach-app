@@ -7,7 +7,6 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { useDrawerState } from "../../components/drawer/useDrawerState";
-import { FlagType } from "../../components/flags";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -17,7 +16,7 @@ import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/payme
 import { usePaymentMethodLabel } from "./hooks";
 import { getCurrencyTypeFilter } from "./utils";
 
-const NATIONALOPTIONS: NationalOptions = {
+const NATIONALOPTIONS = {
   EUR: {
     IT: ["satispay", "postePay"],
     PT: ["mbWay"],
@@ -31,15 +30,19 @@ const NATIONALOPTIONS: NationalOptions = {
   LATAM: {
     BR: ["pix"],
   },
-};
+} as const;
 
-const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
+const NATIONALOPTIONCOUNTRIES = {
   EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR"],
   LATAM: ["BR"],
-};
+} as const;
+type NationalOptionsCountry =
+  | keyof typeof NATIONALOPTIONS.EUR
+  | keyof typeof NATIONALOPTIONS.LATAM;
 
 const mapCountryToDrawerOption =
-  (onPress: (country: FlagType) => void) => (country: FlagType) => ({
+  (onPress: (country: NationalOptionsCountry) => void) =>
+  (country: NationalOptionsCountry) => ({
     title: i18n(`country.${country}`),
     flagID: country,
     onPress: () => onPress(country),
@@ -100,12 +103,8 @@ export const SelectPaymentMethod = () => {
     onClose: unselectCategory,
   });
 
-  const getNationalOptions = () => {
-    if (getCurrencyTypeFilter("europe")(selectedCurrency)) {
-      return NATIONALOPTIONS.EUR;
-    }
-    return NATIONALOPTIONS.LATAM;
-  };
+  const getNationalOptions = (country: NationalOptionsCountry) =>
+    country === "BR" ? NATIONALOPTIONS.LATAM.BR : NATIONALOPTIONS.EUR[country];
 
   const getNationalOptionCountries = () => {
     if (getCurrencyTypeFilter("europe")(selectedCurrency)) {
@@ -114,8 +113,13 @@ export const SelectPaymentMethod = () => {
     return NATIONALOPTIONCOUNTRIES.LATAM;
   };
 
-  const selectCountry = (country: FlagType, category: PaymentCategory) => {
-    const nationalOptions = getNationalOptions()[country];
+  const selectCountry = (
+    country:
+      | keyof typeof NATIONALOPTIONS.EUR
+      | keyof typeof NATIONALOPTIONS.LATAM,
+    category: PaymentCategory,
+  ) => {
+    const nationalOptions = getNationalOptions(country);
     const nationalOptionCountries = getNationalOptionCountries();
     updateDrawer({
       title: i18n(`country.${country}`),

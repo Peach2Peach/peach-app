@@ -27,7 +27,7 @@ describe("useConfirmEscrow", () => {
   };
   beforeEach(() => {
     queryClient.setQueryData(
-      offerKeys.fundingStatus(sellOffer.id),
+      offerKeys.escrowInfo(sellOffer.id),
       () => fundingStatusResponse,
     );
   });
@@ -69,7 +69,7 @@ describe("useConfirmEscrow", () => {
     });
     await waitFor(() => {
       expect(
-        queryClient.getQueryData(offerKeys.fundingStatus(sellOffer.id)),
+        queryClient.getQueryData(offerKeys.escrowInfo(sellOffer.id)),
       ).toEqual({
         ...fundingStatusResponse,
         userConfirmationRequired: false,
@@ -91,7 +91,7 @@ describe("useConfirmEscrow", () => {
     });
     await waitFor(() => {
       expect(
-        queryClient.getQueryData(offerKeys.fundingStatus(sellOffer.id)),
+        queryClient.getQueryData(offerKeys.escrowInfo(sellOffer.id)),
       ).toEqual({
         ...fundingStatusResponse,
         userConfirmationRequired: false,

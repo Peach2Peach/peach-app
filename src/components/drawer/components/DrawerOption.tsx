@@ -1,13 +1,47 @@
 import { TouchableOpacity, View } from "react-native";
+import { IconType } from "../../../assets/icons";
 import tw from "../../../styles/tailwind";
 import { Flag } from "../../Flag";
 import { Icon } from "../../Icon";
+import { FlagType } from "../../flags";
 import { PaymentLogo } from "../../payment/PaymentLogo";
+import { PaymentLogoType } from "../../payment/logos";
 import { FixedHeightText } from "../../text/FixedHeightText";
 import { PeachText } from "../../text/PeachText";
 
 const flagSubtextHeight = 17;
 const defaultSubtextHeight = 22;
+
+export type DrawerOptionType = {
+  title: string;
+  subtext?: string;
+  iconRightID?: IconType;
+  onPress: () => void;
+} & (
+  | {
+      logoID: PaymentLogoType;
+      flagID?: never;
+      highlighted?: never;
+      subtext?: never;
+    }
+  | {
+      flagID: FlagType;
+      logoID?: never;
+      highlighted?: never;
+    }
+  | {
+      flagID?: never;
+      logoID?: never;
+      highlighted: boolean;
+      subtext: string;
+      iconRightID?: never;
+    }
+  | {
+      flagID?: never;
+      logoID?: never;
+      highlighted?: never;
+    }
+);
 
 export const DrawerOption = ({
   logoID,

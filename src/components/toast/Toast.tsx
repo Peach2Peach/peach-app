@@ -18,6 +18,18 @@ import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 import { iconMap } from "./iconMap";
 
+export type ToastState = {
+  color: "red" | "white" | "yellow";
+  msgKey: string;
+  bodyArgs?: string[];
+  action?: {
+    onPress: () => void;
+    label: string;
+    iconId: IconType;
+  };
+  keepAlive?: boolean;
+};
+
 type LevelColorMap = {
   [key in ToastState["color"]]: {
     backgroundColor: string | undefined;

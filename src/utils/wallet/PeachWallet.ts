@@ -148,17 +148,22 @@ export class PeachWallet {
 
             this.transactions = await this.wallet.listTransactions(true);
             useWalletState.getState().setTransactions(this.transactions);
-            const offers = await queryClient.fetchQuery({
+            const offerSummaries = await queryClient.fetchQuery({
               queryKey: offerKeys.summaries(),
               queryFn: getOfferSummariesQuery,
             });
-            const contracts = await queryClient.fetchQuery({
+            const contractSummaries = await queryClient.fetchQuery({
               queryKey: contractKeys.summaries(),
               queryFn: getContractSummariesQuery,
             });
             this.transactions
               .filter((tx) => !transactionHasBeenMappedToOffers(tx))
-              .forEach(mapTransactionToOffer({ offers, contracts }));
+              .forEach(
+                mapTransactionToOffer({
+                  offerSummaries,
+                  contractSummaries,
+                }),
+              );
             this.transactions
               .filter(transactionHasBeenMappedToOffers)
               .forEach(labelAddressByTransaction);

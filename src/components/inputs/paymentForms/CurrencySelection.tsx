@@ -1,11 +1,11 @@
 import { View } from "react-native";
-import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
-import { getPaymentMethodInfo } from "../../../../utils/paymentMethod/getPaymentMethodInfo";
-import { PeachText } from "../../../text/PeachText";
-import { CurrencyItem } from "../../CurrencyItem";
+import tw from "../../../styles/tailwind";
+import i18n from "../../../utils/i18n";
+import { getPaymentMethodInfo } from "../../../utils/paymentMethod/getPaymentMethodInfo";
+import { PeachText } from "../../text/PeachText";
+import { CurrencyItem } from "../CurrencyItem";
 
-type Props = ComponentProps & {
+type Props = {
   paymentMethod: PaymentMethod;
   selectedCurrencies: Currency[];
   onToggle: (currencies: Currency) => void;
@@ -15,9 +15,8 @@ export const CurrencySelection = ({
   paymentMethod,
   selectedCurrencies,
   onToggle,
-  style,
 }: Props) => (
-  <View style={style}>
+  <View>
     <View style={tw`flex-row items-center`}>
       <PeachText style={tw`input-label`}>
         {i18n("form.additionalCurrencies")}

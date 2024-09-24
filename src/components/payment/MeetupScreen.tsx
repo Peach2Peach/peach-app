@@ -11,7 +11,7 @@ import { Header } from "../Header";
 import { PeachScrollView } from "../PeachScrollView";
 import { Screen } from "../Screen";
 import { Button } from "../buttons/Button";
-import { CurrencySelection } from "../inputs/paymentForms/components";
+import { CurrencySelection } from "../inputs/paymentForms/CurrencySelection";
 import { useSetPopup } from "../popup/GlobalPopup";
 import { BulletPoint } from "../text/BulletPoint";
 import { PeachText } from "../text/PeachText";

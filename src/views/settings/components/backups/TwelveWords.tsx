@@ -5,7 +5,6 @@ import tw from "../../../../styles/tailwind";
 import { useAccountStore } from "../../../../utils/account/account";
 import i18n from "../../../../utils/i18n";
 import { NUMBER_OF_WORDS } from "./NUMBER_OF_WORDS";
-import { Word } from "./Word";
 
 export const TwelveWords = () => {
   const mnemonic = useAccountStore((state) => state.account?.mnemonic);
@@ -23,7 +22,7 @@ export const TwelveWords = () => {
               <Word word={word} index={i + 1} key={`seedPhraseWord${i}`} />
             ))}
         </View>
-        <View style={tw`flex-1`}>
+        <View style={tw`flex-1 gap-2`}>
           {mnemonic
             ?.split(" ")
             .slice(NUMBER_OF_WORDS / 2, NUMBER_OF_WORDS)
@@ -39,3 +38,15 @@ export const TwelveWords = () => {
     </>
   );
 };
+
+type Props = {
+  word: string;
+  index: number;
+};
+function Word({ word, index }: Props) {
+  return (
+    <PeachText style={tw`px-4 py-3 border border-black-65 rounded-xl`}>
+      {index}. {word}
+    </PeachText>
+  );
+}

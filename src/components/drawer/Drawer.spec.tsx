@@ -2,7 +2,7 @@ import { BackHandler, Text } from "react-native";
 import { createRenderer } from "react-test-renderer/shallow";
 import { act, render } from "test-utils";
 import { Drawer } from "./Drawer";
-import { useDrawerState } from "./useDrawerState";
+import { DrawerState, useDrawerState } from "./useDrawerState";
 
 const onCloseMock = jest.fn();
 const defaultState: DrawerState = {

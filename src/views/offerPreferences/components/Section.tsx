@@ -15,7 +15,7 @@ function Container({
   return (
     <View
       style={[
-        tw`items-center w-full rounded-2xl`,
+        tw`items-center self-stretch rounded-2xl`,
         { gap: sectionContainerGap, padding: sectionContainerPadding },
         style,
       ]}

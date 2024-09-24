@@ -1,4 +1,5 @@
 import { Psbt } from "bitcoinjs-lib";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 import { signAndFinalizePSBT } from "../../../utils/bitcoin/signAndFinalizePSBT";
 import { txIdPartOfPSBT } from "../../../utils/bitcoin/txIdPartOfPSBT";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";

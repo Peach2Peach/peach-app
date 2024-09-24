@@ -2,6 +2,7 @@ import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
 import { useCallback, useMemo } from "react";
+import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
 import { OverlayComponent } from "../../OverlayComponent";
 import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -15,7 +16,6 @@ import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/Conf
 import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
@@ -33,7 +33,9 @@ export const Contract = () => {
   const { contract, isLoading, refetch } = useContractDetail(contractId);
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const view = contract
-    ? getContractViewer(contract.seller.id, publicKey)
+    ? contract.seller.id === publicKey
+      ? "seller"
+      : "buyer"
     : undefined;
 
   useHandleNotifications(
@@ -58,8 +60,8 @@ export const Contract = () => {
 };
 
 type ContractScreenProps = {
-  contract: Contract;
-  view: ContractViewer;
+  contract: ContractType;
+  view: "buyer" | "seller";
 };
 
 function ContractScreen({ contract, view }: ContractScreenProps) {
@@ -191,7 +193,7 @@ function ContractHeader() {
   );
 }
 
-function getHeaderTitle(view: string, contract: Contract) {
+function getHeaderTitle(view: string, contract: ContractType) {
   const {
     tradeStatus,
     disputeWinner,

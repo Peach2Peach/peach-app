@@ -6,7 +6,7 @@ import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { CurrencySelection } from "../../components/inputs/paymentForms/components";
+import { CurrencySelection } from "../../components/inputs/paymentForms/CurrencySelection";
 import { DeletePaymentMethodPopup } from "../../components/payment/components/DeletePaymentMethodPopup";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";

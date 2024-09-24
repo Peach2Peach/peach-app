@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
@@ -8,17 +8,12 @@ import { useLastUnusedAddress, useWalletAddress } from "../hooks";
 import { walletKeys } from "../hooks/useUTXOs";
 import { AddressLabelInput } from "./AddressLabelInput";
 
-function AddressLabelInputByIndex({
-  index,
-  style,
-}: ComponentProps & { index: number }) {
+function AddressLabelInputByIndex({ index }: { index: number }) {
   const fallback = { address: undefined, used: false, index };
   const { data: currentAddress = fallback } = useWalletAddress(index);
 
   return (
-    <View
-      style={[tw`flex-row items-center justify-center flex-1 gap-1`, style]}
-    >
+    <View style={tw`flex-row items-center justify-center flex-1 gap-1`}>
       <AddressLabelInput
         address={currentAddress.address || i18n("loading")}
         fallback={`address #${index}`}
@@ -78,13 +73,9 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
         <ArrowLeftCircle onPress={prevAddress} index={index} />
       </ArrowWrapper>
 
-      <AddressLabelInputByIndex
-        key={`addressLabel-${index}`}
-        index={index}
-        style={[showChevronsLeft && tw`pr-6`, showChevronsRight && tw`pl-6`]}
-      />
+      <AddressLabelInputByIndex key={`addressLabel-${index}`} index={index} />
 
-      <ArrowWrapper>
+      <ArrowWrapper style={tw`justify-end`}>
         <TouchableIcon id="arrowRightCircle" onPress={nextAddress} />
         {showChevronsRight && (
           <TouchableIcon id="chevronsRight" onPress={goToLastUnusedAddress} />
@@ -94,9 +85,15 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
   );
 };
 
-function ArrowWrapper({ children }: { children: React.ReactNode }) {
+function ArrowWrapper({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: ViewStyle;
+}) {
   return (
-    <View style={tw`flex-row items-center justify-end gap-2px`}>
+    <View style={[tw`flex-row items-center flex-1 gap-2px`, style]}>
       {children}
     </View>
   );

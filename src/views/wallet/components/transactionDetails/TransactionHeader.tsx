@@ -11,11 +11,11 @@ import { TransactionIcon } from "../TransactionIcon";
 import { OfferIdBubble } from "./OfferIdBubble";
 import { TradeIdBubble } from "./TradeIdBubble";
 
-type Props = ComponentProps & Pick<TransactionSummary, "type" | "offerData">;
+type Props = Pick<TransactionSummary, "type" | "offerData">;
 
 const MEDIUM_SIZE = 56;
 const SMALL_SIZE = 48;
-export const TransactionHeader = ({ type, offerData, style }: Props) => {
+export const TransactionHeader = ({ type, offerData }: Props) => {
   const isMediumScreen = useIsMediumScreen();
   const { offers } = useOfferSummaries();
   const { contracts } = useContractSummaries();
@@ -46,9 +46,8 @@ export const TransactionHeader = ({ type, offerData, style }: Props) => {
   return (
     <View
       style={[
-        tw`flex-row items-center gap-4`,
+        tw`flex-row items-center self-center gap-4`,
         hasIdBubbles && tw`items-end`,
-        style,
       ]}
     >
       <TransactionIcon

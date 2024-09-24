@@ -15,6 +15,8 @@ import {
 } from "./helpers";
 import { CurrencyType } from "./types";
 
+export type BuySorter = "highestAmount" | "lowestPremium" | "bestReputation";
+export type SellSorter = "highestPrice" | "bestReputation";
 type OfferPreferences = {
   buyAmountRange: [number, number];
   sellAmount: number;

@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { PriceFormat } from "../../../components/text/PriceFormat";
 import tw from "../../../styles/tailwind";
@@ -6,7 +6,8 @@ import i18n from "../../../utils/i18n";
 
 const textStyle = tw`font-bold tooltip`;
 
-type Props = ComponentProps & {
+type Props = {
+  style?: ViewStyle;
   amount: number;
   limit: number;
   displayCurrency: Currency;

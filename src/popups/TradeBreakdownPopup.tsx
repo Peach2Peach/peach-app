@@ -1,6 +1,7 @@
 import { NETWORK } from "@env";
 import { Fragment } from "react";
 import { View } from "react-native";
+import { Contract } from "../../peach-api/src/@types/contract";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";

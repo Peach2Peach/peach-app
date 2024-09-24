@@ -9,7 +9,7 @@ import { getLabel1Opacity } from "./helpers/getLabel1Opacity";
 import { getTransform } from "./helpers/getTransform";
 import { useConfirmSliderSetup } from "./hooks/useConfirmSliderSetup";
 
-type Props = ComponentProps & {
+type Props = {
   label1: string;
   label2?: string;
   iconId?: IconType;
@@ -24,7 +24,6 @@ export const ConfirmSlider = ({
   iconId = "checkCircle",
   onConfirm,
   enabled = true,
-  style,
 }: Props) => {
   const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({
     onConfirm,
@@ -33,10 +32,7 @@ export const ConfirmSlider = ({
 
   return (
     <View
-      style={[
-        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`,
-        style,
-      ]}
+      style={tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`}
       {...panResponder.panHandlers}
       testID="confirmSlider"
     >

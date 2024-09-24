@@ -11,17 +11,11 @@ const errorSpy = jest.spyOn(
 
 describe("decryptSymmetricKey", () => {
   const symmetricKeyEncrypted = "encrypted symmetric key";
-  const symmetricKeySignature = "symmetric key signature";
-  const pgpPublicKeys = [{ publicKey: "pgp public key" }];
   const symmetricKey = "symmetric key";
   it("should return symmetric key on successful decryption", async () => {
     decryptMock.mockReturnValue(symmetricKey);
     verifyMock.mockResolvedValue(true);
-    const symmetricKeyResult = await decryptSymmetricKey(
-      symmetricKeyEncrypted,
-      symmetricKeySignature,
-      pgpPublicKeys,
-    );
+    const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted);
     expect(errorSpy).not.toHaveBeenCalled();
     expect(symmetricKeyResult).toEqual(symmetricKey);
   });
@@ -29,11 +23,7 @@ describe("decryptSymmetricKey", () => {
     decryptMock.mockReturnValue(symmetricKey);
     verifyMock.mockResolvedValueOnce(false);
     verifyMock.mockResolvedValueOnce(true);
-    const symmetricKeyResult = await decryptSymmetricKey(
-      symmetricKeyEncrypted,
-      symmetricKeySignature,
-      [...pgpPublicKeys, ...pgpPublicKeys],
-    );
+    const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted);
     expect(errorSpy).not.toHaveBeenCalled();
     expect(symmetricKeyResult).toEqual(symmetricKey);
   });
@@ -41,22 +31,14 @@ describe("decryptSymmetricKey", () => {
     decryptMock.mockImplementation(() => {
       throw new Error("DECRYPTION_FAILED");
     });
-    const symmetricKeyResult = await decryptSymmetricKey(
-      symmetricKeyEncrypted,
-      symmetricKeySignature,
-      pgpPublicKeys,
-    );
+    const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted);
     expect(errorSpy).not.toHaveBeenCalled();
     expect(symmetricKeyResult).toEqual(null);
   });
   it("should handle invalid signature and still return symmetric key", async () => {
     decryptMock.mockReturnValue(symmetricKey);
     verifyMock.mockResolvedValue(false);
-    const symmetricKeyResult = await decryptSymmetricKey(
-      symmetricKeyEncrypted,
-      symmetricKeySignature,
-      pgpPublicKeys,
-    );
+    const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted);
     expect(errorSpy).toHaveBeenCalledWith(
       new Error("SYMMETRIC_KEY_SIGNATURE_INVALID"),
     );

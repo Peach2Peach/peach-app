@@ -49,7 +49,7 @@ export const MeetupPaymentMethods = ({
         .filter((item) => isCashTrade(item.type))
         .map(mapPaymentDataToCheckboxes)
         .map((item, i) => (
-          <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
+          <View key={item.data.id} style={[tw`gap-1`, i > 0 && tw`mt-4`]}>
             <PaymentDetailsCheckbox
               onPress={() =>
                 isEditing ? editItem(item.data) : select(item.value)
@@ -58,7 +58,7 @@ export const MeetupPaymentMethods = ({
               checked={isSelected(item)}
               editing={isEditing}
             />
-            <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
+            <PaymentDataKeyFacts paymentData={item.data} />
           </View>
         ))}
     </>

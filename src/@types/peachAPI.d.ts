@@ -21,10 +21,6 @@ type APIError = {
 
 type FeeRate = "fastestFee" | "halfHourFee" | "hourFee" | "economyFee" | number;
 
-type PGPPublicKeyProofPair = {
-  publicKey: string;
-  proof: string;
-};
 type User = {
   banned: boolean;
   bonusPoints: number;
@@ -50,7 +46,7 @@ type User = {
   /** @deprecated as of 0.4.2, use `pgpPublicKeys` */
   pgpPublicKeyProof: string;
 
-  pgpPublicKeys: PGPPublicKeyProofPair[];
+  pgpPublicKeys: { publicKey: string; proof: string }[];
 
   rating: number;
   ratingCount: number;
@@ -285,7 +281,9 @@ type Match = {
   symmetricKeyEncrypted: string;
   symmetricKeySignature: string;
   matched: boolean;
-  unavailable: MatchUnavailableReasons;
+  unavailable: {
+    exceedsLimit: (keyof TradingLimit)[];
+  };
   instantTrade: boolean;
 };
 

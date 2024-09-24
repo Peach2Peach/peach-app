@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -61,7 +62,7 @@ export function UserExistsForDevice() {
   );
 }
 
-type MenuItemProps = ComponentProps & { onPress: () => void };
+type MenuItemProps = { onPress: () => void; children: ReactNode };
 function MenuItem({ children, onPress }: MenuItemProps) {
   return (
     <TouchableOpacity

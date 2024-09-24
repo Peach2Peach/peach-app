@@ -5,6 +5,7 @@ import {
   responseUtils,
   waitFor,
 } from "test-utils";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { peachAPI } from "../../../utils/peachAPI";

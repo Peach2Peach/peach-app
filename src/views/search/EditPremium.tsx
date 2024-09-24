@@ -135,11 +135,7 @@ function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
         <PremiumInput premium={premium} setPremium={setPremium} />
         {offerPrice}
       </View>
-      <PremiumSlider
-        style={tw`items-center self-stretch gap-6px`}
-        premium={premium}
-        setPremium={setPremium}
-      />
+      <PremiumSlider premium={premium} setPremium={setPremium} />
     </View>
   );
 }

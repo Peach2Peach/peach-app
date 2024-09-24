@@ -105,23 +105,14 @@ function ContractButtons() {
   const { offer } = useOfferDetail(
     contract ? getOfferIdFromContract(contract) : "",
   );
+  const showPayoutPendingButton =
+    view === "buyer" && batchInfo?.completed === false && !releaseTxId;
   return (
     <>
-      {shouldShowPayoutPending(view, batchInfo, releaseTxId) && (
-        <PayoutPendingButton />
-      )}
+      {showPayoutPendingButton && <PayoutPendingButton />}
       {!!isEmailRequired && <ProvideEmailButton />}
       {!!offer && isSellOffer(offer) && offer?.newOfferId && <NewOfferButton />}
     </>
-  );
-}
-function shouldShowPayoutPending(
-  view: string,
-  batchInfo: BatchInfo | undefined,
-  releaseTxId: string | undefined,
-) {
-  return (
-    view === "buyer" && !!batchInfo && !batchInfo.completed && !releaseTxId
   );
 }
 

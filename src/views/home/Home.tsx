@@ -46,7 +46,6 @@ function FreeTradesDonut() {
   if (freeTrades === 0) return null;
   return (
     <ProgressDonut
-      style={tw`py-2`}
       title={i18n("settings.referrals.noPeachFees.freeTrades")}
       value={freeTrades}
       max={maxFreeTrades}
@@ -56,6 +55,7 @@ function FreeTradesDonut() {
 
 const NUMBER_OF_MINUTES = 5;
 function useNews() {
+  const isFocused = useIsFocused();
   return useQuery({
     queryKey: systemKeys.news(),
     queryFn: async () => {
@@ -64,6 +64,7 @@ function useNews() {
       return result?.[0];
     },
     refetchInterval: MSINAMINUTE * NUMBER_OF_MINUTES,
+    enabled: isFocused,
   });
 }
 

@@ -16,7 +16,6 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { createUserRating } from "../../utils/contract/createUserRating";
-import { getContractViewer } from "../../utils/contract/getContractViewer";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { BackupTime } from "../overlays/BackupTime";
@@ -24,7 +23,7 @@ import { BackupTime } from "../overlays/BackupTime";
 export function TradeComplete({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<"positive" | "negative">();
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const view = getContractViewer(contract.seller.id, publicKey);
+  const view = contract.seller.id === publicKey ? "seller" : "buyer";
 
   return (
     <>
@@ -92,7 +91,7 @@ function RateButton({ isSelected, onPress, iconId, style }: RateButtonProps) {
 
 type RateProps = {
   contract: Contract;
-  view: ContractViewer;
+  view: "buyer" | "seller";
   vote: "positive" | "negative" | undefined;
 };
 

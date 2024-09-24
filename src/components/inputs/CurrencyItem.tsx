@@ -3,17 +3,12 @@ import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
-type ItemProps = ComponentProps & {
+type ItemProps = {
   label: string;
   isSelected: boolean;
   onPress: () => void;
 };
-export const CurrencyItem = ({
-  label,
-  isSelected,
-  onPress,
-  style,
-}: ItemProps) => {
+export const CurrencyItem = ({ label, isSelected, onPress }: ItemProps) => {
   const bgColor = isSelected ? tw`bg-primary-main` : {};
   const borderColor = isSelected
     ? tw`border-primary-main`
@@ -29,7 +24,6 @@ export const CurrencyItem = ({
         tw`flex-row items-center justify-between px-2 border rounded-lg w-15 border-black-50`,
         bgColor,
         borderColor,
-        style,
       ]}
     >
       <PeachText style={[tw`button-medium`, { color: textColor }]}>

@@ -1,4 +1,8 @@
-import { TextStyle, TouchableOpacity } from "react-native";
+import {
+  TextStyle,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 import { IconType } from "../../assets/icons";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -6,7 +10,8 @@ import { Icon } from "../Icon";
 import { Loading } from "../Loading";
 import { PeachText } from "../text/PeachText";
 
-export type PopupActionProps = ComponentProps & {
+export type PopupActionProps = {
+  style?: TouchableOpacityProps["style"];
   onPress: (() => void) | (() => Promise<void>) | undefined;
   label: string | undefined;
   iconId: IconType;

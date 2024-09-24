@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
 import { Match } from "../../../../peach-api/src/@types/match";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
@@ -7,9 +8,11 @@ import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { AppPopup } from "../../../popups/AppPopup";
 import { getHashedPaymentData } from "../../../store/offerPreferenes/helpers";
+import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
 import { getRandom } from "../../../utils/crypto/getRandom";
+import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
-import { info } from "../../../utils/log/info";
+import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { parseError } from "../../../utils/parseError";
 import { cleanPaymentData } from "../../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../../utils/paymentMethod/encryptPaymentData";
@@ -17,15 +20,37 @@ import { peachAPI } from "../../../utils/peachAPI";
 import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
 import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { useSetPopup } from "../../popup/GlobalPopup";
+import { useSetToast } from "../../toast/Toast";
 import { getMatchPrice } from "../utils/getMatchPrice";
-import { useHandleError } from "../utils/useHandleError";
-import { useHandleMissingPaymentData } from "../utils/useHandleMissingPaymentData";
+
+const colors: Record<string, "yellow"> = {
+  NOT_FOUND: "yellow",
+  CANNOT_DOUBLEMATCH: "yellow",
+};
 
 export const useMatchOffer = (offer: BuyOffer, match: Match) => {
   const matchId = match.offerId;
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
-  const handleError = useHandleError();
+  const setToast = useSetToast();
+
+  const handleError = useCallback(
+    (err: APIError | null) => {
+      if (err?.error) {
+        const msgKey = err?.error === "NOT_FOUND" ? "OFFER_TAKEN" : err?.error;
+        setToast({
+          msgKey:
+            msgKey ||
+            i18n(
+              "error.general",
+              ((err?.details as string[]) || []).join(", "),
+            ),
+          color: colors[err?.error] || "red",
+        });
+      }
+    },
+    [setToast],
+  );
   const setPopup = useSetPopup();
   const { user } = useSelfUser();
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
@@ -117,13 +142,15 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
         context?.previousData,
       );
     },
-    onSuccess: (result: MatchResponse) => {
+    onSuccess: (result) => {
       if ("contractId" in result && result.contractId) {
-        info(
-          "Search.tsx - _match",
-          `navigate to contract ${result.contractId}`,
-        );
-        navigation.replace("contract", { contractId: result.contractId });
+        navigation.reset({
+          index: 1,
+          routes: [
+            { name: "homeScreen", params: { screen: "yourTrades" } },
+            { name: "contract", params: { contractId: result.contractId } },
+          ],
+        });
       }
     },
     onSettled: () =>
@@ -190,4 +217,62 @@ async function generateMatchOfferData({
       paymentDataSignature: encryptedPaymentData.signature,
     },
   };
+}
+
+function useHandleMissingPaymentData() {
+  const navigation = useStackNavigation();
+  const setToast = useSetToast();
+  const getAllPaymentDataByType = usePaymentDataStore(
+    (state) => state.getAllPaymentDataByType,
+  );
+
+  const openAddPaymentMethodDialog = useCallback(
+    (
+      offer: BuyOffer | SellOffer,
+      currency: Currency,
+      paymentMethod: PaymentMethod,
+    ) => {
+      const existingPaymentMethodsOfType =
+        getAllPaymentDataByType(paymentMethod).length + 1;
+      const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`;
+
+      navigation.push("paymentMethodForm", {
+        paymentData: {
+          type: paymentMethod,
+          label,
+          currencies: [currency],
+          country: /giftCard/u.test(paymentMethod)
+            ? (paymentMethod.split(".").pop() as PaymentMethodCountry)
+            : undefined,
+        },
+        origin: isBuyOffer(offer) ? "matchDetails" : "search",
+      });
+    },
+    [getAllPaymentDataByType, navigation],
+  );
+
+  const handleMissingPaymentData = useCallback(
+    (
+      offer: BuyOffer | SellOffer,
+      currency: Currency,
+      paymentMethod: PaymentMethod,
+    ) => {
+      error("Payment data could not be found for offer", offer.id);
+
+      setToast({
+        msgKey: "PAYMENT_DATA_MISSING",
+        color: "red",
+        action: {
+          onPress: () =>
+            openAddPaymentMethodDialog(offer, currency, paymentMethod),
+          label: i18n("PAYMENT_DATA_MISSING.action"),
+          iconId: "edit3",
+        },
+        keepAlive: true,
+      });
+    },
+    [openAddPaymentMethodDialog, setToast],
+  );
+
+  return handleMissingPaymentData;
 }

@@ -1,17 +1,18 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { ContractSummary } from "../../../peach-api/src/@types/contract";
+import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { getBuyOfferIdFromContract } from "../contract/getBuyOfferIdFromContract";
 import { useWalletState } from "./walletStore";
 
-export const mapTransactionToOffer =
-  ({
-    offers,
-    contracts,
-  }: {
-    offers: { id: string; fundingTxId?: string; txId?: string }[];
-    contracts: { id: string; releaseTxId?: string }[];
-  }) =>
-  ({ txid }: TransactionDetails) => {
-    const sellOffers = offers.filter(
+export function mapTransactionToOffer({
+  offerSummaries,
+  contractSummaries,
+}: {
+  offerSummaries: OfferSummary[];
+  contractSummaries: ContractSummary[];
+}) {
+  return ({ txid }: TransactionDetails) => {
+    const sellOffers = offerSummaries.filter(
       (offer) => offer.txId === txid || offer.fundingTxId === txid,
     );
     if (sellOffers.length) {
@@ -22,7 +23,7 @@ export const mapTransactionToOffer =
       return;
     }
 
-    const filteredContracts = contracts.filter(
+    const filteredContracts = contractSummaries.filter(
       (contract) => contract.releaseTxId === txid,
     );
     if (filteredContracts.length) {
@@ -34,3 +35,4 @@ export const mapTransactionToOffer =
         );
     }
   };
+}

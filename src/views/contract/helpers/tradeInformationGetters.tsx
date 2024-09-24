@@ -70,7 +70,7 @@ export const tradeInformationGetters: Record<
   },
   ratingBuyer: (contract: Contract) => getRatingBubble(contract, "Buyer"),
   ratingSeller: (contract: Contract) => getRatingBubble(contract, "Seller"),
-  seller: (contract: Contract) => <UserId id={contract.seller.id} showInfo />,
+  seller: (contract: Contract) => <UserId id={contract.seller.id} />,
   tradeBreakdown: (contract: Contract) => (
     <TradeBreakdownBubble contract={contract} />
   ),

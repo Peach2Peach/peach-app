@@ -1,8 +1,10 @@
+import { TextStyle } from "react-native";
 import { groupChars } from "../../utils/string/groupChars";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { PeachText } from "./PeachText";
 
-type Props = ComponentProps & {
+type Props = {
+  style?: TextStyle | TextStyle[];
   amount: number;
   currency: Currency;
   round?: boolean;

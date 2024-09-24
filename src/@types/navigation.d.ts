@@ -10,16 +10,12 @@ type Onboarding = {
   };
 };
 
-type TestViews = {
-  testView: undefined;
-  testViewPeachWallet: undefined;
-  testViewPNs: undefined;
-};
-
 type HomeTabParamList = {
   home: undefined;
   wallet: undefined;
-  yourTrades: { tab?: TradeTab };
+  yourTrades: {
+    tab?: "yourTrades.buy" | "yourTrades.sell" | "yourTrades.history";
+  };
   settings: undefined;
 };
 
@@ -51,16 +47,16 @@ type SellFlow = {
 
 type ContractFlow = {
   contract: {
-    contractId: Contract["id"];
+    contractId: string;
   };
   contractChat: {
-    contractId: Contract["id"];
+    contractId: string;
   };
   disputeReasonSelector: {
-    contractId: Contract["id"];
+    contractId: string;
   };
   disputeForm: {
-    contractId: Contract["id"];
+    contractId: string;
     reason: DisputeReason;
   };
 };
@@ -140,11 +136,11 @@ type RootStackParamList = Onboarding &
 
     patchPayoutAddress:
       | {
-          contractId: Contract["id"];
+          contractId: string;
         }
       | { offerId: string };
     signMessage:
       | { address: string; addressLabel: string }
-      | { contractId: Contract["id"]; address: string; addressLabel: string }
+      | { contractId: string; address: string; addressLabel: string }
       | { offerId: string; address: string; addressLabel: string };
-  } & TestViews;
+  };

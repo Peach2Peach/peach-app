@@ -1,5 +1,6 @@
 import { Keyboard } from "react-native";
 import { render, renderHook, waitFor } from "test-utils";
+import { Contract } from "../../../peach-api/src/@types/contract";
 import { contract } from "../../../peach-api/src/testData/contract";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { GlobalPopup } from "../../components/popup/GlobalPopup";

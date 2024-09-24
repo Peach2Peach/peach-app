@@ -1,4 +1,9 @@
-export const canCancelContract = (contract: Contract, view?: ContractViewer) =>
+import { Contract } from "../../../peach-api/src/@types/contract";
+
+export const canCancelContract = (
+  contract: Contract,
+  view: "buyer" | "seller",
+) =>
   !contract.disputeActive &&
   !contract.paymentMade &&
   !contract.canceled &&

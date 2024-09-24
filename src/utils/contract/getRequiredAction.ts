@@ -1,7 +1,6 @@
-export const getRequiredAction = (
-  contract: Contract | null,
-): ContractAction => {
-  if (!contract || contract.canceled) return "none";
+import { Contract } from "../../../peach-api/src/@types/contract";
+
+export const getRequiredAction = (contract: Contract) => {
 
   if (!contract.paymentMade) {
     return "sendPayment";

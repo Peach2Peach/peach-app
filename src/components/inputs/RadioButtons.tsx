@@ -9,7 +9,7 @@ export type RadioButtonItem<T> = {
   disabled?: boolean;
 };
 
-export type RadioButtonProps<T> = ComponentProps & {
+export type RadioButtonProps<T> = {
   items: RadioButtonItem<T>[];
   selectedValue?: T;
   onButtonPress: (value: T) => void;
@@ -19,9 +19,8 @@ export const RadioButtons = <T,>({
   items,
   selectedValue,
   onButtonPress,
-  style,
 }: RadioButtonProps<T>) => (
-  <View style={[tw`gap-2`, style]}>
+  <View style={tw`gap-2`}>
     {items.map(({ display, disabled, value }, i) => (
       <RadioButtonItem
         key={i}

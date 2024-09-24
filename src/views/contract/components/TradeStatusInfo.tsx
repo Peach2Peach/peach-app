@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 import { useWalletLabel } from "../../../components/offer/useWalletLabel";
 import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
@@ -38,8 +39,9 @@ export const TradeStatusInfo = () => {
 };
 
 function BuyerStatusText({ contract }: { contract: Contract }) {
-  const text = getBuyerStatusText(contract);
-  return <PeachText style={tw`md:body-l`}>{text}</PeachText>;
+  return (
+    <PeachText style={tw`md:body-l`}>{getBuyerStatusText(contract)}</PeachText>
+  );
 }
 
 function getBuyerStatusText(contract: Contract) {

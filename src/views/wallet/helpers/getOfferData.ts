@@ -1,9 +1,9 @@
-import { GetContractSummariesResponseBody } from "../../../../peach-api/src/@types/api/contractAPI";
+import { ContractSummary } from "../../../../peach-api/src/@types/contract";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 
 export function getOfferData(
   offers: (SellOffer | BuyOffer)[],
-  contracts: GetContractSummariesResponseBody,
+  contracts: ContractSummary[],
   type: TransactionType,
 ) {
   return offers.map((offer) => {

@@ -134,7 +134,7 @@ export const confirmedTransactionSummary: TransactionSummary = {
   height: 1,
   confirmed: true,
 };
-export const bitcoinTransaction: Transaction = {
+export const bitcoinTransaction = {
   txid: "credacted",
   version: 1,
   locktime: 0,
@@ -184,7 +184,7 @@ export const bitcoinTransaction: Transaction = {
   },
 };
 
-export const transactionWithoutRBF1: Transaction = {
+export const transactionWithoutRBF1 = {
   txid: "983eca3c0ad59f1459a93fa893ec9a5610d5abdb0501656dbac803be4a564215",
   version: 2,
   locktime: 0,
@@ -289,7 +289,7 @@ export const transactionWithoutRBF1: Transaction = {
   },
 };
 
-export const transactionWithoutRBF2: Transaction = {
+export const transactionWithoutRBF2 = {
   txid: "6cc040df39c32750b0ca112697a54b3f3ba35547b2be0aceb0b2b50696849a3c",
   version: 2,
   locktime: 0,
@@ -367,7 +367,7 @@ export const transactionWithoutRBF2: Transaction = {
   },
 };
 
-export const transactionWithRBF1: Transaction = {
+export const transactionWithRBF1 = {
   txid: "053f320d8b9b77c521e8d9e8e7d90692e9c51a38c3d11010069e66b37b5f53d7",
   version: 2,
   locktime: 0,
@@ -417,7 +417,7 @@ export const transactionWithRBF1: Transaction = {
     block_time: 1688034708,
   },
 };
-export const transactionWithRBF2: Transaction = {
+export const transactionWithRBF2 = {
   txid: "acca7d01838630a811b7c3243d20d592f0c6484ae4c9e979a733a115f8409527",
   version: 2,
   locktime: 796349,

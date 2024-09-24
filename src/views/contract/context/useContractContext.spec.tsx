@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
 import { renderHook } from "test-utils";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 import { ContractContext } from "./ContractContext";
 import { useContractContext } from "./useContractContext";
 
 const toggleShowBatchInfo = jest.fn();
-const wrapper = ({ children }: ComponentProps) => (
+const wrapper = ({ children }: { children: ReactNode }) => (
   <ContractContext.Provider
     value={{
       contract: {} as Contract,

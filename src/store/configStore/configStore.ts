@@ -3,6 +3,15 @@ import { persist } from "zustand/middleware";
 import { createStorage } from "../../utils/storage/createStorage";
 import { createPersistStorage } from "../createPersistStorage";
 
+type Config = {
+  paymentMethods: PaymentMethodInfo[];
+  peachPGPPublicKey: string;
+  peachFee: number;
+  minTradingAmount: number;
+  maxTradingAmount: number;
+  seenDisputeDisclaimer: boolean;
+};
+
 type ConfigStore = Config & {
   reset: () => void;
   setPaymentMethods: (paymentMethods: PaymentMethodInfo[]) => void;

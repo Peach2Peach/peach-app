@@ -2,9 +2,7 @@ import ParsedText, { ParsedTextProps } from "react-native-parsed-text";
 import tw from "../../styles/tailwind";
 import { shouldNormalCase } from "./helpers/shouldNormalCase";
 
-export type Props = ComponentProps & ParsedTextProps;
-
-export const ParsedPeachText = ({ style, ...props }: Props) => (
+export const ParsedPeachText = ({ style, ...props }: ParsedTextProps) => (
   <ParsedText
     style={[
       tw`body-m text-black-100`,

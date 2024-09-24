@@ -1,19 +1,16 @@
 import { TouchableOpacity } from "react-native";
-import { FillProps } from "react-native-svg";
 import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
-type Props = ComponentProps & {
+type Props = TouchableOpacity["props"] & {
   checked: boolean;
   onPress: () => void;
-  iconProps?: ComponentProps & { color: FillProps["fill"] };
   green?: boolean;
 };
 export const Checkbox = ({
   checked,
   green,
-  iconProps,
   style,
   children,
   ...wrapperProps
@@ -24,7 +21,6 @@ export const Checkbox = ({
   >
     <Icon
       id={checked ? "checkboxMark" : "square"}
-      {...iconProps}
       color={
         checked
           ? tw.color(green ? "success-main" : "primary-main")

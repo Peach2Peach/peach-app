@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Keyboard } from "react-native";
+import { Contract } from "../../../peach-api/src/@types/contract";
 import { useClosePopup } from "../../components/popup/GlobalPopup";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { offerKeys } from "../../hooks/query/useOfferDetail";

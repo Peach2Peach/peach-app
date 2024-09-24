@@ -8,6 +8,7 @@ export const offerKeys = {
   summary: (id: string) => [...offerKeys.summaries(), id] as const,
   details: () => [...offerKeys.all, "details"] as const,
   detail: (id: string) => [...offerKeys.details(), id] as const,
+  escrowInfo: (id: string) => [...offerKeys.detail(id), "escrowInfo"] as const,
   fundingStatus: (id: string) =>
     [...offerKeys.detail(id), "fundingStatus"] as const,
 };

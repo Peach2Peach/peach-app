@@ -1,7 +1,8 @@
-import { Flags, FlagType } from "./flags";
+import { StyleProp, ViewStyle } from "react-native";
+import { FlagType, Flags } from "./flags";
 import { PeachText } from "./text/PeachText";
 
-type Props = ComponentProps & { id: FlagType };
+type Props = { id: FlagType; style: StyleProp<ViewStyle> };
 
 export const Flag = ({ id, style }: Props) => {
   const SVG = Flags[id];

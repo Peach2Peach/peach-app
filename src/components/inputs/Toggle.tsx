@@ -1,9 +1,12 @@
-import { TextStyle, TouchableOpacity } from "react-native";
+import { ReactNode } from "react";
+import { TextStyle, TouchableOpacity, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
-type Props = ComponentProps & {
+type Props = {
+  children?: ReactNode;
+  style?: ViewStyle;
   enabled: boolean;
   disabled?: boolean;
   onPress: () => void;

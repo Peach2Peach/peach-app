@@ -1,9 +1,12 @@
-import { Animated } from "react-native";
+import { ReactNode } from "react";
+import { Animated, ViewStyle } from "react-native";
 import { useIsMediumScreen } from "../../../../hooks/useIsMediumScreen";
 import tw from "../../../../styles/tailwind";
 import { FixedHeightText } from "../../../text/FixedHeightText";
 
-type Props = ComponentProps & {
+type Props = {
+  children: ReactNode;
+  style?: ViewStyle;
   width: number;
   opacity: Animated.Value | Animated.AnimatedInterpolation<string | number>;
 };
