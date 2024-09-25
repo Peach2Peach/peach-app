@@ -10,7 +10,7 @@ type Props = {
   size?: number;
   style?: ViewStyle | ViewStyle[];
 };
-const defaultSize = tw`w-6`.width;
+const defaultSize = 24;
 
 export const Icon = ({ id, style, color, size }: Props) => {
   const SVG = Icons[id];

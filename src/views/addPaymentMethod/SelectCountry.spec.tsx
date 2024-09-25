@@ -15,6 +15,10 @@ describe("SelectCountry", () => {
         id: "giftCard.amazon",
         currencies: ["EUR"],
         countries: ["DE", "IT", "ES", "FR"],
+        fields: {
+          mandatory: [[["email"]]],
+          optional: [],
+        },
         anonymous: true,
       },
     ]);

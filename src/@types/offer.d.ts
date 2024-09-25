@@ -3,9 +3,32 @@ type OfferDraft = {
   meansOfPayment: MeansOfPayment;
   paymentData: OfferPaymentData;
   originalPaymentData: PaymentData[];
-  tradeStatus?: TradeStatus;
 };
 
+type TradeStatus =
+  | "confirmCancelation"
+  | "confirmPaymentRequired"
+  | "dispute"
+  | "escrowWaitingForConfirmation"
+  | "fundEscrow"
+  | "waitingForFunding"
+  | "fundingExpired"
+  | "fundingAmountDifferent"
+  | "hasMatchesAvailable"
+  | "offerCanceled"
+  | "offerHidden"
+  | "offerHiddenWithMatchesAvailable"
+  | "paymentRequired"
+  | "paymentTooLate"
+  | "payoutPending"
+  | "rateUser"
+  | "refundAddressRequired"
+  | "refundOrReviveRequired"
+  | "refundTxSignatureRequired"
+  | "releaseEscrow"
+  | "searchingForPeer"
+  | "tradeCanceled"
+  | "tradeCompleted";
 type Offer = Omit<OfferDraft, "originalPaymentData"> & {
   id: string;
   creationDate: Date;
@@ -14,7 +37,7 @@ type Offer = Omit<OfferDraft, "originalPaymentData"> & {
   online: boolean;
 
   user: PublicUser;
-  matches: Offer["id"][];
+  matches: string[];
   doubleMatched: boolean;
   contractId?: string;
   escrowFee: number;

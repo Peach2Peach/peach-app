@@ -1,3 +1,4 @@
+import { TradeStatus } from "../../../../peach-api/src/@types/offer";
 import { IconType } from "../../../assets/icons";
 
 export const statusIcons: Record<TradeStatus | "waiting", IconType> = {

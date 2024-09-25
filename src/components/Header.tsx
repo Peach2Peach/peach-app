@@ -146,7 +146,7 @@ function HeaderNavigation({
           <TouchableOpacity onPress={goBack}>
             <Icon
               id="chevronLeft"
-              style={24}
+              size={24}
               color={newThemes[theme].backButtonColor}
             />
           </TouchableOpacity>

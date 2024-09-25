@@ -1,3 +1,5 @@
+import { TradeStatus } from "../../../../peach-api/src/@types/offer";
+
 const prioritaryStatus: TradeStatus[] = [
   "releaseEscrow",
   "confirmCancelation",

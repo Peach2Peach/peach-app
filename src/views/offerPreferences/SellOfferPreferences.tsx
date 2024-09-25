@@ -73,7 +73,6 @@ export function SellOfferPreferences() {
   const [isSliding, setIsSliding] = useState(false);
   return (
     <PreferenceScreen
-      header={<SellHeader />}
       button={
         <>
           <FundWithPeachWallet />

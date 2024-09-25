@@ -1,3 +1,5 @@
+import { PaymentMethodCountry } from "../peach-api/src/@types/offer";
+import { PaymentMethodInfo } from "../peach-api/src/@types/payment";
 import { uniqueArray } from "./utils/array/uniqueArray";
 import { isCashTrade } from "./utils/paymentMethod/isCashTrade";
 
@@ -56,15 +58,6 @@ export const NATIONALTRANSFERCOUNTRIES = [
   "TR",
   "NG",
 ] as const;
-
-export let PAYMENTMETHODS: PaymentMethod[] = ["sepa"];
-export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
-  {
-    id: "sepa",
-    currencies: ["EUR"],
-    anonymous: false,
-  },
-];
 
 const bankTransfer: PaymentMethod[] = [
   "alias",
@@ -135,19 +128,17 @@ const nationalOption: PaymentMethod[] = [
   "satispay",
 ];
 const other: PaymentMethod[] = ["liquid", "lnurl"];
-const cash: PaymentMethod[] = [];
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer,
   onlineWallet,
   giftCard,
   nationalOption,
-  cash,
+  cash: [],
   other,
 };
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
-  PAYMENTMETHODINFOS = paymentMethodInfos;
   CURRENCIES = paymentMethodInfos
     .reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
     .filter(uniqueArray);
@@ -157,9 +148,7 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
       [],
     )
     .filter(uniqueArray);
-  PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id);
-  PAYMENTCATEGORIES.cash = [
-    ...PAYMENTCATEGORIES.cash,
+  PAYMENTCATEGORIES.cash.push(
     ...paymentMethodInfos.map(({ id }) => id).filter(isCashTrade),
-  ];
+  );
 };

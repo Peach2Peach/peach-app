@@ -1,6 +1,5 @@
 type EuPaymentMethods =
   | "advcash"
-  | "applePay"
   | "bankera"
   | "bizum"
   | "blik"
@@ -65,9 +64,7 @@ type AfricaPaymentMethods =
   | "orangeMoney"
   | "payday"
   | "wave"
-  | "wirepay"
-  | "flutterwave"
-  | "mobileAirtime";
+  | "wirepay";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =

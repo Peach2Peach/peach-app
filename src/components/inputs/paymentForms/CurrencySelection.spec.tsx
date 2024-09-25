@@ -1,13 +1,15 @@
 import { createRenderer } from "react-test-renderer/shallow";
 import { fireEvent, render } from "test-utils";
+import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { setPaymentMethods } from "../../../paymentMethods";
+import { useConfigStore } from "../../../store/configStore/configStore";
 import { CurrencySelection } from "./CurrencySelection";
 
 describe("CurrencySelection", () => {
   const renderer = createRenderer();
   const onToggle = jest.fn();
 
-  setPaymentMethods([
+  const methods: PaymentMethodInfo[] = [
     {
       id: "revolut",
       currencies: [
@@ -25,8 +27,15 @@ describe("CurrencySelection", () => {
         "SEK",
       ],
       anonymous: false,
+      fields: {
+        mandatory: [[["email"]]],
+        optional: [],
+      },
     },
-  ]);
+  ];
+  setPaymentMethods(methods);
+  useConfigStore.getState().setPaymentMethods(methods);
+
   it("should render correctly", () => {
     renderer.render(
       <CurrencySelection

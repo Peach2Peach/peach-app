@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
+import { PaymentMethodCountry } from "../../../../peach-api/src/@types/offer";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../../hooks/useRoute";
@@ -11,6 +12,7 @@ import { getPaymentMethods } from "../../../utils/paymentMethod/getPaymentMethod
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { paymentMethodAllowedForCurrency } from "../../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { Icon } from "../../Icon";
+import { DrawerOptionType } from "../../drawer/components/DrawerOption";
 import { useDrawerState } from "../../drawer/useDrawerState";
 import { PeachText } from "../../text/PeachText";
 
@@ -188,16 +190,19 @@ function PayementMethodBubble({
         if (hasMultiplePaymentData) {
           updateDrawer({
             title: i18n("selectPaymentMethod.title"),
-            options: paymentDataForType.map((p, index) => ({
-              title: getPaymentMethodName(p.type),
-              onPress: () => {
-                onPress(paymentDataForType[index]);
-                updateDrawer({ show: false });
-              },
-              logoID: paymentMethod,
-              iconRightID:
-                p.id === selectedPaymentData?.id ? "check" : undefined,
-            })),
+            options: paymentDataForType.map(
+              (p, index): DrawerOptionType => ({
+                title: getPaymentMethodName(p.type),
+                onPress: () => {
+                  onPress(paymentDataForType[index]);
+                  updateDrawer({ show: false });
+                },
+                // @ts-ignore
+                logoID: paymentMethod,
+                iconRightID:
+                  p.id === selectedPaymentData?.id ? "check" : undefined,
+              }),
+            ),
             show: true,
           });
         } else {

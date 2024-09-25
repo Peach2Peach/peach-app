@@ -6,8 +6,10 @@ import i18n from "../../utils/i18n";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { DrawerOptionType } from "../../components/drawer/components/DrawerOption";
 import { useDrawerState } from "../../components/drawer/useDrawerState";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
+import { PaymentLogoType } from "../../components/payment/logos";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
@@ -91,7 +93,9 @@ export const SelectPaymentMethod = () => {
     }
   };
 
-  const mapMethodToDrawerOption = (method: PaymentMethod) => ({
+  const mapMethodToDrawerOption = (
+    method: PaymentLogoType & PaymentMethod,
+  ): DrawerOptionType => ({
     title: i18n(`paymentMethod.${method}`),
     logoID: method,
     onPress: () => selectPaymentMethod(method),
@@ -147,7 +151,8 @@ export const SelectPaymentMethod = () => {
             paymentMethodAllowedForCurrency(method, selectedCurrency),
           )
           .filter(
-            (method) => category !== "giftCard" || method === "giftCard.amazon",
+            (method): method is PaymentMethod & PaymentLogoType =>
+              category !== "giftCard" || method === "giftCard.amazon",
           )
           .map(mapMethodToDrawerOption);
 

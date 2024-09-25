@@ -1,3 +1,5 @@
+import { TradeStatus } from "../../../../../peach-api/src/@types/offer";
+
 const statusThatLeadToSearch = [
   "searchingForPeer",
   "hasMatchesAvailable",

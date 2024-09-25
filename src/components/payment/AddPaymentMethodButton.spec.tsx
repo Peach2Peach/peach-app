@@ -1,4 +1,5 @@
 import { fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { BitcoinEvent } from "../../../peach-api/src/@types/events";
 import {
   balticHoneyBadger,
   belgianBTCEmbassy,
@@ -15,7 +16,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { defaultState, useDrawerState } from "../drawer/useDrawerState";
 import { AddPaymentMethodButton } from "./AddPaymentMethodButton";
 
-const mockEvents: MeetupEvent[] = [belgianBTCEmbassy, decouvreBTC];
+const mockEvents: BitcoinEvent[] = [belgianBTCEmbassy, decouvreBTC];
 
 const getEventsSpy = jest
   .spyOn(peachAPI.public.events, "getEvents")
@@ -201,7 +202,7 @@ describe("AddPaymentMethodButton", () => {
   });
 
   it("should show the featured meetups at the top of the list", async () => {
-    const featuredEvent: MeetupEvent = {
+    const featuredEvent: BitcoinEvent = {
       ...breizhBitcoin,
       featured: true,
     };

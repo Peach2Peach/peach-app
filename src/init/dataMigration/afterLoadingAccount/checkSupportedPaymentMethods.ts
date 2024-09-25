@@ -1,3 +1,4 @@
+import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { waitForHydration } from "../../../store/waitForHydration";

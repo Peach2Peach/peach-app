@@ -1,4 +1,5 @@
 import { TouchableOpacity } from "react-native";
+import { BitcoinEvent } from "../../../peach-api/src/@types/events";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
@@ -22,7 +23,7 @@ export const AddPaymentMethodButton = ({ isCash }: Props) => {
     navigation.navigate("selectCurrency", { origin: "paymentMethods" });
   };
 
-  const goToEventDetails = (eventID: MeetupEvent["id"]) => {
+  const goToEventDetails = (eventID: string) => {
     updateDrawer({ show: false });
     navigation.push("meetupScreen", {
       eventId: eventID.replace("cash.", ""),
@@ -31,8 +32,8 @@ export const AddPaymentMethodButton = ({ isCash }: Props) => {
   };
 
   const selectCountry = (
-    eventsByCountry: CountryEventsMap,
-    selected: Country,
+    eventsByCountry: Record<BitcoinEvent["country"], BitcoinEvent[]>,
+    selected: BitcoinEvent["country"],
   ) => {
     if (!meetupEvents) return;
 

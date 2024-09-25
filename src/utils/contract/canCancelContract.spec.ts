@@ -10,7 +10,7 @@ describe("canCancelContract", () => {
       canceled: false,
       cancelationRequested: false,
     };
-    expect(canCancelContract(contract as Contract)).toBe(false);
+    expect(canCancelContract(contract as Contract, "buyer")).toBe(false);
   });
 
   it("returns false if payment has been made", () => {
@@ -20,7 +20,7 @@ describe("canCancelContract", () => {
       canceled: false,
       cancelationRequested: false,
     };
-    expect(canCancelContract(contract as Contract)).toBe(false);
+    expect(canCancelContract(contract as Contract, "buyer")).toBe(false);
   });
 
   it("returns false if cancelation has been requested", () => {
@@ -30,7 +30,7 @@ describe("canCancelContract", () => {
       canceled: false,
       cancelationRequested: true,
     };
-    expect(canCancelContract(contract as Contract)).toBe(false);
+    expect(canCancelContract(contract as Contract, "buyer")).toBe(false);
   });
 
   it("returns false if contract has been canceled", () => {
@@ -40,7 +40,7 @@ describe("canCancelContract", () => {
       canceled: true,
       cancelationRequested: false,
     };
-    expect(canCancelContract(contract as Contract)).toBe(false);
+    expect(canCancelContract(contract as Contract, "buyer")).toBe(false);
   });
 
   it("returns false if the payment is too late and the view is the seller", () => {
@@ -62,6 +62,6 @@ describe("canCancelContract", () => {
       canceled: false,
       cancelationRequested: false,
     };
-    expect(canCancelContract(contract as Contract)).toBe(true);
+    expect(canCancelContract(contract as Contract, "buyer")).toBe(true);
   });
 });

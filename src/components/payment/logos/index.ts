@@ -61,7 +61,6 @@ export const PaymentLogos = {
   advcash,
   airtelMoney,
   alias: placeholder,
-  amazon,
   bancolombia,
   bankera: placeholder,
   bitcoin,

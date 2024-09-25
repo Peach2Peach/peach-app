@@ -13,7 +13,7 @@ describe("Toast", () => {
     action: {
       label: "testLabel",
       onPress: jest.fn(),
-      iconId: "bitcoin",
+      iconId: "bitcoin" as const,
     },
   };
   it("renders correctly", () => {

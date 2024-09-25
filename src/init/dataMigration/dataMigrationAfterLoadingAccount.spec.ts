@@ -1,4 +1,4 @@
-import { PAYMENTMETHODINFOS } from "../../paymentMethods";
+import { useConfigStore } from "../../store/configStore/configStore";
 import { checkSupportedPaymentMethods } from "./afterLoadingAccount/checkSupportedPaymentMethods";
 import { dataMigrationAfterLoadingAccount } from "./dataMigrationAfterLoadingAccount";
 
@@ -8,7 +8,7 @@ describe("dataMigrationAfterLoadingAccount", () => {
   it("should call checkSupportedPaymentMethods", () => {
     dataMigrationAfterLoadingAccount();
     expect(checkSupportedPaymentMethods).toHaveBeenCalledWith(
-      PAYMENTMETHODINFOS,
+      useConfigStore.getState().paymentMethods,
     );
   });
 });

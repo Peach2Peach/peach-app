@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { setNumber } from "rn-notification-badge";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
-import { OfferSummary } from "../../../peach-api/src/@types/offer";
+import { OfferSummary, TradeStatus } from "../../../peach-api/src/@types/offer";
 import { IconType } from "../../assets/icons";
 import { Icon } from "../../components/Icon";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";

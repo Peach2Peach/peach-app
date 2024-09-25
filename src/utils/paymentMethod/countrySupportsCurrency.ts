@@ -1,3 +1,5 @@
+import { PaymentMethodCountry } from "../../../peach-api/src/@types/offer";
+
 const map: Record<Currency, PaymentMethodCountry[]> = {
   EUR: ["DE", "FR", "IT", "ES", "NL"],
   CHF: ["CH"],

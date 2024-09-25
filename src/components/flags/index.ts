@@ -1,3 +1,4 @@
+import placeholder from "../payment/logos/placeholder.svg";
 import AD from "./ad.svg";
 import AT from "./at.svg";
 import BE from "./be.svg";
@@ -43,7 +44,9 @@ import ZA from "./za.svg";
 
 export const Flags = {
   AD,
+  AE: placeholder,
   AT,
+  BA: placeholder,
   BE,
   BG,
   BR,
@@ -51,6 +54,7 @@ export const Flags = {
   CD,
   CH,
   CI,
+  CO: placeholder,
   CY,
   CZ,
   DE,
@@ -65,12 +69,15 @@ export const Flags = {
   GR,
   HR,
   IE,
+  IN: placeholder,
   IT,
+  JP: placeholder,
   KE,
   LT,
   LU,
   LV,
   ME,
+  MK: placeholder,
   MT,
   NG,
   NL,
@@ -81,7 +88,9 @@ export const Flags = {
   SE,
   SI,
   SK,
+  TH: placeholder,
   TR,
+  UK: placeholder,
   US,
   ZA,
 };

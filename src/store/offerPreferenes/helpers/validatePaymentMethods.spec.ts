@@ -25,13 +25,24 @@ describe("validatePaymentMethods", () => {
   ];
   beforeAll(() => {
     setPaymentMethods([
-      { id: "sepa", currencies: ["EUR"], anonymous: false },
+      {
+        id: "sepa",
+        currencies: ["EUR"],
+        anonymous: false,
+        fields: { mandatory: [[["iban", "bic"]]], optional: ["reference"] },
+      },
       {
         id: "revolut",
         currencies: ["EUR", "CHF"],
         anonymous: false,
+        fields: { mandatory: [[["email"]]], optional: [] },
       },
-      { id: "paypal", currencies: ["EUR"], anonymous: false },
+      {
+        id: "paypal",
+        currencies: ["EUR"],
+        anonymous: false,
+        fields: { mandatory: [[["email"]]], optional: [] },
+      },
     ]);
   });
 

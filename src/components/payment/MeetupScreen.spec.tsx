@@ -46,16 +46,22 @@ describe("MeetupScreen", () => {
       {
         id: "cash.pt.porto.portugal-norte-bitcoin",
         currencies: ["EUR"],
-        countries: ["PT"],
         rounded: true,
         anonymous: true,
+        fields: {
+          mandatory: [],
+          optional: [],
+        },
       },
       {
         id: "cash.cz.prague.btc-prague",
         currencies: ["CZK", "EUR"],
-        countries: ["CZ"],
         rounded: true,
         anonymous: true,
+        fields: {
+          mandatory: [],
+          optional: [],
+        },
       },
     ]);
     setRouteMock(meetupScreenRoute);

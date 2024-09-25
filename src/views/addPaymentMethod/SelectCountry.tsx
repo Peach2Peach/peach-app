@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { PaymentMethodCountry } from "../../../peach-api/src/@types/offer";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";

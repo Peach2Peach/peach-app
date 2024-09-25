@@ -122,68 +122,51 @@ type Pricebook = {
   [key in Currency]?: number;
 };
 type PaymentMethodCountry =
+  | "AD"
+  | "AE"
+  | "AT"
+  | "BA"
+  | "BE"
   | "BG"
+  | "BR"
+  | "CD"
+  | "CH"
+  | "CI"
+  | "CO"
+  | "CY"
   | "CZ"
+  | "DE"
   | "DK"
+  | "ES"
+  | "FI"
+  | "FR"
+  | "GB"
+  | "GR"
+  | "HR"
   | "HU"
+  | "IN"
+  | "ISK"
+  | "IT"
+  | "JP"
+  | "KE"
+  | "LV"
+  | "ME"
+  | "MK"
+  | "MT"
+  | "NG"
+  | "NL"
   | "NO"
   | "PL"
-  | "RO"
-  | "TR"
-  | "NG"
-  | "DE"
-  | "CH"
-  | "ISK"
-  | "SE"
-  | "IT"
-  | "ES"
-  | "FR"
-  | "NL"
-  | "UK"
-  | "BE"
   | "PT"
-  | "GR"
-  | "UK"
-  | "GB"
-  | "CY"
-  | "SI"
-  | "LV"
-  | "US"
-  | "FI";
-
-type Country =
-  | "DE"
-  | "FR"
-  | "IT"
-  | "ES"
-  | "NL"
-  | "UK"
+  | "RO"
+  | "RS"
   | "SE"
-  | "FI"
-  | "BE"
-  | "LV";
-type MeetupEvent = {
-  id: string;
-  currencies: Currency[];
-  country: Country;
-  city: string;
-  shortName: string;
-  longName: string;
-  url?: string;
-  address?: string;
-  frequency?: string;
-  logo?: string;
-  featured: boolean;
-};
-type CountryEventsMap = Record<Country, MeetupEvent[]>;
-
-type PaymentMethodInfo = {
-  id: PaymentMethod;
-  currencies: Currency[];
-  countries?: PaymentMethodCountry[];
-  rounded?: boolean;
-  anonymous: boolean;
-};
+  | "SI"
+  | "TH"
+  | "TR"
+  | "UK"
+  | "US"
+  | "ZA";
 
 type FundingStatus = {
   status: "NULL" | "MEMPOOL" | "FUNDED" | "WRONG_FUNDING_AMOUNT" | "CANCELED";
@@ -195,31 +178,6 @@ type FundingStatus = {
 };
 
 type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>;
-
-type TradeStatus =
-  | "confirmCancelation"
-  | "confirmPaymentRequired"
-  | "dispute"
-  | "escrowWaitingForConfirmation"
-  | "fundEscrow"
-  | "waitingForFunding"
-  | "fundingExpired"
-  | "fundingAmountDifferent"
-  | "hasMatchesAvailable"
-  | "offerCanceled"
-  | "offerHidden"
-  | "offerHiddenWithMatchesAvailable"
-  | "paymentRequired"
-  | "paymentTooLate"
-  | "payoutPending"
-  | "rateUser"
-  | "refundAddressRequired"
-  | "refundOrReviveRequired"
-  | "refundTxSignatureRequired"
-  | "releaseEscrow"
-  | "searchingForPeer"
-  | "tradeCanceled"
-  | "tradeCompleted";
 
 type OfferPaymentData = Partial<
   Record<

@@ -15,14 +15,11 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
-import { isProduction } from "../../utils/system/isProduction";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
 import { isDefined } from "../../utils/validation/isDefined";
 import { SettingsItem } from "./components/SettingsItem";
 
-const contactUs = isProduction()
-  ? (["contact", "aboutPeach"] as const)
-  : (["testView", "contact", "aboutPeach"] as const);
+const contactUs = ["contact", "aboutPeach"] as const;
 
 export const Settings = () => {
   const setPopup = useSetPopup();
