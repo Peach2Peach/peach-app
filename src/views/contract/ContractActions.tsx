@@ -10,7 +10,6 @@ import { Timer } from "../../components/text/Timer";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
-import { getPaymentExpectedBy } from "../../utils/contract/getPaymentExpectedBy";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
@@ -24,7 +23,8 @@ import {
 } from "./ContractButtons";
 import {
   CancelTradeSlider,
-  ExtendTimerSlider,
+  ExtendFundingTimerSlider,
+  ExtendPaymentTimerSlider,
   PaymentMadeSlider,
   PaymentReceivedSlider,
   RefundEscrowSlider,
@@ -51,6 +51,7 @@ export const ContractActions = () => {
   );
 };
 
+const TWELVEHOURSINMS = 43200000;
 function ContractStatusInfo() {
   const { contract, view } = useContractContext();
   const { disputeActive, disputeWinner, cancelationRequested, paymentMethod } =
@@ -66,7 +67,9 @@ function ContractStatusInfo() {
     const requiredAction = getRequiredAction(contract);
 
     if (requiredAction === "sendPayment" && !isCashTrade(paymentMethod)) {
-      const paymentExpectedBy = getPaymentExpectedBy(contract);
+      const paymentExpectedBy =
+        contract.paymentExpectedBy?.getTime() ??
+        contract.creationDate.getTime() + TWELVEHOURSINMS;
       if (Date.now() <= paymentExpectedBy || view === "buyer") {
         return (
           <Timer
@@ -130,22 +133,34 @@ function BuyerSliders() {
   if (requiredAction === "confirmPayment" && !disputeWinner) {
     return <UnlockedSlider label={i18n("contract.payment.made")} />;
   }
+  if (tradeStatus === "fundingExpired") {
+    return (
+      <>
+        <CancelTradeSlider isBuyer />
+        <ExtendFundingTimerSlider />
+      </>
+    );
+  }
   return <></>;
 }
 
 function SellerSliders() {
   const { contract } = useContractContext();
-  const { tradeStatus, disputeWinner } = contract;
+  const { tradeStatus, disputeWinner, paymentMade, paymentExpectedBy } =
+    contract;
   if (tradeStatus === "releaseEscrow" && !!disputeWinner) {
     return <ReleaseEscrowSlider />;
   }
 
   const requiredAction = getRequiredAction(contract);
-  if (isPaymentTooLate(contract) && tradeStatus === "paymentTooLate") {
+  if (
+    isPaymentTooLate({ paymentMade, paymentExpectedBy }) &&
+    tradeStatus === "paymentTooLate"
+  ) {
     return (
       <>
         <CancelTradeSlider />
-        <ExtendTimerSlider />
+        <ExtendPaymentTimerSlider />
       </>
     );
   }

@@ -12,16 +12,20 @@ import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
+import { BuyOfferDetails } from "./explore/BuyOfferDetails";
 import { Explore } from "./explore/Explore";
 import { MatchDetails } from "./explore/MatchDetails";
+import { SellOfferDetails } from "./explore/SellOfferDetails";
+import { TradeRequestForBuyOffer } from "./explore/TradeRequestForBuyOffer";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
+import { Buy } from "./home/Buy";
 import { HomeScreen } from "./home/HomeScreen";
 import { AccountCreated } from "./newUser/AccountCreated";
 import { CreateAccountError } from "./newUser/CreateAccountError";
 import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
-import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
+import { CreateBuyOffer } from "./offerPreferences/CreateBuyOffer";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
-import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
+import { SellOfferPreferences } from "./offerPreferences/Sell";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
 import { Report } from "./report/Report";
@@ -29,6 +33,7 @@ import { RestoreBackup } from "./restoreBackup/RestoreBackup";
 import { RestoreReputation } from "./restoreReputation/RestoreReputation";
 import { EditPremium } from "./search/EditPremium";
 import { Search } from "./search/Search";
+import { TradeRequestForSellOffer } from "./search/TradeRequestForSellOffer";
 import { Backups } from "./settings/Backups";
 import { Currency } from "./settings/Currency";
 import { Language } from "./settings/Language";
@@ -57,7 +62,7 @@ import { ExportTradeHistory } from "./yourTrades/ExportTradeHistory";
 
 type ViewType = {
   name: keyof RootStackParamList;
-  component: () => JSX.Element;
+  component: () => JSX.Element | null;
   animationEnabled?: boolean;
 };
 
@@ -100,10 +105,14 @@ const wallet: ViewType[] = [
   { name: "bumpNetworkFees", component: BumpNetworkFees },
 ];
 const buyFlow: ViewType[] = [
-  { name: "buyOfferPreferences", component: BuyOfferPreferences },
+  { name: "buy", component: Buy },
+  { name: "sellOfferDetails", component: SellOfferDetails },
+  { name: "buyOfferDetails", component: BuyOfferDetails },
+  { name: "buyOfferPreferences", component: CreateBuyOffer },
   { name: "explore", component: Explore },
   { name: "editBuyPreferences", component: EditBuyPreferences },
   { name: "matchDetails", component: MatchDetails },
+  { name: "tradeRequestForBuyOffer", component: TradeRequestForBuyOffer },
 ];
 
 const sellFlow: ViewType[] = [
@@ -112,6 +121,7 @@ const sellFlow: ViewType[] = [
   { name: "wrongFundingAmount", component: WrongFundingAmount },
   { name: "search", component: Search },
   { name: "editPremium", component: EditPremium },
+  { name: "tradeRequestForSellOffer", component: TradeRequestForSellOffer },
 ];
 
 const trade: ViewType[] = [

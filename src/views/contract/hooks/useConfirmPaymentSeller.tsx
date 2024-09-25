@@ -23,7 +23,7 @@ export function useConfirmPaymentSeller({
     },
     {
       mutationFn: async () => {
-        const sellOffer = await getSellOfferFromContract(contract);
+        const sellOffer = getSellOfferFromContract(contract.id);
         if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
 
         const wallet = getEscrowWalletForOffer(sellOffer);

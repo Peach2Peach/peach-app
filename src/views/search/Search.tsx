@@ -1,142 +1,206 @@
-import { useCallback, useMemo } from "react";
-import { View } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useQuery } from "@tanstack/react-query";
+import { ActivityIndicator, FlatList } from "react-native";
+import { TradeRequestForSellOffer } from "../../../peach-api/src/private/offer/getTradeRequestsForSellOffer";
 import { Header } from "../../components/Header";
-import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
-import { Matches } from "../../components/matches/Matches";
-import { SellOfferSummary } from "../../components/offer/SellOfferSummary";
-import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { PeachText } from "../../components/text/PeachText";
-import { FIFTEEN_SECONDS } from "../../constants";
+import {
+  CENT,
+  SATSINBTC,
+  fullScreenTabNavigationScreenOptions,
+} from "../../constants";
+import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
-import { HelpPopup } from "../../popups/HelpPopup";
-import { SellSorters } from "../../popups/sorting/SellSorters";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { isBuyOffer } from "../../utils/offer/isBuyOffer";
-import { isSellOffer } from "../../utils/offer/isSellOffer";
+import { round } from "../../utils/math/round";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
+import { peachAPI } from "../../utils/peachAPI";
+import { OfferSummaryCard } from "../explore/OfferSummaryCard";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { useOfferMatches } from "./hooks/useOfferMatches";
-import { useRefetchOnNotification } from "./hooks/useRefetchOnNotification";
+import { ExpressSell } from "../offerPreferences/ExpressSell";
+import { useUser } from "../publicProfile/useUser";
+import { useOfferMatches } from "../search/hooks/useOfferMatches";
+import { NoMatchesYet } from "./NoMatchesYet";
 
-export const Search = () => {
-  const navigation = useStackNavigation();
-  const { offerId } = useRoute<"search">().params;
-  const { allMatches: matches, refetch } = useOfferMatches(
-    offerId,
-    FIFTEEN_SECONDS,
-  );
+const OfferTab = createMaterialTopTabNavigator();
 
-  const { offer } = useOfferDetail(offerId);
-  useRefetchOnNotification(refetch);
-
-  if (offer?.contractId)
-    navigation.replace("contract", {
-      contractId: offer.contractId,
-    });
-
-  if (!offer || !isSellOffer(offer) || offer.contractId)
-    return <LoadingScreen />;
+export function Search() {
+  const { offerId } = useRoute<"explore">().params;
   return (
-    <Screen
-      style={!!matches.length && tw`px-0`}
-      header={<SearchHeader offer={offer} />}
-      showTradingLimit
-    >
-      <PeachScrollView
-        contentContainerStyle={tw`justify-center grow`}
-        bounces={false}
+    <Screen style={tw`px-0`} header={<ExploreHeader />}>
+      <OfferTab.Navigator
+        initialRouteName="acceptTrade"
+        screenOptions={fullScreenTabNavigationScreenOptions}
+        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
-        {matches.length ? (
-          <Matches offer={offer} />
-        ) : (
-          <NoMatchesYet offer={offer} />
-        )}
-      </PeachScrollView>
+        <OfferTab.Screen
+          name="acceptTrade"
+          options={{
+            title: "accept trade",
+          }}
+          children={() => <AcceptTrade offerId={offerId} />}
+        />
+        <OfferTab.Screen
+          name="requestTrade"
+          options={{
+            title: "request trade",
+          }}
+          children={() => <RequestTrade />}
+        />
+      </OfferTab.Navigator>
     </Screen>
   );
-};
-
-function NoMatchesYet({ offer }: { offer: SellOffer }) {
-  return (
-    <View style={tw`gap-8`}>
-      <PeachText style={tw`text-center subtitle-1`}>
-        {i18n("search.weWillNotifyYou")}
-      </PeachText>
-
-      <SellOfferSummary
-        offer={offer}
-        walletLabel={<WalletLabel address={offer.returnAddress} />}
-      />
-    </View>
-  );
 }
 
-function WalletLabel({ address }: { address: string }) {
-  const walletLabel = useWalletLabel({ address });
-  return (
-    <PeachText style={tw`text-center subtitle-1`}>{walletLabel}</PeachText>
-  );
+function RequestTrade() {
+  return <ExpressSell />;
 }
 
-function SearchHeader({ offer }: { offer: SellOffer }) {
-  const { offerId } = useRoute<"search">().params;
+function AcceptTrade({ offerId }: { offerId: string }) {
+  const {
+    allMatches: matches,
+    isPending,
+    fetchNextPage,
+    refetch,
+    isRefetching,
+  } = useOfferMatches(offerId);
+  const { data } = useQuery({
+    queryKey: ["tradeRequests", offerId],
+    queryFn: async () => {
+      const { result, error } =
+        await peachAPI.private.offer.getTradeRequestsForSellOffer({
+          offerId,
+        });
+      if (error || !result) {
+        throw new Error(error?.error || "Failed to fetch trade requests");
+      }
+      return result;
+    },
+  });
+
+  const tradeRequests = data?.tradeRequests || [];
+  const hasMatches = matches.length > 0 || tradeRequests.length > 0;
   const navigation = useStackNavigation();
+  if (isPending) return <LoadingScreen />;
+
+  if (hasMatches) {
+    return (
+      <>
+        <FlatList
+          data={matches}
+          onRefresh={() => refetch()}
+          refreshing={isRefetching}
+          keyExtractor={(item) => item.offerId}
+          renderItem={({ item }) => (
+            <OfferSummaryCard
+              user={item.user}
+              amount={item.amount}
+              // @ts-ignore
+              price={item.prices[item.selectedCurrency || "EUR"]}
+              currency={item.selectedCurrency || "EUR"}
+              premium={item.premium}
+              instantTrade={item.instantTrade}
+              tradeRequested={item.matched}
+              onPress={() => {
+                navigation.navigate("tradeRequestForSellOffer", {
+                  userId: item.user.id,
+                  offerId,
+                  amount: item.amount,
+                  // @ts-ignore
+                  fiatPrice: item.prices[item.selectedCurrency || "EUR"],
+                  currency: item.selectedCurrency || "EUR",
+                  // @ts-ignore
+                  paymentMethod: item.selectedPaymentMethod,
+                  symmetricKeyEncrypted: item.symmetricKeyEncrypted,
+                  isMatch: true,
+                  matchingOfferId: item.offerId,
+                });
+              }}
+            />
+          )}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => fetchNextPage()}
+          contentContainerStyle={tw`gap-10px`}
+        />
+        <FlatList
+          data={tradeRequests}
+          onRefresh={() => refetch()}
+          refreshing={isRefetching}
+          keyExtractor={({ userId, currency, paymentMethod }) =>
+            `${userId}-${currency}-${paymentMethod}`
+          }
+          renderItem={({ item }) => (
+            <TradeRequestSummaryCard tradeRequest={item} offerId={offerId} />
+          )}
+          contentContainerStyle={tw`gap-10px`}
+        />
+      </>
+    );
+  }
+  return <NoMatchesYet />;
+}
+
+function TradeRequestSummaryCard({
+  tradeRequest,
+  offerId,
+}: {
+  tradeRequest: TradeRequestForSellOffer;
+  offerId: string;
+}) {
+  const { currency, userId, fiatPrice, paymentMethod, symmetricKeyEncrypted } =
+    tradeRequest;
+  const { user } = useUser(userId);
+  const { offer } = useOfferDetail(offerId);
+  const { data: marketPrices } = useMarketPrices();
+  const navigation = useStackNavigation();
+  if (!user || !offer || typeof offer.amount !== "number" || !marketPrices) {
+    return <ActivityIndicator />;
+  }
+  const onPress = () =>
+    navigation.navigate("tradeRequestForSellOffer", {
+      userId,
+      offerId,
+      amount: offer?.amount as number,
+      fiatPrice,
+      currency,
+      paymentMethod,
+      symmetricKeyEncrypted,
+    });
+  const bitcoinPrice = marketPrices[currency];
+  if (!bitcoinPrice) return <ActivityIndicator />;
+
+  const bitcoinPriceOfOffer = fiatPrice / (offer.amount / SATSINBTC);
+  const premium = round((bitcoinPriceOfOffer / bitcoinPrice - 1) * CENT, 2);
+
+  return (
+    <OfferSummaryCard
+      user={user}
+      amount={offer?.amount}
+      price={fiatPrice}
+      currency={currency}
+      premium={premium}
+      instantTrade={false}
+      tradeRequested={false}
+      onPress={onPress}
+    />
+  );
+}
+
+function ExploreHeader() {
+  const { offerId } = useRoute<"explore">().params;
   const setPopup = useSetPopup();
-  const showMatchPopup = useCallback(
-    () => setPopup(<HelpPopup id="matchmatchmatch" />),
-    [setPopup],
-  );
-  const showAcceptMatchPopup = useCallback(
-    () => setPopup(<HelpPopup id="acceptMatch" />),
-    [setPopup],
-  );
-  const showSortAndFilterPopup = useCallback(
-    () => setPopup(<SellSorters />),
-    [setPopup],
-  );
-  const cancelOffer = useCallback(
-    () => setPopup(<CancelOfferPopup offerId={offerId} />),
-    [offerId, setPopup],
-  );
 
-  const goToEditPremium = useCallback(
-    () => navigation.navigate("editPremium", { offerId }),
-    [navigation, offerId],
+  const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />);
+
+  return (
+    <Header
+      icons={[{ ...headerIcons.cancel, onPress: cancelOffer }]}
+      title={`offer ${offerIdToHex(offerId)}`}
+    />
   );
-
-  const memoizedHeaderIcons = useMemo(() => {
-    if (!offer) return undefined;
-    const icons = [
-      { ...headerIcons.sellFilter, onPress: showSortAndFilterPopup },
-      { ...headerIcons.percent, onPress: goToEditPremium },
-      { ...headerIcons.cancel, onPress: cancelOffer },
-    ];
-
-    if (offer.matches.length > 0) {
-      return [
-        ...icons,
-        {
-          ...headerIcons.help,
-          onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup,
-        },
-      ];
-    }
-    return icons;
-  }, [
-    offer,
-    cancelOffer,
-    goToEditPremium,
-    showMatchPopup,
-    showAcceptMatchPopup,
-    showSortAndFilterPopup,
-  ]);
-
-  return <Header title={offerIdToHex(offerId)} icons={memoizedHeaderIcons} />;
 }

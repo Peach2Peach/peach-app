@@ -8,8 +8,8 @@ export function mapTransactionToOffer({
   offerSummaries,
   contractSummaries,
 }: {
-  offerSummaries: OfferSummary[];
-  contractSummaries: ContractSummary[];
+  offerSummaries: Pick<OfferSummary, "txId" | "fundingTxId" | "id">[];
+  contractSummaries: Pick<ContractSummary, "releaseTxId" | "id">[];
 }) {
   return ({ txid }: TransactionDetails) => {
     const sellOffers = offerSummaries.filter(

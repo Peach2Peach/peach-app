@@ -2,6 +2,8 @@ import { IconType } from "../../../assets/icons";
 
 export const statusIcons: Record<TradeStatus | "waiting", IconType> = {
   fundEscrow: "uploadCloud",
+  fundingExpired: "watch",
+  waitingForFunding: "uploadCloud",
   searchingForPeer: "search",
   offerHidden: "eyeOff",
   offerHiddenWithMatchesAvailable: "checkCircle",

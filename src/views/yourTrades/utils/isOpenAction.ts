@@ -6,8 +6,9 @@ const openActionStatus = [
   "rateUser",
 ];
 const sellOpenActionStatus = ["confirmPaymentRequired", "paymentTooLate"];
+const buyOpenActionStatus = ["paymentRequired", "fundingExpired"];
 
 export const isOpenAction = (type: Offer["type"], tradeStatus: TradeStatus) =>
   openActionStatus.includes(tradeStatus) ||
   (sellOpenActionStatus.includes(tradeStatus) && type === "ask") ||
-  (tradeStatus === "paymentRequired" && type === "bid");
+  (buyOpenActionStatus.includes(tradeStatus) && type === "bid");

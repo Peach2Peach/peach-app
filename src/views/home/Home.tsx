@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
 import Share from "react-native-share";
@@ -151,8 +152,7 @@ const buttonStyle = tw`flex-1 px-5 py-3`;
 
 function BuyButton() {
   const navigation = useStackNavigation();
-  const goToBuyOfferPreferences = () =>
-    navigation.navigate("buyOfferPreferences");
+  const goToBuyOfferPreferences = () => navigation.navigate("buy");
   return (
     <Button
       style={[buttonStyle, tw`bg-success-main`]}

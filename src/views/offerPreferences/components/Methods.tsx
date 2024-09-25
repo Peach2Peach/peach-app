@@ -24,7 +24,8 @@ export function Methods({
     type === "buy"
       ? tw.color("success-mild-1")
       : tw.color("primary-background-dark");
-  const color = tw.color("black-100");
+  const color =
+    type === "buy" ? tw.color("success-main") : tw.color("black-100");
   return (
     <>
       {hasSelectedMethods ? (

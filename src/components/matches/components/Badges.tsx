@@ -9,13 +9,13 @@ import { Icon } from "../../Icon";
 import { useSetPopup } from "../../popup/GlobalPopup";
 import { PeachText } from "../../text/PeachText";
 
-export function Badges({
-  unlockedBadges,
-  id,
-}: {
+type Props = {
   unlockedBadges: User["medals"];
   id: User["id"];
-}) {
+  disabled?: boolean;
+};
+
+export function Badges({ unlockedBadges, id, disabled }: Props) {
   const setPopup = useSetPopup();
   const openPeachBadgesPopup = () => setPopup(<MyBadgesPopup />);
 
@@ -23,6 +23,7 @@ export function Badges({
     <TouchableOpacity
       style={tw`flex-row flex-wrap gap-1 max-w-46`}
       onPress={openPeachBadgesPopup}
+      disabled={disabled}
     >
       {badges.map(([iconId, badgeName]) => (
         <Badge

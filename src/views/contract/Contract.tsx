@@ -1,6 +1,7 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
+import { networks } from "bitcoinjs-lib";
 import { useCallback, useMemo } from "react";
 import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
 import { OverlayComponent } from "../../OverlayComponent";
@@ -20,6 +21,8 @@ import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { generateBlock } from "../../utils/regtest/generateBlock";
+import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
@@ -147,23 +150,44 @@ function ContractHeader() {
         ...headerIcons.help,
         onPress: showConfirmPaymentHelp,
       });
+    if (getNetwork() === networks.regtest && tradeStatus === "fundEscrow") {
+      return [
+        { ...headerIcons.generateBlock, onPress: generateBlock },
+        ...icons,
+      ];
+    }
     return icons;
   }, [
+    disputeActive,
     contract,
     view,
+    showConfirmPopup,
     requiredAction,
     showMakePaymentHelp,
     showConfirmPaymentHelp,
-    disputeActive,
-    showConfirmPopup,
+    tradeStatus,
   ]);
 
+  const { paymentMade, paymentExpectedBy } = contract;
   const theme = useMemo(() => {
     if (disputeActive || disputeWinner) return "dispute";
     if (canceled || tradeStatus === "confirmCancelation") return "cancel";
-    if (isPaymentTooLate(contract)) return "paymentTooLate";
+    if (
+      isPaymentTooLate({ paymentMade, paymentExpectedBy }) ||
+      tradeStatus === "fundingExpired"
+    ) {
+      return "paymentTooLate";
+    }
     return view;
-  }, [canceled, contract, disputeActive, disputeWinner, tradeStatus, view]);
+  }, [
+    canceled,
+    disputeActive,
+    disputeWinner,
+    paymentExpectedBy,
+    paymentMade,
+    tradeStatus,
+    view,
+  ]);
 
   const title = getHeaderTitle(view, contract);
 
@@ -206,7 +230,8 @@ function getHeaderTitle(view: string, contract: ContractType) {
     if (disputeWinner === "seller") return i18n("contract.disputeLost");
 
     if (tradeStatus === "paymentRequired") {
-      if (isPaymentTooLate(contract))
+      const { paymentMade, paymentExpectedBy } = contract;
+      if (isPaymentTooLate({ paymentMade, paymentExpectedBy }))
         return i18n("contract.paymentTimerHasRunOut.title");
       return i18n("offer.requiredAction.paymentRequired");
     }
@@ -214,6 +239,7 @@ function getHeaderTitle(view: string, contract: ContractType) {
       return i18n("offer.requiredAction.waiting.seller");
     if (tradeStatus === "confirmCancelation")
       return i18n("offer.requiredAction.confirmCancelation.buyer");
+    if (tradeStatus === "tradeCanceled") return i18n("contract.tradeCanceled");
   }
 
   if (view === "seller") {
@@ -223,6 +249,7 @@ function getHeaderTitle(view: string, contract: ContractType) {
   }
 
   if (disputeActive) return i18n("offer.requiredAction.dispute");
+  if (tradeStatus === "fundingExpired") return "not funded on time";
   if (isPaymentTooLate(contract))
     return i18n("contract.paymentTimerHasRunOut.title");
 

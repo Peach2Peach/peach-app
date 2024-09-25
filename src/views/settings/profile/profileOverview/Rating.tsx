@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { StyleProp, TextStyle, View } from "react-native";
 import RatingPeach from "../../../../assets/icons/ratingPeach.svg";
 import { PeachText } from "../../../../components/text/PeachText";
 import { CENT } from "../../../../constants";
@@ -9,18 +9,26 @@ import { interpolate } from "../../../../utils/math/interpolate";
 type RatingProps = {
   rating: number;
   isNewUser?: boolean;
+  peachSize?: number;
+  textStyle?: StyleProp<TextStyle>;
 };
 
-export const MAX_NUMBER_OF_PEACHES = 5;
+const DEFAULT_PEACH_SIZE = 12;
+const MAX_NUMBER_OF_PEACHES = 5;
 export const CLIENT_RATING_RANGE = [0, MAX_NUMBER_OF_PEACHES] satisfies [
   number,
   number,
 ];
 export const SERVER_RATING_RANGE = [-1, 1] satisfies [number, number];
 
-export const Rating = ({ rating, isNewUser }: RatingProps) =>
+export const Rating = ({
+  rating,
+  isNewUser,
+  peachSize = DEFAULT_PEACH_SIZE,
+  textStyle,
+}: RatingProps) =>
   isNewUser ? (
-    <PeachText style={tw`subtitle-2 text-black-65`}>
+    <PeachText style={textStyle ? tw`subtitle-2 text-black-65` : textStyle}>
       {i18n("newUser")}
     </PeachText>
   ) : (
@@ -29,7 +37,7 @@ export const Rating = ({ rating, isNewUser }: RatingProps) =>
         {[...Array(MAX_NUMBER_OF_PEACHES)].map((_value, index) => (
           <RatingPeach
             key={`rating-peach-background-${index}`}
-            style={tw`w-3 h-3 opacity-50`}
+            style={[tw`opacity-50`, { width: peachSize, height: peachSize }]}
           />
         ))}
         <View
@@ -43,13 +51,13 @@ export const Rating = ({ rating, isNewUser }: RatingProps) =>
           {[...Array(MAX_NUMBER_OF_PEACHES)].map((_value, peach) => (
             <RatingPeach
               key={`rating-peach-colored-${peach}`}
-              style={tw`w-3 h-3`}
+              style={{ width: peachSize, height: peachSize }}
             />
           ))}
         </View>
       </View>
 
-      <PeachText style={tw`text-black-65 button-small`}>
+      <PeachText style={textStyle ? textStyle : tw`text-black-65 button-small`}>
         {interpolate(rating, SERVER_RATING_RANGE, CLIENT_RATING_RANGE).toFixed(
           1,
         )}

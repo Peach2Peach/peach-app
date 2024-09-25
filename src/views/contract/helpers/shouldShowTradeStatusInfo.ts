@@ -12,3 +12,20 @@ export const shouldShowTradeStatusInfo = (
     | "tradeStatus"
   >,
   view: "buyer" | "seller",
+) => {
+  const { paymentMade, paymentExpectedBy, tradeStatus } = contract;
+  const shouldShowPaymentTooLate =
+    isPaymentTooLate({
+      paymentMade,
+      paymentExpectedBy,
+    }) &&
+    (tradeStatus === "paymentTooLate" || view === "buyer");
+  return (
+    shouldShowPaymentTooLate ||
+    contract.canceled ||
+    (contract.disputeWinner === "buyer" &&
+      ["releaseEscrow", "confirmPaymentRequired"].includes(tradeStatus)) ||
+    (contract.cancelationRequested && view === "buyer") ||
+    tradeStatus === "fundingExpired"
+  );
+};

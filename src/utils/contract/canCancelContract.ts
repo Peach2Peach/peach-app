@@ -8,6 +8,7 @@ export const canCancelContract = (
   !contract.paymentMade &&
   !contract.canceled &&
   !contract.cancelationRequested &&
+  contract.tradeStatus !== "fundingExpired" &&
   !(
     view === "seller" &&
     (contract.paymentExpectedBy?.getTime() || 0) < Date.now()

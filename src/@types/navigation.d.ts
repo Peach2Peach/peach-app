@@ -27,14 +27,30 @@ type Home = {
 };
 
 type BuyFlow = {
+  buy: undefined;
+  sellOfferDetails: { offerId: string };
   buyOfferPreferences: undefined;
   explore: { offerId: string };
   editBuyPreferences: { offerId: string };
   matchDetails: { offerId: string; matchId: string };
+  tradeRequestForBuyOffer: {
+    userId: string;
+    offerId: string;
+    amount: number;
+    currency: Currency;
+    paymentMethod: PaymentMethod;
+    fiatPrice: number;
+    symmetricKeyEncrypted: string;
+  };
 };
 
 type SellFlow = {
   sellOfferPreferences: undefined;
+  buyOfferDetails: {
+    offerId: string;
+    amount: number;
+    premium: number;
+  };
   fundEscrow: {
     offerId: string;
   };
@@ -43,6 +59,17 @@ type SellFlow = {
   };
   search: { offerId: string };
   editPremium: { offerId: string };
+  tradeRequestForSellOffer: {
+    userId: string;
+    offerId: string;
+    amount: number;
+    currency: Currency;
+    paymentMethod: PaymentMethod;
+    fiatPrice: number;
+    symmetricKeyEncrypted: string;
+    isMatch?: boolean;
+    matchingOfferId?: string;
+  };
 };
 
 type ContractFlow = {

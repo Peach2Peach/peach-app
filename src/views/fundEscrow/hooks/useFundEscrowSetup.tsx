@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { MSINAMINUTE } from "../../../constants";
-import { useFundingInfo } from "../../../hooks/query/useFundingInfo";
+import { useEscrowInfo } from "../../../hooks/query/useEscrowInfo";
 import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetail";
 import { useRoute } from "../../../hooks/useRoute";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
@@ -41,7 +41,7 @@ export const useFundEscrowSetup = () => {
     userConfirmationRequired,
     error: fundingStatusError,
     isPending: fundingStatusIsPending,
-  } = useFundingInfo(offerId, canFetchFundingStatus);
+  } = useEscrowInfo(offerId, canFetchFundingStatus);
   const escrows = offers
     .filter(isDefined)
     .filter(isSellOffer)

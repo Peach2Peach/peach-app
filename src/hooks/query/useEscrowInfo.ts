@@ -7,15 +7,15 @@ import { offerKeys } from "./useOfferDetail";
 const TWENTY = 20;
 const TWENTYSECONDS = TWENTY * MSINASECOND;
 
-export const useFundingInfo = (id: string, enabled = true) => {
+export const useEscrowInfo = (id: string, enabled = true) => {
   const {
     data,
     isLoading,
     error: fundingStatusError,
     isPending,
   } = useQuery({
-    queryKey: offerKeys.fundingInfo(id),
-    queryFn: getFundingInfoQuery,
+    queryKey: offerKeys.escrowInfo(id),
+    queryFn: getEscrowInfoQuery,
     enabled,
     refetchInterval: TWENTYSECONDS,
   });
@@ -29,13 +29,13 @@ export const useFundingInfo = (id: string, enabled = true) => {
   };
 };
 
-async function getFundingInfoQuery({
+async function getEscrowInfoQuery({
   queryKey,
-}: QueryFunctionContext<ReturnType<typeof offerKeys.fundingInfo>>) {
+}: QueryFunctionContext<ReturnType<typeof offerKeys.escrowInfo>>) {
   const offerId = queryKey[2];
 
   const { result: fundingStatus, error: err } =
-    await peachAPI.private.offer.getFundingInfo({ offerId });
+    await peachAPI.private.offer.getEscrowInfo({ offerId });
   if (!fundingStatus || err) {
     error("Could not fetch funding info for offer", offerId, err?.error);
     throw new Error(err?.error);

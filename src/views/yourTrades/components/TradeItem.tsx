@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { memo } from "react";
 import { View } from "react-native";
 import { ContractSummary } from "../../../../peach-api/src/@types/contract";
@@ -88,8 +87,7 @@ const Label = memo(
   },
 );
 const TradeStatusInfo = memo(({ item, iconId, color }: Props & TradeTheme) => {
-  const { data } = useSubtext(item);
-  const subtext = data || getFallbackSubtext(item);
+  const subtext = getSubtext(item);
   const replaced = "newTradeId" in item && !!item.newTradeId;
   const title = getTitle(item);
 
@@ -137,8 +135,8 @@ const AmountInfo = memo(({ item }: Props) => {
   );
 });
 
-export function TradeItem({ item }: Props) {
-  const onPress = useTradeNavigation(item);
+export function TradeItem({ item, isSeller }: Props & { isSeller?: boolean }) {
+  const onPress = useTradeNavigation(item, isSeller);
 
   const { color, iconId } = getThemeForTradeItem(item);
   return (
@@ -269,14 +267,6 @@ function getTitle(item: OfferSummary | ContractSummary) {
   return title;
 }
 
-function useSubtext(item: OfferSummary | ContractSummary) {
-  return useQuery({
-    queryKey: ["tradeItem", "subtext", item.id],
-    queryFn: () => getSubtext(item),
-    placeholderData: getFallbackSubtext(item),
-  });
-}
-
 function getFallbackSubtext(item: OfferSummary | ContractSummary) {
   const date = new Date(
     "paymentMade" in item
@@ -286,11 +276,11 @@ function getFallbackSubtext(item: OfferSummary | ContractSummary) {
   return getShortDateFormat(date);
 }
 
-async function getSubtext(item: OfferSummary | ContractSummary) {
+function getSubtext(item: OfferSummary | ContractSummary) {
   const newOfferId =
     "newTradeId" in item && !!item.newTradeId ? item.newTradeId : undefined;
   const newContractId = newOfferId
-    ? (await getOffer(newOfferId))?.contractId
+    ? getOffer(newOfferId)?.contractId
     : undefined;
   const newTradeId = newContractId
     ? contractIdToHex(newContractId)

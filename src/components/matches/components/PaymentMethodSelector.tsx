@@ -1,6 +1,7 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
+import { useRoute } from "../../../hooks/useRoute";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
@@ -9,38 +10,28 @@ import { keys } from "../../../utils/object/keys";
 import { getPaymentMethods } from "../../../utils/paymentMethod/getPaymentMethods";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { paymentMethodAllowedForCurrency } from "../../../utils/paymentMethod/paymentMethodAllowedForCurrency";
-import { NewBubble as Bubble } from "../../bubble/Bubble";
+import { Icon } from "../../Icon";
 import { useDrawerState } from "../../drawer/useDrawerState";
-import { CurrencySelection } from "../../navigation/CurrencySelection";
-import { PulsingText } from "./PulsingText";
+import { PeachText } from "../../text/PeachText";
 
 type Props = {
-  match: Match;
-  disabled: boolean;
+  meansOfPayment: MeansOfPayment;
   selectedCurrency: Currency;
   setSelectedCurrency: (currency: Currency) => void;
   selectedPaymentData: PaymentData | undefined;
-  setSelectedPaymentData: (paymentMethod?: PaymentData) => void;
-  showPaymentMethodPulse: boolean;
+  setSelectedPaymentData: (paymentData: PaymentData | undefined) => void;
 };
 
 export function PaymentMethodSelector({
-  match,
-  disabled,
+  meansOfPayment,
   selectedCurrency,
   setSelectedCurrency,
   selectedPaymentData,
   setSelectedPaymentData,
-  showPaymentMethodPulse,
 }: Props) {
-  const {
-    selectedCurrency: matchCurrency,
-    selectedPaymentMethod: matchPaymentMethod,
-    meansOfPayment,
-  } = match;
+  const allPaymentMethods = getPaymentMethods(meansOfPayment);
   const availableCurrencies = keys(meansOfPayment);
 
-  const allPaymentMethods = getPaymentMethods(meansOfPayment);
   const availablePaymentMethods = allPaymentMethods.filter((p) =>
     paymentMethodAllowedForCurrency(p, selectedCurrency),
   );
@@ -63,65 +54,55 @@ export function PaymentMethodSelector({
   );
 
   const onCurrencyChange = (currency: Currency) => {
-    const allMethodsForCurrency = allPaymentMethods.filter((p) =>
+    const allMethodsForNextCurrency = allPaymentMethods.filter((p) =>
       paymentMethodAllowedForCurrency(p, currency),
     );
-    const dataForCurrency = accountPaymentData.filter((d) =>
-      allMethodsForCurrency.includes(d.type),
+    const dataForNextCurrency = accountPaymentData.filter((d) =>
+      allMethodsForNextCurrency.includes(d.type),
     );
     const newData =
-      dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
+      dataForNextCurrency.length === 1 ? dataForNextCurrency[0] : undefined;
     setSelectedCurrency(currency);
     setSelectedPaymentData(newData);
   };
 
   return (
     <View
-      style={[disabled && tw`opacity-33`, tw`gap-1`]}
-      pointerEvents={disabled ? "none" : "auto"}
+      style={tw`items-center self-stretch gap-3 px-4 py-3 border-2 rounded-2xl border-primary-main`}
     >
-      <PulsingText style={tw`self-center`} showPulse={showPaymentMethodPulse}>
-        {i18n("form.paymentMethod")}
-      </PulsingText>
+      <PeachText style={tw`underline subtitle-1`}>
+        select currency & payment method
+      </PeachText>
 
       <View style={tw`gap-3 pb-2`}>
-        {match.matched ? (
-          <>
-            {matchCurrency && matchPaymentMethod && (
-              <>
-                <CurrencySelection
-                  currencies={[matchCurrency]}
-                  selected={matchCurrency}
-                />
-                <CustomSelector
-                  selectedValue={matchPaymentMethod}
-                  selectedCurrency={matchCurrency}
-                  items={[
-                    {
-                      value: matchPaymentMethod,
-                      display: getPaymentMethodName(matchPaymentMethod),
-                    },
-                  ]}
-                />
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <CurrencySelection
-              currencies={availableCurrencies}
-              selected={selectedCurrency}
-              select={onCurrencyChange}
-            />
-            <CustomSelector
-              selectedCurrency={selectedCurrency}
-              selectedValue={selectedPaymentData?.type}
-              selectedPaymentData={selectedPaymentData}
-              onPress={setSelectedPaymentData}
-              items={items}
-            />
-          </>
-        )}
+        <View
+          style={tw`flex-row flex-wrap items-center self-stretch justify-center gap-1`}
+        >
+          {availableCurrencies.map((currency) => (
+            <TouchableOpacity
+              key={currency}
+              style={[
+                tw`px-2 border rounded-lg border-black-100`,
+                selectedCurrency === currency
+                  ? tw`bg-black-5 border-black-100`
+                  : tw`border-transparent`,
+              ]}
+              disabled={selectedCurrency === currency}
+              onPress={() => onCurrencyChange(currency)}
+            >
+              <PeachText style={tw`leading-loose subtitle-0`}>
+                {currency}
+              </PeachText>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <CustomSelector
+          selectedCurrency={selectedCurrency}
+          selectedValue={selectedPaymentData?.type}
+          selectedPaymentData={selectedPaymentData}
+          onPress={setSelectedPaymentData}
+          items={items}
+        />
       </View>
     </View>
   );
@@ -189,6 +170,7 @@ function PayementMethodBubble({
       ? "plusSquare"
       : "edit";
   const navigation = useStackNavigation();
+  const routeName = useRoute().name;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
   const { data: meetupEvents } = useMeetupEvents();
@@ -224,7 +206,7 @@ function PayementMethodBubble({
       } else if (isCashTrade(paymentMethod)) {
         navigation.navigate("meetupScreen", {
           eventId: paymentMethod.replace("cash.", ""),
-          origin: "matchDetails",
+          origin: routeName,
         });
       } else {
         const country = paymentMethod.startsWith("giftCard.amazon.")
@@ -237,20 +219,41 @@ function PayementMethodBubble({
             currencies: [selectedCurrency],
             country,
           },
-          origin: "matchDetails",
+          origin: routeName,
         });
       }
     }
   };
 
   return (
-    <Bubble
+    <TouchableOpacity
+      style={[
+        tw`flex-row items-center justify-center gap-1 px-2 border rounded-lg border-black-100`,
+        isSelected
+          ? tw`border-primary-main bg-primary-main`
+          : tw`border-primary-mild-2`,
+      ]}
       onPress={onPressBubble}
-      color={isSelected ? "orange" : "primary-mild"}
-      ghost={!isSelected}
-      iconId={iconId}
     >
-      {children}
-    </Bubble>
+      <PeachText
+        style={[
+          tw`leading-loose subtitle-0`,
+          isSelected
+            ? tw`text-primary-background-light`
+            : tw`text-primary-mild-2`,
+        ]}
+      >
+        {children}
+      </PeachText>
+      <Icon
+        id={iconId}
+        size={18}
+        color={
+          isSelected
+            ? tw.color("primary-background-light")
+            : tw.color("primary-mild-2")
+        }
+      />
+    </TouchableOpacity>
   );
 }

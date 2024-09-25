@@ -15,10 +15,14 @@ import { showTransaction } from "../utils/bitcoin/showTransaction";
 import i18n from "../utils/i18n";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
-  const viewInExplorer = () =>
-    contract.releaseTxId
-      ? showTransaction(contract.releaseTxId, NETWORK)
-      : showAddress(contract.escrow, NETWORK);
+  const viewInExplorer = () => {
+    if (!contract.escrow) return;
+    if (contract.releaseTxId) {
+      showTransaction(contract.releaseTxId, NETWORK);
+    } else {
+      showAddress(contract.escrow, NETWORK);
+    }
+  };
   return (
     <PopupComponent
       title={i18n("tradeComplete.popup.tradeBreakdown.title")}

@@ -5,7 +5,8 @@ const waitingStatus = [
   "payoutPending",
 ];
 const waitingBuyStatus = ["confirmPaymentRequired", "paymentTooLate"];
+const waitingSellStatus = ["paymentRequired", "fundingExpired"];
 export const isWaiting = (type: Offer["type"], tradeStatus: TradeStatus) =>
   waitingStatus.includes(tradeStatus) ||
-  (tradeStatus === "paymentRequired" && type === "ask") ||
+  (waitingSellStatus.includes(tradeStatus) && type === "ask") ||
   (waitingBuyStatus.includes(tradeStatus) && type === "bid");

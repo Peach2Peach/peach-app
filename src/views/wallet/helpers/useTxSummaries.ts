@@ -2,6 +2,7 @@ import { useQueries } from "@tanstack/react-query";
 import { useContractSummaries } from "../../../hooks/query/useContractSummaries";
 import { getOffer } from "../../../utils/offer/getOffer";
 import { getTransactionType } from "../../../utils/transaction/getTransactionType";
+import { isDefined } from "../../../utils/validation/isDefined";
 import { isNotNull } from "../../../utils/validation/isNotNull";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { walletKeys } from "../hooks/useUTXOs";
@@ -24,7 +25,7 @@ export function useTxSummaries() {
         return {
           ...partialSummary,
           type,
-          offerData: getOfferData(offers.filter(isNotNull), contracts, type),
+          offerData: getOfferData(offers.filter(isDefined), contracts, type),
         };
       },
       enabled: !!tx,
