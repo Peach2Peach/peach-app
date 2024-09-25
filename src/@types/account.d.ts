@@ -43,8 +43,3 @@ type Account = Identity & {
     [key: string]: Chat;
   };
 };
-
-type AccountBackup = Account & {
-  paymentData: PaymentData[];
-  settings: Settings;
-};

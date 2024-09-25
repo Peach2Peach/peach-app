@@ -86,8 +86,6 @@ type TradingLimit = {
   monthlyAnonymousAmount: number;
 };
 
-type TradingPair = "BTCEUR" | "BTCCHF" | "BTCGBP";
-
 type Currency =
   | "BTC"
   | "SAT"
@@ -196,24 +194,6 @@ type FundingStatus = {
   expiry: number;
 };
 
-type GetStatusResponse = {
-  error: null;
-  status: "online";
-  serverTime: number;
-};
-
-type GetInfoResponse = {
-  peach: {
-    pgpPublicKey: string;
-  };
-  fees: {
-    escrow: number;
-  };
-  paymentMethods: PaymentMethodInfo[];
-  latestAppVersion: string;
-  minAppVersion: string;
-};
-
 type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>;
 
 type TradeStatus =
@@ -222,6 +202,8 @@ type TradeStatus =
   | "dispute"
   | "escrowWaitingForConfirmation"
   | "fundEscrow"
+  | "waitingForFunding"
+  | "fundingExpired"
   | "fundingAmountDifferent"
   | "hasMatchesAvailable"
   | "offerCanceled"
@@ -252,20 +234,6 @@ type OfferPaymentData = Partial<
   >
 >;
 
-type FundingError = "" | "NOT_FOUND" | "UNAUTHORIZED";
-type FundingStatusResponse = {
-  offerId: string;
-  escrow: string;
-  funding: FundingStatus;
-  error?: FundingError;
-  returnAddress: string;
-  userConfirmationRequired: boolean;
-};
-
-type MatchUnavailableReasons = {
-  exceedsLimit: (keyof TradingLimit)[];
-};
-
 type Match = {
   user: PublicUser;
   offerId: string;
@@ -285,28 +253,6 @@ type Match = {
     exceedsLimit: (keyof TradingLimit)[];
   };
   instantTrade: boolean;
-};
-
-type MatchResponse =
-  | {
-      success: true;
-      contractId: string;
-      refundTx: string;
-    }
-  | {
-      matchedPrice: number;
-    };
-
-type GenerateBlockResponse = {
-  txId: string;
-};
-
-type FeeRecommendation = {
-  fastestFee: number;
-  halfHourFee: number;
-  hourFee: number;
-  economyFee: number;
-  minimumFee: number;
 };
 
 type NotificationType =
@@ -350,13 +296,3 @@ type PNData = {
   contractId?: string;
   isChat?: string;
 };
-
-type PNNotification = {
-  titleLocArgs?: string[];
-  bodyLocArgs?: string[];
-};
-
-type BuySorter = "highestAmount" | "lowestPremium" | "bestReputation";
-type SellSorter = "highestPrice" | "bestReputation";
-
-type Sorter = BuySorter | SellSorter;

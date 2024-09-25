@@ -5,11 +5,3 @@ type DisputeReason =
   | "unresponsive.seller"
   | "abusive"
   | "other";
-
-type DisputeOutcome =
-  | "buyerWins"
-  | "sellerWins"
-  | "none"
-  | "cancelTrade"
-  | "payOutBuyer";
-type DisputeWinner = "seller" | "buyer" | null;
