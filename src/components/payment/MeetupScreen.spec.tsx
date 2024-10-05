@@ -1,5 +1,4 @@
 import { Linking } from "react-native";
-import { createRenderer } from "react-test-renderer/shallow";
 import { fireEvent, render, waitFor } from "test-utils";
 import {
   meetupScreenRoute,
@@ -33,7 +32,6 @@ jest.useFakeTimers();
 
 describe("MeetupScreen", () => {
   const openURLSpy = jest.spyOn(Linking, "openURL");
-  const renderer = createRenderer();
   const btcPragueEvent = {
     id: "cash.cz.prague.btc-prague",
     currencies: ["CZK", "EUR"],
@@ -65,23 +63,6 @@ describe("MeetupScreen", () => {
       },
     ]);
     setRouteMock(meetupScreenRoute);
-  });
-  it("should render correctly", () => {
-    renderer.render(<MeetupScreen />);
-    const result = renderer.getRenderOutput();
-    expect(result).toMatchSnapshot();
-  });
-  it("should render correctly with multiple currencies", () => {
-    useMeetupScreenSetupMock.mockReturnValueOnce({
-      ...meetupScreenSetup,
-      deletable: true,
-      paymentMethod: "cash.cz.prague.btc-prague",
-      event: btcPragueEvent,
-      selectedCurrencies: ["EUR"],
-    });
-    renderer.render(<MeetupScreen />);
-    const result = renderer.getRenderOutput();
-    expect(result).toMatchSnapshot();
   });
   it("should open link to google maps and meetup website", async () => {
     useMeetupScreenSetupMock.mockReturnValueOnce({

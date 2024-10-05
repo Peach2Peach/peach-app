@@ -51,7 +51,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1498,10 +1498,123 @@
+@@ -1495,10 +1495,123 @@
                           />
                         </View>
                       </View>
@@ -228,7 +228,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1609,11 +1609,11 @@
+@@ -1603,11 +1603,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -1242,12 +1242,9 @@ exports[`SendBitcoin should render correctly 1`] = `
                   >
                     <View
                       style={
-                        [
-                          {
-                            "gap": 8,
-                          },
-                          undefined,
-                        ]
+                        {
+                          "gap": 8,
+                        }
                       }
                     >
                       <View
@@ -1807,21 +1804,18 @@ exports[`SendBitcoin should render correctly 1`] = `
                 onStartShouldSetResponder={[Function]}
                 onStartShouldSetResponderCapture={[Function]}
                 style={
-                  [
-                    {
-                      "backgroundColor": "#FEEDE5",
-                      "borderColor": "#FCCCB6",
-                      "borderRadius": 20,
-                      "borderWidth": 1,
-                      "overflow": "hidden",
-                      "paddingBottom": 4,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                      "paddingTop": 4,
-                      "width": "100%",
-                    },
-                    undefined,
-                  ]
+                  {
+                    "backgroundColor": "#FEEDE5",
+                    "borderColor": "#FCCCB6",
+                    "borderRadius": 20,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                    "paddingBottom": 4,
+                    "paddingLeft": 4,
+                    "paddingRight": 4,
+                    "paddingTop": 4,
+                    "width": "100%",
+                  }
                 }
                 testID="confirmSlider"
               >
@@ -2135,7 +2129,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -988,11 +988,11 @@
+@@ -985,11 +985,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2148,7 +2142,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "gap": 8,
                               "justifyContent": "space-between",
-@@ -1064,11 +1064,11 @@
+@@ -1061,11 +1061,11 @@
                                 </Text>
                               </Text>
                             </View>
@@ -2161,7 +2155,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                                 Object {
                                   "height": 24,
                                   "width": 24,
-@@ -1111,11 +1111,11 @@
+@@ -1108,11 +1108,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2174,7 +2168,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "gap": 8,
                               "justifyContent": "space-between",
-@@ -1187,11 +1187,11 @@
+@@ -1184,11 +1184,11 @@
                                 </Text>
                               </Text>
                             </View>

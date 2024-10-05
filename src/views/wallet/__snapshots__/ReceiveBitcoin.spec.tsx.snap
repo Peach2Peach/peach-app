@@ -203,12 +203,17 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
           >
             <View
               style={
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "gap": 2,
-                  "justifyContent": "flex-end",
-                }
+                [
+                  {
+                    "alignItems": "center",
+                    "flexBasis": "0%",
+                    "flexDirection": "row",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "gap": 2,
+                  },
+                  undefined,
+                ]
               }
             >
               <View
@@ -261,21 +266,15 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
             </View>
             <View
               style={
-                [
-                  {
-                    "alignItems": "center",
-                    "flexBasis": "0%",
-                    "flexDirection": "row",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "gap": 4,
-                    "justifyContent": "center",
-                  },
-                  [
-                    false,
-                    false,
-                  ],
-                ]
+                {
+                  "alignItems": "center",
+                  "flexBasis": "0%",
+                  "flexDirection": "row",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "gap": 4,
+                  "justifyContent": "center",
+                }
               }
             >
               <View
@@ -354,12 +353,19 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
             </View>
             <View
               style={
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "gap": 2,
-                  "justifyContent": "flex-end",
-                }
+                [
+                  {
+                    "alignItems": "center",
+                    "flexBasis": "0%",
+                    "flexDirection": "row",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "gap": 2,
+                  },
+                  {
+                    "justifyContent": "flex-end",
+                  },
+                ]
               }
             >
               <View
@@ -475,7 +481,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                         0,
                         -65536,
                         1,
-                        -16711681,
+                        -16776961,
                       ]
                     }
                     gradientTransform={null}
@@ -498,7 +504,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   <RNSVGRect
                     fill={
                       {
-                        "payload": 4294967295,
+                        "payload": 4294965750,
                         "type": 0,
                       }
                     }

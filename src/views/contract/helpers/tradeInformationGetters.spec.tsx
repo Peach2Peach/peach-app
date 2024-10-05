@@ -14,6 +14,7 @@ jest.mock("../context", () => ({
     paymentData: "paymentData",
   })),
 }));
+jest.useFakeTimers();
 
 describe("tradeInformationGetters", () => {
   it("should return the correct value for the price field", () => {

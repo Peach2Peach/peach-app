@@ -1,8 +1,7 @@
-import { ReactTestInstance } from "react-test-renderer";
-import { fireEvent } from "test-utils";
+import { fireEvent, render } from "test-utils";
 
 type Props = {
-  element: ReactTestInstance;
+  element: ReturnType<ReturnType<typeof render>["getByTestId"]>;
   x?: number;
   y?: number;
 };

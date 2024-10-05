@@ -411,47 +411,67 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                 >
                   <test-file-stub
                     style={
-                      {
-                        "height": 12,
-                        "opacity": 0.5,
-                        "width": 12,
-                      }
+                      [
+                        {
+                          "opacity": 0.5,
+                        },
+                        {
+                          "height": 12,
+                          "width": 12,
+                        },
+                      ]
                     }
                   />
                   <test-file-stub
                     style={
-                      {
-                        "height": 12,
-                        "opacity": 0.5,
-                        "width": 12,
-                      }
+                      [
+                        {
+                          "opacity": 0.5,
+                        },
+                        {
+                          "height": 12,
+                          "width": 12,
+                        },
+                      ]
                     }
                   />
                   <test-file-stub
                     style={
-                      {
-                        "height": 12,
-                        "opacity": 0.5,
-                        "width": 12,
-                      }
+                      [
+                        {
+                          "opacity": 0.5,
+                        },
+                        {
+                          "height": 12,
+                          "width": 12,
+                        },
+                      ]
                     }
                   />
                   <test-file-stub
                     style={
-                      {
-                        "height": 12,
-                        "opacity": 0.5,
-                        "width": 12,
-                      }
+                      [
+                        {
+                          "opacity": 0.5,
+                        },
+                        {
+                          "height": 12,
+                          "width": 12,
+                        },
+                      ]
                     }
                   />
                   <test-file-stub
                     style={
-                      {
-                        "height": 12,
-                        "opacity": 0.5,
-                        "width": 12,
-                      }
+                      [
+                        {
+                          "opacity": 0.5,
+                        },
+                        {
+                          "height": 12,
+                          "width": 12,
+                        },
+                      ]
                     }
                   />
                   <View

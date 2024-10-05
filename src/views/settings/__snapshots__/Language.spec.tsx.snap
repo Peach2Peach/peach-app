@@ -189,12 +189,9 @@ exports[`Language renders correctly 1`] = `
             >
               <View
                 style={
-                  [
-                    {
-                      "gap": 8,
-                    },
-                    undefined,
-                  ]
+                  {
+                    "gap": 8,
+                  }
                 }
               >
                 <View

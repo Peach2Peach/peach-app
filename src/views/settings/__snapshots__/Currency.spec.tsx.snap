@@ -199,12 +199,9 @@ exports[`Currency should render correctly 1`] = `
             >
               <View
                 style={
-                  [
-                    {
-                      "gap": 8,
-                    },
-                    undefined,
-                  ]
+                  {
+                    "gap": 8,
+                  }
                 }
               >
                 <View

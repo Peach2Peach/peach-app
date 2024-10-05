@@ -1,4 +1,4 @@
-import { fireEvent, render } from "test-utils";
+import { act, fireEvent, render } from "test-utils";
 import i18n from "../../../utils/i18n";
 import { UndoButton } from "./UndoButton";
 
@@ -25,7 +25,9 @@ describe("UndoButton", () => {
     render(
       <UndoButton onPress={jest.fn()} onTimerFinished={onTimerFinished} />,
     );
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(onTimerFinished).toHaveBeenCalled();
   });
 });

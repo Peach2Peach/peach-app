@@ -142,7 +142,6 @@
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.2.6",
     "@types/react-native-dotenv": "^0.2.2",
-    "@types/react-test-renderer": "^18.0.7",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "babel-jest": "^29.7.0",
@@ -158,7 +157,6 @@
     "prettier": "^3.2.5",
     "react-native-svg-transformer": "^1.0.0",
     "react-native-version": "^4.0.0",
-    "react-test-renderer": "18.2.0",
     "snapshot-diff": "^0.10.0",
     "typescript": "^5.3.3"
   },

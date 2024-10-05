@@ -1,7 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import { TxBuilder } from "bdk-rn";
-import { act } from "react-test-renderer";
-import { fireEvent, render, renderHook, responseUtils } from "test-utils";
+import { act, fireEvent, render, renderHook, responseUtils } from "test-utils";
 import { defaultUser } from "../../../../peach-api/src/testData/userData";
 import { estimatedFees as mockEstimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
 import { transactionError } from "../../../../tests/unit/data/errors";

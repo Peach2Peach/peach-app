@@ -1,26 +1,16 @@
-import { responseUtils } from "test-utils";
 import { buyOffer, sellOffer } from "../../../tests/unit/data/offerData";
 import { offerSummary } from "../../../tests/unit/data/offerSummaryData";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
-import { peachAPI } from "../peachAPI";
 import { labelAddressByTransaction } from "./labelAddressByTransaction";
 import { useWalletState } from "./walletStore";
 
-const getOfferSpy = jest
-  .spyOn(peachAPI.private.offer, "getOfferDetails")
-  .mockImplementation(({ offerId }) => {
-    if (offerId === buyOffer.id) {
-      return Promise.resolve({ result: buyOffer, ...responseUtils });
-    }
-    if (offerId === sellOffer.id) {
-      return Promise.resolve({ result: sellOffer, ...responseUtils });
-    }
-    return Promise.resolve({ result: undefined, ...responseUtils });
-  });
 describe("labelAddressByTransaction", () => {
   beforeEach(() => {
     useWalletState.getState().reset();
+    queryClient.setQueryData(offerKeys.detail(buyOffer.id), buyOffer);
+    queryClient.setQueryData(offerKeys.detail(sellOffer.id), sellOffer);
   });
   afterEach(() => {
     queryClient.clear();
@@ -48,9 +38,9 @@ describe("labelAddressByTransaction", () => {
   });
   it("labels address if associated contractId can be found", async () => {
     useWalletState.getState().updateTxOfferMap(confirmed1.txid, [buyOffer.id]);
-    getOfferSpy.mockResolvedValueOnce({
-      result: { ...buyOffer, contractId: "11-12" },
-      ...responseUtils,
+    queryClient.setQueryData(offerKeys.detail(buyOffer.id), {
+      ...buyOffer,
+      contractId: "11-12",
     });
     await labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({

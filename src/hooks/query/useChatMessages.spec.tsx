@@ -1,5 +1,4 @@
-import { act } from "react-test-renderer";
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, responseUtils, waitFor } from "test-utils";
 import { chat1 } from "../../../tests/unit/data/chatData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";

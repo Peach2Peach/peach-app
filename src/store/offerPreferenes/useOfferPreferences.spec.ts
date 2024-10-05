@@ -1,3 +1,4 @@
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import {
   paypalData,
   paypalDataHashes,
@@ -7,6 +8,7 @@ import {
   validSEPADataHashes,
 } from "../../../tests/unit/data/paymentData";
 import { setPaymentMethods } from "../../paymentMethods";
+import { useConfigStore } from "../configStore/configStore";
 import { usePaymentDataStore } from "../usePaymentDataStore";
 import { useOfferPreferences } from "./useOfferPreferences";
 
@@ -74,7 +76,7 @@ describe("useOfferPreferences - actions - setPaymentMethods", () => {
     usePaymentDataStore.getState().addPaymentData(paypalData);
     usePaymentDataStore.getState().addPaymentData(revolutData);
 
-    setPaymentMethods([
+    const paymentMethods: PaymentMethodInfo[] = [
       {
         id: "sepa",
         currencies: ["EUR", "CHF"],
@@ -102,7 +104,9 @@ describe("useOfferPreferences - actions - setPaymentMethods", () => {
           optional: [],
         },
       },
-    ]);
+    ];
+    setPaymentMethods(paymentMethods);
+    useConfigStore.getState().setPaymentMethods(paymentMethods);
   });
 
   it("should update the preferred payment methods", () => {

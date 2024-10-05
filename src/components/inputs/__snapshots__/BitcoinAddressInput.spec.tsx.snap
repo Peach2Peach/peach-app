@@ -5,28 +5,6 @@ exports[`BitcoinAddressInput closes QR scanner when onCancel event is triggered 
 Compared values have no visual difference."
 `;
 
-exports[`BitcoinAddressInput renders correctly 1`] = `
-<Input
-  icons={
-    [
-      [
-        "clipboard",
-        [Function],
-      ],
-      [
-        "camera",
-        [Function],
-      ],
-    ]
-  }
-  onBlur={[Function]}
-  onFocus={[Function]}
-  placeholder="bc1q ..."
-  placeholderTextColor="#EAE3DF"
-  value="bc1qcj5y ... n57r7z"
-/>
-`;
-
 exports[`BitcoinAddressInput shows QR scanner when camera icon is pressed 1`] = `
 <ScanQR
   onCancel={[Function]}

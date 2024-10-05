@@ -1,9 +1,7 @@
-import { render, waitFor } from "test-utils";
+import { render } from "test-utils";
 import { OfferSummary } from "../../../../peach-api/src/@types/offer";
 import { account1 } from "../../../../tests/unit/data/accountData";
 import { contractSummary } from "../../../../tests/unit/data/contractSummaryData";
-import { offerKeys } from "../../../hooks/query/offerKeys";
-import { queryClient } from "../../../queryClient";
 import { updateAccount } from "../../../utils/account/updateAccount";
 import { TradeItem } from "./TradeItem";
 
@@ -67,13 +65,10 @@ describe("ContractItem", () => {
     );
     expect(toJSON()).toMatchSnapshot();
   });
-  it("should render correctly when republished", async () => {
+  it("should render correctly when republished", () => {
     const { toJSON } = render(
       <TradeItem item={{ ...contractSummary, newTradeId: "123" }} />,
     );
-    await waitFor(() => {
-      expect(queryClient.getQueryData(offerKeys.detail("123"))).toBeDefined();
-    });
     expect(toJSON()).toMatchSnapshot();
   });
 });

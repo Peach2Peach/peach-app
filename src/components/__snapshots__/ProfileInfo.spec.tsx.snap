@@ -231,47 +231,67 @@ exports[`ProfileInfo renders correctly 1`] = `
       >
         <test-file-stub
           style={
-            {
-              "height": 12,
-              "opacity": 0.5,
-              "width": 12,
-            }
+            [
+              {
+                "opacity": 0.5,
+              },
+              {
+                "height": 12,
+                "width": 12,
+              },
+            ]
           }
         />
         <test-file-stub
           style={
-            {
-              "height": 12,
-              "opacity": 0.5,
-              "width": 12,
-            }
+            [
+              {
+                "opacity": 0.5,
+              },
+              {
+                "height": 12,
+                "width": 12,
+              },
+            ]
           }
         />
         <test-file-stub
           style={
-            {
-              "height": 12,
-              "opacity": 0.5,
-              "width": 12,
-            }
+            [
+              {
+                "opacity": 0.5,
+              },
+              {
+                "height": 12,
+                "width": 12,
+              },
+            ]
           }
         />
         <test-file-stub
           style={
-            {
-              "height": 12,
-              "opacity": 0.5,
-              "width": 12,
-            }
+            [
+              {
+                "opacity": 0.5,
+              },
+              {
+                "height": 12,
+                "width": 12,
+              },
+            ]
           }
         />
         <test-file-stub
           style={
-            {
-              "height": 12,
-              "opacity": 0.5,
-              "width": 12,
-            }
+            [
+              {
+                "opacity": 0.5,
+              },
+              {
+                "height": 12,
+                "width": 12,
+              },
+            ]
           }
         />
         <View
@@ -634,7 +654,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 - First value
 + Second value
 
-@@ -208,129 +208,10 @@
+@@ -208,149 +208,10 @@
               </Text>
             </View>
           </View>
@@ -658,47 +678,67 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -       >
 -         <test-file-stub
 -           style={
--             Object {
--               "height": 12,
--               "opacity": 0.5,
--               "width": 12,
--             }
+-             Array [
+-               Object {
+-                 "opacity": 0.5,
+-               },
+-               Object {
+-                 "height": 12,
+-                 "width": 12,
+-               },
+-             ]
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Object {
--               "height": 12,
--               "opacity": 0.5,
--               "width": 12,
--             }
+-             Array [
+-               Object {
+-                 "opacity": 0.5,
+-               },
+-               Object {
+-                 "height": 12,
+-                 "width": 12,
+-               },
+-             ]
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Object {
--               "height": 12,
--               "opacity": 0.5,
--               "width": 12,
--             }
+-             Array [
+-               Object {
+-                 "opacity": 0.5,
+-               },
+-               Object {
+-                 "height": 12,
+-                 "width": 12,
+-               },
+-             ]
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Object {
--               "height": 12,
--               "opacity": 0.5,
--               "width": 12,
--             }
+-             Array [
+-               Object {
+-                 "opacity": 0.5,
+-               },
+-               Object {
+-                 "height": 12,
+-                 "width": 12,
+-               },
+-             ]
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Object {
--               "height": 12,
--               "opacity": 0.5,
--               "width": 12,
--             }
+-             Array [
+-               Object {
+-                 "opacity": 0.5,
+-               },
+-               Object {
+-                 "height": 12,
+-                 "width": 12,
+-               },
+-             ]
 -           }
 -         />
 -         <View
@@ -764,12 +804,15 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -341,286 +222,17 @@
+@@ -358,289 +219,23 @@
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            Object {
-              "color": "#7D675E",
-              "fontFamily": "Baloo2-SemiBold",
+-             Object {
+-               "color": "#7D675E",
+-               "fontFamily": "Baloo2-SemiBold",
 -               "fontSize": 13,
 -               "letterSpacing": 0.47,
 -               "lineHeight": 22,
@@ -823,8 +866,8 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -   >
 -     <View
 -       style={
--         Array [
--           Object {
+            Array [
+              Object {
 -             "alignItems": "center",
 -             "borderRadius": 9999,
 -             "borderWidth": 1,
@@ -865,9 +908,8 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   Object {
 -                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
-+             "fontSize": 14,
-              "letterSpacing": 0.14,
-              "lineHeight": 22,
+-                     "letterSpacing": 0.14,
+-                     "lineHeight": 22,
 -                   },
 -                   Object {
 -                     "color": "#FCCCB6",
@@ -876,12 +918,12 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
-            },
+-                 },
 -               ],
-            false,
-          ]
-        }
-      >
+-               false,
+-             ]
+-           }
+-         >
 -           supertrader
 -         </Text>
 -       </View>
@@ -940,10 +982,12 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -               Array [
 -                 Array [
 -                   Object {
--                     "fontFamily": "Baloo2-SemiBold",
++               "color": "#7D675E",
+                "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
--                     "letterSpacing": 0.14,
--                     "lineHeight": 22,
++               "fontSize": 14,
+                "letterSpacing": 0.14,
+                "lineHeight": 22,
 -                   },
 -                   Object {
 -                     "color": "#FCCCB6",
@@ -952,7 +996,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
--                 },
+              },
 -               ],
 -               false,
 -             ]
@@ -969,7 +1013,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -               "height": 12,
 -               "width": 12,
 -             },
--             undefined,
+              undefined,
 -           ]
 -         }
 -       />
@@ -1029,11 +1073,11 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
 -                 },
--               ],
--               false,
--             ]
--           }
--         >
+            ],
+            false,
+          ]
+        }
+      >
 -           early adopter
 +       new user
       </Text>

@@ -58,15 +58,12 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
   </Text>
   <View
     style={
-      [
-        {
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "justifyContent": "space-between",
-          "maxWidth": "100%",
-        },
-        undefined,
-      ]
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "space-between",
+        "maxWidth": "100%",
+      }
     }
   >
     <Text
@@ -289,15 +286,12 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "justifyContent": "space-between",
-          "maxWidth": "100%",
-        },
-        undefined,
-      ]
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "space-between",
+        "maxWidth": "100%",
+      }
     }
   >
     <Text
@@ -329,7 +323,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
           {
             "busy": undefined,
             "checked": undefined,
-            "disabled": false,
+            "disabled": undefined,
             "expanded": undefined,
             "selected": undefined,
           }
@@ -461,15 +455,12 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
   </Text>
   <View
     style={
-      [
-        {
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "justifyContent": "space-between",
-          "maxWidth": "100%",
-        },
-        undefined,
-      ]
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "space-between",
+        "maxWidth": "100%",
+      }
     }
   >
     <Text

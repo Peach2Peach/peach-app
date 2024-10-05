@@ -11,6 +11,7 @@ const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
+jest.useFakeTimers();
 
 describe("ConfirmTransactionPopup", () => {
   const onSuccess = jest.fn();
@@ -30,7 +31,8 @@ describe("ConfirmTransactionPopup", () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(props.psbt);
     const { getByText } = render(<ConfirmTransactionPopup {...props} />);
     await act(async () => {
-      await fireEvent.press(getByText("confirm & send"));
+      fireEvent.press(getByText("confirm & send"));
+      await jest.runAllTimersAsync();
     });
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(props.psbt);
@@ -44,7 +46,8 @@ describe("ConfirmTransactionPopup", () => {
     });
     const { getByText } = render(<ConfirmTransactionPopup {...props} />);
     await act(async () => {
-      await fireEvent.press(getByText("confirm & send"));
+      fireEvent.press(getByText("confirm & send"));
+      await jest.runAllTimersAsync();
     });
 
     expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
