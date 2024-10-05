@@ -46,7 +46,6 @@ export function BuyerPriceInfo({
       selectedCurrency={selectedCurrency}
       premium={premium}
       price={displayPrice}
-      bitcoinPrice={bitcoinPrice}
     />
   );
 }
@@ -56,14 +55,13 @@ export function PriceInfo({
   selectedCurrency,
   premium,
   price,
-  bitcoinPrice,
 }: {
   satsAmount: number;
   selectedCurrency: Currency;
   premium: number;
   price: number;
-  bitcoinPrice: number;
 }) {
+  const bitcoinPrice = price / (satsAmount / SATSINBTC);
   return (
     <View style={tw`items-center justify-center gap-5`}>
       <View style={tw`items-center gap-2`}>

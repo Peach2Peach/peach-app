@@ -13,8 +13,8 @@ import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
 import { BackupTime } from "../views/overlays/BackupTime";
+import { offerKeys } from "./query/offerKeys";
 import { contractKeys } from "./query/useContractDetail";
-import { offerKeys } from "./query/useOfferDetail";
 import { useShowErrorBanner } from "./useShowErrorBanner";
 import { useStackNavigation } from "./useStackNavigation";
 

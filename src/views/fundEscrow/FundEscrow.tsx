@@ -15,7 +15,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
-import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { useRoute } from "../../hooks/useRoute";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";

@@ -1,3 +1,4 @@
+import { NETWORK } from "@env";
 import { RefreshControl, View } from "react-native";
 import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -6,6 +7,8 @@ import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { fundAddress } from "../../utils/regtest/fundAddress";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TotalBalance, WalletHeader } from "./components";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
@@ -26,6 +29,20 @@ export const Wallet = () => {
           <RefreshControl refreshing={false} onRefresh={() => refetch()} />
         }
       >
+        {NETWORK === "regtest" && (
+          <Button
+            style={tw`self-center`}
+            onPress={async () => {
+              if (!peachWallet) return;
+              fundAddress({
+                address: (await peachWallet.getAddress()).address,
+                amount: 1000000,
+              });
+            }}
+          >
+            Fund Wallet
+          </Button>
+        )}
         <TotalBalance amount={balance} isRefreshing={isRefetching} />
         <BackupReminderIcon />
       </PeachScrollView>

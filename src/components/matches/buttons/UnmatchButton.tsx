@@ -4,7 +4,7 @@ import { AppPopup } from "../../../popups/AppPopup";
 import tw from "../../../styles/tailwind";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { offerKeys } from "../../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../../hooks/query/offerKeys";
 import { WarningPopup } from "../../../popups/WarningPopup";
 import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";

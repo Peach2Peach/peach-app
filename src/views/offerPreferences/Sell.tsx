@@ -27,8 +27,8 @@ import {
   SATSINBTC,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
-import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";

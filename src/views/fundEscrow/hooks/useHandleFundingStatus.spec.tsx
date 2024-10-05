@@ -2,7 +2,7 @@ import { render, renderHook, waitFor } from "test-utils";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
-import { offerKeys } from "../../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../../hooks/query/offerKeys";
 import { queryClient } from "../../../queryClient";
 import { defaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";

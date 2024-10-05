@@ -1,9 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
-import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
@@ -11,6 +10,7 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
 import { CENT, SATSINBTC } from "../../constants";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -22,6 +22,7 @@ import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { getRandom } from "../../utils/crypto/getRandom";
 import { round } from "../../utils/math/round";
+import { keys } from "../../utils/object/keys";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
@@ -38,17 +39,14 @@ import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
 import { useOffer } from "./useOffer";
+import { useTradeRequest } from "./useTradeRequest";
 
 export function SellOfferDetails() {
   const { offerId } = useRoute<"sellOfferDetails">().params;
   const { data: offer, isLoading } = useOffer(offerId);
 
-  if (typeof offer?.amount === "object") {
-    return null;
-  }
-
   return (
-    <Screen header={<Header title={`offer ${offerIdToHex(offerId)}`} />}>
+    <Screen header={`offer ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
@@ -59,7 +57,9 @@ export function SellOfferDetails() {
 }
 
 function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>("EUR");
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
+    keys(offer.meansOfPayment).at(0) || "CHF",
+  );
   const allPaymentMethods = getPaymentMethods(offer.meansOfPayment);
   const allMethodsForCurrency = allPaymentMethods.filter((p) =>
     paymentMethodAllowedForCurrency(p, selectedCurrency),
@@ -73,61 +73,63 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-  const isMatched = false;
+  const { data } = useTradeRequest(offer.id);
   return (
-    <>
+    <View style={tw`items-center justify-between gap-8 grow`}>
       <PeachScrollView contentStyle={tw`gap-8 grow`}>
         <FundingInfo
           escrow={offer.escrow!}
           fundingStatus={offer.fundingStatus!}
         />
-        <View style={tw`grow`}>
-          <View style={tw`overflow-hidden rounded-2xl`}>
-            {isMatched && <PeachyBackground />}
-            <View style={tw`gap-8 m-1 rounded-2xl bg-primary-background-light`}>
-              <UserCard user={offer.user} />
-              {/** @ts-ignore */}
-              <MiningFeeWarning amount={offer.amount} />
-              <SellPriceInfo
-                offer={offer}
+        <View style={tw`overflow-hidden rounded-2xl`}>
+          {!!data?.tradeRequest && <PeachyBackground />}
+          <View style={tw`gap-8 m-1 rounded-2xl bg-primary-background-light`}>
+            <UserCard user={offer.user} />
+            {/** @ts-ignore */}
+            <MiningFeeWarning amount={offer.amount} />
+            <SellPriceInfo offer={offer} selectedCurrency={selectedCurrency} />
+            {data?.tradeRequest ? (
+              <PaidVia paymentMethod={data.tradeRequest.paymentMethod} />
+            ) : (
+              <PaymentMethodSelector
+                meansOfPayment={offer.meansOfPayment}
                 selectedCurrency={selectedCurrency}
+                setSelectedCurrency={setSelectedCurrency}
+                selectedPaymentData={selectedPaymentData}
+                setSelectedPaymentData={setSelectedPaymentData}
               />
-              {isMatched && selectedPaymentData ? (
-                <PaidVia paymentMethod={selectedPaymentData.type} />
-              ) : (
-                <PaymentMethodSelector
-                  meansOfPayment={offer.meansOfPayment}
-                  selectedCurrency={selectedCurrency}
-                  setSelectedCurrency={setSelectedCurrency}
-                  selectedPaymentData={selectedPaymentData}
-                  setSelectedPaymentData={setSelectedPaymentData}
-                />
-              )}
-              {isMatched && (
-                <>
-                  <View style={tw`items-center justify-center z-99`}>
-                    <Button style={tw`bg-error-main`}>Unmatch</Button>
-                  </View>
-                  <View
-                    style={tw`absolute top-0 left-0 w-full h-full opacity-75 rounded-xl`}
-                    pointerEvents="none"
+            )}
+            {!!data?.tradeRequest && (
+              <>
+                <View style={tw`items-center justify-center pb-6 z-99`}>
+                  <Button
+                    iconId="minusCircle"
+                    textColor={tw.color("error-main")}
+                    style={tw`hidden bg-primary-background-light`}
                   >
-                    <PeachyGradient />
-                  </View>
-                </>
-              )}
-            </View>
+                    UNDO
+                  </Button>
+                </View>
+                <View
+                  style={tw`absolute top-0 left-0 w-full h-full opacity-75 rounded-xl`}
+                  pointerEvents="none"
+                >
+                  <PeachyGradient />
+                </View>
+              </>
+            )}
           </View>
         </View>
       </PeachScrollView>
 
-      <RequestTradeButton
-        selectedCurrency={selectedCurrency}
-        selectedPaymentData={selectedPaymentData}
-        offerId={offer.id}
-        counterparty={offer.user}
-      />
-    </>
+      {!data?.tradeRequest && (
+        <RequestTradeButton
+          selectedPaymentData={selectedPaymentData}
+          selectedCurrency={selectedCurrency}
+          offer={offer}
+        />
+      )}
+    </View>
   );
 }
 
@@ -163,7 +165,6 @@ function SellPriceInfo({
       // @ts-ignore
       premium={premium}
       price={displayPrice}
-      bitcoinPrice={bitcoinPrice}
     />
   );
 }
@@ -171,14 +172,13 @@ function SellPriceInfo({
 function RequestTradeButton({
   selectedCurrency,
   selectedPaymentData,
-  offerId,
-  counterparty,
+  offer,
 }: {
   selectedCurrency: Currency;
   selectedPaymentData: PaymentData | undefined;
-  offerId: string;
-  counterparty: PublicUser;
+  offer: GetOfferResponseBody;
 }) {
+  const { id: offerId, user: counterparty, amount } = offer;
   const { user } = useSelfUser();
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
 
@@ -223,7 +223,24 @@ function RequestTradeButton({
     };
   };
 
+  const queryClient = useQueryClient();
   const { mutate } = useMutation({
+    onMutate: async () => {
+      const tradeRequst = {
+        amount,
+        currency: selectedCurrency,
+        paymentMethod: selectedPaymentData?.type,
+        fiatPrice: offer.prices?.[selectedCurrency],
+      };
+      await queryClient.cancelQueries({
+        queryKey: offerKeys.tradeRequest(offerId),
+      });
+      const previousData = queryClient.getQueryData(
+        offerKeys.tradeRequest(offerId),
+      );
+      queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequst);
+      return { previousData };
+    },
     mutationFn: async () => {
       if (!selectedPaymentData) throw new Error("MISSING_VALUES");
 
@@ -265,14 +282,18 @@ function RequestTradeButton({
       if (error) throw new Error(error.error);
       return result;
     },
-    onSuccess: (response) => {
-      if (!response) return;
-      // eslint-disable-next-line no-alert
-      alert("SUCCESS!");
+    onError: (_error, _variables, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(
+          offerKeys.tradeRequest(offerId),
+          context.previousData,
+        );
+      }
     },
-    onError: (error) => {
-      // eslint-disable-next-line no-alert
-      alert(error.message);
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: offerKeys.tradeRequest(offerId),
+      });
     },
   });
   return (

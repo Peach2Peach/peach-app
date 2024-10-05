@@ -1,18 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
+import { TradeRequest } from "../../../peach-api/src/private/offer/getTradeRequest";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
-import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { Screen } from "../../components/Screen";
-import { NewBubble } from "../../components/bubble/Bubble";
 import { Button } from "../../components/buttons/Button";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
-import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -21,6 +20,8 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { getRandom } from "../../utils/crypto/getRandom";
+import { round } from "../../utils/math/round";
+import { keys } from "../../utils/object/keys";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
@@ -30,15 +31,17 @@ import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { PriceInfo } from "./BuyerPriceInfo";
+import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
 import { useOffer } from "./useOffer";
+import { useTradeRequest } from "./useTradeRequest";
 
 export function BuyOfferDetails() {
   const { offerId } = useRoute<"buyOfferDetails">().params;
   const { data: offer, isLoading } = useOffer(offerId);
 
   return (
-    <Screen header={<Header title={`offer ${offerIdToHex(offerId)}`} />}>
+    <Screen header={`offer ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
@@ -49,7 +52,9 @@ export function BuyOfferDetails() {
 }
 
 function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>("EUR"); // TODO: get the first currency from the list
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
+    keys(offer.meansOfPayment).at(0) || "CHF",
+  );
   const allPaymentMethods = getPaymentMethods(offer.meansOfPayment);
   const allMethodsForCurrency = allPaymentMethods.filter((p) =>
     paymentMethodAllowedForCurrency(p, selectedCurrency),
@@ -63,63 +68,54 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-  const isMatched = true;
+  const { data } = useTradeRequest(offer.id);
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
-      <PeachScrollView>
-        <View style={tw`gap-8 grow`}>
-          <View style={tw`grow`}>
-            <View style={tw`overflow-hidden rounded-2xl`}>
-              {isMatched && <PeachyBackground />}
-              <View
-                style={tw`gap-8 m-1 bg-primary-background-light rounded-2xl`}
-              >
-                <UserCard user={offer.user} isBuyer />
+      <PeachScrollView contentStyle={tw`gap-8 grow`}>
+        <View style={tw`overflow-hidden rounded-2xl`}>
+          {!!data?.tradeRequest && <PeachyBackground />}
+          <View style={tw`gap-8 m-1 bg-primary-background-light rounded-2xl`}>
+            <UserCard user={offer.user} isBuyer />
 
-                <BuyPriceInfo selectedCurrency={selectedCurrency} />
-                {isMatched ? (
-                  <View
-                    style={tw`flex-row items-center self-stretch justify-between px-3`}
+            <BuyPriceInfo
+              selectedCurrency={
+                data?.tradeRequest?.currency || selectedCurrency
+              }
+            />
+            {data?.tradeRequest ? (
+              <PaidVia paymentMethod={data.tradeRequest.paymentMethod} />
+            ) : (
+              <PaymentMethodSelector
+                meansOfPayment={offer.meansOfPayment}
+                selectedCurrency={selectedCurrency}
+                setSelectedCurrency={setSelectedCurrency}
+                selectedPaymentData={selectedPaymentData}
+                setSelectedPaymentData={setSelectedPaymentData}
+              />
+            )}
+            {!!data?.tradeRequest && (
+              <>
+                <View style={tw`items-center justify-center pb-6 z-99`}>
+                  <Button
+                    iconId="minusCircle"
+                    textColor={tw.color("error-main")}
+                    style={tw`hidden bg-primary-background-light`}
                   >
-                    <PeachText>paid via</PeachText>
-                    <NewBubble color="black" ghost>
-                      {selectedPaymentData?.type}
-                    </NewBubble>
-                  </View>
-                ) : (
-                  <PaymentMethodSelector
-                    meansOfPayment={offer.meansOfPayment}
-                    selectedCurrency={selectedCurrency}
-                    setSelectedCurrency={setSelectedCurrency}
-                    selectedPaymentData={selectedPaymentData}
-                    setSelectedPaymentData={setSelectedPaymentData}
-                  />
-                )}
-                {isMatched && (
-                  <>
-                    <View style={tw`items-center justify-center z-99`}>
-                      <Button
-                        iconId="minusCircle"
-                        textColor={tw.color("error-main")}
-                        style={tw`bg-primary-background-light`}
-                      >
-                        UNDO
-                      </Button>
-                    </View>
-                    <View
-                      style={tw`absolute top-0 left-0 w-full h-full opacity-75 rounded-xl`}
-                      pointerEvents="none"
-                    >
-                      <PeachyGradient />
-                    </View>
-                  </>
-                )}
-              </View>
-            </View>
+                    UNDO
+                  </Button>
+                </View>
+                <View
+                  style={tw`absolute top-0 left-0 w-full h-full opacity-75 rounded-xl`}
+                  pointerEvents="none"
+                >
+                  <PeachyGradient />
+                </View>
+              </>
+            )}
           </View>
         </View>
       </PeachScrollView>
-      {!isMatched && (
+      {!data?.tradeRequest && (
         <RequestTradeButton
           selectedPaymentData={selectedPaymentData}
           selectedCurrency={selectedCurrency}
@@ -160,7 +156,31 @@ function RequestTradeButton({
     return address;
   };
 
+  const { data: priceBook } = useMarketPrices();
+
+  const queryClient = useQueryClient();
   const { mutate } = useMutation({
+    onMutate: async () => {
+      const bitcoinPrice = priceBook?.[selectedCurrency] ?? 0;
+      const tradeRequest = {
+        amount,
+        currency: selectedCurrency,
+        paymentMethod: selectedPaymentData?.type,
+        fiatPrice: (bitcoinPrice * (1 + premium / CENT) * amount) / SATSINBTC,
+      };
+      await queryClient.cancelQueries({
+        queryKey: offerKeys.tradeRequest(offerId),
+      });
+      const previousData = queryClient.getQueryData<{
+        tradeRequest: TradeRequest | null;
+      }>(offerKeys.tradeRequest(offerId));
+
+      queryClient.setQueryData(offerKeys.tradeRequest(offerId), {
+        tradeRequest,
+      });
+
+      return { previousData };
+    },
     mutationFn: async () => {
       if (!selectedPaymentData) throw new Error("MISSING_VALUES");
 
@@ -201,14 +221,18 @@ function RequestTradeButton({
       if (error) throw new Error(error.error);
       return result;
     },
-    onSuccess: (response) => {
-      if (!response) return;
-      // eslint-disable-next-line no-alert
-      alert("SUCCESS!");
+    onError: (_error, _variables, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(
+          offerKeys.tradeRequest(offerId),
+          context.previousData,
+        );
+      }
     },
-    onError: (error) => {
-      // eslint-disable-next-line no-alert
-      alert(error.message);
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: offerKeys.tradeRequest(offerId),
+      });
     },
   });
   return (
@@ -222,22 +246,31 @@ function RequestTradeButton({
 }
 
 function BuyPriceInfo({ selectedCurrency }: { selectedCurrency: Currency }) {
-  const { amount, premium } = useRoute<"buyOfferDetails">().params;
+  const { amount, premium, offerId } = useRoute<"buyOfferDetails">().params;
+  const { data } = useTradeRequest(offerId);
   const { data: priceBook } = useMarketPrices();
 
   const amountInBTC = amount / SATSINBTC;
 
   const bitcoinPrice = priceBook?.[selectedCurrency] ?? 0;
+  const displayPrice = data?.tradeRequest
+    ? data.tradeRequest.fiatPrice
+    : bitcoinPrice * (1 + premium / CENT) * amountInBTC;
 
-  const displayPrice = bitcoinPrice * amountInBTC * (1 + premium / CENT);
-
+  const premiumOfTradeRequest = data?.tradeRequest
+    ? round(
+        ((round(data.tradeRequest.fiatPrice / amountInBTC, 2) - bitcoinPrice) /
+          bitcoinPrice) *
+          CENT,
+        2,
+      )
+    : 0;
   return (
     <PriceInfo
-      satsAmount={amount}
       selectedCurrency={selectedCurrency}
-      premium={premium}
+      satsAmount={amount}
       price={displayPrice}
-      bitcoinPrice={bitcoinPrice}
+      premium={data?.tradeRequest ? premiumOfTradeRequest : premium}
     />
   );
 }

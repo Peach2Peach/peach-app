@@ -1,4 +1,4 @@
-import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
 import { getSummaryFromOffer } from "./getSummaryFromOffer";
 

@@ -3,6 +3,7 @@ import { PublicUser } from "../../../peach-api/src/@types/user";
 import { Icon } from "../../components/Icon";
 import { FixedHeightText } from "../../components/text/FixedHeightText";
 import { PeachText } from "../../components/text/PeachText";
+import { NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -38,9 +39,9 @@ export function UserCard({
         </TouchableOpacity>
         <Rating
           rating={user.rating}
-          isNewUser={false}
+          isNewUser={user.trades < NEW_USER_TRADE_THRESHOLD}
           peachSize={20}
-          textStyle={tw`-my-10 leading-loose h5 text-black-100`}
+          textStyle={tw`-my-10 leading-loose h5`}
         />
       </View>
       <View style={tw`flex-row flex-wrap justify-end gap-1`}>

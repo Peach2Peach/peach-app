@@ -46,7 +46,6 @@ export function TradeRequestForSellOffer() {
           selectedCurrency={currency}
           premium={premium}
           price={fiatPrice}
-          bitcoinPrice={bitcoinPriceOfOffer}
         />
         <PaidVia paymentMethod={paymentMethod} />
       </PeachScrollView>

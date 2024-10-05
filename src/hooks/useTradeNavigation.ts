@@ -8,7 +8,7 @@ import { peachAPI } from "../utils/peachAPI";
 import { useCreateEscrow } from "../views/fundEscrow/hooks/useCreateEscrow";
 import { isContractSummary } from "../views/yourTrades/utils/isContractSummary";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
-import { offerKeys } from "./query/useOfferDetail";
+import { offerKeys } from "./query/offerKeys";
 import { useStackNavigation } from "./useStackNavigation";
 
 export const useTradeNavigation = (

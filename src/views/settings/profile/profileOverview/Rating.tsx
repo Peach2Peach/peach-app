@@ -28,7 +28,7 @@ export const Rating = ({
   textStyle,
 }: RatingProps) =>
   isNewUser ? (
-    <PeachText style={textStyle ? tw`subtitle-2 text-black-65` : textStyle}>
+    <PeachText style={[tw`subtitle-2 text-black-65`, textStyle]}>
       {i18n("newUser")}
     </PeachText>
   ) : (

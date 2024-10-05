@@ -1,17 +1,7 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { MSINAMINUTE } from "../../constants";
 import { getOfferQuery } from "./getOfferQuery";
-
-export const offerKeys = {
-  all: ["offers"] as const,
-  summaries: () => [...offerKeys.all, "summaries"] as const,
-  summary: (id: string) => [...offerKeys.summaries(), id] as const,
-  details: () => [...offerKeys.all, "details"] as const,
-  detail: (id: string) => [...offerKeys.details(), id] as const,
-  escrowInfo: (id: string) => [...offerKeys.detail(id), "escrowInfo"] as const,
-  fundingStatus: (id: string) =>
-    [...offerKeys.detail(id), "fundingStatus"] as const,
-};
+import { offerKeys } from "./offerKeys";
 
 export const useOfferDetail = (id: string) => {
   const {

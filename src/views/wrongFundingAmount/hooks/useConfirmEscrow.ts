@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { offerKeys } from "../../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../../hooks/query/offerKeys";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { peachAPI } from "../../../utils/peachAPI";

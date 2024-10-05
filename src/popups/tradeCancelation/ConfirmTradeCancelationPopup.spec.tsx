@@ -4,7 +4,7 @@ import { account1 } from "../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { GlobalPopup } from "../../components/popup/GlobalPopup";
-import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
 import { setAccount } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
