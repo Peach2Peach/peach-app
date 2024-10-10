@@ -41,19 +41,17 @@ export function Explore() {
   return (
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (
-        <>
-          <FlatList
-            ListHeaderComponent={<BuyOfferMarketInfo />}
-            data={matches}
-            onRefresh={() => refetch()}
-            refreshing={isRefetching}
-            keyExtractor={(item) => item.offerId}
-            renderItem={({ item }) => <ExploreCard match={item} />}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => fetchNextPage()}
-            contentContainerStyle={tw`gap-10px`}
-          />
-        </>
+        <FlatList
+          ListHeaderComponent={<BuyOfferMarketInfo />}
+          data={matches}
+          onRefresh={() => refetch()}
+          refreshing={isRefetching}
+          keyExtractor={(item) => item.offerId}
+          renderItem={({ item }) => <ExploreCard match={item} />}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => fetchNextPage()}
+          contentContainerStyle={tw`gap-10px`}
+        />
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <BuyOfferMarketInfo />
