@@ -102,7 +102,7 @@ android {
         applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 254
+        versionCode 255
         versionName "0.5.0"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
