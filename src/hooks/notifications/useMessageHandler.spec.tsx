@@ -62,9 +62,7 @@ describe("useMessageHandler", () => {
     expect(
       queryByText(i18n("notification.SOME_TYPE", "arg1", "arg2")),
     ).toBeTruthy();
-    await waitFor(() => {
-      jest.runAllTimers();
-    });
+    await waitFor(() => act(jest.runAllTimers));
   });
   it("should not call updateMessage when type is not found and appstate is background", async () => {
     const mockRemoteMessage = {
@@ -85,9 +83,7 @@ describe("useMessageHandler", () => {
       queryByText(i18n("notification.SOME_TYPE.text", "arg1", "arg2")),
     ).toBeFalsy();
 
-    await waitFor(() => {
-      jest.runAllTimers();
-    });
+    await waitFor(() => act(jest.runAllTimers));
   });
   it("should not call updateMessage when type is not found but the notification is the initial notification", async () => {
     const mockRemoteMessage = {

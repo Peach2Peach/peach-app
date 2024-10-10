@@ -475,7 +475,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                         0,
                         -65536,
                         1,
-                        -16711681,
+                        -16776961,
                       ]
                     }
                     gradientTransform={null}
@@ -498,7 +498,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   <RNSVGRect
                     fill={
                       {
-                        "payload": 4294967295,
+                        "payload": 4294965750,
                         "type": 0,
                       }
                     }

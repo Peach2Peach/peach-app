@@ -39,6 +39,7 @@ export const TransactionHistory = () => {
           keyExtractor={(item) => item.id}
           onRefresh={() => refetch()}
           refreshing={isRefetching}
+          scrollEventThrottle={50}
         />
       )}
     </Screen>
