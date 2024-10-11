@@ -7,7 +7,7 @@ export const writeFile = async (
   path: string,
   content: string,
   password?: string,
-): Promise<boolean> => {
+) => {
   info(password ? "Writing encrypted file" : "Writing file", path);
   let encrypted;
   try {

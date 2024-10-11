@@ -77,21 +77,19 @@ function RequestTrade({ offerId }: { offerId: string }) {
   return (
     <>
       {hasMatches ? (
-        <>
-          <FlatList
-            ListHeaderComponent={<BuyOfferMarketInfo offerId={offerId} />}
-            data={matches}
-            onRefresh={() => refetch()}
-            refreshing={isRefetching}
-            keyExtractor={(item) => item.offerId}
-            renderItem={({ item }) => (
-              <ExploreCard match={item} offerId={offerId} />
-            )}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => fetchNextPage()}
-            contentContainerStyle={tw`gap-10px`}
-          />
-        </>
+        <FlatList
+          ListHeaderComponent={<BuyOfferMarketInfo offerId={offerId} />}
+          data={matches}
+          onRefresh={() => refetch()}
+          refreshing={isRefetching}
+          keyExtractor={(item) => item.offerId}
+          renderItem={({ item }) => (
+            <ExploreCard match={item} offerId={offerId} />
+          )}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => fetchNextPage()}
+          contentContainerStyle={tw`gap-10px`}
+        />
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <BuyOfferMarketInfo offerId={offerId} />
