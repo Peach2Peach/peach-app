@@ -89,7 +89,6 @@
     "react-native-fast-openpgp": "^2.7.4",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.15.0",
-    "react-native-level-fs": "^3.0.1",
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-pager-view": "^6.2.3",
     "react-native-parsed-text": "^0.0.22",
@@ -119,7 +118,6 @@
   },
   "react-native": {
     "path": "path-browserify",
-    "fs": "react-native-level-fs",
     "_stream_transform": "readable-stream/transform",
     "_stream_readable": "readable-stream/readable",
     "_stream_writable": "readable-stream/writable",
@@ -181,7 +179,6 @@
   },
   "browser": {
     "path": "path-browserify",
-    "fs": "react-native-level-fs",
     "_stream_transform": "readable-stream/transform",
     "_stream_readable": "readable-stream/readable",
     "_stream_writable": "readable-stream/writable",
