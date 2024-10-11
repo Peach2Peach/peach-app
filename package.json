@@ -5,7 +5,6 @@
   "author": "Peach2Peach",
   "private": true,
   "scripts": {
-    "web": "cp -r ./assets ./public/assets/ && react-scripts start",
     "android": "NODE_ENV=sandbox react-native run-android --port=8081 --mode=QaDebug",
     "android:testnet": "NODE_ENV=development react-native run-android --port=8081 --mode=QaDebug",
     "android:mainnet": "NODE_ENV=production react-native run-android --port=8081 --mode=ProdDebug --appIdSuffix=mainnet",
@@ -18,7 +17,6 @@
     "cache:clear": "react-native start --reset-cache",
     "postinstall": "rn-nodeify --install buffer,stream,util --hack",
     "podinstall": "cd ios && pod install --repo-update",
-    "build:web": "cp -r ./assets ./public/assets/ && react-scripts build",
     "build:android:testnet": "./devUtils/buildAndroidTestnet.sh",
     "build:android:mainnet": "./devUtils/buildAndroidMainnet.sh",
     "bundle:android:testnet": "./devUtils/bundleAndroidTestnet.sh",
