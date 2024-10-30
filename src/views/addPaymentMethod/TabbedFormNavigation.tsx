@@ -73,6 +73,7 @@ export function TabbedFormNavigation({
             key={`formInput-${field}`}
             name={field}
             control={control}
+            paymentMethod={paymentData.type}
             defaultValue={paymentData[field]}
             optional={hasValidColumnWithValues}
           />

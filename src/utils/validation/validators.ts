@@ -30,6 +30,8 @@ const ukSortCodeValidator = (value: string) =>
   isUKSortCode(value) || getMessages().ukSortCode;
 const userNameValidator = (value: string) =>
   isUsername(value) || getMessages().userName;
+const userNameRevolutValidator = (value: string) =>
+  isUsername(value, "revolut") || getMessages().userName;
 const isPhoneAllowedValidator = (value: string) =>
   isPhoneAllowed(value) || getMessages().isPhoneAllowed;
 const minAccountNumberLength = 10;
@@ -37,9 +39,11 @@ const maxAccountNumberLength = 28;
 const accountNumberValidator = (value: string) =>
   isValidDigitLength(value, [minAccountNumberLength, maxAccountNumberLength]) ||
   i18n("form.account.errors");
+
 type NewRule = {
   [key: string]: (value: string) => true | string;
 };
+
 const validators: Record<PaymentMethodField, NewRule> = {
   beneficiary: {},
   iban: {
@@ -82,13 +86,34 @@ const validators: Record<PaymentMethodField, NewRule> = {
   },
 };
 
+const paymentMethodSpecificValidators: {
+  [K in PaymentMethod]?: {
+    [O in PaymentMethodField]?: NewRule;
+  };
+} = {
+  revolut: {
+    userName: {
+      userName: userNameRevolutValidator,
+    },
+  },
+};
+
 export type PaymentFieldTypes = keyof typeof validators;
 
 export const getValidators = (
   fieldName: PaymentFieldTypes,
-  optional = false,
+  optional?: boolean,
+  paymentMethod?: PaymentMethod,
 ) => {
-  const rulesForField = validators[fieldName];
+  const paymentMethodRulesForField =
+    paymentMethod &&
+    paymentMethodSpecificValidators[paymentMethod]?.[fieldName];
+
+  const rulesForField = {
+    ...validators[fieldName],
+    ...paymentMethodRulesForField,
+  };
+
   if (!optional) return rulesForField;
 
   const rulesWithEmptyCheck = Object.entries(rulesForField).reduce(

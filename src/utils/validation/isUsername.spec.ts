@@ -4,6 +4,18 @@ describe("isUsername", () => {
   test('Returns true for a valid username starting with "@" and containing only lowercase letters and numbers', () => {
     expect(isUsername("@username123")).toBe(true);
   });
+  test("Returns false when username contains underscore", () => {
+    expect(isUsername("@user_name123")).toBe(false);
+  });
+  test("Returns true when username contains underscore and modifier is set to revolut", () => {
+    expect(isUsername("@user_name123", "revolut")).toBe(true);
+  });
+  test("Returns false when username ends with an underscore", () => {
+    expect(isUsername("@username123_")).toBe(false);
+  });
+  test("Returns false when username starts with an underscore", () => {
+    expect(isUsername("@_username123")).toBe(false);
+  });
 
   test('Returns false for a username that does not start with "@"', () => {
     expect(isUsername("username123")).toBe(false);

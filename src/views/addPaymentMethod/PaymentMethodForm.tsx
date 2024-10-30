@@ -93,6 +93,7 @@ export const PaymentMethodForm = () => {
                   <FormInput
                     key={`formInput-${field}`}
                     name={field}
+                    paymentMethod={paymentMethod}
                     control={control}
                     defaultValue={paymentData[field]}
                   />
@@ -101,6 +102,7 @@ export const PaymentMethodForm = () => {
               return (
                 <TabbedFormNavigation
                   key={`tabbedFormNavigation-${row}`}
+                  paymentMethod={paymentMethod}
                   {...{ row, control, paymentData, getFieldState, getValues }}
                 />
               );
@@ -110,6 +112,7 @@ export const PaymentMethodForm = () => {
               <FormInput
                 key={`formInput-${field}`}
                 name={field}
+                paymentMethod={paymentMethod}
                 control={control}
                 defaultValue={paymentData[field]}
                 optional

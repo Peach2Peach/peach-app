@@ -11,6 +11,7 @@ import { FormType } from "./PaymentMethodForm";
 type Props = {
   control: Control<FormType>;
   name: PaymentMethodField;
+  paymentMethod: PaymentMethod;
   optional?: boolean;
   defaultValue?: string;
 } & InputProps;
@@ -20,6 +21,7 @@ export function FormInput({
   name,
   optional = false,
   defaultValue = "",
+  paymentMethod,
   ...inputProps
 }: Props) {
   const {
@@ -31,7 +33,7 @@ export function FormInput({
     name,
     rules: {
       required: optional ? false : getMessages().required,
-      validate: getValidators(name, optional),
+      validate: getValidators(name, optional, paymentMethod),
     },
   });
 
