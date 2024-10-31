@@ -3,13 +3,19 @@ import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./useOfferDetail";
 
 export const useOfferSummaries = (enabled = true) => {
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, isFetching, error, refetch } = useQuery({
     queryKey: offerKeys.summaries(),
     queryFn: getOfferSummariesQuery,
     enabled,
   });
 
-  return { offers: data || [], isLoading, error, refetch };
+  return {
+    offers: data || [],
+    isLoading,
+    isFetching,
+    error,
+    refetch,
+  };
 };
 
 export async function getOfferSummariesQuery() {

@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { SectionList, SectionListData, View } from "react-native";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
@@ -29,13 +29,25 @@ const tabs = [
   "yourTrades.history",
 ] as const;
 
+const RETRY_REQUEST_DELAY = 5_000;
+
 export const YourTrades = () => {
-  const { summaries, isLoading, error, refetch } = useTradeSummaries();
+  const { summaries, isLoading, refreshing, error, refetch } =
+    useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
 
   useEffect(() => {
-    if (error) showErrorBanner(parseError(error));
+    if (error) {
+      showErrorBanner(parseError(error));
+      const timeout = setTimeout(refetch, RETRY_REQUEST_DELAY);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+
+    return undefined;
   }, [error, showErrorBanner]);
 
   return (
@@ -64,7 +76,7 @@ export const YourTrades = () => {
                       isLoading && tw`opacity-60`,
                     ]}
                     onRefresh={refetch}
-                    refreshing={false}
+                    refreshing={refreshing}
                     showsVerticalScrollIndicator={false}
                     sections={getCategories(summaries[tab])}
                     renderSectionHeader={SectionHeader}

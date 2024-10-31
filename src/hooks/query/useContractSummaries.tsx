@@ -3,13 +3,19 @@ import { peachAPI } from "../../utils/peachAPI";
 import { contractKeys } from "./useContractDetail";
 
 export const useContractSummaries = (enabled = true) => {
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, isFetching, error, refetch } = useQuery({
     queryKey: contractKeys.summaries(),
     queryFn: getContractSummariesQuery,
     enabled,
   });
 
-  return { contracts: data || [], isLoading, error, refetch };
+  return {
+    contracts: data || [],
+    isLoading,
+    isFetching,
+    error,
+    refetch,
+  };
 };
 
 export async function getContractSummariesQuery() {

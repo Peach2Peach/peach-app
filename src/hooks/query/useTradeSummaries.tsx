@@ -1,9 +1,11 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { sortSummariesByDate } from "../../utils/contract/sortSummariesByDate";
 import { getPastOffers } from "../../views/yourTrades/utils/getPastOffers";
 import { isPastOffer } from "../../views/yourTrades/utils/isPastOffer";
 import { useContractSummaries } from "./useContractSummaries";
 import { useOfferSummaries } from "./useOfferSummaries";
+
+const MINIMUM_REFRESH_STATUS_DELAY = 500;
 
 export const useTradeSummaries = (enabled = true) => {
   const {
@@ -19,9 +21,19 @@ export const useTradeSummaries = (enabled = true) => {
     refetch: refetchContracts,
   } = useContractSummaries(enabled);
 
+  const [refreshing, setRefreshing] = useState(false);
+
   const refetch = useCallback(() => {
-    refetchOffers();
-    refetchContracts();
+    const delayPromise = new Promise((r) =>
+      setTimeout(r, MINIMUM_REFRESH_STATUS_DELAY),
+    );
+    setRefreshing(true);
+
+    Promise.all([refetchOffers(), refetchContracts(), delayPromise]).finally(
+      () => {
+        setRefreshing(false);
+      },
+    );
   }, [refetchContracts, refetchOffers]);
 
   const filteredOffers = useMemo(
@@ -49,6 +61,7 @@ export const useTradeSummaries = (enabled = true) => {
   return {
     isLoading: offersLoading || contractsLoading,
     error: offersError || contractsError,
+    refreshing,
     summaries,
     refetch,
   };
