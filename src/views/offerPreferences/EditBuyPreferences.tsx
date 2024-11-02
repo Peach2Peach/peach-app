@@ -129,7 +129,6 @@ function ScreenContent({ offer }: { offer: BuyOffer }) {
         <OfferMarketInfo />
         <OfferMethods />
         <AmountSelector setIsSliding={setIsSliding} />
-        <Filters />
         <OfferWalletSelector
           offerId={offer.id}
           releaseAddress={offer.releaseAddress}
