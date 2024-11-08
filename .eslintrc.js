@@ -227,6 +227,12 @@ module.exports = {
     "@typescript-eslint/no-var-requires": "warn",
     "@typescript-eslint/ban-types": "warn",
     "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/consistent-type-assertions": [
+      "warn",
+      {
+        assertionStyle: "never",
+      },
+    ],
     "no-sparse-arrays": "warn",
     "no-empty": "warn",
     "no-useless-escape": "warn",
