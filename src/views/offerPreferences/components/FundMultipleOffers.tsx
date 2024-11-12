@@ -3,6 +3,7 @@ import { shallow } from "zustand/shallow";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import { NumberStepper } from "../../../components/inputs/NumberStepper";
 import { useOfferPreferences } from "../../../store/offerPreferenes/useOfferPreferences";
+import { useThemeStore } from "../../../store/theme"; // Import theme store for dark mode check
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -13,11 +14,16 @@ export const FundMultipleOffers = () => {
     (state) => [state.multi, state.setMulti],
     shallow,
   );
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
   const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
 
   return (
     <View style={tw`gap-3`}>
-      <Checkbox checked={!!multi} onPress={toggleFundMultiple}>
+      <Checkbox
+        checked={!!multi}
+        onPress={toggleFundMultiple}
+      >
         {i18n("offer.fundMultiple")}
       </Checkbox>
       {!!multi && (
@@ -26,6 +32,7 @@ export const FundMultipleOffers = () => {
           onChange={setMulti}
           min={FUND_MULTI_MIN}
           max={10}
+          style={tw`text-${isDarkMode ? "backgroundLight-light" : "black-100"}`} // Apply text color for dark mode
         />
       )}
     </View>

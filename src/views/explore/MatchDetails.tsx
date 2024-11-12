@@ -9,8 +9,8 @@ import { ProfileInfo } from "../../components/ProfileInfo";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import {
-  ConfirmSlider,
-  UnlockedSlider,
+    ConfirmSlider,
+    UnlockedSlider,
 } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { UnmatchButton } from "../../components/matches/buttons/UnmatchButton";
 import { options } from "../../components/matches/buttons/options";
@@ -180,7 +180,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
           ]}
           onStartShouldSetResponder={() => true}
         >
-          <View style={tw`bg-primary-background-light rounded-xl`}>
+          <View style={tw`bg-primary-background-light-color rounded-xl`}>
             <View style={tw`gap-2 p-4 md:gap-4`}>
               <ProfileInfo user={match.user} isOnMatchCard />
 

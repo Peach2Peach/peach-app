@@ -11,8 +11,8 @@ export const themes = {
   },
   inverted: {
     text: tw`text-primary-mild-1`,
-    textSelected: tw`text-primary-background-light`,
-    underline: tw`bg-primary-background-light`,
+    textSelected: tw`text-primary-background-light-color`,
+    underline: tw`bg-primary-background-light-color`,
   },
 };
 

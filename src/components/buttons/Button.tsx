@@ -21,7 +21,7 @@ const SMALL_ICON_SIZE = 14;
 export const Button = ({
   iconId,
   ghost,
-  textColor = tw.color("primary-background-light"),
+  textColor = tw.color("backgroundMain-light"),
   children,
   loading,
   ...touchableOpacityProps

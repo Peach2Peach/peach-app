@@ -4,7 +4,7 @@ import { getIconColor } from "./getIconColor";
 describe("getIconColor", () => {
   it("should return the correct icon color for primary bubble", () => {
     expect(getIconColor({ color: "primary", ghost: false })).toEqual(
-      tw`text-primary-background-light`,
+      tw`text-primary-background-light-color`,
     );
     expect(getIconColor({ color: "primary", ghost: true })).toEqual(
       tw`text-primary-main`,

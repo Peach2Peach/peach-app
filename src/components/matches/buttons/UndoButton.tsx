@@ -47,7 +47,7 @@ export const UndoButton = ({ onPress, onTimerFinished }: Props) => {
   return (
     <View style={tw`items-center justify-center min-w-39`}>
       <Animated.View style={[tw`self-start overflow-hidden`, { width }]}>
-        <Button {...sharedProps} style={tw`bg-primary-background-light w-39`}>
+        <Button {...sharedProps} style={tw`bg-primary-background-light-color w-39`}>
           {i18n("search.undo")}
         </Button>
       </Animated.View>

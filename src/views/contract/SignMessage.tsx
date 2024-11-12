@@ -213,7 +213,7 @@ function TextContainer({
         style={[
           tw`flex-row items-center justify-between gap-2 px-3 py-2`,
           tw`border rounded-xl`,
-          tw`bg-primary-background-light`,
+          tw`bg-primary-background-light-color`,
         ]}
       >
         <PeachText style={tw`flex-1 input-text`}>{value}</PeachText>

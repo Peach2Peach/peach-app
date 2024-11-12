@@ -20,7 +20,7 @@ export const RadioButtonItem = ({
     onPress={onPress}
     disabled={disabled}
     style={[
-      tw`flex-row items-center justify-between w-full gap-2 px-4 py-2 border-2 bg-primary-background-dark rounded-xl`,
+      tw`flex-row items-center justify-between w-full gap-2 px-4 py-2 border-2 bg-primary-background-dark-color rounded-xl`,
       disabled && tw`opacity-50`,
       isSelected ? tw`border-primary-main` : tw`border-transparent`,
     ]}

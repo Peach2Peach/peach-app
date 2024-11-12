@@ -1,5 +1,6 @@
 import { ColorValue, View } from "react-native";
 import { NewBubble, NewBubbleProps } from "../../components/bubble/Bubble";
+import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { Section } from "./components/Section";
@@ -25,8 +26,14 @@ export function WalletSelector({
   onExternalWalletPress,
   title,
 }: Props) {
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
   return (
-    <Section.Container style={{ backgroundColor }}>
+    <Section.Container
+      style={{
+        backgroundColor: isDarkMode ? tw.color("card") : backgroundColor, // Set background color conditionally
+      }}
+    >
       <Section.Title>{title}</Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
         <NewBubble

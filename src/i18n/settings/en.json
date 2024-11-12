@@ -126,7 +126,8 @@
   "settings.socials.subtitle" : "socials",
   "settings.terms" : "terms & conditions",
   "settings.testView" : "Open TestView",
-  "settings.title" : "settings",
+  "settings.title" : "Settings",
   "settings.transactionBatching" : "transaction batching",
-  "settings.website" : "website"
+  "settings.website" : "website",
+  "settings.dark mode": "Dark Mode"
 }

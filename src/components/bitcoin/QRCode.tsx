@@ -1,3 +1,4 @@
+import QRCode from "qrcode";
 import { useMemo } from "react";
 import Svg, {
   Defs,
@@ -7,9 +8,7 @@ import Svg, {
   Rect,
   Stop,
 } from "react-native-svg";
-
-import QRCode from "qrcode";
-import tw from "../../styles/tailwind";
+import { useThemeStore } from "../../store/theme"; // Import theme store
 
 type Props = {
   value: string;
@@ -17,6 +16,7 @@ type Props = {
 };
 
 function QRCodeComponent({ value, size }: Props) {
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
   const result = useMemo(
     () => transformMatrixIntoPath(genMatrix(value), size),
     [value, size],
@@ -42,14 +42,14 @@ function QRCodeComponent({ value, size }: Props) {
           y={0}
           width={size}
           height={size}
-          fill={tw.color("primary-background-main")}
+          fill={isDarkMode ? "#000000" : "#ffffff"} // Background color based on dark mode
         />
       </G>
       <G>
         <Path
           d={path}
           strokeLinecap="butt"
-          stroke={tw.color("black-100")}
+          stroke={isDarkMode ? "#ffffff" : "#000000"} // Path color based on dark mode
           strokeWidth={cellSize}
         />
       </G>

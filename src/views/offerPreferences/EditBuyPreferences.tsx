@@ -245,7 +245,7 @@ function OfferMarketInfo() {
 function OfferMethods() {
   const [{ meansOfPayment }] = usePreferenceContext();
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
-  const backgroundColor = tw.color("success-mild-1");
+  const backgroundColor = tw.color("success-mild-1-color");
   return (
     <Section.Container style={{ backgroundColor }}>
       {hasSelectedMethods ? (

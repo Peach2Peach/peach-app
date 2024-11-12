@@ -13,7 +13,7 @@ export const PercentageInput = forwardRef(
     <View
       style={[
         tw`flex-row items-center px-2 py-3 overflow-hidden w-23 h-38px rounded-xl`,
-        tw`border bg-primary-background-light border-black-65`,
+        tw`border bg-primary-background-light-color border-black-65`,
       ]}
     >
       <TextInput

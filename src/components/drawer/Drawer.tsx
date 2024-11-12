@@ -92,7 +92,7 @@ export const Drawer = () => {
       />
       <Animated.View
         style={[
-          tw`px-4 py-6 mt-auto bg-primary-background-light rounded-t-3xl`,
+          tw`px-4 py-6 mt-auto bg-primary-background-light-color rounded-t-3xl`,
           { maxHeight: slideAnim },
         ]}
       >

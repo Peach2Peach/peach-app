@@ -30,7 +30,7 @@ export const PaymentMade = ({ contractId }: { contractId: string }) => {
       buttons={
         <>
           <Button
-            style={tw`bg-primary-background-light`}
+            style={tw`bg-primary-background-light-color`}
             textColor={tw.color("primary-main")}
             onPress={goToTrade}
           >

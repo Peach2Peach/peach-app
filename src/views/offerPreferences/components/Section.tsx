@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
+import { useThemeStore } from "../../../store/theme"; // Import theme store for dark mode check
 import tw from "../../../styles/tailwind";
 
 export const sectionContainerPadding = 12;
@@ -27,9 +28,17 @@ function Container({
 
 const Section = {
   Container,
-  Title: ({ children }: { children: React.ReactNode }) => (
-    <PeachText style={tw`subtitle-1`}>{children}</PeachText>
-  ),
+  Title: ({ children }: { children: React.ReactNode }) => {
+    const { isDarkMode } = useThemeStore(); // Access dark mode state
+    return (
+      <PeachText
+        style={tw`${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} subtitle-1`}
+      >
+        {children}
+      </PeachText>
+    );
+  },
 };
 
 export { Section };
+

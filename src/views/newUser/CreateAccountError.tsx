@@ -29,11 +29,11 @@ export function CreateAccountError() {
       <View style={tw`items-center justify-between grow`}>
         <View style={tw`items-center justify-center gap-16 grow`}>
           <View>
-            <PeachText style={tw`text-center h4 text-primary-background-light`}>
+            <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
               {i18n("newUser.title.create")}
             </PeachText>
             <PeachText
-              style={tw`text-center body-l text-primary-background-light`}
+              style={tw`text-center body-l text-primary-background-light-color`}
             >
               {i18n(`${err}.text`)}
             </PeachText>
@@ -41,14 +41,14 @@ export function CreateAccountError() {
           <Icon
             id="userX"
             size={128}
-            color={tw.color("primary-background-light")}
+            color={tw.color("primary-background-light-color")}
           />
         </View>
 
         <View style={tw`gap-2`}>
           <Button
             onPress={goToContact}
-            style={tw`bg-primary-background-light`}
+            style={tw`bg-primary-background-light-color`}
             textColor={tw.color("primary-main")}
           >
             {i18n("contactUs")}

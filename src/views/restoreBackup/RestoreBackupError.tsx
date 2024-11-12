@@ -18,11 +18,11 @@ export const RestoreBackupError = ({ err }: Props) => {
     <View style={tw`justify-between grow`}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
-          <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
             {i18n("restoreBackup.title")}
           </PeachText>
           <PeachText
-            style={tw`text-center body-l text-primary-background-light`}
+            style={tw`text-center body-l text-primary-background-light-color`}
           >
             {i18n(`${err}.text`)}
           </PeachText>
@@ -30,11 +30,11 @@ export const RestoreBackupError = ({ err }: Props) => {
         <Icon
           id="userX"
           size={128}
-          color={tw.color("primary-background-light")}
+          color={tw.color("primary-background-light-color")}
         />
       </View>
       <Button
-        style={tw`self-center bg-primary-background-light`}
+        style={tw`self-center bg-primary-background-light-color`}
         textColor={tw.color("primary-main")}
         onPress={goToContact}
       >

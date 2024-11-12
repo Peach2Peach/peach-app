@@ -11,6 +11,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme"; // Import the theme store
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
@@ -28,6 +29,10 @@ export const Settings = () => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
+
+  // Zustand theme store to manage theme toggling
+  const { isDarkMode, toggleTheme } = useThemeStore();
+
   const [enableAnalytics, toggleAnalytics, showBackupReminder] =
     useSettingsStore(
       (state) => [
@@ -118,6 +123,7 @@ export const Settings = () => {
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
+  // Add a new item for Dark Mode toggle in appSettings
   const appSettings = useMemo(
     () =>
       (
@@ -137,9 +143,16 @@ export const Settings = () => {
           "payoutAddress",
           "currency",
           "language",
+          // Dark mode toggle item
+          {
+            title: "dark mode",
+            onPress: toggleTheme,
+            iconId: isDarkMode ? "toggleRight" : "toggleLeft",
+            enabled: isDarkMode,
+          },
         ] as const
       ).filter(isDefined),
-    [onAnalyticsPress, enableAnalytics, notificationClick],
+    [onAnalyticsPress, enableAnalytics, notificationClick, toggleTheme, isDarkMode],
   );
 
   const settings = [

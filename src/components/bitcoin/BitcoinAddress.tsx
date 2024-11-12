@@ -92,7 +92,7 @@ export const BitcoinAddress = ({
           </PeachText>
           <Animated.View
             style={[
-              tw`absolute items-center justify-center w-full h-full bg-primary-background-light`,
+              tw`absolute items-center justify-center w-full h-full bg-primary-background-light-color`,
               { opacity: addressTextOpacity },
             ]}
           >
@@ -129,7 +129,7 @@ function IconButton({
       <Icon
         id={iconId}
         size={24}
-        color={tw.color("primary-background-light")}
+        color={tw.color("primary-background-light-color")}
       />
     </TouchableOpacity>
   );

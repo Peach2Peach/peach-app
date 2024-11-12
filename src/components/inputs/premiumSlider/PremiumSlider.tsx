@@ -39,7 +39,7 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
       <View
         style={[
           tw`w-full h-8`,
-          tw`border p-0.5 rounded-full bg-primary-background-dark border-primary-mild-1`,
+          tw`border p-0.5 rounded-full bg-primary-background-dark-color border-primary-mild-1`,
           tw`justify-center`,
         ]}
       >
@@ -55,7 +55,7 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
             <Icon
               id="chevronsDown"
               style={tw`w-4`}
-              color={tw.color("primary-background-light")}
+              color={tw.color("primary-background-light-color")}
             />
           </Animated.View>
         </View>

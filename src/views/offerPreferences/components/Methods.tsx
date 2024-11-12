@@ -22,8 +22,8 @@ export function Methods({
 
   const backgroundColor =
     type === "buy"
-      ? tw.color("success-mild-1")
-      : tw.color("primary-background-dark");
+      ? tw.color("success-mild-1-color")
+      : tw.color("primary-background-dark-color");
   const color = tw.color("black-100");
   return (
     <>

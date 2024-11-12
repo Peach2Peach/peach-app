@@ -11,6 +11,7 @@ import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useToggleBatching } from "../../hooks/user/useToggleBatching";
 import { HelpPopup } from "../../popups/HelpPopup";
+import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -22,6 +23,8 @@ export const TransactionBatching = () => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const { contracts } = useContractSummaries();
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
   const toggleBatching = () => {
     const hasPendingPayouts = contracts.some(
       (contract) => contract.tradeStatus === "payoutPending",
@@ -64,7 +67,9 @@ export const TransactionBatching = () => {
       header={<TransactionBatchingHeader />}
     >
       <View style={tw`gap-4`}>
-        <PeachText style={tw`body-l`}>
+        <PeachText
+          style={tw`body-l ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`} // Adapting for dark mode
+        >
           {i18n(
             isBatchingEnabled
               ? "settings.batching.delayedPayouts"

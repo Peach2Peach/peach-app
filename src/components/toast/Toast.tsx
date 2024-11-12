@@ -1,13 +1,13 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useRef } from "react";
 import {
-  Animated,
-  PanResponder,
-  StyleProp,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-  useWindowDimensions,
+    Animated,
+    PanResponder,
+    StyleProp,
+    TouchableOpacity,
+    View,
+    ViewStyle,
+    useWindowDimensions,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IconType } from "../../assets/icons";
@@ -31,10 +31,10 @@ const levelColorMap: LevelColorMap = {
   },
   red: {
     backgroundColor: tw.color("error-main"),
-    color: tw.color("primary-background-light"),
+    color: tw.color("primary-background-light-color"),
   },
   white: {
-    backgroundColor: tw.color("primary-background-light"),
+    backgroundColor: tw.color("primary-background-light-color"),
     color: tw.color("black-100"),
   },
 };

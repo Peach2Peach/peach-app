@@ -3,6 +3,7 @@ import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
+import { useThemeStore } from "../../../store/theme"; // Import theme store for dark mode check
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -48,11 +49,14 @@ export const SettingsItem = ({
 }: SettingsItemProps) => {
   const navigation = useStackNavigation();
   const onPress = pressAction ? pressAction : () => navigation.navigate(title);
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
   const iconColor = warning
     ? tw.color("error-main")
     : enabled
       ? tw.color("primary-main")
-      : tw.color("black-50");
+      : isDarkMode
+        ? tw.color("black-25") // Adapt color for dark mode
+        : tw.color("black-50"); // Default color for light mode
 
   return (
     <TouchableOpacity
@@ -60,7 +64,7 @@ export const SettingsItem = ({
       onPress={onPress}
     >
       <PeachText
-        style={[tw`settings text-black-65`, warning && tw`text-error-main`]}
+        style={[tw`settings ${isDarkMode ? "text-black-25" : "text-black-65"}`, warning && tw`text-error-main`]}
       >
         {i18n(`settings.${title}`)}
       </PeachText>

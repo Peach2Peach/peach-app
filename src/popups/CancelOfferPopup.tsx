@@ -80,7 +80,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
           : "offer.cancel.popup.description",
       )}
       actionBgColor={tw`bg-black-50`}
-      bgColor={tw`bg-primary-background-light`}
+      bgColor={tw`bg-primary-background-light-color`}
       actions={
         <>
           <PopupAction

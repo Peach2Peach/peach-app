@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { PriceFormat } from "../../../components/text/PriceFormat";
+import { useThemeStore } from "../../../store/theme"; // Import theme store
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -12,30 +13,35 @@ type Props = ComponentProps & {
   displayCurrency: Currency;
   type: "daily" | "monthly" | "yearly";
 };
+
 export const TradingLimitAmount = ({
   amount,
   limit,
   displayCurrency,
   style,
   type,
-}: Props) => (
-  <View style={style}>
-    <PeachText style={tw`tooltip text-black-65`}>
-      {i18n(`profile.tradingLimits.${type}`)}
-      {"  "}
-      <PriceFormat
-        style={[textStyle, tw`text-primary-main`]}
-        currency={displayCurrency}
-        amount={amount}
-        round
-      />
-      <PeachText style={[textStyle, tw`text-black-65`]}> / </PeachText>
-      <PriceFormat
-        style={[textStyle, tw`text-primary-mild-1`]}
-        currency={displayCurrency}
-        amount={limit}
-        round
-      />
-    </PeachText>
-  </View>
-);
+}: Props) => {
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
+  return (
+    <View style={style}>
+      <PeachText style={tw`tooltip ${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`}>
+        {i18n(`profile.tradingLimits.${type}`)}
+        {"  "}
+        <PriceFormat
+          style={[textStyle, tw`text-primary-main`]}
+          currency={displayCurrency}
+          amount={amount}
+          round
+        />
+        <PeachText style={[textStyle, tw`${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`]}> / </PeachText>
+        <PriceFormat
+          style={[textStyle, tw`text-primary-mild-1`]}
+          currency={displayCurrency}
+          amount={limit}
+          round
+        />
+      </PeachText>
+    </View>
+  );
+};

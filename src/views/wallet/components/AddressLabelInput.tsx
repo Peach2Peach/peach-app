@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Icon } from "../../../components/Icon";
+import { useThemeStore } from "../../../store/theme"; // Import theme store for dark mode check
 import tw from "../../../styles/tailwind";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export function AddressLabelInput({ address, fallback }: Props) {
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
   const [isEditing, setIsEditing] = useState(false);
   const [label, setLabel] = useWalletState(
     (state) => [state.addressLabelMap[address] ?? fallback, state.labelAddress],
@@ -39,13 +41,18 @@ export function AddressLabelInput({ address, fallback }: Props) {
         value={label}
         onChangeText={onChangeText}
         ref={$input}
-        style={tw`overflow-hidden leading-relaxed text-center body-l text-black-100`}
+        style={[
+          tw`overflow-hidden leading-relaxed text-center body-l`,
+          {
+            color: isDarkMode ? tw.color("backgroundLight-light") : tw.color("black-100"), // Adapt text color based on theme
+          },
+        ]}
       />
       <TouchableOpacity onPress={onIconPress}>
         <Icon
           id={isEditing ? "checkSquare" : "edit3"}
           color={tw.color("primary-main")}
-          size={16}
+          size={20}
         />
       </TouchableOpacity>
     </View>

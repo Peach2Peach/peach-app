@@ -27,7 +27,7 @@ export const PaymentDetailsCheckbox = ({
   <TouchableOpacity
     onPress={onPress}
     style={[
-      tw`flex-row items-center justify-between w-full gap-4 px-3 py-2 border-2 bg-primary-background-dark rounded-xl`,
+      tw`flex-row items-center justify-between w-full gap-4 px-3 py-2 border-2 bg-primary-background-dark-color rounded-xl`,
       checked && !item.disabled && !editing
         ? tw`border-primary-main`
         : tw`border-transparent`,

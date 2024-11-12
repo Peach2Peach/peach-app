@@ -29,8 +29,8 @@ import { groupChars } from "../../../utils/string/groupChars";
 import { priceFormat } from "../../../utils/string/priceFormat";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import {
-  TradeTheme,
-  getThemeForTradeItem,
+    TradeTheme,
+    getThemeForTradeItem,
 } from "../utils/getThemeForTradeItem";
 import { isContractSummary } from "../utils/isContractSummary";
 import { isPastOffer } from "../utils/isPastOffer";
@@ -76,7 +76,7 @@ const Label = memo(
             <Icon
               id="messageFull"
               size={24}
-              color={tw.color("primary-background-light")}
+              color={tw.color("primary-background-light-color")}
             />
             <PeachText style={tw`absolute text-center font-baloo-bold`}>
               {unreadMessages}

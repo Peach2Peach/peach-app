@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useStackNavigation } from "../hooks/useStackNavigation";
+import { useThemeStore } from "../store/theme"; // Import theme store for dark mode check
 import tw from "../styles/tailwind";
 import { peachyGradient } from "../utils/layout/peachyGradient";
 import { isAndroid } from "../utils/system/isAndroid";
@@ -35,21 +36,30 @@ export const Screen = ({
 }: Props) => {
   const insets = useSafeAreaInsets();
   const hasFooter = useStackNavigation().getId() === "homeNavigator";
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
   useFocusEffect(
     useCallback(() => {
+      // Set StatusBar style based on dark mode and gradientBackground prop
       StatusBar.setBarStyle(
-        gradientBackground ? "light-content" : "dark-content",
+        isDarkMode || gradientBackground ? "light-content" : "dark-content",
         true,
       );
-      if (isAndroid())
+      
+      // Set background color on Android
+      if (isAndroid()) {
         StatusBar.setBackgroundColor(
           gradientBackground
-            ? peachyGradient[2].color
-            : String(tw`text-primary-background-main`.color),
+            ? peachyGradient[2].color // Background color when gradient is applied
+            : isDarkMode 
+              ? "#120a07"              // Dark mode color
+              : "#fff9f6",             // Light mode color
           true,
         );
-    }, [gradientBackground]),
+      }
+    }, [isDarkMode, gradientBackground]), // Dependency array includes isDarkMode and gradientBackground
   );
+
   return (
     <KeyboardAvoidingView
       style={tw`flex-1`}

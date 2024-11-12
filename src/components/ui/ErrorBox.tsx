@@ -13,10 +13,10 @@ export const ErrorBox = ({ children, style }: ComponentProps) => (
     <Icon
       id="alertTriangle"
       style={tw`w-6 h-6`}
-      color={tw.color("primary-background-light")}
+      color={tw.color("primary-background-light-color")}
     />
     <View style={tw`shrink w-full pl-3`}>
-      <PeachText style={tw`subtitle-2 text-primary-background-light`}>
+      <PeachText style={tw`subtitle-2 text-primary-background-light-color`}>
         {children}
       </PeachText>
     </View>

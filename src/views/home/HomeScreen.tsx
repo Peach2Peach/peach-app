@@ -14,6 +14,7 @@ import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { isIOS } from "../../utils/system/isIOS";
@@ -59,12 +60,22 @@ const FooterItemBase = memo(
     active,
   }: FooterItemBaseProps) => {
     const navigation = useStackNavigation();
+    const { isDarkMode } = useThemeStore(); // Access theme mode
     const onItemPress = () => {
       if (onPress) onPress();
       else navigation.navigate("homeScreen", { screen: id });
     };
-    const colorTheme = tw.color(active ? "black-100" : "black-65");
+    const colorTheme = tw.color(
+      active
+        ? isDarkMode
+          ? "primary-main" // Active tab in dark mode
+          : "black-100" // Active tab in light mode
+        : isDarkMode
+        ? "black-50" // Inactive tab in dark mode
+        : "black-65" // Inactive tab in light mode
+    );
     const size = tw`w-6 h-6`;
+
     return (
       <TouchableOpacity
         onPress={onItemPress}
@@ -184,13 +195,16 @@ const FOOTER_ITEMS = {
 
 function Footer() {
   const { bottom } = useSafeAreaInsets();
+  const { isDarkMode } = useThemeStore(); // Access theme mode
   const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
   return (
     <View
       style={[
         tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background-main`,
         tw`md:pt-4`,
-        { paddingBottom: bottom },
+        { paddingBottom: bottom,
+          backgroundColor: isDarkMode ? tw.color("backgroundMain-dark") : tw.color("backgroundMain-light"), // Dark/light background
+         },
       ]}
     >
       {homeTabNames.map((name) => {
