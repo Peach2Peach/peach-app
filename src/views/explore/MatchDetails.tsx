@@ -9,8 +9,8 @@ import { ProfileInfo } from "../../components/ProfileInfo";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import {
-    ConfirmSlider,
-    UnlockedSlider,
+  ConfirmSlider,
+  UnlockedSlider,
 } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { UnmatchButton } from "../../components/matches/buttons/UnmatchButton";
 import { options } from "../../components/matches/buttons/options";

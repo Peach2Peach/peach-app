@@ -18,7 +18,9 @@ export const RestoreBackupError = ({ err }: Props) => {
     <View style={tw`justify-between grow`}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
-          <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("restoreBackup.title")}
           </PeachText>
           <PeachText

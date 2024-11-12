@@ -64,7 +64,9 @@ export const RestoreFromSeed = () => {
         </View>
         {allWordsAreSet && !isMnemonicValid && (
           <PeachText
-            style={[tw`text-center tooltip text-primary-background-light-color`]}
+            style={[
+              tw`text-center tooltip text-primary-background-light-color`,
+            ]}
           >
             {i18n("form.bip39.error")}
           </PeachText>

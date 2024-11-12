@@ -44,7 +44,9 @@ export function AddressLabelInput({ address, fallback }: Props) {
         style={[
           tw`overflow-hidden leading-relaxed text-center body-l`,
           {
-            color: isDarkMode ? tw.color("backgroundLight-light") : tw.color("black-100"), // Adapt text color based on theme
+            color: isDarkMode
+              ? tw.color("backgroundLight-light")
+              : tw.color("black-100"), // Adapt text color based on theme
           },
         ]}
       />

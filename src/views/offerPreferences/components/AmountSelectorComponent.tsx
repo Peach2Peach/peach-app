@@ -38,7 +38,9 @@ export function AmountSelectorComponent({
   const { isDarkMode } = useThemeStore(); // Access dark mode state
 
   return (
-    <Section.Container style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}
+    >
       <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
         <BuyAmountInput

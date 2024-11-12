@@ -15,14 +15,14 @@ export default {
       colors: {
         transparent: "transparent",
         current: "currentColor",
-        
+
         // Base colors with light and dark variants
         bitcoin: "#f7931a",
 
         bitcoinText: "#5b5b5b",
 
-        card:"#1F1614",
-        
+        card: "#1F1614",
+
         // Black colors
         black: {
           100: "#2b1911",
@@ -34,7 +34,7 @@ export default {
           10: "#eae3df",
           5: "#f4eeeb",
         },
-        
+
         // Primary colors and their backgrounds
         primary: {
           dark: {
@@ -211,5 +211,4 @@ export default {
   darkMode: "class",
   variants: {},
   corePlugins: {},
-
 };

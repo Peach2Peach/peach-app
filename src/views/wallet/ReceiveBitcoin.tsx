@@ -78,9 +78,17 @@ function BitcoinAddress({ index }: { index: number }) {
         style={tw`shrink ${isDarkMode ? "text-black-50" : "text-black-50"} body-l`}
       >
         {addressParts.one}
-        <PeachText style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}>{addressParts.two}</PeachText>
+        <PeachText
+          style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}
+        >
+          {addressParts.two}
+        </PeachText>
         {addressParts.three}
-        <PeachText style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}>{addressParts.four}</PeachText>
+        <PeachText
+          style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}
+        >
+          {addressParts.four}
+        </PeachText>
       </PeachText>
       <CopyAble
         value={address}

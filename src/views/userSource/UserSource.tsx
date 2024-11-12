@@ -44,7 +44,9 @@ export function UserSource() {
     <Screen gradientBackground>
       <View style={tw`items-center justify-center flex-1 gap-8`}>
         <View style={tw`items-center gap-2px`}>
-          <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("userSource.title")}
           </PeachText>
           <PeachText
@@ -59,7 +61,8 @@ export function UserSource() {
               key={source}
               ghost={selectedSource !== source}
               style={
-                source === selectedSource && tw`bg-primary-background-light-color`
+                source === selectedSource &&
+                tw`bg-primary-background-light-color`
               }
               textColor={
                 source === selectedSource ? tw.color("primary-main") : undefined

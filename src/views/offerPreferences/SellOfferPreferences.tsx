@@ -197,7 +197,9 @@ function AmountSelectorContainer({
 }) {
   const { isDarkMode } = useThemeStore(); // Access dark mode state
   return (
-    <Section.Container style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+    >
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
@@ -424,14 +426,13 @@ function FiatInput() {
   );
 }
 
-
 function FundMultipleOffersContainer() {
   const setPopup = useSetPopup();
-      // Access dark mode state
-      const { isDarkMode } = useThemeStore();
+  // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-    style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
     >
       <FundMultipleOffers />
       <TouchableIcon
@@ -485,7 +486,9 @@ function InstantTrade() {
   const { isDarkMode } = useThemeStore();
 
   return (
-    <Section.Container style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+    >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>
@@ -830,28 +833,28 @@ function RefundWalletSelector() {
 function SellHeader() {
   const setPopup = useSetPopup();
   const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
-    // Access dark mode state
-    const { isDarkMode } = useThemeStore();
-    return (
-      <Header
-        titleComponent={
-          <>
-            <PeachText style={tw`h7 md:h6 text-primary-main`}>
-              {i18n("sell")}
-            </PeachText>
-            {/* Conditionally render the logo based on dark mode */}
-            {isDarkMode ? (
-              <LogoIcons.bitcoinTextDark
-                style={tw`h-14px md:h-16px w-63px md:w-71px`}
-              />
-            ) : (
-              <LogoIcons.bitcoinText
-                style={tw`h-14px md:h-16px w-63px md:w-71px`}
-              />
-            )}
-          </>
-        }
-        icons={[{ ...headerIcons.help, onPress }]}
-      />
-    );
+  // Access dark mode state
+  const { isDarkMode } = useThemeStore();
+  return (
+    <Header
+      titleComponent={
+        <>
+          <PeachText style={tw`h7 md:h6 text-primary-main`}>
+            {i18n("sell")}
+          </PeachText>
+          {/* Conditionally render the logo based on dark mode */}
+          {isDarkMode ? (
+            <LogoIcons.bitcoinTextDark
+              style={tw`h-14px md:h-16px w-63px md:w-71px`}
+            />
+          ) : (
+            <LogoIcons.bitcoinText
+              style={tw`h-14px md:h-16px w-63px md:w-71px`}
+            />
+          )}
+        </>
+      }
+      icons={[{ ...headerIcons.help, onPress }]}
+    />
+  );
 }

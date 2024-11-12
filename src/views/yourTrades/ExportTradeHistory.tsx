@@ -34,7 +34,9 @@ export function ExportTradeHistory() {
   return (
     <Screen header={i18n("exportTradeHistory.title")}>
       <View style={tw`justify-center gap-8 grow`}>
-        <PeachText style={tw`body-l ${isDarkMode ? "text-primary-background-light-color" : "text-black-100"}`}>
+        <PeachText
+          style={tw`body-l ${isDarkMode ? "text-primary-background-light-color" : "text-black-100"}`}
+        >
           {`${i18n("exportTradeHistory.description")}
 
   • ${i18n("exportTradeHistory.date")}

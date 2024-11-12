@@ -152,7 +152,13 @@ export const Settings = () => {
           },
         ] as const
       ).filter(isDefined),
-    [onAnalyticsPress, enableAnalytics, notificationClick, toggleTheme, isDarkMode],
+    [
+      onAnalyticsPress,
+      enableAnalytics,
+      notificationClick,
+      toggleTheme,
+      isDarkMode,
+    ],
   );
 
   const settings = [

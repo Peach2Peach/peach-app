@@ -45,15 +45,15 @@ export const Screen = ({
         isDarkMode || gradientBackground ? "light-content" : "dark-content",
         true,
       );
-      
+
       // Set background color on Android
       if (isAndroid()) {
         StatusBar.setBackgroundColor(
           gradientBackground
             ? peachyGradient[2].color // Background color when gradient is applied
-            : isDarkMode 
-              ? "#120a07"              // Dark mode color
-              : "#fff9f6",             // Light mode color
+            : isDarkMode
+              ? "#120a07" // Dark mode color
+              : "#fff9f6", // Light mode color
           true,
         );
       }

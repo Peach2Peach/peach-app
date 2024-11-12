@@ -132,13 +132,18 @@ export const LetsGetStarted = () => {
     <View style={tw`items-center flex-1 gap-4 shrink`}>
       <View style={tw`justify-center gap-4 grow`}>
         <PeachText
-          style={[tw`text-center h5 text-primary-background-light-color`, tw`md:h4`]}
+          style={[
+            tw`text-center h5 text-primary-background-light-color`,
+            tw`md:h4`,
+          ]}
         >
           {i18n("welcome.letsGetStarted.title")}
         </PeachText>
 
         <View>
-          <PeachText style={tw`text-center text-primary-background-light-color`}>
+          <PeachText
+            style={tw`text-center text-primary-background-light-color`}
+          >
             {i18n("newUser.referralCode")}
           </PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
@@ -205,7 +210,9 @@ function CreateAccountLoading() {
       <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
         {i18n("newUser.title.create")}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light-color`}>
+      <PeachText
+        style={tw`text-center body-l text-primary-background-light-color`}
+      >
         {i18n("newUser.oneSec")}
       </PeachText>
       <Loading size={"large"} color={tw.color("primary-mild-1")} />

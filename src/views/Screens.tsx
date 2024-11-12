@@ -29,7 +29,9 @@ export function Screens() {
   useGlobalHandlers();
   useWSQueryInvalidation();
 
-  const backgroundStyle = isDarkMode ? "bg-backgroundMain-dark" : "bg-backgroundMain-light"; // Adjust this to your actual dark/light background styles
+  const backgroundStyle = isDarkMode
+    ? "bg-backgroundMain-dark"
+    : "bg-backgroundMain-light"; // Adjust this to your actual dark/light background styles
 
   if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />;
   return (

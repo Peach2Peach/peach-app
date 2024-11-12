@@ -10,10 +10,16 @@ export const RestoreSuccess = () => (
       <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
         {i18n("restoreBackup.backupRestored")}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light-color`}>
+      <PeachText
+        style={tw`text-center body-l text-primary-background-light-color`}
+      >
         {i18n("restoreBackup.welcomeBack")}
       </PeachText>
     </View>
-    <Icon id="save" size={128} color={tw.color("primary-background-light-color")} />
+    <Icon
+      id="save"
+      size={128}
+      color={tw.color("primary-background-light-color")}
+    />
   </View>
 );

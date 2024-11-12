@@ -42,8 +42,8 @@ export const Checkbox = ({
             !checked
               ? tw`text-black-25`
               : isDarkMode
-              ? tw`text-backgroundLight-light`
-              : tw`text-primary-main`, // Default text color when checked in light mode
+                ? tw`text-backgroundLight-light`
+                : tw`text-primary-main`, // Default text color when checked in light mode
           ]}
         >
           {children}

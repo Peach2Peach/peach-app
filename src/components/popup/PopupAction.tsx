@@ -36,7 +36,10 @@ export const PopupAction = ({
     disabled={loading || disabled}
   >
     {loading ? (
-      <Loading size="small" color={tw.color("primary-background-light-color")} />
+      <Loading
+        size="small"
+        color={tw.color("primary-background-light-color")}
+      />
     ) : (
       <Icon
         id={iconId}

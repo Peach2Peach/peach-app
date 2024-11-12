@@ -29,7 +29,9 @@ export function CreateAccountError() {
       <View style={tw`items-center justify-between grow`}>
         <View style={tw`items-center justify-center gap-16 grow`}>
           <View>
-            <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
+            <PeachText
+              style={tw`text-center h4 text-primary-background-light-color`}
+            >
               {i18n("newUser.title.create")}
             </PeachText>
             <PeachText

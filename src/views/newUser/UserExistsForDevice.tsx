@@ -31,7 +31,9 @@ export function UserExistsForDevice() {
     >
       <View style={tw`items-center justify-center gap-8 grow`}>
         <View>
-          <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("newUser.accountNotCreated")}
           </PeachText>
           <PeachText

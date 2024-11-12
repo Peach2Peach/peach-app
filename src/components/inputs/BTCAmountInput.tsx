@@ -39,14 +39,14 @@ export const BTCAmountInput = forwardRef<TextInput, Props>(
             textStyle,
             {
               backgroundColor: isDarkMode
-                ? 'rgba(0, 0, 0, 0.8)' // Dark mode background color
-                : 'rgba(255, 255, 255, 0.8)', // Light mode background color
-              color: isDarkMode ? 'white' : 'black', // Adjust text color for visibility
+                ? "rgba(0, 0, 0, 0.8)" // Dark mode background color
+                : "rgba(255, 255, 255, 0.8)", // Light mode background color
+              color: isDarkMode ? "white" : "black", // Adjust text color for visibility
             },
           ]}
           keyboardType="number-pad"
         />
       </View>
     );
-  }
+  },
 );

@@ -31,12 +31,16 @@ export function TradeComplete({ contract }: { contract: Contract }) {
       <View style={tw`justify-center gap-6 grow`}>
         <View style={tw`items-center`}>
           <Icon id="fullLogo" style={tw`w-311px h-127px`} />
-          <PeachText style={tw`text-center h5 text-primary-background-light-color`}>
+          <PeachText
+            style={tw`text-center h5 text-primary-background-light-color`}
+          >
             {i18n(`tradeComplete.title.${view}.default`)}
           </PeachText>
         </View>
 
-        <PeachText style={tw`text-center body-l text-primary-background-light-color`}>
+        <PeachText
+          style={tw`text-center body-l text-primary-background-light-color`}
+        >
           {i18n("rate.subtitle")}
         </PeachText>
         <View style={tw`flex-row justify-center gap-12`}>

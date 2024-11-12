@@ -71,8 +71,8 @@ const FooterItemBase = memo(
           ? "primary-main" // Active tab in dark mode
           : "black-100" // Active tab in light mode
         : isDarkMode
-        ? "black-50" // Inactive tab in dark mode
-        : "black-65" // Inactive tab in light mode
+          ? "black-50" // Inactive tab in dark mode
+          : "black-65", // Inactive tab in light mode
     );
     const size = tw`w-6 h-6`;
 
@@ -202,9 +202,12 @@ function Footer() {
       style={[
         tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background-main`,
         tw`md:pt-4`,
-        { paddingBottom: bottom,
-          backgroundColor: isDarkMode ? tw.color("backgroundMain-dark") : tw.color("backgroundMain-light"), // Dark/light background
-         },
+        {
+          paddingBottom: bottom,
+          backgroundColor: isDarkMode
+            ? tw.color("backgroundMain-dark")
+            : tw.color("backgroundMain-light"), // Dark/light background
+        },
       ]}
     >
       {homeTabNames.map((name) => {

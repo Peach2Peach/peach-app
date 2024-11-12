@@ -8,7 +8,6 @@ import { groupChars } from "../../utils/string/groupChars";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
-
 export type BTCAmountProps = {
   amount: number;
   size: "large" | "medium" | "small";
@@ -57,14 +56,17 @@ export const BTCAmount = memo(
       [amount],
     );
     const { isDarkMode } = useThemeStore();
-    const textStyle = useMemo(() => [
-      styles[size].amount,
-      white
-        ? tw`text-black-25`
-        : isDarkMode
-        ? tw`text-backgroundLight-light` // Dark mode styling
-        : tw`text-black-100`, // Light mode styling
-    ], [size, white, isDarkMode]);
+    const textStyle = useMemo(
+      () => [
+        styles[size].amount,
+        white
+          ? tw`text-black-25`
+          : isDarkMode
+            ? tw`text-backgroundLight-light` // Dark mode styling
+            : tw`text-black-100`, // Light mode styling
+      ],
+      [size, white, isDarkMode],
+    );
     return (
       <View
         style={[

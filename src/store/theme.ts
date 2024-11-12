@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { create } from 'zustand';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
 
 interface ThemeState {
   isDarkMode: boolean;
@@ -14,7 +14,7 @@ export const useThemeStore = create<ThemeState>((set) => ({
   toggleTheme: async () => {
     set((state) => {
       const newTheme = !state.isDarkMode;
-      AsyncStorage.setItem('theme', newTheme ? 'dark' : 'light');
+      AsyncStorage.setItem("theme", newTheme ? "dark" : "light");
       return { isDarkMode: newTheme };
     });
   },
@@ -22,13 +22,13 @@ export const useThemeStore = create<ThemeState>((set) => ({
   // Set theme directly and persist
   setDarkMode: (isDark: boolean) => {
     set({ isDarkMode: isDark });
-    AsyncStorage.setItem('theme', isDark ? 'dark' : 'light');
+    AsyncStorage.setItem("theme", isDark ? "dark" : "light");
   },
 }));
 
 // Load and set theme on app start
-AsyncStorage.getItem('theme').then((storedTheme) => {
+AsyncStorage.getItem("theme").then((storedTheme) => {
   if (storedTheme) {
-    useThemeStore.getState().setDarkMode(storedTheme === 'dark');
+    useThemeStore.getState().setDarkMode(storedTheme === "dark");
   }
 });

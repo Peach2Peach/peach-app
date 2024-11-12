@@ -19,8 +19,10 @@ export const LogoIcons = {
   fullLogo,
   homeLogo:
     NETWORK === "testnet" || NETWORK === "regtest" ? homeLogoTestnet : homeLogo,
-    homeLogoDark:
-    NETWORK === "testnet" || NETWORK === "regtest" ? homeLogoTestnet : homeLogoDark,
+  homeLogoDark:
+    NETWORK === "testnet" || NETWORK === "regtest"
+      ? homeLogoTestnet
+      : homeLogoDark,
   peachBorder,
   peachLogo,
   peachOrange,

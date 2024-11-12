@@ -24,7 +24,7 @@ export const BitcoinLoading = ({ text }: Props) => {
       <PeachText
         style={[
           tw`text-center subtitle-1`,
-          isDarkMode ? tw`text-primary-mild-1` : tw`text-black-100`
+          isDarkMode ? tw`text-primary-mild-1` : tw`text-black-100`,
         ]}
       >
         {text || i18n("loading")}

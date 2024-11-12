@@ -20,10 +20,7 @@ export const FundMultipleOffers = () => {
 
   return (
     <View style={tw`gap-3`}>
-      <Checkbox
-        checked={!!multi}
-        onPress={toggleFundMultiple}
-      >
+      <Checkbox checked={!!multi} onPress={toggleFundMultiple}>
         {i18n("offer.fundMultiple")}
       </Checkbox>
       {!!multi && (

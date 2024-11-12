@@ -41,4 +41,3 @@ const Section = {
 };
 
 export { Section };
-

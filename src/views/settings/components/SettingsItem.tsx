@@ -64,7 +64,10 @@ export const SettingsItem = ({
       onPress={onPress}
     >
       <PeachText
-        style={[tw`settings ${isDarkMode ? "text-black-25" : "text-black-65"}`, warning && tw`text-error-main`]}
+        style={[
+          tw`settings ${isDarkMode ? "text-black-25" : "text-black-65"}`,
+          warning && tw`text-error-main`,
+        ]}
       >
         {i18n(`settings.${title}`)}
       </PeachText>

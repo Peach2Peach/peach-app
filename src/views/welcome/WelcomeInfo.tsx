@@ -21,7 +21,9 @@ export const WelcomeInfo = ({
       <PeachText style={tw`text-center h5 text-primary-background-light-color`}>
         {i18n(`welcome.${name}.title`)}
       </PeachText>
-      <PeachText style={tw`mt-4 text-center text-primary-background-light-color`}>
+      <PeachText
+        style={tw`mt-4 text-center text-primary-background-light-color`}
+      >
         {i18n(`welcome.${name}.description`)}
       </PeachText>
       <Image

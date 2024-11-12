@@ -33,7 +33,9 @@ export const BitcoinAddressInput = ({
   return !showQRScanner ? (
     <Input
       placeholder={i18n("form.address.btc.placeholder")}
-      placeholderTextColor={tw.color(isDarkMode ? "backgroundLight-light" : "black-10")} // Adjust placeholder color
+      placeholderTextColor={tw.color(
+        isDarkMode ? "backgroundLight-light" : "black-10",
+      )} // Adjust placeholder color
       icons={[
         ["clipboard", pasteAddress],
         ["camera", showQR],
@@ -45,7 +47,9 @@ export const BitcoinAddressInput = ({
       value={isFocused ? value : cutOffAddress(value)}
       style={[
         tw`border-2 rounded-lg px-4 py-2`, // Add any additional styles you want
-        isDarkMode ? tw`border-2 border-black-50 bg-transparent text-backgroundLight-light` : tw`bg-white text-black-100`, // Conditionally apply styles
+        isDarkMode
+          ? tw`border-2 border-black-50 bg-transparent text-backgroundLight-light`
+          : tw`bg-white text-black-100`, // Conditionally apply styles
       ]}
       {...props}
     />

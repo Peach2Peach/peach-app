@@ -51,14 +51,18 @@ type HeaderConfig = {
 
 const newThemes = (isDarkMode: boolean) => ({
   buyer: {
-    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-success-background-dark-color`,
+    bg: isDarkMode
+      ? tw`bg-backgroundMain-dark`
+      : tw`bg-success-background-dark-color`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: tw`text-success-main`,
     border: tw`border-9 border-success-mild-1-color`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   seller: {
-    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-primary-background-dark-color`,
+    bg: isDarkMode
+      ? tw`bg-backgroundMain-dark`
+      : tw`bg-primary-background-dark-color`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: tw`text-primary-main`,
     border: tw`border-9 border-primary-mild-1`,
@@ -94,13 +98,14 @@ const newThemes = (isDarkMode: boolean) => ({
   },
   transparent: {
     bg: tw`bg-transparent`,
-    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-backgroundLight-light`,
+    title: isDarkMode
+      ? tw`text-backgroundLight-light`
+      : tw`text-backgroundLight-light`,
     subtitle: tw`text-primary-background-light-color`,
     border: tw`border-transparent`,
     backButtonColor: tw.color("primary-background-light-color"),
   },
 });
-
 
 export type HeaderProps = Omit<HeaderConfig, "theme" | "style"> & {
   theme?: keyof ReturnType<typeof newThemes>;
@@ -168,7 +173,10 @@ function HeaderNavigation({
           </TouchableOpacity>
         )}
         {titleComponent || (
-          <PeachText style={[...fontSize, titleStyle, tw`flex-1`]} numberOfLines={1}>
+          <PeachText
+            style={[...fontSize, titleStyle, tw`flex-1`]}
+            numberOfLines={1}
+          >
             {title}
           </PeachText>
         )}
@@ -183,7 +191,11 @@ function HeaderNavigation({
           >
             <Icon
               id={id}
-              color={theme !== "dispute" ? color : tw.color("primary-background-light-color")}
+              color={
+                theme !== "dispute"
+                  ? color
+                  : tw.color("primary-background-light-color")
+              }
               style={iconSize}
             />
           </TouchableOpacity>
@@ -206,7 +218,9 @@ function Tickers({ type = "sell" }: TickerProps) {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();
   const { isDarkMode } = useThemeStore();
 
-  const labelStyle = isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`;
+  const labelStyle = isDarkMode
+    ? tw`text-backgroundLight-light`
+    : tw`text-black-100`;
   const valueStyle = [
     tw`leading-xl`,
     type === "sell" ? tw`text-primary-main` : tw`text-success-main`,
@@ -221,7 +235,9 @@ function Tickers({ type = "sell" }: TickerProps) {
       ]}
     >
       <View style={leftColStyle}>
-        <PeachText style={[unitStyle, labelStyle]}>{`1 ${i18n("btc")}`}</PeachText>
+        <PeachText
+          style={[unitStyle, labelStyle]}
+        >{`1 ${i18n("btc")}`}</PeachText>
         <PriceFormat
           style={valueStyle}
           currency={displayCurrency}
@@ -232,7 +248,14 @@ function Tickers({ type = "sell" }: TickerProps) {
       <View style={rightColStyle}>
         <CurrencyScrollView />
 
-        <PeachText style={[...valueStyle, labelStyle, tw`text-right`, tw`text-primary-main`]}>
+        <PeachText
+          style={[
+            ...valueStyle,
+            labelStyle,
+            tw`text-right`,
+            tw`text-primary-main`,
+          ]}
+        >
           {i18n("currency.format.sats", thousands(moscowTime))}
         </PeachText>
       </View>
@@ -261,14 +284,21 @@ function CurrencyScrollView() {
         style={tw`absolute ${isDarkMode ? "bg-backgroundMain-dark" : "bg-backgroundMain-light"} max-h-40`}
         contentContainerStyle={[
           tw`items-end self-end justify-end`,
-          showCurrencies ? tw`pl-2 border rounded-lg border-black-25` : { padding: 1 },
+          showCurrencies
+            ? tw`pl-2 border rounded-lg border-black-25`
+            : { padding: 1 },
         ]}
         scrollEnabled={showCurrencies}
         showsVerticalScrollIndicator={false}
       >
-        <View style={tw`items-start`} onStartShouldSetResponder={() => showCurrencies}>
+        <View
+          style={tw`items-start`}
+          onStartShouldSetResponder={() => showCurrencies}
+        >
           <View style={tw`flex-row items-center gap-1`}>
-            <PeachText style={[unitStyle, currencyTextStyle]}>{`1 ${displayCurrency}`}</PeachText>
+            <PeachText
+              style={[unitStyle, currencyTextStyle]}
+            >{`1 ${displayCurrency}`}</PeachText>
             <TouchableIcon
               id={showCurrencies ? "chevronUp" : "chevronDown"}
               onPress={toggle}

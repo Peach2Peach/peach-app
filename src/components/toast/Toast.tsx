@@ -1,13 +1,13 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useRef } from "react";
 import {
-    Animated,
-    PanResponder,
-    StyleProp,
-    TouchableOpacity,
-    View,
-    ViewStyle,
-    useWindowDimensions,
+  Animated,
+  PanResponder,
+  StyleProp,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+  useWindowDimensions,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IconType } from "../../assets/icons";

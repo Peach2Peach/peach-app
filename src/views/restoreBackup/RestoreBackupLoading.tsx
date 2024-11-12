@@ -9,7 +9,9 @@ export const RestoreBackupLoading = () => (
     <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
       {i18n("restoreBackup.restoringBackup")}
     </PeachText>
-    <PeachText style={tw`text-center body-l text-primary-background-light-color`}>
+    <PeachText
+      style={tw`text-center body-l text-primary-background-light-color`}
+    >
       {i18n("newUser.oneSec")}
     </PeachText>
     <Loading size="large" color={tw.color("primary-mild-1")} />

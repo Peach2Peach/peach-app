@@ -26,7 +26,7 @@ export function Home() {
   return (
     <Screen showTradingLimit header={<Header showPriceStats />}>
       <View style={tw`items-center flex-1 gap-10px`}>
-      {isDarkMode ? (
+        {isDarkMode ? (
           <LogoIcons.homeLogoDark height={76} width={173} />
         ) : (
           <LogoIcons.homeLogo height={76} width={173} />
@@ -143,7 +143,9 @@ function MarketStats() {
         <PeachText style={tw`subtitle-0 text-primary-main`}>
           {i18n("home.openSellOffers", String(data?.sell.open))}
         </PeachText>
-        <PeachText style={tw`subtitle-1 ${isDarkMode ? "text-primary-mild-1" : "text-primary-main"}`}>
+        <PeachText
+          style={tw`subtitle-1 ${isDarkMode ? "text-primary-mild-1" : "text-primary-main"}`}
+        >
           {i18n("home.averagePremium", String(data?.sell.avgPremium))}
         </PeachText>
       </View>

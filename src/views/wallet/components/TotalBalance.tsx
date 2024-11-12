@@ -30,12 +30,14 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
         ]}
       >
         <Placeholder style={tw`w-5 h-5`} />
-        <PeachText style={[tw`text-center button-medium`,
-        
-        isDarkMode ? tw`text-primary-mild-1` : tw`text-black-100`
-        
-        ]}>
-        {i18n("wallet.totalBalance")}:
+        <PeachText
+          style={[
+            tw`text-center button-medium`,
+
+            isDarkMode ? tw`text-primary-mild-1` : tw`text-black-100`,
+          ]}
+        >
+          {i18n("wallet.totalBalance")}:
         </PeachText>
         <TouchableOpacity
           accessibilityHint={i18n(

@@ -55,7 +55,9 @@ export const RestoreReputation = () => {
       ) : (
         <View style={tw`justify-between grow`}>
           <View style={tw`items-center justify-center grow`}>
-            <PeachText style={tw`subtitle-1 text-primary-background-light-color`}>
+            <PeachText
+              style={tw`subtitle-1 text-primary-background-light-color`}
+            >
               {i18n("restoreBackup.dontWorry")}
             </PeachText>
           </View>
@@ -79,7 +81,9 @@ function RestoreReputationLoading() {
       <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
         {i18n("restoreBackup.restoringReputation")}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light-color`}>
+      <PeachText
+        style={tw`text-center body-l text-primary-background-light-color`}
+      >
         {i18n("newUser.oneSec")}
       </PeachText>
       <Loading size="large" color={tw.color("primary-mild-1")} />
@@ -93,7 +97,9 @@ function ReputationRestored() {
       <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
         {i18n("restoreBackup.reputationRestored")}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light-color`}>
+      <PeachText
+        style={tw`text-center body-l text-primary-background-light-color`}
+      >
         {i18n("restoreBackup.welcomeBack")}
       </PeachText>
       <Icon

@@ -25,7 +25,9 @@ export const TradingLimitAmount = ({
 
   return (
     <View style={style}>
-      <PeachText style={tw`tooltip ${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`}>
+      <PeachText
+        style={tw`tooltip ${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`}
+      >
         {i18n(`profile.tradingLimits.${type}`)}
         {"  "}
         <PriceFormat
@@ -34,7 +36,15 @@ export const TradingLimitAmount = ({
           amount={amount}
           round
         />
-        <PeachText style={[textStyle, tw`${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`]}> / </PeachText>
+        <PeachText
+          style={[
+            textStyle,
+            tw`${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`,
+          ]}
+        >
+          {" "}
+          /{" "}
+        </PeachText>
         <PriceFormat
           style={[textStyle, tw`text-primary-mild-1`]}
           currency={displayCurrency}
