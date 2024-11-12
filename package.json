@@ -45,7 +45,6 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.5",
-    "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-native-clipboard/clipboard": "^1.14.0",
     "@react-native-community/cli-platform-android": "^12.3.6",
     "@react-native-community/netinfo": "^11.3.0",
@@ -86,7 +85,6 @@
     "react-native-document-picker": "^9.1.1",
     "react-native-dotenv": "^3.4.10",
     "react-native-fast-openpgp": "^2.7.4",
-    "react-native-flipper": "^0.271.0",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.15.0",
     "react-native-mmkv-storage": "^0.9.1",
