@@ -1,6 +1,5 @@
 import { BitcoinEvent } from "../../../../peach-api/src/@types/events";
 import { sortAlphabetically } from "../../../utils/array/sortAlphabetically";
-import { structureEventsByCountry } from "../../../utils/events/structureEventsByCountry";
 import i18n from "../../../utils/i18n";
 import { keys } from "../../../utils/object/keys";
 import { mapCountryToDrawerOption } from "./mapCountryToDrawerOption";
@@ -14,10 +13,14 @@ export const getCountrySelectDrawerOptions = (
     selected: BitcoinEvent["country"],
   ) => void,
 ) => {
-  const eventsByCountry = meetupEvents.reduce(
-    structureEventsByCountry,
-    {} as Record<BitcoinEvent["country"], BitcoinEvent[]>,
-  );
+  const eventsByCountry: Record<BitcoinEvent["country"], BitcoinEvent[]> = {};
+
+  meetupEvents.forEach((event) => {
+    const existingEvents = eventsByCountry[event.country];
+    eventsByCountry[event.country] = existingEvents
+      ? [...existingEvents, event]
+      : [event];
+  });
   const featuredEvents = meetupEvents
     .filter((event) => event.featured)
     .map(mapEventToDrawerOption(goToEventDetails));

@@ -24,34 +24,12 @@ import { useSetPopup } from "../../popup/GlobalPopup";
 import { useSetToast } from "../../toast/Toast";
 import { getMatchPrice } from "../utils/getMatchPrice";
 
-const colors: Record<string, "yellow"> = {
-  NOT_FOUND: "yellow",
-  CANNOT_DOUBLEMATCH: "yellow",
-};
-
 export const useMatchOffer = (offer: BuyOffer, match: Match) => {
   const matchId = match.offerId;
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const setToast = useSetToast();
 
-  const handleError = useCallback(
-    (err: APIError | null) => {
-      if (err?.error) {
-        const msgKey = err?.error === "NOT_FOUND" ? "OFFER_TAKEN" : err?.error;
-        setToast({
-          msgKey:
-            msgKey ||
-            i18n(
-              "error.general",
-              ((err?.details as string[]) || []).join(", "),
-            ),
-          color: colors[err?.error] || "red",
-        });
-      }
-    },
-    [setToast],
-  );
   const setPopup = useSetPopup();
   const { user } = useSelfUser();
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
@@ -114,7 +92,12 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
       if (result) {
         return result;
       }
-      if (err) handleError(err);
+      if (err) {
+        setToast({
+          msgKey: i18n("error.general"),
+          color: "red",
+        });
+      }
       throw new Error("OFFER_TAKEN");
     },
     onError: (err, { selectedCurrency, paymentData }, context) => {
@@ -136,7 +119,10 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
             `selectedCurrency: ${selectedCurrency}`,
             `selectedPaymentMethod: ${selectedPaymentMethod}`,
           );
-        handleError({ error: errorMsg });
+        setToast({
+          msgKey: i18n("error.general"),
+          color: "red",
+        });
       }
       queryClient.setQueryData(
         matchesKeys.matchesForOffer(offer.id),
