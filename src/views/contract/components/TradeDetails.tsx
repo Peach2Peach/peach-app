@@ -231,5 +231,5 @@ function getTradeInfoFields(
 
   return isCashTrade(paymentMethod)
     ? tradeFields.buyer.active.cash
-    : tradeFields.buyer.active.default[paymentMethod] || [];
+    : tradeFields.buyer.active.default(paymentMethod) || [];
 }

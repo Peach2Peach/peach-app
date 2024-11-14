@@ -13,13 +13,46 @@ export const getCountrySelectDrawerOptions = (
     selected: BitcoinEvent["country"],
   ) => void,
 ) => {
-  const eventsByCountry: Record<BitcoinEvent["country"], BitcoinEvent[]> = {};
+  const eventsByCountry: Record<BitcoinEvent["country"], BitcoinEvent[]> = {
+    IT: [],
+    PT: [],
+    ES: [],
+    HR: [],
+    FR: [],
+    DE: [],
+    GR: [],
+    BR: [],
+    CO: [],
+    IN: [],
+    AD: [],
+    AE: [],
+    AT: [],
+    BA: [],
+    BE: [],
+    BG: [],
+    CD: [],
+    CH: [],
+    CI: [],
+    CY: [],
+    GB: [],
+    JP: [],
+    KE: [],
+    LV: [],
+    ME: [],
+    MK: [],
+    MT: [],
+    NG: [],
+    NL: [],
+    PL: [],
+    RS: [],
+    SI: [],
+    TH: [],
+    UK: [],
+    ZA: [],
+  };
 
   meetupEvents.forEach((event) => {
-    const existingEvents = eventsByCountry[event.country];
-    eventsByCountry[event.country] = existingEvents
-      ? [...existingEvents, event]
-      : [event];
+    eventsByCountry[event.country].push(event);
   });
   const featuredEvents = meetupEvents
     .filter((event) => event.featured)

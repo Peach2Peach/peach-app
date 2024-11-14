@@ -28,19 +28,63 @@ const NATIONALOPTIONS = {
     FR: ["paylib", "lydia", "satispay"],
     DE: ["satispay"],
     GR: ["iris"],
+    RU: ["sberbank", "tinkoff"],
   },
   LATAM: {
     BR: ["pix"],
+    CO: ["daviPlata"],
+    HN: ["tigoMoneyHonduras"],
+    BO: ["tigoMoneyBolivia"],
+    SV: ["tigoMoneyElSalvador"],
+    PY: ["tigoMoneyParaguay"],
+    GT: ["tigoMoneyGuatemala"],
+  },
+  AFRICA: {
+    TZ: ["tigoPesa"],
+  },
+  ASIA: {
+    IN: ["UPI", "Paytm"],
+    SG: ["payLah"],
+  },
+  OCEANIA: {
+    AU: ["payID", "osko"],
   },
 } as const;
 
 const NATIONALOPTIONCOUNTRIES = {
-  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR"],
-  LATAM: ["BR"],
+  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "RU"],
+  LATAM: ["BR", "CO", "HN", "BO", "SV", "PY", "GT"],
+  AFRICA: ["TZ"],
+  ASIA: ["IN", "SG"],
+  OCEANIA: ["AU"],
 } as const;
+type EuropeanCountry = keyof typeof NATIONALOPTIONS.EUR;
+type LatAmCountry = keyof typeof NATIONALOPTIONS.LATAM;
+type AfricaCountry = keyof typeof NATIONALOPTIONS.AFRICA;
+type AsiaCountry = keyof typeof NATIONALOPTIONS.ASIA;
+type OceaniaCountry = keyof typeof NATIONALOPTIONS.OCEANIA;
 type NationalOptionsCountry =
-  | keyof typeof NATIONALOPTIONS.EUR
-  | keyof typeof NATIONALOPTIONS.LATAM;
+  | EuropeanCountry
+  | LatAmCountry
+  | AfricaCountry
+  | AsiaCountry
+  | OceaniaCountry;
+
+const isEuropeanCountry = (
+  country: NationalOptionsCountry,
+): country is EuropeanCountry => country in NATIONALOPTIONS.EUR;
+
+const isLatAmCountry = (
+  country: NationalOptionsCountry,
+): country is LatAmCountry => country in NATIONALOPTIONS.LATAM;
+
+const isAfricaCountry = (
+  country: NationalOptionsCountry,
+): country is AfricaCountry => country in NATIONALOPTIONS.AFRICA;
+
+const isAsiaCountry = (
+  country: NationalOptionsCountry,
+): country is AsiaCountry => country in NATIONALOPTIONS.ASIA;
 
 const mapCountryToDrawerOption =
   (onPress: (country: NationalOptionsCountry) => void) =>
@@ -107,20 +151,37 @@ export const SelectPaymentMethod = () => {
     onClose: unselectCategory,
   });
 
-  const getNationalOptions = (country: NationalOptionsCountry) =>
-    country === "BR" ? NATIONALOPTIONS.LATAM.BR : NATIONALOPTIONS.EUR[country];
+  const getNationalOptions = (country: NationalOptionsCountry) => {
+    if (isEuropeanCountry(country)) return NATIONALOPTIONS.EUR[country];
+    if (isLatAmCountry(country)) return NATIONALOPTIONS.LATAM[country];
+    if (isAfricaCountry(country)) return NATIONALOPTIONS.AFRICA[country];
+    if (isAsiaCountry(country)) return NATIONALOPTIONS.ASIA[country];
+    return NATIONALOPTIONS.OCEANIA[country];
+  };
 
   const getNationalOptionCountries = () => {
     if (getCurrencyTypeFilter("europe")(selectedCurrency)) {
       return NATIONALOPTIONCOUNTRIES.EUR;
     }
-    return NATIONALOPTIONCOUNTRIES.LATAM;
+    if (getCurrencyTypeFilter("latinAmerica")(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.LATAM;
+    }
+    if (getCurrencyTypeFilter("africa")(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.AFRICA;
+    }
+    if (getCurrencyTypeFilter("asia")(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.ASIA;
+    }
+    return NATIONALOPTIONCOUNTRIES.OCEANIA;
   };
 
   const selectCountry = (
     country:
       | keyof typeof NATIONALOPTIONS.EUR
-      | keyof typeof NATIONALOPTIONS.LATAM,
+      | keyof typeof NATIONALOPTIONS.LATAM
+      | keyof typeof NATIONALOPTIONS.AFRICA
+      | keyof typeof NATIONALOPTIONS.ASIA
+      | keyof typeof NATIONALOPTIONS.OCEANIA,
     category: PaymentCategory,
   ) => {
     const nationalOptions = getNationalOptions(country);

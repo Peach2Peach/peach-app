@@ -1,5 +1,9 @@
+import { Currency } from "../peach-api/src/@types/global";
 import { PaymentMethodCountry } from "../peach-api/src/@types/offer";
-import { PaymentMethodInfo } from "../peach-api/src/@types/payment";
+import {
+  PaymentMethod,
+  PaymentMethodInfo,
+} from "../peach-api/src/@types/payment";
 import { uniqueArray } from "./utils/array/uniqueArray";
 import { isCashTrade } from "./utils/paymentMethod/isCashTrade";
 
@@ -32,6 +36,40 @@ export let CURRENCIES: Currency[] = [
   "CDF",
   "CRC",
   "BRL",
+  "AUD",
+  "ILS",
+  "RSD",
+  "CAD",
+  "KZT",
+  "INR",
+  "SGD",
+  "SAR",
+  "PHP",
+  "AED",
+  "EGP",
+  "JPY",
+  "NZD",
+  "MAD",
+  "UAH",
+  "UYU",
+  "IDR",
+  "MYR",
+  "CNY",
+  "PKR",
+  "VND",
+  "RUB",
+  "BOB",
+  "CLF",
+  "CUC",
+  "CUP",
+  "DOP",
+  "HNL",
+  "PAB",
+  "PYG",
+  "VEF",
+  "VES",
+  "SRD",
+  "TZS",
 ];
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = [
@@ -43,6 +81,7 @@ export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = [
   "UK",
   "SE",
   "FI",
+  "PT",
 ];
 export const NATIONALTRANSFERCOUNTRIES = [
   "BG",
@@ -57,6 +96,7 @@ export const NATIONALTRANSFERCOUNTRIES = [
   "SE",
   "TR",
   "NG",
+  "SG",
 ] as const;
 
 const bankTransfer: PaymentMethod[] = [
@@ -69,6 +109,12 @@ const bankTransfer: PaymentMethod[] = [
   "sepa",
   "sinpe",
   "straksbetaling",
+  "paraguayBankTransfer",
+  "guatemalaBankDeposit",
+  "chileBankDeposit",
+  "peruBankDeposit",
+  "kcbBankKenya",
+  "bankTransferSuriname",
   ...NATIONALTRANSFERCOUNTRIES.map(
     (c) => `nationalTransfer${c}` satisfies PaymentMethod,
   ),
@@ -105,11 +151,21 @@ const onlineWallet: PaymentMethod[] = [
   "twint",
   "vipps",
   "wave",
+  "westernUnion",
   "wirepay",
   "wise",
+  "djamo",
+  "apaym",
+  "perfectMoney",
+  "payeer",
+  "yooMoney",
+  "mercadoPago",
+  "stp",
+  "spei",
 ];
 const giftCard: PaymentMethod[] = [
   "giftCard.amazon",
+  "giftCard.steam",
   ...GIFTCARDCOUNTRIES.map(
     (c) => `giftCard.amazon.${c}` satisfies PaymentMethod,
   ),
@@ -126,9 +182,26 @@ const nationalOption: PaymentMethod[] = [
   "postePay",
   "rebellion",
   "satispay",
+  "daviPlata",
+  "tigoPesa",
+  "tigoMoneyHonduras",
+  "tigoMoneyBolivia",
+  "tigoMoneyElSalvador",
+  "tigoMoneyParaguay",
+  "tigoMoneyGuatemala",
+  "UPI",
+  "Paytm",
+  "tinkoff",
+  "sberbank",
+  "payLah",
+  "payID",
+  "osko",
 ];
 const other: PaymentMethod[] = ["liquid", "lnurl"];
 
+type PaymentCategories = {
+  [key in PaymentCategory]: PaymentMethod[];
+};
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer,
   onlineWallet,

@@ -1,4 +1,5 @@
 import { Contract } from "../../../peach-api/src/@types/contract";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";

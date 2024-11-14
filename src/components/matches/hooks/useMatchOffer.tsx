@@ -2,7 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
 import { Match } from "../../../../peach-api/src/@types/match";
-import { PaymentMethodCountry } from "../../../../peach-api/src/@types/offer";
+import {
+  BuyOffer,
+  PaymentMethodCountry,
+} from "../../../../peach-api/src/@types/offer";
 import { offerKeys } from "../../../hooks/query/offerKeys";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";

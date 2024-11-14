@@ -1,3 +1,4 @@
+import { BuyOffer, SellOffer } from "../../../peach-api/src/@types/offer";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
 import { getSummaryFromOffer } from "./getSummaryFromOffer";

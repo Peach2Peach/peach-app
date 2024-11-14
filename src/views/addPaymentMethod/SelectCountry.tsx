@@ -83,40 +83,14 @@ export const SelectCountry = () => {
   );
 };
 
-const map: Record<Currency, PaymentMethodCountry[]> = {
+const map: Partial<Record<Currency, PaymentMethodCountry[]>> = {
   EUR: ["DE", "FR", "IT", "ES", "NL", "PT"],
   CHF: ["CH"],
   GBP: ["GB", "UK"],
   SEK: ["SE"],
   USD: ["US"],
-  DKK: [],
-  BGN: [],
-  CZK: [],
-  HUF: [],
-  PLN: [],
-  RON: [],
-  ISK: [],
-  NOK: [],
-  USDT: [],
-  SAT: [],
-  TRY: [],
-  ARS: [],
-  COP: [],
-  PEN: [],
-  MXN: [],
-  CLP: [],
-  XOF: [],
-  NGN: [],
-  CDF: [],
-  CRC: [],
-  BRL: [],
-  BTC: [],
-  GTQ: [],
-  ZAR: [],
-  KES: [],
-  GHS: [],
 };
 
 function countrySupportsCurrency(currency: Currency) {
-  return (country: PaymentMethodCountry) => map[currency].includes(country);
+  return (country: PaymentMethodCountry) => map[currency]?.includes(country);
 }

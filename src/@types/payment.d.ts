@@ -5,6 +5,7 @@ type EuPaymentMethods =
   | "blik"
   | "fasterPayments"
   | "friends24"
+  | "giftCard.steam"
   | "instantSepa"
   | "iris"
   | "keksPay"
@@ -13,49 +14,71 @@ type EuPaymentMethods =
   | "mobilePay"
   | "n26"
   | "nationalTransferBG"
+  | "nationalTransferCH"
   | "nationalTransferCZ"
   | "nationalTransferDK"
   | "nationalTransferHU"
+  | "nationalTransferIS"
   | "nationalTransferNO"
   | "nationalTransferPL"
   | "nationalTransferRO"
-  | "nationalTransferTR"
-  | "nationalTransferCH"
-  | "nationalTransferIS"
   | "nationalTransferSE"
+  | "nationalTransferTR"
   | "neteller"
   | "papara"
+  | "payeer"
   | "paylib"
   | "paypal"
   | "paysera"
+  | "perfectMoney"
   | "postePay"
   | "rebellion"
   | "revolut"
   | "satispay"
+  | "sberbank"
   | "sepa"
   | "skrill"
+  | "stp"
   | "straksbetaling"
   | "strike"
   | "swish"
+  | "tinkoff"
   | "twint"
   | "vipps"
-  | "wise";
+  | "westernUnion"
+  | "wise"
+  | "yooMoney";
 type LatAmPaymentMethods =
   | "alias"
   | "bancolombia"
+  | "bankTransferSuriname"
   | "cbu"
+  | "chileBankDeposit"
   | "cvu"
+  | "daviPlata"
+  | "guatemalaBankDeposit"
   | "mercadoPago"
   | "nequi"
+  | "paraguayBankTransfer"
+  | "peruBankDeposit"
   | "pix"
   | "rappipay"
   | "sinpe"
-  | "sinpeMovil";
+  | "sinpeMovil"
+  | "spei"
+  | "tigoMoneyBolivia"
+  | "tigoMoneyElSalvador"
+  | "tigoMoneyGuatemala"
+  | "tigoMoneyHonduras"
+  | "tigoMoneyParaguay";
 type AfricaPaymentMethods =
   | "accrue"
   | "airtelMoney"
+  | "apaym"
   | "chippercash"
+  | "djamo"
   | "eversend"
+  | "kcbBankKenya"
   | "klasha"
   | "m-pesa"
   | "moov"
@@ -63,8 +86,12 @@ type AfricaPaymentMethods =
   | "nationalTransferNG"
   | "orangeMoney"
   | "payday"
+  | "tigoPesa"
   | "wave"
   | "wirepay";
+
+type OceaniaPaymentMethods = "payID" | "osko";
+type AsiaPaymentMethods = "UPI" | "Paytm" | "nationalTransferSG" | "payLah";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =
@@ -76,6 +103,8 @@ type PaymentMethod =
   | EuPaymentMethods
   | LatAmPaymentMethods
   | AfricaPaymentMethods
+  | OceaniaPaymentMethods
+  | AsiaPaymentMethods
   | InternationalPaymentMethds
   | BitcoinPaymentMethods
   | CashPaymentMethds;
