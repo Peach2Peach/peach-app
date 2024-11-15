@@ -8,7 +8,10 @@ import { useWalletLabel } from "../../../components/offer/useWalletLabel";
 import { PeachText } from "../../../components/text/PeachText";
 import { SATSINBTC } from "../../../constants";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
-import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
+import {
+  PaymentDataInfoFields as paymentDataInfoFields,
+  usePaymentDataStore,
+} from "../../../store/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { getBuyOfferIdFromContract } from "../../../utils/contract/getBuyOfferIdFromContract";
@@ -85,40 +88,25 @@ export const tradeInformationGetters: Record<
 };
 
 const allPossibleFields = [
-  "pixAlias",
-  "price",
-  "paidToMethod",
-  "paidWithMethod",
-  "paidToWallet",
+  ...paymentDataInfoFields,
   "bitcoinAmount",
   "bitcoinPrice",
-  "name",
-  "beneficiary",
   "buyer",
-  "phone",
-  "userName",
-  "email",
-  "accountNumber",
-  "iban",
-  "bic",
-  "paymentConfirmed",
-  "postePayNumber",
-  "reference",
-  "wallet",
-  "ukBankAccount",
-  "ukSortCode",
-  "via",
-  "method",
-  "meetup",
   "location",
-  "receiveAddress",
-  "lnurlAddress",
+  "meetup",
+  "method",
+  "paidToMethod",
+  "paidToWallet",
+  "paidWithMethod",
+  "paymentConfirmed",
+  "price",
   "ratingBuyer",
   "ratingSeller",
   "seller",
   "soldFor",
   "tradeBreakdown",
   "tradeId",
+  "via",
   "youPaid",
   "youShouldPay",
   "youWillGet",
