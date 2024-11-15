@@ -196,5 +196,6 @@
   "dispute.reason.unresponsive.buyer" : "vendedor não responde",
   "dispute.reason.unresponsive.seller" : "comprador não responde",
   "dispute.seller.won.button" : "obter reembolso",
-  "dispute.won" : "disputa ganha!"
+  "dispute.won" : "disputa ganha!",
+  "contract.summary.bitcoinAmount": "Quantidade de Bitcoin"
 }
