@@ -37,11 +37,7 @@ const maxAccountNumberLength = 28;
 const accountNumberValidator = (value: string) =>
   isValidDigitLength(value, [minAccountNumberLength, maxAccountNumberLength]) ||
   i18n("form.account.errors");
-type NewRule = {
-  [key: string]: (value: string) => true | string;
-};
-const validators: Record<PaymentMethodField, NewRule> = {
-  beneficiary: {},
+const validators = {
   iban: {
     iban: ibanValidator,
     isEUIBAN: isEUIBANValidator,
@@ -62,9 +58,6 @@ const validators: Record<PaymentMethodField, NewRule> = {
     phone: phoneValidator,
     isPhoneAllowed: isPhoneAllowedValidator,
   },
-  pixAlias: {},
-  postePayNumber: {},
-  receiveAddress: {},
   ukBankAccount: {
     ukBankAccount: ukBankAccountValidator,
   },
@@ -80,14 +73,19 @@ const validators: Record<PaymentMethodField, NewRule> = {
   lnurlAddress: {
     lnurlAddress: emailValidator,
   },
-};
+} as const;
 
-export type PaymentFieldTypes = keyof typeof validators;
+function isValidFieldName(
+  fieldName: PaymentMethodField,
+): fieldName is keyof typeof validators {
+  return fieldName in validators;
+}
 
 export const getValidators = (
-  fieldName: PaymentFieldTypes,
+  fieldName: PaymentMethodField,
   optional = false,
 ) => {
+  if (!isValidFieldName(fieldName)) return {};
   const rulesForField = validators[fieldName];
   if (!optional) return rulesForField;
 
