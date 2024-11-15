@@ -131,5 +131,7 @@
   "paymentMethod.sberbank": "Сбербанк",
   "paymentMethod.payLah": "PayLah",
   "paymentMethod.payID": "PayID",
-  "paymentMethod.osko": "Osko"
+  "paymentMethod.osko": "Osko",
+  "paymentMethod.paraguayBankTransfer": "Банківський переказ Парагваю",
+  "paymentMethod.nationalTransferSG": "Національний переказ SG"
 }
