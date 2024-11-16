@@ -190,7 +190,7 @@ const nationalOption: PaymentMethod[] = [
   "tigoMoneyParaguay",
   "tigoMoneyGuatemala",
   "UPI",
-  "Paytm",
+  "paytm",
   "tinkoff",
   "sberbank",
   "payLah",

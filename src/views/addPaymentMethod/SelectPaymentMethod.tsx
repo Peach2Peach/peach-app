@@ -43,7 +43,7 @@ const NATIONALOPTIONS = {
     TZ: ["tigoPesa"],
   },
   ASIA: {
-    IN: ["UPI", "Paytm"],
+    IN: ["UPI", "paytm"],
     SG: ["payLah"],
   },
   OCEANIA: {

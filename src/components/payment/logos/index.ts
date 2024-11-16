@@ -145,7 +145,7 @@ export const PaymentLogos = {
   tigoMoneyGuatemala: placeholder,
   "giftCard.steam": placeholder,
   UPI: placeholder,
-  Paytm: placeholder,
+  paytm: placeholder,
   nationalTransferSG: placeholder,
   payLah: placeholder,
   payID: placeholder,

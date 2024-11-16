@@ -91,7 +91,7 @@ type AfricaPaymentMethods =
   | "wirepay";
 
 type OceaniaPaymentMethods = "payID" | "osko";
-type AsiaPaymentMethods = "UPI" | "Paytm" | "nationalTransferSG" | "payLah";
+type AsiaPaymentMethods = "UPI" | "paytm" | "nationalTransferSG" | "payLah";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =
