@@ -21,14 +21,18 @@ export const PopupComponent = ({
   <View style={tw`mx-3 overflow-hidden rounded-2xl`}>
     <PopupContent style={[bgColor, tw`items-stretch`]}>
       {!!title && <PopupTitle text={title} />}
-      {typeof content === "string" ? <PeachText>{content}</PeachText> : content}
+      {typeof content === "string" ? (
+        <PeachText style={tw`text-black-100`}>{content}</PeachText> // Ensure text is black
+      ) : (
+        content
+      )}
     </PopupContent>
     <PopupActions style={actionBgColor}>{actions}</PopupActions>
   </View>
 );
 
 function PopupTitle({ text }: { text: string }) {
-  return <PeachText style={tw`w-full h5`}>{text}</PeachText>;
+  return <PeachText style={tw`w-full h5 text-black-100`}>{text}</PeachText>; // Ensure title text is black
 }
 
 type ContentProps = {

@@ -7,7 +7,7 @@ export const themes = {
   default: {
     text: tw`text-black-65`,
     textSelected: tw`text-black-100`,
-    underline: tw`bg-black-100`,
+    underline: tw`bg-primary-main`,
   },
   inverted: {
     text: tw`text-primary-mild-1`,

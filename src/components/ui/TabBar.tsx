@@ -12,7 +12,7 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   const colors = {
     text: tw`text-black-65`,
     textSelected: tw`text-black-100`,
-    underline: tw`bg-black-100`,
+    underline: tw`bg-primary-main`,
   };
 
   return (
