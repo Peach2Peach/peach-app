@@ -13,6 +13,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../hooks/wallet/useIsMyAddress";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme"; // Import the theme store
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
@@ -245,7 +246,8 @@ function OfferMarketInfo() {
 function OfferMethods() {
   const [{ meansOfPayment }] = usePreferenceContext();
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
-  const backgroundColor = tw.color("success-mild-1-color");
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const backgroundColor = isDarkMode ? tw.color("card") : tw.color("success-mild-1-color");
   return (
     <Section.Container style={{ backgroundColor }}>
       {hasSelectedMethods ? (

@@ -17,6 +17,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { BuySorters } from "../../popups/sorting/BuySorters";
+import { useThemeStore } from "../../store/theme"; // Import th
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -108,12 +109,18 @@ function ExploreCard({ match }: { match: Match }) {
   };
 
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
 
   return (
     <TouchableOpacity
       style={[
-        tw`justify-center overflow-hidden border bg-primary-background-light-color rounded-2xl border-primary-main`,
+        tw`justify-center overflow-hidden rounded-2xl`, // Removed border styles to conditionally apply them
+        isDarkMode
+          ? tw`bg-card` // Dark mode background
+          : tw`bg-primary-background-light-color border border-primary-main`,
         matched && tw`border-2 border-success-main`,
+        isDarkMode && matched && tw`border-success-main`, // Ensure matched border shows up in dark mode
+        !isDarkMode && matched && tw`border-primary-main`, // Ensure non-matched border in light mode
       ]}
       onPress={onPress}
     >
@@ -150,7 +157,8 @@ function ExploreCard({ match }: { match: Match }) {
               currency={match.selectedCurrency ?? displayCurrency}
               amount={match.matchedPrice ?? fiatPrice * (1 + premium / CENT)}
             />
-            <PeachText style={tw`text-black-65`}>
+            <PeachText style={tw.style( isDarkMode ? "text-primary-mild-2" : "text-black-65"
+      )}>
               {" "}
               ({premium >= 0 ? "+" : ""}
               {premium}%)

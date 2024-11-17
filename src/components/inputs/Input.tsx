@@ -1,13 +1,9 @@
-import { Ref, useMemo } from "react";
+import { useMemo } from "react";
 import {
-  ColorValue,
-  StyleProp,
   TextInput,
-  TextInputProps,
-  View,
-  ViewStyle,
+  View
 } from "react-native";
-import { IconType } from "../../assets/icons";
+import { useThemeStore } from "../../store/theme"; // Import for theme state check
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { TouchableIcon } from "../TouchableIcon";
@@ -44,19 +40,6 @@ const themes = {
   },
 };
 
-export type IconActionPair = [IconType, () => void];
-export type InputProps = TextInputProps & {
-  theme?: "default" | "inverted";
-  label?: string;
-  icons?: IconActionPair[];
-  iconColor?: ColorValue;
-  required?: boolean;
-  disabled?: boolean;
-  errorMessage?: string[];
-  reference?: Ref<TextInput>;
-  style?: StyleProp<ViewStyle>;
-};
-
 export const Input = ({
   value,
   label,
@@ -72,6 +55,14 @@ export const Input = ({
   reference,
   ...inputProps
 }: InputProps) => {
+  const { isDarkMode } = useThemeStore(); // Check dark mode state
+
+  // Select theme based on dark mode
+  const selectedTheme = useMemo(
+    () => (isDarkMode ? themes.inverted : themes[theme]),
+    [isDarkMode, theme]
+  );
+
   const {
     bgDisabled,
     bg,
@@ -83,7 +74,7 @@ export const Input = ({
     placeholder,
     textError,
     error,
-  } = useMemo(() => themes[theme], [theme]);
+  } = selectedTheme;
   const showError = errorMessage.length > 0 && !disabled && !!value;
 
   return (

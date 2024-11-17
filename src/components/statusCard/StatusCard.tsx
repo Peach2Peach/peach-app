@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
+import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
 import tw from "../../styles/tailwind";
 import { statusCardStyles } from "./statusCardStyles";
 
@@ -17,10 +18,15 @@ export function StatusCard({
   amountInfo,
   label,
 }: Props) {
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
   return (
     <TouchableOpacity
       style={[
-        tw`overflow-hidden border rounded-xl bg-primary-background-light-color`,
+        tw`overflow-hidden border rounded-xl`,
+        isDarkMode
+          ? tw`bg-card` // Dark mode background
+          : tw`bg-primary-background-light-color`, // Light mode background
         tw.style(statusCardStyles.border[color]),
       ]}
       onPress={onPress}

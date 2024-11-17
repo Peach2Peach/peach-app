@@ -17,6 +17,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
@@ -206,6 +207,8 @@ function TextContainer({
   label: React.ReactNode;
   value: string | undefined;
 }) {
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
   return (
     <View>
       <PeachText style={tw`pl-2 input-label`}>{label}</PeachText>
@@ -213,19 +216,29 @@ function TextContainer({
         style={[
           tw`flex-row items-center justify-between gap-2 px-3 py-2`,
           tw`border rounded-xl`,
-          tw`bg-primary-background-light-color`,
+          isDarkMode
+            ? tw`bg-card text-backgroundLight-light border-primary-main`
+            : tw`bg-primary-background-light-color`,
         ]}
       >
-        <PeachText style={tw`flex-1 input-text`}>{value}</PeachText>
+        <PeachText
+          style={tw.style(
+            `flex-1 input-text`,
+            isDarkMode ? `text-primary-mild-1` : `text-black-100`
+          )}
+        >
+          {value}
+        </PeachText>
         <CopyAble
           value={value || ""}
           style={tw`w-5 h-5`}
-          color={tw`text-black-100`}
+          color={tw`text-primary-main`}
         />
       </View>
     </View>
   );
 }
+
 
 function SignMessageHeader() {
   const setPopup = useSetPopup();

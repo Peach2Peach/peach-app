@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { TouchableOpacity } from "react-native";
 import { useStackNavigation } from "../hooks/useStackNavigation";
+import { useThemeStore } from "../store/theme"; // Import to access dark mode state
 import tw from "../styles/tailwind";
 import { Icon } from "./Icon";
 import { InfoContainer } from "./InfoContainer";
@@ -12,6 +13,7 @@ const PEACH_ID_LENGTH = 8;
 export function PeachID({ id, copyable = false }: Props) {
   const peachId = `Peach${id.slice(0, PEACH_ID_LENGTH)}`.toUpperCase();
   const navigation = useStackNavigation();
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
 
   const goToUserProfile = () =>
     navigation.navigate("publicProfile", { userId: id });
@@ -37,7 +39,7 @@ export function PeachID({ id, copyable = false }: Props) {
       <InfoContainer
         text={peachId}
         backgroundColor={tw.color("primary-background-dark-color")}
-        textColor={tw.color("black-100")}
+        textColor={tw.color(isDarkMode ? "primary-mild-1" : "black-100")}
         icon={icon}
       />
     </TouchableOpacity>
