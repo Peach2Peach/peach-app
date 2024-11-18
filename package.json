@@ -35,11 +35,6 @@
     "test": "jest ./src",
     "test:coverage": "jest --coverage ./src",
     "test:ci": "jest --maxWorkers=100% --ci ./src",
-    "test:e2e:android:build": "detox build --configuration android",
-    "test:e2e:android": "detox test --configuration android --config ./tests/e2e/jest.config.js --loglevel trace --record-logs all",
-    "test:e2e:ios:build": "detox build --configuration ios",
-    "test:e2e:ios": "detox test --configuration ios --config ./tests/e2e/jest.config.js",
-    "test:detox:clean": "detox clean-framework-cache && detox build-framework-cache",
     "tsc": "tsc",
     "lint": "eslint . --ext .tsx,.ts"
   },
@@ -142,7 +137,6 @@
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "babel-jest": "^29.7.0",
-    "detox": "^20.18.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -186,8 +180,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "optionalDependencies": {
-    "win-node-env": "^0.6.1"
   }
 }

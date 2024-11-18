@@ -66,38 +66,6 @@ Troubles with M1/M2 chips, run:
 
 `npm run test ./tests/utils/*.test.js`
 
-### E2E testing
-
-Unit testing is powered by [Detox](https://github.com/wix/Detox)
-
-Follow their guides or this is the quick setup:
-
-#### Mac OS X
-
-##### Install `detox-cli`
-
-`npm install -g detox-cli`
-
-##### Install `applesimutils`
-
-```
-brew upgrade
-brew tap wix/brew
-brew install applesimutils
-```
-
-### Running E2E Tests
-
-1. Build the app for testing
-   `test:e2e:ios:build`
-   or
-   `test:e2e:android:build`
-
-1. Running tests
-   `test:e2e:ios`
-   or
-   `test:e2e:android`
-
 ## Troubleshooting
 
 ### Can't build Android
