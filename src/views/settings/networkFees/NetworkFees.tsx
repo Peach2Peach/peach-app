@@ -13,6 +13,7 @@ import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useValidatedState } from "../../../hooks/useValidatedState";
 import { InfoPopup } from "../../../popups/InfoPopup";
+import { useThemeStore } from "../../../store/theme"; // Import theme store
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
@@ -36,6 +37,7 @@ export const NetworkFees = () => {
   const { estimatedFees } = useFeeEstimate();
   const { user } = useSelfUser();
   const feeRate = user?.feeRate;
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
 
   const defaultFeeRate = feeRate
     ? typeof feeRate === "number"
@@ -95,7 +97,12 @@ export const NetworkFees = () => {
     <Screen header={<NetworkFeesHeader />}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
         {user?.isBatchingEnabled && (
-          <PeachText style={tw`py-2 text-center text-black-65`}>
+          <PeachText
+            style={tw.style(
+              "py-2 text-center",
+              isDarkMode ? "text-primary-mild-1" : "text-black-100"
+            )}
+          >
             {i18n("settings.networkFees.payoutInfo")}
           </PeachText>
         )}
@@ -108,7 +115,12 @@ export const NetworkFees = () => {
         <PeachText style={tw`mt-4 text-center text-black-65`}>
           {i18n("settings.networkFees.averageFees")}
         </PeachText>
-        <PeachText style={tw`text-center subtitle-1`}>
+        <PeachText
+          style={tw.style(
+            "text-center subtitle-1",
+            isDarkMode ? "text-primary-mild-2" : "text-black-100"
+          )}
+        >
           {i18n(
             "settings.networkFees.xSatsPerByte",
             estimatedFees.economyFee.toString(),

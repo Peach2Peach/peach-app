@@ -4,6 +4,7 @@ import { Animated, TouchableOpacity, View } from "react-native";
 import "react-native-url-polyfill/auto";
 import { IconType } from "../../assets/icons";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
+import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
 import { openInWallet } from "../../utils/bitcoin/openInWallet";
@@ -57,6 +58,8 @@ export const BitcoinAddress = ({
     if (!(await openInWallet(urn.toString()))) copyPaymentRequest();
   };
 
+  const { isDarkMode } = useThemeStore(); // Access dark mode state
+
   return (
     <>
       <View>
@@ -82,11 +85,11 @@ export const BitcoinAddress = ({
         <View
           style={tw`items-center justify-center px-3 py-2 border shrink border-black-25 rounded-xl`}
         >
-          <PeachText style={tw`text-black-50`}>
+          <PeachText style={tw`shrink ${isDarkMode ? "text-black-50" : "text-black-50"}`}>
             {addressParts.one}
-            <PeachText style={tw`text-black-100`}>{addressParts.two}</PeachText>
+            <PeachText style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}>{addressParts.two}</PeachText>
             {addressParts.three}
-            <PeachText style={tw`text-black-100`}>
+            <PeachText style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}>
               {addressParts.four}
             </PeachText>
           </PeachText>

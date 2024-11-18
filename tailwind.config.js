@@ -21,7 +21,7 @@ export default {
 
         bitcoinText: "#5b5b5b",
 
-        card: "#1F1614",
+        card: "#1A1210",
 
         // Black colors
         black: {
