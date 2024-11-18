@@ -287,7 +287,7 @@ function CurrencyScrollView() {
           showCurrencies
             ? tw.style(
                 `pl-2 border`,
-                isDarkMode ? "border-1 border-black-90" : "border-1 border-black-10",
+                isDarkMode ? "border-black-90" : "border-black-10",
                 `rounded-lg`
               )
             : { padding: 1 },
