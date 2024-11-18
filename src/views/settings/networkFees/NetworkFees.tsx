@@ -99,8 +99,8 @@ export const NetworkFees = () => {
         {user?.isBatchingEnabled && (
           <PeachText
             style={tw.style(
-              "py-2 text-center",
-              isDarkMode ? "text-primary-mild-1" : "text-black-100"
+              "py-2 text-center mb-7",
+              isDarkMode ? "text-backgroundLight-light" : "text-black-100"
             )}
           >
             {i18n("settings.networkFees.payoutInfo")}
