@@ -64,7 +64,7 @@ export const Contact = () => {
       >
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText style={tw`text-black-65`}>
+            <PeachText>
               {i18n("report.mailUs")}
             </PeachText>
           </LinedText>
@@ -80,7 +80,7 @@ export const Contact = () => {
         </View>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText style={tw`text-black-65`}>
+            <PeachText>
               {i18n("report.communityHelp")}
             </PeachText>
           </LinedText>
