@@ -12,6 +12,8 @@ jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
+jest.useFakeTimers();
+
 describe("ConfirmTransactionPopup", () => {
   const onSuccess = jest.fn();
   const amount = 100000;

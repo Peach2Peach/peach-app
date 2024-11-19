@@ -3,6 +3,8 @@ import { Icon } from "../../Icon";
 import { defaultState, useDrawerState } from "../useDrawerState";
 import { GoBackIcon } from "./GoBackIcon";
 
+jest.useFakeTimers();
+
 describe("GoBackIcon", () => {
   const updateDrawer = useDrawerState.setState;
   beforeEach(() => {
