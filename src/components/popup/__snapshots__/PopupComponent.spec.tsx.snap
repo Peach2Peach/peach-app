@@ -61,17 +61,9 @@ exports[`PopupComponent renders correctly 1`] = `
       ]
     }
   >
-    <View
-      style={
-        {
-          "color": "#2B1911",
-        }
-      }
-    >
-      <Text>
-        content
-      </Text>
-    </View>
+    <Text>
+      content
+    </Text>
   </View>
   <View
     style={
@@ -193,7 +185,7 @@ exports[`PopupComponent renders correctly with different background colors 1`] =
             },
           ],
         ]
-@@ -77,12 +79,14 @@
+@@ -69,12 +71,14 @@
             "alignItems": "center",
             "alignSelf": "stretch",
             "backgroundColor": "#F56522",
@@ -247,9 +239,9 @@ exports[`PopupComponent renders correctly with title 1`] = `
 +     >
 +       title
 +     </Text>
-      <View
-        style={
-          Object {
-            "color": "#2B1911",
-          }"
+      <Text>
+        content
+      </Text>
+    </View>
+    <View"
 `;

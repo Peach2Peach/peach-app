@@ -24,11 +24,10 @@ export const PopupComponent = ({
       {!!title && (
         <PeachText style={tw`w-full h5 text-black-100`}>{title}</PeachText>
       )}
-      ;
       {typeof content === "string" ? (
         <PeachText style={tw`text-black-100`}>{content}</PeachText>
       ) : (
-        <View>{content}</View>
+        content
       )}
     </PopupContent>
     <PopupActions style={actionBgColor}>{actions}</PopupActions>
