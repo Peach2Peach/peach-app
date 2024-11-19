@@ -53,13 +53,11 @@ exports[`RadioButtonItem renders correctly when disabled 1`] = `
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
-        },
-        {
-          "color": "#2B1911",
         },
         {
           "flexBasis": "0%",
@@ -156,13 +154,11 @@ exports[`RadioButtonItem renders correctly when display is not a string 1`] = `
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           undefined,
           false,
@@ -243,13 +239,11 @@ exports[`RadioButtonItem renders correctly when not selected 1`] = `
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
-        },
-        {
-          "color": "#2B1911",
         },
         {
           "flexBasis": "0%",
@@ -337,13 +331,11 @@ exports[`RadioButtonItem renders correctly when selected 1`] = `
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
-        },
-        {
-          "color": "#2B1911",
         },
         {
           "flexBasis": "0%",

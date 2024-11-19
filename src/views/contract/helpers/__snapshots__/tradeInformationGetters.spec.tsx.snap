@@ -61,13 +61,11 @@ exports[`tradeInformationGetters should return the correct value for the paidToM
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           [
             {
@@ -154,13 +152,11 @@ exports[`tradeInformationGetters should return the correct value for the via fie
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           [
             {

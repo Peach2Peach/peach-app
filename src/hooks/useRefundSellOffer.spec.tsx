@@ -84,7 +84,7 @@ describe("useRefundEscrow", () => {
       );
     });
     const { queryByText } = render(<GlobalPopup />);
-    expect(queryByText("escrow refunded")).toBeTruthy();
+    expect(queryByText("Escrow refunded")).toBeTruthy();
     expect(saveOfferMock).toHaveBeenCalledWith({
       ...sellOffer,
       tx: "hex",
@@ -165,7 +165,7 @@ describe("useRefundEscrow", () => {
     fireEvent.press(getByText("close"));
     expect(queryByText("escrow refunded")).toBeFalsy();
     const { getByText: getByOverlayText } = render(<GlobalOverlay />);
-    expect(getByOverlayText("backup time!")).toBeTruthy();
+    expect(getByOverlayText("Backup time!")).toBeTruthy();
   });
 
   it("should show the right success popup when peach wallet is active", async () => {
@@ -215,7 +215,7 @@ describe("useRefundEscrow", () => {
     });
     fireEvent.press(getByText("go to wallet"));
     const { getByText: getByOverlayText } = render(<GlobalOverlay />);
-    expect(getByOverlayText("backup time!")).toBeTruthy();
+    expect(getByOverlayText("Backup time!")).toBeTruthy();
   });
 
   it("should call showTransaction if peach wallet is not active", async () => {

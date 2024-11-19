@@ -49,9 +49,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "backgroundColor": "#2B1911",
+          "backgroundColor": "#1A1210",
           "height": "100%",
-          "opacity": 0.4,
+          "opacity": 0.62,
           "position": "absolute",
           "width": "100%",
         }
@@ -129,6 +129,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                 "lineHeight": 24,
               },
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Bold",
                 "fontSize": 24,
                 "letterSpacing": 0.24,
@@ -139,221 +140,22 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
             ]
           }
         >
-          funding escrow
+          Funding escrow
         </Text>
         <View
           style={
             {
-              "gap": 12,
+              "color": "#2B1911",
             }
           }
         >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
-            }
-          >
-            You're funding the escrow with your Peach wallet. You're sending:
-          </Text>
           <View
             style={
-              [
-                undefined,
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                },
-                {
-                  "height": 13,
-                  "width": 152,
-                },
-              ]
+              {
+                "gap": 12,
+              }
             }
           >
-            <View
-              style={
-                [
-                  {
-                    "flexShrink": 0,
-                  },
-                  {
-                    "paddingBottom": 2.5,
-                    "paddingLeft": 2.5,
-                    "paddingRight": 2.5,
-                    "paddingTop": 2.5,
-                  },
-                ]
-              }
-            >
-              <test-file-stub
-                fill="#888"
-                style={
-                  [
-                    {
-                      "height": 15,
-                      "width": 15,
-                    },
-                    undefined,
-                  ]
-                }
-              />
-            </View>
-            <View
-              style={
-                [
-                  {
-                    "alignItems": "center",
-                    "flexBasis": "0%",
-                    "flexDirection": "row",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                  },
-                  {
-                    "gap": 5,
-                  },
-                ]
-              }
-            >
-              <View
-                style={
-                  {
-                    "alignItems": "center",
-                    "flexBasis": "0%",
-                    "flexDirection": "row",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "justifyContent": "flex-end",
-                  }
-                }
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "opacity": 0.1,
-                          "textAlign": "right",
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 28,
-                            "marginBottom": -13,
-                            "marginTop": -13,
-                          },
-                          false,
-                        ],
-                      ],
-                      false,
-                    ]
-                  }
-                >
-                  0.00
-                </Text>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "textAlign": "right",
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 28,
-                            "marginBottom": -13,
-                            "marginTop": -13,
-                          },
-                          false,
-                        ],
-                      ],
-                      false,
-                    ]
-                  }
-                >
-                   250 000
-                </Text>
-              </View>
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                        "marginBottom": -13,
-                        "marginTop": -13,
-                      },
-                      false,
-                    ],
-                    false,
-                  ]
-                }
-              >
-                sats
-              </Text>
-            </View>
-          </View>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
-            }
-          >
-            to:
-             
             <Text
               allowFontScaling={false}
               style={
@@ -365,17 +167,201 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
-                  [
-                    {
-                      "color": "#EAE3DF",
-                    },
-                    undefined,
-                  ],
+                  undefined,
                   false,
                 ]
               }
             >
-              bcrt
+              You're funding the escrow with your Peach wallet. You're sending:
+            </Text>
+            <View
+              style={
+                [
+                  undefined,
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                  },
+                  {
+                    "height": 13,
+                    "width": 152,
+                  },
+                ]
+              }
+            >
+              <View
+                style={
+                  [
+                    {
+                      "flexShrink": 0,
+                    },
+                    {
+                      "paddingBottom": 2.5,
+                      "paddingLeft": 2.5,
+                      "paddingRight": 2.5,
+                      "paddingTop": 2.5,
+                    },
+                  ]
+                }
+              >
+                <test-file-stub
+                  fill="#888"
+                  style={
+                    [
+                      {
+                        "height": 15,
+                        "width": 15,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexBasis": "0%",
+                      "flexDirection": "row",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    },
+                    {
+                      "gap": 5,
+                    },
+                  ]
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexBasis": "0%",
+                      "flexDirection": "row",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "justifyContent": "flex-end",
+                    }
+                  }
+                >
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "opacity": 0.1,
+                            "textAlign": "right",
+                          },
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 28,
+                              "marginBottom": -13,
+                              "marginTop": -13,
+                            },
+                            false,
+                          ],
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    0.00
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "textAlign": "right",
+                          },
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 28,
+                              "marginBottom": -13,
+                              "marginTop": -13,
+                            },
+                            false,
+                          ],
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                     250 000
+                  </Text>
+                </View>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                          "marginBottom": -13,
+                          "marginTop": -13,
+                        },
+                        false,
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+            >
+              to:
+               
               <Text
                 allowFontScaling={false}
                 style={
@@ -389,7 +375,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                     },
                     [
                       {
-                        "color": "#2B1911",
+                        "color": "#EAE3DF",
                       },
                       undefined,
                     ],
@@ -397,52 +383,75 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   ]
                 }
               >
-                1q70z
-              </Text>
-              7 ... 4
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
+                bcrt
+                <Text
+                  allowFontScaling={false}
+                  style={
                     [
                       {
                         "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
                       },
-                      undefined,
-                    ],
-                    false,
-                  ]
-                }
-              >
-                c0fuh
+                      [
+                        {
+                          "color": "#2B1911",
+                        },
+                        undefined,
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  1q70z
+                </Text>
+                7 ... 4
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "color": "#2B1911",
+                        },
+                        undefined,
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  c0fuh
+                </Text>
               </Text>
             </Text>
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
-            }
-          >
-            network fee: 660 sats (6 sat/vB)
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+            >
+              network fee: 660 sats (6 sat/vB)
+            </Text>
+          </View>
         </View>
       </View>
       <View
@@ -678,9 +687,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "backgroundColor": "#2B1911",
+          "backgroundColor": "#1A1210",
           "height": "100%",
-          "opacity": 0.4,
+          "opacity": 0.62,
           "position": "absolute",
           "width": "100%",
         }
@@ -758,6 +767,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                 "lineHeight": 24,
               },
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Bold",
                 "fontSize": 24,
                 "letterSpacing": 0.24,
@@ -768,239 +778,22 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
             ]
           }
         >
-          insufficient funds
+          Insufficient funds
         </Text>
         <View
           style={
             {
-              "gap": 12,
+              "color": "#2B1911",
             }
           }
         >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
-            }
-          >
-            Your Peach wallet has:
-          </Text>
           <View
             style={
-              [
-                undefined,
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                },
-                {
-                  "height": 13,
-                  "width": 152,
-                },
-              ]
-            }
-          >
-            <View
-              style={
-                [
-                  {
-                    "flexShrink": 0,
-                  },
-                  {
-                    "paddingBottom": 2.5,
-                    "paddingLeft": 2.5,
-                    "paddingRight": 2.5,
-                    "paddingTop": 2.5,
-                  },
-                ]
+              {
+                "gap": 12,
               }
-            >
-              <test-file-stub
-                fill="#888"
-                style={
-                  [
-                    {
-                      "height": 15,
-                      "width": 15,
-                    },
-                    undefined,
-                  ]
-                }
-              />
-            </View>
-            <View
-              style={
-                [
-                  {
-                    "alignItems": "center",
-                    "flexBasis": "0%",
-                    "flexDirection": "row",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                  },
-                  {
-                    "gap": 5,
-                  },
-                ]
-              }
-            >
-              <View
-                style={
-                  {
-                    "alignItems": "center",
-                    "flexBasis": "0%",
-                    "flexDirection": "row",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "justifyContent": "flex-end",
-                  }
-                }
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "opacity": 0.1,
-                          "textAlign": "right",
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 28,
-                            "marginBottom": -13,
-                            "marginTop": -13,
-                          },
-                          false,
-                        ],
-                      ],
-                      false,
-                    ]
-                  }
-                >
-                  0.00
-                </Text>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "textAlign": "right",
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 28,
-                            "marginBottom": -13,
-                            "marginTop": -13,
-                          },
-                          false,
-                        ],
-                      ],
-                      false,
-                    ]
-                  }
-                >
-                   250 000
-                </Text>
-              </View>
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                        "marginBottom": -13,
-                        "marginTop": -13,
-                      },
-                      false,
-                    ],
-                    false,
-                  ]
-                }
-              >
-                sats
-              </Text>
-            </View>
-          </View>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
             }
           >
-            Do you want to fund the escrow with this amount?
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
-            }
-          >
-            to:
-             
             <Text
               allowFontScaling={false}
               style={
@@ -1012,17 +805,219 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
-                  [
-                    {
-                      "color": "#EAE3DF",
-                    },
-                    undefined,
-                  ],
+                  undefined,
                   false,
                 ]
               }
             >
-              bcrt
+              Your Peach wallet has:
+            </Text>
+            <View
+              style={
+                [
+                  undefined,
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                  },
+                  {
+                    "height": 13,
+                    "width": 152,
+                  },
+                ]
+              }
+            >
+              <View
+                style={
+                  [
+                    {
+                      "flexShrink": 0,
+                    },
+                    {
+                      "paddingBottom": 2.5,
+                      "paddingLeft": 2.5,
+                      "paddingRight": 2.5,
+                      "paddingTop": 2.5,
+                    },
+                  ]
+                }
+              >
+                <test-file-stub
+                  fill="#888"
+                  style={
+                    [
+                      {
+                        "height": 15,
+                        "width": 15,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexBasis": "0%",
+                      "flexDirection": "row",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    },
+                    {
+                      "gap": 5,
+                    },
+                  ]
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexBasis": "0%",
+                      "flexDirection": "row",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "justifyContent": "flex-end",
+                    }
+                  }
+                >
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "opacity": 0.1,
+                            "textAlign": "right",
+                          },
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 28,
+                              "marginBottom": -13,
+                              "marginTop": -13,
+                            },
+                            false,
+                          ],
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    0.00
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "textAlign": "right",
+                          },
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 28,
+                              "marginBottom": -13,
+                              "marginTop": -13,
+                            },
+                            false,
+                          ],
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                     250 000
+                  </Text>
+                </View>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                          "marginBottom": -13,
+                          "marginTop": -13,
+                        },
+                        false,
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+            >
+              Do you want to fund the escrow with this amount?
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+            >
+              to:
+               
               <Text
                 allowFontScaling={false}
                 style={
@@ -1036,7 +1031,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                     },
                     [
                       {
-                        "color": "#2B1911",
+                        "color": "#EAE3DF",
                       },
                       undefined,
                     ],
@@ -1044,52 +1039,75 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   ]
                 }
               >
-                1q70z
-              </Text>
-              7 ... 4
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
+                bcrt
+                <Text
+                  allowFontScaling={false}
+                  style={
                     [
                       {
                         "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
                       },
-                      undefined,
-                    ],
-                    false,
-                  ]
-                }
-              >
-                c0fuh
+                      [
+                        {
+                          "color": "#2B1911",
+                        },
+                        undefined,
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  1q70z
+                </Text>
+                7 ... 4
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "color": "#2B1911",
+                        },
+                        undefined,
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  c0fuh
+                </Text>
               </Text>
             </Text>
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
-            }
-          >
-            network fee: 660 sats (6 sat/vB)
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+            >
+              network fee: 660 sats (6 sat/vB)
+            </Text>
+          </View>
         </View>
       </View>
       <View

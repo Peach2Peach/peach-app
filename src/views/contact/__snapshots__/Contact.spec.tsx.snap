@@ -59,6 +59,7 @@ exports[`Contact should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -291,9 +292,7 @@ exports[`Contact should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
-                        {
-                          "color": "#7D675E",
-                        },
+                        undefined,
                         false,
                       ]
                     }
@@ -757,9 +756,7 @@ exports[`Contact should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
-                        {
-                          "color": "#7D675E",
-                        },
+                        undefined,
                         false,
                       ]
                     }

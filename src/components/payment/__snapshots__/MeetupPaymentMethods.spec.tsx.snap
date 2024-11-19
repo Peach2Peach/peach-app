@@ -33,13 +33,11 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           {
             "color": "#7D675E",
@@ -135,13 +133,11 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             {
               "flexBasis": "0%",
@@ -157,13 +153,11 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -231,13 +225,11 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 {
@@ -296,13 +288,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           {
             "color": "#7D675E",
@@ -398,13 +388,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             {
               "flexBasis": "0%",
@@ -420,13 +408,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -494,13 +480,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 {
@@ -582,13 +566,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             {
               "flexBasis": "0%",
@@ -604,13 +586,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -678,13 +658,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 {
@@ -743,13 +721,11 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           {
             "color": "#7D675E",
@@ -845,13 +821,11 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             {
               "flexBasis": "0%",
@@ -867,13 +841,11 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -941,13 +913,11 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 {

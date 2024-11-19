@@ -23,7 +23,7 @@ describe("useCancelAndStartRefundPopup", () => {
     result.current(sellOffer);
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
-      expect(queryByText("refunding escrow")).toBeTruthy();
+      expect(queryByText("Refunding escrow")).toBeTruthy();
       expect(mockRefundEscrow).toHaveBeenCalledWith({
         sellOffer,
         rawPSBT: "psbt",

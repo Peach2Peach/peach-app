@@ -26,7 +26,7 @@ jest.mock("@react-navigation/material-top-tabs", () => {
 describe("YourTrades", () => {
   it('should navigate to "exportTradeHistory" when clicking on the icon in the header', () => {
     const { getByAccessibilityHint } = render(<YourTrades />);
-    const icon = getByAccessibilityHint("go to export trade history");
+    const icon = getByAccessibilityHint("go to Export trade history");
     fireEvent.press(icon);
 
     expect(navigateMock).toHaveBeenCalledWith("exportTradeHistory");

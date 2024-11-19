@@ -17,6 +17,7 @@ exports[`WalletHeader should render correctly 1`] = `
         "backgroundColor": "#FFF9F6",
       },
       {
+        "borderBottomWidth": 1,
         "borderColor": "#FEEDE5",
       },
     ]
@@ -57,13 +58,11 @@ exports[`WalletHeader should render correctly 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             [
               {
@@ -100,7 +99,7 @@ exports[`WalletHeader should render correctly 1`] = `
       }
     >
       <View
-        accessibilityHint="go to address checker"
+        accessibilityHint="go to Address checker"
         accessibilityState={
           {
             "busy": undefined,

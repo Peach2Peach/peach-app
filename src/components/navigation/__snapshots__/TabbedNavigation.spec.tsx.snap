@@ -66,7 +66,7 @@ exports[`TabbedNavigation should render correctly 1`] = `
             "width": "100%",
           },
           {
-            "backgroundColor": "#2B1911",
+            "backgroundColor": "#F56522",
           },
         ]
       }

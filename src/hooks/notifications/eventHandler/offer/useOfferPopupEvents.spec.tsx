@@ -18,7 +18,7 @@ describe("useOfferPopupEvents", () => {
       result.current["offer.fundingAmountDifferent"]?.(eventData);
     });
     const { queryByText } = render(<GlobalPopup />);
-    expect(queryByText("different amounts")).toBeTruthy();
+    expect(queryByText("Different amounts")).toBeTruthy();
   });
 
   it("should show wrongly funded popup on offer.wrongFundingAmount", async () => {

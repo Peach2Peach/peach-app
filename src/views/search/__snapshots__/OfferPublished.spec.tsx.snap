@@ -16,13 +16,11 @@ exports[`OfferPublished renders correctly 1`] = `
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           {
             "color": "#FFFCFA",
@@ -65,13 +63,11 @@ exports[`OfferPublished renders correctly 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             [
               {
@@ -155,13 +151,11 @@ exports[`OfferPublished renders correctly 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             [
               {
@@ -215,7 +209,7 @@ exports[`OfferPublished renders correctly 1`] = `
         {
           "alignItems": "center",
           "backgroundColor": "transparent",
-          "borderColor": "#FFFCFA",
+          "borderColor": "#FFF9F6",
           "borderRadius": 9999,
           "borderWidth": 2,
           "flexDirection": "row",
@@ -237,13 +231,11 @@ exports[`OfferPublished renders correctly 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             [
               {
@@ -255,7 +247,7 @@ exports[`OfferPublished renders correctly 1`] = `
               },
               {},
               {
-                "color": "#FFFCFA",
+                "color": "#FFF9F6",
               },
             ],
             false,

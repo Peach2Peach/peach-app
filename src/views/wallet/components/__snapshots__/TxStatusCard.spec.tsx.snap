@@ -75,13 +75,11 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 [
@@ -140,13 +138,11 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   [
@@ -267,13 +263,11 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -303,13 +297,11 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -339,13 +331,11 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -446,13 +436,11 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 [
@@ -511,13 +499,11 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   [
@@ -638,13 +624,11 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -674,13 +658,11 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -710,13 +692,11 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -817,13 +797,11 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 [
@@ -882,13 +860,11 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   [
@@ -1009,13 +985,11 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1045,13 +1019,11 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1081,13 +1053,11 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -1188,13 +1158,11 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 [
@@ -1253,13 +1221,11 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   [
@@ -1380,13 +1346,11 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1416,13 +1380,11 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1452,13 +1414,11 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -1559,13 +1519,11 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               [
                 [
@@ -1624,13 +1582,11 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   [
@@ -1751,13 +1707,11 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1787,13 +1741,11 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1823,13 +1775,11 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {

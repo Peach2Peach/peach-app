@@ -903,7 +903,7 @@ exports[`BTCAmount should render correctly with white 1`] = `
                   },
 -                 false,
 +                 Object {
-+                   "color": "#FFFCFA",
++                   "color": "#BAADA7",
 +                 },
                 ],
               ],
@@ -918,7 +918,7 @@ exports[`BTCAmount should render correctly with white 1`] = `
                   },
 -                 false,
 +                 Object {
-+                   "color": "#FFFCFA",
++                   "color": "#BAADA7",
 +                 },
                 ],
               ],
@@ -933,7 +933,7 @@ exports[`BTCAmount should render correctly with white 1`] = `
               },
 -             false,
 +             Object {
-+               "color": "#FFFCFA",
++               "color": "#BAADA7",
 +             },
             ],
             false,

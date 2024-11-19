@@ -59,6 +59,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -99,13 +100,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -211,13 +210,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   [
                     {
@@ -273,13 +270,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     {
                       "color": "#9F8C82",
@@ -368,13 +363,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
-                          },
-                          {
-                            "color": "#2B1911",
                           },
                           [
                             {
@@ -404,13 +397,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
-                          },
-                          {
-                            "color": "#2B1911",
                           },
                           [
                             {
@@ -440,13 +431,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                     style={
                       [
                         {
+                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
-                        },
-                        {
-                          "color": "#2B1911",
                         },
                         [
                           {
@@ -480,13 +469,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     {
                       "color": "#9F8C82",
@@ -575,13 +562,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
-                          },
-                          {
-                            "color": "#2B1911",
                           },
                           [
                             {
@@ -611,13 +596,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
-                          },
-                          {
-                            "color": "#2B1911",
                           },
                           [
                             {
@@ -647,13 +630,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                     style={
                       [
                         {
+                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
-                        },
-                        {
-                          "color": "#2B1911",
                         },
                         [
                           {
@@ -681,13 +662,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 {
                   "fontFamily": "Baloo2-Regular",
@@ -706,13 +685,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 {
                   "fontFamily": "Baloo2-Regular",
@@ -809,17 +786,16 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                     style={
                       [
                         {
+                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
-                        {
-                          "color": "#2B1911",
-                        },
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,
@@ -908,17 +884,16 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                     style={
                       [
                         {
+                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
-                        {
-                          "color": "#2B1911",
-                        },
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,
@@ -1017,17 +992,16 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                     style={
                       [
                         {
+                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
-                        {
-                          "color": "#2B1911",
-                        },
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,
@@ -1116,17 +1090,16 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                     style={
                       [
                         {
+                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
-                        {
-                          "color": "#2B1911",
-                        },
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,

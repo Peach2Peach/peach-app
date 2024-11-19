@@ -146,13 +146,11 @@ exports[`PopupComponent renders correctly 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             [
               {
@@ -218,7 +216,7 @@ exports[`PopupComponent renders correctly with title 1`] = `
 - First value
 + Second value
 
-@@ -56,10 +56,37 @@
+@@ -56,10 +56,35 @@
             },
           ],
         ]
@@ -229,13 +227,11 @@ exports[`PopupComponent renders correctly with title 1`] = `
 +       style={
 +         Array [
 +           Object {
++             "color": "#2B1911",
 +             "fontFamily": "Baloo2-Regular",
 +             "fontSize": 16,
 +             "letterSpacing": 0.16,
 +             "lineHeight": 24,
-+           },
-+           Object {
-+             "color": "#2B1911",
 +           },
 +           Object {
 +             "color": "#2B1911",

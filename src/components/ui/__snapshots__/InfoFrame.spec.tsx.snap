@@ -20,12 +20,13 @@ exports[`InfoFrame renders correctly 1`] = `
   <View
     style={
       {
+        "alignItems": "center",
         "backgroundColor": "#FFFCFA",
-        "left": -12,
-        "paddingBottom": 2,
-        "paddingTop": 2,
+        "borderRadius": 9999,
+        "justifyContent": "center",
+        "left": -16,
         "position": "absolute",
-        "top": 8,
+        "top": 4,
       }
     }
   >
@@ -34,8 +35,8 @@ exports[`InfoFrame renders correctly 1`] = `
       style={
         [
           {
-            "height": 20,
-            "width": 20,
+            "height": 24,
+            "width": 24,
           },
           undefined,
         ]
@@ -53,7 +54,9 @@ exports[`InfoFrame renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        undefined,
+        {
+          "color": "#2B1911",
+        },
         false,
       ]
     }

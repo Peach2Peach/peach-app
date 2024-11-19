@@ -59,6 +59,7 @@ exports[`MyProfile should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -99,13 +100,11 @@ exports[`MyProfile should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -348,13 +347,11 @@ exports[`MyProfile should render correctly 1`] = `
                               style={
                                 [
                                   {
+                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
-                                  },
-                                  {
-                                    "color": "#2B1911",
                                   },
                                   [
                                     [
@@ -452,13 +449,11 @@ exports[`MyProfile should render correctly 1`] = `
                                 style={
                                   [
                                     {
+                                      "color": "#2B1911",
                                       "fontFamily": "Baloo2-Regular",
                                       "fontSize": 16,
                                       "letterSpacing": 0.16,
                                       "lineHeight": 24,
-                                    },
-                                    {
-                                      "color": "#2B1911",
                                     },
                                     [
                                       {
@@ -605,13 +600,11 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               {
                                 "color": "#7D675E",
@@ -700,13 +693,11 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
+                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
-                                },
-                                {
-                                  "color": "#2B1911",
                                 },
                                 [
                                   [
@@ -778,13 +769,11 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
+                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
-                                },
-                                {
-                                  "color": "#2B1911",
                                 },
                                 [
                                   [
@@ -856,13 +845,11 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
+                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
-                                },
-                                {
-                                  "color": "#2B1911",
                                 },
                                 [
                                   [
@@ -958,13 +945,11 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
-                            },
-                            {
-                              "color": "#2B1911",
                             },
                             {
                               "color": "#7D675E",
@@ -977,20 +962,18 @@ exports[`MyProfile should render correctly 1`] = `
                           ]
                         }
                       >
-                        daily trading limit
+                        Daily trading limit
                           
                         <Text
                           allowFontScaling={false}
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1017,13 +1000,11 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1041,20 +1022,20 @@ exports[`MyProfile should render correctly 1`] = `
                             ]
                           }
                         >
-                           / 
+                           
+                          /
+                           
                         </Text>
                         <Text
                           allowFontScaling={false}
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1134,13 +1115,11 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
-                            },
-                            {
-                              "color": "#2B1911",
                             },
                             {
                               "color": "#7D675E",
@@ -1153,20 +1132,18 @@ exports[`MyProfile should render correctly 1`] = `
                           ]
                         }
                       >
-                        monthly anonymous limit:
+                        Monthly anonymous limit:
                           
                         <Text
                           allowFontScaling={false}
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1193,13 +1170,11 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1217,20 +1192,20 @@ exports[`MyProfile should render correctly 1`] = `
                             ]
                           }
                         >
-                           / 
+                           
+                          /
+                           
                         </Text>
                         <Text
                           allowFontScaling={false}
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1310,13 +1285,11 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
-                            },
-                            {
-                              "color": "#2B1911",
                             },
                             {
                               "color": "#7D675E",
@@ -1329,20 +1302,18 @@ exports[`MyProfile should render correctly 1`] = `
                           ]
                         }
                       >
-                        yearly trading limit:
+                        Yearly trading limit:
                           
                         <Text
                           allowFontScaling={false}
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1369,13 +1340,11 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1393,20 +1362,20 @@ exports[`MyProfile should render correctly 1`] = `
                             ]
                           }
                         >
-                           / 
+                           
+                          /
+                           
                         </Text>
                         <Text
                           allowFontScaling={false}
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1452,22 +1421,21 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#2B1911",
-                          },
-                          {
+                            "color": "#9F8C82",
                             "textTransform": "lowercase",
                           },
                           false,
                         ]
                       }
                     >
-                      account pubkey
+                      Account pubkey
                       :
                     </Text>
                     <View
@@ -1484,13 +1452,11 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
-                            },
-                            {
-                              "color": "#2B1911",
                             },
                             {
                               "color": "#2B1911",
@@ -1510,13 +1476,11 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               {
                                 "color": "#F56522",
@@ -1605,13 +1569,11 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
+                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
-                                },
-                                {
-                                  "color": "#2B1911",
                                 },
                                 [
                                   {
@@ -1640,22 +1602,21 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#2B1911",
-                          },
-                          {
+                            "color": "#9F8C82",
                             "textTransform": "lowercase",
                           },
                           false,
                         ]
                       }
                     >
-                      account created
+                      Account created
                       :
                     </Text>
                     <Text
@@ -1663,6 +1624,7 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
@@ -1670,8 +1632,6 @@ exports[`MyProfile should render correctly 1`] = `
                           },
                           {
                             "color": "#2B1911",
-                          },
-                          {
                             "fontFamily": "Baloo2-SemiBold",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
@@ -1690,22 +1650,21 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#2B1911",
-                          },
-                          {
+                            "color": "#9F8C82",
                             "textTransform": "lowercase",
                           },
                           false,
                         ]
                       }
                     >
-                      disputes
+                      Disputes
                       :
                     </Text>
                     <View
@@ -1720,6 +1679,7 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1727,8 +1687,6 @@ exports[`MyProfile should render correctly 1`] = `
                             },
                             {
                               "color": "#2B1911",
-                            },
-                            {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1742,13 +1700,14 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        opened
+                        Opened
                       </Text>
                       <Text
                         allowFontScaling={false}
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1756,8 +1715,6 @@ exports[`MyProfile should render correctly 1`] = `
                             },
                             {
                               "color": "#2B1911",
-                            },
-                            {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1771,13 +1728,14 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        won
+                        Won
                       </Text>
                       <Text
                         allowFontScaling={false}
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1785,8 +1743,6 @@ exports[`MyProfile should render correctly 1`] = `
                             },
                             {
                               "color": "#2B1911",
-                            },
-                            {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1800,13 +1756,14 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        lost
+                        Lost
                       </Text>
                       <Text
                         allowFontScaling={false}
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1814,8 +1771,6 @@ exports[`MyProfile should render correctly 1`] = `
                             },
                             {
                               "color": "#2B1911",
-                            },
-                            {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
@@ -1829,7 +1784,7 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        resolved
+                        Resolved
                       </Text>
                     </View>
                   </View>
@@ -1839,22 +1794,21 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#2B1911",
-                          },
-                          {
+                            "color": "#9F8C82",
                             "textTransform": "lowercase",
                           },
                           false,
                         ]
                       }
                     >
-                      number of trades
+                      Number of trades
                       :
                     </Text>
                     <Text
@@ -1862,6 +1816,7 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
@@ -1869,8 +1824,6 @@ exports[`MyProfile should render correctly 1`] = `
                           },
                           {
                             "color": "#2B1911",
-                          },
-                          {
                             "fontFamily": "Baloo2-SemiBold",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
@@ -1928,13 +1881,11 @@ exports[`MyProfile should render correctly 1`] = `
                   style={
                     [
                       {
+                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
-                      },
-                      {
-                        "color": "#2B1911",
                       },
                       {
                         "color": "#DF321F",

@@ -59,6 +59,7 @@ exports[`CoinSelection renders correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -99,13 +100,11 @@ exports[`CoinSelection renders correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -353,13 +352,11 @@ exports[`CoinSelection renders correctly 1`] = `
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -389,13 +386,11 @@ exports[`CoinSelection renders correctly 1`] = `
                           style={
                             [
                               {
+                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
-                              },
-                              {
-                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -425,13 +420,11 @@ exports[`CoinSelection renders correctly 1`] = `
                         style={
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
-                            },
-                            {
-                              "color": "#2B1911",
                             },
                             [
                               {
@@ -457,13 +450,11 @@ exports[`CoinSelection renders correctly 1`] = `
                     style={
                       [
                         {
+                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
-                        },
-                        {
-                          "color": "#2B1911",
                         },
                         {
                           "color": "#7D675E",
@@ -481,13 +472,11 @@ exports[`CoinSelection renders correctly 1`] = `
                       style={
                         [
                           {
+                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
-                          },
-                          {
-                            "color": "#2B1911",
                           },
                           {
                             "fontFamily": "Baloo2-Regular",
@@ -613,13 +602,11 @@ exports[`CoinSelection renders correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -631,7 +618,7 @@ exports[`CoinSelection renders correctly 1`] = `
                   },
                   {},
                   {
-                    "color": "#FFFCFA",
+                    "color": "#FFF9F6",
                   },
                 ],
                 false,
@@ -687,14 +674,24 @@ exports[`CoinSelection renders correctly while loading 1`] = `
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "color": "#2B1911",
-        },
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ],
         false,
       ]
     }
@@ -709,7 +706,7 @@ exports[`CoinSelection selects coins 1`] = `
 - First value
 + Second value
 
-@@ -545,11 +545,11 @@
+@@ -527,11 +527,11 @@
                       }
                     }
                     testID="checkbox"

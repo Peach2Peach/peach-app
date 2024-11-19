@@ -59,6 +59,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -99,13 +100,11 @@ exports[`BitcoinProducts should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -188,13 +187,11 @@ exports[`BitcoinProducts should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 {
                   "fontFamily": "Baloo2-Bold",
@@ -213,13 +210,11 @@ exports[`BitcoinProducts should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 {
                   "marginTop": 4,
@@ -277,13 +272,11 @@ exports[`BitcoinProducts should render correctly 1`] = `
               style={
                 [
                   {
+                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
-                  },
-                  {
-                    "color": "#2B1911",
                   },
                   {
                     "color": "#F56522",

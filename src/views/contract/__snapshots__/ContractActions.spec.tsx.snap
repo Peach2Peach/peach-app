@@ -78,13 +78,11 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             [
               {
@@ -174,13 +172,11 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             [
               {
@@ -192,7 +188,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
               },
               {},
               {
-                "color": "#FFFCFA",
+                "color": "#FFF9F6",
               },
             ],
             false,
@@ -202,7 +198,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
         chat
       </Text>
       <test-file-stub
-        fill="#FFFCFA"
+        fill="#FFF9F6"
         style={
           [
             {
@@ -289,17 +285,16 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                {
-                  "color": "#2B1911",
-                },
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,
@@ -388,17 +383,16 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                {
-                  "color": "#2B1911",
-                },
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,
@@ -497,17 +491,16 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                {
-                  "color": "#2B1911",
-                },
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,
@@ -596,17 +589,16 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                {
-                  "color": "#2B1911",
-                },
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,

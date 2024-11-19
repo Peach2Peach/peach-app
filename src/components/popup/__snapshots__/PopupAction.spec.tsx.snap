@@ -60,13 +60,11 @@ exports[`PopupAction renders correctly 1`] = `
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
-        },
-        {
-          "color": "#2B1911",
         },
         [
           {
@@ -150,7 +148,7 @@ exports[`PopupAction renders correctly when loading 1`] = `
       allowFontScaling={false}
       style={
         Array [
-@@ -77,8 +69,8 @@
+@@ -75,8 +67,8 @@
           ],
           false,
         ]

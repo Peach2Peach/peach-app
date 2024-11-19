@@ -1,7 +1,6 @@
 import { memo, useMemo } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { SATSINBTC } from "../../constants";
-import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { groupChars } from "../../utils/string/groupChars";
@@ -55,17 +54,9 @@ export const BTCAmount = memo(
       () => getDisplayAmount(amount),
       [amount],
     );
-    const { isDarkMode } = useThemeStore();
     const textStyle = useMemo(
-      () => [
-        styles[size].amount,
-        white
-          ? tw`text-black-25`
-          : isDarkMode
-            ? tw`text-backgroundLight-light`
-            : tw`text-black-100`,
-      ],
-      [size, white, isDarkMode],
+      () => [styles[size].amount, white && tw`text-black-25`],
+      [size, white],
     );
     return (
       <View

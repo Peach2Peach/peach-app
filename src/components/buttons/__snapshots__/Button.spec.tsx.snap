@@ -70,7 +70,7 @@ exports[`NewButton should render correctly 1`] = `
           },
           {},
           {
-            "color": "#FFFCFA",
+            "color": "#FFF9F6",
           },
         ],
         false,
@@ -129,7 +129,7 @@ exports[`NewButton should render correctly when ghost is true 1`] = `
 -       "backgroundColor": "#F56522",
 -       "borderColor": undefined,
 +       "backgroundColor": "transparent",
-+       "borderColor": "#FFFCFA",
++       "borderColor": "#FFF9F6",
         "borderRadius": 9999,
 +       "borderWidth": 2,
         "flexDirection": "row",
@@ -151,7 +151,7 @@ exports[`NewButton should render correctly with icon 1`] = `
       Text
     </Text>
 +   <test-file-stub
-+     fill="#FFFCFA"
++     fill="#FFF9F6"
 +     style={
 +       Array [
 +         Object {

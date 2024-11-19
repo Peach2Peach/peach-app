@@ -32,7 +32,7 @@ describe("useShowWronglyFundedPopup", () => {
       <WronglyFundedPopup sellOffer={wronglyFundedOffer} />,
     );
 
-    expect(queryByText("trading limit exceeded")).not.toBeNull();
+    expect(queryByText("Trading limit exceeded")).not.toBeNull();
     expect(queryByText("Incorrect funding")).toBeNull();
   });
   it("opens Incorrect Funding popup when funded with multiple transactions", () => {
@@ -41,7 +41,7 @@ describe("useShowWronglyFundedPopup", () => {
     );
 
     expect(queryByText("Incorrect funding")).not.toBeNull();
-    expect(queryByText("trading limit exceeded")).toBeNull();
+    expect(queryByText("Trading limit exceeded")).toBeNull();
   });
   it("starts refund process", () => {
     const { getByText } = render(

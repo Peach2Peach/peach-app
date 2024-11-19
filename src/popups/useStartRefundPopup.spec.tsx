@@ -29,7 +29,7 @@ describe("useStartRefundPopup", () => {
     const { result } = renderHook(useStartRefundPopup);
     await result.current(sellOffer);
     const { queryByText } = render(<GlobalPopup />);
-    expect(queryByText("refunding escrow")).toBeTruthy();
+    expect(queryByText("Refunding escrow")).toBeTruthy();
     expect(mockRefundEscrow).toHaveBeenCalledWith({ sellOffer, rawPSBT: psbt });
   });
 });

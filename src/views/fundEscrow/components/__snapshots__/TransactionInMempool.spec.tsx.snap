@@ -59,6 +59,7 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -99,13 +100,11 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -356,13 +355,11 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 undefined,
                 false,
@@ -447,13 +444,11 @@ You can go do something else, we'll automatically publish your offer as soon as 
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -556,6 +551,7 @@ exports[`TransactionInMempool should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -596,13 +592,11 @@ exports[`TransactionInMempool should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 [
                   {
@@ -853,13 +847,11 @@ exports[`TransactionInMempool should render correctly 1`] = `
             style={
               [
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
-                },
-                {
-                  "color": "#2B1911",
                 },
                 undefined,
                 false,
@@ -944,13 +936,11 @@ You can go do something else, we'll automatically publish your offer as soon as 
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {

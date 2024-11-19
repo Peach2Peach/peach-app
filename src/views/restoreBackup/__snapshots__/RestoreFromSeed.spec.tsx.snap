@@ -35,13 +35,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               {
                 "color": "#FFFCFA",
@@ -58,13 +56,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
           style={
             [
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
-              },
-              {
-                "color": "#2B1911",
               },
               {
                 "color": "#FFFCFA",
@@ -141,7 +137,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="1."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -157,7 +153,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -184,13 +180,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -256,7 +250,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="2."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -272,7 +266,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -299,13 +293,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -371,7 +363,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="3."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -387,7 +379,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -414,13 +406,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -486,7 +476,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="4."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -502,7 +492,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -529,13 +519,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -601,7 +589,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="5."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -617,7 +605,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -644,13 +632,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -716,7 +702,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="6."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -732,7 +718,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -759,13 +745,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -841,7 +825,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="7."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -857,7 +841,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -884,13 +868,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -956,7 +938,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="8."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -972,7 +954,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -999,13 +981,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -1071,7 +1051,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="9."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1087,7 +1067,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -1114,13 +1094,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -1186,7 +1164,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="10."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1202,7 +1180,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -1229,13 +1207,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -1301,7 +1277,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="11."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1317,7 +1293,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -1344,13 +1320,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -1416,7 +1390,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="12."
-                  placeholderTextColor="#FCCCB6"
+                  placeholderTextColor="#624D44"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1432,7 +1406,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#FCCCB6",
+                        "color": "#624D44",
                       },
                       false,
                       {
@@ -1459,13 +1433,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 style={
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
-                    },
-                    {
-                      "color": "#2B1911",
                     },
                     [
                       {
@@ -1546,13 +1518,11 @@ exports[`RestoreFromSeed should render correctly 1`] = `
       style={
         [
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
           },
           [
             {

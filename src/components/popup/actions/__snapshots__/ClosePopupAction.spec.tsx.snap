@@ -60,13 +60,11 @@ exports[`ClosePopupAction should render correctly 1`] = `
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
-        },
-        {
-          "color": "#2B1911",
         },
         [
           {
@@ -105,7 +103,7 @@ exports[`ClosePopupAction should render correctly with custom text style 1`] = `
           Object {
             "height": 16,
             "width": 16,
-@@ -71,11 +71,13 @@
+@@ -69,11 +69,13 @@
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 16,
               "letterSpacing": 0.16,

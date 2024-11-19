@@ -214,7 +214,7 @@ describe("SendBitcoin", () => {
     swipeRight(getByTestId("confirmSlider"));
 
     await waitFor(() => {
-      expect(queryByText("sending funds")).toBeTruthy();
+      expect(queryByText("Sending funds")).toBeTruthy();
       expect(queryByText("network fee: 1 000 sats (4 sat/vB)")).toBeTruthy();
     });
   });

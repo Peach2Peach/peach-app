@@ -34,7 +34,7 @@ describe("useWalletBalance", () => {
     renderHook(useWalletBalance);
 
     const { getByText } = render(<GlobalOverlay />);
-    expect(getByText("backup time!")).toBeTruthy();
+    expect(getByText("Backup time!")).toBeTruthy();
   });
   it("should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true", () => {
     useWalletState.getState().setBalance(1);

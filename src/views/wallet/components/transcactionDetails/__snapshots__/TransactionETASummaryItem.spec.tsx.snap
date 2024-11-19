@@ -19,13 +19,11 @@ exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
-        },
-        {
-          "color": "#2B1911",
         },
         [
           {
@@ -83,13 +81,11 @@ exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             {
               "fontFamily": "Baloo2-SemiBold",
@@ -139,13 +135,11 @@ exports[`TransactionETA should render correctly for more than 1 block ETA 1`] = 
     style={
       [
         {
+          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
-        },
-        {
-          "color": "#2B1911",
         },
         [
           {
@@ -203,13 +197,11 @@ exports[`TransactionETA should render correctly for more than 1 block ETA 1`] = 
         style={
           [
             {
+              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#2B1911",
             },
             {
               "fontFamily": "Baloo2-SemiBold",

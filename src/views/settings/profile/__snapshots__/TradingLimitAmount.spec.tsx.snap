@@ -13,7 +13,7 @@ exports[`TradingLimitAmount should render correctly for daily 1`] = `
       }
     }
   >
-    daily trading limit
+    Daily trading limit
       
     <PriceFormat
       amount={10}
@@ -50,7 +50,9 @@ exports[`TradingLimitAmount should render correctly for daily 1`] = `
         ]
       }
     >
-       / 
+       
+      /
+       
     </PeachText>
     <PriceFormat
       amount={100}
@@ -88,7 +90,7 @@ exports[`TradingLimitAmount should render correctly for monthly 1`] = `
       }
     }
   >
-    monthly anonymous limit:
+    Monthly anonymous limit:
       
     <PriceFormat
       amount={100}
@@ -125,7 +127,9 @@ exports[`TradingLimitAmount should render correctly for monthly 1`] = `
         ]
       }
     >
-       / 
+       
+      /
+       
     </PeachText>
     <PriceFormat
       amount={1000}
@@ -163,7 +167,7 @@ exports[`TradingLimitAmount should render correctly for yearly 1`] = `
       }
     }
   >
-    yearly trading limit:
+    Yearly trading limit:
       
     <PriceFormat
       amount={1000}
@@ -200,7 +204,9 @@ exports[`TradingLimitAmount should render correctly for yearly 1`] = `
         ]
       }
     >
-       / 
+       
+      /
+       
     </PeachText>
     <PriceFormat
       amount={10000}
@@ -238,7 +244,7 @@ exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
       }
     }
   >
-    yearly trading limit:
+    Yearly trading limit:
       
     <PriceFormat
       amount={1000}
@@ -275,7 +281,9 @@ exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
         ]
       }
     >
-       / 
+       
+      /
+       
     </PeachText>
     <PriceFormat
       amount={Infinity}
