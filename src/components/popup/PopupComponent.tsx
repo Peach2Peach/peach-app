@@ -1,6 +1,6 @@
 import { Keyboard, Pressable, StyleProp, View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
-import { PopupText } from "../text/PopupText";
+import { PeachText } from "../text/PeachText";
 import { PopupActions } from "./PopupActions";
 
 export type PopupComponentProps = {
@@ -21,9 +21,12 @@ export const PopupComponent = ({
 }: PopupComponentProps) => (
   <View style={tw`mx-3 overflow-hidden rounded-2xl`}>
     <PopupContent style={[bgColor, tw`items-stretch`]}>
-      {!!title && <PopupText style={tw`w-full h5`}>{title}</PopupText>};
+      {!!title && (
+        <PeachText style={tw`w-full h5 text-black-100`}>{title}</PeachText>
+      )}
+      ;
       {typeof content === "string" ? (
-        <PopupText>{content}</PopupText>
+        <PeachText style={tw`text-black-100`}>{content}</PeachText>
       ) : (
         <View>{content}</View>
       )}
