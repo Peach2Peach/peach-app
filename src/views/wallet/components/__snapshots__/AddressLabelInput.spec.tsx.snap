@@ -14,15 +14,19 @@ exports[`AddressLabelInput should render correctly 1`] = `
   <TextInput
     onChangeText={[Function]}
     style={
-      {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32.5,
-        "overflow": "hidden",
-        "textAlign": "center",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32.5,
+          "overflow": "hidden",
+          "textAlign": "center",
+        },
+        {
+          "color": "#2B1911",
+        },
+      ]
     }
   />
   <View
@@ -89,15 +93,19 @@ exports[`AddressLabelInput should render correctly with callback 1`] = `
   <TextInput
     onChangeText={[Function]}
     style={
-      {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32.5,
-        "overflow": "hidden",
-        "textAlign": "center",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32.5,
+          "overflow": "hidden",
+          "textAlign": "center",
+        },
+        {
+          "color": "#2B1911",
+        },
+      ]
     }
     value="fallback"
   />

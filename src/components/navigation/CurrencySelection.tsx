@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { useThemeStore } from "../../store/theme"; // Import to access dark mode state
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 
@@ -15,7 +15,7 @@ const CurrencySelectionItem = ({
   onPress,
   style,
 }: CurrencySelectionItemProps) => {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <TouchableOpacity
@@ -26,7 +26,8 @@ const CurrencySelectionItem = ({
         numberOfLines={1}
         style={[
           tw`text-center button-large text-black-50`,
-          isSelected && tw.style(isDarkMode ? "text-primary-main" : "text-black-100"),
+          isSelected &&
+            tw.style(isDarkMode ? "text-primary-main" : "text-black-100"),
         ]}
       >
         {currency}
@@ -35,7 +36,7 @@ const CurrencySelectionItem = ({
         <View
           style={[
             tw`w-full h-0.5 -mt-0.5 rounded-1px`,
-            tw.style(isDarkMode ? "bg-primary-main" : "bg-black-100"), // Conditionally set background color
+            tw.style(isDarkMode ? "bg-primary-main" : "bg-black-100"),
           ]}
         />
       )}

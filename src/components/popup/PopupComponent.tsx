@@ -9,7 +9,7 @@ export type PopupComponentProps = {
   title?: string;
   bgColor?: ViewStyle;
   actionBgColor?: ViewStyle;
-  textColor?: string; // New prop to customize text color
+  textColor?: string;
 };
 
 export const PopupComponent = ({
@@ -18,16 +18,15 @@ export const PopupComponent = ({
   title,
   bgColor,
   actionBgColor,
-  textColor = "text-black-100", // Default text color fallback
+  textColor = "text-black-100",
 }: PopupComponentProps) => (
   <View style={tw`mx-3 overflow-hidden rounded-2xl`}>
     <PopupContent style={[bgColor, tw`items-stretch`]}>
       {!!title && <PopupTitle text={title} textColor={textColor} />}
       {typeof content === "string" ? (
-        <PopupText style={tw`${textColor}`}>{content}</PopupText> // Ensure text color is applied
+        <PopupText style={tw`${textColor}`}>{content}</PopupText>
       ) : (
-        // If content is JSX, ensure children elements are styled correctly using a wrapper
-        <View style={tw`${textColor}`}>{content}</View> // This ensures the text color is applied to nested content as well
+        <View style={tw`${textColor}`}>{content}</View>
       )}
     </PopupContent>
     <PopupActions style={actionBgColor}>{actions}</PopupActions>

@@ -4,7 +4,7 @@ import { TouchableIcon } from "../../../components/TouchableIcon";
 import { MeansOfPayment } from "../../../components/offer/MeansOfPayment";
 import { PeachText } from "../../../components/text/PeachText";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import { useThemeStore } from "../../../store/theme"; // Import useThemeStore
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { hasMopsConfigured } from "../../../utils/offer/hasMopsConfigured";
@@ -20,17 +20,15 @@ export function Methods({
   const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("paymentMethods");
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   const backgroundColor = isDarkMode
-    ? tw.color("card") // Use 'card' color for dark mode
+    ? tw.color("card")
     : type === "buy"
-    ? tw.color("success-mild-1-color")
-    : tw.color("primary-background-dark-color");
+      ? tw.color("success-mild-1-color")
+      : tw.color("primary-background-dark-color");
 
-  const color = isDarkMode
-    ? tw.color("primary-main") // Use 'primary-main' for icon color in dark mode
-    : tw.color("black-100");
+  const color = isDarkMode ? tw.color("primary-main") : tw.color("black-100");
 
   return (
     <>

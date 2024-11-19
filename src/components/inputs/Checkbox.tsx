@@ -1,6 +1,6 @@
 import { TouchableOpacity } from "react-native";
 import { FillProps } from "react-native-svg";
-import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
@@ -19,7 +19,7 @@ export const Checkbox = ({
   children,
   ...wrapperProps
 }: Props) => {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <TouchableOpacity
@@ -43,7 +43,7 @@ export const Checkbox = ({
               ? tw`text-black-25`
               : isDarkMode
                 ? tw`text-backgroundLight-light`
-                : tw`text-primary-main`, // Default text color when checked in light mode
+                : tw`text-primary-main`,
           ]}
         >
           {children}

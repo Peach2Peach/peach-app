@@ -3,7 +3,7 @@ import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import { useThemeStore } from "../../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -49,14 +49,14 @@ export const SettingsItem = ({
 }: SettingsItemProps) => {
   const navigation = useStackNavigation();
   const onPress = pressAction ? pressAction : () => navigation.navigate(title);
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const iconColor = warning
     ? tw.color("error-main")
     : enabled
       ? tw.color("primary-main")
       : isDarkMode
-        ? tw.color("black-25") // Adapt color for dark mode
-        : tw.color("black-50"); // Default color for light mode
+        ? tw.color("black-25")
+        : tw.color("black-50");
 
   return (
     <TouchableOpacity

@@ -1,7 +1,7 @@
 import { Image, View } from "react-native";
 import bitcoinAnimation from "../../assets/animated/bitcoin.gif";
 import { PeachText } from "../../components/text/PeachText";
-import { useThemeStore } from "../../store/theme"; // Theme store to manage dark mode
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const BitcoinLoading = ({ text }: Props) => {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View style={tw`items-center justify-center flex-1 gap-8`}>

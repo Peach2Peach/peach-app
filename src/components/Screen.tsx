@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useStackNavigation } from "../hooks/useStackNavigation";
-import { useThemeStore } from "../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { peachyGradient } from "../utils/layout/peachyGradient";
 import { isAndroid } from "../utils/system/isAndroid";
@@ -36,28 +36,26 @@ export const Screen = ({
 }: Props) => {
   const insets = useSafeAreaInsets();
   const hasFooter = useStackNavigation().getId() === "homeNavigator";
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   useFocusEffect(
     useCallback(() => {
-      // Set StatusBar style based on dark mode and gradientBackground prop
       StatusBar.setBarStyle(
         isDarkMode || gradientBackground ? "light-content" : "dark-content",
         true,
       );
 
-      // Set background color on Android
       if (isAndroid()) {
         StatusBar.setBackgroundColor(
           gradientBackground
-            ? peachyGradient[2].color // Background color when gradient is applied
+            ? peachyGradient[2].color
             : isDarkMode
-              ? "#120a07" // Dark mode color
-              : "#fff9f6", // Light mode color
+              ? "#120a07"
+              : "#fff9f6",
           true,
         );
       }
-    }, [isDarkMode, gradientBackground]), // Dependency array includes isDarkMode and gradientBackground
+    }, [isDarkMode, gradientBackground]),
   );
 
   return (

@@ -99,11 +99,13 @@ exports[`AddressChecker should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -229,13 +231,17 @@ exports[`AddressChecker should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
-                  undefined,
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
                   false,
                 ]
               }
@@ -426,11 +432,13 @@ exports[`AddressChecker should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -473,7 +481,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 - First value
 + Second value
 
-@@ -299,22 +299,22 @@
+@@ -320,22 +320,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -498,15 +506,15 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -449,16 +449,63 @@
-                 
+@@ -473,15 +473,64 @@
               </Text>
             </View>
             <View>
               <View
-+               style={
+                style={
 +                 Array [
-+                   Object {
+                    Object {
+-                   "height": 24,
 +                     "alignItems": "center",
 +                     "alignSelf": "stretch",
 +                     "flexDirection": "row",
@@ -519,15 +527,16 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 +             >
 +               <Text
 +                 allowFontScaling={false}
-                  style={
++                 style={
 +                   Array [
-                      Object {
--                   "height": 24,
-+                       "color": "#2B1911",
++                     Object {
 +                       "fontFamily": "Baloo2-Regular",
 +                       "fontSize": 16,
 +                       "letterSpacing": 0.16,
 +                       "lineHeight": 24,
++                     },
++                     Object {
++                       "color": "#2B1911",
 +                     },
 +                     Array [
 +                       Object {
@@ -570,7 +579,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
 - First value
 + Second value
 
-@@ -299,22 +299,22 @@
+@@ -320,22 +320,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -595,15 +604,15 @@ exports[`AddressChecker should render correctly when address does not belong to 
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -449,16 +449,63 @@
-                 
+@@ -473,15 +473,64 @@
               </Text>
             </View>
             <View>
               <View
-+               style={
+                style={
 +                 Array [
-+                   Object {
+                    Object {
+-                   "height": 24,
 +                     "alignItems": "center",
 +                     "alignSelf": "stretch",
 +                     "flexDirection": "row",
@@ -616,15 +625,16 @@ exports[`AddressChecker should render correctly when address does not belong to 
 +             >
 +               <Text
 +                 allowFontScaling={false}
-                  style={
++                 style={
 +                   Array [
-                      Object {
--                   "height": 24,
-+                       "color": "#2B1911",
++                     Object {
 +                       "fontFamily": "Baloo2-Regular",
 +                       "fontSize": 16,
 +                       "letterSpacing": 0.16,
 +                       "lineHeight": 24,
++                     },
++                     Object {
++                       "color": "#2B1911",
 +                     },
 +                     Array [
 +                       Object {
@@ -667,7 +677,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
 - First value
 + Second value
 
-@@ -262,15 +262,18 @@
+@@ -270,15 +270,18 @@
                       "backgroundColor": "#FFFCFA",
                     },
                     Object {
@@ -717,7 +727,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -444,11 +446,11 @@
+@@ -467,11 +469,11 @@
                     ],
                     false,
                   ]
@@ -737,7 +747,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
 - First value
 + Second value
 
-@@ -299,22 +299,22 @@
+@@ -320,22 +320,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -762,7 +772,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -448,16 +448,13 @@
+@@ -471,16 +471,13 @@
               >
                  
               </Text>

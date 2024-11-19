@@ -16,125 +16,116 @@ export default {
         transparent: "transparent",
         current: "currentColor",
 
-        // Base colors with light and dark variants
         bitcoin: "#f7931a",
 
         bitcoinText: "#5b5b5b",
 
         card: "#1A1210",
 
-        // Black colors
         black: {
-          100: "#2b1911",
-          90: "#402f28",
-          75: "#624d44",
-          65: "#7d675e",
-          50: "#9f8c82",
-          25: "#baada7",
-          10: "#eae3df",
-          5: "#f4eeeb",
+          100: "#2B1911",
+          90: "#402F28",
+          75: "#624D44",
+          65: "#7D675E",
+          50: "#9F8C82",
+          25: "#BAADA7",
+          10: "#EAE3DF",
+          5: "#F4EEEB",
         },
 
-        // Primary colors and their backgrounds
         primary: {
           dark: {
             2: "#963600",
-            1: "#c45104",
+            1: "#C45104",
           },
-          main: "#f56522",
-          mainTrans: "rgba(245, 101, 34, 0)", // Full transparency
+          main: "#F56522",
+          mainTrans: "rgba(245, 101, 34, 0)",
           mild: {
-            2: "#ffa171",
-            1: "#fcccb6",
+            2: "#FFA171",
+            1: "#FCCCB6",
           },
           background: {
             dark: {
-              color: "#feede5",
-              trans: "rgba(254, 237, 229, 0.95)", // 95% transparency
+              color: "#FEEDE5",
+              trans: "rgba(254, 237, 229, 0.95)",
             },
-            main: "#fff9f6",
+            main: "#FFF9F6",
             light: {
-              color: "#fffcfa",
-              trans: "rgba(255, 252, 250, 0)", // Full transparency
+              color: "#FFFCFA",
+              trans: "rgba(255, 252, 250, 0)",
             },
           },
         },
 
-        // Success colors and backgrounds
         success: {
           dark: {
-            2: "#246f00",
-            1: "#4f910c",
+            2: "#246F00",
+            1: "#4F910C",
           },
-          main: "#65a519",
+          main: "#65A519",
           mild: {
-            2: "#afda73",
+            2: "#AFDA73",
             1: {
-              color: "#ddefc3",
-              trans: "rgba(221, 239, 195, 0.95)", // 95% transparency
+              color: "#DDEFC3",
+              trans: "rgba(221, 239, 195, 0.95)",
             },
           },
           background: {
             dark: {
-              color: "#f2f9e7",
-              trans: "rgba(242, 249, 231, 0.95)", // 95% transparency
+              color: "#F2F9E7",
+              trans: "rgba(242, 249, 231, 0.95)",
             },
-            main: "#fcfef6",
-            light: "#fefefb",
+            main: "#FCFEF6",
+            light: "#FEFEFB",
           },
         },
 
-        // Warning colors and backgrounds
         warning: {
           dark: {
-            2: "#f19e12",
-            1: "#f3b71a",
+            2: "#F19E12",
+            1: "#F3B71A",
           },
-          main: "#f5ce22",
+          main: "#F5CE22",
           mild: {
-            2: "#f9e96c",
-            1: "#fdf6c0",
+            2: "#F9E96C",
+            1: "#FDF6C0",
           },
           background: {
-            dark: "#fefce5",
-            main: "#fffef5",
-            light: "#fffefa",
+            dark: "#FEFCE5",
+            main: "#FFFEF5",
+            light: "#FFFEFA",
           },
         },
 
-        // Error colors and backgrounds
         error: {
-          dark: "#b01807",
-          main: "#df321f",
-          light: "#fe5a48",
-          mild: "#ffd1ca",
-          background: "#ffe6e1",
+          dark: "#B01807",
+          main: "#DF321F",
+          light: "#FE5A48",
+          mild: "#FFD1CA",
+          background: "#FFE6E1",
         },
 
-        // Info colors and backgrounds
         info: {
-          dark: "#005e89",
-          main: "#037db5",
-          light: "#099de2",
-          mild: "#93d6f5",
-          background: "#d7f2fe",
+          dark: "#005E89",
+          main: "#037DB5",
+          light: "#099DE2",
+          mild: "#93D6F5",
+          background: "#D7F2FE",
         },
 
-        // Gradient colors
         gradient: {
-          yellow: "#ffa24c",
-          orange: "#ff7a50",
-          red: "#ff4d42",
+          yellow: "#FFA24C",
+          orange: "#FF7A50",
+          red: "#FF4D42",
         },
 
-        // Custom color associations
         backgroundMain: {
-          light: "#fff9f6",
-          dark: "#120a07",
+          light: "#FFF9F6",
+          dark: "#120A07",
         },
         backgroundLight: {
-          light: "#fffcfa",
-          trans: "rgba(255, 252, 250, 0.95)", // 95% transparency
+          light: "#FFFCFA",
+          trans: "rgba(255, 252, 250, 0.95)",
         },
       },
       fontSize: {

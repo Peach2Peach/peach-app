@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { PriceFormat } from "../../../components/text/PriceFormat";
-import { useThemeStore } from "../../../store/theme"; // Import theme store
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -21,7 +21,7 @@ export const TradingLimitAmount = ({
   style,
   type,
 }: Props) => {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View style={style}>

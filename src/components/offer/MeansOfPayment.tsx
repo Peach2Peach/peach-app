@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { useThemeStore } from "../../store/theme"; // Importing dark mode state
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { getCurrencies } from "../../utils/paymentMethod/getCurrencies";
@@ -44,7 +44,7 @@ type PaymentMethodProps = {
 };
 
 function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const name = useMemo(
     () =>
       paymentMethod ? i18n(`paymentMethod.${paymentMethod}`) : paymentMethod,
@@ -52,11 +52,11 @@ function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
   );
   return (
     <View
-    style={[
-      tw`flex-row items-center px-3 border rounded-lg button-medium`,
-      tw.style(isDarkMode ? "border-primary-main" : "border-black-100"), // Adjust border color for dark mode
-      style,
-    ]}
+      style={[
+        tw`flex-row items-center px-3 border rounded-lg button-medium`,
+        tw.style(isDarkMode ? "border-primary-main" : "border-black-100"),
+        style,
+      ]}
     >
       {isCashTrade(paymentMethod) ? (
         <CashPaymentMethodName paymentMethod={paymentMethod} />
@@ -64,7 +64,7 @@ function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
         <PeachText
           style={tw.style(
             "button-medium",
-            isDarkMode ? "text-primary-main" : "text-black-100" // Adjust text color for dark mode
+            isDarkMode ? "text-primary-main" : "text-black-100",
           )}
         >
           {name}
@@ -79,13 +79,13 @@ function CashPaymentMethodName({
 }: {
   paymentMethod: `cash.${string}`;
 }) {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const value = useCashPaymentMethodName(paymentMethod);
   return (
     <PeachText
       style={tw.style(
         "button-medium",
-        isDarkMode ? "text-primary-main" : "text-black-100" // Adjust text color for dark mode
+        isDarkMode ? "text-primary-main" : "text-black-100",
       )}
     >
       {value}

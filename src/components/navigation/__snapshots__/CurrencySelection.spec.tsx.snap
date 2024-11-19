@@ -65,11 +65,13 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -95,11 +97,13 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -174,11 +178,13 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -268,11 +274,13 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -298,11 +306,13 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -377,11 +387,13 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -471,11 +483,13 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -565,11 +579,13 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -595,11 +611,13 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -674,11 +692,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -768,11 +788,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -862,11 +884,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -956,11 +980,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -986,11 +1012,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -1065,11 +1093,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1159,11 +1189,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1253,11 +1285,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1347,11 +1381,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1441,11 +1477,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1471,11 +1509,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -1550,11 +1590,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1644,11 +1686,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1738,11 +1782,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1832,11 +1878,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1926,11 +1974,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2020,11 +2070,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2050,11 +2102,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -2129,11 +2183,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2223,11 +2279,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2317,11 +2375,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2411,11 +2471,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2505,11 +2567,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2599,11 +2663,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2693,11 +2759,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2723,11 +2791,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -2802,11 +2872,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2896,11 +2968,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2990,11 +3064,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3084,11 +3160,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3178,11 +3256,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3272,11 +3352,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3366,11 +3448,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3460,11 +3544,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3490,11 +3576,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }
@@ -3569,11 +3657,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3663,11 +3753,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3757,11 +3849,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3851,11 +3945,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -3945,11 +4041,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -4039,11 +4137,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -4133,11 +4233,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -4227,11 +4329,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -4321,11 +4425,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -4351,11 +4457,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         style={
           [
             {
-              "backgroundColor": "#2B1911",
               "borderRadius": 1,
               "height": 2,
               "marginTop": -2,
               "width": "100%",
+            },
+            {
+              "backgroundColor": "#2B1911",
             },
           ]
         }

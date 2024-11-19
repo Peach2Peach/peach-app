@@ -19,7 +19,7 @@ import { HelpPopup } from "../../popups/HelpPopup";
 import { LoadingPopup } from "../../popups/LoadingPopup";
 import { SuccessPopup } from "../../popups/SuccessPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
-import { useThemeStore } from "../../store/theme"; // Import useThemeStore
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -30,7 +30,7 @@ import { checkNodeConnection } from "./helpers/checkNodeConnection";
 const urlRules = { required: true, url: true };
 export const NodeSetup = () => {
   const setPopup = useSetPopup();
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   const [node, setCustomNode, enabled, toggleEnabled] = useNodeConfigState(
     (state) => [state, state.setCustomNode, state.enabled, state.toggleEnabled],
@@ -82,7 +82,9 @@ export const NodeSetup = () => {
         <Toggle
           style={tw`justify-between px-6`}
           textStyle={tw.style(
-            enabled && isDarkMode ? "text-backgroundLight-light" : "text-black-65" // Conditional text color
+            enabled && isDarkMode
+              ? "text-backgroundLight-light"
+              : "text-black-65",
           )}
           {...{ enabled }}
           onPress={toggleEnabled}
@@ -93,7 +95,7 @@ export const NodeSetup = () => {
           style={tw`justify-between px-6`}
           enabled={ssl}
           textStyle={tw.style(
-            ssl && isDarkMode ? "text-backgroundLight-light" : "text-black-65" // Conditional text color
+            ssl && isDarkMode ? "text-backgroundLight-light" : "text-black-65",
           )}
           disabled={!enabled || isConnected}
           onPress={toggleSSL}

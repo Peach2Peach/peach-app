@@ -17,7 +17,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
@@ -207,7 +207,7 @@ function TextContainer({
   label: React.ReactNode;
   value: string | undefined;
 }) {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View>
@@ -224,7 +224,7 @@ function TextContainer({
         <PeachText
           style={tw.style(
             `flex-1 input-text`,
-            isDarkMode ? `text-primary-mild-1` : `text-black-100`
+            isDarkMode ? `text-primary-mild-1` : `text-black-100`,
           )}
         >
           {value}
@@ -238,7 +238,6 @@ function TextContainer({
     </View>
   );
 }
-
 
 function SignMessageHeader() {
   const setPopup = useSetPopup();

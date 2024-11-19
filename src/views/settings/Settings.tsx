@@ -1,6 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useMemo, useState } from "react";
 import { AppState, View } from "react-native";
+import { useAppColorScheme } from "twrnc";
 import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -11,7 +12,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { useThemeStore } from "../../store/theme"; // Import the theme store
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
@@ -30,7 +31,6 @@ export const Settings = () => {
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
 
-  // Zustand theme store to manage theme toggling
   const { isDarkMode, toggleTheme } = useThemeStore();
 
   const [enableAnalytics, toggleAnalytics, showBackupReminder] =
@@ -123,7 +123,12 @@ export const Settings = () => {
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
-  // Add a new item for Dark Mode toggle in appSettings
+  const [, toggleColorScheme] = useAppColorScheme(tw);
+  const toggleDarkMode = useCallback(() => {
+    toggleTheme();
+    toggleColorScheme();
+  }, [toggleColorScheme, toggleTheme]);
+
   const appSettings = useMemo(
     () =>
       (
@@ -143,10 +148,9 @@ export const Settings = () => {
           "payoutAddress",
           "currency",
           "language",
-          // Dark mode toggle item
           {
             title: "dark mode",
-            onPress: toggleTheme,
+            onPress: toggleDarkMode,
             iconId: isDarkMode ? "toggleRight" : "toggleLeft",
             enabled: isDarkMode,
           },
@@ -156,7 +160,7 @@ export const Settings = () => {
       onAnalyticsPress,
       enableAnalytics,
       notificationClick,
-      toggleTheme,
+      toggleDarkMode,
       isDarkMode,
     ],
   );

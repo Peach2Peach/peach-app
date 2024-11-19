@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
 import { Circle, G, Svg } from "react-native-svg";
-import { useThemeStore } from "../../store/theme"; // Import theme store
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 
@@ -21,7 +21,7 @@ export const ProgressDonut = ({ title, max, value, style }: Props) => {
     new Animated.Value(circleCircumference),
   ).current;
   const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-  const { isDarkMode } = useThemeStore(); // Access the dark mode state
+  const { isDarkMode } = useThemeStore();
 
   useEffect(() => {
     Animated.timing(strokeDashOffsetAnim, {

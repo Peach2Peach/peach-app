@@ -3,7 +3,7 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { writeCSV } from "../../hooks/writeCSV";
-import { useThemeStore } from "../../store/theme"; // Import the theme store
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
 import { createCSV } from "../../utils/file/createCSV";
@@ -13,7 +13,7 @@ import { useTxSummaries } from "./helpers/useTxSummaries";
 
 export const ExportTransactionHistory = () => {
   const queriesData = useTxSummaries();
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   const onPress = async () => {
     const transactionSummaries = queriesData

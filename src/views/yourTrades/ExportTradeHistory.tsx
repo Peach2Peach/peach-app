@@ -7,7 +7,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { THOUSANDS_GROUP } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { writeCSV } from "../../hooks/writeCSV";
-import { useThemeStore } from "../../store/theme"; // Import the theme store
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { sortByKey } from "../../utils/array/sortByKey";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
@@ -22,7 +22,7 @@ import { isContractSummary } from "./utils/isContractSummary";
 
 export function ExportTradeHistory() {
   const { summaries } = useTradeSummaries();
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   const onPress = async () => {
     const csvValue = createCSVValue(

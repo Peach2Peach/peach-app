@@ -5,32 +5,32 @@ exports[`CustomReferralCodePopup updates referral code state 1`] = `
 - First value
 + Second value
 
-@@ -166,22 +166,22 @@
-                    "paddingBottom": 0,
-                    "paddingTop": 0,
-                    "width": "100%",
-                  },
+@@ -178,22 +178,22 @@
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    Object {
+-                     "color": "#BAADA7",
++                     "color": "#2B1911",
+                    },
+                    false,
+                    Object {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+-               value=""
++               value="HODL"
+              />
+              <View
+                style={
                   Object {
--                   "color": "#BAADA7",
-+                   "color": "#2B1911",
-                  },
-                  false,
-                  Object {
-                    "borderColor": "transparent",
-                    "borderWidth": 1,
-                  },
-                  false,
-                ]
-              }
-              textAlignVertical="center"
--             value=""
-+             value="HODL"
-            />
-            <View
-              style={
-                Object {
-                  "flexDirection": "row",
-@@ -322,11 +322,11 @@
+                    "flexDirection": "row",
+@@ -339,11 +339,11 @@
       <View
         accessibilityState={
           Object {

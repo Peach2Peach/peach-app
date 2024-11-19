@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
-import { useThemeStore } from "../../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { trackMin } from "../utils/constants";
@@ -35,7 +35,7 @@ export function AmountSelectorComponent({
 }: Props) {
   const trackWidth = useTrackWidth();
   const minSliderDeltaAsAmount = useMinSliderDeltaAsAmount(trackWidth);
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <Section.Container

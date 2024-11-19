@@ -62,8 +62,8 @@ export const BTCAmount = memo(
         white
           ? tw`text-black-25`
           : isDarkMode
-            ? tw`text-backgroundLight-light` // Dark mode styling
-            : tw`text-black-100`, // Light mode styling
+            ? tw`text-backgroundLight-light`
+            : tw`text-black-100`,
       ],
       [size, white, isDarkMode],
     );

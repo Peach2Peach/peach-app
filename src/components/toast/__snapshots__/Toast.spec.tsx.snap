@@ -81,11 +81,13 @@ exports[`Toast renders correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -111,11 +113,13 @@ exports[`Toast renders correctly 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -201,11 +205,13 @@ exports[`Toast renders correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -282,11 +288,13 @@ exports[`Toast renders correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -316,7 +324,7 @@ exports[`Toast renders correctly with no action 1`] = `
 - First value
 + Second value
 
-@@ -171,91 +171,10 @@
+@@ -175,93 +175,10 @@
           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
           style={
             Object {
@@ -347,11 +355,13 @@ exports[`Toast renders correctly with no action 1`] = `
 -           style={
 -             Array [
 -               Object {
--                 "color": "#2B1911",
 -                 "fontFamily": "Baloo2-Regular",
 -                 "fontSize": 16,
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
+-               },
+-               Object {
+-                 "color": "#2B1911",
 -               },
 -               Array [
 -                 Object {
@@ -491,11 +501,13 @@ exports[`Toast should use default values for missing translations 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -521,11 +533,13 @@ exports[`Toast should use default values for missing translations 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -611,11 +625,13 @@ exports[`Toast should use default values for missing translations 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {

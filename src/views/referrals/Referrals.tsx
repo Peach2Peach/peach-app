@@ -13,7 +13,7 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { CustomReferralCodePopup } from "../../popups/referral/CustomReferralCodePopup";
 import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesPopup";
-import { useThemeStore } from "../../store/theme"; // Import useThemeStore
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -115,16 +115,14 @@ function ReferralRewards() {
 }
 
 function RewardItem({ reward }: { reward: Reward }) {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   return (
     <View style={tw`flex-row items-center justify-between py-1`}>
       <PeachText style={tw`subtitle-1`}>
         {i18n(`referrals.reward.${reward.id}`)}
       </PeachText>
       <PeachText
-        style={tw.style(
-          isDarkMode ? "text-primary-mild-1" : "text-black-65" // Conditional text color
-        )}
+        style={tw.style(isDarkMode ? "text-primary-mild-1" : "text-black-65")}
       >
         ({reward.requiredPoints})
       </PeachText>
@@ -158,7 +156,7 @@ function RedeemButton({
 }
 
 function BonusPointsBar() {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const BARLIMIT = 400;
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
@@ -174,7 +172,7 @@ function BonusPointsBar() {
       <PeachText
         style={tw.style(
           "pl-1 pt-1 tooltip",
-          isDarkMode ? "text-primary-mild-1" : "text-black-65" // Conditional text color
+          isDarkMode ? "text-primary-mild-1" : "text-black-65",
         )}
       >
         {i18n("referrals.points")}

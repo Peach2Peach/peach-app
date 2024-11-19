@@ -4,7 +4,7 @@ import { Image, View } from "react-native";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../hooks/useRoute";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -29,7 +29,7 @@ export const MeetupScreen = () => {
     selectedCurrencies,
     onCurrencyToggle,
   } = useMeetupScreenSetup();
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <Screen header={<MeetupScreenHeader />}>
@@ -49,7 +49,9 @@ export const MeetupScreen = () => {
             <View style={tw`gap-4`}>
               <PeachText style={tw`body-l`}>
                 {`${i18n("meetup.date")}: `}
-                <PeachText style={tw`h6 text-primary-main`}>{event.frequency}</PeachText>
+                <PeachText style={tw`h6 text-primary-main`}>
+                  {event.frequency}
+                </PeachText>
               </PeachText>
               {!!event.address && (
                 <PeachText

@@ -5,7 +5,7 @@ import { Loading } from "../../../components/Loading";
 import { Placeholder } from "../../../components/Placeholder";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { PeachText } from "../../../components/text/PeachText";
-import { useThemeStore } from "../../../store/theme"; // Theme store to manage dark mode
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { useWalletState } from "../../../utils/wallet/walletStore";
@@ -19,7 +19,7 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
     (state) => [state.showBalance, state.toggleShowBalance],
     shallow,
   );
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View style={tw`items-center self-stretch justify-center gap-4 grow`}>

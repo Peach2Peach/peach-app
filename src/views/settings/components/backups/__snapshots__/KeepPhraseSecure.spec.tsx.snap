@@ -31,7 +31,7 @@ exports[`KeepPhraseSecure should render correctly 1`] = `
     }
   >
     <Icon
-      color="#7D675E"
+      color="#F56522"
       id="unlock"
       style={
         {

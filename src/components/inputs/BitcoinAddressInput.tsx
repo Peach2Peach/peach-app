@@ -1,7 +1,7 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { useState } from "react";
 import { useQRScanner } from "../../hooks/useQRScanner";
-import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { parseBitcoinRequest } from "../../utils/bitcoin/parseBitcoinRequest";
 import i18n from "../../utils/i18n";
@@ -15,7 +15,7 @@ export const BitcoinAddressInput = ({
   ...props
 }: InputProps & { value: string }) => {
   const [isFocused, setFocused] = useState(false);
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString();
@@ -35,21 +35,21 @@ export const BitcoinAddressInput = ({
       placeholder={i18n("form.address.btc.placeholder")}
       placeholderTextColor={tw.color(
         isDarkMode ? "backgroundLight-light" : "black-10",
-      )} // Adjust placeholder color
+      )}
       icons={[
         ["clipboard", pasteAddress],
         ["camera", showQR],
       ]}
-      iconColor={tw.color("primary-main")} // Set icon color directly
+      iconColor={tw.color("primary-main")}
       onChangeText={onChangeText}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
       value={isFocused ? value : cutOffAddress(value)}
       style={[
-        tw`border-2 rounded-lg px-4 py-2`, // Add any additional styles you want
+        tw`px-4 py-2 border-2 rounded-lg`,
         isDarkMode
-          ? tw`border-2 border-black-50 bg-transparent text-backgroundLight-light`
-          : tw`bg-white text-black-100`, // Conditionally apply styles
+          ? tw`bg-transparent border-2 border-black-50 text-backgroundLight-light`
+          : tw`bg-white text-black-100`,
       ]}
       {...props}
     />

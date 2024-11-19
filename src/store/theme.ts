@@ -3,11 +3,10 @@ import { persist } from "zustand/middleware";
 import { createStorage } from "../utils/storage/createStorage";
 import { createPersistStorage } from "./createPersistStorage";
 
-interface ThemeState {
+type ThemeState = {
   isDarkMode: boolean;
   toggleTheme: () => void;
-  setDarkMode: (isDark: boolean) => void;
-}
+};
 
 const themeStorage = createStorage("theme");
 const storage = createPersistStorage(themeStorage);
@@ -16,9 +15,7 @@ export const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
       isDarkMode: false,
-
       toggleTheme: () => set({ isDarkMode: !get().isDarkMode }),
-      setDarkMode: (isDarkMode: boolean) => set({ isDarkMode }),
     }),
     {
       name: "theme",

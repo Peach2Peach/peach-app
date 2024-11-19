@@ -11,7 +11,7 @@ import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 
 export function InfoPopup(
-  props: Pick<PopupComponentProps, "title" | "content">
+  props: Pick<PopupComponentProps, "title" | "content">,
 ) {
   return (
     <PopupComponent
@@ -24,7 +24,7 @@ export function InfoPopup(
       }
       bgColor={tw`bg-info-background`}
       actionBgColor={tw`bg-info-light`}
-      textColor="text-black-100" // Custom text color for InfoPopup
+      textColor="text-black-100"
     />
   );
 }

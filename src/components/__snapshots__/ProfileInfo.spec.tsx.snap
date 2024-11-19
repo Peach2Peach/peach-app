@@ -84,11 +84,13 @@ exports[`ProfileInfo renders correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   [
@@ -186,11 +188,13 @@ exports[`ProfileInfo renders correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -337,11 +341,13 @@ exports[`ProfileInfo renders correctly 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             {
               "color": "#7D675E",
@@ -430,11 +436,13 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -506,11 +514,13 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -582,11 +592,13 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -634,7 +646,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 - First value
 + Second value
 
-@@ -208,129 +208,10 @@
+@@ -212,129 +212,10 @@
               </Text>
             </View>
           </View>
@@ -764,8 +776,8 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -341,286 +222,17 @@
-              "lineHeight": 24,
+@@ -347,292 +228,17 @@
+              "color": "#2B1911",
             },
             Object {
               "color": "#7D675E",
@@ -854,11 +866,13 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Array [
 -               Object {
--                 "color": "#2B1911",
 -                 "fontFamily": "Baloo2-Regular",
 -                 "fontSize": 16,
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
+-               },
+-               Object {
+-                 "color": "#2B1911",
 -               },
 -               Array [
 -                 Array [
@@ -868,7 +882,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 +             "fontSize": 14,
               "letterSpacing": 0.14,
               "lineHeight": 22,
--                   },
+            },
 -                   Object {
 -                     "color": "#FCCCB6",
 -                   },
@@ -876,7 +890,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
-            },
+-                 },
 -               ],
             false,
           ]
@@ -931,11 +945,13 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Array [
 -               Object {
--                 "color": "#2B1911",
 -                 "fontFamily": "Baloo2-Regular",
 -                 "fontSize": 16,
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
+-               },
+-               Object {
+-                 "color": "#2B1911",
 -               },
 -               Array [
 -                 Array [
@@ -1007,11 +1023,13 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Array [
 -               Object {
--                 "color": "#2B1911",
 -                 "fontFamily": "Baloo2-Regular",
 -                 "fontSize": 16,
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
+-               },
+-               Object {
+-                 "color": "#2B1911",
 -               },
 -               Array [
 -                 Array [

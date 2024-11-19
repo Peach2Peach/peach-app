@@ -14,7 +14,7 @@ exports[`Link should render correctly 1`] = `
   <PeachText
     style={
       {
-        "color": "#7D675E",
+        "color": "#9F8C82",
         "fontFamily": "Baloo2-SemiBold",
         "fontSize": 15,
         "letterSpacing": 0.54,

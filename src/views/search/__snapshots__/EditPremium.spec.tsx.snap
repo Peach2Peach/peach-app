@@ -99,11 +99,13 @@ exports[`EditPremium should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -266,11 +268,13 @@ exports[`EditPremium should render correctly 1`] = `
                 style={
                   [
                     {
-                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
+                    },
+                    {
+                      "color": "#2B1911",
                     },
                     [
                       {
@@ -294,11 +298,13 @@ exports[`EditPremium should render correctly 1`] = `
                 style={
                   [
                     {
-                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
+                    },
+                    {
+                      "color": "#2B1911",
                     },
                     [
                       {
@@ -342,11 +348,13 @@ exports[`EditPremium should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -378,11 +386,13 @@ exports[`EditPremium should render correctly 1`] = `
                 style={
                   [
                     {
-                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
+                    },
+                    {
+                      "color": "#2B1911",
                     },
                     {
                       "fontFamily": "Baloo2-SemiBold",
@@ -474,11 +484,13 @@ exports[`EditPremium should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -508,11 +520,13 @@ exports[`EditPremium should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -542,11 +556,13 @@ exports[`EditPremium should render correctly 1`] = `
                     style={
                       [
                         {
-                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
+                        },
+                        {
+                          "color": "#2B1911",
                         },
                         [
                           {
@@ -650,11 +666,13 @@ exports[`EditPremium should render correctly 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       [
                         {
@@ -687,9 +705,11 @@ exports[`EditPremium should render correctly 1`] = `
                         "width": 92,
                       },
                       {
+                        "borderWidth": 1,
+                      },
+                      {
                         "backgroundColor": "#FFFCFA",
                         "borderColor": "#7D675E",
-                        "borderWidth": 1,
                       },
                     ]
                   }
@@ -791,11 +811,13 @@ exports[`EditPremium should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   {
                     "color": "#7D675E",
@@ -1057,11 +1079,13 @@ exports[`EditPremium should render correctly 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#7D675E",
@@ -1101,11 +1125,13 @@ exports[`EditPremium should render correctly 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#7D675E",
@@ -1145,11 +1171,13 @@ exports[`EditPremium should render correctly 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#7D675E",
@@ -1189,11 +1217,13 @@ price
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#7D675E",
@@ -1234,11 +1264,13 @@ price
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#7D675E",
@@ -1316,11 +1348,13 @@ price
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {

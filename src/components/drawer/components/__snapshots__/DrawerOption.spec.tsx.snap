@@ -56,11 +56,13 @@ exports[`DrawerOption should render correctly when highlighted 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -85,11 +87,13 @@ exports[`DrawerOption should render correctly when highlighted 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -193,11 +197,13 @@ exports[`DrawerOption should render correctly with only title 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -299,11 +305,13 @@ exports[`DrawerOption should render correctly with title and flagID 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -395,11 +403,13 @@ exports[`DrawerOption should render correctly with title and iconRightID 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -529,11 +539,13 @@ exports[`DrawerOption should render correctly with title and logoID 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -615,11 +627,13 @@ exports[`DrawerOption should render correctly with title and subtext 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -642,11 +656,13 @@ exports[`DrawerOption should render correctly with title and subtext 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -743,11 +759,13 @@ exports[`DrawerOption should render correctly with title, flagID and iconRightID
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -877,11 +895,13 @@ exports[`DrawerOption should render correctly with title, logoID and iconRightID
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -998,11 +1018,13 @@ exports[`DrawerOption should render correctly with title, subtext and flagID 1`]
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1037,11 +1059,13 @@ exports[`DrawerOption should render correctly with title, subtext and flagID 1`]
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1122,11 +1146,13 @@ exports[`DrawerOption should render correctly with title, subtext and iconRightI
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -1149,11 +1175,13 @@ exports[`DrawerOption should render correctly with title, subtext and iconRightI
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -1265,11 +1293,13 @@ exports[`DrawerOption should render correctly with title, subtext, flagID and ic
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1304,11 +1334,13 @@ exports[`DrawerOption should render correctly with title, subtext, flagID and ic
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {

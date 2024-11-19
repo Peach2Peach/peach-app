@@ -13,7 +13,7 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import { useToggleBoolean } from "../hooks/useToggleBoolean";
 import { CURRENCIES } from "../paymentMethods";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
-import { useThemeStore } from "../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { getHeaderStyles } from "../utils/layout/getHeaderStyles";
@@ -113,7 +113,7 @@ export type HeaderProps = Omit<HeaderConfig, "theme" | "style"> & {
 
 export const Header = ({ showPriceStats, subtitle, ...props }: HeaderProps) => {
   const { top } = useSafeAreaInsets();
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const themes = newThemes(isDarkMode);
 
   return (
@@ -272,8 +272,8 @@ function CurrencyScrollView() {
   const { isDarkMode } = useThemeStore();
 
   const currencyTextStyle = isDarkMode
-    ? tw`text-primary-mild-1` // Dark mode style for currency text
-    : tw`text-black-100`; // Light mode style for currency text
+    ? tw`text-primary-mild-1`
+    : tw`text-black-100`;
 
   return (
     <TouchableOpacity
@@ -288,7 +288,7 @@ function CurrencyScrollView() {
             ? tw.style(
                 `pl-2 border`,
                 isDarkMode ? "border-black-90" : "border-black-10",
-                `rounded-lg`
+                `rounded-lg`,
               )
             : { padding: 1 },
         ]}
@@ -317,7 +317,7 @@ function CurrencyScrollView() {
                   toggle();
                 }}
                 key={c}
-                style={[unitStyle, currencyTextStyle]} // Apply dark/light style to each currency item
+                style={[unitStyle, currencyTextStyle]}
               >{`1 ${c}`}</PeachText>
             ))}
         </View>

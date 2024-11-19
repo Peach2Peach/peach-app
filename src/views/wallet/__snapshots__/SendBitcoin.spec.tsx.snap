@@ -5,7 +5,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
 - First value
 + Second value
 
-@@ -802,11 +802,11 @@
+@@ -829,11 +829,11 @@
                                     ],
                                     false,
                                   ]
@@ -18,7 +18,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
                                 allowFontScaling={false}
                                 style={
                                   Array [
-@@ -835,11 +835,11 @@
+@@ -866,11 +866,11 @@
                                     ],
                                     false,
                                   ]
@@ -51,7 +51,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1498,10 +1498,123 @@
+@@ -1557,10 +1557,129 @@
                           />
                         </View>
                       </View>
@@ -89,11 +89,13 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 +                       style={
 +                         Array [
 +                           Object {
-+                             "color": "#2B1911",
 +                             "fontFamily": "Baloo2-Regular",
 +                             "fontSize": 16,
 +                             "letterSpacing": 0.16,
 +                             "lineHeight": 24,
++                           },
++                           Object {
++                             "color": "#2B1911",
 +                           },
 +                           Object {
 +                             "fontFamily": "Baloo2-Regular",
@@ -125,11 +127,13 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 +                         style={
 +                           Array [
 +                             Object {
-+                               "color": "#2B1911",
 +                               "fontFamily": "Baloo2-Regular",
 +                               "fontSize": 16,
 +                               "letterSpacing": 0.16,
 +                               "lineHeight": 24,
++                             },
++                             Object {
++                               "color": "#2B1911",
 +                             },
 +                             Object {
 +                               "color": "#7D675E",
@@ -147,11 +151,13 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 +                           style={
 +                             Array [
 +                               Object {
-+                                 "color": "#2B1911",
 +                                 "fontFamily": "Baloo2-Regular",
 +                                 "fontSize": 16,
 +                                 "letterSpacing": 0.16,
 +                                 "lineHeight": 24,
++                               },
++                               Object {
++                                 "color": "#2B1911",
 +                               },
 +                               Object {
 +                                 "fontFamily": "Baloo2-Regular",
@@ -182,7 +188,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
 - First value
 + Second value
 
-@@ -802,11 +802,11 @@
+@@ -829,11 +829,11 @@
                                     ],
                                     false,
                                   ]
@@ -195,7 +201,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
                                 allowFontScaling={false}
                                 style={
                                   Array [
-@@ -835,11 +835,11 @@
+@@ -866,11 +866,11 @@
                                     ],
                                     false,
                                   ]
@@ -228,7 +234,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1609,11 +1609,11 @@
+@@ -1671,11 +1671,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -248,7 +254,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
 - First value
 + Second value
 
-@@ -802,11 +802,11 @@
+@@ -829,11 +829,11 @@
                                     ],
                                     false,
                                   ]
@@ -261,7 +267,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                 allowFontScaling={false}
                                 style={
                                   Array [
-@@ -835,11 +835,11 @@
+@@ -866,11 +866,11 @@
                                     ],
                                     false,
                                   ]
@@ -388,11 +394,13 @@ exports[`SendBitcoin should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -623,11 +631,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           {
                             "fontFamily": "Baloo2-Regular",
@@ -829,11 +839,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             [
                               {
@@ -889,11 +901,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           {
                             "fontFamily": "Baloo2-Regular",
@@ -947,11 +961,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "color": "#F56522",
@@ -1069,11 +1085,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   [
                                     {
@@ -1103,11 +1121,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   [
                                     {
@@ -1137,11 +1157,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                             style={
                               [
                                 {
-                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
+                                },
+                                {
+                                  "color": "#2B1911",
                                 },
                                 [
                                   {
@@ -1217,11 +1239,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           {
                             "fontFamily": "Baloo2-Regular",
@@ -1312,11 +1336,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   {
                                     "fontFamily": "Baloo2-SemiBold",
@@ -1336,11 +1362,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                                 style={
                                   [
                                     {
-                                      "color": "#2B1911",
                                       "fontFamily": "Baloo2-Regular",
                                       "fontSize": 16,
                                       "letterSpacing": 0.16,
                                       "lineHeight": 24,
+                                    },
+                                    {
+                                      "color": "#2B1911",
                                     },
                                     {
                                       "color": "#7D675E",
@@ -1435,11 +1463,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   {
                                     "fontFamily": "Baloo2-SemiBold",
@@ -1459,11 +1489,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                                 style={
                                   [
                                     {
-                                      "color": "#2B1911",
                                       "fontFamily": "Baloo2-Regular",
                                       "fontSize": 16,
                                       "letterSpacing": 0.16,
                                       "lineHeight": 24,
+                                    },
+                                    {
+                                      "color": "#2B1911",
                                     },
                                     {
                                       "color": "#7D675E",
@@ -1558,11 +1590,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   {
                                     "fontFamily": "Baloo2-SemiBold",
@@ -1582,11 +1616,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                                 style={
                                   [
                                     {
-                                      "color": "#2B1911",
                                       "fontFamily": "Baloo2-Regular",
                                       "fontSize": 16,
                                       "letterSpacing": 0.16,
                                       "lineHeight": 24,
+                                    },
+                                    {
+                                      "color": "#2B1911",
                                     },
                                     {
                                       "color": "#7D675E",
@@ -1689,11 +1725,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   {
                                     "fontFamily": "Baloo2-SemiBold",
@@ -1756,11 +1794,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   {
                                     "color": "#7D675E",
@@ -1867,11 +1907,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             [
                               [
@@ -1964,11 +2006,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             [
                               [
@@ -2011,7 +2055,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
 - First value
 + Second value
 
-@@ -802,11 +802,11 @@
+@@ -829,11 +829,11 @@
                                     ],
                                     false,
                                   ]
@@ -2024,7 +2068,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                 allowFontScaling={false}
                                 style={
                                   Array [
-@@ -835,11 +835,11 @@
+@@ -866,11 +866,11 @@
                                     ],
                                     false,
                                   ]
@@ -2057,7 +2101,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
 - First value
 + Second value
 
-@@ -413,22 +413,22 @@
+@@ -431,22 +431,22 @@
                                   "paddingBottom": 0,
                                   "paddingTop": 0,
                                   "width": "100%",
@@ -2089,7 +2133,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
 - First value
 + Second value
 
-@@ -802,11 +802,11 @@
+@@ -829,11 +829,11 @@
                                     ],
                                     false,
                                   ]
@@ -2102,7 +2146,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                                 allowFontScaling={false}
                                 style={
                                   Array [
-@@ -835,11 +835,11 @@
+@@ -866,11 +866,11 @@
                                     ],
                                     false,
                                   ]
@@ -2135,7 +2179,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -988,11 +988,11 @@
+@@ -1031,11 +1031,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2148,7 +2192,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "gap": 8,
                               "justifyContent": "space-between",
-@@ -1064,11 +1064,11 @@
+@@ -1111,11 +1111,11 @@
                                 </Text>
                               </Text>
                             </View>
@@ -2161,7 +2205,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                                 Object {
                                   "height": 24,
                                   "width": 24,
-@@ -1111,11 +1111,11 @@
+@@ -1158,11 +1158,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2174,7 +2218,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "gap": 8,
                               "justifyContent": "space-between",
-@@ -1187,11 +1187,11 @@
+@@ -1238,11 +1238,11 @@
                                 </Text>
                               </Text>
                             </View>

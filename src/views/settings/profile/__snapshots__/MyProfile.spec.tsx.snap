@@ -99,11 +99,13 @@ exports[`MyProfile should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -346,11 +348,13 @@ exports[`MyProfile should render correctly 1`] = `
                               style={
                                 [
                                   {
-                                    "color": "#2B1911",
                                     "fontFamily": "Baloo2-Regular",
                                     "fontSize": 16,
                                     "letterSpacing": 0.16,
                                     "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#2B1911",
                                   },
                                   [
                                     [
@@ -448,11 +452,13 @@ exports[`MyProfile should render correctly 1`] = `
                                 style={
                                   [
                                     {
-                                      "color": "#2B1911",
                                       "fontFamily": "Baloo2-Regular",
                                       "fontSize": 16,
                                       "letterSpacing": 0.16,
                                       "lineHeight": 24,
+                                    },
+                                    {
+                                      "color": "#2B1911",
                                     },
                                     [
                                       {
@@ -599,11 +605,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               {
                                 "color": "#7D675E",
@@ -692,11 +700,13 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
-                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
+                                },
+                                {
+                                  "color": "#2B1911",
                                 },
                                 [
                                   [
@@ -768,11 +778,13 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
-                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
+                                },
+                                {
+                                  "color": "#2B1911",
                                 },
                                 [
                                   [
@@ -844,11 +856,13 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
-                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
+                                },
+                                {
+                                  "color": "#2B1911",
                                 },
                                 [
                                   [
@@ -944,11 +958,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "color": "#7D675E",
@@ -968,11 +984,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -999,11 +1017,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1028,11 +1048,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1112,11 +1134,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "color": "#7D675E",
@@ -1136,11 +1160,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1167,11 +1193,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1196,11 +1224,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1280,11 +1310,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "color": "#7D675E",
@@ -1304,11 +1336,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1335,11 +1369,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1364,11 +1400,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               [
                                 {
@@ -1414,14 +1452,15 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#7D675E",
+                            "color": "#2B1911",
+                          },
+                          {
                             "textTransform": "lowercase",
                           },
                           false,
@@ -1445,11 +1484,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "color": "#2B1911",
@@ -1469,11 +1510,13 @@ exports[`MyProfile should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               {
                                 "color": "#F56522",
@@ -1562,11 +1605,13 @@ exports[`MyProfile should render correctly 1`] = `
                             style={
                               [
                                 {
-                                  "color": "#2B1911",
                                   "fontFamily": "Baloo2-Regular",
                                   "fontSize": 16,
                                   "letterSpacing": 0.16,
                                   "lineHeight": 24,
+                                },
+                                {
+                                  "color": "#2B1911",
                                 },
                                 [
                                   {
@@ -1595,14 +1640,15 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#7D675E",
+                            "color": "#2B1911",
+                          },
+                          {
                             "textTransform": "lowercase",
                           },
                           false,
@@ -1617,11 +1663,13 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           {
                             "fontFamily": "Baloo2-SemiBold",
@@ -1642,14 +1690,15 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#7D675E",
+                            "color": "#2B1911",
+                          },
+                          {
                             "textTransform": "lowercase",
                           },
                           false,
@@ -1671,11 +1720,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -1698,11 +1749,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -1725,11 +1778,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -1752,11 +1807,13 @@ exports[`MyProfile should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -1782,14 +1839,15 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
                           {
-                            "color": "#7D675E",
+                            "color": "#2B1911",
+                          },
+                          {
                             "textTransform": "lowercase",
                           },
                           false,
@@ -1804,11 +1862,13 @@ exports[`MyProfile should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           {
                             "fontFamily": "Baloo2-SemiBold",
@@ -1868,11 +1928,13 @@ exports[`MyProfile should render correctly 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#DF321F",

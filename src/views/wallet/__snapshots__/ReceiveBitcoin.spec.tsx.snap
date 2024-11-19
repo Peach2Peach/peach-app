@@ -99,11 +99,13 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -291,15 +293,19 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                 <TextInput
                   onChangeText={[Function]}
                   style={
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 20,
-                      "letterSpacing": 0.2,
-                      "lineHeight": 32.5,
-                      "overflow": "hidden",
-                      "textAlign": "center",
-                    }
+                    [
+                      {
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 20,
+                        "letterSpacing": 0.2,
+                        "lineHeight": 32.5,
+                        "overflow": "hidden",
+                        "textAlign": "center",
+                      },
+                      {
+                        "color": "#2B1911",
+                      },
+                    ]
                   }
                   value="address #1"
                 />
@@ -565,11 +571,13 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                 style={
                   [
                     {
-                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
+                    },
+                    {
+                      "color": "#2B1911",
                     },
                     {
                       "color": "#9F8C82",
@@ -589,11 +597,13 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "fontFamily": "Baloo2-Regular",
@@ -612,11 +622,13 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "fontFamily": "Baloo2-Regular",
@@ -703,11 +715,13 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                     style={
                       [
                         {
-                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
+                        },
+                        {
+                          "color": "#2B1911",
                         },
                         [
                           {
@@ -777,18 +791,13 @@ exports[`ReceiveBitcoin should render correctly while loading 1`] = `
     style={
       [
         {
-          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
         {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-          "textAlign": "center",
+          "color": "#2B1911",
         },
         false,
       ]

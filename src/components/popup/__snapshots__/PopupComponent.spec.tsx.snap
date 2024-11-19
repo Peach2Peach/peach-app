@@ -61,9 +61,17 @@ exports[`PopupComponent renders correctly 1`] = `
       ]
     }
   >
-    <Text>
-      content
-    </Text>
+    <View
+      style={
+        {
+          "color": "#2B1911",
+        }
+      }
+    >
+      <Text>
+        content
+      </Text>
+    </View>
   </View>
   <View
     style={
@@ -138,11 +146,13 @@ exports[`PopupComponent renders correctly 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -185,7 +195,7 @@ exports[`PopupComponent renders correctly with different background colors 1`] =
             },
           ],
         ]
-@@ -69,12 +71,14 @@
+@@ -77,12 +79,14 @@
             "alignItems": "center",
             "alignSelf": "stretch",
             "backgroundColor": "#F56522",
@@ -208,7 +218,7 @@ exports[`PopupComponent renders correctly with title 1`] = `
 - First value
 + Second value
 
-@@ -56,10 +56,34 @@
+@@ -56,10 +56,37 @@
             },
           ],
         ]
@@ -219,13 +229,16 @@ exports[`PopupComponent renders correctly with title 1`] = `
 +       style={
 +         Array [
 +           Object {
-+             "color": "#2B1911",
 +             "fontFamily": "Baloo2-Regular",
 +             "fontSize": 16,
 +             "letterSpacing": 0.16,
 +             "lineHeight": 24,
 +           },
 +           Object {
++             "color": "#2B1911",
++           },
++           Object {
++             "color": "#2B1911",
 +             "fontFamily": "Baloo2-Bold",
 +             "fontSize": 24,
 +             "letterSpacing": 0.24,
@@ -238,9 +251,9 @@ exports[`PopupComponent renders correctly with title 1`] = `
 +     >
 +       title
 +     </Text>
-      <Text>
-        content
-      </Text>
-    </View>
-    <View"
+      <View
+        style={
+          Object {
+            "color": "#2B1911",
+          }"
 `;

@@ -60,7 +60,7 @@ const FooterItemBase = memo(
     active,
   }: FooterItemBaseProps) => {
     const navigation = useStackNavigation();
-    const { isDarkMode } = useThemeStore(); // Access theme mode
+    const { isDarkMode } = useThemeStore();
     const onItemPress = () => {
       if (onPress) onPress();
       else navigation.navigate("homeScreen", { screen: id });
@@ -68,11 +68,11 @@ const FooterItemBase = memo(
     const colorTheme = tw.color(
       active
         ? isDarkMode
-          ? "primary-main" // Active tab in dark mode
-          : "black-100" // Active tab in light mode
+          ? "primary-main"
+          : "black-100"
         : isDarkMode
-          ? "black-50" // Inactive tab in dark mode
-          : "black-65", // Inactive tab in light mode
+          ? "black-50"
+          : "black-65",
     );
     const size = tw`w-6 h-6`;
 
@@ -195,7 +195,7 @@ const FOOTER_ITEMS = {
 
 function Footer() {
   const { bottom } = useSafeAreaInsets();
-  const { isDarkMode } = useThemeStore(); // Access theme mode
+  const { isDarkMode } = useThemeStore();
   const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
   return (
     <View
@@ -206,7 +206,7 @@ function Footer() {
           paddingBottom: bottom,
           backgroundColor: isDarkMode
             ? tw.color("backgroundMain-dark")
-            : tw.color("backgroundMain-light"), // Dark/light background
+            : tw.color("backgroundMain-light"),
         },
       ]}
     >

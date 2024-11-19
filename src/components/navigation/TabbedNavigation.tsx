@@ -1,5 +1,5 @@
 import { TouchableOpacity, View, ViewStyle } from "react-native";
-import { useThemeStore } from "../../store/theme"; // Import theme state for dark mode
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PulsingText } from "../matches/components/PulsingText";
 import { PeachText } from "../text/PeachText";
@@ -9,7 +9,7 @@ export const themes = (isDarkMode: boolean) => ({
     text: tw`text-black-65`,
     textSelected: isDarkMode
       ? tw`text-backgroundLight-light`
-      : tw`text-black-100`, // Conditionally set textSelected for dark mode
+      : tw`text-black-100`,
     underline: tw`bg-primary-main`,
   },
   inverted: {
@@ -42,8 +42,8 @@ export const TabbedNavigation = <T extends string>({
   buttonStyle,
   tabHasError = [],
 }: TabbedNavigationProps<T>) => {
-  const { isDarkMode } = useThemeStore(); // Move the hook call inside the component
-  const colors = themes(isDarkMode)[theme]; // Pass isDarkMode state to themes function
+  const { isDarkMode } = useThemeStore();
+  const colors = themes(isDarkMode)[theme];
 
   return (
     <View style={[tw`flex-row justify-center`, style]}>

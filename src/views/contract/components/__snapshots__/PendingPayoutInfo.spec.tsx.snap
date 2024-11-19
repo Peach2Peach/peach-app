@@ -15,11 +15,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
     style={
       [
         {
-          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
+        },
+        {
+          "color": "#2B1911",
         },
         {
           "fontFamily": "Baloo2-SemiBold",
@@ -38,11 +40,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
     style={
       [
         {
-          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
+        },
+        {
+          "color": "#2B1911",
         },
         {
           "fontFamily": "Baloo2-SemiBold",
@@ -74,11 +78,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -107,11 +113,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -134,11 +142,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -163,11 +173,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -259,11 +271,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -305,11 +319,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -367,11 +383,13 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -418,11 +436,13 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
     style={
       [
         {
-          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
+        },
+        {
+          "color": "#2B1911",
         },
         {
           "fontFamily": "Baloo2-SemiBold",
@@ -441,11 +461,13 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
     style={
       [
         {
-          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
+        },
+        {
+          "color": "#2B1911",
         },
         {
           "fontFamily": "Baloo2-SemiBold",
@@ -477,11 +499,13 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
             "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
           },
           [
             {
@@ -510,11 +534,13 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -537,11 +563,13 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -566,11 +594,13 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -662,11 +692,13 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {

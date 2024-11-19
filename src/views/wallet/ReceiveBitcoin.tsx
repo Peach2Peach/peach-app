@@ -6,7 +6,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
-import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
 import i18n from "../../utils/i18n";
@@ -68,7 +68,7 @@ function AddressQRCode({ index }: { index: number }) {
 
 function BitcoinAddress({ index }: { index: number }) {
   const { data } = useWalletAddress(index);
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const address = data?.address ?? "";
   const isUsed = data?.used ?? false;
   const addressParts = getBitcoinAddressParts(address);

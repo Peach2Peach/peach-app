@@ -103,7 +103,7 @@
     "rn-nodeify": "^10.3.0",
     "rn-notification-badge": "file:./modules/rn-notification-badge",
     "stream-browserify": "^3.0.0",
-    "twrnc": "^3.6.7",
+    "twrnc": "^4.6.0",
     "util": "^0.12.5",
     "varuint-bitcoin": "^1.1.2",
     "zod": "^3.22.4",

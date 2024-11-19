@@ -59,6 +59,7 @@ exports[`NetworkFees should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -99,11 +100,13 @@ exports[`NetworkFees should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -317,11 +320,13 @@ exports[`NetworkFees should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -341,11 +346,13 @@ exports[`NetworkFees should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               {
                                 "color": "#7D675E",
@@ -440,11 +447,13 @@ exports[`NetworkFees should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -464,11 +473,13 @@ exports[`NetworkFees should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               {
                                 "color": "#7D675E",
@@ -563,11 +574,13 @@ exports[`NetworkFees should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -587,11 +600,13 @@ exports[`NetworkFees should render correctly 1`] = `
                           style={
                             [
                               {
-                                "color": "#2B1911",
                                 "fontFamily": "Baloo2-Regular",
                                 "fontSize": 16,
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
+                              },
+                              {
+                                "color": "#2B1911",
                               },
                               {
                                 "color": "#7D675E",
@@ -694,11 +709,13 @@ exports[`NetworkFees should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "fontFamily": "Baloo2-SemiBold",
@@ -761,11 +778,13 @@ exports[`NetworkFees should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             {
                               "color": "#7D675E",
@@ -815,11 +834,13 @@ exports[`NetworkFees should render correctly 1`] = `
                 style={
                   [
                     {
-                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
+                    },
+                    {
+                      "color": "#2B1911",
                     },
                     {
                       "color": "#7D675E",
@@ -837,13 +858,16 @@ exports[`NetworkFees should render correctly 1`] = `
                 style={
                   [
                     {
-                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
                     {
+                      "color": "#2B1911",
+                    },
+                    {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
@@ -913,11 +937,13 @@ exports[`NetworkFees should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -929,7 +955,7 @@ exports[`NetworkFees should render correctly 1`] = `
                   },
                   {},
                   {
-                    "color": "#FFFCFA",
+                    "color": "#FFF9F6",
                   },
                 ],
                 false,

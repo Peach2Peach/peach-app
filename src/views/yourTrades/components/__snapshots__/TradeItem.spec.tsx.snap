@@ -75,11 +75,13 @@ exports[`ContractItem should render correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -126,11 +128,13 @@ exports[`ContractItem should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   [
@@ -251,11 +255,13 @@ exports[`ContractItem should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -285,11 +291,13 @@ exports[`ContractItem should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -319,11 +327,13 @@ exports[`ContractItem should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -357,11 +367,13 @@ exports[`ContractItem should render correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -436,11 +448,13 @@ exports[`ContractItem should render correctly 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -539,11 +553,13 @@ exports[`ContractItem should render correctly when republished 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -605,11 +621,13 @@ exports[`ContractItem should render correctly when republished 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   [
@@ -694,11 +712,13 @@ exports[`ContractItem should render correctly when republished 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -797,11 +817,13 @@ exports[`ContractItem should render correctly with past contract 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -860,11 +882,13 @@ exports[`ContractItem should render correctly with past contract 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   [
@@ -985,11 +1009,13 @@ exports[`ContractItem should render correctly with past contract 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1019,11 +1045,13 @@ exports[`ContractItem should render correctly with past contract 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1053,11 +1081,13 @@ exports[`ContractItem should render correctly with past contract 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -1091,11 +1121,13 @@ exports[`ContractItem should render correctly with past contract 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -1199,11 +1231,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -1250,11 +1284,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   [
@@ -1375,11 +1411,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1409,11 +1447,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1443,11 +1483,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -1481,11 +1523,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 {
@@ -1568,11 +1612,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -1621,11 +1667,13 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             {
               "fontFamily": "Baloo2-Bold",
@@ -1718,11 +1766,13 @@ exports[`OfferItem should render correctly 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -1769,11 +1819,13 @@ exports[`OfferItem should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   [
@@ -1886,11 +1938,13 @@ exports[`OfferItem should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1920,11 +1974,13 @@ exports[`OfferItem should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -1954,11 +2010,13 @@ exports[`OfferItem should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -1984,11 +2042,13 @@ exports[`OfferItem should render correctly 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             {
               "color": "#9F8C82",
@@ -2079,11 +2139,13 @@ exports[`OfferItem should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -2113,11 +2175,13 @@ exports[`OfferItem should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -2147,11 +2211,13 @@ exports[`OfferItem should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -2223,11 +2289,13 @@ exports[`OfferItem should render correctly 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             [
               {
@@ -2326,11 +2394,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
           style={
             [
               {
-                "color": "#2B1911",
                 "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
+              },
+              {
+                "color": "#2B1911",
               },
               [
                 [
@@ -2389,11 +2459,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   [
@@ -2506,11 +2578,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -2540,11 +2614,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -2574,11 +2650,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -2604,11 +2682,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
         style={
           [
             {
-              "color": "#2B1911",
               "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 24,
+            },
+            {
+              "color": "#2B1911",
             },
             {
               "color": "#9F8C82",
@@ -2699,11 +2779,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -2733,11 +2815,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -2767,11 +2851,13 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {

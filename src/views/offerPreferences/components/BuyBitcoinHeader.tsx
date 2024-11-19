@@ -1,12 +1,11 @@
 import { LogoIcons } from "../../../assets/logo";
 import { Header, HeaderProps } from "../../../components/Header";
 import { PeachText } from "../../../components/text/PeachText";
-import { useThemeStore } from "../../../store/theme"; // Import theme store to check dark mode
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
 export function BuyBitcoinHeader(props: HeaderProps) {
-  // Access dark mode state
   const { isDarkMode } = useThemeStore();
 
   return (

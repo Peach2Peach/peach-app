@@ -1,6 +1,6 @@
 import { LegacyRef, forwardRef } from "react";
 import { TextInput, TextInputProps, View } from "react-native";
-import { useThemeStore } from "../../store/theme"; // Import theme store to access dark mode state
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { enforceDecimalsFormat } from "../../utils/format/enforceDecimalsFormat";
 import { Icon } from "../Icon";
@@ -11,7 +11,7 @@ type Props = Omit<TextInputProps, "onChange"> & {
 
 export const PercentageInput = forwardRef(
   ({ onChange, ...props }: Props, ref: LegacyRef<TextInput> | undefined) => {
-    const { isDarkMode } = useThemeStore(); // Access dark mode state
+    const { isDarkMode } = useThemeStore();
 
     return (
       <View
@@ -27,13 +27,13 @@ export const PercentageInput = forwardRef(
           ref={ref}
           onChangeText={(text) => onChange(enforceDecimalsFormat(text, 2))}
           style={[
-            tw`grow py-0 text-center h-38px input-text`,
+            tw`py-0 text-center grow h-38px input-text`,
             isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
           ]}
           keyboardType={"decimal-pad"}
           placeholder={"20.00"}
           placeholderTextColor={tw.color(
-            isDarkMode ? "primary-mild-1" : "black-10"
+            isDarkMode ? "primary-mild-1" : "black-10",
           )}
           {...props}
         />
@@ -41,12 +41,10 @@ export const PercentageInput = forwardRef(
           <Icon
             id="percent"
             size={20}
-            color={tw.color(
-              isDarkMode ? "primary-mild-1" : "black-100"
-            )}
+            color={tw.color(isDarkMode ? "primary-mild-1" : "black-100")}
           />
         </View>
       </View>
     );
-  }
+  },
 );

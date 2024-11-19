@@ -1,12 +1,12 @@
 import { Image, View } from "react-native";
 import loadingAnimation from "../../../assets/animated/logo-rotate.gif";
 import { PeachText } from "../../../components/text/PeachText";
-import { useThemeStore } from "../../../store/theme"; // Import theme store
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
 export const EmptyTransactionHistory = () => {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View style={tw`items-center justify-center h-full gap-8`}>

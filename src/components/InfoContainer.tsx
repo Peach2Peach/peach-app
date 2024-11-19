@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useThemeStore } from "../store/theme"; // Import theme store to check dark mode
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { FixedHeightText } from "./text/FixedHeightText";
 
@@ -20,10 +20,14 @@ export function InfoContainer({
   backgroundColor = tw.color("primary-background-light-color"),
   enabled = true,
 }: InfoContainerProps) {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
-  const colorStyle = color ?? tw.color(enabled ? "primary-main" : isDarkMode ? "black-65" : "primary-mild-1");
+  const { isDarkMode } = useThemeStore();
+  const colorStyle =
+    color ??
+    tw.color(
+      enabled ? "primary-main" : isDarkMode ? "black-65" : "primary-mild-1",
+    );
   const textStyle = textColor ?? colorStyle;
-  const adjustedBackgroundColor = isDarkMode ? "transparent" : backgroundColor; // Set background color conditionally
+  const adjustedBackgroundColor = isDarkMode ? "transparent" : backgroundColor;
 
   return (
     <View

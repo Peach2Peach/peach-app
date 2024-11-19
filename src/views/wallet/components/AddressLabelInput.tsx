@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Icon } from "../../../components/Icon";
-import { useThemeStore } from "../../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function AddressLabelInput({ address, fallback }: Props) {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const [isEditing, setIsEditing] = useState(false);
   const [label, setLabel] = useWalletState(
     (state) => [state.addressLabelMap[address] ?? fallback, state.labelAddress],
@@ -46,7 +46,7 @@ export function AddressLabelInput({ address, fallback }: Props) {
           {
             color: isDarkMode
               ? tw.color("backgroundLight-light")
-              : tw.color("black-100"), // Adapt text color based on theme
+              : tw.color("black-100"),
           },
         ]}
       />

@@ -11,7 +11,7 @@ import { requestUserPermissions } from "../init/requestUserPermissions";
 import { useInitApp } from "../init/useInitApp";
 import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPopup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
-import { useThemeStore } from "../store/theme"; // Import theme store
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { useGlobalHandlers } from "../useGlobalHandlers";
 import i18n from "../utils/i18n";
@@ -25,13 +25,13 @@ const RootStack = createStackNavigator<RootStackParamList>();
 export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
   const isLoggedIn = useSettingsStore((state) => state.isLoggedIn);
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   useGlobalHandlers();
   useWSQueryInvalidation();
 
   const backgroundStyle = isDarkMode
     ? "bg-backgroundMain-dark"
-    : "bg-backgroundMain-light"; // Adjust this to your actual dark/light background styles
+    : "bg-backgroundMain-light";
 
   if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />;
   return (
@@ -39,7 +39,7 @@ export function Screens() {
       screenOptions={{
         gestureEnabled: isIOS(),
         headerShown: false,
-        cardStyle: tw`flex-1 ${backgroundStyle}`, // Use dynamic background style based on dark/light mode
+        cardStyle: tw`flex-1 ${backgroundStyle}`,
       }}
     >
       {(isLoggedIn ? views : onboardingViews).map(

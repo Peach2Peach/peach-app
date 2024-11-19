@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useThemeStore } from "../../store/theme"; // Import to access dark mode state
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -31,7 +31,7 @@ export const MeetupPaymentMethods = ({
   select,
   isSelected,
 }: Props) => {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const paymentData = usePaymentDataStore((state) =>
     state.getPaymentDataArray(),
   );
@@ -43,15 +43,13 @@ export const MeetupPaymentMethods = ({
           <PeachText
             style={tw.style(
               `mr-1 h6`,
-              isDarkMode ? "text-backgroundLight-light" : "text-black-65"
+              isDarkMode ? "text-backgroundLight-light" : "text-black-65",
             )}
           >
             {i18n("paymentSection.meetups")}
           </PeachText>
           <Icon
-            color={tw.color(
-              isDarkMode ? "backgroundLight-light" : "black-65"
-            )}
+            color={tw.color(isDarkMode ? "backgroundLight-light" : "black-65")}
             id={"users"}
           />
         </LinedText>

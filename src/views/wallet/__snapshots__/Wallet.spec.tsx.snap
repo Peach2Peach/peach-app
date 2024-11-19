@@ -99,11 +99,13 @@ exports[`Wallet should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -352,19 +354,13 @@ exports[`Wallet should render correctly 1`] = `
                     style={
                       [
                         {
-                          "color": "#2B1911",
                           "fontFamily": "Baloo2-Regular",
                           "fontSize": 16,
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
                         {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "textAlign": "center",
-                          "textTransform": "uppercase",
+                          "color": "#2B1911",
                         },
                         false,
                       ]
@@ -499,11 +495,13 @@ exports[`Wallet should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             [
                               {
@@ -530,11 +528,13 @@ exports[`Wallet should render correctly 1`] = `
                         style={
                           [
                             {
-                              "color": "#2B1911",
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 16,
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
+                            },
+                            {
+                              "color": "#2B1911",
                             },
                             [
                               {
@@ -561,11 +561,13 @@ exports[`Wallet should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -704,11 +706,13 @@ exports[`Wallet should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -786,11 +790,13 @@ exports[`Wallet should render correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#2B1911",
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 16,
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
+                  },
+                  {
+                    "color": "#2B1911",
                   },
                   [
                     {
@@ -859,18 +865,13 @@ exports[`Wallet should render correctly when loading 1`] = `
     style={
       [
         {
-          "color": "#2B1911",
           "fontFamily": "Baloo2-Regular",
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
         {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-          "textAlign": "center",
+          "color": "#2B1911",
         },
         false,
       ]

@@ -5,7 +5,7 @@ exports[`Settings should highlight backups if backup reminder is shown 1`] = `
 - First value
 + Second value
 
-@@ -692,22 +692,20 @@
+@@ -709,22 +709,20 @@
                                 "fontSize": 20,
                                 "letterSpacing": 0.2,
                                 "lineHeight": 32,
@@ -131,11 +131,13 @@ exports[`Settings should render correctly 1`] = `
             style={
               [
                 {
-                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
+                },
+                {
+                  "color": "#2B1911",
                 },
                 [
                   {
@@ -267,11 +269,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -348,11 +352,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -429,11 +435,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -476,11 +484,13 @@ exports[`Settings should render correctly 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#F56522",
@@ -552,11 +562,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -633,11 +645,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -714,11 +728,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -795,11 +811,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -876,11 +894,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -957,11 +977,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1004,11 +1026,13 @@ exports[`Settings should render correctly 1`] = `
                   style={
                     [
                       {
-                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 16,
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#2B1911",
                       },
                       {
                         "color": "#F56522",
@@ -1080,11 +1104,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1161,11 +1187,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1242,11 +1270,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1323,11 +1353,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1404,11 +1436,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1485,11 +1519,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1566,11 +1602,13 @@ exports[`Settings should render correctly 1`] = `
                       style={
                         [
                           {
-                            "color": "#2B1911",
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           [
                             {
@@ -1612,11 +1650,13 @@ exports[`Settings should render correctly 1`] = `
                 style={
                   [
                     {
-                      "color": "#2B1911",
                       "fontFamily": "Baloo2-Regular",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
+                    },
+                    {
+                      "color": "#2B1911",
                     },
                     [
                       {

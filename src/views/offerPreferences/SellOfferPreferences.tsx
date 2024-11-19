@@ -33,7 +33,7 @@ import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { useThemeStore } from "../../store/theme"; // Import theme store to check dark mode
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -195,7 +195,7 @@ function AmountSelectorContainer({
   slider?: JSX.Element;
   inputs?: JSX.Element;
 }) {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
       style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
@@ -390,7 +390,7 @@ function FiatInput() {
     ? inputValue
     : priceFormat(fiatPrice);
 
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View
@@ -403,8 +403,8 @@ function FiatInput() {
         style={[
           tw.style(textStyle),
           isDarkMode
-            ? tw`text-backgroundLight-light bg-transparent`
-            : tw`text-black-100 bg-white`, // Conditionally apply styles for light/dark mode
+            ? tw`bg-transparent text-backgroundLight-light`
+            : tw`bg-white text-black-100`,
         ]}
         ref={inputRef}
         value={displayValue}
@@ -428,7 +428,7 @@ function FiatInput() {
 
 function FundMultipleOffersContainer() {
   const setPopup = useSetPopup();
-  // Access dark mode state
+
   const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
@@ -482,7 +482,7 @@ function InstantTrade() {
     }
     toggle();
   };
-  // Access dark mode state
+
   const { isDarkMode } = useThemeStore();
 
   return (
@@ -833,7 +833,7 @@ function RefundWalletSelector() {
 function SellHeader() {
   const setPopup = useSetPopup();
   const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
-  // Access dark mode state
+
   const { isDarkMode } = useThemeStore();
   return (
     <Header

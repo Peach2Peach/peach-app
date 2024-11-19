@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import { shallow } from "zustand/shallow";
-import { useThemeStore } from "../../store/theme"; // Import theme store for dark mode check
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { DrawerHeader } from "./components/DrawerHeader";
 import { DrawerOptions } from "./components/DrawerOptions";
@@ -31,7 +31,7 @@ export const Drawer = () => {
   const { height } = useWindowDimensions();
   const slideAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   useEffect(() => {
     const showAnimations = [
@@ -93,14 +93,14 @@ export const Drawer = () => {
         style={[
           tw`absolute w-full h-full`,
           { opacity: fadeAnim },
-          isDarkMode ? tw`bg-card` : tw`bg-black-100`, // Conditional background for dark mode
+          isDarkMode ? tw`bg-card` : tw`bg-black-100`,
         ]}
       />
       <Animated.View
         style={[
           tw`px-4 py-6 mt-auto rounded-t-3xl`,
           { maxHeight: slideAnim },
-          isDarkMode ? tw`bg-card` : tw`bg-primary-background-light-color`, // Conditional background for dark mode
+          isDarkMode ? tw`bg-card` : tw`bg-primary-background-light-color`,
         ]}
       >
         <DrawerHeader closeDrawer={closeDrawer} />

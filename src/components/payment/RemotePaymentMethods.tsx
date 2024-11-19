@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { IconType } from "../../assets/icons";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
-import { useThemeStore } from "../../store/theme"; // Import to access dark mode state
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -59,7 +59,7 @@ export const RemotePaymentMethods = ({
   select,
   isSelected,
 }: Props) => {
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
   const paymentData = usePaymentDataStore((state) =>
     state.getPaymentDataArray(),
   );
@@ -76,7 +76,7 @@ export const RemotePaymentMethods = ({
     <PeachText
       style={tw.style(
         `text-center h6`,
-        isDarkMode ? "text-backgroundLight-light" : "text-black-50"
+        isDarkMode ? "text-backgroundLight-light" : "text-black-50",
       )}
     >
       {i18n("paymentMethod.empty")}
@@ -101,7 +101,7 @@ export const RemotePaymentMethods = ({
               <PeachText
                 style={tw.style(
                   `mr-1 h6`,
-                  isDarkMode ? "text-backgroundLight-light" : "text-black-65"
+                  isDarkMode ? "text-backgroundLight-light" : "text-black-65",
                 )}
               >
                 {i18n(`paymentCategory.${category}`)}
@@ -109,7 +109,7 @@ export const RemotePaymentMethods = ({
               {paymentCategoryIcons[category] !== "" && (
                 <Icon
                   color={tw.color(
-                    isDarkMode ? "backgroundLight-light" : "black-65"
+                    isDarkMode ? "backgroundLight-light" : "black-65",
                   )}
                   id={paymentCategoryIcons[category] as IconType}
                 />
@@ -143,7 +143,7 @@ export const RemotePaymentMethods = ({
                     <Icon
                       id="trash"
                       color={tw.color(
-                        isDarkMode ? "backgroundLight-light" : "black-65"
+                        isDarkMode ? "backgroundLight-light" : "black-65",
                       )}
                     />
                   </TouchableOpacity>

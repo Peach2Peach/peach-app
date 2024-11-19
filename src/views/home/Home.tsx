@@ -13,7 +13,7 @@ import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { useThemeStore } from "../../store/theme"; // Import theme store
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
@@ -22,7 +22,7 @@ import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
-  const { isDarkMode } = useThemeStore(); // Access the dark mode state
+  const { isDarkMode } = useThemeStore();
   return (
     <Screen showTradingLimit header={<Header showPriceStats />}>
       <View style={tw`items-center flex-1 gap-10px`}>
@@ -135,7 +135,7 @@ function useOfferStats() {
 
 function MarketStats() {
   const { data } = useOfferStats();
-  const { isDarkMode } = useThemeStore(); // Access dark mode state
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
