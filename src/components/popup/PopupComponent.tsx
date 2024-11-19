@@ -18,24 +18,19 @@ export const PopupComponent = ({
   title,
   bgColor,
   actionBgColor,
-  textColor = "text-black-100",
 }: PopupComponentProps) => (
   <View style={tw`mx-3 overflow-hidden rounded-2xl`}>
     <PopupContent style={[bgColor, tw`items-stretch`]}>
-      {!!title && <PopupTitle text={title} textColor={textColor} />}
+      {!!title && <PopupText style={tw`w-full h5`}>{title}</PopupText>};
       {typeof content === "string" ? (
-        <PopupText style={tw`${textColor}`}>{content}</PopupText>
+        <PopupText>{content}</PopupText>
       ) : (
-        <View style={tw`${textColor}`}>{content}</View>
+        <View>{content}</View>
       )}
     </PopupContent>
     <PopupActions style={actionBgColor}>{actions}</PopupActions>
   </View>
 );
-
-function PopupTitle({ text, textColor }: { text: string; textColor: string }) {
-  return <PopupText style={tw`w-full h5 ${textColor}`}>{text}</PopupText>;
-}
 
 type ContentProps = {
   children: React.ReactNode;

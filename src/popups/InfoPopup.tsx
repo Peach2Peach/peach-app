@@ -24,7 +24,6 @@ export function InfoPopup(
       }
       bgColor={tw`bg-info-background`}
       actionBgColor={tw`bg-info-light`}
-      textColor="text-black-100"
     />
   );
 }
