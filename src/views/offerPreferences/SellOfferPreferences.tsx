@@ -432,7 +432,7 @@ function FundMultipleOffersContainer() {
   const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
     >
       <FundMultipleOffers />
       <TouchableIcon

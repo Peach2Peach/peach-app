@@ -23,7 +23,7 @@ export const SatsInputComponent = forwardRef<TextInput, TextInputProps>(
         ]}
         textStyle={[
           tw.style(
-            `text-center subtitle-1 leading-relaxed py-1px ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`,
+            `text-center subtitle-1 leading-relaxed py-1px ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} android:h-7`,
           ),
           tw`absolute w-full opacity-0`,
         ]}
