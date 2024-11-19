@@ -271,7 +271,9 @@ exports[`ContractItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -304,7 +306,9 @@ exports[`ContractItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -334,7 +338,9 @@ exports[`ContractItem should render correctly 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1005,7 +1011,9 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1038,7 +1046,9 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1068,7 +1078,9 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1395,7 +1407,9 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1428,7 +1442,9 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1458,7 +1474,9 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1906,7 +1924,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1939,7 +1959,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1969,7 +1991,9 @@ exports[`OfferItem should render correctly 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -2099,7 +2123,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2132,7 +2158,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2162,7 +2190,9 @@ exports[`OfferItem should render correctly 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -2526,7 +2556,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2559,7 +2591,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2589,7 +2623,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -2719,7 +2755,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2752,7 +2790,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2782,7 +2822,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]

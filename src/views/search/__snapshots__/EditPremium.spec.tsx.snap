@@ -495,7 +495,9 @@ exports[`EditPremium should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                           ],
                           false,
@@ -528,7 +530,9 @@ exports[`EditPremium should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                           ],
                           false,
@@ -558,7 +562,9 @@ exports[`EditPremium should render correctly 1`] = `
                             "marginBottom": -10,
                             "marginTop": -10,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                         false,
                       ]

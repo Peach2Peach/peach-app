@@ -522,7 +522,9 @@ exports[`Wallet should render correctly 1`] = `
                                   "fontSize": 20,
                                   "letterSpacing": 0.2,
                                 },
-                                false,
+                                {
+                                  "color": "#2B1911",
+                                },
                               ],
                             ],
                             false,
@@ -552,7 +554,9 @@ exports[`Wallet should render correctly 1`] = `
                                   "fontSize": 20,
                                   "letterSpacing": 0.2,
                                 },
-                                false,
+                                {
+                                  "color": "#2B1911",
+                                },
                               ],
                             ],
                             false,
@@ -579,7 +583,9 @@ exports[`Wallet should render correctly 1`] = `
                               "fontSize": 20,
                               "letterSpacing": 0.2,
                             },
-                            false,
+                            {
+                              "color": "#2B1911",
+                            },
                           ],
                           false,
                         ]

@@ -271,7 +271,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                               "marginBottom": -13,
                               "marginTop": -13,
                             },
-                            false,
+                            {
+                              "color": "#2B1911",
+                            },
                           ],
                         ],
                         false,
@@ -304,7 +306,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                               "marginBottom": -13,
                               "marginTop": -13,
                             },
-                            false,
+                            {
+                              "color": "#2B1911",
+                            },
                           ],
                         ],
                         false,
@@ -334,7 +338,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                           "marginBottom": -13,
                           "marginTop": -13,
                         },
-                        false,
+                        {
+                          "color": "#2B1911",
+                        },
                       ],
                       false,
                     ]
@@ -909,7 +915,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                               "marginBottom": -13,
                               "marginTop": -13,
                             },
-                            false,
+                            {
+                              "color": "#2B1911",
+                            },
                           ],
                         ],
                         false,
@@ -942,7 +950,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                               "marginBottom": -13,
                               "marginTop": -13,
                             },
-                            false,
+                            {
+                              "color": "#2B1911",
+                            },
                           ],
                         ],
                         false,
@@ -972,7 +982,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                           "marginBottom": -13,
                           "marginTop": -13,
                         },
-                        false,
+                        {
+                          "color": "#2B1911",
+                        },
                       ],
                       false,
                     ]

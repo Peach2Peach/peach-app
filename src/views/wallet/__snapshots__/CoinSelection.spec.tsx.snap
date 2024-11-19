@@ -372,7 +372,9 @@ exports[`CoinSelection renders correctly 1`] = `
                                     "marginBottom": -13,
                                     "marginTop": -13,
                                   },
-                                  false,
+                                  {
+                                    "color": "#2B1911",
+                                  },
                                 ],
                               ],
                               false,
@@ -405,7 +407,9 @@ exports[`CoinSelection renders correctly 1`] = `
                                     "marginBottom": -13,
                                     "marginTop": -13,
                                   },
-                                  false,
+                                  {
+                                    "color": "#2B1911",
+                                  },
                                 ],
                               ],
                               false,
@@ -435,7 +439,9 @@ exports[`CoinSelection renders correctly 1`] = `
                                 "marginBottom": -13,
                                 "marginTop": -13,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                             false,
                           ]
@@ -706,7 +712,7 @@ exports[`CoinSelection selects coins 1`] = `
 - First value
 + Second value
 
-@@ -527,11 +527,11 @@
+@@ -533,11 +533,11 @@
                       }
                     }
                     testID="checkbox"

@@ -123,7 +123,9 @@ exports[`BTCAmountInput renders correctly 1`] = `
                     "marginBottom": -13,
                     "marginTop": -13,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
               ],
               false,
@@ -156,7 +158,9 @@ exports[`BTCAmountInput renders correctly 1`] = `
                     "marginBottom": -13,
                     "marginTop": -13,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
               ],
               false,
@@ -186,7 +190,9 @@ exports[`BTCAmountInput renders correctly 1`] = `
                 "marginBottom": -13,
                 "marginTop": -13,
               },
-              false,
+              {
+                "color": "#2B1911",
+              },
             ],
             false,
           ]
