@@ -38,9 +38,9 @@ export function useRemovePaymentData() {
     },
     onSuccess: (dataToBeRemoved) => {
       if (preferredPaymentMethods[dataToBeRemoved.type]) {
-        const nextInLine = Object.values(paymentData)
-          .filter((data) => data.type === dataToBeRemoved.type)
-          .shift();
+        const nextInLine = Object.values(paymentData).find(
+          (data) => data.type === dataToBeRemoved.type,
+        );
         const newPaymentMethods = { ...preferredPaymentMethods };
         if (nextInLine?.id) {
           newPaymentMethods[dataToBeRemoved.type] = nextInLine.id;
