@@ -1,4 +1,6 @@
+import { ReactNode, useMemo } from "react";
 import { View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
@@ -6,44 +8,36 @@ import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePayme
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { keys } from "../../../utils/object/keys";
-import { getPaymentMethods } from "../../../utils/paymentMethod/getPaymentMethods";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
-import { paymentMethodAllowedForCurrency } from "../../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { NewBubble as Bubble } from "../../bubble/Bubble";
 import { useDrawerState } from "../../drawer/useDrawerState";
 import { CurrencySelection } from "../../navigation/CurrencySelection";
 import { PulsingText } from "./PulsingText";
 
 type Props = {
-  match: Match;
+  meansOfPayment: MeansOfPayment;
   disabled: boolean;
   selectedCurrency: Currency;
   setSelectedCurrency: (currency: Currency) => void;
   selectedPaymentData: PaymentData | undefined;
   setSelectedPaymentData: (paymentMethod?: PaymentData) => void;
   showPaymentMethodPulse: boolean;
+  selectedMethodInfo: ReactNode;
 };
 
 export function PaymentMethodSelector({
-  match,
   disabled,
   selectedCurrency,
   setSelectedCurrency,
   selectedPaymentData,
   setSelectedPaymentData,
   showPaymentMethodPulse,
+  selectedMethodInfo,
+  meansOfPayment,
 }: Props) {
-  const {
-    selectedCurrency: matchCurrency,
-    selectedPaymentMethod: matchPaymentMethod,
-    meansOfPayment,
-  } = match;
   const availableCurrencies = keys(meansOfPayment);
+  const allPaymentMethods = meansOfPayment[selectedCurrency];
 
-  const allPaymentMethods = getPaymentMethods(meansOfPayment);
-  const availablePaymentMethods = allPaymentMethods.filter((p) =>
-    paymentMethodAllowedForCurrency(p, selectedCurrency),
-  );
   const { data: meetupEvents } = useMeetupEvents();
   const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
     if (isCashTrade(paymentMethod)) {
@@ -53,21 +47,20 @@ export function PaymentMethodSelector({
     }
     return i18n(`paymentMethod.${paymentMethod}`);
   };
-  const items = availablePaymentMethods.map((p) => ({
+  const items = allPaymentMethods?.map((p) => ({
     value: p,
     display: getPaymentMethodName(p),
   }));
 
-  const accountPaymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+  const accountPaymentData = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
 
   const onCurrencyChange = (currency: Currency) => {
-    const allMethodsForCurrency = allPaymentMethods.filter((p) =>
-      paymentMethodAllowedForCurrency(p, currency),
-    );
+    const allMethodsForCurrency = meansOfPayment[currency];
     const dataForCurrency = accountPaymentData.filter((d) =>
-      allMethodsForCurrency.includes(d.type),
+      allMethodsForCurrency?.includes(d.type),
     );
     const newData =
       dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
@@ -85,37 +78,15 @@ export function PaymentMethodSelector({
       </PulsingText>
 
       <View style={tw`gap-3 pb-2`}>
-        {match.matched ? (
-          <>
-            {matchCurrency && matchPaymentMethod && (
-              <>
-                <CurrencySelection
-                  currencies={[matchCurrency]}
-                  selected={matchCurrency}
-                />
-                <CustomSelector
-                  selectedValue={matchPaymentMethod}
-                  selectedCurrency={matchCurrency}
-                  items={[
-                    {
-                      value: matchPaymentMethod,
-                      display: getPaymentMethodName(matchPaymentMethod),
-                    },
-                  ]}
-                />
-              </>
-            )}
-          </>
-        ) : (
+        {selectedMethodInfo || (
           <>
             <CurrencySelection
-              currencies={availableCurrencies}
               selected={selectedCurrency}
+              currencies={availableCurrencies}
               select={onCurrencyChange}
             />
             <CustomSelector
               selectedCurrency={selectedCurrency}
-              selectedValue={selectedPaymentData?.type}
               selectedPaymentData={selectedPaymentData}
               onPress={setSelectedPaymentData}
               items={items}
@@ -128,8 +99,7 @@ export function PaymentMethodSelector({
 }
 
 type SelectorProps = {
-  items: { value: PaymentMethod; display: React.ReactNode }[];
-  selectedValue?: PaymentMethod;
+  items: { value: PaymentMethod; display: React.ReactNode }[] | undefined;
   selectedPaymentData?: PaymentData;
   selectedCurrency: Currency;
   onPress?: (value: PaymentData) => void;
@@ -137,19 +107,17 @@ type SelectorProps = {
 
 function CustomSelector({
   items,
-  selectedValue,
   selectedCurrency,
   selectedPaymentData,
   onPress,
 }: SelectorProps) {
   return (
     <View style={tw`flex-row flex-wrap justify-center gap-1`}>
-      {items.map(({ value, display }, i) => (
+      {items?.map(({ value, display }, i) => (
         <PayementMethodBubble
           key={`selector-item-${value}-${i}`}
           paymentMethod={value}
           onPress={onPress}
-          isSelected={value === selectedValue}
           selectedPaymentData={selectedPaymentData}
           selectedCurrency={selectedCurrency}
         >
@@ -165,7 +133,6 @@ type PaymentMethodBubbleProps = {
   selectedPaymentData?: PaymentData;
   selectedCurrency: Currency;
   children: React.ReactNode;
-  isSelected: boolean;
   onPress?: (value: PaymentData) => void;
 };
 
@@ -174,15 +141,17 @@ function PayementMethodBubble({
   selectedPaymentData,
   selectedCurrency,
   children,
-  isSelected,
   onPress,
 }: PaymentMethodBubbleProps) {
-  const getAllPaymentDataByType = usePaymentDataStore(
-    (state) => state.getAllPaymentDataByType,
+  const paymentDataRecord = usePaymentDataStore((state) => state.paymentData);
+  const paymentDataForType = useMemo(
+    () =>
+      Object.values(paymentDataRecord).filter((p) => p.type === paymentMethod),
+    [paymentDataRecord, paymentMethod],
   );
-  const paymentDataForType = getAllPaymentDataByType(paymentMethod);
   const hasPaymentData = paymentDataForType.length > 0;
   const hasMultiplePaymentData = paymentDataForType.length > 1;
+  const isSelected = selectedPaymentData?.type === paymentMethod;
   const iconId: IconType = isSelected
     ? "checkSquare"
     : hasPaymentData

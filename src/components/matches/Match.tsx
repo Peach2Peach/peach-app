@@ -26,10 +26,10 @@ import { decryptSymmetricKey } from "../../views/contract/helpers/decryptSymmetr
 import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { Icon } from "../Icon";
 import { ProfileInfo } from "../ProfileInfo";
-import { NewBubble as Bubble } from "../bubble/Bubble";
 import { useSetPopup } from "../popup/GlobalPopup";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
+import { PaymentDetail } from "./PaymentDetail";
 import { options } from "./buttons/options";
 import { PriceInfo } from "./components/PriceInfo";
 import { getPremiumOfMatchedOffer } from "./getPremiumOfMatchedOffer";
@@ -136,17 +136,6 @@ function CashPaymentDetail({ method }: { method: `cash.${string}` }) {
 
   return (
     <PaymentDetail label={i18n("match.selectedPaymentMethod")} value={value} />
-  );
-}
-
-function PaymentDetail({ label, value }: { label: string; value?: string }) {
-  return (
-    <View style={tw`flex-row justify-between`}>
-      <PeachText style={tw`text-black-65`}>{label}</PeachText>
-      <Bubble disabled color="black" ghost>
-        {value}
-      </Bubble>
-    </View>
   );
 }
 

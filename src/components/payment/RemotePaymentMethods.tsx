@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { IconType } from "../../assets/icons";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
@@ -58,8 +59,9 @@ export const RemotePaymentMethods = ({
   select,
   isSelected,
 }: Props) => {
-  const paymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+  const paymentData = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
   const [, setRandom] = useState(0);
   const { mutate: removePaymentData } = useRemovePaymentData();
