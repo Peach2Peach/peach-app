@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { shallow } from "zustand/shallow";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import i18n from "../../../utils/i18n";
@@ -9,8 +10,9 @@ import { useSetToast } from "../../toast/Toast";
 export const useHandleMissingPaymentData = () => {
   const navigation = useStackNavigation();
   const setToast = useSetToast();
-  const getAllPaymentDataByType = usePaymentDataStore(
-    (state) => state.getAllPaymentDataByType,
+  const paymentMethods = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
 
   const openAddPaymentMethodDialog = useCallback(
@@ -20,7 +22,7 @@ export const useHandleMissingPaymentData = () => {
       paymentMethod: PaymentMethod,
     ) => {
       const existingPaymentMethodsOfType =
-        getAllPaymentDataByType(paymentMethod).length + 1;
+        paymentMethods.filter(({ type }) => type === paymentMethod).length + 1;
       const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`;
 
       navigation.push("paymentMethodForm", {
@@ -35,7 +37,7 @@ export const useHandleMissingPaymentData = () => {
         origin: isBuyOffer(offer) ? "matchDetails" : "search",
       });
     },
-    [getAllPaymentDataByType, navigation],
+    [navigation, paymentMethods],
   );
 
   const handleMissingPaymentData = useCallback(

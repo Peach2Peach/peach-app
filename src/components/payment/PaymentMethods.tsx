@@ -118,7 +118,8 @@ function PaymentMethodsHeader({ isEditing, toggleIsEditing }: Props) {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<PaymentMethodsPopup />);
   const hasPaymentMethods = usePaymentDataStore(
-    (state) => state.getPaymentDataArray().length !== 0,
+    (state) => Object.values(state.paymentData).length !== 0,
+    shallow,
   );
 
   return (

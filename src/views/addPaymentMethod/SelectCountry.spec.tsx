@@ -8,6 +8,8 @@ import { setPaymentMethods } from "../../paymentMethods";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import { SelectCountry } from "./SelectCountry";
 
+jest.useFakeTimers();
+
 describe("SelectCountry", () => {
   beforeAll(() => {
     setPaymentMethods([

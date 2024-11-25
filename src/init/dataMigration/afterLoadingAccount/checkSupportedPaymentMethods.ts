@@ -8,7 +8,7 @@ export const checkSupportedPaymentMethods = async (
   paymentInfo: PaymentMethodInfo[],
 ) => {
   await waitForHydration(usePaymentDataStore);
-  const paymentData = usePaymentDataStore.getState().getPaymentDataArray();
+  const paymentData = Object.values(usePaymentDataStore.getState().paymentData);
   const updatedPaymentData = paymentData.map((data) => ({
     ...data,
     hidden: !paymentInfo.some((info) => data.type === info.id),

@@ -1,6 +1,4 @@
 import {
-  paypalData,
-  revolutData,
   twintData,
   validSEPAData,
   validSEPAData2,
@@ -12,22 +10,11 @@ describe("usePaymentDataStore", () => {
     expect(usePaymentDataStore.getState()).toEqual({
       addPaymentData: expect.any(Function),
       setPaymentDataHidden: expect.any(Function),
-      getPaymentData: expect.any(Function),
-      getPaymentDataByLabel: expect.any(Function),
-      getAllPaymentDataByType: expect.any(Function),
-      getPaymentDataArray: expect.any(Function),
-      searchPaymentData: expect.any(Function),
       removePaymentData: expect.any(Function),
-      migrated: false,
       paymentData: {},
       paymentDetailInfo: {},
       reset: expect.any(Function),
-      setMigrated: expect.any(Function),
     });
-  });
-  it("sets migrated to true", () => {
-    usePaymentDataStore.getState().setMigrated();
-    expect(usePaymentDataStore.getState().migrated).toBeTruthy();
   });
   it("adds payment data", () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData);
@@ -75,17 +62,17 @@ describe("usePaymentDataStore", () => {
   });
   it("updates `hidden` on the payment data", () => {
     expect(
-      usePaymentDataStore.getState().getPaymentData(validSEPAData.id)?.hidden,
+      usePaymentDataStore.getState().paymentData[validSEPAData.id]?.hidden,
     ).toBeFalsy();
     usePaymentDataStore.getState().setPaymentDataHidden(validSEPAData.id, true);
     expect(
-      usePaymentDataStore.getState().getPaymentData(validSEPAData.id)?.hidden,
+      usePaymentDataStore.getState().paymentData[validSEPAData.id]?.hidden,
     ).toBeTruthy();
     usePaymentDataStore
       .getState()
       .setPaymentDataHidden(validSEPAData.id, false);
     expect(
-      usePaymentDataStore.getState().getPaymentData(validSEPAData.id)?.hidden,
+      usePaymentDataStore.getState().paymentData[validSEPAData.id]?.hidden,
     ).toBeFalsy();
   });
   it("does not updated `hidden` on the payment data that does not exist", () => {
@@ -93,52 +80,19 @@ describe("usePaymentDataStore", () => {
     usePaymentDataStore.getState().setPaymentDataHidden("otherId", true);
     expect(usePaymentDataStore.getState().paymentData).toEqual(snapshot);
   });
-  it("returns payment data as array", () => {
-    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([
-      validSEPAData,
-      twintData,
-      validSEPAData2,
-    ]);
-  });
   it("returns payment data by id", () => {
     expect(
-      usePaymentDataStore.getState().getPaymentData(validSEPAData.id),
+      usePaymentDataStore.getState().paymentData[validSEPAData.id],
     ).toEqual(validSEPAData);
   });
   it("returns undefined if payment data id does not exist", () => {
     expect(
-      usePaymentDataStore.getState().getPaymentData("not-existent"),
+      usePaymentDataStore.getState().paymentData["not-existent"],
     ).toBeUndefined();
-  });
-  it("returns data by label", () => {
-    expect(
-      usePaymentDataStore.getState().getPaymentDataByLabel(validSEPAData.label),
-    ).toEqual(validSEPAData);
-    expect(
-      usePaymentDataStore.getState().getPaymentDataByLabel(twintData.label),
-    ).toEqual(twintData);
-  });
-  it("returns undefined if payment data for label does not exist", () => {
-    expect(
-      usePaymentDataStore.getState().getPaymentDataByLabel("not-existent"),
-    ).toBeUndefined();
-  });
-  it("returns all data by type", () => {
-    expect(
-      usePaymentDataStore.getState().getAllPaymentDataByType("sepa"),
-    ).toEqual([validSEPAData, validSEPAData2]);
-    expect(
-      usePaymentDataStore.getState().getAllPaymentDataByType("twint"),
-    ).toEqual([twintData]);
-  });
-  it("returns empty array if no data exists for type", () => {
-    expect(
-      usePaymentDataStore.getState().getAllPaymentDataByType("blik"),
-    ).toEqual([]);
   });
   it("removes payment data and associated hashes", () => {
     usePaymentDataStore.getState().removePaymentData(twintData.id);
-    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([
+    expect(Object.values(usePaymentDataStore.getState().paymentData)).toEqual([
       validSEPAData,
       validSEPAData2,
     ]);
@@ -154,18 +108,5 @@ describe("usePaymentDataStore", () => {
     const snapshot = usePaymentDataStore.getState().paymentData;
     usePaymentDataStore.getState().removePaymentData("otherId");
     expect(usePaymentDataStore.getState().paymentData).toEqual(snapshot);
-  });
-  it("searches for payment data by given information", () => {
-    usePaymentDataStore.getState().addPaymentData(twintData);
-    usePaymentDataStore.getState().addPaymentData(revolutData);
-    usePaymentDataStore.getState().addPaymentData(paypalData);
-
-    const query = {
-      iban: validSEPAData.iban,
-    };
-    expect(usePaymentDataStore.getState().searchPaymentData(query)).toEqual([
-      validSEPAData,
-      validSEPAData2,
-    ]);
   });
 });

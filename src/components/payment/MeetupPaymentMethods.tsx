@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -30,8 +31,9 @@ export const MeetupPaymentMethods = ({
   select,
   isSelected,
 }: Props) => {
-  const paymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+  const paymentData = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
 
   return (

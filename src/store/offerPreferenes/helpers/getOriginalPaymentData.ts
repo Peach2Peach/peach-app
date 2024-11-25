@@ -6,5 +6,5 @@ export const getOriginalPaymentData = (
   paymentMethods: Partial<Record<PaymentMethod, string>>,
 ) =>
   getSelectedPaymentDataIds(paymentMethods)
-    .map(usePaymentDataStore.getState().getPaymentData)
+    .map((id) => usePaymentDataStore.getState().paymentData[id])
     .filter(isDefined);
