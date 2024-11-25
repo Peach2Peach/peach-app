@@ -45,8 +45,8 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.5",
-    "@react-native-clipboard/clipboard": "^1.14.0",
-    "@react-native-community/cli-platform-android": "^12.3.6",
+    "@react-native-clipboard/clipboard": "^1.14.3",
+    "@react-native-community/cli-platform-android": "15.0.0",
     "@react-native-community/netinfo": "^11.3.0",
     "@react-native-cookies/cookies": "^6.2.1",
     "@react-native-firebase/analytics": "^18.9.0",
