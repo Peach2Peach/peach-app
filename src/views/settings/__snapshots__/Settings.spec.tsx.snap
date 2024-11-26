@@ -5,7 +5,7 @@ exports[`Settings should highlight backups if backup reminder is shown 1`] = `
 - First value
 + Second value
 
-@@ -693,22 +693,20 @@
+@@ -701,22 +701,20 @@
                                 "fontSize": 20,
                                 "letterSpacing": 0.2,
                                 "lineHeight": 32,
@@ -138,6 +138,7 @@ exports[`Settings should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -274,6 +275,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -355,6 +357,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -436,6 +439,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -483,6 +487,7 @@ exports[`Settings should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
                         "color": "#F56522",
                         "fontFamily": "Baloo2-Bold",
@@ -559,6 +564,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -640,6 +646,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -721,6 +728,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -802,6 +810,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -883,6 +892,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -964,6 +974,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1011,6 +1022,7 @@ exports[`Settings should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
                         "color": "#F56522",
                         "fontFamily": "Baloo2-Bold",
@@ -1087,6 +1099,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1168,6 +1181,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1249,6 +1263,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1330,6 +1345,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1411,6 +1427,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1492,6 +1509,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1573,6 +1591,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1654,6 +1673,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1700,6 +1720,7 @@ exports[`Settings should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "color": "#9F8C82",

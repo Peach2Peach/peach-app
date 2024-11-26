@@ -60,6 +60,7 @@ exports[`NewButton should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           {
             "fontFamily": "Baloo2-SemiBold",
@@ -144,7 +145,7 @@ exports[`NewButton should render correctly with icon 1`] = `
 - First value
 + Second value
 
-@@ -74,6 +74,18 @@
+@@ -75,6 +75,18 @@
         ]
       }
     >

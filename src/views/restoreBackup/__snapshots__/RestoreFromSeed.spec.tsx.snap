@@ -41,6 +41,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "color": "#FFFCFA",
                 "textAlign": "center",
@@ -62,6 +63,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "color": "#FFFCFA",
                 "fontFamily": "Baloo2-SemiBold",
@@ -186,6 +188,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -299,6 +302,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -412,6 +416,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -525,6 +530,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -638,6 +644,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -751,6 +758,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -874,6 +882,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -987,6 +996,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -1100,6 +1110,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -1213,6 +1224,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -1326,6 +1338,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -1439,6 +1452,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Medium",
@@ -1524,6 +1538,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",

@@ -106,6 +106,7 @@ exports[`ExportTradeHistory should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -194,6 +195,7 @@ exports[`ExportTradeHistory should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
@@ -274,6 +276,7 @@ exports[`ExportTradeHistory should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",

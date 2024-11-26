@@ -5,7 +5,7 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
 - First value
 + Second value
 
-@@ -61,11 +61,11 @@
+@@ -62,11 +62,11 @@
       >
         total balance
         :
@@ -18,7 +18,7 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
             "busy": undefined,
             "checked": undefined,
             "disabled": undefined,
-@@ -111,9 +111,9 @@
+@@ -112,9 +112,9 @@
         />
       </View>
     </View>
@@ -76,6 +76,7 @@ exports[`TotalBalance renders correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",
@@ -173,7 +174,7 @@ exports[`TotalBalance renders correctly when isRefreshing is true 1`] = `
     >
       <View
         style={
-@@ -109,11 +111,25 @@
+@@ -110,11 +112,25 @@
             ]
           }
         />

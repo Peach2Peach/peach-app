@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
@@ -32,8 +33,9 @@ export const MeetupPaymentMethods = ({
   isSelected,
 }: Props) => {
   const { isDarkMode } = useThemeStore();
-  const paymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+  const paymentData = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
 
   return (

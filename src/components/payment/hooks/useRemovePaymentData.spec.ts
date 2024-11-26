@@ -42,10 +42,9 @@ describe("removePaymentData", () => {
     const { result } = renderHook(useRemovePaymentData);
     await act(() => result.current.mutate(validSEPAData.id));
     await waitFor(() => {
-      expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([
-        validSEPAData2,
-        twintData,
-      ]);
+      expect(Object.values(usePaymentDataStore.getState().paymentData)).toEqual(
+        [validSEPAData2, twintData],
+      );
       expect(deletePaymentHashMock).toHaveBeenCalledWith({
         hashes: validSEPADataHashes,
       });
@@ -109,7 +108,7 @@ describe("removePaymentData", () => {
     });
     await waitFor(() => {
       expect(
-        usePaymentDataStore.getState().getPaymentData(validSEPAData.id),
+        usePaymentDataStore.getState().paymentData[validSEPAData.id],
       ).toEqual(validSEPAData);
     });
 
@@ -119,7 +118,7 @@ describe("removePaymentData", () => {
     });
     await waitFor(() => {
       expect(
-        usePaymentDataStore.getState().getPaymentData(validSEPAData.id),
+        usePaymentDataStore.getState().paymentData[validSEPAData.id],
       ).toEqual(validSEPAData);
     });
   });
@@ -130,7 +129,7 @@ describe("removePaymentData", () => {
       ...responseUtils,
     });
     expect(
-      usePaymentDataStore.getState().getPaymentData(validSEPAData.id),
+      usePaymentDataStore.getState().paymentData[validSEPAData.id],
     ).not.toBeUndefined();
     const { result } = renderHook(useRemovePaymentData);
     act(() => {
@@ -138,7 +137,7 @@ describe("removePaymentData", () => {
     });
     await waitFor(() => {
       expect(
-        usePaymentDataStore.getState().getPaymentData(validSEPAData.id),
+        usePaymentDataStore.getState().paymentData[validSEPAData.id],
       ).toBeUndefined();
     });
   });

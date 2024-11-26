@@ -54,6 +54,7 @@ exports[`InfoFrame renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#2B1911",
         },

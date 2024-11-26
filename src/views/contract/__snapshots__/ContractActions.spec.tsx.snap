@@ -84,6 +84,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -178,6 +179,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -291,6 +293,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -389,6 +392,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -497,6 +501,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -595,6 +600,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {

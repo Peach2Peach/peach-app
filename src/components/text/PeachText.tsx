@@ -9,7 +9,7 @@ export const PeachText = ({ style, ...props }: TextProps) => {
   return (
     <Text
       style={[
-        tw`body-m text-black-100 `,
+        tw`body-m text-black-100`,
         isDarkMode && tw`text-backgroundLight-light`,
         style,
         shouldNormalCase(style) && tw`normal-case`,

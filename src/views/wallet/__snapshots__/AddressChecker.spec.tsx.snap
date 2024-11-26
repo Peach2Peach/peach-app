@@ -106,6 +106,7 @@ exports[`AddressChecker should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -237,6 +238,7 @@ exports[`AddressChecker should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   {
                     "color": "#2B1911",
                   },
@@ -449,6 +451,7 @@ exports[`AddressChecker should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "fontFamily": "Baloo2-Medium",
@@ -490,7 +493,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 - First value
 + Second value
 
-@@ -316,22 +316,22 @@
+@@ -318,22 +318,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -515,15 +518,15 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -466,16 +466,63 @@
-                 
+@@ -470,15 +470,63 @@
               </Text>
             </View>
             <View>
               <View
-+               style={
+                style={
 +                 Array [
-+                   Object {
+                    Object {
+-                   "height": 24,
 +                     "alignItems": "center",
 +                     "alignSelf": "stretch",
 +                     "flexDirection": "row",
@@ -536,16 +539,16 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 +             >
 +               <Text
 +                 allowFontScaling={false}
-                  style={
++                 style={
 +                   Array [
-                      Object {
--                   "height": 24,
++                     Object {
 +                       "color": "#2B1911",
 +                       "fontFamily": "Baloo2-Regular",
 +                       "fontSize": 16,
 +                       "letterSpacing": 0.16,
 +                       "lineHeight": 24,
 +                     },
++                     false,
 +                     Array [
 +                       Object {
 +                         "fontFamily": "Baloo2-SemiBold",
@@ -587,7 +590,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
 - First value
 + Second value
 
-@@ -316,22 +316,22 @@
+@@ -318,22 +318,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -612,15 +615,15 @@ exports[`AddressChecker should render correctly when address does not belong to 
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -466,16 +466,63 @@
-                 
+@@ -470,15 +470,63 @@
               </Text>
             </View>
             <View>
               <View
-+               style={
+                style={
 +                 Array [
-+                   Object {
+                    Object {
+-                   "height": 24,
 +                     "alignItems": "center",
 +                     "alignSelf": "stretch",
 +                     "flexDirection": "row",
@@ -633,16 +636,16 @@ exports[`AddressChecker should render correctly when address does not belong to 
 +             >
 +               <Text
 +                 allowFontScaling={false}
-                  style={
++                 style={
 +                   Array [
-                      Object {
--                   "height": 24,
++                     Object {
 +                       "color": "#2B1911",
 +                       "fontFamily": "Baloo2-Regular",
 +                       "fontSize": 16,
 +                       "letterSpacing": 0.16,
 +                       "lineHeight": 24,
 +                     },
++                     false,
 +                     Array [
 +                       Object {
 +                         "fontFamily": "Baloo2-SemiBold",
@@ -684,7 +687,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
 - First value
 + Second value
 
-@@ -266,15 +266,18 @@
+@@ -268,15 +268,18 @@
                       "backgroundColor": "#FFFCFA",
                     },
                     Object {
@@ -707,7 +710,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                       Object {
                         "borderRadius": 8,
                         "borderWidth": 2,
-@@ -316,22 +319,21 @@
+@@ -318,22 +321,21 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -734,7 +737,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -461,11 +463,11 @@
+@@ -464,11 +466,11 @@
                     ],
                     false,
                   ]
@@ -754,7 +757,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
 - First value
 + Second value
 
-@@ -316,22 +316,22 @@
+@@ -318,22 +318,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -779,7 +782,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -465,16 +465,13 @@
+@@ -468,16 +468,13 @@
               >
                  
               </Text>

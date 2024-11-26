@@ -109,6 +109,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "opacity": 0.1,
@@ -145,6 +146,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "textAlign": "right",
@@ -181,6 +183,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",

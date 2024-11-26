@@ -1,12 +1,13 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
 import { GradientBorder } from "../../components/GradientBorder";
-import { Header } from "../../components/Header";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { ProfileInfo } from "../../components/ProfileInfo";
 import { Screen } from "../../components/Screen";
+import { NewBubble } from "../../components/bubble/Bubble";
 import { Button } from "../../components/buttons/Button";
 import {
   ConfirmSlider,
@@ -25,6 +26,7 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -37,8 +39,7 @@ import { isLimitReached } from "../../utils/match/isLimitReached";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
-import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
-import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
+import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
@@ -66,14 +67,10 @@ export function MatchDetails() {
   if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
     return <LoadingScreen />;
   return (
-    <Screen showTradingLimit header={<MatchDetailsHeader />}>
+    <Screen showTradingLimit header={i18n("matchDetails.title")}>
       <Match match={match} offer={offer} />
     </Screen>
   );
-}
-
-function MatchDetailsHeader() {
-  return <Header title={i18n("matchDetails.title")} />;
 }
 
 function useMatchDetails({
@@ -110,20 +107,17 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { meansOfPayment } = match;
   const { isDarkMode } = useThemeStore();
 
-  const availableCurrencies = keys(meansOfPayment);
-  const allPaymentMethods = getPaymentMethods(meansOfPayment);
   const [selectedCurrency, setSelectedCurrency] = useState(
-    availableCurrencies[0],
+    keys(meansOfPayment)[0],
   );
 
-  const allMethodsForCurrency = allPaymentMethods.filter((p) =>
-    paymentMethodAllowedForCurrency(p, selectedCurrency),
-  );
-  const paymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+  const allMethodsForCurrency = meansOfPayment[selectedCurrency];
+  const paymentData = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
   const dataForCurrency = paymentData.filter((d) =>
-    allMethodsForCurrency.includes(d.type),
+    allMethodsForCurrency?.includes(d.type),
   );
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
@@ -201,20 +195,28 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
                 selectedPaymentMethod={
                   match.selectedPaymentMethod ||
                   selectedPaymentData?.type ||
-                  allMethodsForCurrency[0]
+                  allMethodsForCurrency?.[0]
                 }
               />
 
               <HorizontalLine />
 
               <PaymentMethodSelector
-                match={match}
+                meansOfPayment={meansOfPayment}
                 disabled={currentOptionName === "tradingLimitReached"}
                 selectedCurrency={selectedCurrency}
                 setSelectedCurrency={setSelectedCurrency}
                 selectedPaymentData={selectedPaymentData}
                 setSelectedPaymentData={setSelectedPaymentData}
                 showPaymentMethodPulse={showPaymentMethodPulse}
+                selectedMethodInfo={
+                  match.matched ? (
+                    <SelectedMethodInfo
+                      selectedCurrency={match.selectedCurrency}
+                      selectedPaymentMethod={match.selectedPaymentMethod}
+                    />
+                  ) : undefined
+                }
               />
 
               <HorizontalLine />
@@ -256,6 +258,41 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
           setShowPaymentMethodPulse={setShowPaymentMethodPulse}
         />
       )}
+    </>
+  );
+}
+
+function SelectedMethodInfo({
+  selectedCurrency,
+  selectedPaymentMethod,
+}: {
+  selectedCurrency: Currency | undefined;
+  selectedPaymentMethod: PaymentMethod | undefined;
+}) {
+  const { data: meetupEvents } = useMeetupEvents();
+  const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
+    if (isCashTrade(paymentMethod)) {
+      const eventId = paymentMethod.replace("cash.", "");
+      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
+      return meetupEvent?.shortName ?? eventId;
+    }
+    return i18n(`paymentMethod.${paymentMethod}`);
+  };
+  if (!selectedCurrency || !selectedPaymentMethod) return null;
+
+  return (
+    <>
+      <PeachText style={tw`text-center button-large`}>
+        {selectedCurrency}
+      </PeachText>
+      <View
+        style={[tw`w-1/4 self-center h-0.5 -mt-3 bg-black-100 rounded-1px`]}
+      />
+      <View style={tw`items-center`}>
+        <NewBubble color="orange" iconId="checkSquare">
+          {getPaymentMethodName(selectedPaymentMethod)}
+        </NewBubble>
+      </View>
     </>
   );
 }
@@ -399,7 +436,7 @@ function AnimatedButtons() {
 type PriceInfoProps = {
   match: Match;
   selectedCurrency: Currency;
-  selectedPaymentMethod: PaymentMethod;
+  selectedPaymentMethod: PaymentMethod | undefined;
 };
 
 function BuyerPriceInfo({

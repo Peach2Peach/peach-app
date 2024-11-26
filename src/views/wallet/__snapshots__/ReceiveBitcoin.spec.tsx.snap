@@ -106,6 +106,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -576,6 +577,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     {
                       "color": "#9F8C82",
                       "flexShrink": 1,
@@ -600,6 +602,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
                         "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
@@ -624,6 +627,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
                         "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
@@ -716,6 +720,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           {
                             "fontFamily": "Baloo2-Medium",
@@ -790,6 +795,7 @@ exports[`ReceiveBitcoin should render correctly while loading 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           {
             "fontFamily": "Baloo2-SemiBold",

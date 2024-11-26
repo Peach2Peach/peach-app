@@ -84,6 +84,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "opacity": 0.1,
@@ -117,6 +118,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "right",
@@ -150,6 +152,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",
@@ -222,7 +225,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
           ]
         }
       />
-@@ -87,12 +87,15 @@
+@@ -88,12 +88,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -240,7 +243,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
                     "color": "#2B1911",
                   },
                 ],
-@@ -119,12 +122,15 @@
+@@ -121,12 +124,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -258,9 +261,9 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
                     "color": "#2B1911",
                   },
                 ],
-@@ -148,12 +154,15 @@
-              "lineHeight": 24,
+@@ -151,12 +157,15 @@
             },
+            false,
             Array [
               Object {
                 "fontFamily": "Baloo2-SemiBold",
@@ -343,7 +346,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
       }
     >
       <View
-@@ -87,12 +87,15 @@
+@@ -88,12 +88,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -361,7 +364,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
                     "color": "#2B1911",
                   },
                 ],
-@@ -119,12 +122,15 @@
+@@ -121,12 +124,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -379,9 +382,9 @@ exports[`BTCAmount should render correctly for small size 1`] = `
                     "color": "#2B1911",
                   },
                 ],
-@@ -148,12 +154,15 @@
-              "lineHeight": 24,
+@@ -151,12 +157,15 @@
             },
+            false,
             Array [
               Object {
                 "fontFamily": "Baloo2-SemiBold",
@@ -404,7 +407,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 - First value
 + Second value
 
-@@ -64,79 +64,123 @@
+@@ -64,81 +64,123 @@
             "alignItems": "center",
             "flexBasis": "0%",
             "flexDirection": "row",
@@ -431,6 +434,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +               "height": 8,
 +               "width": 8,
               },
+-             false,
 +             undefined,
 +           ]
 +         }
@@ -510,6 +514,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +               "height": 8,
 +               "width": 8,
               },
+-             false,
 +             undefined,
 +           ]
 +         }
@@ -652,6 +657,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "opacity": 0.1,
@@ -685,6 +691,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "right",
@@ -718,6 +725,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",
@@ -822,6 +830,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "opacity": 0.1,
@@ -855,6 +864,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "right",
@@ -888,6 +898,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",
@@ -913,7 +924,7 @@ exports[`BTCAmount should render correctly with white 1`] = `
 - First value
 + Second value
 
-@@ -91,11 +91,11 @@
+@@ -92,11 +92,11 @@
                     "fontFamily": "Baloo2-SemiBold",
                     "fontSize": 20,
                     "letterSpacing": 0.2,
@@ -926,7 +937,7 @@ exports[`BTCAmount should render correctly with white 1`] = `
               ],
               false,
             ]
-@@ -123,11 +123,11 @@
+@@ -125,11 +125,11 @@
                     "fontFamily": "Baloo2-SemiBold",
                     "fontSize": 20,
                     "letterSpacing": 0.2,
@@ -939,7 +950,7 @@ exports[`BTCAmount should render correctly with white 1`] = `
               ],
               false,
             ]
-@@ -152,11 +152,11 @@
+@@ -155,11 +155,11 @@
                 "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 20,
                 "letterSpacing": 0.2,

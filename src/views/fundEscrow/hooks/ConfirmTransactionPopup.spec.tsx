@@ -11,6 +11,7 @@ const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
+jest.useFakeTimers();
 
 jest.useFakeTimers();
 

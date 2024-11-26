@@ -5,7 +5,7 @@ exports[`NodeSetup should change address 1`] = `
 - First value
 + Second value
 
-@@ -502,22 +502,22 @@
+@@ -506,22 +506,22 @@
                               "paddingBottom": 0,
                               "paddingTop": 0,
                               "width": "100%",
@@ -30,7 +30,7 @@ exports[`NodeSetup should change address 1`] = `
                         style={
                           Object {
                             "flexDirection": "row",
-@@ -659,11 +659,11 @@
+@@ -664,11 +664,11 @@
           <View
             accessibilityState={
               Object {
@@ -50,7 +50,7 @@ exports[`NodeSetup should toggle enabled 1`] = `
 - First value
 + Second value
 
-@@ -316,11 +316,11 @@
+@@ -318,11 +318,11 @@
                     }
                   >
                     use your own node
@@ -63,7 +63,7 @@ exports[`NodeSetup should toggle enabled 1`] = `
                         Object {
                           "height": 32,
                           "width": 32,
-@@ -333,11 +333,11 @@
+@@ -335,11 +335,11 @@
                 <View
                   accessibilityState={
                     Object {
@@ -76,7 +76,7 @@ exports[`NodeSetup should toggle enabled 1`] = `
                     }
                   }
                   accessibilityValue={
-@@ -411,11 +411,15 @@
+@@ -414,11 +414,15 @@
                       ]
                     }
                   />
@@ -93,7 +93,7 @@ exports[`NodeSetup should toggle enabled 1`] = `
                     <Text
                       allowFontScaling={false}
                       style={
-@@ -462,14 +466,14 @@
+@@ -466,14 +470,14 @@
                             "borderRadius": 12,
                             "borderWidth": 1,
                             "overflow": "hidden",
@@ -110,7 +110,7 @@ exports[`NodeSetup should toggle enabled 1`] = `
                           false,
                           Object {
                             "marginBottom": 1,
-@@ -482,11 +486,11 @@
+@@ -486,11 +490,11 @@
                       <TextInput
                         allowFontScaling={false}
                         autoCapitalize="none"
@@ -130,7 +130,7 @@ exports[`NodeSetup should toggle ssl 1`] = `
 - First value
 + Second value
 
-@@ -398,11 +398,11 @@
+@@ -401,11 +401,11 @@
                     }
                   >
                     use SSL

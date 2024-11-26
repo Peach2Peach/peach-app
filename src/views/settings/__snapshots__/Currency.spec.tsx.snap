@@ -106,6 +106,7 @@ exports[`Currency should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -266,6 +267,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -355,6 +357,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -444,6 +447,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -533,6 +537,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -622,6 +627,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -711,6 +717,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -800,6 +807,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -889,6 +897,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -978,6 +987,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1067,6 +1077,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1156,6 +1167,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1245,6 +1257,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1334,6 +1347,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1423,6 +1437,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1512,6 +1527,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1601,6 +1617,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1690,6 +1707,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1779,6 +1797,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1868,6 +1887,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -1957,6 +1977,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2046,6 +2067,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2135,6 +2157,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2224,6 +2247,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2313,6 +2337,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2402,6 +2427,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2491,6 +2517,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2580,6 +2607,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2669,6 +2697,7 @@ exports[`Currency should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "flexBasis": "0%",
                           "flexGrow": 1,
@@ -2764,6 +2793,7 @@ exports[`Currency should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",

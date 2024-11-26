@@ -106,6 +106,7 @@ exports[`CoinSelection renders correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -358,6 +359,7 @@ exports[`CoinSelection renders correctly 1`] = `
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
                               },
+                              false,
                               [
                                 {
                                   "opacity": 0.1,
@@ -394,6 +396,7 @@ exports[`CoinSelection renders correctly 1`] = `
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
                               },
+                              false,
                               [
                                 {
                                   "textAlign": "right",
@@ -430,6 +433,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             [
                               {
                                 "fontFamily": "Baloo2-SemiBold",
@@ -462,6 +466,7 @@ exports[`CoinSelection renders correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "color": "#7D675E",
                           "fontFamily": "Baloo2-Regular",
@@ -484,6 +489,7 @@ exports[`CoinSelection renders correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           {
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 14,
@@ -614,6 +620,7 @@ exports[`CoinSelection renders correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -686,6 +693,7 @@ exports[`CoinSelection renders correctly while loading 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           {
             "fontFamily": "Baloo2-SemiBold",
@@ -712,7 +720,7 @@ exports[`CoinSelection selects coins 1`] = `
 - First value
 + Second value
 
-@@ -533,11 +533,11 @@
+@@ -539,11 +539,11 @@
                       }
                     }
                     testID="checkbox"

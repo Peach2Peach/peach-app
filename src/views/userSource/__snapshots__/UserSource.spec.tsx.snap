@@ -181,6 +181,7 @@ exports[`UserSource renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   {
                     "color": "#FFFCFA",
                     "fontFamily": "Baloo2-Bold",
@@ -206,6 +207,7 @@ exports[`UserSource renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   {
                     "color": "#FFFCFA",
                     "fontFamily": "Baloo2-Regular",
@@ -289,6 +291,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -369,6 +372,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -449,6 +453,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -529,6 +534,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -609,6 +615,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -689,6 +696,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -769,6 +777,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
