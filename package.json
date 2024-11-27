@@ -180,8 +180,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "optionalDependencies": {
-    "win-node-env": "^0.6.1"
   }
 }
