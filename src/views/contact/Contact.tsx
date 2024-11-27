@@ -40,7 +40,6 @@ export const Contact = () => {
   const goToReport = (reason: ContactReason) => {
     navigation.navigate("report", {
       reason,
-      shareDeviceID: reason === "accountLost",
       topic: i18n(`contact.reason.${reason}`),
     });
   };
@@ -64,9 +63,7 @@ export const Contact = () => {
       >
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText>
-              {i18n("report.mailUs")}
-            </PeachText>
+            <PeachText>{i18n("report.mailUs")}</PeachText>
           </LinedText>
           <>
             {contactReasons.map((reason) => (
@@ -80,9 +77,7 @@ export const Contact = () => {
         </View>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText>
-              {i18n("report.communityHelp")}
-            </PeachText>
+            <PeachText>{i18n("report.communityHelp")}</PeachText>
           </LinedText>
           <OptionButton onPress={openTelegram}>{i18n("telegram")}</OptionButton>
           <OptionButton onPress={openDiscord}>{i18n("discord")}</OptionButton>
