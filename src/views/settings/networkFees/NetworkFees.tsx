@@ -112,7 +112,10 @@ export const NetworkFees = () => {
           onButtonPress={setSelectedFeeRate}
         />
         <HorizontalLine style={tw`mt-8`} />
-        <PeachText style={tw`mt-4 text-center text-black-65`}>
+        <PeachText style={tw.style(
+            "mt-4 text-center",
+            isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+          )}>
           {i18n("settings.networkFees.averageFees")}
         </PeachText>
         <PeachText
