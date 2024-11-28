@@ -1,12 +1,12 @@
 {
   "welcome.aWalletYouControl.description" : "Peach has a built-in wallet, so you can get started right away. No third-party apps required to use Bitcoin properly!",
-  "welcome.aWalletYouControl.title" : "A wallet YOU control",
+  "welcome.aWalletYouControl.title" : "a wallet YOU control",
   "welcome.letsGetStarted.title" : "let's start!\nare you new here?",
   "welcome.peachOfMind.description" : "We'll guarantee you get your part of the deal thanks to our advanced escrow and in-app support.",
   "welcome.peachOfMind.title" : "Peach of mind",
   "welcome.peerToPeer.description" : "With Peach, you don't buy from us, but from other people. It's a marketplace for bitcoin!",
-  "welcome.peerToPeer.title" : "Peer-to-Peer",
+  "welcome.peerToPeer.title" : "peer-to-Peer",
   "welcome.privacyFirst.description" : "Your data is stored on your phone and is fully encrypted... We don't even want to know who you are.",
-  "welcome.privacyFirst.title" : "Privacy first!",
-  "welcome.welcomeToPeach.title" : "Welcome to Peach!"
+  "welcome.privacyFirst.title" : "privacy first!",
+  "welcome.welcomeToPeach.title" : "welcome to Peach!"
 }
