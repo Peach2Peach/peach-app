@@ -230,7 +230,7 @@ function LNURLSwapsPopup() {
     <InfoPopup
       title={i18n("help.lnurl.title")}
       content={
-        <ParsedPeachText
+        <ParsedPeachText style={tw`text-black-100`}
           parse={[
             {
               pattern: new RegExp(

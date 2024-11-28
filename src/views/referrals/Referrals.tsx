@@ -51,10 +51,10 @@ function ReferralsPopup() {
       title={i18n("help.referral.title")}
       content={
         <>
-          <PeachText style={tw`mb-2`}>
+          <PeachText style={tw`mb-2 text-black-100`}>
             {i18n("help.referral.description.1")}
           </PeachText>
-          <PeachText>{i18n("help.referral.description.2")}</PeachText>
+          <PeachText style={tw`text-black-100`}>{i18n("help.referral.description.2")}</PeachText>
         </>
       }
     />

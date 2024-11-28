@@ -182,7 +182,7 @@ function EscrowPopup() {
       title={i18n("help.escrow.title")}
       content={
         <View style={tw`gap-4`}>
-          <ParsedPeachText
+          <ParsedPeachText style={tw`text-black-100`}
             parse={[
               {
                 pattern: new RegExp(i18n("help.escrow.description.link"), "u"),
@@ -205,7 +205,7 @@ function InfoText({ children }: { children: string }) {
   return (
     <View style={tw`flex-row items-center gap-3`}>
       <Icon id="info" size={32} color={tw.color("black-100")} />
-      <PeachText style={tw`shrink`}>{children}</PeachText>
+      <PeachText style={tw`shrink text-black-100`}>{children}</PeachText>
     </View>
   );
 }

@@ -135,7 +135,7 @@ function CashTradesPopup() {
       title={i18n("tradingCash")}
       content={
         <View style={tw`gap-3`}>
-          <PeachText>{i18n("tradingCash.text")}</PeachText>
+          <PeachText style={tw`text-black-100`}>{i18n("tradingCash.text")}</PeachText>
           <View>{bulletPoints}</View>
         </View>
       }

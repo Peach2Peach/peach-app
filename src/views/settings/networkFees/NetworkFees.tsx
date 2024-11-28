@@ -155,8 +155,8 @@ function NetworkFeesPopup() {
       title={i18n("help.networkFees.title")}
       content={
         <View style={tw`gap-2`}>
-          <PeachText>{i18n("help.networkFees.description.1")}</PeachText>
-          <PeachText>{i18n("help.networkFees.description.2")}</PeachText>
+          <PeachText style={tw`text-black-100`}>{i18n("help.networkFees.description.1")}</PeachText>
+          <PeachText style={tw`text-black-100`}>{i18n("help.networkFees.description.2")}</PeachText>
         </View>
       }
     />
