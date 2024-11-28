@@ -24,7 +24,10 @@ function PublicKey({ publicKey }: { publicKey: string }) {
   const { isDarkMode } = useThemeStore();
   return (
     <View style={tw`pr-3`}>
-      <PeachText style={tw`lowercase text-black-50`}>
+      <PeachText style={tw.style(
+            `lowercase`,
+            isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+          )}>
         {i18n("profile.publicKey")}:
       </PeachText>
       <View style={tw`flex-row items-center gap-3`}>
@@ -50,7 +53,10 @@ function AccountCreated({ creationDate }: { creationDate: Date }) {
   const { isDarkMode } = useThemeStore();
   return (
     <View>
-      <PeachText style={tw`lowercase text-black-50`}>
+      <PeachText style={tw.style(
+            `lowercase`,
+            isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+          )}>
         {i18n("profile.accountCreated")}:
       </PeachText>
       <PeachText
@@ -69,7 +75,10 @@ function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
   const { isDarkMode } = useThemeStore();
   return (
     <View>
-      <PeachText style={tw`lowercase text-black-50`}>
+      <PeachText style={tw.style(
+            `lowercase`,
+            isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+          )}>
         {i18n("profile.disputes")}:
       </PeachText>
       <View style={tw`flex-row`}>
@@ -96,7 +105,10 @@ function Trades({ trades }: { trades: number }) {
   const { isDarkMode } = useThemeStore();
   return (
     <View>
-      <PeachText style={tw`lowercase text-black-50`}>
+      <PeachText style={tw.style(
+            `lowercase`,
+            isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+          )}>
         {i18n("profile.numberOfTrades")}:
       </PeachText>
       <PeachText
