@@ -149,7 +149,7 @@ export const LetsGetStarted = () => {
           <View style={tw`flex-row items-center justify-center gap-2`}>
             <View style={tw`h-14`}>
               <Input
-                style={tw`w-40 mt-2`}
+                style={tw`w-40 mt-2 text-primary-background-light-color`}
                 theme="inverted"
                 maxLength={16}
                 placeholder={i18n("form.optional").toUpperCase()}
