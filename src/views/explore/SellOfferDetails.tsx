@@ -8,12 +8,14 @@ import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
 import { CENT, SATSINBTC } from "../../constants";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore/usePaymentDataStore";
@@ -38,6 +40,7 @@ import { FundingInfo } from "./FundingInfo";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
+import { canUserInstantTrade } from "./canUserInstantTrade";
 import { useOffer } from "./useOffer";
 import { useTradeRequest } from "./useTradeRequest";
 
@@ -123,7 +126,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       </PeachScrollView>
 
       {!data?.tradeRequest && (
-        <RequestTradeButton
+        <RequestTradeAction
           selectedPaymentData={selectedPaymentData}
           selectedCurrency={selectedCurrency}
           offer={offer}
@@ -169,7 +172,7 @@ function SellPriceInfo({
   );
 }
 
-function RequestTradeButton({
+function RequestTradeAction({
   selectedCurrency,
   selectedPaymentData,
   offer,
@@ -223,9 +226,10 @@ function RequestTradeButton({
     };
   };
 
+  const navigation = useStackNavigation();
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    onMutate: async () => {
+    onMutate: async (_instantTrade: boolean) => {
       const tradeRequst = {
         amount,
         currency: selectedCurrency,
@@ -241,7 +245,7 @@ function RequestTradeButton({
       queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequst);
       return { previousData };
     },
-    mutationFn: async () => {
+    mutationFn: async (instantTrade) => {
       if (!selectedPaymentData) throw new Error("MISSING_VALUES");
 
       const SYMMETRIC_KEY_BYTES = 32;
@@ -278,6 +282,7 @@ function RequestTradeButton({
           paymentDataSignature: encryptedPaymentData.signature,
           releaseAddress: address,
           messageSignature,
+          instantTrade,
         });
       if (error) throw new Error(error.error);
       return result;
@@ -290,17 +295,39 @@ function RequestTradeButton({
         );
       }
     },
-    onSettled: () => {
+    onSettled: (response) => {
       queryClient.invalidateQueries({
         queryKey: offerKeys.tradeRequest(offerId),
       });
+      if (response && "contractId" in response) {
+        navigation.reset({
+          index: 1,
+          routes: [
+            { name: "homeScreen", params: { screen: "yourTrades" } },
+            { name: "contract", params: { contractId: response.contractId } },
+          ],
+        });
+      }
     },
   });
+
+  if (user === undefined) return null;
+
+  const { instantTradeCriteria } = offer;
+  const canInstantTrade =
+    instantTradeCriteria && canUserInstantTrade(user, instantTradeCriteria);
+
+  if (canInstantTrade) {
+    return (
+      <ConfirmSlider label1="instant trade" onConfirm={() => mutate(true)} />
+    );
+  }
+
   return (
     <Button
       style={tw`self-center`}
       disabled={selectedPaymentData === undefined}
-      onPress={() => mutate()}
+      onPress={() => mutate(false)}
     >
       request trade
     </Button>
