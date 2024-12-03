@@ -66,7 +66,7 @@ export function CustomReferralCodePopup() {
             {i18n("settings.referrals.customReferralCode.popup.text")}
           </PeachText>
           <Input
-            style={tw`bg-primary-background-dark`}
+            style={tw`bg-primary-background-dark-color`}
             placeholder={i18n("form.referral.placeholder")}
             value={referralCode}
             onChangeText={updateReferralCode}

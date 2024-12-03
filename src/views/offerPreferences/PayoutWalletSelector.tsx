@@ -20,7 +20,7 @@ export function PayoutWalletSelector({
   return (
     <WalletSelector
       title={i18n("offerPreferences.payoutTo")}
-      backgroundColor={tw.color("success-mild-1")}
+      backgroundColor={tw.color("success-mild-1-color")}
       bubbleColor="green"
       peachWalletActive={peachWalletSelected}
       address={customAddress}

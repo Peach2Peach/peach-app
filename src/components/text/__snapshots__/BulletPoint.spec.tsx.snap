@@ -8,12 +8,19 @@ exports[`BulletPoint renders correctly 1`] = `
     }
   }
 >
-  <PeachText>
+  <PeachText
+    style={
+      {
+        "color": "#2B1911",
+      }
+    }
+  >
     •
   </PeachText>
   <PeachText
     style={
       {
+        "color": "#2B1911",
         "paddingLeft": 12,
       }
     }

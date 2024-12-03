@@ -59,6 +59,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -215,6 +217,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "color": "#7D675E",
@@ -275,6 +278,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     {
                       "color": "#9F8C82",
                       "width": 80,
@@ -368,6 +372,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "opacity": 0.1,
@@ -382,7 +387,9 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                           ],
                           false,
@@ -402,6 +409,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "textAlign": "right",
@@ -415,7 +423,9 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                           ],
                           false,
@@ -436,6 +446,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           {
                             "fontFamily": "Baloo2-SemiBold",
@@ -445,7 +456,9 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                             "marginBottom": -10,
                             "marginTop": -10,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                         false,
                       ]
@@ -474,6 +487,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     {
                       "color": "#9F8C82",
                       "width": 80,
@@ -567,6 +581,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "opacity": 0.1,
@@ -581,7 +596,9 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                           ],
                           false,
@@ -601,6 +618,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "textAlign": "right",
@@ -614,7 +632,9 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                           ],
                           false,
@@ -635,6 +655,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           {
                             "fontFamily": "Baloo2-SemiBold",
@@ -644,7 +665,9 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                             "marginBottom": -10,
                             "marginTop": -10,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                         false,
                       ]
@@ -667,6 +690,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 14,
@@ -690,6 +714,7 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 14,
@@ -791,9 +816,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,
@@ -888,9 +915,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,
@@ -995,9 +1024,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,
@@ -1092,9 +1123,11 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           [
                             {
+                              "color": "#2B1911",
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 14,
                               "letterSpacing": 0.5,

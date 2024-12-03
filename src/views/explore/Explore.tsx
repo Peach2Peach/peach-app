@@ -17,6 +17,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { BuySorters } from "../../popups/sorting/BuySorters";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -108,12 +109,18 @@ function ExploreCard({ match }: { match: Match }) {
   };
 
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
+  const { isDarkMode } = useThemeStore();
 
   return (
     <TouchableOpacity
       style={[
-        tw`justify-center overflow-hidden border bg-primary-background-light rounded-2xl border-primary-main`,
+        tw`justify-center overflow-hidden rounded-2xl`,
+        isDarkMode
+          ? tw`bg-card`
+          : tw`border bg-primary-background-light-color border-primary-main`,
         matched && tw`border-2 border-success-main`,
+        isDarkMode && matched && tw`border-success-main`,
+        !isDarkMode && matched && tw`border-primary-main`,
       ]}
       onPress={onPress}
     >
@@ -121,7 +128,7 @@ function ExploreCard({ match }: { match: Match }) {
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
           <PeachText
-            style={tw`text-center py-2px subtitle-2 text-primary-background-light`}
+            style={tw`text-center py-2px subtitle-2 text-primary-background-light-color`}
           >
             {i18n("offerPreferences.instantTrade")}
           </PeachText>
@@ -150,7 +157,11 @@ function ExploreCard({ match }: { match: Match }) {
               currency={match.selectedCurrency ?? displayCurrency}
               amount={match.matchedPrice ?? fiatPrice * (1 + premium / CENT)}
             />
-            <PeachText style={tw`text-black-65`}>
+            <PeachText
+              style={tw.style(
+                isDarkMode ? "text-primary-mild-2" : "text-black-65",
+              )}
+            >
               {" "}
               ({premium >= 0 ? "+" : ""}
               {premium}%)

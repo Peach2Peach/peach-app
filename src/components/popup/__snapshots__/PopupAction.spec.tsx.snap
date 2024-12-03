@@ -66,6 +66,7 @@ exports[`PopupAction renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           {
             "color": "#FFFCFA",
@@ -148,7 +149,7 @@ exports[`PopupAction renders correctly when loading 1`] = `
       allowFontScaling={false}
       style={
         Array [
-@@ -75,8 +67,8 @@
+@@ -76,8 +68,8 @@
           ],
           false,
         ]

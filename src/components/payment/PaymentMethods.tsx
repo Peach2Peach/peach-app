@@ -148,8 +148,12 @@ function PaymentMethodsPopup() {
       title={i18n("settings.paymentMethods")}
       content={
         <>
-          <PeachText>{i18n("help.paymentMethods.description.1")}</PeachText>
-          <PeachText>{i18n("help.paymentMethods.description.2")}</PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("help.paymentMethods.description.1")}
+          </PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("help.paymentMethods.description.2")}
+          </PeachText>
         </>
       }
     />

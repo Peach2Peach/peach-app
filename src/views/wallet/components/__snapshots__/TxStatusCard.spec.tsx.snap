@@ -81,6 +81,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -144,6 +145,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -269,6 +271,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -283,7 +286,9 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -303,6 +308,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -316,7 +322,9 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -337,6 +345,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -346,7 +355,9 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -442,6 +453,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -505,6 +517,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -630,6 +643,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -644,7 +658,9 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -664,6 +680,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -677,7 +694,9 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -698,6 +717,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -707,7 +727,9 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -803,6 +825,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -866,6 +889,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -991,6 +1015,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -1005,7 +1030,9 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1025,6 +1052,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -1038,7 +1066,9 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1059,6 +1089,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -1068,7 +1099,9 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1164,6 +1197,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -1227,6 +1261,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -1352,6 +1387,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -1366,7 +1402,9 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1386,6 +1424,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -1399,7 +1438,9 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1420,6 +1461,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -1429,7 +1471,9 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1525,6 +1569,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -1588,6 +1633,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -1713,6 +1759,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -1727,7 +1774,9 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1747,6 +1796,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -1760,7 +1810,9 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1781,6 +1833,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -1790,7 +1843,9 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]

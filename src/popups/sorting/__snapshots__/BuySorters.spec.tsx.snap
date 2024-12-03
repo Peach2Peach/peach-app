@@ -53,7 +53,9 @@ exports[`BuySorters should render correctly 1`] = `
           "paddingTop": 16,
         },
         [
-          undefined,
+          {
+            "backgroundColor": "#FEEDE5",
+          },
           {
             "alignItems": "stretch",
           },
@@ -92,6 +94,7 @@ exports[`BuySorters should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "fontFamily": "Baloo2-Bold",
                 "fontSize": 16,
@@ -186,6 +189,7 @@ exports[`BuySorters should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "flexBasis": "0%",
                   "flexGrow": 1,
@@ -275,6 +279,7 @@ exports[`BuySorters should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "flexBasis": "0%",
                   "flexGrow": 1,
@@ -364,6 +369,7 @@ exports[`BuySorters should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "flexBasis": "0%",
                   "flexGrow": 1,
@@ -477,6 +483,7 @@ exports[`BuySorters should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "color": "#FFFCFA",
@@ -559,6 +566,7 @@ exports[`BuySorters should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "color": "#FFFCFA",

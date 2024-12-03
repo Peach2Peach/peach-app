@@ -88,7 +88,7 @@ export const Match = ({
         ]}
         onStartShouldSetResponder={() => true}
       >
-        <View style={tw`gap-4 p-4 bg-primary-background-light`}>
+        <View style={tw`gap-4 p-4 bg-primary-background-light-color`}>
           <ProfileInfo user={user} isOnMatchCard />
 
           <HorizontalLine />
@@ -177,12 +177,12 @@ function MatchOfferButton({
       onPress={onPress}
       disabled={optionName === "offerMatched" || isPending}
     >
-      <PeachText style={tw`button-large text-primary-background-light`}>
+      <PeachText style={tw`button-large text-primary-background-light-color`}>
         {i18n(currentOption.text)}
       </PeachText>
       <Icon
         id={currentOption.iconId}
-        color={tw.color("primary-background-light")}
+        color={tw.color("primary-background-light-color")}
         size={24}
       />
     </TouchableOpacity>

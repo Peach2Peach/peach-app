@@ -19,7 +19,6 @@ exports[`PaymentDataKeyFacts should render correctly 1`] = `
     style={
       [
         {
-          "borderColor": "#2B1911",
           "borderRadius": 8,
           "borderWidth": 1,
           "justifyContent": "center",
@@ -27,6 +26,9 @@ exports[`PaymentDataKeyFacts should render correctly 1`] = `
           "marginRight": 4,
           "paddingLeft": 4,
           "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
         },
         {
           "marginTop": 16,
@@ -38,12 +40,14 @@ exports[`PaymentDataKeyFacts should render correctly 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
             "lineHeight": 24,
             "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
           },
         ]
       }
@@ -73,7 +77,6 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
     style={
       [
         {
-          "borderColor": "#2B1911",
           "borderRadius": 8,
           "borderWidth": 1,
           "justifyContent": "center",
@@ -81,6 +84,9 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
           "marginRight": 4,
           "paddingLeft": 4,
           "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
         },
         {
           "marginTop": 16,
@@ -92,12 +98,14 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
             "lineHeight": 24,
             "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
           },
         ]
       }
@@ -109,7 +117,6 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
     style={
       [
         {
-          "borderColor": "#2B1911",
           "borderRadius": 8,
           "borderWidth": 1,
           "justifyContent": "center",
@@ -117,6 +124,9 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
           "marginRight": 4,
           "paddingLeft": 4,
           "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
         },
         {
           "marginTop": 16,
@@ -128,12 +138,14 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
             "lineHeight": 24,
             "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
           },
         ]
       }
@@ -145,7 +157,6 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
     style={
       [
         {
-          "borderColor": "#2B1911",
           "borderRadius": 8,
           "borderWidth": 1,
           "justifyContent": "center",
@@ -153,6 +164,9 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
           "marginRight": 4,
           "paddingLeft": 4,
           "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
         },
         {
           "marginTop": 16,
@@ -164,12 +178,14 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
             "lineHeight": 24,
             "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
           },
         ]
       }
@@ -181,7 +197,6 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
     style={
       [
         {
-          "borderColor": "#2B1911",
           "borderRadius": 8,
           "borderWidth": 1,
           "justifyContent": "center",
@@ -189,6 +204,9 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
           "marginRight": 4,
           "paddingLeft": 4,
           "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
         },
         {
           "marginTop": 16,
@@ -200,12 +218,14 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
             "lineHeight": 24,
             "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
           },
         ]
       }

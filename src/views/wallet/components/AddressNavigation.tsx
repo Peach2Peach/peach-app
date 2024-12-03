@@ -112,7 +112,7 @@ function ArrowLeftCircle({
   return (
     <TouchableIcon
       id="arrowLeftCircle"
-      iconColor={tw.color("black-65")}
+      iconColor={tw.color("black-50")}
       onPress={onPress}
       disabled={index === 0}
     />

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { getCurrencies } from "../../utils/paymentMethod/getCurrencies";
@@ -29,7 +30,7 @@ export function MeansOfPayment({ meansOfPayment, style }: Props) {
           <PaymentMethod
             key={`buyOfferMethod-${p}`}
             paymentMethod={p}
-            style={tw`m-1`}
+            style={tw`m-2`}
           />
         ))}
       </View>
@@ -43,6 +44,7 @@ type PaymentMethodProps = {
 };
 
 function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
+  const { isDarkMode } = useThemeStore();
   const name = useMemo(
     () =>
       paymentMethod ? i18n(`paymentMethod.${paymentMethod}`) : paymentMethod,
@@ -51,14 +53,22 @@ function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
   return (
     <View
       style={[
-        tw`flex-row items-center px-2 border rounded-lg border-black-100 button-medium`,
+        tw`flex-row items-center px-3 border rounded-lg button-medium`,
+        tw.style(isDarkMode ? "border-primary-main" : "border-black-100"),
         style,
       ]}
     >
       {isCashTrade(paymentMethod) ? (
         <CashPaymentMethodName paymentMethod={paymentMethod} />
       ) : (
-        <PeachText style={tw`button-medium`}>{name}</PeachText>
+        <PeachText
+          style={tw.style(
+            "button-medium",
+            isDarkMode ? "text-primary-main" : "text-black-100",
+          )}
+        >
+          {name}
+        </PeachText>
       )}
     </View>
   );
@@ -69,6 +79,16 @@ function CashPaymentMethodName({
 }: {
   paymentMethod: `cash.${string}`;
 }) {
+  const { isDarkMode } = useThemeStore();
   const value = useCashPaymentMethodName(paymentMethod);
-  return <PeachText style={tw`button-medium`}>{value}</PeachText>;
+  return (
+    <PeachText
+      style={tw.style(
+        "button-medium",
+        isDarkMode ? "text-primary-main" : "text-black-100",
+      )}
+    >
+      {value}
+    </PeachText>
+  );
 }

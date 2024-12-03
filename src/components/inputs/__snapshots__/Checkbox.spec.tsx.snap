@@ -28,7 +28,9 @@ exports[`Checkbox renders correctly when checked 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 28,
         },
-        false,
+        {
+          "color": "#F56522",
+        },
       ]
     }
   >

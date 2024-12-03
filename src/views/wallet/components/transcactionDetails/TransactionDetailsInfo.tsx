@@ -93,7 +93,7 @@ export const TransactionDetailsInfo = ({
 
       <Bubble
         color="primary"
-        style={tw`self-center`}
+        style={tw`self-center bg-transparent`}
         ghost
         iconId="externalLink"
         iconSize={16}

@@ -13,6 +13,7 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import { useToggleBoolean } from "../hooks/useToggleBoolean";
 import { CURRENCIES } from "../paymentMethods";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { getHeaderStyles } from "../utils/layout/getHeaderStyles";
@@ -48,75 +49,86 @@ type HeaderConfig = {
     }
 );
 
-const newThemes = {
+const newThemes = (isDarkMode: boolean) => ({
   buyer: {
-    bg: tw`bg-success-background-dark`,
-    title: tw`text-black-100`,
+    bg: isDarkMode
+      ? tw`bg-backgroundMain-dark`
+      : tw`bg-success-background-dark-color`,
+    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: tw`text-success-main`,
-    border: tw`border-success-mild-1`,
-    backButtonColor: tw.color("black-65"),
+    border: tw`border-b-8 border-success-mild-1-color`,
+    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   seller: {
-    bg: tw`bg-primary-background-dark`,
-    title: tw`text-black-100`,
+    bg: isDarkMode
+      ? tw`bg-backgroundMain-dark`
+      : tw`bg-primary-background-dark-color`,
+    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: tw`text-primary-main`,
-    border: tw`border-primary-mild-1`,
-    backButtonColor: tw.color("black-65"),
+    border: tw`border-b-8 border-primary-mild-2`,
+    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   paymentTooLate: {
-    bg: tw`bg-warning-mild-1`,
-    title: tw`text-black-100`,
+    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-warning-mild-1`,
+    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: tw`text-black-100`,
-    border: tw`border-warning-mild-2`,
-    backButtonColor: tw.color("black-65"),
+    border: tw`border-b-8 border-warning-mild-2`,
+    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   dispute: {
-    bg: tw`bg-error-main`,
-    title: tw`text-primary-background-light`,
-    subtitle: tw`text-primary-background-light`,
-    border: tw`border-error-dark`,
-    backButtonColor: tw.color("primary-background-light"),
+    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-error-main`,
+    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    subtitle: tw`text-primary-background-light-color`,
+    border: tw`border-b-8 border-error-dark`,
+    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   cancel: {
-    bg: tw`bg-black-10`,
-    title: tw`text-black-100`,
+    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-black-10`,
+    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: tw`text-black-100`,
-    border: tw`border-black-25`,
-    backButtonColor: tw.color("black-65"),
+    border: tw`border-b-8 border-black-25`,
+    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   default: {
-    bg: tw`bg-primary-background-main`,
-    title: tw`text-black-100`,
-    subtitle: tw`text-black-100`,
-    border: tw`border-primary-background-dark`,
-    backButtonColor: tw.color("black-65"),
+    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`,
+    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    subtitle: isDarkMode ? tw`text-black-50` : tw`text-black-100`,
+    border: tw`border-b border-primary-background-dark-color`,
+    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   transparent: {
     bg: tw`bg-transparent`,
-    title: tw`text-primary-background-light`,
-    subtitle: tw`text-primary-background-light`,
+    title: isDarkMode
+      ? tw`text-backgroundLight-light`
+      : tw`text-backgroundLight-light`,
+    subtitle: tw`text-primary-background-light-color`,
     border: tw`border-transparent`,
-    backButtonColor: tw.color("primary-background-light"),
+    backButtonColor: tw.color("primary-background-light-color"),
   },
-};
+});
 
 export type HeaderProps = Omit<HeaderConfig, "theme" | "style"> & {
-  theme?: keyof typeof newThemes;
+  theme?: keyof ReturnType<typeof newThemes>;
 };
 
 export const Header = ({ showPriceStats, subtitle, ...props }: HeaderProps) => {
   const { top } = useSafeAreaInsets();
+  const { isDarkMode } = useThemeStore();
+  const themes = newThemes(isDarkMode);
+
   return (
     <View
       style={[
         tw`border-b rounded-b-lg`,
         { paddingTop: top, zIndex: 1 },
-        newThemes[props.theme || "default"].bg,
-        newThemes[props.theme || "default"].border,
+        themes[props.theme || "default"].bg,
+        themes[props.theme || "default"].border,
       ]}
     >
       {showPriceStats && <Tickers />}
-      {(props.title || props.titleComponent) && <HeaderNavigation {...props} />}
+      {(props.title || props.titleComponent) && (
+        <HeaderNavigation isDarkMode={isDarkMode} {...props} />
+      )}
       {!!subtitle && subtitle}
     </View>
   );
@@ -128,11 +140,20 @@ function HeaderNavigation({
   titleComponent,
   hideGoBackButton,
   theme = "default",
-}: Omit<HeaderConfig, "theme" | "style"> & { theme?: keyof typeof newThemes }) {
+  isDarkMode,
+}: Omit<HeaderConfig, "theme" | "style"> & {
+  theme?: keyof ReturnType<typeof newThemes>;
+  isDarkMode: boolean;
+}) {
   const { goBack, canGoBack } = useStackNavigation();
   const { iconSize, fontSize } = getHeaderStyles();
-
+  const themes = newThemes(isDarkMode);
   const shouldShowBackButton = !hideGoBackButton && canGoBack();
+
+  const titleStyle = isDarkMode
+    ? tw`text-backgroundLight-light`
+    : themes[theme].title;
+
   return (
     <View
       style={[
@@ -147,13 +168,13 @@ function HeaderNavigation({
             <Icon
               id="chevronLeft"
               style={24}
-              color={newThemes[theme].backButtonColor}
+              color={themes[theme].backButtonColor}
             />
           </TouchableOpacity>
         )}
         {titleComponent || (
           <PeachText
-            style={[...fontSize, newThemes[theme].title, tw`flex-1`]}
+            style={[...fontSize, titleStyle, tw`flex-1`]}
             numberOfLines={1}
           >
             {title}
@@ -173,7 +194,7 @@ function HeaderNavigation({
               color={
                 theme !== "dispute"
                   ? color
-                  : tw.color("primary-background-light")
+                  : tw.color("primary-background-light-color")
               }
               style={iconSize}
             />
@@ -195,11 +216,17 @@ type TickerProps = {
 
 function Tickers({ type = "sell" }: TickerProps) {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();
+  const { isDarkMode } = useThemeStore();
+
+  const labelStyle = isDarkMode
+    ? tw`text-backgroundLight-light`
+    : tw`text-black-100`;
   const valueStyle = [
     tw`leading-xl`,
     type === "sell" ? tw`text-primary-main` : tw`text-success-main`,
     tw`md:body-l`,
   ];
+
   return (
     <View
       style={[
@@ -208,7 +235,9 @@ function Tickers({ type = "sell" }: TickerProps) {
       ]}
     >
       <View style={leftColStyle}>
-        <PeachText style={unitStyle}>{`1 ${i18n("btc")}`}</PeachText>
+        <PeachText
+          style={[unitStyle, labelStyle]}
+        >{`1 ${i18n("btc")}`}</PeachText>
         <PriceFormat
           style={valueStyle}
           currency={displayCurrency}
@@ -219,7 +248,14 @@ function Tickers({ type = "sell" }: TickerProps) {
       <View style={rightColStyle}>
         <CurrencyScrollView />
 
-        <PeachText style={[...valueStyle, tw`text-right`]}>
+        <PeachText
+          style={[
+            ...valueStyle,
+            labelStyle,
+            tw`text-right`,
+            tw`text-primary-main`,
+          ]}
+        >
           {i18n("currency.format.sats", thousands(moscowTime))}
         </PeachText>
       </View>
@@ -233,7 +269,11 @@ function CurrencyScrollView() {
     (state) => [state.displayCurrency, state.setDisplayCurrency],
     shallow,
   );
-  const borderWidth = 1;
+  const { isDarkMode } = useThemeStore();
+
+  const currencyTextStyle = isDarkMode
+    ? tw`text-primary-mild-1`
+    : tw`text-black-100`;
 
   return (
     <TouchableOpacity
@@ -241,11 +281,16 @@ function CurrencyScrollView() {
       style={[tw`items-end flex-1 w-full grow`, { zIndex: 1 }]}
     >
       <ScrollView
-        style={tw`absolute bg-primary-background-main max-h-40`}
+        style={tw`absolute ${isDarkMode ? "bg-backgroundMain-dark" : "bg-backgroundMain-light"} max-h-40`}
         contentContainerStyle={[
           tw`items-end self-end justify-end`,
-          !showCurrencies && { padding: borderWidth },
-          showCurrencies && tw`pl-2 border rounded-lg border-black-25`,
+          showCurrencies
+            ? tw.style(
+                `pl-2 border`,
+                isDarkMode ? "border-black-90" : "border-black-10",
+                `rounded-lg`,
+              )
+            : { padding: 1 },
         ]}
         scrollEnabled={showCurrencies}
         showsVerticalScrollIndicator={false}
@@ -255,11 +300,13 @@ function CurrencyScrollView() {
           onStartShouldSetResponder={() => showCurrencies}
         >
           <View style={tw`flex-row items-center gap-1`}>
-            <PeachText style={unitStyle}>{`1 ${displayCurrency}`}</PeachText>
+            <PeachText
+              style={[unitStyle, currencyTextStyle]}
+            >{`1 ${displayCurrency}`}</PeachText>
             <TouchableIcon
               id={showCurrencies ? "chevronUp" : "chevronDown"}
               onPress={toggle}
-              iconColor={tw.color("black-100")}
+              iconColor={tw.color(isDarkMode ? "primary-mild-1" : "black-100")}
             />
           </View>
           {showCurrencies &&
@@ -270,7 +317,7 @@ function CurrencyScrollView() {
                   toggle();
                 }}
                 key={c}
-                style={unitStyle}
+                style={[unitStyle, currencyTextStyle]}
               >{`1 ${c}`}</PeachText>
             ))}
         </View>
@@ -280,12 +327,13 @@ function CurrencyScrollView() {
 }
 
 type HeaderSubtitleProps = {
-  theme?: keyof typeof newThemes;
+  theme?: keyof ReturnType<typeof newThemes>;
   amount: number;
   premium: number;
   viewer: "buyer" | "seller";
   text?: string;
 };
+
 function HeaderSubtitle({
   theme = "default",
   amount,
@@ -293,6 +341,9 @@ function HeaderSubtitle({
   viewer,
   text,
 }: HeaderSubtitleProps) {
+  const { isDarkMode } = useThemeStore();
+  const themes = newThemes(isDarkMode);
+
   return (
     <View
       style={[
@@ -301,7 +352,7 @@ function HeaderSubtitle({
       ]}
     >
       <PeachText
-        style={[tw`subtitle-1`, newThemes[theme].subtitle, tw`md:subtitle-0`]}
+        style={[tw`subtitle-1`, themes[theme].subtitle, tw`md:subtitle-0`]}
       >
         {text ??
           i18n(
@@ -316,7 +367,7 @@ function HeaderSubtitle({
         white={theme === "dispute"}
         size="medium"
       />
-      <PeachText style={[tw`subtitle-1 pt-3px`, newThemes[theme].subtitle]}>
+      <PeachText style={[tw`subtitle-1 pt-3px`, themes[theme].subtitle]}>
         {premium > 0 ? "+" : ""}
         {String(premium)}%
       </PeachText>

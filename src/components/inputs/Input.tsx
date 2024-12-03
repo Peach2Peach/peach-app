@@ -8,6 +8,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { IconType } from "../../assets/icons";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { TouchableIcon } from "../TouchableIcon";
@@ -21,29 +22,28 @@ const themes = {
     border: tw`border-black-100`,
     borderError: tw`border-error-main`,
     borderDisabled: tw`text-black-65`,
-    bg: tw`bg-primary-background-light`,
-    bgError: tw`bg-primary-background-light`,
+    bg: tw`bg-primary-background-light-color`,
+    bgError: tw`bg-primary-background-light-color`,
     bgDisabled: tw`bg-transparent`,
     error: tw`text-error-main`,
     placeholder: "text-black-25",
     optional: tw`text-black-25`,
   },
   inverted: {
-    label: tw`text-primary-background-light`,
-    text: "text-primary-background-light",
+    label: tw`text-primary-background-light-color`,
+    text: "text-primary-background-light-color",
     textError: "text-error-main",
-    border: tw`border-primary-background-light`,
-    borderError: tw`border-primary-background-light`,
-    borderDisabled: tw`border-primary-background-light`,
+    border: tw`border-primary-background-light-color`,
+    borderError: tw`border-primary-background-light-color`,
+    borderDisabled: tw`border-primary-background-light-color`,
     bg: tw`bg-transparent`,
-    bgError: tw`bg-primary-background-light`,
+    bgError: tw`bg-primary-background-light-color`,
     bgDisabled: tw`bg-transparent`,
-    error: tw`text-primary-background-light`,
-    placeholder: "text-primary-mild-1",
+    error: tw`text-primary-background-light-color`,
+    placeholder: "text-black-75",
     optional: tw`text-black-25`,
   },
 };
-
 export type IconActionPair = [IconType, () => void];
 export type InputProps = TextInputProps & {
   theme?: "default" | "inverted";
@@ -72,6 +72,13 @@ export const Input = ({
   reference,
   ...inputProps
 }: InputProps) => {
+  const { isDarkMode } = useThemeStore();
+
+  const selectedTheme = useMemo(
+    () => (isDarkMode ? themes.inverted : themes[theme]),
+    [isDarkMode, theme],
+  );
+
   const {
     bgDisabled,
     bg,
@@ -83,7 +90,7 @@ export const Input = ({
     placeholder,
     textError,
     error,
-  } = useMemo(() => themes[theme], [theme]);
+  } = selectedTheme;
   const showError = errorMessage.length > 0 && !disabled && !!value;
 
   return (

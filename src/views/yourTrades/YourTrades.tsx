@@ -140,8 +140,8 @@ export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {
   return data.length !== 0 && title !== "priority" ? (
-    <LinedText style={tw`pb-7 bg-primary-background-main`}>
-      <PeachText style={tw`text-black-65`}>
+    <LinedText style={tw`pb-7 bg-transparent`}>
+      <PeachText style={tw`text-black-50`}>
         {i18n(`yourTrades.${title}`)}
       </PeachText>
     </LinedText>

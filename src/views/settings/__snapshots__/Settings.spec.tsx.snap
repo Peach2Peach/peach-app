@@ -5,7 +5,7 @@ exports[`Settings should highlight backups if backup reminder is shown 1`] = `
 - First value
 + Second value
 
-@@ -692,22 +692,20 @@
+@@ -701,22 +701,20 @@
                                 "fontSize": 20,
                                 "letterSpacing": 0.2,
                                 "lineHeight": 32,
@@ -91,6 +91,7 @@ exports[`Settings should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -137,6 +138,7 @@ exports[`Settings should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -273,6 +275,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -354,6 +357,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -435,6 +439,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -482,6 +487,7 @@ exports[`Settings should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
                         "color": "#F56522",
                         "fontFamily": "Baloo2-Bold",
@@ -558,6 +564,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -639,6 +646,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -720,6 +728,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -801,6 +810,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -882,6 +892,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -963,6 +974,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1010,6 +1022,7 @@ exports[`Settings should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
                         "color": "#F56522",
                         "fontFamily": "Baloo2-Bold",
@@ -1086,6 +1099,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1167,6 +1181,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1248,6 +1263,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1329,6 +1345,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1410,6 +1427,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1491,6 +1509,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1572,6 +1591,7 @@ exports[`Settings should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "color": "#7D675E",
@@ -1605,6 +1625,88 @@ exports[`Settings should render correctly 1`] = `
                       }
                     />
                   </View>
+                  <View
+                    accessibilityState={
+                      {
+                        "busy": undefined,
+                        "checked": undefined,
+                        "disabled": undefined,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+                      {
+                        "max": undefined,
+                        "min": undefined,
+                        "now": undefined,
+                        "text": undefined,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    focusable={true}
+                    onClick={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    style={
+                      {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          false,
+                          [
+                            {
+                              "color": "#7D675E",
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 20,
+                              "letterSpacing": 0.2,
+                              "lineHeight": 32,
+                              "textTransform": "lowercase",
+                            },
+                            undefined,
+                          ],
+                          false,
+                        ]
+                      }
+                    >
+                      Dark Mode
+                    </Text>
+                    <test-file-stub
+                      fill="#9F8C82"
+                      style={
+                        [
+                          {
+                            "height": 24,
+                            "width": 24,
+                          },
+                          {
+                            "height": 32,
+                            "width": 32,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
                 </View>
               </View>
               <Text
@@ -1618,6 +1720,7 @@ exports[`Settings should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "color": "#9F8C82",

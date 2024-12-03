@@ -32,7 +32,7 @@
   "escrowNotFound" : "404 escrow not found",
   "exportTradeHistory.amount" : "amount",
   "exportTradeHistory.date" : "date",
-  "exportTradeHistory.description" : "this will export your history to a csv file with the following info:",
+  "exportTradeHistory.description" : "This will export your history to a csv file with the following info:",
   "exportTradeHistory.export" : "export",
   "exportTradeHistory.price" : "price",
   "exportTradeHistory.title" : "export trade history",

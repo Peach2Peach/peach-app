@@ -1,4 +1,4 @@
-import { fireEvent, render } from "test-utils";
+import { act, fireEvent, render } from "test-utils";
 import {
   navigateMock,
   setRouteMock,
@@ -9,7 +9,6 @@ import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import { SelectCountry } from "./SelectCountry";
 
 jest.useFakeTimers();
-
 describe("SelectCountry", () => {
   beforeAll(() => {
     setPaymentMethods([
@@ -77,12 +76,13 @@ describe("SelectCountry", () => {
   it("should not go to payment method form if no country is selected", () => {
     const { getByText, UNSAFE_getByType } = render(<SelectCountry />);
     fireEvent.press(getByText("next"));
-
     expect(navigateMock).not.toHaveBeenCalled();
 
     const nextButton = UNSAFE_getByType(Button);
     expect(nextButton.props.disabled).toBe(true);
-    nextButton.props.onPress();
+    act(() => {
+      nextButton.props.onPress();
+    });
     expect(navigateMock).not.toHaveBeenCalled();
   });
 });

@@ -17,9 +17,11 @@ exports[`PercentageInput renders correctly 1`] = `
         "width": 92,
       },
       {
+        "borderWidth": 1,
+      },
+      {
         "backgroundColor": "#FFFCFA",
         "borderColor": "#7D675E",
-        "borderWidth": 1,
       },
     ]
   }
@@ -30,18 +32,22 @@ exports[`PercentageInput renders correctly 1`] = `
     placeholder="20.00"
     placeholderTextColor="#EAE3DF"
     style={
-      {
-        "color": "#2B1911",
-        "flexGrow": 1,
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 18,
-        "height": 38,
-        "letterSpacing": 0.18,
-        "lineHeight": 29.25,
-        "paddingBottom": 0,
-        "paddingTop": 0,
-        "textAlign": "center",
-      }
+      [
+        {
+          "flexGrow": 1,
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 18,
+          "height": 38,
+          "letterSpacing": 0.18,
+          "lineHeight": 29.25,
+          "paddingBottom": 0,
+          "paddingTop": 0,
+          "textAlign": "center",
+        },
+        {
+          "color": "#2B1911",
+        },
+      ]
     }
   />
   <View

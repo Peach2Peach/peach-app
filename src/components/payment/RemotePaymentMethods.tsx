@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { IconType } from "../../assets/icons";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -59,6 +60,7 @@ export const RemotePaymentMethods = ({
   select,
   isSelected,
 }: Props) => {
+  const { isDarkMode } = useThemeStore();
   const paymentData = usePaymentDataStore(
     (state) => Object.values(state.paymentData),
     shallow,
@@ -73,7 +75,12 @@ export const RemotePaymentMethods = ({
     });
   };
   return paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
-    <PeachText style={tw`text-center h6 text-black-50`}>
+    <PeachText
+      style={tw.style(
+        `text-center h6`,
+        isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+      )}
+    >
       {i18n("paymentMethod.empty")}
     </PeachText>
   ) : (
@@ -93,12 +100,19 @@ export const RemotePaymentMethods = ({
         .map(({ category, checkboxes }, i) => (
           <View key={category} style={i > 0 ? tw`mt-8` : {}}>
             <LinedText style={tw`pb-3`}>
-              <PeachText style={tw`mr-1 h6 text-black-65`}>
+              <PeachText
+                style={tw.style(
+                  `mr-1 h6`,
+                  isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+                )}
+              >
                 {i18n(`paymentCategory.${category}`)}
               </PeachText>
               {paymentCategoryIcons[category] !== "" && (
                 <Icon
-                  color={tw.color("black-65")}
+                  color={tw.color(
+                    isDarkMode ? "backgroundLight-light" : "black-65",
+                  )}
                   id={paymentCategoryIcons[category] as IconType}
                 />
               )}
@@ -128,7 +142,12 @@ export const RemotePaymentMethods = ({
                     <PeachText style={tw`text-error-main`}>
                       {item.data.label}
                     </PeachText>
-                    <Icon id="trash" color={tw.color("black-65")} />
+                    <Icon
+                      id="trash"
+                      color={tw.color(
+                        isDarkMode ? "backgroundLight-light" : "black-65",
+                      )}
+                    />
                   </TouchableOpacity>
                 )}
               </View>

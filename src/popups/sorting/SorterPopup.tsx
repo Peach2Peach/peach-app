@@ -6,6 +6,7 @@ import {
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { NewDivider } from "../../components/ui/NewDivider";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
@@ -15,6 +16,7 @@ type Props<T> = {
 };
 
 export function SorterPopup<T>({ radioButtonProps, applyAction }: Props<T>) {
+  const { isDarkMode } = useThemeStore();
   return (
     <PopupComponent
       content={
@@ -29,6 +31,11 @@ export function SorterPopup<T>({ radioButtonProps, applyAction }: Props<T>) {
           {applyAction}
         </>
       }
+      bgColor={{
+        backgroundColor: isDarkMode
+          ? tw.color("card")
+          : tw.color("primary-background-dark-color"),
+      }}
     />
   );
 }

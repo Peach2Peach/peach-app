@@ -34,7 +34,7 @@ export const ConfirmSlider = ({
   return (
     <View
       style={[
-        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`,
+        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark-color border-primary-mild-1`,
         style,
       ]}
       {...panResponder.panHandlers}
@@ -89,13 +89,13 @@ export function UnlockedSlider({
   const pan = new Animated.Value(1);
   const isMediumScreen = useIsMediumScreen();
   const icon = {
-    color: tw.color("primary-background-light"),
+    color: tw.color("primary-background-light-color"),
     size: isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE,
   };
   return (
     <View
       style={[
-        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`,
+        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark-color border-primary-mild-1`,
         style,
       ]}
     >

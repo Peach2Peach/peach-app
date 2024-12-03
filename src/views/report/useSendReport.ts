@@ -14,17 +14,9 @@ type Params = {
   reason: string;
   topic: string;
   message: string;
-  shareDeviceID: boolean;
 };
-async function sendReport({
-  email,
-  reason,
-  topic,
-  message,
-  shareDeviceID,
-}: Params) {
-  let messageToSend = message;
-  if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`;
+async function sendReport({ email, reason, topic, message }: Params) {
+  let messageToSend = `${message}\n\nDevice ID Hash: ${UNIQUEID}`;
   messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`;
 
   messageToSend += `\n\nUser shared app logs, please check crashlytics\nSession ID: ${SESSION_ID}`;

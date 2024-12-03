@@ -31,6 +31,7 @@ import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -104,6 +105,7 @@ const MATCH_DELAY = 5000;
 function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { mutate } = useMatchOffer(offer, match);
   const { meansOfPayment } = match;
+  const { isDarkMode } = useThemeStore();
 
   const [selectedCurrency, setSelectedCurrency] = useState(
     keys(meansOfPayment)[0],
@@ -174,7 +176,14 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
           ]}
           onStartShouldSetResponder={() => true}
         >
-          <View style={tw`bg-primary-background-light rounded-xl`}>
+          <View
+            style={[
+              tw`rounded-xl`,
+              isDarkMode
+                ? tw`bg-backgroundMain-dark`
+                : tw`bg-primary-background-light-color`,
+            ]}
+          >
             <View style={tw`gap-2 p-4 md:gap-4`}>
               <ProfileInfo user={match.user} isOnMatchCard />
 

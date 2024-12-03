@@ -18,10 +18,12 @@ export const WelcomeInfo = ({
 
   return (
     <View style={[tw`items-center justify-center h-full px-sm`, tw`md:px-md`]}>
-      <PeachText style={tw`text-center h5 text-primary-background-light`}>
+      <PeachText style={tw`text-center h5 text-primary-background-light-color`}>
         {i18n(`welcome.${name}.title`)}
       </PeachText>
-      <PeachText style={tw`mt-4 text-center text-primary-background-light`}>
+      <PeachText
+        style={tw`mt-4 text-center text-primary-background-light-color`}
+      >
         {i18n(`welcome.${name}.description`)}
       </PeachText>
       <Image

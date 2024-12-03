@@ -31,7 +31,7 @@ export const RestoreFromFile = () => {
     <View style={tw`justify-between shrink`}>
       <View style={tw`justify-center h-full shrink`}>
         <PeachText
-          style={tw`pb-2 text-center subtitle-1 text-primary-background-light`}
+          style={tw`pb-2 text-center subtitle-1 text-primary-background-light-color`}
         >
           {i18n("restoreBackup.manual.description.1")}
         </PeachText>
@@ -54,7 +54,7 @@ export const RestoreFromFile = () => {
       </View>
 
       <Button
-        style={tw`self-center bg-primary-background-light`}
+        style={tw`self-center bg-primary-background-light-color`}
         textColor={tw.color("primary-main")}
         disabled={!file.content || !password}
         iconId="save"

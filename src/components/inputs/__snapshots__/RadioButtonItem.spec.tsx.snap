@@ -59,6 +59,7 @@ exports[`RadioButtonItem renders correctly when disabled 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "flexBasis": "0%",
           "flexGrow": 1,
@@ -160,6 +161,7 @@ exports[`RadioButtonItem renders correctly when display is not a string 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           undefined,
           false,
         ]
@@ -245,6 +247,7 @@ exports[`RadioButtonItem renders correctly when not selected 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "flexBasis": "0%",
           "flexGrow": 1,
@@ -337,6 +340,7 @@ exports[`RadioButtonItem renders correctly when selected 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "flexBasis": "0%",
           "flexGrow": 1,

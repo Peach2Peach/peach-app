@@ -59,6 +59,7 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -360,6 +362,7 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -449,6 +452,7 @@ You can go do something else, we'll automatically publish your offer as soon as 
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -550,6 +554,7 @@ exports[`TransactionInMempool should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -596,6 +601,7 @@ exports[`TransactionInMempool should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -851,6 +857,7 @@ exports[`TransactionInMempool should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -940,6 +947,7 @@ You can go do something else, we'll automatically publish your offer as soon as 
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",

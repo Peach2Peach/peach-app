@@ -80,6 +80,7 @@ exports[`Icon renders ❌ if icon id is unknown 1`] = `
         "letterSpacing": 0.16,
         "lineHeight": 24,
       },
+      false,
       undefined,
       false,
     ]

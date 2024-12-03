@@ -18,7 +18,7 @@ export const OpenWallet = ({ address, style }: OpenWalletProps) => {
       style={[tw`flex-row items-center justify-center`, style]}
       onPress={openWalletApp}
     >
-      <PeachText style={tw`underline uppercase button-medium text-black-65`}>
+      <PeachText style={tw`underline uppercase button-medium text-black-50`}>
         {i18n("wallet.openWalletApp")}
       </PeachText>
       <Icon

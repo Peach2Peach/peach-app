@@ -21,6 +21,7 @@ exports[`RestoreBackupLoading should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "fontFamily": "Baloo2-Bold",
@@ -46,6 +47,7 @@ exports[`RestoreBackupLoading should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "fontFamily": "Baloo2-Regular",

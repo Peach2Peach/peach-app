@@ -11,7 +11,6 @@ describe("Report", () => {
         reason: "other",
         topic: "topic",
         message: "message",
-        shareDeviceID: true,
       },
     });
   });

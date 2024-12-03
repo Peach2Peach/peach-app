@@ -15,10 +15,16 @@ export default {
       colors: {
         transparent: "transparent",
         current: "currentColor",
-        bitcoin: "#F7931A",
+
+        bitcoin: "#f7931a",
+
+        bitcoinText: "#5b5b5b",
+
+        card: "#1A1210",
+
         black: {
           100: "#2B1911",
-          90: "#46332B",
+          90: "#402F28",
           75: "#624D44",
           65: "#7D675E",
           50: "#9F8C82",
@@ -26,22 +32,31 @@ export default {
           10: "#EAE3DF",
           5: "#F4EEEB",
         },
+
         primary: {
           dark: {
             2: "#963600",
             1: "#C45104",
           },
           main: "#F56522",
+          mainTrans: "rgba(245, 101, 34, 0)",
           mild: {
             2: "#FFA171",
             1: "#FCCCB6",
           },
           background: {
-            dark: "#FEEDE5",
+            dark: {
+              color: "#FEEDE5",
+              trans: "rgba(254, 237, 229, 0.95)",
+            },
             main: "#FFF9F6",
-            light: "#FFFCFA",
+            light: {
+              color: "#FFFCFA",
+              trans: "rgba(255, 252, 250, 0)",
+            },
           },
         },
+
         success: {
           dark: {
             2: "#246F00",
@@ -50,14 +65,21 @@ export default {
           main: "#65A519",
           mild: {
             2: "#AFDA73",
-            1: "#DDEFC3",
+            1: {
+              color: "#DDEFC3",
+              trans: "rgba(221, 239, 195, 0.95)",
+            },
           },
           background: {
-            dark: "#F2F9E7",
+            dark: {
+              color: "#F2F9E7",
+              trans: "rgba(242, 249, 231, 0.95)",
+            },
             main: "#FCFEF6",
             light: "#FEFEFB",
           },
         },
+
         warning: {
           dark: {
             2: "#F19E12",
@@ -74,6 +96,7 @@ export default {
             light: "#FFFEFA",
           },
         },
+
         error: {
           dark: "#B01807",
           main: "#DF321F",
@@ -81,6 +104,7 @@ export default {
           mild: "#FFD1CA",
           background: "#FFE6E1",
         },
+
         info: {
           dark: "#005E89",
           main: "#037DB5",
@@ -88,10 +112,20 @@ export default {
           mild: "#93D6F5",
           background: "#D7F2FE",
         },
+
         gradient: {
           yellow: "#FFA24C",
           orange: "#FF7A50",
           red: "#FF4D42",
+        },
+
+        backgroundMain: {
+          light: "#FFF9F6",
+          dark: "#120A07",
+        },
+        backgroundLight: {
+          light: "#FFFCFA",
+          trans: "rgba(255, 252, 250, 0.95)",
         },
       },
       fontSize: {
@@ -165,6 +199,7 @@ export default {
       md: "374px",
     },
   },
+  darkMode: "class",
   variants: {},
   corePlugins: {},
 };

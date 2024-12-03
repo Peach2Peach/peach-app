@@ -7,15 +7,15 @@ describe("getBackgroundColor", () => {
       tw`bg-primary-main`,
     );
     expect(getBackgroundColor({ color: "primary", ghost: true })).toEqual(
-      tw`bg-primary-background-light`,
+      tw`bg-primary-background-light-color`,
     );
   });
   it("should return the correct background color for primary-mild bubble", () => {
     expect(getBackgroundColor({ color: "primary-mild", ghost: false })).toEqual(
-      tw`bg-primary-background-dark`,
+      tw`bg-primary-background-dark-color`,
     );
     expect(getBackgroundColor({ color: "primary-mild", ghost: true })).toEqual(
-      tw`bg-primary-background-light`,
+      tw`bg-primary-background-light-color`,
     );
   });
   it("should return the correct background color for gray bubble", () => {
