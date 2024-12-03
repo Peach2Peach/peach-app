@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
+import { OfferPaymentData } from "../../../../peach-api/src/@types/offer";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/offerKeys";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
@@ -9,11 +10,16 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
 import i18n from "../../../utils/i18n";
+import { interpolate } from "../../../utils/math/interpolate";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
+import {
+  CLIENT_RATING_RANGE,
+  SERVER_RATING_RANGE,
+} from "../../settings/profile/profileOverview/Rating";
 
 const isForbiddenPaymentMethodError = (
   errorMessage: string | null,
@@ -26,12 +32,16 @@ const isForbiddenPaymentMethodError = (
 export function usePostBuyOffer({
   amount,
   meansOfPayment,
-  paymentData,
   maxPremium,
   minReputation,
+  instantTradeCriteria,
 }: Pick<
   BuyOfferDraft,
-  "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
+  | "amount"
+  | "meansOfPayment"
+  | "maxPremium"
+  | "minReputation"
+  | "instantTradeCriteria"
 >) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
@@ -73,7 +83,7 @@ export function usePostBuyOffer({
   };
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (paymentData: OfferPaymentData) => {
       const { message, signature, address } =
         await getSignedAddress(payoutToPeachWallet);
 
@@ -88,6 +98,16 @@ export function usePostBuyOffer({
       ) {
         throw new Error("INVALID_SIGNATURE");
       }
+      const finalCriteria = instantTradeCriteria
+        ? {
+            ...instantTradeCriteria,
+            minReputation: interpolate(
+              instantTradeCriteria.minReputation,
+              CLIENT_RATING_RANGE,
+              SERVER_RATING_RANGE,
+            ),
+          }
+        : undefined;
       const finalizedOfferDraft = {
         type: "bid" as const,
         amount,
@@ -98,6 +118,7 @@ export function usePostBuyOffer({
         releaseAddress: address,
         message,
         messageSignature: signature,
+        instantTradeCriteria: finalCriteria,
       };
 
       const { result, error: err } =

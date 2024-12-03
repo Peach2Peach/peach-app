@@ -142,14 +142,11 @@ function BuyOfferSummaryCard({
   offerId: string;
 }) {
   const {
-    // @ts-ignore
-    matched: tradeRequested,
+    tradeRequested,
     amount: amountRange,
     user,
-    // @ts-ignore
-    instantTrade: canInstantTrade,
-    // @ts-ignore
-    matchedPrice: requestedPrice,
+    canInstantTrade,
+    requestedPrice,
     selectedCurrency,
   } = offerSummary;
   const amount = amountRange[1];

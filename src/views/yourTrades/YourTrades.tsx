@@ -71,12 +71,7 @@ export const YourTrades = () => {
                     renderSectionFooter={() => (
                       <View style={tw`bg-transparent h-7`} />
                     )}
-                    renderItem={({ item }) => (
-                      <TradeItem
-                        item={item}
-                        isSeller={tab === "yourTrades.sell"}
-                      />
-                    )}
+                    renderItem={({ item }) => <TradeItem item={item} />}
                     ItemSeparatorComponent={() => (
                       <View
                         onStartShouldSetResponder={() => true}
