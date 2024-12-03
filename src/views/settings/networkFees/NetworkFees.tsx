@@ -112,10 +112,12 @@ export const NetworkFees = () => {
           onButtonPress={setSelectedFeeRate}
         />
         <HorizontalLine style={tw`mt-8`} />
-        <PeachText style={tw.style(
+        <PeachText
+          style={tw.style(
             "mt-4 text-center",
             isDarkMode ? "text-backgroundLight-light" : "text-black-65",
-          )}>
+          )}
+        >
           {i18n("settings.networkFees.averageFees")}
         </PeachText>
         <PeachText
@@ -158,8 +160,12 @@ function NetworkFeesPopup() {
       title={i18n("help.networkFees.title")}
       content={
         <View style={tw`gap-2`}>
-          <PeachText style={tw`text-black-100`}>{i18n("help.networkFees.description.1")}</PeachText>
-          <PeachText style={tw`text-black-100`}>{i18n("help.networkFees.description.2")}</PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("help.networkFees.description.1")}
+          </PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("help.networkFees.description.2")}
+          </PeachText>
         </View>
       }
     />

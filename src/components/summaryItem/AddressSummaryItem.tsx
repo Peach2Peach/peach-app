@@ -14,15 +14,22 @@ type Props = SummaryItemProps & {
 export const AddressSummaryItem = ({ address, ...props }: Props) => {
   const { isDarkMode } = useThemeStore();
 
-  const addressTextStyle = isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`;
+  const addressTextStyle = isDarkMode
+    ? tw`text-backgroundLight-light`
+    : tw`text-black-100`;
 
   return (
     <SummaryItem {...props}>
       <View style={tw`flex-row items-center gap-2`}>
         {address ? (
-          <ShortBitcoinAddress style={[tw`subtitle-1`, addressTextStyle]} address={address} />
+          <ShortBitcoinAddress
+            style={[tw`subtitle-1`, addressTextStyle]}
+            address={address}
+          />
         ) : (
-          <PeachText style={[tw`subtitle-1`, addressTextStyle]}>{i18n("loading")}</PeachText>
+          <PeachText style={[tw`subtitle-1`, addressTextStyle]}>
+            {i18n("loading")}
+          </PeachText>
         )}
         <CopyAble value={address} />
       </View>

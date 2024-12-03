@@ -254,7 +254,8 @@ function WithdrawingFundsPopup() {
     <InfoPopup
       title={i18n("wallet.withdraw.help.title")}
       content={
-        <ParsedPeachText style={tw`text-black-100`}
+        <ParsedPeachText
+          style={tw`text-black-100`}
           parse={[
             {
               pattern: new RegExp(i18n("wallet.withdraw.help.text.link"), "u"),

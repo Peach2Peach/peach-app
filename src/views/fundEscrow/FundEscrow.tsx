@@ -182,7 +182,8 @@ function EscrowPopup() {
       title={i18n("help.escrow.title")}
       content={
         <View style={tw`gap-4`}>
-          <ParsedPeachText style={tw`text-black-100`}
+          <ParsedPeachText
+            style={tw`text-black-100`}
             parse={[
               {
                 pattern: new RegExp(i18n("help.escrow.description.link"), "u"),

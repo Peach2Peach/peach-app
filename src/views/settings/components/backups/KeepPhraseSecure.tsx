@@ -10,7 +10,11 @@ export const KeepPhraseSecure = () => (
       {i18n("settings.backups.seedPhrase.keepSecure")}
     </PeachText>
     <View style={tw`flex-row items-center mt-6`}>
-      <Icon id="unlock" color={tw.color("primary-main")} style={tw`w-12 h-12`} />
+      <Icon
+        id="unlock"
+        color={tw.color("primary-main")}
+        style={tw`w-12 h-12`}
+      />
       <PeachText style={tw`pl-4 shrink`}>
         {i18n("settings.backups.seedPhrase.storeSafely")}
       </PeachText>

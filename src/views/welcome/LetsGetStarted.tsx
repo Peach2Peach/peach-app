@@ -147,19 +147,19 @@ export const LetsGetStarted = () => {
             {i18n("newUser.referralCode")}
           </PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
-          <View style={tw`h-14`}>
-    <Input
-      style={tw`w-40 mt-2`}
-      theme="inverted"
-      maxLength={16}
-      placeholder={i18n("form.optional").toUpperCase()}
-      placeholderTextColor={tw.color("backgroundLight-light")}
-      onChangeText={updateReferralCode}
-      onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
-      value={referralCode}
-      autoCapitalize="characters"
-    />
-  </View>
+            <View style={tw`h-14`}>
+              <Input
+                style={tw`w-40 mt-2`}
+                theme="inverted"
+                maxLength={16}
+                placeholder={i18n("form.optional").toUpperCase()}
+                placeholderTextColor={tw.color("backgroundLight-light")}
+                onChangeText={updateReferralCode}
+                onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
+                value={referralCode}
+                autoCapitalize="characters"
+              />
+            </View>
             <Button
               style={tw`min-w-20 bg-primary-background-light-color`}
               textColor={tw.color("primary-main")}
