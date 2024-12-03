@@ -970,7 +970,7 @@ exports[`MyProfile should render correctly 1`] = `
                           ]
                         }
                       >
-                        Daily trading limit
+                        daily trading limit
                           
                         <Text
                           allowFontScaling={false}
@@ -1144,7 +1144,7 @@ exports[`MyProfile should render correctly 1`] = `
                           ]
                         }
                       >
-                        Monthly anonymous limit:
+                        monthly anonymous limit:
                           
                         <Text
                           allowFontScaling={false}
@@ -1318,7 +1318,7 @@ exports[`MyProfile should render correctly 1`] = `
                           ]
                         }
                       >
-                        Yearly trading limit:
+                        yearly trading limit:
                           
                         <Text
                           allowFontScaling={false}
@@ -1455,7 +1455,7 @@ exports[`MyProfile should render correctly 1`] = `
                         ]
                       }
                     >
-                      Account pubkey
+                      account pubkey
                       :
                     </Text>
                     <View
@@ -1640,7 +1640,7 @@ exports[`MyProfile should render correctly 1`] = `
                         ]
                       }
                     >
-                      Account created
+                      account created
                       :
                     </Text>
                     <Text
@@ -1690,7 +1690,7 @@ exports[`MyProfile should render correctly 1`] = `
                         ]
                       }
                     >
-                      Disputes
+                      disputes
                       :
                     </Text>
                     <View
@@ -1727,7 +1727,7 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        Opened
+                        opened
                       </Text>
                       <Text
                         allowFontScaling={false}
@@ -1756,7 +1756,7 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        Won
+                        won
                       </Text>
                       <Text
                         allowFontScaling={false}
@@ -1785,7 +1785,7 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        Lost
+                        lost
                       </Text>
                       <Text
                         allowFontScaling={false}
@@ -1814,7 +1814,7 @@ exports[`MyProfile should render correctly 1`] = `
                       >
                         0
                          
-                        Resolved
+                        resolved
                       </Text>
                     </View>
                   </View>
@@ -1839,7 +1839,7 @@ exports[`MyProfile should render correctly 1`] = `
                         ]
                       }
                     >
-                      Number of trades
+                      number of trades
                       :
                     </Text>
                     <Text

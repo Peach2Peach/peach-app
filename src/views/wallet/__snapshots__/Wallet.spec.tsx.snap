@@ -142,7 +142,7 @@ exports[`Wallet should render correctly 1`] = `
           }
         >
           <View
-            accessibilityHint="go to Address checker"
+            accessibilityHint="go to address checker"
             accessibilityState={
               {
                 "busy": undefined,

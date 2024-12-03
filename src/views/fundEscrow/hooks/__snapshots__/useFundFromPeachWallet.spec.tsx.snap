@@ -141,7 +141,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
             ]
           }
         >
-          Funding escrow
+          funding escrow
         </Text>
         <View
           style={
@@ -789,7 +789,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
             ]
           }
         >
-          Insufficient funds
+          insufficient funds
         </Text>
         <View
           style={

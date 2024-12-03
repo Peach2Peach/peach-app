@@ -281,7 +281,7 @@ describe("useFundFromPeachWallet", () => {
       await result.current(initialProps);
     });
     const { getByText } = render(<GlobalPopup />);
-    expect(getByText("Amount too low")).toBeTruthy();
+    expect(getByText("amount too low")).toBeTruthy();
   });
   it("should open amount too low popup when funding multiple", async () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
@@ -294,6 +294,6 @@ describe("useFundFromPeachWallet", () => {
     });
 
     const { getByText } = render(<GlobalPopup />);
-    expect(getByText("Amount too low")).toBeTruthy();
+    expect(getByText("amount too low")).toBeTruthy();
   });
 });

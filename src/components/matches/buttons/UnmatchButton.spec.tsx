@@ -165,6 +165,6 @@ describe("UnmatchButton", () => {
       fireEvent.press(getAllByText("undo")[0]);
     });
 
-    expect(getByText("Match undone")).toBeTruthy();
+    expect(getByText("match undone")).toBeTruthy();
   });
 });

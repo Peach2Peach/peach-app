@@ -207,7 +207,7 @@ exports[`ExportTransactionHistory should render correctly 1`] = `
               ]
             }
           >
-            This will export your history to a csv file with the following info:
+            this will export your history to a csv file with the following info:
 
   • date & time
   • type (buy, sell, refund, etc)

@@ -16,7 +16,7 @@ describe("WalletHeader", () => {
   it("should go to address checker", () => {
     const { getByAccessibilityHint } = render(<WalletHeader />);
 
-    fireEvent.press(getByAccessibilityHint("go to Address checker"));
+    fireEvent.press(getByAccessibilityHint("go to address checker"));
     expect(navigateMock).toHaveBeenCalledWith("addressChecker");
   });
 });

@@ -200,7 +200,7 @@ exports[`Welcome should render correctly 1`] = `
               ]
             }
           >
-            Welcome to Peach!
+            welcome to Peach!
           </Text>
         </View>
         <View

@@ -128,7 +128,7 @@ exports[`AddressChecker should render correctly 1`] = `
               ]
             }
           >
-            Address checker
+            address checker
           </Text>
         </View>
         <View
@@ -246,7 +246,7 @@ exports[`AddressChecker should render correctly 1`] = `
                 ]
               }
             >
-              You can use this to verify if an address belongs to your Peach wallet
+              you can use this to verify if an address belongs to your Peach wallet
             </Text>
           </View>
           <View>

@@ -160,7 +160,7 @@ exports[`Settings should render correctly 1`] = `
               ]
             }
           >
-            Settings
+            settings
           </Text>
         </View>
         <View

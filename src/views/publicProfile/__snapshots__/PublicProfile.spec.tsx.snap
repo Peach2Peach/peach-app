@@ -128,7 +128,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
               ]
             }
           >
-            Public profile
+            public profile
           </Text>
         </View>
         <View
@@ -850,7 +850,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   ]
                 }
               >
-                Account pubkey
+                account pubkey
                 :
               </Text>
               <View
@@ -1035,7 +1035,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   ]
                 }
               >
-                Account created
+                account created
                 :
               </Text>
               <Text
@@ -1085,7 +1085,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   ]
                 }
               >
-                Disputes
+                disputes
                 :
               </Text>
               <View
@@ -1122,7 +1122,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                 >
                   0
                    
-                  Opened
+                  opened
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -1151,7 +1151,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                 >
                   0
                    
-                  Won
+                  won
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -1180,7 +1180,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                 >
                   0
                    
-                  Lost
+                  lost
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -1209,7 +1209,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                 >
                   0
                    
-                  Resolved
+                  resolved
                 </Text>
               </View>
             </View>
@@ -1234,7 +1234,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   ]
                 }
               >
-                Number of trades
+                number of trades
                 :
               </Text>
               <Text
@@ -1326,7 +1326,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
               ]
             }
           >
-            Block this user
+            block this user
           </Text>
           <test-file-stub
             fill="#DF321F"

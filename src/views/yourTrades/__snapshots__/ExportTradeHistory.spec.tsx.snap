@@ -128,7 +128,7 @@ exports[`ExportTradeHistory should render correctly 1`] = `
               ]
             }
           >
-            Export trade history
+            export trade history
           </Text>
         </View>
         <View

@@ -194,7 +194,7 @@ exports[`UserSource renders correctly 1`] = `
                 ]
               }
             >
-              One more thing
+              one more thing
             </Text>
             <Text
               allowFontScaling={false}
@@ -220,7 +220,7 @@ exports[`UserSource renders correctly 1`] = `
                 ]
               }
             >
-              How did you hear about us?
+              how did you hear about us?
             </Text>
           </View>
           <View

@@ -39,7 +39,7 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
       ]
     }
   >
-    A wallet YOU control
+    a wallet YOU control
   </Text>
   <Text
     allowFontScaling={false}
@@ -201,7 +201,7 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
       ]
     }
   >
-    Peer-to-Peer
+    peer-to-Peer
   </Text>
   <Text
     allowFontScaling={false}
@@ -282,7 +282,7 @@ exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
       ]
     }
   >
-    Privacy first!
+    privacy first!
   </Text>
   <Text
     allowFontScaling={false}

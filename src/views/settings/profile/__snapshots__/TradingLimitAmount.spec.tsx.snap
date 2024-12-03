@@ -13,7 +13,7 @@ exports[`TradingLimitAmount should render correctly for daily 1`] = `
       }
     }
   >
-    Daily trading limit
+    daily trading limit
       
     <PriceFormat
       amount={10}
@@ -90,7 +90,7 @@ exports[`TradingLimitAmount should render correctly for monthly 1`] = `
       }
     }
   >
-    Monthly anonymous limit:
+    monthly anonymous limit:
       
     <PriceFormat
       amount={100}
@@ -167,7 +167,7 @@ exports[`TradingLimitAmount should render correctly for yearly 1`] = `
       }
     }
   >
-    Yearly trading limit:
+    yearly trading limit:
       
     <PriceFormat
       amount={1000}
@@ -244,7 +244,7 @@ exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
       }
     }
   >
-    Yearly trading limit:
+    yearly trading limit:
       
     <PriceFormat
       amount={1000}

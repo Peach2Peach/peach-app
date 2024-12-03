@@ -121,12 +121,17 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
                 {
                   "color": "#EAE3DF",
                 },
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 28,
-                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                ],
               ],
               false,
             ]
@@ -149,12 +154,17 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
                   {
                     "color": "#2B1911",
                   },
-                  {
-                    "fontFamily": "Baloo2-SemiBold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 28,
-                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 28,
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
                 ],
                 false,
               ]
@@ -179,12 +189,17 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
                   {
                     "color": "#2B1911",
                   },
-                  {
-                    "fontFamily": "Baloo2-SemiBold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 28,
-                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 28,
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
                 ],
                 false,
               ]
@@ -533,12 +548,17 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
                 {
                   "color": "#EAE3DF",
                 },
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 28,
-                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                ],
               ],
               false,
             ]
@@ -561,12 +581,17 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
                   {
                     "color": "#2B1911",
                   },
-                  {
-                    "fontFamily": "Baloo2-SemiBold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 28,
-                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 28,
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
                 ],
                 false,
               ]
@@ -591,12 +616,17 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
                   {
                     "color": "#2B1911",
                   },
-                  {
-                    "fontFamily": "Baloo2-SemiBold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 28,
-                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 28,
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
                 ],
                 false,
               ]

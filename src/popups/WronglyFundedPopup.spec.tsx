@@ -32,7 +32,7 @@ describe("useShowWronglyFundedPopup", () => {
       <WronglyFundedPopup sellOffer={wronglyFundedOffer} />,
     );
 
-    expect(queryByText("Trading limit exceeded")).not.toBeNull();
+    expect(queryByText("trading limit exceeded")).not.toBeNull();
     expect(queryByText("Incorrect funding")).toBeNull();
   });
   it("opens Incorrect Funding popup when funded with multiple transactions", () => {
