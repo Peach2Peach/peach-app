@@ -18,7 +18,6 @@ import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
-import { BuySorters } from "../../popups/sorting/BuySorters";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -249,7 +248,6 @@ function ExploreHeader() {
   const { offerId } = useRoute<"explore">().params;
   const setPopup = useSetPopup();
 
-  const showSortAndFilterPopup = () => setPopup(<BuySorters />);
   const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />);
   const goToPreferences = () =>
     navigation.navigate("editBuyPreferences", { offerId });

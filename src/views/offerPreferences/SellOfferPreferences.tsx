@@ -10,9 +10,7 @@ import {
 } from "react-native";
 import { shallow } from "zustand/shallow";
 import { MeansOfPayment } from "../../../peach-api/src/@types/payment";
-import { LogoIcons } from "../../assets/logo";
 import { Badge } from "../../components/Badge";
-import { Header } from "../../components/Header";
 import { PremiumInput } from "../../components/PremiumInput";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
@@ -35,7 +33,6 @@ import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
@@ -797,26 +794,6 @@ function RefundWalletSelector() {
       addressLabel={refundAddressLabel}
       onPeachWalletPress={onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
-    />
-  );
-}
-
-function SellHeader() {
-  const setPopup = useSetPopup();
-  const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
-  return (
-    <Header
-      titleComponent={
-        <>
-          <PeachText style={tw`h7 md:h6 text-primary-main`}>
-            {i18n("sell")}
-          </PeachText>
-          <LogoIcons.bitcoinText
-            style={tw`h-14px md:h-16px w-63px md:w-71px`}
-          />
-        </>
-      }
-      icons={[{ ...headerIcons.help, onPress }]}
     />
   );
 }

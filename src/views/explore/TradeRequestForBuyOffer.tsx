@@ -95,7 +95,6 @@ function useAcceptTradeRequest() {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
 
-      // TODO: the user should actually choose here and not just randomly pick the first one
       const selectedPaymentData = paymentData.find((pd) =>
         pd.currencies.includes(currency),
       );
@@ -123,7 +122,6 @@ function useAcceptTradeRequest() {
     },
     onSuccess: (response) => {
       if (!response || "error" in response) return;
-      // TODO: for some fukcnig reason we used to return a refundPSBT after a match here
       navigation.reset({
         index: 1,
         routes: [
