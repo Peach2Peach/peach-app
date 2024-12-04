@@ -23,7 +23,9 @@ export function NetworkFeeInfo({ type }: { type: "buy" | "sell" }) {
     <Section.Container
       style={[
         tw`flex-row justify-between`,
-        type === "buy" ? tw`bg-success-mild-1` : tw`bg-primary-background-dark`,
+        type === "buy"
+          ? tw`bg-success-mild-1`
+          : tw`bg-primary-background-dark-color`,
       ]}
     >
       <PeachText style={tw`subtitle-1`}>network fees:</PeachText>

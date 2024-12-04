@@ -29,7 +29,7 @@ export function UserCard({
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <TouchableOpacity
           onPress={goToUserProfile}
-          style={tw`flex-row items-center px-3 py-1 border rounded-full gap-2px border-primary-main bg-primary-background-dark`}
+          style={tw`flex-row items-center px-3 py-1 border rounded-full gap-2px border-primary-main bg-primary-background-dark-color`}
         >
           <PeachText style={tw`subtitle-1`}>
             {isBuyer ? "buyer" : "seller"}

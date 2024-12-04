@@ -234,7 +234,7 @@ function AmountSelectorContainer({
   inputs?: JSX.Element;
 }) {
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container style={tw`bg-primary-background-dark-color`}>
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5 shrink`}>
         <View style={tw`gap-2`}>
@@ -446,7 +446,7 @@ function FundMultipleOffersContainer() {
   const setPopup = useSetPopup();
   return (
     <Section.Container
-      style={tw`flex-row items-start justify-between bg-primary-background-dark`}
+      style={tw`flex-row items-start justify-between bg-primary-background-dark-color`}
     >
       <FundMultipleOffers />
       <TouchableIcon
@@ -498,7 +498,7 @@ function InstantTrade() {
   };
 
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container style={tw`bg-primary-background-dark-color`}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>
@@ -825,7 +825,7 @@ function RefundWalletSelector() {
   return (
     <WalletSelector
       title={i18n("offerPreferences.refundTo")}
-      backgroundColor={tw.color("primary-background-dark")}
+      backgroundColor={tw.color("primary-background-dark-color")}
       bubbleColor="orange"
       peachWalletActive={refundToPeachWallet}
       address={refundAddress}
