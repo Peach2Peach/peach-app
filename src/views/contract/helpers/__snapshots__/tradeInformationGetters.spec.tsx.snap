@@ -67,6 +67,7 @@ exports[`tradeInformationGetters should return the correct value for the paidToM
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "color": "#2B1911",
@@ -158,6 +159,7 @@ exports[`tradeInformationGetters should return the correct value for the via fie
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "color": "#2B1911",

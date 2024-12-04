@@ -22,6 +22,7 @@ exports[`OfferPublished renders correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           {
             "color": "#FFFCFA",
             "flexShrink": 1,
@@ -69,6 +70,7 @@ exports[`OfferPublished renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "color": "#FFFCFA",
@@ -157,6 +159,7 @@ exports[`OfferPublished renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -209,7 +212,7 @@ exports[`OfferPublished renders correctly 1`] = `
         {
           "alignItems": "center",
           "backgroundColor": "transparent",
-          "borderColor": "#FFFCFA",
+          "borderColor": "#FFF9F6",
           "borderRadius": 9999,
           "borderWidth": 2,
           "flexDirection": "row",
@@ -237,6 +240,7 @@ exports[`OfferPublished renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -247,7 +251,7 @@ exports[`OfferPublished renders correctly 1`] = `
               },
               {},
               {
-                "color": "#FFFCFA",
+                "color": "#FFF9F6",
               },
             ],
             false,

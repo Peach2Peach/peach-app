@@ -81,6 +81,7 @@ exports[`ContractItem should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -132,6 +133,7 @@ exports[`ContractItem should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -257,6 +259,7 @@ exports[`ContractItem should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -271,7 +274,9 @@ exports[`ContractItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -291,6 +296,7 @@ exports[`ContractItem should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -304,7 +310,9 @@ exports[`ContractItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -325,6 +333,7 @@ exports[`ContractItem should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -334,7 +343,9 @@ exports[`ContractItem should render correctly 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -363,6 +374,7 @@ exports[`ContractItem should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "color": "#7D675E",
@@ -442,6 +454,7 @@ exports[`ContractItem should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -545,6 +558,7 @@ exports[`ContractItem should render correctly when republished 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -611,6 +625,7 @@ exports[`ContractItem should render correctly when republished 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -700,6 +715,7 @@ exports[`ContractItem should render correctly when republished 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -803,6 +819,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -866,6 +883,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -991,6 +1009,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -1005,7 +1024,9 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1025,6 +1046,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -1038,7 +1060,9 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1059,6 +1083,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -1068,7 +1093,9 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1097,6 +1124,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "color": "#7D675E",
@@ -1205,6 +1233,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -1256,6 +1285,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -1381,6 +1411,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -1395,7 +1426,9 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1415,6 +1448,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -1428,7 +1462,9 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1449,6 +1485,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -1458,7 +1495,9 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1487,6 +1526,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "color": "#7D675E",
@@ -1574,6 +1614,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -1627,6 +1668,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "fontFamily": "Baloo2-Bold",
               "position": "absolute",
@@ -1724,6 +1766,7 @@ exports[`OfferItem should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -1775,6 +1818,7 @@ exports[`OfferItem should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -1892,6 +1936,7 @@ exports[`OfferItem should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -1906,7 +1951,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1926,6 +1973,7 @@ exports[`OfferItem should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -1939,7 +1987,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -1960,6 +2010,7 @@ exports[`OfferItem should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -1969,7 +2020,9 @@ exports[`OfferItem should render correctly 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -1990,6 +2043,7 @@ exports[`OfferItem should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "color": "#9F8C82",
               "fontFamily": "Baloo2-Medium",
@@ -2085,6 +2139,7 @@ exports[`OfferItem should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -2099,7 +2154,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2119,6 +2176,7 @@ exports[`OfferItem should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -2132,7 +2190,9 @@ exports[`OfferItem should render correctly 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2153,6 +2213,7 @@ exports[`OfferItem should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -2162,7 +2223,9 @@ exports[`OfferItem should render correctly 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -2229,6 +2292,7 @@ exports[`OfferItem should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -2332,6 +2396,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -2395,6 +2460,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -2512,6 +2578,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -2526,7 +2593,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2546,6 +2615,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -2559,7 +2629,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2580,6 +2652,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -2589,7 +2662,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]
@@ -2610,6 +2685,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "color": "#9F8C82",
               "fontFamily": "Baloo2-Medium",
@@ -2705,6 +2781,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "opacity": 0.1,
@@ -2719,7 +2796,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2739,6 +2818,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "textAlign": "right",
@@ -2752,7 +2832,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                         "marginBottom": -10,
                         "marginTop": -10,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                   ],
                   false,
@@ -2773,6 +2855,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -2782,7 +2865,9 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                     "marginBottom": -10,
                     "marginTop": -10,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
                 ],
                 false,
               ]

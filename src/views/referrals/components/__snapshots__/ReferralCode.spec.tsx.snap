@@ -20,6 +20,7 @@ exports[`ReferralCode should render component correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           {
             "color": "#7D675E",
             "textAlign": "center",
@@ -50,6 +51,7 @@ exports[`ReferralCode should render component correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "fontFamily": "Baloo2-Bold",
               "fontSize": 34,
@@ -141,6 +143,7 @@ exports[`ReferralCode should render component correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Medium",
@@ -190,6 +193,7 @@ exports[`ReferralCode should render component correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "color": "#7D675E",
             },
@@ -210,6 +214,7 @@ exports[`ReferralCode should render component correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "fontSize": 12,
             },
@@ -298,6 +303,7 @@ exports[`ReferralCode should render component correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-Medium",
@@ -379,6 +385,7 @@ exports[`ReferralCode should render component correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",

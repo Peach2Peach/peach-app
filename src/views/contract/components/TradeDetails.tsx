@@ -69,9 +69,11 @@ function DecryptionErrorBox() {
       <Icon
         id="alertTriangle"
         size={24}
-        color={tw.color("primary-background-light")}
+        color={tw.color("primary-background-light-color")}
       />
-      <PeachText style={tw`shrink subtitle-2 text-primary-background-light`}>
+      <PeachText
+        style={tw`shrink subtitle-2 text-primary-background-light-color`}
+      >
         {i18n("contract.paymentData.decyptionFailed")}
       </PeachText>
     </View>

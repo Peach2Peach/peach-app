@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { FixedHeightText } from "./text/FixedHeightText";
 
@@ -16,18 +17,24 @@ export function InfoContainer({
   icon,
   color,
   textColor,
-  backgroundColor = tw.color("primary-background-light"),
+  backgroundColor = tw.color("primary-background-light-color"),
   enabled = true,
 }: InfoContainerProps) {
+  const { isDarkMode } = useThemeStore();
   const colorStyle =
-    color ?? tw.color(enabled ? "primary-main" : "primary-mild-1");
+    color ??
+    tw.color(
+      enabled ? "primary-main" : isDarkMode ? "black-65" : "primary-mild-1",
+    );
   const textStyle = textColor ?? colorStyle;
+  const adjustedBackgroundColor = isDarkMode ? "transparent" : backgroundColor;
+
   return (
     <View
       style={[
         tw`flex-row items-center py-1 border rounded-full gap-2px`,
         {
-          backgroundColor,
+          backgroundColor: adjustedBackgroundColor,
           borderColor: colorStyle,
           paddingHorizontal: horizontalBadgePadding,
         },

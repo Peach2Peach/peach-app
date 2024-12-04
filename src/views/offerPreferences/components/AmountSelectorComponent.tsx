@@ -11,6 +11,7 @@ import { PremiumTextInput } from "../../../components/PremiumTextInput";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { trackMin } from "../utils/constants";
@@ -38,25 +39,16 @@ export function AmountSelectorComponent({
 }: Props) {
   const trackWidth = useTrackWidth();
   const minSliderDeltaAsAmount = useMinSliderDeltaAsAmount(trackWidth);
+  const { isDarkMode } = useThemeStore();
 
   return (
-    <Section.Container style={tw`bg-success-mild-1`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}
+    >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Placeholder style={tw`w-6 h-6`} />
-        {/* <TouchableIcon
-          id="crossHair"
-          iconSize={24}
-          onPress={() => {}}
-          style={tw`opacity-0`}
-          /> */}
         <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
         <Placeholder style={tw`w-6 h-6`} />
-        {/* <TouchableIcon
-          id="between"
-          iconSize={24}
-          onPress={() => {}}
-          style={tw`opacity-0`}
-        /> */}
       </View>
       <View style={tw`items-center self-stretch -gap-1`}>
         <BuyAmountInput

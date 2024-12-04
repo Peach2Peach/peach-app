@@ -92,7 +92,7 @@ export function CustomAddressScreen({
             onPress={() => openInWallet(`bitcoin:${address ?? ""}`)}
           >
             <PeachText
-              style={tw`underline uppercase button-medium text-black-65`}
+              style={tw`underline uppercase button-medium text-black-50`}
             >
               {i18n("wallet.openWalletApp")}
             </PeachText>

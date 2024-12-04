@@ -32,11 +32,13 @@ export function UserExistsForDevice() {
     >
       <View style={tw`items-center justify-center gap-8 grow`}>
         <View>
-          <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("newUser.accountNotCreated")}
           </PeachText>
           <PeachText
-            style={tw`text-center body-l text-primary-background-light`}
+            style={tw`text-center body-l text-primary-background-light-color`}
           >
             {i18n("newUser.youAlreadyHaveOne")}
           </PeachText>
@@ -44,7 +46,7 @@ export function UserExistsForDevice() {
         <Icon
           id="userX"
           size={128}
-          color={tw.color("primary-background-light")}
+          color={tw.color("primary-background-light-color")}
         />
         <View style={tw`items-center gap-8`}>
           <MenuItem onPress={goToRestoreFromFile}>
@@ -69,13 +71,13 @@ function MenuItem({ children, onPress }: MenuItemProps) {
       onPress={onPress}
       style={tw`flex-row items-center justify-between w-60`}
     >
-      <PeachText style={tw`settings text-primary-background-light`}>
+      <PeachText style={tw`settings text-primary-background-light-color`}>
         {children}
       </PeachText>
       <Icon
         id="chevronRight"
         style={tw`w-6 h-6`}
-        color={tw.color("primary-background-light")}
+        color={tw.color("primary-background-light-color")}
       />
     </TouchableOpacity>
   );

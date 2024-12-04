@@ -20,11 +20,13 @@ export function AccountCreated() {
     >
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
-          <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("newUser.title.accountCreated")}
           </PeachText>
           <PeachText
-            style={tw`text-center body-l text-primary-background-light`}
+            style={tw`text-center body-l text-primary-background-light-color`}
           >
             {i18n("newUser.welcome")}
           </PeachText>
@@ -32,7 +34,7 @@ export function AccountCreated() {
         <Icon
           id="userCheck"
           size={128}
-          color={tw.color("primary-background-light")}
+          color={tw.color("primary-background-light-color")}
         />
       </View>
     </Screen>

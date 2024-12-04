@@ -10,7 +10,7 @@ export const Link = ({ text, url }: Props) => (
     style={tw`flex-row items-center gap-1`}
     onPress={() => openURL(url)}
   >
-    <PeachText style={tw`underline button-large text-black-65`}>
+    <PeachText style={tw`underline button-large text-black-50`}>
       {text}
     </PeachText>
     <Icon

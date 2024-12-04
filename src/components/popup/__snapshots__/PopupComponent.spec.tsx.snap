@@ -144,6 +144,7 @@ exports[`PopupComponent renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "color": "#FFFCFA",
@@ -208,7 +209,7 @@ exports[`PopupComponent renders correctly with title 1`] = `
 - First value
 + Second value
 
-@@ -56,10 +56,34 @@
+@@ -56,10 +56,36 @@
             },
           ],
         ]
@@ -225,7 +226,9 @@ exports[`PopupComponent renders correctly with title 1`] = `
 +             "letterSpacing": 0.16,
 +             "lineHeight": 24,
 +           },
++           false,
 +           Object {
++             "color": "#2B1911",
 +             "fontFamily": "Baloo2-Bold",
 +             "fontSize": 24,
 +             "letterSpacing": 0.24,

@@ -344,7 +344,7 @@ function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
 }
 
 export const inputContainerStyle = [
-  "items-center justify-center bg-primary-background-light flex-row self-stretch h-9",
+  "items-center justify-center bg-primary-background-light-color flex-row self-stretch h-9",
   "border rounded-lg border-black-25",
 ];
 

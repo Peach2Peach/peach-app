@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { StyleProp, TouchableOpacity, View, ViewStyle } from "react-native";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { getCurrencies } from "../../utils/paymentMethod/getCurrencies";
@@ -37,6 +38,7 @@ type PaymentMethodProps = {
 };
 
 function PaymentMethod({ paymentMethod }: PaymentMethodProps) {
+  const { isDarkMode } = useThemeStore();
   const name = useMemo(
     () =>
       paymentMethod ? i18n(`paymentMethod.${paymentMethod}`) : paymentMethod,
@@ -44,12 +46,22 @@ function PaymentMethod({ paymentMethod }: PaymentMethodProps) {
   );
   return (
     <View
-      style={tw`flex-row items-center px-2 border rounded-lg border-black-100 button-medium`}
+      style={[
+        tw`flex-row items-center px-2 border rounded-lg button-medium`,
+        tw.style(isDarkMode ? "border-primary-main" : "border-black-100"),
+      ]}
     >
       {isCashTrade(paymentMethod) ? (
         <CashPaymentMethodName paymentMethod={paymentMethod} />
       ) : (
-        <PeachText style={tw`button-medium`}>{name}</PeachText>
+        <PeachText
+          style={tw.style(
+            "button-medium",
+            isDarkMode ? "text-primary-main" : "text-black-100",
+          )}
+        >
+          {name}
+        </PeachText>
       )}
     </View>
   );
@@ -60,8 +72,18 @@ function CashPaymentMethodName({
 }: {
   paymentMethod: `cash.${string}`;
 }) {
+  const { isDarkMode } = useThemeStore();
   const value = useCashPaymentMethodName(paymentMethod);
-  return <PeachText style={tw`button-medium`}>{value}</PeachText>;
+  return (
+    <PeachText
+      style={tw.style(
+        "button-medium",
+        isDarkMode ? "text-primary-main" : "text-black-100",
+      )}
+    >
+      {value}
+    </PeachText>
+  );
 }
 
 type CurrencySelectionProps = {
@@ -70,11 +92,12 @@ type CurrencySelectionProps = {
   select: (currency: Currency) => void;
 };
 
-export function CurrencySelection({
+function CurrencySelection({
   currencies,
   selected,
   select,
 }: CurrencySelectionProps) {
+  const { isDarkMode } = useThemeStore();
   return (
     <View style={tw`flex-row flex-wrap justify-center`}>
       {currencies.map((currency) => (
@@ -86,14 +109,20 @@ export function CurrencySelection({
           <PeachText
             numberOfLines={1}
             style={[
-              tw`text-center button-large text-black-65`,
-              currency === selected && tw`text-black-100`,
+              tw`text-center button-large text-black-50`,
+              currency === selected &&
+                tw.style(isDarkMode ? "text-primary-main" : "text-black-100"),
             ]}
           >
             {currency}
           </PeachText>
           {currency === selected && (
-            <View style={[tw`w-full h-2px bg-black-100 rounded-1px`]} />
+            <View
+              style={[
+                tw`w-full h-2px bg-black-100 rounded-1px`,
+                tw.style(isDarkMode ? "bg-primary-main" : "bg-black-100"),
+              ]}
+            />
           )}
         </TouchableOpacity>
       ))}

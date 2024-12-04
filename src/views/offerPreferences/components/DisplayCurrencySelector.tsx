@@ -18,7 +18,7 @@ export function DisplayCurrencySelector() {
     <TouchableOpacity onPress={toggle} style={tw`items-end min-w-20`}>
       <ScrollView
         style={tw`absolute z-20 max-h-29`}
-        contentContainerStyle={tw`border rounded-lg px-6px bg-primary-background-light border-black-25`}
+        contentContainerStyle={tw`border rounded-lg px-6px bg-primary-background-light-color border-black-25`}
         scrollEnabled={showCurrencies}
         showsVerticalScrollIndicator={false}
         onStartShouldSetResponder={() => showCurrencies}

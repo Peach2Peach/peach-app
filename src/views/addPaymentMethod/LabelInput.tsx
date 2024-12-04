@@ -18,8 +18,8 @@ export function LabelInput({
   defaultValue = "",
   ...inputProps
 }: Props) {
-  const getPaymentDataByLabel = usePaymentDataStore(
-    (state) => state.getPaymentDataByLabel,
+  const paymentData = usePaymentDataStore((state) =>
+    Object.values(state.paymentData),
   );
   const {
     field,
@@ -32,10 +32,8 @@ export function LabelInput({
       required: i18n("form.required.error"),
       validate: {
         duplicate: (value: string) => {
-          const isValid = !(
-            getPaymentDataByLabel(value) &&
-            getPaymentDataByLabel(value)?.id !== id
-          );
+          const existingData = paymentData.find((data) => data.label === value);
+          const isValid = !existingData || existingData.id === id;
           return isValid || i18n("form.duplicate.error");
         },
       },

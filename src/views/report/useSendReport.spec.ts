@@ -30,7 +30,6 @@ describe("useSendReport", () => {
       reason,
       topic,
       message,
-      shareDeviceID: false,
     });
     await waitFor(() => {
       expect(sendReportSpy).toHaveBeenCalledWith({
@@ -38,14 +37,14 @@ describe("useSendReport", () => {
         reason,
         topic,
         message:
-          "it will blow your socks off!\n\nApp version: 1.0.0 (999)\n\nUser shared app logs, please check crashlytics\nSession ID: SESSION_ID",
+          "it will blow your socks off!\n\nDevice ID Hash: UNIQUEID\n\nApp version: 1.0.0 (999)\n\nUser shared app logs, please check crashlytics\nSession ID: SESSION_ID",
       });
     });
     expect(result.current.isSuccess).toBe(true);
     await waitFor(() => {
       expect(sendErrors).toHaveBeenCalledWith([
         new Error(
-          "user shared app logs: I have an idea - it will blow your socks off!\n\nApp version: 1.0.0 (999)\n\nUser shared app logs, please check crashlytics\nSession ID: SESSION_ID",
+          "user shared app logs: I have an idea - it will blow your socks off!\n\nDevice ID Hash: UNIQUEID\n\nApp version: 1.0.0 (999)\n\nUser shared app logs, please check crashlytics\nSession ID: SESSION_ID",
         ),
       ]);
     });

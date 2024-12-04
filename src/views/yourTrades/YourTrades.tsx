@@ -30,7 +30,8 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
-  const { summaries, isLoading, error, refetch } = useTradeSummaries();
+  const { summaries, isLoading, isRefetching, error, refetch } =
+    useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
 
@@ -64,7 +65,7 @@ export const YourTrades = () => {
                       isLoading && tw`opacity-60`,
                     ]}
                     onRefresh={refetch}
-                    refreshing={false}
+                    refreshing={isRefetching}
                     showsVerticalScrollIndicator={false}
                     sections={getCategories(summaries[tab])}
                     renderSectionHeader={SectionHeader}
@@ -139,8 +140,8 @@ export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {
   return data.length !== 0 && title !== "priority" ? (
-    <LinedText style={tw`pb-7 bg-primary-background-main`}>
-      <PeachText style={tw`text-black-65`}>
+    <LinedText style={tw`pb-7 bg-transparent`}>
+      <PeachText style={tw`text-black-50`}>
         {i18n(`yourTrades.${title}`)}
       </PeachText>
     </LinedText>

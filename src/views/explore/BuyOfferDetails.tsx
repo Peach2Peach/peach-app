@@ -79,7 +79,9 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       <PeachScrollView contentStyle={tw`gap-8 grow`}>
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
-          <View style={tw`gap-8 m-1 bg-primary-background-light rounded-2xl`}>
+          <View
+            style={tw`gap-8 m-1 bg-primary-background-light-color rounded-2xl`}
+          >
             <UserCard user={offer.user} isBuyer />
 
             <BuyPriceInfo
@@ -96,6 +98,7 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
                 setSelectedCurrency={setSelectedCurrency}
                 selectedPaymentData={selectedPaymentData}
                 setSelectedPaymentData={setSelectedPaymentData}
+                selectedMethodInfo={undefined}
               />
             )}
             {!!data?.tradeRequest && (
@@ -104,7 +107,7 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
                   <Button
                     iconId="minusCircle"
                     textColor={tw.color("error-main")}
-                    style={tw`hidden bg-primary-background-light`}
+                    style={tw`hidden bg-primary-background-light-color`}
                   >
                     UNDO
                   </Button>

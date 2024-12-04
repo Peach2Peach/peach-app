@@ -59,6 +59,7 @@ exports[`ExportTransactionHistory should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`ExportTransactionHistory should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -193,7 +195,9 @@ exports[`ExportTransactionHistory should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
+                  "color": "#2B1911",
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 20,
                   "letterSpacing": 0.2,
@@ -271,6 +275,7 @@ exports[`ExportTransactionHistory should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -281,7 +286,7 @@ exports[`ExportTransactionHistory should render correctly 1`] = `
                   },
                   {},
                   {
-                    "color": "#FFFCFA",
+                    "color": "#FFF9F6",
                   },
                 ],
                 false,

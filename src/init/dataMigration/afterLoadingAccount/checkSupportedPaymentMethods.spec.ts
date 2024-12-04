@@ -47,7 +47,7 @@ describe("checkSupportedPaymentMethods", () => {
   });
   it("calls updatePaymentData with new data", async () => {
     await checkSupportedPaymentMethods(paymentInfo);
-    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([
+    expect(Object.values(usePaymentDataStore.getState().paymentData)).toEqual([
       { ...validSEPAData, hidden: false },
       { ...paypalData, hidden: true },
     ]);

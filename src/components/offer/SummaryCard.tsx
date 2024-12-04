@@ -7,7 +7,7 @@ import { MeansOfPayment } from "./MeansOfPayment";
 
 export const SummaryCard = ({ children }: { children: ReactNode }) => (
   <View
-    style={tw`items-center gap-4 px-5 border border-black-10 rounded-2xl py-7 bg-primary-background-light`}
+    style={tw`items-center gap-4 px-5 border border-black-10 rounded-2xl py-7 bg-primary-background-light-color`}
   >
     {children}
   </View>

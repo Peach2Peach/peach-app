@@ -56,7 +56,7 @@ export function Slider({
       <Icon
         id={iconId}
         size={iconWidth}
-        color={tw.color("primary-background-light")}
+        color={tw.color("primary-background-light-color")}
       />
     </Animated.View>
   );

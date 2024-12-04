@@ -41,7 +41,7 @@ describe("useShowWronglyFundedPopup", () => {
     );
 
     expect(queryByText("Incorrect funding")).not.toBeNull();
-    expect(queryByText("trading limit exceeded")).toBeNull();
+    expect(queryByText("Trading limit exceeded")).toBeNull();
   });
   it("starts refund process", () => {
     const { getByText } = render(

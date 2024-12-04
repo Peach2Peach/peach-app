@@ -59,6 +59,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -192,6 +194,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "fontFamily": "Baloo2-Bold",
                   "fontSize": 24,
@@ -215,6 +218,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 {
                   "marginTop": 4,
                 },
@@ -277,6 +281,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   {
                     "color": "#F56522",
                     "fontFamily": "Baloo2-SemiBold",

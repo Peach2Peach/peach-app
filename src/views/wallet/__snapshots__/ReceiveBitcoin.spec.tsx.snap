@@ -59,6 +59,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -251,7 +253,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                 }
               >
                 <test-file-stub
-                  fill="#7D675E"
+                  fill="#9F8C82"
                   style={
                     [
                       {
@@ -290,15 +292,19 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                 <TextInput
                   onChangeText={[Function]}
                   style={
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 20,
-                      "letterSpacing": 0.2,
-                      "lineHeight": 32.5,
-                      "overflow": "hidden",
-                      "textAlign": "center",
-                    }
+                    [
+                      {
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 20,
+                        "letterSpacing": 0.2,
+                        "lineHeight": 32.5,
+                        "overflow": "hidden",
+                        "textAlign": "center",
+                      },
+                      {
+                        "color": "#2B1911",
+                      },
+                    ]
                   }
                   value="address #1"
                 />
@@ -341,8 +347,8 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                     style={
                       [
                         {
-                          "height": 16,
-                          "width": 16,
+                          "height": 20,
+                          "width": 20,
                         },
                         undefined,
                       ]
@@ -504,7 +510,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   <RNSVGRect
                     fill={
                       {
-                        "payload": 4294965750,
+                        "payload": 4294967295,
                         "type": 0,
                       }
                     }
@@ -544,7 +550,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                     }
                     stroke={
                       {
-                        "payload": 4281014545,
+                        "payload": 4278190080,
                         "type": 0,
                       }
                     }
@@ -577,6 +583,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     {
                       "color": "#9F8C82",
                       "flexShrink": 1,
@@ -601,7 +608,9 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
+                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 20,
                         "letterSpacing": 0.2,
@@ -624,7 +633,9 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
+                        "color": "#2B1911",
                         "fontFamily": "Baloo2-Regular",
                         "fontSize": 20,
                         "letterSpacing": 0.2,
@@ -715,6 +726,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           {
                             "fontFamily": "Baloo2-Medium",
@@ -789,13 +801,19 @@ exports[`ReceiveBitcoin should render correctly while loading 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-          "textAlign": "center",
-        },
+        false,
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ],
         false,
       ]
     }

@@ -86,7 +86,9 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         />
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
-          <View style={tw`gap-8 m-1 rounded-2xl bg-primary-background-light`}>
+          <View
+            style={tw`gap-8 m-1 rounded-2xl bg-primary-background-light-color`}
+          >
             <UserCard user={offer.user} />
             {/** @ts-ignore */}
             <MiningFeeWarning amount={offer.amount} />
@@ -108,7 +110,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
                   <Button
                     iconId="minusCircle"
                     textColor={tw.color("error-main")}
-                    style={tw`hidden bg-primary-background-light`}
+                    style={tw`hidden bg-primary-background-light-color`}
                   >
                     UNDO
                   </Button>

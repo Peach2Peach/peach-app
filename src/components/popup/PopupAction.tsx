@@ -41,16 +41,19 @@ export const PopupAction = ({
     disabled={loading || disabled}
   >
     {loading ? (
-      <Loading size="small" color={tw.color("primary-background-light")} />
+      <Loading
+        size="small"
+        color={tw.color("primary-background-light-color")}
+      />
     ) : (
       <Icon
         id={iconId}
-        color={textStyle?.color ?? tw.color("primary-background-light")}
+        color={textStyle?.color ?? tw.color("primary-background-light-color")}
         size={16}
       />
     )}
     <PeachText
-      style={[tw`subtitle-1 text-primary-background-light`, textStyle]}
+      style={[tw`subtitle-1 text-primary-background-light-color`, textStyle]}
     >
       {loading ? i18n("loading") : label}
     </PeachText>

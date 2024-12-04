@@ -12,6 +12,7 @@ exports[`UTXOAddress should render correctly 1`] = `
         "letterSpacing": 0.16,
         "lineHeight": 24,
       },
+      false,
       {
         "color": "#7D675E",
         "fontFamily": "Baloo2-Regular",
@@ -34,6 +35,7 @@ exports[`UTXOAddress should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "fontFamily": "Baloo2-Regular",
           "fontSize": 14,

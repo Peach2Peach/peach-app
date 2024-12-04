@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import { shallow } from "zustand/shallow";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PeachScrollView } from "../PeachScrollView";
 import { HorizontalLine } from "../ui/HorizontalLine";
@@ -33,6 +34,7 @@ export const Drawer = () => {
   const { height } = useWindowDimensions();
   const slideAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const { isDarkMode } = useThemeStore();
 
   useEffect(() => {
     const showAnimations = [
@@ -91,12 +93,17 @@ export const Drawer = () => {
     >
       <AnimatedPressable
         onPress={closeDrawer}
-        style={[tw`absolute w-full h-full bg-black-100`, { opacity: fadeAnim }]}
+        style={[
+          tw`absolute w-full h-full`,
+          { opacity: fadeAnim },
+          isDarkMode ? tw`bg-card` : tw`bg-black-100`,
+        ]}
       />
       <Animated.View
         style={[
-          tw`px-4 py-6 mt-auto bg-primary-background-light rounded-t-3xl`,
+          tw`px-4 py-6 mt-auto rounded-t-3xl`,
           { maxHeight: slideAnim },
+          isDarkMode ? tw`bg-card` : tw`bg-primary-background-light-color`,
         ]}
       >
         <DrawerHeader closeDrawer={closeDrawer} />

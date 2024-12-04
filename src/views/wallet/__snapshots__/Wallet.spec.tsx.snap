@@ -59,6 +59,7 @@ exports[`Wallet should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`Wallet should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -438,14 +440,20 @@ exports[`Wallet should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "textAlign": "center",
-                          "textTransform": "uppercase",
-                        },
+                        false,
+                        [
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 14,
+                            "letterSpacing": 0.5,
+                            "lineHeight": 24,
+                            "textAlign": "center",
+                            "textTransform": "uppercase",
+                          },
+                          {
+                            "color": "#2B1911",
+                          },
+                        ],
                         false,
                       ]
                     }
@@ -585,6 +593,7 @@ exports[`Wallet should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             [
                               {
                                 "opacity": 0.1,
@@ -596,7 +605,9 @@ exports[`Wallet should render correctly 1`] = `
                                   "fontSize": 20,
                                   "letterSpacing": 0.2,
                                 },
-                                false,
+                                {
+                                  "color": "#2B1911",
+                                },
                               ],
                             ],
                             false,
@@ -616,6 +627,7 @@ exports[`Wallet should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             [
                               {
                                 "textAlign": "right",
@@ -626,7 +638,9 @@ exports[`Wallet should render correctly 1`] = `
                                   "fontSize": 20,
                                   "letterSpacing": 0.2,
                                 },
-                                false,
+                                {
+                                  "color": "#2B1911",
+                                },
                               ],
                             ],
                             false,
@@ -647,13 +661,16 @@ exports[`Wallet should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 20,
                               "letterSpacing": 0.2,
                             },
-                            false,
+                            {
+                              "color": "#2B1911",
+                            },
                           ],
                           false,
                         ]
@@ -790,6 +807,7 @@ exports[`Wallet should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "fontFamily": "Baloo2-SemiBold",
@@ -800,7 +818,7 @@ exports[`Wallet should render correctly 1`] = `
                     },
                     {},
                     {
-                      "color": "#FFFCFA",
+                      "color": "#FFF9F6",
                     },
                   ],
                   false,
@@ -872,6 +890,7 @@ exports[`Wallet should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "fontFamily": "Baloo2-SemiBold",
@@ -882,7 +901,7 @@ exports[`Wallet should render correctly 1`] = `
                     },
                     {},
                     {
-                      "color": "#FFFCFA",
+                      "color": "#FFF9F6",
                     },
                   ],
                   false,
@@ -945,13 +964,19 @@ exports[`Wallet should render correctly when loading 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-          "textAlign": "center",
-        },
+        false,
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ],
         false,
       ]
     }

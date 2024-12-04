@@ -90,6 +90,7 @@ exports[`ProfileInfo renders correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
@@ -192,6 +193,7 @@ exports[`ProfileInfo renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "fontFamily": "Baloo2-Medium",
@@ -363,6 +365,7 @@ exports[`ProfileInfo renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "color": "#7D675E",
               "fontFamily": "Baloo2-SemiBold",
@@ -456,6 +459,7 @@ exports[`ProfileInfo renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -532,6 +536,7 @@ exports[`ProfileInfo renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -608,6 +613,7 @@ exports[`ProfileInfo renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 [
                   {
@@ -654,7 +660,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 - First value
 + Second value
 
-@@ -208,149 +208,10 @@
+@@ -210,129 +210,10 @@
               </Text>
             </View>
           </View>
@@ -804,15 +810,12 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -358,289 +219,23 @@
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+@@ -344,289 +225,17 @@
             },
--             Object {
--               "color": "#7D675E",
--               "fontFamily": "Baloo2-SemiBold",
+            false,
+            Object {
+              "color": "#7D675E",
+              "fontFamily": "Baloo2-SemiBold",
 -               "fontSize": 13,
 -               "letterSpacing": 0.47,
 -               "lineHeight": 22,
@@ -903,6 +906,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
 -               },
+-               false,
 -               Array [
 -                 Array [
 -                   Object {
@@ -979,6 +983,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
 -               },
+-               false,
 -               Array [
 -                 Array [
 -                   Object {
@@ -1057,23 +1062,25 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
 -               },
+-               false,
 -               Array [
 -                 Array [
 -                   Object {
 -                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
--                     "letterSpacing": 0.14,
--                     "lineHeight": 22,
++             "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22,
 -                   },
 -                   Object {
 -                     "color": "#F56522",
--                   },
+            },
 -                 ],
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
 -                 },
-            ],
+-               ],
             false,
           ]
         }

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeepPhraseSecure should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "alignSelf": "center",
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+      }
+    }
+  >
+    keep your seed phrase secure!
+  </PeachText>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "marginTop": 24,
+      }
+    }
+  >
+    <Icon
+      color="#F56522"
+      id="unlock"
+      style={
+        {
+          "height": 48,
+          "width": 48,
+        }
+      }
+    />
+    <PeachText
+      style={
+        {
+          "flexShrink": 1,
+          "paddingLeft": 16,
+        }
+      }
+    >
+      store it in a secure location,
+ like a safe or a lockbox
+    </PeachText>
+  </View>
+</View>
+`;

@@ -88,7 +88,7 @@ function CopyableSummaryText({
         <SummaryText value={value} onPress={onPress} />
         <Animated.View
           style={[
-            tw`absolute items-end justify-center w-full h-full bg-primary-background-light`,
+            tw`absolute items-end justify-center w-full h-full bg-primary-background-light-color`,
             { opacity: copiedTextOpacity },
           ]}
         >

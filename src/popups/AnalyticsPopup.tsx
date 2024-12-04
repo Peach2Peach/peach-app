@@ -52,12 +52,12 @@ export function AnalyticsPopup() {
 
 function AnalyticsPrompt() {
   return (
-    <PeachText>
+    <PeachText style={tw`text-black-100`}>
       {i18n("analytics.request.description1")}
       {"\n\n"}
       {i18n("analytics.request.description2")}
       <PeachText
-        style={tw`mt-2 text-center underline`}
+        style={tw`mt-2 text-center underline text-black-100`}
         onPress={() =>
           openURL(getLocalizedLink("privacy-policy", languageState.locale))
         }

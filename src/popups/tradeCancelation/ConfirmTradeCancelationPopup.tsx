@@ -81,7 +81,7 @@ export function ConfirmTradeCancelationPopup({
         </>
       }
       actionBgColor={tw`bg-black-50`}
-      bgColor={tw`bg-primary-background-light`}
+      bgColor={tw`bg-primary-background-light-color`}
     />
   );
 }

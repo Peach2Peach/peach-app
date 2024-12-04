@@ -23,7 +23,7 @@ export const CustomFeeItem = ({
     <View
       style={[
         tw`flex-row items-center w-16 h-8 py-3 overflow-hidden rounded-xl`,
-        tw`border bg-primary-background-light border-black-65`,
+        tw`border bg-primary-background-light-color border-black-65`,
       ]}
     >
       <TextInput

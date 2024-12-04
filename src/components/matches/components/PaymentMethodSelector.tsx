@@ -1,4 +1,6 @@
+import { ReactNode, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { PaymentMethodCountry } from "../../../../peach-api/src/@types/offer";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
@@ -8,9 +10,7 @@ import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePayme
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { keys } from "../../../utils/object/keys";
-import { getPaymentMethods } from "../../../utils/paymentMethod/getPaymentMethods";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
-import { paymentMethodAllowedForCurrency } from "../../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { Icon } from "../../Icon";
 import { DrawerOptionType } from "../../drawer/components/DrawerOption";
 import { useDrawerState } from "../../drawer/useDrawerState";
@@ -21,22 +21,21 @@ type Props = {
   selectedCurrency: Currency;
   setSelectedCurrency: (currency: Currency) => void;
   selectedPaymentData: PaymentData | undefined;
-  setSelectedPaymentData: (paymentData: PaymentData | undefined) => void;
+  setSelectedPaymentData: (paymentMethod?: PaymentData) => void;
+  selectedMethodInfo: ReactNode;
 };
 
 export function PaymentMethodSelector({
-  meansOfPayment,
   selectedCurrency,
   setSelectedCurrency,
   selectedPaymentData,
   setSelectedPaymentData,
+  selectedMethodInfo,
+  meansOfPayment,
 }: Props) {
-  const allPaymentMethods = getPaymentMethods(meansOfPayment);
   const availableCurrencies = keys(meansOfPayment);
+  const allPaymentMethods = meansOfPayment[selectedCurrency];
 
-  const availablePaymentMethods = allPaymentMethods.filter((p) =>
-    paymentMethodAllowedForCurrency(p, selectedCurrency),
-  );
   const { data: meetupEvents } = useMeetupEvents();
   const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
     if (isCashTrade(paymentMethod)) {
@@ -46,24 +45,23 @@ export function PaymentMethodSelector({
     }
     return i18n(`paymentMethod.${paymentMethod}`);
   };
-  const items = availablePaymentMethods.map((p) => ({
+  const items = allPaymentMethods?.map((p) => ({
     value: p,
     display: getPaymentMethodName(p),
   }));
 
-  const accountPaymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+  const accountPaymentData = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
 
   const onCurrencyChange = (currency: Currency) => {
-    const allMethodsForNextCurrency = allPaymentMethods.filter((p) =>
-      paymentMethodAllowedForCurrency(p, currency),
-    );
-    const dataForNextCurrency = accountPaymentData.filter((d) =>
-      allMethodsForNextCurrency.includes(d.type),
+    const allMethodsForCurrency = meansOfPayment[currency];
+    const dataForCurrency = accountPaymentData.filter((d) =>
+      allMethodsForCurrency?.includes(d.type),
     );
     const newData =
-      dataForNextCurrency.length === 1 ? dataForNextCurrency[0] : undefined;
+      dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
     setSelectedCurrency(currency);
     setSelectedPaymentData(newData);
   };
@@ -77,42 +75,42 @@ export function PaymentMethodSelector({
       </PeachText>
 
       <View style={tw`gap-3 pb-2`}>
-        <View
-          style={tw`flex-row flex-wrap items-center self-stretch justify-center gap-1`}
-        >
-          {availableCurrencies.map((currency) => (
-            <TouchableOpacity
-              key={currency}
-              style={[
-                tw`px-2 border rounded-lg border-black-100`,
-                selectedCurrency === currency
-                  ? tw`bg-black-5 border-black-100`
-                  : tw`border-transparent`,
-              ]}
-              disabled={selectedCurrency === currency}
-              onPress={() => onCurrencyChange(currency)}
-            >
-              <PeachText style={tw`leading-loose subtitle-0`}>
-                {currency}
-              </PeachText>
-            </TouchableOpacity>
-          ))}
-        </View>
-        <CustomSelector
-          selectedCurrency={selectedCurrency}
-          selectedValue={selectedPaymentData?.type}
-          selectedPaymentData={selectedPaymentData}
-          onPress={setSelectedPaymentData}
-          items={items}
-        />
+        {selectedMethodInfo || (
+          <View
+            style={tw`flex-row flex-wrap items-center self-stretch justify-center gap-1`}
+          >
+            {availableCurrencies.map((currency) => (
+              <TouchableOpacity
+                key={currency}
+                style={[
+                  tw`px-2 border rounded-lg border-black-100`,
+                  selectedCurrency === currency
+                    ? tw`bg-black-5 border-black-100`
+                    : tw`border-transparent`,
+                ]}
+                disabled={selectedCurrency === currency}
+                onPress={() => onCurrencyChange(currency)}
+              >
+                <PeachText style={tw`leading-loose subtitle-0`}>
+                  {currency}
+                </PeachText>
+              </TouchableOpacity>
+            ))}
+            <CustomSelector
+              selectedCurrency={selectedCurrency}
+              selectedPaymentData={selectedPaymentData}
+              onPress={setSelectedPaymentData}
+              items={items}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
 }
 
 type SelectorProps = {
-  items: { value: PaymentMethod; display: React.ReactNode }[];
-  selectedValue?: PaymentMethod;
+  items: { value: PaymentMethod; display: React.ReactNode }[] | undefined;
   selectedPaymentData?: PaymentData;
   selectedCurrency: Currency;
   onPress?: (value: PaymentData) => void;
@@ -120,19 +118,17 @@ type SelectorProps = {
 
 function CustomSelector({
   items,
-  selectedValue,
   selectedCurrency,
   selectedPaymentData,
   onPress,
 }: SelectorProps) {
   return (
     <View style={tw`flex-row flex-wrap justify-center gap-1`}>
-      {items.map(({ value, display }, i) => (
+      {items?.map(({ value, display }, i) => (
         <PayementMethodBubble
           key={`selector-item-${value}-${i}`}
           paymentMethod={value}
           onPress={onPress}
-          isSelected={value === selectedValue}
           selectedPaymentData={selectedPaymentData}
           selectedCurrency={selectedCurrency}
         >
@@ -148,7 +144,6 @@ type PaymentMethodBubbleProps = {
   selectedPaymentData?: PaymentData;
   selectedCurrency: Currency;
   children: React.ReactNode;
-  isSelected: boolean;
   onPress?: (value: PaymentData) => void;
 };
 
@@ -157,15 +152,17 @@ function PayementMethodBubble({
   selectedPaymentData,
   selectedCurrency,
   children,
-  isSelected,
   onPress,
 }: PaymentMethodBubbleProps) {
-  const getAllPaymentDataByType = usePaymentDataStore(
-    (state) => state.getAllPaymentDataByType,
+  const paymentDataRecord = usePaymentDataStore((state) => state.paymentData);
+  const paymentDataForType = useMemo(
+    () =>
+      Object.values(paymentDataRecord).filter((p) => p.type === paymentMethod),
+    [paymentDataRecord, paymentMethod],
   );
-  const paymentDataForType = getAllPaymentDataByType(paymentMethod);
   const hasPaymentData = paymentDataForType.length > 0;
   const hasMultiplePaymentData = paymentDataForType.length > 1;
+  const isSelected = selectedPaymentData?.type === paymentMethod;
   const iconId: IconType = isSelected
     ? "checkSquare"
     : hasPaymentData
@@ -244,7 +241,7 @@ function PayementMethodBubble({
         style={[
           tw`leading-loose subtitle-0`,
           isSelected
-            ? tw`text-primary-background-light`
+            ? tw`text-primary-background-light-color`
             : tw`text-primary-mild-2`,
         ]}
       >
@@ -255,7 +252,7 @@ function PayementMethodBubble({
         size={18}
         color={
           isSelected
-            ? tw.color("primary-background-light")
+            ? tw.color("primary-background-light-color")
             : tw.color("primary-mild-2")
         }
       />

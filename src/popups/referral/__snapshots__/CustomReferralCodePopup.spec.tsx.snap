@@ -5,7 +5,7 @@ exports[`CustomReferralCodePopup updates referral code state 1`] = `
 - First value
 + Second value
 
-@@ -166,22 +166,22 @@
+@@ -169,22 +169,22 @@
                     "paddingBottom": 0,
                     "paddingTop": 0,
                     "width": "100%",
@@ -30,7 +30,7 @@ exports[`CustomReferralCodePopup updates referral code state 1`] = `
               style={
                 Object {
                   "flexDirection": "row",
-@@ -322,11 +322,11 @@
+@@ -327,11 +327,11 @@
       <View
         accessibilityState={
           Object {

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useStackNavigation } from "../hooks/useStackNavigation";
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { peachyGradient } from "../utils/layout/peachyGradient";
 import { isAndroid } from "../utils/system/isAndroid";
@@ -35,21 +36,28 @@ export const Screen = ({
 }: Props) => {
   const insets = useSafeAreaInsets();
   const hasFooter = useStackNavigation().getId() === "homeNavigator";
+  const { isDarkMode } = useThemeStore();
+
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle(
-        gradientBackground ? "light-content" : "dark-content",
+        isDarkMode || gradientBackground ? "light-content" : "dark-content",
         true,
       );
-      if (isAndroid())
+
+      if (isAndroid()) {
         StatusBar.setBackgroundColor(
           gradientBackground
             ? peachyGradient[2].color
-            : String(tw`text-primary-background-main`.color),
+            : isDarkMode
+              ? "#120a07"
+              : "#fff9f6",
           true,
         );
-    }, [gradientBackground]),
+      }
+    }, [isDarkMode, gradientBackground]),
   );
+
   return (
     <KeyboardAvoidingView
       style={tw`flex-1`}

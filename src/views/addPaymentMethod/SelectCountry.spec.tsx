@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "test-utils";
+import { act, fireEvent, render, waitFor } from "test-utils";
 import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import {
   navigateMock,
@@ -86,12 +86,13 @@ describe("SelectCountry", () => {
   it("should not go to payment method form if no country is selected", () => {
     const { getByText, UNSAFE_getByType } = render(<SelectCountry />);
     fireEvent.press(getByText("next"));
-
     expect(navigateMock).not.toHaveBeenCalled();
 
     const nextButton = UNSAFE_getByType(Button);
     expect(nextButton.props.disabled).toBe(true);
-    nextButton.props.onPress();
+    act(() => {
+      nextButton.props.onPress();
+    });
     expect(navigateMock).not.toHaveBeenCalled();
   });
 });
