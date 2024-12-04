@@ -597,7 +597,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
           refreshing={false}
           removeClippedSubviews={false}
           renderItem={[Function]}
-          scrollEventThrottle={0.0001}
+          scrollEventThrottle={50}
           stickyHeaderIndices={[]}
           viewabilityConfigCallbackPairs={[]}
         >

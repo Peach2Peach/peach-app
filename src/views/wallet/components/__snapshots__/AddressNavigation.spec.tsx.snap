@@ -5,22 +5,7 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
 - First value
 + Second value
 
-@@ -80,11 +80,13 @@
-            "gap": 4,
-            "justifyContent": "center",
-          },
-          Array [
-            false,
--           false,
-+           Object {
-+             "paddingLeft": 24,
-+           },
-          ],
-        ]
-      }
-    >
-      <View
-@@ -112,11 +114,11 @@
+@@ -111,11 +111,11 @@
               Object {
                 "color": "#2B1911",
               },
@@ -33,17 +18,10 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
           accessibilityState={
             Object {
               "busy": undefined,
-<<<<<<< HEAD
-@@ -175,10 +175,57 @@
+@@ -179,10 +179,57 @@
             "justifyContent": "flex-end",
           },
         ]
-=======
-@@ -173,10 +175,57 @@
-          "gap": 2,
-          "justifyContent": "flex-end",
-        }
->>>>>>> develop
       }
     >
 +     <View
@@ -163,35 +141,11 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
             "selected": undefined,
           }
         }
-<<<<<<< HEAD
-@@ -107,11 +154,11 @@
-              "lineHeight": 32.5,
-              "overflow": "hidden",
-              "textAlign": "center",
-            }
-=======
-@@ -79,12 +126,14 @@
-            "flexShrink": 1,
-            "gap": 4,
-            "justifyContent": "center",
-          },
-          Array [
-+           Object {
-+             "paddingRight": 24,
-+           },
-            false,
--           false,
-          ],
-        ]
-      }
-    >
-      <View
-@@ -112,11 +161,11 @@
+@@ -111,11 +158,11 @@
               Object {
                 "color": "#2B1911",
               },
             ]
->>>>>>> develop
           }
 -         value="address #5"
 +         value="address #7"

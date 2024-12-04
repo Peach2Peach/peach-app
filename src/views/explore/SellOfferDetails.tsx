@@ -68,7 +68,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     paymentMethodAllowedForCurrency(p, selectedCurrency),
   );
   const paymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+    Object.values(state.paymentData),
   );
   const dataForCurrency = paymentData.filter((d) =>
     allMethodsForCurrency.includes(d.type),
@@ -102,6 +102,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
                 setSelectedCurrency={setSelectedCurrency}
                 selectedPaymentData={selectedPaymentData}
                 setSelectedPaymentData={setSelectedPaymentData}
+                selectedMethodInfo={undefined}
               />
             )}
             {!!data?.tradeRequest && (

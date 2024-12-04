@@ -51,7 +51,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1540,10 +1540,126 @@
+@@ -1537,10 +1537,126 @@
                           />
                         </View>
                       </View>
@@ -231,7 +231,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1653,11 +1653,11 @@
+@@ -1647,11 +1647,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -2178,7 +2178,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -1022,11 +1022,11 @@
+@@ -1019,11 +1019,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2191,7 +2191,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "gap": 8,
                               "justifyContent": "space-between",
-@@ -1100,11 +1100,11 @@
+@@ -1097,11 +1097,11 @@
                                 </Text>
                               </Text>
                             </View>
@@ -2204,7 +2204,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                                 Object {
                                   "height": 24,
                                   "width": 24,
-@@ -1147,11 +1147,11 @@
+@@ -1144,11 +1144,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2217,7 +2217,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "gap": 8,
                               "justifyContent": "space-between",
-@@ -1225,11 +1225,11 @@
+@@ -1222,11 +1222,11 @@
                                 </Text>
                               </Text>
                             </View>

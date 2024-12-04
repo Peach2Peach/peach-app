@@ -366,14 +366,17 @@ exports[`ProfileInfo renders correctly 1`] = `
               "lineHeight": 24,
             },
             false,
-            {
-              "color": "#7D675E",
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 13,
-              "letterSpacing": 0.47,
-              "lineHeight": 22,
-              "textTransform": "uppercase",
-            },
+            [
+              {
+                "color": "#7D675E",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 13,
+                "letterSpacing": 0.47,
+                "lineHeight": 22,
+                "textTransform": "uppercase",
+              },
+              undefined,
+            ],
             false,
           ]
         }
@@ -660,7 +663,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 - First value
 + Second value
 
-@@ -210,129 +210,10 @@
+@@ -210,149 +210,10 @@
               </Text>
             </View>
           </View>
@@ -810,17 +813,19 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -344,289 +225,17 @@
-            },
+@@ -365,291 +226,19 @@
             false,
-            Object {
-              "color": "#7D675E",
-              "fontFamily": "Baloo2-SemiBold",
--               "fontSize": 13,
--               "letterSpacing": 0.47,
--               "lineHeight": 22,
--               "textTransform": "uppercase",
--             },
+            Array [
+              Object {
+                "color": "#7D675E",
+                "fontFamily": "Baloo2-SemiBold",
+-                 "fontSize": 13,
+-                 "letterSpacing": 0.47,
+-                 "lineHeight": 22,
+-                 "textTransform": "uppercase",
+-               },
+-               undefined,
+-             ],
 -             false,
 -           ]
 -         }
@@ -869,8 +874,8 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -   >
 -     <View
 -       style={
-            Array [
-              Object {
+-         Array [
+-           Object {
 -             "alignItems": "center",
 -             "borderRadius": 9999,
 -             "borderWidth": 1,
@@ -987,8 +992,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -               Array [
 -                 Array [
 -                   Object {
-+               "color": "#7D675E",
-                "fontFamily": "Baloo2-SemiBold",
+-                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
 +               "fontSize": 14,
                 "letterSpacing": 0.14,
@@ -1068,19 +1072,18 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   Object {
 -                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
-+             "fontSize": 14,
-              "letterSpacing": 0.14,
-              "lineHeight": 22,
+-                     "letterSpacing": 0.14,
+-                     "lineHeight": 22,
 -                   },
 -                   Object {
 -                     "color": "#F56522",
-            },
+-                   },
 -                 ],
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
 -                 },
--               ],
+            ],
             false,
           ]
         }

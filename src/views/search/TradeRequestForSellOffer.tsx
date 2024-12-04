@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -80,8 +81,10 @@ function useAcceptTradeRequest() {
     isMatch = false,
   } = useRoute<"tradeRequestForSellOffer">().params;
   const navigation = useStackNavigation();
-  const paymentData = usePaymentDataStore((s) =>
-    s.getAllPaymentDataByType(paymentMethod),
+  const paymentData = usePaymentDataStore(
+    (s) =>
+      Object.values(s.paymentData).filter(({ type }) => type === paymentMethod),
+    shallow,
   );
   return useMutation({
     onMutate: async () => {

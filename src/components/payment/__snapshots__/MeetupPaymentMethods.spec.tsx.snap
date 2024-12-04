@@ -206,18 +206,6 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
     >
       <View
         style={
-<<<<<<< HEAD
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
-=======
           [
             {
               "borderRadius": 8,
@@ -231,11 +219,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
             {
               "borderColor": "#2B1911",
             },
-            {
-              "marginTop": 4,
-            },
           ]
->>>>>>> develop
         }
       >
         <Text
@@ -249,15 +233,6 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-<<<<<<< HEAD
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
-=======
               false,
               [
                 {
@@ -271,7 +246,6 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
                   "color": "#2B1911",
                 },
               ],
->>>>>>> develop
               false,
             ]
           }
@@ -490,18 +464,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     >
       <View
         style={
-<<<<<<< HEAD
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
-=======
           [
             {
               "borderRadius": 8,
@@ -515,11 +477,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             {
               "borderColor": "#2B1911",
             },
-            {
-              "marginTop": 4,
-            },
           ]
->>>>>>> develop
         }
       >
         <Text
@@ -533,15 +491,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-<<<<<<< HEAD
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
-=======
               false,
               [
                 {
@@ -555,7 +504,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                   "color": "#2B1911",
                 },
               ],
->>>>>>> develop
               false,
             ]
           }
@@ -694,18 +642,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     >
       <View
         style={
-<<<<<<< HEAD
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
-=======
           [
             {
               "borderRadius": 8,
@@ -719,11 +655,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             {
               "borderColor": "#2B1911",
             },
-            {
-              "marginTop": 4,
-            },
           ]
->>>>>>> develop
         }
       >
         <Text
@@ -737,15 +669,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-<<<<<<< HEAD
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
-=======
               false,
               [
                 {
@@ -759,7 +682,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                   "color": "#2B1911",
                 },
               ],
->>>>>>> develop
               false,
             ]
           }
@@ -978,18 +900,6 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
     >
       <View
         style={
-<<<<<<< HEAD
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
-=======
           [
             {
               "borderRadius": 8,
@@ -1003,11 +913,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
             {
               "borderColor": "#2B1911",
             },
-            {
-              "marginTop": 4,
-            },
           ]
->>>>>>> develop
         }
       >
         <Text
@@ -1021,15 +927,6 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-<<<<<<< HEAD
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
-=======
               false,
               [
                 {
@@ -1043,7 +940,6 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
                   "color": "#2B1911",
                 },
               ],
->>>>>>> develop
               false,
             ]
           }

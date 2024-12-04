@@ -212,8 +212,8 @@ async function generateMatchOfferData({
 function useHandleMissingPaymentData() {
   const navigation = useStackNavigation();
   const setToast = useSetToast();
-  const getAllPaymentDataByType = usePaymentDataStore(
-    (state) => state.getAllPaymentDataByType,
+  const paymentData = usePaymentDataStore((state) =>
+    Object.values(state.paymentData),
   );
 
   const openAddPaymentMethodDialog = useCallback(
@@ -223,7 +223,7 @@ function useHandleMissingPaymentData() {
       paymentMethod: PaymentMethod,
     ) => {
       const existingPaymentMethodsOfType =
-        getAllPaymentDataByType(paymentMethod).length + 1;
+        paymentData.filter(({ type }) => type === paymentMethod).length + 1;
       const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`;
 
       navigation.push("paymentMethodForm", {
@@ -238,7 +238,7 @@ function useHandleMissingPaymentData() {
         origin: isBuyOffer(offer) ? "matchDetails" : "search",
       });
     },
-    [getAllPaymentDataByType, navigation],
+    [navigation, paymentData],
   );
 
   const handleMissingPaymentData = useCallback(

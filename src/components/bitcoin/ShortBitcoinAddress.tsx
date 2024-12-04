@@ -1,4 +1,4 @@
-import { TextStyle } from "react-native";
+import { TextProps } from "react-native";
 import "react-native-url-polyfill/auto";
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
@@ -12,7 +12,7 @@ const getAddressParts = (address: string) => {
 
 type ShortBitcoinAddressProps = {
   address: string;
-  style?: TextStyle;
+  style?: TextProps["style"];
 };
 
 export const ShortBitcoinAddress = ({

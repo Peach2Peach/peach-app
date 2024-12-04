@@ -18,7 +18,6 @@ import { useInterruptibleFunction } from "../../components/matches/hooks/useInte
 import { useMatchOffer } from "../../components/matches/hooks/useMatchOffer";
 import { PeachText } from "../../components/text/PeachText";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -31,7 +30,6 @@ import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
-import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
@@ -217,14 +215,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
                   setSelectedCurrency={setSelectedCurrency}
                   selectedPaymentData={selectedPaymentData}
                   setSelectedPaymentData={setSelectedPaymentData}
-                  selectedMethodInfo={
-                    match.matched ? (
-                      <SelectedMethodInfo
-                        selectedCurrency={match.selectedCurrency}
-                        selectedPaymentMethod={match.selectedPaymentMethod}
-                      />
-                    ) : undefined
-                  }
+                  selectedMethodInfo={undefined}
                 />
               )}
               {isMatched && (
@@ -289,40 +280,6 @@ const options = {
     backgroundColor: tw`bg-gradient-red`,
   },
 } as const;
-function SelectedMethodInfo({
-  selectedCurrency,
-  selectedPaymentMethod,
-}: {
-  selectedCurrency: Currency | undefined;
-  selectedPaymentMethod: PaymentMethod | undefined;
-}) {
-  const { data: meetupEvents } = useMeetupEvents();
-  const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
-    if (isCashTrade(paymentMethod)) {
-      const eventId = paymentMethod.replace("cash.", "");
-      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
-      return meetupEvent?.shortName ?? eventId;
-    }
-    return i18n(`paymentMethod.${paymentMethod}`);
-  };
-  if (!selectedCurrency || !selectedPaymentMethod) return null;
-
-  return (
-    <>
-      <PeachText style={tw`text-center button-large`}>
-        {selectedCurrency}
-      </PeachText>
-      <View
-        style={[tw`w-1/4 self-center h-0.5 -mt-3 bg-black-100 rounded-1px`]}
-      />
-      <View style={tw`items-center`}>
-        <NewBubble color="orange" iconId="checkSquare">
-          {getPaymentMethodName(selectedPaymentMethod)}
-        </NewBubble>
-      </View>
-    </>
-  );
-}
 
 type Props = {
   matchOffer: () => void;
