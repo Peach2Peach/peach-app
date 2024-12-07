@@ -5,6 +5,7 @@ import {
   SellOfferSummary,
 } from "../../../peach-api/src/@types/match";
 import { horizontalBadgePadding } from "../../components/InfoContainer";
+import { Loading } from "../../components/Loading";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Badges } from "../../components/matches/components/Badges";
@@ -30,7 +31,7 @@ export function SellOfferSummaryIdCard({ offerId }: { offerId: string }) {
       return result;
     },
   });
-  if (!offerSummary) return null;
+  if (!offerSummary) return <Loading />;
 
   return <SellOfferSummaryCard offerSummary={offerSummary} />;
 }
@@ -129,7 +130,7 @@ export function BuyOfferSummaryIdCard({ offerId }: { offerId: string }) {
       return result;
     },
   });
-  if (!offerSummary) return null;
+  if (!offerSummary) return <Loading />;
 
   return <BuyOfferSummaryCard offerSummary={offerSummary} offerId={offerId} />;
 }
