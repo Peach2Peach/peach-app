@@ -9,7 +9,7 @@ export const ParsedPeachText = ({ style, ...props }: ParsedTextProps) => {
   return (
     <ParsedText
       style={[
-        tw`body-m ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`,
+        tw`body-m ${isDarkMode ? "text-backgroundLight" : "text-black-100"}`,
         style,
         shouldNormalCase(style) && tw`normal-case`,
       ]}

@@ -15,7 +15,7 @@ export const AddressSummaryItem = ({ address, ...props }: Props) => {
   const { isDarkMode } = useThemeStore();
 
   const addressTextStyle = isDarkMode
-    ? tw`text-backgroundLight-light`
+    ? tw`text-backgroundLight`
     : tw`text-black-100`;
 
   return (

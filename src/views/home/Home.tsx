@@ -100,14 +100,14 @@ function DailyMessage() {
       >
         <PeachText
           onPress={onTextPress}
-          style={tw`flex-1 text-center subtitle-1 text-primary-background-light-color`}
+          style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}
         >
           {message.text}
         </PeachText>
         <TouchableIcon
           onPress={onSharePress}
           id="share"
-          iconColor={tw.color("primary-background-light-color")}
+          iconColor={tw.color("primary-background-light")}
         />
       </View>
     </View>

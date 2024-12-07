@@ -82,9 +82,7 @@ export const NodeSetup = () => {
         <Toggle
           style={tw`justify-between px-6`}
           textStyle={tw.style(
-            enabled && isDarkMode
-              ? "text-backgroundLight-light"
-              : "text-black-65",
+            enabled && isDarkMode ? "text-backgroundLight" : "text-black-65",
           )}
           {...{ enabled }}
           onPress={toggleEnabled}
@@ -95,7 +93,7 @@ export const NodeSetup = () => {
           style={tw`justify-between px-6`}
           enabled={ssl}
           textStyle={tw.style(
-            ssl && isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+            ssl && isDarkMode ? "text-backgroundLight" : "text-black-65",
           )}
           disabled={!enabled || isConnected}
           onPress={toggleSSL}

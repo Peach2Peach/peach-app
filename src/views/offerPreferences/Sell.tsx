@@ -234,7 +234,7 @@ function AmountSelectorContainer({
   inputs?: JSX.Element;
 }) {
   return (
-    <Section.Container style={tw`bg-primary-background-dark-color`}>
+    <Section.Container style={tw`bg-primary-background-dark`}>
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5 shrink`}>
         <View style={tw`z-10 gap-2`}>
@@ -344,7 +344,7 @@ function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
 }
 
 export const inputContainerStyle = [
-  "items-center justify-center bg-primary-background-light-color flex-row self-stretch h-9",
+  "items-center justify-center bg-primary-background-light flex-row self-stretch h-9",
   "border rounded-lg border-black-25",
 ];
 
@@ -446,7 +446,7 @@ function FundMultipleOffersContainer() {
   const setPopup = useSetPopup();
   return (
     <Section.Container
-      style={tw`flex-row items-start justify-between bg-primary-background-dark-color`}
+      style={tw`flex-row items-start justify-between bg-primary-background-dark`}
     >
       <FundMultipleOffers />
       <TouchableIcon
@@ -498,7 +498,7 @@ function InstantTrade() {
   };
 
   return (
-    <Section.Container style={tw`bg-primary-background-dark-color`}>
+    <Section.Container style={tw`bg-primary-background-dark`}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>
@@ -825,7 +825,7 @@ function RefundWalletSelector() {
   return (
     <WalletSelector
       title={i18n("offerPreferences.refundTo")}
-      backgroundColor={tw.color("primary-background-dark-color")}
+      backgroundColor={tw.color("primary-background-dark")}
       bubbleColor="orange"
       peachWalletActive={refundToPeachWallet}
       address={refundAddress}

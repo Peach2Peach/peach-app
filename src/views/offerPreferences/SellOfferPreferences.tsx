@@ -194,7 +194,7 @@ function AmountSelectorContainer({
   const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
     >
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5`}>
@@ -305,7 +305,7 @@ function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
 }
 
 export const inputContainerStyle = [
-  "items-center justify-center flex-1 bg-primary-background-light-color flex-row h-7",
+  "items-center justify-center flex-1 bg-primary-background-light flex-row h-7",
   "border rounded-lg border-black-25",
 ];
 
@@ -392,14 +392,14 @@ function FiatInput() {
     <View
       style={[
         tw.style(inputContainerStyle),
-        isDarkMode && tw`bg-transparent border-backgroundLight-light`,
+        isDarkMode && tw`bg-transparent border-backgroundLight`,
       ]}
     >
       <TextInput
         style={[
           tw.style(textStyle),
           isDarkMode
-            ? tw`bg-transparent text-backgroundLight-light`
+            ? tw`bg-transparent text-backgroundLight`
             : tw`bg-white text-black-100`,
         ]}
         ref={inputRef}
@@ -410,10 +410,7 @@ function FiatInput() {
         keyboardType="decimal-pad"
       />
       <PeachText
-        style={[
-          tw.style(textStyle),
-          isDarkMode && tw`text-backgroundLight-light`,
-        ]}
+        style={[tw.style(textStyle), isDarkMode && tw`text-backgroundLight`]}
       >
         {" "}
         {i18n(displayCurrency)}
@@ -428,7 +425,7 @@ function FundMultipleOffersContainer() {
   const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
     >
       <FundMultipleOffers />
       <TouchableIcon
@@ -483,7 +480,7 @@ function InstantTrade() {
 
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
     >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
@@ -815,7 +812,7 @@ function RefundWalletSelector() {
   return (
     <WalletSelector
       title={i18n("offerPreferences.refundTo")}
-      backgroundColor={tw.color("primary-background-dark-color")}
+      backgroundColor={tw.color("primary-background-dark")}
       bubbleColor="orange"
       peachWalletActive={refundToPeachWallet}
       address={refundAddress}

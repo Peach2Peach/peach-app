@@ -67,7 +67,7 @@ export const DrawerOption = ({
   >
     {logoID && (
       <View
-        style={tw`items-center justify-center w-8 h-8 border border-black-5 bg-primary-background-light-color rounded-5px`}
+        style={tw`items-center justify-center w-8 h-8 border border-black-5 bg-primary-background-light rounded-5px`}
       >
         <PaymentLogo id={logoID} style={tw`w-6 h-6`} />
       </View>

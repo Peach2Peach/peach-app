@@ -42,7 +42,7 @@ export function SorterPopup<T>({ radioButtonProps, applyAction }: Props<T>) {
       bgColor={{
         backgroundColor: isDarkMode
           ? tw.color("card")
-          : tw.color("primary-background-dark-color"),
+          : tw.color("primary-background-dark"),
       }}
     />
   );

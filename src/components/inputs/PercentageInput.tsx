@@ -20,7 +20,7 @@ export const PercentageInput = forwardRef(
           tw`border`,
           isDarkMode
             ? tw`bg-transparent border-primary-mild-1`
-            : tw`bg-primary-background-light-color border-black-65`,
+            : tw`bg-primary-background-light border-black-65`,
         ]}
       >
         <TextInput
@@ -28,7 +28,7 @@ export const PercentageInput = forwardRef(
           onChangeText={(text) => onChange(enforceDecimalsFormat(text, 2))}
           style={[
             tw`py-0 text-center grow h-38px input-text`,
-            isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+            isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`,
           ]}
           keyboardType={"decimal-pad"}
           placeholder={"20.00"}

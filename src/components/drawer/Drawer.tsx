@@ -103,7 +103,7 @@ export const Drawer = () => {
         style={[
           tw`px-4 py-6 mt-auto rounded-t-3xl`,
           { maxHeight: slideAnim },
-          isDarkMode ? tw`bg-card` : tw`bg-primary-background-light-color`,
+          isDarkMode ? tw`bg-card` : tw`bg-primary-background-light`,
         ]}
       >
         <DrawerHeader closeDrawer={closeDrawer} />

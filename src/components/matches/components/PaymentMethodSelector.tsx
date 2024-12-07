@@ -241,7 +241,7 @@ function PayementMethodBubble({
         style={[
           tw`leading-loose subtitle-0`,
           isSelected
-            ? tw`text-primary-background-light-color`
+            ? tw`text-primary-background-light`
             : tw`text-primary-mild-2`,
         ]}
       >
@@ -252,7 +252,7 @@ function PayementMethodBubble({
         size={18}
         color={
           isSelected
-            ? tw.color("primary-background-light-color")
+            ? tw.color("primary-background-light")
             : tw.color("primary-mild-2")
         }
       />

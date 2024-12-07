@@ -45,13 +45,13 @@ export const MeetupPaymentMethods = ({
           <PeachText
             style={tw.style(
               `mr-1 h6`,
-              isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+              isDarkMode ? "text-backgroundLight" : "text-black-65",
             )}
           >
             {i18n("paymentSection.meetups")}
           </PeachText>
           <Icon
-            color={tw.color(isDarkMode ? "backgroundLight-light" : "black-65")}
+            color={tw.color(isDarkMode ? "backgroundLight" : "black-65")}
             id={"users"}
           />
         </LinedText>

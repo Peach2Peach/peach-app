@@ -25,8 +25,8 @@ export function Methods({
   const backgroundColor = isDarkMode
     ? tw.color("card")
     : type === "buy"
-      ? tw.color("success-mild-1-color")
-      : tw.color("primary-background-dark-color");
+      ? tw.color("success-mild-1")
+      : tw.color("primary-background-dark");
 
   const color = isDarkMode
     ? tw.color("primary-main")

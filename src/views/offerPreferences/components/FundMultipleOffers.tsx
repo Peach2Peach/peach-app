@@ -54,7 +54,7 @@ function NumberStepper() {
       <PeachText
         style={[
           tw`text-center h5 w-11`,
-          tw`text-${isDarkMode ? "backgroundLight-light" : "black-100"}`,
+          tw`text-${isDarkMode ? "backgroundLight" : "black-100"}`,
         ]}
       >
         x {multi}

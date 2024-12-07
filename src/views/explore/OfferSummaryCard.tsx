@@ -67,7 +67,7 @@ function SellOfferSummaryCard({
   return (
     <TouchableOpacity
       style={[
-        tw`justify-center overflow-hidden border bg-primary-background-light-color rounded-2xl border-primary-main`,
+        tw`justify-center overflow-hidden border bg-primary-background-light rounded-2xl border-primary-main`,
         tradeRequested && tw`border-2 border-success-main`,
       ]}
       onPress={onPress}
@@ -76,7 +76,7 @@ function SellOfferSummaryCard({
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
           <PeachText
-            style={tw`text-center py-2px subtitle-2 text-primary-background-light-color`}
+            style={tw`text-center py-2px subtitle-2 text-primary-background-light`}
           >
             {i18n("offerPreferences.instantTrade")}
           </PeachText>
@@ -197,7 +197,7 @@ export function OfferSummaryCard({
   return (
     <TouchableOpacity
       style={[
-        tw`justify-center overflow-hidden border bg-primary-background-light-color rounded-2xl border-primary-main`,
+        tw`justify-center overflow-hidden border bg-primary-background-light rounded-2xl border-primary-main`,
         tradeRequested && tw`border-2 border-success-main`,
       ]}
       onPress={onPress}
@@ -206,7 +206,7 @@ export function OfferSummaryCard({
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
           <PeachText
-            style={tw`text-center py-2px subtitle-2 text-primary-background-light-color`}
+            style={tw`text-center py-2px subtitle-2 text-primary-background-light`}
           >
             {i18n("offerPreferences.instantTrade")}
           </PeachText>

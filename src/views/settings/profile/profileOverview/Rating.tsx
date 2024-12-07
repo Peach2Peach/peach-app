@@ -35,7 +35,7 @@ export const Rating = ({
       style={[
         tw.style(
           "subtitle-2",
-          isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+          isDarkMode ? "text-backgroundLight" : "text-black-65",
         ),
         textStyle,
       ]}

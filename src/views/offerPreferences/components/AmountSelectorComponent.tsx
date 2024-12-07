@@ -43,7 +43,7 @@ export function AmountSelectorComponent({
 
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1"}`}
     >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Placeholder style={tw`w-6 h-6`} />

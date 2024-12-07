@@ -27,7 +27,7 @@ export const TradingLimitAmount = ({
   return (
     <View style={style}>
       <PeachText
-        style={tw`tooltip ${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`}
+        style={tw`tooltip ${isDarkMode ? "text-backgroundLight" : "text-black-65"}`}
       >
         {i18n(`profile.tradingLimits.${type}`)}
         {"  "}
@@ -40,7 +40,7 @@ export const TradingLimitAmount = ({
         <PeachText
           style={[
             textStyle,
-            tw`${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`,
+            tw`${isDarkMode ? "text-backgroundLight" : "text-black-65"}`,
           ]}
         >
           {" "}

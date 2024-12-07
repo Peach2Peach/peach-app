@@ -42,7 +42,7 @@ function PopupContent({ children, style }: ContentProps) {
   return (
     <Pressable
       style={[
-        tw`items-stretch gap-3 p-6 pt-4 bg-primary-background-dark-color`,
+        tw`items-stretch gap-3 p-6 pt-4 bg-primary-background-dark`,
         style,
       ]}
       onPress={Keyboard.dismiss}

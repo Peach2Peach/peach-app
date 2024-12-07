@@ -78,7 +78,7 @@ export const RemotePaymentMethods = ({
     <PeachText
       style={tw.style(
         `text-center h6`,
-        isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+        isDarkMode ? "text-backgroundLight" : "text-black-50",
       )}
     >
       {i18n("paymentMethod.empty")}
@@ -103,16 +103,14 @@ export const RemotePaymentMethods = ({
               <PeachText
                 style={tw.style(
                   `mr-1 h6`,
-                  isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+                  isDarkMode ? "text-backgroundLight" : "text-black-65",
                 )}
               >
                 {i18n(`paymentCategory.${category}`)}
               </PeachText>
               {paymentCategoryIcons[category] !== "" && (
                 <Icon
-                  color={tw.color(
-                    isDarkMode ? "backgroundLight-light" : "black-65",
-                  )}
+                  color={tw.color(isDarkMode ? "backgroundLight" : "black-65")}
                   id={paymentCategoryIcons[category] as IconType}
                 />
               )}
@@ -142,7 +140,7 @@ export const RemotePaymentMethods = ({
                     <Icon
                       id="trash"
                       color={tw.color(
-                        isDarkMode ? "backgroundLight-light" : "black-65",
+                        isDarkMode ? "backgroundLight" : "black-65",
                       )}
                     />
                   </TouchableOpacity>

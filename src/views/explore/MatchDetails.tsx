@@ -181,10 +181,10 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
             {isMatched && <PeachyBackground />}
             <View
               style={[
-                tw`gap-8 m-1 bg-primary-background-light-color rounded-2xl`,
+                tw`gap-8 m-1 bg-primary-background-light rounded-2xl`,
                 isDarkMode
                   ? tw`bg-backgroundMain-dark`
-                  : tw`bg-primary-background-light-color`,
+                  : tw`bg-primary-background-light`,
               ]}
             >
               <UserCard user={match.user} />

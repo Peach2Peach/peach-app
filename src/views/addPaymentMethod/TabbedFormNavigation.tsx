@@ -88,15 +88,13 @@ export function TabbedFormNavigation({
 const themes = (isDarkMode: boolean) => ({
   default: {
     text: tw`text-black-65`,
-    textSelected: isDarkMode
-      ? tw`text-backgroundLight-light`
-      : tw`text-black-100`,
+    textSelected: isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`,
     underline: tw`bg-primary-main`,
   },
   inverted: {
     text: tw`text-primary-mild-1`,
-    textSelected: tw`text-primary-background-light-color`,
-    underline: tw`bg-primary-background-light-color`,
+    textSelected: tw`text-primary-background-light`,
+    underline: tw`bg-primary-background-light`,
   },
 });
 type TabbedNavigationItem<T> = {

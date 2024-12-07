@@ -68,7 +68,7 @@ export const TransactionBatching = () => {
     >
       <View style={tw`gap-4`}>
         <PeachText
-          style={tw`body-l ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}
+          style={tw`body-l ${isDarkMode ? "text-backgroundLight" : "text-black-100"}`}
         >
           {i18n(
             isBatchingEnabled

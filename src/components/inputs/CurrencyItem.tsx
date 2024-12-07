@@ -14,7 +14,7 @@ export const CurrencyItem = ({ label, isSelected, onPress }: ItemProps) => {
     ? tw`border-primary-main`
     : tw`border-black-50`;
   const textColor = tw.color(
-    isSelected ? "primary-background-light-color" : "black-50",
+    isSelected ? "primary-background-light" : "black-50",
   );
 
   return (

@@ -90,20 +90,20 @@ export const BitcoinAddress = ({
           >
             {addressParts.one}
             <PeachText
-              style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}
+              style={tw` ${isDarkMode ? "text-backgroundLight" : "text-black-100"}`}
             >
               {addressParts.two}
             </PeachText>
             {addressParts.three}
             <PeachText
-              style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}
+              style={tw` ${isDarkMode ? "text-backgroundLight" : "text-black-100"}`}
             >
               {addressParts.four}
             </PeachText>
           </PeachText>
           <Animated.View
             style={[
-              tw`absolute items-center justify-center w-full h-full bg-primary-background-light-color`,
+              tw`absolute items-center justify-center w-full h-full bg-primary-background-light`,
               { opacity: addressTextOpacity },
             ]}
           >
@@ -140,7 +140,7 @@ function IconButton({
       <Icon
         id={iconId}
         size={24}
-        color={tw.color("primary-background-light-color")}
+        color={tw.color("primary-background-light")}
       />
     </TouchableOpacity>
   );

@@ -13,12 +13,7 @@ export default {
         "1/2": "50%",
       },
       colors: {
-        transparent: "transparent",
-        current: "currentColor",
-
         bitcoin: "#f7931a",
-
-        bitcoinText: "#5b5b5b",
 
         card: "#1A1210",
 
@@ -39,21 +34,14 @@ export default {
             1: "#C45104",
           },
           main: "#F56522",
-          mainTrans: "rgba(245, 101, 34, 0)",
           mild: {
             2: "#FFA171",
             1: "#FCCCB6",
           },
           background: {
-            dark: {
-              color: "#FEEDE5",
-              trans: "rgba(254, 237, 229, 0.95)",
-            },
+            dark: "#FEEDE5",
             main: "#FFF9F6",
-            light: {
-              color: "#FFFCFA",
-              trans: "rgba(255, 252, 250, 0)",
-            },
+            light: "#FFFCFA",
           },
         },
 
@@ -65,16 +53,10 @@ export default {
           main: "#65A519",
           mild: {
             2: "#AFDA73",
-            1: {
-              color: "#DDEFC3",
-              trans: "rgba(221, 239, 195, 0.95)",
-            },
+            1: "#DDEFC3",
           },
           background: {
-            dark: {
-              color: "#F2F9E7",
-              trans: "rgba(242, 249, 231, 0.95)",
-            },
+            dark: "#F2F9E7",
             main: "#FCFEF6",
             light: "#FEFEFB",
           },
@@ -123,10 +105,7 @@ export default {
           light: "#FFF9F6",
           dark: "#120A07",
         },
-        backgroundLight: {
-          light: "#FFFCFA",
-          trans: "rgba(255, 252, 250, 0.95)",
-        },
+        backgroundLight: "#FFFCFA",
       },
       fontSize: {
         "6xl": "96px",

@@ -43,10 +43,10 @@ const levelColorMap: LevelColorMap = {
   },
   red: {
     backgroundColor: tw.color("error-main"),
-    color: tw.color("primary-background-light-color"),
+    color: tw.color("primary-background-light"),
   },
   white: {
-    backgroundColor: tw.color("primary-background-light-color"),
+    backgroundColor: tw.color("primary-background-light"),
     color: tw.color("black-100"),
   },
 };

@@ -132,18 +132,13 @@ export const LetsGetStarted = () => {
     <View style={tw`items-center flex-1 gap-4 shrink`}>
       <View style={tw`justify-center gap-4 grow`}>
         <PeachText
-          style={[
-            tw`text-center h5 text-primary-background-light-color`,
-            tw`md:h4`,
-          ]}
+          style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}
         >
           {i18n("welcome.letsGetStarted.title")}
         </PeachText>
 
         <View>
-          <PeachText
-            style={tw`text-center text-primary-background-light-color`}
-          >
+          <PeachText style={tw`text-center text-primary-background-light`}>
             {i18n("newUser.referralCode")}
           </PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
@@ -153,7 +148,7 @@ export const LetsGetStarted = () => {
                 theme="inverted"
                 maxLength={16}
                 placeholder={i18n("form.optional").toUpperCase()}
-                placeholderTextColor={tw.color("backgroundLight-light")}
+                placeholderTextColor={tw.color("backgroundLight")}
                 onChangeText={updateReferralCode}
                 onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
                 value={referralCode}
@@ -161,7 +156,7 @@ export const LetsGetStarted = () => {
               />
             </View>
             <Button
-              style={tw`min-w-20 bg-primary-background-light-color`}
+              style={tw`min-w-20 bg-primary-background-light`}
               textColor={tw.color("primary-main")}
               disabled={
                 willUseReferralCode || !referralCode || !referralCodeIsValid
@@ -177,7 +172,7 @@ export const LetsGetStarted = () => {
       <View style={tw`gap-2`}>
         <Button
           onPress={createNewUser}
-          style={tw`bg-primary-background-light-color`}
+          style={tw`bg-primary-background-light`}
           loading={isLoading}
           textColor={tw.color("primary-main")}
           iconId="plusCircle"
@@ -208,12 +203,10 @@ function useCheckReferralCode() {
 function CreateAccountLoading() {
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
-      <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
+      <PeachText style={tw`text-center h4 text-primary-background-light`}>
         {i18n("newUser.title.create")}
       </PeachText>
-      <PeachText
-        style={tw`text-center body-l text-primary-background-light-color`}
-      >
+      <PeachText style={tw`text-center body-l text-primary-background-light`}>
         {i18n("newUser.oneSec")}
       </PeachText>
       <Loading size={"large"} color={tw.color("primary-mild-1")} />

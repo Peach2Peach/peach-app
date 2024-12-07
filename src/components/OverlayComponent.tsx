@@ -16,7 +16,7 @@ export function OverlayComponent({ buttons, title, text, iconId }: Props) {
     <>
       <View style={tw`justify-center gap-8 grow`}>
         <PeachText
-          style={tw`text-center h4 text-primary-background-light-color shrink`}
+          style={tw`text-center h4 text-primary-background-light shrink`}
         >
           {title}
         </PeachText>
@@ -25,12 +25,12 @@ export function OverlayComponent({ buttons, title, text, iconId }: Props) {
             <Icon
               id={iconId}
               size={92}
-              color={tw.color("primary-background-light-color")}
+              color={tw.color("primary-background-light")}
             />
           )}
           <PeachText
             style={[
-              tw`flex-1 body-l text-primary-background-light-color`,
+              tw`flex-1 body-l text-primary-background-light`,
               !iconId && tw`text-center`,
             ]}
           >

@@ -32,7 +32,7 @@ const Section = {
     const { isDarkMode } = useThemeStore();
     return (
       <PeachText
-        style={tw`${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} subtitle-1`}
+        style={tw`${isDarkMode ? "text-backgroundLight" : "text-black-100"} subtitle-1`}
       >
         {children}
       </PeachText>

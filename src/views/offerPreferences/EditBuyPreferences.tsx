@@ -248,7 +248,7 @@ function OfferMethods() {
   const { isDarkMode } = useThemeStore();
   const backgroundColor = isDarkMode
     ? tw.color("card")
-    : tw.color("success-mild-1-color");
+    : tw.color("success-mild-1");
   return (
     <Section.Container style={{ backgroundColor }}>
       {hasSelectedMethods ? (

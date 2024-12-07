@@ -51,7 +51,7 @@ function MyBadgesPopup() {
                 >
                   <Icon
                     id={icon}
-                    color={tw.color("primary-background-light-color")}
+                    color={tw.color("primary-background-light")}
                     style={tw`w-3 h-3`}
                   />
                 </View>
