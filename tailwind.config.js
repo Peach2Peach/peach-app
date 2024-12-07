@@ -1,17 +1,6 @@
 export default {
   theme: {
     extend: {
-      maxHeight: {
-        0: "0",
-        "1/4": "25%",
-        "1/2": "50%",
-        "3/4": "75%",
-        full: "100%",
-      },
-      inset: {
-        px: "1px",
-        "1/2": "50%",
-      },
       colors: {
         bitcoin: "#f7931a",
 
@@ -142,9 +131,6 @@ export default {
         wide: "0.028em",
         wider: "0.036em",
         widest: "0.1em",
-      },
-      minHeight: {
-        10: "40px",
       },
       width: {
         "1/8": "12.5%",
