@@ -40,13 +40,17 @@ export function FormInput({
     return result.success ? formatters[result.data] : (val: string) => val;
   }, [name]);
 
+  const onChangeText = (text: string) => {
+    field.onChange(inputFormatter(text));
+  };
+
   return (
     <Input
       label={i18n(`form.${name}`)}
       placeholder={i18n(`form.${name}.placeholder`)}
       value={field.value}
       errorMessage={error?.message ? [error.message] : undefined}
-      onChangeText={field.onChange}
+      onChangeText={onChangeText}
       keyboardType={
         name === "phone"
           ? "phone-pad"
@@ -54,6 +58,7 @@ export function FormInput({
             ? "email-address"
             : undefined
       }
+      onFocus={(e) => field.onChange(inputFormatter(e.nativeEvent.text))}
       onEndEditing={(e) => field.onChange(inputFormatter(e.nativeEvent.text))}
       onSubmitEditing={(e) =>
         field.onChange(inputFormatter(e.nativeEvent.text))
