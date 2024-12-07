@@ -178,7 +178,6 @@ export default {
       md: "374px",
     },
   },
-  darkMode: "class",
   variants: {},
   corePlugins: {},
 };
