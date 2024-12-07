@@ -65,7 +65,7 @@ function AcceptButton() {
       style={tw`flex-1 py-3 bg-success-main`}
       onPress={() => mutation.mutate()}
     >
-      Accept
+      Accept Trade
     </Button>
   );
 }
