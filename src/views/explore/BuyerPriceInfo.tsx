@@ -14,7 +14,7 @@ import { thousands } from "../../utils/string/thousands";
 type PriceInfoProps = {
   match: Match;
   selectedCurrency: Currency;
-  selectedPaymentMethod: PaymentMethod;
+  selectedPaymentMethod: PaymentMethod | undefined;
 };
 export function BuyerPriceInfo({
   match,

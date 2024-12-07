@@ -1,19 +1,34 @@
 import { View } from "react-native";
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import { PeachText } from "../../text/PeachText";
 
 type Props = {
   paymentData: PaymentData;
 };
-export const PaymentDataKeyFacts = ({ paymentData }: Props) => (
-  <View style={tw`flex-row flex-wrap justify-center`}>
-    {(paymentData.currencies || []).map((currency) => (
-      <View
-        key={`paymentData-${paymentData.id}-currency-${currency}`}
-        style={tw`justify-center px-1 mx-1 border rounded-lg border-black-100`}
-      >
-        <PeachText style={tw`button-medium`}>{currency}</PeachText>
-      </View>
-    ))}
-  </View>
-);
+export const PaymentDataKeyFacts = ({ paymentData }: Props) => {
+  const { isDarkMode } = useThemeStore();
+
+  return (
+    <View style={tw`flex-row flex-wrap justify-center`}>
+      {(paymentData.currencies || []).map((currency) => (
+        <View
+          key={`paymentData-${paymentData.id}-currency-${currency}`}
+          style={[
+            tw`justify-center px-1 mx-1 border rounded-lg`,
+            tw.style(isDarkMode ? "border-black-50" : "border-black-100"),
+          ]}
+        >
+          <PeachText
+            style={[
+              tw`button-medium`,
+              tw.style(isDarkMode ? "text-black-50" : "text-black-100"),
+            ]}
+          >
+            {currency}
+          </PeachText>
+        </View>
+      ))}
+    </View>
+  );
+};

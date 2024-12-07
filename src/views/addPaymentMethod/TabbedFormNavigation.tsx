@@ -4,6 +4,7 @@ import { TouchableOpacity, View, ViewStyle } from "react-native";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
 import { PulsingText } from "../../components/matches/components/PulsingText";
 import { PeachText } from "../../components/text/PeachText";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { FormInput } from "./FormInput";
@@ -84,19 +85,18 @@ export function TabbedFormNavigation({
   );
 }
 
-const themes = {
+const themes = (isDarkMode: boolean) => ({
   default: {
     text: tw`text-black-65`,
-    textSelected: tw`text-black-100`,
-    underline: tw`bg-black-100`,
+    textSelected: isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`,
+    underline: tw`bg-primary-main`,
   },
   inverted: {
     text: tw`text-primary-mild-1`,
     textSelected: tw`text-primary-background-light`,
     underline: tw`bg-primary-background-light`,
   },
-};
-
+});
 type TabbedNavigationItem<T> = {
   id: T;
   display: string;
@@ -121,7 +121,8 @@ function TabbedNavigation<T extends string>({
   buttonStyle,
   tabHasError = [],
 }: TabbedNavigationProps<T>) {
-  const colors = themes[theme];
+  const { isDarkMode } = useThemeStore();
+  const colors = themes(isDarkMode)[theme];
   return (
     <View style={[tw`flex-row justify-center`, style]}>
       {items.map((item) => (

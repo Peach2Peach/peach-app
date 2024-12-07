@@ -10,9 +10,7 @@ import {
 } from "react-native";
 import { shallow } from "zustand/shallow";
 import { MeansOfPayment } from "../../../peach-api/src/@types/payment";
-import { LogoIcons } from "../../assets/logo";
 import { Badge } from "../../components/Badge";
-import { Header } from "../../components/Header";
 import { PremiumInput } from "../../components/PremiumInput";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
@@ -33,9 +31,9 @@ import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
@@ -193,8 +191,11 @@ function AmountSelectorContainer({
   slider?: JSX.Element;
   inputs?: JSX.Element;
 }) {
+  const { isDarkMode } = useThemeStore();
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
+    >
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
@@ -384,10 +385,23 @@ function FiatInput() {
   const displayValue = inputRef.current?.isFocused()
     ? inputValue
     : priceFormat(fiatPrice);
+
+  const { isDarkMode } = useThemeStore();
+
   return (
-    <View style={tw.style(inputContainerStyle)}>
+    <View
+      style={[
+        tw.style(inputContainerStyle),
+        isDarkMode && tw`bg-transparent border-backgroundLight`,
+      ]}
+    >
       <TextInput
-        style={tw.style(textStyle)}
+        style={[
+          tw.style(textStyle),
+          isDarkMode
+            ? tw`bg-transparent text-backgroundLight`
+            : tw`bg-white text-black-100`,
+        ]}
         ref={inputRef}
         value={displayValue}
         onFocus={onFocus}
@@ -395,7 +409,9 @@ function FiatInput() {
         onEndEditing={onEndEditing}
         keyboardType="decimal-pad"
       />
-      <PeachText style={tw.style(textStyle)}>
+      <PeachText
+        style={[tw.style(textStyle), isDarkMode && tw`text-backgroundLight`]}
+      >
         {" "}
         {i18n(displayCurrency)}
       </PeachText>
@@ -405,9 +421,11 @@ function FiatInput() {
 
 function FundMultipleOffersContainer() {
   const setPopup = useSetPopup();
+
+  const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`flex-row items-start justify-between bg-primary-background-dark`}
+      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
     >
       <FundMultipleOffers />
       <TouchableIcon
@@ -458,8 +476,12 @@ function InstantTrade() {
     toggle();
   };
 
+  const { isDarkMode } = useThemeStore();
+
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
+    >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>
@@ -797,26 +819,6 @@ function RefundWalletSelector() {
       addressLabel={refundAddressLabel}
       onPeachWalletPress={onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
-    />
-  );
-}
-
-function SellHeader() {
-  const setPopup = useSetPopup();
-  const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
-  return (
-    <Header
-      titleComponent={
-        <>
-          <PeachText style={tw`h7 md:h6 text-primary-main`}>
-            {i18n("sell")}
-          </PeachText>
-          <LogoIcons.bitcoinText
-            style={tw`h-14px md:h-16px w-63px md:w-71px`}
-          />
-        </>
-      }
-      icons={[{ ...headerIcons.help, onPress }]}
     />
   );
 }

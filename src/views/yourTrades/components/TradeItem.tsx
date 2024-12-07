@@ -135,8 +135,8 @@ const AmountInfo = memo(({ item }: Props) => {
   );
 });
 
-export function TradeItem({ item, isSeller }: Props & { isSeller?: boolean }) {
-  const onPress = useTradeNavigation(item, isSeller);
+export function TradeItem({ item }: Props) {
+  const onPress = useTradeNavigation(item);
 
   const { color, iconId } = getThemeForTradeItem(item);
   return (

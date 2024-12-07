@@ -12,6 +12,7 @@ exports[`DrawerTitle renders correctly 1`] = `
         "letterSpacing": 0.16,
         "lineHeight": 24,
       },
+      false,
       {
         "fontFamily": "Baloo2-Bold",
         "fontSize": 16,

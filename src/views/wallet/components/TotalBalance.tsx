@@ -5,6 +5,7 @@ import { Loading } from "../../../components/Loading";
 import { Placeholder } from "../../../components/Placeholder";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { PeachText } from "../../../components/text/PeachText";
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { useWalletState } from "../../../utils/wallet/walletStore";
@@ -18,6 +19,7 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
     (state) => [state.showBalance, state.toggleShowBalance],
     shallow,
   );
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View style={tw`items-center self-stretch justify-center gap-4 grow`}>
@@ -28,7 +30,13 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
         ]}
       >
         <Placeholder style={tw`w-5 h-5`} />
-        <PeachText style={tw`text-center button-medium`}>
+        <PeachText
+          style={[
+            tw`text-center button-medium`,
+
+            isDarkMode ? tw`text-primary-mild-1` : tw`text-black-100`,
+          ]}
+        >
           {i18n("wallet.totalBalance")}:
         </PeachText>
         <TouchableOpacity

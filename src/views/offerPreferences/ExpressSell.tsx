@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
+import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import tw from "../../styles/tailwind";
@@ -21,7 +22,7 @@ export function ExpressSell() {
   });
 
   return (
-    <View style={tw`grow`} onStartShouldSetResponder={() => true}>
+    <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
         <Placeholder style={tw`w-6 h-6`} />
         <MarketInfo type="buyOffers" />
@@ -36,6 +37,6 @@ export function ExpressSell() {
           ))}
         </View>
       )}
-    </View>
+    </PeachScrollView>
   );
 }

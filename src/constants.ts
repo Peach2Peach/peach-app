@@ -53,7 +53,7 @@ export const badgeIconMap: Record<Medal, IconType> = {
 export const fullScreenTabNavigationScreenOptions = {
   tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
   tabBarContentContainerStyle: tw`bg-transparent`,
-  tabBarIndicatorStyle: tw`bg-black-100`,
+  tabBarIndicatorStyle: tw`bg-primary-main`,
   tabBarItemStyle: tw`p-0`,
   tabBarPressColor: "transparent",
   tabBarLabelStyle: tw`lowercase input-title`,

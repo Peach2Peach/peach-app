@@ -4,6 +4,7 @@ import { Image, View } from "react-native";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../hooks/useRoute";
 import { InfoPopup } from "../../popups/InfoPopup";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -28,6 +29,7 @@ export const MeetupScreen = () => {
     selectedCurrencies,
     onCurrencyToggle,
   } = useMeetupScreenSetup();
+  const { isDarkMode } = useThemeStore();
 
   return (
     <Screen header={<MeetupScreenHeader />}>
@@ -40,17 +42,23 @@ export const MeetupScreen = () => {
           />
         )}
         <View style={tw`gap-8`}>
-          <PeachText style={tw`body-l text-black-100`}>
+          <PeachText style={tw`body-l`}>
             {i18n("meetup.description", event.longName)}
           </PeachText>
           {!!event.frequency && (
             <View style={tw`gap-4`}>
               <PeachText style={tw`body-l`}>
                 {`${i18n("meetup.date")}: `}
-                <PeachText style={tw`h6`}>{event.frequency}</PeachText>
+                <PeachText style={tw`h6 text-primary-main`}>
+                  {event.frequency}
+                </PeachText>
               </PeachText>
               {!!event.address && (
-                <PeachText style={tw`body-l text-black-100`}>
+                <PeachText
+                  style={tw`body-l ${
+                    isDarkMode ? "text-primary-mild-1" : "text-black-100"
+                  }`}
+                >
                   {event.address}
                 </PeachText>
               )}
@@ -127,7 +135,9 @@ function CashTradesPopup() {
       title={i18n("tradingCash")}
       content={
         <View style={tw`gap-3`}>
-          <PeachText>{i18n("tradingCash.text")}</PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("tradingCash.text")}
+          </PeachText>
           <View>{bulletPoints}</View>
         </View>
       }

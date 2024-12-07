@@ -128,5 +128,6 @@
   "settings.testView" : "Open TestView",
   "settings.title" : "settings",
   "settings.transactionBatching" : "transaction batching",
-  "settings.website" : "website"
+  "settings.website" : "website",
+  "settings.dark mode": "Dark Mode"
 }

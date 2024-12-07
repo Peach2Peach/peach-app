@@ -14,6 +14,7 @@ import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
@@ -22,10 +23,15 @@ import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
+  const { isDarkMode } = useThemeStore();
   return (
     <Screen showTradingLimit header={<Header showPriceStats />}>
       <View style={tw`items-center flex-1 gap-10px`}>
-        <LogoIcons.homeLogo height={76} width={173} />
+        {isDarkMode ? (
+          <LogoIcons.homeLogoDark height={76} width={173} />
+        ) : (
+          <LogoIcons.homeLogo height={76} width={173} />
+        )}
         <View style={tw`self-stretch flex-1 gap-10px`}>
           <DailyMessage />
           <MarketStats />
@@ -131,6 +137,8 @@ function useOfferStats() {
 
 function MarketStats() {
   const { data } = useOfferStats();
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
       <PeachText style={tw`subtitle-0 text-success-main`}>
@@ -140,7 +148,9 @@ function MarketStats() {
         <PeachText style={tw`subtitle-0 text-primary-main`}>
           {i18n("home.openSellOffers", String(data?.sell.open))}
         </PeachText>
-        <PeachText style={tw`subtitle-1 text-primary-main`}>
+        <PeachText
+          style={tw`subtitle-1 ${isDarkMode ? "text-primary-mild-1" : "text-primary-main"}`}
+        >
           {i18n("home.averagePremium", String(data?.sell.avgPremium))}
         </PeachText>
       </View>

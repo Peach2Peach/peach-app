@@ -11,10 +11,7 @@ import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navi
 import { offerKeys } from "./query/offerKeys";
 import { useStackNavigation } from "./useStackNavigation";
 
-export const useTradeNavigation = (
-  item: OfferSummary | ContractSummary,
-  isSeller = false,
-) => {
+export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
   const navigation = useStackNavigation();
   const showStartRefundPopup = useStartRefundPopup();
   const queryClient = useQueryClient();
@@ -34,23 +31,12 @@ export const useTradeNavigation = (
         return;
       }
     }
-    if (
-      item.tradeStatus === "fundEscrow" &&
-      isContractSummary(item) &&
-      isSeller
-    ) {
+    if (item.tradeStatus === "createEscrow" && "offerId" in item) {
       await mutateAsync([item.offerId]);
     }
 
     navigation.navigate(...destination);
-  }, [
-    isSeller,
-    item,
-    mutateAsync,
-    navigation,
-    queryClient,
-    showStartRefundPopup,
-  ]);
+  }, [item, mutateAsync, navigation, queryClient, showStartRefundPopup]);
 
   return navigateToOfferOrContract;
 };

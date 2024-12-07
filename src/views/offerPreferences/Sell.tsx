@@ -216,7 +216,7 @@ function AmountSelector({
         />
       }
       inputs={
-        <View style={tw`items-center -gap-1`}>
+        <View style={tw`z-10 items-center -gap-1`}>
           <SatsInput />
           <PeachText style={tw`subtitle-1`}>=</PeachText>
           <FiatInput />
@@ -237,7 +237,7 @@ function AmountSelectorContainer({
     <Section.Container style={tw`bg-primary-background-dark`}>
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5 shrink`}>
-        <View style={tw`gap-2`}>
+        <View style={tw`z-10 gap-2`}>
           {inputs}
           {slider}
         </View>

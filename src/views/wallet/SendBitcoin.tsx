@@ -107,7 +107,7 @@ export const SendBitcoin = () => {
               textStyle={tw`absolute w-full py-0 opacity-0 grow h-38px input-text`}
               containerStyle={[
                 tw`self-stretch justify-center px-2 py-3 overflow-hidden h-38px rounded-xl`,
-                tw`border bg-primary-background-light border-black-65`,
+                tw`border border-black-65`,
               ]}
             />
           </Section>
@@ -255,6 +255,7 @@ function WithdrawingFundsPopup() {
       title={i18n("wallet.withdraw.help.title")}
       content={
         <ParsedPeachText
+          style={tw`text-black-100`}
           parse={[
             {
               pattern: new RegExp(i18n("wallet.withdraw.help.text.link"), "u"),

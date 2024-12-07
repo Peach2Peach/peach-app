@@ -49,9 +49,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "backgroundColor": "#2B1911",
+          "backgroundColor": "#1A1210",
           "height": "100%",
-          "opacity": 0.4,
+          "opacity": 0.62,
           "position": "absolute",
           "width": "100%",
         }
@@ -128,7 +128,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Bold",
                 "fontSize": 24,
                 "letterSpacing": 0.24,
@@ -159,6 +161,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -249,6 +252,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "opacity": 0.1,
@@ -263,7 +267,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                             "marginBottom": -13,
                             "marginTop": -13,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                       ],
                       false,
@@ -283,6 +289,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "textAlign": "right",
@@ -296,7 +303,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                             "marginBottom": -13,
                             "marginTop": -13,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                       ],
                       false,
@@ -317,6 +326,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -326,7 +336,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                         "marginBottom": -13,
                         "marginTop": -13,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                     false,
                   ]
@@ -347,6 +359,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -365,6 +378,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "color": "#EAE3DF",
@@ -387,6 +401,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "color": "#2B1911",
@@ -411,6 +426,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "color": "#2B1911",
@@ -436,6 +452,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -524,6 +541,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "color": "#FFFCFA",
@@ -606,6 +624,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "color": "#FFFCFA",
@@ -678,9 +697,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "backgroundColor": "#2B1911",
+          "backgroundColor": "#1A1210",
           "height": "100%",
-          "opacity": 0.4,
+          "opacity": 0.62,
           "position": "absolute",
           "width": "100%",
         }
@@ -757,7 +776,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
+                "color": "#2B1911",
                 "fontFamily": "Baloo2-Bold",
                 "fontSize": 24,
                 "letterSpacing": 0.24,
@@ -788,6 +809,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -878,6 +900,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "opacity": 0.1,
@@ -892,7 +915,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                             "marginBottom": -13,
                             "marginTop": -13,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                       ],
                       false,
@@ -912,6 +937,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "textAlign": "right",
@@ -925,7 +951,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                             "marginBottom": -13,
                             "marginTop": -13,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                       ],
                       false,
@@ -946,6 +974,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -955,7 +984,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                         "marginBottom": -13,
                         "marginTop": -13,
                       },
-                      false,
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                     false,
                   ]
@@ -976,6 +1007,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -994,6 +1026,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -1012,6 +1045,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "color": "#EAE3DF",
@@ -1034,6 +1068,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "color": "#2B1911",
@@ -1058,6 +1093,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "color": "#2B1911",
@@ -1083,6 +1119,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 undefined,
                 false,
               ]
@@ -1171,6 +1208,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "color": "#FFFCFA",
@@ -1253,6 +1291,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "color": "#FFFCFA",

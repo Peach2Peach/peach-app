@@ -118,7 +118,8 @@ function PaymentMethodsHeader({ isEditing, toggleIsEditing }: Props) {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<PaymentMethodsPopup />);
   const hasPaymentMethods = usePaymentDataStore(
-    (state) => state.getPaymentDataArray().length !== 0,
+    (state) => Object.values(state.paymentData).length !== 0,
+    shallow,
   );
 
   return (
@@ -147,8 +148,12 @@ function PaymentMethodsPopup() {
       title={i18n("settings.paymentMethods")}
       content={
         <>
-          <PeachText>{i18n("help.paymentMethods.description.1")}</PeachText>
-          <PeachText>{i18n("help.paymentMethods.description.2")}</PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("help.paymentMethods.description.1")}
+          </PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("help.paymentMethods.description.2")}
+          </PeachText>
         </>
       }
     />

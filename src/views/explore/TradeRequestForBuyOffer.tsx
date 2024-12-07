@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -68,7 +69,7 @@ function AcceptButton() {
       style={tw`flex-1 py-3 bg-success-main`}
       onPress={() => mutation.mutate()}
     >
-      Accept
+      Accept Trade
     </Button>
   );
 }
@@ -83,8 +84,10 @@ function useAcceptTradeRequest() {
     paymentMethod,
   } = useRoute<"tradeRequestForBuyOffer">().params;
   const navigation = useStackNavigation();
-  const paymentData = usePaymentDataStore((s) =>
-    s.getAllPaymentDataByType(paymentMethod),
+  const paymentData = usePaymentDataStore(
+    (s) =>
+      Object.values(s.paymentData).filter(({ type }) => type === paymentMethod),
+    shallow,
   );
   const { maxMiningFeeRate } = useMaxMiningFee(amount);
   return useMutation({
@@ -95,7 +98,6 @@ function useAcceptTradeRequest() {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
 
-      // TODO: the user should actually choose here and not just randomly pick the first one
       const selectedPaymentData = paymentData.find((pd) =>
         pd.currencies.includes(currency),
       );
@@ -123,7 +125,6 @@ function useAcceptTradeRequest() {
     },
     onSuccess: (response) => {
       if (!response || "error" in response) return;
-      // TODO: for some fukcnig reason we used to return a refundPSBT after a match here
       navigation.reset({
         index: 1,
         routes: [

@@ -101,7 +101,7 @@ describe("useMeetupScreenSetup", () => {
 
     result.current.addToPaymentMethods();
     expect(
-      usePaymentDataStore.getState().getPaymentData("cash.123"),
+      usePaymentDataStore.getState().paymentData["cash.123"],
     ).toStrictEqual({
       id: "cash.123",
       currencies: ["EUR"],
@@ -293,7 +293,7 @@ describe("useMeetupScreenSetup", () => {
       result.current.addToPaymentMethods();
     });
     expect(
-      usePaymentDataStore.getState().getPaymentData("cash.123"),
+      usePaymentDataStore.getState().paymentData["cash.123"],
     ).toStrictEqual({
       id: "cash.123",
       currencies: ["CHF"],

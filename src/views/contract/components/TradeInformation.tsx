@@ -19,8 +19,9 @@ import { TradeStatusInfo } from "./TradeStatusInfo";
 export const TradeInformation = () => {
   const { contract, view } = useContractContext();
   if (
-    contract.tradeStatus === "fundEscrow" ||
-    contract.tradeStatus === "waitingForFunding"
+    ["createEscrow", "fundEscrow", "waitingForFunding"].includes(
+      contract.tradeStatus,
+    )
   ) {
     return <FundEscrow />;
   }

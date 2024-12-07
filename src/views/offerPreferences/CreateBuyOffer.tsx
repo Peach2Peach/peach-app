@@ -10,12 +10,16 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
+import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { interpolate } from "../../utils/math/interpolate";
+import { keys } from "../../utils/object/keys";
+import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
+import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
@@ -133,6 +137,9 @@ function PublishOfferButton() {
     paymentData,
     maxPremium,
     minReputation,
+    instantTrade,
+    instantTradeCriteria,
+    originalPaymentData,
   } = useOfferPreferences(
     (state) => ({
       amountRange: state.buyAmountRange,
@@ -146,13 +153,13 @@ function PublishOfferButton() {
         CLIENT_RATING_RANGE,
         SERVER_RATING_RANGE,
       ),
+      instantTrade: state.instantTrade,
+      instantTradeCriteria: state.instantTradeCriteria,
+      originalPaymentData: state.originalPaymentData,
     }),
     shallow,
   );
 
-  const originalPaymentData = useOfferPreferences(
-    (state) => state.originalPaymentData,
-  );
   const methodsAreValid =
     originalPaymentData.length && originalPaymentData.every(isValidPaymentData);
   const [minAmount, maxAmount] = useTradingAmountLimits("buy");
@@ -177,18 +184,54 @@ function PublishOfferButton() {
     enabled: payoutToPeachWallet,
   });
 
+  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const getPaymentData = () => {
+    if (instantTrade) {
+      return keys(paymentData).reduce(
+        async (accPromise: Promise<OfferPaymentData>, paymentMethod) => {
+          const acc = await accPromise;
+          const originalData = originalPaymentData.find(
+            (e) => e.type === paymentMethod,
+          );
+          if (originalData) {
+            const cleanedData = cleanPaymentData(originalData);
+            const { encrypted, signature } = await signAndEncrypt(
+              JSON.stringify(cleanedData),
+              peachPGPPublicKey,
+            );
+            return {
+              ...acc,
+              [paymentMethod]: {
+                ...paymentData[paymentMethod],
+                encrypted,
+                signature,
+              },
+            };
+          }
+          return acc;
+        },
+        Promise.resolve({}),
+      );
+    }
+    return Promise.resolve(paymentData);
+  };
   const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount: amountRange,
     meansOfPayment,
-    paymentData,
     maxPremium,
     minReputation,
+    instantTradeCriteria: instantTrade ? instantTradeCriteria : undefined,
   });
+
+  const onPress = async () => {
+    if (!formValid || isSyncingWallet) return;
+    publishOffer(await getPaymentData());
+  };
 
   return (
     <Button
       style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
-      onPress={() => publishOffer()}
+      onPress={onPress}
       disabled={!formValid || isSyncingWallet}
       loading={isPublishing || isSyncingWallet}
     >

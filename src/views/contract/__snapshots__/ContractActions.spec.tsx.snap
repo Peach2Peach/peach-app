@@ -84,6 +84,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -178,6 +179,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -188,7 +190,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
               },
               {},
               {
-                "color": "#FFFCFA",
+                "color": "#FFF9F6",
               },
             ],
             false,
@@ -198,7 +200,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
         chat
       </Text>
       <test-file-stub
-        fill="#FFFCFA"
+        fill="#FFF9F6"
         style={
           [
             {
@@ -288,9 +290,11 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,
@@ -385,9 +389,11 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,
@@ -489,9 +495,11 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,
@@ -586,9 +594,11 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   [
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 14,
                       "letterSpacing": 0.5,

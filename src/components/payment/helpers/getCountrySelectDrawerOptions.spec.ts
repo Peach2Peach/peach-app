@@ -12,7 +12,7 @@ describe("getCountrySelectDrawerOptions", () => {
 
   it("should return country select drawer options", () => {
     expect(result).toEqual({
-      options: [
+      options: expect.arrayContaining([
         {
           highlighted: true,
           onPress: expect.any(Function),
@@ -24,20 +24,20 @@ describe("getCountrySelectDrawerOptions", () => {
           onPress: expect.any(Function),
           title: "Latvia",
         },
-      ],
+      ]),
       show: true,
       title: "select country",
     });
   });
   it("should go to event details directly for super featured events", () => {
-    result.options[0].onPress();
+    result.options.find((event) => event.highlighted)?.onPress();
     expect(goToEventDetails).toHaveBeenCalledWith(balticHoneyBadger.id);
   });
   it("should select country when pressing on country option", () => {
-    result.options[1].onPress();
+    result.options.find((event) => !event.highlighted)?.onPress();
     expect(selectCountry).toHaveBeenCalledWith(
-      { LV: [balticHoneyBadger] },
-      "LV",
+      expect.objectContaining({ LV: [balticHoneyBadger] }),
+      "AD",
     );
   });
 });

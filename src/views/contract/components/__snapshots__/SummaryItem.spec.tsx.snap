@@ -22,6 +22,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           {
             "color": "#7D675E",
@@ -67,6 +68,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "flexBasis": "0%",
@@ -112,6 +114,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-SemiBold",

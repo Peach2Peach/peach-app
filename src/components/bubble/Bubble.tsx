@@ -75,7 +75,9 @@ export function NewBubble({
       <PeachText
         style={[
           tw`text-center button-medium`,
-          { color: ghost ? colorStyle : tw.color("primary-background-light") },
+          {
+            color: ghost ? colorStyle : tw.color("primary-background-light"),
+          },
         ]}
       >
         {children}

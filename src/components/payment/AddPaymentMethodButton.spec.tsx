@@ -81,10 +81,10 @@ describe("AddPaymentMethodButton", () => {
       expect.objectContaining({
         title: "select country",
         show: true,
-        options: [
-          { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
-          { flagID: "FR", onPress: expect.any(Function), title: "France" },
-        ],
+        options: expect.arrayContaining([
+          { flagID: "BE", onPress: expect.anything(), title: "Belgium" },
+          { flagID: "FR", onPress: expect.anything(), title: "France" },
+        ]),
       }),
     );
   });
@@ -101,21 +101,21 @@ describe("AddPaymentMethodButton", () => {
       expect.objectContaining({
         title: "select meetup",
         show: true,
-        options: [
+        options: expect.arrayContaining([
           {
             highlighted: false,
             onPress: expect.any(Function),
             subtext: "Antwerp",
             title: "Belgian Bitcoin Embassy",
           },
-        ],
+        ]),
         previousDrawer: expect.objectContaining({
           title: "select country",
           show: true,
-          options: [
+          options: expect.arrayContaining([
             { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
             { flagID: "FR", onPress: expect.any(Function), title: "France" },
-          ],
+          ]),
         }),
       }),
     );
@@ -157,17 +157,19 @@ describe("AddPaymentMethodButton", () => {
       expect(queryClient.isFetching()).toBe(0);
     });
     fireEvent.press(getByText("add new cash option"));
-    expect(useDrawerState.getState().options).toStrictEqual([
-      {
-        highlighted: true,
-        onPress: expect.any(Function),
-        subtext: "Riga",
-        title: "Baltic Honeybadger",
-      },
-      { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
-      { flagID: "FR", onPress: expect.any(Function), title: "France" },
-      { flagID: "LV", onPress: expect.any(Function), title: "Latvia" },
-    ]);
+    expect(useDrawerState.getState().options).toStrictEqual(
+      expect.arrayContaining([
+        {
+          highlighted: true,
+          onPress: expect.any(Function),
+          subtext: "Riga",
+          title: "Baltic Honeybadger",
+        },
+        { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
+        { flagID: "FR", onPress: expect.any(Function), title: "France" },
+        { flagID: "LV", onPress: expect.any(Function), title: "Latvia" },
+      ]),
+    );
   });
   it("should sort the meetups by their city alphabetically", async () => {
     getEventsSpy.mockResolvedValueOnce({

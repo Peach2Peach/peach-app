@@ -2,6 +2,7 @@ import { StyleProp, TextStyle, View } from "react-native";
 import RatingPeach from "../../../../assets/icons/ratingPeach.svg";
 import { PeachText } from "../../../../components/text/PeachText";
 import { CENT } from "../../../../constants";
+import { useThemeStore } from "../../../../store/theme";
 import tw from "../../../../styles/tailwind";
 import i18n from "../../../../utils/i18n";
 import { interpolate } from "../../../../utils/math/interpolate";
@@ -26,9 +27,19 @@ export const Rating = ({
   isNewUser,
   peachSize = DEFAULT_PEACH_SIZE,
   textStyle,
-}: RatingProps) =>
-  isNewUser ? (
-    <PeachText style={[tw`subtitle-2 text-black-65`, textStyle]}>
+}: RatingProps) => {
+  const { isDarkMode } = useThemeStore();
+
+  return isNewUser ? (
+    <PeachText
+      style={[
+        tw.style(
+          "subtitle-2",
+          isDarkMode ? "text-backgroundLight" : "text-black-65",
+        ),
+        textStyle,
+      ]}
+    >
       {i18n("newUser")}
     </PeachText>
   ) : (
@@ -57,10 +68,19 @@ export const Rating = ({
         </View>
       </View>
 
-      <PeachText style={textStyle ? textStyle : tw`text-black-65 button-small`}>
+      <PeachText
+        style={[
+          tw.style(
+            "button-small",
+            isDarkMode ? "text-primary-mild-1" : "text-black-65",
+          ),
+          textStyle,
+        ]}
+      >
         {interpolate(rating, SERVER_RATING_RANGE, CLIENT_RATING_RANGE).toFixed(
           1,
         )}
       </PeachText>
     </View>
   );
+};

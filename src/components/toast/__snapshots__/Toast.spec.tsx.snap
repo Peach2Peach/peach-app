@@ -87,6 +87,7 @@ exports[`Toast renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-Bold",
@@ -117,6 +118,7 @@ exports[`Toast renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "center",
@@ -207,6 +209,7 @@ exports[`Toast renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-SemiBold",
@@ -288,6 +291,7 @@ exports[`Toast renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-SemiBold",
@@ -316,7 +320,7 @@ exports[`Toast renders correctly with no action 1`] = `
 - First value
 + Second value
 
-@@ -171,91 +171,10 @@
+@@ -173,92 +173,10 @@
           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
           style={
             Object {
@@ -353,6 +357,7 @@ exports[`Toast renders correctly with no action 1`] = `
 -                 "letterSpacing": 0.16,
 -                 "lineHeight": 24,
 -               },
+-               false,
 -               Array [
 -                 Object {
 -                   "fontFamily": "Baloo2-SemiBold",
@@ -497,6 +502,7 @@ exports[`Toast should use default values for missing translations 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-Bold",
@@ -527,6 +533,7 @@ exports[`Toast should use default values for missing translations 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "center",
@@ -617,6 +624,7 @@ exports[`Toast should use default values for missing translations 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-SemiBold",

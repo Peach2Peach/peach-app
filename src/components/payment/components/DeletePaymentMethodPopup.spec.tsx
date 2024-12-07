@@ -24,7 +24,7 @@ describe("useDeletePaymentMethod", () => {
 
   it("should remove the payment data, close the popup and go back when action2 is clicked", async () => {
     expect(
-      usePaymentDataStore.getState().getPaymentData(validSEPAData.id),
+      usePaymentDataStore.getState().paymentData[validSEPAData.id],
     ).not.toBeUndefined();
     const { getByText } = render(
       <DeletePaymentMethodPopup id={validSEPAData.id} />,
@@ -37,7 +37,7 @@ describe("useDeletePaymentMethod", () => {
     });
     await waitFor(() =>
       expect(
-        usePaymentDataStore.getState().getPaymentData(validSEPAData.id),
+        usePaymentDataStore.getState().paymentData[validSEPAData.id],
       ).toBeUndefined(),
     );
   });

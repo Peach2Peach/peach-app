@@ -8,6 +8,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { IconType } from "../../assets/icons";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { TouchableIcon } from "../TouchableIcon";
@@ -39,11 +40,10 @@ const themes = {
     bgError: tw`bg-primary-background-light`,
     bgDisabled: tw`bg-transparent`,
     error: tw`text-primary-background-light`,
-    placeholder: "text-primary-mild-1",
+    placeholder: "text-black-75",
     optional: tw`text-black-25`,
   },
 };
-
 export type IconActionPair = [IconType, () => void];
 export type InputProps = TextInputProps & {
   theme?: "default" | "inverted";
@@ -72,6 +72,13 @@ export const Input = ({
   reference,
   ...inputProps
 }: InputProps) => {
+  const { isDarkMode } = useThemeStore();
+
+  const selectedTheme = useMemo(
+    () => (isDarkMode ? themes.inverted : themes[theme]),
+    [isDarkMode, theme],
+  );
+
   const {
     bgDisabled,
     bg,
@@ -83,7 +90,7 @@ export const Input = ({
     placeholder,
     textError,
     error,
-  } = useMemo(() => themes[theme], [theme]);
+  } = selectedTheme;
   const showError = errorMessage.length > 0 && !disabled && !!value;
 
   return (

@@ -59,6 +59,7 @@ exports[`Report should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`Report should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -282,6 +284,7 @@ exports[`Report should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "fontFamily": "Baloo2-Medium",
@@ -395,6 +398,7 @@ exports[`Report should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "fontFamily": "Baloo2-Medium",
@@ -513,6 +517,7 @@ exports[`Report should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "fontFamily": "Baloo2-Medium",
@@ -531,83 +536,6 @@ exports[`Report should render correctly 1`] = `
                   }
                 >
                    
-                </Text>
-              </View>
-              <View
-                accessibilityState={
-                  {
-                    "busy": undefined,
-                    "checked": undefined,
-                    "disabled": undefined,
-                    "expanded": undefined,
-                    "selected": undefined,
-                  }
-                }
-                accessibilityValue={
-                  {
-                    "max": undefined,
-                    "min": undefined,
-                    "now": undefined,
-                    "text": undefined,
-                  }
-                }
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "gap": 4,
-                    "opacity": 1,
-                  }
-                }
-              >
-                <test-file-stub
-                  fill="#F56522"
-                  style={
-                    [
-                      {
-                        "height": 24,
-                        "width": 24,
-                      },
-                      undefined,
-                    ]
-                  }
-                />
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "flexShrink": 1,
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 28,
-                        },
-                        false,
-                      ],
-                      false,
-                    ]
-                  }
-                >
-                  include device ID hash
                 </Text>
               </View>
             </View>
@@ -673,6 +601,7 @@ exports[`Report should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -683,7 +612,7 @@ exports[`Report should render correctly 1`] = `
                   },
                   {},
                   {
-                    "color": "#FFFCFA",
+                    "color": "#FFF9F6",
                   },
                 ],
                 false,

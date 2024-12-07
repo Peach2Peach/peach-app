@@ -148,6 +148,7 @@ export const LetsGetStarted = () => {
                 theme="inverted"
                 maxLength={16}
                 placeholder={i18n("form.optional").toUpperCase()}
+                placeholderTextColor={tw.color("backgroundLight")}
                 onChangeText={updateReferralCode}
                 onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
                 value={referralCode}

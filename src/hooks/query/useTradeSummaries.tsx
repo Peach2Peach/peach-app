@@ -11,12 +11,14 @@ export const useTradeSummaries = (enabled = true) => {
     isLoading: offersLoading,
     error: offersError,
     refetch: refetchOffers,
+    isRefetching: isRefetchingOffers,
   } = useOfferSummaries(enabled);
   const {
     contracts,
     isLoading: contractsLoading,
     error: contractsError,
     refetch: refetchContracts,
+    isRefetching: isRefetchingContracts,
   } = useContractSummaries(enabled);
 
   const refetch = useCallback(() => {
@@ -49,6 +51,7 @@ export const useTradeSummaries = (enabled = true) => {
   return {
     isLoading: offersLoading || contractsLoading,
     error: offersError || contractsError,
+    isRefetching: isRefetchingOffers || isRefetchingContracts,
     summaries,
     refetch,
   };

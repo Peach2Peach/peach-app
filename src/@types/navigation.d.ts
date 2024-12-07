@@ -134,7 +134,6 @@ type RootStackParamList = Onboarding &
       reason: ContactReason;
       topic?: string;
       message?: string;
-      shareDeviceID?: boolean;
     };
     language: undefined;
     currency: undefined;

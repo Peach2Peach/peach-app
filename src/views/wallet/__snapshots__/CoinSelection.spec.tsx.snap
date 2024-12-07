@@ -59,6 +59,7 @@ exports[`CoinSelection renders correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`CoinSelection renders correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -357,6 +359,7 @@ exports[`CoinSelection renders correctly 1`] = `
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
                               },
+                              false,
                               [
                                 {
                                   "opacity": 0.1,
@@ -371,7 +374,9 @@ exports[`CoinSelection renders correctly 1`] = `
                                     "marginBottom": -13,
                                     "marginTop": -13,
                                   },
-                                  false,
+                                  {
+                                    "color": "#2B1911",
+                                  },
                                 ],
                               ],
                               false,
@@ -391,6 +396,7 @@ exports[`CoinSelection renders correctly 1`] = `
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
                               },
+                              false,
                               [
                                 {
                                   "textAlign": "right",
@@ -404,7 +410,9 @@ exports[`CoinSelection renders correctly 1`] = `
                                     "marginBottom": -13,
                                     "marginTop": -13,
                                   },
-                                  false,
+                                  {
+                                    "color": "#2B1911",
+                                  },
                                 ],
                               ],
                               false,
@@ -425,6 +433,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             [
                               {
                                 "fontFamily": "Baloo2-SemiBold",
@@ -434,7 +443,9 @@ exports[`CoinSelection renders correctly 1`] = `
                                 "marginBottom": -13,
                                 "marginTop": -13,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
                             ],
                             false,
                           ]
@@ -455,6 +466,7 @@ exports[`CoinSelection renders correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         {
                           "color": "#7D675E",
                           "fontFamily": "Baloo2-Regular",
@@ -477,6 +489,7 @@ exports[`CoinSelection renders correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           {
                             "fontFamily": "Baloo2-Regular",
                             "fontSize": 14,
@@ -607,6 +620,7 @@ exports[`CoinSelection renders correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -617,7 +631,7 @@ exports[`CoinSelection renders correctly 1`] = `
                   },
                   {},
                   {
-                    "color": "#FFFCFA",
+                    "color": "#FFF9F6",
                   },
                 ],
                 false,
@@ -679,13 +693,19 @@ exports[`CoinSelection renders correctly while loading 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-          "textAlign": "center",
-        },
+        false,
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ],
         false,
       ]
     }
@@ -700,7 +720,7 @@ exports[`CoinSelection selects coins 1`] = `
 - First value
 + Second value
 
-@@ -526,11 +526,11 @@
+@@ -539,11 +539,11 @@
                       }
                     }
                     testID="checkbox"

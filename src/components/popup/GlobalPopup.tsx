@@ -22,7 +22,7 @@ export const GlobalPopup = () => {
     >
       <View style={tw`justify-center flex-1`}>
         <Pressable
-          style={tw`absolute w-full h-full bg-black-100 opacity-40`}
+          style={tw`absolute w-full h-full bg-card opacity-62`}
           onPress={closePopup}
         />
         {popupComponent}

@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useQuery } from "@tanstack/react-query";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import { TradeRequestForSellOffer } from "../../../peach-api/src/private/offer/getTradeRequestsForSellOffer";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
@@ -90,43 +90,45 @@ function AcceptTrade({ offerId }: { offerId: string }) {
 
   if (hasMatches) {
     return (
-      <>
-        <FlatList
-          data={matches}
-          onRefresh={() => refetch()}
-          refreshing={isRefetching}
-          keyExtractor={(item) => item.offerId}
-          renderItem={({ item }) => (
-            <OfferSummaryCard
-              user={item.user}
-              amount={item.amount}
-              // @ts-ignore
-              price={item.prices[item.selectedCurrency || "EUR"]}
-              currency={item.selectedCurrency || "EUR"}
-              premium={item.premium}
-              instantTrade={item.instantTrade}
-              tradeRequested={item.matched}
-              onPress={() => {
-                navigation.navigate("tradeRequestForSellOffer", {
-                  userId: item.user.id,
-                  offerId,
-                  amount: item.amount,
-                  // @ts-ignore
-                  fiatPrice: item.prices[item.selectedCurrency || "EUR"],
-                  currency: item.selectedCurrency || "EUR",
-                  // @ts-ignore
-                  paymentMethod: item.selectedPaymentMethod,
-                  symmetricKeyEncrypted: item.symmetricKeyEncrypted,
-                  isMatch: true,
-                  matchingOfferId: item.offerId,
-                });
-              }}
-            />
-          )}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => fetchNextPage()}
-          contentContainerStyle={tw`gap-10px`}
-        />
+      <View style={tw`flex-1 py-10px`}>
+        {matches.length > 0 && (
+          <FlatList
+            data={matches}
+            onRefresh={() => refetch()}
+            refreshing={isRefetching}
+            keyExtractor={(item) => item.offerId}
+            renderItem={({ item }) => (
+              <OfferSummaryCard
+                user={item.user}
+                amount={item.amount}
+                // @ts-ignore
+                price={item.prices[item.selectedCurrency || "EUR"]}
+                currency={item.selectedCurrency || "EUR"}
+                premium={item.premium}
+                instantTrade={item.instantTrade}
+                tradeRequested={item.matched}
+                onPress={() => {
+                  navigation.navigate("tradeRequestForSellOffer", {
+                    userId: item.user.id,
+                    offerId,
+                    amount: item.amount,
+                    // @ts-ignore
+                    fiatPrice: item.prices[item.selectedCurrency || "EUR"],
+                    currency: item.selectedCurrency || "EUR",
+                    // @ts-ignore
+                    paymentMethod: item.selectedPaymentMethod,
+                    symmetricKeyEncrypted: item.symmetricKeyEncrypted,
+                    isMatch: true,
+                    matchingOfferId: item.offerId,
+                  });
+                }}
+              />
+            )}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => fetchNextPage()}
+            contentContainerStyle={tw`gap-10px`}
+          />
+        )}
         <FlatList
           data={tradeRequests}
           onRefresh={() => refetch()}
@@ -139,7 +141,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
           )}
           contentContainerStyle={tw`gap-10px`}
         />
-      </>
+      </View>
     );
   }
   return <NoMatchesYet />;

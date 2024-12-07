@@ -1,6 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useMemo, useState } from "react";
 import { AppState, View } from "react-native";
+import { useAppColorScheme } from "twrnc";
 import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -12,6 +13,7 @@ import { APPVERSION, BUILDNUMBER } from "../../constants";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
@@ -25,6 +27,9 @@ export const Settings = () => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
+
+  const { isDarkMode, toggleTheme } = useThemeStore();
+
   const [enableAnalytics, toggleAnalytics, showBackupReminder] =
     useSettingsStore(
       (state) => [
@@ -115,6 +120,12 @@ export const Settings = () => {
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
+  const [, toggleColorScheme] = useAppColorScheme(tw);
+  const toggleDarkMode = useCallback(() => {
+    toggleTheme();
+    toggleColorScheme();
+  }, [toggleColorScheme, toggleTheme]);
+
   const appSettings = useMemo(
     () =>
       (
@@ -134,9 +145,21 @@ export const Settings = () => {
           "payoutAddress",
           "currency",
           "language",
+          {
+            title: "dark mode",
+            onPress: toggleDarkMode,
+            iconId: isDarkMode ? "toggleRight" : "toggleLeft",
+            enabled: isDarkMode,
+          },
         ] as const
       ).filter(isDefined),
-    [onAnalyticsPress, enableAnalytics, notificationClick],
+    [
+      onAnalyticsPress,
+      enableAnalytics,
+      notificationClick,
+      toggleDarkMode,
+      isDarkMode,
+    ],
   );
 
   const settings = [

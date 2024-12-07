@@ -70,7 +70,9 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
         `/${destinationFileName}`,
         JSON.stringify({
           ...account,
-          paymentData: usePaymentDataStore.getState().getPaymentDataArray(),
+          paymentData: Object.values(
+            usePaymentDataStore.getState().paymentData,
+          ),
           settings: useSettingsStore.getState().getPureState(),
           offers: [],
           chats: {},

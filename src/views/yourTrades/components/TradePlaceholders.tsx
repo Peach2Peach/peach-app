@@ -28,7 +28,7 @@ function GoTradeButton({ tab }: { tab: "yourTrades.buy" | "yourTrades.sell" }) {
 
   const onPress = () => {
     const destination =
-      tab === "yourTrades.buy" ? "buyOfferPreferences" : "sellOfferPreferences";
+      tab === "yourTrades.buy" ? "buy" : "sellOfferPreferences";
     navigation.navigate(destination);
   };
 

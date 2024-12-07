@@ -39,6 +39,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           {
             "color": "#7D675E",
             "fontFamily": "Baloo2-Bold",
@@ -146,6 +147,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "flexBasis": "0%",
               "flexGrow": 1,
@@ -166,6 +168,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 16,
@@ -203,16 +206,20 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
     >
       <View
         style={
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
+          [
+            {
+              "borderRadius": 8,
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "marginLeft": 4,
+              "marginRight": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+            },
+            {
+              "borderColor": "#2B1911",
+            },
+          ]
         }
       >
         <Text
@@ -226,13 +233,19 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
+              false,
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textTransform": "uppercase",
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
               false,
             ]
           }
@@ -284,6 +297,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           {
             "color": "#7D675E",
             "fontFamily": "Baloo2-Bold",
@@ -391,6 +405,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "flexBasis": "0%",
               "flexGrow": 1,
@@ -411,6 +426,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 16,
@@ -448,16 +464,20 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     >
       <View
         style={
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
+          [
+            {
+              "borderRadius": 8,
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "marginLeft": 4,
+              "marginRight": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+            },
+            {
+              "borderColor": "#2B1911",
+            },
+          ]
         }
       >
         <Text
@@ -471,13 +491,19 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
+              false,
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textTransform": "uppercase",
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
               false,
             ]
           }
@@ -557,6 +583,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "flexBasis": "0%",
               "flexGrow": 1,
@@ -577,6 +604,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 16,
@@ -614,16 +642,20 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     >
       <View
         style={
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
+          [
+            {
+              "borderRadius": 8,
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "marginLeft": 4,
+              "marginRight": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+            },
+            {
+              "borderColor": "#2B1911",
+            },
+          ]
         }
       >
         <Text
@@ -637,13 +669,19 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
+              false,
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textTransform": "uppercase",
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
               false,
             ]
           }
@@ -695,6 +733,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           {
             "color": "#7D675E",
             "fontFamily": "Baloo2-Bold",
@@ -802,6 +841,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             {
               "flexBasis": "0%",
               "flexGrow": 1,
@@ -822,6 +862,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 16,
@@ -859,16 +900,20 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
     >
       <View
         style={
-          {
-            "borderColor": "#2B1911",
-            "borderRadius": 8,
-            "borderWidth": 1,
-            "justifyContent": "center",
-            "marginLeft": 4,
-            "marginRight": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
-          }
+          [
+            {
+              "borderRadius": 8,
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "marginLeft": 4,
+              "marginRight": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+            },
+            {
+              "borderColor": "#2B1911",
+            },
+          ]
         }
       >
         <Text
@@ -882,13 +927,19 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "textTransform": "uppercase",
-              },
+              false,
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textTransform": "uppercase",
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
               false,
             ]
           }

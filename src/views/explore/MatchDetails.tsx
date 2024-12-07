@@ -1,6 +1,7 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
@@ -22,14 +23,13 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
-import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
-import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
@@ -99,7 +99,7 @@ const ANONYMOUS_PAYMENTCATEGORIES = PAYMENTCATEGORIES.cash.concat(
   PAYMENTCATEGORIES.giftCard,
 );
 
-export const isLimitReached = (
+const isLimitReached = (
   exceedsLimit: (keyof TradingLimit)[],
   selectedPaymentMethod?: PaymentMethod,
 ) =>
@@ -113,21 +113,19 @@ const MATCH_DELAY = 5000;
 function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { mutate } = useMatchOffer(offer, match);
   const { meansOfPayment } = match;
+  const { isDarkMode } = useThemeStore();
 
-  const availableCurrencies = keys(meansOfPayment);
-  const allPaymentMethods = getPaymentMethods(meansOfPayment);
   const [selectedCurrency, setSelectedCurrency] = useState(
-    match.selectedCurrency || availableCurrencies[0],
+    match.selectedCurrency || keys(meansOfPayment)[0],
   );
 
-  const allMethodsForCurrency = allPaymentMethods.filter((p) =>
-    paymentMethodAllowedForCurrency(p, selectedCurrency),
-  );
-  const paymentData = usePaymentDataStore((state) =>
-    state.getPaymentDataArray(),
+  const allMethodsForCurrency = meansOfPayment[selectedCurrency];
+  const paymentData = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
   const dataForCurrency = paymentData.filter((d) =>
-    allMethodsForCurrency.includes(d.type),
+    allMethodsForCurrency?.includes(d.type),
   );
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
@@ -181,7 +179,14 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
         <View style={tw`grow`}>
           <View style={tw`overflow-hidden rounded-2xl`}>
             {isMatched && <PeachyBackground />}
-            <View style={tw`gap-8 m-1 bg-primary-background-light rounded-2xl`}>
+            <View
+              style={[
+                tw`gap-8 m-1 bg-primary-background-light rounded-2xl`,
+                isDarkMode
+                  ? tw`bg-backgroundMain-dark`
+                  : tw`bg-primary-background-light`,
+              ]}
+            >
               <UserCard user={match.user} />
 
               <MiningFeeWarning amount={match.amount} />
@@ -192,7 +197,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
                 selectedPaymentMethod={
                   match.selectedPaymentMethod ||
                   selectedPaymentData?.type ||
-                  allMethodsForCurrency[0]
+                  allMethodsForCurrency?.[0]
                 }
               />
 
@@ -205,11 +210,12 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
                 </View>
               ) : (
                 <PaymentMethodSelector
-                  meansOfPayment={match.meansOfPayment}
+                  meansOfPayment={meansOfPayment}
                   selectedCurrency={selectedCurrency}
                   setSelectedCurrency={setSelectedCurrency}
                   selectedPaymentData={selectedPaymentData}
                   setSelectedPaymentData={setSelectedPaymentData}
+                  selectedMethodInfo={undefined}
                 />
               )}
               {isMatched && (
@@ -275,6 +281,11 @@ const options = {
   },
 } as const;
 
+type Props = {
+  matchOffer: () => void;
+  optionName: keyof typeof options;
+};
+
 function InstantTradeSlider({
   matchOffer,
   optionName,
@@ -308,10 +319,6 @@ function InstantTradeSlider({
   );
 }
 
-type Props = {
-  matchOffer: () => void;
-  optionName: keyof typeof options;
-};
 function MatchOfferButton({ matchOffer, optionName }: Props) {
   const onPress = () => {
     if (optionName === "matchOffer") {
