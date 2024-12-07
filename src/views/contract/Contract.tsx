@@ -91,7 +91,9 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
     >
       <Screen header={<ContractHeader />}>
         <View style={tw`flex-1`}>
-          <PeachScrollView contentContainerStyle={tw`grow py-md sm:py-sm`}>
+          <PeachScrollView
+            contentContainerStyle={tw`justify-center grow py-md sm:py-sm`}
+          >
             {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
           </PeachScrollView>
           <ContractActions />
