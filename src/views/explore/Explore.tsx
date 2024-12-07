@@ -235,7 +235,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
         renderItem={({ item }) => (
           <TradeRequestSummaryCard tradeRequest={item} offerId={offerId} />
         )}
-        contentContainerStyle={tw`gap-10px`}
+        contentContainerStyle={tw`gap-10px py-10px`}
       />
     );
   }
