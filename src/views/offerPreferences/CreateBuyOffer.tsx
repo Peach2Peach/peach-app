@@ -295,7 +295,7 @@ function InstantTrade() {
   };
 
   return (
-    <Section.Container style={tw`bg-success-mild-1`}>
+    <Section.Container style={tw`bg-success-mild-1-color`}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} green />
         <Section.Title>

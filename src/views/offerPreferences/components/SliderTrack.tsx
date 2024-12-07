@@ -16,7 +16,7 @@ export function SliderTrack({ slider, trackWidth, type }: Props) {
     <View
       style={[
         tw`flex-row items-center justify-between border py-14px rounded-2xl`,
-        type === "buy" && tw`bg-success-background-dark`,
+        type === "buy" && tw`bg-success-background-dark-color`,
         {
           width: trackWidth,
           paddingHorizontal: horizontalTrackPadding,

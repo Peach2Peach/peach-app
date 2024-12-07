@@ -24,7 +24,7 @@ export function NetworkFeeInfo({ type }: { type: "buy" | "sell" }) {
       style={[
         tw`flex-row justify-between`,
         type === "buy"
-          ? tw`bg-success-mild-1`
+          ? tw`bg-success-mild-1-color`
           : tw`bg-primary-background-dark-color`,
       ]}
     >

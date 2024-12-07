@@ -77,7 +77,7 @@ export function PaymentMethodSelector({
       <View style={tw`gap-3 pb-2`}>
         {selectedMethodInfo || (
           <View
-            style={tw`flex-row flex-wrap items-center self-stretch justify-center gap-1`}
+            style={tw`flex-wrap items-center self-stretch justify-center gap-1`}
           >
             {availableCurrencies.map((currency) => (
               <TouchableOpacity
