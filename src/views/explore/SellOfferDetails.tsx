@@ -15,6 +15,7 @@ import { offerKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -199,6 +200,8 @@ function RequestTradeAction({
       shallow,
     );
 
+  const showError = useShowErrorBanner();
+
   const getSignedAddress = async () => {
     if (!peachWallet) throw new Error("Peach wallet not defined");
     if (payoutToPeachWallet) {
@@ -290,7 +293,8 @@ function RequestTradeAction({
       if (error) throw new Error(error.error);
       return result;
     },
-    onError: (_error, _variables, context) => {
+    onError: (error, _variables, context) => {
+      showError(error);
       if (context?.previousData) {
         queryClient.setQueryData(
           offerKeys.tradeRequest(offerId),
