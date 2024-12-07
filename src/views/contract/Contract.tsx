@@ -3,6 +3,7 @@ import tw from "../../styles/tailwind";
 
 import { networks } from "bitcoinjs-lib";
 import { useCallback, useMemo } from "react";
+import { View } from "react-native";
 import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
 import { OverlayComponent } from "../../OverlayComponent";
 import { Header, HeaderIcon } from "../../components/Header";
@@ -89,13 +90,12 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
       }}
     >
       <Screen header={<ContractHeader />}>
-        <PeachScrollView
-          contentContainerStyle={tw`grow`}
-          contentStyle={tw`grow`}
-        >
-          {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
+        <View style={tw`flex-1`}>
+          <PeachScrollView contentContainerStyle={tw`grow py-md sm:py-sm`}>
+            {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
+          </PeachScrollView>
           <ContractActions />
-        </PeachScrollView>
+        </View>
       </Screen>
     </ContractContext.Provider>
   );
