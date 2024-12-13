@@ -27,7 +27,7 @@ export const CustomFeeItem = ({
       <View
         style={tw.style(
           "flex-row items-center w-16 h-8 py-3 overflow-hidden rounded-xl border border-black-65",
-          isDarkMode ? "bg-transparent" : "bg-primary-background-light-color",
+          isDarkMode ? "bg-transparent" : "bg-primary-background-light-color"
         )}
       >
         <TextInput
@@ -37,7 +37,8 @@ export const CustomFeeItem = ({
           }
           style={tw.style(
             "h-8 py-0 text-center grow input-text",
-            isDarkMode ? "text-backgroundLight-light" : "text-black-65",)}
+            isDarkMode ? "text-backgroundLight-light" : "text-black-65"
+          )}
           keyboardType={"decimal-pad"}
           editable={!disabled}
           testID="input-custom-fees"

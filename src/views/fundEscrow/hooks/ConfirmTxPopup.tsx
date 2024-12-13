@@ -25,18 +25,20 @@ export function ConfirmTxPopup({
 }: Props) {
   return (
     <View style={tw`gap-3`}>
-      <PeachText>{text}</PeachText>
-      <BTCAmount amount={amount} size="medium" />
-      {!!secondText && <PeachText>{secondText}</PeachText>}
-      <PeachText>
+      <PeachText style={tw`text-black-100`}>{text}</PeachText>
+      <BTCAmount amount={amount} size="medium" textStyle={tw`text-black-100`} />
+      {!!secondText && (
+        <PeachText style={tw`text-black-100`}>{secondText}</PeachText>
+      )}
+      <PeachText style={tw`text-black-100`}>
         {i18n("transaction.details.to")}{" "}
         <ShortBitcoinAddress address={address} />
       </PeachText>
-      <PeachText>
+      <PeachText style={tw`text-black-100`}>
         {i18n(
           "transaction.details.networkFee",
           thousands(fee),
-          thousands(feeRate),
+          thousands(feeRate)
         )}
       </PeachText>
     </View>

@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { SATSINBTC } from "../../constants";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -14,6 +14,7 @@ export type BTCAmountProps = {
   showAmount?: boolean;
   white?: boolean;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 };
 
 const styles = {
@@ -50,22 +51,24 @@ export const BTCAmount = memo(
     white = false,
     showAmount = true,
     style,
+    textStyle,
   }: BTCAmountProps) => {
     const [greyText, blackText] = useMemo(
       () => getDisplayAmount(amount),
-      [amount],
+      [amount]
     );
     const { isDarkMode } = useThemeStore();
-    const textStyle = useMemo(
+    const defaultTextStyle = useMemo(
       () => [
         styles[size].amount,
         white
           ? tw`text-black-25`
           : isDarkMode
-            ? tw`text-backgroundLight-light`
-            : tw`text-black-100`,
+          ? tw`text-backgroundLight-light`
+          : tw`text-black-100`,
+        textStyle,
       ],
-      [isDarkMode, size, white],
+      [isDarkMode, size, white, textStyle]
     );
     return (
       <View
@@ -95,19 +98,21 @@ export const BTCAmount = memo(
             </View>
           ) : (
             <View style={tw`flex-row items-center justify-end flex-1`}>
-              <PeachText style={[tw`text-right opacity-10`, textStyle]}>
+              <PeachText style={[tw`text-right opacity-20`, defaultTextStyle]}>
                 {greyText}
               </PeachText>
-              <PeachText style={[tw`text-right`, textStyle]}>
+              <PeachText style={[tw`text-right`, defaultTextStyle]}>
                 {blackText}
               </PeachText>
             </View>
           )}
-          <PeachText style={textStyle}>{i18n("currency.SATS")}</PeachText>
+          <PeachText style={defaultTextStyle}>
+            {i18n("currency.SATS")}
+          </PeachText>
         </View>
       </View>
     );
-  },
+  }
 );
 
 const GROUP_BY = 3;

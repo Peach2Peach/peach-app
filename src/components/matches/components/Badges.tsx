@@ -58,7 +58,9 @@ function MyBadgesPopup() {
                   {i18n(`peachBadges.${value}`)}
                 </PeachText>
               </View>
-              <PeachText style={tw`text-black-100`}>{i18n(`peachBadges.${value}.description`)}</PeachText>
+              <PeachText style={tw`text-black-100`}>
+                {i18n(`peachBadges.${value}.description`)}
+              </PeachText>
             </Fragment>
           ))}
         </>
