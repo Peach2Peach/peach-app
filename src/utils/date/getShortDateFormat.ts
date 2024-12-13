@@ -1,5 +1,5 @@
 /**
- * @returns date in short format (dd/mm/yy)
+ * @returns date in short format (dd/mm/yy, h/m/s)
  */
 export const getShortDateFormat = (date: Date) => {
   const today = new Date();
@@ -10,6 +10,9 @@ export const getShortDateFormat = (date: Date) => {
       day: "2-digit",
       month: "2-digit",
       year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     })
-    .replaceAll("/", " / ");
+    .replaceAll("/", "/");
 };
