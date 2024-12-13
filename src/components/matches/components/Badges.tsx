@@ -50,15 +50,15 @@ function MyBadgesPopup() {
                 >
                   <Icon
                     id={icon}
-                    color={tw.color("primary-background-light-color")}
+                    color={tw.color("black-100")}
                     style={tw`w-3 h-3`}
                   />
                 </View>
-                <PeachText style={tw`ml-1 subtitle-1`}>
+                <PeachText style={tw`ml-1 subtitle-1 text-black-100`}>
                   {i18n(`peachBadges.${value}`)}
                 </PeachText>
               </View>
-              <PeachText>{i18n(`peachBadges.${value}.description`)}</PeachText>
+              <PeachText style={tw`text-black-100`}>{i18n(`peachBadges.${value}.description`)}</PeachText>
             </Fragment>
           ))}
         </>
