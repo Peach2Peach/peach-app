@@ -40,7 +40,7 @@ export const MessageInput = ({
     >
       <TextInput
         style={tw`w-full p-0 py-3 pl-1 leading-normal shrink body-m text-black-100`}
-        placeholderTextColor={tw.color("info-mild")}
+        placeholderTextColor={tw.color("info-light")}
         allowFontScaling={false}
         removeClippedSubviews={false}
         returnKeyType={"send"}

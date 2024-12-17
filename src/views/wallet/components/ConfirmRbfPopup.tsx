@@ -103,15 +103,14 @@ function ConfirmRbf({
 
   return (
     <View style={tw`gap-3`}>
-      <PeachText>
-        <PeachText style={tw`font-baloo-bold`}>
+      <PeachText style={tw`text-black-100`}>
+        <PeachText style={tw`font-baloo-bold text-black-100`}>
           {i18n("wallet.bumpNetworkFees.confirmRbf.oldFee")}
         </PeachText>
-        {"\n\n"}
         {oldFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
-        <BTCAmount amount={oldFee} size="medium" />
+        <BTCAmount amount={oldFee} size="medium" textStyle={tw`text-black-100`} />
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
@@ -119,15 +118,14 @@ function ConfirmRbf({
           )}
         </PeachText>
       </View>
-      <PeachText>
-        <PeachText style={tw`font-baloo-bold`}>
+      <PeachText style={tw`text-black-100`}>
+        <PeachText style={tw`font-baloo-bold text-black-100`}>
           {i18n("wallet.bumpNetworkFees.confirmRbf.newFee")}
         </PeachText>
-        {"\n\n"}
         {newFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
-        <BTCAmount amount={newFee} size="medium" />
+        <BTCAmount amount={newFee} size="medium" textStyle={tw`text-black-100`}/>
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",

@@ -163,7 +163,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
   return (
     <View style={tw`items-end gap-1`}>
       {paymentMethodLabel || !isCashTrade(paymentMethod) ? (
-        <Bubble color={"primary-mild"}>
+        <Bubble color={"gray"}>
           {paymentMethodLabel ?? i18n(`paymentMethod.${paymentMethod}`)}
         </Bubble>
       ) : (

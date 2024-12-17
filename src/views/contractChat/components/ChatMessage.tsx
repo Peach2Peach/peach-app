@@ -136,7 +136,7 @@ export const ChatMessage = ({
     <>
       {isChangeDate && (
         <LinedText style={tw`mb-5 px-sm pt-7`}>
-          <PeachText style={tw`text-black-65`}>
+          <PeachText style={tw`text-black-50`}>
             {toDateFormat(message.date)}
           </PeachText>
         </LinedText>
@@ -151,7 +151,7 @@ export const ChatMessage = ({
           </PeachText>
         )}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
-          <PeachText style={tw`shrink-0`} selectable>
+          <PeachText style={tw`shrink-0 text-black-100`} selectable>
             {message.message || i18n("chat.decyptionFailed")}
           </PeachText>
           <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
