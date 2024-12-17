@@ -119,8 +119,6 @@ function ExploreCard({ match }: { match: Match }) {
           ? tw`bg-card`
           : tw`border bg-primary-background-light-color border-primary-main`,
         matched && tw`border-2 border-success-main`,
-        isDarkMode && matched && tw`border-success-main`,
-        !isDarkMode && matched && tw`border-primary-main`,
       ]}
       onPress={onPress}
     >
