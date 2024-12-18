@@ -6,7 +6,7 @@ describe("getPremiumOfMatchedOffer", () => {
     const expectedPremium = 10;
     const amount = 100000;
     const priceBook = {
-      EUR: 100000,
+      EUR: 1000000,
     };
     const marketPrice = (amount / SATSINBTC) * priceBook.EUR;
     const price = marketPrice + (marketPrice * expectedPremium) / CENT;

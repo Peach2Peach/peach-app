@@ -829,7 +829,7 @@ exports[`EditPremium should render correctly 1`] = `
               }
             >
               (
-              currently 253.75 EUR
+              currently 2 537.50 EUR
               )
             </Text>
           </View>

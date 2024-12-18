@@ -15,6 +15,8 @@ jest.mock("../context", () => ({
   })),
 }));
 
+jest.useFakeTimers();
+
 describe("tradeInformationGetters", () => {
   it("should return the correct value for the price field", () => {
     expect(tradeInformationGetters.price(contract)).toEqual("89.04 EUR");

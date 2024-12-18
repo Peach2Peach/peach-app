@@ -10,7 +10,7 @@ jest.useFakeTimers();
 
 jest.spyOn(peachAPI.public.market, "marketPrices").mockResolvedValue({
   result: {
-    EUR: 100000,
+    EUR: 1000000,
   },
   ...responseUtils,
 });
