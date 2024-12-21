@@ -15,10 +15,3 @@
 # Package: bdk-rn
 -keep class com.sun.jna.** { *; }
 -keep class org.bitcoindevkit.** { *; }
-
-# After react-native upgrade to 0.73 - manual fix
--keep class java.awt.** { *; }
--dontwarn java.awt.Component
--dontwarn java.awt.GraphicsEnvironment
--dontwarn java.awt.HeadlessException
--dontwarn java.awt.Window
