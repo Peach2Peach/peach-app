@@ -110,11 +110,15 @@ function ConfirmRbf({
         {oldFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
-        <BTCAmount amount={oldFee} size="medium" textStyle={tw`text-black-100`} />
+        <BTCAmount
+          amount={oldFee}
+          size="medium"
+          textStyle={tw`text-black-100`}
+        />
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
-            String(round((oldFee / sendingAmount) * CENT, 1)),
+            String(round((oldFee / sendingAmount) * CENT, 1))
           )}
         </PeachText>
       </View>
@@ -125,11 +129,15 @@ function ConfirmRbf({
         {newFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
-        <BTCAmount amount={newFee} size="medium" textStyle={tw`text-black-100`}/>
+        <BTCAmount
+          amount={newFee}
+          size="medium"
+          textStyle={tw`text-black-100`}
+        />
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
-            String(round((newFee / sendingAmount) * CENT, 1)),
+            String(round((newFee / sendingAmount) * CENT, 1))
           )}
         </PeachText>
       </View>

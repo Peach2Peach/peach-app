@@ -20,7 +20,7 @@ export const SummaryItem = ({ label, value }: Props) => {
       <PeachText
         style={[
           tw`md:body-l`,
-          isDarkMode ? tw`text-black-50` : tw`text-black-65`
+          isDarkMode ? tw`text-black-50` : tw`text-black-65`,
         ]}
       >
         {label}
@@ -98,9 +98,14 @@ function CopyableSummaryText({
     <>
       <View style={tw`flex-1`}>
         <SummaryText value={value} onPress={onPress} />
-        <Animated.View style={[ tw`absolute items-end justify-center w-full h-full`,
-        isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-primary-background-main`,
-        { opacity: copiedTextOpacity }, ]}
+        <Animated.View
+          style={[
+            tw`absolute items-end justify-center w-full h-full`,
+            isDarkMode
+              ? tw`bg-backgroundMain-dark`
+              : tw`bg-primary-background-main`,
+            { opacity: copiedTextOpacity },
+          ]}
         >
           <PeachText style={[summaryTextStyle, tw`text-primary-main`]}>
             {i18n("copied")}

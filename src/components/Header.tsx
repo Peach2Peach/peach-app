@@ -52,7 +52,8 @@ type HeaderConfig = {
 const newThemes = (isDarkMode: boolean) => ({
   buyer: {
     bg: isDarkMode
-      ? tw`bg-backgroundMain-dark` : tw`bg-success-background-dark-color`,
+      ? tw`bg-backgroundMain-dark`
+      : tw`bg-success-background-dark-color`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: isDarkMode ? tw`text-success-mild-2` : tw`text-success-main`,
     border: tw`border-b-8 border-success-mild-2`,
@@ -60,7 +61,8 @@ const newThemes = (isDarkMode: boolean) => ({
   },
   seller: {
     bg: isDarkMode
-      ? tw`bg-backgroundMain-dark` : tw`bg-primary-background-dark-color`,
+      ? tw`bg-backgroundMain-dark`
+      : tw`bg-primary-background-dark-color`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     subtitle: isDarkMode ? tw`text-primary-mild-2` : tw`text-primary-main`,
     border: tw`border-b-8 border-primary-mild-2`,
@@ -233,9 +235,9 @@ function Tickers({ type = "sell" }: TickerProps) {
       ]}
     >
       <View style={leftColStyle}>
-        <PeachText
-          style={[unitStyle, labelStyle]}
-        >{`1 ${i18n("btc")}`}</PeachText>
+        <PeachText style={[unitStyle, labelStyle]}>{`1 ${i18n(
+          "btc"
+        )}`}</PeachText>
         <PriceFormat
           style={valueStyle}
           currency={displayCurrency}
@@ -265,7 +267,7 @@ function CurrencyScrollView() {
   const [showCurrencies, toggle] = useToggleBoolean();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
+    shallow
   );
   const { isDarkMode } = useThemeStore();
 
@@ -279,14 +281,16 @@ function CurrencyScrollView() {
       style={[tw`items-end flex-1 w-full grow`, { zIndex: 1 }]}
     >
       <ScrollView
-        style={tw`absolute ${isDarkMode ? "bg-backgroundMain-dark" : "bg-backgroundMain-light"} max-h-40`}
+        style={tw`absolute ${
+          isDarkMode ? "bg-backgroundMain-dark" : "bg-backgroundMain-light"
+        } max-h-40`}
         contentContainerStyle={[
           tw`items-end self-end justify-end`,
           showCurrencies
             ? tw.style(
                 `pl-2 border`,
                 isDarkMode ? "border-black-90" : "border-black-10",
-                `rounded-lg`,
+                `rounded-lg`
               )
             : { padding: 1 },
         ]}
@@ -356,7 +360,7 @@ function HeaderSubtitle({
           i18n(
             viewer === "buyer"
               ? "buy.subtitle.highlight"
-              : "sell.subtitle.highlight",
+              : "sell.subtitle.highlight"
           )}
       </PeachText>
       <BTCAmount

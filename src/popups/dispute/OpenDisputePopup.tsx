@@ -23,9 +23,15 @@ export function OpenDisputePopup({ contractId }: { contractId: string }) {
       title={i18n("dispute.openDispute")}
       content={
         <View style={tw`gap-3`}>
-          <PeachText style={tw`text-black-100`}>{i18n("dispute.openDispute.text.1")}</PeachText>
-          <PeachText style={tw`text-black-100`}>{i18n("dispute.openDispute.text.2")}</PeachText>
-          <PeachText style={tw`text-black-100`}>{i18n("dispute.openDispute.text.3")}</PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("dispute.openDispute.text.1")}
+          </PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("dispute.openDispute.text.2")}
+          </PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("dispute.openDispute.text.3")}
+          </PeachText>
         </View>
       }
       actions={

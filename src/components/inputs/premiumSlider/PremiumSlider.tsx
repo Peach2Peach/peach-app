@@ -27,9 +27,9 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
     () =>
       [...Array(LABEL_AMOUNT)].map(
         (_position, index) =>
-          round((index / (LABEL_AMOUNT - 1)) * trackWidth) - trackWidth / 2,
+          round((index / (LABEL_AMOUNT - 1)) * trackWidth) - trackWidth / 2
       ),
-    [trackWidth],
+    [trackWidth]
   );
 
   return (
@@ -42,7 +42,9 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
         style={[
           tw`w-full h-8`,
           tw`border p-0.5 rounded-full border-primary-mild-1 justify-center`,
-          isDarkMode ? tw`bg-transparent` : tw`bg-primary-background-dark-color`,
+          isDarkMode
+            ? tw`bg-transparent`
+            : tw`bg-primary-background-dark-color`,
         ]}
       >
         <SliderMarkers positions={labelPosition} />
