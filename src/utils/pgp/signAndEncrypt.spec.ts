@@ -1,9 +1,5 @@
 import OpenPGP from "react-native-fast-openpgp";
-import {
-  defaultAccount,
-  setAccount,
-  useAccountStore,
-} from "../account/account";
+import { defaultAccount, setAccount } from "../account/account";
 import { signAndEncrypt } from "./signAndEncrypt";
 
 describe("signAndEncrypt", () => {
@@ -22,8 +18,12 @@ describe("signAndEncrypt", () => {
     jest.spyOn(OpenPGP, "encrypt").mockResolvedValueOnce("encrypted");
 
     const result = await signAndEncrypt("message", "publicKey");
-    const { privateKey } = useAccountStore.getState().account.pgp;
-    expect(OpenPGP.sign).toHaveBeenCalledWith("message", privateKey, "");
+    expect(OpenPGP.sign).toHaveBeenCalledWith(
+      "message",
+      "publicKey",
+      "privateKey",
+      "",
+    );
     expect(OpenPGP.encrypt).toHaveBeenCalledWith("message", "publicKey");
     expect(result).toEqual({
       signature: "signature",
