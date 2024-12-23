@@ -59,11 +59,10 @@ export const NetworkFees = () => {
   const setToast = useSetToast();
   const { mutate } = useUpdateUser();
 
-  const onChangeCustomFeeRate = (value: string) => {
+  const onChangeCustomFeeRate = (value: string) =>
     setCustomFeeRate(
       !value || isNaN(Number(value)) || value === "0" ? "" : value,
     );
-  };
 
   const submit = useCallback(() => {
     mutate(
