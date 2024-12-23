@@ -24,10 +24,10 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
         },
         false,
         [
+          {},
           {
             "color": "#7D675E",
           },
-          {},
         ],
         false,
       ]
@@ -94,7 +94,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
         style={
           {
             "alignItems": "flex-end",
-            "backgroundColor": "#FFFCFA",
+            "backgroundColor": "#FFF9F6",
             "height": "100%",
             "justifyContent": "center",
             "opacity": 0,

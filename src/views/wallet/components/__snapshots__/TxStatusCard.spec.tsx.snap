@@ -274,7 +274,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                   false,
                   [
                     {
-                      "opacity": 0.1,
+                      "opacity": 0.2,
                       "textAlign": "right",
                     },
                     [
@@ -289,6 +289,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -325,6 +326,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -358,6 +360,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                   {
                     "color": "#2B1911",
                   },
+                  undefined,
                 ],
                 false,
               ]
@@ -646,7 +649,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                   false,
                   [
                     {
-                      "opacity": 0.1,
+                      "opacity": 0.2,
                       "textAlign": "right",
                     },
                     [
@@ -661,6 +664,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -697,6 +701,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -730,6 +735,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                   {
                     "color": "#2B1911",
                   },
+                  undefined,
                 ],
                 false,
               ]
@@ -1018,7 +1024,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                   false,
                   [
                     {
-                      "opacity": 0.1,
+                      "opacity": 0.2,
                       "textAlign": "right",
                     },
                     [
@@ -1033,6 +1039,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -1069,6 +1076,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -1102,6 +1110,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                   {
                     "color": "#2B1911",
                   },
+                  undefined,
                 ],
                 false,
               ]
@@ -1390,7 +1399,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                   false,
                   [
                     {
-                      "opacity": 0.1,
+                      "opacity": 0.2,
                       "textAlign": "right",
                     },
                     [
@@ -1405,6 +1414,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -1441,6 +1451,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -1474,6 +1485,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                   {
                     "color": "#2B1911",
                   },
+                  undefined,
                 ],
                 false,
               ]
@@ -1762,7 +1774,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                   false,
                   [
                     {
-                      "opacity": 0.1,
+                      "opacity": 0.2,
                       "textAlign": "right",
                     },
                     [
@@ -1777,6 +1789,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -1813,6 +1826,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      undefined,
                     ],
                   ],
                   false,
@@ -1846,6 +1860,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                   {
                     "color": "#2B1911",
                   },
+                  undefined,
                 ],
                 false,
               ]

@@ -87,7 +87,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
             false,
             [
               {
-                "opacity": 0.1,
+                "opacity": 0.2,
                 "textAlign": "right",
               },
               [
@@ -99,6 +99,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
                 {
                   "color": "#2B1911",
                 },
+                undefined,
               ],
             ],
             false,
@@ -132,6 +133,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
                 {
                   "color": "#2B1911",
                 },
+                undefined,
               ],
             ],
             false,
@@ -162,6 +164,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
             {
               "color": "#2B1911",
             },
+            undefined,
           ],
           false,
         ]
@@ -242,8 +245,8 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
                   Object {
                     "color": "#2B1911",
                   },
-                ],
-@@ -121,12 +124,15 @@
+                  undefined,
+@@ -122,12 +125,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -260,8 +263,8 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
                   Object {
                     "color": "#2B1911",
                   },
-                ],
-@@ -151,12 +157,15 @@
+                  undefined,
+@@ -153,12 +159,15 @@
             },
             false,
             Array [
@@ -278,7 +281,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
               Object {
                 "color": "#2B1911",
               },
-            ],"
+              undefined,"
 `;
 
 exports[`BTCAmount should render correctly for small size 1`] = `
@@ -363,8 +366,8 @@ exports[`BTCAmount should render correctly for small size 1`] = `
                   Object {
                     "color": "#2B1911",
                   },
-                ],
-@@ -121,12 +124,15 @@
+                  undefined,
+@@ -122,12 +125,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -381,8 +384,8 @@ exports[`BTCAmount should render correctly for small size 1`] = `
                   Object {
                     "color": "#2B1911",
                   },
-                ],
-@@ -151,12 +157,15 @@
+                  undefined,
+@@ -153,12 +159,15 @@
             },
             false,
             Array [
@@ -399,7 +402,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
               Object {
                 "color": "#2B1911",
               },
-            ],"
+              undefined,"
 `;
 
 exports[`BTCAmount should render correctly when showAmount is false 1`] = `
@@ -407,7 +410,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 - First value
 + Second value
 
-@@ -64,81 +64,123 @@
+@@ -64,83 +64,123 @@
             "alignItems": "center",
             "flexBasis": "0%",
             "flexDirection": "row",
@@ -444,7 +447,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +         style={
             Array [
               Object {
--                 "opacity": 0.1,
+-                 "opacity": 0.2,
 -                 "textAlign": "right",
 +               "height": 8,
 +               "width": 8,
@@ -477,10 +480,10 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +               "height": 8,
 +               "width": 8,
               },
+              undefined,
 -               ],
 -             ],
 -             false,
-+             undefined,
             ]
           }
 -       >
@@ -556,10 +559,10 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +               "height": 8,
 +               "width": 8,
               },
+              undefined,
 -               ],
 -             ],
 -             false,
-+             undefined,
             ]
           }
 -       >
@@ -660,7 +663,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
             false,
             [
               {
-                "opacity": 0.1,
+                "opacity": 0.2,
                 "textAlign": "right",
               },
               [
@@ -672,6 +675,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
                 {
                   "color": "#2B1911",
                 },
+                undefined,
               ],
             ],
             false,
@@ -705,6 +709,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
                 {
                   "color": "#2B1911",
                 },
+                undefined,
               ],
             ],
             false,
@@ -735,6 +740,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
             {
               "color": "#2B1911",
             },
+            undefined,
           ],
           false,
         ]
@@ -833,7 +839,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
             false,
             [
               {
-                "opacity": 0.1,
+                "opacity": 0.2,
                 "textAlign": "right",
               },
               [
@@ -845,6 +851,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
                 {
                   "color": "#2B1911",
                 },
+                undefined,
               ],
             ],
             false,
@@ -878,6 +885,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
                 {
                   "color": "#2B1911",
                 },
+                undefined,
               ],
             ],
             false,
@@ -908,6 +916,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
             {
               "color": "#2B1911",
             },
+            undefined,
           ],
           false,
         ]
@@ -933,11 +942,11 @@ exports[`BTCAmount should render correctly with white 1`] = `
 -                   "color": "#2B1911",
 +                   "color": "#BAADA7",
                   },
+                  undefined,
                 ],
               ],
               false,
-            ]
-@@ -125,11 +125,11 @@
+@@ -126,11 +126,11 @@
                     "fontFamily": "Baloo2-SemiBold",
                     "fontSize": 20,
                     "letterSpacing": 0.2,
@@ -946,11 +955,11 @@ exports[`BTCAmount should render correctly with white 1`] = `
 -                   "color": "#2B1911",
 +                   "color": "#BAADA7",
                   },
+                  undefined,
                 ],
               ],
               false,
-            ]
-@@ -155,11 +155,11 @@
+@@ -157,11 +157,11 @@
                 "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 20,
                 "letterSpacing": 0.2,
@@ -959,8 +968,8 @@ exports[`BTCAmount should render correctly with white 1`] = `
 -               "color": "#2B1911",
 +               "color": "#BAADA7",
               },
+              undefined,
             ],
             false,
-          ]
-        }"
+          ]"
 `;

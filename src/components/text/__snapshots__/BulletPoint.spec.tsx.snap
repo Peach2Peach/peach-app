@@ -11,20 +11,15 @@ exports[`BulletPoint renders correctly 1`] = `
   <PeachText
     style={
       {
-        "color": "#2B1911",
+        "color": "#F56522",
       }
     }
   >
+     
     •
   </PeachText>
-  <PeachText
-    style={
-      {
-        "color": "#2B1911",
-        "paddingLeft": 12,
-      }
-    }
-  >
+  <PeachText>
+     
     text
   </PeachText>
 </View>
