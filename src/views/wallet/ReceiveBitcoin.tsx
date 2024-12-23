@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { View } from "react-native";
-import QRCode from "react-native-qrcode-svg";
 import { Screen } from "../../components/Screen";
+import QRCode from "../../components/bitcoin/QRCode";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
 import i18n from "../../utils/i18n";
@@ -44,16 +45,17 @@ function AddressQRCode({ index }: { index: number }) {
   const isMediumScreen = useIsMediumScreen();
   return (
     <>
-      <QRCode
-        value={data?.address}
-        size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE}
-        color={String(tw.color("black-100"))}
-      />
+      {!!data && (
+        <QRCode
+          value={data.address}
+          size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE}
+        />
+      )}
       {data?.used && (
         <PeachText
           style={[
             tw`text-center h3 text-error-main`,
-            tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light`,
+            tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light-color`,
             tw`md:top-135px md:bg-opacity-85`,
           ]}
         >
@@ -66,16 +68,27 @@ function AddressQRCode({ index }: { index: number }) {
 
 function BitcoinAddress({ index }: { index: number }) {
   const { data } = useWalletAddress(index);
+  const { isDarkMode } = useThemeStore();
   const address = data?.address ?? "";
   const isUsed = data?.used ?? false;
   const addressParts = getBitcoinAddressParts(address);
   return (
     <View style={tw`flex-row items-center self-stretch gap-3 px-1`}>
-      <PeachText style={tw`shrink text-black-50 body-l`}>
+      <PeachText
+        style={tw`shrink ${isDarkMode ? "text-black-50" : "text-black-50"} body-l`}
+      >
         {addressParts.one}
-        <PeachText style={tw`body-l`}>{addressParts.two}</PeachText>
+        <PeachText
+          style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}
+        >
+          {addressParts.two}
+        </PeachText>
         {addressParts.three}
-        <PeachText style={tw`body-l`}>{addressParts.four}</PeachText>
+        <PeachText
+          style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}
+        >
+          {addressParts.four}
+        </PeachText>
       </PeachText>
       <CopyAble
         value={address}

@@ -1,4 +1,4 @@
-import { useSetOverlay } from "../../Overlay";
+import { useSetGlobalOverlay } from "../../Overlay";
 import { IconType } from "../../assets/icons";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
@@ -9,7 +9,7 @@ import i18n from "../../utils/i18n";
 
 export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   const navigation = useStackNavigation();
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
   const badge = badges[0];
   const icon = `${badgeIconMap[badge]}CircleInverted` as IconType;
   const remainingBadges = badges.slice(1, badges.length);
@@ -37,7 +37,7 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
       buttons={
         <>
           <Button
-            style={tw`bg-primary-background-light`}
+            style={tw`bg-primary-background-light-color`}
             textColor={tw.color("primary-main")}
             onPress={goToProfile}
           >

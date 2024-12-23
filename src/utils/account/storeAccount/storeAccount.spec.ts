@@ -1,4 +1,3 @@
-import { deepStrictEqual } from "assert";
 import * as accountData from "../../../../tests/unit/data/accountData";
 import { getIndexedMap } from "../../storage/getIndexedMap";
 import { defaultAccount, setAccount } from "../account";
@@ -18,12 +17,7 @@ describe("storeAccount", () => {
       accountStorage.getMap("tradingLimit") || defaultAccount.tradingLimit,
       getIndexedMap(chatStorage),
     ]);
-    deepStrictEqual(
-      {
-        ...identity,
-        tradingLimit,
-        chats,
-      },
+    expect({ ...identity, tradingLimit, chats }).toStrictEqual(
       accountData.buyer,
     );
   });

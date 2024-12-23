@@ -1,4 +1,3 @@
-import { deepStrictEqual } from "assert";
 import * as chatData from "../../../tests/unit/data/chatData";
 import { defaultAccount, setAccount } from "../account/account";
 import { getUnsentMessages } from "./getUnsentMessages";
@@ -21,13 +20,7 @@ describe("getUnsentMessages", () => {
     const unsentMessages = getUnsentMessages(
       chatData.chatWithUnsentMessages.messages,
     );
-    deepStrictEqual(
-      unsentMessages.map((m) => m.message),
-      ["Test", "D"],
-    );
-    deepStrictEqual(
-      unsentMessages.map((m) => m.readBy.length),
-      [0, 0],
-    );
+    expect(unsentMessages.map((m) => m.message)).toStrictEqual(["Test", "D"]);
+    expect(unsentMessages.map((m) => m.readBy.length)).toStrictEqual([0, 0]);
   });
 });

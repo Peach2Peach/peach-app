@@ -9,15 +9,13 @@ import {
   tradeInformationGetters,
 } from "./tradeInformationGetters";
 
-jest.mock("../../../utils/offer/getWalletLabel", () => ({
-  getWalletLabel: jest.fn(() => "walletLabel"),
-}));
-
 jest.mock("../context", () => ({
   useContractContext: jest.fn(() => ({
     paymentData: "paymentData",
   })),
 }));
+
+jest.useFakeTimers();
 
 describe("tradeInformationGetters", () => {
   it("should return the correct value for the price field", () => {

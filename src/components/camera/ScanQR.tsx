@@ -32,11 +32,11 @@ function CustomMarker({ onCancel }: Pick<ScanQRProps, "onCancel">) {
         >
           <Icon
             id="chevronLeft"
-            color={tw.color("primary-background-light")}
+            color={tw.color("primary-background-light-color")}
             style={tw`w-6 h-6 mr-1`}
           />
           <PeachText
-            style={tw`h6 text-primary-background-light`}
+            style={tw`h6 text-primary-background-light-color`}
             numberOfLines={1}
           >
             {i18n("scanBTCAddress")}

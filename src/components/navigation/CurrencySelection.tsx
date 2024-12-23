@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 
@@ -7,33 +8,44 @@ type CurrencySelectionItemProps = ComponentProps & {
   isSelected: boolean;
   onPress?: (currency: Currency) => void;
 };
+
 const CurrencySelectionItem = ({
   currency,
   isSelected,
   onPress,
   style,
-}: CurrencySelectionItemProps) => (
-  <TouchableOpacity
-    style={style}
-    onPress={onPress ? () => onPress(currency) : undefined}
-  >
-    <PeachText
-      numberOfLines={1}
-      style={[
-        tw`text-center button-large text-black-65`,
-        isSelected && tw`text-black-100`,
-      ]}
+}: CurrencySelectionItemProps) => {
+  const { isDarkMode } = useThemeStore();
+
+  return (
+    <TouchableOpacity
+      style={style}
+      onPress={onPress ? () => onPress(currency) : undefined}
     >
-      {currency}
-    </PeachText>
-    {isSelected && (
-      <View style={[tw`w-full h-0.5 -mt-0.5 bg-black-100 rounded-1px`]} />
-    )}
-  </TouchableOpacity>
-);
+      <PeachText
+        numberOfLines={1}
+        style={[
+          tw`text-center button-large text-black-50`,
+          isSelected &&
+            tw.style(isDarkMode ? "text-primary-main" : "text-black-100"),
+        ]}
+      >
+        {currency}
+      </PeachText>
+      {isSelected && (
+        <View
+          style={[
+            tw`w-full h-0.5 -mt-0.5 rounded-1px`,
+            tw.style(isDarkMode ? "bg-primary-main" : "bg-black-100"),
+          ]}
+        />
+      )}
+    </TouchableOpacity>
+  );
+};
 
 const ItemSeparator = ({ style }: ComponentProps) => (
-  <View style={[tw`w-px h-4 bg-black-5 rounded-1px`, style]} />
+  <View style={[tw`w-px h-5 bg-black-50 rounded-1px`, style]} />
 );
 
 type Props = ComponentProps & {

@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
-import { useSetOverlay } from "../../../Overlay";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { InfoPopup } from "../../../popups/InfoPopup";
-import { useConfigStore } from "../../../store/configStore/configStore";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
@@ -16,7 +14,6 @@ import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
-import { GroupHugAnnouncement } from "../../overlays/GroupHugAnnouncement";
 
 const isForbiddenPaymentMethodError = (
   errorMessage: string | null,
@@ -39,16 +36,12 @@ export function usePostBuyOffer({
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
-  const hasSeenGroupHugAnnouncement = useConfigStore(
-    (state) => state.hasSeenGroupHugAnnouncement,
-  );
   const setPopup = useSetPopup();
   const showHelp = () =>
     setPopup(
       <InfoPopup content={i18n("FORBIDDEN_PAYMENT_METHOD.paypal.text")} />,
     );
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const setOverlay = useSetOverlay();
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
     useSettingsStore(
       (state) => [
@@ -59,25 +52,37 @@ export function usePostBuyOffer({
       shallow,
     );
 
+  const getSignedAddress = async (signWithPeachWallet: boolean) => {
+    if (!peachWallet) throw new Error("Peach wallet not defined");
+    if (signWithPeachWallet) {
+      const { address, index } = await peachWallet.getAddress();
+      const message = getMessageToSignForAddress(publicKey, address);
+      return {
+        address,
+        message,
+        signature: peachWallet.signMessage(message, index),
+      };
+    }
+    if (!payoutAddress) throw new Error("MISSING_RELEASE_ADDRESS");
+    const message = getMessageToSignForAddress(publicKey, payoutAddress);
+    return {
+      address: payoutAddress,
+      message,
+      signature: payoutAddressSignature,
+    };
+  };
+
   return useMutation({
     mutationFn: async () => {
-      if (!peachWallet) throw new Error("Peach wallet not defined");
-      const { address: releaseAddress, index } = payoutToPeachWallet
-        ? await peachWallet.getAddress()
-        : { address: payoutAddress, index: undefined };
-      if (!releaseAddress) throw new Error("MISSING_RELEASE_ADDRESS");
-
-      const message = getMessageToSignForAddress(publicKey, releaseAddress);
-      const messageSignature = payoutToPeachWallet
-        ? peachWallet.signMessage(message, releaseAddress, index)
-        : payoutAddressSignature;
+      const { message, signature, address } =
+        await getSignedAddress(payoutToPeachWallet);
 
       if (
-        !messageSignature ||
+        !signature ||
         !isValidBitcoinSignature({
           message,
-          address: releaseAddress,
-          signature: messageSignature,
+          address,
+          signature,
           network: getNetwork(),
         })
       ) {
@@ -90,9 +95,9 @@ export function usePostBuyOffer({
         paymentData,
         maxPremium,
         minReputation,
-        releaseAddress,
+        releaseAddress: address,
         message,
-        messageSignature,
+        messageSignature: signature,
       };
 
       const { result, error: err } =
@@ -112,8 +117,6 @@ export function usePostBuyOffer({
       }
     },
     onSuccess: (offerId) => {
-      if (!hasSeenGroupHugAnnouncement)
-        setOverlay(<GroupHugAnnouncement offerId={offerId} />);
       navigation.reset({
         index: 1,
         routes: [

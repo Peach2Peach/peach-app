@@ -1,4 +1,3 @@
-import { deepStrictEqual, ok } from "assert";
 import { networks } from "bitcoinjs-lib";
 import { createRandomWallet } from "./createRandomWallet";
 import { getNetwork } from "./getNetwork";
@@ -11,20 +10,11 @@ describe("createRandomWallet", () => {
       createRandomWallet(network),
     ]);
 
-    ok(typeof wallet1.mnemonic === "string", "Mnemonic is not a string");
-    deepStrictEqual(
-      wallet1.wallet.network,
-      networks.regtest,
-      "Network is not correct",
-    );
-    ok(
-      wallet1.mnemonic !== wallet2.mnemonic,
-      "Mnemonic are not different but should be",
-    );
-    ok(
-      wallet1.wallet.publicKey.toString("hex") !==
-        wallet2.wallet.publicKey.toString("hex"),
-      "Public keys are not different but should be",
+    expect(typeof wallet1.mnemonic).toBe("string");
+    expect(wallet1.wallet.network).toStrictEqual(networks.regtest);
+    expect(wallet1.mnemonic).not.toBe(wallet2.mnemonic);
+    expect(wallet1.wallet.publicKey.toString("hex")).not.toBe(
+      wallet2.wallet.publicKey.toString("hex"),
     );
   });
 });

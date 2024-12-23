@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { sortSummariesByDate } from "../../utils/contract/sortSummariesByDate";
 import { getPastOffers } from "../../views/yourTrades/utils/getPastOffers";
-import { isOpenOffer } from "../../views/yourTrades/utils/isOpenOffer";
+import { isPastOffer } from "../../views/yourTrades/utils/isPastOffer";
 import { useContractSummaries } from "./useContractSummaries";
 import { useOfferSummaries } from "./useOfferSummaries";
 
@@ -11,12 +11,14 @@ export const useTradeSummaries = (enabled = true) => {
     isLoading: offersLoading,
     error: offersError,
     refetch: refetchOffers,
+    isRefetching: isRefetchingOffers,
   } = useOfferSummaries(enabled);
   const {
     contracts,
     isLoading: contractsLoading,
     error: contractsError,
     refetch: refetchContracts,
+    isRefetching: isRefetchingContracts,
   } = useContractSummaries(enabled);
 
   const refetch = useCallback(() => {
@@ -34,7 +36,7 @@ export const useTradeSummaries = (enabled = true) => {
   );
 
   const allOpenOffers = useMemo(
-    () => tradeSummaries.filter(({ tradeStatus }) => isOpenOffer(tradeStatus)),
+    () => tradeSummaries.filter(({ tradeStatus }) => !isPastOffer(tradeStatus)),
     [tradeSummaries],
   );
   const summaries = useMemo(
@@ -49,6 +51,7 @@ export const useTradeSummaries = (enabled = true) => {
   return {
     isLoading: offersLoading || contractsLoading,
     error: offersError || contractsError,
+    isRefetching: isRefetchingOffers || isRefetchingContracts,
     summaries,
     refetch,
   };

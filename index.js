@@ -1,6 +1,6 @@
-import NotificationBadge from "@msml/react-native-notification-badge";
 import messaging from "@react-native-firebase/messaging";
 import { AppRegistry, LogBox } from "react-native";
+import { increment } from "rn-notification-badge";
 import "./shim.js";
 import { App } from "./src/App";
 import { name as appName } from "./src/app.json";
@@ -9,19 +9,14 @@ import { info } from "./src/utils/log/info";
 import { parseError } from "./src/utils/parseError";
 import { isIOS } from "./src/utils/system/isIOS";
 import { isProduction } from "./src/utils/system/isProduction";
-import { useNotificationStore } from "./src/views/home/notificationsStore";
 
 LogBox.ignoreAllLogs(isProduction());
 
 try {
   // eslint-disable-next-line require-await
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    const notifs = useNotificationStore.getState().notifications + 1;
-
-    if (isIOS()) NotificationBadge.setNumber(notifs);
-    useNotificationStore.getState().setNotifications(notifs);
-
     info("Message handled in the background!", remoteMessage);
+    if (isIOS()) increment();
   });
 } catch (e) {
   error(

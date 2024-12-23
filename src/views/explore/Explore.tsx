@@ -17,6 +17,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { BuySorters } from "../../popups/sorting/BuySorters";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -31,29 +32,27 @@ export function Explore() {
   const { offerId } = useRoute<"explore">().params;
   const {
     allMatches: matches,
-    isLoading,
+    isPending,
     fetchNextPage,
     refetch,
     isRefetching,
   } = useOfferMatches(offerId);
   const hasMatches = matches.length > 0;
-  if (isLoading) return <LoadingScreen />;
+  if (isPending) return <LoadingScreen />;
   return (
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (
-        <>
-          <FlatList
-            ListHeaderComponent={<BuyOfferMarketInfo />}
-            data={matches}
-            onRefresh={() => refetch()}
-            refreshing={isRefetching}
-            keyExtractor={(item) => item.offerId}
-            renderItem={({ item }) => <ExploreCard match={item} />}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => fetchNextPage()}
-            contentContainerStyle={tw`gap-10px`}
-          />
-        </>
+        <FlatList
+          ListHeaderComponent={<BuyOfferMarketInfo />}
+          data={matches}
+          onRefresh={() => refetch()}
+          refreshing={isRefetching}
+          keyExtractor={(item) => item.offerId}
+          renderItem={({ item }) => <ExploreCard match={item} />}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => fetchNextPage()}
+          contentContainerStyle={tw`gap-10px`}
+        />
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <BuyOfferMarketInfo />
@@ -110,11 +109,15 @@ function ExploreCard({ match }: { match: Match }) {
   };
 
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
+  const { isDarkMode } = useThemeStore();
 
   return (
     <TouchableOpacity
       style={[
-        tw`justify-center overflow-hidden border bg-primary-background-light rounded-2xl border-primary-main`,
+        tw`justify-center overflow-hidden rounded-2xl`,
+        isDarkMode
+          ? tw`bg-card`
+          : tw`border bg-primary-background-light-color border-primary-main`,
         matched && tw`border-2 border-success-main`,
       ]}
       onPress={onPress}
@@ -123,7 +126,7 @@ function ExploreCard({ match }: { match: Match }) {
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
           <PeachText
-            style={tw`text-center py-2px subtitle-2 text-primary-background-light`}
+            style={tw`text-center py-2px subtitle-2 text-primary-background-light-color`}
           >
             {i18n("offerPreferences.instantTrade")}
           </PeachText>
@@ -152,7 +155,11 @@ function ExploreCard({ match }: { match: Match }) {
               currency={match.selectedCurrency ?? displayCurrency}
               amount={match.matchedPrice ?? fiatPrice * (1 + premium / CENT)}
             />
-            <PeachText style={tw`text-black-65`}>
+            <PeachText
+              style={tw.style(
+                isDarkMode ? "text-primary-mild-2" : "text-black-65",
+              )}
+            >
               {" "}
               ({premium >= 0 ? "+" : ""}
               {premium}%)

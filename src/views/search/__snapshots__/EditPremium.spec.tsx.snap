@@ -59,6 +59,7 @@ exports[`EditPremium should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`EditPremium should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -272,6 +274,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-Bold",
@@ -300,6 +303,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -348,6 +352,7 @@ exports[`EditPremium should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   [
                     {
                       "fontFamily": "Baloo2-Bold",
@@ -384,6 +389,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     {
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 16,
@@ -480,9 +486,10 @@ exports[`EditPremium should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
-                              "opacity": 0.1,
+                              "opacity": 0.2,
                               "textAlign": "right",
                             },
                             [
@@ -494,7 +501,10 @@ exports[`EditPremium should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
+                              undefined,
                             ],
                           ],
                           false,
@@ -514,6 +524,7 @@ exports[`EditPremium should render correctly 1`] = `
                             "letterSpacing": 0.16,
                             "lineHeight": 24,
                           },
+                          false,
                           [
                             {
                               "textAlign": "right",
@@ -527,7 +538,10 @@ exports[`EditPremium should render correctly 1`] = `
                                 "marginBottom": -10,
                                 "marginTop": -10,
                               },
-                              false,
+                              {
+                                "color": "#2B1911",
+                              },
+                              undefined,
                             ],
                           ],
                           false,
@@ -548,6 +562,7 @@ exports[`EditPremium should render correctly 1`] = `
                           "letterSpacing": 0.16,
                           "lineHeight": 24,
                         },
+                        false,
                         [
                           {
                             "fontFamily": "Baloo2-SemiBold",
@@ -557,7 +572,10 @@ exports[`EditPremium should render correctly 1`] = `
                             "marginBottom": -10,
                             "marginTop": -10,
                           },
-                          false,
+                          {
+                            "color": "#2B1911",
+                          },
+                          undefined,
                         ],
                         false,
                       ]
@@ -656,6 +674,7 @@ exports[`EditPremium should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       [
                         {
                           "textAlign": "center",
@@ -687,9 +706,11 @@ exports[`EditPremium should render correctly 1`] = `
                         "width": 92,
                       },
                       {
+                        "borderWidth": 1,
+                      },
+                      {
                         "backgroundColor": "#FFFCFA",
                         "borderColor": "#7D675E",
-                        "borderWidth": 1,
                       },
                     ]
                   }
@@ -700,18 +721,22 @@ exports[`EditPremium should render correctly 1`] = `
                     placeholder="20.00"
                     placeholderTextColor="#EAE3DF"
                     style={
-                      {
-                        "color": "#2B1911",
-                        "flexGrow": 1,
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 18,
-                        "height": 38,
-                        "letterSpacing": 0.18,
-                        "lineHeight": 29.25,
-                        "paddingBottom": 0,
-                        "paddingTop": 0,
-                        "textAlign": "center",
-                      }
+                      [
+                        {
+                          "flexGrow": 1,
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 18,
+                          "height": 38,
+                          "letterSpacing": 0.18,
+                          "lineHeight": 29.25,
+                          "paddingBottom": 0,
+                          "paddingTop": 0,
+                          "textAlign": "center",
+                        },
+                        {
+                          "color": "#2B1911",
+                        },
+                      ]
                     }
                     value="1.5"
                   />
@@ -797,8 +822,9 @@ exports[`EditPremium should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   {
-                    "color": "#7D675E",
+                    "color": "#9F8C82",
                     "textAlign": "center",
                   },
                   false,
@@ -806,7 +832,7 @@ exports[`EditPremium should render correctly 1`] = `
               }
             >
               (
-              currently 253.75 EUR
+              currently 2 537.50 EUR
               )
             </Text>
           </View>
@@ -839,17 +865,17 @@ exports[`EditPremium should render correctly 1`] = `
                     "width": "100%",
                   },
                   {
-                    "backgroundColor": "#FEEDE5",
                     "borderColor": "#FCCCB6",
                     "borderRadius": 9999,
                     "borderWidth": 1,
+                    "justifyContent": "center",
                     "paddingBottom": 2,
                     "paddingLeft": 2,
                     "paddingRight": 2,
                     "paddingTop": 2,
                   },
                   {
-                    "justifyContent": "center",
+                    "backgroundColor": "#FEEDE5",
                   },
                 ]
               }
@@ -1063,8 +1089,9 @@ exports[`EditPremium should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
-                        "color": "#7D675E",
+                        "color": "#9F8C82",
                         "fontFamily": "Baloo2-SemiBold",
                         "fontSize": 14,
                         "letterSpacing": 0.14,
@@ -1107,8 +1134,9 @@ exports[`EditPremium should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
-                        "color": "#7D675E",
+                        "color": "#9F8C82",
                         "fontFamily": "Baloo2-SemiBold",
                         "fontSize": 14,
                         "letterSpacing": 0.14,
@@ -1151,8 +1179,9 @@ exports[`EditPremium should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
-                        "color": "#7D675E",
+                        "color": "#9F8C82",
                         "fontFamily": "Baloo2-SemiBold",
                         "fontSize": 14,
                         "letterSpacing": 0.14,
@@ -1195,8 +1224,9 @@ price
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
-                        "color": "#7D675E",
+                        "color": "#9F8C82",
                         "fontFamily": "Baloo2-SemiBold",
                         "fontSize": 14,
                         "letterSpacing": 0.14,
@@ -1240,8 +1270,9 @@ price
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
+                      false,
                       {
-                        "color": "#7D675E",
+                        "color": "#9F8C82",
                         "fontFamily": "Baloo2-SemiBold",
                         "fontSize": 14,
                         "letterSpacing": 0.14,
@@ -1322,6 +1353,7 @@ price
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -1332,7 +1364,7 @@ price
                   },
                   {},
                   {
-                    "color": "#FFFCFA",
+                    "color": "#FFF9F6",
                   },
                 ],
                 false,

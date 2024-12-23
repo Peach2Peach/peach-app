@@ -194,12 +194,12 @@ function DisputeDisclaimerPopup() {
     <InfoPopup
       title={i18n("trade.chat")}
       content={
-        <PeachText>
+        <PeachText style={tw`text-black-100`}>
           {i18n("chat.disputeDisclaimer.1")}
           {"\n\n"}
           {i18n("chat.disputeDisclaimer.2")}
 
-          <PeachText style={tw`underline`}>
+          <PeachText style={tw`underline text-black-100`}>
             {i18n("chat.disputeDisclaimer.3")}
           </PeachText>
 

@@ -1,13 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import {
-  RadioButtonItem,
-  RadioButtons,
-} from "../../components/inputs/RadioButtons";
+import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { Progress } from "../../components/ui/Progress";
@@ -15,14 +13,13 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { CustomReferralCodePopup } from "../../popups/referral/CustomReferralCodePopup";
 import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesPopup";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { thousands } from "../../utils/string/thousands";
+import { peachAPI } from "../../utils/peachAPI";
+import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 import { ReferralCode } from "./components/ReferralCode";
-import { REWARDINFO } from "./constants";
-import { isRewardAvailable } from "./helpers/isRewardAvailable";
-import { mapRewardsToRadioButtonItems } from "./helpers/mapRewardsToRadioButtonItems";
 
 export const Referrals = () => (
   <Screen header={<ReferralsHeader />}>
@@ -54,10 +51,12 @@ function ReferralsPopup() {
       title={i18n("help.referral.title")}
       content={
         <>
-          <PeachText style={tw`mb-2`}>
+          <PeachText style={tw`mb-2 text-black-100`}>
             {i18n("help.referral.description.1")}
           </PeachText>
-          <PeachText>{i18n("help.referral.description.2")}</PeachText>
+          <PeachText style={tw`text-black-100`}>
+            {i18n("help.referral.description.2")}
+          </PeachText>
         </>
       }
     />
@@ -67,28 +66,42 @@ function ReferralsPopup() {
 function ReferralRewards() {
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
-  const referredTradingAmount = user?.referredTradingAmount || 0;
-
-  const availableRewards = REWARDINFO.filter((reward) =>
-    isRewardAvailable(reward, balance),
-  ).length;
+  const { data: REWARDINFO } = useReferralRewardsInfo();
   const [selectedReward, setSelectedReward] = useState<RewardType>();
+  if (!REWARDINFO) return null;
 
-  const rewards: RadioButtonItem<RewardType>[] =
-    mapRewardsToRadioButtonItems(balance);
+  const hasSufficientBalance =
+    balance >= Math.min(REWARDINFO.REFERRALCODE, REWARDINFO.FREETRADES);
+
+  const createReward = (
+    id: RewardType,
+    requiredPoints: number,
+    disabled: boolean,
+  ) => ({
+    value: id,
+    disabled,
+    display: <RewardItem reward={{ id, requiredPoints }} />,
+  });
+
+  const rewards = [
+    createReward(
+      "customReferralCode",
+      REWARDINFO.REFERRALCODE,
+      balance < REWARDINFO.REFERRALCODE,
+    ),
+    createReward(
+      "noPeachFees",
+      REWARDINFO.FREETRADES,
+      balance < REWARDINFO.FREETRADES,
+    ),
+    createReward("sats", REWARDINFO.SATS, true),
+  ];
 
   return (
     <>
       <PeachText style={tw`text-center`}>
         {i18n(
-          !referredTradingAmount
-            ? "referrals.notTraded"
-            : "referrals.alreadyTraded",
-          i18n("currency.format.sats", thousands(referredTradingAmount)),
-        )}
-        {"\n\n"}
-        {i18n(
-          availableRewards
+          hasSufficientBalance
             ? "referrals.selectReward"
             : "referrals.continueSaving",
         )}
@@ -100,6 +113,22 @@ function ReferralRewards() {
       />
       <RedeemButton selectedReward={selectedReward} />
     </>
+  );
+}
+
+function RewardItem({ reward }: { reward: Reward }) {
+  const { isDarkMode } = useThemeStore();
+  return (
+    <View style={tw`flex-row items-center justify-between py-1`}>
+      <PeachText style={tw`subtitle-1`}>
+        {i18n(`referrals.reward.${reward.id}`)}
+      </PeachText>
+      <PeachText
+        style={tw.style(isDarkMode ? "text-primary-mild-1" : "text-black-65")}
+      >
+        ({reward.requiredPoints})
+      </PeachText>
+    </View>
   );
 }
 
@@ -129,6 +158,7 @@ function RedeemButton({
 }
 
 function BonusPointsBar() {
+  const { isDarkMode } = useThemeStore();
   const BARLIMIT = 400;
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
@@ -141,13 +171,32 @@ function BonusPointsBar() {
         barStyle={tw`border-2 bg-primary-main border-primary-background-main`}
         percent={balance / BARLIMIT}
       />
-      <PeachText style={tw`pl-2 tooltip text-black-65`}>
+      <PeachText
+        style={tw.style(
+          "pl-1 pt-1 tooltip",
+          isDarkMode ? "text-primary-mild-1" : "text-black-65",
+        )}
+      >
         {i18n("referrals.points")}
         {": "}
-        <PeachText style={tw`font-bold tooltip text-black-65`}>
+        <PeachText style={tw`font-bold tooltip text-primary-main`}>
           {balance}
         </PeachText>
       </PeachText>
     </View>
   );
+}
+
+function useReferralRewardsInfo() {
+  return useQuery({
+    queryKey: systemKeys.referralRewards(),
+    queryFn: async () => {
+      const { result, error } =
+        await peachAPI.public.system.getReferralRewardsInfo();
+      if (error) {
+        throw error;
+      }
+      return result;
+    },
+  });
 }

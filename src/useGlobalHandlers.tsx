@@ -9,7 +9,6 @@ import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleE
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useStackNavigation } from "./hooks/useStackNavigation";
-import { usePublishMissingPublicKey } from "./hooks/user/usePublishMissingPublicKey";
 import { useInitialNavigation } from "./init/useInitialNavigation";
 import { AnalyticsPopup } from "./popups/AnalyticsPopup";
 import { VerifyYouAreAHumanPopup } from "./popups/warning/VerifyYouAreAHumanPopup";
@@ -29,7 +28,6 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder();
   useInitialNavigation();
   useShowUpdateAvailable();
-  usePublishMissingPublicKey();
   useCheckFundingMultipleEscrows();
   useHandleNotifications(messageHandler);
 

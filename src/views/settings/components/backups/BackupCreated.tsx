@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useSetOverlay } from "../../../../Overlay";
+import { useSetGlobalOverlay } from "../../../../Overlay";
 import { Icon } from "../../../../components/Icon";
 import { Button } from "../../../../components/buttons/Button";
 import { PeachText } from "../../../../components/text/PeachText";
@@ -9,7 +9,7 @@ import i18n from "../../../../utils/i18n";
 
 export const BackupCreated = () => {
   const navigation = useStackNavigation();
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
   const goToFileBackup = () => {
     setOverlay(undefined);
     navigation.navigate("backups");
@@ -17,20 +17,20 @@ export const BackupCreated = () => {
   return (
     <>
       <View style={tw`items-center justify-center grow`}>
-        <PeachText style={tw`h4 text-primary-background-light`}>
+        <PeachText style={tw`h4 text-primary-background-light-color`}>
           {i18n("settings.backups.fileBackup.created")}
         </PeachText>
-        <PeachText style={tw`body-l text-primary-background-light`}>
+        <PeachText style={tw`body-l text-primary-background-light-color`}>
           {i18n("settings.backups.fileBackup.safeNow")}
         </PeachText>
         <Icon
           id="save"
           style={tw`w-32 h-32 mt-17`}
-          color={tw.color("primary-background-light")}
+          color={tw.color("primary-background-light-color")}
         />
       </View>
       <Button
-        style={tw`self-center bg-primary-background-light`}
+        style={tw`self-center bg-primary-background-light-color`}
         textColor={tw.color("primary-main")}
         onPress={goToFileBackup}
       >

@@ -9,6 +9,6 @@ export const getBackgroundColor = (pan: Animated.Value) =>
     outputRange: [
       tw.color("primary-main") || "#F56522",
       tw.color("primary-main") || "#F56522",
-      tw.color("success-main") || "65A519",
+      tw.color("success-main") || "#65A519",
     ],
   });

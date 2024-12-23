@@ -37,13 +37,18 @@ exports[`BitcoinLoading should render correctly 1`] = `
   </View>
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "textAlign": "center",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        },
+        {
+          "color": "#2B1911",
+        },
+      ]
     }
   >
     we are bootstrapping a new financial system

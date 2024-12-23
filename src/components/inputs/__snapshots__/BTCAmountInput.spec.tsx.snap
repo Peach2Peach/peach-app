@@ -109,9 +109,10 @@ exports[`BTCAmountInput renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
-                  "opacity": 0.1,
+                  "opacity": 0.2,
                   "textAlign": "right",
                 },
                 [
@@ -123,7 +124,10 @@ exports[`BTCAmountInput renders correctly 1`] = `
                     "marginBottom": -13,
                     "marginTop": -13,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
+                  undefined,
                 ],
               ],
               false,
@@ -143,6 +147,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "textAlign": "right",
@@ -156,7 +161,10 @@ exports[`BTCAmountInput renders correctly 1`] = `
                     "marginBottom": -13,
                     "marginTop": -13,
                   },
-                  false,
+                  {
+                    "color": "#2B1911",
+                  },
+                  undefined,
                 ],
               ],
               false,
@@ -177,6 +185,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-SemiBold",
@@ -186,7 +195,10 @@ exports[`BTCAmountInput renders correctly 1`] = `
                 "marginBottom": -13,
                 "marginTop": -13,
               },
-              false,
+              {
+                "color": "#2B1911",
+              },
+              undefined,
             ],
             false,
           ]
@@ -200,19 +212,25 @@ exports[`BTCAmountInput renders correctly 1`] = `
     keyboardType="number-pad"
     onChangeText={[MockFunction]}
     style={
-      {
-        "flexGrow": 1,
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 18,
-        "height": 38,
-        "letterSpacing": 0.18,
-        "lineHeight": 29.25,
-        "opacity": 0,
-        "paddingBottom": 0,
-        "paddingTop": 0,
-        "position": "absolute",
-        "width": "100%",
-      }
+      [
+        {
+          "flexGrow": 1,
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 18,
+          "height": 38,
+          "letterSpacing": 0.18,
+          "lineHeight": 29.25,
+          "opacity": 0,
+          "paddingBottom": 0,
+          "paddingTop": 0,
+          "position": "absolute",
+          "width": "100%",
+        },
+        {
+          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+          "color": "black",
+        },
+      ]
     }
     value="0"
   />

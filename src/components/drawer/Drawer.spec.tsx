@@ -1,5 +1,4 @@
 import { BackHandler, Text } from "react-native";
-import { createRenderer } from "react-test-renderer/shallow";
 import { act, render } from "test-utils";
 import { Drawer } from "./Drawer";
 import { useDrawerState } from "./useDrawerState";
@@ -23,49 +22,10 @@ jest.mock("react-native/Libraries/Utilities/BackHandler", () =>
 jest.useFakeTimers();
 
 describe("Drawer", () => {
-  const shallowRenderer = createRenderer();
-
   const updateDrawer = useDrawerState.setState;
 
   beforeEach(() => {
     updateDrawer(defaultState);
-  });
-  it("renders correctly", () => {
-    shallowRenderer.render(<Drawer />);
-    const result = shallowRenderer.getRenderOutput();
-    expect(result).toMatchSnapshot();
-  });
-  it("renders correctly with options", () => {
-    updateDrawer({
-      ...defaultState,
-      options: [
-        {
-          title: "option1",
-          onPress: jest.fn(),
-        },
-        {
-          title: "option2",
-          onPress: jest.fn(),
-        },
-      ],
-      content: null,
-      show: true,
-    });
-    shallowRenderer.render(<Drawer />);
-    const result = shallowRenderer.getRenderOutput();
-    expect(result).toMatchSnapshot();
-  });
-  it("renders correctly with previous drawer", () => {
-    updateDrawer({
-      ...defaultState,
-      previousDrawer: {
-        ...defaultState,
-        title: "previousDrawerTitle",
-      },
-    });
-    shallowRenderer.render(<Drawer />);
-    const result = shallowRenderer.getRenderOutput();
-    expect(result).toMatchSnapshot();
   });
   it("should close the drawer and call onClose on hardware back press", () => {
     render(<Drawer />);

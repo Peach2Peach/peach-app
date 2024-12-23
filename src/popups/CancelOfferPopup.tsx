@@ -23,7 +23,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const closePopup = useClosePopup();
   const queryClient = useQueryClient();
   const { offer } = useOfferDetail(offerId);
-  const { mutate: cancelOffer } = useCancelOffer();
+  const { mutate: cancelOffer, isPending } = useCancelOffer();
 
   const startRefund = useStartRefundPopup();
 
@@ -80,7 +80,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
           : "offer.cancel.popup.description",
       )}
       actionBgColor={tw`bg-black-50`}
-      bgColor={tw`bg-primary-background-light`}
+      bgColor={tw`bg-primary-background-light-color`}
       actions={
         <>
           <PopupAction
@@ -92,6 +92,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
             label={i18n("cancelOffer")}
             iconId="xCircle"
             onPress={confirmCancelOffer}
+            loading={isPending}
             reverseOrder
           />
         </>

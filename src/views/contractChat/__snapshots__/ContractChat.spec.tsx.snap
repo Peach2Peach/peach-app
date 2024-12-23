@@ -59,6 +59,7 @@ exports[`ContractChat should render chat disabled message when disabled 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`ContractChat should render chat disabled message when disabled 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -264,6 +266,7 @@ exports[`ContractChat should render chat disabled message when disabled 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               {
                 "color": "#9F8C82",
                 "paddingBottom": 16,
@@ -343,6 +346,7 @@ exports[`ContractChat should render correct when chat enabled 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -389,6 +393,7 @@ exports[`ContractChat should render correct when chat enabled 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -572,7 +577,7 @@ exports[`ContractChat should render correct when chat enabled 1`] = `
               onChangeText={[Function]}
               onEndEditing={[Function]}
               placeholder="your message"
-              placeholderTextColor="#93D6F5"
+              placeholderTextColor="#099DE2"
               removeClippedSubviews={false}
               returnKeyType="send"
               style={

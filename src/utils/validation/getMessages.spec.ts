@@ -1,4 +1,3 @@
-import { ok } from "assert";
 import i18n, { languageState } from "../i18n";
 import { getMessages } from "./getMessages";
 
@@ -6,7 +5,7 @@ describe("getMessages", () => {
   it("has all messages defined", () => {
     const messages = getMessages();
     for (const message in messages) {
-      ok(message);
+      expect(message).toBeDefined();
     }
   });
   it("returns messages in the right language", () => {

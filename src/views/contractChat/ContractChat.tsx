@@ -14,7 +14,6 @@ import {
   useContractDetail,
 } from "../../hooks/query/useContractDetail";
 import { useRoute } from "../../hooks/useRoute";
-import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { OpenDisputePopup } from "../../popups/dispute/OpenDisputePopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
@@ -23,11 +22,9 @@ import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import { getTradingPartner } from "../../utils/contract/getTradingPartner";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { error } from "../../utils/log/error";
-import { parseError } from "../../utils/parseError";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
@@ -44,23 +41,21 @@ export const ContractChat = () => {
 
 function ChatScreen({ contract }: { contract: Contract }) {
   const queryClient = useQueryClient();
-  const { data: decryptedData } = useDecryptedContractData(contract);
+  const { data: decryptedData, isPending } = useDecryptedContractData(contract);
   const { contractId } = useRoute<"contractChat">().params;
 
   const { connected, send, off, on } = useWebsocketContext();
-  const {
-    messages,
-    isFetching,
-    error: messagesError,
-    page,
-    fetchNextPage,
-  } = useChatMessages({
+  const { messages, isFetching, page, fetchNextPage } = useChatMessages({
     contractId,
     symmetricKey: decryptedData?.symmetricKey,
+    isLoadingSymmetricKey: isPending,
   });
-  const showError = useShowErrorBanner();
-  const account = useAccountStore((state) => state.account);
-  const tradingPartner = contract ? getTradingPartner(contract, account) : null;
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const tradingPartner = contract
+    ? publicKey === contract.seller.id
+      ? contract.buyer
+      : contract.seller
+    : null;
   const [chat, setChat] = useState(getChat(contractId));
   const [newMessage, setNewMessage] = useState(chat.draftMessage);
   const [disableSend, setDisableSend] = useState(false);
@@ -81,7 +76,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
       );
       const messageObject: Message = {
         roomId: `contract-${contractId}`,
-        from: account.publicKey,
+        from: publicKey,
         date: new Date(),
         readBy: [],
         message,
@@ -111,7 +106,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
       tradingPartner,
       decryptedData?.symmetricKey,
       contractId,
-      account.publicKey,
+      publicKey,
       connected,
       setAndSaveChat,
       send,
@@ -206,7 +201,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
           return oldQueryData;
         },
       );
-      if (!message.readBy.includes(account.publicKey)) {
+      if (!message.readBy.includes(publicKey)) {
         send(
           JSON.stringify({
             path: "/v1/contract/chat/received",
@@ -232,7 +227,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
     send,
     off,
     decryptedData?.symmetricKey,
-    account.publicKey,
+    publicKey,
     queryClient,
     setAndSaveChat,
   ]);
@@ -240,10 +235,6 @@ function ChatScreen({ contract }: { contract: Contract }) {
   useEffect(() => {
     if (messages) setAndSaveChat(contractId, { messages });
   }, [contractId, messages, setAndSaveChat]);
-
-  useEffect(() => {
-    if (messagesError) showError(parseError(messagesError));
-  }, [messagesError, showError]);
 
   return (
     <Screen
@@ -299,16 +290,14 @@ function ContractChatHeader({ contract, symmetricKey }: Props) {
   const setPopup = useSetPopup();
 
   const memoizedIcons = useMemo(() => {
-    if (contract?.disputeActive) return [];
+    if (contract?.disputeActive || !symmetricKey) return [];
 
-    const icons = [];
-    if (!!symmetricKey && !contract.disputeActive) {
-      icons.push({
+    return [
+      {
         ...headerIcons.warning,
         onPress: () => setPopup(<OpenDisputePopup contractId={contractId} />),
-      });
-    }
-    return icons;
+      },
+    ];
   }, [contract, contractId, setPopup, symmetricKey]);
 
   return <Header title={contractIdToHex(contractId)} icons={memoizedIcons} />;

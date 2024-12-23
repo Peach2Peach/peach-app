@@ -16,9 +16,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "paths": {
-      "test-utils": ["./tests/unit/helpers/test-utils"],
-    },
+      "test-utils": ["./tests/unit/helpers/test-utils"]
+    }
   },
   "include": ["src", "@types", "tests", "tailwind.config.js"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

@@ -67,6 +67,7 @@ exports[`AddPaymentMethodButton should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#F56522",
           "flexShrink": 1,
@@ -152,6 +153,7 @@ exports[`AddPaymentMethodButton should render correctly with isCash 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#F56522",
           "flexShrink": 1,
@@ -236,6 +238,7 @@ exports[`AddPaymentMethodButton should render correctly with isCash while still 
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#F56522",
           "flexShrink": 1,

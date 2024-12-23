@@ -17,6 +17,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
@@ -26,7 +27,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { getMessages } from "../../utils/validation/getMessages";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
-import { NewLoadingScreen } from "../loading/LoadingScreen";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import { usePatchReleaseAddress } from "./components/usePatchReleaseAddress";
 
 const signatureRules = {
@@ -56,7 +57,7 @@ function SignMessageForGlobalPreference() {
 function ContractSuspense({ contractId }: { contractId: string }) {
   const { contract } = useContractDetail(contractId);
 
-  if (!contract) return <NewLoadingScreen />;
+  if (!contract) return <LoadingScreen />;
 
   return (
     <SignMessageForPatch
@@ -206,6 +207,8 @@ function TextContainer({
   label: React.ReactNode;
   value: string | undefined;
 }) {
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View>
       <PeachText style={tw`pl-2 input-label`}>{label}</PeachText>
@@ -213,14 +216,23 @@ function TextContainer({
         style={[
           tw`flex-row items-center justify-between gap-2 px-3 py-2`,
           tw`border rounded-xl`,
-          tw`bg-primary-background-light`,
+          isDarkMode
+            ? tw`bg-card text-backgroundLight-light border-primary-main`
+            : tw`bg-primary-background-light-color`,
         ]}
       >
-        <PeachText style={tw`flex-1 input-text`}>{value}</PeachText>
+        <PeachText
+          style={tw.style(
+            `flex-1 input-text`,
+            isDarkMode ? `text-primary-mild-1` : `text-black-100`,
+          )}
+        >
+          {value}
+        </PeachText>
         <CopyAble
           value={value || ""}
           style={tw`w-5 h-5`}
-          color={tw`text-black-100`}
+          color={tw`text-primary-main`}
         />
       </View>
     </View>

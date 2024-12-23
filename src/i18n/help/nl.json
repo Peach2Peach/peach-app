@@ -26,7 +26,7 @@
   "help.makePayment.title" : "betaal snel!",
   "help.mempool.description" : "Wanneer je een bitcointransactie uitvoert, wordt deze niet meteen verwerkt. \nIn plaats daarvan worden ze eerst in een lijst met onbevestigde transacties geplaatst, de zogenaamde \"mempool\". \nDe transacties waarvoor de hoogste kosten worden betaald, worden als eerste verwerkt.",
   "help.mempool.title" : "de mempool",
-  "help.networkFees.description.1" : "Dit zijn de kosten die je betaalt aan het bitcoin netwerk om de sats te ontvangen na je transactie, of in het geval van een terugstorting.\nDeze kosten veranderen door de tijd heen, afhankelijk van hoe druk het is. ",
+  "help.networkFees.description.1" : "Dit zijn de kosten die je betaalt aan het bitcoinnetwerk voor het verzenden van transacties. Ze worden afgetrokken van alle uitbetalingen van een Peach escrow en je betaalt ze wanneer je vanuit je Peach portemonnee verstuurt,",
   "help.networkFees.description.2" : "Hoe drukker het netwerk, des te meer je moet betalen voor een snelle bevestiging.",
   "help.networkFees.title" : "bitcoin netwerkkosten",
   "help.paymentMethodDelete.description" : "Dit kan niet ongedaan gemaakt worden",

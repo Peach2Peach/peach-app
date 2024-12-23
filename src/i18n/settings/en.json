@@ -52,7 +52,7 @@
   "settings.deleteAccount.deleted.title" : "bye - bye data",
   "settings.deleteAccount.forRealsies" : "For realsies. \nNo backup or no password = data gone!",
   "settings.deleteAccount.ok" : "do it",
-  "settings.deleteAccount.popup" : "Without your backup AND your password, you will not be able to regain access to your account!",
+  "settings.deleteAccount.popup" : "Without your backup AND your password, you will not be able to regain access to your account!\n\nFor more information take a look at our privacy policy at https://peachbitcoin.com/privacy-policy",
   "settings.deleteAccount.popup.title" : "delete account?",
   "settings.deleteAccount.success" : "We hope to see you back soon!",
   "settings.deleteAccount.success.title" : "account deleted",
@@ -79,7 +79,8 @@
   "settings.networkFees.estimatedTime.halfHourFee" : "~ 30 minutes",
   "settings.networkFees.estimatedTime.hourFee" : "~ 1 hour",
   "settings.networkFees.feeRateSet" : "fee rate set",
-  "settings.networkFees.help" : "These are the fees you pay to the bitcoin network to receive your sats after a trade, or in case of a refund. These fees change over time, depending on how busy it is.\n\nThe busier the network, the more you'll need to pay to get a quick confirmation.",
+  "settings.networkFees.help" : "These are the fees you pay to the bitcoin network in case of a refund or for transactions from your wallet. These fees change over time, depending on how busy it is.\n\nThe busier the network, the more you'll need to pay to get a quick confirmation.",
+  "settings.networkFees.payoutInfo" : "This setting does not apply to payouts. See transaction batching for more information.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/vB",
   "settings.nodeSetup" : "use your own node",
   "settings.notifications" : "notifications",
@@ -127,5 +128,6 @@
   "settings.testView" : "Open TestView",
   "settings.title" : "settings",
   "settings.transactionBatching" : "transaction batching",
-  "settings.website" : "website"
+  "settings.website" : "website",
+  "settings.dark mode": "Dark Mode"
 }

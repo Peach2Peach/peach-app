@@ -1,4 +1,3 @@
-import { deepStrictEqual } from "assert";
 import { getAllPaymentMethods } from "./getAllPaymentMethods";
 
 describe("getAllPaymentMethods", () => {
@@ -11,7 +10,7 @@ describe("getAllPaymentMethods", () => {
     other: ["liquid", "lnurl"],
   };
   it("returns all payment methods", () => {
-    deepStrictEqual(getAllPaymentMethods(paymentCategories), [
+    expect(getAllPaymentMethods(paymentCategories)).toStrictEqual([
       "sepa",
       "instantSepa",
       "fasterPayments",

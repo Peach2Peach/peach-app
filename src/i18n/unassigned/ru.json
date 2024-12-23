@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "пункт в списке",
   "address.changingLocations" : "смена локации - свяжитесь с организаторами",
   "backupRestored" : "резервная копия восстановлена",
   "backupTime.description.mandatory" : "Вам необходимо создать резервную копию вашей учетной записи, чтобы защититься от ее потери и потери ваших денег",
@@ -57,6 +58,7 @@
   "kyc" : "KYC",
   "later" : "позже",
   "lfg" : "Поехали!",
+  "linkedIn" : "Linkedin",
   "loading" : "загрузка...",
   "lookForAMatch" : "искать партнёров!",
   "match.atMarketPrice" : "(столько же, сколько на KYC-биржах)",

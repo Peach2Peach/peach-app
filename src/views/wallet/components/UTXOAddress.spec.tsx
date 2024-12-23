@@ -1,5 +1,4 @@
 import { Script } from "bdk-rn/lib/classes/Script";
-import { Network } from "bdk-rn/lib/lib/enums";
 import { render, waitFor } from "test-utils";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
@@ -14,9 +13,7 @@ jest.useFakeTimers();
 describe("UTXOAddress", () => {
   const script = new Script("address");
   beforeAll(() => {
-    setPeachWallet(
-      new PeachWallet({ wallet: createTestWallet(), network: Network.Testnet }),
-    );
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
   });
   it("should render correctly", async () => {
     useWalletState.setState({ addressLabelMap: { address: "addressLabel" } });

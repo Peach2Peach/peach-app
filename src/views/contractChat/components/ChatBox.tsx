@@ -83,6 +83,7 @@ export const ChatBox = ({
       removeClippedSubviews={false}
       onRefresh={fetchNextPage}
       refreshing={isLoading}
+      scrollEventThrottle={50}
     />
   );
 };

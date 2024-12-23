@@ -1,15 +1,24 @@
+import { NETWORK } from "@env";
 import { useMemo, useRef, useState } from "react";
 import { Keyboard, TextInput, View } from "react-native";
-import { useSetOverlay } from "../../../../Overlay";
+import RNFS from "react-native-fs";
+import Share from "react-native-share";
+import { useSetGlobalOverlay } from "../../../../Overlay";
 import { PeachScrollView } from "../../../../components/PeachScrollView";
 import { Button } from "../../../../components/buttons/Button";
 import { PasswordInput } from "../../../../components/inputs/PasswordInput";
 import { PeachText } from "../../../../components/text/PeachText";
 import { useValidatedState } from "../../../../hooks/useValidatedState";
 import { useSettingsStore } from "../../../../store/settingsStore/useSettingsStore";
+import { usePaymentDataStore } from "../../../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../../../styles/tailwind";
-import { backupAccount } from "../../../../utils/account/backupAccount";
+import { PEACH_ID_LENGTH } from "../../../../utils/account/PEACH_ID_LENGTH";
+import { useAccountStore } from "../../../../utils/account/account";
+import { writeFile } from "../../../../utils/file/writeFile";
 import i18n from "../../../../utils/i18n";
+import { error } from "../../../../utils/log/error";
+import { info } from "../../../../utils/log/info";
+import { parseError } from "../../../../utils/parseError";
 import { BackupCreated } from "./BackupCreated";
 
 type Props = {
@@ -41,29 +50,70 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
   const validate = () =>
     !!password && !!passwordRepeat && passwordIsValid && passwordsMatch;
 
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
-  const startAccountBackup = () => {
+  const startAccountBackup = async () => {
     if (isBackingUp || !validate()) return;
 
     Keyboard.dismiss();
 
     setIsBackingUp(true);
-    backupAccount({
-      password,
-      onSuccess: () => {
-        updateFileBackupDate();
-        setIsBackingUp(false);
-        toggle();
-        setOverlay(<BackupCreated />);
-      },
-      onCancel: () => {
-        setIsBackingUp(false);
-      },
-      onError: () => {
-        setIsBackingUp(false);
-      },
-    });
+    info("Backing up account");
+    const account = useAccountStore.getState().account;
+    try {
+      const destinationFileName =
+        NETWORK === "bitcoin"
+          ? `peach-account-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`
+          : `peach-account-${NETWORK}-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`;
+
+      await writeFile(
+        `/${destinationFileName}`,
+        JSON.stringify({
+          ...account,
+          paymentData: Object.values(
+            usePaymentDataStore.getState().paymentData,
+          ),
+          settings: useSettingsStore.getState().getPureState(),
+          offers: [],
+          chats: {},
+        }),
+        password,
+      );
+
+      Share.open({
+        title: destinationFileName,
+        url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
+        subject: destinationFileName,
+      })
+        .then(({ message, success, dismissedAction }) => {
+          info("Backed up account", message, success);
+          if (dismissedAction) {
+            info("User dismissed share dialog");
+            setIsBackingUp(false);
+          } else if (success) {
+            info("Shared successfully", message);
+            updateFileBackupDate();
+            setIsBackingUp(false);
+            toggle();
+            setOverlay(<BackupCreated />);
+          } else {
+            error(message);
+            setIsBackingUp(false);
+          }
+        })
+        .catch((e) => {
+          if (parseError(e) === "User did not share") {
+            info("User dismissed share dialog");
+            setIsBackingUp(false);
+          } else {
+            error(e);
+            setIsBackingUp(false);
+          }
+        });
+    } catch (e) {
+      error(e);
+      setIsBackingUp(false);
+    }
   };
 
   let $passwordRepeat = useRef<TextInput>(null).current;

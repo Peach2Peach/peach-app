@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { act, fireEvent, render } from "test-utils";
+import { fireEvent, render, waitFor } from "test-utils";
 import { transactionError } from "../../../../tests/unit/data/errors";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
@@ -11,6 +11,7 @@ const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
+jest.useFakeTimers();
 
 describe("ConfirmTransactionPopup", () => {
   const onSuccess = jest.fn();
@@ -29,12 +30,14 @@ describe("ConfirmTransactionPopup", () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(props.psbt);
     const { getByText } = render(<ConfirmTransactionPopup {...props} />);
-    await act(async () => {
-      await fireEvent.press(getByText("confirm & send"));
-    });
+    fireEvent.press(getByText("confirm & send"));
 
-    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(props.psbt);
-    expect(onSuccess).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(peachWallet?.signAndBroadcastPSBT).toHaveBeenCalledWith(
+        props.psbt,
+      );
+      expect(onSuccess).toHaveBeenCalled();
+    });
   });
   it("should handle broadcast errors", async () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
@@ -43,13 +46,13 @@ describe("ConfirmTransactionPopup", () => {
       throw transactionError;
     });
     const { getByText } = render(<ConfirmTransactionPopup {...props} />);
-    await act(async () => {
-      await fireEvent.press(getByText("confirm & send"));
-    });
+    fireEvent.press(getByText("confirm & send"));
 
-    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
-      "78999997952",
-      "1089000",
-    ]);
+    await waitFor(() => {
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+        "78999997952",
+        "1089000",
+      ]);
+    });
   });
 });

@@ -5,8 +5,8 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 
@@ -15,11 +15,13 @@ const possibleSources = [
   "google",
   "instagram",
   "friend",
+  "telegram",
+  "linkedin",
   "other",
 ] as const;
 
 export function UserSource() {
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();
   const { mutate: submitUserSource } = useSubmitUserSource();
@@ -42,11 +44,13 @@ export function UserSource() {
     <Screen gradientBackground>
       <View style={tw`items-center justify-center flex-1 gap-8`}>
         <View style={tw`items-center gap-2px`}>
-          <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("userSource.title")}
           </PeachText>
           <PeachText
-            style={tw`text-center text-primary-background-light body-l`}
+            style={tw`text-center text-primary-background-light-color body-l`}
           >
             {i18n("userSource.subtitle")}
           </PeachText>
@@ -57,7 +61,8 @@ export function UserSource() {
               key={source}
               ghost={selectedSource !== source}
               style={
-                source === selectedSource && tw`bg-primary-background-light`
+                source === selectedSource &&
+                tw`bg-primary-background-light-color`
               }
               textColor={
                 source === selectedSource ? tw.color("primary-main") : undefined

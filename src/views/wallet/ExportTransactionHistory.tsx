@@ -3,6 +3,7 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { writeCSV } from "../../hooks/writeCSV";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
 import { createCSV } from "../../utils/file/createCSV";
@@ -12,6 +13,7 @@ import { useTxSummaries } from "./helpers/useTxSummaries";
 
 export const ExportTransactionHistory = () => {
   const queriesData = useTxSummaries();
+  const { isDarkMode } = useThemeStore();
 
   const onPress = async () => {
     const transactionSummaries = queriesData
@@ -24,7 +26,9 @@ export const ExportTransactionHistory = () => {
   return (
     <Screen header={i18n("wallet.exportHistory.title")}>
       <View style={tw`justify-center gap-8 grow`}>
-        <PeachText style={tw`body-l`}>
+        <PeachText
+          style={tw`body-l ${isDarkMode ? "text-primary-background-light-color" : "text-black-100"}`}
+        >
           {`${i18n("wallet.exportHistory.description")}
   • ${i18n("wallet.exportHistory.description.point1")}
   • ${i18n("wallet.exportHistory.description.point2")}

@@ -181,6 +181,7 @@ exports[`UserSource renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   {
                     "color": "#FFFCFA",
                     "fontFamily": "Baloo2-Bold",
@@ -206,6 +207,7 @@ exports[`UserSource renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  false,
                   {
                     "color": "#FFFCFA",
                     "fontFamily": "Baloo2-Regular",
@@ -261,7 +263,7 @@ exports[`UserSource renders correctly 1`] = `
                 {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderColor": "#FFFCFA",
+                  "borderColor": "#FFF9F6",
                   "borderRadius": 9999,
                   "borderWidth": 2,
                   "flexDirection": "row",
@@ -289,6 +291,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -299,7 +302,7 @@ exports[`UserSource renders correctly 1`] = `
                       },
                       {},
                       {
-                        "color": "#FFFCFA",
+                        "color": "#FFF9F6",
                       },
                     ],
                     false,
@@ -341,7 +344,7 @@ exports[`UserSource renders correctly 1`] = `
                 {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderColor": "#FFFCFA",
+                  "borderColor": "#FFF9F6",
                   "borderRadius": 9999,
                   "borderWidth": 2,
                   "flexDirection": "row",
@@ -369,6 +372,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -379,7 +383,7 @@ exports[`UserSource renders correctly 1`] = `
                       },
                       {},
                       {
-                        "color": "#FFFCFA",
+                        "color": "#FFF9F6",
                       },
                     ],
                     false,
@@ -421,7 +425,7 @@ exports[`UserSource renders correctly 1`] = `
                 {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderColor": "#FFFCFA",
+                  "borderColor": "#FFF9F6",
                   "borderRadius": 9999,
                   "borderWidth": 2,
                   "flexDirection": "row",
@@ -449,6 +453,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -459,7 +464,7 @@ exports[`UserSource renders correctly 1`] = `
                       },
                       {},
                       {
-                        "color": "#FFFCFA",
+                        "color": "#FFF9F6",
                       },
                     ],
                     false,
@@ -501,7 +506,7 @@ exports[`UserSource renders correctly 1`] = `
                 {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderColor": "#FFFCFA",
+                  "borderColor": "#FFF9F6",
                   "borderRadius": 9999,
                   "borderWidth": 2,
                   "flexDirection": "row",
@@ -529,6 +534,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -539,7 +545,7 @@ exports[`UserSource renders correctly 1`] = `
                       },
                       {},
                       {
-                        "color": "#FFFCFA",
+                        "color": "#FFF9F6",
                       },
                     ],
                     false,
@@ -581,7 +587,7 @@ exports[`UserSource renders correctly 1`] = `
                 {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderColor": "#FFFCFA",
+                  "borderColor": "#FFF9F6",
                   "borderRadius": 9999,
                   "borderWidth": 2,
                   "flexDirection": "row",
@@ -609,6 +615,7 @@ exports[`UserSource renders correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     [
                       {
                         "fontFamily": "Baloo2-SemiBold",
@@ -619,7 +626,169 @@ exports[`UserSource renders correctly 1`] = `
                       },
                       {},
                       {
-                        "color": "#FFFCFA",
+                        "color": "#FFF9F6",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                Telegram
+              </Text>
+            </View>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "borderColor": "#FFF9F6",
+                  "borderRadius": 9999,
+                  "borderWidth": 2,
+                  "flexDirection": "row",
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "minWidth": 104,
+                  "opacity": 1,
+                  "paddingBottom": 3,
+                  "paddingLeft": 24,
+                  "paddingRight": 24,
+                  "paddingTop": 3,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    false,
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 13,
+                        "letterSpacing": 0.47,
+                        "lineHeight": 22,
+                        "textTransform": "uppercase",
+                      },
+                      {},
+                      {
+                        "color": "#FFF9F6",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                linkedin
+              </Text>
+            </View>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "borderColor": "#FFF9F6",
+                  "borderRadius": 9999,
+                  "borderWidth": 2,
+                  "flexDirection": "row",
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "minWidth": 104,
+                  "opacity": 1,
+                  "paddingBottom": 3,
+                  "paddingLeft": 24,
+                  "paddingRight": 24,
+                  "paddingTop": 3,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    false,
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 13,
+                        "letterSpacing": 0.47,
+                        "lineHeight": 22,
+                        "textTransform": "uppercase",
+                      },
+                      {},
+                      {
+                        "color": "#FFF9F6",
                       },
                     ],
                     false,

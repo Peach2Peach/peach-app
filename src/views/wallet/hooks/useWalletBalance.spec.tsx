@@ -2,7 +2,7 @@ import { render, renderHook } from "test-utils";
 import { navigateMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
-import { Overlay } from "../../../Overlay";
+import { GlobalOverlay } from "../../../Overlay";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
@@ -33,7 +33,7 @@ describe("useWalletBalance", () => {
     });
     renderHook(useWalletBalance);
 
-    const { getByText } = render(<Overlay />);
+    const { getByText } = render(<GlobalOverlay />);
     expect(getByText("backup time!")).toBeTruthy();
   });
   it("should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true", () => {

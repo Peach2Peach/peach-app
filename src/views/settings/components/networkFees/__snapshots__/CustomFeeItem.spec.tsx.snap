@@ -21,6 +21,7 @@ exports[`CustomFeeItem renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
@@ -36,23 +37,19 @@ exports[`CustomFeeItem renders correctly 1`] = `
   </Text>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "borderRadius": 12,
-          "flexDirection": "row",
-          "height": 32,
-          "overflow": "hidden",
-          "paddingBottom": 12,
-          "paddingTop": 12,
-          "width": 64,
-        },
-        {
-          "backgroundColor": "#FFFCFA",
-          "borderColor": "#7D675E",
-          "borderWidth": 1,
-        },
-      ]
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FFFCFA",
+        "borderColor": "#7D675E",
+        "borderRadius": 12,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "height": 32,
+        "overflow": "hidden",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": 64,
+      }
     }
   >
     <TextInput
@@ -61,7 +58,7 @@ exports[`CustomFeeItem renders correctly 1`] = `
       onChangeText={[Function]}
       style={
         {
-          "color": "#2B1911",
+          "color": "#7D675E",
           "flexGrow": 1,
           "fontFamily": "Baloo2-Regular",
           "fontSize": 18,
@@ -88,6 +85,7 @@ exports[`CustomFeeItem renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#7D675E",
         },
@@ -105,9 +103,9 @@ exports[`CustomFeeItem renders correctly when disabled 1`] = `
 - First value
 + Second value
 
-@@ -51,11 +51,11 @@
-          },
-        ]
+@@ -48,11 +48,11 @@
+          "width": 64,
+        }
       }
     >
       <TextInput
@@ -117,5 +115,5 @@ exports[`CustomFeeItem renders correctly when disabled 1`] = `
         onChangeText={[Function onChangeText]}
         style={
           Object {
-            "color": "#2B1911","
+            "color": "#7D675E","
 `;

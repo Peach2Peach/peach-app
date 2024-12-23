@@ -1,5 +1,7 @@
-import { StyleProp, View, ViewStyle } from "react-native";
+import { memo, useMemo } from "react";
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { SATSINBTC } from "../../constants";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { groupChars } from "../../utils/string/groupChars";
@@ -12,6 +14,7 @@ export type BTCAmountProps = {
   showAmount?: boolean;
   white?: boolean;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 };
 
 const styles = {
@@ -41,57 +44,76 @@ const styles = {
   },
 };
 
-export function BTCAmount({
-  amount,
-  size,
-  white = false,
-  showAmount = true,
-  style,
-}: BTCAmountProps) {
-  const [greyText, blackText] = getDisplayAmount(amount);
-  const textStyle = [
-    styles[size].amount,
-    white && tw`text-primary-background-light`,
-  ];
-  return (
-    <View
-      style={[
-        style,
-        tw`flex-row items-center justify-between`,
-        styles[size].container,
-      ]}
-    >
-      <View style={[tw`shrink-0`, styles[size].iconContainer]}>
-        <Icon
-          id={white ? "bitcoinTransparent" : "bitcoinLogo"}
-          size={styles[size].iconSize}
-        />
-      </View>
-
+export const BTCAmount = memo(
+  ({
+    amount,
+    size,
+    white = false,
+    showAmount = true,
+    style,
+    textStyle,
+  }: BTCAmountProps) => {
+    const [greyText, blackText] = useMemo(
+      () => getDisplayAmount(amount),
+      [amount],
+    );
+    const { isDarkMode } = useThemeStore();
+    const defaultTextStyle = useMemo(
+      () => [
+        styles[size].amount,
+        white
+          ? tw`text-black-25`
+          : isDarkMode
+            ? tw`text-backgroundLight-light`
+            : tw`text-black-100`,
+        textStyle,
+      ],
+      [isDarkMode, size, white, textStyle],
+    );
+    return (
       <View
-        style={[tw`flex-row items-center flex-1`, styles[size].textContainer]}
+        style={[
+          style,
+          tw`flex-row items-center justify-between`,
+          styles[size].container,
+        ]}
       >
-        {!showAmount ? (
-          <View style={tw`flex-row items-center justify-between flex-1 pl-1px`}>
-            {[...Array(SATSINBTC.toString().length)].map((_, i) => (
-              <Icon key={i} id="ellipse" size={styles[size].ellipseSize} />
-            ))}
-          </View>
-        ) : (
-          <View style={tw`flex-row items-center justify-end flex-1`}>
-            <PeachText style={[tw`text-right opacity-10`, textStyle]}>
-              {greyText}
-            </PeachText>
-            <PeachText style={[tw`text-right`, textStyle]}>
-              {blackText}
-            </PeachText>
-          </View>
-        )}
-        <PeachText style={textStyle}>{i18n("currency.SATS")}</PeachText>
+        <View style={[tw`shrink-0`, styles[size].iconContainer]}>
+          <Icon
+            id={white ? "bitcoinTransparent" : "bitcoinLogo"}
+            size={styles[size].iconSize}
+          />
+        </View>
+
+        <View
+          style={[tw`flex-row items-center flex-1`, styles[size].textContainer]}
+        >
+          {!showAmount ? (
+            <View
+              style={tw`flex-row items-center justify-between flex-1 pl-1px`}
+            >
+              {[...Array(SATSINBTC.toString().length)].map((_, i) => (
+                <Icon key={i} id="ellipse" size={styles[size].ellipseSize} />
+              ))}
+            </View>
+          ) : (
+            <View style={tw`flex-row items-center justify-end flex-1`}>
+              <PeachText style={[tw`text-right opacity-20`, defaultTextStyle]}>
+                {greyText}
+              </PeachText>
+              <PeachText style={[tw`text-right`, defaultTextStyle]}>
+                {blackText}
+              </PeachText>
+            </View>
+          )}
+          <PeachText style={defaultTextStyle}>
+            {i18n("currency.SATS")}
+          </PeachText>
+        </View>
       </View>
-    </View>
-  );
-}
+    );
+  },
+);
 
 const GROUP_BY = 3;
 export function getDisplayAmount(amount: number) {

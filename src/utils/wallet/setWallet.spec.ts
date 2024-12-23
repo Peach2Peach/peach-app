@@ -1,4 +1,3 @@
-import { deepStrictEqual } from "assert";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { getWallet } from "./getWallet";
 import { setWallet } from "./setWallet";
@@ -8,6 +7,6 @@ describe("setWallet", () => {
     const recoveredWallet = createTestWallet();
     setWallet(recoveredWallet);
 
-    deepStrictEqual(getWallet(), recoveredWallet);
+    expect(getWallet()).toStrictEqual(recoveredWallet);
   });
 });

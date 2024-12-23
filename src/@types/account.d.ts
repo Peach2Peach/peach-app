@@ -13,17 +13,16 @@ type Settings = {
   derivationPath?: string;
   displayCurrency: Currency;
   country?: string;
-  fcmToken?: string;
   lastFileBackupDate?: number;
   lastSeedBackupDate?: number;
   showBackupReminder: boolean;
   shouldShowBackupOverlay: boolean;
   nodeURL: string;
-  usedReferralCode?: boolean;
   cloudflareChallenge?: {
     cfClearance: string;
     userAgent: string;
   };
+  isLoggedIn: boolean;
 };
 
 type PGPKeychain = {
@@ -33,7 +32,6 @@ type PGPKeychain = {
 
 type Identity = {
   publicKey: string;
-  privKey?: string;
   mnemonic?: string;
   base58?: string;
   pgp: PGPKeychain;

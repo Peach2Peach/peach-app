@@ -49,8 +49,9 @@ exports[`OpenWallet should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
-          "color": "#7D675E",
+          "color": "#9F8C82",
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 14,
           "letterSpacing": 0.5,

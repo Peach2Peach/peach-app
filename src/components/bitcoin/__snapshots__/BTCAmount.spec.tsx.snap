@@ -84,9 +84,10 @@ exports[`BTCAmount should render correctly for large size 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
-                "opacity": 0.1,
+                "opacity": 0.2,
                 "textAlign": "right",
               },
               [
@@ -95,7 +96,10 @@ exports[`BTCAmount should render correctly for large size 1`] = `
                   "fontSize": 20,
                   "letterSpacing": 0.2,
                 },
-                false,
+                {
+                  "color": "#2B1911",
+                },
+                undefined,
               ],
             ],
             false,
@@ -115,6 +119,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "right",
@@ -125,7 +130,10 @@ exports[`BTCAmount should render correctly for large size 1`] = `
                   "fontSize": 20,
                   "letterSpacing": 0.2,
                 },
-                false,
+                {
+                  "color": "#2B1911",
+                },
+                undefined,
               ],
             ],
             false,
@@ -146,13 +154,17 @@ exports[`BTCAmount should render correctly for large size 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 20,
               "letterSpacing": 0.2,
             },
-            false,
+            {
+              "color": "#2B1911",
+            },
+            undefined,
           ],
           false,
         ]
@@ -216,7 +228,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
           ]
         }
       />
-@@ -87,12 +87,15 @@
+@@ -88,12 +88,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -230,11 +242,11 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
 +                   "marginBottom": -13,
 +                   "marginTop": -13,
                   },
-                  false,
-                ],
-              ],
-              false,
-@@ -117,12 +120,15 @@
+                  Object {
+                    "color": "#2B1911",
+                  },
+                  undefined,
+@@ -122,12 +125,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -248,13 +260,13 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
 +                   "marginBottom": -13,
 +                   "marginTop": -13,
                   },
-                  false,
-                ],
-              ],
-              false,
-@@ -144,12 +150,15 @@
-              "lineHeight": 24,
+                  Object {
+                    "color": "#2B1911",
+                  },
+                  undefined,
+@@ -153,12 +159,15 @@
             },
+            false,
             Array [
               Object {
                 "fontFamily": "Baloo2-SemiBold",
@@ -266,10 +278,10 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
 +               "marginBottom": -13,
 +               "marginTop": -13,
               },
-              false,
-            ],
-            false,
-          ]"
+              Object {
+                "color": "#2B1911",
+              },
+              undefined,"
 `;
 
 exports[`BTCAmount should render correctly for small size 1`] = `
@@ -337,7 +349,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
       }
     >
       <View
-@@ -87,12 +87,15 @@
+@@ -88,12 +88,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -351,11 +363,11 @@ exports[`BTCAmount should render correctly for small size 1`] = `
 +                   "marginBottom": -10,
 +                   "marginTop": -10,
                   },
-                  false,
-                ],
-              ],
-              false,
-@@ -117,12 +120,15 @@
+                  Object {
+                    "color": "#2B1911",
+                  },
+                  undefined,
+@@ -122,12 +125,15 @@
                   "textAlign": "right",
                 },
                 Array [
@@ -369,13 +381,13 @@ exports[`BTCAmount should render correctly for small size 1`] = `
 +                   "marginBottom": -10,
 +                   "marginTop": -10,
                   },
-                  false,
-                ],
-              ],
-              false,
-@@ -144,12 +150,15 @@
-              "lineHeight": 24,
+                  Object {
+                    "color": "#2B1911",
+                  },
+                  undefined,
+@@ -153,12 +159,15 @@
             },
+            false,
             Array [
               Object {
                 "fontFamily": "Baloo2-SemiBold",
@@ -387,10 +399,10 @@ exports[`BTCAmount should render correctly for small size 1`] = `
 +               "marginBottom": -10,
 +               "marginTop": -10,
               },
-              false,
-            ],
-            false,
-          ]"
+              Object {
+                "color": "#2B1911",
+              },
+              undefined,"
 `;
 
 exports[`BTCAmount should render correctly when showAmount is false 1`] = `
@@ -398,7 +410,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 - First value
 + Second value
 
-@@ -64,75 +64,123 @@
+@@ -64,83 +64,123 @@
             "alignItems": "center",
             "flexBasis": "0%",
             "flexDirection": "row",
@@ -425,6 +437,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +               "height": 8,
 +               "width": 8,
               },
+-             false,
 +             undefined,
 +           ]
 +         }
@@ -434,7 +447,7 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +         style={
             Array [
               Object {
--                 "opacity": 0.1,
+-                 "opacity": 0.2,
 -                 "textAlign": "right",
 +               "height": 8,
 +               "width": 8,
@@ -454,11 +467,23 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +               "height": 8,
 +               "width": 8,
               },
--                 false,
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
++           Array [
+              Object {
+-                   "color": "#2B1911",
++               "height": 8,
++               "width": 8,
+              },
+              undefined,
 -               ],
 -             ],
 -             false,
-+             undefined,
             ]
           }
 -       >
@@ -466,6 +491,18 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 -       </Text>
 -       <Text
 -         allowFontScaling={false}
++       />
++       <test-file-stub
++         fill="#888"
++         style={
++           Array [
++             Object {
++               "height": 8,
++               "width": 8,
++             },
++             undefined,
++           ]
++         }
 +       />
 +       <test-file-stub
 +         fill="#888"
@@ -479,31 +516,8 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 -               "lineHeight": 24,
 +               "height": 8,
 +               "width": 8,
-+             },
-+             undefined,
-+           ]
-+         }
-+       />
-+       <test-file-stub
-+         fill="#888"
-+         style={
-+           Array [
-+             Object {
-+               "height": 8,
-+               "width": 8,
-+             },
-+             undefined,
-+           ]
-+         }
-+       />
-+       <test-file-stub
-+         fill="#888"
-+         style={
-+           Array [
-+             Object {
-+               "height": 8,
-+               "width": 8,
               },
+-             false,
 +             undefined,
 +           ]
 +         }
@@ -514,18 +528,6 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
             Array [
               Object {
 -                 "textAlign": "right",
-+               "height": 8,
-+               "width": 8,
-+             },
-+             undefined,
-+           ]
-+         }
-+       />
-+       <test-file-stub
-+         fill="#888"
-+         style={
-+           Array [
-+             Object {
 +               "height": 8,
 +               "width": 8,
               },
@@ -544,11 +546,23 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
 +               "height": 8,
 +               "width": 8,
               },
--                 false,
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
++           Array [
+              Object {
+-                   "color": "#2B1911",
++               "height": 8,
++               "width": 8,
+              },
+              undefined,
 -               ],
 -             ],
 -             false,
-+             undefined,
             ]
           }
 -       >
@@ -646,9 +660,10 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
-                "opacity": 0.1,
+                "opacity": 0.2,
                 "textAlign": "right",
               },
               [
@@ -657,7 +672,10 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
                   "fontSize": 20,
                   "letterSpacing": 0.2,
                 },
-                false,
+                {
+                  "color": "#2B1911",
+                },
+                undefined,
               ],
             ],
             false,
@@ -677,6 +695,7 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "right",
@@ -687,7 +706,10 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
                   "fontSize": 20,
                   "letterSpacing": 0.2,
                 },
-                false,
+                {
+                  "color": "#2B1911",
+                },
+                undefined,
               ],
             ],
             false,
@@ -708,13 +730,17 @@ exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 20,
               "letterSpacing": 0.2,
             },
-            false,
+            {
+              "color": "#2B1911",
+            },
+            undefined,
           ],
           false,
         ]
@@ -810,9 +836,10 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
-                "opacity": 0.1,
+                "opacity": 0.2,
                 "textAlign": "right",
               },
               [
@@ -821,7 +848,10 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
                   "fontSize": 20,
                   "letterSpacing": 0.2,
                 },
-                false,
+                {
+                  "color": "#2B1911",
+                },
+                undefined,
               ],
             ],
             false,
@@ -841,6 +871,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "textAlign": "right",
@@ -851,7 +882,10 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
                   "fontSize": 20,
                   "letterSpacing": 0.2,
                 },
-                false,
+                {
+                  "color": "#2B1911",
+                },
+                undefined,
               ],
             ],
             false,
@@ -872,13 +906,17 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 20,
               "letterSpacing": 0.2,
             },
-            false,
+            {
+              "color": "#2B1911",
+            },
+            undefined,
           ],
           false,
         ]
@@ -895,49 +933,43 @@ exports[`BTCAmount should render correctly with white 1`] = `
 - First value
 + Second value
 
-@@ -90,11 +90,13 @@
-                  Object {
+@@ -92,11 +92,11 @@
                     "fontFamily": "Baloo2-SemiBold",
                     "fontSize": 20,
                     "letterSpacing": 0.2,
                   },
--                 false,
-+                 Object {
-+                   "color": "#FFFCFA",
-+                 },
+                  Object {
+-                   "color": "#2B1911",
++                   "color": "#BAADA7",
+                  },
+                  undefined,
                 ],
               ],
               false,
-            ]
-          }
-@@ -120,11 +122,13 @@
-                  Object {
+@@ -126,11 +126,11 @@
                     "fontFamily": "Baloo2-SemiBold",
                     "fontSize": 20,
                     "letterSpacing": 0.2,
                   },
--                 false,
-+                 Object {
-+                   "color": "#FFFCFA",
-+                 },
+                  Object {
+-                   "color": "#2B1911",
++                   "color": "#BAADA7",
+                  },
+                  undefined,
                 ],
               ],
               false,
-            ]
-          }
-@@ -147,11 +151,13 @@
-              Object {
+@@ -157,11 +157,11 @@
                 "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 20,
                 "letterSpacing": 0.2,
               },
--             false,
-+             Object {
-+               "color": "#FFFCFA",
-+             },
+              Object {
+-               "color": "#2B1911",
++               "color": "#BAADA7",
+              },
+              undefined,
             ],
             false,
-          ]
-        }
-      >"
+          ]"
 `;

@@ -55,7 +55,7 @@ export const PaymentMethodForm = () => {
 
   const onValid = (data: FormType) => {
     const { paymentMethodName, ...rest } = data;
-    const test = {
+    const finalData = {
       ...rest,
       id: id || `${paymentMethod}-${Date.now()}`,
       label: paymentMethodName,
@@ -63,10 +63,10 @@ export const PaymentMethodForm = () => {
       country,
     } satisfies PaymentData;
 
-    const dataIsValid = isValidPaymentData(test);
+    const dataIsValid = isValidPaymentData(finalData);
     if (dataIsValid) {
-      addPaymentData(test);
-      selectPaymentMethod(test.id);
+      addPaymentData(finalData);
+      selectPaymentMethod(finalData.id);
       goBackTo(origin);
     }
   };
@@ -231,6 +231,7 @@ function LNURLSwapsPopup() {
       title={i18n("help.lnurl.title")}
       content={
         <ParsedPeachText
+          style={tw`text-black-100`}
           parse={[
             {
               pattern: new RegExp(

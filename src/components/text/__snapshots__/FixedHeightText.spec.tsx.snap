@@ -20,6 +20,7 @@ exports[`FixedHeightText renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           undefined,
           {

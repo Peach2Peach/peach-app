@@ -1,11 +1,10 @@
 import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSetOverlay } from "../Overlay";
+import { useSetGlobalOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
-import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
@@ -23,7 +22,6 @@ export function useRefundSellOffer() {
   const setPopup = useSetPopup();
   const showError = useShowErrorBanner();
   const closePopup = useClosePopup();
-  const setOffer = useTradeSummaryStore((state) => state.setOffer);
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
   const [setShowBackupReminder, shouldShowBackupOverlay] = useSettingsStore(
     (state) => [state.setShowBackupReminder, state.shouldShowBackupOverlay],
@@ -71,7 +69,6 @@ export function useRefundSellOffer() {
         txId,
         refunded: true,
       });
-      setOffer(sellOffer.id, { txId });
       if (shouldShowBackupOverlay && isPeachWallet) {
         setShowBackupReminder(true);
       }
@@ -136,7 +133,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const goToWallet = () => {
     closePopup();
@@ -167,7 +164,7 @@ function CloseAction() {
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   return (
     <PopupAction

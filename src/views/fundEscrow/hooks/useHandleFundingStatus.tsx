@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSetOverlay } from "../../../Overlay";
+import { useSetGlobalOverlay } from "../../../Overlay";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { WronglyFundedPopup } from "../../../popups/WronglyFundedPopup";
@@ -12,8 +12,8 @@ import { useOfferMatches } from "../../search/hooks/useOfferMatches";
 type Props = {
   offerId: string;
   sellOffer?: SellOffer;
-  fundingStatus: FundingStatus;
-  userConfirmationRequired: boolean;
+  fundingStatus?: FundingStatus;
+  userConfirmationRequired?: boolean;
 };
 export const useHandleFundingStatus = ({
   offerId,
@@ -24,17 +24,17 @@ export const useHandleFundingStatus = ({
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
 
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const startRefund = useStartRefundPopup();
   const { refetch: fetchMatches } = useOfferMatches(
     offerId,
     undefined,
-    fundingStatus.status === "FUNDED",
+    fundingStatus?.status === "FUNDED",
   );
 
   useEffect(() => {
-    if (!sellOffer) return;
+    if (!sellOffer || !fundingStatus) return;
 
     info("Checked funding status", fundingStatus);
     const updatedOffer = {
@@ -44,10 +44,6 @@ export const useHandleFundingStatus = ({
 
     saveOffer(updatedOffer);
 
-    if (fundingStatus.status === "CANCELED") {
-      startRefund(sellOffer);
-      return;
-    }
     if (fundingStatus.status === "WRONG_FUNDING_AMOUNT") {
       setPopup(<WronglyFundedPopup sellOffer={sellOffer} />);
       return;

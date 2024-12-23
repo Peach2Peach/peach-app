@@ -1,28 +1,36 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
-import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { getBuyOfferIdFromContract } from "../contract/getBuyOfferIdFromContract";
 import { useWalletState } from "./walletStore";
 
-export const mapTransactionToOffer = ({ txid }: TransactionDetails) => {
-  const sellOffers = useTradeSummaryStore
-    .getState()
-    .offers.filter(
+export const mapTransactionToOffer =
+  ({
+    offers,
+    contracts,
+  }: {
+    offers: { id: string; fundingTxId?: string; txId?: string }[];
+    contracts: { id: string; releaseTxId?: string }[];
+  }) =>
+  ({ txid }: TransactionDetails) => {
+    const sellOffers = offers.filter(
       (offer) => offer.txId === txid || offer.fundingTxId === txid,
     );
-  if (sellOffers.length) {
-    useWalletState.getState().updateTxOfferMap(
-      txid,
-      sellOffers.map(({ id }) => id),
-    );
-    return;
-  }
+    if (sellOffers.length) {
+      useWalletState.getState().updateTxOfferMap(
+        txid,
+        sellOffers.map(({ id }) => id),
+      );
+      return;
+    }
 
-  const contracts = useTradeSummaryStore
-    .getState()
-    .contracts.filter((cntrct) => cntrct.releaseTxId === txid);
-  if (contracts.length) {
-    useWalletState
-      .getState()
-      .updateTxOfferMap(txid, contracts.map(getBuyOfferIdFromContract));
-  }
-};
+    const filteredContracts = contracts.filter(
+      (contract) => contract.releaseTxId === txid,
+    );
+    if (filteredContracts.length) {
+      useWalletState
+        .getState()
+        .updateTxOfferMap(
+          txid,
+          filteredContracts.map(getBuyOfferIdFromContract),
+        );
+    }
+  };

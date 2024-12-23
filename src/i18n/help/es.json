@@ -26,7 +26,7 @@
   "help.makePayment.title" : "¡paga rápidamente!",
   "help.mempool.description" : "Cuando realizas una transacción de bitcoin, no se procesa de inmediato.\n\nEn su lugar, se colocan primero en una lista de transacciones no confirmadas llamada la \"mempool\". Las transacciones que pagan la comisión más alta se procesarán primero.",
   "help.mempool.title" : "la mempool",
-  "help.networkFees.description.1" : "Estas son las comisiones que pagas a la red de bitcoin para recibir tus satoshis después de un intercambio, o en caso de un reembolso. Estas comisiones cambian con el tiempo, dependiendo de lo ocupada que esté la red.",
+  "help.networkFees.description.1" : "Son las comisiones que pagas a la red bitcoin por enviar transacciones. Se deducen de cualquier pago de un depósito Peach, y las pagas cuando envías desde tu wallet Peach,",
   "help.networkFees.description.2" : "Cuanto más ocupada esté la red, más tendrás que pagar para obtener una confirmación rápida.",
   "help.networkFees.title" : "comisiones de red de bitcoin",
   "help.paymentMethodDelete.description" : "Esto no se puede deshacer",

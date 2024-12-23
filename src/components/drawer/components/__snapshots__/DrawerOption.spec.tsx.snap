@@ -62,6 +62,7 @@ exports[`DrawerOption should render correctly when highlighted 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-Regular",
@@ -91,6 +92,7 @@ exports[`DrawerOption should render correctly when highlighted 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-Regular",
@@ -199,6 +201,7 @@ exports[`DrawerOption should render correctly with only title 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -305,6 +308,7 @@ exports[`DrawerOption should render correctly with title and flagID 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -401,6 +405,7 @@ exports[`DrawerOption should render correctly with title and iconRightID 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -535,6 +540,7 @@ exports[`DrawerOption should render correctly with title and logoID 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -621,6 +627,7 @@ exports[`DrawerOption should render correctly with title and subtext 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-Regular",
@@ -648,6 +655,7 @@ exports[`DrawerOption should render correctly with title and subtext 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-Regular",
@@ -749,6 +757,7 @@ exports[`DrawerOption should render correctly with title, flagID and iconRightID
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -883,6 +892,7 @@ exports[`DrawerOption should render correctly with title, logoID and iconRightID
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -1004,6 +1014,7 @@ exports[`DrawerOption should render correctly with title, subtext and flagID 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -1043,6 +1054,7 @@ exports[`DrawerOption should render correctly with title, subtext and flagID 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -1128,6 +1140,7 @@ exports[`DrawerOption should render correctly with title, subtext and iconRightI
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-Regular",
@@ -1155,6 +1168,7 @@ exports[`DrawerOption should render correctly with title, subtext and iconRightI
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "fontFamily": "Baloo2-Regular",
@@ -1271,6 +1285,7 @@ exports[`DrawerOption should render correctly with title, subtext, flagID and ic
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",
@@ -1310,6 +1325,7 @@ exports[`DrawerOption should render correctly with title, subtext, flagID and ic
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "fontFamily": "Baloo2-Regular",

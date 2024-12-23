@@ -36,6 +36,7 @@ type EuPaymentMethods =
   | "sepa"
   | "skrill"
   | "straksbetaling"
+  | "strike"
   | "swish"
   | "twint"
   | "vipps"

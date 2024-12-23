@@ -1,8 +1,8 @@
 type Onboarding = {
   welcome: undefined;
-  newUser: {
-    referralCode?: string;
-  };
+  userExistsForDevice: { referralCode?: string };
+  accountCreated: undefined;
+  createAccountError: { err: string; referralCode?: string };
   userSource: undefined;
   restoreBackup: { tab: "fileBackup" | "seedPhrase" } | undefined;
   restoreReputation: {
@@ -111,7 +111,6 @@ type RootStackParamList = Onboarding &
       reason: ContactReason;
       topic?: string;
       message?: string;
-      shareDeviceID?: boolean;
     };
     language: undefined;
     currency: undefined;

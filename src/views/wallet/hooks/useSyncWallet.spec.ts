@@ -70,14 +70,4 @@ describe("useSyncWallet", () => {
     await waitFor(() => expect(result.current.isFetching).toBe(false));
     expect(mockSyncWallet).toHaveBeenCalledTimes(0);
   });
-  it("should handle wallet sync errors", async () => {
-    mockSyncWallet.mockImplementation(() => {
-      throw new Error("error");
-    });
-    renderHook(() => useSyncWallet({ enabled: true }));
-
-    await waitFor(() => {
-      expect(mockShowErrorBanner).toHaveBeenCalledWith("WALLET_SYNC_ERROR");
-    });
-  });
 });

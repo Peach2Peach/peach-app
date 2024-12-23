@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { RNCamera } from "react-native-camera";
 import { toMatchDiffSnapshot } from "snapshot-diff";
-import { fireEvent, render } from "test-utils";
+import { act, fireEvent, render } from "test-utils";
 import { QRCodeScanner } from "./QRCodeScanner";
 expect.extend({ toMatchDiffSnapshot });
 
@@ -20,7 +20,9 @@ describe("QRCodeScanner", () => {
   });
   it("fades in", () => {
     const { toJSON } = render(defaultScanner);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(render(defaultScanner).toJSON()).toMatchDiffSnapshot(toJSON());
   });
   it("calls onRead when a QR code is read", () => {

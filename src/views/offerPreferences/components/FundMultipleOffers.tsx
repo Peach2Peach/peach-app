@@ -13,6 +13,7 @@ export const FundMultipleOffers = () => {
     (state) => [state.multi, state.setMulti],
     shallow,
   );
+
   const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
 
   return (

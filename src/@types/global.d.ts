@@ -17,10 +17,6 @@ type ComponentProps = {
   onLayout?: (event: LayoutChangeEvent) => void;
 };
 
-type AnyObject = {
-  [key: string]: unknown;
-};
-
 type TradeTab = "yourTrades.buy" | "yourTrades.sell" | "yourTrades.history";
 
 type BitcoinNetwork = "bitcoin" | "testnet" | "regtest";
@@ -141,10 +137,7 @@ type Config = {
   paymentMethods: PaymentMethodInfo[];
   peachPGPPublicKey: string;
   peachFee: number;
-  minAppVersion: string;
-  latestAppVersion: string;
   minTradingAmount: number;
   maxTradingAmount: number;
   seenDisputeDisclaimer: boolean;
-  hasSeenGroupHugAnnouncement: boolean;
 };

@@ -15,12 +15,11 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   derivationPath: state.derivationPath,
   displayCurrency: state.displayCurrency,
   country: state.country,
-  fcmToken: state.fcmToken,
   lastFileBackupDate: state.lastFileBackupDate,
   lastSeedBackupDate: state.lastSeedBackupDate,
   showBackupReminder: state.showBackupReminder,
   shouldShowBackupOverlay: state.shouldShowBackupOverlay,
   nodeURL: state.nodeURL,
-  usedReferralCode: state.usedReferralCode,
   cloudflareChallenge: state.cloudflareChallenge,
+  isLoggedIn: state.isLoggedIn,
 });

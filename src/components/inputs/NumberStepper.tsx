@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
@@ -23,6 +24,8 @@ export const NumberStepper = ({
   const canDecrease = value > min;
   const canIncrease = value < max;
 
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View style={[tw`flex-row gap-3`, style]}>
       <TouchableOpacity
@@ -33,7 +36,14 @@ export const NumberStepper = ({
       >
         <Icon id="minusCircle" size={24} color={tw.color("primary-main")} />
       </TouchableOpacity>
-      <PeachText style={tw`h5 w-11 text-center`}>x {value}</PeachText>
+      <PeachText
+        style={[
+          tw`text-center h5 w-11`,
+          tw`text-${isDarkMode ? "backgroundLight-light" : "black-100"}`,
+        ]}
+      >
+        x {value}
+      </PeachText>
       <TouchableOpacity
         onPress={increase}
         accessibilityHint={i18n("number.increase")}

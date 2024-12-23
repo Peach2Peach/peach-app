@@ -40,6 +40,7 @@ exports[`Badge should render correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             [
               {
@@ -119,6 +120,7 @@ exports[`Badge should render correctly if badge is unlocked 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             [
               {

@@ -22,23 +22,21 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { marketKeys, useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { convertFiatToSats } from "../../utils/market/convertFiatToSats";
-import { getTradingAmountLimits } from "../../utils/market/getTradingAmountLimits";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
@@ -77,7 +75,12 @@ export function SellOfferPreferences() {
   return (
     <PreferenceScreen
       header={<SellHeader />}
-      button={<SellAction />}
+      button={
+        <>
+          <FundWithPeachWallet />
+          <FundEscrowButton />
+        </>
+      }
       isSliding={isSliding}
     >
       <SellPreferenceMarketInfo />
@@ -192,8 +195,11 @@ function AmountSelectorContainer({
   slider?: JSX.Element;
   inputs?: JSX.Element;
 }) {
+  const { isDarkMode } = useThemeStore();
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+    >
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
@@ -270,8 +276,7 @@ type SellAmountSliderProps = {
 };
 
 function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
-  const { data } = useMarketPrices();
-  const [, maxLimit] = getTradingAmountLimits(data?.CHF || 0, "sell");
+  const [, maxLimit] = useTradingAmountLimits("sell");
 
   const trackMax = trackWidth - sliderWidth;
   const trackDelta = trackMax - trackMin;
@@ -304,7 +309,7 @@ function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
 }
 
 export const inputContainerStyle = [
-  "items-center justify-center flex-1 bg-primary-background-light flex-row h-7",
+  "items-center justify-center flex-1 bg-primary-background-light-color flex-row h-7",
   "border rounded-lg border-black-25",
 ];
 
@@ -372,7 +377,7 @@ function FiatInput() {
   }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
     const newFiatValue = Number(text);
     const newSatsAmount = restrictAmount(
-      convertFiatToSats(newFiatValue, bitcoinPrice),
+      Math.round((newFiatValue / bitcoinPrice) * SATSINBTC),
     );
     setAmount(newSatsAmount);
     const restrictedFiatValue = priceFormat(
@@ -384,10 +389,23 @@ function FiatInput() {
   const displayValue = inputRef.current?.isFocused()
     ? inputValue
     : priceFormat(fiatPrice);
+
+  const { isDarkMode } = useThemeStore();
+
   return (
-    <View style={tw.style(inputContainerStyle)}>
+    <View
+      style={[
+        tw.style(inputContainerStyle),
+        isDarkMode && tw`bg-transparent border-black-25`,
+      ]}
+    >
       <TextInput
-        style={tw.style(textStyle)}
+        style={[
+          tw.style(textStyle),
+          isDarkMode
+            ? tw`bg-transparent text-backgroundLight-light`
+            : tw`text-black-100`,
+        ]}
         ref={inputRef}
         value={displayValue}
         onFocus={onFocus}
@@ -395,7 +413,12 @@ function FiatInput() {
         onEndEditing={onEndEditing}
         keyboardType="decimal-pad"
       />
-      <PeachText style={tw.style(textStyle)}>
+      <PeachText
+        style={[
+          tw.style(textStyle),
+          isDarkMode && tw`text-backgroundLight-light`,
+        ]}
+      >
         {" "}
         {i18n(displayCurrency)}
       </PeachText>
@@ -405,9 +428,11 @@ function FiatInput() {
 
 function FundMultipleOffersContainer() {
   const setPopup = useSetPopup();
+
+  const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`flex-row items-start justify-between bg-primary-background-dark`}
+      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
     >
       <FundMultipleOffers />
       <TouchableIcon
@@ -458,8 +483,12 @@ function InstantTrade() {
     toggle();
   };
 
+  const { isDarkMode } = useThemeStore();
+
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+    >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>
@@ -507,26 +536,12 @@ function InstantTrade() {
   );
 }
 
-function SellAction() {
-  const [fundWithPeachWallet, toggle] = useToggleBoolean();
-  return (
-    <>
-      <FundWithPeachWallet
-        fundWithPeachWallet={fundWithPeachWallet}
-        toggle={toggle}
-      />
-      <FundEscrowButton fundWithPeachWallet={fundWithPeachWallet} />
-    </>
+function FundWithPeachWallet() {
+  const [fundWithPeachWallet, setFundWithPeachWallet] = useOfferPreferences(
+    (state) => [state.fundWithPeachWallet, state.setFundWithPeachWallet],
+    shallow,
   );
-}
-
-function FundWithPeachWallet({
-  fundWithPeachWallet,
-  toggle,
-}: {
-  fundWithPeachWallet: boolean;
-  toggle: () => void;
-}) {
+  const toggle = () => setFundWithPeachWallet(!fundWithPeachWallet);
   const { user } = useSelfUser();
   const feeRate = user?.feeRate || "halfHourFee";
   const feeEstimate = useFeeEstimate();
@@ -548,14 +563,14 @@ function FundWithPeachWallet({
   );
 }
 
-function FundEscrowButton({
-  fundWithPeachWallet,
-}: {
-  fundWithPeachWallet: boolean;
-}) {
+function FundEscrowButton() {
   const amountRange = useTradingAmountLimits("sell");
-  const [sellAmount, instantTrade] = useOfferPreferences(
-    (state) => [state.sellAmount, state.instantTrade],
+  const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
+    (state) => [
+      state.sellAmount,
+      state.instantTrade,
+      state.fundWithPeachWallet,
+    ],
     shallow,
   );
   const [isPublishing, setIsPublishing] = useState(false);
@@ -599,36 +614,32 @@ function FundEscrowButton({
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
 
-  const getPaymentData = () => {
+  const getPaymentData = async () => {
     const { paymentData, originalPaymentData } = sellPreferences;
+    let finalPaymentData = paymentData;
     if (instantTrade) {
-      return keys(paymentData).reduce(
-        async (accPromise: Promise<OfferPaymentData>, paymentMethod) => {
-          const acc = await accPromise;
-          const originalData = originalPaymentData.find(
-            (e) => e.type === paymentMethod,
+      const selectedMethods = keys(paymentData);
+      for (const method of selectedMethods) {
+        const originalData = originalPaymentData.find((e) => e.type === method);
+        if (originalData) {
+          const cleanedData = cleanPaymentData(originalData);
+          // eslint-disable-next-line no-await-in-loop
+          const { encrypted, signature } = await signAndEncrypt(
+            JSON.stringify(cleanedData),
+            peachPGPPublicKey,
           );
-          if (originalData) {
-            const cleanedData = cleanPaymentData(originalData);
-            const { encrypted, signature } = await signAndEncrypt(
-              JSON.stringify(cleanedData),
-              peachPGPPublicKey,
-            );
-            return {
-              ...acc,
-              [paymentMethod]: {
-                ...paymentData[paymentMethod],
-                encrypted,
-                signature,
-              },
-            };
-          }
-          return acc;
-        },
-        Promise.resolve({}),
-      );
+          finalPaymentData = {
+            ...finalPaymentData,
+            [method]: {
+              ...finalPaymentData[method],
+              encrypted,
+              signature,
+            },
+          };
+        }
+      }
     }
-    return Promise.resolve(paymentData);
+    return finalPaymentData;
   };
 
   const showPublishingError = () => {
@@ -808,7 +819,7 @@ function RefundWalletSelector() {
   return (
     <WalletSelector
       title={i18n("offerPreferences.refundTo")}
-      backgroundColor={tw.color("primary-background-dark")}
+      backgroundColor={tw.color("primary-background-dark-color")}
       bubbleColor="orange"
       peachWalletActive={refundToPeachWallet}
       address={refundAddress}
@@ -822,6 +833,8 @@ function RefundWalletSelector() {
 function SellHeader() {
   const setPopup = useSetPopup();
   const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
+
+  const { isDarkMode } = useThemeStore();
   return (
     <Header
       titleComponent={
@@ -829,9 +842,16 @@ function SellHeader() {
           <PeachText style={tw`h7 md:h6 text-primary-main`}>
             {i18n("sell")}
           </PeachText>
-          <LogoIcons.bitcoinText
-            style={tw`h-14px md:h-16px w-63px md:w-71px`}
-          />
+          {/* Conditionally render the logo based on dark mode */}
+          {isDarkMode ? (
+            <LogoIcons.bitcoinTextDark
+              style={tw`h-14px md:h-16px w-63px md:w-71px`}
+            />
+          ) : (
+            <LogoIcons.bitcoinText
+              style={tw`h-14px md:h-16px w-63px md:w-71px`}
+            />
+          )}
         </>
       }
       icons={[{ ...headerIcons.help, onPress }]}

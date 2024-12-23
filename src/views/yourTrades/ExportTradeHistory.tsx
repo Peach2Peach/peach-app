@@ -7,6 +7,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { THOUSANDS_GROUP } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { writeCSV } from "../../hooks/writeCSV";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { sortByKey } from "../../utils/array/sortByKey";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
@@ -21,6 +22,7 @@ import { isContractSummary } from "./utils/isContractSummary";
 
 export function ExportTradeHistory() {
   const { summaries } = useTradeSummaries();
+  const { isDarkMode } = useThemeStore();
 
   const onPress = async () => {
     const csvValue = createCSVValue(
@@ -32,7 +34,9 @@ export function ExportTradeHistory() {
   return (
     <Screen header={i18n("exportTradeHistory.title")}>
       <View style={tw`justify-center gap-8 grow`}>
-        <PeachText style={tw`body-l`}>
+        <PeachText
+          style={tw`body-l ${isDarkMode ? "text-primary-background-light-color" : "text-black-100"}`}
+        >
           {`${i18n("exportTradeHistory.description")}
 
   • ${i18n("exportTradeHistory.date")}

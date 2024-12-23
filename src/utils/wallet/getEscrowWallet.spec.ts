@@ -1,4 +1,3 @@
-import { deepStrictEqual, strictEqual } from "assert";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { getEscrowWallet } from "./getEscrowWallet";
 import { getNetwork } from "./getNetwork";
@@ -14,8 +13,12 @@ describe("getEscrowWallet", () => {
 
     const escrowWallet = getEscrowWallet(recoveredWallet, "1");
 
-    deepStrictEqual(escrowWallet.network, network, "Network is not correct");
-    strictEqual(escrowWallet.privateKey?.toString("hex"), expectedPrivateKey);
-    strictEqual(escrowWallet.publicKey.toString("hex"), expectedPublicKey);
+    expect(escrowWallet.network).toStrictEqual(network);
+    expect(escrowWallet.privateKey?.toString("hex")).toStrictEqual(
+      expectedPrivateKey,
+    );
+    expect(escrowWallet.publicKey.toString("hex")).toStrictEqual(
+      expectedPublicKey,
+    );
   });
 });

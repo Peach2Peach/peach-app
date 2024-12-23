@@ -32,10 +32,8 @@ exports[`UserId should render correctly 1`] = `
   style={
     {
       "alignItems": "center",
-      "backgroundColor": "#FEEDE5",
-      "borderColor": "#FCCCB6",
+      "backgroundColor": "#F56522",
       "borderRadius": 8,
-      "borderWidth": 1,
       "flexDirection": "row",
       "gap": 4,
       "height": 28,
@@ -59,9 +57,10 @@ exports[`UserId should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           {
-            "color": "#2B1911",
+            "color": "#FFFCFA",
           },
           {
             "fontFamily": "Baloo2-SemiBold",
@@ -80,7 +79,7 @@ exports[`UserId should render correctly 1`] = `
     PeachuserId
   </Text>
   <test-file-stub
-    fill="#F56522"
+    fill="#FFFCFA"
     style={
       [
         {

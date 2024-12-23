@@ -1,13 +1,9 @@
 import { Fragment } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { TouchableIcon } from "../../../components/TouchableIcon";
 import { Toggle } from "../../../components/inputs/Toggle";
-import { PeachText } from "../../../components/text/PeachText";
 import { ErrorBox } from "../../../components/ui/ErrorBox";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
-import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
-import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../../hooks/wallet/useIsMyAddress";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
@@ -56,7 +52,6 @@ export const TradeDetails = () => {
         <>
           <HorizontalLine />
           <ChangePayoutWallet />
-          {!contract.paymentConfirmed && <NetworkFee />}
         </>
       )}
       {!paymentData && isDecryptionError && (
@@ -94,11 +89,7 @@ function ChangePayoutWallet() {
       const { address: releaseAddress, index } = await peachWallet.getAddress();
 
       const message = getMessageToSignForAddress(publicKey, releaseAddress);
-      const messageSignature = peachWallet.signMessage(
-        message,
-        releaseAddress,
-        index,
-      );
+      const messageSignature = peachWallet.signMessage(message, index);
 
       mutate({ releaseAddress, messageSignature });
     } else {
@@ -167,40 +158,6 @@ function ChangePayoutWallet() {
         />
       )}
     </>
-  );
-}
-
-function NetworkFee() {
-  const navigation = useStackNavigation();
-  const { estimatedFees } = useFeeEstimate();
-  const { user } = useSelfUser();
-  const feeRate = user?.feeRate || "halfHourFee";
-  const onPress = () => {
-    navigation.navigate("networkFees");
-  };
-
-  const displayFeeRate = String(
-    typeof feeRate === "number" ? feeRate : estimatedFees[feeRate],
-  );
-
-  return (
-    <SummaryItem
-      label={i18n("settings.networkFees")}
-      value={
-        <View style={tw`flex-row items-center justify-end flex-1 gap-10px`}>
-          <PeachText
-            style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]}
-          >
-            {i18n("settings.networkFees.xSatsPerByte", displayFeeRate)}
-          </PeachText>
-          <TouchableIcon
-            id="bitcoin"
-            onPress={onPress}
-            iconColor={tw.color("primary-main")}
-          />
-        </View>
-      }
-    />
   );
 }
 

@@ -24,7 +24,7 @@ exports[`CurrencyTabs should render correctly 1`] = `
         "backgroundColor": "transparent",
       },
       "tabBarIndicatorStyle": {
-        "backgroundColor": "#2B1911",
+        "backgroundColor": "#F56522",
       },
       "tabBarItemStyle": {
         "paddingBottom": 0,

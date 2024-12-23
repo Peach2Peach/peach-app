@@ -2,11 +2,7 @@ import messaging from "@react-native-firebase/messaging";
 import { error } from "../log/error";
 import { parseError } from "../parseError";
 
-/**
- * @description Method to check if app is allowed to receive push notifications on iOS
- * @returns true if notifications are enabled
- */
-export const checkNotificationStatusIOS = async (): Promise<boolean> => {
+export const checkNotificationStatusIOS = async () => {
   try {
     const authStatus = await messaging().hasPermission();
     if (

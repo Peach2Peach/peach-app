@@ -21,13 +21,13 @@ import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { rules } from "../../utils/validation/rules";
 import { peachWallet } from "../../utils/wallet/setWallet";
-import { useWalletState } from "../../utils/wallet/walletStore";
 import { goToShiftCrypto } from "../../utils/web/goToShiftCrypto";
 import { CustomFeeItem } from "../settings/components/networkFees/CustomFeeItem";
 import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFeeItem";
 import { UTXOAddress } from "./components";
 import { WithdrawalConfirmationPopup } from "./components/WithdrawalConfirmationPopup";
 import { useUTXOs } from "./hooks";
+import { useSyncWallet } from "./hooks/useSyncWallet";
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState("");
@@ -107,7 +107,7 @@ export const SendBitcoin = () => {
               textStyle={tw`absolute w-full py-0 opacity-0 grow h-38px input-text`}
               containerStyle={[
                 tw`self-stretch justify-center px-2 py-3 overflow-hidden h-38px rounded-xl`,
-                tw`border bg-primary-background-light border-black-65`,
+                tw`border border-black-65`,
               ]}
             />
           </Section>
@@ -137,13 +137,13 @@ function SendBitcoinSlider({
   onConfirm: () => void;
   isFormValid: boolean;
 }) {
-  const isSynced = useWalletState((state) => state.isSynced);
+  const { isPending } = useSyncWallet({ enabled: true });
 
   return (
     <ConfirmSlider
       label1={i18n("wallet.sendBitcoin.send")}
       onConfirm={onConfirm}
-      enabled={isFormValid && isSynced}
+      enabled={isFormValid && !isPending}
     />
   );
 }
@@ -237,7 +237,9 @@ function SendBitcoinHeader() {
         {
           ...headerIcons.listFlipped,
           onPress: () => navigation.navigate("coinSelection"),
-          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.coinControl.title")}`,
+          accessibilityHint: `${i18n("goTo")} ${i18n(
+            "wallet.coinControl.title",
+          )}`,
         },
         {
           ...headerIcons.help,
@@ -255,6 +257,7 @@ function WithdrawingFundsPopup() {
       title={i18n("wallet.withdraw.help.title")}
       content={
         <ParsedPeachText
+          style={tw`text-black-100`}
           parse={[
             {
               pattern: new RegExp(i18n("wallet.withdraw.help.text.link"), "u"),

@@ -1,7 +1,7 @@
 {
   "help" : "pomoc",
   "help.acceptMatch.description" : "Możesz dopasować tylko jednego kupującego do jednej oferty. Po zaakceptowaniu dopasowania, handel się rozpoczyna. Po rozpoczęciu możesz jedynie wspólnie z kupującym anulować transakcję, w przeciwnym razie Twoja reputacja ucierpi.",
-  "help.acceptMatch.title" : "zaakceptuj dopasowanie = rozpocznij tramsakcję",
+  "help.acceptMatch.title" : "zaakceptuj dopasowanie = rozpocznij transakcję",
   "help.addressSigning.description" : "Szwajcarskie prawo wymaga wygenerowania podpisu potwierdzającego, że jesteś właścicielem adresu, na który zostanie przelana transakcja. Jeżeli nie wiesz jak to zrobić, polecamy użyć portfela Peach, który nie wymaga wykonywania tego kroku ręcznie.",
   "help.addressSigning.title" : "podpisywanie adresu",
   "help.buyingBitcoin.description" : "Kupując bitcoiny na Peach, najpierw wybierzesz zakres, ile chcesz kupić. Po wyborze zostaną Ci pokazane wszystkie oferty sprzedaży, które mieszczą się w tym zakresie. Opłaty Peach wynoszą 2% od kwoty transakcji.",
@@ -26,7 +26,7 @@
   "help.makePayment.title" : "Zapłać szybko!",
   "help.mempool.description" : "Gdy dokonujesz transakcji w bitcoinie, nie jest ona od razu przetwarzana. Zamiast tego, trafia najpierw na listę niepotwierdzonych transakcji zwaną \"mempool\". Transakcje, za które zapłacono najwyższą opłatę, będą przetwarzane w pierwszej kolejności.",
   "help.mempool.title" : "mempool",
-  "help.networkFees.description.1" : "Oto opłaty, które płacisz sieci Bitcoin, aby otrzymać swoje satsy po transakcji lub w przypadku zwrotu. Opłaty te zmieniają się w czasie, w zależności od obciążenia sieci. ",
+  "help.networkFees.description.1" : "Są to opłaty uiszczane na rzecz sieci Bitcoin za wysyłanie transakcji. Są one odejmowane od wszelkich wypłat z depozytu Peach i płacisz je podczas wysyłania z portfela Peach,",
   "help.networkFees.description.2" : "Im bardziej obciążona jest sieć, tym więcej będziesz musiał zapłacić, aby uzyskać szybkie potwierdzenie.",
   "help.networkFees.title" : "opłaty sieci bitcoin",
   "help.paymentMethodDelete.description" : "Tego się nie da cofnąć",

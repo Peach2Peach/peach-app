@@ -41,9 +41,10 @@ describe("useFundingStatus", () => {
     });
 
     expect(result.current).toEqual({
-      fundingStatus: defaultFundingStatus,
-      userConfirmationRequired: false,
+      fundingStatus: undefined,
+      userConfirmationRequired: undefined,
       isLoading: true,
+      isPending: true,
       error: null,
     });
 
@@ -53,10 +54,11 @@ describe("useFundingStatus", () => {
       fundingStatus: inMempool.funding,
       userConfirmationRequired: inMempool.userConfirmationRequired,
       isLoading: false,
+      isPending: false,
       error: null,
     });
   });
-  it("returns default funding status if API does not return one", async () => {
+  it("returns error", async () => {
     getFundingStatusMock.mockResolvedValueOnce({
       error: { error: "UNAUTHORIZED" },
       ...responseUtils,
@@ -66,19 +68,13 @@ describe("useFundingStatus", () => {
       initialProps: sellOffer.id,
     });
 
-    expect(result.current).toEqual({
-      fundingStatus: defaultFundingStatus,
-      userConfirmationRequired: false,
-      isLoading: true,
-      error: null,
-    });
-
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
     expect(result.current).toEqual({
-      fundingStatus: defaultFundingStatus,
-      userConfirmationRequired: false,
+      fundingStatus: undefined,
+      userConfirmationRequired: undefined,
       isLoading: false,
+      isPending: false,
       error: new Error("UNAUTHORIZED"),
     });
   });

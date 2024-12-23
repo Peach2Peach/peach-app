@@ -5,7 +5,6 @@ import { ContractSummary } from "../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
 import { LinedText } from "../../components/ui/LinedText";
@@ -18,6 +17,7 @@ import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { parseError } from "../../utils/parseError";
 import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeItem } from "./components/TradeItem";
 import { TradePlaceholders } from "./components/TradePlaceholders";
 import { getCategories } from "./utils/getCategories";
@@ -30,7 +30,8 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
-  const { summaries, isLoading, error, refetch } = useTradeSummaries();
+  const { summaries, isLoading, isRefetching, error, refetch } =
+    useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
 
@@ -52,6 +53,8 @@ export const YourTrades = () => {
             options={{
               title: `${i18n(tab)}`,
               tabBarBadge: () => <TabBarBadge summaries={summaries[tab]} />,
+              lazy: true,
+              lazyPlaceholder: () => <LoadingScreen />,
             }}
             children={() => (
               <View style={tw`grow`} onStartShouldSetResponder={() => true}>
@@ -62,7 +65,7 @@ export const YourTrades = () => {
                       isLoading && tw`opacity-60`,
                     ]}
                     onRefresh={refetch}
-                    refreshing={false}
+                    refreshing={isRefetching}
                     showsVerticalScrollIndicator={false}
                     sections={getCategories(summaries[tab])}
                     renderSectionHeader={SectionHeader}
@@ -85,14 +88,6 @@ export const YourTrades = () => {
           />
         ))}
       </YourTradesTab.Navigator>
-      {isLoading && (
-        <View
-          style={tw`absolute inset-0 items-center justify-center`}
-          pointerEvents="none"
-        >
-          <Loading />
-        </View>
-      )}
     </Screen>
   );
 };
@@ -145,8 +140,8 @@ export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {
   return data.length !== 0 && title !== "priority" ? (
-    <LinedText style={tw`pb-7 bg-primary-background-main`}>
-      <PeachText style={tw`text-black-65`}>
+    <LinedText style={tw`pb-7 bg-transparent`}>
+      <PeachText style={tw`text-black-50`}>
         {i18n(`yourTrades.${title}`)}
       </PeachText>
     </LinedText>

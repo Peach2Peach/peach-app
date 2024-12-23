@@ -22,7 +22,6 @@ exports[`MeetupScreen should render correctly 1`] = `
       <PeachText
         style={
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 20,
             "letterSpacing": 0.2,
@@ -76,7 +75,6 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
       <PeachText
         style={
           {
-            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 20,
             "letterSpacing": 0.2,

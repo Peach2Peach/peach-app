@@ -6,7 +6,7 @@ exports[`FileInput renders correctly 1`] = `
   icons={
     [
       [
-        "clipboard",
+        "upload",
         [Function],
       ],
     ]

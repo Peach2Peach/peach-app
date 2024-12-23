@@ -80,6 +80,7 @@ exports[`PopupActions renders correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
               "color": "#FFFCFA",

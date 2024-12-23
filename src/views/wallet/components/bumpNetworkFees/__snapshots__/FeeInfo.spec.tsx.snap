@@ -5,7 +5,7 @@ exports[`FeeInfo renders correctly 1`] = `
   <PeachText
     style={
       {
-        "color": "#7D675E",
+        "color": "#9F8C82",
         "textAlign": "center",
       }
     }
@@ -38,7 +38,7 @@ exports[`FeeInfo renders correctly with error indication 1`] = `
   <PeachText
     style={
       {
-        "color": "#7D675E",
+        "color": "#9F8C82",
         "textAlign": "center",
       }
     }

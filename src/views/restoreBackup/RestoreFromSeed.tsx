@@ -31,11 +31,11 @@ export const RestoreFromSeed = () => {
         contentContainerStyle={tw`py-4`}
         contentStyle={tw`gap-4`}
       >
-        <PeachText style={tw`text-center text-primary-background-light`}>
+        <PeachText style={tw`text-center text-primary-background-light-color`}>
           {i18n("restoreBackup.seedPhrase.useBackupFile")}
         </PeachText>
         <PeachText
-          style={tw`text-center subtitle-1 text-primary-background-light`}
+          style={tw`text-center subtitle-1 text-primary-background-light-color`}
         >
           {i18n("restoreBackup.seedPhrase.enter")}
         </PeachText>
@@ -64,14 +64,16 @@ export const RestoreFromSeed = () => {
         </View>
         {allWordsAreSet && !isMnemonicValid && (
           <PeachText
-            style={[tw`text-center tooltip text-primary-background-light`]}
+            style={[
+              tw`text-center tooltip text-primary-background-light-color`,
+            ]}
           >
             {i18n("form.bip39.error")}
           </PeachText>
         )}
       </PeachScrollView>
       <Button
-        style={tw`self-center bg-primary-background-light`}
+        style={tw`self-center bg-primary-background-light-color`}
         textColor={tw.color("primary-main")}
         disabled={!isMnemonicValid}
         iconId="save"

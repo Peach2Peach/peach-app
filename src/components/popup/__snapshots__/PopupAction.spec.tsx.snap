@@ -66,6 +66,7 @@ exports[`PopupAction renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
           {
             "color": "#FFFCFA",
@@ -123,7 +124,7 @@ exports[`PopupAction renders correctly when loading 1`] = `
       }
     }
     accessibilityValue={
-@@ -38,21 +38,43 @@
+@@ -38,21 +38,13 @@
         "paddingRight": 24,
         "paddingTop": 8,
       }
@@ -131,46 +132,24 @@ exports[`PopupAction renders correctly when loading 1`] = `
   >
 -   <test-file-stub
 -     fill="#FFFCFA"
-+   <LottieAnimationView
-+     autoPlay={true}
-+     cacheComposition={true}
-+     colorFilters={
-+       Array [
-+         Object {
-+           "color": 4294966522,
-+           "keypath": "main",
-+         },
-+       ]
-+     }
-+     enableMergePathsAndroidForKitKatAndAbove={false}
-+     loop={true}
-+     onAnimationFinish={[Function bound ]}
-+     progress={0}
-+     resizeMode="contain"
-+     sourceJson="{\\"v\\":\\"5.1.15\\",\\"fr\\":60,\\"ip\\":0,\\"op\\":141,\\"w\\":120,\\"h\\":120,\\"nm\\":\\"Composição 1\\",\\"ddd\\":0,\\"assets\\":[],\\"layers\\":[{\\"ddd\\":0,\\"ind\\":0,\\"ty\\":4,\\"nm\\":\\"main\\",\\"sr\\":1,\\"ks\\":{\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":11},\\"r\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[0],\\"e\\":[1080]},{\\"t\\":180}],\\"ix\\":10},\\"p\\":{\\"a\\":0,\\"k\\":[60,60,0],\\"ix\\":2},\\"a\\":{\\"a\\":0,\\"k\\":[-14.604,-15.104,0],\\"ix\\":1},\\"s\\":{\\"a\\":0,\\"k\\":[100,100,100],\\"ix\\":6}},\\"ao\\":0,\\"shapes\\":[{\\"ty\\":\\"gr\\",\\"it\\":[{\\"d\\":1,\\"ty\\":\\"el\\",\\"s\\":{\\"a\\":0,\\"k\\":[106.793,106.793],\\"ix\\":2},\\"p\\":{\\"a\\":0,\\"k\\":[0,0],\\"ix\\":3},\\"nm\\":\\"Caminho da elipse 1\\",\\"mn\\":\\"ADBE Vector Shape - Ellipse\\",\\"hd\\":false},{\\"ty\\":\\"st\\",\\"c\\":{\\"a\\":0,\\"k\\":[1,1,1,1],\\"ix\\":3},\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":4},\\"w\\":{\\"a\\":0,\\"k\\":11,\\"ix\\":5},\\"lc\\":2,\\"lj\\":1,\\"ml\\":4,\\"nm\\":\\"Traçado 1\\",\\"mn\\":\\"ADBE Vector Graphic - Stroke\\",\\"hd\\":false},{\\"ty\\":\\"tr\\",\\"p\\":{\\"a\\":0,\\"k\\":[-14.604,-15.104],\\"ix\\":2},\\"a\\":{\\"a\\":0,\\"k\\":[0,0],\\"ix\\":1},\\"s\\":{\\"a\\":0,\\"k\\":[100,100],\\"ix\\":3},\\"r\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":6},\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":7},\\"sk\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":4},\\"sa\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":5},\\"nm\\":\\"Transformar\\"}],\\"nm\\":\\"Elipse 1\\",\\"np\\":3,\\"cix\\":2,\\"ix\\":1,\\"mn\\":\\"ADBE Vector Group\\",\\"hd\\":false},{\\"ty\\":\\"tm\\",\\"s\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[0],\\"e\\":[0]},{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":60,\\"s\\":[0],\\"e\\":[67]},{\\"t\\":119}],\\"ix\\":1},\\"e\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[3],\\"e\\":[70]},{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":60,\\"s\\":[70],\\"e\\":[70]},{\\"t\\":119}],\\"ix\\":2},\\"o\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":3},\\"m\\":1,\\"ix\\":2,\\"nm\\":\\"Aparar caminhos 1\\",\\"mn\\":\\"ADBE Vector Filter - Trim\\",\\"hd\\":false}],\\"ip\\":0,\\"op\\":900,\\"st\\":0,\\"bm\\":0}],\\"chars\\":[],\\"markers\\":[]}"
-+     speed={1}
-      style={
-        Array [
-          Object {
-+           "height": 80,
-+           "width": 80,
-+         },
-+         Object {
-            "height": 16,
-            "width": 16,
-          },
+-     style={
+-       Array [
+-         Object {
+-           "height": 16,
+-           "width": 16,
+-         },
 -         undefined,
-        ]
-      }
-+     textFiltersAndroid={Array []}
-+     textFiltersIOS={Array []}
-+     useNativeLooping={false}
+-       ]
+-     }
++   <ActivityIndicator
++     color="#FFFCFA"
++     size="small"
     />
     <Text
       allowFontScaling={false}
       style={
         Array [
-@@ -75,8 +97,8 @@
+@@ -76,8 +68,8 @@
           ],
           false,
         ]

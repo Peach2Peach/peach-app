@@ -90,8 +90,10 @@ describe("SendBitcoin", () => {
 
     expect(queryByText("help")).toBeTruthy();
   });
-  it("should disable the slider while the wallet is not synced", () => {
-    useWalletState.setState({ isSynced: false });
+  it("should disable the slider while the wallet is not synced", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
+    peachWallet.initialized = true;
+    peachWallet.syncWallet = jest.fn().mockResolvedValue(undefined);
     const { getByText, getByPlaceholderText, toJSON } = render(<SendBitcoin />);
 
     const addressInput = getByPlaceholderText("bc1q ...");
@@ -105,8 +107,10 @@ describe("SendBitcoin", () => {
     fireEvent.press(mediumFeeButton);
 
     const withSyncingWallet = toJSON();
-    act(() => {
-      useWalletState.setState({ isSynced: true });
+    await waitFor(() => {
+      expect(queryClient.getQueryState(walletKeys.synced())?.status).toBe(
+        "success",
+      );
     });
     const withSyncedWallet = toJSON();
 
@@ -115,7 +119,12 @@ describe("SendBitcoin", () => {
 
   it("should open the confirmation popup when swiping the slider", async () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
-    useWalletState.setState({ isSynced: true });
+    const feeAmount = 1000;
+    peachWallet.initialized = true;
+    peachWallet.syncWallet = jest.fn().mockResolvedValue(undefined);
+    peachWallet.buildFinishedTransaction = jest
+      .fn()
+      .mockResolvedValue({ psbt: { feeAmount: () => feeAmount } });
     const { getByTestId, getByText, getByPlaceholderText, queryByText } =
       render(
         <>
@@ -123,6 +132,11 @@ describe("SendBitcoin", () => {
           <GlobalPopup />
         </>,
       );
+    await waitFor(() => {
+      expect(queryClient.getQueryState(walletKeys.synced())?.status).toBe(
+        "success",
+      );
+    });
 
     const addressInput = getByPlaceholderText("bc1q ...");
     fireEvent.changeText(
@@ -135,10 +149,6 @@ describe("SendBitcoin", () => {
     fireEvent.press(mediumFeeButton);
 
     const slider = getByTestId("confirmSlider");
-    const feeAmount = 1000;
-    peachWallet.buildFinishedTransaction = jest
-      .fn()
-      .mockResolvedValue({ psbt: { feeAmount: () => feeAmount } });
     swipeRight(slider);
 
     await waitFor(() => {
@@ -178,7 +188,9 @@ describe("SendBitcoin", () => {
     expect(queryByText("sending funds")).toBeFalsy();
   });
   it("should update the custom fee rate on change", async () => {
-    useWalletState.setState({ isSynced: true });
+    if (!peachWallet) throw new Error("PeachWallet not set");
+    peachWallet.initialized = true;
+    peachWallet.syncWallet = jest.fn().mockResolvedValue(undefined);
     const { getByText, getByPlaceholderText, getByTestId, queryByText } =
       render(
         <>

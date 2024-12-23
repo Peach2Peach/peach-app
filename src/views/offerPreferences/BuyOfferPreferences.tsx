@@ -17,10 +17,7 @@ import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
 import { BuyBitcoinHeader } from "./components/BuyBitcoinHeader";
-import { FilterContainer } from "./components/FilterContainer";
 import { MarketInfo } from "./components/MarketInfo";
-import { MaxPremiumFilterComponent } from "./components/MaxPremiumFilterComponent";
-import { ReputationFilterComponent } from "./components/MinReputationFilter";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
 import { usePostBuyOffer } from "./utils/usePostBuyOffer";
@@ -39,7 +36,6 @@ export function BuyOfferPreferences() {
       <PreferenceMarketInfo />
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
-      <Filters />
       <PreferenceWalletSelector />
     </PreferenceScreen>
   );
@@ -96,10 +92,10 @@ function PreferenceMarketInfo() {
       buyAmountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium || undefined
+        ? state.filter.buyOffer.maxPremium ?? undefined
         : undefined,
       minReputation: interpolate(
-        state.filter.buyOffer.minReputation || 0,
+        state.filter.buyOffer.minReputation ?? 0,
         CLIENT_RATING_RANGE,
         SERVER_RATING_RANGE,
       ),
@@ -124,55 +120,6 @@ function AmountSelector({
       setIsSliding={setIsSliding}
       range={buyAmountRange}
       setRange={setBuyAmountRange}
-    />
-  );
-}
-
-function Filters() {
-  return (
-    <FilterContainer
-      filters={
-        <>
-          <MaxPremiumFilter />
-          <ReputationFilter />
-        </>
-      }
-    />
-  );
-}
-
-function ReputationFilter() {
-  const [minReputation, toggle] = useOfferPreferences(
-    (state) => [
-      state.filter.buyOffer.minReputation,
-      state.toggleMinReputationFilter,
-    ],
-    shallow,
-  );
-  return (
-    <ReputationFilterComponent minReputation={minReputation} toggle={toggle} />
-  );
-}
-
-function MaxPremiumFilter() {
-  const [maxPremium, setMaxPremium] = useOfferPreferences(
-    (state) => [state.filter.buyOffer.maxPremium, state.setMaxPremiumFilter],
-    shallow,
-  );
-  const [shouldApplyFilter, toggle] = useOfferPreferences(
-    (state) => [
-      state.filter.buyOffer.shouldApplyMaxPremium,
-      state.toggleShouldApplyMaxPremium,
-    ],
-    shallow,
-  );
-
-  return (
-    <MaxPremiumFilterComponent
-      maxPremium={maxPremium}
-      setMaxPremium={setMaxPremium}
-      shouldApplyFilter={shouldApplyFilter}
-      toggleShouldApplyFilter={toggle}
     />
   );
 }

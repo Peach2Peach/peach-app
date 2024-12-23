@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
+import { Loading } from "../../components/Loading";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { useRoute } from "../../hooks/useRoute";
 import { useUserUpdate } from "../../init/useUserUpdate";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { storeAccount } from "../../utils/account/storeAccount";
@@ -20,10 +20,8 @@ export const RestoreReputation = () => {
   const route = useRoute<"restoreReputation">();
   const [isRestored, setIsRestored] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [account, setIsLoggedIn] = useAccountStore(
-    (state) => [state.account, state.setIsLoggedIn],
-    shallow,
-  );
+  const account = useAccountStore((state) => state.account);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const userUpdate = useUserUpdate();
 
   const restoreReputation = async () => {
@@ -57,13 +55,15 @@ export const RestoreReputation = () => {
       ) : (
         <View style={tw`justify-between grow`}>
           <View style={tw`items-center justify-center grow`}>
-            <PeachText style={tw`subtitle-1 text-primary-background-light`}>
+            <PeachText
+              style={tw`subtitle-1 text-primary-background-light-color`}
+            >
               {i18n("restoreBackup.dontWorry")}
             </PeachText>
           </View>
 
           <Button
-            style={tw`self-center bg-primary-background-light`}
+            style={tw`self-center bg-primary-background-light-color`}
             textColor={tw.color("primary-main")}
             onPress={restoreReputation}
           >
@@ -78,13 +78,15 @@ export const RestoreReputation = () => {
 function RestoreReputationLoading() {
   return (
     <View style={tw`items-center justify-center grow`}>
-      <PeachText style={tw`text-center h4 text-primary-background-light`}>
+      <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
         {i18n("restoreBackup.restoringReputation")}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light`}>
+      <PeachText
+        style={tw`text-center body-l text-primary-background-light-color`}
+      >
         {i18n("newUser.oneSec")}
       </PeachText>
-      <Loading style={tw`w-32 h-32`} color={tw.color("primary-mild-1")} />
+      <Loading size="large" color={tw.color("primary-mild-1")} />
     </View>
   );
 }
@@ -92,16 +94,18 @@ function RestoreReputationLoading() {
 function ReputationRestored() {
   return (
     <View style={tw`items-center justify-center h-full`}>
-      <PeachText style={tw`text-center h4 text-primary-background-light`}>
+      <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
         {i18n("restoreBackup.reputationRestored")}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light`}>
+      <PeachText
+        style={tw`text-center body-l text-primary-background-light-color`}
+      >
         {i18n("restoreBackup.welcomeBack")}
       </PeachText>
       <Icon
         id="save"
         style={tw`w-32 h-32 mt-16`}
-        color={tw.color("primary-background-light")}
+        color={tw.color("primary-background-light-color")}
       />
     </View>
   );

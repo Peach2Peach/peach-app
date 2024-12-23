@@ -2,8 +2,6 @@ import * as chatData from "./chatData";
 
 const publicKey =
   "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682";
-const privKey =
-  "80d12e8d17542fdc2377089de363ea716ebf7fd5fcad522d6a1e7bfa33e239e5";
 const base58 =
   "tprv8ZgxMBicQKsPfE42AXE2BFTTV24TpSnK9nBpXtVgnMVhgThYYrghSrj1aUzVnLEEddhhVDiQwTyQ6h9m58mqM6p6TAqEenhpRC3D8BbiNnA";
 export const base58_12xmom =
@@ -28,7 +26,6 @@ export const recoveredAccount: Account = {
   },
   pgp,
   publicKey,
-  privKey,
   base58,
   mnemonic,
 };
@@ -45,7 +42,6 @@ export const account1: Account & { mnemonic: string; base58: string } = {
   chats: {},
   pgp,
   publicKey,
-  privKey,
   base58,
   mnemonic,
 };
@@ -62,7 +58,6 @@ export const seller: Account = {
   chats: {},
   pgp,
   publicKey,
-  privKey,
   base58,
   mnemonic,
 };
@@ -82,7 +77,6 @@ export const buyer: Account = {
   pgp,
   publicKey:
     "02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9",
-  privKey,
   base58,
   mnemonic,
 };

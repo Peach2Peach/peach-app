@@ -77,7 +77,7 @@ describe("useConfirmSliderSetup", () => {
     result.current.panResponder.panHandlers.onResponderRelease?.(moveEvent);
     expect(onConfirm).toHaveBeenCalled();
 
-    await waitFor(jest.runAllTimers);
+    await waitFor(() => act(jest.runAllTimers));
   });
   it("should not call onConfirm when sliding not completely to the end", async () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps });
@@ -104,7 +104,7 @@ describe("useConfirmSliderSetup", () => {
     result.current.panResponder.panHandlers.onResponderRelease?.(moveEvent);
     expect(onConfirm).not.toHaveBeenCalled();
 
-    await waitFor(jest.runAllTimers);
+    await waitFor(() => act(jest.runAllTimers));
   });
   it("should not slide when disabled", async () => {
     const { result } = renderHook(useConfirmSliderSetup, {
@@ -133,7 +133,7 @@ describe("useConfirmSliderSetup", () => {
     result.current.panResponder.panHandlers.onResponderRelease?.(moveEvent);
     expect(onConfirm).not.toHaveBeenCalled();
 
-    await waitFor(jest.runAllTimers);
+    await waitFor(() => act(jest.runAllTimers));
   });
 
   it("should not set the panResponder to be the responder when disabled", () => {

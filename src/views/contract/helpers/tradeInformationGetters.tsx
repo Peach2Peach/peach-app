@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { APPLINKS } from "../../../APPLINKS";
 import { Icon } from "../../../components/Icon";
 import { Bubble } from "../../../components/bubble/Bubble";
@@ -13,6 +14,7 @@ import { getBitcoinPriceFromContract } from "../../../utils/contract/getBitcoinP
 import { getBuyOfferIdFromContract } from "../../../utils/contract/getBuyOfferIdFromContract";
 import { toShortDateFormat } from "../../../utils/date/toShortDateFormat";
 import i18n from "../../../utils/i18n";
+import { keys } from "../../../utils/object/keys";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { groupChars } from "../../../utils/string/groupChars";
@@ -144,14 +146,24 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
   const hasLink = !!url;
   const openLink = () => (url ? openURL(url) : null);
   const { paymentData } = useContractContext();
-  const paymentMethodLabel = usePaymentDataStore((state) =>
-    paymentData ? state.searchPaymentData(paymentData)[0]?.label : undefined,
+  const paymentMethods = usePaymentDataStore(
+    (state) => Object.values(state.paymentData),
+    shallow,
   );
+  const paymentMethodLabel = paymentData
+    ? paymentMethods.find(
+        (data) =>
+          data.type === paymentMethod &&
+          keys(paymentData).every(
+            (key) => key in data && paymentData[key] === data[key],
+          ),
+      )?.label
+    : undefined;
 
   return (
     <View style={tw`items-end gap-1`}>
       {paymentMethodLabel || !isCashTrade(paymentMethod) ? (
-        <Bubble color={"primary-mild"}>
+        <Bubble color={"gray"}>
           {paymentMethodLabel ?? i18n(`paymentMethod.${paymentMethod}`)}
         </Bubble>
       ) : (

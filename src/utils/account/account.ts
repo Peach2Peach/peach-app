@@ -22,24 +22,20 @@ export const defaultAccount: Account = {
 
 type AccountStore = {
   account: Account;
-  isLoggedIn: boolean;
   reset: () => void;
-  setAccount: (acc: Account) => void;
+  setAccount: (account: Account) => void;
   setChat: (id: string, newChat: Account["chats"][string]) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
 };
 
 export const useAccountStore = create<AccountStore>()(
   immer((set) => ({
     account: defaultAccount,
-    isLoggedIn: false,
-    reset: () => set(() => defaultAccount),
-    setAccount: (acc) => set({ account: acc }),
+    reset: () => set({ account: defaultAccount }),
+    setAccount: (account) => set({ account }),
     setChat: (id, newChat) =>
       set((state) => {
         state.account.chats[id] = newChat;
       }),
-    setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
   })),
 );
 

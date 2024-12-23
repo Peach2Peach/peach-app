@@ -7,15 +7,10 @@ import { hashPaymentData } from "../../../utils/paymentMethod/hashPaymentData";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export function useRemovePaymentData() {
-  const [getPaymentData, removePaymentDataFromStore, getAllPaymentDataByType] =
-    usePaymentDataStore(
-      (state) => [
-        state.getPaymentData,
-        state.removePaymentData,
-        state.getAllPaymentDataByType,
-      ],
-      shallow,
-    );
+  const [paymentData, removePaymentDataFromStore] = usePaymentDataStore(
+    (state) => [state.paymentData, state.removePaymentData],
+    shallow,
+  );
 
   const [preferredPaymentMethods, setPaymentMethods] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.setPaymentMethods],
@@ -24,7 +19,7 @@ export function useRemovePaymentData() {
 
   return useMutation({
     mutationFn: async (id: PaymentData["id"]) => {
-      const dataToBeRemoved = getPaymentData(id);
+      const dataToBeRemoved = paymentData[id];
       if (!dataToBeRemoved) throw new Error("PAYMENT_DATA_NOT_FOUND");
 
       const hashes = hashPaymentData(dataToBeRemoved).map((item) => item.hash);
@@ -43,9 +38,9 @@ export function useRemovePaymentData() {
     },
     onSuccess: (dataToBeRemoved) => {
       if (preferredPaymentMethods[dataToBeRemoved.type]) {
-        const nextInLine = getAllPaymentDataByType(
-          dataToBeRemoved.type,
-        ).shift();
+        const nextInLine = Object.values(paymentData).find(
+          (data) => data.type === dataToBeRemoved.type,
+        );
         const newPaymentMethods = { ...preferredPaymentMethods };
         if (nextInLine?.id) {
           newPaymentMethods[dataToBeRemoved.type] = nextInLine.id;

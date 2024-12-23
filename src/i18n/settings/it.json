@@ -80,6 +80,7 @@
   "settings.networkFees.estimatedTime.hourFee" : "~ 1 ora",
   "settings.networkFees.feeRateSet" : "tasso di commissione impostato",
   "settings.networkFees.help" : "Queste sono le commissioni che paghi alla rete bitcoin per l'utilizzo della stessa. Queste commissioni variano nel tempo, a seconda dell'intasamento della rete.\n\nPiù è trafficata la rete, più dovrai pagare per ottenere una conferma veloce.",
+  "settings.networkFees.payoutInfo" : "Questa impostazione non si applica ai pagamenti. Per ulteriori informazioni, vedere il raggruppamento delle transazioni.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/vB",
   "settings.nodeSetup" : "Usa il tuo nodo",
   "settings.notifications" : "Notifiche",

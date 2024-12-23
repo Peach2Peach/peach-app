@@ -19,7 +19,7 @@ export const UserId = ({ id, showInfo = false, style }: Props) => {
   return (
     <Bubble
       style={style}
-      color="primary-mild"
+      color="primary"
       iconSize={12}
       iconId={showInfo ? "info" : "copy"}
       onPress={showInfo ? goToUserProfile : copy}

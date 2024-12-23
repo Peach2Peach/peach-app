@@ -59,6 +59,7 @@ exports[`NetworkFees should render correctly 1`] = `
             "backgroundColor": "#FFF9F6",
           },
           {
+            "borderBottomWidth": 1,
             "borderColor": "#FEEDE5",
           },
         ]
@@ -105,6 +106,7 @@ exports[`NetworkFees should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-Bold",
@@ -287,7 +289,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     {
                       "alignItems": "center",
                       "backgroundColor": "#FEEDE5",
-                      "borderColor": "#F56522",
+                      "borderColor": "transparent",
                       "borderRadius": 12,
                       "borderWidth": 2,
                       "flexDirection": "row",
@@ -323,6 +325,7 @@ exports[`NetworkFees should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
@@ -347,6 +350,7 @@ exports[`NetworkFees should render correctly 1`] = `
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
                               },
+                              false,
                               {
                                 "color": "#7D675E",
                                 "marginLeft": 2,
@@ -363,7 +367,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     </View>
                   </View>
                   <test-file-stub
-                    fill="#F56522"
+                    fill="#9F8C82"
                     style={
                       [
                         {
@@ -446,6 +450,7 @@ exports[`NetworkFees should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
@@ -470,6 +475,7 @@ exports[`NetworkFees should render correctly 1`] = `
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
                               },
+                              false,
                               {
                                 "color": "#7D675E",
                                 "marginLeft": 2,
@@ -569,6 +575,7 @@ exports[`NetworkFees should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
@@ -593,6 +600,7 @@ exports[`NetworkFees should render correctly 1`] = `
                                 "letterSpacing": 0.16,
                                 "lineHeight": 24,
                               },
+                              false,
                               {
                                 "color": "#7D675E",
                                 "marginLeft": 2,
@@ -656,7 +664,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     {
                       "alignItems": "center",
                       "backgroundColor": "#FEEDE5",
-                      "borderColor": "transparent",
+                      "borderColor": "#F56522",
                       "borderRadius": 12,
                       "borderWidth": 2,
                       "flexDirection": "row",
@@ -700,6 +708,7 @@ exports[`NetworkFees should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             {
                               "fontFamily": "Baloo2-SemiBold",
                               "fontSize": 16,
@@ -715,32 +724,28 @@ exports[`NetworkFees should render correctly 1`] = `
                       </Text>
                       <View
                         style={
-                          [
-                            {
-                              "alignItems": "center",
-                              "borderRadius": 12,
-                              "flexDirection": "row",
-                              "height": 32,
-                              "overflow": "hidden",
-                              "paddingBottom": 12,
-                              "paddingTop": 12,
-                              "width": 64,
-                            },
-                            {
-                              "backgroundColor": "#FFFCFA",
-                              "borderColor": "#7D675E",
-                              "borderWidth": 1,
-                            },
-                          ]
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "#FFFCFA",
+                            "borderColor": "#7D675E",
+                            "borderRadius": 12,
+                            "borderWidth": 1,
+                            "flexDirection": "row",
+                            "height": 32,
+                            "overflow": "hidden",
+                            "paddingBottom": 12,
+                            "paddingTop": 12,
+                            "width": 64,
+                          }
                         }
                       >
                         <TextInput
-                          editable={false}
+                          editable={true}
                           keyboardType="decimal-pad"
                           onChangeText={[Function]}
                           style={
                             {
-                              "color": "#2B1911",
+                              "color": "#7D675E",
                               "flexGrow": 1,
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 18,
@@ -767,6 +772,7 @@ exports[`NetworkFees should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                             {
                               "color": "#7D675E",
                             },
@@ -779,7 +785,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     </View>
                   </View>
                   <test-file-stub
-                    fill="#9F8C82"
+                    fill="#F56522"
                     style={
                       [
                         {
@@ -821,6 +827,7 @@ exports[`NetworkFees should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     {
                       "color": "#7D675E",
                       "marginTop": 16,
@@ -843,7 +850,9 @@ exports[`NetworkFees should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 24,
                     },
+                    false,
                     {
+                      "color": "#2B1911",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
@@ -864,7 +873,7 @@ exports[`NetworkFees should render correctly 1`] = `
             {
               "busy": undefined,
               "checked": undefined,
-              "disabled": undefined,
+              "disabled": true,
               "expanded": undefined,
               "selected": undefined,
             }
@@ -898,7 +907,7 @@ exports[`NetworkFees should render correctly 1`] = `
               "gap": 8,
               "justifyContent": "center",
               "minWidth": 208,
-              "opacity": 1,
+              "opacity": 0.9464,
               "paddingBottom": 3,
               "paddingLeft": 24,
               "paddingRight": 24,
@@ -919,6 +928,7 @@ exports[`NetworkFees should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
+                false,
                 [
                   {
                     "fontFamily": "Baloo2-SemiBold",
@@ -929,14 +939,14 @@ exports[`NetworkFees should render correctly 1`] = `
                   },
                   {},
                   {
-                    "color": "#FFFCFA",
+                    "color": "#FFF9F6",
                   },
                 ],
                 false,
               ]
             }
           >
-            confirm
+            fee rate set
           </Text>
         </View>
       </View>

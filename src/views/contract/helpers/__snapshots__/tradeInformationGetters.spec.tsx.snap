@@ -40,8 +40,7 @@ exports[`tradeInformationGetters should return the correct value for the paidToM
     style={
       {
         "alignItems": "center",
-        "backgroundColor": "#FEEDE5",
-        "borderColor": "#FCCCB6",
+        "borderColor": "#9F8C82",
         "borderRadius": 8,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -67,9 +66,10 @@ exports[`tradeInformationGetters should return the correct value for the paidToM
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
-              "color": "#2B1911",
+              "color": "#9F8C82",
             },
             {
               "fontFamily": "Baloo2-SemiBold",
@@ -131,8 +131,7 @@ exports[`tradeInformationGetters should return the correct value for the via fie
     style={
       {
         "alignItems": "center",
-        "backgroundColor": "#FEEDE5",
-        "borderColor": "#FCCCB6",
+        "borderColor": "#9F8C82",
         "borderRadius": 8,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -158,9 +157,10 @@ exports[`tradeInformationGetters should return the correct value for the via fie
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
+          false,
           [
             {
-              "color": "#2B1911",
+              "color": "#9F8C82",
             },
             {
               "fontFamily": "Baloo2-SemiBold",

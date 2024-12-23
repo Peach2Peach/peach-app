@@ -5,6 +5,8 @@ export const systemKeys = {
   all: ["system"] as const,
   paymentMethods: () => [...systemKeys.all, "paymentMethods"] as const,
   news: () => [...systemKeys.all, "news"] as const,
+  version: () => [...systemKeys.all, "version"] as const,
+  referralRewards: () => [...systemKeys.all, "referralRewards"] as const,
 };
 
 export function usePaymentMethodInfo(paymentMethod: PaymentMethod) {

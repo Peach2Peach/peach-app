@@ -57,12 +57,12 @@ describe("useFundEscrowSetup", () => {
   it("should return default values", () => {
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
-      offerId: sellOffer.id,
+      isPending: true,
       fundingAddress: undefined,
       fundingAddresses: [],
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
-      cancelOffer: expect.any(Function),
+      offerIdsWithoutEscrow: [],
     });
   });
   it("should return registered funding address for funding multiple offers", () => {
@@ -84,12 +84,12 @@ describe("useFundEscrowSetup", () => {
     const { result } = renderHook(useFundEscrowSetup);
 
     expect(result.current).toEqual({
-      offerId: sellOfferWithEscrow.id,
+      isPending: false,
       fundingAddress: sellOfferWithEscrow.escrow,
       fundingAddresses: [sellOfferWithEscrow.escrow],
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOfferWithEscrow.amount,
-      cancelOffer: expect.any(Function),
+      offerIdsWithoutEscrow: [],
     });
   });
   it("should show error banner if there is an error with the funding status", () => {
@@ -109,12 +109,12 @@ describe("useFundEscrowSetup", () => {
     });
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
-      offerId: sellOffer.id,
+      isPending: true,
       fundingAddress: undefined,
-      fundingAddresses: [undefined],
+      fundingAddresses: [],
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
-      cancelOffer: expect.any(Function),
+      offerIdsWithoutEscrow: [],
     });
   });
   it("should handle the case that no offer could be returned but offer exists locally", () => {
@@ -125,12 +125,12 @@ describe("useFundEscrowSetup", () => {
     });
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
-      offerId: sellOffer.id,
+      isPending: false,
       fundingAddress: "escrow",
       fundingAddresses: ["escrow"],
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
-      cancelOffer: expect.any(Function),
+      offerIdsWithoutEscrow: [],
     });
   });
   it("should sync the wallet on mount", async () => {

@@ -22,11 +22,12 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         [
+          {},
           {
             "color": "#7D675E",
           },
-          {},
         ],
         false,
       ]
@@ -67,6 +68,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
+            false,
             [
               {
                 "flexBasis": "0%",
@@ -92,7 +94,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
         style={
           {
             "alignItems": "flex-end",
-            "backgroundColor": "#FFFCFA",
+            "backgroundColor": "#FFF9F6",
             "height": "100%",
             "justifyContent": "center",
             "opacity": 0,
@@ -112,6 +114,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
+              false,
               [
                 {
                   "fontFamily": "Baloo2-SemiBold",

@@ -26,6 +26,7 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "fontFamily": "Baloo2-Bold",
@@ -51,6 +52,7 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "marginTop": 16,
@@ -105,6 +107,7 @@ exports[`WelcomeInfo - peachOfMind renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "fontFamily": "Baloo2-Bold",
@@ -130,6 +133,7 @@ exports[`WelcomeInfo - peachOfMind renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "marginTop": 16,
@@ -184,6 +188,7 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "fontFamily": "Baloo2-Bold",
@@ -196,7 +201,7 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
       ]
     }
   >
-    peer-to-peer
+    peer-to-Peer
   </Text>
   <Text
     allowFontScaling={false}
@@ -209,6 +214,7 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "marginTop": 16,
@@ -263,6 +269,7 @@ exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "fontFamily": "Baloo2-Bold",
@@ -275,7 +282,7 @@ exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
       ]
     }
   >
-    privacy first
+    privacy first!
   </Text>
   <Text
     allowFontScaling={false}
@@ -288,6 +295,7 @@ exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
+        false,
         {
           "color": "#FFFCFA",
           "marginTop": 16,

@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
@@ -6,11 +7,14 @@ import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
+import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useToggleBatching } from "../../hooks/user/useToggleBatching";
-import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
+import { HelpPopup } from "../../popups/HelpPopup";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { headerIcons } from "../../utils/layout/headerIcons";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 export const TransactionBatching = () => {
@@ -18,7 +22,9 @@ export const TransactionBatching = () => {
   const { mutate } = useToggleBatching(user || { isBatchingEnabled: false });
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
-  const contracts = useTradeSummaryStore((state) => state.contracts);
+  const { contracts } = useContractSummaries();
+  const { isDarkMode } = useThemeStore();
+
   const toggleBatching = () => {
     const hasPendingPayouts = contracts.some(
       (contract) => contract.tradeStatus === "payoutPending",
@@ -58,10 +64,12 @@ export const TransactionBatching = () => {
   return (
     <Screen
       style={tw`justify-center gap-8`}
-      header={i18n("settings.transactionBatching")}
+      header={<TransactionBatchingHeader />}
     >
       <View style={tw`gap-4`}>
-        <PeachText style={tw`body-l`}>
+        <PeachText
+          style={tw`body-l ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}
+        >
           {i18n(
             isBatchingEnabled
               ? "settings.batching.delayedPayouts"
@@ -97,3 +105,17 @@ export const TransactionBatching = () => {
     </Screen>
   );
 };
+
+function TransactionBatchingHeader() {
+  const setPopup = useSetPopup();
+  const showHelpPopup = () => {
+    setPopup(<HelpPopup id="transactionBatching" />);
+  };
+
+  return (
+    <Header
+      title={i18n("settings.transactionBatching")}
+      icons={[{ ...headerIcons.help, onPress: showHelpPopup }]}
+    />
+  );
+}
