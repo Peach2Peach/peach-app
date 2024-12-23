@@ -12,7 +12,7 @@ export const SummaryCard = ({ children }: ComponentProps) => {
     <View
       style={tw.style(
         "items-center gap-4 px-5 border border-black-10 rounded-2xl py-7",
-        isDarkMode ? "bg-transparent" : "bg-primary-background-light-color"
+        isDarkMode ? "bg-transparent" : "bg-primary-background-light-color",
       )}
     >
       {children}

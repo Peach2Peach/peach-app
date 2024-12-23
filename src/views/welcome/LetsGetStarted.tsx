@@ -44,7 +44,7 @@ export const LetsGetStarted = () => {
       setReferralCode(code);
       setWillUseReferralCode(true);
     },
-    [setReferralCode]
+    [setReferralCode],
   );
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export const LetsGetStarted = () => {
       });
       setIsLoading(false);
     },
-    [navigation]
+    [navigation],
   );
   const setAccount = useAccountStore((state) => state.setAccount);
   const createNewUser = async () => {

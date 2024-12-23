@@ -27,9 +27,9 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
     () =>
       [...Array(LABEL_AMOUNT)].map(
         (_position, index) =>
-          round((index / (LABEL_AMOUNT - 1)) * trackWidth) - trackWidth / 2
+          round((index / (LABEL_AMOUNT - 1)) * trackWidth) - trackWidth / 2,
       ),
-    [trackWidth]
+    [trackWidth],
   );
 
   return (
