@@ -118,7 +118,7 @@ function ConfirmRbf({
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
-            String(round((oldFee / sendingAmount) * CENT, 1))
+            String(round((oldFee / sendingAmount) * CENT, 1)),
           )}
         </PeachText>
       </View>
@@ -137,7 +137,7 @@ function ConfirmRbf({
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
-            String(round((newFee / sendingAmount) * CENT, 1))
+            String(round((newFee / sendingAmount) * CENT, 1)),
           )}
         </PeachText>
       </View>

@@ -49,6 +49,7 @@ type HeaderConfig = {
     }
 );
 
+// eslint-disable-next-line complexity
 const newThemes = (isDarkMode: boolean) => ({
   buyer: {
     bg: isDarkMode
@@ -236,7 +237,7 @@ function Tickers({ type = "sell" }: TickerProps) {
     >
       <View style={leftColStyle}>
         <PeachText style={[unitStyle, labelStyle]}>{`1 ${i18n(
-          "btc"
+          "btc",
         )}`}</PeachText>
         <PriceFormat
           style={valueStyle}
@@ -267,7 +268,7 @@ function CurrencyScrollView() {
   const [showCurrencies, toggle] = useToggleBoolean();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow
+    shallow,
   );
   const { isDarkMode } = useThemeStore();
 
@@ -290,7 +291,7 @@ function CurrencyScrollView() {
             ? tw.style(
                 `pl-2 border`,
                 isDarkMode ? "border-black-90" : "border-black-10",
-                `rounded-lg`
+                `rounded-lg`,
               )
             : { padding: 1 },
         ]}
@@ -360,7 +361,7 @@ function HeaderSubtitle({
           i18n(
             viewer === "buyer"
               ? "buy.subtitle.highlight"
-              : "sell.subtitle.highlight"
+              : "sell.subtitle.highlight",
           )}
       </PeachText>
       <BTCAmount

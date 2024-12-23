@@ -55,7 +55,7 @@ export const BTCAmount = memo(
   }: BTCAmountProps) => {
     const [greyText, blackText] = useMemo(
       () => getDisplayAmount(amount),
-      [amount]
+      [amount],
     );
     const { isDarkMode } = useThemeStore();
     const defaultTextStyle = useMemo(
@@ -64,11 +64,11 @@ export const BTCAmount = memo(
         white
           ? tw`text-black-25`
           : isDarkMode
-          ? tw`text-backgroundLight-light`
-          : tw`text-black-100`,
+            ? tw`text-backgroundLight-light`
+            : tw`text-black-100`,
         textStyle,
       ],
-      [isDarkMode, size, white, textStyle]
+      [isDarkMode, size, white, textStyle],
     );
     return (
       <View
@@ -112,7 +112,7 @@ export const BTCAmount = memo(
         </View>
       </View>
     );
-  }
+  },
 );
 
 const GROUP_BY = 3;

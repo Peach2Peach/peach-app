@@ -38,7 +38,7 @@ export function ConfirmTxPopup({
         {i18n(
           "transaction.details.networkFee",
           thousands(fee),
-          thousands(feeRate)
+          thousands(feeRate),
         )}
       </PeachText>
     </View>
