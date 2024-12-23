@@ -8,7 +8,7 @@ module.exports = (api) => {
   return {
     presets: [
       [
-        "module:@react-native/babel-preset",
+        "module:metro-react-native-babel-preset",
         { useTransformReactJSXExperimmental: true },
       ],
     ],

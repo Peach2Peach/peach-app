@@ -57,7 +57,12 @@ async function getPGPUpdatePayload(pgp?: PGPKeychain) {
   if (!peachAccount || !pgp) return {};
 
   const message = `Peach new PGP key ${new Date().getTime()}`;
-  const pgpSignature = await OpenPGP.sign(message, pgp.privateKey, "");
+  const pgpSignature = await OpenPGP.sign(
+    message,
+    pgp.publicKey,
+    pgp.privateKey,
+    "",
+  );
 
   return {
     publicKey: peachAccount.publicKey.toString("hex"),

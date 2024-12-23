@@ -25,6 +25,7 @@ describe("signAndEncryptSymmetric", () => {
     const account = useAccountStore.getState().account;
     expect(OpenPGP.sign).toHaveBeenCalledWith(
       "message",
+      account.pgp.publicKey,
       account.pgp.privateKey,
       "",
     );
