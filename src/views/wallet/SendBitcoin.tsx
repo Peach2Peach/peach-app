@@ -191,9 +191,10 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
   };
 
   const updateCustomFeeRate = (feeRate: string) => {
-    setCustomFeeRate(feeRate);
+    setCustomFeeRate(() => feeRate);
     updateFee(feeRate === "" ? undefined : Number(feeRate));
   };
+  
 
   const onButtonPress = (feeRate: (typeof feeRates)[number]) => {
     setSelectedFeeRate(feeRate);
