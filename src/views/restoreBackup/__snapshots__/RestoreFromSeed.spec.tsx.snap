@@ -139,7 +139,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="1."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -155,7 +155,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -253,7 +253,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="2."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -269,7 +269,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -367,7 +367,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="3."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -383,7 +383,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -481,7 +481,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="4."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -497,7 +497,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -595,7 +595,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="5."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -611,7 +611,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -709,7 +709,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="6."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -725,7 +725,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -833,7 +833,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="7."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -849,7 +849,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -947,7 +947,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="8."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -963,7 +963,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -1061,7 +1061,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="9."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1077,7 +1077,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -1175,7 +1175,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="10."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1191,7 +1191,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -1289,7 +1289,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="11."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1305,7 +1305,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {
@@ -1403,7 +1403,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                   onChangeText={[Function]}
                   onSubmitEditing={[Function]}
                   placeholder="12."
-                  placeholderTextColor="#624D44"
+                  placeholderTextColor="#EAE3DF"
                   removeClippedSubviews={false}
                   style={
                     [
@@ -1419,7 +1419,7 @@ exports[`RestoreFromSeed should render correctly 1`] = `
                         "width": "100%",
                       },
                       {
-                        "color": "#624D44",
+                        "color": "#EAE3DF",
                       },
                       false,
                       {

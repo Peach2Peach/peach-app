@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Animated, View } from "react-native";
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { getTranslateX } from "../../../utils/layout/getTranslateX";
@@ -20,6 +21,7 @@ const LABEL_AMOUNT = 5;
 export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
     usePremiumSliderSetup(premium, setPremium);
+  const { isDarkMode } = useThemeStore();
 
   const labelPosition = useMemo(
     () =>
@@ -39,8 +41,10 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
       <View
         style={[
           tw`w-full h-8`,
-          tw`border p-0.5 rounded-full bg-primary-background-dark-color border-primary-mild-1`,
-          tw`justify-center`,
+          tw`border p-0.5 rounded-full border-primary-mild-1 justify-center`,
+          isDarkMode
+            ? tw`bg-transparent`
+            : tw`bg-primary-background-dark-color`,
         ]}
       >
         <SliderMarkers positions={labelPosition} />

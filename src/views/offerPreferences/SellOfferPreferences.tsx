@@ -396,7 +396,7 @@ function FiatInput() {
     <View
       style={[
         tw.style(inputContainerStyle),
-        isDarkMode && tw`bg-transparent border-backgroundLight-light`,
+        isDarkMode && tw`bg-transparent border-black-25`,
       ]}
     >
       <TextInput
@@ -404,7 +404,7 @@ function FiatInput() {
           tw.style(textStyle),
           isDarkMode
             ? tw`bg-transparent text-backgroundLight-light`
-            : tw`bg-white text-black-100`,
+            : tw`text-black-100`,
         ]}
         ref={inputRef}
         value={displayValue}

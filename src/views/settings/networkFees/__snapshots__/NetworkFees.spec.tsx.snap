@@ -724,23 +724,19 @@ exports[`NetworkFees should render correctly 1`] = `
                       </Text>
                       <View
                         style={
-                          [
-                            {
-                              "alignItems": "center",
-                              "borderRadius": 12,
-                              "flexDirection": "row",
-                              "height": 32,
-                              "overflow": "hidden",
-                              "paddingBottom": 12,
-                              "paddingTop": 12,
-                              "width": 64,
-                            },
-                            {
-                              "backgroundColor": "#FFFCFA",
-                              "borderColor": "#7D675E",
-                              "borderWidth": 1,
-                            },
-                          ]
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "#FFFCFA",
+                            "borderColor": "#7D675E",
+                            "borderRadius": 12,
+                            "borderWidth": 1,
+                            "flexDirection": "row",
+                            "height": 32,
+                            "overflow": "hidden",
+                            "paddingBottom": 12,
+                            "paddingTop": 12,
+                            "width": 64,
+                          }
                         }
                       >
                         <TextInput
@@ -749,7 +745,7 @@ exports[`NetworkFees should render correctly 1`] = `
                           onChangeText={[Function]}
                           style={
                             {
-                              "color": "#2B1911",
+                              "color": "#7D675E",
                               "flexGrow": 1,
                               "fontFamily": "Baloo2-Regular",
                               "fontSize": 18,

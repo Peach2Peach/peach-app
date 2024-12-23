@@ -49,14 +49,15 @@ type HeaderConfig = {
     }
 );
 
+// eslint-disable-next-line complexity
 const newThemes = (isDarkMode: boolean) => ({
   buyer: {
     bg: isDarkMode
       ? tw`bg-backgroundMain-dark`
       : tw`bg-success-background-dark-color`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
-    subtitle: tw`text-success-main`,
-    border: tw`border-b-8 border-success-mild-1-color`,
+    subtitle: isDarkMode ? tw`text-success-mild-2` : tw`text-success-main`,
+    border: tw`border-b-8 border-success-mild-2`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   seller: {
@@ -64,35 +65,35 @@ const newThemes = (isDarkMode: boolean) => ({
       ? tw`bg-backgroundMain-dark`
       : tw`bg-primary-background-dark-color`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
-    subtitle: tw`text-primary-main`,
+    subtitle: isDarkMode ? tw`text-primary-mild-2` : tw`text-primary-main`,
     border: tw`border-b-8 border-primary-mild-2`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   paymentTooLate: {
     bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-warning-mild-1`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
-    subtitle: tw`text-black-100`,
+    subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     border: tw`border-b-8 border-warning-mild-2`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   dispute: {
-    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-error-main`,
+    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-error-mild`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
-    subtitle: tw`text-primary-background-light-color`,
+    subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-error-main`,
     border: tw`border-b-8 border-error-dark`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   cancel: {
-    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-black-10`,
+    bg: isDarkMode ? tw`bg-card` : tw`bg-black-10`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
-    subtitle: tw`text-black-100`,
+    subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-90`,
     border: tw`border-b-8 border-black-25`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   default: {
     bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
-    subtitle: isDarkMode ? tw`text-black-50` : tw`text-black-100`,
+    subtitle: isDarkMode ? tw`text-black-25` : tw`text-black-100`,
     border: tw`border-b border-primary-background-dark-color`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
@@ -235,9 +236,9 @@ function Tickers({ type = "sell" }: TickerProps) {
       ]}
     >
       <View style={leftColStyle}>
-        <PeachText
-          style={[unitStyle, labelStyle]}
-        >{`1 ${i18n("btc")}`}</PeachText>
+        <PeachText style={[unitStyle, labelStyle]}>{`1 ${i18n(
+          "btc",
+        )}`}</PeachText>
         <PriceFormat
           style={valueStyle}
           currency={displayCurrency}
@@ -281,7 +282,9 @@ function CurrencyScrollView() {
       style={[tw`items-end flex-1 w-full grow`, { zIndex: 1 }]}
     >
       <ScrollView
-        style={tw`absolute ${isDarkMode ? "bg-backgroundMain-dark" : "bg-backgroundMain-light"} max-h-40`}
+        style={tw`absolute ${
+          isDarkMode ? "bg-backgroundMain-dark" : "bg-backgroundMain-light"
+        } max-h-40`}
         contentContainerStyle={[
           tw`items-end self-end justify-end`,
           showCurrencies

@@ -119,7 +119,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               false,
               [
                 {
-                  "color": "#EAE3DF",
+                  "color": "#BAADA7",
                 },
                 [
                   {
@@ -546,7 +546,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               false,
               [
                 {
-                  "color": "#EAE3DF",
+                  "color": "#BAADA7",
                 },
                 [
                   {

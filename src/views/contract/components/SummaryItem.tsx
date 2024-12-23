@@ -4,6 +4,7 @@ import { Animated, TextProps, View } from "react-native";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useIsMediumScreen } from "../../../hooks/useIsMediumScreen";
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -12,12 +13,22 @@ type Props = {
   value: JSX.Element;
 };
 
-export const SummaryItem = ({ label, value }: Props) => (
-  <View style={tw`flex-row items-center justify-between gap-3`}>
-    <PeachText style={[tw`text-black-65`, tw`md:body-l`]}>{label}</PeachText>
-    {value}
-  </View>
-);
+export const SummaryItem = ({ label, value }: Props) => {
+  const { isDarkMode } = useThemeStore();
+  return (
+    <View style={tw`flex-row items-center justify-between gap-3`}>
+      <PeachText
+        style={[
+          tw`md:body-l`,
+          isDarkMode ? tw`text-black-50` : tw`text-black-65`,
+        ]}
+      >
+        {label}
+      </PeachText>
+      {value}
+    </View>
+  );
+};
 
 type TextValueProps = {
   value: string;
@@ -81,6 +92,7 @@ function CopyableSummaryText({
     ]).start();
   };
   const isMediumScreen = useIsMediumScreen();
+  const { isDarkMode } = useThemeStore();
 
   return (
     <>
@@ -88,7 +100,10 @@ function CopyableSummaryText({
         <SummaryText value={value} onPress={onPress} />
         <Animated.View
           style={[
-            tw`absolute items-end justify-center w-full h-full bg-primary-background-light-color`,
+            tw`absolute items-end justify-center w-full h-full`,
+            isDarkMode
+              ? tw`bg-backgroundMain-dark`
+              : tw`bg-primary-background-main`,
             { opacity: copiedTextOpacity },
           ]}
         >
