@@ -35,7 +35,7 @@ export const SendBitcoin = () => {
   const [shouldDrainWallet, setShouldDrainWallet] = useState(false);
   const { estimatedFees } = useFeeEstimate();
   const [feeRate, setFee] = useState<number | undefined>(
-    estimatedFees.fastestFee,
+    estimatedFees.fastestFee
   );
   const handleTransactionError = useHandleTransactionError();
   const setPopup = useSetPopup();
@@ -68,7 +68,7 @@ export const SendBitcoin = () => {
       setPopup(
         <WithdrawalConfirmationPopup
           {...{ address, amount, psbt, fee, feeRate }}
-        />,
+        />
       );
     } catch (e) {
       handleTransactionError(e);
@@ -77,7 +77,7 @@ export const SendBitcoin = () => {
 
   const isFormValid = useMemo(
     () => rules.bitcoinAddress(address) && amount !== 0 && !!feeRate,
-    [address, amount, feeRate],
+    [address, amount, feeRate]
   );
 
   return (
@@ -186,7 +186,7 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
         ? customFeeRate === ""
           ? undefined
           : Number(customFeeRate)
-        : estimatedFees[feeRate],
+        : estimatedFees[feeRate]
     );
   };
 
@@ -194,7 +194,6 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
     setCustomFeeRate(() => feeRate);
     updateFee(feeRate === "" ? undefined : Number(feeRate));
   };
-  
 
   const onButtonPress = (feeRate: (typeof feeRates)[number]) => {
     setSelectedFeeRate(feeRate);
@@ -238,7 +237,9 @@ function SendBitcoinHeader() {
         {
           ...headerIcons.listFlipped,
           onPress: () => navigation.navigate("coinSelection"),
-          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.coinControl.title")}`,
+          accessibilityHint: `${i18n("goTo")} ${i18n(
+            "wallet.coinControl.title"
+          )}`,
         },
         {
           ...headerIcons.help,
