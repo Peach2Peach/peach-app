@@ -8,7 +8,7 @@ import i18n from "../../../../utils/i18n";
 
 type Props = {
   customFeeRate?: string;
-  setCustomFeeRate: Dispatch<React.SetStateAction<string>>;
+  setCustomFeeRate: Dispatch<string>;
   disabled?: boolean;
 };
 

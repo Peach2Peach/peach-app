@@ -60,8 +60,8 @@ export const NetworkFees = () => {
   const { mutate } = useUpdateUser();
 
   const onChangeCustomFeeRate = (value: string) => {
-    setCustomFeeRate(() =>
-      !value || isNaN(Number(value)) || value === "0" ? "" : value
+    setCustomFeeRate(
+      !value || isNaN(Number(value)) || value === "0" ? "" : value,
     );
   };
 
@@ -70,7 +70,7 @@ export const NetworkFees = () => {
       { feeRate: finalFeeRate },
       {
         onError: (err) => setToast({ msgKey: err.message, color: "red" }),
-      }
+      },
     );
   }, [finalFeeRate, mutate, setToast]);
 
@@ -101,7 +101,7 @@ export const NetworkFees = () => {
           <PeachText
             style={tw.style(
               "py-2 text-center mb-7",
-              isDarkMode ? "text-backgroundLight-light" : "text-black-100"
+              isDarkMode ? "text-backgroundLight-light" : "text-black-100",
             )}
           >
             {i18n("settings.networkFees.payoutInfo")}
@@ -116,7 +116,7 @@ export const NetworkFees = () => {
         <PeachText
           style={tw.style(
             "mt-4 text-center",
-            isDarkMode ? "text-backgroundLight-light" : "text-black-65"
+            isDarkMode ? "text-backgroundLight-light" : "text-black-65",
           )}
         >
           {i18n("settings.networkFees.averageFees")}
@@ -124,12 +124,12 @@ export const NetworkFees = () => {
         <PeachText
           style={tw.style(
             "text-center subtitle-1",
-            isDarkMode ? "text-primary-mild-2" : "text-black-100"
+            isDarkMode ? "text-primary-mild-2" : "text-black-100",
           )}
         >
           {i18n(
             "settings.networkFees.xSatsPerByte",
-            estimatedFees.economyFee.toString()
+            estimatedFees.economyFee.toString(),
           )}
         </PeachText>
       </PeachScrollView>
