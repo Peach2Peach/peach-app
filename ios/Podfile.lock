@@ -412,7 +412,8 @@ PODS:
     - React-Core
   - react-native-document-picker (9.1.1):
     - React-Core
-  - react-native-fast-openpgp (2.6.0):
+  - react-native-fast-openpgp (2.8.0):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - react-native-mmkv-storage (0.9.1):
     - MMKV (= 1.2.13)
@@ -831,7 +832,7 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-cookies: f54fcded06bb0cda05c11d86788020b43528a26c
   react-native-document-picker: 3599b238843369026201d2ef466df53f77ae0452
-  react-native-fast-openpgp: c080570ed67ce592e025efc5d95733e7a41ec811
+  react-native-fast-openpgp: f768d66fa127b20c92546aee13aca4c6a2543b54
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-pager-view: e26d35e382d86950c936f8917e3beb9188115ccc
@@ -870,6 +871,6 @@ SPEC CHECKSUMS:
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   Yoga: e71803b4c1fff832ccf9b92541e00f9b873119b9
 
-PODFILE CHECKSUM: 5017c8209a77c7597fd5e8db27d9ed3f4b1fc7dc
+PODFILE CHECKSUM: 749395f26aa371355378607cc7463fa413d6dc06
 
 COCOAPODS: 1.16.2

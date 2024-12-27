@@ -5,7 +5,6 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.zoontek.rnpermissions.RNPermissionsPackage;
 import org.reactnative.camera.RNCameraPackage;
-import com.reactnativefastopenpgp.FastOpenpgpPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;

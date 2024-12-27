@@ -79,7 +79,7 @@
     "react-native-device-info": "^10.12.0",
     "react-native-document-picker": "^9.1.1",
     "react-native-dotenv": "^3.4.10",
-    "react-native-fast-openpgp": "2.6.0",
+    "react-native-fast-openpgp": "^2.8.0",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.15.0",
     "react-native-mmkv-storage": "^0.9.1",
