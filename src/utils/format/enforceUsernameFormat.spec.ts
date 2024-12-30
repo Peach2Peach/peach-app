@@ -6,6 +6,7 @@ describe("enforceUsernameFormat", () => {
       { username: "user1", expected: "@user1" },
       { username: "User1", expected: "@user1" },
       { username: "User1!", expected: "@user1" },
+      { username: "User1_", expected: "@user1_" },
       { username: "", expected: "" },
     ];
 
