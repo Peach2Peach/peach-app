@@ -7,6 +7,7 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
 const FUND_MULTI_MIN = 3;
+const FUND_MULTI_MAX = 20;
 
 export const FundMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
@@ -26,7 +27,7 @@ export const FundMultipleOffers = () => {
           value={multi}
           onChange={setMulti}
           min={FUND_MULTI_MIN}
-          max={10}
+          max={FUND_MULTI_MAX}
         />
       )}
     </View>
