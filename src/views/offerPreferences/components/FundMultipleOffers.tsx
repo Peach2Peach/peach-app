@@ -7,7 +7,7 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
 const FUND_MULTI_MIN = 3;
-const FUND_MULTI_MAX = 20;
+const FUND_MULTI_MAX = 21;
 
 export const FundMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
