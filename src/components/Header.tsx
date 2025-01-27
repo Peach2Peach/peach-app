@@ -79,7 +79,7 @@ const newThemes = (isDarkMode: boolean) => ({
   dispute: {
     bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-error-mild`,
     title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
-    subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-error-main`,
+    subtitle: tw`text-error-main`,
     border: tw`border-b-8 border-error-dark`,
     backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
@@ -237,7 +237,7 @@ function Tickers({ type = "sell" }: TickerProps) {
     >
       <View style={leftColStyle}>
         <PeachText style={[unitStyle, labelStyle]}>{`1 ${i18n(
-          "btc",
+          "btc"
         )}`}</PeachText>
         <PriceFormat
           style={valueStyle}
@@ -268,7 +268,7 @@ function CurrencyScrollView() {
   const [showCurrencies, toggle] = useToggleBoolean();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
+    shallow
   );
   const { isDarkMode } = useThemeStore();
 
@@ -291,7 +291,7 @@ function CurrencyScrollView() {
             ? tw.style(
                 `pl-2 border`,
                 isDarkMode ? "border-black-90" : "border-black-10",
-                `rounded-lg`,
+                `rounded-lg`
               )
             : { padding: 1 },
         ]}
@@ -361,7 +361,7 @@ function HeaderSubtitle({
           i18n(
             viewer === "buyer"
               ? "buy.subtitle.highlight"
-              : "sell.subtitle.highlight",
+              : "sell.subtitle.highlight"
           )}
       </PeachText>
       <BTCAmount

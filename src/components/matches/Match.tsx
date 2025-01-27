@@ -12,6 +12,7 @@ import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
@@ -60,7 +61,7 @@ export const Match = ({
 
   const tradingLimitReached = isLimitReached(
     unavailable.exceedsLimit || [],
-    selectedPaymentMethod,
+    selectedPaymentMethod
   );
 
   const currentOptionName = useMemo(
@@ -68,12 +69,14 @@ export const Match = ({
       matched
         ? "offerMatched"
         : tradingLimitReached
-          ? "tradingLimitReached"
-          : !selectedPaymentMethod
-            ? "missingSelection"
-            : "acceptMatch",
-    [matched, selectedPaymentMethod, tradingLimitReached],
+        ? "tradingLimitReached"
+        : !selectedPaymentMethod
+        ? "missingSelection"
+        : "acceptMatch",
+    [matched, selectedPaymentMethod, tradingLimitReached]
   );
+
+  const { isDarkMode } = useThemeStore();
 
   return (
     <View style={tw`justify-center flex-1`}>
@@ -88,7 +91,12 @@ export const Match = ({
         ]}
         onStartShouldSetResponder={() => true}
       >
-        <View style={tw`gap-4 p-4 bg-primary-background-light-color`}>
+        <View
+          style={tw.style(
+            "gap-4 p-4 bg-card",
+            isDarkMode ? "bg-card" : "bg-primary-background-light-color"
+          )}
+        >
           <ProfileInfo user={user} isOnMatchCard />
 
           <HorizontalLine />
@@ -142,8 +150,8 @@ function CashPaymentDetail({ method }: { method: `cash.${string}` }) {
 function PaymentDetail({ label, value }: { label: string; value?: string }) {
   return (
     <View style={tw`flex-row justify-between`}>
-      <PeachText style={tw`text-black-65`}>{label}</PeachText>
-      <Bubble disabled color="black" ghost>
+      <PeachText style={tw`text-black-50`}>{label}</PeachText>
+      <Bubble disabled color="orange" ghost>
         {value}
       </Bubble>
     </View>
@@ -203,12 +211,12 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
         queryKey: matchesKeys.matchesForOffer(offer.id),
       });
       const previousData = queryClient.getQueryData<GetMatchesResponseBody>(
-        matchesKeys.matchesForOffer(offer.id),
+        matchesKeys.matchesForOffer(offer.id)
       );
       queryClient.setQueryData(
         matchesKeys.matchesForOffer(offer.id),
         (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
-          updateMatchedStatus(oldQueryData, offerId, currentPage),
+          updateMatchedStatus(oldQueryData, offerId, currentPage)
       );
 
       return { previousData };
@@ -226,8 +234,9 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
         });
       if (!matchOfferData) throw new Error(dataError || "UNKNOWN_ERROR");
 
-      const { result, error: err } =
-        await peachAPI.private.offer.matchOffer(matchOfferData);
+      const { result, error: err } = await peachAPI.private.offer.matchOffer(
+        matchOfferData
+      );
 
       if (result) {
         return result;
@@ -246,7 +255,7 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
         handleMissingPaymentData(
           offer,
           selectedCurrency,
-          selectedPaymentMethod,
+          selectedPaymentMethod
         );
       } else if (errorMsg === "OFFER_TAKEN") {
         setPopup(<AppPopup id="offerTaken" />);
@@ -255,13 +264,13 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
           error(
             "Match data missing values.",
             `selectedCurrency: ${selectedCurrency}`,
-            `selectedPaymentMethod: ${selectedPaymentMethod}`,
+            `selectedPaymentMethod: ${selectedPaymentMethod}`
           );
         handleError({ error: errorMsg });
       }
       queryClient.setQueryData(
         matchesKeys.matchesForOffer(offer.id),
-        context?.previousData,
+        context?.previousData
       );
     },
     onSuccess: async (result) => {
@@ -309,7 +318,7 @@ async function generateMatchOfferData({
 
   const { paymentData, error: err } = getPaymentDataFromOffer(
     offer,
-    paymentMethod,
+    paymentMethod
   );
   if (!paymentData) return { error: err };
 
@@ -318,13 +327,13 @@ async function generateMatchOfferData({
   const symmetricKey = await decryptSymmetricKey(
     symmetricKeyEncrypted,
     symmetricKeySignature,
-    user.pgpPublicKeys,
+    user.pgpPublicKeys
   );
   if (!symmetricKey) return { error: "SYMMETRIC_KEY_DECRYPTION_FAILED" };
 
   const encryptedPaymentData = await encryptPaymentData(
     cleanPaymentData(paymentData),
-    symmetricKey,
+    symmetricKey
   );
   if (!encryptedPaymentData) return { error: "PAYMENTDATA_ENCRYPTION_FAILED" };
 
@@ -357,7 +366,7 @@ function SellerPriceInfo({ amount, price, currency }: PriceInfoProps) {
 
   const premium = getPremiumOfMatchedOffer(
     { amount, price, currency },
-    priceBook,
+    priceBook
   );
 
   return (
@@ -373,7 +382,7 @@ function SellerPriceInfo({ amount, price, currency }: PriceInfoProps) {
 function updateMatchedStatus(
   oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined,
   matchingOfferId: string,
-  currentPage: number,
+  currentPage: number
 ) {
   if (!oldQueryData) return oldQueryData;
 
@@ -386,7 +395,7 @@ function updateMatchedStatus(
   return {
     ...oldQueryData,
     pages: oldQueryData.pages.map((page, i) =>
-      i === currentPage ? { ...page, matches: newMatches } : page,
+      i === currentPage ? { ...page, matches: newMatches } : page
     ),
   };
 }

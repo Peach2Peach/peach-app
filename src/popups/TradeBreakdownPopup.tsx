@@ -88,7 +88,11 @@ function TradeBreakdown({
                 <PeachText style={tw`subtitle-1 text-black-65 shrink`}>
                   {item.text}
                 </PeachText>
-                <BTCAmount amount={item.amount} size="small" />
+                <BTCAmount
+                  textStyle={tw`text-black-100`}
+                  amount={item.amount}
+                  size="small"
+                />
               </View>
             ))}
           </View>

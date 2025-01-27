@@ -19,26 +19,31 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
   const title = i18n(
     utxos === 1
       ? "warning.wrongFundingAmount.title"
-      : "warning.incorrectFunding.title",
+      : "warning.incorrectFunding.title"
   );
   const content =
     utxos === 1 ? (
       <View style={tw`gap-4`}>
-        <PeachText>
+        <PeachText style={tw`text-black-100`}>
           {i18n("warning.fundingAmountDifferent.description.1")}
         </PeachText>
         <BTCAmount
+          textStyle={tw`text-black-100`}
           amount={sellOffer.funding.amounts.reduce(sum, 0)}
           size="medium"
         />
-        <PeachText>
+        <PeachText style={tw`text-black-100`}>
           {i18n("warning.fundingAmountDifferent.description.2")}
         </PeachText>
-        <BTCAmount amount={sellOffer.amount} size="medium" />
-        <PeachText>
+        <BTCAmount
+          textStyle={tw`text-black-100`}
+          amount={sellOffer.amount}
+          size="medium"
+        />
+        <PeachText style={tw`text-black-100`}>
           {i18n(
             "warning.wrongFundingAmount.description",
-            thousands(maxTradingAmount),
+            thousands(maxTradingAmount)
           )}
         </PeachText>
       </View>

@@ -90,24 +90,32 @@ export const BitcoinAddress = ({
           >
             {addressParts.one}
             <PeachText
-              style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}
+              style={tw` ${
+                isDarkMode ? "text-backgroundLight-light" : "text-black-100"
+              }`}
             >
               {addressParts.two}
             </PeachText>
             {addressParts.three}
             <PeachText
-              style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"}`}
+              style={tw` ${
+                isDarkMode ? "text-backgroundLight-light" : "text-black-100"
+              }`}
             >
               {addressParts.four}
             </PeachText>
           </PeachText>
           <Animated.View
             style={[
-              tw`absolute items-center justify-center w-full h-full bg-primary-background-light-color`,
+              tw`${
+                isDarkMode
+                  ? "bg-backgroundMain-dark"
+                  : "bg-primary-background-light-color"
+              } absolute items-center justify-center w-full h-full`,
               { opacity: addressTextOpacity },
             ]}
           >
-            <PeachText style={tw`text-center subtitle-1`}>
+            <PeachText style={tw`text-center text-primary-main subtitle-1`}>
               {i18n("copied")}
             </PeachText>
           </Animated.View>

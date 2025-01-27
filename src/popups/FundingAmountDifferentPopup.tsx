@@ -24,15 +24,23 @@ export function FundingAmountDifferentPopup({
       title={i18n("warning.fundingAmountDifferent.title")}
       content={
         <View style={tw`gap-4`}>
-          <PeachText>
+          <PeachText style={tw`text-black-100`}>
             {i18n("warning.fundingAmountDifferent.description.1")}
           </PeachText>
-          <BTCAmount amount={actualAmount} size="medium" />
-          <PeachText>
+          <BTCAmount
+            textStyle={tw`text-black-100`}
+            amount={actualAmount}
+            size="medium"
+          />
+          <PeachText style={tw`text-black-100`}>
             {i18n("warning.fundingAmountDifferent.description.2")}
           </PeachText>
-          <BTCAmount amount={sellOffer.amount} size="medium" />
-          <PeachText>
+          <BTCAmount
+            textStyle={tw`text-black-100`}
+            amount={sellOffer.amount}
+            size="medium"
+          />
+          <PeachText style={tw`text-black-100`}>
             {i18n(
               "warning.fundingAmountDifferent.description.3",
               thousands(actualAmount),
