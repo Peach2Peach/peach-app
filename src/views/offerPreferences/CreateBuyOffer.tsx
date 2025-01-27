@@ -228,10 +228,9 @@ function PublishOfferButton() {
     if (!formValid || isSyncingWallet) return;
     publishOffer(await getPaymentData());
   };
-
   const keyboardIsOpen = useKeyboard();
   if (keyboardIsOpen) return null;
-  
+
   return (
     <Button
       style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
