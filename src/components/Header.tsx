@@ -49,52 +49,50 @@ type HeaderConfig = {
     }
 );
 
+const getCommonStyles = (isDarkMode: boolean) => ({
+  title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+  backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
+});
+
+const getBackground = (isDarkMode: boolean, lightModeColor: any) =>
+  isDarkMode ? tw`bg-backgroundMain-dark` : lightModeColor;
+
 const newThemes = (isDarkMode: boolean) => ({
   buyer: {
-    bg: isDarkMode
-      ? tw`bg-backgroundMain-dark`
-      : tw`bg-success-background-dark-color`,
-    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    bg: getBackground(isDarkMode, tw`bg-success-background-dark-color`),
+    ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-success-mild-2` : tw`text-success-main`,
     border: tw`border-b-8 border-success-mild-2`,
-    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   seller: {
-    bg: isDarkMode
-      ? tw`bg-backgroundMain-dark`
-      : tw`bg-primary-background-dark-color`,
-    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    bg: getBackground(isDarkMode, tw`bg-primary-background-dark-color`),
+    ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-primary-mild-2` : tw`text-primary-main`,
     border: tw`border-b-8 border-primary-mild-2`,
-    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   paymentTooLate: {
-    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-warning-mild-1`,
-    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    bg: getBackground(isDarkMode, tw`bg-warning-mild-1`),
+    ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     border: tw`border-b-8 border-warning-mild-2`,
-    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   dispute: {
-    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-error-mild`,
-    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    bg: getBackground(isDarkMode, tw`bg-error-mild`),
+    ...getCommonStyles(isDarkMode),
     subtitle: tw`text-error-main`,
     border: tw`border-b-8 border-error-dark`,
-    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   cancel: {
     bg: isDarkMode ? tw`bg-card` : tw`bg-black-10`,
-    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     border: tw`border-b-8 border-black-25`,
-    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   default: {
-    bg: isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`,
-    title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+    bg: getBackground(isDarkMode, tw`bg-backgroundMain-light`),
+    ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-black-25` : tw`text-black-100`,
     border: tw`border-b border-primary-background-dark-color`,
-    backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
   },
   transparent: {
     bg: tw`bg-transparent`,
