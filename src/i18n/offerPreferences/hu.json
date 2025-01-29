@@ -1,8 +1,10 @@
 {
   "help.fundMultiple.description" : "A hálózati díjak megspórolása érdekében egyetlen tranzakcióval több eladási ajánlatot hozhatsz létre!",
   "help.fundMultiple.title" : "több eladási ajánlat finanszírozása",
-  "help.instantTrade.description" : "Engedélyezd az eladási ajánlatodhoz illeszkedő vásárlónak, hogy automatikusan kereskedjen veled!\n\nEnnek engedélyezésével a Peach a kiválasztott fizetési adataidat fogja kezelni, hogy azokat azonnal megossza egy olyan vásárlóval, aki minden kritériumodnak megfelel.\n\nEz az adat titkosított, és a Peach-en kívül a harmadik felek nem tudják elolvasni.",
-  "help.instantTrade.title" : "azonnali kereskedés",
+  "help.instantTradeSell.description" : "Engedélyezd az eladási ajánlatodhoz illeszkedő vásárlónak, hogy automatikusan kereskedjen veled!\n\nEnnek engedélyezésével a Peach a kiválasztott fizetési adataidat fogja kezelni, hogy azokat azonnal megossza egy olyan vásárlóval, aki minden kritériumodnak megfelel.\n\nEz az adat titkosított, és a Peach-en kívül a harmadik felek nem tudják elolvasni.",
+  "help.instantTradeSell.title" : "azonnali kereskedés",
+  "help.instantTradeBuy.description" : "Engedélyezd az eladási ajánlatodhoz illeszkedő vásárlónak, hogy automatikusan kereskedjen veled!\n\nEnnek engedélyezésével a Peach a kiválasztott fizetési adataidat fogja kezelni, hogy azokat azonnal megossza egy olyan vásárlóval, aki minden kritériumodnak megfelel.\n\nEz az adat titkosított, és a Peach-en kívül a harmadik felek nem tudják elolvasni.",
+  "help.instantTradeBuy.title" : "azonnali kereskedés",
   "matchDetails.action.instantTrade" : "azonnali kereskedés",
   "matchDetails.action.missingSelection" : "válassz fizetési módot",
   "matchDetails.action.requestTrade" : "kereskedés kérése",
