@@ -19,7 +19,7 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
   const title = i18n(
     utxos === 1
       ? "warning.wrongFundingAmount.title"
-      : "warning.incorrectFunding.title"
+      : "warning.incorrectFunding.title",
   );
   const content =
     utxos === 1 ? (
@@ -43,7 +43,7 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
         <PeachText style={tw`text-black-100`}>
           {i18n(
             "warning.wrongFundingAmount.description",
-            thousands(maxTradingAmount)
+            thousands(maxTradingAmount),
           )}
         </PeachText>
       </View>
