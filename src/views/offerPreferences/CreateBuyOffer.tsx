@@ -8,6 +8,7 @@ import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
+import { useKeyboard } from "../../hooks/useKeyboard";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -227,6 +228,8 @@ function PublishOfferButton() {
     if (!formValid || isSyncingWallet) return;
     publishOffer(await getPaymentData());
   };
+  const keyboardIsOpen = useKeyboard();
+  if (keyboardIsOpen) return null;
 
   return (
     <Button
