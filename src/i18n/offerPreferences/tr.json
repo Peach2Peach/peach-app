@@ -1,8 +1,10 @@
 {
   "help.fundMultiple.description" : "Ağ ücretlerinden tasarruf etmek için tek bir işlemle birden çok satış teklifi oluşturabilirsiniz!",
   "help.fundMultiple.title" : "çoklu satış tekliflerini finanse etmek",
-  "help.instantTrade.description" : "Satış teklifinize uyan bir alıcıya, otomatik olarak bir işlem yapma izni verin!\n\nBunu etkinleştirmek için Peach, seçtiğiniz ödeme bilgilerinizi alacak ve bunları tüm kriterlerinize uyan bir alıcıyla hemen paylaşmak üzere şifreleyecektir.\n\nBu veriler üçüncü taraflar tarafından Peach dışında okunamaz.",
-  "help.instantTrade.title" : "anlık ticaret",
+  "help.instantTradeSell.description" : "Satış teklifinize uyan bir alıcıya, otomatik olarak bir işlem yapma izni verin!\n\nBunu etkinleştirmek için Peach, seçtiğiniz ödeme bilgilerinizi alacak ve bunları tüm kriterlerinize uyan bir alıcıyla hemen paylaşmak üzere şifreleyecektir.\n\nBu veriler üçüncü taraflar tarafından Peach dışında okunamaz.",
+  "help.instantTradeSell.title" : "anlık ticaret",
+  "help.instantTradeBuy.description" : "Satış teklifinize uyan bir alıcıya, otomatik olarak bir işlem yapma izni verin!\n\nBunu etkinleştirmek için Peach, seçtiğiniz ödeme bilgilerinizi alacak ve bunları tüm kriterlerinize uyan bir alıcıyla hemen paylaşmak üzere şifreleyecektir.\n\nBu veriler üçüncü taraflar tarafından Peach dışında okunamaz.",
+  "help.instantTradeBuy.title" : "anlık ticaret",
   "matchDetails.action.instantTrade" : "anlık ticaret",
   "matchDetails.action.missingSelection" : "ödeme yöntemini seçin",
   "matchDetails.action.requestTrade" : "ticaret isteği",
