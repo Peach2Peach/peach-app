@@ -257,11 +257,11 @@ function PublishOfferButton() {
     if (!formValid || isSyncingWallet) return;
     if (multi !== undefined) {
       const paymentDataPromises = [];
-      for (let i: number = 0; i < multi; i++) {
+      for (let i = 0; i < multi; i++) {
         paymentDataPromises.push(getPaymentData());
       }
       const paymentDataResults = await Promise.all(paymentDataPromises);
-      paymentDataResults.forEach((paymentData) => publishOffer(paymentData));
+      paymentDataResults.forEach((paymentItem) => publishOffer(paymentItem));
     } else publishOffer(await getPaymentData());
   };
   const keyboardIsOpen = useKeyboard();
