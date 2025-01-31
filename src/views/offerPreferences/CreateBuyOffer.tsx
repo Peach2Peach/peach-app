@@ -256,10 +256,13 @@ function PublishOfferButton() {
   const onPress = async () => {
     if (!formValid || isSyncingWallet) return;
     if (multi !== undefined) {
+      const paymentDataPromises = [];
       for (let i: number = 0; i < multi; i++) {
-        await publishOffer(await getPaymentData());
+        paymentDataPromises.push(getPaymentData());
       }
-    }
+      const paymentDataResults = await Promise.all(paymentDataPromises);
+      paymentDataResults.forEach((paymentData) => publishOffer(paymentData));
+    } else publishOffer(await getPaymentData());
   };
   const keyboardIsOpen = useKeyboard();
   if (keyboardIsOpen) return null;
