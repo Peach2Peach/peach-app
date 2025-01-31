@@ -42,7 +42,15 @@ export function CreateBuyOffer() {
   const [isSliding, setIsSliding] = useState(false);
 
   return (
-    <PreferenceScreen isSliding={isSliding} button={<PublishOfferButton />}>
+    <PreferenceScreen
+      isSliding={isSliding}
+      button={
+        <>
+          <FundWithPeachWallet />
+          <PublishOfferButton />
+        </>
+      }
+    >
       <PreferenceMarketInfo />
       <AmountSelector setIsSliding={setIsSliding} />
       <PreferenceMethods type="buy" />
@@ -131,6 +139,25 @@ function AmountSelector({
   );
 }
 
+function FundWithPeachWallet() {
+  const [fundWithPeachWallet, setFundWithPeachWallet] = useOfferPreferences(
+    (state) => [state.fundWithPeachWallet, state.setFundWithPeachWallet],
+    shallow,
+  );
+  const toggle = () => setFundWithPeachWallet(!fundWithPeachWallet);
+  return (
+    <Section.Container style={tw`flex-row justify-between `}>
+      <Checkbox
+        checked={fundWithPeachWallet}
+        onPress={toggle}
+        style={tw`flex-1`}
+      >
+        fund with Peach wallet
+      </Checkbox>
+    </Section.Container>
+  );
+}
+
 function PublishOfferButton() {
   const {
     amountRange,
@@ -141,6 +168,7 @@ function PublishOfferButton() {
     instantTrade,
     instantTradeCriteria,
     originalPaymentData,
+    multi,
   } = useOfferPreferences(
     (state) => ({
       amountRange: state.buyAmountRange,
@@ -157,6 +185,7 @@ function PublishOfferButton() {
       instantTrade: state.instantTrade,
       instantTradeCriteria: state.instantTradeCriteria,
       originalPaymentData: state.originalPaymentData,
+      multi: state.multi,
     }),
     shallow,
   );
@@ -226,7 +255,11 @@ function PublishOfferButton() {
 
   const onPress = async () => {
     if (!formValid || isSyncingWallet) return;
-    publishOffer(await getPaymentData());
+    if (multi !== undefined) {
+      for (let i: number = 0; i < multi; i++) {
+        await publishOffer(await getPaymentData());
+      }
+    }
   };
   const keyboardIsOpen = useKeyboard();
   if (keyboardIsOpen) return null;
