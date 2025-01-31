@@ -12,6 +12,7 @@ import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
@@ -75,6 +76,8 @@ export const Match = ({
     [matched, selectedPaymentMethod, tradingLimitReached],
   );
 
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View style={tw`justify-center flex-1`}>
       <View
@@ -88,7 +91,12 @@ export const Match = ({
         ]}
         onStartShouldSetResponder={() => true}
       >
-        <View style={tw`gap-4 p-4 bg-primary-background-light-color`}>
+        <View
+          style={tw.style(
+            "gap-4 p-4",
+            isDarkMode ? "bg-card" : "bg-primary-background-light-color",
+          )}
+        >
           <ProfileInfo user={user} isOnMatchCard />
 
           <HorizontalLine />
@@ -142,8 +150,8 @@ function CashPaymentDetail({ method }: { method: `cash.${string}` }) {
 function PaymentDetail({ label, value }: { label: string; value?: string }) {
   return (
     <View style={tw`flex-row justify-between`}>
-      <PeachText style={tw`text-black-65`}>{label}</PeachText>
-      <Bubble disabled color="black" ghost>
+      <PeachText style={tw`text-black-50`}>{label}</PeachText>
+      <Bubble disabled color="orange" ghost>
         {value}
       </Bubble>
     </View>
