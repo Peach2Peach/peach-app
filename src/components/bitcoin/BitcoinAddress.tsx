@@ -90,17 +90,17 @@ export const BitcoinAddress = ({
           >
             {addressParts.one}
             <PeachText
-              style={tw` ${
-                isDarkMode ? "text-backgroundLight-light" : "text-black-100"
-              }`}
+              style={tw.style(
+                isDarkMode ? "text-backgroundLight-light" : "text-black-100",
+              )}
             >
               {addressParts.two}
             </PeachText>
             {addressParts.three}
             <PeachText
-              style={tw` ${
-                isDarkMode ? "text-backgroundLight-light" : "text-black-100"
-              }`}
+              style={tw.style(
+                isDarkMode ? "text-backgroundLight-light" : "text-black-100",
+              )}
             >
               {addressParts.four}
             </PeachText>

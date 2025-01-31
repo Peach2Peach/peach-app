@@ -93,7 +93,7 @@ export const Match = ({
       >
         <View
           style={tw.style(
-            "gap-4 p-4 bg-card",
+            "gap-4 p-4",
             isDarkMode ? "bg-card" : "bg-primary-background-light-color",
           )}
         >
