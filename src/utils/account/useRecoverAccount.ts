@@ -1,4 +1,3 @@
-import analytics from "@react-native-firebase/analytics";
 import { useCallback } from "react";
 import { useUserUpdate } from "../../init/useUserUpdate";
 import { info } from "../log/info";
@@ -15,7 +14,6 @@ export function useRecoverAccount() {
 
       await userUpdate();
 
-      analytics().logEvent("account_restored");
       return account;
     },
     [userUpdate],
