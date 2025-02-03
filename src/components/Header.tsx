@@ -6,6 +6,7 @@ import {
   ViewProps,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Style } from "twrnc";
 import { shallow } from "zustand/shallow";
 import { IconType } from "../assets/icons";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
@@ -54,7 +55,7 @@ const getCommonStyles = (isDarkMode: boolean) => ({
   backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
 });
 
-const getBackground = (isDarkMode: boolean, lightModeColor: any) =>
+const getBackground = (isDarkMode: boolean, lightModeColor: Style) =>
   isDarkMode ? tw`bg-backgroundMain-dark` : lightModeColor;
 
 const newThemes = (isDarkMode: boolean) => ({
