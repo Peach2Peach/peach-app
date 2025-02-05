@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "fungua programu ya mkoba",
   "wallet.receive" : "pokea",
   "wallet.receiveBitcoin.title" : "pokea Bitcoin",
+  "wallet.seedPhraseWarning" : "KAMWE usishiriki maneno yako ya mbegu na mtu yeyote.",
   "wallet.send" : "tuma",
   "wallet.sendBitcoin.amount" : "kiwango",
   "wallet.sendBitcoin.fee" : "ada ya shughuli",

@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "открыть приложение кошелька",
   "wallet.receive" : "получить",
   "wallet.receiveBitcoin.title" : "получить биткойн",
+  "wallet.seedPhraseWarning" : "НИКОГДА не сообщайте никому свою семенную фразу",
   "wallet.send" : "отправить",
   "wallet.sendBitcoin.amount" : "сумма",
   "wallet.sendBitcoin.fee" : "комиссия за транзакцию",
