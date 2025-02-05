@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "відкрийте додаток гаманця",
   "wallet.receive" : "отримати",
   "wallet.receiveBitcoin.title" : "отримати біткойн",
+  "wallet.seedPhraseWarning": "НІКОЛИ не діліться своєю початковою фразою ні з ким",
   "wallet.send" : "відіслати",
   "wallet.sendBitcoin.amount" : "кількість",
   "wallet.sendBitcoin.fee" : "комісія за переказ",

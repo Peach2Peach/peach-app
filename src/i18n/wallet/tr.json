@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "cüzdan uygulamasını aç",
   "wallet.receive" : "al",
   "wallet.receiveBitcoin.title" : "Bitcoin al",
+  "wallet.seedPhraseWarning" : "Tohum ifadenizi ASLA kimseyle paylaşmayın",
   "wallet.send" : "gönder",
   "wallet.sendBitcoin.amount" : "miktar",
   "wallet.sendBitcoin.fee" : "işlem ücreti",
