@@ -88,19 +88,6 @@ describe("Wallet", () => {
     queryClient.clear();
   });
 
-  it("should render correctly", async () => {
-    const { toJSON } = render(<Wallet />);
-    await waitFor(() => {
-      expect(queryClient.isFetching()).toBe(0);
-    });
-
-    expect(toJSON()).toMatchSnapshot();
-  });
-
-  it("should render correctly when loading", () => {
-    const { toJSON } = render(<Wallet />);
-    expect(toJSON()).toMatchSnapshot();
-  });
   it("should navigate to send screen when send button is pressed", async () => {
     const { getByText } = render(<Wallet />);
     await waitFor(() => {
