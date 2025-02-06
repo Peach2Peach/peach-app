@@ -40,6 +40,7 @@ exports[`tradeInformationGetters should return the correct value for the paidToM
     style={
       {
         "alignItems": "center",
+        "backgroundColor": "transparent",
         "borderColor": "#9F8C82",
         "borderRadius": 8,
         "borderWidth": 1,
@@ -131,6 +132,7 @@ exports[`tradeInformationGetters should return the correct value for the via fie
     style={
       {
         "alignItems": "center",
+        "backgroundColor": "transparent",
         "borderColor": "#9F8C82",
         "borderRadius": 8,
         "borderWidth": 1,
