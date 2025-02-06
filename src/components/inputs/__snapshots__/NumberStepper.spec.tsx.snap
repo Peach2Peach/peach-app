@@ -3,13 +3,10 @@
 exports[`NumberStepper renders correctly 1`] = `
 <View
   style={
-    [
-      {
-        "flexDirection": "row",
-        "gap": 12,
-      },
-      undefined,
-    ]
+    {
+      "flexDirection": "row",
+      "gap": 12,
+    }
   }
 >
   <TouchableOpacity
@@ -33,7 +30,7 @@ exports[`NumberStepper renders correctly 1`] = `
           "letterSpacing": 0.24,
           "lineHeight": 32,
           "textAlign": "center",
-          "width": 44,
+          "width": 48,
         },
         {
           "color": "#2B1911",
@@ -62,13 +59,10 @@ exports[`NumberStepper renders correctly 1`] = `
 exports[`NumberStepper renders correctly when maximum is reached 1`] = `
 <View
   style={
-    [
-      {
-        "flexDirection": "row",
-        "gap": 12,
-      },
-      undefined,
-    ]
+    {
+      "flexDirection": "row",
+      "gap": 12,
+    }
   }
 >
   <TouchableOpacity
@@ -92,7 +86,7 @@ exports[`NumberStepper renders correctly when maximum is reached 1`] = `
           "letterSpacing": 0.24,
           "lineHeight": 32,
           "textAlign": "center",
-          "width": 44,
+          "width": 48,
         },
         {
           "color": "#2B1911",
@@ -125,13 +119,10 @@ exports[`NumberStepper renders correctly when maximum is reached 1`] = `
 exports[`NumberStepper renders correctly when minimum is reached 1`] = `
 <View
   style={
-    [
-      {
-        "flexDirection": "row",
-        "gap": 12,
-      },
-      undefined,
-    ]
+    {
+      "flexDirection": "row",
+      "gap": 12,
+    }
   }
 >
   <TouchableOpacity
@@ -159,7 +150,7 @@ exports[`NumberStepper renders correctly when minimum is reached 1`] = `
           "letterSpacing": 0.24,
           "lineHeight": 32,
           "textAlign": "center",
-          "width": 44,
+          "width": 48,
         },
         {
           "color": "#2B1911",
@@ -188,15 +179,10 @@ exports[`NumberStepper renders correctly when minimum is reached 1`] = `
 exports[`NumberStepper renders correctly with style 1`] = `
 <View
   style={
-    [
-      {
-        "flexDirection": "row",
-        "gap": 12,
-      },
-      {
-        "marginTop": 16,
-      },
-    ]
+    {
+      "flexDirection": "row",
+      "gap": 12,
+    }
   }
 >
   <TouchableOpacity
@@ -220,7 +206,7 @@ exports[`NumberStepper renders correctly with style 1`] = `
           "letterSpacing": 0.24,
           "lineHeight": 32,
           "textAlign": "center",
-          "width": 44,
+          "width": 48,
         },
         {
           "color": "#2B1911",
