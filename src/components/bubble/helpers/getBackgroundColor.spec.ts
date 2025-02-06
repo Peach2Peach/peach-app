@@ -19,19 +19,19 @@ describe("getBackgroundColor", () => {
     );
   });
   it("should return the correct background color for gray bubble", () => {
-    expect(getBackgroundColor({ color: "gray", ghost: false })).toEqual(
-      tw`transparent`,
-    );
-    expect(getBackgroundColor({ color: "gray", ghost: true })).toEqual(
-      tw`transparent`,
-    );
+    expect(getBackgroundColor({ color: "gray", ghost: false })).toEqual({
+      backgroundColor: "transparent",
+    });
+    expect(getBackgroundColor({ color: "gray", ghost: true })).toEqual({
+      backgroundColor: "transparent",
+    });
   });
   it("should return the correct background color for black bubble", () => {
-    expect(getBackgroundColor({ color: "black", ghost: false })).toEqual(
-      tw`transparent`,
-    );
-    expect(getBackgroundColor({ color: "black", ghost: true })).toEqual(
-      tw`transparent`,
-    );
+    expect(getBackgroundColor({ color: "black", ghost: false })).toEqual({
+      backgroundColor: "transparent",
+    });
+    expect(getBackgroundColor({ color: "black", ghost: true })).toEqual({
+      backgroundColor: "transparent",
+    });
   });
 });

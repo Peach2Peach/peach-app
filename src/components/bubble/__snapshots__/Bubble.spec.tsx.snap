@@ -7,7 +7,11 @@ exports[`Bubble should render correctly a black bubble 1`] = `
       "borderColor": "#2B1911",
     }
   }
-  color={{}}
+  color={
+    {
+      "backgroundColor": "transparent",
+    }
+  }
   iconColor={
     {
       "color": "#2B1911",
@@ -31,7 +35,11 @@ exports[`Bubble should render correctly a black bubble with icon 1`] = `
       "borderColor": "#2B1911",
     }
   }
-  color={{}}
+  color={
+    {
+      "backgroundColor": "transparent",
+    }
+  }
   iconColor={
     {
       "color": "#2B1911",
@@ -56,7 +64,11 @@ exports[`Bubble should render correctly a gray bubble 1`] = `
       "borderColor": "#9F8C82",
     }
   }
-  color={{}}
+  color={
+    {
+      "backgroundColor": "transparent",
+    }
+  }
   iconColor={
     {
       "color": "#9F8C82",
@@ -80,7 +92,11 @@ exports[`Bubble should render correctly a gray bubble with icon 1`] = `
       "borderColor": "#9F8C82",
     }
   }
-  color={{}}
+  color={
+    {
+      "backgroundColor": "transparent",
+    }
+  }
   iconColor={
     {
       "color": "#9F8C82",
@@ -209,7 +225,11 @@ exports[`Bubble should render correctly with black bubble with no background 1`]
       "borderColor": "#2B1911",
     }
   }
-  color={{}}
+  color={
+    {
+      "backgroundColor": "transparent",
+    }
+  }
   ghost={true}
   iconColor={
     {
@@ -234,7 +254,11 @@ exports[`Bubble should render correctly with gray bubble with no background 1`] 
       "borderColor": "#9F8C82",
     }
   }
-  color={{}}
+  color={
+    {
+      "backgroundColor": "transparent",
+    }
+  }
   ghost={true}
   iconColor={
     {
