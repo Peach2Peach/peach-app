@@ -5,7 +5,7 @@ import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
-type Props = ComponentProps & {
+type Props = {
   value: number;
   onChange: (number: number) => void;
   min?: number;
@@ -16,7 +16,6 @@ export const NumberStepper = ({
   onChange,
   min = -Infinity,
   max = Infinity,
-  style,
 }: Props) => {
   const decrease = () => onChange(Math.max(value - 1, min));
   const increase = () => onChange(Math.min(value + 1, max));
@@ -27,7 +26,7 @@ export const NumberStepper = ({
   const { isDarkMode } = useThemeStore();
 
   return (
-    <View style={[tw`flex-row gap-3`, style]}>
+    <View style={tw`flex-row gap-3`}>
       <TouchableOpacity
         onPress={decrease}
         accessibilityHint={i18n("number.decrease")}
@@ -38,7 +37,7 @@ export const NumberStepper = ({
       </TouchableOpacity>
       <PeachText
         style={[
-          tw`text-center h5 w-11`,
+          tw`w-12 text-center h5`,
           tw`text-${isDarkMode ? "backgroundLight-light" : "black-100"}`,
         ]}
       >
