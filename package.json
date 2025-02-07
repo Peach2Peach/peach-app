@@ -1,6 +1,6 @@
 {
   "name": "peach",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Peach Application",
   "author": "Peach2Peach",
   "private": true,
@@ -71,7 +71,7 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
-    "react-native": "^0.71.14",
+    "react-native": "^0.71.15",
     "react-native-camera": "^4.2.1",
     "react-native-crypto-js": "^1.0.0",
     "react-native-device-info": "^10.12.0",
