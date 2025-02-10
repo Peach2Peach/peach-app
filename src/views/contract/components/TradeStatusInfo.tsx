@@ -73,7 +73,7 @@ function getBuyerStatusText(contract: Contract) {
         : "contract.buyer.collaborativeCancel.notResolved",
     );
   } else if (contract.canceledBy === "buyer") {
-    return "You have successfully canceled this trade.";
+    return i18n("contract.buyer.buyerCanceledTrade.fundingExpired");
   } else if (
     contract.canceledBy === "mediator" &&
     !contract.paymentMade &&
