@@ -91,11 +91,13 @@ function getBuyerStatusText(contract: Contract) {
     return i18n("contract.buyer.disputeLost");
   }
   const isResolved = !!contract.releaseTxId;
-  return i18n(
-    isResolved
-      ? "contract.buyer.disputeWon.paidOut"
-      : "contract.buyer.disputeWon.awaitingPayout",
-  );
+  if (contract.disputeWinner && isResolved) {
+    return i18n(
+      isResolved
+        ? "contract.buyer.disputeWon.paidOut"
+        : "contract.buyer.disputeWon.awaitingPayout",
+    );
+  }
 }
 
 function SellerStatusText({ contract }: { contract: Contract }) {
