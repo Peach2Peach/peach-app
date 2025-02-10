@@ -12,6 +12,7 @@
   "contract.bought": "Gekauft",
   "contract.buyer.buyerCanceledCashTrade": "Du hast diesen Barhandel abgebrochen.",
   "contract.buyer.buyerCanceledTrade": "Du hast den Handel abgebrochen und dein Ruf wurde beeinträchtigt.",
+  "contract.buyer.buyerCanceledTrade.fundingExpired": "Der Verkäufer hat das Treuhandkonto nicht rechtzeitig finanziert und Sie haben beschlossen, das Angebot zurückzuziehen.",
   "contract.buyer.collaborativeCancel.notResolved": "Du musst der Stornierung zustimmen oder sie ablehnen.",
   "contract.buyer.collaborativeCancel.resolved": "Du hast der Stornierung des Handels zugestimmt, und der Verkäufer wurde rückerstattet.",
   "contract.buyer.disputeLost": "Du hast den Streitfall verloren! Dein Ruf wurde beeinträchtigt und der Handel wurde beendet.",

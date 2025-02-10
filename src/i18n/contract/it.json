@@ -12,6 +12,7 @@
   "contract.bought": "acquistato",
   "contract.buyer.buyerCanceledCashTrade": "Hai annullato questo scambio in contanti.",
   "contract.buyer.buyerCanceledTrade": "Hai annullato lo scambio e la tua reputazione ne ha risentito.",
+  "contract.buyer.buyerCanceledTrade.fundingExpired": "Il venditore non ha effettuato il pagamento del deposito a garanzia nei tempi previsti e hai deciso di annullare l'offerta.",
   "contract.buyer.collaborativeCancel.notResolved": "Dovrai accettare o rifiutare la cancellazione.",
   "contract.buyer.collaborativeCancel.resolved": "Hai accettato di annullare lo scambio e il venditore è stato rimborsato.",
   "contract.buyer.disputeLost": "Hai perso la disputa! La tua reputazione ne ha risentito e lo scambio è stato interrotto.",

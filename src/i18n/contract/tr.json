@@ -12,6 +12,7 @@
   "contract.bought": "satın alındı",
   "contract.buyer.buyerCanceledCashTrade": "Bu nakit ticaretini iptal ettin.",
   "contract.buyer.buyerCanceledTrade": "Ticareti iptal ettin ve itibarın etkilendi.",
+  "contract.buyer.buyerCanceledTrade.fundingExpired": "Satıcı, emanet hesabını zamanında finanse etmedi ve siz teklifi iptal etmeye karar verdiniz.",
   "contract.buyer.collaborativeCancel.notResolved": "İptal'i kabul etmek veya reddetmek zorundasın.",
   "contract.buyer.collaborativeCancel.resolved": "Ticareti iptal etmeyi kabul ettin ve satıcıya geri ödeme yapıldı.",
   "contract.buyer.disputeLost": "Anlaşmazlığı kaybettin! İtibarın etkilendi ve ticaret sona erdi.",

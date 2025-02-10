@@ -35,6 +35,7 @@
   "offer.requiredAction.releaseEscrow" : "звільнити депозит",
   "offer.requiredAction.releaseEscrow.dispute" : "спір програно: звільнити депозит",
   "offer.requiredAction.searchingForPeer" : "у пошуку співпадіння",
+  "offer.requiredAction.fundingExpired": "не профінансовано вчасно",
   "offer.requiredAction.unknown" : "невідомо - оновіть свою програму!",
   "offer.requiredAction.waiting" : "очікування на $0",
   "offer.requiredAction.waiting.buyer" : "очікування на оплату",

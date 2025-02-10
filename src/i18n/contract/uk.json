@@ -12,6 +12,7 @@
   "contract.bought": "придбано",
   "contract.buyer.buyerCanceledCashTrade": "Ви скасували цю торгівлю готівкою.",
   "contract.buyer.buyerCanceledTrade": "Ви скасували обмін, і це вплинуло на вашу репутацію.",
+  "contract.buyer.buyerCanceledTrade.fundingExpired": "Продавець не профінансував ескроу вчасно, і ви вирішили скасувати пропозицію.",
   "contract.buyer.collaborativeCancel.notResolved": "Вам потрібно погодитися або відхилити скасування.",
   "contract.buyer.collaborativeCancel.resolved": "Ви погодилися скасувати обмін, та продавцю було повернуто гроші.",
   "contract.buyer.disputeLost": "Ви програли суперечку! Ваша репутація постраждала, і торгівлю було припинено.",

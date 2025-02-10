@@ -12,6 +12,7 @@
   "contract.bought": "αγοράστηκαν",
   "contract.buyer.buyerCanceledCashTrade": "Ακυρώσατε αυτήν τη συναλλαγή με μετρητά.",
   "contract.buyer.buyerCanceledTrade": "Ακυρώσατε τη συναλλαγή και η φήμη σας έχει επηρεαστεί.",
+  "contract.buyer.buyerCanceledTrade.fundingExpired": "Ο πωλητής δεν χρηματοδότησε έγκαιρα τη μεσεγγύηση και αποφασίσατε να ακυρώσετε την προσφορά.",
   "contract.buyer.collaborativeCancel.notResolved": "Θα πρέπει να συμφωνήσετε ή να απορρίψετε την ακύρωση.",
   "contract.buyer.collaborativeCancel.resolved": "Συμφωνήσατε να ακυρώσετε τη συναλλαγή και ο πωλητής έχει αναχρηματοδοτηθεί.",
   "contract.buyer.disputeLost": "Χάσατε τη διένεξη! Η φήμη σας έχει επηρεαστεί και η συναλλαγή έχει τερματιστεί.",

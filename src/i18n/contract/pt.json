@@ -12,6 +12,7 @@
   "contract.bought" : "comprado",
   "contract.buyer.buyerCanceledCashTrade" : "Cancelou esta negociação em dinheiro.",
   "contract.buyer.buyerCanceledTrade" : "Cancelou a negociação e a sua reputação foi afetada negativamente.",
+  "contract.buyer.buyerCanceledTrade.fundingExpired": "O vendedor não financiou o depósito em garantia a tempo e você decidiu cancelar a oferta.",
   "contract.buyer.collaborativeCancel.notResolved" : "O vendedor deseja cancelar esta negociação. Sinta-se livre para rejeitar o cancelamento, principalmente se já tiver efetuado o pagamento.",
   "contract.buyer.collaborativeCancel.resolved" : "Concordou em cancelar a negociação e o vendedor foi reembolsado.",
   "contract.buyer.disputeLost" : "Perdeu a disputa! A sua reputação foi afetada e a negociação foi encerrada.",

@@ -12,6 +12,7 @@
   "contract.bought": "umenunua",
   "contract.buyer.buyerCanceledCashTrade": "Umebatilisha biashara hii ya pesa taslimu.",
   "contract.buyer.buyerCanceledTrade": "Ulighairi biashara, na kuathiri sifa yako vibaya.",
+  "contract.buyer.buyerCanceledTrade.fundingExpired": "Muuzaji hakufadhili escrow kwa wakati na uliamua kughairi ofa.",
   "contract.buyer.collaborativeCancel.notResolved": "Muuzaji anataka kughairi biashara hii. Uko huru kukataa kughairi, haswa ikiwa tayari umefanya malipo.",
   "contract.buyer.collaborativeCancel.resolved": "Uliukubali kufuta biashara, na muuzaji amerejeshewa fedha.",
   "contract.buyer.disputeLost": "Umepoteza mzozo! Sifa yako imeathiriwa na muuzaji amerejeshewa pesa.",
