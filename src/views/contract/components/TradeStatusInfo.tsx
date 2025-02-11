@@ -98,6 +98,7 @@ function getBuyerStatusText(contract: Contract) {
         : "contract.buyer.disputeWon.awaitingPayout",
     );
   }
+  return "";
 }
 
 function SellerStatusText({ contract }: { contract: Contract }) {
