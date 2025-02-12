@@ -94,7 +94,7 @@ function getBuyerStatusText(contract: Contract) {
     return i18n("contract.buyer.disputeLost");
   }
   const isResolved = !!contract.releaseTxId;
-  if (contract.disputeWinner && isResolved) {
+  if (contract.disputeWinner === "buyer") {
     return i18n(
       isResolved
         ? "contract.buyer.disputeWon.paidOut"
