@@ -73,9 +73,6 @@ function getBuyerStatusText(contract: Contract) {
         : "contract.buyer.collaborativeCancel.notResolved",
     );
   } else if (contract.canceledBy === "buyer") {
-    if (contract.fundingExpectedBy.getTime() <= Date.now()) {
-      return i18n("contract.buyer.buyerCanceledTrade.fundingExpired");
-    }
     return "You have successfully canceled this trade.";
   } else if (
     contract.canceledBy === "mediator" &&
@@ -101,7 +98,7 @@ function getBuyerStatusText(contract: Contract) {
         : "contract.buyer.disputeWon.awaitingPayout",
     );
   }
-  return "";
+  return null;
 }
 
 function SellerStatusText({ contract }: { contract: Contract }) {
