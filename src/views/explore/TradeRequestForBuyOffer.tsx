@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -15,6 +15,8 @@ import tw from "../../styles/tailwind";
 import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
+import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
+import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { useUser } from "../publicProfile/useUser";
@@ -23,15 +25,42 @@ import { useMaxMiningFee } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
+import { useOffer } from "./useOffer";
 
 export function TradeRequestForBuyOffer() {
-  const { userId, amount, fiatPrice, currency, paymentMethod } =
-    useRoute<"tradeRequestForBuyOffer">().params;
+  const {
+    userId,
+    amount,
+    fiatPrice,
+    currency,
+    paymentMethod,
+    offerId = "",
+  } = useRoute<"tradeRequestForBuyOffer">().params;
+
   const { user } = useUser(userId);
   const { data: marketPrices } = useMarketPrices();
-  if (!user || !marketPrices) {
+  const { data: offer } = useOffer(offerId);
+  const paymentData = usePaymentDataStore((state) =>
+    Object.values(state.paymentData),
+  );
+
+  const allPaymentMethods = offer ? getPaymentMethods(offer.meansOfPayment) : [];
+  const allMethodsForCurrency = allPaymentMethods.filter((p) =>
+    paymentMethodAllowedForCurrency(p, currency),
+  );
+
+  const dataForCurrency = paymentData.filter((d) =>
+    allMethodsForCurrency.includes(d.type),
+  );
+
+  const defaultData =
+    dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
+  const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
+
+  if (!user || !marketPrices || !offer) {
     return <ActivityIndicator />;
   }
+
   const bitcoinPrice = marketPrices[currency];
   if (!bitcoinPrice) return <ActivityIndicator />;
 
@@ -52,18 +81,27 @@ export function TradeRequestForBuyOffer() {
           premium={premium}
           price={fiatPrice}
         />
-        <PaidVia paymentMethod={paymentMethod} />
+        <PaidVia
+          paymentMethod={paymentMethod}
+          setSelectedPaymentData={setSelectedPaymentData}
+        />
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
         {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
-        <AcceptButton />
+        {selectedPaymentData && (
+          <AcceptButton selectedPaymentData={selectedPaymentData} />
+        )}
       </View>
     </Screen>
   );
 }
 
-function AcceptButton() {
-  const mutation = useAcceptTradeRequest();
+function AcceptButton({
+  selectedPaymentData,
+}: {
+  selectedPaymentData: PaymentData;
+}) {
+  const mutation = useAcceptTradeRequest({ selectedPaymentData });
   return (
     <Button
       style={tw`flex-1 py-3 bg-success-main`}
@@ -74,22 +112,17 @@ function AcceptButton() {
   );
 }
 
-function useAcceptTradeRequest() {
-  const {
-    userId,
-    offerId,
-    amount,
-    symmetricKeyEncrypted,
-    currency,
-    paymentMethod,
-  } = useRoute<"tradeRequestForBuyOffer">().params;
+function useAcceptTradeRequest({
+  selectedPaymentData,
+}: {
+  selectedPaymentData: PaymentData;
+}) {
+
+  const { userId, offerId, amount, symmetricKeyEncrypted } =
+    useRoute<"tradeRequestForBuyOffer">().params;
   const navigation = useStackNavigation();
-  const paymentData = usePaymentDataStore(
-    (s) =>
-      Object.values(s.paymentData).filter(({ type }) => type === paymentMethod),
-    shallow,
-  );
   const { maxMiningFeeRate } = useMaxMiningFee(amount);
+  
   return useMutation({
     onMutate: async () => {
       // cancel queries related to the sell offer
@@ -98,11 +131,10 @@ function useAcceptTradeRequest() {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
 
-      const selectedPaymentData = paymentData.find((pd) =>
-        pd.currencies.includes(currency),
-      );
+      // const selectedPaymentData = paymentData.find((pd) =>
+      //   pd.currencies.includes(currency),
+      // );
       if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
-
       const encryptedData = await encryptPaymentData(
         cleanPaymentData(selectedPaymentData),
         symmetricKey,
