@@ -157,15 +157,12 @@ function AcceptButton({
       }
     }
   };
-
   const mutation = useAcceptTradeRequest({ selectedPaymentData });
-
   useEffect(() => {
     if (selectedPaymentData !== undefined) {
       mutation.mutate();
     }
   }, [selectedPaymentData, mutation]);
-  
   const handlePress = () => {
     onPressBubble();
   };
@@ -194,7 +191,6 @@ function useAcceptTradeRequest({
     mutationFn: async () => {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
-
       if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
       const encryptedData = await encryptPaymentData(
         cleanPaymentData(selectedPaymentData),
@@ -231,3 +227,4 @@ function useAcceptTradeRequest({
     },
   });
 }
+
