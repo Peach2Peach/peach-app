@@ -28,14 +28,8 @@ import { UserCard } from "./UserCard";
 import { useOffer } from "./useOffer";
 
 export function TradeRequestForBuyOffer() {
-  const {
-    userId,
-    amount,
-    fiatPrice,
-    currency,
-    paymentMethod,
-    offerId,
-  } = useRoute<"tradeRequestForBuyOffer">().params;
+  const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
+    useRoute<"tradeRequestForBuyOffer">().params;
 
   const { user } = useUser(userId);
   const { data: marketPrices } = useMarketPrices();
@@ -44,7 +38,9 @@ export function TradeRequestForBuyOffer() {
     Object.values(state.paymentData),
   );
 
-  const allPaymentMethods = offer ? getPaymentMethods(offer.meansOfPayment) : [];
+  const allPaymentMethods = offer
+    ? getPaymentMethods(offer.meansOfPayment)
+    : [];
   const allMethodsForCurrency = allPaymentMethods.filter((p) =>
     paymentMethodAllowedForCurrency(p, currency),
   );
@@ -117,7 +113,6 @@ function useAcceptTradeRequest({
 }: {
   selectedPaymentData: PaymentData;
 }) {
-
   const { userId, offerId, amount, symmetricKeyEncrypted } =
     useRoute<"tradeRequestForBuyOffer">().params;
   const navigation = useStackNavigation();
