@@ -1,21 +1,27 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { DrawerOptionType } from "../../components/drawer/components/DrawerOption";
+import { useDrawerState } from "../../components/drawer/useDrawerState";
+import { PaymentLogoType } from "../../components/payment/logos";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
+import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
@@ -23,7 +29,7 @@ import { useUser } from "../publicProfile/useUser";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { useMaxMiningFee } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
-import { PaidViaAcceptRequest } from "./PaidViaAcceptRequest";
+import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
 import { useOffer } from "./useOffer";
 
@@ -77,33 +83,96 @@ export function TradeRequestForBuyOffer() {
           premium={premium}
           price={fiatPrice}
         />
-        <PaidViaAcceptRequest
-          paymentMethod={paymentMethod}
-          setSelectedPaymentData={setSelectedPaymentData}
-        />
+        <PaidVia paymentMethod={paymentMethod} />
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
         {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
-        {selectedPaymentData && (
-          <AcceptButton selectedPaymentData={selectedPaymentData} />
-        )}
+
+        <AcceptButton
+          paymentMethod={paymentMethod}
+          selectedPaymentData={selectedPaymentData}
+          children={"Accept Trade"}
+          onPress={setSelectedPaymentData}
+        />
       </View>
     </Screen>
   );
 }
 
+type PaideViaPayementMethodBubbleProps = {
+  paymentMethod: PaymentMethod;
+  selectedPaymentData?: PaymentData;
+  children: React.ReactNode;
+  onPress?: (value: PaymentData) => void;
+};
+
 function AcceptButton({
+  paymentMethod,
   selectedPaymentData,
-}: {
-  selectedPaymentData: PaymentData;
-}) {
+  children,
+  onPress,
+}: PaideViaPayementMethodBubbleProps) {
+  const paymentDataRecord = usePaymentDataStore((state) => state.paymentData);
+  const paymentDataForType = useMemo(
+    () =>
+      Object.values(paymentDataRecord).filter((p) => p.type === paymentMethod),
+    [paymentDataRecord, paymentMethod],
+  );
+  const hasPaymentData = paymentDataForType.length > 0;
+  const hasMultiplePaymentData = paymentDataForType.length > 1;
+  const updateDrawer = useDrawerState((state) => state.updateDrawer);
+
+  const { data: meetupEvents } = useMeetupEvents();
+  const getPaymentMethodName = (methodType: PaymentMethod) => {
+    if (isCashTrade(methodType)) {
+      const eventId = methodType.replace("cash.", "");
+      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
+      return meetupEvent?.shortName ?? eventId;
+    }
+    return i18n(`paymentMethod.${methodType}`);
+  };
+  const onPressBubble = () => {
+    if (onPress) {
+      if (hasPaymentData) {
+        if (hasMultiplePaymentData) {
+          updateDrawer({
+            title: i18n("selectPaymentMethod.title"),
+            options: paymentDataForType.map(
+              (p, index): DrawerOptionType => ({
+                title: getPaymentMethodName(p.type),
+                onPress: () => {
+                  onPress(paymentDataForType[index]);
+                  updateDrawer({ show: false });
+                },
+                logoID: p.type as PaymentLogoType, // Ensure logoID is correctly typed
+                iconRightID:
+                  p.id === selectedPaymentData?.id ? "check" : undefined,
+              }),
+            ),
+            show: true,
+          });
+        } else {
+          onPress(paymentDataForType[0]);
+        }
+      }
+    }
+  };
+
   const mutation = useAcceptTradeRequest({ selectedPaymentData });
+
+  useEffect(() => {
+    if (selectedPaymentData !== undefined) {
+      mutation.mutate();
+    }
+  }, [selectedPaymentData, mutation]);
+  
+  const handlePress = () => {
+    onPressBubble();
+  };
+
   return (
-    <Button
-      style={tw`flex-1 py-3 bg-success-main`}
-      onPress={() => mutation.mutate()}
-    >
-      Accept Trade
+    <Button style={tw`flex-1 py-3 bg-success-main`} onPress={handlePress}>
+      {children}
     </Button>
   );
 }
@@ -111,7 +180,7 @@ function AcceptButton({
 function useAcceptTradeRequest({
   selectedPaymentData,
 }: {
-  selectedPaymentData: PaymentData;
+  selectedPaymentData?: PaymentData;
 }) {
   const { userId, offerId, amount, symmetricKeyEncrypted } =
     useRoute<"tradeRequestForBuyOffer">().params;
@@ -125,6 +194,7 @@ function useAcceptTradeRequest({
     mutationFn: async () => {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
+
       if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
       const encryptedData = await encryptPaymentData(
         cleanPaymentData(selectedPaymentData),
