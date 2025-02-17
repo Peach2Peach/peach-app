@@ -23,7 +23,7 @@ import { useUser } from "../publicProfile/useUser";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { useMaxMiningFee } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
-import { PaidVia } from "./PaidVia";
+import { PaidViaAcceptRequest } from "./PaidViaAcceptRequest";
 import { UserCard } from "./UserCard";
 import { useOffer } from "./useOffer";
 
@@ -81,7 +81,7 @@ export function TradeRequestForBuyOffer() {
           premium={premium}
           price={fiatPrice}
         />
-        <PaidVia
+        <PaidViaAcceptRequest
           paymentMethod={paymentMethod}
           setSelectedPaymentData={setSelectedPaymentData}
         />
@@ -122,7 +122,7 @@ function useAcceptTradeRequest({
     useRoute<"tradeRequestForBuyOffer">().params;
   const navigation = useStackNavigation();
   const { maxMiningFeeRate } = useMaxMiningFee(amount);
-  
+
   return useMutation({
     onMutate: async () => {
       // cancel queries related to the sell offer
