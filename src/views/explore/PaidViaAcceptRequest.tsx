@@ -17,7 +17,6 @@ export function PaidViaAcceptRequest({
   paymentMethod: PaymentMethod;
   setSelectedPaymentData: (value: PaymentData) => void;
 }) {
-
   return (
     <View style={tw`flex-row items-center self-stretch justify-between px-3`}>
       <PeachText>paid via</PeachText>
@@ -42,7 +41,6 @@ function PaideViaPayementMethodBubble({
   children,
   onPress,
 }: PaideViaPayementMethodBubbleProps) {
-
   const paymentDataRecord = usePaymentDataStore((state) => state.paymentData);
   const paymentDataForType = useMemo(
     () =>

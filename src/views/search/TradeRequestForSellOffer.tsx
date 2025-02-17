@@ -9,7 +9,6 @@ import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { round } from "../../utils/math/round";
@@ -20,20 +19,41 @@ import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/payme
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { PriceInfo } from "../explore/BuyerPriceInfo";
-import { PaidVia } from "../explore/PaidVia";
-import { UserCard } from "../explore/UserCard";
-import { useUser } from "../publicProfile/useUser";
-import { useOffer } from "./useOffer";
 import { PaidViaAcceptRequest } from "../explore/PaidViaAcceptRequest";
+import { UserCard } from "../explore/UserCard";
+import { useOffer } from "../explore/useOffer";
+import { useUser } from "../publicProfile/useUser";
 
 export function TradeRequestForSellOffer() {
-  const { userId, amount, fiatPrice, currency, paymentMethod } =
+  const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
     useRoute<"tradeRequestForSellOffer">().params;
+
   const { user } = useUser(userId);
   const { data: marketPrices } = useMarketPrices();
-  if (!user || !marketPrices) {
+  const { data: offer } = useOffer(offerId);
+  const paymentData = usePaymentDataStore((state) =>
+    Object.values(state.paymentData),
+  );
+
+  const allPaymentMethods = offer
+    ? getPaymentMethods(offer.meansOfPayment)
+    : [];
+  const allMethodsForCurrency = allPaymentMethods.filter((p) =>
+    paymentMethodAllowedForCurrency(p, currency),
+  );
+
+  const dataForCurrency = paymentData.filter((d) =>
+    allMethodsForCurrency.includes(d.type),
+  );
+
+  const defaultData =
+    dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
+  const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
+
+  if (!user || !marketPrices || !offer) {
     return <ActivityIndicator />;
   }
+
   const bitcoinPrice = marketPrices[currency];
   if (!bitcoinPrice) return <ActivityIndicator />;
 
@@ -53,18 +73,27 @@ export function TradeRequestForSellOffer() {
           premium={premium}
           price={fiatPrice}
         />
-        <PaidVia paymentMethod={paymentMethod} />
+        <PaidViaAcceptRequest
+          paymentMethod={paymentMethod}
+          setSelectedPaymentData={setSelectedPaymentData}
+        />
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
         {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
-        <AcceptButton />
+        {selectedPaymentData && (
+          <AcceptButton selectedPaymentData={selectedPaymentData} />
+        )}
       </View>
     </Screen>
   );
 }
 
-function AcceptButton() {
-  const mutation = useAcceptTradeRequest();
+function AcceptButton({
+  selectedPaymentData,
+}: {
+  selectedPaymentData: PaymentData;
+}) {
+  const mutation = useAcceptTradeRequest({ selectedPaymentData });
   return (
     <Button
       style={tw`flex-1 py-3 bg-success-main`}
@@ -75,7 +104,11 @@ function AcceptButton() {
   );
 }
 
-function useAcceptTradeRequest() {
+function useAcceptTradeRequest({
+  selectedPaymentData,
+}: {
+  selectedPaymentData: PaymentData;
+}) {
   const {
     userId,
     offerId,
@@ -86,11 +119,7 @@ function useAcceptTradeRequest() {
     isMatch = false,
   } = useRoute<"tradeRequestForSellOffer">().params;
   const navigation = useStackNavigation();
-  const paymentData = usePaymentDataStore(
-    (s) =>
-      Object.values(s.paymentData).filter(({ type }) => type === paymentMethod),
-    shallow,
-  );
+
   return useMutation({
     onMutate: async () => {
       // cancel queries related to the sell offer
@@ -99,9 +128,6 @@ function useAcceptTradeRequest() {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
 
-      const selectedPaymentData = paymentData.find((pd) =>
-        pd.currencies.includes(currency),
-      );
       if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
 
       const encryptedData = await encryptPaymentData(
