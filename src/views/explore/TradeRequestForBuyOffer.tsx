@@ -125,10 +125,6 @@ function useAcceptTradeRequest({
     mutationFn: async () => {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
-
-      // const selectedPaymentData = paymentData.find((pd) =>
-      //   pd.currencies.includes(currency),
-      // );
       if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
       const encryptedData = await encryptPaymentData(
         cleanPaymentData(selectedPaymentData),
