@@ -12,7 +12,6 @@
   "contract.bought": "kupione",
   "contract.buyer.buyerCanceledCashTrade": "Anulowałeś tą transakcję gotówkową.",
   "contract.buyer.buyerCanceledTrade": "Anulowałeś tą transakcję, co negatywnie wpłynęło na Twoją reputację.",
-  "contract.buyer.buyerCanceledTrade.fundingExpired": "Sprzedawca nie zasilił rachunku powierniczego na czas i postanowiłeś anulować ofertę.",
   "contract.buyer.collaborativeCancel.notResolved": "Sprzedawca chce anulować tę transakcję. Masz pełne prawo odrzucić tę prośbę, szczególnie jeśli już dokonałeś płatności.",
   "contract.buyer.collaborativeCancel.resolved": "Zgadzasz się na anulowanie transakcji, a środki zostały zwrócone sprzedawcy.",
   "contract.buyer.disputeLost": "Przegrałeś spór! Twoja reputacja została nadszarpnięta, a sprzedawcy zwrócono środki.",

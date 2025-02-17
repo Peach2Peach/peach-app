@@ -12,7 +12,6 @@
   "contract.bought": "куплено",
   "contract.buyer.buyerCanceledCashTrade": "Вы отменили эту сделку за наличные.",
   "contract.buyer.buyerCanceledTrade": "Вы отменили сделку, негативно влияет на вашу репутацию.",
-  "contract.buyer.buyerCanceledTrade.fundingExpired": "Продавец не оплатил счет вовремя, и вы решили отменить сделку.",
   "contract.buyer.collaborativeCancel.notResolved": "Продавец хочет отменить эту сделку.  Вы можете отказать, особенно если вы уже произвели оплату.",
   "contract.buyer.collaborativeCancel.resolved": "Вы согласились отменить сделку, и продавцу были возвращены деньги.",
   "contract.buyer.disputeLost": "Вы проиграли спор!  Ваша репутация пострадала, и продавцу были возвращены деньги.",

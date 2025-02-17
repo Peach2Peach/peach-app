@@ -12,7 +12,6 @@
   "contract.bought": "gekocht",
   "contract.buyer.buyerCanceledCashTrade": "Je hebt deze cash transactie geannuleerd",
   "contract.buyer.buyerCanceledTrade": "Je hebt de transactie geannuleerd en jouw reputatie is aangetast.",
-  "contract.buyer.buyerCanceledTrade.fundingExpired": "De verkoper heeft de escrow niet op tijd gestort en u besluit het bod te annuleren.",
   "contract.buyer.collaborativeCancel.notResolved": "De verkoper wil deze transactie annuleren. Het staat je vrij om de annulering af te wijzen, zeker als je de betaling al hebt gedaan.",
   "contract.buyer.collaborativeCancel.resolved": "Je hebt ermee ingestemd de transactie te annuleren en de verkoper heeft een terugbetaling ontvangen.",
   "contract.buyer.disputeLost": "Je hebt het geschil verloren! Jouw reputatie is aangetast en de transactie is beëindigd.",

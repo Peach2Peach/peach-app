@@ -12,7 +12,6 @@
   "contract.bought": "acheté",
   "contract.buyer.buyerCanceledCashTrade": "Vous avez annulé cet échange en espèces.",
   "contract.buyer.buyerCanceledTrade": "Vous avez annulé l'échange et votre réputation a été affectée.",
-  "contract.buyer.buyerCanceledTrade.fundingExpired": "Le vendeur n'a pas financé le dépôt fiduciaire à temps et vous avez décidé d'annuler l'offre.",
   "contract.buyer.collaborativeCancel.notResolved": "Vous devez accepter ou rejeter l'annulation.",
   "contract.buyer.collaborativeCancel.resolved": "Vous avez accepté d'annuler l'échange et le vendeur a été remboursé.",
   "contract.buyer.disputeLost": "Vous avez perdu la dispute! Votre réputation a été affectée et l'échange a été annulé.",

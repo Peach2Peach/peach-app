@@ -12,7 +12,6 @@
   "contract.bought": "megvásárolt",
   "contract.buyer.buyerCanceledCashTrade": "Törölted ezt a készpénzes kereskedést.",
   "contract.buyer.buyerCanceledTrade": "Lemondtad a kereskedést, és ezzel a hírneved is sérült.",
-  "contract.buyer.buyerCanceledTrade.fundingExpired": "Az eladó nem finanszírozta időben a letétet, és Ön úgy döntött, hogy visszavonja az ajánlatot.",
   "contract.buyer.collaborativeCancel.notResolved": "Az eladó ezt a kereskedést törölni akarja. Szabadon dönthetsz, hogy az eladó törlési szándékát elfogadod vagy sem. Különösképpen amennyiben a fizetést már elindítottad.",
   "contract.buyer.collaborativeCancel.resolved": "Egyetértettél a kereskedés lemondásával, és az eladónak az összeget visszautalták.",
   "contract.buyer.disputeLost": "A vitát elvesztetted! Ezzel a hírneved is sérült, és az eladónak az összeget visszautalták.",
