@@ -1,159 +1,112 @@
-import { ReactNode, useMemo } from "react";
-import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
-import { PaymentMethodCountry } from "../../../../peach-api/src/@types/offer";
-import { IconType } from "../../../assets/icons";
-import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
-import { useRoute } from "../../../hooks/useRoute";
-import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
-import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
-import { keys } from "../../../utils/object/keys";
-import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
-import { Icon } from "../../Icon";
-import { DrawerOptionType } from "../../drawer/components/DrawerOption";
-import { useDrawerState } from "../../drawer/useDrawerState";
-import { PeachText } from "../../text/PeachText";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { Header } from "../../components/Header";
+import { PeachScrollView } from "../../components/PeachScrollView";
+import { Screen } from "../../components/Screen";
+import { Button } from "../../components/buttons/Button";
+import { DrawerOptionType } from "../../components/drawer/components/DrawerOption";
+import { useDrawerState } from "../../components/drawer/useDrawerState";
+import { PaymentLogoType } from "../../components/payment/logos";
+import { CENT, SATSINBTC } from "../../constants";
+import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
+import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { usePaymentDataStore } from "../../store/usePaymentDataStore";
+import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { round } from "../../utils/math/round";
+import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
+import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
+import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
+import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
+import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
+import { peachAPI } from "../../utils/peachAPI";
+import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
+import { PriceInfo } from "../explore/BuyerPriceInfo";
+import { PaidVia } from "../explore/PaidVia";
+import { UserCard } from "../explore/UserCard";
+import { useOffer } from "../explore/useOffer";
+import { useUser } from "../publicProfile/useUser";
 
-type Props = {
-  meansOfPayment: MeansOfPayment;
-  selectedCurrency: Currency;
-  setSelectedCurrency: (currency: Currency) => void;
-  selectedPaymentData: PaymentData | undefined;
-  setSelectedPaymentData: (paymentMethod?: PaymentData) => void;
-  selectedMethodInfo: ReactNode;
-};
+export function TradeRequestForSellOffer() {
+  const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
+    useRoute<"tradeRequestForSellOffer">().params;
 
-export function PaymentMethodSelector({
-  selectedCurrency,
-  setSelectedCurrency,
-  selectedPaymentData,
-  setSelectedPaymentData,
-  selectedMethodInfo,
-  meansOfPayment,
-}: Props) {
-  const availableCurrencies = keys(meansOfPayment);
-  const allPaymentMethods = meansOfPayment[selectedCurrency];
-
-  const { data: meetupEvents } = useMeetupEvents();
-  const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
-    if (isCashTrade(paymentMethod)) {
-      const eventId = paymentMethod.replace("cash.", "");
-      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
-      return meetupEvent?.shortName ?? eventId;
-    }
-    return i18n(`paymentMethod.${paymentMethod}`);
-  };
-  const items = allPaymentMethods?.map((p) => ({
-    value: p,
-    display: getPaymentMethodName(p),
-  }));
-
-  const accountPaymentData = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+  const { user } = useUser(userId);
+  const { data: marketPrices } = useMarketPrices();
+  const { data: offer } = useOffer(offerId);
+  const paymentData = usePaymentDataStore((state) =>
+    Object.values(state.paymentData),
   );
 
-  const onCurrencyChange = (currency: Currency) => {
-    const allMethodsForCurrency = meansOfPayment[currency];
-    const dataForCurrency = accountPaymentData.filter((d) =>
-      allMethodsForCurrency?.includes(d.type),
-    );
-    const newData =
-      dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
-    setSelectedCurrency(currency);
-    setSelectedPaymentData(newData);
-  };
-
-  return (
-    <View
-      style={tw`items-center self-stretch gap-3 px-4 py-3 border-2 rounded-2xl border-primary-main`}
-    >
-      <PeachText style={tw`underline subtitle-1`}>
-        select currency & payment method
-      </PeachText>
-
-      <View style={tw`gap-3 pb-2`}>
-        {selectedMethodInfo || (
-          <View
-            style={tw`flex-wrap items-center self-stretch justify-center gap-1`}
-          >
-            {availableCurrencies.map((currency) => (
-              <TouchableOpacity
-                key={currency}
-                style={[
-                  tw`px-2 border rounded-lg border-black-100`,
-                  selectedCurrency === currency
-                    ? tw`bg-black-5 border-black-100`
-                    : tw`border-transparent`,
-                ]}
-                disabled={selectedCurrency === currency}
-                onPress={() => onCurrencyChange(currency)}
-              >
-                <PeachText style={tw`leading-loose subtitle-0`}>
-                  {currency}
-                </PeachText>
-              </TouchableOpacity>
-            ))}
-            <CustomSelector
-              selectedCurrency={selectedCurrency}
-              selectedPaymentData={selectedPaymentData}
-              onPress={setSelectedPaymentData}
-              items={items}
-            />
-          </View>
-        )}
-      </View>
-    </View>
+  const allPaymentMethods = offer
+    ? getPaymentMethods(offer.meansOfPayment)
+    : [];
+  const allMethodsForCurrency = allPaymentMethods.filter((p) =>
+    paymentMethodAllowedForCurrency(p, currency),
   );
-}
 
-type SelectorProps = {
-  items: { value: PaymentMethod; display: React.ReactNode }[] | undefined;
-  selectedPaymentData?: PaymentData;
-  selectedCurrency: Currency;
-  onPress?: (value: PaymentData) => void;
-};
+  const dataForCurrency = paymentData.filter((d) =>
+    allMethodsForCurrency.includes(d.type),
+  );
 
-function CustomSelector({
-  items,
-  selectedCurrency,
-  selectedPaymentData,
-  onPress,
-}: SelectorProps) {
+  const defaultData =
+    dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
+  const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
+
+  if (!user || !marketPrices || !offer) {
+    return <ActivityIndicator />;
+  }
+
+  const bitcoinPrice = marketPrices[currency];
+  if (!bitcoinPrice) return <ActivityIndicator />;
+
+  const bitcoinPriceOfOffer = fiatPrice / (amount / SATSINBTC);
+  const premium = round((bitcoinPriceOfOffer / bitcoinPrice - 1) * CENT, 2);
+
   return (
-    <View style={tw`flex-row flex-wrap justify-center gap-1`}>
-      {items?.map(({ value, display }, i) => (
-        <PayementMethodBubble
-          key={`selector-item-${value}-${i}`}
-          paymentMethod={value}
-          onPress={onPress}
+    <Screen header={<Header title="trade request" />}>
+      <PeachScrollView
+        contentStyle={tw`items-center justify-center gap-8 grow`}
+      >
+        <UserCard user={user} isBuyer />
+
+        <PriceInfo
+          satsAmount={amount}
+          selectedCurrency={currency}
+          premium={premium}
+          price={fiatPrice}
+        />
+        <PaidVia paymentMethod={paymentMethod} />
+      </PeachScrollView>
+      <View style={tw`flex-row items-center justify-center gap-8px`}>
+        <AcceptButton
+          paymentMethod={paymentMethod}
           selectedPaymentData={selectedPaymentData}
-          selectedCurrency={selectedCurrency}
-        >
-          {display}
-        </PayementMethodBubble>
-      ))}
-    </View>
+          children={"Accept Trade"}
+          onPress={setSelectedPaymentData}
+        />
+      </View>
+    </Screen>
   );
 }
 
-type PaymentMethodBubbleProps = {
+type PaideViaPayementMethodBubbleProps = {
   paymentMethod: PaymentMethod;
   selectedPaymentData?: PaymentData;
-  selectedCurrency: Currency;
   children: React.ReactNode;
   onPress?: (value: PaymentData) => void;
 };
 
-function PayementMethodBubble({
+function AcceptButton({
   paymentMethod,
   selectedPaymentData,
-  selectedCurrency,
   children,
   onPress,
-}: PaymentMethodBubbleProps) {
+}: PaideViaPayementMethodBubbleProps) {
+
   const paymentDataRecord = usePaymentDataStore((state) => state.paymentData);
   const paymentDataForType = useMemo(
     () =>
@@ -162,14 +115,6 @@ function PayementMethodBubble({
   );
   const hasPaymentData = paymentDataForType.length > 0;
   const hasMultiplePaymentData = paymentDataForType.length > 1;
-  const isSelected = selectedPaymentData?.type === paymentMethod;
-  const iconId: IconType = isSelected
-    ? "checkSquare"
-    : hasPaymentData
-      ? "plusSquare"
-      : "edit";
-  const navigation = useStackNavigation();
-  const routeName = useRoute().name;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
   const { data: meetupEvents } = useMeetupEvents();
@@ -181,6 +126,7 @@ function PayementMethodBubble({
     }
     return i18n(`paymentMethod.${methodType}`);
   };
+
   const onPressBubble = () => {
     if (onPress) {
       if (hasPaymentData) {
@@ -194,8 +140,7 @@ function PayementMethodBubble({
                   onPress(paymentDataForType[index]);
                   updateDrawer({ show: false });
                 },
-                // @ts-ignore
-                logoID: paymentMethod,
+                logoID: p.type as PaymentLogoType, // Ensure logoID is correctly typed
                 iconRightID:
                   p.id === selectedPaymentData?.id ? "check" : undefined,
               }),
@@ -205,57 +150,94 @@ function PayementMethodBubble({
         } else {
           onPress(paymentDataForType[0]);
         }
-      } else if (isCashTrade(paymentMethod)) {
-        navigation.navigate("meetupScreen", {
-          eventId: paymentMethod.replace("cash.", ""),
-          origin: routeName,
-        });
-      } else {
-        const country = paymentMethod.startsWith("giftCard.amazon.")
-          ? (paymentMethod.split(".")[2] as PaymentMethodCountry)
-          : undefined;
-        navigation.navigate("paymentMethodForm", {
-          paymentData: {
-            type: paymentMethod,
-            label: i18n(`paymentMethod.${paymentMethod}`),
-            currencies: [selectedCurrency],
-            country,
-          },
-          origin: routeName,
-        });
       }
     }
   };
 
+  const mutation = useAcceptTradeRequest({ selectedPaymentData });
+  
+  useEffect(() => {
+    if (selectedPaymentData !== undefined) {
+      mutation.mutate();
+    }
+  }, [selectedPaymentData, mutation]);
+  
+  const handlePress = () => {
+    onPressBubble();
+  };
+
   return (
-    <TouchableOpacity
-      style={[
-        tw`flex-row items-center justify-center gap-1 px-2 border rounded-lg border-black-100`,
-        isSelected
-          ? tw`border-primary-main bg-primary-main`
-          : tw`border-primary-mild-2`,
-      ]}
-      onPress={onPressBubble}
-    >
-      <PeachText
-        style={[
-          tw`leading-loose subtitle-0`,
-          isSelected
-            ? tw`text-primary-background-light`
-            : tw`text-primary-mild-2`,
-        ]}
-      >
-        {children}
-      </PeachText>
-      <Icon
-        id={iconId}
-        size={18}
-        color={
-          isSelected
-            ? tw.color("primary-background-light")
-            : tw.color("primary-mild-2")
-        }
-      />
-    </TouchableOpacity>
+    <Button style={tw`flex-1 py-3 bg-success-main`} onPress={handlePress}>
+      {children}
+    </Button>
   );
+}
+
+function useAcceptTradeRequest({
+  selectedPaymentData,
+}: {
+  selectedPaymentData?: PaymentData;
+}) {
+  const {
+    userId,
+    offerId,
+    symmetricKeyEncrypted,
+    currency,
+    paymentMethod,
+    matchingOfferId,
+    isMatch = false,
+  } = useRoute<"tradeRequestForSellOffer">().params;
+  const navigation = useStackNavigation();
+
+  return useMutation({
+    onMutate: async () => {
+      // cancel queries related to the sell offer
+    },
+    mutationFn: async () => {
+      const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
+      if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
+
+      if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
+
+      const encryptedData = await encryptPaymentData(
+        cleanPaymentData(selectedPaymentData),
+        symmetricKey,
+      );
+      if (!encryptedData) throw new Error("PAYMENTDATA_ENCRYPTION_FAILED");
+
+      const { result, error } = isMatch
+        ? await peachAPI.private.offer.matchOffer({
+            offerId,
+            matchingOfferId: matchingOfferId as string,
+            currency,
+            paymentMethod,
+            paymentDataEncrypted: encryptedData.encrypted,
+            paymentDataSignature: encryptedData.signature,
+          })
+        : await peachAPI.private.offer.acceptTradeRequestForSellOffer({
+            userId,
+            offerId,
+            paymentDataEncrypted: encryptedData.encrypted,
+            paymentDataSignature: encryptedData.signature,
+          });
+      if (error) {
+        throw new Error(error.error);
+      }
+      return result;
+    },
+    onSuccess: (response) => {
+      if (!response || "error" in response || !("contractId" in response))
+        return;
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: "homeScreen", params: { screen: "yourTrades" } },
+          { name: "contract", params: { contractId: response.contractId } },
+        ],
+      });
+    },
+    onSettled: () => {
+      // invalidate queries related to the sell offer
+    },
+  });
 }
