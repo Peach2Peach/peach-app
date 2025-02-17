@@ -34,7 +34,7 @@ export function TradeRequestForBuyOffer() {
     fiatPrice,
     currency,
     paymentMethod,
-    offerId = "",
+    offerId,
   } = useRoute<"tradeRequestForBuyOffer">().params;
 
   const { user } = useUser(userId);

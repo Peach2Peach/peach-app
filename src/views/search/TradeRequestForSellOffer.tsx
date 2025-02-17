@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -9,17 +9,22 @@ import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
+import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
+import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { PriceInfo } from "../explore/BuyerPriceInfo";
 import { PaidVia } from "../explore/PaidVia";
 import { UserCard } from "../explore/UserCard";
 import { useUser } from "../publicProfile/useUser";
+import { useOffer } from "./useOffer";
+import { PaidViaAcceptRequest } from "../explore/PaidViaAcceptRequest";
 
 export function TradeRequestForSellOffer() {
   const { userId, amount, fiatPrice, currency, paymentMethod } =
