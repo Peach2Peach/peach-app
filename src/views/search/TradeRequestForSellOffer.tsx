@@ -170,7 +170,6 @@ function useAcceptTradeRequest({
     paymentMethod,
     matchingOfferId,
     isMatch = false,
-    requestingOfferId,
   } = useRoute<"tradeRequestForSellOffer">().params;
   const navigation = useStackNavigation();
 
