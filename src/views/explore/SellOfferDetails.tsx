@@ -218,7 +218,7 @@ function RequestTradeAction({
     instantTradeCriteria && canUserInstantTrade(user, instantTradeCriteria);
   if (canInstantTrade) {
     return (
-      <ConfirmSlider label1="instant trade" onConfirm={() => onTradePress} />
+      <ConfirmSlider label1="instant trade" onConfirm={onTradePress} />
     );
   }
 
@@ -228,7 +228,7 @@ function RequestTradeAction({
     <Button
       style={tw`self-center`}
       disabled={selectedPaymentData === undefined}
-      onPress={() => onTradePress}
+      onPress={onTradePress}
     >
       request trade
     </Button>
