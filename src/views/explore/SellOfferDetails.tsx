@@ -186,6 +186,7 @@ function RequestTradeAction({
   const { id: offerId, user: counterparty, amount } = offer;
   const { user } = useSelfUser();
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
+  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
 
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
@@ -287,6 +288,7 @@ function RequestTradeAction({
           releaseAddress: address,
           messageSignature,
           instantTrade,
+          requestingOfferId,
         });
       if (error) throw new Error(error.error);
       return result;

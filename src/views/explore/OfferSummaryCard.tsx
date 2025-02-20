@@ -21,7 +21,13 @@ import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
-export function SellOfferSummaryIdCard({ offerId }: { offerId: string }) {
+export function SellOfferSummaryIdCard({
+  offerId,
+  requestingOfferId,
+}: {
+  offerId: string;
+  requestingOfferId?: string;
+}) {
   const { data: offerSummary } = useQuery({
     queryKey: ["sellOfferSummary", offerId],
     queryFn: async () => {
@@ -33,13 +39,20 @@ export function SellOfferSummaryIdCard({ offerId }: { offerId: string }) {
   });
   if (!offerSummary) return <Loading />;
 
-  return <SellOfferSummaryCard offerSummary={offerSummary} />;
+  return (
+    <SellOfferSummaryCard
+      offerSummary={offerSummary}
+      requestingOfferId={requestingOfferId}
+    />
+  );
 }
 
 function SellOfferSummaryCard({
   offerSummary,
+  requestingOfferId,
 }: {
   offerSummary: SellOfferSummary;
+  requestingOfferId?: string;
 }) {
   const {
     tradeRequested,
@@ -60,7 +73,8 @@ function SellOfferSummaryCard({
       : offerSummary.premium;
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount);
   const navigation = useStackNavigation();
-  const onPress = () => navigation.navigate("sellOfferDetails", { offerId });
+  const onPress = () =>
+    navigation.navigate("sellOfferDetails", { offerId, requestingOfferId });
 
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
 
@@ -119,7 +133,13 @@ function SellOfferSummaryCard({
   );
 }
 
-export function BuyOfferSummaryIdCard({ offerId }: { offerId: string }) {
+export function BuyOfferSummaryIdCard({
+  offerId,
+  requestingOfferId,
+}: {
+  offerId: string;
+  requestingOfferId?: string;
+}) {
   const { data: offerSummary } = useQuery({
     queryKey: ["buyOfferSummary", offerId],
     queryFn: async () => {
@@ -132,15 +152,23 @@ export function BuyOfferSummaryIdCard({ offerId }: { offerId: string }) {
   });
   if (!offerSummary) return <Loading />;
 
-  return <BuyOfferSummaryCard offerSummary={offerSummary} offerId={offerId} />;
+  return (
+    <BuyOfferSummaryCard
+      offerSummary={offerSummary}
+      offerId={offerId}
+      requestingOfferId={requestingOfferId}
+    />
+  );
 }
 
 function BuyOfferSummaryCard({
   offerSummary,
   offerId,
+  requestingOfferId,
 }: {
   offerSummary: BuyOfferSummary;
   offerId: string;
+  requestingOfferId?: string;
 }) {
   const {
     tradeRequested,
@@ -163,7 +191,12 @@ function BuyOfferSummaryCard({
   const navigation = useStackNavigation();
   const price = requestedPrice ?? fiatPrice * (1 + premium / CENT);
   const onPress = () =>
-    navigation.navigate("buyOfferDetails", { offerId, amount, premium });
+    navigation.navigate("buyOfferDetails", {
+      offerId,
+      amount,
+      premium,
+      requestingOfferId,
+    });
 
   return (
     <OfferSummaryCard

@@ -28,7 +28,7 @@ type Home = {
 
 type BuyFlow = {
   buy: undefined;
-  sellOfferDetails: { offerId: string };
+  sellOfferDetails: { offerId: string; requestingOfferId?: string };
   buyOfferPreferences: undefined;
   explore: { offerId: string };
   editBuyPreferences: { offerId: string };
@@ -51,6 +51,7 @@ type SellFlow = {
     offerId: string;
     amount: number;
     premium: number;
+    requestingOfferId?: string;
   };
   fundEscrow: {
     offerId: string;

@@ -8,7 +8,11 @@ import { peachAPI } from "../../utils/peachAPI";
 import { SellOfferSummaryIdCard } from "../explore/OfferSummaryCard";
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 
-export function ExpressBuy() {
+export function ExpressBuy({
+  requestingOfferId,
+}: {
+  requestingOfferId?: string;
+}) {
   const { data } = useQuery({
     queryKey: ["expressBuy"],
     queryFn: async () => {
@@ -33,7 +37,11 @@ export function ExpressBuy() {
       ) : (
         <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
           {data.map((offerId) => (
-            <SellOfferSummaryIdCard key={offerId} offerId={offerId} />
+            <SellOfferSummaryIdCard
+              key={offerId}
+              offerId={offerId}
+              requestingOfferId={requestingOfferId}
+            />
           ))}
         </View>
       )}

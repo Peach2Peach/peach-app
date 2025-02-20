@@ -148,7 +148,8 @@ function RequestTradeAction({
   instantTradeCriteria: InstantTradeCriteria | null;
 }) {
   const { user } = useSelfUser();
-  const { amount, premium } = useRoute<"buyOfferDetails">().params;
+  const { amount, premium, requestingOfferId } =
+    useRoute<"buyOfferDetails">().params;
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
 
   const [refundToPeachWallet, refundAddress] = useSettingsStore(
@@ -229,6 +230,7 @@ function RequestTradeAction({
           paymentDataEncrypted: encryptedPaymentData.encrypted,
           paymentDataSignature: encryptedPaymentData.signature,
           instantTrade,
+          requestingOfferId,
         });
       if (error) throw new Error(error.error);
       return result;

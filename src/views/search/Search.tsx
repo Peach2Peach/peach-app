@@ -50,15 +50,15 @@ export function Search() {
           options={{
             title: "request trade",
           }}
-          children={() => <RequestTrade />}
+          children={() => <RequestTrade offerId={offerId} />}
         />
       </OfferTab.Navigator>
     </Screen>
   );
 }
 
-function RequestTrade() {
-  return <ExpressSell />;
+function RequestTrade({ offerId }: { offerId: string }) {
+  return <ExpressSell requestingOfferId={offerId} />;
 }
 
 function AcceptTrade({ offerId }: { offerId: string }) {
