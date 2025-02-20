@@ -37,7 +37,7 @@ export function SellOfferDetails() {
   const { data: offer, isLoading } = useOffer(offerId);
 
   return (
-    <Screen header={`uioffer ${offerIdToHex(offerId)}`}>
+    <Screen header={`offer ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
