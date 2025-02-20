@@ -10,7 +10,6 @@ import { useDrawerState } from "../../components/drawer/useDrawerState";
 import { PaymentLogoType } from "../../components/payment/logos";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
@@ -20,7 +19,6 @@ import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
-import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
@@ -116,15 +114,6 @@ function AcceptButton({
   const hasMultiplePaymentData = paymentDataForType.length > 1;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
-  const { data: meetupEvents } = useMeetupEvents();
-  const getPaymentMethodName = (methodType: PaymentMethod) => {
-    if (isCashTrade(methodType)) {
-      const eventId = methodType.replace("cash.", "");
-      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
-      return meetupEvent?.shortName ?? eventId;
-    }
-    return i18n(`paymentMethod.${methodType}`);
-  };
   const onPressBubble = () => {
     if (onPress) {
       if (hasPaymentData) {
@@ -133,7 +122,7 @@ function AcceptButton({
             title: i18n("selectPaymentMethod.title"),
             options: paymentDataForType.map(
               (p, index): DrawerOptionType => ({
-                title: getPaymentMethodName(p.type),
+                title: p.label,
                 onPress: () => {
                   onPress(paymentDataForType[index]);
                   updateDrawer({ show: false });

@@ -10,7 +10,6 @@ import { useDrawerState } from "../../components/drawer/useDrawerState";
 import { PaymentLogoType } from "../../components/payment/logos";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
@@ -21,7 +20,6 @@ import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
-import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
@@ -118,6 +116,7 @@ function AcceptButton({
       Object.values(paymentDataRecord).filter((p) => p.type === paymentMethod),
     [paymentDataRecord, paymentMethod],
   );
+
   const hasPaymentData = paymentDataForType.length > 0;
   const hasMultiplePaymentData = paymentDataForType.length > 1;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
@@ -129,7 +128,7 @@ function AcceptButton({
             title: i18n("selectPaymentMethod.title"),
             options: paymentDataForType.map(
               (p, index): DrawerOptionType => ({
-                title: getPaymentMethodName(p.type),
+                title: p.label,
                 onPress: () => {
                   onPress(paymentDataForType[index]);
                   updateDrawer({ show: false });
@@ -196,7 +195,6 @@ function useAcceptTradeRequest({
           paymentDataEncrypted: encryptedData.encrypted,
           paymentDataSignature: encryptedData.signature,
           maxMiningFeeRate,
-          requestingOfferId,
         });
       if (error) {
         throw new Error(error.error);
