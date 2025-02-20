@@ -231,9 +231,12 @@ function AcceptTrade({ offerId }: { offerId: string }) {
     return (
       <FlatList
         data={tradeRequests}
-        keyExtractor={({ userId, currency, paymentMethod }) =>
-          `${userId}-${currency}-${paymentMethod}`
-        }
+        keyExtractor={({
+          userId,
+          currency,
+          paymentMethod,
+          requestingOfferId,
+        }) => `${userId}-${currency}-${paymentMethod}-${requestingOfferId}`}
         renderItem={({ item }) => (
           <TradeRequestSummaryCard tradeRequest={item} offerId={offerId} />
         )}

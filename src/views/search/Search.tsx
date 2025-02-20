@@ -133,9 +133,12 @@ function AcceptTrade({ offerId }: { offerId: string }) {
           data={tradeRequests}
           onRefresh={() => refetch()}
           refreshing={isRefetching}
-          keyExtractor={({ userId, currency, paymentMethod }) =>
-            `${userId}-${currency}-${paymentMethod}`
-          }
+          keyExtractor={({
+            userId,
+            currency,
+            paymentMethod,
+            requestingOfferId,
+          }) => `${userId}-${currency}-${paymentMethod}-${requestingOfferId}`}
           renderItem={({ item }) => (
             <TradeRequestSummaryCard tradeRequest={item} offerId={offerId} />
           )}
