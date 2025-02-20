@@ -82,6 +82,7 @@ function useAcceptTradeRequest() {
     symmetricKeyEncrypted,
     currency,
     paymentMethod,
+    requestingOfferId,
   } = useRoute<"tradeRequestForBuyOffer">().params;
   const navigation = useStackNavigation();
   const paymentData = usePaymentDataStore(
@@ -117,6 +118,7 @@ function useAcceptTradeRequest() {
           paymentDataEncrypted: encryptedData.encrypted,
           paymentDataSignature: encryptedData.signature,
           maxMiningFeeRate,
+          requestingOfferId,
         });
       if (error) {
         throw new Error(error.error);

@@ -41,6 +41,7 @@ type BuyFlow = {
     paymentMethod: PaymentMethod;
     fiatPrice: number;
     symmetricKeyEncrypted: string;
+    requestingOfferId: string | undefined;
   };
 };
 
@@ -69,6 +70,7 @@ type SellFlow = {
     symmetricKeyEncrypted: string;
     isMatch?: boolean;
     matchingOfferId?: string;
+    requestingOfferId: string | undefined;
   };
 };
 

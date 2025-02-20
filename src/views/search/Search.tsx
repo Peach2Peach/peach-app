@@ -154,8 +154,14 @@ function TradeRequestSummaryCard({
   tradeRequest: TradeRequestForSellOffer;
   offerId: string;
 }) {
-  const { currency, userId, fiatPrice, paymentMethod, symmetricKeyEncrypted } =
-    tradeRequest;
+  const {
+    currency,
+    userId,
+    fiatPrice,
+    paymentMethod,
+    symmetricKeyEncrypted,
+    requestingOfferId,
+  } = tradeRequest;
   const { user } = useUser(userId);
   const { offer } = useOfferDetail(offerId);
   const { data: marketPrices } = useMarketPrices();
@@ -172,6 +178,7 @@ function TradeRequestSummaryCard({
       currency,
       paymentMethod,
       symmetricKeyEncrypted,
+      requestingOfferId,
     });
   const bitcoinPrice = marketPrices[currency];
   if (!bitcoinPrice) return <ActivityIndicator />;

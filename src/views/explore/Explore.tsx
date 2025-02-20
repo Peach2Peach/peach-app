@@ -115,6 +115,7 @@ function TradeRequestSummaryCard({
     paymentMethod,
     symmetricKeyEncrypted,
     amount,
+    requestingOfferId,
   } = tradeRequest;
   const { user } = useUser(userId);
   const { offer } = useOfferDetail(offerId);
@@ -132,6 +133,7 @@ function TradeRequestSummaryCard({
       currency,
       paymentMethod,
       symmetricKeyEncrypted,
+      requestingOfferId,
     });
   const bitcoinPrice = marketPrices[currency];
   if (!bitcoinPrice) return <ActivityIndicator />;
