@@ -73,7 +73,8 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-  const { data } = useTradeRequest(offer.id);
+  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
+  const { data } = useTradeRequest(offer.id, requestingOfferId);
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
       <PeachScrollView contentStyle={tw`gap-8 grow`}>
@@ -148,7 +149,8 @@ function RequestTradeAction({
   instantTradeCriteria: InstantTradeCriteria | null;
 }) {
   const { user } = useSelfUser();
-  const { amount, premium } = useRoute<"buyOfferDetails">().params;
+  const { amount, premium, requestingOfferId } =
+    useRoute<"buyOfferDetails">().params;
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
 
   const [refundToPeachWallet, refundAddress] = useSettingsStore(
@@ -229,6 +231,7 @@ function RequestTradeAction({
           paymentDataEncrypted: encryptedPaymentData.encrypted,
           paymentDataSignature: encryptedPaymentData.signature,
           instantTrade,
+          requestingOfferId,
         });
       if (error) throw new Error(error.error);
       return result;
@@ -288,8 +291,9 @@ function RequestTradeAction({
 }
 
 function BuyPriceInfo({ selectedCurrency }: { selectedCurrency: Currency }) {
-  const { amount, premium, offerId } = useRoute<"buyOfferDetails">().params;
-  const { data } = useTradeRequest(offerId);
+  const { amount, premium, offerId, requestingOfferId } =
+    useRoute<"buyOfferDetails">().params;
+  const { data } = useTradeRequest(offerId, requestingOfferId);
   const { data: priceBook } = useMarketPrices();
 
   const amountInBTC = amount / SATSINBTC;

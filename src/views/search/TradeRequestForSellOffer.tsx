@@ -181,6 +181,7 @@ function useAcceptTradeRequest({
     paymentMethod,
     matchingOfferId,
     isMatch = false,
+    requestingOfferId,
   } = useRoute<"tradeRequestForSellOffer">().params;
   const navigation = useStackNavigation();
 
@@ -214,6 +215,7 @@ function useAcceptTradeRequest({
             offerId,
             paymentDataEncrypted: encryptedData.encrypted,
             paymentDataSignature: encryptedData.signature,
+            requestingOfferId,
           });
       if (error) {
         throw new Error(error.error);

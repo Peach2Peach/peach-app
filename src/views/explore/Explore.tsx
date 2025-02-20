@@ -115,6 +115,7 @@ function TradeRequestSummaryCard({
     paymentMethod,
     symmetricKeyEncrypted,
     amount,
+    requestingOfferId,
   } = tradeRequest;
   const { user } = useUser(userId);
   const { offer } = useOfferDetail(offerId);
@@ -132,6 +133,7 @@ function TradeRequestSummaryCard({
       currency,
       paymentMethod,
       symmetricKeyEncrypted,
+      requestingOfferId,
     });
   const bitcoinPrice = marketPrices[currency];
   if (!bitcoinPrice) return <ActivityIndicator />;
@@ -229,9 +231,12 @@ function AcceptTrade({ offerId }: { offerId: string }) {
     return (
       <FlatList
         data={tradeRequests}
-        keyExtractor={({ userId, currency, paymentMethod }) =>
-          `${userId}-${currency}-${paymentMethod}`
-        }
+        keyExtractor={({
+          userId,
+          currency,
+          paymentMethod,
+          requestingOfferId,
+        }) => `${userId}-${currency}-${paymentMethod}-${requestingOfferId}`}
         renderItem={({ item }) => (
           <TradeRequestSummaryCard tradeRequest={item} offerId={offerId} />
         )}

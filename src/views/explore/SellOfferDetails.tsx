@@ -77,7 +77,8 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-  const { data } = useTradeRequest(offer.id);
+  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
+  const { data } = useTradeRequest(offer.id, requestingOfferId);
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
       <PeachScrollView contentStyle={tw`gap-8 grow`}>
@@ -186,6 +187,7 @@ function RequestTradeAction({
   const { id: offerId, user: counterparty, amount } = offer;
   const { user } = useSelfUser();
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
+  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
 
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
@@ -287,6 +289,7 @@ function RequestTradeAction({
           releaseAddress: address,
           messageSignature,
           instantTrade,
+          requestingOfferId,
         });
       if (error) throw new Error(error.error);
       return result;

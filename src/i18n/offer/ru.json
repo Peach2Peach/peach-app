@@ -34,6 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "отпустите деньги из эскроу",
   "offer.requiredAction.releaseEscrow.dispute" : "спор проигран: отпустите эскроу",
   "offer.requiredAction.searchingForPeer" : "ищем партнёров",
+  "offer.requiredAction.fundingExpired": "не финансируется вовремя",
   "offer.requiredAction.unknown" : "неизвестно - обновите свое приложение!",
   "offer.requiredAction.waiting" : "ждём $0",
   "offer.requiredAction.waiting.buyer" : "ждём платежа",

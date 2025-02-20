@@ -50,15 +50,15 @@ export function Search() {
           options={{
             title: "request trade",
           }}
-          children={() => <RequestTrade />}
+          children={() => <RequestTrade offerId={offerId} />}
         />
       </OfferTab.Navigator>
     </Screen>
   );
 }
 
-function RequestTrade() {
-  return <ExpressSell />;
+function RequestTrade({ offerId }: { offerId: string }) {
+  return <ExpressSell requestingOfferId={offerId} />;
 }
 
 function AcceptTrade({ offerId }: { offerId: string }) {
@@ -133,9 +133,12 @@ function AcceptTrade({ offerId }: { offerId: string }) {
           data={tradeRequests}
           onRefresh={() => refetch()}
           refreshing={isRefetching}
-          keyExtractor={({ userId, currency, paymentMethod }) =>
-            `${userId}-${currency}-${paymentMethod}`
-          }
+          keyExtractor={({
+            userId,
+            currency,
+            paymentMethod,
+            requestingOfferId,
+          }) => `${userId}-${currency}-${paymentMethod}-${requestingOfferId}`}
           renderItem={({ item }) => (
             <TradeRequestSummaryCard tradeRequest={item} offerId={offerId} />
           )}
@@ -154,8 +157,14 @@ function TradeRequestSummaryCard({
   tradeRequest: TradeRequestForSellOffer;
   offerId: string;
 }) {
-  const { currency, userId, fiatPrice, paymentMethod, symmetricKeyEncrypted } =
-    tradeRequest;
+  const {
+    currency,
+    userId,
+    fiatPrice,
+    paymentMethod,
+    symmetricKeyEncrypted,
+    requestingOfferId,
+  } = tradeRequest;
   const { user } = useUser(userId);
   const { offer } = useOfferDetail(offerId);
   const { data: marketPrices } = useMarketPrices();
@@ -172,6 +181,7 @@ function TradeRequestSummaryCard({
       currency,
       paymentMethod,
       symmetricKeyEncrypted,
+      requestingOfferId,
     });
   const bitcoinPrice = marketPrices[currency];
   if (!bitcoinPrice) return <ActivityIndicator />;

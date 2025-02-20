@@ -121,16 +121,6 @@ function AcceptButton({
   const hasPaymentData = paymentDataForType.length > 0;
   const hasMultiplePaymentData = paymentDataForType.length > 1;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
-
-  const { data: meetupEvents } = useMeetupEvents();
-  const getPaymentMethodName = (methodType: PaymentMethod) => {
-    if (isCashTrade(methodType)) {
-      const eventId = methodType.replace("cash.", "");
-      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
-      return meetupEvent?.shortName ?? eventId;
-    }
-    return i18n(`paymentMethod.${methodType}`);
-  };
   const onPressBubble = () => {
     if (onPress) {
       if (hasPaymentData) {
@@ -206,6 +196,7 @@ function useAcceptTradeRequest({
           paymentDataEncrypted: encryptedData.encrypted,
           paymentDataSignature: encryptedData.signature,
           maxMiningFeeRate,
+          requestingOfferId,
         });
       if (error) {
         throw new Error(error.error);

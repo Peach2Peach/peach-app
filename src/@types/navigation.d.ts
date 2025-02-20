@@ -28,7 +28,7 @@ type Home = {
 
 type BuyFlow = {
   buy: undefined;
-  sellOfferDetails: { offerId: string };
+  sellOfferDetails: { offerId: string; requestingOfferId?: string };
   buyOfferPreferences: undefined;
   explore: { offerId: string };
   editBuyPreferences: { offerId: string };
@@ -41,6 +41,7 @@ type BuyFlow = {
     paymentMethod: PaymentMethod;
     fiatPrice: number;
     symmetricKeyEncrypted: string;
+    requestingOfferId: string | undefined;
   };
 };
 
@@ -50,6 +51,7 @@ type SellFlow = {
     offerId: string;
     amount: number;
     premium: number;
+    requestingOfferId?: string;
   };
   fundEscrow: {
     offerId: string;
@@ -69,6 +71,7 @@ type SellFlow = {
     symmetricKeyEncrypted: string;
     isMatch?: boolean;
     matchingOfferId?: string;
+    requestingOfferId: string | undefined;
   };
 };
 
