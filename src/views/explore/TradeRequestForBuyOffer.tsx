@@ -1,10 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { DrawerOptionType } from "../../components/drawer/components/DrawerOption";
+import { useDrawerState } from "../../components/drawer/useDrawerState";
+import { PaymentLogoType } from "../../components/payment/logos";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useRoute } from "../../hooks/useRoute";
@@ -12,9 +15,12 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
+import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
+import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { useUser } from "../publicProfile/useUser";
@@ -23,6 +29,7 @@ import { useMaxMiningFee } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
+import { useOffer } from "./useOffer";
 
 export function TradeRequestForBuyOffer() {
   const { userId, amount, fiatPrice, currency, paymentMethod } =
