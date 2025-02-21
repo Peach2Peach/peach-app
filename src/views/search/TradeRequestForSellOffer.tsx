@@ -30,13 +30,35 @@ import { useUser } from "../publicProfile/useUser";
 
 
 export function TradeRequestForSellOffer() {
-  const { userId, amount, fiatPrice, currency, paymentMethod } =
+  const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
     useRoute<"tradeRequestForSellOffer">().params;
+
   const { user } = useUser(userId);
   const { data: marketPrices } = useMarketPrices();
-  if (!user || !marketPrices) {
+  const { data: offer } = useOffer(offerId);
+  const paymentData = usePaymentDataStore((state) =>
+    Object.values(state.paymentData),
+  );
+
+  const allPaymentMethods = offer
+    ? getPaymentMethods(offer.meansOfPayment)
+    : [];
+  const allMethodsForCurrency = allPaymentMethods.filter((p) =>
+    paymentMethodAllowedForCurrency(p, currency),
+  );
+
+  const dataForCurrency = paymentData.filter((d) =>
+    allMethodsForCurrency.includes(d.type),
+  );
+
+  const defaultData =
+    dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
+  const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
+
+  if (!user || !marketPrices || !offer) {
     return <ActivityIndicator />;
   }
+
   const bitcoinPrice = marketPrices[currency];
   if (!bitcoinPrice) return <ActivityIndicator />;
 
@@ -60,7 +82,12 @@ export function TradeRequestForSellOffer() {
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
         {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
-        <AcceptButton />
+        <AcceptButton
+          paymentMethod={paymentMethod}
+          selectedPaymentData={selectedPaymentData}
+          children={"Accept Trade"}
+          onPress={setSelectedPaymentData}
+        />
       </View>
     </Screen>
   );
