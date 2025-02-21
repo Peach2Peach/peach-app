@@ -95,6 +95,13 @@ export function TradeRequestForBuyOffer() {
   );
 }
 
+type PaideViaPayementMethodBubbleProps = {
+  paymentMethod: PaymentMethod;
+  selectedPaymentData?: PaymentData;
+  children: React.ReactNode;
+  onPress?: (value: PaymentData) => void;
+};
+
 function AcceptButton() {
   const mutation = useAcceptTradeRequest();
   return (
