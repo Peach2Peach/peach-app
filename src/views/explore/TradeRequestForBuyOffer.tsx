@@ -161,22 +161,14 @@ function AcceptButton({
   );
 }
 
-function useAcceptTradeRequest() {
-  const {
-    userId,
-    offerId,
-    amount,
-    symmetricKeyEncrypted,
-    currency,
-    paymentMethod,
-    requestingOfferId,
-  } = useRoute<"tradeRequestForBuyOffer">().params;
+function useAcceptTradeRequest({
+  selectedPaymentData,
+}: {
+  selectedPaymentData?: PaymentData;
+}) {
+  const { userId, offerId, amount, symmetricKeyEncrypted, requestingOfferId } =
+    useRoute<"tradeRequestForBuyOffer">().params;
   const navigation = useStackNavigation();
-  const paymentData = usePaymentDataStore(
-    (s) =>
-      Object.values(s.paymentData).filter(({ type }) => type === paymentMethod),
-    shallow,
-  );
   const { maxMiningFeeRate } = useMaxMiningFee(amount);
   return useMutation({
     onMutate: async () => {
@@ -186,9 +178,6 @@ function useAcceptTradeRequest() {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
 
-      const selectedPaymentData = paymentData.find((pd) =>
-        pd.currencies.includes(currency),
-      );
       if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
 
       const encryptedData = await encryptPaymentData(
