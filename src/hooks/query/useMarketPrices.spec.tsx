@@ -35,8 +35,8 @@ describe("useMarketPrices", () => {
       })
       .mockResolvedValueOnce({
         result: {
-          EUR: 100000,
-          CHF: 100000,
+          EUR: 1000000,
+          CHF: 1000000,
         },
         ...responseUtils,
       });
@@ -53,8 +53,8 @@ describe("useMarketPrices", () => {
     });
     await waitFor(() => {
       expect(result.current.data).toEqual({
-        EUR: 100000,
-        CHF: 100000,
+        EUR: 1000000,
+        CHF: 1000000,
       });
     });
   });

@@ -37,12 +37,12 @@ describe("migrateSettings", () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData);
     const migratedState = migrateSettings(persistedState, 0);
     expect(migratedState).toEqual({
-      analyticsPopupSeen: undefined,
+      analyticsPopupSeen: false,
       appVersion: undefined,
       country: undefined,
       derivationPath: undefined,
       displayCurrency: undefined,
-      enableAnalytics: undefined,
+      enableAnalytics: false,
       fcmToken: undefined,
       feeRate: undefined,
       lastFileBackupDate: "2021-07-12T13:00:00.000Z",
@@ -103,12 +103,12 @@ describe("migrateSettings", () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData);
     const migratedState = migrateSettings(persistedState, 1);
     expect(migratedState).toEqual({
-      analyticsPopupSeen: undefined,
+      analyticsPopupSeen: false,
       appVersion: undefined,
       country: undefined,
       derivationPath: undefined,
       displayCurrency: undefined,
-      enableAnalytics: undefined,
+      enableAnalytics: false,
       fcmToken: undefined,
       feeRate: undefined,
       lastFileBackupDate: undefined,
@@ -184,6 +184,8 @@ describe("migrateSettings", () => {
     const migratedState = migrateSettings(persistedState, 2);
     expect(migratedState).toEqual({
       ...persistedState,
+      enableAnalytics: false,
+      analyticsPopupSeen: false,
       payoutAddress: undefined,
       payoutAddressLabel: undefined,
       payoutAddressSignature: undefined,

@@ -1,7 +1,7 @@
 type Settings = {
   appVersion: string;
-  analyticsPopupSeen?: boolean;
-  enableAnalytics?: boolean;
+  analyticsPopupSeen: boolean;
+  enableAnalytics: boolean;
   locale?: string;
   refundAddress?: string;
   refundAddressLabel?: string;

@@ -16,6 +16,7 @@ import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
@@ -77,11 +78,15 @@ function SellOfferSummaryCard({
     navigation.navigate("sellOfferDetails", { offerId, requestingOfferId });
 
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
+  const { isDarkMode } = useThemeStore();
 
   return (
     <TouchableOpacity
       style={[
-        tw`justify-center overflow-hidden border bg-primary-background-light rounded-2xl border-primary-main`,
+        tw`justify-center overflow-hidden border rounded-2xl`,
+        isDarkMode
+          ? tw`bg-card`
+          : tw`border border-primary-main bg-primary-background-light`,
         tradeRequested && tw`border-2 border-success-main`,
       ]}
       onPress={onPress}
@@ -121,7 +126,11 @@ function SellOfferSummaryCard({
               currency={selectedCurrency ?? displayCurrency}
               amount={requestedPrice ?? fiatPrice * (1 + premium / CENT)}
             />
-            <PeachText style={tw`text-black-65`}>
+            <PeachText
+              style={tw.style(
+                isDarkMode ? "text-primary-mild-2" : "text-black-65",
+              )}
+            >
               {" "}
               ({premium >= 0 ? "+" : ""}
               {premium}%)
@@ -227,10 +236,14 @@ export function OfferSummaryCard({
   onPress: () => void;
 }) {
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
+  const { isDarkMode } = useThemeStore();
   return (
     <TouchableOpacity
       style={[
-        tw`justify-center overflow-hidden border bg-primary-background-light rounded-2xl border-primary-main`,
+        tw`justify-center overflow-hidden rounded-2xl`,
+        isDarkMode
+          ? tw`bg-card`
+          : tw`border bg-primary-background-light border-primary-main`,
         tradeRequested && tw`border-2 border-success-main`,
       ]}
       onPress={onPress}
@@ -270,7 +283,11 @@ export function OfferSummaryCard({
               currency={currency}
               amount={price}
             />
-            <PeachText style={tw`text-black-65`}>
+            <PeachText
+              style={tw.style(
+                isDarkMode ? "text-primary-mild-2" : "text-black-65",
+              )}
+            >
               {" "}
               ({premium >= 0 ? "+" : ""}
               {premium}%)

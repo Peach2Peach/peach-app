@@ -1,5 +1,4 @@
-import analytics from "@react-native-firebase/analytics";
-import perf from "@react-native-firebase/perf";
+import crashlytics from "@react-native-firebase/crashlytics";
 import { useSettingsStore } from "./useSettingsStore";
 
 describe("settingsStore", () => {
@@ -10,17 +9,15 @@ describe("settingsStore", () => {
   });
   it("should enable analytics", () => {
     useSettingsStore.getState().setEnableAnalytics(true);
-    expect(analytics().setAnalyticsCollectionEnabled).toHaveBeenCalledWith(
+    expect(crashlytics().setCrashlyticsCollectionEnabled).toHaveBeenCalledWith(
       true,
     );
-    expect(perf().setPerformanceCollectionEnabled).toHaveBeenCalledWith(true);
   });
   it("should disable analytics", () => {
     useSettingsStore.getState().setEnableAnalytics(false);
-    expect(analytics().setAnalyticsCollectionEnabled).toHaveBeenCalledWith(
+    expect(crashlytics().setCrashlyticsCollectionEnabled).toHaveBeenCalledWith(
       false,
     );
-    expect(perf().setPerformanceCollectionEnabled).toHaveBeenCalledWith(false);
   });
   it("should keep locale state when resetting", () => {
     useSettingsStore.getState().setLocale("es");

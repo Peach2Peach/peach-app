@@ -162,7 +162,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "lineHeight": 24,
                 },
                 false,
-                undefined,
+                {
+                  "color": "#2B1911",
+                },
                 false,
               ]
             }
@@ -255,7 +257,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                       false,
                       [
                         {
-                          "opacity": 0.1,
+                          "opacity": 0.2,
                           "textAlign": "right",
                         },
                         [
@@ -266,6 +268,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                             "lineHeight": 28,
                             "marginBottom": -13,
                             "marginTop": -13,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           {
                             "color": "#2B1911",
@@ -306,6 +311,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                           {
                             "color": "#2B1911",
                           },
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                       ],
                       false,
@@ -339,6 +347,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                     false,
                   ]
@@ -360,7 +371,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "lineHeight": 24,
                 },
                 false,
-                undefined,
+                {
+                  "color": "#2B1911",
+                },
                 false,
               ]
             }
@@ -381,7 +394,7 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   false,
                   [
                     {
-                      "color": "#EAE3DF",
+                      "color": "#BAADA7",
                     },
                     undefined,
                   ],
@@ -453,7 +466,9 @@ exports[`useFundFromPeachWallet should open confirmation popup 1`] = `
                   "lineHeight": 24,
                 },
                 false,
-                undefined,
+                {
+                  "color": "#2B1911",
+                },
                 false,
               ]
             }
@@ -810,7 +825,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "lineHeight": 24,
                 },
                 false,
-                undefined,
+                {
+                  "color": "#2B1911",
+                },
                 false,
               ]
             }
@@ -903,7 +920,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                       false,
                       [
                         {
-                          "opacity": 0.1,
+                          "opacity": 0.2,
                           "textAlign": "right",
                         },
                         [
@@ -914,6 +931,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                             "lineHeight": 28,
                             "marginBottom": -13,
                             "marginTop": -13,
+                          },
+                          {
+                            "color": "#2B1911",
                           },
                           {
                             "color": "#2B1911",
@@ -954,6 +974,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                           {
                             "color": "#2B1911",
                           },
+                          {
+                            "color": "#2B1911",
+                          },
                         ],
                       ],
                       false,
@@ -987,6 +1010,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                       {
                         "color": "#2B1911",
                       },
+                      {
+                        "color": "#2B1911",
+                      },
                     ],
                     false,
                   ]
@@ -1008,7 +1034,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "lineHeight": 24,
                 },
                 false,
-                undefined,
+                {
+                  "color": "#2B1911",
+                },
                 false,
               ]
             }
@@ -1027,7 +1055,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "lineHeight": 24,
                 },
                 false,
-                undefined,
+                {
+                  "color": "#2B1911",
+                },
                 false,
               ]
             }
@@ -1048,7 +1078,7 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   false,
                   [
                     {
-                      "color": "#EAE3DF",
+                      "color": "#BAADA7",
                     },
                     undefined,
                   ],
@@ -1120,7 +1150,9 @@ exports[`useFundFromPeachWallet should open insufficient funds popup 1`] = `
                   "lineHeight": 24,
                 },
                 false,
-                undefined,
+                {
+                  "color": "#2B1911",
+                },
                 false,
               ]
             }

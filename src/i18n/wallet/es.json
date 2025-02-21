@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "abrir cartera externa",
   "wallet.receive" : "recibir",
   "wallet.receiveBitcoin.title" : "recibir bitcoin",
+  "wallet.seedPhraseWarning" : "NUNCA compartas tu frase semilla con nadie",
   "wallet.send" : "enviar",
   "wallet.sendBitcoin.amount" : "cantidad",
   "wallet.sendBitcoin.fee" : "comisión de transacción",

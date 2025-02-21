@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "άνοιγμα εφαρμογής πορτοφολιού",
   "wallet.receive" : "λήψη",
   "wallet.receiveBitcoin.title" : "λήψη bitcoin",
+  "wallet.seedPhraseWarning" : "ΠΟΤΕ μην μοιραστείτε τη φράση σπόρου σας με κανέναν",
   "wallet.send" : "στείλτε",
   "wallet.sendBitcoin.amount" : "ποσό",
   "wallet.sendBitcoin.fee" : "τέλη συναλλαγής",

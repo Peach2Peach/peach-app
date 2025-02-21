@@ -12,7 +12,7 @@ type Props = {
 
 export const FeeInfo = ({ label, fee, isError }: Props) => (
   <View>
-    <PeachText style={tw`text-center text-black-65`}>{label}</PeachText>
+    <PeachText style={tw`text-center text-black-50`}>{label}</PeachText>
     <PeachText
       style={[tw`text-center subtitle-1`, isError && tw`text-primary-main`]}
     >

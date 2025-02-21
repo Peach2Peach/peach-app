@@ -1,5 +1,4 @@
-import analytics from "@react-native-firebase/analytics";
-import perf from "@react-native-firebase/perf";
+import crashlytics from "@react-native-firebase/crashlytics";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createPersistStorage } from "../createPersistStorage";
@@ -48,9 +47,7 @@ export const useSettingsStore = create(
       getPureState: () => getPureSettingsState(get()),
       updateSettings: (settings) => set({ ...settings }),
       setEnableAnalytics: (enableAnalytics) => {
-        analytics().setAnalyticsCollectionEnabled(enableAnalytics);
-        perf().setPerformanceCollectionEnabled(enableAnalytics);
-
+        crashlytics().setCrashlyticsCollectionEnabled(enableAnalytics);
         set({ enableAnalytics });
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
@@ -93,7 +90,7 @@ export const useSettingsStore = create(
     }),
     {
       name: "settings",
-      version: 4,
+      version: 5,
       migrate: migrateSettings,
       storage,
     },

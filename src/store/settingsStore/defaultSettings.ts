@@ -5,7 +5,7 @@ export const defaultSettings: Settings = {
   appVersion: APPVERSION,
 
   enableAnalytics: false,
-  analyticsPopupSeen: undefined,
+  analyticsPopupSeen: false,
 
   lastFileBackupDate: undefined,
   lastSeedBackupDate: undefined,

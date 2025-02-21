@@ -1,4 +1,3 @@
-import analytics from "@react-native-firebase/analytics";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { offerPreferencesStorage } from "../../store/offerPreferenes/useOfferPreferences";
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
@@ -34,5 +33,4 @@ export const deleteAccount = () => {
 
   clearPeachWallet();
   peachAPI.setPeachAccount(null);
-  analytics().logEvent("account_deleted");
 };

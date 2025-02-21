@@ -4,6 +4,7 @@ import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { WarningFrame } from "../../components/ui/WarningFrame";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -24,7 +25,7 @@ export const Wallet = () => {
     <Screen header={<WalletHeader />}>
       <PeachScrollView
         contentContainerStyle={tw`grow`}
-        contentStyle={tw`justify-center py-16 grow`}
+        contentStyle={tw`items-center justify-center py-16 grow`}
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={() => refetch()} />
         }
@@ -43,6 +44,7 @@ export const Wallet = () => {
             Fund Wallet
           </Button>
         )}
+        <WarningFrame text={i18n("wallet.seedPhraseWarning")} />
         <TotalBalance amount={balance} isRefreshing={isRefetching} />
         <BackupReminderIcon />
       </PeachScrollView>

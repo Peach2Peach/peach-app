@@ -6,7 +6,9 @@ import { PeachText } from "../text/PeachText";
 
 const getAddressParts = (address: string) => {
   const addressParts = getBitcoinAddressParts(address);
-  addressParts.three = `${addressParts.three[0]} ... ${addressParts.three[addressParts.three.length - 1]}`;
+  addressParts.three = `${addressParts.three[0]} ... ${
+    addressParts.three[addressParts.three.length - 1]
+  }`;
   return addressParts;
 };
 
@@ -22,7 +24,7 @@ export const ShortBitcoinAddress = ({
   const addressParts = getAddressParts(address);
 
   return (
-    <PeachText style={[tw`text-black-10`, style]}>
+    <PeachText style={[tw`text-black-25`, style]}>
       {addressParts.one}
       <PeachText style={[tw`text-black-100`, style]}>
         {addressParts.two}

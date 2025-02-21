@@ -45,7 +45,7 @@ exports[`SeedPhraseInput should render correctly 1`] = `
       onChangeText={[Function]}
       onSubmitEditing={[Function]}
       placeholder="1."
-      placeholderTextColor="#624D44"
+      placeholderTextColor="#EAE3DF"
       removeClippedSubviews={false}
       style={
         [
@@ -61,7 +61,7 @@ exports[`SeedPhraseInput should render correctly 1`] = `
             "width": "100%",
           },
           {
-            "color": "#624D44",
+            "color": "#EAE3DF",
           },
           false,
           {

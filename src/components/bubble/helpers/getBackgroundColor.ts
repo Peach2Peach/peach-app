@@ -12,5 +12,5 @@ export const getBackgroundColor = ({
       ? tw`bg-primary-background-light`
       : tw`bg-primary-background-dark`;
 
-  return tw`transparent`;
+  return tw`bg-transparent`;
 };

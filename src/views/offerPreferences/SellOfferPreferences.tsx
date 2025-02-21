@@ -392,7 +392,7 @@ function FiatInput() {
     <View
       style={[
         tw.style(inputContainerStyle),
-        isDarkMode && tw`bg-transparent border-backgroundLight`,
+        isDarkMode && tw`bg-transparent border-black-25`,
       ]}
     >
       <TextInput
@@ -400,7 +400,7 @@ function FiatInput() {
           tw.style(textStyle),
           isDarkMode
             ? tw`bg-transparent text-backgroundLight`
-            : tw`bg-white text-black-100`,
+            : tw`text-black-100`,
         ]}
         ref={inputRef}
         value={displayValue}
@@ -609,30 +609,39 @@ function FundEscrowButton() {
 
   const getPaymentData = async () => {
     const { paymentData, originalPaymentData } = sellPreferences;
-    let finalPaymentData = paymentData;
     if (instantTrade) {
       const selectedMethods = keys(paymentData);
-      for (const method of selectedMethods) {
+      const cleanedData = selectedMethods.map((method) => {
         const originalData = originalPaymentData.find((e) => e.type === method);
-        if (originalData) {
-          const cleanedData = cleanPaymentData(originalData);
-          // eslint-disable-next-line no-await-in-loop
-          const { encrypted, signature } = await signAndEncrypt(
-            JSON.stringify(cleanedData),
-            peachPGPPublicKey,
-          );
-          finalPaymentData = {
-            ...finalPaymentData,
+        return originalData ? cleanPaymentData(originalData) : null;
+      });
+
+      const encryptedData = await Promise.all(
+        cleanedData.map((data) =>
+          data ? signAndEncrypt(JSON.stringify(data), peachPGPPublicKey) : null,
+        ),
+      );
+
+      const finalPaymentData = encryptedData.reduce(
+        (acc, encryptedDatum, index) => {
+          if (!encryptedDatum) return acc;
+          const { encrypted, signature } = encryptedDatum;
+          const method = selectedMethods[index];
+          return {
+            ...acc,
             [method]: {
-              ...finalPaymentData[method],
+              ...paymentData[method],
               encrypted,
               signature,
             },
           };
-        }
-      }
+        },
+        {},
+      );
+
+      return finalPaymentData;
     }
-    return finalPaymentData;
+    return paymentData;
   };
 
   const showPublishingError = () => {

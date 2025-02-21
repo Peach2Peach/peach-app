@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "open wallet app",
   "wallet.receive" : "ontvangen",
   "wallet.receiveBitcoin.title" : "ontvang bitcoin",
+  "wallet.seedPhraseWarning" : "Deel NOOIT je zaadzin met iemand",
   "wallet.send" : "Versturen",
   "wallet.sendBitcoin.amount" : "Hoeveelheid",
   "wallet.sendBitcoin.fee" : "Transactiekosten",

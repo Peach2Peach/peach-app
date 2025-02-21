@@ -16,7 +16,7 @@ export const UserId = ({ id }: Props) => {
 
   return (
     <Bubble
-      color="primary-mild"
+      color="primary"
       iconSize={12}
       iconId={"info"}
       onPress={goToUserProfile}

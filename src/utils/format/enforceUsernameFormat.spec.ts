@@ -7,6 +7,7 @@ describe("enforceUsernameFormat", () => {
       { username: "User1", expected: "@user1" },
       { username: "User1!", expected: "@user1" },
       { username: "", expected: "@" },
+      { username: "User1_", expected: "@user1_" },
     ];
 
     testCases.forEach(({ username, expected }) => {

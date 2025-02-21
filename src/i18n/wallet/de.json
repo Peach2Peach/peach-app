@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "Wallet-App öffnen",
   "wallet.receive" : "Erhalten",
   "wallet.receiveBitcoin.title" : "Bitcoin erhalten",
+  "wallet.seedPhraseWarning" : "Geben Sie Ihre Seed-Phrase NIEMALS an andere weiter",
   "wallet.send" : "senden",
   "wallet.sendBitcoin.amount" : "Betrag",
   "wallet.sendBitcoin.fee" : "Transaktionsgebühr",

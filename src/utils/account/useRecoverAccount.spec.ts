@@ -1,4 +1,3 @@
-import analytics from "@react-native-firebase/analytics";
 import { act, renderHook } from "test-utils";
 import { recoveredAccount } from "../../../tests/unit/data/accountData";
 import { useRecoverAccount } from "./useRecoverAccount";
@@ -18,12 +17,5 @@ describe("useRecoverAccount", () => {
       await result.current(recoveredAccount);
     });
     expect(mockUserUpdate).toHaveBeenCalled();
-  });
-  it("logs event account_restored", async () => {
-    const { result } = renderHook(useRecoverAccount);
-    await act(async () => {
-      await result.current(recoveredAccount);
-    });
-    expect(analytics().logEvent).toHaveBeenCalledWith("account_restored");
   });
 });

@@ -66,7 +66,7 @@ export const FileInput = ({ fileName, onChange }: Props) => {
     <Input
       value={fileName}
       onPressIn={onPress}
-      icons={[["clipboard", onPress]]}
+      icons={[["upload", onPress]]}
       disabled
       theme="inverted"
       placeholder={i18n("restoreBackup.decrypt.file")}

@@ -237,7 +237,9 @@ function SendBitcoinHeader() {
         {
           ...headerIcons.listFlipped,
           onPress: () => navigation.navigate("coinSelection"),
-          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.coinControl.title")}`,
+          accessibilityHint: `${i18n("goTo")} ${i18n(
+            "wallet.coinControl.title",
+          )}`,
         },
         {
           ...headerIcons.help,

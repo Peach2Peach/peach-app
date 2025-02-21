@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "open external wallet app",
   "wallet.receive" : "receive",
   "wallet.receiveBitcoin.title" : "receive bitcoin",
+  "wallet.seedPhraseWarning" : "NEVER share your seed phrase with anyone",
   "wallet.send" : "send",
   "wallet.sendBitcoin.amount" : "amount",
   "wallet.sendBitcoin.fee" : "transaction fee",

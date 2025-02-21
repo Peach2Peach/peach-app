@@ -112,7 +112,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
               false,
               [
                 {
-                  "opacity": 0.1,
+                  "opacity": 0.2,
                   "textAlign": "right",
                 },
                 [
@@ -127,6 +127,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
                   {
                     "color": "#2B1911",
                   },
+                  undefined,
                 ],
               ],
               false,
@@ -163,6 +164,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
                   {
                     "color": "#2B1911",
                   },
+                  undefined,
                 ],
               ],
               false,
@@ -196,6 +198,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
               {
                 "color": "#2B1911",
               },
+              undefined,
             ],
             false,
           ]

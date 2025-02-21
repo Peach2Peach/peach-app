@@ -49,6 +49,7 @@
   "wallet.openWalletApp" : "külső tárca alkalmazás megnyitása",
   "wallet.receive" : "fogadás",
   "wallet.receiveBitcoin.title" : "bitcoin fogadása",
+  "wallet.seedPhraseWarning" : "Ne communiquez JAMAIS votre phrase de semence à qui que ce soit",
   "wallet.send" : "küldés",
   "wallet.sendBitcoin.amount" : "összeg",
   "wallet.sendBitcoin.fee" : "tranzakciós díj",
