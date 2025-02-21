@@ -93,14 +93,68 @@ export function TradeRequestForSellOffer() {
   );
 }
 
-function AcceptButton() {
-  const mutation = useAcceptTradeRequest();
+type PaideViaPayementMethodBubbleProps = {
+  paymentMethod: PaymentMethod;
+  selectedPaymentData?: PaymentData;
+  children: React.ReactNode;
+  onPress?: (value: PaymentData) => void;
+};
+
+function AcceptButton({
+  paymentMethod,
+  selectedPaymentData,
+  children,
+  onPress,
+}: PaideViaPayementMethodBubbleProps) {
+  const paymentDataRecord = usePaymentDataStore((state) => state.paymentData);
+  const paymentDataForType = useMemo(
+    () =>
+      Object.values(paymentDataRecord).filter((p) => p.type === paymentMethod),
+    [paymentDataRecord, paymentMethod],
+  );
+  const hasPaymentData = paymentDataForType.length > 0;
+  const hasMultiplePaymentData = paymentDataForType.length > 1;
+  const updateDrawer = useDrawerState((state) => state.updateDrawer);
+
+  const onPressBubble = () => {
+    if (onPress) {
+      if (hasPaymentData) {
+        if (hasMultiplePaymentData) {
+          updateDrawer({
+            title: i18n("selectPaymentMethod.title"),
+            options: paymentDataForType.map(
+              (p, index): DrawerOptionType => ({
+                title: p.label,
+                onPress: () => {
+                  onPress(paymentDataForType[index]);
+                  updateDrawer({ show: false });
+                },
+                logoID: p.type as PaymentLogoType, // Ensure logoID is correctly typed
+                iconRightID:
+                  p.id === selectedPaymentData?.id ? "check" : undefined,
+              }),
+            ),
+            show: true,
+          });
+        } else {
+          onPress(paymentDataForType[0]);
+        }
+      }
+    }
+  };
+  const mutation = useAcceptTradeRequest({ selectedPaymentData });
+  useEffect(() => {
+    if (selectedPaymentData !== undefined) {
+      mutation.mutate();
+    }
+  }, [selectedPaymentData, mutation]);
+  const handlePress = () => {
+    onPressBubble();
+  };
+
   return (
-    <Button
-      style={tw`flex-1 py-3 bg-success-main`}
-      onPress={() => mutation.mutate()}
-    >
-      Accept Trade
+    <Button style={tw`flex-1 py-3 bg-success-main`} onPress={handlePress}>
+      {children}
     </Button>
   );
 }
