@@ -28,7 +28,6 @@ import { UserCard } from "../explore/UserCard";
 import { useOffer } from "../explore/useOffer";
 import { useUser } from "../publicProfile/useUser";
 
-
 export function TradeRequestForSellOffer() {
   const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
     useRoute<"tradeRequestForSellOffer">().params;
@@ -159,7 +158,11 @@ function AcceptButton({
   );
 }
 
-function useAcceptTradeRequest() {
+function useAcceptTradeRequest({
+  selectedPaymentData,
+}: {
+  selectedPaymentData?: PaymentData;
+}) {
   const {
     userId,
     offerId,
@@ -171,11 +174,6 @@ function useAcceptTradeRequest() {
     requestingOfferId,
   } = useRoute<"tradeRequestForSellOffer">().params;
   const navigation = useStackNavigation();
-  const paymentData = usePaymentDataStore(
-    (s) =>
-      Object.values(s.paymentData).filter(({ type }) => type === paymentMethod),
-    shallow,
-  );
   return useMutation({
     onMutate: async () => {
       // cancel queries related to the sell offer
@@ -184,9 +182,6 @@ function useAcceptTradeRequest() {
       const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey) throw new Error("SYMMETRIC_KEY_DECRYPTION_FAILED");
 
-      const selectedPaymentData = paymentData.find((pd) =>
-        pd.currencies.includes(currency),
-      );
       if (!selectedPaymentData) throw new Error("PAYMENTDATA_NOT_FOUND");
 
       const encryptedData = await encryptPaymentData(
