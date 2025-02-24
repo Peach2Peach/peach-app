@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -114,6 +114,7 @@ function AcceptButton({
   const hasPaymentData = paymentDataForType.length > 0;
   const hasMultiplePaymentData = paymentDataForType.length > 1;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
+  const mutation = useAcceptTradeRequest({ selectedPaymentData });
 
   const onPressBubble = () => {
     if (onPress) {
@@ -127,6 +128,7 @@ function AcceptButton({
                 onPress: () => {
                   onPress(paymentDataForType[index]);
                   updateDrawer({ show: false });
+                  mutation.mutate();
                 },
                 logoID: p.type as PaymentLogoType, // Ensure logoID is correctly typed
                 iconRightID:
@@ -137,16 +139,11 @@ function AcceptButton({
           });
         } else {
           onPress(paymentDataForType[0]);
+          mutation.mutate();
         }
       }
     }
   };
-  const mutation = useAcceptTradeRequest({ selectedPaymentData });
-  useEffect(() => {
-    if (selectedPaymentData !== undefined) {
-      mutation.mutate();
-    }
-  }, [selectedPaymentData, mutation]);
   const handlePress = () => {
     onPressBubble();
   };
