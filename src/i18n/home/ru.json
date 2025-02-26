@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "средняя премия: $0%",
   "home.openBuyOffers" : "$0 открытых предложений о покупке",
-  "home.openSellOffers" : "$0 открытых предложений о продаже"
+  "home.openSellOffers" : "$0 открытых предложений о продаже",
+  "home.expressSell": "экспресс-продажа",
+  "home.createAnSellOffer": "создать предложение",
+  "home.expressBuy": "экспресс-покупка",
+  "home.createAnBuyOffer": "создать предложение"
 }
