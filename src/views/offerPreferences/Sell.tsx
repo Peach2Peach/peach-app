@@ -448,11 +448,11 @@ function FundMultipleOffersContainer() {
     <Section.Container
       style={tw`flex-row items-start justify-between bg-primary-background-dark`}
     >
-      <FundMultipleOffers />
+      <FundMultipleOffers green={undefined} />
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color("info-light")}
-        onPress={() => setPopup(<HelpPopup id="fundMultiple" />)}
+        onPress={() => setPopup(<HelpPopup id="fundMultipleSell" />)}
       />
     </Section.Container>
   );
