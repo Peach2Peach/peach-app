@@ -91,14 +91,14 @@ export function SellOfferPreferences() {
         <SellTab.Screen
           name="expressSell"
           options={{
-            title: "express sell",
+            title: i18n("home.expressSell"),
           }}
           component={ExpressSell}
         />
         <SellTab.Screen
           name="createOffer"
           options={{
-            title: "create an offer",
+            title: i18n("home.createAnSellOffer"),
           }}
           component={CreateSellOffer}
         />

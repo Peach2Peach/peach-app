@@ -8,6 +8,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { CreateBuyOffer } from "../offerPreferences/CreateBuyOffer";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
 import { ExpressBuy } from "./ExpressBuy";
+import i18n from "../../utils/i18n";
 
 const BuyTab = createMaterialTopTabNavigator();
 
@@ -25,14 +26,14 @@ export function Buy() {
         <BuyTab.Screen
           name="expressBuy"
           options={{
-            title: "express buy",
+            title: i18n("home.expressBuy"),
           }}
           component={ExpressBuy}
         />
         <BuyTab.Screen
           name="createOffer"
           options={{
-            title: "create an offer",
+            title: i18n("home.createAnBuyOffer"),
           }}
           component={CreateBuyOffer}
         />
