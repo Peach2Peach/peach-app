@@ -47,9 +47,7 @@ export function CreateBuyOffer() {
       <AmountSelector setIsSliding={setIsSliding} />
       <PreferenceMethods type="buy" />
       <CompetingOfferStats />
-      <Section.Container style={tw`items-start`}>
-        <FundMultipleOffers />
-      </Section.Container>
+      <FundMultipleOffersContainer />
       <InstantTrade />
       <PreferenceWalletSelector />
       <NetworkFeeInfo type="buy" />
@@ -99,7 +97,7 @@ function PreferenceMarketInfo() {
       buyAmountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium ?? undefined
+        ? (state.filter.buyOffer.maxPremium ?? undefined)
         : undefined,
       minReputation: interpolate(
         state.filter.buyOffer.minReputation ?? 0,
@@ -254,6 +252,22 @@ function CompetingOfferStats() {
       <PeachText style={text}>
         {i18n("offerPreferences.premiumOfCompletedTrades", "9")}
       </PeachText>
+    </Section.Container>
+  );
+}
+
+function FundMultipleOffersContainer() {
+  const setPopup = useSetPopup();
+  return (
+    <Section.Container
+      style={tw`flex-row items-start justify-between bg-success-mild-1`}
+    >
+      <FundMultipleOffers green={true} />
+      <TouchableIcon
+        id="helpCircle"
+        iconColor={tw.color("info-light")}
+        onPress={() => setPopup(<HelpPopup id="fundMultipleBuy" />)}
+      />
     </Section.Container>
   );
 }
