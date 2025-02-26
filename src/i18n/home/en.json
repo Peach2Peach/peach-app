@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "average premium: $0%",
   "home.openBuyOffers" : "$0 open buy offers",
-  "home.openSellOffers" : "$0 open sell offers"
+  "home.openSellOffers" : "$0 open sell offers",
+  "home.expressSell": "express sell",
+  "home.createAnSellOffer": "create an offer",
+  "home.expressBuy": "express buy",
+  "home.createAnBuyOffer": "create an offer"
 }
