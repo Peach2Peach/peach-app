@@ -1,6 +1,8 @@
 {
-  "help.fundMultiple.description" : "Aby zaoszczędzić na opłatach za sieć, możesz utworzyć wiele ofert sprzedaży za pomocą jednej transakcji!",
-  "help.fundMultiple.title" : "finansuj wiele ofert sprzedaży",
+  "help.fundMultipleSell.description" : "Aby zaoszczędzić na opłatach za sieć, możesz utworzyć wiele ofert sprzedaży za pomocą jednej transakcji!",
+  "help.fundMultipleSell.title" : "finansuj wiele ofert sprzedaży",
+  "help.fundMultipleBuy.description" : "Aby zaoszczędzić na opłatach sieciowych, możesz utworzyć wiele ofert kupna za pomocą tylko jednej transakcji!",
+  "help.fundMultipleBuy.title" : "sfinansuj wiele ofert kupna",
   "help.instantTradeSell.description" : "Zezwól kupującemu, który pasuje do Twojej oferty sprzedaży, na automatyczne zawarcie transakcji z Tobą!\n\nAby to włączyć, Peach otrzyma Twoje wybrane dane płatności, aby natychmiastowo udostępnić je kupującemu, który spełnia wszystkie Twoje kryteria.\n\nTe dane są zaszyfrowane i nie mogą być odczytane przez osoby trzecie, oprócz Peach.",
   "help.instantTradeSell.title" : "natychmiastowa transakcja",
   "help.instantTradeBuy.description" : "Zezwól kupującemu, który pasuje do Twojej oferty sprzedaży, na automatyczne zawarcie transakcji z Tobą!\n\nAby to włączyć, Peach otrzyma Twoje wybrane dane płatności, aby natychmiastowo udostępnić je kupującemu, który spełnia wszystkie Twoje kryteria.\n\nTe dane są zaszyfrowane i nie mogą być odczytane przez osoby trzecie, oprócz Peach.",
