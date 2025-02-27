@@ -91,6 +91,7 @@ function PreferenceWalletSelector() {
     />
   );
 }
+
 function PreferenceMarketInfo() {
   const offerPreferenes = useOfferPreferences(
     (state) => ({
