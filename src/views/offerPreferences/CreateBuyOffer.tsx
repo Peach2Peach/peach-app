@@ -301,7 +301,7 @@ function InstantTrade() {
   );
   const setPopup = useSetPopup();
   const onHelpIconPress = () => {
-    setPopup(<HelpPopup id="instantTradeBuys" />);
+    setPopup(<HelpPopup id="instantTradeBuy" />);
     setHasSeenPopup(true);
   };
 
