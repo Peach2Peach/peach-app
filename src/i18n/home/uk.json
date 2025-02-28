@@ -3,7 +3,7 @@
   "home.openBuyOffers" : "$0 відкритих пропозицій на покупку",
   "home.openSellOffers" : "$0 відкритих пропозицій на продаж",
   "home.expressSell": "експрес продаж",
-  "home.createAnSellOffer": "створити пропозицію",
+  "home.createSellOffer": "створити пропозицію",
   "home.expressBuy": "експрес-купівля",
-  "home.createAnBuyOffer": "створити пропозицію"
+  "home.createBuyOffer": "створити пропозицію"
 }
