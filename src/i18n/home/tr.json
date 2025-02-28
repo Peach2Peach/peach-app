@@ -3,7 +3,7 @@
   "home.openBuyOffers" : "$0 açık alım teklifleri",
   "home.openSellOffers" : "$0 açık satış teklifleri",
   "home.expressSell": "ekspres satış",
-  "home.createAnSellOffer": "teklif oluştur",
+  "home.createSellOffer": "teklif oluştur",
   "home.expressBuy": "ekspres satın al",
-  "home.createAnBuyOffer": "teklif oluştur"
+  "home.createBuyOffer": "teklif oluştur"
 }
