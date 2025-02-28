@@ -3,7 +3,7 @@
   "home.openBuyOffers" : "$0 nyitott vásárlási ajánlat",
   "home.openSellOffers" : "$0 nyitott eladási ajánlat",
   "home.expressSell": "expressz eladás",
-  "home.createAnSellOffer": "ajánlatot készíteni",
+  "home.createSellOffer": "ajánlatot készíteni",
   "home.expressBuy": "expressz vásárlás",
-  "home.createAnBuyOffer": "ajánlatot készíteni"
+  "home.createBuyOffer": "ajánlatot készíteni"
 }

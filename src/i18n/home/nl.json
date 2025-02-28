@@ -3,7 +3,7 @@
   "home.openBuyOffers" : "$0 open koopaanbiedingen",
   "home.openSellOffers" : "$0 open verkoopaanbiedingen",
   "home.expressSell": "express verkopen",
-  "home.createAnSellOffer": "aanbod maken",
+  "home.createSellOffer": "aanbod maken",
   "home.expressBuy": "express kopen",
-  "home.createAnBuyOffer": "aanbod maken"
+  "home.createBuyOffer": "aanbod maken"
 }
