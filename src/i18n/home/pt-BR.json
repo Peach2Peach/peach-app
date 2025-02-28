@@ -3,7 +3,7 @@
   "home.openBuyOffers" : "$0 ofertas de compra abertas",
   "home.openSellOffers" : "$0 ofertas de venda abertas",
   "home.expressSell": "venda expressa",
-  "home.createAnSellOffer": "criar uma oferta",
+  "home.createSellOffer": "criar oferta",
   "home.expressBuy": "compra expressa",
-  "home.createAnBuyOffer": "criar uma oferta"
+  "home.createBuyOffer": "criar oferta"
 }
