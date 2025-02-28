@@ -33,7 +33,7 @@ export function Buy() {
         <BuyTab.Screen
           name="createOffer"
           options={{
-            title: i18n("home.createAnBuyOffer"),
+            title: i18n("home.createBuyOffer"),
           }}
           component={CreateBuyOffer}
         />
