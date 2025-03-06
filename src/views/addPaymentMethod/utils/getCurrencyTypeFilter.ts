@@ -15,7 +15,6 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "ISK",
     "NOK",
     "TRY",
-    "RUB",
   ],
   latinAmerica: [
     "ARS",
@@ -35,21 +34,16 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "GTQ",
     "SRD",
     "BOB",
-    "CLF",
-    "CUC",
-    "CUP",
     "DOP",
     "HNL",
     "PAB",
-    "VEF",
     "VES",
   ],
-  africa: ["USD", "XOF", "CDF", "NGN", "ZAR", "MAD", "KES", "TZS"],
+  africa: ["XOF", "CDF", "NGN", "ZAR", "MAD", "KES", "TZS"],
   asia: [
     "KZT",
     "INR",
     "SGD",
-    "TRY",
     "SAR",
     "PHP",
     "AED",
@@ -64,6 +58,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "RUB",
   ],
   oceania: ["AUD", "NZD"],
+  northAmerica: ["CAD"],
   other: ["USDT", "SAT"],
 };
 

@@ -70,6 +70,8 @@ type LatAmPaymentMethods =
   | "tigoMoneyElSalvador"
   | "tigoMoneyGuatemala"
   | "tigoMoneyHonduras"
+  | "moncash"
+  | "natcash"
   | "tigoMoneyParaguay";
 type AfricaPaymentMethods =
   | "accrue"
@@ -92,6 +94,31 @@ type AfricaPaymentMethods =
 
 type OceaniaPaymentMethods = "payID" | "osko";
 type AsiaPaymentMethods = "UPI" | "paytm" | "nationalTransferSG" | "payLah";
+type northAmericaPaymentMethods =
+  | "alias"
+  | "bancolombia"
+  | "bankTransferSuriname"
+  | "cbu"
+  | "chileBankDeposit"
+  | "cvu"
+  | "daviPlata"
+  | "guatemalaBankDeposit"
+  | "mercadoPago"
+  | "nequi"
+  | "paraguayBankTransfer"
+  | "peruBankDeposit"
+  | "pix"
+  | "rappipay"
+  | "sinpe"
+  | "sinpeMovil"
+  | "spei"
+  | "tigoMoneyBolivia"
+  | "tigoMoneyElSalvador"
+  | "tigoMoneyGuatemala"
+  | "tigoMoneyHonduras"
+  | "moncash"
+  | "natcash"
+  | "tigoMoneyParaguay";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =
