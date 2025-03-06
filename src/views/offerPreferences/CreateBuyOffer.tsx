@@ -141,6 +141,7 @@ function PublishOfferButton() {
     instantTrade,
     instantTradeCriteria,
     originalPaymentData,
+    multi,
   } = useOfferPreferences(
     (state) => ({
       amountRange: state.buyAmountRange,
@@ -157,6 +158,7 @@ function PublishOfferButton() {
       instantTrade: state.instantTrade,
       instantTradeCriteria: state.instantTradeCriteria,
       originalPaymentData: state.originalPaymentData,
+      multi: state.multi,
     }),
     shallow,
   );
@@ -226,7 +228,14 @@ function PublishOfferButton() {
 
   const onPress = async () => {
     if (!formValid || isSyncingWallet) return;
-    publishOffer(await getPaymentData());
+    if (multi !== undefined) {
+      const paymentDataPromises = [];
+      for (let i = 0; i < multi; i++) {
+        paymentDataPromises.push(getPaymentData());
+      }
+      const paymentDataResults = await Promise.all(paymentDataPromises);
+      paymentDataResults.forEach((paymentItem) => publishOffer(paymentItem));
+    } else publishOffer(await getPaymentData());
   };
   const keyboardIsOpen = useKeyboard();
   if (keyboardIsOpen) return null;
