@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "átlagos díj: $0%",
   "home.openBuyOffers" : "$0 nyitott vásárlási ajánlat",
-  "home.openSellOffers" : "$0 nyitott eladási ajánlat"
+  "home.openSellOffers" : "$0 nyitott eladási ajánlat",
+  "home.expressSell": "expressz eladás",
+  "home.createSellOffer": "ajánlatot készíteni",
+  "home.expressBuy": "expressz vásárlás",
+  "home.createBuyOffer": "ajánlatot készíteni"
 }

@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "gemiddelde premie: $0%",
   "home.openBuyOffers" : "$0 open koopaanbiedingen",
-  "home.openSellOffers" : "$0 open verkoopaanbiedingen"
+  "home.openSellOffers" : "$0 open verkoopaanbiedingen",
+  "home.expressSell": "express verkopen",
+  "home.createSellOffer": "aanbod maken",
+  "home.expressBuy": "express kopen",
+  "home.createBuyOffer": "aanbod maken"
 }

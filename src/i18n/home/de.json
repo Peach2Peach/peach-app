@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "Durchschnittliche Prämie: $0%",
   "home.openBuyOffers" : "$0 offene Kaufangebote",
-  "home.openSellOffers" : "$0 offene Verkaufsangebote"
+  "home.openSellOffers" : "$0 offene Verkaufsangebote",
+  "home.expressSell": "expressverkauf",
+  "home.createSellOffer": "angebot erstellen",
+  "home.expressBuy": "expresskauf",
+  "home.createBuyOffer": "angebot erstellen"
 }
