@@ -3,7 +3,7 @@
   "help.fundMultiple.title" : "financer plusieurs offres de vente",
   "help.instantTradeSell.description" : "Autorisez un acheteur correspondant à votre offre de vente à entrer automatiquement dans une transaction avec vous !\n\nPour activer cette fonctionnalité, Peach recevra vos données de paiement sélectionnées pour les partager instantanément avec un acheteur qui correspond à tous vos critères.\n\nCes données sont cryptées et ne peuvent pas être lues par des tiers autres que Peach.",
   "help.instantTradeSell.title" : "commerce instantané",
-  "help.instantTradeBuy.description" : "Autorisez un acheteur correspondant à votre offre de vente à entrer automatiquement dans une transaction avec vous !\n\nPour activer cette fonctionnalité, Peach recevra vos données de paiement sélectionnées pour les partager instantanément avec un acheteur qui correspond à tous vos critères.\n\nCes données sont cryptées et ne peuvent pas être lues par des tiers autres que Peach.",
+  "help.instantTradeBuy.description" : "Permettez à un vendeur qui correspond à votre offre de conclure automatiquement un échange avec vous !\n\nLes vendeurs qui ne correspondent pas à vos critères peuvent toujours voir votre offre. Ils attendront que vous acceptiez leur offre.",
   "help.instantTradeBuy.title" : "commerce instantané",
   "matchDetails.action.instantTrade" : "commerce instantané",
   "matchDetails.action.missingSelection" : "sélectionner le moyen de paiement",
