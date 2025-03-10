@@ -57,7 +57,7 @@ function NumberStepper({ green }: { green: boolean | undefined }) {
         <Icon
           id="minusCircle"
           size={24}
-          color={tw.color(`${green ? "success-main" : "primary-main"}`)}
+          color={tw.color(green ? "success-main" : "primary-main")}
         />
       </TouchableOpacity>
       <PeachText
@@ -77,7 +77,7 @@ function NumberStepper({ green }: { green: boolean | undefined }) {
         <Icon
           id="plusCircle"
           size={24}
-          color={tw.color(`${green ? "success-main" : "primary-main"}`)}
+          color={tw.color(green ? "success-main" : "primary-main")}
         />
       </TouchableOpacity>
     </View>
