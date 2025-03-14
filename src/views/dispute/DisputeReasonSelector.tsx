@@ -29,8 +29,8 @@ export const DisputeReasonSelector = () => {
 };
 
 const disputeReasons: Record<ContractViewer, DisputeReason[]> = {
-  buyer: ["noPayment.buyer", "unresponsive.buyer", "abusive", "other"],
-  seller: ["noPayment.seller", "unresponsive.seller", "abusive", "other"],
+  buyer: ["noPayment.seller", "unresponsive.seller", "abusive", "other"],
+  seller: ["noPayment.buyer", "unresponsive.buyer", "abusive", "other"],
 };
 
 function DisputeReasonScreen({ contract }: { contract: Contract }) {
