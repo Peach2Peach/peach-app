@@ -63,7 +63,7 @@
     "ecpair": "^2.1.0",
     "events": "^3.3.0",
     "iban": "^0.0.14",
-    "jotai": "^2.6.5",
+    "jotai": "^2.12.1",
     "node-forge": "file:./__mocks__/node-forge",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
