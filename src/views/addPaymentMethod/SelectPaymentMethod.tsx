@@ -57,7 +57,7 @@ const NATIONALOPTIONCOUNTRIES = {
   AFRICA: ["TZ"],
   ASIA: ["IN", "SG"],
   OCEANIA: ["AU"],
-  NORTHAMERICA: ["CAD"]
+  NORTHAMERICA: ["CAD"],
 } as const;
 type EuropeanCountry = keyof typeof NATIONALOPTIONS.EUR;
 type LatAmCountry = keyof typeof NATIONALOPTIONS.LATAM;
