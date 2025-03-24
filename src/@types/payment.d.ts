@@ -70,8 +70,8 @@ type LatAmPaymentMethods =
   | "tigoMoneyElSalvador"
   | "tigoMoneyGuatemala"
   | "tigoMoneyHonduras"
-  | "moncash"
-  | "natcash"
+  // | "moncash"
+  // | "natcash"
   | "tigoMoneyParaguay";
 type AfricaPaymentMethods =
   | "accrue"
@@ -116,8 +116,8 @@ type northAmericaPaymentMethods =
   | "tigoMoneyElSalvador"
   | "tigoMoneyGuatemala"
   | "tigoMoneyHonduras"
-  | "moncash"
-  | "natcash"
+  // | "moncash"
+  // | "natcash"
   | "tigoMoneyParaguay";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
