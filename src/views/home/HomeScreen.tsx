@@ -139,9 +139,9 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
   const { offers } = useOfferSummaries();
   const { contracts } = useContractSummaries();
   const notifications = useMemo(() => {
-    const offersWithAction = offers
-      .filter(({ contractId }) => !contractId)
-      .filter((offer) => hasRequiredAction(offer)).length;
+    const offersWithAction = offers.filter((offer) =>
+      hasRequiredAction(offer),
+    ).length;
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length;
