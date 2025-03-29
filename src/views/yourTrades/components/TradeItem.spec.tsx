@@ -1,5 +1,5 @@
 import { render, waitFor } from "test-utils";
-import { OfferSummary } from "../../../../peach-api/src/@types/offer";
+import { BuyOfferSummary } from "../../../../peach-api/src/@types/offer";
 import { account1 } from "../../../../tests/unit/data/accountData";
 import { contractSummary } from "../../../../tests/unit/data/contractSummaryData";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
@@ -12,7 +12,7 @@ jest.useFakeTimers();
 describe("OfferItem", () => {
   const minAmount = 21000;
   const maxAmount = 210000;
-  const defaultOffer: OfferSummary = {
+  const defaultOffer: BuyOfferSummary = {
     id: "id",
     type: "bid",
     creationDate: new Date("2021-01-01"),
@@ -20,6 +20,7 @@ describe("OfferItem", () => {
     amount: [minAmount, maxAmount],
     matches: [],
     tradeStatus: "searchingForPeer",
+    escrowType: "bitcoin",
   };
 
   it("should render correctly", () => {

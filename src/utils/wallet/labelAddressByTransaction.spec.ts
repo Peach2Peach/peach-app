@@ -1,6 +1,6 @@
 import { responseUtils } from "test-utils";
 import { buyOffer, sellOffer } from "../../../tests/unit/data/offerData";
-import { offerSummary } from "../../../tests/unit/data/offerSummaryData";
+import { buyOfferSummary } from "../../../tests/unit/data/offerSummaryData";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
 import { queryClient } from "../../queryClient";
 import { peachAPI } from "../peachAPI";
@@ -28,7 +28,7 @@ describe("labelAddressByTransaction", () => {
   it("does not label address if associated offer cannot be found", () => {
     useWalletState
       .getState()
-      .updateTxOfferMap(confirmed1.txid, [offerSummary.id]);
+      .updateTxOfferMap(confirmed1.txid, [buyOfferSummary.id]);
     labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });

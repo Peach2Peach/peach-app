@@ -1,7 +1,6 @@
-import { ContractSummary } from "../../../peach-api/src/@types/contract";
-import { OfferSummary } from "../../../peach-api/src/@types/offer";
+import { SellOfferSummary } from "../../../peach-api/src/@types/offer";
 
-export const tradeSummary: OfferSummary | ContractSummary = {
+export const tradeSummary: SellOfferSummary = {
   amount: 50000,
   creationDate: new Date("2023-01-01"),
   fundingTxId:
@@ -12,4 +11,7 @@ export const tradeSummary: OfferSummary | ContractSummary = {
   tradeStatus: "offerCanceled",
   txId: "8ea66bb91bbac381b143bced21926fb2787d28638de4757051ea412ca0887ddc",
   type: "ask",
+  escrowType: "bitcoin",
+  premium: 1.5,
+  refunded: true,
 };

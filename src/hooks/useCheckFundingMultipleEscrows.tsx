@@ -1,6 +1,7 @@
 import { LocalUtxo } from "bdk-rn/lib/classes/Bindings";
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
+import { SellOfferSummary } from "../../peach-api/src/@types/offer";
 import { MSINAMINUTE } from "../constants";
 import { estimateTransactionSize } from "../utils/bitcoin/estimateTransactionSize";
 import { sum } from "../utils/math/sum";
@@ -56,8 +57,8 @@ export const useCheckFundingMultipleEscrows = () => {
       const offers = await Promise.all(offerIds.map(getOffer));
       const sellOffers = offers.filter(isNotNull).filter(isSellOffer);
 
-      const sellOfferSummaries = offerSummaries.filter((summary) =>
-        offerIds.includes(summary.id),
+      const sellOfferSummaries = offerSummaries.filter(
+        (summary): summary is SellOfferSummary => offerIds.includes(summary.id),
       );
       if (sellOffers.length === 0) return;
       if (sellOfferSummaries.some((summary) => summary.fundingTxId)) {

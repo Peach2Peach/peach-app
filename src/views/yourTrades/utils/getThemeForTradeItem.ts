@@ -27,7 +27,8 @@ export const getThemeForTradeItem = (
       };
     }
   }
-  if (trade.refunded) return { iconId: "rotateCounterClockwise", color };
+  if ("refunded" in trade && trade.refunded)
+    return { iconId: "rotateCounterClockwise", color };
 
   return {
     iconId: "xCircle",
