@@ -62,6 +62,7 @@ type BuyOfferDraft = OfferDraft & {
   messageSignature?: string;
   maxPremium: number | null;
   minReputation: number | null;
+  multiBuy?: number | null;
 };
 
 type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {

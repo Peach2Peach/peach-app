@@ -29,9 +29,15 @@ export function usePostBuyOffer({
   paymentData,
   maxPremium,
   minReputation,
+  multiBuy,
 }: Pick<
   BuyOfferDraft,
-  "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
+  | "amount"
+  | "meansOfPayment"
+  | "paymentData"
+  | "maxPremium"
+  | "minReputation"
+  | "multiBuy"
 >) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
@@ -95,6 +101,7 @@ export function usePostBuyOffer({
         paymentData,
         maxPremium,
         minReputation,
+        multiplier: multiBuy ? multiBuy : 1,
         releaseAddress: address,
         message,
         messageSignature: signature,

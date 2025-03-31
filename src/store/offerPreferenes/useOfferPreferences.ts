@@ -25,6 +25,7 @@ type OfferPreferences = {
   originalPaymentData: PaymentData[];
   preferredCurrenyType: CurrencyType;
   multi?: number;
+  multiBuy?: number; // number of multiple Buy offers
   sortBy: {
     buyOffer: BuySorter[];
     sellOffer: SellSorter[];
@@ -75,6 +76,7 @@ type OfferPreferencesActions = {
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
+  setMultiBuy: (number?: number) => void;
   setPremium: (newPremium: number, isValid?: boolean) => void;
   setPaymentMethods: (ids: string[]) => void;
   selectPaymentMethod: (id: string) => void;
@@ -101,6 +103,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
+      setMultiBuy: (multiBuy) => set({ multiBuy }),
       setPremium: (premium) => set({ premium }),
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids);

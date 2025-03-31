@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { shallow } from "zustand/shallow";
+import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
+import tw from "../../styles/tailwind";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { interpolate } from "../../utils/math/interpolate";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
@@ -17,9 +20,11 @@ import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
 import { BuyBitcoinHeader } from "./components/BuyBitcoinHeader";
+import { FundMultipleBuyOffers } from "./components/FundMultipleBuyOffers";
 import { MarketInfo } from "./components/MarketInfo";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
+import { Section } from "./components/Section";
 import { usePostBuyOffer } from "./utils/usePostBuyOffer";
 import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
@@ -36,6 +41,7 @@ export function BuyOfferPreferences() {
       <PreferenceMarketInfo />
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
+      <FundMultipleBuyOffersContainer />
       <PreferenceWalletSelector />
     </PreferenceScreen>
   );
@@ -75,6 +81,24 @@ function PreferenceWalletSelector() {
       onPeachWalletPress={onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
     />
+  );
+}
+
+function FundMultipleBuyOffersContainer() {
+  const setPopup = useSetPopup();
+
+  const { isDarkMode } = useThemeStore();
+  return (
+    <Section.Container
+      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}
+    >
+      <FundMultipleBuyOffers />
+      <TouchableIcon
+        id="helpCircle"
+        iconColor={tw.color("info-light")}
+        onPress={() => setPopup(<HelpPopup id="fundMultipleBuy" />)}
+      />
+    </Section.Container>
   );
 }
 
@@ -125,23 +149,30 @@ function AmountSelector({
 }
 
 function PublishOfferButton() {
-  const { amount, meansOfPayment, paymentData, maxPremium, minReputation } =
-    useOfferPreferences(
-      (state) => ({
-        amount: state.buyAmountRange,
-        meansOfPayment: state.meansOfPayment,
-        paymentData: state.paymentData,
-        maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-          ? state.filter.buyOffer.maxPremium
-          : null,
-        minReputation: interpolate(
-          state.filter.buyOffer.minReputation || 0,
-          CLIENT_RATING_RANGE,
-          SERVER_RATING_RANGE,
-        ),
-      }),
-      shallow,
-    );
+  const {
+    amount,
+    meansOfPayment,
+    paymentData,
+    maxPremium,
+    minReputation,
+    multiBuy,
+  } = useOfferPreferences(
+    (state) => ({
+      amount: state.buyAmountRange,
+      meansOfPayment: state.meansOfPayment,
+      paymentData: state.paymentData,
+      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
+        ? state.filter.buyOffer.maxPremium
+        : null,
+      minReputation: interpolate(
+        state.filter.buyOffer.minReputation || 0,
+        CLIENT_RATING_RANGE,
+        SERVER_RATING_RANGE,
+      ),
+      multiBuy: state.multiBuy,
+    }),
+    shallow,
+  );
 
   const originalPaymentData = useOfferPreferences(
     (state) => state.originalPaymentData,
@@ -170,6 +201,7 @@ function PublishOfferButton() {
     paymentData,
     maxPremium,
     minReputation,
+    multiBuy,
   });
 
   return (

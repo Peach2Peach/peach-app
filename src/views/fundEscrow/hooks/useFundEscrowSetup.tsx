@@ -47,6 +47,7 @@ export const useFundEscrowSetup = () => {
     .filter(isSellOffer)
     .map((offr) => offr.escrow)
     .filter(isDefined);
+  console.log("multi ", fundMultiple);
   const fundingAmount = getFundingAmount(fundMultiple, sellOffer?.amount);
 
   useHandleFundingStatus({
