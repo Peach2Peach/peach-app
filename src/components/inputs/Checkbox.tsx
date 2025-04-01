@@ -8,10 +8,12 @@ type Props = TouchableOpacity["props"] & {
   checked: boolean;
   onPress: () => void;
   green?: boolean;
+  blackText?: boolean;
 };
 export const Checkbox = ({
   checked,
   green,
+  blackText = false,
   style,
   children,
   ...wrapperProps
@@ -39,7 +41,9 @@ export const Checkbox = ({
               ? tw`text-black-25`
               : isDarkMode
                 ? tw`text-backgroundLight`
-                : tw`text-primary-main`,
+                : blackText
+                  ? tw`text-black`
+                  : tw`text-primary-main`,
           ]}
         >
           {children}

@@ -14,6 +14,7 @@ import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { interpolate } from "../../utils/math/interpolate";
@@ -40,6 +41,7 @@ import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 export function CreateBuyOffer() {
   const [isSliding, setIsSliding] = useState(false);
+  const { isDarkMode } = useThemeStore();
 
   return (
     <PreferenceScreen isSliding={isSliding} button={<PublishOfferButton />}>
@@ -47,7 +49,9 @@ export function CreateBuyOffer() {
       <AmountSelector setIsSliding={setIsSliding} />
       <PreferenceMethods type="buy" />
       <CompetingOfferStats />
-      <Section.Container style={tw`items-start`}>
+      <Section.Container
+        style={tw`items-start ${isDarkMode ? "bg-card" : "bg-success-mild-1"}`}
+      >
         <FundMultipleOffers />
       </Section.Container>
       <InstantTrade />
@@ -141,6 +145,7 @@ function PublishOfferButton() {
     instantTrade,
     instantTradeCriteria,
     originalPaymentData,
+    multiplier,
   } = useOfferPreferences(
     (state) => ({
       amountRange: state.buyAmountRange,
@@ -157,6 +162,7 @@ function PublishOfferButton() {
       instantTrade: state.instantTrade,
       instantTradeCriteria: state.instantTradeCriteria,
       originalPaymentData: state.originalPaymentData,
+      multiplier: state.multi,
     }),
     shallow,
   );
@@ -222,6 +228,7 @@ function PublishOfferButton() {
     maxPremium,
     minReputation,
     instantTradeCriteria: instantTrade ? instantTradeCriteria : undefined,
+    multiplier,
   });
 
   const onPress = async () => {
@@ -317,6 +324,7 @@ function InstantTrade() {
             style={tw`self-stretch`}
             onPress={toggleMinTrades}
             green
+            blackText
           >
             {i18n("offerPreferences.filters.noNewUsers")}
           </Checkbox>
@@ -325,6 +333,7 @@ function InstantTrade() {
             style={tw`self-stretch`}
             onPress={toggleMinReputation}
             green
+            blackText
           >
             {i18n("offerPreferences.filters.minReputation", "4.5")}
           </Checkbox>
