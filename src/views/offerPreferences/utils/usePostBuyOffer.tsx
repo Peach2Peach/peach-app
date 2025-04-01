@@ -35,6 +35,7 @@ export function usePostBuyOffer({
   maxPremium,
   minReputation,
   instantTradeCriteria,
+  multiplier,
 }: Pick<
   BuyOfferDraft,
   | "amount"
@@ -42,6 +43,7 @@ export function usePostBuyOffer({
   | "maxPremium"
   | "minReputation"
   | "instantTradeCriteria"
+  | "multiplier"
 >) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
@@ -119,6 +121,7 @@ export function usePostBuyOffer({
         message,
         messageSignature: signature,
         instantTradeCriteria: finalCriteria,
+        multiplier,
       };
 
       const { result, error: err } =
