@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
 import { AppPopup } from "../../../popups/AppPopup";
 import { WarningPopup } from "../../../popups/WarningPopup";
@@ -30,7 +31,7 @@ export const UndoTradeRequestButton = ({
 }: Props) => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
-  const { mutate: unmatch } = useUndoTradeRequest(offerId, requestingOfferId);
+  const { mutate: unmatch } = useUndoTradeRequest(offerId);
   const { data } = useTradeRequest(offerId, requestingOfferId);
   const [showUnmatch, toggle] = useToggleBoolean(!!data?.tradeRequest);
 
@@ -98,6 +99,7 @@ export const UndoTradeRequestButton = ({
 
 function useUndoTradeRequest(offerId: string) {
   const setToast = useSetToast();
+  const navigation = useStackNavigation();
 
   return useMutation({
     onMutate: async () => {},
@@ -114,6 +116,8 @@ function useUndoTradeRequest(offerId: string) {
       throw new Error();
     },
     onError: (_error, _variables) => {},
-    onSettled: () => {},
+    onSettled: () => {
+      navigation.goBack();
+    },
   });
 }
