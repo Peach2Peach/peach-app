@@ -27,6 +27,7 @@ import { peachWallet } from "../../utils/wallet/setWallet";
 import { useCreateEscrow } from "../../views/fundEscrow/hooks/useCreateEscrow";
 import { useSetToast } from "../toast/Toast";
 
+// eslint-disable-next-line max-params
 export function useTradeRequestBuyOffer(
   selectedCurrency: Currency,
   selectedPaymentData: PaymentData | undefined,
