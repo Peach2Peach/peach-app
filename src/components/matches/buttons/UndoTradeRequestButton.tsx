@@ -5,11 +5,14 @@ import { AppPopup } from "../../../popups/AppPopup";
 import { WarningPopup } from "../../../popups/WarningPopup";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
+import { error } from "../../../utils/log/error";
+import { peachAPI } from "../../../utils/peachAPI";
 import { useTradeRequest } from "../../../views/explore/useTradeRequest";
 import { Button } from "../../buttons/Button";
 import { useClosePopup, useSetPopup } from "../../popup/GlobalPopup";
 import { PopupAction } from "../../popup/PopupAction";
 import { ClosePopupAction } from "../../popup/actions/ClosePopupAction";
+import { useSetToast } from "../../toast/Toast";
 import { UndoButton } from "./UndoButton";
 
 type Props = {
@@ -93,24 +96,24 @@ export const UndoTradeRequestButton = ({
   );
 };
 
-function useUndoTradeRequest(offerId: string, requestingOfferId?: string) {
-  //@ts-ignore
-  console.log("This is offerId", offerId);
-  //@ts-ignore
-  console.log("This is requesting offerId", requestingOfferId);
+function useUndoTradeRequest(offerId: string) {
+  const setToast = useSetToast();
 
   return useMutation({
-    onMutate: async () => {
-      //define onMutate
-    },
+    onMutate: async () => {},
     mutationFn: async () => {
-      //define mutationFn
+      const { result, error: err } =
+        await peachAPI.private.offer.undoRequestTradeWithBuyOffer({
+          offerId,
+        });
+      if (result) {
+        return result;
+      }
+      error("Error", err);
+      setToast({ msgKey: err?.error || "error.general", color: "red" });
+      throw new Error();
     },
-    onError: (_error, _variables) => {
-      //define on Error
-    },
-    onSettled: () => {
-      //define onSettled
-    },
+    onError: (_error, _variables) => {},
+    onSettled: () => {},
   });
 }
