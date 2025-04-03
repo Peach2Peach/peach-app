@@ -8,7 +8,16 @@ const waitingStatus = [
 ];
 const waitingBuyStatus = ["confirmPaymentRequired", "paymentTooLate"];
 const waitingSellStatus = ["paymentRequired", "fundingExpired"];
-export const isWaiting = (type: "ask" | "bid", tradeStatus: TradeStatus) =>
-  waitingStatus.includes(tradeStatus) ||
-  (waitingSellStatus.includes(tradeStatus) && type === "ask") ||
-  (waitingBuyStatus.includes(tradeStatus) && type === "bid");
+export const isWaiting = (
+  type: "ask" | "bid",
+  tradeStatus: TradeStatus,
+  tradeRequests?: string[],
+) => {
+  if (tradeRequests !== undefined && tradeRequests.length > 0) return false;
+
+  return (
+    waitingStatus.includes(tradeStatus) ||
+    (waitingSellStatus.includes(tradeStatus) && type === "ask") ||
+    (waitingBuyStatus.includes(tradeStatus) && type === "bid")
+  );
+};

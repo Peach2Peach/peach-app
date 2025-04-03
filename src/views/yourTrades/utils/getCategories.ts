@@ -17,14 +17,14 @@ export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
     },
     {
       title: "openActions",
-      data: trades.filter(({ type, tradeStatus }) =>
-        isOpenAction(type, tradeStatus),
+      data: trades.filter(({ type, tradeStatus, tradeRequests }) =>
+        isOpenAction(type, tradeStatus, tradeRequests),
       ),
     },
     {
       title: "waiting",
-      data: trades.filter(({ type, tradeStatus }) =>
-        isWaiting(type, tradeStatus),
+      data: trades.filter(({ type, tradeStatus, tradeRequests }) =>
+        isWaiting(type, tradeStatus, tradeRequests),
       ),
     },
     {
