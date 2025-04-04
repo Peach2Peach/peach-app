@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { TouchableIcon } from "../../components/TouchableIcon";
+import { BuySorters } from "../../popups/sorting/BuySorters";
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { SellOfferSummaryIdCard } from "../explore/OfferSummaryCard";
@@ -25,12 +27,16 @@ export function ExpressBuy({
     },
   });
 
+  const setPopup = useSetPopup();
+
+  const showSortAndFilterPopup = () => setPopup(<BuySorters />);
+
   return (
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
         <Placeholder style={tw`w-6 h-6`} />
         <MarketInfo type="sellOffers" />
-        <TouchableIcon id="sliders" />
+        <TouchableIcon id="sliders" onPress={showSortAndFilterPopup} />
       </View>
       {!data ? (
         <ActivityIndicator size="large" />
