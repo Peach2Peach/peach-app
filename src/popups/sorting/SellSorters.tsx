@@ -18,6 +18,10 @@ export const SellSorters = () => {
       display: i18n("offer.sorting.highestPrice"),
       value: "highestPrice",
     } as const,
+    {
+      display: i18n("offer.sorting.highestPremium"),
+      value: "highestPremium",
+    } as const,
   ];
   const setSellOfferSorter = useOfferPreferences(
     (state) => state.setSellOfferSorter,
