@@ -16,12 +16,12 @@ export function ExpressBuy({
 }: {
   requestingOfferId?: string;
 }) {
+  const defaultSorter = useOfferPreferences(
+    (state) => state.sortBy.sellOffer[0],
+  );
   const { data } = useQuery({
     queryKey: ["expressBuy"],
     queryFn: async () => {
-      const defaultSorter = useOfferPreferences(
-        (state) => state.sortBy.sellOffer[0],
-      );
       const { result, error } =
         await peachAPI.private.offer.getSellOfferSummaryIds({
           sortBy: defaultSorter,
