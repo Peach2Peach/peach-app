@@ -4,7 +4,11 @@ import i18n from "../../utils/i18n";
 import { ApplySortersAction } from "./ApplySortersAction";
 import { SorterPopup } from "./SorterPopup";
 
-export const BuySorters = () => {
+interface BuySortersProps {
+  onApply: Function;
+}
+
+export const BuySorters = ({ onApply }: BuySortersProps) => {
   const defaultSorter = useOfferPreferences(
     (state) => state.sortBy.buyOffer[0],
   );
@@ -35,7 +39,12 @@ export const BuySorters = () => {
         onButtonPress: setSortBy,
       }}
       applyAction={
-        <ApplySortersAction setSorterAction={() => setBuyOfferSorter(sortBy)} />
+        <ApplySortersAction
+          setSorterAction={() => {
+            setBuyOfferSorter(sortBy);
+            onApply();
+          }}
+        />
       }
     />
   );

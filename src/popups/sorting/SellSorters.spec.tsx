@@ -20,9 +20,11 @@ describe("SellSorters", () => {
   });
 });
 
+const placeholderFunction = () => {};
+
 describe("ApplySellSorterAction", () => {
   it("should apply the selected sorter", () => {
-    const { getByText } = render(<SellSorters />);
+    const { getByText } = render(<SellSorters onApply={placeholderFunction} />);
     const applyButton = getByText("apply");
     const highestPriceButton = getByText("highest price first");
 
@@ -46,7 +48,7 @@ describe("ApplySellSorterAction", () => {
       },
     );
 
-    const { getByText } = render(<SellSorters />);
+    const { getByText } = render(<SellSorters onApply={placeholderFunction} />);
     const applyButton = getByText("apply");
 
     fireEvent.press(applyButton);
@@ -68,7 +70,7 @@ describe("ApplySellSorterAction", () => {
   });
 
   it("should close the popup", async () => {
-    const { getByText } = render(<SellSorters />);
+    const { getByText } = render(<SellSorters onApply={placeholderFunction} />);
     const applyButton = getByText("apply");
 
     fireEvent.press(applyButton);

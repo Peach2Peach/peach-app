@@ -19,7 +19,7 @@ export function ExpressSell({
   const defaultSorter = useOfferPreferences(
     (state) => state.sortBy.buyOffer[0],
   );
-  const { data } = useQuery({
+  const { data, refetch: expressSellRefetch } = useQuery({
     queryKey: ["expressSell"],
     queryFn: async () => {
       const { result, error } =
@@ -35,7 +35,8 @@ export function ExpressSell({
 
   const setPopup = useSetPopup();
 
-  const showSortAndFilterPopup = () => setPopup(<BuySorters />);
+  const showSortAndFilterPopup = () =>
+    setPopup(<BuySorters onApply={expressSellRefetch} />);
 
   return (
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
