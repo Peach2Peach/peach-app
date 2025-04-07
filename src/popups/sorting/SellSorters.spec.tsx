@@ -15,7 +15,7 @@ jest
 
 describe("SellSorters", () => {
   it("should render correctly", () => {
-    const { toJSON } = render(<SellSorters />);
+    const { toJSON } = render(<SellSorters onApply={placeholderFunction} />);
     expect(toJSON()).toMatchSnapshot();
   });
 });
