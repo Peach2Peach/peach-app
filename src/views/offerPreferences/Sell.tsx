@@ -98,7 +98,7 @@ export function SellOfferPreferences() {
         <SellTab.Screen
           name="createOffer"
           options={{
-            title: "create an offer",
+            title: i18n("offer.create.title"),
           }}
           component={CreateSellOffer}
         />
