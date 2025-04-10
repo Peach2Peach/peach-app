@@ -2,7 +2,7 @@ import {
   getBundleId,
   getInstallerPackageNameSync,
 } from "react-native-device-info";
-import { languageState } from "../i18n";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { getLocalizedLink } from "../web/getLocalizedLink";
 import { openURL } from "../web/openURL";
 
@@ -13,6 +13,6 @@ export const linkToAppStoreAndroid = () => {
   return openURL(
     isInstalledByGooglePlay
       ? `https://play.google.com/store/apps/details?id=${bundleId}`
-      : getLocalizedLink("apk", languageState.locale),
+      : getLocalizedLink("apk", useSettingsStore.getState().locale),
   );
 };
