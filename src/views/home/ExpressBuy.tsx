@@ -16,15 +16,15 @@ export function ExpressBuy({
 }: {
   requestingOfferId?: string;
 }) {
-  const defaultSorter = useOfferPreferences(
+  const defaultSellSorter = useOfferPreferences(
     (state) => state.sortBy.sellOffer[0],
   );
-  const { data, refetch: expressBuyRefetch } = useQuery({
-    queryKey: ["expressBuy"],
+  const { data } = useQuery({
+    queryKey: ["expressBuy", defaultSellSorter],
     queryFn: async () => {
       const { result, error } =
         await peachAPI.private.offer.getSellOfferSummaryIds({
-          sortBy: defaultSorter,
+          sortBy: defaultSellSorter,
         });
       if (error || !result) {
         throw new Error(error?.message || "Sell offer summary ids not found");
@@ -35,8 +35,7 @@ export function ExpressBuy({
 
   const setPopup = useSetPopup();
 
-  const showSortAndFilterPopup = () =>
-    setPopup(<SellSorters onApply={expressBuyRefetch} />);
+  const showSortAndFilterPopup = () => setPopup(<SellSorters />);
 
   return (
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
