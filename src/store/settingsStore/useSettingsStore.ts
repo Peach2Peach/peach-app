@@ -62,6 +62,7 @@ export const useSettingsStore = create(
       setPayoutAddressSignature: (payoutAddressSignature) =>
         set({ payoutAddressSignature }),
       setLocale: (locale) => set({ locale }),
+      locale: "en",
       setDisplayCurrency: (displayCurrency) => set({ displayCurrency }),
       updateFileBackupDate: () =>
         set({
