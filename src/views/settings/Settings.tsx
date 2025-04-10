@@ -10,12 +10,12 @@ import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
 import { APPVERSION, BUILDNUMBER } from "../../constants";
-import { useTranslation } from "../../hooks/useTranslation";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
 import { isDefined } from "../../utils/validation/isDefined";
@@ -24,7 +24,7 @@ import { SettingsItem } from "./components/SettingsItem";
 const contactUs = ["contact", "aboutPeach"] as const;
 
 export const Settings = () => {
-  const { t } = useTranslation();
+  useSettingsStore((state) => state.locale);
 
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
@@ -64,18 +64,18 @@ export const Settings = () => {
     if (notificationsOn) {
       setPopup(
         <WarningPopup
-          title={t("settings.notifications.popup.title")}
-          content={t("settings.notifications.popup")}
+          title={i18n("settings.notifications.popup.title")}
+          content={i18n("settings.notifications.popup")}
           actions={
             <>
               <PopupAction
-                label={t("settings.notifications.popup.neverMind")}
+                label={i18n("settings.notifications.popup.neverMind")}
                 textStyle={tw`text-black-100`}
                 iconId="arrowLeftCircle"
                 onPress={closePopup}
               />
               <PopupAction
-                label={t("settings.notifications.popup.yes")}
+                label={i18n("settings.notifications.popup.yes")}
                 textStyle={tw`text-black-100`}
                 iconId="slash"
                 onPress={() => {
@@ -170,7 +170,7 @@ export const Settings = () => {
     { headline: "appSettings", items: appSettings },
   ];
   return (
-    <Screen header={<Header title={t("settings.title")} hideGoBackButton />}>
+    <Screen header={<Header title={i18n("settings.title")} hideGoBackButton />}>
       <PeachScrollView
         contentContainerStyle={tw`pb-sm md:pb-md`}
         contentStyle={tw`gap-9`}
@@ -182,7 +182,7 @@ export const Settings = () => {
                 <PeachText
                   style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}
                 >
-                  {t(`settings.${headline}`)}
+                  {i18n(`settings.${headline}`)}
                 </PeachText>
               )}
               <View style={tw`gap-6 py-3 px-6px`}>
@@ -203,7 +203,7 @@ export const Settings = () => {
         <PeachText
           style={tw`text-center uppercase button-medium text-black-50`}
         >
-          {`${t("settings.peachApp")}${APPVERSION}(${BUILDNUMBER})`}
+          {`${i18n("settings.peachApp")}${APPVERSION}(${BUILDNUMBER})`}
         </PeachText>
       </PeachScrollView>
     </Screen>
