@@ -18,7 +18,7 @@ export function Buy() {
         initialRouteName="expressBuy"
         screenOptions={{
           ...fullScreenTabNavigationScreenOptions,
-          swipeEnabled: false,
+          swipeEnabled: true,
         }}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >

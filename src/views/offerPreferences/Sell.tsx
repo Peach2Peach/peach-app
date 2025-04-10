@@ -84,7 +84,7 @@ export function SellOfferPreferences() {
       <SellTab.Navigator
         screenOptions={{
           ...fullScreenTabNavigationScreenOptions,
-          swipeEnabled: false,
+          swipeEnabled: true,
         }}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
