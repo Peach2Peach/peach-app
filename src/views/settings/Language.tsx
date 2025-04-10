@@ -20,12 +20,9 @@ export const Language = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
           selectedValue={locale}
-          items={
-            i18n
-              .getLocales()
-              .map((l) => ({ value: l, display: i18n(`languageName.${l}`) }))
-            // .sort((a, b) => sortAlphabetically(a.display, b.display))}
-          }
+          items={i18n
+            .getLocales()
+            .map((l) => ({ value: l, display: i18n(`languageName.${l}`) }))}
           onButtonPress={updateLocale}
         />
       </PeachScrollView>
