@@ -16,7 +16,7 @@ export const Language = () => {
   };
 
   return (
-    <Screen header={i18n("language")}>
+    <Screen header={i18n("language")} style={tw`gap-3`}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
           selectedValue={locale}
@@ -26,7 +26,7 @@ export const Language = () => {
           onButtonPress={updateLocale}
         />
       </PeachScrollView>
-      <Button style={tw`self-center mt-3`} onPress={onConfirm}>
+      <Button style={tw`self-center`} onPress={onConfirm}>
         {i18n("confirm")}
       </Button>
     </Screen>
