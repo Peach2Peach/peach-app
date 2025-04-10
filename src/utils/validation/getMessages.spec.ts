@@ -1,4 +1,5 @@
-import i18n, { languageState } from "../i18n";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import i18n from "../i18n";
 import { getMessages } from "./getMessages";
 
 describe("getMessages", () => {
@@ -9,9 +10,9 @@ describe("getMessages", () => {
     }
   });
   it("returns messages in the right language", () => {
-    languageState.locale = "en";
+    useSettingsStore.setState({ locale: "en" });
     expect(getMessages().required).toEqual(i18n("form.required.error"));
-    languageState.locale = "de";
+    useSettingsStore.setState({ locale: "de" });
     expect(getMessages().required).toEqual(i18n("form.required.error"));
   });
 });

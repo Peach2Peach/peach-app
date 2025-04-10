@@ -33,12 +33,6 @@ const localeMapping: Record<string, Record<string, string>> = {
   "pt-BR": ptBR,
 };
 
-type LanguageState = {
-  locale: string;
-};
-export const languageState: LanguageState = {
-  locale: "en",
-};
 if (NETWORK !== "bitcoin") {
   localeMapping.pl = pl;
   localeMapping.ru = ru;
@@ -47,10 +41,8 @@ if (NETWORK !== "bitcoin") {
 }
 const locales = keys(localeMapping);
 
-const getCurrentLocale = () => useSettingsStore.getState().locale || "en";
-
 const i18n = (id: string, ...args: string[]) => {
-  const locale = getCurrentLocale().replace("_", "-");
+  const locale = useSettingsStore.getState().locale.replace("_", "-");
   if (locale === "raw") return id;
   let text = localeMapping[locale]?.[id];
 
