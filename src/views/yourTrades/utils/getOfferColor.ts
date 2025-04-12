@@ -33,8 +33,6 @@ export const getOfferColor = (
 
   if (isError(tradeStatus)) return "error";
   if (isPrioritary(tradeStatus)) return "warning";
-  if (trade.tradeRequests !== undefined && trade.tradeRequests.length > 0)
-    return "primary";
   if (isWaiting(type, tradeStatus)) return "primary-mild";
 
   if (isContractSummary(trade)) {

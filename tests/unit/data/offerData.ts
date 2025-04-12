@@ -23,7 +23,6 @@ export const buyOffer: BuyOffer = {
   },
   amount: [50000, 250000],
   matches: [],
-  tradeRequests: [],
   doubleMatched: false,
   releaseAddress:
     "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
@@ -59,7 +58,6 @@ export const sellOffer: SellOffer = {
   amount: 250000,
   premium: 1.5,
   matches: [],
-  tradeRequests: [],
   doubleMatched: false,
   returnAddress:
     "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",

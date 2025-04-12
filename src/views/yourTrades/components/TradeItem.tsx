@@ -339,10 +339,6 @@ function getActionLabel(
     return i18n("offer.requiredAction.fundMultipleEscrow");
   }
 
-  if (tradeSummary.tradeRequests.length !== 0) {
-    return i18n(`match.tradeRequestAvailable`);
-  }
-
   return i18n(`offer.requiredAction.${tradeStatus}`);
 }
 

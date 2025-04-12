@@ -4,18 +4,14 @@ const openActionStatus = [
   "fundEscrow",
   "fundingAmountDifferent",
   "hasMatchesAvailable",
+  "hasTradeRequests",
   "offerHiddenWithMatchesAvailable",
   "rateUser",
 ];
 const sellOpenActionStatus = ["confirmPaymentRequired", "paymentTooLate"];
 const buyOpenActionStatus = ["paymentRequired", "fundingExpired"];
 
-export const isOpenAction = (
-  type: "ask" | "bid",
-  tradeStatus: TradeStatus,
-  tradeRequests?: string[],
-) =>
+export const isOpenAction = (type: "ask" | "bid", tradeStatus: TradeStatus) =>
   openActionStatus.includes(tradeStatus) ||
   (sellOpenActionStatus.includes(tradeStatus) && type === "ask") ||
-  (buyOpenActionStatus.includes(tradeStatus) && type === "bid") ||
-  (tradeRequests !== undefined && tradeRequests.length > 0);
+  (buyOpenActionStatus.includes(tradeStatus) && type === "bid");
