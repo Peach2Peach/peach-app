@@ -71,6 +71,8 @@ type LatAmPaymentMethods =
   | "tigoMoneyElSalvador"
   | "tigoMoneyGuatemala"
   | "tigoMoneyHonduras"
+  | "moncash"
+  | "natcash"
   | "tigoMoneyParaguay";
 
 type AfricaPaymentMethods =
