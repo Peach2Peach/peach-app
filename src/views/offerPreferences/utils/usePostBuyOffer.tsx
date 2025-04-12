@@ -127,7 +127,12 @@ export function usePostBuyOffer({
       const { result, error: err } =
         await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft);
 
-      if (result) return result.id;
+      if (result) {
+        if (Array.isArray(result)) {
+          return result[0].id;
+        }
+        return result.id;
+      }
       throw new Error(err?.error || "POST_OFFER_ERROR", {
         cause: err?.details,
       });
