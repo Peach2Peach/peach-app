@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "середня премія: $0%",
   "home.openBuyOffers" : "$0 відкритих пропозицій на покупку",
-  "home.openSellOffers" : "$0 відкритих пропозицій на продаж"
+  "home.openSellOffers" : "$0 відкритих пропозицій на продаж",
+  "home.expressSell": "експрес продаж",
+  "home.createSellOffer": "створити пропозицію",
+  "home.expressBuy": "експрес-купівля",
+  "home.createBuyOffer": "створити пропозицію"
 }

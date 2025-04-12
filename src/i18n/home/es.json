@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "Prima promedio: $0%",
   "home.openBuyOffers" : "$0 ofertas de compra abiertas",
-  "home.openSellOffers" : "$0 ofertas de venta abiertas"
+  "home.openSellOffers" : "$0 ofertas de venta abiertas",
+  "home.expressSell": "venta express",
+  "home.createSellOffer": "crear oferta",
+  "home.expressBuy": "compra express",
+  "home.createBuyOffer": "crear oferta"
 }

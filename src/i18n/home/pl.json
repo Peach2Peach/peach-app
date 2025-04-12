@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "średnia składka: $0%",
   "home.openBuyOffers" : "$0 otwarte oferty zakupu",
-  "home.openSellOffers" : "$0 otwarte oferty sprzedaży"
+  "home.openSellOffers" : "$0 otwarte oferty sprzedaży",
+  "home.expressSell": "ekspresowa sprzedaż",
+  "home.createSellOffer": "stwórz ofertę",
+  "home.expressBuy": "ekspresowy zakup",
+  "home.createBuyOffer": "stwórz ofertę"
 }

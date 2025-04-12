@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "Μέση ασφάλεια: $0%",
   "home.openBuyOffers" : "$0 ανοιχτές προσφορές αγοράς",
-  "home.openSellOffers" : "$0 ανοιχτές προσφορές πώλησης"
+  "home.openSellOffers" : "$0 ανοιχτές προσφορές πώλησης",
+  "home.expressSell": "ρητή πώληση",
+  "home.createSellOffer": "δημιουργία προσφοράς",
+  "home.expressBuy": "εξπρές αγορά",
+  "home.createBuyOffer": "δημιουργία προσφοράς"
 }

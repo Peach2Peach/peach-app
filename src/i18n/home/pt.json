@@ -1,5 +1,9 @@
 {
   "home.averagePremium" : "prémio médio: $0%",
   "home.openBuyOffers" : "$0 ofertas de compra em aberto",
-  "home.openSellOffers" : "$0 ofertas de venda em aberto"
+  "home.openSellOffers" : "$0 ofertas de venda em aberto",
+  "home.expressSell": "venda expressa",
+  "home.createSellOffer": "criar oferta",
+  "home.expressBuy": "compra expressa",
+  "home.createBuyOffer": "criar oferta"
 }
