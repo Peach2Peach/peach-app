@@ -4,6 +4,7 @@ const openActionStatus = [
   "fundEscrow",
   "fundingAmountDifferent",
   "hasMatchesAvailable",
+  "hasTradeRequests",
   "offerHiddenWithMatchesAvailable",
   "rateUser",
 ];

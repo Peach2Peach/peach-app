@@ -21,6 +21,7 @@
   "offer.requiredAction.fundMultipleEscrow" : "fund multiple escrow",
   "offer.requiredAction.fundingAmountDifferent" : "wrong amount funded",
   "offer.requiredAction.hasMatchesAvailable" : "select match",
+  "offer.requiredAction.hasTradeRequests" : "trade request received",
   "offer.requiredAction.offerHidden" : "offer hidden",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "select match",
   "offer.requiredAction.paymentRequired" : "make payment",
