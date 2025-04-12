@@ -3,7 +3,7 @@
   "help.fundMultiple.title" : "finansuj wiele ofert sprzedaży",
   "help.instantTradeSell.description" : "Zezwól kupującemu, który pasuje do Twojej oferty sprzedaży, na automatyczne zawarcie transakcji z Tobą!\n\nAby to włączyć, Peach otrzyma Twoje wybrane dane płatności, aby natychmiastowo udostępnić je kupującemu, który spełnia wszystkie Twoje kryteria.\n\nTe dane są zaszyfrowane i nie mogą być odczytane przez osoby trzecie, oprócz Peach.",
   "help.instantTradeSell.title" : "natychmiastowa transakcja",
-  "help.instantTradeBuy.description" : "Zezwól kupującemu, który pasuje do Twojej oferty sprzedaży, na automatyczne zawarcie transakcji z Tobą!\n\nAby to włączyć, Peach otrzyma Twoje wybrane dane płatności, aby natychmiastowo udostępnić je kupującemu, który spełnia wszystkie Twoje kryteria.\n\nTe dane są zaszyfrowane i nie mogą być odczytane przez osoby trzecie, oprócz Peach.",
+  "help.instantTradeBuy.description" : "Pozwól sprzedawcy, który spełnia Twoje kryteria, automatycznie wejść z Tobą w transakcję!\n\nSprzedawcy, którzy nie spełniają Twoich kryteriów, nadal mogą zobaczyć Twoją ofertę. Będą czekać, aż zaakceptujesz ich dopasowanie.Pozwól sprzedawcy, który spełnia Twoje kryteria, automatycznie wejść z Tobą w transakcję!\n\nSprzedawcy, którzy nie spełniają Twoich kryteriów, nadal mogą zobaczyć Twoją ofertę. Będą czekać, aż zaakceptujesz ich dopasowanie.",
   "help.instantTradeBuy.title" : "natychmiastowa transakcja",
   "matchDetails.action.instantTrade" : "natychmiastowa transakcja",
   "matchDetails.action.missingSelection" : "wybierz metodę płatności",
