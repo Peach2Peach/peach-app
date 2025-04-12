@@ -1,4 +1,5 @@
 {
+  "offer.create.title": "create offer",
   "offer.cancel.popup.description" : "Are you sure?\n\nIf you have already sent your bitcoin to the escrow, you will be refunded, minus the bitcoin network fees.",
   "offer.cancel.popup.title" : "cancel offer",
   "offer.canceled" : "canceled",

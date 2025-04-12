@@ -4,6 +4,7 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { CreateBuyOffer } from "../offerPreferences/CreateBuyOffer";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
@@ -32,7 +33,7 @@ export function Buy() {
         <BuyTab.Screen
           name="createOffer"
           options={{
-            title: "create an offer",
+            title: i18n("offer.create.title"),
           }}
           component={CreateBuyOffer}
         />
