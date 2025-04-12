@@ -324,7 +324,6 @@ function InstantTrade() {
             style={tw`self-stretch`}
             onPress={toggleMinTrades}
             green
-            blackText
           >
             {i18n("offerPreferences.filters.noNewUsers")}
           </Checkbox>
@@ -333,7 +332,6 @@ function InstantTrade() {
             style={tw`self-stretch`}
             onPress={toggleMinReputation}
             green
-            blackText
           >
             {i18n("offerPreferences.filters.minReputation", "4.5")}
           </Checkbox>
