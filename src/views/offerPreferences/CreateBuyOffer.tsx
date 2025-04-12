@@ -97,7 +97,6 @@ function PreferenceWalletSelector() {
     />
   );
 }
-
 function PreferenceMarketInfo() {
   const offerPreferenes = useOfferPreferences(
     (state) => ({
@@ -262,22 +261,6 @@ function CompetingOfferStats() {
       <PeachText style={text}>
         {i18n("offerPreferences.premiumOfCompletedTrades", "9")}
       </PeachText>
-    </Section.Container>
-  );
-}
-
-function FundMultipleOffersContainer() {
-  const setPopup = useSetPopup();
-  return (
-    <Section.Container
-      style={tw`flex-row items-start justify-between bg-success-mild-1`}
-    >
-      <FundMultipleOffers green={true} />
-      <TouchableIcon
-        id="helpCircle"
-        iconColor={tw.color("info-light")}
-        onPress={() => setPopup(<HelpPopup id="fundMultipleBuy" />)}
-      />
     </Section.Container>
   );
 }

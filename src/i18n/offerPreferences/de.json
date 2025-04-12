@@ -1,8 +1,6 @@
 {
-  "help.fundMultipleSell.description" : "Um Netzwerkgebühren zu sparen, kannst du mehrere Verkaufsangebote mit nur einer Transaktion erstellen!",
-  "help.fundMultipleSell.title" : "mehrere Verkaufsangebote finanzieren",
-  "help.fundMultipleBuy.description" : "Mithilfe dieser Checkbox können Sie mehrere Kaufangebote mit den gleichen Präferenzen erstellen!",
-  "help.fundMultipleBuy.title" : "mehrere Kaufangebote finanzieren",
+  "help.fundMultiple.description" : "Um Netzwerkgebühren zu sparen, kannst du mehrere Verkaufsangebote mit nur einer Transaktion erstellen!",
+  "help.fundMultiple.title" : "mehrere Verkaufsangebote finanzieren",
   "help.instantTradeSell.description" : "Erlaube einem Käufer, der zu deinem Verkaufsangebot passt, automatisch einen Handel mit dir zu beginnen!\n\nUm dies zu ermöglichen, wird Peach deine ausgewählten Zahlungsdaten erhalten, um sie sofort mit einem Käufer zu teilen, der alle deine Kriterien erfüllt.\n\nDiese Daten sind verschlüsselt und können von Dritten außer Peach nicht gelesen werden.",
   "help.instantTradeSell.title" : "sofortiger Handel",
   "help.instantTradeBuy.description" : "Erlaube einem Käufer, der zu deinem Verkaufsangebot passt, automatisch einen Handel mit dir zu beginnen!\n\nUm dies zu ermöglichen, wird Peach deine ausgewählten Zahlungsdaten erhalten, um sie sofort mit einem Käufer zu teilen, der alle deine Kriterien erfüllt.\n\nDiese Daten sind verschlüsselt und können von Dritten außer Peach nicht gelesen werden.",

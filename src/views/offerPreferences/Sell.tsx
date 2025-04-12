@@ -452,7 +452,7 @@ function FundMultipleOffersContainer() {
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color("info-light")}
-        onPress={() => setPopup(<HelpPopup id="fundMultipleSell" />)}
+        onPress={() => setPopup(<HelpPopup id="fundMultiple" />)}
       />
     </Section.Container>
   );

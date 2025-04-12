@@ -1,8 +1,6 @@
 {
-  "help.fundMultipleSell.description" : "Om kosten voor netwerktransacties te besparen, kun je meerdere verkoopaanbiedingen maken met slechts één transactie!",
-  "help.fundMultipleSell.title" : "meerdere verkoopaanbiedingen financieren",
-  "help.fundMultipleBuy.description" : "Met dit selectievakje kunt u meerdere koopaanbiedingen met dezelfde voorkeuren maken!",
-  "help.fundMultipleBuy.title" : "meerdere koopaanbiedingen financieren",
+  "help.fundMultiple.description" : "Om kosten voor netwerktransacties te besparen, kun je meerdere verkoopaanbiedingen maken met slechts één transactie!",
+  "help.fundMultiple.title" : "meerdere verkoopaanbiedingen financieren",
   "help.instantTradeSell.description" : "Laat een koper die overeenkomt met je verkoopaanbieding automatisch een transactie met je aangaan!\n\nOm dit mogelijk te maken, ontvangt Peach je geselecteerde betalingsgegevens om deze onmiddellijk te delen met een koper die aan al je criteria voldoet.\n\nDeze gegevens zijn versleuteld en kunnen niet worden gelezen door derden, behalve Peach.",
   "help.instantTradeSell.title" : "directe handel",
   "help.instantTradeBuy.description" : "Laat een koper die overeenkomt met je verkoopaanbieding automatisch een transactie met je aangaan!\n\nOm dit mogelijk te maken, ontvangt Peach je geselecteerde betalingsgegevens om deze onmiddellijk te delen met een koper die aan al je criteria voldoet.\n\nDeze gegevens zijn versleuteld en kunnen niet worden gelezen door derden, behalve Peach.",

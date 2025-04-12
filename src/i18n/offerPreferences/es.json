@@ -1,8 +1,6 @@
 {
-  "help.fundMultipleSell.description" : "¡Para ahorrar en tarifas de red, puedes crear múltiples ofertas de venta con una sola transacción!",
-  "help.fundMultipleSell.title" : "financia múltiples ofertas de venta",
-  "help.fundMultipleBuy.description" : "¡Puedes crear múltiples ofertas de compra con las mismas preferencias usando esta casilla de verificación!",
-  "help.fundMultipleBuy.title" : "financiar múltiples ofertas de compra",
+  "help.fundMultiple.description" : "¡Para ahorrar en tarifas de red, puedes crear múltiples ofertas de venta con una sola transacción!",
+  "help.fundMultiple.title" : "financia múltiples ofertas de venta",
   "help.instantTradeSell.description" : "Permite que un comprador que coincida con tu oferta de venta entre automáticamente en una transacción contigo.\n\nPara habilitar esto, Peach recibirá tus datos de pago seleccionados para compartirlos al instante con un comprador que cumpla con todos tus criterios.\n\nEstos datos están cifrados y no pueden ser leídos por terceros, excepto Peach.",
   "help.instantTradeSell.title" : "comercio instantáneo",
   "help.instantTradeBuy.description" : "Permite que un comprador que coincida con tu oferta de venta entre automáticamente en una transacción contigo.\n\nPara habilitar esto, Peach recibirá tus datos de pago seleccionados para compartirlos al instante con un comprador que cumpla con todos tus criterios.\n\nEstos datos están cifrados y no pueden ser leídos por terceros, excepto Peach.",

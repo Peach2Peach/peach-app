@@ -1,8 +1,6 @@
 {
-  "help.fundMultipleSell.description" : "Pour économiser sur les frais de réseau, vous pouvez créer plusieurs offres de vente avec une seule transaction !",
-  "help.fundMultipleSell.title" : "financer plusieurs offres de vente",
-  "help.fundMultipleBuy.description" : "Vous pouvez créer plusieurs offres d'achat avec les mêmes préférences en utilisant cette case à cocher !",
-  "help.fundMultipleBuy.title" : "financer plusieurs offres d'achat",
+  "help.fundMultiple.description" : "Pour économiser sur les frais de réseau, vous pouvez créer plusieurs offres de vente avec une seule transaction !",
+  "help.fundMultiple.title" : "financer plusieurs offres de vente",
   "help.instantTradeSell.description" : "Autorisez un acheteur correspondant à votre offre de vente à entrer automatiquement dans une transaction avec vous !\n\nPour activer cette fonctionnalité, Peach recevra vos données de paiement sélectionnées pour les partager instantanément avec un acheteur qui correspond à tous vos critères.\n\nCes données sont cryptées et ne peuvent pas être lues par des tiers autres que Peach.",
   "help.instantTradeSell.title" : "commerce instantané",
   "help.instantTradeBuy.description" : "Autorisez un acheteur correspondant à votre offre de vente à entrer automatiquement dans une transaction avec vous !\n\nPour activer cette fonctionnalité, Peach recevra vos données de paiement sélectionnées pour les partager instantanément avec un acheteur qui correspond à tous vos critères.\n\nCes données sont cryptées et ne peuvent pas être lues par des tiers autres que Peach.",

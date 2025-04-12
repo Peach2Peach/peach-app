@@ -1,8 +1,6 @@
 {
-  "help.fundMultipleSell.description" : "Ili kuokoa ada za mtandao, unaweza kuunda maombi mengi ya mauzo kwa muunganisho mmoja tu!",
-  "help.fundMultipleSell.title" : "fedha za maombi mengi ya mauzo",
-  "help.fundMultipleBuy.description" : "Unaweza kuunda matoleo mengi ya ununuzi kwa mapendeleo sawa kwa kutumia kisanduku tiki hiki!",
-  "help.fundMultipleBuy.title" : "fadhili matoleo mengi ya kununua",
+  "help.fundMultiple.description" : "Ili kuokoa ada za mtandao, unaweza kuunda maombi mengi ya mauzo kwa muunganisho mmoja tu!",
+  "help.fundMultiple.title" : "fedha za maombi mengi ya mauzo",
   "help.instantTradeSell.description" : "Ruhusu mnunuzi anayefanana na ombi lako la mauzo kuingia kiotomatiki katika biashara na wewe!\n\nIli kuwezesha hili, Peach itapokea data yako ya malipo iliyochaguliwa ili kushiriki mara moja na mnunuzi anayekidhi vigezo vyote vyako.\n\nData hii ni iliyosimbwa na haiwezi kusomwa na vyama vya tatu isipokuwa Peach.",
   "help.instantTradeSell.title" : "biashara ya papo hapo",
   "help.instantTradeBuy.description" : "Ruhusu mnunuzi anayefanana na ombi lako la mauzo kuingia kiotomatiki katika biashara na wewe!\n\nIli kuwezesha hili, Peach itapokea data yako ya malipo iliyochaguliwa ili kushiriki mara moja na mnunuzi anayekidhi vigezo vyote vyako.\n\nData hii ni iliyosimbwa na haiwezi kusomwa na vyama vya tatu isipokuwa Peach.",

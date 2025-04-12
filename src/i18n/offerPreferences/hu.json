@@ -1,8 +1,6 @@
 {
-  "help.fundMultipleSell.description" : "A hálózati díjak megspórolása érdekében egyetlen tranzakcióval több eladási ajánlatot hozhatsz létre!",
-  "help.fundMultipleSell.title" : "több eladási ajánlat finanszírozása",
-  "help.fundMultipleBuy.description" : "Ezzel a jelölőnégyzettel több vételi ajánlatot is létrehozhat ugyanazokkal a beállításokkal!",
-  "help.fundMultipleBuy.title" : "több vételi ajánlat finanszírozása",
+  "help.fundMultiple.description" : "A hálózati díjak megspórolása érdekében egyetlen tranzakcióval több eladási ajánlatot hozhatsz létre!",
+  "help.fundMultiple.title" : "több eladási ajánlat finanszírozása",
   "help.instantTradeSell.description" : "Engedélyezd az eladási ajánlatodhoz illeszkedő vásárlónak, hogy automatikusan kereskedjen veled!\n\nEnnek engedélyezésével a Peach a kiválasztott fizetési adataidat fogja kezelni, hogy azokat azonnal megossza egy olyan vásárlóval, aki minden kritériumodnak megfelel.\n\nEz az adat titkosított, és a Peach-en kívül a harmadik felek nem tudják elolvasni.",
   "help.instantTradeSell.title" : "azonnali kereskedés",
   "help.instantTradeBuy.description" : "Engedélyezd az eladási ajánlatodhoz illeszkedő vásárlónak, hogy automatikusan kereskedjen veled!\n\nEnnek engedélyezésével a Peach a kiválasztott fizetési adataidat fogja kezelni, hogy azokat azonnal megossza egy olyan vásárlóval, aki minden kritériumodnak megfelel.\n\nEz az adat titkosított, és a Peach-en kívül a harmadik felek nem tudják elolvasni.",

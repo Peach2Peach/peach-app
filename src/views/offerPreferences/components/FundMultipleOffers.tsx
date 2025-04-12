@@ -17,12 +17,11 @@ export const FundMultipleOffers = () => {
     shallow,
   );
 
-  const toggleFundMultiple = () => {
-    setMulti(multi ? undefined : FUND_MULTI_MIN);
-  };
+  const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
+
   return (
     <View style={tw`gap-3`}>
-      <Checkbox checked={!!multi} onPress={toggleFundMultiple} green>
+      <Checkbox checked={!!multi} onPress={toggleFundMultiple}>
         {i18n("offer.fundMultiple")}
       </Checkbox>
       <NumberStepper />
