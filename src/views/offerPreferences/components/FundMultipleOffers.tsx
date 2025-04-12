@@ -11,11 +11,7 @@ import i18n from "../../../utils/i18n";
 const FUND_MULTI_MIN = 3;
 const FUND_MULTI_MAX = 21;
 
-export const FundMultipleOffers = ({
-  green,
-}: {
-  green: boolean | undefined;
-}) => {
+export const FundMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
     (state) => [state.multi, state.setMulti],
     shallow,
@@ -26,14 +22,32 @@ export const FundMultipleOffers = ({
   };
   return (
     <View style={tw`gap-3`}>
-      <Checkbox green={green} checked={!!multi} onPress={toggleFundMultiple}>
+      <Checkbox checked={!!multi} onPress={toggleFundMultiple} green>
         {i18n("offer.fundMultiple")}
       </Checkbox>
-      <NumberStepper green={green} />
+      <NumberStepper />
     </View>
   );
 };
-function NumberStepper({ green }: { green: boolean | undefined }) {
+export const CreateMultipleOffers = () => {
+  const [multi, setMulti] = useOfferPreferences(
+    (state) => [state.multi, state.setMulti],
+    shallow,
+  );
+
+  const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
+
+  return (
+    <View style={tw`gap-3`}>
+      <Checkbox checked={!!multi} onPress={toggleFundMultiple} green>
+        create multiple offers
+      </Checkbox>
+      <NumberStepper green />
+    </View>
+  );
+};
+
+function NumberStepper({ green = false }) {
   const [multi, setMulti] = useOfferPreferences(
     (state) => [state.multi, state.setMulti],
     shallow,

@@ -24,6 +24,8 @@ import { SettingsItem } from "./components/SettingsItem";
 const contactUs = ["contact", "aboutPeach"] as const;
 
 export const Settings = () => {
+  useSettingsStore((state) => state.locale);
+
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
@@ -167,7 +169,6 @@ export const Settings = () => {
     { headline: "profileSettings", items: profileSettings },
     { headline: "appSettings", items: appSettings },
   ];
-
   return (
     <Screen header={<Header title={i18n("settings.title")} hideGoBackButton />}>
       <PeachScrollView

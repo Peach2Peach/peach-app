@@ -21,6 +21,7 @@ const currencyTabs = [
   "africa",
   "asia",
   "oceania",
+  "northAmerica",
   "other",
 ] as const;
 

@@ -98,7 +98,7 @@ export function SellOfferPreferences() {
         <SellTab.Screen
           name="createOffer"
           options={{
-            title: "create an offer",
+            title: i18n("offer.create.title"),
           }}
           component={CreateSellOffer}
         />
@@ -448,7 +448,7 @@ function FundMultipleOffersContainer() {
     <Section.Container
       style={tw`flex-row items-start justify-between bg-primary-background-dark`}
     >
-      <FundMultipleOffers green={undefined} />
+      <FundMultipleOffers />
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color("info-light")}

@@ -1,5 +1,6 @@
 import { Alert } from "react-native";
-import i18n, { languageState } from "../i18n";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import i18n from "../i18n";
 import { getLocalizedLink } from "../web/getLocalizedLink";
 import { openURL } from "../web/openURL";
 import { deleteUnsentReports } from "./deleteUnsentReports";
@@ -17,7 +18,12 @@ export const openCrashReportPrompt = (errors: Error[]): void => {
         text: i18n("privacyPolicy"),
         onPress: () => {
           openCrashReportPrompt(errors);
-          openURL(getLocalizedLink("privacy-policy", languageState.locale));
+          openURL(
+            getLocalizedLink(
+              "privacy-policy",
+              useSettingsStore.getState().locale,
+            ),
+          );
         },
         style: "default",
       },

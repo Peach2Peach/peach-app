@@ -1,9 +1,11 @@
 import { TradeStatus } from "../../../../peach-api/src/@types/offer";
 
 const openActionStatus = [
+  "createEscrow",
   "fundEscrow",
   "fundingAmountDifferent",
   "hasMatchesAvailable",
+  "hasTradeRequests",
   "offerHiddenWithMatchesAvailable",
   "rateUser",
 ];
