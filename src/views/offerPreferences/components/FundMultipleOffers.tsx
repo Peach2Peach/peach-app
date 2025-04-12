@@ -21,14 +21,32 @@ export const FundMultipleOffers = () => {
 
   return (
     <View style={tw`gap-3`}>
-      <Checkbox checked={!!multi} onPress={toggleFundMultiple}>
+      <Checkbox checked={!!multi} onPress={toggleFundMultiple} green blackText>
         {i18n("offer.fundMultiple")}
       </Checkbox>
-      <NumberStepper />
+      <NumberStepper isBuy />
     </View>
   );
 };
-function NumberStepper() {
+export const CreateMultipleOffers = () => {
+  const [multi, setMulti] = useOfferPreferences(
+    (state) => [state.multi, state.setMulti],
+    shallow,
+  );
+
+  const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
+
+  return (
+    <View style={tw`gap-3`}>
+      <Checkbox checked={!!multi} onPress={toggleFundMultiple} green blackText>
+        create multiple offers
+      </Checkbox>
+      <NumberStepper isBuy />
+    </View>
+  );
+};
+
+function NumberStepper({ isBuy = false }) {
   const [multi, setMulti] = useOfferPreferences(
     (state) => [state.multi, state.setMulti],
     shallow,
@@ -49,7 +67,11 @@ function NumberStepper() {
         disabled={!canDecrease}
         style={!canDecrease && tw`opacity-50`}
       >
-        <Icon id="minusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon
+          id="minusCircle"
+          size={24}
+          color={tw.color(isBuy ? "success-main" : "primary-main")}
+        />
       </TouchableOpacity>
       <PeachText
         style={[
@@ -65,7 +87,11 @@ function NumberStepper() {
         disabled={!canIncrease}
         style={!canIncrease && tw`opacity-50`}
       >
-        <Icon id="plusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon
+          id="plusCircle"
+          size={24}
+          color={tw.color(isBuy ? "success-main" : "primary-main")}
+        />
       </TouchableOpacity>
     </View>
   );
