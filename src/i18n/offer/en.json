@@ -44,7 +44,6 @@
   "offer.sorting.highestAmount" : "highest amount first",
   "offer.sorting.highestPrice" : "highest price first",
   "offer.sorting.lowestPremium" : "lowest premium first",
-  "offer.sorting.highestPremium" : "highest premium first",
   "offer.sorting.sortMatchesBy" : "sort matches by",
   "offer.summary.customPayoutAddress" : "custom payout address",
   "offer.summary.customRefundAddress" : "custom refund address",

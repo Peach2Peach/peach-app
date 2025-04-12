@@ -15,16 +15,14 @@ jest
 
 describe("SellSorters", () => {
   it("should render correctly", () => {
-    const { toJSON } = render(<SellSorters onApply={placeholderFunction} />);
+    const { toJSON } = render(<SellSorters />);
     expect(toJSON()).toMatchSnapshot();
   });
 });
 
-const placeholderFunction = () => {};
-
 describe("ApplySellSorterAction", () => {
   it("should apply the selected sorter", () => {
-    const { getByText } = render(<SellSorters onApply={placeholderFunction} />);
+    const { getByText } = render(<SellSorters />);
     const applyButton = getByText("apply");
     const highestPriceButton = getByText("highest price first");
 
@@ -48,7 +46,7 @@ describe("ApplySellSorterAction", () => {
       },
     );
 
-    const { getByText } = render(<SellSorters onApply={placeholderFunction} />);
+    const { getByText } = render(<SellSorters />);
     const applyButton = getByText("apply");
 
     fireEvent.press(applyButton);
@@ -70,7 +68,7 @@ describe("ApplySellSorterAction", () => {
   });
 
   it("should close the popup", async () => {
-    const { getByText } = render(<SellSorters onApply={placeholderFunction} />);
+    const { getByText } = render(<SellSorters />);
     const applyButton = getByText("apply");
 
     fireEvent.press(applyButton);
