@@ -23,6 +23,7 @@ type TradeStatus =
   | "fundingExpired"
   | "fundingAmountDifferent"
   | "hasMatchesAvailable"
+  | "hasTradeRequests"
   | "offerCanceled"
   | "offerHidden"
   | "offerHiddenWithMatchesAvailable"
