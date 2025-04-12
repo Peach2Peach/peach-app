@@ -28,6 +28,24 @@ export const FundMultipleOffers = () => {
     </View>
   );
 };
+export const CreateMultipleOffers = () => {
+  const [multi, setMulti] = useOfferPreferences(
+    (state) => [state.multi, state.setMulti],
+    shallow,
+  );
+
+  const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
+
+  return (
+    <View style={tw`gap-3`}>
+      <Checkbox checked={!!multi} onPress={toggleFundMultiple} green blackText>
+        create multiple offers
+      </Checkbox>
+      <NumberStepper isBuy />
+    </View>
+  );
+};
+
 function NumberStepper({ isBuy = false }) {
   const [multi, setMulti] = useOfferPreferences(
     (state) => [state.multi, state.setMulti],

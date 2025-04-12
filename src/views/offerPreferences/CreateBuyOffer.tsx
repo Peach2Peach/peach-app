@@ -30,7 +30,7 @@ import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 import { NetworkFeeInfo } from "./NetworkFeeInfo";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
-import { FundMultipleOffers } from "./components/FundMultipleOffers";
+import { CreateMultipleOffers } from "./components/FundMultipleOffers";
 import { MarketInfo } from "./components/MarketInfo";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
@@ -52,7 +52,7 @@ export function CreateBuyOffer() {
       <Section.Container
         style={tw`items-start ${isDarkMode ? "bg-card" : "bg-success-mild-1"}`}
       >
-        <FundMultipleOffers />
+        <CreateMultipleOffers />
       </Section.Container>
       <InstantTrade />
       <PreferenceWalletSelector />
