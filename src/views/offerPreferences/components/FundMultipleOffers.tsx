@@ -24,7 +24,7 @@ export const FundMultipleOffers = () => {
       <Checkbox checked={!!multi} onPress={toggleFundMultiple} green blackText>
         {i18n("offer.fundMultiple")}
       </Checkbox>
-      <NumberStepper isBuy={true} />
+      <NumberStepper isBuy />
     </View>
   );
 };
@@ -52,7 +52,7 @@ function NumberStepper({ isBuy = false }) {
         <Icon
           id="minusCircle"
           size={24}
-          color={isBuy ? tw.color("success-main") : tw.color("primary-main")}
+          color={tw.color(isBuy ? "success-main" : "primary-main")}
         />
       </TouchableOpacity>
       <PeachText
@@ -72,7 +72,7 @@ function NumberStepper({ isBuy = false }) {
         <Icon
           id="plusCircle"
           size={24}
-          color={isBuy ? tw.color("success-main") : tw.color("primary-main")}
+          color={tw.color(isBuy ? "success-main" : "primary-main")}
         />
       </TouchableOpacity>
     </View>

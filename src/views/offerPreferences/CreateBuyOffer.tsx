@@ -145,7 +145,7 @@ function PublishOfferButton() {
     instantTrade,
     instantTradeCriteria,
     originalPaymentData,
-    multiplier,
+    multi,
   } = useOfferPreferences(
     (state) => ({
       amountRange: state.buyAmountRange,
@@ -162,7 +162,7 @@ function PublishOfferButton() {
       instantTrade: state.instantTrade,
       instantTradeCriteria: state.instantTradeCriteria,
       originalPaymentData: state.originalPaymentData,
-      multiplier: state.multi,
+      multi: state.multi,
     }),
     shallow,
   );
@@ -228,7 +228,7 @@ function PublishOfferButton() {
     maxPremium,
     minReputation,
     instantTradeCriteria: instantTrade ? instantTradeCriteria : undefined,
-    multiplier,
+    multi,
   });
 
   const onPress = async () => {
