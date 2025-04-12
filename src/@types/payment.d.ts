@@ -32,7 +32,6 @@ type EuPaymentMethods =
   | "paysera"
   | "perfectMoney"
   | "postePay"
-  | "rebellion"
   | "revolut"
   | "satispay"
   | "sberbank"
@@ -44,10 +43,12 @@ type EuPaymentMethods =
   | "swish"
   | "tinkoff"
   | "twint"
+  | "verse"
   | "vipps"
   | "westernUnion"
   | "wise"
   | "yooMoney";
+
 type LatAmPaymentMethods =
   | "alias"
   | "bancolombia"
@@ -70,7 +71,10 @@ type LatAmPaymentMethods =
   | "tigoMoneyElSalvador"
   | "tigoMoneyGuatemala"
   | "tigoMoneyHonduras"
+  | "moncash"
+  | "natcash"
   | "tigoMoneyParaguay";
+
 type AfricaPaymentMethods =
   | "accrue"
   | "airtelMoney"

@@ -6,5 +6,6 @@ export const defaultCurrencies: Record<CurrencyType, Currency> = {
   africa: "USD",
   asia: "ILS",
   oceania: "NZD",
+  northAmerica: "CAD",
   other: "USDT",
 };
