@@ -4,7 +4,7 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { BuySorters } from "../../popups/sorting/BuySorters";
+import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
@@ -16,15 +16,15 @@ export function ExpressSell({
 }: {
   requestingOfferId?: string;
 }) {
-  const defaultBuyOfferSorter = useOfferPreferences(
-    (state) => state.sortBy.buyOffer[0],
+  const defaultSellOfferSorter = useOfferPreferences(
+    (state) => state.sortBy.sellOffer[0],
   );
   const { data } = useQuery({
-    queryKey: ["expressSell", defaultBuyOfferSorter],
+    queryKey: ["expressSell", defaultSellOfferSorter],
     queryFn: async () => {
       const { result, error } =
         await peachAPI.private.offer.getBuyOfferSummaryIds({
-          sortBy: defaultBuyOfferSorter,
+          sortBy: defaultSellOfferSorter,
         });
       if (error || !result) {
         throw new Error(error?.message || "Buy offer summary ids not found");
@@ -35,7 +35,7 @@ export function ExpressSell({
 
   const setPopup = useSetPopup();
 
-  const showSortAndFilterPopup = () => setPopup(<BuySorters />);
+  const showSortAndFilterPopup = () => setPopup(<SellSorters />);
 
   return (
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
