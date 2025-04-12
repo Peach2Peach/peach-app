@@ -15,6 +15,7 @@
   "offer.requiredAction.confirmCancelation.seller" : "cancel request sent",
   "offer.requiredAction.confirmPaymentRequired" : "confirm payment",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "dispute won: awaiting payout",
+  "offer.requiredAction.createEscrow" : "create escrow",
   "offer.requiredAction.dispute" : "dispute started",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transaction pending",
   "offer.requiredAction.fundEscrow" : "fund escrow",
