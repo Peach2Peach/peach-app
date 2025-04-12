@@ -108,7 +108,6 @@ export const PaymentLogos = {
   pix: placeholder,
   postePay: placeholder,
   rappipay: placeholder,
-  rebellion: placeholder,
   revolut,
   satispay,
   sepa,

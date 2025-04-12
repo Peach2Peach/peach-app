@@ -117,6 +117,7 @@ const statusWithRequiredAction: TradeStatus[] = [
   "fundEscrow",
   "fundingAmountDifferent",
   "hasMatchesAvailable",
+  "hasTradeRequests",
   "refundAddressRequired",
   "refundTxSignatureRequired",
   "dispute",
