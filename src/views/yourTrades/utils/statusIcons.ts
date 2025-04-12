@@ -12,6 +12,7 @@ export const statusIcons: Record<TradeStatus | "waiting", IconType> = {
   fundingAmountDifferent: "uploadCloud",
   escrowWaitingForConfirmation: "clock",
   hasMatchesAvailable: "checkCircle",
+  hasTradeRequests: "checkCircle",
   refundAddressRequired: "edit",
   refundTxSignatureRequired: "rotateCounterClockwise",
   paymentRequired: "dollarSign",
