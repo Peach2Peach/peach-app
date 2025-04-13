@@ -23,6 +23,7 @@ type TradeStatus =
   | "fundingExpired"
   | "fundingAmountDifferent"
   | "hasMatchesAvailable"
+  | "hasTradeRequests"
   | "offerCanceled"
   | "offerHidden"
   | "offerHiddenWithMatchesAvailable"
@@ -86,6 +87,7 @@ type BuyOfferDraft = OfferDraft & {
   messageSignature?: string;
   maxPremium: number | null;
   minReputation: number | null;
+  multi?: number;
 };
 
 type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {

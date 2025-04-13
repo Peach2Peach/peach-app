@@ -22,7 +22,7 @@ const NATIONALOPTIONS = {
   EUR: {
     IT: ["satispay", "postePay"],
     PT: ["mbWay"],
-    ES: ["bizum", "rebellion"],
+    ES: ["bizum"],
     FI: ["mobilePay"],
     HR: ["keksPay"],
     FR: ["paylib", "lydia", "satispay"],
@@ -53,10 +53,11 @@ const NATIONALOPTIONS = {
 
 const NATIONALOPTIONCOUNTRIES = {
   EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "RU"],
-  LATAM: ["BR", "CO", "HN", "BO", "SV", "PY", "GT"],
+  LATAM: ["CO", "SV"],
   AFRICA: ["TZ"],
   ASIA: ["IN", "SG"],
   OCEANIA: ["AU"],
+  NORTHAMERICA: ["CAD"],
 } as const;
 type EuropeanCountry = keyof typeof NATIONALOPTIONS.EUR;
 type LatAmCountry = keyof typeof NATIONALOPTIONS.LATAM;
