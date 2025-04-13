@@ -9,6 +9,7 @@
     "android:testnet": "NODE_ENV=development react-native run-android --port=8081 --mode=QaDebug",
     "android:mainnet": "NODE_ENV=production react-native run-android --port=8081 --mode=ProdDebug --appIdSuffix=mainnet",
     "ios": "NODE_ENV=sandbox react-native run-ios --port=8081 --simulator=\"iPhone 14\" --scheme \"peach testnet\"",
+    "ios:regtest": "NODE_ENV=sandbox react-native run-ios --port=8081 --scheme \"peach regtest\"",
     "ios:testnet": "NODE_ENV=development react-native run-ios --port=8081 --simulator=\"iPhone 14\" --variant=QaDebug",
     "ios:mainnet": "NODE_ENV=production react-native run-ios --port=8081 --simulator=\"iPhone 14\" --variant=ProdDebug --appIdSuffix=mainnet",
     "start": "NODE_ENV=sandbox react-native start --port=8081",
