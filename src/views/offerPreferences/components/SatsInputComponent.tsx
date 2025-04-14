@@ -17,7 +17,11 @@ export const SatsInputComponent = forwardRef<TextInput, TextInputProps>(
         {...props}
         ref={ref}
         size="large"
-        containerStyle={[tw.style(inputContainerStyle), tw`py-9px`]}
+        containerStyle={[
+          tw.style(inputContainerStyle),
+          tw.style(!isDarkMode ? "bg-primary-background-light" : ""),
+          tw`py-9px`,
+        ]}
         textStyle={[
           tw.style(
             `text-center subtitle-0 leading-relaxed py-1px ${isDarkMode ? "text-backgroundLight" : "text-black-100"} android:h-7`,

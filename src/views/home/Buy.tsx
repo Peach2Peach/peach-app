@@ -26,7 +26,7 @@ export function Buy() {
         <BuyTab.Screen
           name="expressBuy"
           options={{
-            title: "express buy",
+            title: i18n("offer.expressBuy"),
           }}
           component={ExpressBuy}
         />

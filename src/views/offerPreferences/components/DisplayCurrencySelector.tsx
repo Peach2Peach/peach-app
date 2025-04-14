@@ -5,38 +5,47 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
 import { CURRENCIES } from "../../../paymentMethods";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import { textStyle } from "./SatsInputComponent";
 
 export function DisplayCurrencySelector() {
+  const { isDarkMode } = useThemeStore();
   const [showCurrencies, toggle] = useToggleBoolean();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
     shallow,
   );
+  const currentTextStyle =
+    textStyle + (isDarkMode ? " text-backgroundLight" : " text-black-100");
+
   return (
     <TouchableOpacity onPress={toggle} style={tw`items-end min-w-20`}>
       <ScrollView
         style={tw`absolute z-20 max-h-29`}
-        contentContainerStyle={tw`border rounded-lg px-6px bg-primary-background-light border-black-25`}
+        contentContainerStyle={tw`border rounded-lg px-6px ${isDarkMode ? "bg-card" : "bg-primary-background-light"} border-black-25`}
         scrollEnabled={showCurrencies}
         showsVerticalScrollIndicator={false}
         onStartShouldSetResponder={() => showCurrencies}
       >
         <View style={tw`flex-row items-center gap-1`}>
-          <PeachText style={[tw.style(textStyle), tw`text-left`]}>
+          <PeachText style={[tw.style(currentTextStyle), tw`text-left`]}>
             {displayCurrency}
           </PeachText>
           <TouchableIcon
             id={showCurrencies ? "chevronUp" : "chevronDown"}
             onPress={toggle}
-            iconColor={tw.color("black-100")}
+            iconColor={
+              isDarkMode
+                ? tw.color("text-backgroundLight")
+                : tw.color("black-100")
+            }
           />
         </View>
         {showCurrencies &&
           CURRENCIES.filter((c) => c !== displayCurrency).map((c) => (
             <PeachText
-              style={[tw.style(textStyle), tw`text-left`]}
+              style={[tw.style(currentTextStyle), tw`text-left`]}
               onPress={() => {
                 setDisplayCurrency(c);
                 toggle();
