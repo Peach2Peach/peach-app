@@ -33,8 +33,8 @@ describe("OfferItem", () => {
 });
 
 describe("ContractItem", () => {
-  beforeAll(() => {
-    updateAccount(account1);
+  beforeAll(async () => {
+    await updateAccount(account1);
   });
 
   it("should render correctly", () => {

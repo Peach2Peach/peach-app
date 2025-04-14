@@ -74,11 +74,15 @@ describe("MeetupScreen", () => {
     });
     const { getByText } = render(<MeetupScreen />);
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
-    await fireEvent(getByText("view on maps"), "onPress");
-    expect(openURLSpy).toHaveBeenCalledWith(
-      "http://maps.google.com/maps?daddr=Prague",
-    );
-    await fireEvent(getByText("meetup link"), "onPress");
-    expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url);
+    fireEvent(getByText("view on maps"), "onPress");
+    await waitFor(() => {
+      expect(openURLSpy).toHaveBeenCalledWith(
+        "http://maps.google.com/maps?daddr=Prague",
+      );
+    });
+    fireEvent(getByText("meetup link"), "onPress");
+    await waitFor(() => {
+      expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url);
+    });
   });
 });

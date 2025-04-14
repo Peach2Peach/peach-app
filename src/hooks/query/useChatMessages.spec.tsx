@@ -110,8 +110,8 @@ describe("useChatMessages", () => {
       ...responseUtils,
     });
 
-    await act(() => {
-      result.current.fetchNextPage();
+    await act(async () => {
+      await result.current.fetchNextPage();
     });
 
     await waitFor(() =>
