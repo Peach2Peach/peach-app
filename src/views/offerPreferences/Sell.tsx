@@ -37,6 +37,7 @@ import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -91,7 +92,7 @@ export function SellOfferPreferences() {
         <SellTab.Screen
           name="expressSell"
           options={{
-            title: "express sell",
+            title: i18n("offer.expressSell"),
           }}
           component={ExpressSell}
         />
@@ -233,8 +234,11 @@ function AmountSelectorContainer({
   slider?: JSX.Element;
   inputs?: JSX.Element;
 }) {
+  const { isDarkMode } = useThemeStore();
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
+    >
       <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
       <View style={tw`gap-5 shrink`}>
         <View style={tw`z-10 gap-2`}>

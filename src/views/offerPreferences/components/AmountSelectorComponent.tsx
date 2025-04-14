@@ -84,6 +84,7 @@ export function AmountSelectorComponent({
 }
 
 function PremiumInput() {
+  const { isDarkMode } = useThemeStore();
   const iconColor = tw.color("success-main");
   const [premium, setPremium] = useState(21);
   const handlePremiumChange = (newPremium: number) => {
@@ -117,7 +118,9 @@ function PremiumInput() {
         />
       </View>
       <PeachText>currently 168.45 EUR</PeachText>
-      <PeachText style={tw`text-success-dark-2`}>
+      <PeachText
+        style={isDarkMode ? tw`text-success-main` : tw`text-success-dark-2`}
+      >
         x competing buy offers with a higher premium
       </PeachText>
     </View>
@@ -258,9 +261,13 @@ function FiatPriceRange({ range: [min, max] }: { range: [number, number] }) {
   const { fiatPrice: minFiatPrice } = useBitcoinPrices(min);
   const { fiatPrice: maxFiatPrice } = useBitcoinPrices(max);
 
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View style={tw`z-10 flex-row self-stretch justify-between`}>
-      <PeachText style={tw`leading-loose text-center grow subtitle-0`}>
+      <PeachText
+        style={tw`leading-loose text-center grow subtitle-0 ${isDarkMode ? "text-success-main" : "text-black-100"}`}
+      >
         {minFiatPrice} - {maxFiatPrice}
       </PeachText>
       <DisplayCurrencySelector />
