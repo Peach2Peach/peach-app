@@ -13,6 +13,7 @@ import { PatchBuyOfferData, usePatchBuyOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../hooks/wallet/useIsMyAddress";
+import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -382,7 +383,14 @@ function Filters() {
 
 function PatchOfferButton() {
   const [preferences] = usePreferenceContext();
-  const { maxPremium } = preferences;
+
+  const { maxPremium } = useOfferPreferences(
+    (state) => ({
+      maxPremium: state.buyPremium,
+    }),
+    shallow,
+  );
+
   const minReputation = interpolate(
     preferences.minReputation || 0,
     CLIENT_RATING_RANGE,

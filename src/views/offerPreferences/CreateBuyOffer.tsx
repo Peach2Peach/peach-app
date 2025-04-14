@@ -151,9 +151,7 @@ function PublishOfferButton() {
       amountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
-      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium
-        : null,
+      maxPremium: state.buyPremium,
       minReputation: interpolate(
         state.filter.buyOffer.minReputation || 0,
         CLIENT_RATING_RANGE,
