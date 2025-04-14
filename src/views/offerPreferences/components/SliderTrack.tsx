@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 
 type Props = {
@@ -10,13 +11,14 @@ type Props = {
 export const horizontalTrackPadding = 22;
 
 export function SliderTrack({ slider, trackWidth, type }: Props) {
+  const { isDarkMode } = useThemeStore();
   const color =
     type === "sell" ? tw.color("primary-mild-2") : tw.color("success-mild-2");
   return (
     <View
       style={[
         tw`flex-row items-center justify-between border py-14px rounded-2xl`,
-        type === "buy" && tw`bg-success-background-dark`,
+        type === "buy" && !isDarkMode && tw`bg-success-background-dark`,
         {
           width: trackWidth,
           paddingHorizontal: horizontalTrackPadding,
