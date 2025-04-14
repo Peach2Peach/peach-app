@@ -10,7 +10,7 @@ type Props = {
   premium: number;
   setPremium: (newPremium: number) => void;
   incrementBy?: number;
-  isBuy: boolean;
+  isBuy?: boolean;
 };
 
 const defaultIncrement = 0.1;
