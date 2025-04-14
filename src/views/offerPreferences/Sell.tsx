@@ -255,6 +255,7 @@ const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, ".");
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, "");
 const MIN_PREMIUM_INCREMENT = 0.01;
 function Premium() {
+  const { isDarkMode } = useThemeStore();
   const preferences = useOfferPreferences(
     (state) => ({
       maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
@@ -267,7 +268,9 @@ function Premium() {
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent />
       <CurrentPrice />
-      <PeachText style={tw`text-center body-s text-primary-dark-2`}>
+      <PeachText
+        style={tw`text-center body-s ${isDarkMode ? "text-primary-main" : "text-primary-dark-2"}`}
+      >
         {i18n(
           "offerPreferences.competingSellOffersBelowThisPremium",
           String(data.offersWithinRange.length),
@@ -348,7 +351,7 @@ function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
 }
 
 export const inputContainerStyle = [
-  "items-center justify-center bg-primary-background-light flex-row self-stretch h-9",
+  "items-center justify-center flex-row self-stretch h-9",
   "border rounded-lg border-black-25",
 ];
 
@@ -390,6 +393,8 @@ function SatsInput() {
 }
 
 function FiatInput() {
+  const { isDarkMode } = useThemeStore();
+
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.sellAmount,
     state.setSellAmount,
@@ -428,11 +433,27 @@ function FiatInput() {
   const displayValue = inputRef.current?.isFocused()
     ? inputValue
     : priceFormat(fiatPrice);
+
   return (
     <View style={tw`flex-row gap-10px`}>
-      <View style={[tw.style(inputContainerStyle), tw`grow`]}>
+      <View
+        style={[
+          tw.style(inputContainerStyle),
+          tw`grow`,
+          {
+            backgroundColor: isDarkMode
+              ? undefined
+              : "rgba(255, 255, 255, 0.8)",
+          },
+        ]}
+      >
         <TextInput
-          style={[tw.style(textStyle), tw`grow`]}
+          style={[
+            tw.style(textStyle),
+            {
+              color: isDarkMode ? "white" : "black",
+            },
+          ]}
           ref={inputRef}
           value={displayValue}
           onFocus={onFocus}
@@ -841,6 +862,7 @@ function RefundWalletSelector() {
 }
 
 function SellHeader() {
+  const { isDarkMode } = useThemeStore();
   const setPopup = useSetPopup();
   const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
   return (
@@ -850,9 +872,15 @@ function SellHeader() {
           <PeachText style={tw`h7 md:h6 text-primary-main`}>
             {i18n("sell")}
           </PeachText>
-          <LogoIcons.bitcoinText
-            style={tw`h-14px md:h-16px w-63px md:w-71px`}
-          />
+          {isDarkMode ? (
+            <LogoIcons.bitcoinTextDark
+              style={tw`h-14px md:h-16px w-63px md:w-71px`}
+            />
+          ) : (
+            <LogoIcons.bitcoinText
+              style={tw`h-14px md:h-16px w-63px md:w-71px`}
+            />
+          )}
         </>
       }
       icons={[{ ...headerIcons.help, onPress }]}
