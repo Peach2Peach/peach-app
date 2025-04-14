@@ -64,7 +64,7 @@ export const PremiumInput = ({
           {i18n(
             premium >= 0
               ? isBuy
-                ? i18n("buy.maxPremium")
+                ? "buy.maxPremium"
                 : "sell.premium"
               : "sell.discount",
           )}
