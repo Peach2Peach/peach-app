@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -6,14 +6,18 @@ import {
   TextInputEndEditingEventData,
   View,
 } from "react-native";
+import { shallow } from "zustand/shallow";
 import { Placeholder } from "../../../components/Placeholder";
-import { PremiumTextInput } from "../../../components/PremiumTextInput";
-import { TouchableIcon } from "../../../components/TouchableIcon";
+import { PremiumInput } from "../../../components/PremiumInput";
 import { PeachText } from "../../../components/text/PeachText";
+import { CENT } from "../../../constants";
 import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
+import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
+import { round } from "../../../utils/math/round";
 import { trackMin } from "../utils/constants";
 import { enforceDigitFormat } from "../utils/enforceDigitFormat";
 import { useAmountInBounds } from "../utils/useAmountInBounds";
@@ -25,6 +29,7 @@ import { SatsInputComponent } from "./SatsInputComponent";
 import { Section, sectionContainerGap } from "./Section";
 import { Slider, sliderWidth } from "./Slider";
 import { SliderTrack } from "./SliderTrack";
+import { useFilteredMarketStats } from "./useFilteredMarketStats";
 
 type Props = {
   setIsSliding: (isSliding: boolean) => void;
@@ -78,47 +83,76 @@ export function AmountSelectorComponent({
         trackWidth={trackWidth}
         type="buy"
       />
-      <PremiumInput />
+      <BuyPremiumInput />
     </Section.Container>
   );
 }
 
-function PremiumInput() {
-  const iconColor = tw.color("success-main");
-  const [premium, setPremium] = useState(21);
-  const handlePremiumChange = (newPremium: number) => {
-    setPremium(newPremium);
-  };
-  const onMinusCirclePress = () => {
-    setPremium((prev) => Math.max(0, prev - 1));
-  };
-  const onPlusCirclePress = () => {
-    setPremium((prev) => Math.min(21, prev + 1));
-  };
+function PremiumInputComponent() {
+  const [buyPremium, setBuyPremium] = useOfferPreferences((state) => [
+    state.buyPremium,
+    state.setBuyPremium,
+  ]);
+  return (
+    <PremiumInput
+      premium={buyPremium}
+      setPremium={setBuyPremium}
+      incrementBy={1}
+      isBuy
+    />
+  );
+}
+
+function CurrentPrice() {
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency);
+  const [buyAmountRange, premium] = useOfferPreferences(
+    (state) => [state.buyAmountRange, state.buyPremium],
+    shallow,
+  );
+  const [buyAmountRangeLow, buyAmountRangeHigh] = buyAmountRange;
+  const { fiatPrice: fiatPriceLow } = useBitcoinPrices(buyAmountRangeLow);
+  const priceLowWithPremium = useMemo(
+    () => round(fiatPriceLow * (1 + premium / CENT), 2),
+    [fiatPriceLow, premium],
+  );
+
+  const { fiatPrice: fiatPriceHigh } = useBitcoinPrices(buyAmountRangeHigh);
+  const priceHighWithPremium = useMemo(
+    () => round(fiatPriceHigh * (1 + premium / CENT), 2),
+    [fiatPriceHigh, premium],
+  );
+
+  return (
+    <PeachText style={tw`text-center body-s`}>
+      {i18n(
+        "offerPreferences.currentPrice",
+        `${priceLowWithPremium} - ${priceHighWithPremium} ${displayCurrency}`,
+      )}
+    </PeachText>
+  );
+}
+
+const MIN_PREMIUM_INCREMENT = 0.01;
+function BuyPremiumInput() {
+  const preferences = useOfferPreferences(
+    (state) => ({
+      maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
+      meansOfPayment: state.meansOfPayment,
+    }),
+    shallow,
+  );
+
+  const { data } = useFilteredMarketStats({ type: "bid", ...preferences });
+
   return (
     <View style={tw`items-center self-stretch gap-10px`}>
-      <View style={tw`flex-row items-center self-stretch justify-between`}>
-        <TouchableIcon
-          id="minusCircle"
-          iconColor={iconColor}
-          onPress={onMinusCirclePress}
-        />
-        <View style={tw`flex-row items-center self-stretch gap-10px`}>
-          <PeachText>max premium:</PeachText>
-          <PremiumTextInput
-            premium={premium}
-            setPremium={handlePremiumChange}
-          />
-        </View>
-        <TouchableIcon
-          id="plusCircle"
-          iconColor={iconColor}
-          onPress={onPlusCirclePress}
-        />
-      </View>
-      <PeachText>currently 168.45 EUR</PeachText>
+      <PremiumInputComponent />
+      <CurrentPrice />
       <PeachText style={tw`text-success-dark-2`}>
-        x competing buy offers with a higher premium
+        {i18n(
+          "offerPreferences.competingBuyOffersBelowThisPremium",
+          String(data.offersWithinRange.length),
+        )}
       </PeachText>
     </View>
   );
