@@ -204,14 +204,20 @@ function TradeRequestSummaryCard({
 }
 
 function ExploreHeader() {
+  const navigation = useStackNavigation();
   const { offerId } = useRoute<"explore">().params;
   const setPopup = useSetPopup();
+
+  const goToPreferences = () => navigation.navigate("editPremium", { offerId });
 
   const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />);
 
   return (
     <Header
-      icons={[{ ...headerIcons.cancel, onPress: cancelOffer }]}
+      icons={[
+        { ...headerIcons.sellPreferences, onPress: goToPreferences },
+        { ...headerIcons.cancel, onPress: cancelOffer },
+      ]}
       title={`offer ${offerIdToHex(offerId)}`}
     />
   );
