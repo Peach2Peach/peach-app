@@ -34,6 +34,6 @@ if (typeof document !== "undefined") {
   });
 
   if ("serviceWorker" in navigator) {
-    await navigator.serviceWorker.register("/service-worker.js");
+    void navigator.serviceWorker.register("/service-worker.js");
   }
 }
