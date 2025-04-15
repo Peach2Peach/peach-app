@@ -257,7 +257,9 @@ function getInfoPropsWithType(
   return { ...props, type: "empty" };
 }
 
-function getTitle(item: OfferSummary | ContractSummary) {
+export function getTitle(
+  item: OfferSummary | ContractSummary | BuyOffer | SellOffer,
+) {
   const title = isContractSummary(item)
     ? contractIdToHex(item.id)
     : offerIdToHex(item.id);

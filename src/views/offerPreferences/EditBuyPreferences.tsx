@@ -34,10 +34,10 @@ import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
 } from "../settings/profile/profileOverview/Rating";
+import { getTitle } from "../yourTrades/components/TradeItem";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
-import { BuyBitcoinHeader } from "./components/BuyBitcoinHeader";
 import { FilterContainer } from "./components/FilterContainer";
 import { MIN_REPUTATION_FILTER } from "./components/MIN_REPUTATION_FILTER";
 import { MarketInfo } from "./components/MarketInfo";
@@ -121,9 +121,10 @@ function initializer(offer: BuyOffer) {
 function ScreenContent({ offer }: { offer: BuyOffer }) {
   const [isSliding, setIsSliding] = useState(false);
   const reducer = useReducer(offerReducer, offer, initializer);
+  const formatedEditOfferHeader = "edit offer " + getTitle(offer);
   return (
     <PreferenceContext.Provider value={reducer}>
-      <Screen header={<BuyBitcoinHeader />}>
+      <Screen header={formatedEditOfferHeader}>
         <PreferenceScreen isSliding={isSliding} button={<PatchOfferButton />}>
           <OfferMarketInfo />
           <OfferMethods />
