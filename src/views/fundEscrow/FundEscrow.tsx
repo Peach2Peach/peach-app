@@ -128,8 +128,9 @@ function CreateEscrowScreen({ offerIds }: { offerIds: string[] }) {
 
 function FundEscrowHeader() {
   const navigation = useStackNavigation();
-  const goToPreferences = () => navigation.navigate("editPremium", { offerId });
+
   const { offerId } = useRoute<"fundEscrow">().params;
+  const goToPreferences = () => navigation.navigate("editPremium", { offerId });
   const fundMultiple = useWalletState((state) =>
     state.getFundMultipleByOfferId(offerId),
   );
