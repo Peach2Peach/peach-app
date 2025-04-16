@@ -26,10 +26,10 @@ export const RestoreReputation = () => {
 
   const restoreReputation = async () => {
     setIsLoading(true);
-    updateAccount(account, true);
+    await updateAccount(account, true);
     await userUpdate(route.params.referralCode);
 
-    storeAccount(account);
+    await storeAccount(account);
     setIsRestored(true);
 
     setTimeout(() => {

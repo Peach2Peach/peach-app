@@ -91,9 +91,10 @@ export const useCheckFundingMultipleEscrows = () => {
     ],
   );
 
-  const callback = useCallback(() => {
-    refetchOffers().then(() => Promise.all(addresses.map(checkAddress)));
-  }, [addresses, checkAddress, refetchOffers]);
+  const callback = useCallback(
+    () => refetchOffers().then(() => Promise.all(addresses.map(checkAddress))),
+    [addresses, checkAddress, refetchOffers],
+  );
 
   useInterval({
     callback,

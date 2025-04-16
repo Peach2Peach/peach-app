@@ -82,7 +82,7 @@ export class PeachWallet {
               network: NETWORK as Network,
             });
 
-          this.setBlockchain(useNodeConfigState.getState());
+          await this.setBlockchain(useNodeConfigState.getState());
 
           const dbConfig = await getDBConfig(NETWORK as Network, this.nodeType);
 
@@ -114,7 +114,7 @@ export class PeachWallet {
     info("PeachWallet - loadWallet - start");
     await waitForHydration(useNodeConfigState);
 
-    this.initWallet(seedphrase).then(() => {
+    await this.initWallet(seedphrase).then(() => {
       info("PeachWallet - loadWallet - finished");
     });
   }
@@ -259,10 +259,10 @@ export class PeachWallet {
       const signedPSBT = await this.wallet.sign(psbt);
       info("PeachWallet - signAndBroadcastPSBT - signed");
 
-      this.blockchain.broadcast(await signedPSBT.extractTx());
+      await this.blockchain.broadcast(await signedPSBT.extractTx());
       info("PeachWallet - signAndBroadcastPSBT - broadcasted");
 
-      this.syncWallet().catch((e) => {
+      await this.syncWallet().catch((e) => {
         error(parseError(e));
       });
 

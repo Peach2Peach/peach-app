@@ -27,9 +27,9 @@ export function FundFromPeachWalletButton({
   );
   const [isFunding, setIsFunding] = useState(false);
 
-  const onButtonPress = () => {
+  const onButtonPress = async () => {
     setIsFunding(true);
-    fundFromPeachWallet({
+    await fundFromPeachWallet({
       offerId,
       amount,
       fundingStatus: fundingStatus?.status,

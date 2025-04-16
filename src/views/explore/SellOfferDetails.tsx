@@ -303,8 +303,8 @@ function RequestTradeAction({
         );
       }
     },
-    onSettled: (response) => {
-      queryClient.invalidateQueries({
+    onSettled: async (response) => {
+      await queryClient.invalidateQueries({
         queryKey: offerKeys.tradeRequest(offerId),
       });
       if (response && "contractId" in response) {

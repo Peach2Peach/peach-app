@@ -88,11 +88,11 @@ function SplashScreenComponent({
           });
         }
       }
-      requestUserPermissions();
+      await requestUserPermissions();
       setIsLoading(false);
       SplashScreen.hide();
     };
-    initialize();
+    void initialize();
   }, [initApp, navigation, setIsLoading, setPopup, setToast]);
 
   return (

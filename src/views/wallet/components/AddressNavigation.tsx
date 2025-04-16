@@ -32,9 +32,9 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
   const showChevronsLeft = !!data && index >= data.index + 2;
   const showChevronsRight = !!data && index <= data.index - 2;
 
-  const nextAddress = () => {
+  const nextAddress = async () => {
     setIndex(index + 1);
-    queryClient.prefetchQuery({
+    await queryClient.prefetchQuery({
       queryKey: walletKeys.addressByIndex(index + 2),
       queryFn: () => {
         if (!peachWallet)
@@ -44,11 +44,11 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
     });
   };
 
-  const prevAddress = () => {
+  const prevAddress = async () => {
     if (index === 0) return;
     setIndex(index - 1);
     if (index > 1) {
-      queryClient.prefetchQuery({
+      await queryClient.prefetchQuery({
         queryKey: walletKeys.addressByIndex(index - 2),
         queryFn: () => {
           if (!peachWallet)

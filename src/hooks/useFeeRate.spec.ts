@@ -41,8 +41,8 @@ describe("useFeeRate", () => {
       result: { ...defaultUser, feeRate: "halfHourFee" },
       ...responseUtils,
     });
-    act(() => {
-      queryClient.invalidateQueries({ queryKey: userKeys.self() });
+    await act(async () => {
+      await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
@@ -52,8 +52,8 @@ describe("useFeeRate", () => {
       result: { ...defaultUser, feeRate: "hourFee" },
       ...responseUtils,
     });
-    act(() => {
-      queryClient.invalidateQueries({ queryKey: userKeys.self() });
+    await act(async () => {
+      await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.hourFee);
@@ -74,8 +74,8 @@ describe("useFeeRate", () => {
       result: { ...defaultUser, feeRate: 0 },
       ...responseUtils,
     });
-    act(() => {
-      queryClient.invalidateQueries({ queryKey: userKeys.self() });
+    await act(async () => {
+      await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
@@ -86,8 +86,8 @@ describe("useFeeRate", () => {
       result: { ...defaultUser, feeRate: undefined },
       ...responseUtils,
     });
-    act(() => {
-      queryClient.invalidateQueries({ queryKey: userKeys.self() });
+    await act(async () => {
+      await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);

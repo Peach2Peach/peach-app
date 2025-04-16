@@ -2,10 +2,10 @@ import { isIOS } from "./isIOS";
 import { linkToAppStoreAndroid } from "./linkToAppStoreAndroid";
 import { linkToAppStoreIOS } from "./linkToAppStoreIOS";
 
-export const linkToAppStore = () => {
+export const linkToAppStore = async () => {
   if (isIOS()) {
-    linkToAppStoreIOS();
+    await linkToAppStoreIOS();
   } else {
-    linkToAppStoreAndroid();
+    await linkToAppStoreAndroid();
   }
 };

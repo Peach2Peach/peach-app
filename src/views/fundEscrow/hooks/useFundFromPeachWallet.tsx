@@ -67,8 +67,8 @@ export const useFundFromPeachWallet = () => {
   const setPopup = useSetPopup();
 
   const onSuccess = useCallback(
-    ({ txDetails, offerId, address, addresses }: OnSuccessParams) => {
-      optimisticTxHistoryUpdate(txDetails, offerId);
+    async ({ txDetails, offerId, address, addresses }: OnSuccessParams) => {
+      await optimisticTxHistoryUpdate(txDetails, offerId);
       unregisterFundMultiple(address);
       setFundedFromPeachWallet(address);
       addresses.forEach(setFundedFromPeachWallet);

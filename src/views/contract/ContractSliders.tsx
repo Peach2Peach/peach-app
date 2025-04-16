@@ -30,9 +30,9 @@ export function RefundEscrowSlider() {
   const { contract } = useContractContext();
   const startRefund = useStartRefundPopup();
   const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
-  const onConfirm = () => {
+  const onConfirm = async () => {
     if (!offer || !isSellOffer(offer)) return;
-    startRefund(offer);
+    await startRefund(offer);
   };
   return (
     <ConfirmSlider

@@ -1,4 +1,5 @@
 import { Alert, Linking } from "react-native";
+import { waitFor } from "test-utils";
 import { deleteUnsentReports } from "./deleteUnsentReports";
 import { openCrashReportPrompt } from "./openCrashReportPrompt";
 import { sendErrors } from "./sendErrors";
@@ -43,16 +44,20 @@ describe("openCrashReportPrompt function", () => {
   it("should call the Linking.openURL method when the privacy policy button is pressed", async () => {
     openCrashReportPrompt(errors);
     if (alertSpy.mock.calls[0][2]?.[0].onPress)
-      await alertSpy.mock.calls[0][2][0].onPress();
-    expect(Linking.openURL).toHaveBeenCalledWith(
-      "https://peachbitcoin.com/privacy-policy",
-    );
+      alertSpy.mock.calls[0][2][0].onPress();
+    await waitFor(() => {
+      expect(Linking.openURL).toHaveBeenCalledWith(
+        "https://peachbitcoin.com/privacy-policy",
+      );
+    });
   });
 
   it("should call the sendErrors function when the send report button is pressed", async () => {
     openCrashReportPrompt(errors);
     if (alertSpy.mock.calls[0][2]?.[2].onPress)
-      await alertSpy.mock.calls[0][2][2].onPress();
-    expect(sendErrors).toHaveBeenCalledWith(errors);
+      alertSpy.mock.calls[0][2][2].onPress();
+    await waitFor(() => {
+      expect(sendErrors).toHaveBeenCalledWith(errors);
+    });
   });
 });

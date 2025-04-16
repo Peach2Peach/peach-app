@@ -24,7 +24,7 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
     const wallet = loadWalletFromAccount({ ...newAccount, mnemonic });
     await setWallets(wallet, mnemonic);
     if (!newAccount.base58) {
-      storeIdentity({
+      await storeIdentity({
         ...newAccount,
         base58: wallet.toBase58(),
       });
