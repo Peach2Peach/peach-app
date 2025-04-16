@@ -1,6 +1,9 @@
 import { TouchableOpacity, View } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { PeachyBackground } from "../PeachyBackground";
+import { PeachText } from "../text/PeachText";
 import { statusCardStyles } from "./statusCardStyles";
 
 type Props = {
@@ -9,6 +12,7 @@ type Props = {
   statusInfo?: JSX.Element;
   amountInfo?: JSX.Element;
   label?: JSX.Element;
+  instantTrade?: boolean;
 };
 
 export function StatusCard({
@@ -17,6 +21,7 @@ export function StatusCard({
   statusInfo,
   amountInfo,
   label,
+  instantTrade,
 }: Props) {
   const { isDarkMode } = useThemeStore();
 
@@ -29,6 +34,16 @@ export function StatusCard({
       ]}
       onPress={onPress}
     >
+      {instantTrade && (
+        <View style={tw`overflow-hidden rounded-md`}>
+          <PeachyBackground />
+          <PeachText
+            style={tw`text-center py-2px subtitle-2 text-primary-background-light`}
+          >
+            {i18n("offerPreferences.instantTrade")}
+          </PeachText>
+        </View>
+      )}
       <View style={tw`flex-row items-center justify-between px-4 py-3`}>
         {statusInfo}
         {amountInfo}
