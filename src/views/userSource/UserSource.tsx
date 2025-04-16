@@ -33,7 +33,7 @@ export function UserSource() {
       {
         onSuccess: () => {
           setTimeout(() => {
-            navigation.navigate("userCryptoLevel");
+            navigation.navigate("userBitcoinLevel");
           }, MSINASECOND);
         },
       },

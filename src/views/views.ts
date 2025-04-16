@@ -47,7 +47,7 @@ import { PeachFees } from "./settings/aboutPeach/PeachFees";
 import { Socials } from "./settings/aboutPeach/Socials";
 import { NetworkFees } from "./settings/networkFees/NetworkFees";
 import { MyProfile } from "./settings/profile/MyProfile";
-import { UserCryptoLevel } from "./userCryptoLevel/UserCryptoLevel";
+import { UserBitcoinLevel } from "./userBitcoinLevel/UserBitcoinLevel";
 import { UserSource } from "./userSource/UserSource";
 import { AddressChecker } from "./wallet/AddressChecker";
 import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
@@ -86,8 +86,8 @@ const onboarding: ViewType[] = [
   },
   { name: "userSource", component: UserSource, animationEnabled: false },
   {
-    name: "userCryptoLevel",
-    component: UserCryptoLevel,
+    name: "userBitcoinLevel",
+    component: UserBitcoinLevel,
     animationEnabled: false,
   },
   { name: "restoreBackup", component: RestoreBackup, animationEnabled: false },

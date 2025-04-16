@@ -4,7 +4,7 @@ type Onboarding = {
   accountCreated: undefined;
   createAccountError: { err: string; referralCode?: string };
   userSource: undefined;
-  userCryptoLevel: undefined;
+  userBitcoinLevel: undefined;
   restoreBackup: { tab: "fileBackup" | "seedPhrase" } | undefined;
   restoreReputation: {
     referralCode?: string;

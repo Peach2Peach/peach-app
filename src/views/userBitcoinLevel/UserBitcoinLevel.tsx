@@ -10,24 +10,24 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 
-const possibleCryptoLevels = [
+const possibleBitcoinLevels = [
   "firstTime",
   "firstTimeP2P",
   "bitcoiner",
 ] as const;
 
-export function UserCryptoLevel() {
+export function UserBitcoinLevel() {
   const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
-  const [selectedCryptoLevel, setSelectedCryptoLevel] =
-    useState<(typeof possibleCryptoLevels)[number]>();
-  const { mutate: submitUserCryptoLevel } = useSubmitUserCryptoLevel();
-  const submitCryptoLevel = (
-    cryptoLevel: (typeof possibleCryptoLevels)[number],
+  const [selectedBitcoinLevel, setSelectedBitcoinLevel] =
+    useState<(typeof possibleBitcoinLevels)[number]>();
+  const { mutate: submitUserBitcoinLevel } = useSubmitUserBitcoinLevel();
+  const submitBitcoinLevel = (
+    bitcoinLevel: (typeof possibleBitcoinLevels)[number],
   ) => {
-    if (selectedCryptoLevel) return;
-    setSelectedCryptoLevel(cryptoLevel);
-    submitUserCryptoLevel(
-      { cryptoLevel },
+    if (selectedBitcoinLevel) return;
+    setSelectedBitcoinLevel(bitcoinLevel);
+    submitUserBitcoinLevel(
+      { bitcoinLevel },
       {
         onSuccess: () => {
           setTimeout(() => {
@@ -48,26 +48,26 @@ export function UserCryptoLevel() {
           <PeachText
             style={tw`text-center text-primary-background-light body-l`}
           >
-            {i18n("userCryptoLevel.subtitle")}
+            {i18n("userBitcoinLevel.subtitle")}
           </PeachText>
         </View>
         <View style={tw`items-stretch gap-10px`}>
-          {possibleCryptoLevels.map((cryptoLevelOption) => (
+          {possibleBitcoinLevels.map((bitcoinLevelOption) => (
             <Button
-              key={cryptoLevelOption}
-              ghost={selectedCryptoLevel !== cryptoLevelOption}
+              key={bitcoinLevelOption}
+              ghost={selectedBitcoinLevel !== bitcoinLevelOption}
               style={
-                cryptoLevelOption === selectedCryptoLevel &&
+                bitcoinLevelOption === selectedBitcoinLevel &&
                 tw`bg-primary-background-light`
               }
               textColor={
-                cryptoLevelOption === selectedCryptoLevel
+                bitcoinLevelOption === selectedBitcoinLevel
                   ? tw.color("primary-main")
                   : undefined
               }
-              onPress={() => submitCryptoLevel(cryptoLevelOption)}
+              onPress={() => submitBitcoinLevel(bitcoinLevelOption)}
             >
-              {i18n("userCryptoLevel.answer." + cryptoLevelOption)}
+              {i18n("userBitcoinLevel.answer." + bitcoinLevelOption)}
             </Button>
           ))}
         </View>
@@ -76,8 +76,8 @@ export function UserCryptoLevel() {
   );
 }
 
-function useSubmitUserCryptoLevel() {
+function useSubmitUserBitcoinLevel() {
   return useMutation({
-    mutationFn: peachAPI.private.user.submitUserCryptoLevel,
+    mutationFn: peachAPI.private.user.submitUserBitcoinLevel,
   });
 }
