@@ -16,6 +16,16 @@ npm install
 
 https://s-pace.github.io/react-native/docs/signed-apk-android.html
 
+### Optional path with Fastlane:
+
+To use FastLane and deploy directly to TestFligh:
+
+Replace the .env.dist with .env on /ios/fastlane folder
+
+`brew install fastlane`
+`cd ios`
+`fastlane beta`
+
 **iOS**
 
 Install dependencies
