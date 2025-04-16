@@ -20,7 +20,8 @@ export type SellSorter = "highestPrice" | "bestReputation";
 type OfferPreferences = {
   buyAmountRange: [number, number];
   sellAmount: number;
-  premium: number;
+  premium: number; // for Sell
+  buyPremium: number;
   meansOfPayment: MeansOfPayment;
   paymentData: OfferPaymentData;
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>;
@@ -46,6 +47,7 @@ export const defaultPreferences: OfferPreferences = {
   buyAmountRange: [1, TOTAL_SATS],
   sellAmount: 1,
   premium: 1.5,
+  buyPremium: 21,
   meansOfPayment: {},
   paymentData: {},
   preferredPaymentMethods: {},
@@ -77,7 +79,8 @@ type OfferPreferencesActions = {
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
-  setPremium: (newPremium: number, isValid?: boolean) => void;
+  setPremium: (newPremium: number, isValid?: boolean) => void; // for Sell
+  setBuyPremium: (newPremium: number, isValid?: boolean) => void; // for Buy
   setPaymentMethods: (ids: string[]) => void;
   selectPaymentMethod: (id: string) => void;
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
@@ -104,6 +107,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
       setPremium: (premium) => set({ premium }),
+      setBuyPremium: (buyPremium) => set({ buyPremium }),
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids);
         const originalPaymentData = getOriginalPaymentData(
