@@ -5,7 +5,7 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
@@ -21,7 +21,7 @@ const possibleSources = [
 ] as const;
 
 export function UserSource() {
-  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
+  const navigation = useStackNavigation();
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();
   const { mutate: submitUserSource } = useSubmitUserSource();
@@ -33,7 +33,7 @@ export function UserSource() {
       {
         onSuccess: () => {
           setTimeout(() => {
-            setIsLoggedIn(true);
+            navigation.navigate("userBitcoinLevel");
           }, MSINASECOND);
         },
       },
