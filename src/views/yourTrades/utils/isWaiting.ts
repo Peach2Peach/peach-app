@@ -6,7 +6,11 @@ const waitingStatus = [
   "offerHidden",
   "payoutPending",
 ];
-const waitingBuyStatus = ["confirmPaymentRequired", "paymentTooLate"];
+const waitingBuyStatus = [
+  "confirmPaymentRequired",
+  "paymentTooLate",
+  "waitingForFunding",
+];
 const waitingSellStatus = ["paymentRequired", "fundingExpired"];
 export const isWaiting = (type: "ask" | "bid", tradeStatus: TradeStatus) =>
   waitingStatus.includes(tradeStatus) ||
