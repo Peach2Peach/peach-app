@@ -118,7 +118,7 @@ export const RemotePaymentMethods = ({
             {checkboxes.map((item, j) => (
               <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
                 {item.isValid ? (
-                  <View>
+                  <View style={tw`gap-4`}>
                     <PaymentDetailsCheckbox
                       onPress={() =>
                         isEditing ? editItem(item.data) : select(item.value)
