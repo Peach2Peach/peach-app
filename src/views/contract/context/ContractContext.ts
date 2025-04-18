@@ -8,6 +8,7 @@ type ContractContextType = {
   view: "buyer" | "seller";
   showBatchInfo: boolean;
   toggleShowBatchInfo: () => void;
+  isFirstTradeAsBuyer?: boolean;
 };
 
 export const ContractContext = createContext<ContractContextType | undefined>(
