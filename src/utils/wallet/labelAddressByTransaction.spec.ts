@@ -1,5 +1,5 @@
 import { buyOffer, sellOffer } from "../../../tests/unit/data/offerData";
-import { offerSummary } from "../../../tests/unit/data/offerSummaryData";
+import { buyOfferSummary } from "../../../tests/unit/data/offerSummaryData";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
@@ -18,7 +18,7 @@ describe("labelAddressByTransaction", () => {
   it("does not label address if associated offer cannot be found", () => {
     useWalletState
       .getState()
-      .updateTxOfferMap(confirmed1.txid, [offerSummary.id]);
+      .updateTxOfferMap(confirmed1.txid, [buyOfferSummary.id]);
     labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });
