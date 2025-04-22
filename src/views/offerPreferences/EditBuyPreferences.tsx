@@ -34,6 +34,7 @@ import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
 } from "../settings/profile/profileOverview/Rating";
+import { CompetingOfferStats } from "./CreateBuyOffer";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -128,6 +129,7 @@ function ScreenContent({ offer }: { offer: BuyOffer }) {
           <OfferMarketInfo />
           <OfferMethods />
           <AmountSelector setIsSliding={setIsSliding} />
+          <CompetingOfferStats />
           <Filters />
           <OfferWalletSelector
             offerId={offer.id}

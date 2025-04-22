@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
@@ -9,7 +9,6 @@ import {
   View,
 } from "react-native";
 import { shallow } from "zustand/shallow";
-import { MeansOfPayment } from "../../../peach-api/src/@types/payment";
 import { Badge } from "../../components/Badge";
 import { PremiumInput } from "../../components/PremiumInput";
 import { TouchableIcon } from "../../components/TouchableIcon";
@@ -21,7 +20,6 @@ import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
@@ -40,7 +38,6 @@ import { defaultFundingStatus } from "../../utils/offer/constants";
 import { saveOffer } from "../../utils/offer/saveOffer";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
-import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { isDefined } from "../../utils/validation/isDefined";
@@ -59,6 +56,7 @@ import { Section } from "./components/Section";
 import { Slider, sliderWidth } from "./components/Slider";
 import { SliderTrack } from "./components/SliderTrack";
 import { useFilteredMarketStats } from "./components/useFilteredMarketStats";
+import { usePastOffersStats } from "./usePastOffersStats";
 import { trackMin } from "./utils/constants";
 import { enforceDigitFormat } from "./utils/enforceDigitFormat";
 import { useAmountInBounds } from "./utils/useAmountInBounds";
@@ -100,29 +98,6 @@ function SellPreferenceMarketInfo() {
     shallow,
   );
   return <MarketInfo type="buyOffers" {...preferences} />;
-}
-
-function usePastOffersStats({
-  meansOfPayment,
-}: {
-  meansOfPayment: MeansOfPayment;
-}) {
-  return useQuery({
-    queryKey: marketKeys.filteredPastOfferStats(meansOfPayment),
-    queryFn: async (context) => {
-      const preferences = context.queryKey[3];
-      const { result } =
-        await peachAPI.public.market.getPastOffersStats(preferences);
-      if (!result) throw new Error("no past offers stats found");
-      return result;
-    },
-    placeholderData: (data) => {
-      if (data) return data;
-      return {
-        avgPremium: 0,
-      };
-    },
-  });
 }
 
 function CompetingOfferStats() {
