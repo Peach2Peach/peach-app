@@ -35,6 +35,7 @@ export const TradingLimitAmount = ({
           currency={displayCurrency}
           amount={amount}
           round
+          includeCurrency={false}
         />
         <PeachText
           style={[
