@@ -1,11 +1,11 @@
-import { balticHoneyBadger } from "../../../../tests/unit/data/eventData";
+import { btcPrague } from "../../../../tests/unit/data/eventData";
 import { getCountrySelectDrawerOptions } from "./getCountrySelectDrawerOptions";
 
 describe("getCountrySelectDrawerOptions", () => {
   const goToEventDetails = jest.fn();
   const selectCountry = jest.fn();
   const result = getCountrySelectDrawerOptions(
-    [balticHoneyBadger],
+    [btcPrague],
     goToEventDetails,
     selectCountry,
   );
@@ -16,13 +16,13 @@ describe("getCountrySelectDrawerOptions", () => {
         {
           highlighted: true,
           onPress: expect.any(Function),
-          subtext: "Riga",
-          title: "Baltic Honeybadger",
+          subtext: "Prague",
+          title: "BTC Prague",
         },
         {
-          flagID: "LV",
+          flagID: "CZ",
           onPress: expect.any(Function),
-          title: "Latvia",
+          title: "Czech Republic",
         },
       ]),
       show: true,
@@ -31,12 +31,12 @@ describe("getCountrySelectDrawerOptions", () => {
   });
   it("should go to event details directly for super featured events", () => {
     result.options.find((event) => event.highlighted)?.onPress();
-    expect(goToEventDetails).toHaveBeenCalledWith(balticHoneyBadger.id);
+    expect(goToEventDetails).toHaveBeenCalledWith(btcPrague.id);
   });
   it("should select country when pressing on country option", () => {
     result.options.find((event) => !event.highlighted)?.onPress();
     expect(selectCountry).toHaveBeenCalledWith(
-      expect.objectContaining({ LV: [balticHoneyBadger] }),
+      expect.objectContaining({ CZ: [btcPrague] }),
       "AD",
     );
   });

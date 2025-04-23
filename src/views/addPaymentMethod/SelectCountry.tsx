@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { PaymentMethodCountry } from "../../../peach-api/src/@types/offer";
+import { BitcoinEvent } from "../../../peach-api/src/@types/events";
+import { GiftCardCountry } from "../../../peach-api/src/@types/payment";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -18,7 +19,7 @@ import { usePaymentMethodLabel } from "./hooks";
 export const SelectCountry = () => {
   const { origin, selectedCurrency } = useRoute<"selectCountry">().params;
   const navigation = useStackNavigation();
-  const [selectedCountry, setCountry] = useState<PaymentMethodCountry>();
+  const [selectedCountry, setCountry] = useState<GiftCardCountry>();
   const setPopup = useSetPopup();
 
   const countries = useMemo(
@@ -83,14 +84,14 @@ export const SelectCountry = () => {
   );
 };
 
-const map: Partial<Record<Currency, PaymentMethodCountry[]>> = {
-  EUR: ["DE", "FR", "IT", "ES", "NL", "PT"],
-  CHF: ["CH"],
-  GBP: ["GB", "UK"],
-  SEK: ["SE"],
-  USD: ["US"],
-};
-
 function countrySupportsCurrency(currency: Currency) {
-  return (country: PaymentMethodCountry) => map[currency]?.includes(country);
+  return (
+    country: GiftCardCountry | BitcoinEvent["country"],
+  ): country is GiftCardCountry => {
+    if (currency === "EUR")
+      return ["DE", "FR", "IT", "ES", "NL", "PT"].includes(country);
+    if (currency === "GBP") return country === "UK";
+    if (currency === "SEK") return country === "SE";
+    return false;
+  };
 }
