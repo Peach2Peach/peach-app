@@ -1,6 +1,5 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
-import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { getBuyOfferIdFromContract } from "../contract/getBuyOfferIdFromContract";
 import { useWalletState } from "./walletStore";
 
@@ -8,7 +7,7 @@ export function mapTransactionToOffer({
   offerSummaries,
   contractSummaries,
 }: {
-  offerSummaries: Pick<OfferSummary, "txId" | "fundingTxId" | "id">[];
+  offerSummaries: { txId?: string; fundingTxId?: string; id: string }[];
   contractSummaries: Pick<ContractSummary, "releaseTxId" | "id">[];
 }) {
   return ({ txid }: TransactionDetails) => {

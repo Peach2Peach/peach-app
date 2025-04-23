@@ -1,6 +1,6 @@
 import { fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { contractSummary } from "../../../../../tests/unit/data/contractSummaryData";
-import { offerSummary } from "../../../../../tests/unit/data/offerSummaryData";
+import { buyOfferSummary } from "../../../../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../../../queryClient";
 import { peachAPI } from "../../../../utils/peachAPI";
 import { TransactionHeader } from "./TransactionHeader";
@@ -16,7 +16,7 @@ jest.useFakeTimers();
 
 describe("TransactionHeader", () => {
   const buyOfferData: OfferData = {
-    offerId: offerSummary.id,
+    offerId: buyOfferSummary.id,
     address: "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
     amount: contractSummary.amount,
     contractId: undefined,
@@ -25,7 +25,7 @@ describe("TransactionHeader", () => {
   };
 
   const buyOfferWithContractData: OfferData = {
-    offerId: offerSummary.id,
+    offerId: buyOfferSummary.id,
     contractId: contractSummary.id,
     amount: contractSummary.amount,
     address: "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
@@ -35,7 +35,7 @@ describe("TransactionHeader", () => {
 
   jest
     .spyOn(peachAPI.private.offer, "getOfferSummaries")
-    .mockResolvedValue({ result: [offerSummary], ...responseUtils });
+    .mockResolvedValue({ result: [buyOfferSummary], ...responseUtils });
   jest
     .spyOn(peachAPI.private.contract, "getContractSummaries")
     .mockResolvedValue({ result: [contractSummary], ...responseUtils });
@@ -112,7 +112,7 @@ describe("TransactionHeader", () => {
       <TransactionHeader type="ESCROWFUNDED" offerData={[buyOfferData]} />,
     );
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
-    expect(navigateToOfferOrContractMock).toHaveBeenCalledWith(offerSummary);
+    expect(navigateToOfferOrContractMock).toHaveBeenCalledWith(buyOfferSummary);
     fireEvent.press(getByText("P‑1C8"));
     expect(goToOfferMock).toHaveBeenCalled();
   });

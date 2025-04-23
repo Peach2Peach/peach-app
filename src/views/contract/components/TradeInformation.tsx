@@ -113,13 +113,13 @@ function SellerFundEscrow() {
         />
       </View>
       <FundingAmount fundingAmount={contract.amount} />
-      {contract.escrow && fundingStatus && (
+      {!!contract.escrow && !!fundingStatus && (
         <>
           <BitcoinAddress
             address={contract.escrow}
             label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
           />
-          {peachWallet?.balance && peachWallet.balance > contract.amount && (
+          {!!peachWallet?.balance && peachWallet.balance > contract.amount && (
             <FundFromPeachWalletButton
               amount={contract.amount}
               offerId={sellOfferId}

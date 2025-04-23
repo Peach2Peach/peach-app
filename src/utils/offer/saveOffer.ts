@@ -1,7 +1,6 @@
 import { BuyOffer, SellOffer } from "../../../peach-api/src/@types/offer";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
-import { getSummaryFromOffer } from "./getSummaryFromOffer";
 
 export const saveOffer = (offer: SellOffer | BuyOffer) => {
   queryClient.setQueryData(offerKeys.detail(offer.id), offer);
@@ -17,3 +16,11 @@ export const saveOffer = (offer: SellOffer | BuyOffer) => {
     },
   );
 };
+
+function getSummaryFromOffer(offer: BuyOffer | SellOffer) {
+  return {
+    ...offer,
+    lastModified: offer.lastModified ?? new Date(),
+    creationDate: new Date(offer.creationDate),
+  };
+}

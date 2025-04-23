@@ -26,13 +26,9 @@ export const useTradeSummaries = (enabled = true) => {
     [refetchContracts, refetchOffers],
   );
 
-  const filteredOffers = useMemo(
-    () => offers.filter(({ contractId }) => !contractId),
-    [offers],
-  );
   const tradeSummaries = useMemo(
-    () => [...filteredOffers, ...contracts].sort(sortSummariesByDate).reverse(),
-    [contracts, filteredOffers],
+    () => [...offers, ...contracts].sort(sortSummariesByDate).reverse(),
+    [contracts, offers],
   );
 
   const allOpenOffers = useMemo(
