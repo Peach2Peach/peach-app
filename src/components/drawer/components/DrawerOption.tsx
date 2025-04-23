@@ -3,7 +3,6 @@ import { IconType } from "../../../assets/icons";
 import tw from "../../../styles/tailwind";
 import { Flag } from "../../Flag";
 import { Icon } from "../../Icon";
-import { FlagType } from "../../flags";
 import { PaymentLogo } from "../../payment/PaymentLogo";
 import { PaymentLogoType } from "../../payment/logos";
 import { FixedHeightText } from "../../text/FixedHeightText";
@@ -25,7 +24,7 @@ export type DrawerOptionType = {
       subtext?: never;
     }
   | {
-      flagID: FlagType;
+      flagID: string;
       logoID?: never;
       highlighted?: never;
     }
@@ -74,7 +73,7 @@ export const DrawerOption = ({
     )}
     {flagID && <Flag id={flagID} style={tw`w-8 h-6`} />}
 
-    <View style={[tw`justify-center grow`, flagID && tw`gap-2px`]}>
+    <View style={[tw`justify-center grow`, !!flagID && tw`gap-2px`]}>
       {flagID || logoID || !subtext ? (
         <FixedHeightText
           height={flagID && subtext ? flagSubtextHeight : defaultSubtextHeight}

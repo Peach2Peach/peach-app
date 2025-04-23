@@ -30,14 +30,14 @@ describe("getCountrySelectDrawerOptions", () => {
     });
   });
   it("should go to event details directly for super featured events", () => {
-    result.options.find((event) => event.highlighted)?.onPress();
+    result.options.find((event) => "highlighted" in event)?.onPress();
     expect(goToEventDetails).toHaveBeenCalledWith(btcPrague.id);
   });
   it("should select country when pressing on country option", () => {
-    result.options.find((event) => !event.highlighted)?.onPress();
+    result.options.find((event) => !("highlighted" in event))?.onPress();
     expect(selectCountry).toHaveBeenCalledWith(
       expect.objectContaining({ CZ: [btcPrague] }),
-      "AD",
+      "CZ",
     );
   });
 });
