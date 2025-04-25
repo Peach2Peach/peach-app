@@ -7,11 +7,6 @@ interface DecryptAccountProps {
   password: string;
 }
 
-type AccountBackup = Account & {
-  paymentData: PaymentData[];
-  settings: Settings;
-};
-
 export const decryptAccount = ({
   encryptedAccount,
   password = "",

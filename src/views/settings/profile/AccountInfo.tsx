@@ -27,7 +27,7 @@ function PublicKey({ publicKey }: { publicKey: string }) {
       <PeachText
         style={tw.style(
           `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
+          isDarkMode ? "text-backgroundLight-light" : "text-black-50",
         )}
       >
         {i18n("profile.publicKey")}:
@@ -58,7 +58,7 @@ function AccountCreated({ creationDate }: { creationDate: Date }) {
       <PeachText
         style={tw.style(
           `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
+          isDarkMode ? "text-backgroundLight-light" : "text-black-50",
         )}
       >
         {i18n("profile.accountCreated")}:
@@ -82,7 +82,7 @@ function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
       <PeachText
         style={tw.style(
           `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
+          isDarkMode ? "text-backgroundLight-light" : "text-black-50",
         )}
       >
         {i18n("profile.disputes")}:
@@ -114,7 +114,7 @@ function Trades({ trades }: { trades: number }) {
       <PeachText
         style={tw.style(
           `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
+          isDarkMode ? "text-backgroundLight-light" : "text-black-50",
         )}
       >
         {i18n("profile.numberOfTrades")}:

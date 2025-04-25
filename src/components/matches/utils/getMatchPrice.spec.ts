@@ -17,7 +17,7 @@ describe("getMatchPrice", () => {
       prices: {
         USD: 200,
       },
-    };
+    } as Match;
 
     expect(getMatchPrice(match, undefined, "USD")).toEqual(0);
   });
@@ -30,7 +30,7 @@ describe("getMatchPrice", () => {
       prices: {
         USD: USD_PRICE,
       },
-    };
+    } as Match;
 
     expect(getMatchPrice(match, undefined, "USD")).toEqual(USD_PRICE);
   });
@@ -42,7 +42,7 @@ describe("getMatchPrice", () => {
       prices: {
         USD: 200,
       },
-    };
+    } as Match;
 
     getMatchPrice(match, "paypal", "USD");
 
@@ -57,7 +57,7 @@ describe("getMatchPrice", () => {
       prices: {
         USD: USD_PRICE,
       },
-    };
+    } as Match;
 
     expect(getMatchPrice(match, undefined, "USD")).toEqual(USD_PRICE);
   });
@@ -71,7 +71,7 @@ describe("getMatchPrice", () => {
       prices: {
         USD: USD_PRICE,
       },
-    };
+    } as Match;
 
     getPaymentMethodInfoMock.mockReturnValue({
       id: "paypal",
@@ -89,7 +89,7 @@ describe("getMatchPrice", () => {
       prices: {
         USD: USD_PRICE,
       },
-    };
+    } as Match;
 
     getPaymentMethodInfoMock.mockReturnValue({
       id: "paypal",
@@ -104,7 +104,7 @@ describe("getMatchPrice", () => {
       matched: false,
       matchedPrice: 10,
       prices: {},
-    };
+    } as Match;
 
     getPaymentMethodInfoMock.mockReturnValueOnce({
       id: "paypal",
@@ -119,7 +119,7 @@ describe("getMatchPrice", () => {
       matched: false,
       matchedPrice: 10,
       prices: {},
-    };
+    } as Match;
 
     getPaymentMethodInfoMock.mockReturnValueOnce({
       id: "paypal",

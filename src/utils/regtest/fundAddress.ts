@@ -7,7 +7,6 @@ type Props = {
   address: string;
   amount: number;
 };
-type Response = { txId: string };
 export const fundAddress = async ({ address, amount }: Props) => {
   const response = await fetch(`${API_URL}/v1/regtest/fundAddress`, {
     headers: getPublicHeaders(),
@@ -18,5 +17,5 @@ export const fundAddress = async ({ address, amount }: Props) => {
     }),
   });
 
-  return parseResponse<Response>(response, "fundAddress");
+  return parseResponse<GenerateBlockResponse>(response, "fundAddress");
 };

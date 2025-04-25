@@ -1,19 +1,17 @@
-import { BitcoinEvent } from "../../../peach-api/src/@types/events";
-
-export const btcPrague: BitcoinEvent = {
-  id: "cz.prague.btc-prague",
+export const balticHoneyBadger: MeetupEvent = {
+  id: "lv.riga.baltic-honeybadger",
   featured: true,
   currencies: ["EUR"],
-  country: "CZ",
-  city: "Prague",
-  shortName: "BTC Prague",
-  longName: "BTC Prague",
-  url: "https://btcprague.com/",
-  frequency: "June 19-21, 2025",
-  logo: "/v1/events/logo/btc-prague.svg",
+  country: "LV",
+  city: "Riga",
+  shortName: "Baltic Honeybadger",
+  longName: "Baltic Honeybadger",
+  url: "https://baltichoneybadger.com/",
+  frequency: "September 2-3, 2023",
+  logo: "/v1/events/logo/baltic.jpg",
 };
 
-export const belgianBTCEmbassy: BitcoinEvent = {
+export const belgianBTCEmbassy: MeetupEvent = {
   id: "be.antwerp.belgian-btc-embassy",
   featured: false,
   currencies: ["EUR"],
@@ -27,7 +25,7 @@ export const belgianBTCEmbassy: BitcoinEvent = {
   logo: "/v1/events/logo/bbe.png",
 };
 
-export const decouvreBTC: BitcoinEvent = {
+export const decouvreBTC: MeetupEvent = {
   id: "fr.lyon.decouvre-btc-lyon",
   featured: false,
   currencies: ["EUR"],
@@ -39,7 +37,7 @@ export const decouvreBTC: BitcoinEvent = {
   logo: "/v1/events/logo/lyon.png",
 };
 
-export const breizhBitcoin: BitcoinEvent = {
+export const breizhBitcoin: MeetupEvent = {
   id: "fr.rennes.breizh-bitcoin",
   featured: false,
   currencies: ["EUR"],

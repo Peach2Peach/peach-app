@@ -16,12 +16,6 @@ const setPaymentMethodsFromStore = () => {
   );
 };
 
-type GetStatusResponse = {
-  error: null;
-  status: "online";
-  serverTime: number;
-};
-
 export const getPeachInfo = async (): Promise<
   GetStatusResponse | APIError<"HUMAN_VERIFICATION_REQUIRED"> | null | undefined
 > => {
@@ -49,23 +43,27 @@ export const getPeachInfo = async (): Promise<
     error("Error fetching peach info", getInfoError.error);
     setPaymentMethodsFromStore();
   } else if (getInfoResponse) {
-    const {
-      setPaymentMethods: setPaymentMethodsStore,
-      setPeachFee,
-      setPeachPGPPublicKey,
-    } = useConfigStore.getState();
-
-    const paymentMethods = getInfoResponse.paymentMethods.filter(
-      shouldUsePaymentMethod(PAYMENTCATEGORIES),
-    );
-    setPeachPGPPublicKey(getInfoResponse.peach.pgpPublicKey);
-    setPaymentMethodsStore(paymentMethods);
-    setPaymentMethods(paymentMethods);
-    setPeachFee(getInfoResponse.fees.escrow);
+    storePeachInfo(getInfoResponse);
   }
 
   return statusResponse;
 };
+
+function storePeachInfo(peachInfo: GetInfoResponse) {
+  const {
+    setPaymentMethods: setPaymentMethodsStore,
+    setPeachFee,
+    setPeachPGPPublicKey,
+  } = useConfigStore.getState();
+
+  const paymentMethods = peachInfo.paymentMethods.filter(
+    shouldUsePaymentMethod(PAYMENTCATEGORIES),
+  );
+  setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey);
+  setPaymentMethodsStore(paymentMethods);
+  setPaymentMethods(paymentMethods);
+  setPeachFee(peachInfo.fees.escrow);
+}
 
 /**
  * Note: we estimate the time it took for the response to arrive from server to client

@@ -1,9 +1,7 @@
-import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import {
   paypalData,
   validSEPAData,
 } from "../../../../tests/unit/data/paymentData";
-import { useConfigStore } from "../../../store/configStore/configStore";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { checkSupportedPaymentMethods } from "./checkSupportedPaymentMethods";
@@ -13,10 +11,6 @@ const paymentInfo: PaymentMethodInfo[] = [
     id: "sepa",
     currencies: ["EUR"],
     anonymous: false,
-    fields: {
-      mandatory: [[["iban", "bic"]]],
-      optional: ["reference"],
-    },
   },
 ];
 
@@ -27,7 +21,6 @@ describe("checkSupportedPaymentMethods", () => {
     useOfferPreferences
       .getState()
       .setPaymentMethods([validSEPAData.id, paypalData.id]);
-    useConfigStore.getState().setPaymentMethods(paymentInfo);
   });
 
   it("sets inactive flag on payment methods that are not supported", async () => {

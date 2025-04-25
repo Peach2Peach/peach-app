@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, ViewStyle } from "react-native";
+import { View } from "react-native";
 import { MSINASECOND } from "../../constants";
 import tw from "../../styles/tailwind";
 import { msToTimer } from "../../utils/string/msToTimer";
 import { PeachText } from "./PeachText";
 
-type Props = {
-  style?: ViewStyle | ViewStyle[];
+type Props = ComponentProps & {
   text?: string;
   end: number;
 };

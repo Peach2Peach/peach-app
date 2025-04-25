@@ -53,7 +53,7 @@ export const LetsGetStarted = () => {
   }, [handleRefCode, setReferralCode]);
 
   useEffect(() => {
-    void Linking.getInitialURL().then((url) => handleRefCode({ url }));
+    Linking.getInitialURL().then((url) => handleRefCode({ url }));
   }, [handleRefCode]);
 
   const updateReferralCode = (code: string) => {
@@ -81,9 +81,9 @@ export const LetsGetStarted = () => {
   const userUpdate = useUserUpdate();
   const [isLoading, setIsLoading] = useState(false);
   const onError = useCallback(
-    async (err?: string) => {
+    (err?: string) => {
       const errorMsg = err || "UNKNOWN_ERROR";
-      await deleteAccount();
+      deleteAccount();
       navigation.navigate("createAccountError", {
         err: errorMsg,
       });
@@ -112,7 +112,7 @@ export const LetsGetStarted = () => {
           await updateAccount(newAccount, true);
           await userUpdate(willUseReferralCode ? referralCode : undefined);
 
-          await storeAccount(newAccount);
+          storeAccount(newAccount);
           navigation.navigate("accountCreated");
           setIsLoading(false);
 
@@ -122,7 +122,7 @@ export const LetsGetStarted = () => {
         },
       });
     } catch (e) {
-      await onError(parseError(e));
+      onError(parseError(e));
     }
   };
 
@@ -132,13 +132,18 @@ export const LetsGetStarted = () => {
     <View style={tw`items-center flex-1 gap-4 shrink`}>
       <View style={tw`justify-center gap-4 grow`}>
         <PeachText
-          style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}
+          style={[
+            tw`text-center h5 text-primary-background-light-color`,
+            tw`md:h4`,
+          ]}
         >
           {i18n("welcome.letsGetStarted.title")}
         </PeachText>
 
         <View>
-          <PeachText style={tw`text-center text-primary-background-light`}>
+          <PeachText
+            style={tw`text-center text-primary-background-light-color`}
+          >
             {i18n("newUser.referralCode")}
           </PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
@@ -148,7 +153,6 @@ export const LetsGetStarted = () => {
                 theme="inverted"
                 maxLength={16}
                 placeholder={i18n("form.optional").toUpperCase()}
-                placeholderTextColor={tw.color("backgroundLight")}
                 onChangeText={updateReferralCode}
                 onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
                 value={referralCode}
@@ -156,7 +160,7 @@ export const LetsGetStarted = () => {
               />
             </View>
             <Button
-              style={tw`min-w-20 bg-primary-background-light`}
+              style={tw`min-w-20 bg-primary-background-light-color`}
               textColor={tw.color("primary-main")}
               disabled={
                 willUseReferralCode || !referralCode || !referralCodeIsValid
@@ -172,7 +176,7 @@ export const LetsGetStarted = () => {
       <View style={tw`gap-2`}>
         <Button
           onPress={createNewUser}
-          style={tw`bg-primary-background-light`}
+          style={tw`bg-primary-background-light-color`}
           loading={isLoading}
           textColor={tw.color("primary-main")}
           iconId="plusCircle"
@@ -203,10 +207,12 @@ function useCheckReferralCode() {
 function CreateAccountLoading() {
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
-      <PeachText style={tw`text-center h4 text-primary-background-light`}>
+      <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
         {i18n("newUser.title.create")}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light`}>
+      <PeachText
+        style={tw`text-center body-l text-primary-background-light-color`}
+      >
         {i18n("newUser.oneSec")}
       </PeachText>
       <Loading size={"large"} color={tw.color("primary-mild-1")} />

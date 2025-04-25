@@ -415,67 +415,47 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                 >
                   <test-file-stub
                     style={
-                      [
-                        {
-                          "opacity": 0.5,
-                        },
-                        {
-                          "height": 12,
-                          "width": 12,
-                        },
-                      ]
+                      {
+                        "height": 12,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
                     }
                   />
                   <test-file-stub
                     style={
-                      [
-                        {
-                          "opacity": 0.5,
-                        },
-                        {
-                          "height": 12,
-                          "width": 12,
-                        },
-                      ]
+                      {
+                        "height": 12,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
                     }
                   />
                   <test-file-stub
                     style={
-                      [
-                        {
-                          "opacity": 0.5,
-                        },
-                        {
-                          "height": 12,
-                          "width": 12,
-                        },
-                      ]
+                      {
+                        "height": 12,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
                     }
                   />
                   <test-file-stub
                     style={
-                      [
-                        {
-                          "opacity": 0.5,
-                        },
-                        {
-                          "height": 12,
-                          "width": 12,
-                        },
-                      ]
+                      {
+                        "height": 12,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
                     }
                   />
                   <test-file-stub
                     style={
-                      [
-                        {
-                          "opacity": 0.5,
-                        },
-                        {
-                          "height": 12,
-                          "width": 12,
-                        },
-                      ]
+                      {
+                        "height": 12,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
                     }
                   />
                   <View
@@ -548,17 +528,14 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                         "lineHeight": 24,
                       },
                       false,
-                      [
-                        {
-                          "color": "#7D675E",
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 13,
-                          "letterSpacing": 0.47,
-                          "lineHeight": 22,
-                          "textTransform": "uppercase",
-                        },
-                        undefined,
-                      ],
+                      {
+                        "color": "#7D675E",
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 13,
+                        "letterSpacing": 0.47,
+                        "lineHeight": 22,
+                        "textTransform": "uppercase",
+                      },
                       false,
                     ]
                   }

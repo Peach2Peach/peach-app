@@ -1,4 +1,3 @@
-import { Contract } from "../../../peach-api/src/@types/contract";
 import { peachAPI } from "../../utils/peachAPI";
 import { useContractMutation } from "../../views/contract/hooks/useContractMutation";
 

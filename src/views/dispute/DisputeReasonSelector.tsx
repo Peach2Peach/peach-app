@@ -12,6 +12,7 @@ import { DisputeRaisedSuccess } from "../../popups/dispute/DisputeRaisedSuccess"
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
+import { getContractViewer } from "../../utils/contract/getContractViewer";
 import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useRaiseDispute } from "./useRaiseDispute";
@@ -27,19 +28,14 @@ export const DisputeReasonSelector = () => {
   );
 };
 
-const disputeReasons = {
-  buyer: ["noPayment.buyer", "unresponsive.buyer", "abusive", "other"] as const,
-  seller: [
-    "noPayment.seller",
-    "unresponsive.seller",
-    "abusive",
-    "other",
-  ] as const,
+const disputeReasons: Record<ContractViewer, DisputeReason[]> = {
+  buyer: ["noPayment.buyer", "unresponsive.buyer", "abusive", "other"],
+  seller: ["noPayment.seller", "unresponsive.seller", "abusive", "other"],
 };
 
 function DisputeReasonScreen({ contract }: { contract: Contract }) {
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const view = publicKey === contract.seller.id ? "seller" : "buyer";
+  const view = getContractViewer(contract.seller.id, publicKey);
   const availableReasons =
     view === "seller" ? disputeReasons.seller : disputeReasons.buyer;
 

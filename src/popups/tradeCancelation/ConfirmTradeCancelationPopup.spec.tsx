@@ -4,7 +4,7 @@ import { account1 } from "../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { GlobalPopup } from "../../components/popup/GlobalPopup";
-import { offerKeys } from "../../hooks/query/offerKeys";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { queryClient } from "../../queryClient";
 import { setAccount } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
@@ -91,7 +91,9 @@ describe("ConfirmTradeCancelationPopup", () => {
     const { getAllByText } = render(
       <ConfirmTradeCancelationPopup view="buyer" contract={contract} />,
     );
-    await act(() => fireEvent.press(getAllByText("cancel trade")[1]));
+    await act(async () => {
+      await fireEvent.press(getAllByText("cancel trade")[1]);
+    });
     const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled!")).toBeTruthy();
@@ -113,7 +115,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
 
-    await act(() => fireEvent.press(getAllByText("cancel trade")[1]));
+    await act(async () => {
+      await fireEvent.press(getAllByText("cancel trade")[1]);
+    });
 
     const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("cancel trade")).toBeFalsy();
@@ -141,7 +145,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    await act(() => fireEvent.press(getByText("cancel trade")));
+    await act(async () => {
+      await fireEvent.press(getByText("cancel trade"));
+    });
     const { queryByText } = render(<GlobalPopup />);
 
     expect(queryByText("cancel trade")).toBeFalsy();
@@ -171,7 +177,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    await act(() => fireEvent.press(getByText("cancel trade")));
+    await act(async () => {
+      await fireEvent.press(getByText("cancel trade"));
+    });
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => act(jest.runAllTimers));
 

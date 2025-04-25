@@ -227,18 +227,21 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
     onStartShouldSetResponder={[Function]}
     onStartShouldSetResponderCapture={[Function]}
     style={
-      {
-        "backgroundColor": "#FEEDE5",
-        "borderColor": "#FCCCB6",
-        "borderRadius": 20,
-        "borderWidth": 1,
-        "overflow": "hidden",
-        "paddingBottom": 4,
-        "paddingLeft": 4,
-        "paddingRight": 4,
-        "paddingTop": 4,
-        "width": "100%",
-      }
+      [
+        {
+          "backgroundColor": "#FEEDE5",
+          "borderColor": "#FCCCB6",
+          "borderRadius": 20,
+          "borderWidth": 1,
+          "overflow": "hidden",
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
     testID="confirmSlider"
   >
@@ -432,18 +435,21 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
     onStartShouldSetResponder={[Function]}
     onStartShouldSetResponderCapture={[Function]}
     style={
-      {
-        "backgroundColor": "#FEEDE5",
-        "borderColor": "#FCCCB6",
-        "borderRadius": 20,
-        "borderWidth": 1,
-        "overflow": "hidden",
-        "paddingBottom": 4,
-        "paddingLeft": 4,
-        "paddingRight": 4,
-        "paddingTop": 4,
-        "width": "100%",
-      }
+      [
+        {
+          "backgroundColor": "#FEEDE5",
+          "borderColor": "#FCCCB6",
+          "borderRadius": 20,
+          "borderWidth": 1,
+          "overflow": "hidden",
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
     testID="confirmSlider"
   >

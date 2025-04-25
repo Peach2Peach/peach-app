@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimpleTimer should render correctly 1`] = `
+<PeachText>
+  24:00:00
+</PeachText>
+`;
+
+exports[`Timer should render correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    text
+  </PeachText>
+  <SimpleTimer
+    end={1646826067245}
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#9F8C82",
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Timer should render correctly when timer expired 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    text
+  </PeachText>
+  <SimpleTimer
+    end={1646739667245}
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#9F8C82",
+        },
+      ]
+    }
+  />
+</View>
+`;

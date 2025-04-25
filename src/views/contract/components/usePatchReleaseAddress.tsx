@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Contract } from "../../../../peach-api/src/@types/contract";
-import { offerKeys } from "../../../hooks/query/offerKeys";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { peachAPI } from "../../../utils/peachAPI";
 

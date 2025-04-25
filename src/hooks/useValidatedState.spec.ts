@@ -1,4 +1,5 @@
-import { act, renderHook } from "test-utils";
+import { act } from "react-test-renderer";
+import { renderHook } from "test-utils";
 import { useValidatedState } from "./useValidatedState";
 
 const requiredRule = { required: true };

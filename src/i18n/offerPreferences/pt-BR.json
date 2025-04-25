@@ -1,10 +1,8 @@
 {
   "help.fundMultiple.description" : "Para economizar em taxas de rede, você pode criar várias ofertas de venda com apenas uma transação!",
   "help.fundMultiple.title" : "financiar várias ofertas de venda",
-  "help.instantTradeSell.description" : "Permita que um comprador que corresponda à sua oferta de venda entre automaticamente em uma negociação com você!\n\nPara habilitar isso, a Peach receberá seus dados de pagamento selecionados para compartilhá-los instantaneamente com um comprador que atenda a todos os seus critérios.\n\nEsses dados são criptografados e não podem ser lidos por terceiros, exceto a Peach.",
-  "help.instantTradeSell.title" : "negociação instantânea",
-  "help.instantTradeBuy.description" : "Permita que um vendedor que corresponda à sua oferta entre automaticamente em uma negociação com você!\n\nVendedores que não se encaixam em seus critérios ainda podem ver sua oferta. Eles esperarão que você aceite a correspondência deles.",
-  "help.instantTradeBuy.title" : "negociação instantânea",
+  "help.instantTrade.description" : "Permita que um comprador que corresponda à sua oferta de venda entre automaticamente em uma negociação com você!\n\nPara habilitar isso, a Peach receberá seus dados de pagamento selecionados para compartilhá-los instantaneamente com um comprador que atenda a todos os seus critérios.\n\nEsses dados são criptografados e não podem ser lidos por terceiros, exceto a Peach.",
+  "help.instantTrade.title" : "negociação instantânea",
   "matchDetails.action.instantTrade" : "negociação instantânea",
   "matchDetails.action.missingSelection" : "selecione o método de pagamento",
   "matchDetails.action.requestTrade" : "solicitar negociação",

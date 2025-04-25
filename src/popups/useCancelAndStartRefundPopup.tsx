@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { SellOffer } from "../../peach-api/src/@types/offer";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { useRefundSellOffer } from "../hooks/useRefundSellOffer";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";

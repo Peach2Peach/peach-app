@@ -76,7 +76,9 @@ export function NewBubble({
         style={[
           tw`text-center button-medium`,
           {
-            color: ghost ? colorStyle : tw.color("primary-background-light"),
+            color: ghost
+              ? colorStyle
+              : tw.color("primary-background-light-color"),
           },
         ]}
       >
@@ -86,7 +88,9 @@ export function NewBubble({
         <Icon
           id={iconId}
           size={12}
-          color={ghost ? colorStyle : tw.color("primary-background-light")}
+          color={
+            ghost ? colorStyle : tw.color("primary-background-light-color")
+          }
         />
       )}
     </TouchableOpacity>

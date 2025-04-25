@@ -1,4 +1,5 @@
 import Clipboard from "@react-native-clipboard/clipboard";
+import { createRenderer } from "react-test-renderer/shallow";
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, fireEvent, render, waitFor } from "test-utils";
 import i18n from "../../utils/i18n";
@@ -13,6 +14,11 @@ jest.useFakeTimers();
 
 describe("BitcoinAddressInput", () => {
   const fullAddress = "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z";
+  it("renders correctly", () => {
+    const renderer = createRenderer();
+    renderer.render(<BitcoinAddressInput value={fullAddress} />);
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
+  });
   it("shows full address when focused", () => {
     const { getByPlaceholderText } = render(
       <BitcoinAddressInput value={fullAddress} />,

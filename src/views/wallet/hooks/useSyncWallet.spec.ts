@@ -34,15 +34,13 @@ describe("useSyncWallet", () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
     expect(queryClient.isFetching()).toBe(0);
-
-    const refetchPromise = result.current.refetch();
-
+    act(() => {
+      result.current.refetch();
+    });
     expect(queryClient.isFetching()).toBe(1);
     expect(queryClient.getQueryState(walletKeys.synced())?.fetchStatus).toBe(
       "fetching",
     );
-
-    await refetchPromise;
 
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
   });
@@ -50,22 +48,21 @@ describe("useSyncWallet", () => {
     const { result } = renderHook(() => useSyncWallet({ enabled: true }));
     await waitFor(() => expect(mockSyncWallet).toHaveBeenCalled());
 
-    await act(() => result.current.refetch());
+    await act(async () => {
+      await result.current.refetch();
+    });
 
     expect(mockSyncWallet).toHaveBeenCalledTimes(2);
   });
   it("should not call peachWallet.syncWallet if already syncing", async () => {
     const { result } = renderHook(() => useSyncWallet({ enabled: true }));
 
-    void result.current.refetch();
-    void result.current.refetch();
-    await waitFor(() => {
-      expect(result.current.isFetching).toBe(false);
+    act(() => {
+      result.current.refetch();
+      result.current.refetch();
     });
+    await waitFor(() => expect(result.current.isFetching).toBe(false));
     expect(mockSyncWallet).toHaveBeenCalledTimes(1);
-    await waitFor(() => {
-      expect(mockSyncWallet).not.toHaveBeenCalledTimes(2);
-    });
   });
   it("should not call peachWallet.syncWallet by default", async () => {
     const { result } = renderHook(useSyncWallet);

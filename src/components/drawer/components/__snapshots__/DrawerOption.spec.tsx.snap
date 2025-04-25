@@ -47,7 +47,7 @@ exports[`DrawerOption should render correctly when highlighted 1`] = `
           "flexGrow": 1,
           "justifyContent": "center",
         },
-        false,
+        undefined,
       ]
     }
   >
@@ -178,7 +178,7 @@ exports[`DrawerOption should render correctly with only title 1`] = `
           "flexGrow": 1,
           "justifyContent": "center",
         },
-        false,
+        undefined,
       ]
     }
   >
@@ -382,7 +382,7 @@ exports[`DrawerOption should render correctly with title and iconRightID 1`] = `
           "flexGrow": 1,
           "justifyContent": "center",
         },
-        false,
+        undefined,
       ]
     }
   >
@@ -517,7 +517,7 @@ exports[`DrawerOption should render correctly with title and logoID 1`] = `
           "flexGrow": 1,
           "justifyContent": "center",
         },
-        false,
+        undefined,
       ]
     }
   >
@@ -612,7 +612,7 @@ exports[`DrawerOption should render correctly with title and subtext 1`] = `
           "flexGrow": 1,
           "justifyContent": "center",
         },
-        false,
+        undefined,
       ]
     }
   >
@@ -869,7 +869,7 @@ exports[`DrawerOption should render correctly with title, logoID and iconRightID
           "flexGrow": 1,
           "justifyContent": "center",
         },
-        false,
+        undefined,
       ]
     }
   >
@@ -1125,7 +1125,7 @@ exports[`DrawerOption should render correctly with title, subtext and iconRightI
           "flexGrow": 1,
           "justifyContent": "center",
         },
-        false,
+        undefined,
       ]
     }
   >

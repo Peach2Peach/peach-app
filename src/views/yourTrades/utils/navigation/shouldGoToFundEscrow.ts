@@ -1,5 +1,3 @@
-import { TradeStatus } from "../../../../../peach-api/src/@types/offer";
-
 const statusThatLeadToFundEscrow = [
   "fundEscrow",
   "escrowWaitingForConfirmation",

@@ -8,18 +8,15 @@ import { Button } from "./buttons/Button";
 
 type Props = {
   releaseTxId?: string;
-  escrow?: string;
+  escrow: string;
   style?: StyleProp<ViewStyle>;
 };
 
 export function EscrowButton({ releaseTxId, escrow, style }: Props) {
-  const openEscrow = async () => {
-    if (!escrow) return;
-    if (releaseTxId) {
-      await showTransaction(releaseTxId, NETWORK);
-    }
-    await showAddress(escrow, NETWORK);
-  };
+  const openEscrow = () =>
+    releaseTxId
+      ? showTransaction(releaseTxId, NETWORK)
+      : showAddress(escrow, NETWORK);
 
   return (
     <Button
@@ -28,7 +25,6 @@ export function EscrowButton({ releaseTxId, escrow, style }: Props) {
       textColor={tw.color("primary-main")}
       ghost
       onPress={openEscrow}
-      disabled={!escrow}
     >
       {i18n("escrow")}
     </Button>

@@ -5,7 +5,6 @@ import {
   validSEPAData2,
   validSEPADataHashes,
 } from "../../../../tests/unit/data/paymentData";
-import { useConfigStore } from "../../../store/configStore/configStore";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -24,14 +23,6 @@ describe("removePaymentData", () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData2);
     usePaymentDataStore.getState().addPaymentData(twintData);
     useOfferPreferences.getState().setPaymentMethods([]);
-    useConfigStore.getState().setPaymentMethods([
-      {
-        id: "sepa",
-        anonymous: false,
-        currencies: ["EUR", "CHF"],
-        fields: { mandatory: [[["iban", "bic"]]], optional: ["reference"] },
-      },
-    ]);
   });
 
   it("does nothing if payment data does not exist", async () => {

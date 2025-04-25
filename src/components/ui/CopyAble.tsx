@@ -1,6 +1,6 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
-import { Animated, TextStyle, TouchableOpacity, ViewStyle } from "react-native";
+import { Animated, TextStyle, TouchableOpacity } from "react-native";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
@@ -16,8 +16,7 @@ const textPositions = {
   right: tw`ml-3 left-full`,
   bottom: tw`mt-1 top-full`,
 };
-type Props = {
-  style?: ViewStyle;
+type Props = ComponentProps & {
   value?: string;
   color?: TextStyle;
   disabled?: boolean;

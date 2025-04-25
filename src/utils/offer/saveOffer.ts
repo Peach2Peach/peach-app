@@ -1,5 +1,4 @@
-import { BuyOffer, SellOffer } from "../../../peach-api/src/@types/offer";
-import { offerKeys } from "../../hooks/query/offerKeys";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { queryClient } from "../../queryClient";
 
 export const saveOffer = (offer: SellOffer | BuyOffer) => {

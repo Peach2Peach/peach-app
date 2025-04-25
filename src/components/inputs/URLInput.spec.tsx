@@ -1,4 +1,5 @@
 import Clipboard from "@react-native-clipboard/clipboard";
+import { createRenderer } from "react-test-renderer/shallow";
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, fireEvent, render, waitFor } from "test-utils";
 import { ScanQR } from "../camera/ScanQR";
@@ -12,6 +13,18 @@ jest.useFakeTimers();
 
 describe("URLInput", () => {
   const address = "blockstream.info";
+  it("renders correctly", () => {
+    const renderer = createRenderer();
+    renderer.render(<URLInput value={address} />);
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
+  });
+  it("allows overriding of icons", () => {
+    const renderer = createRenderer();
+    renderer.render(
+      <URLInput value={address} icons={[["edit3", jest.fn()]]} />,
+    );
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
+  });
 
   it("pastes address from clipboard", async () => {
     const onChangeMock = jest.fn();

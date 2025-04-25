@@ -1,18 +1,13 @@
-import { TradeStatus } from "../../../../peach-api/src/@types/offer";
 import { IconType } from "../../../assets/icons";
 
 export const statusIcons: Record<TradeStatus | "waiting", IconType> = {
-  createEscrow: "uploadCloud",
   fundEscrow: "uploadCloud",
-  fundingExpired: "watch",
-  waitingForFunding: "uploadCloud",
   searchingForPeer: "search",
   offerHidden: "eyeOff",
   offerHiddenWithMatchesAvailable: "checkCircle",
   fundingAmountDifferent: "uploadCloud",
   escrowWaitingForConfirmation: "clock",
   hasMatchesAvailable: "checkCircle",
-  hasTradeRequests: "checkCircle",
   refundAddressRequired: "edit",
   refundTxSignatureRequired: "rotateCounterClockwise",
   paymentRequired: "dollarSign",

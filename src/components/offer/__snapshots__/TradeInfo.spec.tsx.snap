@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeInfo renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        undefined,
+      ]
+    }
+  >
+    text
+  </PeachText>
+</View>
+`;
+
+exports[`TradeInfo renders correctly with IconComponent 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+      },
+      {
+        "marginTop": 16,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        undefined,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <Icon
+    id="activity"
+  />
+</View>
+`;
+
+exports[`TradeInfo renders correctly with additional styles 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+      },
+      {
+        "marginTop": 16,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#F56522",
+        },
+      ]
+    }
+  >
+    text
+  </PeachText>
+</View>
+`;

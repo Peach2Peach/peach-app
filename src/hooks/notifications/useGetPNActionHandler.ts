@@ -10,13 +10,13 @@ export const useGetPNActionHandler = () => {
         if (isChat) {
           return {
             label: i18n("goToChat"),
-            iconId: "arrowLeftCircle" as const,
+            iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("contractChat", { contractId }),
           };
         }
         return {
           label: i18n("goToContract"),
-          iconId: "arrowLeftCircle" as const,
+          iconId: "arrowLeftCircle",
           onPress: () => navigation.navigate("contract", { contractId }),
         };
       }
@@ -24,21 +24,21 @@ export const useGetPNActionHandler = () => {
         if (type === "offer.sellOfferExpired") {
           return {
             label: i18n("goToOffer"),
-            iconId: "arrowLeftCircle" as const,
+            iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("offer", { offerId }),
           };
         }
         if (type === "offer.matchSeller") {
           return {
             label: i18n("goToOffer"),
-            iconId: "arrowLeftCircle" as const,
+            iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("search", { offerId }),
           };
         }
         if (type === "offer.matchBuyer") {
           return {
             label: i18n("goToOffer"),
-            iconId: "arrowLeftCircle" as const,
+            iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("explore", { offerId }),
           };
         }

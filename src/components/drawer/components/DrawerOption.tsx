@@ -1,46 +1,13 @@
 import { TouchableOpacity, View } from "react-native";
-import { IconType } from "../../../assets/icons";
 import tw from "../../../styles/tailwind";
 import { Flag } from "../../Flag";
 import { Icon } from "../../Icon";
 import { PaymentLogo } from "../../payment/PaymentLogo";
-import { PaymentLogoType } from "../../payment/logos";
 import { FixedHeightText } from "../../text/FixedHeightText";
 import { PeachText } from "../../text/PeachText";
 
 const flagSubtextHeight = 17;
 const defaultSubtextHeight = 22;
-
-export type DrawerOptionType = {
-  title: string;
-  subtext?: string;
-  iconRightID?: IconType;
-  onPress: () => void;
-} & (
-  | {
-      logoID: PaymentLogoType;
-      flagID?: never;
-      highlighted?: never;
-      subtext?: never;
-    }
-  | {
-      flagID: string;
-      logoID?: never;
-      highlighted?: never;
-    }
-  | {
-      flagID?: never;
-      logoID?: never;
-      highlighted: boolean;
-      subtext: string;
-      iconRightID?: never;
-    }
-  | {
-      flagID?: never;
-      logoID?: never;
-      highlighted?: never;
-    }
-);
 
 export const DrawerOption = ({
   logoID,
@@ -66,14 +33,14 @@ export const DrawerOption = ({
   >
     {logoID && (
       <View
-        style={tw`items-center justify-center w-8 h-8 border border-black-5 bg-primary-background-light rounded-5px`}
+        style={tw`items-center justify-center w-8 h-8 border border-black-5 bg-primary-background-light-color rounded-5px`}
       >
         <PaymentLogo id={logoID} style={tw`w-6 h-6`} />
       </View>
     )}
     {flagID && <Flag id={flagID} style={tw`w-8 h-6`} />}
 
-    <View style={[tw`justify-center grow`, !!flagID && tw`gap-2px`]}>
+    <View style={[tw`justify-center grow`, flagID && tw`gap-2px`]}>
       {flagID || logoID || !subtext ? (
         <FixedHeightText
           height={flagID && subtext ? flagSubtextHeight : defaultSubtextHeight}

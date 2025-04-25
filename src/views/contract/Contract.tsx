@@ -1,10 +1,7 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
-import { networks } from "bitcoinjs-lib";
 import { useCallback, useMemo } from "react";
-import { View } from "react-native";
-import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
 import { OverlayComponent } from "../../OverlayComponent";
 import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -18,12 +15,11 @@ import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/Conf
 import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
+import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { generateBlock } from "../../utils/regtest/generateBlock";
-import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
@@ -37,15 +33,13 @@ export const Contract = () => {
   const { contract, isLoading, refetch } = useContractDetail(contractId);
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const view = contract
-    ? contract.seller.id === publicKey
-      ? "seller"
-      : "buyer"
+    ? getContractViewer(contract.seller.id, publicKey)
     : undefined;
 
   useHandleNotifications(
     useCallback(
-      async (message) => {
-        if (message.data?.contractId === contractId) await refetch();
+      (message) => {
+        if (message.data?.contractId === contractId) refetch();
       },
       [contractId, refetch],
     ),
@@ -64,8 +58,8 @@ export const Contract = () => {
 };
 
 type ContractScreenProps = {
-  contract: ContractType;
-  view: "buyer" | "seller";
+  contract: Contract;
+  view: ContractViewer;
 };
 
 function ContractScreen({ contract, view }: ContractScreenProps) {
@@ -90,14 +84,13 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
       }}
     >
       <Screen header={<ContractHeader />}>
-        <View style={tw`flex-1`}>
-          <PeachScrollView
-            contentContainerStyle={tw`justify-center grow py-md sm:py-sm`}
-          >
-            {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
-          </PeachScrollView>
+        <PeachScrollView
+          contentContainerStyle={tw`grow`}
+          contentStyle={tw`grow`}
+        >
+          {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
           <ContractActions />
-        </View>
+        </PeachScrollView>
       </Screen>
     </ContractContext.Provider>
   );
@@ -152,44 +145,23 @@ function ContractHeader() {
         ...headerIcons.help,
         onPress: showConfirmPaymentHelp,
       });
-    if (getNetwork() === networks.regtest && tradeStatus === "fundEscrow") {
-      return [
-        { ...headerIcons.generateBlock, onPress: generateBlock },
-        ...icons,
-      ];
-    }
     return icons;
   }, [
-    disputeActive,
     contract,
     view,
-    showConfirmPopup,
     requiredAction,
     showMakePaymentHelp,
     showConfirmPaymentHelp,
-    tradeStatus,
+    disputeActive,
+    showConfirmPopup,
   ]);
 
-  const { paymentMade, paymentExpectedBy } = contract;
   const theme = useMemo(() => {
     if (disputeActive || disputeWinner) return "dispute";
     if (canceled || tradeStatus === "confirmCancelation") return "cancel";
-    if (
-      isPaymentTooLate({ paymentMade, paymentExpectedBy }) ||
-      tradeStatus === "fundingExpired"
-    ) {
-      return "paymentTooLate";
-    }
+    if (isPaymentTooLate(contract)) return "paymentTooLate";
     return view;
-  }, [
-    canceled,
-    disputeActive,
-    disputeWinner,
-    paymentExpectedBy,
-    paymentMade,
-    tradeStatus,
-    view,
-  ]);
+  }, [canceled, contract, disputeActive, disputeWinner, tradeStatus, view]);
 
   const title = getHeaderTitle(view, contract);
 
@@ -219,7 +191,7 @@ function ContractHeader() {
   );
 }
 
-function getHeaderTitle(view: string, contract: ContractType) {
+function getHeaderTitle(view: string, contract: Contract) {
   const {
     tradeStatus,
     disputeWinner,
@@ -232,8 +204,7 @@ function getHeaderTitle(view: string, contract: ContractType) {
     if (disputeWinner === "seller") return i18n("contract.disputeLost");
 
     if (tradeStatus === "paymentRequired") {
-      const { paymentMade, paymentExpectedBy } = contract;
-      if (isPaymentTooLate({ paymentMade, paymentExpectedBy }))
+      if (isPaymentTooLate(contract))
         return i18n("contract.paymentTimerHasRunOut.title");
       return i18n("offer.requiredAction.paymentRequired");
     }
@@ -241,7 +212,6 @@ function getHeaderTitle(view: string, contract: ContractType) {
       return i18n("offer.requiredAction.waiting.seller");
     if (tradeStatus === "confirmCancelation")
       return i18n("offer.requiredAction.confirmCancelation.buyer");
-    if (tradeStatus === "tradeCanceled") return i18n("contract.tradeCanceled");
   }
 
   if (view === "seller") {
@@ -251,7 +221,6 @@ function getHeaderTitle(view: string, contract: ContractType) {
   }
 
   if (disputeActive) return i18n("offer.requiredAction.dispute");
-  if (tradeStatus === "fundingExpired") return "not funded on time";
   if (isPaymentTooLate(contract))
     return i18n("contract.paymentTimerHasRunOut.title");
 

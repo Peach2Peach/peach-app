@@ -10,6 +10,7 @@ import { Timer } from "../../components/text/Timer";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
+import { getPaymentExpectedBy } from "../../utils/contract/getPaymentExpectedBy";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
@@ -23,8 +24,7 @@ import {
 } from "./ContractButtons";
 import {
   CancelTradeSlider,
-  ExtendFundingTimerSlider,
-  ExtendPaymentTimerSlider,
+  ExtendTimerSlider,
   PaymentMadeSlider,
   PaymentReceivedSlider,
   RefundEscrowSlider,
@@ -51,7 +51,6 @@ export const ContractActions = () => {
   );
 };
 
-const TWELVEHOURSINMS = 43200000;
 function ContractStatusInfo() {
   const { contract, view } = useContractContext();
   const { disputeActive, disputeWinner, cancelationRequested, paymentMethod } =
@@ -67,9 +66,7 @@ function ContractStatusInfo() {
     const requiredAction = getRequiredAction(contract);
 
     if (requiredAction === "sendPayment" && !isCashTrade(paymentMethod)) {
-      const paymentExpectedBy =
-        contract.paymentExpectedBy?.getTime() ??
-        contract.creationDate.getTime() + TWELVEHOURSINMS;
+      const paymentExpectedBy = getPaymentExpectedBy(contract);
       if (Date.now() <= paymentExpectedBy || view === "buyer") {
         return (
           <Timer
@@ -108,14 +105,23 @@ function ContractButtons() {
   const { offer } = useOfferDetail(
     contract ? getOfferIdFromContract(contract) : "",
   );
-  const showPayoutPendingButton =
-    view === "buyer" && batchInfo?.completed === false && !releaseTxId;
   return (
     <>
-      {showPayoutPendingButton && <PayoutPendingButton />}
+      {shouldShowPayoutPending(view, batchInfo, releaseTxId) && (
+        <PayoutPendingButton />
+      )}
       {!!isEmailRequired && <ProvideEmailButton />}
       {!!offer && isSellOffer(offer) && offer?.newOfferId && <NewOfferButton />}
     </>
+  );
+}
+function shouldShowPayoutPending(
+  view: string,
+  batchInfo: BatchInfo | undefined,
+  releaseTxId: string | undefined,
+) {
+  return (
+    view === "buyer" && !!batchInfo && !batchInfo.completed && !releaseTxId
   );
 }
 
@@ -133,34 +139,22 @@ function BuyerSliders() {
   if (requiredAction === "confirmPayment" && !disputeWinner) {
     return <UnlockedSlider label={i18n("contract.payment.made")} />;
   }
-  if (tradeStatus === "fundingExpired") {
-    return (
-      <>
-        <CancelTradeSlider isBuyer />
-        <ExtendFundingTimerSlider />
-      </>
-    );
-  }
   return <></>;
 }
 
 function SellerSliders() {
   const { contract } = useContractContext();
-  const { tradeStatus, disputeWinner, paymentMade, paymentExpectedBy } =
-    contract;
+  const { tradeStatus, disputeWinner } = contract;
   if (tradeStatus === "releaseEscrow" && !!disputeWinner) {
     return <ReleaseEscrowSlider />;
   }
 
   const requiredAction = getRequiredAction(contract);
-  if (
-    isPaymentTooLate({ paymentMade, paymentExpectedBy }) &&
-    tradeStatus === "paymentTooLate"
-  ) {
+  if (isPaymentTooLate(contract) && tradeStatus === "paymentTooLate") {
     return (
       <>
         <CancelTradeSlider />
-        <ExtendPaymentTimerSlider />
+        <ExtendTimerSlider />
       </>
     );
   }

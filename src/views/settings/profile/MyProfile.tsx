@@ -47,22 +47,22 @@ export const MyProfile = () => {
           </View>
           <AccountInfo user={user} />
         </View>
-        <DeleteAccountButton />
+        <DeleteAccountButton style={tw`self-center`} />
       </PeachScrollView>
     </Screen>
   );
 };
 
-function DeleteAccountButton() {
+function DeleteAccountButton({ style }: ComponentProps) {
   const setPopup = useSetPopup();
   const { mutate: logoutUser } = useLogoutUser();
 
   const showPopup = useCallback(
-    async (popupChain = ["popup", "forRealsies", "success"]) => {
+    (popupChain = ["popup", "forRealsies", "success"]) => {
       const title = popupChain[0];
       const isSuccess = popupChain.length === 1;
       if (isSuccess) {
-        await deleteAccount();
+        deleteAccount();
         logoutUser();
       }
 
@@ -96,11 +96,7 @@ function DeleteAccountButton() {
   );
 
   return (
-    <TouchableRedText
-      onPress={() => showPopup()}
-      style={tw`self-center`}
-      iconId="trash"
-    >
+    <TouchableRedText onPress={() => showPopup()} style={style} iconId="trash">
       {i18n("settings.deleteAccount")}
     </TouchableRedText>
   );

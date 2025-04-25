@@ -5,6 +5,45 @@ exports[`BitcoinAddressInput closes QR scanner when onCancel event is triggered 
 Compared values have no visual difference."
 `;
 
+exports[`BitcoinAddressInput renders correctly 1`] = `
+<Input
+  iconColor="#F56522"
+  icons={
+    [
+      [
+        "clipboard",
+        [Function],
+      ],
+      [
+        "camera",
+        [Function],
+      ],
+    ]
+  }
+  onBlur={[Function]}
+  onFocus={[Function]}
+  placeholder="bc1q ..."
+  placeholderTextColor="#EAE3DF"
+  style={
+    [
+      {
+        "borderRadius": 8,
+        "borderWidth": 2,
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+      },
+      {
+        "backgroundColor": "#fff",
+        "color": "#2B1911",
+      },
+    ]
+  }
+  value="bc1qcj5y ... n57r7z"
+/>
+`;
+
 exports[`BitcoinAddressInput shows QR scanner when camera icon is pressed 1`] = `
 <ScanQR
   onCancel={[Function]}

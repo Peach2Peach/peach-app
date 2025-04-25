@@ -5,17 +5,15 @@ import { OfferSummary } from "../../peach-api/src/@types/offer";
 import { useStartRefundPopup } from "../popups/useStartRefundPopup";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { peachAPI } from "../utils/peachAPI";
-import { useCreateEscrow } from "../views/fundEscrow/hooks/useCreateEscrow";
 import { isContractSummary } from "../views/yourTrades/utils/isContractSummary";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
-import { offerKeys } from "./query/offerKeys";
+import { offerKeys } from "./query/useOfferDetail";
 import { useStackNavigation } from "./useStackNavigation";
 
 export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
   const navigation = useStackNavigation();
   const showStartRefundPopup = useStartRefundPopup();
   const queryClient = useQueryClient();
-  const { mutateAsync } = useCreateEscrow();
 
   const navigateToOfferOrContract = useCallback(async () => {
     const destination = isContractSummary(item)
@@ -27,16 +25,13 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
         await peachAPI.private.offer.getOfferDetails({ offerId });
       if (sellOffer && isSellOffer(sellOffer)) {
         queryClient.setQueryData(offerKeys.detail(sellOffer.id), sellOffer);
-        await showStartRefundPopup(sellOffer);
+        showStartRefundPopup(sellOffer);
         return;
       }
     }
-    if (item.tradeStatus === "createEscrow" && "offerId" in item) {
-      await mutateAsync([item.offerId]);
-    }
 
     navigation.navigate(...destination);
-  }, [item, mutateAsync, navigation, queryClient, showStartRefundPopup]);
+  }, [item, navigation, queryClient, showStartRefundPopup]);
 
   return navigateToOfferOrContract;
 };

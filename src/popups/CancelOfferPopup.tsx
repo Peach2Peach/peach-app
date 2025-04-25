@@ -4,8 +4,7 @@ import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../components/popup/actions/LoadingPopupAction";
-import { offerKeys } from "../hooks/query/offerKeys";
-import { useOfferDetail } from "../hooks/query/useOfferDetail";
+import { offerKeys, useOfferDetail } from "../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
@@ -32,7 +31,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
     if (!offer) return;
 
     cancelOffer(offerId, {
-      onSuccess: async (result) => {
+      onSuccess: (result) => {
         if (result) {
           if (isSellOffer(offer)) {
             saveOffer({
@@ -59,7 +58,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
             );
             navigation.navigate("homeScreen", { screen: "home" });
           } else {
-            await startRefund(offer);
+            startRefund(offer);
           }
         }
       },
@@ -81,7 +80,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
           : "offer.cancel.popup.description",
       )}
       actionBgColor={tw`bg-black-50`}
-      bgColor={tw`bg-primary-background-light`}
+      bgColor={tw`bg-primary-background-light-color`}
       actions={
         <>
           <PopupAction

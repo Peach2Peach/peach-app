@@ -35,7 +35,6 @@
   "offer.requiredAction.releaseEscrow" : "letét feloldása",
   "offer.requiredAction.releaseEscrow.dispute" : "a vitát elvesztetted: letét feloldása",
   "offer.requiredAction.searchingForPeer" : "partner keresése",
-  "offer.requiredAction.fundingExpired": "nem finanszírozták időben",
   "offer.requiredAction.unknown" : "ismeretlen - frissítsd az appot!",
   "offer.requiredAction.waiting" : "$0 várakozás",
   "offer.requiredAction.waiting.buyer" : "fizetésre várakozás",

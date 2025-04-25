@@ -217,8 +217,8 @@ function TextContainer({
           tw`flex-row items-center justify-between gap-2 px-3 py-2`,
           tw`border rounded-xl`,
           isDarkMode
-            ? tw`bg-card text-backgroundLight border-primary-main`
-            : tw`bg-primary-background-light`,
+            ? tw`bg-card text-backgroundLight-light border-primary-main`
+            : tw`bg-primary-background-light-color`,
         ]}
       >
         <PeachText

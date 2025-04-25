@@ -1,42 +1,36 @@
-type PaymentDataField =
-  | "accountNumber"
-  | "bankAccountNumber"
-  | "bankBranch"
-  | "bankName"
-  | "bankNumber"
-  | "beneficiary"
-  | "beneficiaryAddress"
-  | "bic"
-  | "bsbNumber"
-  | "cedulaID"
-  | "DNI"
-  | "email"
-  | "iban"
-  | "lnurlAddress"
-  | "name"
-  | "nameTag"
-  | "phone"
-  | "pixAlias"
-  | "postePayNumber"
-  | "receiveAddress"
-  | "reference"
-  | "routingDetails"
-  | "RUT"
-  | "steamFriendCode"
-  | "ukBankAccount"
-  | "ukSortCode"
-  | "userId"
-  | "userName"
-  | "wallet";
+type PaymentDataInfo = {
+  accountNumber?: string;
+  beneficiary?: string;
+  bic?: string;
+  email?: string;
+  iban?: string;
+  name?: string;
+  phone?: string;
+  reference?: string;
+  ukBankAccount?: string;
+  ukSortCode?: string;
+  userName?: string;
+  wallet?: string;
+  receiveAddress?: string;
+  lnurlAddress?: string;
+  userId?: string;
+  cbu?: string;
+  cvu?: string;
+  cvuAlias?: string;
+  chipperTag?: string;
+  eversendUserName?: string;
+  pixAlias?: string;
+  postePayNumber?: string;
+};
 
-type PaymentDataInfo = Partial<Record<PaymentDataField, string>>;
+type PaymentDataField = keyof PaymentDataInfo;
 
 type PaymentData = PaymentDataInfo & {
   id: string;
   label: string;
   type: PaymentMethod;
   currencies: Currency[];
-  country?: GiftCardCountry | BitcoinEvent["country"];
+  country?: PaymentMethodCountry;
   hidden?: boolean;
   reference?: string;
 };

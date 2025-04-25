@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { act, fireEvent, render, waitFor } from "test-utils";
+import { fireEvent, render, waitFor } from "test-utils";
 import { transactionError } from "../../../../tests/unit/data/errors";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
@@ -30,10 +30,7 @@ describe("ConfirmTransactionPopup", () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(props.psbt);
     const { getByText } = render(<ConfirmTransactionPopup {...props} />);
-    await act(async () => {
-      fireEvent.press(getByText("confirm & send"));
-      await jest.runAllTimersAsync();
-    });
+    fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
       expect(peachWallet?.signAndBroadcastPSBT).toHaveBeenCalledWith(
@@ -49,10 +46,7 @@ describe("ConfirmTransactionPopup", () => {
       throw transactionError;
     });
     const { getByText } = render(<ConfirmTransactionPopup {...props} />);
-    await act(async () => {
-      fireEvent.press(getByText("confirm & send"));
-      await jest.runAllTimersAsync();
-    });
+    fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
       expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [

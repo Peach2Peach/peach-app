@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButtons renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <RadioButtonItem
+    display="EUR"
+    isSelected={true}
+    onPress={[Function]}
+  />
+  <RadioButtonItem
+    display="GBP"
+    isSelected={false}
+    onPress={[Function]}
+  />
+</View>
+`;

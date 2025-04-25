@@ -24,7 +24,7 @@ export function StatusCard({
     <TouchableOpacity
       style={[
         tw`overflow-hidden border rounded-xl`,
-        isDarkMode ? tw`bg-card` : tw`bg-primary-background-light`,
+        isDarkMode ? tw`bg-card` : tw`bg-primary-background-light-color`,
         tw.style(statusCardStyles.border[color]),
       ]}
       onPress={onPress}

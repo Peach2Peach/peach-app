@@ -123,9 +123,12 @@ exports[`SellSorters should render correctly 1`] = `
       </View>
       <View
         style={
-          {
-            "gap": 8,
-          }
+          [
+            {
+              "gap": 8,
+            },
+            undefined,
+          ]
         }
       >
         <View

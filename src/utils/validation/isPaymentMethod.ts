@@ -1,4 +1,4 @@
-import { useConfigStore } from "../../store/configStore/configStore";
+import { PAYMENTMETHODS } from "../../paymentMethods";
 
 export const isPaymentMethod = (string: string): string is PaymentMethod =>
-  useConfigStore.getState().paymentMethods.some(({ id }) => id === string);
+  PAYMENTMETHODS.some((pm) => pm === string);

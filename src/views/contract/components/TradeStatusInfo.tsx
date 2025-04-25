@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import { Contract } from "../../../../peach-api/src/@types/contract";
 import { useWalletLabel } from "../../../components/offer/useWalletLabel";
 import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
@@ -39,18 +38,14 @@ export const TradeStatusInfo = () => {
 };
 
 function BuyerStatusText({ contract }: { contract: Contract }) {
-  return (
-    <PeachText style={tw`md:body-l`}>{getBuyerStatusText(contract)}</PeachText>
-  );
+  const text = getBuyerStatusText(contract);
+  return <PeachText style={tw`md:body-l`}>{text}</PeachText>;
 }
 
 function getBuyerStatusText(contract: Contract) {
-  if (contract.tradeStatus === "fundingExpired") {
-    if (contract.fundingStatus === "NULL") {
-      return "The seller has not funded the escrow yet.\n\nYou can either cancel the trade without a reputation penalty, or give the seller more time.";
-    }
-    return "There is an unconfirmed transaction to the escrow. This means you will have to wait before you can make the payment.\n\nYou can either cancel the trade without a reputation penalty, or give the seller more time.";
-  }
+  const buyerCanceledTrade =
+    !contract.cancelationRequested && contract.canceledBy === "buyer";
+  const collaborativeTradeCancel = contract.cancelationRequested;
   const isCash = isCashTrade(contract.paymentMethod);
   if (isCash && contract.canceled) {
     return i18n(
@@ -60,26 +55,16 @@ function getBuyerStatusText(contract: Contract) {
     );
   }
 
-  const { paymentMade, paymentExpectedBy, cancelationRequested } = contract;
-  const paymentWasTooLate = isPaymentTooLate({
-    paymentMade,
-    paymentExpectedBy,
-  });
-  if (cancelationRequested) {
+  const paymentWasTooLate = isPaymentTooLate(contract);
+  if (buyerCanceledTrade) {
+    return i18n("contract.buyer.buyerCanceledTrade");
+  } else if (collaborativeTradeCancel) {
     const isResolved = contract.canceled;
     return i18n(
       isResolved
         ? "contract.buyer.collaborativeCancel.resolved"
         : "contract.buyer.collaborativeCancel.notResolved",
     );
-  } else if (contract.canceledBy === "buyer") {
-    return "You have successfully canceled this trade.";
-  } else if (
-    contract.canceledBy === "mediator" &&
-    !contract.paymentMade &&
-    !contract.disputeWinner
-  ) {
-    return "The seller has not funded the escrow correctly and this trade has been canceled.";
   } else if (paymentWasTooLate) {
     return i18n(
       contract.canceled
@@ -91,14 +76,11 @@ function getBuyerStatusText(contract: Contract) {
     return i18n("contract.buyer.disputeLost");
   }
   const isResolved = !!contract.releaseTxId;
-  if (contract.disputeWinner === "buyer") {
-    return i18n(
-      isResolved
-        ? "contract.buyer.disputeWon.paidOut"
-        : "contract.buyer.disputeWon.awaitingPayout",
-    );
-  }
-  return null;
+  return i18n(
+    isResolved
+      ? "contract.buyer.disputeWon.paidOut"
+      : "contract.buyer.disputeWon.awaitingPayout",
+  );
 }
 
 function SellerStatusText({ contract }: { contract: Contract }) {
@@ -121,18 +103,12 @@ function getSellerStatusText({
   sellOffer: SellOffer;
   walletLabel: string;
 }) {
-  if (contract.tradeStatus === "fundingExpired") {
-    if (!contract.canceled) {
-      return "Your funding transaction has not been confirmed yet. The buyer can decide to give you more time or to cancel the trade.\n\nIn either case, your reputation has been impacted.";
-    }
-    // if not funded:
-    return "You didn't fund the escrow on time and the trade has been canceled.";
-    // if funded:
-    return "The buyer canceled and this offer has been republished. You can find the new offer below.";
-  }
-  const { paymentMade, paymentExpectedBy } = contract;
+  const [hasDisputeWinner, paymentWasTooLate] = [
+    !!contract.disputeWinner,
+    isPaymentTooLate(contract),
+  ];
 
-  if (isPaymentTooLate({ paymentMade, paymentExpectedBy })) {
+  if (paymentWasTooLate) {
     if (!contract.canceled) {
       return i18n(
         "contract.seller.paymentTimerHasRunOut.text",
@@ -149,7 +125,7 @@ function getSellerStatusText({
     }
     return i18n("contract.seller.refunded", walletLabel);
   }
-  if (contract.disputeWinner) {
+  if (hasDisputeWinner) {
     return getSellerDisputeStatusText(contract);
   }
 
@@ -166,9 +142,7 @@ function getSellerStatusText({
   }
   return i18n(
     contract.canceledBy === "buyer" && !contract.cancelationRequested
-      ? contract.fundingStatus !== "NULL"
-        ? "contract.seller.refund.buyerCanceled"
-        : "This trade has been canceled by the buyer."
+      ? "contract.seller.refund.buyerCanceled"
       : "contract.seller.refund",
   );
 }

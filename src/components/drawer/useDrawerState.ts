@@ -1,15 +1,5 @@
-import { ReactNode } from "react";
 import { create } from "zustand";
-import { DrawerOptionType } from "./components/DrawerOption";
 
-export type DrawerState = {
-  title: string;
-  content?: ReactNode | null;
-  options: DrawerOptionType[];
-  show: boolean;
-  previousDrawer?: DrawerState | undefined;
-  onClose?: () => void;
-};
 export const defaultState: DrawerState = {
   title: "",
   content: null,

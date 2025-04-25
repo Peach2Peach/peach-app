@@ -1,9 +1,7 @@
-import { ViewStyle } from "react-native";
 import { PeachText } from "../text/PeachText";
 import { PaymentLogos, PaymentLogoType } from "./logos";
 
-type Props = {
-  style?: ViewStyle;
+type Props = ComponentProps & {
   id: PaymentLogoType;
 };
 

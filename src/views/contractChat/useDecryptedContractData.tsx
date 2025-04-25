@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import OpenPGP from "react-native-fast-openpgp";
-import { Contract } from "../../../peach-api/src/@types/contract";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
+import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 
 export const useDecryptedContractData = (contract: Contract) =>
   useQuery({
@@ -22,6 +21,8 @@ export const useDecryptedContractData = (contract: Contract) =>
 async function decryptContractData(contract: Contract) {
   const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
+    contract.symmetricKeySignature,
+    contract.buyer.pgpPublicKeys,
   );
 
   const paymentData = await decryptPaymentData(
@@ -35,30 +36,6 @@ async function decryptContractData(contract: Contract) {
   );
 
   return { symmetricKey, paymentData };
-}
-
-async function hasValidSignature({
-  signature,
-  message,
-  publicKeys,
-}: {
-  publicKeys: { publicKey: string }[];
-  signature: string;
-  message: string;
-}) {
-  const someSignatureIsValid = (
-    await Promise.all(
-      publicKeys.map(async ({ publicKey }) => {
-        try {
-          return await OpenPGP.verify(signature, message, publicKey);
-        } catch (e) {
-          return false;
-        }
-      }),
-    )
-  ).some(Boolean);
-
-  return someSignatureIsValid;
 }
 
 type DecryptPaymentDataProps = Pick<Contract, "paymentDataEncryptionMethod"> & {

@@ -1,5 +1,8 @@
 import { MeetupScreen } from "../components/payment/MeetupScreen";
 import { PaymentMethods } from "../components/payment/PaymentMethods";
+import { TestView } from "./TestView/TestView";
+import { TestViewPeachWallet } from "./TestView/peachWallet";
+import { TestViewPNs } from "./TestView/pns";
 import { PaymentMethodForm } from "./addPaymentMethod/PaymentMethodForm";
 import { SelectCountry } from "./addPaymentMethod/SelectCountry";
 import { SelectCurrency } from "./addPaymentMethod/SelectCurrency";
@@ -12,20 +15,16 @@ import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
-import { BuyOfferDetails } from "./explore/BuyOfferDetails";
 import { Explore } from "./explore/Explore";
 import { MatchDetails } from "./explore/MatchDetails";
-import { SellOfferDetails } from "./explore/SellOfferDetails";
-import { TradeRequestForBuyOffer } from "./explore/TradeRequestForBuyOffer";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
-import { Buy } from "./home/Buy";
 import { HomeScreen } from "./home/HomeScreen";
 import { AccountCreated } from "./newUser/AccountCreated";
 import { CreateAccountError } from "./newUser/CreateAccountError";
 import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
-import { CreateBuyOffer } from "./offerPreferences/CreateBuyOffer";
+import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
-import { SellOfferPreferences } from "./offerPreferences/Sell";
+import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
 import { Report } from "./report/Report";
@@ -33,7 +32,6 @@ import { RestoreBackup } from "./restoreBackup/RestoreBackup";
 import { RestoreReputation } from "./restoreReputation/RestoreReputation";
 import { EditPremium } from "./search/EditPremium";
 import { Search } from "./search/Search";
-import { TradeRequestForSellOffer } from "./search/TradeRequestForSellOffer";
 import { Backups } from "./settings/Backups";
 import { Currency } from "./settings/Currency";
 import { Language } from "./settings/Language";
@@ -62,7 +60,7 @@ import { ExportTradeHistory } from "./yourTrades/ExportTradeHistory";
 
 type ViewType = {
   name: keyof RootStackParamList;
-  component: () => JSX.Element | null;
+  component: () => JSX.Element;
   animationEnabled?: boolean;
 };
 
@@ -105,14 +103,10 @@ const wallet: ViewType[] = [
   { name: "bumpNetworkFees", component: BumpNetworkFees },
 ];
 const buyFlow: ViewType[] = [
-  { name: "buy", component: Buy },
-  { name: "sellOfferDetails", component: SellOfferDetails },
-  { name: "buyOfferDetails", component: BuyOfferDetails },
-  { name: "buyOfferPreferences", component: CreateBuyOffer },
+  { name: "buyOfferPreferences", component: BuyOfferPreferences },
   { name: "explore", component: Explore },
   { name: "editBuyPreferences", component: EditBuyPreferences },
   { name: "matchDetails", component: MatchDetails },
-  { name: "tradeRequestForBuyOffer", component: TradeRequestForBuyOffer },
 ];
 
 const sellFlow: ViewType[] = [
@@ -121,7 +115,6 @@ const sellFlow: ViewType[] = [
   { name: "wrongFundingAmount", component: WrongFundingAmount },
   { name: "search", component: Search },
   { name: "editPremium", component: EditPremium },
-  { name: "tradeRequestForSellOffer", component: TradeRequestForSellOffer },
 ];
 
 const trade: ViewType[] = [
@@ -170,6 +163,12 @@ const settings: ViewType[] = [
   { name: "socials", component: Socials },
 ];
 
+const testViews: ViewType[] = [
+  { name: "testView", component: TestView },
+  { name: "testViewPeachWallet", component: TestViewPeachWallet },
+  { name: "testViewPNs", component: TestViewPNs },
+];
+
 export const views = [
   ...home,
   ...buyFlow,
@@ -180,6 +179,7 @@ export const views = [
   ...publicProfile,
   ...contact,
   ...settings,
+  ...testViews,
 ];
 
 export const onboardingViews = [...onboarding, ...contact];

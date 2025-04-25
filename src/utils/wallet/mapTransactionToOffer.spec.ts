@@ -9,8 +9,8 @@ describe("mapTransactionToOffer", () => {
 
   it("maps transaction to sell offer id", () => {
     mapTransactionToOffer({
-      offerSummaries: [{ fundingTxId: confirmed1.txid, id: "2" }],
-      contractSummaries: [],
+      offers: [{ id: "2", fundingTxId: confirmed1.txid }],
+      contracts: [],
     })(confirmed1);
     expect(useWalletState.getState().txOfferMap).toEqual({
       txid1_confirmed: ["2"],
@@ -18,11 +18,11 @@ describe("mapTransactionToOffer", () => {
   });
   it("maps transaction to multiple sell offer id", () => {
     mapTransactionToOffer({
-      offerSummaries: [
+      offers: [
         { id: "2", fundingTxId: confirmed1.txid },
         { id: "3", fundingTxId: confirmed1.txid },
       ],
-      contractSummaries: [],
+      contracts: [],
     })(confirmed1);
     expect(useWalletState.getState().txOfferMap).toEqual({
       txid1_confirmed: ["2", "3"],
@@ -30,8 +30,8 @@ describe("mapTransactionToOffer", () => {
   });
   it("maps transaction to buy offer id", () => {
     mapTransactionToOffer({
-      offerSummaries: [],
-      contractSummaries: [{ releaseTxId: confirmed1.txid, id: "1-3" }],
+      offers: [],
+      contracts: [{ id: "1-3", releaseTxId: confirmed1.txid }],
     })(confirmed1);
     expect(useWalletState.getState().txOfferMap).toEqual({
       txid1_confirmed: ["3"],
@@ -39,8 +39,8 @@ describe("mapTransactionToOffer", () => {
   });
   it("maps transaction to multiple buy offer ids", () => {
     mapTransactionToOffer({
-      offerSummaries: [{ id: "3" }, { id: "4" }],
-      contractSummaries: [
+      offers: [{ id: "3" }, { id: "4" }],
+      contracts: [
         { id: "1-3", releaseTxId: confirmed1.txid },
         { id: "1-4", releaseTxId: confirmed1.txid },
       ],
@@ -51,8 +51,8 @@ describe("mapTransactionToOffer", () => {
   });
   it("does not map transaction if no offer can be associated with it", () => {
     mapTransactionToOffer({
-      offerSummaries: [],
-      contractSummaries: [],
+      offers: [],
+      contracts: [],
     })(confirmed1);
     expect(useWalletState.getState().txOfferMap).toEqual({});
   });

@@ -1,32 +1,24 @@
-import { act, fireEvent, render, waitFor } from "test-utils";
-import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
+import { act, fireEvent, render } from "test-utils";
 import {
   navigateMock,
   setRouteMock,
 } from "../../../tests/unit/helpers/NavigationWrapper";
 import { Button } from "../../components/buttons/Button";
 import { setPaymentMethods } from "../../paymentMethods";
-import { useConfigStore } from "../../store/configStore/configStore";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import { SelectCountry } from "./SelectCountry";
 
 jest.useFakeTimers();
 describe("SelectCountry", () => {
   beforeAll(() => {
-    const paymentMethods: PaymentMethodInfo[] = [
+    setPaymentMethods([
       {
         id: "giftCard.amazon",
         currencies: ["EUR"],
         countries: ["DE", "IT", "ES", "FR"],
-        fields: {
-          mandatory: [[["email"]]],
-          optional: [],
-        },
         anonymous: true,
       },
-    ];
-    setPaymentMethods(paymentMethods);
-    useConfigStore.getState().setPaymentMethods(paymentMethods);
+    ]);
     setRouteMock({
       name: "selectCountry",
       key: "selectCountry",
@@ -42,21 +34,19 @@ describe("SelectCountry", () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it("should go to payment method form", async () => {
+  it("should go to payment method form", () => {
     const { getByText } = render(<SelectCountry />);
     fireEvent.press(getByText("Germany"));
     fireEvent.press(getByText("next"));
 
-    await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith("paymentMethodForm", {
-        origin: "paymentMethods",
-        paymentData: {
-          type: "giftCard.amazon.DE",
-          label: "Amazon Gift Card (DE)",
-          currencies: ["EUR"],
-          country: "DE",
-        },
-      });
+    expect(navigateMock).toHaveBeenCalledWith("paymentMethodForm", {
+      origin: "paymentMethods",
+      paymentData: {
+        type: "giftCard.amazon.DE",
+        label: "Amazon Gift Card (DE)",
+        currencies: ["EUR"],
+        country: "DE",
+      },
     });
   });
 

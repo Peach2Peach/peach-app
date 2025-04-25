@@ -26,7 +26,7 @@ export const RadioButtonItem = ({
       disabled={disabled}
       style={[
         tw`flex-row items-center justify-between w-full gap-2 px-4 py-2 border-2 rounded-xl`,
-        isDarkMode ? tw`bg-card` : tw`bg-primary-background-dark`,
+        isDarkMode ? tw`bg-card` : tw`bg-primary-background-dark-color`,
         disabled && tw`opacity-50`,
         isSelected ? tw`border-primary-main` : tw`border-transparent`,
       ]}

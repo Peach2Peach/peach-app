@@ -24,13 +24,17 @@ describe("Settings", () => {
   });
   it("should render correctly", async () => {
     const { toJSON } = render(<Settings />);
-    await act(() => jest.runAllTimersAsync());
+    await act(async () => {
+      await jest.runAllTimers();
+    });
     expect(toJSON()).toMatchSnapshot();
   });
   it("should highlight backups if backup reminder is shown", async () => {
     useSettingsStore.getState().setShowBackupReminder(true);
     const { toJSON } = render(<Settings />);
-    await act(() => jest.runAllTimersAsync());
+    await act(async () => {
+      await jest.runAllTimers();
+    });
     const withReminder = toJSON();
     act(() => {
       useSettingsStore.getState().setShowBackupReminder(false);
@@ -45,7 +49,9 @@ describe("Settings", () => {
         <GlobalPopup />
       </>,
     );
-    await act(() => jest.runAllTimersAsync());
+    await act(async () => {
+      await jest.runAllTimers();
+    });
     fireEvent.press(getByText("notifications"));
     await waitFor(() =>
       expect(getByText("turn off notifications?")).toBeTruthy(),

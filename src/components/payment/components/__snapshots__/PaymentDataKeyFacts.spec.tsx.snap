@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentDataKeyFacts should render correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      },
+      {
+        "marginTop": 16,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "marginRight": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+        {
+          "marginTop": 16,
+        },
+      ]
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ]
+      }
+    >
+      EUR
+    </PeachText>
+  </View>
+</View>
+`;
+
+exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      },
+      {
+        "marginTop": 16,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "marginRight": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+        {
+          "marginTop": 16,
+        },
+      ]
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ]
+      }
+    >
+      EUR
+    </PeachText>
+  </View>
+  <View
+    style={
+      [
+        {
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "marginRight": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+        {
+          "marginTop": 16,
+        },
+      ]
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ]
+      }
+    >
+      CHF
+    </PeachText>
+  </View>
+  <View
+    style={
+      [
+        {
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "marginRight": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+        {
+          "marginTop": 16,
+        },
+      ]
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ]
+      }
+    >
+      GBP
+    </PeachText>
+  </View>
+  <View
+    style={
+      [
+        {
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "marginRight": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+        {
+          "marginTop": 16,
+        },
+      ]
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ]
+      }
+    >
+      PLN
+    </PeachText>
+  </View>
+</View>
+`;

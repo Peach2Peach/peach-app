@@ -1,4 +1,3 @@
-import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import { shouldUsePaymentMethod } from "./shouldUsePaymentMethod";
 
 describe("shouldUsePaymentMethod", () => {
@@ -15,10 +14,6 @@ describe("shouldUsePaymentMethod", () => {
       id: "sepa",
       currencies: ["EUR"],
       anonymous: false,
-      fields: {
-        mandatory: [[["iban", "bic"]]],
-        optional: ["reference"],
-      },
     };
     expect(shouldUsePaymentMethod(paymentCategories)(info)).toBe(true);
   });
@@ -28,10 +23,6 @@ describe("shouldUsePaymentMethod", () => {
       currencies: ["EUR"],
       rounded: true,
       anonymous: true,
-      fields: {
-        mandatory: [],
-        optional: [],
-      },
     };
     expect(shouldUsePaymentMethod(paymentCategories)(info)).toBe(true);
   });

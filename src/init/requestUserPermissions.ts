@@ -33,6 +33,6 @@ export const requestUserPermissions = async () => {
     openCrashReportPrompt(
       errorQueue.split("\n").map((e: string) => new Error(e)),
     );
-    await deleteFile("/error.log");
+    deleteFile("/error.log");
   }
 };

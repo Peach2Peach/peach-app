@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MeetupScreen should render correctly 1`] = `
+<Screen
+  header={<MeetupScreenHeader />}
+>
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "gap": 32,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          }
+        }
+      >
+        You can use cash to trade with your fellow bitcoiners at undefined!
+      </PeachText>
+      <View
+        style={
+          {
+            "gap": 16,
+          }
+        }
+      />
+    </View>
+  </ForwardRef>
+  <Button
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    add this meetup
+  </Button>
+</Screen>
+`;
+
+exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
+<Screen
+  header={<MeetupScreenHeader />}
+>
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "gap": 32,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          }
+        }
+      >
+        You can use cash to trade with your fellow bitcoiners at undefined!
+      </PeachText>
+      <View
+        style={
+          {
+            "gap": 16,
+          }
+        }
+      >
+        <Link
+          text="view on maps"
+          url="http://maps.google.com/maps?daddr=Prague"
+        />
+        <Link
+          text="meetup link"
+          url="https://peachbitcoin.com/"
+        />
+      </View>
+      <CurrencySelection
+        onToggle={[MockFunction]}
+        paymentMethod="cash.cz.prague.btc-prague"
+        selectedCurrencies={
+          [
+            "EUR",
+          ]
+        }
+      />
+    </View>
+  </ForwardRef>
+  <Button
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    add this meetup
+  </Button>
+</Screen>
+`;

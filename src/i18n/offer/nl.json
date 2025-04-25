@@ -35,7 +35,6 @@
   "offer.requiredAction.releaseEscrow" : "borg vrijgeven",
   "offer.requiredAction.releaseEscrow.dispute" : "geschil verloren: borg vrijgeven",
   "offer.requiredAction.searchingForPeer" : "match aan het zoeken",
-  "offer.requiredAction.fundingExpired": "niet op tijd gefinancierd",
   "offer.requiredAction.unknown" : "onbekend - update je app!",
   "offer.requiredAction.waiting" : "wachten op $0",
   "offer.requiredAction.waiting.buyer" : "wachten op betaling",

@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import { SellOffer } from "../../peach-api/src/@types/offer";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
 import { PopupAction } from "../components/popup/PopupAction";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";

@@ -6,9 +6,6 @@ import {
   TextInputEndEditingEventData,
   View,
 } from "react-native";
-import { Placeholder } from "../../../components/Placeholder";
-import { PremiumTextInput } from "../../../components/PremiumTextInput";
-import { TouchableIcon } from "../../../components/TouchableIcon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
 import { useThemeStore } from "../../../store/theme";
@@ -20,7 +17,6 @@ import { useAmountInBounds } from "../utils/useAmountInBounds";
 import { useRestrictSatsAmount } from "../utils/useRestrictSatsAmount";
 import { useTrackWidth } from "../utils/useTrackWidth";
 import { useTradingAmountLimits } from "../utils/useTradingAmountLimits";
-import { DisplayCurrencySelector } from "./DisplayCurrencySelector";
 import { SatsInputComponent } from "./SatsInputComponent";
 import { Section, sectionContainerGap } from "./Section";
 import { Slider, sliderWidth } from "./Slider";
@@ -43,14 +39,10 @@ export function AmountSelectorComponent({
 
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1"}`}
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}
     >
-      <View style={tw`flex-row items-center self-stretch justify-between`}>
-        <Placeholder style={tw`w-6 h-6`} />
-        <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
-        <Placeholder style={tw`w-6 h-6`} />
-      </View>
-      <View style={tw`items-center self-stretch -gap-1`}>
+      <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
+      <View style={tw`flex-row items-center gap-10px`}>
         <BuyAmountInput
           type="min"
           minAmountDelta={minSliderDeltaAsAmount}
@@ -65,7 +57,6 @@ export function AmountSelectorComponent({
           setRange={setRange}
         />
       </View>
-      <FiatPriceRange range={[min, max]} />
       <SliderTrack
         slider={
           <AmountSliders
@@ -78,52 +69,9 @@ export function AmountSelectorComponent({
         trackWidth={trackWidth}
         type="buy"
       />
-      <PremiumInput />
     </Section.Container>
   );
 }
-
-function PremiumInput() {
-  const iconColor = tw.color("success-main");
-  const [premium, setPremium] = useState(21);
-  const handlePremiumChange = (newPremium: number) => {
-    setPremium(newPremium);
-  };
-  const onMinusCirclePress = () => {
-    setPremium((prev) => Math.max(0, prev - 1));
-  };
-  const onPlusCirclePress = () => {
-    setPremium((prev) => Math.min(21, prev + 1));
-  };
-  return (
-    <View style={tw`items-center self-stretch gap-10px`}>
-      <View style={tw`flex-row items-center self-stretch justify-between`}>
-        <TouchableIcon
-          id="minusCircle"
-          iconColor={iconColor}
-          onPress={onMinusCirclePress}
-        />
-        <View style={tw`flex-row items-center self-stretch gap-10px`}>
-          <PeachText>max premium:</PeachText>
-          <PremiumTextInput
-            premium={premium}
-            setPremium={handlePremiumChange}
-          />
-        </View>
-        <TouchableIcon
-          id="plusCircle"
-          iconColor={iconColor}
-          onPress={onPlusCirclePress}
-        />
-      </View>
-      <PeachText>currently 168.45 EUR</PeachText>
-      <PeachText style={tw`text-success-dark-2`}>
-        x competing buy offers with a higher premium
-      </PeachText>
-    </View>
-  );
-}
-
 type SliderProps = {
   setIsSliding: (isSliding: boolean) => void;
   trackWidth: number;
@@ -177,7 +125,7 @@ function AmountSliders({
         }}
         type="buy"
         transform={[{ translateX: minTranslateX }]}
-        iconId="chevronsUp"
+        iconId="chevronsLeft"
       />
       <Slider
         trackWidth={trackWidth}
@@ -190,7 +138,7 @@ function AmountSliders({
         }}
         type="buy"
         transform={[{ translateX: maxTranslateX }]}
-        iconId="chevronsUp"
+        iconId="chevronsRight"
       />
     </>
   );
@@ -241,8 +189,10 @@ function BuyAmountInput({
     ? inputValue
     : String(amount);
 
+  const { fiatPrice, displayCurrency } = useBitcoinPrices(amount);
+
   return (
-    <View style={tw`self-stretch justify-center`}>
+    <View style={tw`justify-center grow`}>
       <SatsInputComponent
         ref={inputRef}
         value={displayValue}
@@ -250,20 +200,9 @@ function BuyAmountInput({
         onEndEditing={onEndEditing}
         onChangeText={onChangeText}
       />
-    </View>
-  );
-}
-
-function FiatPriceRange({ range: [min, max] }: { range: [number, number] }) {
-  const { fiatPrice: minFiatPrice } = useBitcoinPrices(min);
-  const { fiatPrice: maxFiatPrice } = useBitcoinPrices(max);
-
-  return (
-    <View style={tw`z-10 flex-row self-stretch justify-between`}>
-      <PeachText style={tw`leading-loose text-center grow subtitle-0`}>
-        {minFiatPrice} - {maxFiatPrice}
+      <PeachText style={tw`self-center text-black-50 body-s`}>
+        {fiatPrice} {displayCurrency}
       </PeachText>
-      <DisplayCurrencySelector />
     </View>
   );
 }

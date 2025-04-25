@@ -252,9 +252,12 @@ exports[`SelectCountry should render correctly 1`] = `
             >
               <View
                 style={
-                  {
-                    "gap": 8,
-                  }
+                  [
+                    {
+                      "gap": 8,
+                    },
+                    undefined,
+                  ]
                 }
               >
                 <View

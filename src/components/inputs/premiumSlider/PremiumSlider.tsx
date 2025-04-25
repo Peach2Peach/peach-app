@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from "react";
+import { useMemo } from "react";
 import { Animated, View } from "react-native";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
@@ -6,7 +6,8 @@ import i18n from "../../../utils/i18n";
 import { getTranslateX } from "../../../utils/layout/getTranslateX";
 import { round } from "../../../utils/math/round";
 import { Icon } from "../../Icon";
-import { PeachText } from "../../text/PeachText";
+import { SliderLabel } from "./SliderLabel";
+import { SliderMarkers } from "./SliderMarkers";
 import { usePremiumSliderSetup } from "./usePremiumSliderSetup";
 
 const onStartShouldSetResponder = () => true;
@@ -14,10 +15,10 @@ const onStartShouldSetResponder = () => true;
 type Props = {
   premium: number;
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void;
-};
+} & ComponentProps;
 
 const LABEL_AMOUNT = 5;
-export const PremiumSlider = ({ premium, setPremium }: Props) => {
+export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
     usePremiumSliderSetup(premium, setPremium);
   const { isDarkMode } = useThemeStore();
@@ -33,7 +34,7 @@ export const PremiumSlider = ({ premium, setPremium }: Props) => {
 
   return (
     <View
-      style={tw`items-center self-stretch gap-6px`}
+      style={style}
       {...panResponder.panHandlers}
       {...{ onStartShouldSetResponder }}
     >
@@ -41,20 +42,12 @@ export const PremiumSlider = ({ premium, setPremium }: Props) => {
         style={[
           tw`w-full h-8`,
           tw`border p-0.5 rounded-full border-primary-mild-1 justify-center`,
-          isDarkMode ? tw`bg-transparent` : tw`bg-primary-background-dark`,
+          isDarkMode
+            ? tw`bg-transparent`
+            : tw`bg-primary-background-dark-color`,
         ]}
       >
-        {labelPosition.map((position) => (
-          <View
-            key={position}
-            style={[
-              tw`absolute items-center justify-center w-full top-3 bottom-3`,
-              { left: position },
-            ]}
-          >
-            <View style={tw`w-[2px] h-full bg-primary-mild-1`} />
-          </View>
-        ))}
+        <SliderMarkers positions={labelPosition} />
         <View {...{ onLayout }}>
           <Animated.View
             style={[
@@ -66,7 +59,7 @@ export const PremiumSlider = ({ premium, setPremium }: Props) => {
             <Icon
               id="chevronsDown"
               style={tw`w-4`}
-              color={tw.color("primary-background-light")}
+              color={tw.color("primary-background-light-color")}
             />
           </Animated.View>
         </View>
@@ -87,17 +80,3 @@ export const PremiumSlider = ({ premium, setPremium }: Props) => {
     </View>
   );
 };
-
-type SliderLabelProps = { position: number; children: ReactNode };
-
-function SliderLabel({ position, children }: SliderLabelProps) {
-  return (
-    <View style={[tw`absolute items-center w-full`, { left: position }]}>
-      <PeachText
-        style={tw`mt-1 leading-tight text-center subtitle-2 text-black-50 max-w-20`}
-      >
-        {children}
-      </PeachText>
-    </View>
-  );
-}

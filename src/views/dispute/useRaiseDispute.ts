@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 import OpenPGP from "react-native-fast-openpgp";
-import { Contract } from "../../../peach-api/src/@types/contract";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { peachAPI } from "../../utils/peachAPI";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";

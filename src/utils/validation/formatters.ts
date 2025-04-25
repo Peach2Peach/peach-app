@@ -1,10 +1,11 @@
 import { z } from "zod";
 import { enforceBICFormat } from "../format/enforceBICFormat";
+import { enforceBankNumberFormat } from "../format/enforceBankNumberFormat";
 import { enforceIBANFormat } from "../format/enforceIBANFormat";
 import { enforcePhoneFormat } from "../format/enforcePhoneFormat";
+import { enforceSortCodeFormat } from "../format/enforceSortCodeFormat";
 import { enforceUsernameFormat } from "../format/enforceUsernameFormat";
 import { enforceWalletFormat } from "../format/enforceWalletFormat";
-import { removeNonDigits } from "../format/removeNonDigits";
 
 export const Formatter = z.enum([
   "bic",
@@ -24,13 +25,13 @@ export const formatters: Record<
   (val: string) => string
 > = {
   bic: enforceBICFormat,
-  cbu: removeNonDigits,
-  cvu: removeNonDigits,
-  cvuAlias: removeNonDigits,
+  cbu: enforceBankNumberFormat,
+  cvu: enforceBankNumberFormat,
+  cvuAlias: enforceBankNumberFormat,
   iban: enforceIBANFormat,
   phone: enforcePhoneFormat,
-  ukBankAccount: removeNonDigits,
-  ukSortCode: removeNonDigits,
+  ukBankAccount: enforceBankNumberFormat,
+  ukSortCode: enforceSortCodeFormat,
   userName: enforceUsernameFormat,
   wallet: enforceWalletFormat,
 };

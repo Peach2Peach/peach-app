@@ -7,7 +7,7 @@ import { PeachText } from "../text/PeachText";
 import { CopyAble } from "../ui/CopyAble";
 import { SummaryItem, SummaryItemProps } from "./SummaryItem";
 
-type Props = Omit<SummaryItemProps, "children"> & {
+type Props = SummaryItemProps & {
   address?: string;
 };
 
@@ -15,7 +15,7 @@ export const AddressSummaryItem = ({ address, ...props }: Props) => {
   const { isDarkMode } = useThemeStore();
 
   const addressTextStyle = isDarkMode
-    ? tw`text-backgroundLight`
+    ? tw`text-backgroundLight-light`
     : tw`text-black-100`;
 
   return (

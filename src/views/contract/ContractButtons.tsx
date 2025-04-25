@@ -2,7 +2,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { Contract } from "../../../peach-api/src/@types/contract";
 import { Button } from "../../components/buttons/Button";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
@@ -85,7 +84,7 @@ function DisputeRaisedPopup({
   view,
 }: {
   contract: Contract;
-  view: "buyer" | "seller";
+  view: ContractViewer;
 }) {
   const { id, disputeReason, amount } = contract;
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement();

@@ -30,9 +30,9 @@ export function RefundEscrowSlider() {
   const { contract } = useContractContext();
   const startRefund = useStartRefundPopup();
   const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
-  const onConfirm = async () => {
+  const onConfirm = () => {
     if (!offer || !isSellOffer(offer)) return;
-    await startRefund(offer);
+    startRefund(offer);
   };
   return (
     <ConfirmSlider
@@ -63,12 +63,9 @@ export function PaymentMadeSlider() {
     },
   );
 
-  const { paymentMade, paymentExpectedBy } = contract;
   return (
     <ConfirmSlider
-      enabled={
-        !isPending && !isPaymentTooLate({ paymentMade, paymentExpectedBy })
-      }
+      enabled={!isPending && !isPaymentTooLate(contract)}
       onConfirm={() => mutate()}
       label1={i18n("contract.payment.buyer.confirm")}
       label2={i18n("contract.payment.made")}
@@ -95,20 +92,20 @@ export function PaymentReceivedSlider() {
     />
   );
 }
-export function CancelTradeSlider({ isBuyer = false }: { isBuyer?: boolean }) {
+export function CancelTradeSlider() {
   const { contract } = useContractContext();
   const { mutate } = useCancelContract({
     contractId: contract.id,
     optimisticContract: {
       canceled: true,
-      tradeStatus: isBuyer ? "tradeCanceled" : "refundOrReviveRequired",
+      tradeStatus: "refundOrReviveRequired",
     },
   });
 
   const cancelContract = () => {
     mutate(undefined, {
       onSuccess: async ({ psbt }) => {
-        if (psbt && !isBuyer) await patchSellOfferWithRefundTx(contract, psbt);
+        if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
       },
     });
   };
@@ -122,7 +119,7 @@ export function CancelTradeSlider({ isBuyer = false }: { isBuyer?: boolean }) {
   );
 }
 const MAX_HOURS_FOR_PAYMENT = 12;
-export function ExtendPaymentTimerSlider() {
+export function ExtendTimerSlider() {
   const { contractId } = useRoute<"contract">().params;
   const { mutate } = useContractMutation(
     {
@@ -137,35 +134,6 @@ export function ExtendPaymentTimerSlider() {
           await peachAPI.private.contract.extendPaymentTimer({ contractId });
         if (!result || err)
           throw new Error(err?.error || "Error extending payment timer");
-      },
-    },
-  );
-
-  return (
-    <ConfirmSlider
-      iconId="arrowRightCircle"
-      onConfirm={() => mutate()}
-      label1={i18n("contract.seller.giveMoreTime")}
-    />
-  );
-}
-const MAX_HOURS_FOR_FUNDING = 12;
-export function ExtendFundingTimerSlider() {
-  const { contractId } = useRoute<"contract">().params;
-  const { mutate } = useContractMutation(
-    {
-      id: contractId,
-      tradeStatus: "fundEscrow",
-      fundingExpectedBy: new Date(
-        Date.now() + MSINANHOUR * MAX_HOURS_FOR_FUNDING,
-      ),
-    },
-    {
-      mutationFn: async () => {
-        const { result, error: err } =
-          await peachAPI.private.contract.extendFundingTimer({ contractId });
-        if (!result || err)
-          throw new Error(err?.error || "Error extending funding timer");
       },
     },
   );

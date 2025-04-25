@@ -6,13 +6,13 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
     [
       {
         "alignItems": "center",
-        "alignSelf": "center",
         "flexDirection": "row",
         "gap": 16,
       },
       {
         "alignItems": "flex-end",
       },
+      undefined,
     ]
   }
 >
@@ -175,13 +175,13 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
     [
       {
         "alignItems": "center",
-        "alignSelf": "center",
         "flexDirection": "row",
         "gap": 16,
       },
       {
         "alignItems": "flex-end",
       },
+      undefined,
     ]
   }
 >
@@ -344,13 +344,13 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
     [
       {
         "alignItems": "center",
-        "alignSelf": "center",
         "flexDirection": "row",
         "gap": 16,
       },
       {
         "alignItems": "flex-end",
       },
+      undefined,
     ]
   }
 >
@@ -513,11 +513,11 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
     [
       {
         "alignItems": "center",
-        "alignSelf": "center",
         "flexDirection": "row",
         "gap": 16,
       },
       false,
+      undefined,
     ]
   }
 >
@@ -587,13 +587,13 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
     [
       {
         "alignItems": "center",
-        "alignSelf": "center",
         "flexDirection": "row",
         "gap": 16,
       },
       {
         "alignItems": "flex-end",
       },
+      undefined,
     ]
   }
 >
@@ -756,11 +756,11 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
     [
       {
         "alignItems": "center",
-        "alignSelf": "center",
         "flexDirection": "row",
         "gap": 16,
       },
       false,
+      undefined,
     ]
   }
 >

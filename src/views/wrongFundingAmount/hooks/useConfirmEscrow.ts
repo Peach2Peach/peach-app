@@ -1,17 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { offerKeys } from "../../../hooks/query/offerKeys";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { peachAPI } from "../../../utils/peachAPI";
 
-type FundingStatusResponse = {
-  offerId: string;
-  escrow: string;
-  funding: FundingStatus;
-  error?: "" | "NOT_FOUND" | "UNAUTHORIZED";
-  returnAddress: string;
-  userConfirmationRequired: boolean;
-};
 export const useConfirmEscrow = () => {
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
@@ -20,14 +12,14 @@ export const useConfirmEscrow = () => {
   return useMutation({
     onMutate: async ({ offerId }) => {
       await queryClient.cancelQueries({
-        queryKey: offerKeys.escrowInfo(offerId),
+        queryKey: offerKeys.fundingStatus(offerId),
       });
       const previousData = queryClient.getQueryData<FundingStatusResponse>(
-        offerKeys.escrowInfo(offerId),
+        offerKeys.fundingStatus(offerId),
       );
       if (previousData) {
         queryClient.setQueryData(
-          offerKeys.escrowInfo(offerId),
+          offerKeys.fundingStatus(offerId),
           (oldQueryData: FundingStatusResponse | undefined) =>
             oldQueryData && {
               ...oldQueryData,
@@ -41,7 +33,7 @@ export const useConfirmEscrow = () => {
     onError: (error, { offerId }, context) => {
       showErrorBanner(error.message);
       queryClient.setQueryData(
-        offerKeys.escrowInfo(offerId),
+        offerKeys.fundingStatus(offerId),
         context?.previousData,
       );
     },
@@ -57,7 +49,7 @@ export const useConfirmEscrow = () => {
     },
     onSettled: (_data, _error, { offerId }) =>
       queryClient.invalidateQueries({
-        queryKey: offerKeys.escrowInfo(offerId),
+        queryKey: offerKeys.fundingStatus(offerId),
       }),
   });
 };

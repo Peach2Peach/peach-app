@@ -1,35 +1,37 @@
 import { ReactNode, useMemo } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { GiftCardCountry } from "../../../../peach-api/src/@types/payment";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
-import { useRoute } from "../../../hooks/useRoute";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { keys } from "../../../utils/object/keys";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
-import { Icon } from "../../Icon";
-import { DrawerOptionType } from "../../drawer/components/DrawerOption";
+import { NewBubble as Bubble } from "../../bubble/Bubble";
 import { useDrawerState } from "../../drawer/useDrawerState";
-import { PeachText } from "../../text/PeachText";
+import { CurrencySelection } from "../../navigation/CurrencySelection";
+import { PulsingText } from "./PulsingText";
 
 type Props = {
   meansOfPayment: MeansOfPayment;
+  disabled: boolean;
   selectedCurrency: Currency;
   setSelectedCurrency: (currency: Currency) => void;
   selectedPaymentData: PaymentData | undefined;
   setSelectedPaymentData: (paymentMethod?: PaymentData) => void;
+  showPaymentMethodPulse: boolean;
   selectedMethodInfo: ReactNode;
 };
 
 export function PaymentMethodSelector({
+  disabled,
   selectedCurrency,
   setSelectedCurrency,
   selectedPaymentData,
   setSelectedPaymentData,
+  showPaymentMethodPulse,
   selectedMethodInfo,
   meansOfPayment,
 }: Props) {
@@ -68,41 +70,28 @@ export function PaymentMethodSelector({
 
   return (
     <View
-      style={tw`items-center self-stretch gap-3 px-4 py-3 border-2 rounded-2xl border-primary-main`}
+      style={[disabled && tw`opacity-33`, tw`gap-1`]}
+      pointerEvents={disabled ? "none" : "auto"}
     >
-      <PeachText style={tw`underline subtitle-1`}>
-        select currency & payment method
-      </PeachText>
+      <PulsingText style={tw`self-center`} showPulse={showPaymentMethodPulse}>
+        {i18n("form.paymentMethod")}
+      </PulsingText>
 
       <View style={tw`gap-3 pb-2`}>
         {selectedMethodInfo || (
-          <View
-            style={tw`flex-wrap items-center self-stretch justify-center gap-1`}
-          >
-            {availableCurrencies.map((currency) => (
-              <TouchableOpacity
-                key={currency}
-                style={[
-                  tw`px-2 border rounded-lg border-black-100`,
-                  selectedCurrency === currency
-                    ? tw`bg-black-5 border-black-100`
-                    : tw`border-transparent`,
-                ]}
-                disabled={selectedCurrency === currency}
-                onPress={() => onCurrencyChange(currency)}
-              >
-                <PeachText style={tw`leading-loose subtitle-0`}>
-                  {currency}
-                </PeachText>
-              </TouchableOpacity>
-            ))}
+          <>
+            <CurrencySelection
+              selected={selectedCurrency}
+              currencies={availableCurrencies}
+              select={onCurrencyChange}
+            />
             <CustomSelector
               selectedCurrency={selectedCurrency}
               selectedPaymentData={selectedPaymentData}
               onPress={setSelectedPaymentData}
               items={items}
             />
-          </View>
+          </>
         )}
       </View>
     </View>
@@ -169,7 +158,6 @@ function PayementMethodBubble({
       ? "plusSquare"
       : "edit";
   const navigation = useStackNavigation();
-  const routeName = useRoute().name;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
   const { data: meetupEvents } = useMeetupEvents();
@@ -187,19 +175,16 @@ function PayementMethodBubble({
         if (hasMultiplePaymentData) {
           updateDrawer({
             title: i18n("selectPaymentMethod.title"),
-            options: paymentDataForType.map(
-              (p, index): DrawerOptionType => ({
-                title: getPaymentMethodName(p.type),
-                onPress: () => {
-                  onPress(paymentDataForType[index]);
-                  updateDrawer({ show: false });
-                },
-                // @ts-ignore
-                logoID: paymentMethod,
-                iconRightID:
-                  p.id === selectedPaymentData?.id ? "check" : undefined,
-              }),
-            ),
+            options: paymentDataForType.map((p, index) => ({
+              title: getPaymentMethodName(p.type),
+              onPress: () => {
+                onPress(paymentDataForType[index]);
+                updateDrawer({ show: false });
+              },
+              logoID: paymentMethod,
+              iconRightID:
+                p.id === selectedPaymentData?.id ? "check" : undefined,
+            })),
             show: true,
           });
         } else {
@@ -208,11 +193,11 @@ function PayementMethodBubble({
       } else if (isCashTrade(paymentMethod)) {
         navigation.navigate("meetupScreen", {
           eventId: paymentMethod.replace("cash.", ""),
-          origin: routeName,
+          origin: "matchDetails",
         });
       } else {
         const country = paymentMethod.startsWith("giftCard.amazon.")
-          ? (paymentMethod.split(".")[2] as GiftCardCountry)
+          ? (paymentMethod.split(".")[2] as PaymentMethodCountry)
           : undefined;
         navigation.navigate("paymentMethodForm", {
           paymentData: {
@@ -221,41 +206,20 @@ function PayementMethodBubble({
             currencies: [selectedCurrency],
             country,
           },
-          origin: routeName,
+          origin: "matchDetails",
         });
       }
     }
   };
 
   return (
-    <TouchableOpacity
-      style={[
-        tw`flex-row items-center justify-center gap-1 px-2 border rounded-lg border-black-100`,
-        isSelected
-          ? tw`border-primary-main bg-primary-main`
-          : tw`border-primary-mild-2`,
-      ]}
+    <Bubble
       onPress={onPressBubble}
+      color={isSelected ? "orange" : "primary-mild"}
+      ghost={!isSelected}
+      iconId={iconId}
     >
-      <PeachText
-        style={[
-          tw`leading-loose subtitle-0`,
-          isSelected
-            ? tw`text-primary-background-light`
-            : tw`text-primary-mild-2`,
-        ]}
-      >
-        {children}
-      </PeachText>
-      <Icon
-        id={iconId}
-        size={18}
-        color={
-          isSelected
-            ? tw.color("primary-background-light")
-            : tw.color("primary-mild-2")
-        }
-      />
-    </TouchableOpacity>
+      {children}
+    </Bubble>
   );
 }

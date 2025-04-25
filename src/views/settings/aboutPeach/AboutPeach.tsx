@@ -4,16 +4,14 @@ import { IconType } from "../../../assets/icons";
 import { PeachScrollView } from "../../../components/PeachScrollView";
 import { Screen } from "../../../components/Screen";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import i18n, { languageState } from "../../../utils/i18n";
 import { getLocalizedLink } from "../../../utils/web/getLocalizedLink";
 import { openURL } from "../../../utils/web/openURL";
 import { SettingsItem } from "../components/SettingsItem";
 
 export const AboutPeach = () => {
   const navigation = useStackNavigation();
-  const locale = useSettingsStore((state) => state.locale);
 
   const items: {
     title: string;
@@ -41,19 +39,21 @@ export const AboutPeach = () => {
     },
     {
       title: "website",
-      onPress: () => openURL(getLocalizedLink("", locale)),
+      onPress: () => openURL(getLocalizedLink("", languageState.locale)),
       icon: "externalLink",
       iconSize: tw`w-6 h-6`,
     },
     {
       title: "privacyPolicy",
-      onPress: () => openURL(getLocalizedLink("privacy-policy", locale)),
+      onPress: () =>
+        openURL(getLocalizedLink("privacy-policy", languageState.locale)),
       icon: "externalLink",
       iconSize: tw`w-6 h-6`,
     },
     {
       title: "terms",
-      onPress: () => openURL(getLocalizedLink("terms-and-conditions", locale)),
+      onPress: () =>
+        openURL(getLocalizedLink("terms-and-conditions", languageState.locale)),
       icon: "externalLink",
       iconSize: tw`w-6 h-6`,
     },

@@ -18,12 +18,8 @@ export const getThemeForTradeItem = (
 
   if (isContractSummary(trade)) {
     if (trade.disputeWinner) return getDisputeResultTheme(trade);
-    if (
-      trade.tradeStatus === "paymentTooLate" ||
-      trade.tradeStatus === "fundingExpired"
-    ) {
+    if (trade.tradeStatus === "paymentTooLate")
       return { iconId: "watch", color };
-    }
     if (trade.tradeStatus !== "tradeCanceled") {
       return {
         iconId: trade.type === "ask" ? "sell" : "buy",

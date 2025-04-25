@@ -5,12 +5,12 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 
-type Props = {
+type Props = ComponentProps & {
   title: string;
   max: number;
   value: number;
 };
-export const ProgressDonut = ({ title, max, value }: Props) => {
+export const ProgressDonut = ({ title, max, value, style }: Props) => {
   const percent = value / max;
 
   const strokeWidth = 6;
@@ -32,7 +32,7 @@ export const ProgressDonut = ({ title, max, value }: Props) => {
   }, [circleCircumference, percent, strokeDashOffsetAnim]);
 
   return (
-    <View style={tw`items-center py-2`}>
+    <View style={[tw`items-center`, style]}>
       <PeachText
         style={[
           tw`font-bold text-center ${isDarkMode ? "text-primary-mild-1" : "text-primary-main"} text-3xs`,
@@ -49,7 +49,7 @@ export const ProgressDonut = ({ title, max, value }: Props) => {
               cy="50%"
               r={radius}
               fill="transparent"
-              stroke={tw.color("primary-background-dark")}
+              stroke={tw.color("primary-background-dark-color")}
               strokeWidth={strokeWidth}
             />
             <AnimatedCircle

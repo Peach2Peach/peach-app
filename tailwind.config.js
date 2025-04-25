@@ -1,8 +1,24 @@
 export default {
   theme: {
     extend: {
+      maxHeight: {
+        0: "0",
+        "1/4": "25%",
+        "1/2": "50%",
+        "3/4": "75%",
+        full: "100%",
+      },
+      inset: {
+        px: "1px",
+        "1/2": "50%",
+      },
       colors: {
+        transparent: "transparent",
+        current: "currentColor",
+
         bitcoin: "#f7931a",
+
+        bitcoinText: "#5b5b5b",
 
         card: "#1A1210",
 
@@ -23,14 +39,21 @@ export default {
             1: "#C45104",
           },
           main: "#F56522",
+          mainTrans: "rgba(245, 101, 34, 0)",
           mild: {
             2: "#FFA171",
             1: "#FCCCB6",
           },
           background: {
-            dark: "#FEEDE5",
+            dark: {
+              color: "#FEEDE5",
+              trans: "rgba(254, 237, 229, 0.95)",
+            },
             main: "#FFF9F6",
-            light: "#FFFCFA",
+            light: {
+              color: "#FFFCFA",
+              trans: "rgba(255, 252, 250, 0)",
+            },
           },
         },
 
@@ -42,10 +65,16 @@ export default {
           main: "#65A519",
           mild: {
             2: "#AFDA73",
-            1: "#DDEFC3",
+            1: {
+              color: "#DDEFC3",
+              trans: "rgba(221, 239, 195, 0.95)",
+            },
           },
           background: {
-            dark: "#F2F9E7",
+            dark: {
+              color: "#F2F9E7",
+              trans: "rgba(242, 249, 231, 0.95)",
+            },
             main: "#FCFEF6",
             light: "#FEFEFB",
           },
@@ -94,7 +123,10 @@ export default {
           light: "#FFF9F6",
           dark: "#120A07",
         },
-        backgroundLight: "#FFFCFA",
+        backgroundLight: {
+          light: "#FFFCFA",
+          trans: "rgba(255, 252, 250, 0.95)",
+        },
       },
       fontSize: {
         "6xl": "96px",
@@ -132,6 +164,9 @@ export default {
         wider: "0.036em",
         widest: "0.1em",
       },
+      minHeight: {
+        10: "40px",
+      },
       width: {
         "1/8": "12.5%",
         "2/8": "25%",
@@ -164,6 +199,7 @@ export default {
       md: "374px",
     },
   },
+  darkMode: "class",
   variants: {},
   corePlugins: {},
 };

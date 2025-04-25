@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RadioButtonItem } from "../../components/inputs/RadioButtons";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import i18n from "../../utils/i18n";
 import { ApplySortersAction } from "./ApplySortersAction";
@@ -8,16 +9,16 @@ export const SellSorters = () => {
   const defaultSorter = useOfferPreferences(
     (state) => state.sortBy.sellOffer[0],
   );
-  const [sortBy, setSortBy] = useState(defaultSorter);
-  const items = [
+  const [sortBy, setSortBy] = useState<SellSorter>(defaultSorter);
+  const items: RadioButtonItem<SellSorter>[] = [
     {
       display: i18n("offer.sorting.bestReputation"),
       value: "bestReputation",
-    } as const,
+    },
     {
       display: i18n("offer.sorting.highestPrice"),
       value: "highestPrice",
-    } as const,
+    },
   ];
   const setSellOfferSorter = useOfferPreferences(
     (state) => state.setSellOfferSorter,

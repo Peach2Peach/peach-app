@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -32,11 +31,13 @@ export function UserExistsForDevice() {
     >
       <View style={tw`items-center justify-center gap-8 grow`}>
         <View>
-          <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("newUser.accountNotCreated")}
           </PeachText>
           <PeachText
-            style={tw`text-center body-l text-primary-background-light`}
+            style={tw`text-center body-l text-primary-background-light-color`}
           >
             {i18n("newUser.youAlreadyHaveOne")}
           </PeachText>
@@ -44,7 +45,7 @@ export function UserExistsForDevice() {
         <Icon
           id="userX"
           size={128}
-          color={tw.color("primary-background-light")}
+          color={tw.color("primary-background-light-color")}
         />
         <View style={tw`items-center gap-8`}>
           <MenuItem onPress={goToRestoreFromFile}>
@@ -62,20 +63,20 @@ export function UserExistsForDevice() {
   );
 }
 
-type MenuItemProps = { onPress: () => void; children: ReactNode };
+type MenuItemProps = ComponentProps & { onPress: () => void };
 function MenuItem({ children, onPress }: MenuItemProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={tw`flex-row items-center justify-between w-60`}
     >
-      <PeachText style={tw`settings text-primary-background-light`}>
+      <PeachText style={tw`settings text-primary-background-light-color`}>
         {children}
       </PeachText>
       <Icon
         id="chevronRight"
         style={tw`w-6 h-6`}
-        color={tw.color("primary-background-light")}
+        color={tw.color("primary-background-light-color")}
       />
     </TouchableOpacity>
   );

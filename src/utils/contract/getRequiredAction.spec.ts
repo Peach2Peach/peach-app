@@ -1,8 +1,9 @@
-import { Contract } from "../../../peach-api/src/@types/contract";
 import { getRequiredAction } from "./getRequiredAction";
 
 describe("getRequiredAction", () => {
-  it("returns none if contract is canceled", () => {
+  it("returns none if contract is null or canceled", () => {
+    expect(getRequiredAction(null)).toBe("none");
+
     const canceledContract: Partial<Contract> = {
       id: "12-34",
       canceled: true,

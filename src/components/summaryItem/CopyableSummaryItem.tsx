@@ -4,7 +4,7 @@ import { PeachText } from "../text/PeachText";
 import { CopyAble } from "../ui/CopyAble";
 import { SummaryItem, SummaryItemProps } from "./SummaryItem";
 
-type Props = Omit<SummaryItemProps, "children"> & {
+type Props = SummaryItemProps & {
   text: string;
 };
 

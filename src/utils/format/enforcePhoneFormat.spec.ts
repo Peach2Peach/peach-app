@@ -16,6 +16,6 @@ describe("enforcePhoneFormat", () => {
   });
 
   it("should return an empty string if the input is an empty string", () => {
-    expect(enforcePhoneFormat("")).toBe("+");
+    expect(enforcePhoneFormat("")).toBe("");
   });
 });

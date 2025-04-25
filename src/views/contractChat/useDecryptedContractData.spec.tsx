@@ -94,6 +94,21 @@ describe("useDecryptedContractData", () => {
       expect(result.current.data).toBeUndefined();
     });
   });
+  it("returns error if paymentDataSignature is invalid for symmetric decryption", async () => {
+    decryptSpy.mockResolvedValueOnce(symmetricKey);
+    verifySpy.mockResolvedValueOnce(true).mockResolvedValue(false);
+    const { result } = renderHook(useDecryptedContractData, {
+      initialProps: mockContract,
+    });
+
+    await waitFor(() => {
+      expect(result.current.isError).toBe(true);
+      expect(result.current.error).toStrictEqual(
+        Error("SYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED"),
+      );
+      expect(result.current.data).toBeUndefined();
+    });
+  });
   it("returns error if payment data cannot be parsed after symmetric decryption", async () => {
     decryptSpy.mockResolvedValueOnce(symmetricKey);
     verifySpy.mockResolvedValueOnce(true);

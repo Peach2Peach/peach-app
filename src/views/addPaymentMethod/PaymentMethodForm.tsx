@@ -6,15 +6,15 @@ import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { CurrencySelection } from "../../components/inputs/paymentForms/CurrencySelection";
+import { CurrencySelection } from "../../components/inputs/paymentForms/components";
 import { DeletePaymentMethodPopup } from "../../components/payment/components/DeletePaymentMethodPopup";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { useGoToOrigin } from "../../hooks/useGoToOrigin";
 import { useRoute } from "../../hooks/useRoute";
+import { PAYMENTMETHODINFOS } from "../../paymentMethods";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
@@ -176,9 +176,9 @@ function CurrencySelectionController({
 }
 
 function hasMultipleAvailableCurrencies(paymentMethod: PaymentMethod) {
-  const selectedMethod = useConfigStore
-    .getState()
-    .paymentMethods.find((pm) => pm.id === paymentMethod);
+  const selectedMethod = PAYMENTMETHODINFOS.find(
+    (pm) => pm.id === paymentMethod,
+  );
   return !!selectedMethod && selectedMethod.currencies.length > 1;
 }
 

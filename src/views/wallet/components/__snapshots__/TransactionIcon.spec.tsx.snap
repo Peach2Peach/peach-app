@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionIcon should render correctly for type DEPOSIT 1`] = `
+<Icon
+  color="#65A519"
+  id="arrowDownCircle"
+  size={20}
+/>
+`;
+
+exports[`TransactionIcon should render correctly for type ESCROWFUNDED 1`] = `
+<Icon
+  color="#F56522"
+  id="sell"
+  size={20}
+/>
+`;
+
+exports[`TransactionIcon should render correctly for type REFUND 1`] = `
+<Icon
+  color="#9F8C82"
+  id="rotateCounterClockwise"
+  size={20}
+/>
+`;
+
+exports[`TransactionIcon should render correctly for type TRADE 1`] = `
+<Icon
+  color="#65A519"
+  id="buy"
+  size={20}
+/>
+`;
+
+exports[`TransactionIcon should render correctly for type WITHDRAWAL 1`] = `
+<Icon
+  color="#F56522"
+  id="arrowUpCircle"
+  size={20}
+/>
+`;

@@ -10,7 +10,7 @@ import { peachAPI } from "../utils/peachAPI";
 import { PeachWallet } from "../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../utils/wallet/setWallet";
 import { useWalletState } from "../utils/wallet/walletStore";
-import { offerKeys } from "./query/offerKeys";
+import { offerKeys } from "./query/useOfferDetail";
 import { useCheckFundingMultipleEscrows } from "./useCheckFundingMultipleEscrows";
 
 jest.useFakeTimers();

@@ -9,7 +9,7 @@ import { getLabel1Opacity } from "./helpers/getLabel1Opacity";
 import { getTransform } from "./helpers/getTransform";
 import { useConfirmSliderSetup } from "./hooks/useConfirmSliderSetup";
 
-type Props = {
+type Props = ComponentProps & {
   label1: string;
   label2?: string;
   iconId?: IconType;
@@ -24,6 +24,7 @@ export const ConfirmSlider = ({
   iconId = "checkCircle",
   onConfirm,
   enabled = true,
+  style,
 }: Props) => {
   const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({
     onConfirm,
@@ -32,7 +33,10 @@ export const ConfirmSlider = ({
 
   return (
     <View
-      style={tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`}
+      style={[
+        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark-color border-primary-mild-1`,
+        style,
+      ]}
       {...panResponder.panHandlers}
       testID="confirmSlider"
     >
@@ -85,13 +89,13 @@ export function UnlockedSlider({
   const pan = new Animated.Value(1);
   const isMediumScreen = useIsMediumScreen();
   const icon = {
-    color: tw.color("primary-background-light"),
+    color: tw.color("primary-background-light-color"),
     size: isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE,
   };
   return (
     <View
       style={[
-        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`,
+        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark-color border-primary-mild-1`,
         style,
       ]}
     >

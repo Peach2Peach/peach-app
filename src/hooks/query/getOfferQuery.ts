@@ -2,7 +2,7 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import { error } from "../../utils/log/error";
 import { saveOffer } from "../../utils/offer/saveOffer";
 import { peachAPI } from "../../utils/peachAPI";
-import { offerKeys } from "./offerKeys";
+import { offerKeys } from "./useOfferDetail";
 
 export async function getOfferQuery({
   queryKey,

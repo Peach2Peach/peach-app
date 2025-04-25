@@ -8,16 +8,16 @@ jest.mock("./toggleNotificationsIOS");
 jest.mock("./isIOS");
 
 describe("toggleNotifications", () => {
-  it("calls toggleNotificationsIOS if isIOS returns true", async () => {
+  it("calls toggleNotificationsIOS if isIOS returns true", () => {
     (<jest.Mock>isIOS).mockReturnValueOnce(true);
-    await toggleNotifications();
+    toggleNotifications();
     expect(toggleNotificationsIOS).toHaveBeenCalled();
     expect(toggleNotificationsAndroid).not.toHaveBeenCalled();
   });
 
-  it("calls toggleNotificationsAndroid if isIOS returns false", async () => {
+  it("calls toggleNotificationsAndroid if isIOS returns false", () => {
     (<jest.Mock>isIOS).mockReturnValueOnce(false);
-    await toggleNotifications();
+    toggleNotifications();
     expect(toggleNotificationsAndroid).toHaveBeenCalled();
     expect(toggleNotificationsIOS).not.toHaveBeenCalled();
   });

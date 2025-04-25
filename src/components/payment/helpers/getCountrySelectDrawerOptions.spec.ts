@@ -1,43 +1,43 @@
-import { btcPrague } from "../../../../tests/unit/data/eventData";
+import { balticHoneyBadger } from "../../../../tests/unit/data/eventData";
 import { getCountrySelectDrawerOptions } from "./getCountrySelectDrawerOptions";
 
 describe("getCountrySelectDrawerOptions", () => {
   const goToEventDetails = jest.fn();
   const selectCountry = jest.fn();
   const result = getCountrySelectDrawerOptions(
-    [btcPrague],
+    [balticHoneyBadger],
     goToEventDetails,
     selectCountry,
   );
 
   it("should return country select drawer options", () => {
     expect(result).toEqual({
-      options: expect.arrayContaining([
+      options: [
         {
           highlighted: true,
           onPress: expect.any(Function),
-          subtext: "Prague",
-          title: "BTC Prague",
+          subtext: "Riga",
+          title: "Baltic Honeybadger",
         },
         {
-          flagID: "CZ",
+          flagID: "LV",
           onPress: expect.any(Function),
-          title: "Czech Republic",
+          title: "Latvia",
         },
-      ]),
+      ],
       show: true,
       title: "select country",
     });
   });
   it("should go to event details directly for super featured events", () => {
-    result.options.find((event) => "highlighted" in event)?.onPress();
-    expect(goToEventDetails).toHaveBeenCalledWith(btcPrague.id);
+    result.options[0].onPress();
+    expect(goToEventDetails).toHaveBeenCalledWith(balticHoneyBadger.id);
   });
   it("should select country when pressing on country option", () => {
-    result.options.find((event) => !("highlighted" in event))?.onPress();
+    result.options[1].onPress();
     expect(selectCountry).toHaveBeenCalledWith(
-      expect.objectContaining({ CZ: [btcPrague] }),
-      "CZ",
+      { LV: [balticHoneyBadger] },
+      "LV",
     );
   });
 });

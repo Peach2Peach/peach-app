@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradingLimits should render correctly 1`] = `
+<React.Fragment>
+  <View>
+    <Progress
+      backgroundStyle={
+        {
+          "backgroundColor": "#FCCCB6",
+        }
+      }
+      barStyle={
+        {
+          "backgroundColor": "#F56522",
+          "borderColor": "#FFF9F6",
+          "borderWidth": 2,
+          "height": 10,
+          "marginTop": -2,
+        }
+      }
+      percent={0}
+      style={
+        {
+          "height": 6,
+        }
+      }
+    />
+    <TradingLimitAmount
+      amount={0}
+      displayCurrency="EUR"
+      limit={1000}
+      style={
+        {
+          "marginTop": 4,
+          "paddingLeft": 8,
+        }
+      }
+      type="daily"
+    />
+  </View>
+  <View>
+    <Progress
+      backgroundStyle={
+        {
+          "backgroundColor": "#FCCCB6",
+        }
+      }
+      barStyle={
+        {
+          "backgroundColor": "#F56522",
+          "borderColor": "#FFF9F6",
+          "borderWidth": 2,
+          "height": 10,
+          "marginTop": -2,
+        }
+      }
+      percent={Infinity}
+      style={
+        {
+          "height": 6,
+        }
+      }
+    />
+    <TradingLimitAmount
+      amount={1000}
+      displayCurrency="EUR"
+      limit={0}
+      style={
+        {
+          "marginTop": 4,
+          "paddingLeft": 8,
+        }
+      }
+      type="monthly"
+    />
+  </View>
+  <View>
+    <Progress
+      backgroundStyle={
+        {
+          "backgroundColor": "#FCCCB6",
+        }
+      }
+      barStyle={
+        {
+          "backgroundColor": "#F56522",
+          "borderColor": "#FFF9F6",
+          "borderWidth": 2,
+          "height": 10,
+          "marginTop": -2,
+        }
+      }
+      percent={0}
+      style={
+        {
+          "height": 6,
+        }
+      }
+    />
+    <TradingLimitAmount
+      amount={0}
+      displayCurrency="EUR"
+      limit={100000}
+      style={
+        {
+          "marginTop": 4,
+          "paddingLeft": 8,
+        }
+      }
+      type="yearly"
+    />
+  </View>
+</React.Fragment>
+`;

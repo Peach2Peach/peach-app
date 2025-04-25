@@ -5,7 +5,22 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
 - First value
 + Second value
 
-@@ -111,11 +111,11 @@
+@@ -80,11 +80,13 @@
+            "gap": 4,
+            "justifyContent": "center",
+          },
+          Array [
+            false,
+-           false,
++           Object {
++             "paddingLeft": 24,
++           },
+          ],
+        ]
+      }
+    >
+      <View
+@@ -112,11 +114,11 @@
               Object {
                 "color": "#2B1911",
               },
@@ -18,10 +33,10 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
           accessibilityState={
             Object {
               "busy": undefined,
-@@ -179,10 +179,57 @@
-            "justifyContent": "flex-end",
-          },
-        ]
+@@ -173,10 +175,57 @@
+          "gap": 2,
+          "justifyContent": "flex-end",
+        }
       }
     >
 +     <View
@@ -83,7 +98,7 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
 - First value
 + Second value
 
-@@ -28,10 +28,57 @@
+@@ -23,10 +23,57 @@
       <View
         accessibilityState={
           Object {
@@ -141,7 +156,23 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
             "selected": undefined,
           }
         }
-@@ -111,11 +158,11 @@
+@@ -79,12 +126,14 @@
+            "flexShrink": 1,
+            "gap": 4,
+            "justifyContent": "center",
+          },
+          Array [
++           Object {
++             "paddingRight": 24,
++           },
+            false,
+-           false,
+          ],
+        ]
+      }
+    >
+      <View
+@@ -112,11 +161,11 @@
               Object {
                 "color": "#2B1911",
               },
@@ -171,17 +202,12 @@ exports[`AddressNavigation should render correctly 1`] = `
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexBasis": "0%",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "gap": 2,
-        },
-        undefined,
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+        "justifyContent": "flex-end",
+      }
     }
   >
     <View
@@ -234,15 +260,21 @@ exports[`AddressNavigation should render correctly 1`] = `
   </View>
   <View
     style={
-      {
-        "alignItems": "center",
-        "flexBasis": "0%",
-        "flexDirection": "row",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "gap": 4,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "gap": 4,
+          "justifyContent": "center",
+        },
+        [
+          false,
+          false,
+        ],
+      ]
     }
   >
     <View
@@ -325,19 +357,12 @@ exports[`AddressNavigation should render correctly 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexBasis": "0%",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "gap": 2,
-        },
-        {
-          "justifyContent": "flex-end",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+        "justifyContent": "flex-end",
+      }
     }
   >
     <View

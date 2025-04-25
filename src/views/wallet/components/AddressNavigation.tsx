@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { View, ViewStyle } from "react-native";
+import { View } from "react-native";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
@@ -8,12 +8,17 @@ import { useLastUnusedAddress, useWalletAddress } from "../hooks";
 import { walletKeys } from "../hooks/useUTXOs";
 import { AddressLabelInput } from "./AddressLabelInput";
 
-function AddressLabelInputByIndex({ index }: { index: number }) {
+function AddressLabelInputByIndex({
+  index,
+  style,
+}: ComponentProps & { index: number }) {
   const fallback = { address: undefined, used: false, index };
   const { data: currentAddress = fallback } = useWalletAddress(index);
 
   return (
-    <View style={tw`flex-row items-center justify-center flex-1 gap-1`}>
+    <View
+      style={[tw`flex-row items-center justify-center flex-1 gap-1`, style]}
+    >
       <AddressLabelInput
         address={currentAddress.address || i18n("loading")}
         fallback={`address #${index}`}
@@ -32,9 +37,9 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
   const showChevronsLeft = !!data && index >= data.index + 2;
   const showChevronsRight = !!data && index <= data.index - 2;
 
-  const nextAddress = async () => {
+  const nextAddress = () => {
     setIndex(index + 1);
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: walletKeys.addressByIndex(index + 2),
       queryFn: () => {
         if (!peachWallet)
@@ -44,11 +49,11 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
     });
   };
 
-  const prevAddress = async () => {
+  const prevAddress = () => {
     if (index === 0) return;
     setIndex(index - 1);
     if (index > 1) {
-      await queryClient.prefetchQuery({
+      queryClient.prefetchQuery({
         queryKey: walletKeys.addressByIndex(index - 2),
         queryFn: () => {
           if (!peachWallet)
@@ -73,9 +78,13 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
         <ArrowLeftCircle onPress={prevAddress} index={index} />
       </ArrowWrapper>
 
-      <AddressLabelInputByIndex key={`addressLabel-${index}`} index={index} />
+      <AddressLabelInputByIndex
+        key={`addressLabel-${index}`}
+        index={index}
+        style={[showChevronsLeft && tw`pr-6`, showChevronsRight && tw`pl-6`]}
+      />
 
-      <ArrowWrapper style={tw`justify-end`}>
+      <ArrowWrapper>
         <TouchableIcon id="arrowRightCircle" onPress={nextAddress} />
         {showChevronsRight && (
           <TouchableIcon id="chevronsRight" onPress={goToLastUnusedAddress} />
@@ -85,15 +94,9 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
   );
 };
 
-function ArrowWrapper({
-  children,
-  style,
-}: {
-  children: React.ReactNode;
-  style?: ViewStyle;
-}) {
+function ArrowWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <View style={[tw`flex-row items-center flex-1 gap-2px`, style]}>
+    <View style={tw`flex-row items-center justify-end gap-2px`}>
       {children}
     </View>
   );

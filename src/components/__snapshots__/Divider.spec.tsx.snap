@@ -1,0 +1,405 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        false,
+        {},
+        false,
+        false,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders correctly on md 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        false,
+        {},
+        false,
+        false,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with align 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        {
+          "marginLeft": 8,
+          "marginRight": 8,
+        },
+        {},
+        false,
+        false,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with icon 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <Icon
+    id="bitcoin"
+  />
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        false,
+        {},
+        false,
+        false,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with iconAlign 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        false,
+        {},
+        false,
+        false,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+  <Icon
+    id="bitcoin"
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with no text 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with type error 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        false,
+        {},
+        {
+          "color": "#DF321F",
+        },
+        false,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        {
+          "backgroundColor": "#FFD1CA",
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with type error and center align 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        {
+          "backgroundColor": "#FFD1CA",
+        },
+      ]
+    }
+  />
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        {
+          "marginLeft": 8,
+          "marginRight": 8,
+        },
+        {},
+        {
+          "color": "#DF321F",
+        },
+        false,
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        {
+          "backgroundColor": "#FFD1CA",
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with type heavy 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 8,
+        },
+        false,
+        {},
+        false,
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 26,
+          },
+          {},
+        ],
+      ]
+    }
+  >
+    text
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;

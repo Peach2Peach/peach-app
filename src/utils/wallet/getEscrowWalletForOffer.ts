@@ -1,4 +1,3 @@
-import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { getEscrowWallet } from "./getEscrowWallet";
 import { getLegacyEscrowWallet } from "./getLegacyEscrowWallet";
 import { getWallet } from "./getWallet";

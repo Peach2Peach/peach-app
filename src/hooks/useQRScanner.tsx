@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Linking } from "react-native";
 import { BarCodeReadEvent } from "react-native-camera";
 import {
@@ -21,9 +21,9 @@ export const useQRScanner = ({ onSuccess }: Props) => {
   const setPopup = useSetPopup();
   const [showQRScanner, setShowQRScanner] = useState(false);
 
-  const showQR = useCallback(async () => {
+  const showQR = () => {
     if (isIOS()) {
-      await requestPermission(PERMISSIONS.IOS.CAMERA).then((cameraStatus) => {
+      requestPermission(PERMISSIONS.IOS.CAMERA).then((cameraStatus) => {
         if (cameraStatus === RESULTS.GRANTED) {
           setShowQRScanner(true);
         } else {
@@ -33,7 +33,7 @@ export const useQRScanner = ({ onSuccess }: Props) => {
     } else {
       setShowQRScanner(true);
     }
-  }, [setPopup]);
+  };
   const closeQR = () => setShowQRScanner(false);
   const onRead = ({ data }: BarCodeReadEvent) => {
     onSuccess(data);

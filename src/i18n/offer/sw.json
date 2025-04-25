@@ -35,7 +35,6 @@
   "offer.requiredAction.releaseEscrow" : "achilia escrow",
   "offer.requiredAction.releaseEscrow.dispute" : "mzozo umezinduliwa: achilia escrow",
   "offer.requiredAction.searchingForPeer" : "inatafuta vilingana",
-  "offer.requiredAction.fundingExpired": "haijafadhiliwa kwa wakati",
   "offer.requiredAction.unknown" : "isiyojulikana - sasaisha programu yako!",
   "offer.requiredAction.waiting" : "inangojea $0",
   "offer.requiredAction.waiting.buyer" : "inangojea malipo",

@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BubbleBase should render background and border color 1`] = `
+<TouchableOpacity
+  disabled={true}
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+      },
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "height": 28,
+        "justifyContent": "center",
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      },
+      {},
+      {
+        "borderRadius": 8,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+      ],
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#F56522",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {},
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`BubbleBase should render correctly 1`] = `
+<TouchableOpacity
+  disabled={true}
+  style={
+    [
+      undefined,
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "height": 28,
+        "justifyContent": "center",
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      },
+      {},
+      {
+        "borderRadius": 8,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#F56522",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {},
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`BubbleBase should render correctly with icon 1`] = `
+<TouchableOpacity
+  disabled={true}
+  style={
+    [
+      undefined,
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "height": 28,
+        "justifyContent": "center",
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      },
+      {},
+      {
+        "borderRadius": 8,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#F56522",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {},
+      ]
+    }
+  >
+    Text
+  </PeachText>
+  <Icon
+    color="#F56522"
+    id="chevronsUp"
+    size={20}
+  />
+</TouchableOpacity>
+`;
+
+exports[`BubbleBase should render correctly with icon and specific color 1`] = `
+<TouchableOpacity
+  disabled={true}
+  style={
+    [
+      undefined,
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "height": 28,
+        "justifyContent": "center",
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      },
+      {},
+      {
+        "borderRadius": 8,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#F56522",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {},
+      ]
+    }
+  >
+    Text
+  </PeachText>
+  <Icon
+    color="#2B1911"
+    id="chevronsUp"
+    size={20}
+  />
+</TouchableOpacity>
+`;

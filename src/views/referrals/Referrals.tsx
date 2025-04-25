@@ -63,12 +63,6 @@ function ReferralsPopup() {
   );
 }
 
-type RewardType = "customReferralCode" | "noPeachFees" | "sats";
-type Reward = {
-  id: RewardType;
-  requiredPoints: number;
-};
-
 function ReferralRewards() {
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;

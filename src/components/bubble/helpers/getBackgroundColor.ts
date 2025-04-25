@@ -6,11 +6,11 @@ export const getBackgroundColor = ({
   ghost,
 }: Pick<BubbleProps, "color" | "ghost">) => {
   if (color === "primary")
-    return ghost ? tw`bg-primary-background-light` : tw`bg-primary-main`;
+    return ghost ? tw`bg-primary-background-light-color` : tw`bg-primary-main`;
   if (color === "primary-mild")
     return ghost
-      ? tw`bg-primary-background-light`
-      : tw`bg-primary-background-dark`;
+      ? tw`bg-primary-background-light-color`
+      : tw`bg-primary-background-dark-color`;
 
   return tw`bg-transparent`;
 };

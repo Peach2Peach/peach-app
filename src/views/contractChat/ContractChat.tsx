@@ -112,13 +112,13 @@ function ChatScreen({ contract }: { contract: Contract }) {
       send,
     ],
   );
-  const resendMessage = async (message: Message) => {
+  const resendMessage = (message: Message) => {
     if (!connected) return;
     deleteMessage(contractId, message);
-    await sendMessage(message.message);
+    sendMessage(message.message);
   };
 
-  const submit = async () => {
+  const submit = () => {
     if (
       !contract ||
       !tradingPartner ||
@@ -130,7 +130,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
     const enableDelay = 300;
     setTimeout(() => setDisableSend(false), enableDelay);
 
-    await sendMessage(newMessage);
+    sendMessage(newMessage);
     setNewMessage("");
     setAndSaveChat(contractId, {
       draftMessage: "",

@@ -54,7 +54,7 @@ export const TransactionDetails = () => {
           />
         }
       >
-        <TransactionHeader {...transactionSummary} />
+        <TransactionHeader style={tw`self-center`} {...transactionSummary} />
         <TransactionDetailsInfo
           {...{ localTx, transactionDetails, transactionSummary }}
         />

@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { View } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -6,14 +5,14 @@ import i18n from "../../utils/i18n";
 import { PeachText } from "../text/PeachText";
 import { MeansOfPayment } from "./MeansOfPayment";
 
-export const SummaryCard = ({ children }: { children: ReactNode }) => {
+export const SummaryCard = ({ children }: ComponentProps) => {
   const { isDarkMode } = useThemeStore();
 
   return (
     <View
       style={tw.style(
         "items-center gap-4 px-5 border border-black-10 rounded-2xl py-7",
-        isDarkMode ? "bg-transparent" : "bg-primary-background-light",
+        isDarkMode ? "bg-transparent" : "bg-primary-background-light-color",
       )}
     >
       {children}
@@ -21,7 +20,7 @@ export const SummaryCard = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const SummarySection = ({ children }: { children: ReactNode }) => (
+const SummarySection = ({ children }: ComponentProps) => (
   <View style={tw`items-center gap-1`}>{children}</View>
 );
 

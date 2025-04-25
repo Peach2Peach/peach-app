@@ -14,6 +14,6 @@ export const setWallets = async (
   await peachAPI.authenticate();
 
   const peachWallet = new PeachWallet({ wallet });
-  await peachWallet.loadWallet(seedPhrase);
+  peachWallet.loadWallet(seedPhrase);
   setPeachWallet(peachWallet);
 };

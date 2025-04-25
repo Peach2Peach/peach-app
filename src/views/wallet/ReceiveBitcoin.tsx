@@ -55,7 +55,7 @@ function AddressQRCode({ index }: { index: number }) {
         <PeachText
           style={[
             tw`text-center h3 text-error-main`,
-            tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light`,
+            tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light-color`,
             tw`md:top-135px md:bg-opacity-85`,
           ]}
         >
@@ -79,13 +79,13 @@ function BitcoinAddress({ index }: { index: number }) {
       >
         {addressParts.one}
         <PeachText
-          style={tw` ${isDarkMode ? "text-backgroundLight" : "text-black-100"} body-l`}
+          style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}
         >
           {addressParts.two}
         </PeachText>
         {addressParts.three}
         <PeachText
-          style={tw` ${isDarkMode ? "text-backgroundLight" : "text-black-100"} body-l`}
+          style={tw` ${isDarkMode ? "text-backgroundLight-light" : "text-black-100"} body-l`}
         >
           {addressParts.four}
         </PeachText>

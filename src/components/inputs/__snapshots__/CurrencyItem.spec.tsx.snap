@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrencyItem renders correctly when not selected 1`] = `
+<TouchableOpacity
+  onPress={[MockFunction]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderColor": "#9F8C82",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "width": 60,
+      },
+      {},
+      {
+        "borderColor": "#9F8C82",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#9F8C82",
+        },
+      ]
+    }
+  >
+    EUR
+  </PeachText>
+  <Icon
+    color="#9F8C82"
+    id="plusCircle"
+    style={
+      {
+        "height": 12,
+        "width": 12,
+      }
+    }
+  />
+</TouchableOpacity>
+`;
+
+exports[`CurrencyItem renders correctly when selected 1`] = `
+<TouchableOpacity
+  onPress={[MockFunction]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderColor": "#9F8C82",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "width": 60,
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      {
+        "borderColor": "#F56522",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    EUR
+  </PeachText>
+  <Icon
+    color="#FFFCFA"
+    id="minusCircle"
+    style={
+      {
+        "height": 12,
+        "width": 12,
+      }
+    }
+  />
+</TouchableOpacity>
+`;

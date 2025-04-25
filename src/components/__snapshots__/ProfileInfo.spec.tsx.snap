@@ -233,67 +233,47 @@ exports[`ProfileInfo renders correctly 1`] = `
       >
         <test-file-stub
           style={
-            [
-              {
-                "opacity": 0.5,
-              },
-              {
-                "height": 12,
-                "width": 12,
-              },
-            ]
+            {
+              "height": 12,
+              "opacity": 0.5,
+              "width": 12,
+            }
           }
         />
         <test-file-stub
           style={
-            [
-              {
-                "opacity": 0.5,
-              },
-              {
-                "height": 12,
-                "width": 12,
-              },
-            ]
+            {
+              "height": 12,
+              "opacity": 0.5,
+              "width": 12,
+            }
           }
         />
         <test-file-stub
           style={
-            [
-              {
-                "opacity": 0.5,
-              },
-              {
-                "height": 12,
-                "width": 12,
-              },
-            ]
+            {
+              "height": 12,
+              "opacity": 0.5,
+              "width": 12,
+            }
           }
         />
         <test-file-stub
           style={
-            [
-              {
-                "opacity": 0.5,
-              },
-              {
-                "height": 12,
-                "width": 12,
-              },
-            ]
+            {
+              "height": 12,
+              "opacity": 0.5,
+              "width": 12,
+            }
           }
         />
         <test-file-stub
           style={
-            [
-              {
-                "opacity": 0.5,
-              },
-              {
-                "height": 12,
-                "width": 12,
-              },
-            ]
+            {
+              "height": 12,
+              "opacity": 0.5,
+              "width": 12,
+            }
           }
         />
         <View
@@ -366,17 +346,14 @@ exports[`ProfileInfo renders correctly 1`] = `
               "lineHeight": 24,
             },
             false,
-            [
-              {
-                "color": "#7D675E",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 13,
-                "letterSpacing": 0.47,
-                "lineHeight": 22,
-                "textTransform": "uppercase",
-              },
-              undefined,
-            ],
+            {
+              "color": "#7D675E",
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 13,
+              "letterSpacing": 0.47,
+              "lineHeight": 22,
+              "textTransform": "uppercase",
+            },
             false,
           ]
         }
@@ -663,7 +640,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 - First value
 + Second value
 
-@@ -210,149 +210,10 @@
+@@ -210,129 +210,10 @@
               </Text>
             </View>
           </View>
@@ -687,67 +664,47 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -       >
 -         <test-file-stub
 -           style={
--             Array [
--               Object {
--                 "opacity": 0.5,
--               },
--               Object {
--                 "height": 12,
--                 "width": 12,
--               },
--             ]
+-             Object {
+-               "height": 12,
+-               "opacity": 0.5,
+-               "width": 12,
+-             }
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Array [
--               Object {
--                 "opacity": 0.5,
--               },
--               Object {
--                 "height": 12,
--                 "width": 12,
--               },
--             ]
+-             Object {
+-               "height": 12,
+-               "opacity": 0.5,
+-               "width": 12,
+-             }
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Array [
--               Object {
--                 "opacity": 0.5,
--               },
--               Object {
--                 "height": 12,
--                 "width": 12,
--               },
--             ]
+-             Object {
+-               "height": 12,
+-               "opacity": 0.5,
+-               "width": 12,
+-             }
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Array [
--               Object {
--                 "opacity": 0.5,
--               },
--               Object {
--                 "height": 12,
--                 "width": 12,
--               },
--             ]
+-             Object {
+-               "height": 12,
+-               "opacity": 0.5,
+-               "width": 12,
+-             }
 -           }
 -         />
 -         <test-file-stub
 -           style={
--             Array [
--               Object {
--                 "opacity": 0.5,
--               },
--               Object {
--                 "height": 12,
--                 "width": 12,
--               },
--             ]
+-             Object {
+-               "height": 12,
+-               "opacity": 0.5,
+-               "width": 12,
+-             }
 -           }
 -         />
 -         <View
@@ -813,19 +770,17 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -365,291 +226,19 @@
+@@ -344,289 +225,17 @@
+            },
             false,
-            Array [
-              Object {
-                "color": "#7D675E",
-                "fontFamily": "Baloo2-SemiBold",
--                 "fontSize": 13,
--                 "letterSpacing": 0.47,
--                 "lineHeight": 22,
--                 "textTransform": "uppercase",
--               },
--               undefined,
--             ],
+            Object {
+              "color": "#7D675E",
+              "fontFamily": "Baloo2-SemiBold",
+-               "fontSize": 13,
+-               "letterSpacing": 0.47,
+-               "lineHeight": 22,
+-               "textTransform": "uppercase",
+-             },
 -             false,
 -           ]
 -         }
@@ -994,9 +949,8 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   Object {
 -                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
-+               "fontSize": 14,
-                "letterSpacing": 0.14,
-                "lineHeight": 22,
+-                     "letterSpacing": 0.14,
+-                     "lineHeight": 22,
 -                   },
 -                   Object {
 -                     "color": "#FCCCB6",
@@ -1005,7 +959,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
-              },
+-                 },
 -               ],
 -               false,
 -             ]
@@ -1022,7 +976,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -               "height": 12,
 -               "width": 12,
 -             },
-              undefined,
+-             undefined,
 -           ]
 -         }
 -       />
@@ -1072,18 +1026,19 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   Object {
 -                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
--                     "letterSpacing": 0.14,
--                     "lineHeight": 22,
++             "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22,
 -                   },
 -                   Object {
 -                     "color": "#F56522",
--                   },
+            },
 -                 ],
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
 -                 },
-            ],
+-               ],
             false,
           ]
         }

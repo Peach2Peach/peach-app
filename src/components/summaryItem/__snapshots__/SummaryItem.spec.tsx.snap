@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummaryItem renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "space-between",
+        "maxWidth": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#9F8C82",
+        },
+        {},
+      ]
+    }
+  >
+    rating
+  </PeachText>
+  <View>
+    <PeachText>
+      children
+    </PeachText>
+  </View>
+</View>
+`;
+
+exports[`SummaryItem renders correctly for medium screens 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "space-between",
+        "maxWidth": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#9F8C82",
+        },
+        {},
+      ]
+    }
+  >
+    rating
+  </PeachText>
+  <View>
+    <PeachText>
+      children
+    </PeachText>
+  </View>
+</View>
+`;

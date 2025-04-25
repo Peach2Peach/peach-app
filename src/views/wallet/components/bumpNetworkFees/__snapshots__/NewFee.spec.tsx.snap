@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewFee renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "gap": 10,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "center",
+        "paddingTop": 8,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      new fee:
+    </PeachText>
+    <View
+      style={
+        {
+          "height": 36,
+        }
+      }
+    >
+      <NumberInput
+        decimals={2}
+        onChangeText={[MockFunction]}
+        placeholder=""
+        required={true}
+        style={
+          {
+            "height": 36,
+            "width": 96,
+          }
+        }
+        value="1"
+      />
+    </View>
+    <PeachText
+      style={
+        {
+          "color": "#9F8C82",
+          "textAlign": "center",
+        }
+      }
+    >
+      sat/vB
+    </PeachText>
+  </View>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#F56522",
+          "textAlign": "center",
+        },
+        {
+          "opacity": 0,
+        },
+      ]
+    }
+  >
+    overpaying by 0%
+  </PeachText>
+</View>
+`;
+
+exports[`NewFee renders correctly when overpaying 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "gap": 10,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "center",
+        "paddingTop": 8,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      new fee:
+    </PeachText>
+    <View
+      style={
+        {
+          "height": 36,
+        }
+      }
+    >
+      <NumberInput
+        decimals={2}
+        onChangeText={[MockFunction]}
+        placeholder=""
+        required={true}
+        style={
+          {
+            "height": 36,
+            "width": 96,
+          }
+        }
+        value="2"
+      />
+    </View>
+    <PeachText
+      style={
+        {
+          "color": "#9F8C82",
+          "textAlign": "center",
+        }
+      }
+    >
+      sat/vB
+    </PeachText>
+  </View>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#F56522",
+          "textAlign": "center",
+        },
+        false,
+      ]
+    }
+  >
+    overpaying by 100%
+  </PeachText>
+</View>
+`;

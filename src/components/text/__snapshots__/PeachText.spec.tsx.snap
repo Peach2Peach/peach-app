@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PeachText should render correctly 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      false,
+      undefined,
+      false,
+    ]
+  }
+>
+  Text
+</Text>
+`;

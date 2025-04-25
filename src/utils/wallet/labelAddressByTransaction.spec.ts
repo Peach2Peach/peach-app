@@ -1,27 +1,35 @@
+import { responseUtils } from "test-utils";
 import { buyOffer, sellOffer } from "../../../tests/unit/data/offerData";
 import { buyOfferSummary } from "../../../tests/unit/data/offerSummaryData";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
-import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
+import { peachAPI } from "../peachAPI";
 import { labelAddressByTransaction } from "./labelAddressByTransaction";
 import { useWalletState } from "./walletStore";
 
-jest.useFakeTimers();
-
+const getOfferSpy = jest
+  .spyOn(peachAPI.private.offer, "getOfferDetails")
+  .mockImplementation(({ offerId }) => {
+    if (offerId === buyOffer.id) {
+      return Promise.resolve({ result: buyOffer, ...responseUtils });
+    }
+    if (offerId === sellOffer.id) {
+      return Promise.resolve({ result: sellOffer, ...responseUtils });
+    }
+    return Promise.resolve({ result: undefined, ...responseUtils });
+  });
 describe("labelAddressByTransaction", () => {
   beforeEach(() => {
     useWalletState.getState().reset();
-    queryClient.setQueryData(offerKeys.detail(buyOffer.id), buyOffer);
-    queryClient.setQueryData(offerKeys.detail(sellOffer.id), sellOffer);
   });
   afterEach(() => {
     queryClient.clear();
   });
-  it("does not label address if associated offer cannot be found", async () => {
+  it("does not label address if associated offer cannot be found", () => {
     useWalletState
       .getState()
       .updateTxOfferMap(confirmed1.txid, [buyOfferSummary.id]);
-    await labelAddressByTransaction(confirmed1);
+    labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });
   it("labels address if associated buy offer can be found", async () => {
@@ -40,9 +48,9 @@ describe("labelAddressByTransaction", () => {
   });
   it("labels address if associated contractId can be found", async () => {
     useWalletState.getState().updateTxOfferMap(confirmed1.txid, [buyOffer.id]);
-    queryClient.setQueryData(offerKeys.detail(buyOffer.id), {
-      ...buyOffer,
-      contractId: "11-12",
+    getOfferSpy.mockResolvedValueOnce({
+      result: { ...buyOffer, contractId: "11-12" },
+      ...responseUtils,
     });
     await labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({
@@ -51,10 +59,10 @@ describe("labelAddressByTransaction", () => {
     });
   });
 
-  it("does not label address if tx default label cannot be determined", async () => {
-    useWalletState.getState().updateTxOfferMap(confirmed1.txid, []);
+  it("does not label address if tx default label cannot be determined", () => {
+    useWalletState.getState().updateTxOfferMap(confirmed1.txid, [sellOffer.id]);
 
-    await labelAddressByTransaction(confirmed1);
+    labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });
 });

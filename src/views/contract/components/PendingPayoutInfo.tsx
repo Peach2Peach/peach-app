@@ -1,10 +1,10 @@
-import { TouchableOpacity, View } from "react-native";
-import { Icon } from "../../../components/Icon";
+import { View } from "react-native";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
-import { AddressSummaryItem } from "../../../components/summaryItem/AddressSummaryItem";
-import { SummaryItem } from "../../../components/summaryItem/SummaryItem";
+import {
+  AddressSummaryItem,
+  TimerSummaryItem,
+} from "../../../components/summaryItem";
 import { PeachText } from "../../../components/text/PeachText";
-import { SimpleTimer } from "../../../components/text/Timer";
 import { MSINASECOND } from "../../../constants";
 import { HelpPopup } from "../../../popups/HelpPopup";
 import tw from "../../../styles/tailwind";
@@ -17,6 +17,12 @@ export const PendingPayoutInfo = () => {
   const { releaseAddress, batchInfo } = useContractContext().contract;
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<HelpPopup id="payoutPending" />);
+  const etaProps = {
+    title: i18n("batching.eta"),
+    iconId: "helpCircle" as const,
+    iconColor: tw.color("info-main"),
+    onPress: showHelp,
+  };
   if (!batchInfo) return <></>;
   const { timeRemaining } = batchInfo;
   return (
@@ -32,18 +38,10 @@ export const PendingPayoutInfo = () => {
         address={releaseAddress}
       />
       {timeRemaining !== NO_ENTRY_VALUE && (
-        <SummaryItem title={i18n("batching.eta")}>
-          <TouchableOpacity
-            style={tw`flex-row items-center justify-between gap-2`}
-            onPress={showHelp}
-          >
-            <SimpleTimer
-              end={Date.now() + timeRemaining * MSINASECOND}
-              style={tw`subtitle-1`}
-            />
-            <Icon id="helpCircle" color={tw.color("info-main")} size={16} />
-          </TouchableOpacity>
-        </SummaryItem>
+        <TimerSummaryItem
+          {...etaProps}
+          end={Date.now() + timeRemaining * MSINASECOND}
+        />
       )}
     </View>
   );

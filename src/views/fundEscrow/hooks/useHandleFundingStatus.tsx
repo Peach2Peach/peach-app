@@ -53,7 +53,7 @@ export const useHandleFundingStatus = ({
       return;
     }
     if (fundingStatus.status === "FUNDED") {
-      void fetchMatches().then(({ data }) => {
+      fetchMatches().then(({ data }) => {
         const allMatches = (data?.pages || []).flatMap((page) => page.matches);
         const hasMatches = allMatches.length > 0;
         if (hasMatches) {

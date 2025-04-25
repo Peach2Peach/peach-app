@@ -1,16 +1,14 @@
-import { ViewStyle } from "react-native";
 import { FillProps } from "react-native-svg";
-import { IconType, Icons } from "../assets/icons";
+import { Icons, IconType } from "../assets/icons";
 import tw from "../styles/tailwind";
 import { PeachText } from "./text/PeachText";
 
-type Props = {
+type Props = ComponentProps & {
   id: IconType;
   color?: FillProps["fill"] | ReturnType<typeof tw.color>;
   size?: number;
-  style?: ViewStyle | ViewStyle[];
 };
-const defaultSize = 24;
+const defaultSize = tw`w-6`.width;
 
 export const Icon = ({ id, style, color, size }: Props) => {
   const SVG = Icons[id];

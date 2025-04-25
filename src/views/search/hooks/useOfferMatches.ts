@@ -12,10 +12,6 @@ import {
 } from "../../../../peach-api/src/@types/api/offerAPI";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
-import {
-  BuySorter,
-  SellSorter,
-} from "../../../store/offerPreferenes/useOfferPreferences";
 import { info } from "../../../utils/log/info";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -27,10 +23,8 @@ export const matchesKeys = {
     [...matchesKeys.matches, offerId] as const,
   matchDetail: (offerId: string, matchId: string) =>
     [...matchesKeys.matchesForOffer(offerId), matchId] as const,
-  sortedMatchesForOffer: (
-    offerId: string,
-    sortBy: (BuySorter | SellSorter)[],
-  ) => [...matchesKeys.matchesForOffer(offerId), sortBy] as const,
+  sortedMatchesForOffer: (offerId: string, sortBy: Sorter[]) =>
+    [...matchesKeys.matchesForOffer(offerId), sortBy] as const,
 };
 
 export const useOfferMatches = (
@@ -40,9 +34,9 @@ export const useOfferMatches = (
 ) => {
   const { offer } = useOfferDetail(offerId);
   const isFocused = useIsFocused();
-  const sortBy = useOfferPreferences((state) =>
+  const sortBy: Sorter[] = useOfferPreferences((state) =>
     !offer
-      ? ["bestReputation" as const]
+      ? ["bestReputation"]
       : isBuyOffer(offer)
         ? state.sortBy.buyOffer
         : state.sortBy.sellOffer,

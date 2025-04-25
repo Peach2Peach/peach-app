@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DailyTradingLimit should render correctly 1`] = `
+<View>
+  <TradingLimitAmount
+    amount={0}
+    displayCurrency="EUR"
+    limit={1000}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+    type="daily"
+  />
+  <Progress
+    backgroundStyle={
+      {
+        "backgroundColor": "#FCCCB6",
+        "borderRadius": 0,
+      }
+    }
+    barStyle={
+      {
+        "backgroundColor": "#F56522",
+        "borderColor": "#FFFCFA",
+        "borderRadius": 0,
+        "borderRightWidth": 2,
+        "height": 4,
+      }
+    }
+    percent={0}
+    style={
+      {
+        "borderRadius": 0,
+        "height": 4,
+      }
+    }
+  />
+</View>
+`;

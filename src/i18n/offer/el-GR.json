@@ -34,7 +34,6 @@
   "offer.requiredAction.releaseEscrow" : "αποδέσμευση εγγύησης  ",
   "offer.requiredAction.releaseEscrow.dispute" : "χάσατε την διένεξη: αποδέσμευση εγγύησης",
   "offer.requiredAction.searchingForPeer" : "αναζήτηση συναλλαγών που σας ταιριάζουν",
-  "offer.requiredAction.fundingExpired": "δεν χρηματοδοτείται εγκαίρως",
   "offer.requiredAction.unknown" : "άγνωστο - ενημέρωσε την εφαρμογή σου!",
   "offer.requiredAction.waiting" : "αναμονή για $0",
   "offer.requiredAction.waiting.buyer" : "αναμονή για πληρωμή",

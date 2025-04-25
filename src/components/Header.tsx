@@ -51,7 +51,7 @@ type HeaderConfig = {
 );
 
 const getCommonStyles = (isDarkMode: boolean) => ({
-  title: isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`,
+  title: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
   backButtonColor: isDarkMode ? tw.color("black-25") : tw.color("black-65"),
 });
 
@@ -60,13 +60,13 @@ const getBackground = (isDarkMode: boolean, lightModeColor: Style) =>
 
 const newThemes = (isDarkMode: boolean) => ({
   buyer: {
-    bg: getBackground(isDarkMode, tw`bg-success-background-dark`),
+    bg: getBackground(isDarkMode, tw`bg-success-background-dark-color`),
     ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-success-mild-2` : tw`text-success-main`,
     border: tw`border-b-8 border-success-mild-2`,
   },
   seller: {
-    bg: getBackground(isDarkMode, tw`bg-primary-background-dark`),
+    bg: getBackground(isDarkMode, tw`bg-primary-background-dark-color`),
     ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-primary-mild-2` : tw`text-primary-main`,
     border: tw`border-b-8 border-primary-mild-2`,
@@ -74,7 +74,7 @@ const newThemes = (isDarkMode: boolean) => ({
   paymentTooLate: {
     bg: getBackground(isDarkMode, tw`bg-warning-mild-1`),
     ...getCommonStyles(isDarkMode),
-    subtitle: isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`,
+    subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     border: tw`border-b-8 border-warning-mild-2`,
   },
   dispute: {
@@ -86,21 +86,23 @@ const newThemes = (isDarkMode: boolean) => ({
   cancel: {
     bg: isDarkMode ? tw`bg-card` : tw`bg-black-10`,
     ...getCommonStyles(isDarkMode),
-    subtitle: isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`,
+    subtitle: isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
     border: tw`border-b-8 border-black-25`,
   },
   default: {
     bg: getBackground(isDarkMode, tw`bg-backgroundMain-light`),
     ...getCommonStyles(isDarkMode),
     subtitle: isDarkMode ? tw`text-black-25` : tw`text-black-100`,
-    border: tw`border-b border-primary-background-dark`,
+    border: tw`border-b border-primary-background-dark-color`,
   },
   transparent: {
     bg: tw`bg-transparent`,
-    title: isDarkMode ? tw`text-backgroundLight` : tw`text-backgroundLight`,
-    subtitle: tw`text-primary-background-light`,
+    title: isDarkMode
+      ? tw`text-backgroundLight-light`
+      : tw`text-backgroundLight-light`,
+    subtitle: tw`text-primary-background-light-color`,
     border: tw`border-transparent`,
-    backButtonColor: tw.color("primary-background-light"),
+    backButtonColor: tw.color("primary-background-light-color"),
   },
 });
 
@@ -148,7 +150,7 @@ function HeaderNavigation({
   const shouldShowBackButton = !hideGoBackButton && canGoBack();
 
   const titleStyle = isDarkMode
-    ? tw`text-backgroundLight`
+    ? tw`text-backgroundLight-light`
     : themes[theme].title;
 
   return (
@@ -164,7 +166,7 @@ function HeaderNavigation({
           <TouchableOpacity onPress={goBack}>
             <Icon
               id="chevronLeft"
-              size={24}
+              style={24}
               color={themes[theme].backButtonColor}
             />
           </TouchableOpacity>
@@ -191,7 +193,7 @@ function HeaderNavigation({
               color={
                 theme !== "dispute"
                   ? color
-                  : tw.color("primary-background-light")
+                  : tw.color("primary-background-light-color")
               }
               style={iconSize}
             />
@@ -215,7 +217,9 @@ function Tickers({ type = "sell" }: TickerProps) {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();
   const { isDarkMode } = useThemeStore();
 
-  const labelStyle = isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`;
+  const labelStyle = isDarkMode
+    ? tw`text-backgroundLight-light`
+    : tw`text-black-100`;
   const valueStyle = [
     tw`leading-xl`,
     type === "sell" ? tw`text-primary-main` : tw`text-success-main`,

@@ -27,7 +27,7 @@ export const ExportTransactionHistory = () => {
     <Screen header={i18n("wallet.exportHistory.title")}>
       <View style={tw`justify-center gap-8 grow`}>
         <PeachText
-          style={tw`body-l ${isDarkMode ? "text-primary-background-light" : "text-black-100"}`}
+          style={tw`body-l ${isDarkMode ? "text-primary-background-light-color" : "text-black-100"}`}
         >
           {`${i18n("wallet.exportHistory.description")}
   • ${i18n("wallet.exportHistory.description.point1")}

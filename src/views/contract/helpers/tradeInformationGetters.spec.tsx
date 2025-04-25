@@ -14,7 +14,6 @@ jest.mock("../context", () => ({
     paymentData: "paymentData",
   })),
 }));
-jest.useFakeTimers();
 
 jest.useFakeTimers();
 

@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradingLimitAmount should render correctly for daily 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Medium",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    daily trading limit
+      
+    <PriceFormat
+      amount={10}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#F56522",
+          },
+        ]
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#7D675E",
+          },
+        ]
+      }
+    >
+       
+      /
+       
+    </PeachText>
+    <PriceFormat
+      amount={100}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#FCCCB6",
+          },
+        ]
+      }
+    />
+  </PeachText>
+</View>
+`;
+
+exports[`TradingLimitAmount should render correctly for monthly 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Medium",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    monthly anonymous limit:
+      
+    <PriceFormat
+      amount={100}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#F56522",
+          },
+        ]
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#7D675E",
+          },
+        ]
+      }
+    >
+       
+      /
+       
+    </PeachText>
+    <PriceFormat
+      amount={1000}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#FCCCB6",
+          },
+        ]
+      }
+    />
+  </PeachText>
+</View>
+`;
+
+exports[`TradingLimitAmount should render correctly for yearly 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Medium",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    yearly trading limit:
+      
+    <PriceFormat
+      amount={1000}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#F56522",
+          },
+        ]
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#7D675E",
+          },
+        ]
+      }
+    >
+       
+      /
+       
+    </PeachText>
+    <PriceFormat
+      amount={10000}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#FCCCB6",
+          },
+        ]
+      }
+    />
+  </PeachText>
+</View>
+`;
+
+exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Medium",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    yearly trading limit:
+      
+    <PriceFormat
+      amount={1000}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#F56522",
+          },
+        ]
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#7D675E",
+          },
+        ]
+      }
+    >
+       
+      /
+       
+    </PeachText>
+    <PriceFormat
+      amount={Infinity}
+      currency="EUR"
+      round={true}
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Medium",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "letterSpacing": 0.14,
+            "lineHeight": 20,
+          },
+          {
+            "color": "#FCCCB6",
+          },
+        ]
+      }
+    />
+  </PeachText>
+</View>
+`;

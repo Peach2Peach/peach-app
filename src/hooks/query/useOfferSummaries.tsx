@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { peachAPI } from "../../utils/peachAPI";
-import { offerKeys } from "./offerKeys";
+import { offerKeys } from "./useOfferDetail";
 
 export const useOfferSummaries = (enabled = true) => {
   const { data, isLoading, isRefetching, error, refetch } = useQuery({

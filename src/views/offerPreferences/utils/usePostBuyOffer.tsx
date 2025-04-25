@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
-import { OfferPaymentData } from "../../../../peach-api/src/@types/offer";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
-import { offerKeys } from "../../../hooks/query/offerKeys";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { InfoPopup } from "../../../popups/InfoPopup";
@@ -10,16 +9,11 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
 import i18n from "../../../utils/i18n";
-import { interpolate } from "../../../utils/math/interpolate";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
-import {
-  CLIENT_RATING_RANGE,
-  SERVER_RATING_RANGE,
-} from "../../settings/profile/profileOverview/Rating";
 
 const isForbiddenPaymentMethodError = (
   errorMessage: string | null,
@@ -32,18 +26,12 @@ const isForbiddenPaymentMethodError = (
 export function usePostBuyOffer({
   amount,
   meansOfPayment,
+  paymentData,
   maxPremium,
   minReputation,
-  instantTradeCriteria,
-  multi,
 }: Pick<
   BuyOfferDraft,
-  | "amount"
-  | "meansOfPayment"
-  | "maxPremium"
-  | "minReputation"
-  | "instantTradeCriteria"
-  | "multi"
+  "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
 >) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
@@ -85,7 +73,7 @@ export function usePostBuyOffer({
   };
 
   return useMutation({
-    mutationFn: async (paymentData: OfferPaymentData) => {
+    mutationFn: async () => {
       const { message, signature, address } =
         await getSignedAddress(payoutToPeachWallet);
 
@@ -100,16 +88,6 @@ export function usePostBuyOffer({
       ) {
         throw new Error("INVALID_SIGNATURE");
       }
-      const finalCriteria = instantTradeCriteria
-        ? {
-            ...instantTradeCriteria,
-            minReputation: interpolate(
-              instantTradeCriteria.minReputation,
-              CLIENT_RATING_RANGE,
-              SERVER_RATING_RANGE,
-            ),
-          }
-        : undefined;
       const finalizedOfferDraft = {
         type: "bid" as const,
         amount,
@@ -120,19 +98,12 @@ export function usePostBuyOffer({
         releaseAddress: address,
         message,
         messageSignature: signature,
-        instantTradeCriteria: finalCriteria,
-        multi,
       };
 
       const { result, error: err } =
         await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft);
 
-      if (result) {
-        if (Array.isArray(result)) {
-          return result[0].id;
-        }
-        return result.id;
-      }
+      if (result) return result.id;
       throw new Error(err?.error || "POST_OFFER_ERROR", {
         cause: err?.details,
       });

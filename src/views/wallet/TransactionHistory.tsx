@@ -28,7 +28,7 @@ export const TransactionHistory = () => {
   const { refetch, isRefetching } = useSyncWallet();
 
   const contentStyle = isDarkMode
-    ? tw`bg-backgroundMain-dark text-backgroundLight`
+    ? tw`bg-backgroundMain-dark text-backgroundLight-light`
     : tw`bg-backgroundMain-light text-black-100`;
 
   return (

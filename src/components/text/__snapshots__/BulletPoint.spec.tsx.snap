@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BulletPoint renders correctly 1`] = `
+<View
+  style={
+    {
+      "flexDirection": "row",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "color": "#F56522",
+      }
+    }
+  >
+     
+    •
+  </PeachText>
+  <PeachText>
+     
+    text
+  </PeachText>
+</View>
+`;

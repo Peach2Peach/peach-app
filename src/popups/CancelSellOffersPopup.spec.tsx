@@ -43,7 +43,9 @@ describe("CancelSellOffersPopup", () => {
   });
   it("not not cancel if no fundMultiple has been passed", async () => {
     const { getAllByText } = render(<CancelSellOffersPopup />);
-    await act(() => fireEvent.press(getAllByText("cancel offer")[1]));
+    await act(async () => {
+      await fireEvent.press(getAllByText("cancel offer")[1]);
+    });
 
     expect(cancelOfferMock).not.toHaveBeenCalled();
   });

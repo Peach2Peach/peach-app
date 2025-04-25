@@ -236,8 +236,8 @@ exports[`EditPremium should render correctly 1`] = `
             [
               {
                 "alignItems": "center",
-                "alignSelf": "stretch",
                 "borderRadius": 16,
+                "width": "100%",
               },
               {
                 "gap": 10,
@@ -1074,6 +1074,7 @@ exports[`EditPremium should render correctly 1`] = `
                     {
                       "left": -130,
                     },
+                    undefined,
                   ]
                 }
               >
@@ -1118,6 +1119,7 @@ exports[`EditPremium should render correctly 1`] = `
                     {
                       "left": -65,
                     },
+                    undefined,
                   ]
                 }
               >
@@ -1162,6 +1164,7 @@ exports[`EditPremium should render correctly 1`] = `
                     {
                       "left": 0,
                     },
+                    undefined,
                   ]
                 }
               >
@@ -1206,6 +1209,7 @@ price
                     {
                       "left": 65,
                     },
+                    undefined,
                   ]
                 }
               >
@@ -1251,6 +1255,7 @@ price
                     {
                       "left": 130,
                     },
+                    undefined,
                   ]
                 }
               >

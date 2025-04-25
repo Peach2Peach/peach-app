@@ -10,7 +10,7 @@ export function useRecoverAccount() {
     async (account: Account) => {
       info("Recovering account");
 
-      await updateAccount(account, true);
+      updateAccount(account, true);
 
       await userUpdate();
 

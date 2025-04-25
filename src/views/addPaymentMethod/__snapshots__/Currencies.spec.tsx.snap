@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Currencies should render correctly for type "africa" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "paddingTop": 8,
+      },
+      {},
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "US dollar (USD)",
+          "value": "USD",
+        },
+        {
+          "display": "West African CFA franc (XOF)",
+          "value": "XOF",
+        },
+        {
+          "display": "Naira (NGN)",
+          "value": "NGN",
+        },
+        {
+          "display": "Congolese franc (CDF)",
+          "value": "CDF",
+        },
+      ]
+    }
+    onButtonPress={[MockFunction]}
+    selectedValue="EUR"
+  />
+</ForwardRef>
+`;
+
+exports[`Currencies should render correctly for type "europe" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "paddingTop": 8,
+      },
+      {},
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "Euro (EUR)",
+          "value": "EUR",
+        },
+        {
+          "display": "Swiss franc (CHF)",
+          "value": "CHF",
+        },
+        {
+          "display": "British pound (GBP)",
+          "value": "GBP",
+        },
+        {
+          "display": "Swedish krona (SEK)",
+          "value": "SEK",
+        },
+        {
+          "display": "Danish kroner (DKK)",
+          "value": "DKK",
+        },
+        {
+          "display": "Bulgarian lev (BGN)",
+          "value": "BGN",
+        },
+        {
+          "display": "Czech koruna (CZK)",
+          "value": "CZK",
+        },
+        {
+          "display": "Hungarian forint (HUF)",
+          "value": "HUF",
+        },
+        {
+          "display": "Polish złoty (PLN)",
+          "value": "PLN",
+        },
+        {
+          "display": "Romanian leu (RON)",
+          "value": "RON",
+        },
+        {
+          "display": "Icelandic króna (ISK)",
+          "value": "ISK",
+        },
+        {
+          "display": "Norwegian krone (NOK)",
+          "value": "NOK",
+        },
+        {
+          "display": "Turkish lira (TRY)",
+          "value": "TRY",
+        },
+      ]
+    }
+    onButtonPress={[MockFunction]}
+    selectedValue="EUR"
+  />
+</ForwardRef>
+`;
+
+exports[`Currencies should render correctly for type "latinAmerica" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "paddingTop": 8,
+      },
+      {},
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "Argentine peso (ARS)",
+          "value": "ARS",
+        },
+        {
+          "display": "Colombian Peso (COP)",
+          "value": "COP",
+        },
+        {
+          "display": "Peruvian sol (PEN)",
+          "value": "PEN",
+        },
+        {
+          "display": "Mexican peso (MXN)",
+          "value": "MXN",
+        },
+        {
+          "display": "Chilean peso (CLP)",
+          "value": "CLP",
+        },
+        {
+          "display": "Peruvian sol (PEN)",
+          "value": "PEN",
+        },
+        {
+          "display": "Colombian Peso (COP)",
+          "value": "COP",
+        },
+        {
+          "display": "Costa Rican Colón (CRC)",
+          "value": "CRC",
+        },
+        {
+          "display": "Brazilian real (BRL)",
+          "value": "BRL",
+        },
+      ]
+    }
+    onButtonPress={[MockFunction]}
+    selectedValue="EUR"
+  />
+</ForwardRef>
+`;
+
+exports[`Currencies should render correctly for type "other" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "paddingTop": 8,
+      },
+      {},
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "LNURL BTC swap",
+          "value": "SAT",
+        },
+        {
+          "display": "L-USDT",
+          "value": "USDT",
+        },
+      ]
+    }
+    onButtonPress={[MockFunction]}
+    selectedValue="EUR"
+  />
+</ForwardRef>
+`;

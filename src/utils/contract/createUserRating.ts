@@ -5,13 +5,6 @@ import { getMainAccount } from "../account/getMainAccount";
 import { peachAPI } from "../peachAPI";
 import { getWallet } from "../wallet/getWallet";
 
-type Rating = {
-  creationDate: Date;
-  rating: -1 | 1;
-  ratedBy: string;
-  signature: string;
-};
-
 export const createUserRating = (
   userId: User["id"],
   rating: Rating["rating"],

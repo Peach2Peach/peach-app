@@ -1,8 +1,6 @@
-import { BitcoinEvent } from "../../../../peach-api/src/@types/events";
-
 export const mapEventToDrawerOption =
-  (onPress: (eventID: BitcoinEvent["id"]) => void) =>
-  ({ longName, city, featured, id }: BitcoinEvent) => ({
+  (onPress: (eventID: MeetupEvent["id"]) => void) =>
+  ({ longName, city, featured, id }: MeetupEvent) => ({
     title: longName,
     subtext: city,
     highlighted: featured,

@@ -44,14 +44,15 @@ export const useMeetupScreenSetup = () => {
   const addToPaymentMethods = () => {
     const meetupInfo = getPaymentMethodInfo(`cash.${event.id}`);
     if (!meetupInfo) return;
-    addPaymentData({
+    const meetup: PaymentData = {
       id: meetupInfo.id,
       label: event.shortName,
       type: meetupInfo.id,
       userId: publicKey,
       currencies: selectedCurrencies,
       country: event.country,
-    });
+    };
+    addPaymentData(meetup);
     selectPaymentMethod(meetupInfo.id);
     goToOrigin(route.params.origin);
   };

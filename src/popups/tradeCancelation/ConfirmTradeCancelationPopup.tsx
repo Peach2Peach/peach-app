@@ -1,5 +1,3 @@
-import { Contract } from "../../../peach-api/src/@types/contract";
-import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
@@ -22,7 +20,7 @@ export function ConfirmTradeCancelationPopup({
   view,
 }: {
   contract: Contract;
-  view: "buyer" | "seller";
+  view: ContractViewer;
 }) {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
@@ -81,7 +79,7 @@ export function ConfirmTradeCancelationPopup({
         </>
       }
       actionBgColor={tw`bg-black-50`}
-      bgColor={tw`bg-primary-background-light`}
+      bgColor={tw`bg-primary-background-light-color`}
     />
   );
 }

@@ -2,7 +2,7 @@ type Settings = {
   appVersion: string;
   analyticsPopupSeen: boolean;
   enableAnalytics: boolean;
-  locale: string;
+  locale?: string;
   refundAddress?: string;
   refundAddressLabel?: string;
   refundToPeachWallet: boolean;
@@ -42,4 +42,9 @@ type Account = Identity & {
   chats: {
     [key: string]: Chat;
   };
+};
+
+type AccountBackup = Account & {
+  paymentData: PaymentData[];
+  settings: Settings;
 };

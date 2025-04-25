@@ -1,7 +1,15 @@
-import { BuyOffer, SellOffer } from "../../../peach-api/src/@types/offer";
-import { offerKeys } from "../../hooks/query/offerKeys";
+import { getOfferQuery } from "../../hooks/query/getOfferQuery";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { queryClient } from "../../queryClient";
 
-export function getOffer(id: string) {
-  return queryClient.getQueryData<BuyOffer | SellOffer>(offerKeys.detail(id));
+export async function getOffer(id: string) {
+  try {
+    const data = await queryClient.fetchQuery({
+      queryKey: offerKeys.detail(id),
+      queryFn: getOfferQuery,
+    });
+    return data;
+  } catch (err) {
+    return null;
+  }
 }

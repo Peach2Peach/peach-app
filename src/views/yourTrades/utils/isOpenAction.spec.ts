@@ -5,7 +5,6 @@ describe("isOpenAction", () => {
     expect(isOpenAction("ask", "fundEscrow")).toBe(true);
     expect(isOpenAction("ask", "fundingAmountDifferent")).toBe(true);
     expect(isOpenAction("ask", "hasMatchesAvailable")).toBe(true);
-    expect(isOpenAction("ask", "hasTradeRequests")).toBe(true);
     expect(isOpenAction("ask", "offerHiddenWithMatchesAvailable")).toBe(true);
     expect(isOpenAction("ask", "rateUser")).toBe(true);
 

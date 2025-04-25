@@ -1,5 +1,6 @@
 import { act, renderHook } from "test-utils";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
+import { languageState } from "../utils/i18n";
 import { useLanguage } from "./useLanguage";
 
 describe("useLanguage", () => {
@@ -15,7 +16,7 @@ describe("useLanguage", () => {
     act(() => {
       result.current.updateLocale("es");
     });
-    expect(useSettingsStore.getState().locale).toBe("es");
+    expect(languageState.locale).toBe("es");
   });
   it("should save locale", () => {
     const { result } = renderHook(useLanguage);

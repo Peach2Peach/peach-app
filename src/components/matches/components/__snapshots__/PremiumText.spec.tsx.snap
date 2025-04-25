@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PremiumText should render correctly at market price 1`] = `
+<PeachText
+  style={
+    {
+      "color": "#7D675E",
+    }
+  }
+>
+   
+  (equal to KYC price)
+</PeachText>
+`;
+
+exports[`PremiumText should render correctly with discount 1`] = `
+<PeachText
+  style={
+    {
+      "color": "#7D675E",
+    }
+  }
+>
+   
+  (7% under KYC price)
+</PeachText>
+`;
+
+exports[`PremiumText should render correctly with premium 1`] = `
+<PeachText
+  style={
+    {
+      "color": "#7D675E",
+    }
+  }
+>
+   
+  (7% over KYC price)
+</PeachText>
+`;

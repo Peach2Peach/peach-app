@@ -5,6 +5,7 @@ import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useLanguage } from "../../hooks/useLanguage";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
+import { sortAlphabetically } from "../../utils/array/sortAlphabetically";
 import i18n from "../../utils/i18n";
 
 export const Language = () => {
@@ -16,13 +17,14 @@ export const Language = () => {
   };
 
   return (
-    <Screen header={i18n("language")} style={tw`gap-3`}>
+    <Screen header={i18n("language")}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
           selectedValue={locale}
           items={i18n
             .getLocales()
-            .map((l) => ({ value: l, display: i18n(`languageName.${l}`) }))}
+            .map((l) => ({ value: l, display: i18n(`languageName.${l}`) }))
+            .sort((a, b) => sortAlphabetically(a.display, b.display))}
           onButtonPress={updateLocale}
         />
       </PeachScrollView>

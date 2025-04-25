@@ -13,7 +13,7 @@ export const defaultSettings: Settings = {
   shouldShowBackupOverlay: true,
 
   country: undefined,
-  locale: "en",
+  locale: undefined,
   displayCurrency: "EUR",
 
   nodeURL: BLOCKEXPLORER,

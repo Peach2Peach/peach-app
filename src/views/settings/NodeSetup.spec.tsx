@@ -14,6 +14,7 @@ expect.extend({ toMatchDiffSnapshot });
 
 jest.mock("./helpers/checkNodeConnection");
 jest.useFakeTimers();
+
 const url = "blockstream.info";
 describe("NodeSetup", () => {
   beforeAll(() => {

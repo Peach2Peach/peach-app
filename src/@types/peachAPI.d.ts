@@ -21,6 +21,10 @@ type APIError = {
 
 type FeeRate = "fastestFee" | "halfHourFee" | "hourFee" | "economyFee" | number;
 
+type PGPPublicKeyProofPair = {
+  publicKey: string;
+  proof: string;
+};
 type User = {
   banned: boolean;
   bonusPoints: number;
@@ -46,7 +50,7 @@ type User = {
   /** @deprecated as of 0.4.2, use `pgpPublicKeys` */
   pgpPublicKeyProof: string;
 
-  pgpPublicKeys: { publicKey: string; proof: string }[];
+  pgpPublicKeys: PGPPublicKeyProofPair[];
 
   rating: number;
   ratingCount: number;
@@ -86,6 +90,8 @@ type TradingLimit = {
   monthlyAnonymousAmount: number;
 };
 
+type TradingPair = "BTCEUR" | "BTCCHF" | "BTCGBP";
+
 type Currency =
   | "BTC"
   | "SAT"
@@ -117,44 +123,72 @@ type Currency =
   | "GTQ"
   | "ZAR"
   | "KES"
-  | "GHS"
-  | "BRL"
-  | "AUD"
-  | "ILS"
-  | "RSD"
-  | "CAD"
-  | "KZT"
-  | "INR"
-  | "SGD"
-  | "SAR"
-  | "PHP"
-  | "AED"
-  | "EGP"
-  | "JPY"
-  | "NZD"
-  | "MAD"
-  | "UAH"
-  | "UYU"
-  | "IDR"
-  | "MYR"
-  | "CNY"
-  | "PKR"
-  | "VND"
-  | "RUB"
-  | "BOB"
-  | "CLF"
-  | "CUC"
-  | "CUP"
-  | "DOP"
-  | "HNL"
-  | "PAB"
-  | "PYG"
-  | "VEF"
-  | "VES"
-  | "SRD"
-  | "TZS";
+  | "GHS";
 type Pricebook = {
   [key in Currency]?: number;
+};
+type PaymentMethodCountry =
+  | "BG"
+  | "CZ"
+  | "DK"
+  | "HU"
+  | "NO"
+  | "PL"
+  | "RO"
+  | "TR"
+  | "NG"
+  | "DE"
+  | "CH"
+  | "ISK"
+  | "SE"
+  | "IT"
+  | "ES"
+  | "FR"
+  | "NL"
+  | "UK"
+  | "BE"
+  | "PT"
+  | "GR"
+  | "UK"
+  | "GB"
+  | "CY"
+  | "SI"
+  | "LV"
+  | "US"
+  | "FI";
+
+type Country =
+  | "DE"
+  | "FR"
+  | "IT"
+  | "ES"
+  | "NL"
+  | "UK"
+  | "SE"
+  | "FI"
+  | "BE"
+  | "LV";
+type MeetupEvent = {
+  id: string;
+  currencies: Currency[];
+  country: Country;
+  city: string;
+  shortName: string;
+  longName: string;
+  url?: string;
+  address?: string;
+  frequency?: string;
+  logo?: string;
+  featured: boolean;
+};
+type CountryEventsMap = Record<Country, MeetupEvent[]>;
+
+type PaymentMethodInfo = {
+  id: PaymentMethod;
+  currencies: Currency[];
+  countries?: PaymentMethodCountry[];
+  rounded?: boolean;
+  anonymous: boolean;
 };
 
 type FundingStatus = {
@@ -166,7 +200,48 @@ type FundingStatus = {
   expiry: number;
 };
 
+type GetStatusResponse = {
+  error: null;
+  status: "online";
+  serverTime: number;
+};
+
+type GetInfoResponse = {
+  peach: {
+    pgpPublicKey: string;
+  };
+  fees: {
+    escrow: number;
+  };
+  paymentMethods: PaymentMethodInfo[];
+  latestAppVersion: string;
+  minAppVersion: string;
+};
+
 type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>;
+
+type TradeStatus =
+  | "confirmCancelation"
+  | "confirmPaymentRequired"
+  | "dispute"
+  | "escrowWaitingForConfirmation"
+  | "fundEscrow"
+  | "fundingAmountDifferent"
+  | "hasMatchesAvailable"
+  | "offerCanceled"
+  | "offerHidden"
+  | "offerHiddenWithMatchesAvailable"
+  | "paymentRequired"
+  | "paymentTooLate"
+  | "payoutPending"
+  | "rateUser"
+  | "refundAddressRequired"
+  | "refundOrReviveRequired"
+  | "refundTxSignatureRequired"
+  | "releaseEscrow"
+  | "searchingForPeer"
+  | "tradeCanceled"
+  | "tradeCompleted";
 
 type OfferPaymentData = Partial<
   Record<
@@ -174,12 +249,26 @@ type OfferPaymentData = Partial<
     {
       hashes: string[];
       hash?: string;
-      country?: GiftCardCountry | BitcoinEvent["country"];
+      country?: PaymentMethodCountry;
       encrypted?: string;
       signature?: string;
     }
   >
 >;
+
+type FundingError = "" | "NOT_FOUND" | "UNAUTHORIZED";
+type FundingStatusResponse = {
+  offerId: string;
+  escrow: string;
+  funding: FundingStatus;
+  error?: FundingError;
+  returnAddress: string;
+  userConfirmationRequired: boolean;
+};
+
+type MatchUnavailableReasons = {
+  exceedsLimit: (keyof TradingLimit)[];
+};
 
 type Match = {
   user: PublicUser;
@@ -196,10 +285,30 @@ type Match = {
   symmetricKeyEncrypted: string;
   symmetricKeySignature: string;
   matched: boolean;
-  unavailable: {
-    exceedsLimit: (keyof TradingLimit)[];
-  };
+  unavailable: MatchUnavailableReasons;
   instantTrade: boolean;
+};
+
+type MatchResponse =
+  | {
+      success: true;
+      contractId: string;
+      refundTx: string;
+    }
+  | {
+      matchedPrice: number;
+    };
+
+type GenerateBlockResponse = {
+  txId: string;
+};
+
+type FeeRecommendation = {
+  fastestFee: number;
+  halfHourFee: number;
+  hourFee: number;
+  economyFee: number;
+  minimumFee: number;
 };
 
 type NotificationType =
@@ -243,3 +352,13 @@ type PNData = {
   contractId?: string;
   isChat?: string;
 };
+
+type PNNotification = {
+  titleLocArgs?: string[];
+  bodyLocArgs?: string[];
+};
+
+type BuySorter = "highestAmount" | "lowestPremium" | "bestReputation";
+type SellSorter = "highestPrice" | "bestReputation";
+
+type Sorter = BuySorter | SellSorter;
