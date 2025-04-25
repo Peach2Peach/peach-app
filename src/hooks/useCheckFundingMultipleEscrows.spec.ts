@@ -1,7 +1,6 @@
 import { act, renderHook, responseUtils, waitFor } from "test-utils";
-import { OfferSummary } from "../../peach-api/src/@types/offer";
 import { sellOffer } from "../../tests/unit/data/offerData";
-import { offerSummary } from "../../tests/unit/data/offerSummaryData";
+import { sellOfferSummary } from "../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../tests/unit/helpers/getTransactionDetails";
@@ -19,16 +18,15 @@ jest.useFakeTimers();
 const sellOffer1 = sellOffer;
 const sellOffer2 = { ...sellOffer, id: "39", escrow: "escrow2" };
 const sellOffer3 = { ...sellOffer, id: "40", escrow: "escrow3" };
-const sellOfferSummary1: OfferSummary = {
-  ...offerSummary,
+const sellOfferSummary1 = {
+  ...sellOfferSummary,
   id: sellOffer1.id,
-  type: "ask",
 };
-const sellOfferSummary2: OfferSummary = {
+const sellOfferSummary2 = {
   ...sellOfferSummary1,
   id: sellOffer2.id,
 };
-const sellOfferSummary3: OfferSummary = {
+const sellOfferSummary3 = {
   ...sellOfferSummary1,
   id: sellOffer3.id,
 };

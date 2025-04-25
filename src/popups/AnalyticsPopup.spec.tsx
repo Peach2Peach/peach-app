@@ -1,4 +1,4 @@
-import { fireEvent, render } from "test-utils";
+import { fireEvent, render, waitFor } from "test-utils";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { AnalyticsPopup } from "./AnalyticsPopup";
 
@@ -7,16 +7,20 @@ describe("AnalyticsPopup", () => {
     useSettingsStore.getState().reset();
   });
 
-  it("enables analytics", () => {
+  it("enables analytics", async () => {
     const { getByText } = render(<AnalyticsPopup />);
     fireEvent.press(getByText("sure"));
 
-    expect(useSettingsStore.getState().enableAnalytics).toEqual(true);
+    await waitFor(() => {
+      expect(useSettingsStore.getState().enableAnalytics).toEqual(true);
+    });
   });
-  it("rejects analytics", () => {
+  it("rejects analytics", async () => {
     const { getByText } = render(<AnalyticsPopup />);
     fireEvent.press(getByText("no, thanks"));
 
-    expect(useSettingsStore.getState().enableAnalytics).toEqual(false);
+    await waitFor(() => {
+      expect(useSettingsStore.getState().enableAnalytics).toEqual(false);
+    });
   });
 });

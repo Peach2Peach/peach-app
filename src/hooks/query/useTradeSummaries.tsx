@@ -21,18 +21,14 @@ export const useTradeSummaries = (enabled = true) => {
     isRefetching: isRefetchingContracts,
   } = useContractSummaries(enabled);
 
-  const refetch = useCallback(() => {
-    refetchOffers();
-    refetchContracts();
-  }, [refetchContracts, refetchOffers]);
-
-  const filteredOffers = useMemo(
-    () => offers.filter(({ contractId }) => !contractId),
-    [offers],
+  const refetch = useCallback(
+    () => Promise.all([refetchOffers, refetchContracts]),
+    [refetchContracts, refetchOffers],
   );
+
   const tradeSummaries = useMemo(
-    () => [...filteredOffers, ...contracts].sort(sortSummariesByDate).reverse(),
-    [contracts, filteredOffers],
+    () => [...offers, ...contracts].sort(sortSummariesByDate).reverse(),
+    [contracts, offers],
   );
 
   const allOpenOffers = useMemo(

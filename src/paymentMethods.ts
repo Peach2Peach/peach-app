@@ -1,5 +1,4 @@
 import { Currency } from "../peach-api/src/@types/global";
-import { PaymentMethodCountry } from "../peach-api/src/@types/offer";
 import {
   PaymentMethod,
   PaymentMethodInfo,
@@ -72,33 +71,6 @@ export let CURRENCIES: Currency[] = [
   "TZS",
 ];
 
-export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = [
-  "DE",
-  "FR",
-  "IT",
-  "ES",
-  "NL",
-  "UK",
-  "SE",
-  "FI",
-  "PT",
-];
-export const NATIONALTRANSFERCOUNTRIES = [
-  "BG",
-  "CZ",
-  "DK",
-  "HU",
-  "NO",
-  "PL",
-  "RO",
-  "CH",
-  "IS",
-  "SE",
-  "TR",
-  "NG",
-  "SG",
-] as const;
-
 const bankTransfer: PaymentMethod[] = [
   "alias",
   "bancolombia",
@@ -115,9 +87,19 @@ const bankTransfer: PaymentMethod[] = [
   "peruBankDeposit",
   "kcbBankKenya",
   "bankTransferSuriname",
-  ...NATIONALTRANSFERCOUNTRIES.map(
-    (c) => `nationalTransfer${c}` satisfies PaymentMethod,
-  ),
+  "nationalTransferBG",
+  "nationalTransferCZ",
+  "nationalTransferDK",
+  "nationalTransferHU",
+  "nationalTransferNO",
+  "nationalTransferPL",
+  "nationalTransferRO",
+  "nationalTransferCH",
+  "nationalTransferIS",
+  "nationalTransferSE",
+  "nationalTransferTR",
+  "nationalTransferNG",
+  "nationalTransferSG",
 ];
 const onlineWallet: PaymentMethod[] = [
   "accrue",
@@ -180,9 +162,14 @@ const onlineWallet: PaymentMethod[] = [
 const giftCard: PaymentMethod[] = [
   "giftCard.amazon",
   "giftCard.steam",
-  ...GIFTCARDCOUNTRIES.map(
-    (c) => `giftCard.amazon.${c}` satisfies PaymentMethod,
-  ),
+  "giftCard.amazon.DE",
+  "giftCard.amazon.FR",
+  "giftCard.amazon.IT",
+  "giftCard.amazon.ES",
+  "giftCard.amazon.NL",
+  "giftCard.amazon.UK",
+  "giftCard.amazon.SE",
+  "giftCard.amazon.PT",
 ];
 const nationalOption: PaymentMethod[] = [
   "bizum",
@@ -214,12 +201,6 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   CURRENCIES = paymentMethodInfos
     .reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
-    .filter(uniqueArray);
-  GIFTCARDCOUNTRIES = paymentMethodInfos
-    .reduce(
-      (arr: PaymentMethodCountry[], info) => arr.concat(info.countries || []),
-      [],
-    )
     .filter(uniqueArray);
   PAYMENTCATEGORIES.cash.push(
     ...paymentMethodInfos.map(({ id }) => id).filter(isCashTrade),

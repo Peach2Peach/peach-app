@@ -14,6 +14,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12,
     sourceType: "module",
+    project: "./tsconfig.json",
   },
   globals: {
     self: true,
@@ -180,7 +181,6 @@ module.exports = {
     "no-useless-rename": "error",
     "no-useless-return": "error",
     "no-var": "error",
-    "no-void": "error",
     "no-warning-comments": [
       "error",
       { terms: ["todo", "fixme"], location: "anywhere" },
@@ -233,6 +233,8 @@ module.exports = {
         assertionStyle: "never",
       },
     ],
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/await-thenable": "error",
     "no-sparse-arrays": "warn",
     "no-empty": "warn",
     "no-useless-escape": "warn",
