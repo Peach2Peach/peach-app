@@ -23,6 +23,7 @@ import { interpolate } from "../../utils/math/interpolate";
 import { round } from "../../utils/math/round";
 import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cutOffAddress } from "../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
@@ -34,7 +35,6 @@ import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
 } from "../settings/profile/profileOverview/Rating";
-import { getTitle } from "../yourTrades/components/TradeItem";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -121,7 +121,7 @@ function initializer(offer: BuyOffer) {
 function ScreenContent({ offer }: { offer: BuyOffer }) {
   const [isSliding, setIsSliding] = useState(false);
   const reducer = useReducer(offerReducer, offer, initializer);
-  const formatedEditOfferHeader = "edit offer " + getTitle(offer);
+  const formatedEditOfferHeader = `edit offer ${offerIdToHex(offer.id)}`;
   return (
     <PreferenceContext.Provider value={reducer}>
       <Screen header={formatedEditOfferHeader}>
