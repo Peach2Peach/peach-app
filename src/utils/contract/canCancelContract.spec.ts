@@ -21,15 +21,6 @@ describe("canCancelContract", () => {
     };
     expect(canCancelContract(contract as Contract, "seller")).toBe(false);
   });
-  it("returns true if payment has been made but the view is the buyer", () => {
-    const contract: Partial<Contract> = {
-      disputeActive: false,
-      paymentMade: new Date(),
-      canceled: false,
-      cancelationRequested: false,
-    };
-    expect(canCancelContract(contract as Contract, "buyer")).toBe(true);
-  });
 
   it("returns false if cancelation has been requested", () => {
     const contract: Partial<Contract> = {

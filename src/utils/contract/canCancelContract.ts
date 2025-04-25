@@ -1,6 +1,6 @@
 export const canCancelContract = (contract: Contract, view: ContractViewer) =>
   !contract.disputeActive &&
-  (!contract.paymentMade || view === "buyer") &&
+  !contract.paymentMade &&
   !contract.canceled &&
   !contract.cancelationRequested &&
   !(
