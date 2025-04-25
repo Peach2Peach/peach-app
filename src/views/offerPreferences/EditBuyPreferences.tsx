@@ -121,10 +121,9 @@ function initializer(offer: BuyOffer) {
 function ScreenContent({ offer }: { offer: BuyOffer }) {
   const [isSliding, setIsSliding] = useState(false);
   const reducer = useReducer(offerReducer, offer, initializer);
-  const formatedEditOfferHeader = `edit offer ${offerIdToHex(offer.id)}`;
   return (
     <PreferenceContext.Provider value={reducer}>
-      <Screen header={formatedEditOfferHeader}>
+      <Screen header={`edit offer ${offerIdToHex(offer.id)}`}>
         <PreferenceScreen isSliding={isSliding} button={<PatchOfferButton />}>
           <OfferMarketInfo />
           <OfferMethods />
