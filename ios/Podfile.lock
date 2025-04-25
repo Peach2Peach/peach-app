@@ -383,7 +383,7 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
-  - react-native-webview (13.8.1):
+  - react-native-webview (13.13.5):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - React-perflogger (0.71.19)
@@ -492,12 +492,27 @@ PODS:
     - RNFBApp
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.15.0):
+  - RNGestureHandler (2.25.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNPermissions (4.1.5):
     - React-Core
-  - RNReanimated (3.8.1):
+  - RNReanimated (3.16.7):
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated (= 3.16.7)
+    - RNReanimated/worklets (= 3.16.7)
+  - RNReanimated/reanimated (3.16.7):
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated/apple (= 3.16.7)
+  - RNReanimated/reanimated/apple (3.16.7):
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
+    - ReactCommon/turbomodule/core
+  - RNReanimated/worklets (3.16.7):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - ReactCommon/turbomodule/core
@@ -767,7 +782,7 @@ SPEC CHECKSUMS:
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-webview: bdc091de8cf7f8397653e30182efcd9f772e03b3
+  react-native-webview: 2536b1994d35aadca4e375c7d5ed078f3235ea19
   React-perflogger: 0ba097528e325435aca94b32b5330f58f6acb6fb
   React-RCTActionSheet: 805b3a83f3dd7ae5a1213ea9df0ed748eeb74b85
   React-RCTAnimation: 2a0233681dee47e468302b8233652b35b68329cb
@@ -788,9 +803,9 @@ SPEC CHECKSUMS:
   RNFBCrashlytics: e6d595ed2619e5e8ee3cdfd12c6a62e470280a03
   RNFBMessaging: a65862d8eba03cb6c838241bd328166504996894
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: 7909c50383a18f0cb10ce1db7262b9a6da504c03
+  RNGestureHandler: 69016cdc3c557bc0c36d008114658ae28517bd2b
   RNPermissions: 9fa74223844f437bc309e112994859dc47194829
-  RNReanimated: 4943d1e286130877c0539f053c3f36a22d8c66f5
+  RNReanimated: d2412fbd9d2e0806d287166e44e0ad3ba9d8808f
   RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
   RNSecureRandom: 07efbdf2cd99efe13497433668e54acd7df49fef
   RNShare: 0fad69ae2d71de9d1f7b9a43acf876886a6cb99c

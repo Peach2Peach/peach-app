@@ -36,7 +36,7 @@ type PaymentData = PaymentDataInfo & {
   label: string;
   type: PaymentMethod;
   currencies: Currency[];
-  country?: PaymentMethodCountry;
+  country?: GiftCardCountry | BitcoinEvent["country"];
   hidden?: boolean;
   reference?: string;
 };

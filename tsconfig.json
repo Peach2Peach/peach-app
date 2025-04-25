@@ -19,6 +19,13 @@
       "test-utils": ["./tests/unit/helpers/test-utils"]
     }
   },
-  "include": ["src", "@types", "tests", "tailwind.config.js"],
+  "include": [
+    "src",
+    "@types",
+    "tests",
+    "tailwind.config.js",
+    "index.js",
+    "peach-api"
+  ],
   "exclude": ["node_modules"]
 }
