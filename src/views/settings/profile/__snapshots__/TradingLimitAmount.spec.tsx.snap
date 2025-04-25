@@ -13,11 +13,12 @@ exports[`TradingLimitAmount should render correctly for daily 1`] = `
       }
     }
   >
-    daily trading limit
+    daily traded volume
       
     <PriceFormat
       amount={10}
       currency="EUR"
+      includeCurrency={false}
       round={true}
       style={
         [
@@ -90,11 +91,12 @@ exports[`TradingLimitAmount should render correctly for monthly 1`] = `
       }
     }
   >
-    monthly anonymous limit:
+    monthly anonymous traded volume:
       
     <PriceFormat
       amount={100}
       currency="EUR"
+      includeCurrency={false}
       round={true}
       style={
         [
@@ -167,11 +169,12 @@ exports[`TradingLimitAmount should render correctly for yearly 1`] = `
       }
     }
   >
-    yearly trading limit:
+    yearly traded volume:
       
     <PriceFormat
       amount={1000}
       currency="EUR"
+      includeCurrency={false}
       round={true}
       style={
         [
@@ -244,11 +247,12 @@ exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
       }
     }
   >
-    yearly trading limit:
+    yearly traded volume:
       
     <PriceFormat
       amount={1000}
       currency="EUR"
+      includeCurrency={false}
       round={true}
       style={
         [

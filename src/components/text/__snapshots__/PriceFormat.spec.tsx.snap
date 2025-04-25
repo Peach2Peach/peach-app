@@ -19,8 +19,7 @@ exports[`PriceFormat renders correctly 1`] = `
   }
 >
   12 345.44
-   
-  EUR
+   EUR
 </Text>
 `;
 
@@ -43,7 +42,6 @@ exports[`PriceFormat renders correctly for sats 1`] = `
   }
 >
   12 345
-   
-  SAT
+   SAT
 </Text>
 `;
