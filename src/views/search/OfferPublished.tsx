@@ -41,7 +41,7 @@ export const OfferPublished = ({
       buttons={
         <>
           <Button
-            style={tw`bg-primary-background-light-color`}
+            style={tw`bg-primary-background-light`}
             textColor={tw.color("primary-main")}
             onPress={goToOffer}
           >

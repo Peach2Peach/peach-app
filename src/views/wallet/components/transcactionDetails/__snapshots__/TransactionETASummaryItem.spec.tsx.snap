@@ -3,15 +3,12 @@
 exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
 <View
   style={
-    [
-      {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "space-between",
-        "maxWidth": "100%",
-      },
-      undefined,
-    ]
+    {
+      "flexDirection": "row",
+      "flexWrap": "wrap",
+      "justifyContent": "space-between",
+      "maxWidth": "100%",
+    }
   }
 >
   <Text
@@ -44,7 +41,7 @@ exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -121,15 +118,12 @@ exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
 exports[`TransactionETA should render correctly for more than 1 block ETA 1`] = `
 <View
   style={
-    [
-      {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "space-between",
-        "maxWidth": "100%",
-      },
-      undefined,
-    ]
+    {
+      "flexDirection": "row",
+      "flexWrap": "wrap",
+      "justifyContent": "space-between",
+      "maxWidth": "100%",
+    }
   }
 >
   <Text
@@ -162,7 +156,7 @@ exports[`TransactionETA should render correctly for more than 1 block ETA 1`] = 
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }

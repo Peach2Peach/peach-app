@@ -4,7 +4,7 @@ import { AppPopup } from "../../../popups/AppPopup";
 import tw from "../../../styles/tailwind";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { offerKeys } from "../../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../../hooks/query/offerKeys";
 import { WarningPopup } from "../../../popups/WarningPopup";
 import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
@@ -89,7 +89,7 @@ export const UnmatchButton = ({
       onPress={showUnmatchPopup}
       iconId="minusCircle"
       textColor={tw.color("error-main")}
-      style={tw`bg-primary-background-light-color`}
+      style={tw`bg-primary-background-light`}
     >
       {i18n("search.unmatch")}
     </Button>

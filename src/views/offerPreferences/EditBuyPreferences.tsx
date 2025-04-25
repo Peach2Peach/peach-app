@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { premiumBounds } from "../../components/PremiumInput";
 import { PremiumTextInput } from "../../components/PremiumTextInput";
+import { Screen } from "../../components/Screen";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
@@ -122,20 +123,18 @@ function ScreenContent({ offer }: { offer: BuyOffer }) {
   const reducer = useReducer(offerReducer, offer, initializer);
   return (
     <PreferenceContext.Provider value={reducer}>
-      <PreferenceScreen
-        header={<BuyBitcoinHeader />}
-        isSliding={isSliding}
-        button={<PatchOfferButton />}
-      >
-        <OfferMarketInfo />
-        <OfferMethods />
-        <AmountSelector setIsSliding={setIsSliding} />
-        <Filters />
-        <OfferWalletSelector
-          offerId={offer.id}
-          releaseAddress={offer.releaseAddress}
-        />
-      </PreferenceScreen>
+      <Screen header={<BuyBitcoinHeader />}>
+        <PreferenceScreen isSliding={isSliding} button={<PatchOfferButton />}>
+          <OfferMarketInfo />
+          <OfferMethods />
+          <AmountSelector setIsSliding={setIsSliding} />
+          <Filters />
+          <OfferWalletSelector
+            offerId={offer.id}
+            releaseAddress={offer.releaseAddress}
+          />
+        </PreferenceScreen>
+      </Screen>
     </PreferenceContext.Provider>
   );
 }
@@ -249,7 +248,7 @@ function OfferMethods() {
   const { isDarkMode } = useThemeStore();
   const backgroundColor = isDarkMode
     ? tw.color("card")
-    : tw.color("success-mild-1-color");
+    : tw.color("success-mild-1");
   return (
     <Section.Container style={{ backgroundColor }}>
       {hasSelectedMethods ? (

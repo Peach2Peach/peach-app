@@ -18,6 +18,18 @@ import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 import { iconMap } from "./iconMap";
 
+export type ToastState = {
+  color: "red" | "white" | "yellow";
+  msgKey: string;
+  bodyArgs?: string[];
+  action?: {
+    onPress: () => void;
+    label: string;
+    iconId: IconType;
+  };
+  keepAlive?: boolean;
+};
+
 type LevelColorMap = {
   [key in ToastState["color"]]: {
     backgroundColor: string | undefined;
@@ -31,10 +43,10 @@ const levelColorMap: LevelColorMap = {
   },
   red: {
     backgroundColor: tw.color("error-main"),
-    color: tw.color("primary-background-light-color"),
+    color: tw.color("primary-background-light"),
   },
   white: {
-    backgroundColor: tw.color("primary-background-light-color"),
+    backgroundColor: tw.color("primary-background-light"),
     color: tw.color("black-100"),
   },
 };

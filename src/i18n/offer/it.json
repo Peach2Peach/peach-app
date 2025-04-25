@@ -34,6 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "rilascia deposito",
   "offer.requiredAction.releaseEscrow.dispute" : "disputa persa: rilasciare il deposito",
   "offer.requiredAction.searchingForPeer" : "in cerca di match",
+  "offer.requiredAction.fundingExpired": "non finanziato in tempo",
   "offer.requiredAction.unknown" : "sconosciuto - aggiorna la tua app!",
   "offer.requiredAction.waiting" : "in attesa di $0",
   "offer.requiredAction.waiting.buyer" : "in attesa di pagamento",

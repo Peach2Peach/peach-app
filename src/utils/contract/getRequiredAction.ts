@@ -1,11 +1,13 @@
-export const getRequiredAction = (
-  contract: Contract | null,
-): ContractAction => {
-  if (!contract || contract.canceled) return "none";
+import { Contract } from "../../../peach-api/src/@types/contract";
 
-  if (!contract.paymentMade) {
+export const getRequiredAction = (contract: Contract) => {
+  const { canceled, tradeStatus, paymentMade, paymentConfirmed } = contract;
+  if (canceled || ["fundEscrow", "fundingExpired"].includes(tradeStatus))
+    return "none";
+
+  if (!paymentMade) {
     return "sendPayment";
-  } else if (contract.paymentMade && !contract.paymentConfirmed) {
+  } else if (!paymentConfirmed) {
     return "confirmPayment";
   }
   return "none";

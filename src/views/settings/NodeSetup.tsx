@@ -45,12 +45,17 @@ export const NodeSetup = () => {
   const [isConnected, setIsConnected] = useState(!!node.url);
 
   const editConfig = () => setIsConnected(false);
-  const save = (blockchainType: BlockChainNames) => {
+  const save = async (blockchainType: BlockChainNames) => {
     if (!peachWallet) throw Error("Peach wallet not defined");
     setCustomNode({ enabled, ssl, url, type: blockchainType });
     setIsConnected(true);
-    peachWallet.setBlockchain({ enabled, ssl, url, type: blockchainType });
-    peachWallet.initWallet();
+    await peachWallet.setBlockchain({
+      enabled,
+      ssl,
+      url,
+      type: blockchainType,
+    });
+    await peachWallet.initWallet();
   };
 
   const checkConnection = async () => {
@@ -69,7 +74,7 @@ export const NodeSetup = () => {
 
   useEffect(() => {
     if (!peachWallet) return;
-    peachWallet.setBlockchain(node);
+    void peachWallet.setBlockchain(node);
   }, [node]);
   const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false);
 
@@ -82,9 +87,7 @@ export const NodeSetup = () => {
         <Toggle
           style={tw`justify-between px-6`}
           textStyle={tw.style(
-            enabled && isDarkMode
-              ? "text-backgroundLight-light"
-              : "text-black-65",
+            enabled && isDarkMode ? "text-backgroundLight" : "text-black-65",
           )}
           {...{ enabled }}
           onPress={toggleEnabled}
@@ -95,7 +98,7 @@ export const NodeSetup = () => {
           style={tw`justify-between px-6`}
           enabled={ssl}
           textStyle={tw.style(
-            ssl && isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+            ssl && isDarkMode ? "text-backgroundLight" : "text-black-65",
           )}
           disabled={!enabled || isConnected}
           onPress={toggleSSL}

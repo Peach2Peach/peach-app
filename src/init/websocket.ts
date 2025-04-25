@@ -1,5 +1,5 @@
 import { Dispatch, useEffect } from "react";
-import { useSetToast } from "../components/toast/Toast";
+import { ToastState, useSetToast } from "../components/toast/Toast";
 import { useAccountStore } from "../utils/account/account";
 import { info } from "../utils/log/info";
 import { createWebsocket } from "../utils/peachAPI/websocket/createWebsocket";

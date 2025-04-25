@@ -1,11 +1,11 @@
 type EuPaymentMethods =
   | "advcash"
-  | "applePay"
   | "bankera"
   | "bizum"
   | "blik"
   | "fasterPayments"
   | "friends24"
+  | "giftCard.steam"
   | "instantSepa"
   | "iris"
   | "keksPay"
@@ -14,49 +14,75 @@ type EuPaymentMethods =
   | "mobilePay"
   | "n26"
   | "nationalTransferBG"
+  | "nationalTransferCH"
   | "nationalTransferCZ"
   | "nationalTransferDK"
   | "nationalTransferHU"
+  | "nationalTransferIS"
   | "nationalTransferNO"
   | "nationalTransferPL"
   | "nationalTransferRO"
-  | "nationalTransferTR"
-  | "nationalTransferCH"
-  | "nationalTransferIS"
   | "nationalTransferSE"
+  | "nationalTransferTR"
   | "neteller"
   | "papara"
+  | "payeer"
   | "paylib"
   | "paypal"
   | "paysera"
+  | "perfectMoney"
   | "postePay"
-  | "rebellion"
   | "revolut"
   | "satispay"
+  | "sberbank"
   | "sepa"
   | "skrill"
+  | "stp"
   | "straksbetaling"
   | "strike"
   | "swish"
+  | "tinkoff"
   | "twint"
+  | "verse"
   | "vipps"
-  | "wise";
+  | "westernUnion"
+  | "wise"
+  | "yooMoney";
+
 type LatAmPaymentMethods =
   | "alias"
   | "bancolombia"
+  | "bankTransferSuriname"
   | "cbu"
+  | "chileBankDeposit"
   | "cvu"
+  | "daviPlata"
+  | "guatemalaBankDeposit"
   | "mercadoPago"
   | "nequi"
+  | "paraguayBankTransfer"
+  | "peruBankDeposit"
   | "pix"
   | "rappipay"
   | "sinpe"
-  | "sinpeMovil";
+  | "sinpeMovil"
+  | "spei"
+  | "tigoMoneyBolivia"
+  | "tigoMoneyElSalvador"
+  | "tigoMoneyGuatemala"
+  | "tigoMoneyHonduras"
+  | "moncash"
+  | "natcash"
+  | "tigoMoneyParaguay";
+
 type AfricaPaymentMethods =
   | "accrue"
   | "airtelMoney"
+  | "apaym"
   | "chippercash"
+  | "djamo"
   | "eversend"
+  | "kcbBankKenya"
   | "klasha"
   | "m-pesa"
   | "moov"
@@ -64,21 +90,26 @@ type AfricaPaymentMethods =
   | "nationalTransferNG"
   | "orangeMoney"
   | "payday"
+  | "tigoPesa"
   | "wave"
-  | "wirepay"
-  | "flutterwave"
-  | "mobileAirtime";
+  | "wirepay";
+
+type OceaniaPaymentMethods = "payID" | "osko";
+type AsiaPaymentMethods = "UPI" | "paytm" | "nationalTransferSG" | "payLah";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
+type GiftCardCountry = "DE" | "FR" | "IT" | "ES" | "NL" | "UK" | "SE" | "PT";
 type InternationalPaymentMethds =
   | "giftCard.amazon"
-  | `giftCard.amazon.${PaymentMethodCountry}`;
+  | `giftCard.amazon.${GiftCardCountry}`;
 type CashPaymentMethds = `cash.${string}`;
 
 type PaymentMethod =
   | EuPaymentMethods
   | LatAmPaymentMethods
   | AfricaPaymentMethods
+  | OceaniaPaymentMethods
+  | AsiaPaymentMethods
   | InternationalPaymentMethds
   | BitcoinPaymentMethods
   | CashPaymentMethds;

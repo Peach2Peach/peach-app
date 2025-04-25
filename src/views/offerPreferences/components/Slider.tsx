@@ -14,7 +14,7 @@ type Props = {
   iconId: IconType;
 };
 
-export const horizontalSliderPadding = 8;
+export const horizontalSliderPadding = 10;
 export const iconWidth = 16;
 export const sliderWidth = iconWidth + horizontalSliderPadding * 2;
 export function Slider({
@@ -31,7 +31,7 @@ export function Slider({
   return (
     <Animated.View
       style={[
-        tw`absolute items-center justify-center py-2px rounded-2xl`,
+        tw`absolute items-center justify-center py-1 rounded-2xl`,
         {
           transform,
           paddingHorizontal: horizontalSliderPadding,
@@ -56,7 +56,7 @@ export function Slider({
       <Icon
         id={iconId}
         size={iconWidth}
-        color={tw.color("primary-background-light-color")}
+        color={tw.color("primary-background-light")}
       />
     </Animated.View>
   );

@@ -33,16 +33,14 @@ export const PaymentDetailsCheckbox = ({
       onPress={onPress}
       style={[
         tw`flex-row items-center justify-between w-full gap-4 px-3 py-2 border-2 rounded-xl`,
-        isDarkMode ? tw`bg-card` : tw`bg-primary-background-dark-color`,
+        isDarkMode ? tw`bg-card` : tw`bg-primary-background-dark`,
         checked && !item.disabled && !editing
           ? tw`border-primary-main`
           : tw`border-transparent`,
         style,
       ]}
     >
-      <PeachText
-        style={tw`flex-1 ${isDarkMode ? "text-backgroundLight-light" : ""}`}
-      >
+      <PeachText style={tw`flex-1 ${isDarkMode ? "text-backgroundLight" : ""}`}>
         {item.display}
       </PeachText>
       {!item.disabled ? (
@@ -52,7 +50,7 @@ export const PaymentDetailsCheckbox = ({
             editing || checked
               ? "primary-main"
               : isDarkMode
-                ? "backgroundLight-light"
+                ? "backgroundLight"
                 : "black-50",
           )}
         />

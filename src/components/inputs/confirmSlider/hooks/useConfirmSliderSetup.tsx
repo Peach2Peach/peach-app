@@ -3,7 +3,7 @@ import { Animated, LayoutChangeEvent, PanResponder } from "react-native";
 import { useIsMediumScreen } from "../../../../hooks/useIsMediumScreen";
 import { getNormalized } from "../../../../utils/math/getNormalized";
 
-type Props = ComponentProps & {
+type Props = {
   onConfirm: () => void;
   enabled: boolean;
 };

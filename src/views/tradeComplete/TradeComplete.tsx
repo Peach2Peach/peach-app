@@ -16,7 +16,6 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { createUserRating } from "../../utils/contract/createUserRating";
-import { getContractViewer } from "../../utils/contract/getContractViewer";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { BackupTime } from "../overlays/BackupTime";
@@ -24,23 +23,19 @@ import { BackupTime } from "../overlays/BackupTime";
 export function TradeComplete({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<"positive" | "negative">();
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const view = getContractViewer(contract.seller.id, publicKey);
+  const view = contract.seller.id === publicKey ? "seller" : "buyer";
 
   return (
     <>
       <View style={tw`justify-center gap-6 grow`}>
         <View style={tw`items-center`}>
           <Icon id="fullLogo" style={tw`w-311px h-127px`} />
-          <PeachText
-            style={tw`text-center h5 text-primary-background-light-color`}
-          >
+          <PeachText style={tw`text-center h5 text-primary-background-light`}>
             {i18n(`tradeComplete.title.${view}.default`)}
           </PeachText>
         </View>
 
-        <PeachText
-          style={tw`text-center body-l text-primary-background-light-color`}
-        >
+        <PeachText style={tw`text-center body-l text-primary-background-light`}>
           {i18n("rate.subtitle")}
         </PeachText>
         <View style={tw`flex-row justify-center gap-12`}>
@@ -76,8 +71,8 @@ function RateButton({ isSelected, onPress, iconId, style }: RateButtonProps) {
       onPress={onPress}
       style={[
         tw`items-center justify-center w-16 h-16 px-4`,
-        tw`border-[3px] border-primary-background-light-color rounded-[21px]`,
-        isSelected && tw`bg-primary-background-light-color`,
+        tw`border-[3px] border-primary-background-light rounded-[21px]`,
+        isSelected && tw`bg-primary-background-light`,
         style,
       ]}
     >
@@ -87,7 +82,7 @@ function RateButton({ isSelected, onPress, iconId, style }: RateButtonProps) {
         color={
           isSelected
             ? tw.color("primary-main")
-            : tw.color("primary-background-light-color")
+            : tw.color("primary-background-light")
         }
       />
     </TouchableOpacity>
@@ -96,7 +91,7 @@ function RateButton({ isSelected, onPress, iconId, style }: RateButtonProps) {
 
 type RateProps = {
   contract: Contract;
-  view: ContractViewer;
+  view: "buyer" | "seller";
   vote: "positive" | "negative" | undefined;
 };
 
@@ -117,7 +112,7 @@ function Rate({ contract, view, vote }: RateProps) {
       <GlobalPopup />
       <Button
         onPress={() => rateUser()}
-        style={tw`bg-primary-background-light-color`}
+        style={tw`bg-primary-background-light`}
         disabled={!vote}
         textColor={tw.color("primary-main")}
       >

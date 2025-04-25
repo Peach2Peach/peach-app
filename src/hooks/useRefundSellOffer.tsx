@@ -1,5 +1,6 @@
 import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { SellOffer } from "../../peach-api/src/@types/offer";
 import { useSetGlobalOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
@@ -13,8 +14,8 @@ import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
 import { BackupTime } from "../views/overlays/BackupTime";
+import { offerKeys } from "./query/offerKeys";
 import { contractKeys } from "./query/useContractDetail";
-import { offerKeys } from "./query/useOfferDetail";
 import { useShowErrorBanner } from "./useShowErrorBanner";
 import { useStackNavigation } from "./useStackNavigation";
 
@@ -113,9 +114,9 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
 function ShowTxAction({ txId }: { txId: string }) {
   const closePopup = useClosePopup();
 
-  const showTx = () => {
+  const showTx = async () => {
     closePopup();
-    showTransaction(txId, NETWORK);
+    await showTransaction(txId, NETWORK);
   };
 
   return (

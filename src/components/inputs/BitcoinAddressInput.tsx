@@ -34,7 +34,7 @@ export const BitcoinAddressInput = ({
     <Input
       placeholder={i18n("form.address.btc.placeholder")}
       placeholderTextColor={tw.color(
-        isDarkMode ? "backgroundLight-light" : "black-10",
+        isDarkMode ? "backgroundLight" : "black-10",
       )}
       icons={[
         ["clipboard", pasteAddress],
@@ -48,7 +48,7 @@ export const BitcoinAddressInput = ({
       style={[
         tw`px-4 py-2 border-2 rounded-lg`,
         isDarkMode
-          ? tw`bg-transparent border-2 border-black-50 text-backgroundLight-light`
+          ? tw`bg-transparent border-2 border-black-50 text-backgroundLight`
           : tw`bg-white text-black-100`,
       ]}
       {...props}

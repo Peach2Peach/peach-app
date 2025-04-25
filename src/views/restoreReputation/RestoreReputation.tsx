@@ -26,10 +26,10 @@ export const RestoreReputation = () => {
 
   const restoreReputation = async () => {
     setIsLoading(true);
-    updateAccount(account, true);
+    await updateAccount(account, true);
     await userUpdate(route.params.referralCode);
 
-    storeAccount(account);
+    await storeAccount(account);
     setIsRestored(true);
 
     setTimeout(() => {
@@ -55,15 +55,13 @@ export const RestoreReputation = () => {
       ) : (
         <View style={tw`justify-between grow`}>
           <View style={tw`items-center justify-center grow`}>
-            <PeachText
-              style={tw`subtitle-1 text-primary-background-light-color`}
-            >
+            <PeachText style={tw`subtitle-1 text-primary-background-light`}>
               {i18n("restoreBackup.dontWorry")}
             </PeachText>
           </View>
 
           <Button
-            style={tw`self-center bg-primary-background-light-color`}
+            style={tw`self-center bg-primary-background-light`}
             textColor={tw.color("primary-main")}
             onPress={restoreReputation}
           >
@@ -78,12 +76,10 @@ export const RestoreReputation = () => {
 function RestoreReputationLoading() {
   return (
     <View style={tw`items-center justify-center grow`}>
-      <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
+      <PeachText style={tw`text-center h4 text-primary-background-light`}>
         {i18n("restoreBackup.restoringReputation")}
       </PeachText>
-      <PeachText
-        style={tw`text-center body-l text-primary-background-light-color`}
-      >
+      <PeachText style={tw`text-center body-l text-primary-background-light`}>
         {i18n("newUser.oneSec")}
       </PeachText>
       <Loading size="large" color={tw.color("primary-mild-1")} />
@@ -94,18 +90,16 @@ function RestoreReputationLoading() {
 function ReputationRestored() {
   return (
     <View style={tw`items-center justify-center h-full`}>
-      <PeachText style={tw`text-center h4 text-primary-background-light-color`}>
+      <PeachText style={tw`text-center h4 text-primary-background-light`}>
         {i18n("restoreBackup.reputationRestored")}
       </PeachText>
-      <PeachText
-        style={tw`text-center body-l text-primary-background-light-color`}
-      >
+      <PeachText style={tw`text-center body-l text-primary-background-light`}>
         {i18n("restoreBackup.welcomeBack")}
       </PeachText>
       <Icon
         id="save"
         style={tw`w-32 h-32 mt-16`}
-        color={tw.color("primary-background-light-color")}
+        color={tw.color("primary-background-light")}
       />
     </View>
   );

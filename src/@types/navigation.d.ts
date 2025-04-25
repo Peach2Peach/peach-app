@@ -10,16 +10,12 @@ type Onboarding = {
   };
 };
 
-type TestViews = {
-  testView: undefined;
-  testViewPeachWallet: undefined;
-  testViewPNs: undefined;
-};
-
 type HomeTabParamList = {
   home: undefined;
   wallet: undefined;
-  yourTrades: { tab?: TradeTab };
+  yourTrades: {
+    tab?: "yourTrades.buy" | "yourTrades.sell" | "yourTrades.history";
+  };
   settings: undefined;
 };
 
@@ -31,14 +27,32 @@ type Home = {
 };
 
 type BuyFlow = {
+  buy: undefined;
+  sellOfferDetails: { offerId: string; requestingOfferId?: string };
   buyOfferPreferences: undefined;
   explore: { offerId: string };
   editBuyPreferences: { offerId: string };
   matchDetails: { offerId: string; matchId: string };
+  tradeRequestForBuyOffer: {
+    userId: string;
+    offerId: string;
+    amount: number;
+    currency: Currency;
+    paymentMethod: PaymentMethod;
+    fiatPrice: number;
+    symmetricKeyEncrypted: string;
+    requestingOfferId: string | undefined;
+  };
 };
 
 type SellFlow = {
   sellOfferPreferences: undefined;
+  buyOfferDetails: {
+    offerId: string;
+    amount: number;
+    premium: number;
+    requestingOfferId?: string;
+  };
   fundEscrow: {
     offerId: string;
   };
@@ -47,20 +61,32 @@ type SellFlow = {
   };
   search: { offerId: string };
   editPremium: { offerId: string };
+  tradeRequestForSellOffer: {
+    userId: string;
+    offerId: string;
+    amount: number;
+    currency: Currency;
+    paymentMethod: PaymentMethod;
+    fiatPrice: number;
+    symmetricKeyEncrypted: string;
+    isMatch?: boolean;
+    matchingOfferId?: string;
+    requestingOfferId: string | undefined;
+  };
 };
 
 type ContractFlow = {
   contract: {
-    contractId: Contract["id"];
+    contractId: string;
   };
   contractChat: {
-    contractId: Contract["id"];
+    contractId: string;
   };
   disputeReasonSelector: {
-    contractId: Contract["id"];
+    contractId: string;
   };
   disputeForm: {
-    contractId: Contract["id"];
+    contractId: string;
     reason: DisputeReason;
   };
 };
@@ -139,11 +165,11 @@ type RootStackParamList = Onboarding &
 
     patchPayoutAddress:
       | {
-          contractId: Contract["id"];
+          contractId: string;
         }
       | { offerId: string };
     signMessage:
       | { address: string; addressLabel: string }
-      | { contractId: Contract["id"]; address: string; addressLabel: string }
+      | { contractId: string; address: string; addressLabel: string }
       | { offerId: string; address: string; addressLabel: string };
-  } & TestViews;
+  };

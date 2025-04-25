@@ -20,8 +20,7 @@ type SettingsTitle =
   | "currency"
   | "language"
   | "contact"
-  | "aboutPeach"
-  | "testView";
+  | "aboutPeach";
 
 export type SettingsItemProps = (
   | {

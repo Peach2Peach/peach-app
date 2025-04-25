@@ -1,3 +1,4 @@
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import {
   paypalData,
   paypalDataHashes,
@@ -7,6 +8,7 @@ import {
   validSEPADataHashes,
 } from "../../../tests/unit/data/paymentData";
 import { setPaymentMethods } from "../../paymentMethods";
+import { useConfigStore } from "../configStore/configStore";
 import { usePaymentDataStore } from "../usePaymentDataStore";
 import { useOfferPreferences } from "./useOfferPreferences";
 
@@ -74,15 +76,37 @@ describe("useOfferPreferences - actions - setPaymentMethods", () => {
     usePaymentDataStore.getState().addPaymentData(paypalData);
     usePaymentDataStore.getState().addPaymentData(revolutData);
 
-    setPaymentMethods([
-      { id: "sepa", currencies: ["EUR", "CHF"], anonymous: false },
+    const paymentMethods: PaymentMethodInfo[] = [
+      {
+        id: "sepa",
+        currencies: ["EUR", "CHF"],
+        anonymous: false,
+        fields: {
+          mandatory: [[["iban", "bic"]]],
+          optional: ["reference"],
+        },
+      },
       {
         id: "revolut",
         currencies: ["EUR"],
         anonymous: false,
+        fields: {
+          mandatory: [[["email"]]],
+          optional: [],
+        },
       },
-      { id: "paypal", currencies: ["EUR"], anonymous: false },
-    ]);
+      {
+        id: "paypal",
+        currencies: ["EUR"],
+        anonymous: false,
+        fields: {
+          mandatory: [[["email"]]],
+          optional: [],
+        },
+      },
+    ];
+    setPaymentMethods(paymentMethods);
+    useConfigStore.getState().setPaymentMethods(paymentMethods);
   });
 
   it("should update the preferred payment methods", () => {
@@ -127,7 +151,12 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
   beforeAll(() => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData);
     setPaymentMethods([
-      { id: "sepa", currencies: ["EUR", "CHF"], anonymous: false },
+      {
+        id: "sepa",
+        currencies: ["EUR", "CHF"],
+        anonymous: false,
+        fields: { mandatory: [[["iban", "bic"]]], optional: ["reference"] },
+      },
     ]);
     useOfferPreferences.getState().setPaymentMethods([]);
   });

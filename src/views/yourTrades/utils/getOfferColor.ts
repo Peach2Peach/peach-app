@@ -14,7 +14,9 @@ export const getOfferColor = (
   const { tradeStatus, type } = trade;
 
   if (!isTradeStatus(trade.tradeStatus)) return "info";
-  if (tradeStatus === "paymentTooLate") return "warning";
+  if (tradeStatus === "paymentTooLate" || tradeStatus === "fundingExpired") {
+    return "warning";
+  }
   if (isPastOffer(tradeStatus)) {
     if (tradeStatus === "tradeCompleted")
       return type === "ask" ? "primary" : "success";

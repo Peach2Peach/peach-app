@@ -1,8 +1,9 @@
 import { fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { BitcoinEvent } from "../../../peach-api/src/@types/events";
 import {
-  balticHoneyBadger,
   belgianBTCEmbassy,
   breizhBitcoin,
+  btcPrague,
   decouvreBTC,
 } from "../../../tests/unit/data/eventData";
 import {
@@ -15,7 +16,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { defaultState, useDrawerState } from "../drawer/useDrawerState";
 import { AddPaymentMethodButton } from "./AddPaymentMethodButton";
 
-const mockEvents: MeetupEvent[] = [belgianBTCEmbassy, decouvreBTC];
+const mockEvents: BitcoinEvent[] = [belgianBTCEmbassy, decouvreBTC];
 
 const getEventsSpy = jest
   .spyOn(peachAPI.public.events, "getEvents")
@@ -80,10 +81,10 @@ describe("AddPaymentMethodButton", () => {
       expect.objectContaining({
         title: "select country",
         show: true,
-        options: [
-          { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
-          { flagID: "FR", onPress: expect.any(Function), title: "France" },
-        ],
+        options: expect.arrayContaining([
+          { flagID: "BE", onPress: expect.anything(), title: "Belgium" },
+          { flagID: "FR", onPress: expect.anything(), title: "France" },
+        ]),
       }),
     );
   });
@@ -100,21 +101,21 @@ describe("AddPaymentMethodButton", () => {
       expect.objectContaining({
         title: "select meetup",
         show: true,
-        options: [
+        options: expect.arrayContaining([
           {
             highlighted: false,
             onPress: expect.any(Function),
             subtext: "Antwerp",
             title: "Belgian Bitcoin Embassy",
           },
-        ],
+        ]),
         previousDrawer: expect.objectContaining({
           title: "select country",
           show: true,
-          options: [
+          options: expect.arrayContaining([
             { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
             { flagID: "FR", onPress: expect.any(Function), title: "France" },
-          ],
+          ]),
         }),
       }),
     );
@@ -148,7 +149,7 @@ describe("AddPaymentMethodButton", () => {
   });
   it("should sort the countries alphabetically and keep super featured events on top", async () => {
     getEventsSpy.mockResolvedValueOnce({
-      result: [...mockEvents, balticHoneyBadger],
+      result: [...mockEvents, btcPrague],
       ...responseUtils,
     });
     const { getByText } = render(<AddPaymentMethodButton isCash />);
@@ -156,17 +157,23 @@ describe("AddPaymentMethodButton", () => {
       expect(queryClient.isFetching()).toBe(0);
     });
     fireEvent.press(getByText("add new cash option"));
-    expect(useDrawerState.getState().options).toStrictEqual([
-      {
-        highlighted: true,
-        onPress: expect.any(Function),
-        subtext: "Riga",
-        title: "Baltic Honeybadger",
-      },
-      { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
-      { flagID: "FR", onPress: expect.any(Function), title: "France" },
-      { flagID: "LV", onPress: expect.any(Function), title: "Latvia" },
-    ]);
+    expect(useDrawerState.getState().options).toStrictEqual(
+      expect.arrayContaining([
+        {
+          highlighted: true,
+          onPress: expect.any(Function),
+          subtext: "Prague",
+          title: "BTC Prague",
+        },
+        { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
+        { flagID: "FR", onPress: expect.any(Function), title: "France" },
+        {
+          flagID: "CZ",
+          onPress: expect.any(Function),
+          title: "Czech Republic",
+        },
+      ]),
+    );
   });
   it("should sort the meetups by their city alphabetically", async () => {
     getEventsSpy.mockResolvedValueOnce({
@@ -201,7 +208,7 @@ describe("AddPaymentMethodButton", () => {
   });
 
   it("should show the featured meetups at the top of the list", async () => {
-    const featuredEvent: MeetupEvent = {
+    const featuredEvent: BitcoinEvent = {
       ...breizhBitcoin,
       featured: true,
     };

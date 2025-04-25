@@ -6,7 +6,6 @@ Run
 
 ```
 npm install
-npx react-native link
 ```
 
 **Android**

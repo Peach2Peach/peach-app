@@ -1,5 +1,6 @@
 import { Transaction } from "bitcoinjs-lib";
 import { useMemo, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { Divider } from "../../components/Divider";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -17,7 +18,7 @@ import { getMessages } from "../../utils/validation/getMessages";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { CurrentFee } from "./components/bumpNetworkFees/CurrentFee";
-import { FeeEstimates } from "./components/bumpNetworkFees/FeeEstimates";
+import { FeeInfo } from "./components/bumpNetworkFees/FeeInfo";
 import { NewFee } from "./components/bumpNetworkFees/NewFee";
 import { useBumpFees } from "./hooks/useBumpFees";
 import { useMappedTransactionDetails } from "./hooks/useMappedTransactionDetails";
@@ -63,13 +64,34 @@ export const BumpNetworkFees = () => {
       >
         <CurrentFee fee={currentFeeRate} />
         <Divider />
-        <FeeEstimates
-          {...{
-            estimatedFees,
-            setFeeRate: setNewFeeRate,
-            isOverpaying: overpayingBy >= 1,
-          }}
-        />
+        <View style={tw`flex-row items-center justify-between gap-6 px-2`}>
+          <TouchableOpacity
+            onPress={() => setNewFeeRate(estimatedFees.fastestFee.toString())}
+          >
+            <FeeInfo
+              label={i18n("wallet.bumpNetworkFees.estimated.nextBlock")}
+              fee={estimatedFees.fastestFee}
+              isError={overpayingBy >= 1}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setNewFeeRate(estimatedFees.halfHourFee.toString())}
+          >
+            <FeeInfo
+              label={i18n("wallet.bumpNetworkFees.estimated.halfHourFee")}
+              fee={estimatedFees.halfHourFee}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setNewFeeRate(estimatedFees.hourFee.toString())}
+          >
+            <FeeInfo
+              label={i18n("wallet.bumpNetworkFees.estimated.hourFee")}
+              fee={estimatedFees.hourFee}
+            />
+          </TouchableOpacity>
+        </View>
+
         <Divider />
         <NewFee {...{ newFeeRate, setNewFeeRate, overpayingBy }} />
       </PeachScrollView>

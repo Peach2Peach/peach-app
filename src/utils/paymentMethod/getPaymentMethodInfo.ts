@@ -1,4 +1,4 @@
-import { PAYMENTMETHODINFOS } from "../../paymentMethods";
+import { useConfigStore } from "../../store/configStore/configStore";
 
 export const getPaymentMethodInfo = (id: string) =>
-  PAYMENTMETHODINFOS.find((p) => p.id === id);
+  useConfigStore.getState().paymentMethods.find((p) => p.id === id);

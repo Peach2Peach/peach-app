@@ -1,4 +1,5 @@
 import { Psbt } from "bitcoinjs-lib";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { txIdPartOfPSBT } from "./txIdPartOfPSBT";
 

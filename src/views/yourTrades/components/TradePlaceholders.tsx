@@ -7,7 +7,7 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
 type Props = {
-  tab: TradeTab;
+  tab: "yourTrades.buy" | "yourTrades.sell" | "yourTrades.history";
 };
 export const TradePlaceholders = ({ tab }: Props) => (
   <View style={tw`items-center justify-center flex-1`}>
@@ -23,16 +23,12 @@ export const TradePlaceholders = ({ tab }: Props) => (
   </View>
 );
 
-function GoTradeButton({
-  tab,
-}: {
-  tab: Exclude<TradeTab, "yourTrades.history">;
-}) {
+function GoTradeButton({ tab }: { tab: "yourTrades.buy" | "yourTrades.sell" }) {
   const navigation = useStackNavigation();
 
   const onPress = () => {
     const destination =
-      tab === "yourTrades.buy" ? "buyOfferPreferences" : "sellOfferPreferences";
+      tab === "yourTrades.buy" ? "buy" : "sellOfferPreferences";
     navigation.navigate(destination);
   };
 

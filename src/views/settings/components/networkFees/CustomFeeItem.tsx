@@ -28,8 +28,8 @@ export const CustomFeeItem = ({
         style={tw.style(
           "flex-row items-center w-16 h-8 py-3 overflow-hidden rounded-xl border border-black-65",
           isDarkMode
-            ? "bg-transparent border-primary-background-light-color"
-            : "bg-primary-background-light-color",
+            ? "bg-transparent border-primary-background-light"
+            : "bg-primary-background-light",
         )}
       >
         <TextInput
@@ -39,7 +39,7 @@ export const CustomFeeItem = ({
           }
           style={tw.style(
             "h-8 py-0 text-center grow input-text",
-            isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+            isDarkMode ? "text-backgroundLight" : "text-black-65",
           )}
           keyboardType={"decimal-pad"}
           editable={!disabled}

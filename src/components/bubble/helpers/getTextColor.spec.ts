@@ -4,7 +4,7 @@ import { getTextColor } from "./getTextColor";
 describe("getTextColor", () => {
   it("should return the correct text color for primary bubble", () => {
     expect(getTextColor({ color: "primary", ghost: false })).toEqual(
-      tw`text-primary-background-light-color`,
+      tw`text-primary-background-light`,
     );
     expect(getTextColor({ color: "primary", ghost: true })).toEqual(
       tw`text-primary-main`,

@@ -9,6 +9,7 @@ import { Screen } from "../../components/Screen";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
+import { APPVERSION, BUILDNUMBER } from "../../constants";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -16,17 +17,15 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
-import { isProduction } from "../../utils/system/isProduction";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
 import { isDefined } from "../../utils/validation/isDefined";
 import { SettingsItem } from "./components/SettingsItem";
-import { VersionInfo } from "./components/VersionInfo";
 
-const contactUs = isProduction()
-  ? (["contact", "aboutPeach"] as const)
-  : (["testView", "contact", "aboutPeach"] as const);
+const contactUs = ["contact", "aboutPeach"] as const;
 
 export const Settings = () => {
+  useSettingsStore((state) => state.locale);
+
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
@@ -53,7 +52,7 @@ export const Settings = () => {
         checkingFunction,
       );
 
-      checkingFunction();
+      void checkingFunction();
 
       return () => {
         eventListener.remove();
@@ -61,7 +60,7 @@ export const Settings = () => {
     }, []),
   );
 
-  const notificationClick = useCallback(() => {
+  const notificationClick = useCallback(async () => {
     if (notificationsOn) {
       setPopup(
         <WarningPopup
@@ -79,9 +78,9 @@ export const Settings = () => {
                 label={i18n("settings.notifications.popup.yes")}
                 textStyle={tw`text-black-100`}
                 iconId="slash"
-                onPress={() => {
+                onPress={async () => {
                   closePopup();
-                  toggleNotifications();
+                  await toggleNotifications();
                 }}
                 reverseOrder
               />
@@ -90,7 +89,7 @@ export const Settings = () => {
         />,
       );
     } else {
-      toggleNotifications();
+      await toggleNotifications();
     }
   }, [closePopup, notificationsOn, setPopup]);
 
@@ -114,12 +113,12 @@ export const Settings = () => {
   const setAnalyticsPopupSeen = useSettingsStore(
     (state) => state.setAnalyticsPopupSeen,
   );
-  const onAnalyticsPress = useCallback(() => {
+  const onAnalyticsPress = useCallback(async () => {
     if (!enableAnalytics) {
       setAnalyticsPopupSeen(true);
       setPopup(<AnalyticsPopup />);
     } else {
-      toggleAnalytics();
+      await toggleAnalytics();
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
@@ -170,33 +169,42 @@ export const Settings = () => {
     { headline: "profileSettings", items: profileSettings },
     { headline: "appSettings", items: appSettings },
   ];
-
   return (
     <Screen header={<Header title={i18n("settings.title")} hideGoBackButton />}>
-      <PeachScrollView>
-        {settings.map(({ headline, items }) => (
-          <View key={`settings-${headline}`}>
-            {headline && (
-              <PeachText
-                style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}
-              >
-                {i18n(`settings.${headline}`)}
-              </PeachText>
-            )}
-            <View style={tw`gap-6 py-3 px-6px`}>
-              {items.map((item, i) => {
-                const props = typeof item === "string" ? { title: item } : item;
-                return (
-                  <SettingsItem
-                    key={`${headline}-${typeof item === "string" ? item : item.title}-${i}`}
-                    {...props}
-                  />
-                );
-              })}
+      <PeachScrollView
+        contentContainerStyle={tw`pb-sm md:pb-md`}
+        contentStyle={tw`gap-9`}
+      >
+        <View>
+          {settings.map(({ headline, items }) => (
+            <View key={`settings-${headline}`}>
+              {headline && (
+                <PeachText
+                  style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}
+                >
+                  {i18n(`settings.${headline}`)}
+                </PeachText>
+              )}
+              <View style={tw`gap-6 py-3 px-6px`}>
+                {items.map((item, i) => {
+                  const props =
+                    typeof item === "string" ? { title: item } : item;
+                  return (
+                    <SettingsItem
+                      key={`${headline}-${typeof item === "string" ? item : item.title}-${i}`}
+                      {...props}
+                    />
+                  );
+                })}
+              </View>
             </View>
-          </View>
-        ))}
-        <VersionInfo style={tw`mb-10 text-center mt-9`} />
+          ))}
+        </View>
+        <PeachText
+          style={tw`text-center uppercase button-medium text-black-50`}
+        >
+          {`${i18n("settings.peachApp")}${APPVERSION}(${BUILDNUMBER})`}
+        </PeachText>
       </PeachScrollView>
     </Screen>
   );

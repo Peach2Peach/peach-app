@@ -1,11 +1,12 @@
 import { Alert } from "react-native";
-import i18n, { languageState } from "../i18n";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import i18n from "../i18n";
 import { getLocalizedLink } from "../web/getLocalizedLink";
 import { openURL } from "../web/openURL";
 import { deleteUnsentReports } from "./deleteUnsentReports";
 import { sendErrors } from "./sendErrors";
 
-export const openCrashReportPrompt = (errors: Error[]): void => {
+export const openCrashReportPrompt = (errors: Error[]) => {
   Alert.alert(
     i18n("crashReport.requestPermission.title"),
     [
@@ -15,9 +16,14 @@ export const openCrashReportPrompt = (errors: Error[]): void => {
     [
       {
         text: i18n("privacyPolicy"),
-        onPress: () => {
+        onPress: async () => {
           openCrashReportPrompt(errors);
-          openURL(getLocalizedLink("privacy-policy", languageState.locale));
+          await openURL(
+            getLocalizedLink(
+              "privacy-policy",
+              useSettingsStore.getState().locale,
+            ),
+          );
         },
         style: "default",
       },

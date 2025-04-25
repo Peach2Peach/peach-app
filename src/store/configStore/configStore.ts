@@ -1,7 +1,17 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import { createStorage } from "../../utils/storage/createStorage";
 import { createPersistStorage } from "../createPersistStorage";
+
+type Config = {
+  paymentMethods: PaymentMethodInfo[];
+  peachPGPPublicKey: string;
+  peachFee: number;
+  minTradingAmount: number;
+  maxTradingAmount: number;
+  seenDisputeDisclaimer: boolean;
+};
 
 type ConfigStore = Config & {
   reset: () => void;

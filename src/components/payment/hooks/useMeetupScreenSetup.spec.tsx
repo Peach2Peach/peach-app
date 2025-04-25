@@ -1,4 +1,5 @@
 import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { BitcoinEvent } from "../../../../peach-api/src/@types/events";
 import {
   getStateMock,
   goBackMock,
@@ -7,6 +8,7 @@ import {
 } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { setPaymentMethods } from "../../../paymentMethods";
+import { useConfigStore } from "../../../store/configStore/configStore";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { defaultPaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
@@ -31,7 +33,7 @@ getStateMock.mockReturnValue({
   stale: false,
 });
 
-const defaultEvent: MeetupEvent = {
+const defaultEvent: BitcoinEvent = {
   id: "123",
   currencies: ["EUR"],
   country: "DE",
@@ -82,9 +84,16 @@ describe("useMeetupScreenSetup", () => {
   });
 
   it("should add a meetup to the payment methods", async () => {
-    setPaymentMethods([
-      { id: "cash.123", currencies: ["EUR"], anonymous: true },
-    ]);
+    const newMethods = [
+      {
+        id: "cash.123" as const,
+        currencies: ["EUR" as const],
+        anonymous: true,
+        fields: { mandatory: [], optional: [] },
+      },
+    ];
+    setPaymentMethods(newMethods);
+    useConfigStore.getState().setPaymentMethods(newMethods);
     const { result } = renderHook(useMeetupScreenSetup);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
@@ -130,9 +139,16 @@ describe("useMeetupScreenSetup", () => {
   });
   it("should automatically add the meetup to the selected methods", async () => {
     useOfferPreferences.getState().setPaymentMethods([]);
-    setPaymentMethods([
-      { id: "cash.123", currencies: ["EUR"], anonymous: true },
-    ]);
+    const newMethods = [
+      {
+        id: "cash.123" as const,
+        currencies: ["EUR" as const],
+        anonymous: true,
+        fields: { mandatory: [], optional: [] },
+      },
+    ];
+    setPaymentMethods(newMethods);
+    useConfigStore.getState().setPaymentMethods(newMethods);
     const { result } = renderHook(useMeetupScreenSetup);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
@@ -173,9 +189,16 @@ describe("useMeetupScreenSetup", () => {
   });
 
   it("should select all currencies by default", async () => {
-    setPaymentMethods([
-      { id: "cash.123", currencies: ["EUR", "CHF"], anonymous: true },
-    ]);
+    const newMethods = [
+      {
+        id: "cash.123" as const,
+        currencies: ["EUR" as const, "CHF" as const],
+        anonymous: true,
+        fields: { mandatory: [], optional: [] },
+      },
+    ];
+    setPaymentMethods(newMethods);
+    useConfigStore.getState().setPaymentMethods(newMethods);
     getEventsMock.mockResolvedValueOnce({
       result: [{ ...defaultEvent, currencies: ["EUR", "CHF"] }],
       ...responseUtils,
@@ -190,9 +213,16 @@ describe("useMeetupScreenSetup", () => {
   });
 
   it("should update the selected currencies", async () => {
-    setPaymentMethods([
-      { id: "cash.123", currencies: ["EUR", "CHF"], anonymous: true },
-    ]);
+    const newMethods = [
+      {
+        id: "cash.123" as const,
+        currencies: ["EUR" as const, "CHF" as const],
+        anonymous: true,
+        fields: { mandatory: [], optional: [] },
+      },
+    ];
+    setPaymentMethods(newMethods);
+    useConfigStore.getState().setPaymentMethods(newMethods);
     getEventsMock.mockResolvedValueOnce({
       result: [{ ...defaultEvent, currencies: ["EUR", "CHF"] }],
       ...responseUtils,
@@ -213,9 +243,16 @@ describe("useMeetupScreenSetup", () => {
     expect(result.current.selectedCurrencies).toStrictEqual(["EUR", "CHF"]);
   });
   it("should use empty array as fallback if event has no currencies", async () => {
-    setPaymentMethods([
-      { id: "cash.123", currencies: ["EUR", "CHF"], anonymous: true },
-    ]);
+    const newMethods = [
+      {
+        id: "cash.123" as const,
+        currencies: ["EUR" as const, "CHF" as const],
+        anonymous: true,
+        fields: { mandatory: [], optional: [] },
+      },
+    ];
+    setPaymentMethods(newMethods);
+    useConfigStore.getState().setPaymentMethods(newMethods);
     getEventsMock.mockResolvedValueOnce({
       result: [{ ...defaultEvent, currencies: [] }],
       ...responseUtils,
@@ -229,9 +266,16 @@ describe("useMeetupScreenSetup", () => {
     expect(result.current.selectedCurrencies).toStrictEqual([]);
   });
   it("should add the payment method to the account with only the selected currencies", async () => {
-    setPaymentMethods([
-      { id: "cash.123", currencies: ["EUR", "CHF"], anonymous: true },
-    ]);
+    const newMethods = [
+      {
+        id: "cash.123" as const,
+        currencies: ["EUR" as const, "CHF" as const],
+        anonymous: true,
+        fields: { mandatory: [], optional: [] },
+      },
+    ];
+    setPaymentMethods(newMethods);
+    useConfigStore.getState().setPaymentMethods(newMethods);
     getEventsMock.mockResolvedValueOnce({
       result: [{ ...defaultEvent, currencies: ["EUR", "CHF"] }],
       ...responseUtils,

@@ -2,7 +2,7 @@ import { renderHook, responseUtils, waitFor } from "test-utils";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { resetMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
-import { offerKeys } from "../../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../../hooks/query/offerKeys";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useConfirmEscrow } from "./useConfirmEscrow";
 
@@ -27,7 +27,7 @@ describe("useConfirmEscrow", () => {
   };
   beforeEach(() => {
     queryClient.setQueryData(
-      offerKeys.fundingStatus(sellOffer.id),
+      offerKeys.escrowInfo(sellOffer.id),
       () => fundingStatusResponse,
     );
   });
@@ -69,7 +69,7 @@ describe("useConfirmEscrow", () => {
     });
     await waitFor(() => {
       expect(
-        queryClient.getQueryData(offerKeys.fundingStatus(sellOffer.id)),
+        queryClient.getQueryData(offerKeys.escrowInfo(sellOffer.id)),
       ).toEqual({
         ...fundingStatusResponse,
         userConfirmationRequired: false,
@@ -91,7 +91,7 @@ describe("useConfirmEscrow", () => {
     });
     await waitFor(() => {
       expect(
-        queryClient.getQueryData(offerKeys.fundingStatus(sellOffer.id)),
+        queryClient.getQueryData(offerKeys.escrowInfo(sellOffer.id)),
       ).toEqual({
         ...fundingStatusResponse,
         userConfirmationRequired: false,

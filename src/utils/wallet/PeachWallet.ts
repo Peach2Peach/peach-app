@@ -13,9 +13,9 @@ import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
 import { Platform } from "react-native";
 import RNFS from "react-native-fs";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { getContractSummariesQuery } from "../../hooks/query/useContractSummaries";
-import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { getOfferSummariesQuery } from "../../hooks/query/useOfferSummaries";
 import { queryClient } from "../../queryClient";
 import { waitForHydration } from "../../store/waitForHydration";
@@ -82,7 +82,7 @@ export class PeachWallet {
               network: NETWORK as Network,
             });
 
-          this.setBlockchain(useNodeConfigState.getState());
+          await this.setBlockchain(useNodeConfigState.getState());
 
           const dbConfig = await getDBConfig(NETWORK as Network, this.nodeType);
 
@@ -114,7 +114,7 @@ export class PeachWallet {
     info("PeachWallet - loadWallet - start");
     await waitForHydration(useNodeConfigState);
 
-    this.initWallet(seedphrase).then(() => {
+    await this.initWallet(seedphrase).then(() => {
       info("PeachWallet - loadWallet - finished");
     });
   }
@@ -148,17 +148,22 @@ export class PeachWallet {
 
             this.transactions = await this.wallet.listTransactions(true);
             useWalletState.getState().setTransactions(this.transactions);
-            const offers = await queryClient.fetchQuery({
+            const offerSummaries = await queryClient.fetchQuery({
               queryKey: offerKeys.summaries(),
               queryFn: getOfferSummariesQuery,
             });
-            const contracts = await queryClient.fetchQuery({
+            const contractSummaries = await queryClient.fetchQuery({
               queryKey: contractKeys.summaries(),
               queryFn: getContractSummariesQuery,
             });
             this.transactions
               .filter((tx) => !transactionHasBeenMappedToOffers(tx))
-              .forEach(mapTransactionToOffer({ offers, contracts }));
+              .forEach(
+                mapTransactionToOffer({
+                  offerSummaries,
+                  contractSummaries,
+                }),
+              );
             this.transactions
               .filter(transactionHasBeenMappedToOffers)
               .forEach(labelAddressByTransaction);
@@ -254,10 +259,10 @@ export class PeachWallet {
       const signedPSBT = await this.wallet.sign(psbt);
       info("PeachWallet - signAndBroadcastPSBT - signed");
 
-      this.blockchain.broadcast(await signedPSBT.extractTx());
+      await this.blockchain.broadcast(await signedPSBT.extractTx());
       info("PeachWallet - signAndBroadcastPSBT - broadcasted");
 
-      this.syncWallet().catch((e) => {
+      await this.syncWallet().catch((e) => {
         error(parseError(e));
       });
 

@@ -383,7 +383,7 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
-  - react-native-webview (13.13.2):
+  - react-native-webview (13.13.5):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - React-perflogger (0.71.19)
@@ -492,7 +492,7 @@ PODS:
     - RNFBApp
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.24.0):
+  - RNGestureHandler (2.25.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNPermissions (4.1.5):
@@ -782,7 +782,7 @@ SPEC CHECKSUMS:
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-webview: f44e822d613d729859a140b79ca88641094f3550
+  react-native-webview: 2536b1994d35aadca4e375c7d5ed078f3235ea19
   React-perflogger: 0ba097528e325435aca94b32b5330f58f6acb6fb
   React-RCTActionSheet: 805b3a83f3dd7ae5a1213ea9df0ed748eeb74b85
   React-RCTAnimation: 2a0233681dee47e468302b8233652b35b68329cb
@@ -803,7 +803,7 @@ SPEC CHECKSUMS:
   RNFBCrashlytics: e6d595ed2619e5e8ee3cdfd12c6a62e470280a03
   RNFBMessaging: a65862d8eba03cb6c838241bd328166504996894
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: bb8e0736ab2d42aa63f3a2389900cbac01a33545
+  RNGestureHandler: 69016cdc3c557bc0c36d008114658ae28517bd2b
   RNPermissions: 9fa74223844f437bc309e112994859dc47194829
   RNReanimated: d2412fbd9d2e0806d287166e44e0ad3ba9d8808f
   RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3

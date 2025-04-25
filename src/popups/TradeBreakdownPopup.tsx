@@ -1,6 +1,7 @@
 import { NETWORK } from "@env";
 import { Fragment } from "react";
 import { View } from "react-native";
+import { Contract } from "../../peach-api/src/@types/contract";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
@@ -14,10 +15,14 @@ import { showTransaction } from "../utils/bitcoin/showTransaction";
 import i18n from "../utils/i18n";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
-  const viewInExplorer = () =>
-    contract.releaseTxId
-      ? showTransaction(contract.releaseTxId, NETWORK)
-      : showAddress(contract.escrow, NETWORK);
+  const viewInExplorer = async () => {
+    if (!contract.escrow) return;
+    if (contract.releaseTxId) {
+      await showTransaction(contract.releaseTxId, NETWORK);
+    } else {
+      await showAddress(contract.escrow, NETWORK);
+    }
+  };
   return (
     <PopupComponent
       title={i18n("tradeComplete.popup.tradeBreakdown.title")}

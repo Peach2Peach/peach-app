@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 import { Animated, View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
 
-type Props = ComponentProps & {
+type Props = {
   percent: number;
-  text?: string;
   backgroundStyle?: ViewStyle;
   barStyle?: ViewStyle;
+  style?: ViewStyle;
 };
 export const Progress = ({
   percent,

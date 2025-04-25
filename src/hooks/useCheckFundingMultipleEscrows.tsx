@@ -9,7 +9,6 @@ import { keys } from "../utils/object/keys";
 import { getOffer } from "../utils/offer/getOffer";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { isDefined } from "../utils/validation/isDefined";
-import { isNotNull } from "../utils/validation/isNotNull";
 import { peachWallet } from "../utils/wallet/setWallet";
 import {
   buildTransaction,
@@ -55,7 +54,7 @@ export const useCheckFundingMultipleEscrows = () => {
     async (address: string) => {
       const offerIds = fundMultipleMap[address] || [];
       const offers = await Promise.all(offerIds.map(getOffer));
-      const sellOffers = offers.filter(isNotNull).filter(isSellOffer);
+      const sellOffers = offers.filter(isDefined).filter(isSellOffer);
 
       const sellOfferSummaries = offerSummaries.filter(
         (summary): summary is SellOfferSummary => offerIds.includes(summary.id),
@@ -93,9 +92,10 @@ export const useCheckFundingMultipleEscrows = () => {
     ],
   );
 
-  const callback = useCallback(() => {
-    refetchOffers().then(() => Promise.all(addresses.map(checkAddress)));
-  }, [addresses, checkAddress, refetchOffers]);
+  const callback = useCallback(
+    () => refetchOffers().then(() => Promise.all(addresses.map(checkAddress))),
+    [addresses, checkAddress, refetchOffers],
+  );
 
   useInterval({
     callback,

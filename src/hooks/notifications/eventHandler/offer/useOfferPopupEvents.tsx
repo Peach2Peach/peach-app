@@ -10,7 +10,13 @@ import { peachAPI } from "../../../../utils/peachAPI";
 type PNEventHandlers = Partial<
   Record<
     NotificationType,
-    (data: PNData, notification?: PNNotification) => void
+    (
+      data: PNData,
+      notification?: {
+        titleLocArgs?: string[];
+        bodyLocArgs?: string[];
+      },
+    ) => void
   >
 >;
 

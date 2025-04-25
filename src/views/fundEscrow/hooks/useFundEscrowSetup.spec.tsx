@@ -20,13 +20,13 @@ jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
-const mockUseFundingStatus = jest.fn().mockReturnValue({
+const mockUseEscrowInfo = jest.fn().mockReturnValue({
   fundingStatus: defaultFundingStatus,
   userConfirmationRequired: false,
   isLoading: false,
 });
-jest.mock("../../../hooks/query/useFundingStatus", () => ({
-  useFundingStatus: () => mockUseFundingStatus(),
+jest.mock("../../../hooks/query/useEscrowInfo", () => ({
+  useEscrowInfo: () => mockUseEscrowInfo(),
 }));
 
 const sellOfferWithEscrow = { ...sellOffer, escrow: "escrow" };
@@ -93,7 +93,7 @@ describe("useFundEscrowSetup", () => {
     });
   });
   it("should show error banner if there is an error with the funding status", () => {
-    mockUseFundingStatus.mockReturnValueOnce({
+    mockUseEscrowInfo.mockReturnValueOnce({
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,

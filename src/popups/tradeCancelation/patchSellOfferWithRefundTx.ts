@@ -1,3 +1,4 @@
+import { Contract } from "../../../peach-api/src/@types/contract";
 import { checkRefundPSBT } from "../../utils/bitcoin/checkRefundPSBT";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import { saveOffer } from "../../utils/offer/saveOffer";
@@ -9,7 +10,7 @@ export async function patchSellOfferWithRefundTx(
   contract: Contract,
   refundPSBT: string,
 ) {
-  const sellOffer = await getSellOfferFromContract(contract);
+  const sellOffer = getSellOfferFromContract(contract.id);
   if (!sellOffer) throw new Error("No sell offer found for contract");
   const { isValid, psbt, err } = checkRefundPSBT(refundPSBT, sellOffer);
   if (err || !isValid || !psbt) return;

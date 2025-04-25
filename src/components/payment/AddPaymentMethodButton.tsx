@@ -1,4 +1,5 @@
 import { TouchableOpacity } from "react-native";
+import { BitcoinEvent } from "../../../peach-api/src/@types/events";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
@@ -10,11 +11,11 @@ import { PeachText } from "../text/PeachText";
 import { getCountrySelectDrawerOptions } from "./helpers/getCountrySelectDrawerOptions";
 import { mapEventToDrawerOption } from "./helpers/mapEventToDrawerOption";
 
-type Props = ComponentProps & {
+type Props = {
   isCash: boolean;
 };
 
-export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
+export const AddPaymentMethodButton = ({ isCash }: Props) => {
   const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { data: meetupEvents, isLoading } = useMeetupEvents();
@@ -22,7 +23,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
     navigation.navigate("selectCurrency", { origin: "paymentMethods" });
   };
 
-  const goToEventDetails = (eventID: MeetupEvent["id"]) => {
+  const goToEventDetails = (eventID: string) => {
     updateDrawer({ show: false });
     navigation.push("meetupScreen", {
       eventId: eventID.replace("cash.", ""),
@@ -31,8 +32,8 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   };
 
   const selectCountry = (
-    eventsByCountry: CountryEventsMap,
-    selected: Country,
+    eventsByCountry: Record<string, BitcoinEvent[]>,
+    selected: string,
   ) => {
     if (!meetupEvents) return;
 
@@ -68,7 +69,6 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
       disabled={isCash && isLoading}
       style={[
         tw`flex-row items-center self-center justify-center w-full gap-3`,
-        style,
         isCash && isLoading && tw`opacity-50`,
       ]}
     >

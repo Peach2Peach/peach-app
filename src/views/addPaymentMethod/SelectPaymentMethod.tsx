@@ -6,9 +6,10 @@ import i18n from "../../utils/i18n";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { DrawerOptionType } from "../../components/drawer/components/DrawerOption";
 import { useDrawerState } from "../../components/drawer/useDrawerState";
-import { FlagType } from "../../components/flags";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
+import { PaymentLogoType } from "../../components/payment/logos";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
@@ -17,29 +18,78 @@ import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/payme
 import { usePaymentMethodLabel } from "./hooks";
 import { getCurrencyTypeFilter } from "./utils";
 
-const NATIONALOPTIONS: NationalOptions = {
+const NATIONALOPTIONS = {
   EUR: {
     IT: ["satispay", "postePay"],
     PT: ["mbWay"],
-    ES: ["bizum", "rebellion"],
+    ES: ["bizum"],
     FI: ["mobilePay"],
     HR: ["keksPay"],
     FR: ["paylib", "lydia", "satispay"],
     DE: ["satispay"],
     GR: ["iris"],
+    RU: ["sberbank", "tinkoff"],
   },
   LATAM: {
     BR: ["pix"],
+    CO: ["daviPlata"],
+    HN: ["tigoMoneyHonduras"],
+    BO: ["tigoMoneyBolivia"],
+    SV: ["tigoMoneyElSalvador"],
+    PY: ["tigoMoneyParaguay"],
+    GT: ["tigoMoneyGuatemala"],
   },
-};
+  AFRICA: {
+    TZ: ["tigoPesa"],
+  },
+  ASIA: {
+    IN: ["UPI", "paytm"],
+    SG: ["payLah"],
+  },
+  OCEANIA: {
+    AU: ["payID", "osko"],
+  },
+} as const;
 
-const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
-  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR"],
-  LATAM: ["BR"],
-};
+const NATIONALOPTIONCOUNTRIES = {
+  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "RU"],
+  LATAM: ["CO", "SV"],
+  AFRICA: ["TZ"],
+  ASIA: ["IN", "SG"],
+  OCEANIA: ["AU"],
+  NORTHAMERICA: ["CAD"],
+} as const;
+type EuropeanCountry = keyof typeof NATIONALOPTIONS.EUR;
+type LatAmCountry = keyof typeof NATIONALOPTIONS.LATAM;
+type AfricaCountry = keyof typeof NATIONALOPTIONS.AFRICA;
+type AsiaCountry = keyof typeof NATIONALOPTIONS.ASIA;
+type OceaniaCountry = keyof typeof NATIONALOPTIONS.OCEANIA;
+type NationalOptionsCountry =
+  | EuropeanCountry
+  | LatAmCountry
+  | AfricaCountry
+  | AsiaCountry
+  | OceaniaCountry;
+
+const isEuropeanCountry = (
+  country: NationalOptionsCountry,
+): country is EuropeanCountry => country in NATIONALOPTIONS.EUR;
+
+const isLatAmCountry = (
+  country: NationalOptionsCountry,
+): country is LatAmCountry => country in NATIONALOPTIONS.LATAM;
+
+const isAfricaCountry = (
+  country: NationalOptionsCountry,
+): country is AfricaCountry => country in NATIONALOPTIONS.AFRICA;
+
+const isAsiaCountry = (
+  country: NationalOptionsCountry,
+): country is AsiaCountry => country in NATIONALOPTIONS.ASIA;
 
 const mapCountryToDrawerOption =
-  (onPress: (country: FlagType) => void) => (country: FlagType) => ({
+  (onPress: (country: NationalOptionsCountry) => void) =>
+  (country: NationalOptionsCountry) => ({
     title: i18n(`country.${country}`),
     flagID: country,
     onPress: () => onPress(country),
@@ -88,7 +138,9 @@ export const SelectPaymentMethod = () => {
     }
   };
 
-  const mapMethodToDrawerOption = (method: PaymentMethod) => ({
+  const mapMethodToDrawerOption = (
+    method: PaymentLogoType & PaymentMethod,
+  ): DrawerOptionType => ({
     title: i18n(`paymentMethod.${method}`),
     logoID: method,
     onPress: () => selectPaymentMethod(method),
@@ -100,22 +152,40 @@ export const SelectPaymentMethod = () => {
     onClose: unselectCategory,
   });
 
-  const getNationalOptions = () => {
-    if (getCurrencyTypeFilter("europe")(selectedCurrency)) {
-      return NATIONALOPTIONS.EUR;
-    }
-    return NATIONALOPTIONS.LATAM;
+  const getNationalOptions = (country: NationalOptionsCountry) => {
+    if (isEuropeanCountry(country)) return NATIONALOPTIONS.EUR[country];
+    if (isLatAmCountry(country)) return NATIONALOPTIONS.LATAM[country];
+    if (isAfricaCountry(country)) return NATIONALOPTIONS.AFRICA[country];
+    if (isAsiaCountry(country)) return NATIONALOPTIONS.ASIA[country];
+    return NATIONALOPTIONS.OCEANIA[country];
   };
 
   const getNationalOptionCountries = () => {
     if (getCurrencyTypeFilter("europe")(selectedCurrency)) {
       return NATIONALOPTIONCOUNTRIES.EUR;
     }
-    return NATIONALOPTIONCOUNTRIES.LATAM;
+    if (getCurrencyTypeFilter("latinAmerica")(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.LATAM;
+    }
+    if (getCurrencyTypeFilter("africa")(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.AFRICA;
+    }
+    if (getCurrencyTypeFilter("asia")(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.ASIA;
+    }
+    return NATIONALOPTIONCOUNTRIES.OCEANIA;
   };
 
-  const selectCountry = (country: FlagType, category: PaymentCategory) => {
-    const nationalOptions = getNationalOptions()[country];
+  const selectCountry = (
+    country:
+      | keyof typeof NATIONALOPTIONS.EUR
+      | keyof typeof NATIONALOPTIONS.LATAM
+      | keyof typeof NATIONALOPTIONS.AFRICA
+      | keyof typeof NATIONALOPTIONS.ASIA
+      | keyof typeof NATIONALOPTIONS.OCEANIA,
+    category: PaymentCategory,
+  ) => {
+    const nationalOptions = getNationalOptions(country);
     const nationalOptionCountries = getNationalOptionCountries();
     updateDrawer({
       title: i18n(`country.${country}`),
@@ -143,7 +213,8 @@ export const SelectPaymentMethod = () => {
             paymentMethodAllowedForCurrency(method, selectedCurrency),
           )
           .filter(
-            (method) => category !== "giftCard" || method === "giftCard.amazon",
+            (method): method is PaymentMethod & PaymentLogoType =>
+              category !== "giftCard" || method === "giftCard.amazon",
           )
           .map(mapMethodToDrawerOption);
 

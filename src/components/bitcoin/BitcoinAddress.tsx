@@ -91,7 +91,7 @@ export const BitcoinAddress = ({
             {addressParts.one}
             <PeachText
               style={tw.style(
-                isDarkMode ? "text-backgroundLight-light" : "text-black-100",
+                isDarkMode ? "text-backgroundLight" : "text-black-100",
               )}
             >
               {addressParts.two}
@@ -99,7 +99,7 @@ export const BitcoinAddress = ({
             {addressParts.three}
             <PeachText
               style={tw.style(
-                isDarkMode ? "text-backgroundLight-light" : "text-black-100",
+                isDarkMode ? "text-backgroundLight" : "text-black-100",
               )}
             >
               {addressParts.four}
@@ -110,7 +110,7 @@ export const BitcoinAddress = ({
               tw`${
                 isDarkMode
                   ? "bg-backgroundMain-dark"
-                  : "bg-primary-background-light-color"
+                  : "bg-primary-background-light"
               } absolute items-center justify-center w-full h-full`,
               { opacity: addressTextOpacity },
             ]}
@@ -148,7 +148,7 @@ function IconButton({
       <Icon
         id={iconId}
         size={24}
-        color={tw.color("primary-background-light-color")}
+        color={tw.color("primary-background-light")}
       />
     </TouchableOpacity>
   );

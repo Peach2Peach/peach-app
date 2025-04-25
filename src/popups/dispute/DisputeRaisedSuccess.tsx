@@ -3,7 +3,7 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { ErrorPopup } from "../ErrorPopup";
 
-export function DisputeRaisedSuccess({ view }: { view: ContractViewer }) {
+export function DisputeRaisedSuccess({ view }: { view: "buyer" | "seller" }) {
   return (
     <ErrorPopup
       title={i18n("dispute.opened")}

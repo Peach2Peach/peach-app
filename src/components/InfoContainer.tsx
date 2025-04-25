@@ -17,7 +17,7 @@ export function InfoContainer({
   icon,
   color,
   textColor,
-  backgroundColor = tw.color("primary-background-light-color"),
+  backgroundColor = tw.color("primary-background-light"),
   enabled = true,
 }: InfoContainerProps) {
   const { isDarkMode } = useThemeStore();

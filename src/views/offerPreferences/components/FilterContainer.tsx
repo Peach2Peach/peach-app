@@ -8,7 +8,7 @@ export function FilterContainer({ filters }: { filters: React.ReactNode }) {
   const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1"}`}
     >
       <Section.Title>{i18n("offerPreferences.filters")}</Section.Title>
       <View style={tw`items-center self-stretch gap-10px`}>{filters}</View>

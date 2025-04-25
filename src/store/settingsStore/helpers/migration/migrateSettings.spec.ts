@@ -3,6 +3,7 @@ import {
   validSEPAData,
   validSEPADataHashes,
 } from "../../../../../tests/unit/data/paymentData";
+import { useConfigStore } from "../../../configStore/configStore";
 import { useOfferPreferences } from "../../../offerPreferenes";
 import { defaultPreferences } from "../../../offerPreferenes/useOfferPreferences";
 import { usePaymentDataStore } from "../../../usePaymentDataStore";
@@ -12,6 +13,14 @@ describe("migrateSettings", () => {
   beforeEach(() => {
     useOfferPreferences.setState(defaultPreferences);
     usePaymentDataStore.getState().reset();
+    useConfigStore.getState().setPaymentMethods([
+      {
+        id: "sepa",
+        anonymous: false,
+        currencies: ["EUR", "CHF"],
+        fields: { mandatory: [[["iban", "bic"]]], optional: ["reference"] },
+      },
+    ]);
   });
   it("should migrate from version 0", () => {
     const persistedState = {

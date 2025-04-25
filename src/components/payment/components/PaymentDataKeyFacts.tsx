@@ -3,21 +3,20 @@ import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import { PeachText } from "../../text/PeachText";
 
-type Props = ComponentProps & {
+type Props = {
   paymentData: PaymentData;
 };
-export const PaymentDataKeyFacts = ({ paymentData, style }: Props) => {
+export const PaymentDataKeyFacts = ({ paymentData }: Props) => {
   const { isDarkMode } = useThemeStore();
 
   return (
-    <View style={[tw`flex-row flex-wrap justify-center`, style]}>
+    <View style={tw`flex-row flex-wrap justify-center`}>
       {(paymentData.currencies || []).map((currency) => (
         <View
           key={`paymentData-${paymentData.id}-currency-${currency}`}
           style={[
             tw`justify-center px-1 mx-1 border rounded-lg`,
             tw.style(isDarkMode ? "border-black-50" : "border-black-100"),
-            style,
           ]}
         >
           <PeachText

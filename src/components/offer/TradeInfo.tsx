@@ -2,10 +2,11 @@ import { View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 
-type Props = ComponentProps & {
+type Props = {
   text: string;
   textStyle?: ViewStyle | ViewStyle[];
   IconComponent?: JSX.Element;
+  style?: ViewStyle;
 };
 export const TradeInfo = ({ text, textStyle, IconComponent, style }: Props) => (
   <View

@@ -81,7 +81,7 @@ describe("useTransactionDetailsInfoSetup", () => {
     });
   });
   it("should open transaction in explorer", async () => {
-    const openURL = jest.spyOn(Linking, "openURL");
+    const openURL = jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
 
     const { result } = renderHook(useTransactionDetailsInfoSetup, {
       initialProps,

@@ -1,4 +1,5 @@
 import { Psbt } from "bitcoinjs-lib";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 import { signAndFinalizePSBT } from "../../../utils/bitcoin/signAndFinalizePSBT";
 import { txIdPartOfPSBT } from "../../../utils/bitcoin/txIdPartOfPSBT";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
@@ -22,7 +23,7 @@ export function useConfirmPaymentSeller({
     },
     {
       mutationFn: async () => {
-        const sellOffer = await getSellOfferFromContract(contract);
+        const sellOffer = getSellOfferFromContract(contract.id);
         if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
 
         const wallet = getEscrowWalletForOffer(sellOffer);

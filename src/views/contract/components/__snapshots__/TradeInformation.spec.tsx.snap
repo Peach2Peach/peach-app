@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`TradeInformation renders correctly if TradeStatusInfo should not be shown 1`] = `<TradeDetails />`;
-
-exports[`TradeInformation renders correctly with TradeStatusInfo 1`] = `<TradeStatusInfo />`;

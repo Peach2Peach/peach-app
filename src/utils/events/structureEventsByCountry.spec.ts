@@ -1,6 +1,7 @@
+import { BitcoinEvent } from "../../../peach-api/src/@types/events";
 import { structureEventsByCountry } from "./structureEventsByCountry";
 
-const events: MeetupEvent[] = [
+const events: BitcoinEvent[] = [
   {
     id: "meetup.ES.1",
     country: "ES",
@@ -105,7 +106,7 @@ describe("structureEventsByCountry", () => {
   it("correctly structures events by country", () => {
     const result = events.reduce(
       structureEventsByCountry,
-      {} as CountryEventsMap,
+      {} as Record<BitcoinEvent["country"], BitcoinEvent[]>,
     );
 
     expect(result).toEqual(expectedResult);

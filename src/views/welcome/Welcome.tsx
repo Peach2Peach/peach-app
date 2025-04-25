@@ -48,8 +48,8 @@ export const Welcome = () => {
     <Screen header={<OnboardingHeader />} gradientBackground>
       <Progress
         percent={progress}
-        backgroundStyle={tw`opacity-50 bg-primary-background-light-color`}
-        barStyle={tw`bg-primary-background-light-color`}
+        backgroundStyle={tw`opacity-50 bg-primary-background-light`}
+        barStyle={tw`bg-primary-background-light`}
         style={tw`h-2`}
       />
       <TouchableOpacity
@@ -59,13 +59,13 @@ export const Welcome = () => {
           endReached && tw`opacity-0`,
         ]}
       >
-        <PeachText style={tw`text-primary-background-light-color`}>
+        <PeachText style={tw`text-primary-background-light`}>
           {i18n("skip")}
         </PeachText>
         <Icon
           id="skipForward"
           size={12}
-          color={tw.color("primary-background-light-color")}
+          color={tw.color("primary-background-light")}
         />
       </TouchableOpacity>
       <View style={tw`items-center h-full shrink`}>
@@ -89,7 +89,7 @@ export const Welcome = () => {
       {!keyboardOpen && (
         <Button
           style={[
-            tw`self-center bg-primary-background-light-color`,
+            tw`self-center bg-primary-background-light`,
             page === screens.length - 1 && tw`opacity-0`,
           ]}
           textColor={tw.color("primary-main")}
@@ -125,12 +125,12 @@ function OnboardingHeader() {
   const headerIcons: HeaderIcon[] = [
     {
       id: "mail",
-      color: tw.color("primary-background-light-color"),
+      color: tw.color("primary-background-light"),
       onPress: () => navigation.navigate("contact"),
     },
     {
       id: "globe",
-      color: tw.color("primary-background-light-color"),
+      color: tw.color("primary-background-light"),
       onPress: openLanguageDrawer,
     },
   ];

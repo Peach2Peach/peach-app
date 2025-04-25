@@ -1,3 +1,8 @@
+import { Currency } from "../peach-api/src/@types/global";
+import {
+  PaymentMethod,
+  PaymentMethodInfo,
+} from "../peach-api/src/@types/payment";
 import { uniqueArray } from "./utils/array/uniqueArray";
 import { isCashTrade } from "./utils/paymentMethod/isCashTrade";
 
@@ -30,40 +35,40 @@ export let CURRENCIES: Currency[] = [
   "CDF",
   "CRC",
   "BRL",
-];
-
-export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = [
-  "DE",
-  "FR",
-  "IT",
-  "ES",
-  "NL",
-  "UK",
-  "SE",
-  "FI",
-];
-export const NATIONALTRANSFERCOUNTRIES = [
-  "BG",
-  "CZ",
-  "DK",
-  "HU",
-  "NO",
-  "PL",
-  "RO",
-  "CH",
-  "IS",
-  "SE",
-  "TR",
-  "NG",
-] as const;
-
-export let PAYMENTMETHODS: PaymentMethod[] = ["sepa"];
-export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
-  {
-    id: "sepa",
-    currencies: ["EUR"],
-    anonymous: false,
-  },
+  "AUD",
+  "ILS",
+  "RSD",
+  "CAD",
+  "KZT",
+  "INR",
+  "SGD",
+  "SAR",
+  "PHP",
+  "AED",
+  "EGP",
+  "JPY",
+  "NZD",
+  "MAD",
+  "UAH",
+  "UYU",
+  "IDR",
+  "MYR",
+  "CNY",
+  "PKR",
+  "VND",
+  "RUB",
+  "BOB",
+  "CLF",
+  "CUC",
+  "CUP",
+  "DOP",
+  "HNL",
+  "PAB",
+  "PYG",
+  "VEF",
+  "VES",
+  "SRD",
+  "TZS",
 ];
 
 const bankTransfer: PaymentMethod[] = [
@@ -76,9 +81,25 @@ const bankTransfer: PaymentMethod[] = [
   "sepa",
   "sinpe",
   "straksbetaling",
-  ...NATIONALTRANSFERCOUNTRIES.map(
-    (c) => `nationalTransfer${c}` satisfies PaymentMethod,
-  ),
+  "paraguayBankTransfer",
+  "guatemalaBankDeposit",
+  "chileBankDeposit",
+  "peruBankDeposit",
+  "kcbBankKenya",
+  "bankTransferSuriname",
+  "nationalTransferBG",
+  "nationalTransferCZ",
+  "nationalTransferDK",
+  "nationalTransferHU",
+  "nationalTransferNO",
+  "nationalTransferPL",
+  "nationalTransferRO",
+  "nationalTransferCH",
+  "nationalTransferIS",
+  "nationalTransferSE",
+  "nationalTransferTR",
+  "nationalTransferNG",
+  "nationalTransferSG",
 ];
 const onlineWallet: PaymentMethod[] = [
   "accrue",
@@ -87,39 +108,68 @@ const onlineWallet: PaymentMethod[] = [
   "bankera",
   "blik",
   "chippercash",
+  "daviPlata",
   "eversend",
   "friends24",
   "klasha",
   "m-pesa",
-  "mercadoPago",
   "mobilePay",
+  "moncash",
   "moov",
   "mtn",
+  "natcash",
   "n26",
   "nequi",
   "neteller",
   "orangeMoney",
+  "osko",
   "papara",
   "payday",
   "paypal",
   "paysera",
+  "pix",
   "rappipay",
   "revolut",
   "sinpeMovil",
   "skrill",
   "strike",
   "swish",
+  "tigoMoneyBolivia",
+  "tigoMoneyElSalvador",
+  "tigoMoneyGuatemala",
+  "tigoMoneyHonduras",
+  "tigoMoneyParaguay",
+  "tigoPesa",
   "twint",
+  "UPI",
   "vipps",
   "wave",
+  "westernUnion",
   "wirepay",
   "wise",
+  "djamo",
+  "apaym",
+  "payID",
+  "payLah",
+  "paytm",
+  "perfectMoney",
+  "payeer",
+  "yooMoney",
+  "mercadoPago",
+  "stp",
+  "spei",
 ];
 const giftCard: PaymentMethod[] = [
   "giftCard.amazon",
-  ...GIFTCARDCOUNTRIES.map(
-    (c) => `giftCard.amazon.${c}` satisfies PaymentMethod,
-  ),
+  "giftCard.steam",
+  "giftCard.amazon.DE",
+  "giftCard.amazon.FR",
+  "giftCard.amazon.IT",
+  "giftCard.amazon.ES",
+  "giftCard.amazon.NL",
+  "giftCard.amazon.UK",
+  "giftCard.amazon.SE",
+  "giftCard.amazon.PT",
 ];
 const nationalOption: PaymentMethod[] = [
   "bizum",
@@ -129,37 +179,30 @@ const nationalOption: PaymentMethod[] = [
   "mbWay",
   "mobilePay",
   "paylib",
-  "pix",
   "postePay",
-  "rebellion",
   "satispay",
+  "tinkoff",
+  "sberbank",
 ];
 const other: PaymentMethod[] = ["liquid", "lnurl"];
-const cash: PaymentMethod[] = [];
 
+type PaymentCategories = {
+  [key in PaymentCategory]: PaymentMethod[];
+};
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer,
   onlineWallet,
   giftCard,
   nationalOption,
-  cash,
+  cash: [],
   other,
 };
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
-  PAYMENTMETHODINFOS = paymentMethodInfos;
   CURRENCIES = paymentMethodInfos
     .reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
     .filter(uniqueArray);
-  GIFTCARDCOUNTRIES = paymentMethodInfos
-    .reduce(
-      (arr: PaymentMethodCountry[], info) => arr.concat(info.countries || []),
-      [],
-    )
-    .filter(uniqueArray);
-  PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id);
-  PAYMENTCATEGORIES.cash = [
-    ...PAYMENTCATEGORIES.cash,
+  PAYMENTCATEGORIES.cash.push(
     ...paymentMethodInfos.map(({ id }) => id).filter(isCashTrade),
-  ];
+  );
 };

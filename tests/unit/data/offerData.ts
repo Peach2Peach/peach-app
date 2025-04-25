@@ -88,7 +88,6 @@ export const buyOfferUnpublished: BuyOfferDraft = {
   },
   originalPaymentData: [validSEPAData],
   amount: [250000, 500000],
-  tradeStatus: "offerHidden",
   releaseAddress:
     "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
   maxPremium: null,

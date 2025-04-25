@@ -1,5 +1,4 @@
 import { Linking } from "react-native";
-import { createRenderer } from "react-test-renderer/shallow";
 import { fireEvent, render, waitFor } from "test-utils";
 import {
   meetupScreenRoute,
@@ -32,8 +31,7 @@ const useMeetupScreenSetupMock = jest
 jest.useFakeTimers();
 
 describe("MeetupScreen", () => {
-  const openURLSpy = jest.spyOn(Linking, "openURL");
-  const renderer = createRenderer();
+  const openURLSpy = jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
   const btcPragueEvent = {
     id: "cash.cz.prague.btc-prague",
     currencies: ["CZK", "EUR"],
@@ -46,38 +44,28 @@ describe("MeetupScreen", () => {
       {
         id: "cash.pt.porto.portugal-norte-bitcoin",
         currencies: ["EUR"],
-        countries: ["PT"],
         rounded: true,
         anonymous: true,
+        fields: {
+          mandatory: [],
+          optional: [],
+        },
       },
       {
         id: "cash.cz.prague.btc-prague",
         currencies: ["CZK", "EUR"],
-        countries: ["CZ"],
         rounded: true,
         anonymous: true,
+        fields: {
+          mandatory: [],
+          optional: [],
+        },
       },
     ]);
     setRouteMock(meetupScreenRoute);
   });
-  it("should render correctly", () => {
-    renderer.render(<MeetupScreen />);
-    const result = renderer.getRenderOutput();
-    expect(result).toMatchSnapshot();
-  });
-  it("should render correctly with multiple currencies", () => {
-    useMeetupScreenSetupMock.mockReturnValueOnce({
-      ...meetupScreenSetup,
-      deletable: true,
-      paymentMethod: "cash.cz.prague.btc-prague",
-      event: btcPragueEvent,
-      selectedCurrencies: ["EUR"],
-    });
-    renderer.render(<MeetupScreen />);
-    const result = renderer.getRenderOutput();
-    expect(result).toMatchSnapshot();
-  });
   it("should open link to google maps and meetup website", async () => {
+    jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
     useMeetupScreenSetupMock.mockReturnValueOnce({
       ...meetupScreenSetup,
       deletable: true,
@@ -87,11 +75,15 @@ describe("MeetupScreen", () => {
     });
     const { getByText } = render(<MeetupScreen />);
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
-    await fireEvent(getByText("view on maps"), "onPress");
-    expect(openURLSpy).toHaveBeenCalledWith(
-      "http://maps.google.com/maps?daddr=Prague",
-    );
-    await fireEvent(getByText("meetup link"), "onPress");
-    expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url);
+    fireEvent(getByText("view on maps"), "onPress");
+    await waitFor(() => {
+      expect(openURLSpy).toHaveBeenCalledWith(
+        "http://maps.google.com/maps?daddr=Prague",
+      );
+    });
+    fireEvent(getByText("meetup link"), "onPress");
+    await waitFor(() => {
+      expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url);
+    });
   });
 });

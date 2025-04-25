@@ -1,8 +1,10 @@
 import { Fragment } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
+import { Contract } from "../../../../peach-api/src/@types/contract";
+import { Icon } from "../../../components/Icon";
 import { Toggle } from "../../../components/inputs/Toggle";
-import { ErrorBox } from "../../../components/ui/ErrorBox";
+import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../../hooks/wallet/useIsMyAddress";
@@ -54,14 +56,27 @@ export const TradeDetails = () => {
           <ChangePayoutWallet />
         </>
       )}
-      {!paymentData && isDecryptionError && (
-        <ErrorBox style={tw`mt-[2px]`}>
-          {i18n("contract.paymentData.decyptionFailed")}
-        </ErrorBox>
-      )}
+      {!paymentData && isDecryptionError && <DecryptionErrorBox />}
     </View>
   );
 };
+
+function DecryptionErrorBox() {
+  return (
+    <View
+      style={tw`flex-row items-center gap-3 px-3 py-2 rounded-xl bg-error-light`}
+    >
+      <Icon
+        id="alertTriangle"
+        size={24}
+        color={tw.color("primary-background-light")}
+      />
+      <PeachText style={tw`shrink subtitle-2 text-primary-background-light`}>
+        {i18n("contract.paymentData.decyptionFailed")}
+      </PeachText>
+    </View>
+  );
+}
 
 function ChangePayoutWallet() {
   const { contract } = useContractContext();
@@ -198,7 +213,7 @@ function getTradeInfoFields(
     releaseTxId,
     batchInfo,
   }: Pick<Contract, "paymentMethod" | "releaseTxId" | "batchInfo">,
-  view: ContractViewer,
+  view: "buyer" | "seller",
 ) {
   const isTradeCompleted =
     !!releaseTxId || (!!batchInfo && !batchInfo.completed);
@@ -216,5 +231,5 @@ function getTradeInfoFields(
 
   return isCashTrade(paymentMethod)
     ? tradeFields.buyer.active.cash
-    : tradeFields.buyer.active.default[paymentMethod] || [];
+    : tradeFields.buyer.active.default(paymentMethod) || [];
 }

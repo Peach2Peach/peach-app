@@ -1,7 +1,7 @@
 import { getPaymentMethodInfo } from "../../../utils/paymentMethod/getPaymentMethodInfo";
 
 export const getMatchPrice = (
-  match: Match,
+  match: Pick<Match, "matched" | "matchedPrice" | "prices">,
   selectedPaymentMethod: PaymentMethod | undefined,
   selectedCurrency: Currency,
 ) => {

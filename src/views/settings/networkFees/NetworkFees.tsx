@@ -100,7 +100,7 @@ export const NetworkFees = () => {
           <PeachText
             style={tw.style(
               "py-2 text-center mb-7",
-              isDarkMode ? "text-backgroundLight-light" : "text-black-100",
+              isDarkMode ? "text-backgroundLight" : "text-black-100",
             )}
           >
             {i18n("settings.networkFees.payoutInfo")}
@@ -115,7 +115,7 @@ export const NetworkFees = () => {
         <PeachText
           style={tw.style(
             "mt-4 text-center",
-            isDarkMode ? "text-backgroundLight-light" : "text-black-65",
+            isDarkMode ? "text-backgroundLight" : "text-black-65",
           )}
         >
           {i18n("settings.networkFees.averageFees")}

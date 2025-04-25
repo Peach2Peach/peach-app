@@ -1,3 +1,4 @@
+import { Contract } from "../../../peach-api/src/@types/contract";
 import { getBuyOfferIdFromContract } from "./getBuyOfferIdFromContract";
 
 describe("getBuyOfferIdFromContract", () => {

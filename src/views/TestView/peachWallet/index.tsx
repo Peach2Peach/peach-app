@@ -1,1 +1,0 @@
-export { TestViewPeachWallet } from "./TestViewPeachWallet";

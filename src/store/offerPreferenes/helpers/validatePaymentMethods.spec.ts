@@ -1,4 +1,6 @@
+import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { setPaymentMethods } from "../../../paymentMethods";
+import { useConfigStore } from "../../configStore/configStore";
 import { validatePaymentMethods } from "./validatePaymentMethods";
 
 describe("validatePaymentMethods", () => {
@@ -24,15 +26,28 @@ describe("validatePaymentMethods", () => {
     },
   ];
   beforeAll(() => {
-    setPaymentMethods([
-      { id: "sepa", currencies: ["EUR"], anonymous: false },
+    const paymentMethods: PaymentMethodInfo[] = [
+      {
+        id: "sepa",
+        currencies: ["EUR"],
+        anonymous: false,
+        fields: { mandatory: [[["iban", "bic"]]], optional: ["reference"] },
+      },
       {
         id: "revolut",
         currencies: ["EUR", "CHF"],
         anonymous: false,
+        fields: { mandatory: [[["email"]]], optional: [] },
       },
-      { id: "paypal", currencies: ["EUR"], anonymous: false },
-    ]);
+      {
+        id: "paypal",
+        currencies: ["EUR"],
+        anonymous: false,
+        fields: { mandatory: [[["email"]]], optional: [] },
+      },
+    ];
+    setPaymentMethods(paymentMethods);
+    useConfigStore.getState().setPaymentMethods(paymentMethods);
   });
 
   it("should return false if no means of payment have been configured", () => {

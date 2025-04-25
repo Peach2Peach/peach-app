@@ -1,19 +1,24 @@
 import { TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 import { APPLINKS } from "../../../APPLINKS";
 import { Icon } from "../../../components/Icon";
 import { Bubble } from "../../../components/bubble/Bubble";
 import { useCashPaymentMethodName } from "../../../components/matches/useCashPaymentMethodName";
 import { useWalletLabel } from "../../../components/offer/useWalletLabel";
 import { PeachText } from "../../../components/text/PeachText";
+import { SATSINBTC } from "../../../constants";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
-import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
+import {
+  PaymentDataInfoFields as paymentDataInfoFields,
+  usePaymentDataStore,
+} from "../../../store/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
-import { getBitcoinPriceFromContract } from "../../../utils/contract/getBitcoinPriceFromContract";
 import { getBuyOfferIdFromContract } from "../../../utils/contract/getBuyOfferIdFromContract";
 import { toShortDateFormat } from "../../../utils/date/toShortDateFormat";
 import i18n from "../../../utils/i18n";
+import { round } from "../../../utils/math/round";
 import { keys } from "../../../utils/object/keys";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
@@ -57,7 +62,7 @@ export const tradeInformationGetters: Record<
   youShouldPay: (contract: Contract) => <YouShouldPay contract={contract} />,
   youPaid: getPrice,
   youWillGet: getPrice,
-  buyer: (contract: Contract) => <UserId id={contract.buyer.id} showInfo />,
+  buyer: (contract: Contract) => <UserId id={contract.buyer.id} />,
   paidWithMethod: getPaymentMethod,
   paidToMethod: getPaymentMethodBubble,
   paidToWallet: (contract: Contract) => <PaidToWallet contract={contract} />,
@@ -65,14 +70,15 @@ export const tradeInformationGetters: Record<
     toShortDateFormat(contract.paymentConfirmed || new Date(), true),
   bitcoinAmount: (contract: Contract) => contract.amount,
   bitcoinPrice: (contract: Contract) => {
-    const bitcoinPrice = getBitcoinPriceFromContract(contract);
-    if (contract.currency === "SAT")
-      return `${groupChars(String(bitcoinPrice), SATS_GROUP_SIZE)} ${contract.currency}`;
-    return `${priceFormat(bitcoinPrice)} ${contract.currency}`;
+    const { price, amount, currency } = contract;
+    const bitcoinPrice = round((price / amount) * SATSINBTC, 2);
+    if (currency === "SAT")
+      return `${groupChars(String(bitcoinPrice), SATS_GROUP_SIZE)} ${currency}`;
+    return `${priceFormat(bitcoinPrice)} ${currency}`;
   },
   ratingBuyer: (contract: Contract) => getRatingBubble(contract, "Buyer"),
   ratingSeller: (contract: Contract) => getRatingBubble(contract, "Seller"),
-  seller: (contract: Contract) => <UserId id={contract.seller.id} showInfo />,
+  seller: (contract: Contract) => <UserId id={contract.seller.id} />,
   tradeBreakdown: (contract: Contract) => (
     <TradeBreakdownBubble contract={contract} />
   ),
@@ -84,40 +90,25 @@ export const tradeInformationGetters: Record<
 };
 
 const allPossibleFields = [
-  "pixAlias",
-  "price",
-  "paidToMethod",
-  "paidWithMethod",
-  "paidToWallet",
+  ...paymentDataInfoFields,
   "bitcoinAmount",
   "bitcoinPrice",
-  "name",
-  "beneficiary",
   "buyer",
-  "phone",
-  "userName",
-  "email",
-  "accountNumber",
-  "iban",
-  "bic",
-  "paymentConfirmed",
-  "postePayNumber",
-  "reference",
-  "wallet",
-  "ukBankAccount",
-  "ukSortCode",
-  "via",
-  "method",
-  "meetup",
   "location",
-  "receiveAddress",
-  "lnurlAddress",
+  "meetup",
+  "method",
+  "paidToMethod",
+  "paidToWallet",
+  "paidWithMethod",
+  "paymentConfirmed",
+  "price",
   "ratingBuyer",
   "ratingSeller",
   "seller",
   "soldFor",
   "tradeBreakdown",
   "tradeId",
+  "via",
   "youPaid",
   "youShouldPay",
   "youWillGet",

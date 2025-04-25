@@ -1,10 +1,11 @@
 import { createContext } from "react";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 
 type ContractContextType = {
   contract: Contract;
   paymentData?: PaymentData;
   isDecryptionError: boolean;
-  view: ContractViewer;
+  view: "buyer" | "seller";
   showBatchInfo: boolean;
   toggleShowBatchInfo: () => void;
 };

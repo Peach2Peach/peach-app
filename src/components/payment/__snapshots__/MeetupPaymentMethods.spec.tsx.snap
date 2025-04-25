@@ -80,7 +80,14 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
     />
   </View>,
   <View
-    style={{}}
+    style={
+      [
+        {
+          "gap": 4,
+        },
+        false,
+      ]
+    }
   >
     <View
       accessibilityState={
@@ -190,16 +197,11 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
     </View>
     <View
       style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
+        {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "justifyContent": "center",
+        }
       }
     >
       <View
@@ -216,9 +218,6 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
             },
             {
               "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
             },
           ]
         }
@@ -339,7 +338,14 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     />
   </View>,
   <View
-    style={{}}
+    style={
+      [
+        {
+          "gap": 4,
+        },
+        false,
+      ]
+    }
   >
     <View
       accessibilityState={
@@ -449,16 +455,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     </View>
     <View
       style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
+        {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "justifyContent": "center",
+        }
       }
     >
       <View
@@ -475,9 +476,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             },
             {
               "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
             },
           ]
         }
@@ -517,9 +515,14 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
   </View>,
   <View
     style={
-      {
-        "marginTop": 16,
-      }
+      [
+        {
+          "gap": 4,
+        },
+        {
+          "marginTop": 16,
+        },
+      ]
     }
   >
     <View
@@ -630,16 +633,11 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     </View>
     <View
       style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
+        {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "justifyContent": "center",
+        }
       }
     >
       <View
@@ -656,9 +654,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             },
             {
               "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
             },
           ]
         }
@@ -779,7 +774,14 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
     />
   </View>,
   <View
-    style={{}}
+    style={
+      [
+        {
+          "gap": 4,
+        },
+        false,
+      ]
+    }
   >
     <View
       accessibilityState={
@@ -889,16 +891,11 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
     </View>
     <View
       style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
+        {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "justifyContent": "center",
+        }
       }
     >
       <View
@@ -915,9 +912,6 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
             },
             {
               "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
             },
           ]
         }

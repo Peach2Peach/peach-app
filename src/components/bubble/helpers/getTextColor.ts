@@ -6,9 +6,7 @@ export const getTextColor = ({
   ghost,
 }: Pick<BubbleProps, "color" | "ghost">) => {
   if (color === "primary")
-    return ghost
-      ? tw`text-primary-main`
-      : tw`text-primary-background-light-color`;
+    return ghost ? tw`text-primary-main` : tw`text-primary-background-light`;
   if (color === "primary-mild") return tw`text-black-100`;
   if (color === "gray") return tw`text-black-50`;
 

@@ -25,8 +25,8 @@ export const RestoreBackup = () => {
         sceneContainerStyle={[tw`pb-2 px-sm`, tw`md:px-md`]}
         screenOptions={{
           ...fullScreenTabNavigationScreenOptions,
-          tabBarIndicatorStyle: tw`bg-primary-background-light-color`,
-          tabBarActiveTintColor: tw.color("primary-background-light-color"),
+          tabBarIndicatorStyle: tw`bg-primary-background-light`,
+          tabBarActiveTintColor: tw.color("primary-background-light"),
           tabBarInactiveTintColor: tw.color("primary-mild-1"),
         }}
       >
@@ -65,12 +65,12 @@ function OnboardingHeader() {
   const headerIcons: HeaderIcon[] = [
     {
       id: "mail",
-      color: tw.color("primary-background-light-color"),
+      color: tw.color("primary-background-light"),
       onPress: () => navigation.navigate("contact"),
     },
     {
       id: "globe",
-      color: tw.color("primary-background-light-color"),
+      color: tw.color("primary-background-light"),
       onPress: openLanguageDrawer,
     },
   ];

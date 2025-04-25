@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
 import Share from "react-native-share";
@@ -52,7 +53,6 @@ function FreeTradesDonut() {
   if (freeTrades === 0) return null;
   return (
     <ProgressDonut
-      style={tw`py-2`}
       title={i18n("settings.referrals.noPeachFees.freeTrades")}
       value={freeTrades}
       max={maxFreeTrades}
@@ -62,6 +62,7 @@ function FreeTradesDonut() {
 
 const NUMBER_OF_MINUTES = 5;
 function useNews() {
+  const isFocused = useIsFocused();
   return useQuery({
     queryKey: systemKeys.news(),
     queryFn: async () => {
@@ -70,6 +71,7 @@ function useNews() {
       return result?.[0];
     },
     refetchInterval: MSINAMINUTE * NUMBER_OF_MINUTES,
+    enabled: isFocused,
   });
 }
 
@@ -86,9 +88,7 @@ function DailyMessage() {
     });
   };
 
-  const onTextPress = () => {
-    openURL(message.url);
-  };
+  const onTextPress = () => openURL(message.url);
 
   return (
     <View style={tw`overflow-hidden rounded-2xl`}>
@@ -98,14 +98,14 @@ function DailyMessage() {
       >
         <PeachText
           onPress={onTextPress}
-          style={tw`flex-1 text-center subtitle-1 text-primary-background-light-color`}
+          style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}
         >
           {message.text}
         </PeachText>
         <TouchableIcon
           onPress={onSharePress}
           id="share"
-          iconColor={tw.color("primary-background-light-color")}
+          iconColor={tw.color("primary-background-light")}
         />
       </View>
     </View>
@@ -139,6 +139,9 @@ function MarketStats() {
 
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
+      <PeachText style={tw`subtitle-0 text-success-main`}>
+        {i18n("home.openBuyOffers", String(data?.buy.open))}
+      </PeachText>
       <View style={tw`items-center -gap-2`}>
         <PeachText style={tw`subtitle-0 text-primary-main`}>
           {i18n("home.openSellOffers", String(data?.sell.open))}
@@ -157,8 +160,7 @@ const buttonStyle = tw`flex-1 px-5 py-3`;
 
 function BuyButton() {
   const navigation = useStackNavigation();
-  const goToBuyOfferPreferences = () =>
-    navigation.navigate("buyOfferPreferences");
+  const goToBuyOfferPreferences = () => navigation.navigate("buy");
   return (
     <Button
       style={[buttonStyle, tw`bg-success-main`]}

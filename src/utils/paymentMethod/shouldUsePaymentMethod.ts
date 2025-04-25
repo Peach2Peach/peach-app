@@ -1,3 +1,4 @@
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import { getAllPaymentMethods } from "./getAllPaymentMethods";
 import { isCashTrade } from "./isCashTrade";
 

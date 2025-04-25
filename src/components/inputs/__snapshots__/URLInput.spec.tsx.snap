@@ -1,44 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`URLInput allows overriding of icons 1`] = `
-<Input
-  icons={
-    [
-      [
-        "edit3",
-        [MockFunction],
-      ],
-    ]
-  }
-  label="node address"
-  placeholder="192.168.0.1:50001"
-  value="blockstream.info"
-/>
-`;
-
 exports[`URLInput closes QR scanner when onCancel event is triggered 1`] = `
 "Snapshot Diff:
 Compared values have no visual difference."
-`;
-
-exports[`URLInput renders correctly 1`] = `
-<Input
-  icons={
-    [
-      [
-        "clipboard",
-        [Function],
-      ],
-      [
-        "camera",
-        [Function],
-      ],
-    ]
-  }
-  label="node address"
-  placeholder="192.168.0.1:50001"
-  value="blockstream.info"
-/>
 `;
 
 exports[`URLInput shows QR scanner when camera icon is pressed 1`] = `

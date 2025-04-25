@@ -9,7 +9,7 @@ describe("ProfileInfo", () => {
     rating: 1,
     openedTrades: 21,
     canceledTrades: 0,
-    medals: ["ambassador"] as Medal[],
+    medals: ["ambassador"] satisfies Medal[],
     disputes: { opened: 0, won: 0, lost: 0, resolved: 0 },
   };
   const defaultComponent = <ProfileInfo user={user} />;

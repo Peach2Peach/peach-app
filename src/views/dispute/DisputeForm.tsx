@@ -17,7 +17,6 @@ import { useValidatedState } from "../../hooks/useValidatedState";
 import { DisputeRaisedSuccess } from "../../popups/dispute/DisputeRaisedSuccess";
 import { useAccountStore } from "../../utils/account/account";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { isEmailRequiredForDispute } from "../../utils/dispute/isEmailRequiredForDispute";
 import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -71,7 +70,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
           navigation.navigate("contractChat", { contractId });
           setPopup(
             <DisputeRaisedSuccess
-              view={getContractViewer(contract.seller.id, publicKey)}
+              view={contract.seller.id === publicKey ? "seller" : "buyer"}
             />,
           );
         },

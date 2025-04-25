@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef } from "react";
+import { Fragment, useCallback, useEffect, useRef } from "react";
 import {
   Animated,
   BackHandler,
   Easing,
   Pressable,
+  ScrollView,
   View,
   useWindowDimensions,
 } from "react-native";
@@ -11,8 +12,10 @@ import {
 import { shallow } from "zustand/shallow";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
+import { PeachScrollView } from "../PeachScrollView";
+import { HorizontalLine } from "../ui/HorizontalLine";
 import { DrawerHeader } from "./components/DrawerHeader";
-import { DrawerOptions } from "./components/DrawerOptions";
+import { DrawerOption } from "./components/DrawerOption";
 import { useDrawerState } from "./useDrawerState";
 
 const animConfig = {
@@ -100,12 +103,46 @@ export const Drawer = () => {
         style={[
           tw`px-4 py-6 mt-auto rounded-t-3xl`,
           { maxHeight: slideAnim },
-          isDarkMode ? tw`bg-card` : tw`bg-primary-background-light-color`,
+          isDarkMode ? tw`bg-card` : tw`bg-primary-background-light`,
         ]}
       >
         <DrawerHeader closeDrawer={closeDrawer} />
-        <DrawerOptions style={tw`pt-6`} />
+        <DrawerOptions />
       </Animated.View>
     </View>
   );
 };
+
+function DrawerOptions() {
+  const { content, options } = useDrawerState(
+    (state) => ({
+      content: state.content,
+      options: state.options,
+    }),
+    shallow,
+  );
+  const $scroll = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    if (options.length || content) {
+      $scroll.current?.scrollTo({ y: 0, animated: false });
+    }
+  }, [options, content, $scroll]);
+
+  return (
+    <PeachScrollView style={tw`pt-6`} ref={$scroll} contentStyle={tw`gap-6`}>
+      {options.map((option, i) => (
+        <Fragment key={`drawer-option-${option}-${i}`}>
+          <DrawerOption {...option} />
+          <HorizontalLine
+            style={
+              (option.highlighted || options[i + 1]?.highlighted) &&
+              tw`bg-primary-mild-1`
+            }
+          />
+        </Fragment>
+      ))}
+      {!options.length && content}
+    </PeachScrollView>
+  );
+}

@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { Contract } from "../../../../peach-api/src/@types/contract";
 import {
   useClosePopup,
   useSetPopup,

@@ -1,5 +1,5 @@
 import * as offerData from "../../../tests/unit/data/offerData";
-import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { offerKeys } from "../../hooks/query/offerKeys";
 import { queryClient } from "../../queryClient";
 import { saveOffer } from "./saveOffer";
 

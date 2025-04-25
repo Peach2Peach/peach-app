@@ -20,12 +20,12 @@ export const statusCardStyles = {
     black: "border-black-50",
   },
   text: {
-    primary: "text-primary-background-light-color",
-    error: "text-primary-background-light-color",
-    success: "text-primary-background-light-color",
+    primary: "text-primary-background-light",
+    error: "text-primary-background-light",
+    success: "text-primary-background-light",
     "primary-mild": "text-black-65",
     warning: "text-black-100",
     info: "text-black-100",
-    black: "text-primary-background-light-color",
+    black: "text-primary-background-light",
   },
 };

@@ -5,7 +5,8 @@ import {
 } from "../../components/inputs/RadioButtons";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
-import { NewDivider } from "../../components/ui/NewDivider";
+import { PeachText } from "../../components/text/PeachText";
+import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -21,7 +22,14 @@ export function SorterPopup<T>({ radioButtonProps, applyAction }: Props<T>) {
     <PopupComponent
       content={
         <View style={tw`w-full gap-4 shrink`}>
-          <NewDivider title={i18n("offer.sorting.sortMatchesBy")} />
+          <View
+            style={tw`flex-row items-center self-stretch justify-center gap-2`}
+          >
+            <PeachText style={tw`h7`}>
+              {i18n("offer.sorting.sortMatchesBy")}
+            </PeachText>
+            <HorizontalLine />
+          </View>
           <RadioButtons {...radioButtonProps} />
         </View>
       }
@@ -34,7 +42,7 @@ export function SorterPopup<T>({ radioButtonProps, applyAction }: Props<T>) {
       bgColor={{
         backgroundColor: isDarkMode
           ? tw.color("card")
-          : tw.color("primary-background-dark-color"),
+          : tw.color("primary-background-dark"),
       }}
     />
   );

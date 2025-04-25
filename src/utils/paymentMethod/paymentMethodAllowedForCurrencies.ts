@@ -1,11 +1,11 @@
-import { PAYMENTMETHODINFOS } from "../../paymentMethods";
+import { useConfigStore } from "../../store/configStore/configStore";
 
 export const paymentMethodAllowedForCurrencies = (
   paymentMethod: PaymentMethod,
   currencies: Currency[],
 ) => {
-  const paymentMethodInfo = PAYMENTMETHODINFOS.find(
-    (info) => info.id === paymentMethod,
-  );
+  const paymentMethodInfo = useConfigStore
+    .getState()
+    .paymentMethods.find((info) => info.id === paymentMethod);
   return paymentMethodInfo?.currencies.some((c) => currencies.includes(c));
 };

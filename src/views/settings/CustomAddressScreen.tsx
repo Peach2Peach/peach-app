@@ -3,7 +3,6 @@ import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Screen } from "../../components/Screen";
-import { OpenWallet } from "../../components/bitcoin/OpenWallet";
 import { Button } from "../../components/buttons/Button";
 import { BitcoinAddressInput } from "../../components/inputs/BitcoinAddressInput";
 import { Input } from "../../components/inputs/Input";
@@ -16,6 +15,7 @@ import { ErrorPopup } from "../../popups/ErrorPopup";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
+import { openInWallet } from "../../utils/bitcoin/openInWallet";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 
@@ -87,7 +87,22 @@ export function CustomAddressScreen({
             />
           </View>
         ) : (
-          <OpenWallet address={address} />
+          <TouchableOpacity
+            style={tw`flex-row items-center justify-center gap-1`}
+            onPress={() => openInWallet(`bitcoin:${address ?? ""}`)}
+          >
+            <PeachText
+              style={tw`underline uppercase button-medium text-black-50`}
+            >
+              {i18n("wallet.openWalletApp")}
+            </PeachText>
+            <Icon
+              id="externalLink"
+              size={16}
+              style={tw`-mt-1`}
+              color={tw.color("primary-main")}
+            />
+          </TouchableOpacity>
         )}
       </View>
       <Button

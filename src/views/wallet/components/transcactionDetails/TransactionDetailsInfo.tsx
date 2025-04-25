@@ -2,16 +2,18 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { Transaction } from "bitcoinjs-lib";
 import { useState } from "react";
-import { LayoutChangeEvent, View } from "react-native";
+import { LayoutChangeEvent, TouchableOpacity, View } from "react-native";
 import { Divider } from "../../../../components/Divider";
+import { Icon } from "../../../../components/Icon";
+import { BTCAmount } from "../../../../components/bitcoin/BTCAmount";
 import { Bubble } from "../../../../components/bubble/Bubble";
-import {
-  AddressSummaryItem,
-  AmountSummaryItem,
-  CopyableSummaryItem,
-} from "../../../../components/summaryItem";
-import { ConfirmationSummaryItem } from "../../../../components/summaryItem/ConfirmationSummaryItem";
+import { AddressSummaryItem } from "../../../../components/summaryItem/AddressSummaryItem";
+import { CopyableSummaryItem } from "../../../../components/summaryItem/CopyableSummaryItem";
+import { SummaryItem } from "../../../../components/summaryItem/SummaryItem";
+import { PeachText } from "../../../../components/text/PeachText";
+import { CopyAble } from "../../../../components/ui/CopyAble";
 import { TabBar } from "../../../../components/ui/TabBar";
+import { useIsMediumScreen } from "../../../../hooks/useIsMediumScreen";
 import tw from "../../../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../../../utils/bitcoin/getBitcoinAddressParts";
 import { contractIdToHex } from "../../../../utils/contract/contractIdToHex";
@@ -42,6 +44,7 @@ export const TransactionDetailsInfo = ({
     });
   const addressParts =
     receivingAddress && getBitcoinAddressParts(receivingAddress);
+  const isMediumScreen = useIsMediumScreen();
 
   return (
     <View style={tw`gap-4`}>
@@ -59,12 +62,35 @@ export const TransactionDetailsInfo = ({
       )}
       <Divider />
 
-      <AmountSummaryItem amount={transactionSummary.amount} />
+      <SummaryItem title={i18n("amount")}>
+        <View style={tw`flex-row items-center gap-2`}>
+          <BTCAmount
+            amount={transactionSummary.amount}
+            size={isMediumScreen ? "medium" : "small"}
+          />
+          <CopyAble value={String(transactionSummary.amount)} />
+        </View>
+      </SummaryItem>
       <AddressSummaryItem address={receivingAddress} title={i18n("to")} />
 
       <Divider />
 
-      <ConfirmationSummaryItem confirmed={confirmed} />
+      <SummaryItem title={i18n("status")}>
+        <TouchableOpacity
+          style={tw`flex-row items-center justify-between gap-2`}
+          disabled
+        >
+          <PeachText style={tw`subtitle-1`}>
+            {i18n(`wallet.transaction.${confirmed ? "confirmed" : "pending"}`)}
+          </PeachText>
+          <Icon
+            id={confirmed ? "checkCircle" : "clock"}
+            color={tw.color(confirmed ? "success-main" : "black-50")}
+            size={16}
+          />
+        </TouchableOpacity>
+      </SummaryItem>
+
       {confirmed ? (
         <>
           <CopyableSummaryItem title={i18n("block")} text={String(height)} />
