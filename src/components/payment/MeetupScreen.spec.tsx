@@ -31,7 +31,7 @@ const useMeetupScreenSetupMock = jest
 jest.useFakeTimers();
 
 describe("MeetupScreen", () => {
-  const openURLSpy = jest.spyOn(Linking, "openURL");
+  const openURLSpy = jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
   const btcPragueEvent = {
     id: "cash.cz.prague.btc-prague",
     currencies: ["CZK", "EUR"],
@@ -65,6 +65,7 @@ describe("MeetupScreen", () => {
     setRouteMock(meetupScreenRoute);
   });
   it("should open link to google maps and meetup website", async () => {
+    jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
     useMeetupScreenSetupMock.mockReturnValueOnce({
       ...meetupScreenSetup,
       deletable: true,

@@ -42,6 +42,7 @@ describe("openCrashReportPrompt function", () => {
   });
 
   it("should call the Linking.openURL method when the privacy policy button is pressed", async () => {
+    jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
     openCrashReportPrompt(errors);
     if (alertSpy.mock.calls[0][2]?.[0].onPress)
       alertSpy.mock.calls[0][2][0].onPress();

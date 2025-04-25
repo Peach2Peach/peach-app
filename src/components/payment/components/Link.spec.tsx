@@ -4,7 +4,7 @@ import { Link } from "./Link";
 
 jest.useFakeTimers();
 describe("Link", () => {
-  const openURLSpy = jest.spyOn(Linking, "openURL");
+  const openURLSpy = jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
   const text = "text";
   const url = "http://peachbitcoin.com";
 

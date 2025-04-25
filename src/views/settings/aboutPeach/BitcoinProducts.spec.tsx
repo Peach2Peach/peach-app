@@ -14,7 +14,9 @@ describe("BitcoinProducts", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("should link to bitbox", async () => {
-    const openURLSpy = jest.spyOn(Linking, "openURL");
+    const openURLSpy = jest
+      .spyOn(Linking, "openURL")
+      .mockResolvedValueOnce(true);
     const { getByText } = render(<BitcoinProducts />);
     fireEvent(getByText("check out bitbox"), "onPress");
     await waitFor(() => {
