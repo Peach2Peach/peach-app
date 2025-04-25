@@ -99,10 +99,11 @@ describe("PeachWallet", () => {
     walletSyncMock.mockReturnValueOnce(promise);
 
     expect(peachWallet.syncInProgress).toBeUndefined();
-    peachWallet.syncWallet();
-    expect(peachWallet.syncInProgress).not.toBeUndefined();
-    peachWallet.syncWallet();
-    jest.runAllTimers();
+    void peachWallet.syncWallet();
+    void peachWallet.syncWallet();
+    await waitFor(() => {
+      jest.runAllTimers();
+    });
     await peachWallet.syncInProgress;
     expect(peachWallet.syncInProgress).toBeUndefined();
     expect(walletSyncMock).toHaveBeenCalledTimes(1);

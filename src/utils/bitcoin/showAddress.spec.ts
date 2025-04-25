@@ -2,7 +2,7 @@ import { Linking } from "react-native";
 import { showAddress } from "./showAddress";
 
 describe("showAddress", () => {
-  const openURLSpy = jest.spyOn(Linking, "openURL");
+  const openURLSpy = jest.spyOn(Linking, "openURL").mockResolvedValue(true);
 
   it("links to mainnet blockexplorer", async () => {
     await showAddress("address", "bitcoin");

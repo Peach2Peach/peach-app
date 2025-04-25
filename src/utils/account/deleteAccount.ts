@@ -12,10 +12,10 @@ import { accountStorage } from "./accountStorage";
 import { chatStorage } from "./chatStorage";
 import { updateAccount } from "./updateAccount";
 
-export const deleteAccount = () => {
+export const deleteAccount = async () => {
   info("Deleting account");
 
-  updateAccount(defaultAccount, true);
+  await updateAccount(defaultAccount, true);
   [
     accountStorage,
     walletStorage,

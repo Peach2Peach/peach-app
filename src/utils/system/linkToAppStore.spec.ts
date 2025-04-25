@@ -8,16 +8,16 @@ jest.mock("./linkToAppStoreIOS");
 jest.mock("./isIOS");
 
 describe("linkToAppStore", () => {
-  it("calls linkToAppStoreIOS if isIOS returns true", () => {
+  it("calls linkToAppStoreIOS if isIOS returns true", async () => {
     (<jest.Mock>isIOS).mockReturnValueOnce(true);
-    linkToAppStore();
+    await linkToAppStore();
     expect(linkToAppStoreIOS).toHaveBeenCalled();
     expect(linkToAppStoreAndroid).not.toHaveBeenCalled();
   });
 
-  it("calls linkToAppStoreAndroid if isIOS returns false", () => {
+  it("calls linkToAppStoreAndroid if isIOS returns false", async () => {
     (<jest.Mock>isIOS).mockReturnValueOnce(false);
-    linkToAppStore();
+    await linkToAppStore();
     expect(linkToAppStoreAndroid).toHaveBeenCalled();
     expect(linkToAppStoreIOS).not.toHaveBeenCalled();
   });

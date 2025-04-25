@@ -7,14 +7,14 @@ describe("settingsStore", () => {
     useSettingsStore.getState().reset();
     expect(useSettingsStore.getState().analyticsPopupSeen).toBeTruthy();
   });
-  it("should enable analytics", () => {
-    useSettingsStore.getState().setEnableAnalytics(true);
+  it("should enable analytics", async () => {
+    await useSettingsStore.getState().setEnableAnalytics(true);
     expect(crashlytics().setCrashlyticsCollectionEnabled).toHaveBeenCalledWith(
       true,
     );
   });
-  it("should disable analytics", () => {
-    useSettingsStore.getState().setEnableAnalytics(false);
+  it("should disable analytics", async () => {
+    await useSettingsStore.getState().setEnableAnalytics(false);
     expect(crashlytics().setCrashlyticsCollectionEnabled).toHaveBeenCalledWith(
       false,
     );
@@ -65,11 +65,11 @@ describe("settingsStore - updateSeedBackupDate", () => {
 });
 
 describe("settingsStore - toggleAnalytics", () => {
-  it("should toggle analytics", () => {
-    useSettingsStore.getState().setEnableAnalytics(true);
-    useSettingsStore.getState().toggleAnalytics();
+  it("should toggle analytics", async () => {
+    await useSettingsStore.getState().setEnableAnalytics(true);
+    await useSettingsStore.getState().toggleAnalytics();
     expect(useSettingsStore.getState().enableAnalytics).toBeFalsy();
-    useSettingsStore.getState().toggleAnalytics();
+    await useSettingsStore.getState().toggleAnalytics();
     expect(useSettingsStore.getState().enableAnalytics).toBeTruthy();
   });
 });
