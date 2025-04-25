@@ -33,8 +33,8 @@ export function useInitApp() {
       const statusResponse = await getPeachInfo();
       if (!statusResponse?.error && publicKey) {
         setIsLoggedIn(true);
-        await userUpdate();
-        await dataMigrationAfterLoadingAccount();
+        userUpdate();
+        dataMigrationAfterLoadingAccount();
       }
 
       return statusResponse;
@@ -74,7 +74,7 @@ async function loadAccount() {
   };
 
   info("Account loaded", acc.publicKey);
-  await updateAccount(acc);
+  updateAccount(acc);
 
   return acc.publicKey;
 }

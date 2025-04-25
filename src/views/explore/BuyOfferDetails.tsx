@@ -245,7 +245,7 @@ function RequestTradeAction({
       }
     },
     onSettled: async (response) => {
-      await queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: offerKeys.tradeRequest(offerId),
       });
       if (response && "contractId" in response && response.contractId) {

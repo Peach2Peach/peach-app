@@ -114,9 +114,9 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
 function ShowTxAction({ txId }: { txId: string }) {
   const closePopup = useClosePopup();
 
-  const showTx = async () => {
+  const showTx = () => {
     closePopup();
-    await showTransaction(txId, NETWORK);
+    showTransaction(txId, NETWORK);
   };
 
   return (

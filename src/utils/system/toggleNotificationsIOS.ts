@@ -10,6 +10,6 @@ export const toggleNotificationsIOS = async () => {
       sound: true,
     });
   } else {
-    await Linking.openSettings();
+    Linking.openSettings();
   }
 };

@@ -15,8 +15,8 @@ jest
   .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 describe("useCreateEscrow", () => {
-  beforeEach(async () => {
-    await updateAccount(account1, true);
+  beforeEach(() => {
+    updateAccount(account1, true);
   });
   it("sends API request to create escrow", async () => {
     const { result } = renderHook(useCreateEscrow);

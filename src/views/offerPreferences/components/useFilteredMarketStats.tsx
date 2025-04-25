@@ -90,6 +90,5 @@ async function getSearchOfferSummaries({
   const requestBody = queryKey[3];
   const { result } =
     await peachAPI.private.offer.searchOfferSummaries(requestBody);
-  if (result === undefined) return null;
   return result;
 }

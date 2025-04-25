@@ -78,7 +78,9 @@ describe("useFundFromPeachWallet", () => {
     });
     const { result } = renderHook(useFundFromPeachWallet);
 
-    await act(() => result.current(initialProps));
+    await act(async () => {
+      await result.current(initialProps);
+    });
     expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
   });
   it("should open confirmation popup", async () => {
@@ -104,7 +106,9 @@ describe("useFundFromPeachWallet", () => {
     const addresses = ["a", "b"];
     const { result } = renderHook(useFundFromPeachWallet);
 
-    await act(() => result.current({ ...initialProps, addresses }));
+    await act(async () => {
+      await result.current({ ...initialProps, addresses });
+    });
     expect(setMultipleRecipients).toHaveBeenCalledWith(
       expect.any(TxBuilder),
       initialProps.amount,
@@ -122,10 +126,14 @@ describe("useFundFromPeachWallet", () => {
 
     const { result } = renderHook(useFundFromPeachWallet);
 
-    await act(() => result.current(initialProps));
+    await act(async () => {
+      await result.current(initialProps);
+    });
     const { getByText, queryByText } = render(<GlobalPopup />);
 
-    await act(() => fireEvent.press(getByText("confirm & send")));
+    await act(async () => {
+      await fireEvent.press(getByText("confirm & send"));
+    });
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
       txDetails.psbt,
@@ -145,7 +153,9 @@ describe("useFundFromPeachWallet", () => {
       await result.current(initialProps);
     });
     const { getByText, queryByText } = render(<GlobalPopup />);
-    await act(() => fireEvent.press(getByText("confirm & send")));
+    await act(async () => {
+      await fireEvent.press(getByText("confirm & send"));
+    });
 
     expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
@@ -251,7 +261,9 @@ describe("useFundFromPeachWallet", () => {
     });
 
     const { getByText, queryByText } = render(<GlobalPopup />);
-    await act(() => fireEvent.press(getByText("confirm & send")));
+    await act(async () => {
+      await fireEvent.press(getByText("confirm & send"));
+    });
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
       txDetails.psbt,

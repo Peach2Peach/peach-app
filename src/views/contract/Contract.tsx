@@ -44,8 +44,8 @@ export const Contract = () => {
 
   useHandleNotifications(
     useCallback(
-      async (message) => {
-        if (message.data?.contractId === contractId) await refetch();
+      (message) => {
+        if (message.data?.contractId === contractId) refetch();
       },
       [contractId, refetch],
     ),

@@ -17,13 +17,13 @@ export function AnalyticsPopup() {
     shallow,
   );
 
-  const accept = useCallback(async () => {
-    await setEnableAnalytics(true);
+  const accept = useCallback(() => {
+    setEnableAnalytics(true);
     closePopup();
   }, [setEnableAnalytics, closePopup]);
 
-  const deny = useCallback(async () => {
-    await setEnableAnalytics(false);
+  const deny = useCallback(() => {
+    setEnableAnalytics(false);
     closePopup();
   }, [setEnableAnalytics, closePopup]);
 

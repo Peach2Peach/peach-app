@@ -15,12 +15,12 @@ import { showTransaction } from "../utils/bitcoin/showTransaction";
 import i18n from "../utils/i18n";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
-  const viewInExplorer = async () => {
+  const viewInExplorer = () => {
     if (!contract.escrow) return;
     if (contract.releaseTxId) {
-      await showTransaction(contract.releaseTxId, NETWORK);
+      showTransaction(contract.releaseTxId, NETWORK);
     } else {
-      await showAddress(contract.escrow, NETWORK);
+      showAddress(contract.escrow, NETWORK);
     }
   };
   return (

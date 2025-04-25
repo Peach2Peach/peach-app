@@ -27,21 +27,23 @@ describe("useOptimisticTxHistoryUpdate", () => {
   afterEach(() => {
     queryClient.clear();
   });
-  it("should update the transaction history on wallet state", async () => {
+  it("should update the transaction history on wallet state", () => {
     const { result } = renderHook(useOptimisticTxHistoryUpdate);
-    await act(() => result.current(txDetails, sellOffer.id));
+    result.current(txDetails, sellOffer.id);
     expect(useWalletState.getState().transactions).toEqual([txDetails]);
   });
-  it("should update the txOfferMap", async () => {
+  it("should update the txOfferMap", () => {
     const { result } = renderHook(useOptimisticTxHistoryUpdate);
-    await act(() => result.current(txDetails, sellOffer.id));
+    result.current(txDetails, sellOffer.id);
     expect(useWalletState.getState().txOfferMap).toEqual({
       [txDetails.txid]: [sellOffer.id],
     });
   });
   it("should label transaction with offer Id", async () => {
     const { result } = renderHook(useOptimisticTxHistoryUpdate);
-    await act(() => result.current(txDetails, sellOffer.id));
+    await act(() => {
+      result.current(txDetails, sellOffer.id);
+    });
     expect(useWalletState.getState().addressLabelMap).toEqual({
       bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh: "P‑26",
     });
@@ -52,7 +54,9 @@ describe("useOptimisticTxHistoryUpdate", () => {
     useWalletState.getState().registerFundMultiple(address, offerIds);
     const { result } = renderHook(useOptimisticTxHistoryUpdate);
 
-    await act(() => result.current(txDetails, sellOffer.id));
+    await act(() => {
+      result.current(txDetails, sellOffer.id);
+    });
     expect(useWalletState.getState().txOfferMap).toEqual({
       [txDetails.txid]: offerIds,
     });

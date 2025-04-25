@@ -2,10 +2,10 @@ import { isIOS } from "./isIOS";
 import { toggleNotificationsAndroid } from "./toggleNotificationsAndroid";
 import { toggleNotificationsIOS } from "./toggleNotificationsIOS";
 
-export const toggleNotifications = async () => {
+export const toggleNotifications = () => {
   if (isIOS()) {
-    await toggleNotificationsIOS();
+    toggleNotificationsIOS();
   } else {
-    await toggleNotificationsAndroid();
+    toggleNotificationsAndroid();
   }
 };

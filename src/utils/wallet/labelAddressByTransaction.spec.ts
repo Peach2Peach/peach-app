@@ -6,8 +6,6 @@ import { queryClient } from "../../queryClient";
 import { labelAddressByTransaction } from "./labelAddressByTransaction";
 import { useWalletState } from "./walletStore";
 
-jest.useFakeTimers();
-
 describe("labelAddressByTransaction", () => {
   beforeEach(() => {
     useWalletState.getState().reset();
@@ -17,11 +15,11 @@ describe("labelAddressByTransaction", () => {
   afterEach(() => {
     queryClient.clear();
   });
-  it("does not label address if associated offer cannot be found", async () => {
+  it("does not label address if associated offer cannot be found", () => {
     useWalletState
       .getState()
       .updateTxOfferMap(confirmed1.txid, [buyOfferSummary.id]);
-    await labelAddressByTransaction(confirmed1);
+    labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });
   it("labels address if associated buy offer can be found", async () => {
@@ -51,10 +49,10 @@ describe("labelAddressByTransaction", () => {
     });
   });
 
-  it("does not label address if tx default label cannot be determined", async () => {
-    useWalletState.getState().updateTxOfferMap(confirmed1.txid, []);
+  it("does not label address if tx default label cannot be determined", () => {
+    useWalletState.getState().updateTxOfferMap(confirmed1.txid, [sellOffer.id]);
 
-    await labelAddressByTransaction(confirmed1);
+    labelAddressByTransaction(confirmed1);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });
 });

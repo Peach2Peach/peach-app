@@ -5,11 +5,11 @@ export const callWhenInternet = async (
 ) => {
   const netInfo = await NetInfo.fetch();
   if (netInfo.isInternetReachable) {
-    await callback();
+    callback();
   } else {
-    const unsubscribe = NetInfo.addEventListener(async (state) => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isInternetReachable) return;
-      await callback();
+      callback();
       unsubscribe();
     });
   }

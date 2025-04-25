@@ -28,27 +28,27 @@ const loadAccountFromSeedPhraseMock = jest.requireMock(
 
 describe("updateAccount", () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, "loadWallet");
-  it("sets an account, sets wallet and peachAccount", async () => {
-    await updateAccount(account1);
+  it("sets an account, sets wallet and peachAccount", () => {
+    updateAccount(account1);
     const account = useAccountStore.getState().account;
     expect(account).toEqual(account1);
     expect(getWallet()).toBeDefined();
     expect(peachAPI.apiOptions.peachAccount).toBeDefined();
   });
-  it("overwrites an account", async () => {
-    await updateAccount({ ...account1, tradingLimit }, true);
+  it("overwrites an account", () => {
+    updateAccount({ ...account1, tradingLimit }, true);
     const account = useAccountStore.getState().account;
     expect(account.tradingLimit).toEqual(tradingLimit);
   });
-  it("merges an account with update", async () => {
-    await updateAccount({ ...account1, tradingLimit });
+  it("merges an account with update", () => {
+    updateAccount({ ...account1, tradingLimit });
     const account = useAccountStore.getState().account;
     expect(account.tradingLimit).toEqual(defaultAccount.tradingLimit);
   });
-  it("does not set the locale to undefined", async () => {
+  it("does not set the locale to undefined", () => {
     getDeviceLocaleMock.mockReturnValueOnce(undefined);
     useSettingsStore.setState({ locale: undefined });
-    await updateAccount(account1);
+    updateAccount(account1);
     expect(setLocaleQuietMock).toHaveBeenCalledWith("en");
   });
   it("loads wallet from seed and stores base58", async () => {

@@ -30,9 +30,7 @@ async function sendReport(params: Params, minAppVersion: string | undefined) {
   }
 
   messageToSend += `\n\nUser shared app logs, please check crashlytics\nSession ID: ${SESSION_ID}`;
-  await sendErrors([
-    new Error(`user shared app logs: ${topic} - ${messageToSend}`),
-  ]);
+  sendErrors([new Error(`user shared app logs: ${topic} - ${messageToSend}`)]);
 
   const { result, error } = await peachAPI.public.contact.sendReport({
     email,

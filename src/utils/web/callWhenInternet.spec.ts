@@ -1,4 +1,3 @@
-import { waitFor } from "@testing-library/react-native";
 import { callWhenInternet } from "./callWhenInternet";
 
 const callbacks: ((...args: unknown[]) => void)[] = [];
@@ -38,9 +37,7 @@ describe("callWhenInternet", () => {
     };
     callbacks.map((cb) => cb(connectedState));
     expect(callback).toHaveBeenCalled();
-    await waitFor(() => {
-      expect(unsubScribeMock).toHaveBeenCalled();
-    });
+    expect(unsubScribeMock).toHaveBeenCalled();
   });
   it("should not run callback at all when not connected to the internet", async () => {
     fetchMock.mockResolvedValue({ isInternetReachable: false });

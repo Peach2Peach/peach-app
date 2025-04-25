@@ -22,7 +22,6 @@ import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
-import { isNotNull } from "../../utils/validation/isNotNull";
 import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
@@ -193,34 +192,35 @@ function PublishOfferButton() {
   });
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
-  const getPaymentData = async () => {
-    if (!instantTrade) return paymentData;
-
-    const entries = await Promise.all(
-      keys(paymentData).map(async (paymentMethod) => {
-        const originalData = originalPaymentData.find(
-          (e) => e.type === paymentMethod,
-        );
-        if (!originalData) return null;
-
-        const cleanedData = cleanPaymentData(originalData);
-        const { encrypted, signature } = await signAndEncrypt(
-          JSON.stringify(cleanedData),
-          peachPGPPublicKey,
-        );
-
-        return [
-          paymentMethod,
-          {
-            ...paymentData[paymentMethod],
-            encrypted,
-            signature,
-          },
-        ];
-      }),
-    );
-
-    return Object.fromEntries(entries.filter(isNotNull));
+  const getPaymentData = () => {
+    if (instantTrade) {
+      return keys(paymentData).reduce(
+        async (accPromise: Promise<OfferPaymentData>, paymentMethod) => {
+          const acc = await accPromise;
+          const originalData = originalPaymentData.find(
+            (e) => e.type === paymentMethod,
+          );
+          if (originalData) {
+            const cleanedData = cleanPaymentData(originalData);
+            const { encrypted, signature } = await signAndEncrypt(
+              JSON.stringify(cleanedData),
+              peachPGPPublicKey,
+            );
+            return {
+              ...acc,
+              [paymentMethod]: {
+                ...paymentData[paymentMethod],
+                encrypted,
+                signature,
+              },
+            };
+          }
+          return acc;
+        },
+        Promise.resolve({}),
+      );
+    }
+    return Promise.resolve(paymentData);
   };
   const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount: amountRange,

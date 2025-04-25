@@ -34,7 +34,7 @@ describe("createPersistStorage", () => {
     expect(await accountStorage.getItem("key")).toBe(
       JSON.stringify(JSON.stringify(state)),
     );
-    await persistStorage?.removeItem("key");
+    persistStorage?.removeItem("key");
     expect(await accountStorage.getItem("key")).toBeUndefined();
   });
 });

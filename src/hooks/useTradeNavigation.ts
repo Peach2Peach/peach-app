@@ -27,7 +27,7 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
         await peachAPI.private.offer.getOfferDetails({ offerId });
       if (sellOffer && isSellOffer(sellOffer)) {
         queryClient.setQueryData(offerKeys.detail(sellOffer.id), sellOffer);
-        await showStartRefundPopup(sellOffer);
+        showStartRefundPopup(sellOffer);
         return;
       }
     }

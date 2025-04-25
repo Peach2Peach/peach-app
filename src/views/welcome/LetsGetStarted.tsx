@@ -53,7 +53,7 @@ export const LetsGetStarted = () => {
   }, [handleRefCode, setReferralCode]);
 
   useEffect(() => {
-    void Linking.getInitialURL().then((url) => handleRefCode({ url }));
+    Linking.getInitialURL().then((url) => handleRefCode({ url }));
   }, [handleRefCode]);
 
   const updateReferralCode = (code: string) => {
@@ -81,9 +81,9 @@ export const LetsGetStarted = () => {
   const userUpdate = useUserUpdate();
   const [isLoading, setIsLoading] = useState(false);
   const onError = useCallback(
-    async (err?: string) => {
+    (err?: string) => {
       const errorMsg = err || "UNKNOWN_ERROR";
-      await deleteAccount();
+      deleteAccount();
       navigation.navigate("createAccountError", {
         err: errorMsg,
       });
@@ -112,7 +112,7 @@ export const LetsGetStarted = () => {
           await updateAccount(newAccount, true);
           await userUpdate(willUseReferralCode ? referralCode : undefined);
 
-          await storeAccount(newAccount);
+          storeAccount(newAccount);
           navigation.navigate("accountCreated");
           setIsLoading(false);
 
@@ -122,7 +122,7 @@ export const LetsGetStarted = () => {
         },
       });
     } catch (e) {
-      await onError(parseError(e));
+      onError(parseError(e));
     }
   };
 

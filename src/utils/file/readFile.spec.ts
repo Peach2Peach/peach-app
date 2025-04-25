@@ -12,7 +12,7 @@ describe("readFile", () => {
   });
 
   it("should handle decrypt error", async () => {
-    await RNFS.writeFile(
+    RNFS.writeFile(
       `${RNFS.DocumentDirectoryPath}test.txt`,
       "encryptedtest",
       "utf8",
@@ -28,11 +28,7 @@ describe("readFile", () => {
   });
 
   it("should return the file content", async () => {
-    await RNFS.writeFile(
-      `${RNFS.DocumentDirectoryPath}test.txt`,
-      "test",
-      "utf8",
-    );
+    RNFS.writeFile(`${RNFS.DocumentDirectoryPath}test.txt`, "test", "utf8");
 
     const path = "test.txt";
 
@@ -41,7 +37,7 @@ describe("readFile", () => {
   });
 
   it("should decrypt the file content", async () => {
-    await RNFS.writeFile(
+    RNFS.writeFile(
       `${RNFS.DocumentDirectoryPath}test.txt`,
       "encryptedtest",
       "utf8",

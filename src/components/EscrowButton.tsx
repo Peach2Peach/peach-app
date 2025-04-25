@@ -13,12 +13,12 @@ type Props = {
 };
 
 export function EscrowButton({ releaseTxId, escrow, style }: Props) {
-  const openEscrow = async () => {
+  const openEscrow = () => {
     if (!escrow) return;
     if (releaseTxId) {
-      await showTransaction(releaseTxId, NETWORK);
+      showTransaction(releaseTxId, NETWORK);
     }
-    await showAddress(escrow, NETWORK);
+    showAddress(escrow, NETWORK);
   };
 
   return (

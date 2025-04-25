@@ -45,17 +45,12 @@ export const NodeSetup = () => {
   const [isConnected, setIsConnected] = useState(!!node.url);
 
   const editConfig = () => setIsConnected(false);
-  const save = async (blockchainType: BlockChainNames) => {
+  const save = (blockchainType: BlockChainNames) => {
     if (!peachWallet) throw Error("Peach wallet not defined");
     setCustomNode({ enabled, ssl, url, type: blockchainType });
     setIsConnected(true);
-    await peachWallet.setBlockchain({
-      enabled,
-      ssl,
-      url,
-      type: blockchainType,
-    });
-    await peachWallet.initWallet();
+    peachWallet.setBlockchain({ enabled, ssl, url, type: blockchainType });
+    peachWallet.initWallet();
   };
 
   const checkConnection = async () => {
@@ -74,7 +69,7 @@ export const NodeSetup = () => {
 
   useEffect(() => {
     if (!peachWallet) return;
-    void peachWallet.setBlockchain(node);
+    peachWallet.setBlockchain(node);
   }, [node]);
   const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false);
 

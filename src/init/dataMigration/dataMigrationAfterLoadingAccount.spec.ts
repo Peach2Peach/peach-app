@@ -5,8 +5,8 @@ import { dataMigrationAfterLoadingAccount } from "./dataMigrationAfterLoadingAcc
 jest.mock("./afterLoadingAccount/checkSupportedPaymentMethods");
 
 describe("dataMigrationAfterLoadingAccount", () => {
-  it("should call checkSupportedPaymentMethods", async () => {
-    await dataMigrationAfterLoadingAccount();
+  it("should call checkSupportedPaymentMethods", () => {
+    dataMigrationAfterLoadingAccount();
     expect(checkSupportedPaymentMethods).toHaveBeenCalledWith(
       useConfigStore.getState().paymentMethods,
     );

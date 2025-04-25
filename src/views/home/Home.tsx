@@ -88,7 +88,9 @@ function DailyMessage() {
     });
   };
 
-  const onTextPress = () => openURL(message.url);
+  const onTextPress = () => {
+    openURL(message.url);
+  };
 
   return (
     <View style={tw`overflow-hidden rounded-2xl`}>

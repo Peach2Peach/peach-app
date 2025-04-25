@@ -31,7 +31,7 @@ const useMeetupScreenSetupMock = jest
 jest.useFakeTimers();
 
 describe("MeetupScreen", () => {
-  const openURLSpy = jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
+  const openURLSpy = jest.spyOn(Linking, "openURL");
   const btcPragueEvent = {
     id: "cash.cz.prague.btc-prague",
     currencies: ["CZK", "EUR"],
@@ -65,7 +65,6 @@ describe("MeetupScreen", () => {
     setRouteMock(meetupScreenRoute);
   });
   it("should open link to google maps and meetup website", async () => {
-    jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
     useMeetupScreenSetupMock.mockReturnValueOnce({
       ...meetupScreenSetup,
       deletable: true,
@@ -75,15 +74,11 @@ describe("MeetupScreen", () => {
     });
     const { getByText } = render(<MeetupScreen />);
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
-    fireEvent(getByText("view on maps"), "onPress");
-    await waitFor(() => {
-      expect(openURLSpy).toHaveBeenCalledWith(
-        "http://maps.google.com/maps?daddr=Prague",
-      );
-    });
-    fireEvent(getByText("meetup link"), "onPress");
-    await waitFor(() => {
-      expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url);
-    });
+    await fireEvent(getByText("view on maps"), "onPress");
+    expect(openURLSpy).toHaveBeenCalledWith(
+      "http://maps.google.com/maps?daddr=Prague",
+    );
+    await fireEvent(getByText("meetup link"), "onPress");
+    expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url);
   });
 });

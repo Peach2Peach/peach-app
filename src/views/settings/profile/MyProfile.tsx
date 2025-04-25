@@ -58,11 +58,11 @@ function DeleteAccountButton() {
   const { mutate: logoutUser } = useLogoutUser();
 
   const showPopup = useCallback(
-    async (popupChain = ["popup", "forRealsies", "success"]) => {
+    (popupChain = ["popup", "forRealsies", "success"]) => {
       const title = popupChain[0];
       const isSuccess = popupChain.length === 1;
       if (isSuccess) {
-        await deleteAccount();
+        deleteAccount();
         logoutUser();
       }
 
