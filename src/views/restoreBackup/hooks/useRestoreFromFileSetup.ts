@@ -33,9 +33,9 @@ export const useRestoreFromFileSetup = () => {
   );
   const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
 
-  const onError = (errorMsg = "UNKNOWN_ERROR") => {
+  const onError = async (errorMsg = "UNKNOWN_ERROR") => {
     if (errorMsg !== "WRONG_PASSWORD") setError(errorMsg);
-    deleteAccount();
+    await deleteAccount();
   };
 
   const { mutate: register } = useRegisterUser();
@@ -49,13 +49,13 @@ export const useRestoreFromFileSetup = () => {
     });
     const mnemonic = recoveredAccount?.mnemonic;
 
-    const handleError = (errorMsg: string) => {
+    const handleError = async (errorMsg: string) => {
       setLoading(false);
-      onError(errorMsg);
+      await onError(errorMsg);
     };
 
     if (!mnemonic) {
-      handleError(parseError(err));
+      await handleError(parseError(err));
       return;
     }
 
@@ -86,7 +86,7 @@ export const useRestoreFromFileSetup = () => {
       );
     } else {
       if (authErr) {
-        onError(authErr);
+        await onError(authErr);
         return;
       }
       await onSuccess();

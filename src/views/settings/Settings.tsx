@@ -52,7 +52,7 @@ export const Settings = () => {
         checkingFunction,
       );
 
-      checkingFunction();
+      void checkingFunction();
 
       return () => {
         eventListener.remove();
@@ -60,7 +60,7 @@ export const Settings = () => {
     }, []),
   );
 
-  const notificationClick = useCallback(() => {
+  const notificationClick = useCallback(async () => {
     if (notificationsOn) {
       setPopup(
         <WarningPopup
@@ -78,9 +78,9 @@ export const Settings = () => {
                 label={i18n("settings.notifications.popup.yes")}
                 textStyle={tw`text-black-100`}
                 iconId="slash"
-                onPress={() => {
+                onPress={async () => {
                   closePopup();
-                  toggleNotifications();
+                  await toggleNotifications();
                 }}
                 reverseOrder
               />
@@ -89,7 +89,7 @@ export const Settings = () => {
         />,
       );
     } else {
-      toggleNotifications();
+      await toggleNotifications();
     }
   }, [closePopup, notificationsOn, setPopup]);
 
@@ -113,12 +113,12 @@ export const Settings = () => {
   const setAnalyticsPopupSeen = useSettingsStore(
     (state) => state.setAnalyticsPopupSeen,
   );
-  const onAnalyticsPress = useCallback(() => {
+  const onAnalyticsPress = useCallback(async () => {
     if (!enableAnalytics) {
       setAnalyticsPopupSeen(true);
       setPopup(<AnalyticsPopup />);
     } else {
-      toggleAnalytics();
+      await toggleAnalytics();
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 

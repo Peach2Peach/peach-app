@@ -24,7 +24,7 @@ describe("useToggleBatching", () => {
   });
   it("should call setBatching with inverted boolean", async () => {
     const { result } = renderHook(() => useToggleBatching(defaultUser));
-    await result.current.mutate();
+    await result.current.mutateAsync();
 
     await waitFor(() => {
       expect(queryClient.getQueryData<User>(userKeys.self())).toEqual({

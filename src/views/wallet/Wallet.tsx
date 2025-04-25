@@ -35,7 +35,7 @@ export const Wallet = () => {
             style={tw`self-center`}
             onPress={async () => {
               if (!peachWallet) return;
-              fundAddress({
+              await fundAddress({
                 address: (await peachWallet.getAddress()).address,
                 amount: 1000000,
               });

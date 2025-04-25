@@ -21,10 +21,10 @@ export const useTradeSummaries = (enabled = true) => {
     isRefetching: isRefetchingContracts,
   } = useContractSummaries(enabled);
 
-  const refetch = useCallback(() => {
-    refetchOffers();
-    refetchContracts();
-  }, [refetchContracts, refetchOffers]);
+  const refetch = useCallback(
+    () => Promise.all([refetchOffers, refetchContracts]),
+    [refetchContracts, refetchOffers],
+  );
 
   const tradeSummaries = useMemo(
     () => [...offers, ...contracts].sort(sortSummariesByDate).reverse(),

@@ -32,7 +32,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
     if (!offer) return;
 
     cancelOffer(offerId, {
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
         if (result) {
           if (isSellOffer(offer)) {
             saveOffer({
@@ -59,7 +59,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
             );
             navigation.navigate("homeScreen", { screen: "home" });
           } else {
-            startRefund(offer);
+            await startRefund(offer);
           }
         }
       },
