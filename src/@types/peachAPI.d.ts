@@ -156,52 +156,6 @@ type Currency =
 type Pricebook = {
   [key in Currency]?: number;
 };
-type PaymentMethodCountry =
-  | "AD"
-  | "AE"
-  | "AT"
-  | "BA"
-  | "BE"
-  | "BG"
-  | "BR"
-  | "CD"
-  | "CH"
-  | "CI"
-  | "CO"
-  | "CY"
-  | "CZ"
-  | "DE"
-  | "DK"
-  | "ES"
-  | "FI"
-  | "FR"
-  | "GB"
-  | "GR"
-  | "HR"
-  | "HU"
-  | "IN"
-  | "ISK"
-  | "IT"
-  | "JP"
-  | "KE"
-  | "LV"
-  | "ME"
-  | "MK"
-  | "MT"
-  | "NG"
-  | "NL"
-  | "NO"
-  | "PL"
-  | "PT"
-  | "RO"
-  | "RS"
-  | "SE"
-  | "SI"
-  | "TH"
-  | "TR"
-  | "UK"
-  | "US"
-  | "ZA";
 
 type FundingStatus = {
   status: "NULL" | "MEMPOOL" | "FUNDED" | "WRONG_FUNDING_AMOUNT" | "CANCELED";
@@ -220,7 +174,7 @@ type OfferPaymentData = Partial<
     {
       hashes: string[];
       hash?: string;
-      country?: PaymentMethodCountry;
+      country?: GiftCardCountry | BitcoinEvent["country"];
       encrypted?: string;
       signature?: string;
     }

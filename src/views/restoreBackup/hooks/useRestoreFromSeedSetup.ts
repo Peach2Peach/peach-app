@@ -49,12 +49,12 @@ export const useRestoreFromSeedSetup = () => {
   const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
 
   const onError = useCallback(
-    (errorMsg = "UNKNOWN_ERROR") => {
+    async (errorMsg = "UNKNOWN_ERROR") => {
       setError(errorMsg);
       if (errorMsg !== "REGISTRATION_DENIED") {
         setToast({ msgKey: errorMsg, color: "red" });
       }
-      deleteAccount();
+      await deleteAccount();
     },
     [setToast],
   );
@@ -69,7 +69,7 @@ export const useRestoreFromSeedSetup = () => {
     const authError = await setupPeachAccount(recoveredAccount);
 
     if (authError) {
-      onError(authError);
+      await onError(authError);
       setLoading(false);
       return;
     }

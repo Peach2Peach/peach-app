@@ -1,11 +1,17 @@
 import { StyleProp, ViewStyle } from "react-native";
-import { FlagType, Flags } from "./flags";
+import { Flags } from "./flags";
 import { PeachText } from "./text/PeachText";
 
-type Props = { id: FlagType; style?: StyleProp<ViewStyle> };
+type Props = { id: string; style?: StyleProp<ViewStyle> };
 
+function isValidFlag(key: string): key is keyof typeof Flags {
+  return key in Flags;
+}
 export const Flag = ({ id, style }: Props) => {
-  const SVG = Flags[id];
+  if (isValidFlag(id)) {
+    const SVG = Flags[id];
+    return <SVG style={style} />;
+  }
 
-  return SVG ? <SVG style={style} /> : <PeachText>❌</PeachText>;
+  return <PeachText>❌</PeachText>;
 };

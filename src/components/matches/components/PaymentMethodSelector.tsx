@@ -1,7 +1,7 @@
 import { ReactNode, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { PaymentMethodCountry } from "../../../../peach-api/src/@types/offer";
+import { GiftCardCountry } from "../../../../peach-api/src/@types/payment";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../../hooks/useRoute";
@@ -212,7 +212,7 @@ function PayementMethodBubble({
         });
       } else {
         const country = paymentMethod.startsWith("giftCard.amazon.")
-          ? (paymentMethod.split(".")[2] as PaymentMethodCountry)
+          ? (paymentMethod.split(".")[2] as GiftCardCountry)
           : undefined;
         navigation.navigate("paymentMethodForm", {
           paymentData: {

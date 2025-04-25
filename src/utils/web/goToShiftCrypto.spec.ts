@@ -3,7 +3,7 @@ import { goToShiftCrypto } from "./goToShiftCrypto";
 
 describe("goToShiftCrypto", () => {
   it("should open the correct link", async () => {
-    const openStub = jest.spyOn(Linking, "openURL");
+    const openStub = jest.spyOn(Linking, "openURL").mockResolvedValueOnce(true);
 
     await goToShiftCrypto();
 

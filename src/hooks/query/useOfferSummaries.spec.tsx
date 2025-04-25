@@ -1,5 +1,5 @@
 import { renderHook, responseUtils, waitFor } from "test-utils";
-import { offerSummary } from "../../../tests/unit/data/offerSummaryData";
+import { buyOfferSummary } from "../../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { useOfferSummaries } from "./useOfferSummaries";
@@ -22,7 +22,7 @@ describe("useOfferSummaries", () => {
 
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
 
-    expect(result.current.offers).toEqual([offerSummary]);
+    expect(result.current.offers).toEqual([buyOfferSummary]);
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.refetch).toBeInstanceOf(Function);
     expect(result.current.error).toBeFalsy();

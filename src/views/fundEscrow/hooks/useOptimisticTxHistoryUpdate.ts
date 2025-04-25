@@ -16,11 +16,11 @@ export const useOptimisticTxHistoryUpdate = () => {
       shallow,
     );
   const optimisticTxHistoryUpdate = useCallback(
-    (txDetails: TransactionDetails, offerId: string) => {
+    async (txDetails: TransactionDetails, offerId: string) => {
       const fundMultiple = getFundMultipleByOfferId(offerId);
       addTransaction(txDetails);
       updateTxOfferMap(txDetails.txid, fundMultiple?.offerIds || [offerId]);
-      labelAddressByTransaction(txDetails);
+      await labelAddressByTransaction(txDetails);
     },
     [addTransaction, getFundMultipleByOfferId, updateTxOfferMap],
   );

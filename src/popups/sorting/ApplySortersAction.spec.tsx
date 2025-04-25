@@ -15,8 +15,8 @@ jest
   .useClosePopup.mockReturnValue(closePopup);
 jest.useFakeTimers();
 describe("ApplyBuyFilterAction", () => {
-  beforeEach(() => {
-    queryClient.resetQueries();
+  beforeEach(async () => {
+    await queryClient.resetQueries();
   });
 
   it("should apply the selected sorter", () => {

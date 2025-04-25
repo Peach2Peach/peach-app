@@ -8,7 +8,7 @@ describe("useWriteCSV", () => {
   const csvValue = "header 1, header 2\nvalue 1, value 2\n";
   const destinationFileName = "test.csv";
   it("should create a CSV file", async () => {
-    writeCSV(csvValue, destinationFileName);
+    await writeCSV(csvValue, destinationFileName);
 
     expect(RNFS.writeFile).toHaveBeenCalledWith(
       `DDirPath//${destinationFileName}`,

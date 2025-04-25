@@ -2,56 +2,22 @@ import { BitcoinEvent } from "../../../../peach-api/src/@types/events";
 import { sortAlphabetically } from "../../../utils/array/sortAlphabetically";
 import i18n from "../../../utils/i18n";
 import { keys } from "../../../utils/object/keys";
-import { mapCountryToDrawerOption } from "./mapCountryToDrawerOption";
 import { mapEventToDrawerOption } from "./mapEventToDrawerOption";
 
 export const getCountrySelectDrawerOptions = (
   meetupEvents: BitcoinEvent[],
   goToEventDetails: (eventID: string) => void,
   selectCountry: (
-    eventsByCountry: Record<BitcoinEvent["country"], BitcoinEvent[]>,
-    selected: BitcoinEvent["country"],
+    eventsByCountry: Record<string, BitcoinEvent[]>,
+    selected: string,
   ) => void,
 ) => {
-  const eventsByCountry: Record<BitcoinEvent["country"], BitcoinEvent[]> = {
-    IT: [],
-    PT: [],
-    ES: [],
-    HR: [],
-    FR: [],
-    DE: [],
-    GR: [],
-    BR: [],
-    CO: [],
-    IN: [],
-    AD: [],
-    AE: [],
-    AT: [],
-    BA: [],
-    BE: [],
-    BG: [],
-    CD: [],
-    CH: [],
-    CI: [],
-    CY: [],
-    GB: [],
-    JP: [],
-    KE: [],
-    LV: [],
-    ME: [],
-    MK: [],
-    MT: [],
-    NG: [],
-    NL: [],
-    PL: [],
-    RS: [],
-    SI: [],
-    TH: [],
-    UK: [],
-    ZA: [],
-  };
+  const eventsByCountry: Record<string, BitcoinEvent[]> = {};
 
   meetupEvents.forEach((event) => {
+    if (!eventsByCountry[event.country]) {
+      eventsByCountry[event.country] = [];
+    }
     eventsByCountry[event.country].push(event);
   });
   const featuredEvents = meetupEvents
@@ -63,7 +29,11 @@ export const getCountrySelectDrawerOptions = (
     options: [
       ...featuredEvents,
       ...keys(eventsByCountry)
-        .map(mapCountryToDrawerOption(selectCountry, eventsByCountry))
+        .map((country) => ({
+          title: i18n(`country.${country}`),
+          flagID: country,
+          onPress: () => selectCountry(eventsByCountry, country),
+        }))
         .sort((a, b) => sortAlphabetically(a.title, b.title)),
     ],
     show: true,
