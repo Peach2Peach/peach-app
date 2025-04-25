@@ -22,6 +22,6 @@ export const PriceFormat = ({
     {currency === "SAT"
       ? groupChars(amount.toFixed(), GROUP_SIZE)
       : priceFormat(amount, round)}
-     {includeCurrency ? currency : ""}
+    {includeCurrency && ` ${currency}`}
   </PeachText>
 );
