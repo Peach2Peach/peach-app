@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "test-utils";
 import { contractSummary } from "../../../peach-api/src/testData/contractSummary";
-import { offerSummary } from "../../../tests/unit/data/offerSummaryData";
+import { buyOfferSummary } from "../../../tests/unit/data/offerSummaryData";
 import { useTradeSummaries } from "./useTradeSummaries";
 
 jest.useFakeTimers();
@@ -11,7 +11,7 @@ describe("useTradeSummaries", () => {
 
     await waitFor(() => {
       expect(result.current.summaries).toEqual({
-        "yourTrades.buy": [contractSummary, offerSummary],
+        "yourTrades.buy": [contractSummary, buyOfferSummary],
         "yourTrades.sell": [],
         "yourTrades.history": [],
       });

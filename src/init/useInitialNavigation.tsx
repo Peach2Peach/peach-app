@@ -88,6 +88,6 @@ export const useInitialNavigation = () => {
   }, [handleNotification]);
 
   useEffect(() => {
-    initialNavigation();
+    void initialNavigation();
   }, [initialNavigation]);
 };
