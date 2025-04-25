@@ -32,14 +32,19 @@ function GoTradeButton({ tab }: { tab: "yourTrades.buy" | "yourTrades.sell" }) {
     navigation.navigate(destination);
   };
 
+  const textColor =
+    tab === "yourTrades.buy"
+      ? tw.color("success-main")
+      : tw.color("primary-main");
+
   return (
     <TouchableOpacity onPress={onPress} style={tw`flex-row items-center gap-2`}>
-      <PeachText style={tw`h6 text-primary-main`}>
+      <PeachText style={[tw`h6`, { color: textColor }]}>
         {i18n(
           `yourTrades.start.${tab === "yourTrades.sell" ? "selling" : "buying"}`,
         )}
       </PeachText>
-      <Icon id="arrowRightCircle" size={20} color={tw.color("primary-main")} />
+      <Icon id="arrowRightCircle" size={20} color={textColor} />
     </TouchableOpacity>
   );
 }

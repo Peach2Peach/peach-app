@@ -1,5 +1,5 @@
 import { fireEvent, render } from "test-utils";
-import { offerSummary } from "../../../../../tests/unit/data/offerSummaryData";
+import { buyOfferSummary } from "../../../../../tests/unit/data/offerSummaryData";
 import { OfferIdBubble } from "./OfferIdBubble";
 
 const goToOffer = jest.fn();
@@ -10,14 +10,16 @@ const useNavigateToOfferOrContractMock = jest
 
 describe("OfferIdBubble", () => {
   it("renders correctly", () => {
-    const { toJSON } = render(<OfferIdBubble offer={offerSummary} />);
+    const { toJSON } = render(<OfferIdBubble offer={buyOfferSummary} />);
     expect(toJSON()).toMatchSnapshot();
   });
   it("calls bump fees", () => {
-    const { getByText } = render(<OfferIdBubble offer={offerSummary} />);
+    const { getByText } = render(<OfferIdBubble offer={buyOfferSummary} />);
     fireEvent.press(getByText("P‑1C8"));
 
-    expect(useNavigateToOfferOrContractMock).toHaveBeenCalledWith(offerSummary);
+    expect(useNavigateToOfferOrContractMock).toHaveBeenCalledWith(
+      buyOfferSummary,
+    );
     expect(goToOffer).toHaveBeenCalled();
   });
 });

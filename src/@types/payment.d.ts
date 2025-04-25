@@ -98,9 +98,10 @@ type OceaniaPaymentMethods = "payID" | "osko";
 type AsiaPaymentMethods = "UPI" | "paytm" | "nationalTransferSG" | "payLah";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
+type GiftCardCountry = "DE" | "FR" | "IT" | "ES" | "NL" | "UK" | "SE" | "PT";
 type InternationalPaymentMethds =
   | "giftCard.amazon"
-  | `giftCard.amazon.${PaymentMethodCountry}`;
+  | `giftCard.amazon.${GiftCardCountry}`;
 type CashPaymentMethds = `cash.${string}`;
 
 type PaymentMethod =
