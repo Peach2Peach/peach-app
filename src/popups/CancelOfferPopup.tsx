@@ -57,7 +57,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
                 actions={<ClosePopupAction style={tw`justify-center`} />}
               />,
             );
-            navigation.navigate("homeScreen", { screen: "home" });
+            navigation.navigate("homeScreen", { screen: "yourTrades" });
           } else {
             await startRefund(offer);
           }
