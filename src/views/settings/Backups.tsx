@@ -37,8 +37,10 @@ export const Backups = () => {
       }
     >
       <BackupTab.Navigator
-        screenOptions={fullScreenTabNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          sceneStyle: [tw`px-sm`, tw`md:px-md`],
+        }}
         screenListeners={{
           focus: (e) => setCurrentTab(TabType.parse(e.target?.split("-")[0])),
         }}

@@ -11,7 +11,7 @@ export function OfferOutsideRangePopup({ offerId }: { offerId: string }) {
   const navigation = useStackNavigation();
   const goToOffer = () => {
     closePopup();
-    navigation.navigate("offer", { offerId });
+    navigation.navigateDeprecated("offer", { offerId });
   };
 
   return (

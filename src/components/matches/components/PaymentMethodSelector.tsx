@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { GiftCardCountry } from "../../../../peach-api/src/@types/payment";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
@@ -51,8 +51,7 @@ export function PaymentMethodSelector({
   }));
 
   const accountPaymentData = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+    useShallow((state) => Object.values(state.paymentData)),
   );
 
   const onCurrencyChange = (currency: Currency) => {
@@ -206,7 +205,7 @@ function PayementMethodBubble({
           onPress(paymentDataForType[0]);
         }
       } else if (isCashTrade(paymentMethod)) {
-        navigation.navigate("meetupScreen", {
+        navigation.navigateDeprecated("meetupScreen", {
           eventId: paymentMethod.replace("cash.", ""),
           origin: routeName,
         });
@@ -214,7 +213,7 @@ function PayementMethodBubble({
         const country = paymentMethod.startsWith("giftCard.amazon.")
           ? (paymentMethod.split(".")[2] as GiftCardCountry)
           : undefined;
-        navigation.navigate("paymentMethodForm", {
+        navigation.navigateDeprecated("paymentMethodForm", {
           paymentData: {
             type: paymentMethod,
             label: i18n(`paymentMethod.${paymentMethod}`),

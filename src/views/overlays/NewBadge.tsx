@@ -22,7 +22,7 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
     );
 
   const goToProfile = () => {
-    navigation.navigate("myProfile");
+    navigation.navigateDeprecated("myProfile");
     setOverlay(undefined);
   };
 

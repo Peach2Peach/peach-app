@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, type JSX } from "react";
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { MeansOfPayment } from "../../../peach-api/src/@types/payment";
 import { Badge } from "../../components/Badge";
 import { PremiumInput } from "../../components/PremiumInput";
@@ -92,12 +92,11 @@ export function SellOfferPreferences() {
 
 function SellPreferenceMarketInfo() {
   const preferences = useOfferPreferences(
-    (state) => ({
+    useShallow((state) => ({
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.premium,
       sellAmount: state.sellAmount,
-    }),
-    shallow,
+    })),
   );
   return <MarketInfo type="buyOffers" {...preferences} />;
 }
@@ -213,11 +212,10 @@ const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, "");
 const MIN_PREMIUM_INCREMENT = 0.01;
 function Premium() {
   const preferences = useOfferPreferences(
-    (state) => ({
+    useShallow((state) => ({
       maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
       meansOfPayment: state.meansOfPayment,
-    }),
-    shallow,
+    })),
   );
   const { data } = useFilteredMarketStats({ type: "ask", ...preferences });
   return (
@@ -247,8 +245,7 @@ function PremiumInputComponent() {
 function CurrentPrice() {
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const [amount, premium] = useOfferPreferences(
-    (state) => [state.sellAmount, state.premium],
-    shallow,
+    useShallow((state) => [state.sellAmount, state.premium]),
   );
   const { fiatPrice } = useBitcoinPrices(amount);
   const priceWithPremium = useMemo(
@@ -446,22 +443,20 @@ function InstantTrade() {
     toggleBadge,
     toggleMinReputation,
   ] = useOfferPreferences(
-    (state) => [
+    useShallow((state) => [
       state.instantTrade,
       state.toggleInstantTrade,
       state.instantTradeCriteria,
       state.toggleMinTrades,
       state.toggleBadge,
       state.toggleMinReputation,
-    ],
-    shallow,
+    ]),
   );
   const [hasSeenPopup, setHasSeenPopup] = useOfferPreferences(
-    (state) => [
+    useShallow((state) => [
       state.hasSeenInstantTradePopup,
       state.setHasSeenInstantTradePopup,
-    ],
-    shallow,
+    ]),
   );
   const setPopup = useSetPopup();
   const onHelpIconPress = () => {
@@ -531,8 +526,10 @@ function InstantTrade() {
 
 function FundWithPeachWallet() {
   const [fundWithPeachWallet, setFundWithPeachWallet] = useOfferPreferences(
-    (state) => [state.fundWithPeachWallet, state.setFundWithPeachWallet],
-    shallow,
+    useShallow((state) => [
+      state.fundWithPeachWallet,
+      state.setFundWithPeachWallet,
+    ]),
   );
   const toggle = () => setFundWithPeachWallet(!fundWithPeachWallet);
   const { user } = useSelfUser();
@@ -541,7 +538,7 @@ function FundWithPeachWallet() {
   const estimatedFeeRate =
     typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
   const navigation = useStackNavigation();
-  const onPress = () => navigation.navigate("networkFees");
+  const onPress = () => navigation.navigateDeprecated("networkFees");
   return (
     <Section.Container style={tw`flex-row justify-between`}>
       <Checkbox
@@ -559,12 +556,11 @@ function FundWithPeachWallet() {
 function FundEscrowButton() {
   const amountRange = useTradingAmountLimits("sell");
   const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
-    (state) => [
+    useShallow((state) => [
       state.sellAmount,
       state.instantTrade,
       state.fundWithPeachWallet,
-    ],
-    shallow,
+    ]),
   );
   const [isPublishing, setIsPublishing] = useState(false);
 
@@ -577,12 +573,11 @@ function FundEscrowButton() {
   }
 
   const [refundToPeachWallet, refundAddress] = useSettingsStore(
-    (state) => [state.refundToPeachWallet, state.refundAddress],
-    shallow,
+    useShallow((state) => [state.refundToPeachWallet, state.refundAddress]),
   );
 
   const sellPreferences = useOfferPreferences(
-    (state) => ({
+    useShallow((state) => ({
       amount: state.sellAmount,
       premium: state.premium,
       meansOfPayment: state.meansOfPayment,
@@ -592,8 +587,7 @@ function FundEscrowButton() {
       instantTradeCriteria: state.instantTrade
         ? state.instantTradeCriteria
         : undefined,
-    }),
-    shallow,
+    })),
   );
   const paymentMethodsAreValid =
     sellPreferences.originalPaymentData.every(isValidPaymentData);
@@ -662,8 +656,10 @@ function FundEscrowButton() {
 
   const queryClient = useQueryClient();
   const [registerFundMultiple, getFundMultipleByOfferId] = useWalletState(
-    (state) => [state.registerFundMultiple, state.getFundMultipleByOfferId],
-    shallow,
+    useShallow((state) => [
+      state.registerFundMultiple,
+      state.getFundMultipleByOfferId,
+    ]),
   );
   const { mutate: createEscrow } = useCreateEscrow();
   const navigation = useStackNavigation();
@@ -798,13 +794,12 @@ function RefundWalletSelector() {
     refundAddressLabel,
     setRefundToPeachWallet,
   ] = useSettingsStore(
-    (state) => [
+    useShallow((state) => [
       state.refundToPeachWallet,
       state.refundAddress,
       state.refundAddressLabel,
       state.setRefundToPeachWallet,
-    ],
-    shallow,
+    ]),
   );
   const navigation = useStackNavigation();
 
@@ -812,7 +807,7 @@ function RefundWalletSelector() {
     if (refundAddress) {
       setRefundToPeachWallet(false);
     } else {
-      navigation.navigate("refundAddress");
+      navigation.navigateDeprecated("refundAddress");
     }
   };
 

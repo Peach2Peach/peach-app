@@ -18,7 +18,7 @@ export const SelectCurrency = () => {
 
   const goToPaymentMethodForm = (type: PaymentMethod) => {
     const label = getPaymentMethodLabel(type);
-    navigation.navigate("paymentMethodForm", {
+    navigation.navigateDeprecated("paymentMethodForm", {
       paymentData: { type, label, currencies: [selectedCurrency] },
       origin,
     });
@@ -27,7 +27,7 @@ export const SelectCurrency = () => {
   const next = () => {
     if (selectedCurrency === "USDT") return goToPaymentMethodForm("liquid");
     if (selectedCurrency === "SAT") return goToPaymentMethodForm("lnurl");
-    return navigation.navigate("selectPaymentMethod", {
+    return navigation.navigateDeprecated("selectPaymentMethod", {
       selectedCurrency,
       origin,
     });

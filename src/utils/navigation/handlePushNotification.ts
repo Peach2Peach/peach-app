@@ -24,22 +24,22 @@ export const handlePushNotification = async (
 ) => {
   if (shouldGoToContract(data)) {
     const { contractId } = data;
-    navigationRef.navigate("contract", { contractId });
+    navigationRef.navigateDeprecated("contract", { contractId });
   } else if (shouldGoToContractChat(data)) {
     const { contractId } = data;
-    navigationRef.navigate("contractChat", { contractId });
+    navigationRef.navigateDeprecated("contractChat", { contractId });
   } else if (shouldGoToYourTradesSell(data)) {
-    navigationRef.navigate("homeScreen", {
+    navigationRef.navigateDeprecated("homeScreen", {
       screen: "yourTrades",
       params: { tab: "yourTrades.sell" },
     });
   } else if (shouldGoToYourTradesBuy(data)) {
-    navigationRef.navigate("homeScreen", {
+    navigationRef.navigateDeprecated("homeScreen", {
       screen: "yourTrades",
       params: { tab: "yourTrades.buy" },
     });
   } else if (shouldGoToSell(data)) {
-    navigationRef.navigate("homeScreen", { screen: "home" });
+    navigationRef.navigateDeprecated("homeScreen", { screen: "home" });
   } else if (isDefined(data.offerId)) {
     const { result: offer } = await peachAPI.private.offer.getOfferDetails({
       offerId: data.offerId,
@@ -52,12 +52,12 @@ export const handlePushNotification = async (
       )
     ) {
       if (offer && isBuyOffer(offer)) {
-        navigationRef.navigate("explore", { offerId });
+        navigationRef.navigateDeprecated("explore", { offerId });
       } else {
-        navigationRef.navigate("search", { offerId });
+        navigationRef.navigateDeprecated("search", { offerId });
       }
     } else {
-      navigationRef.navigate("offer", { offerId });
+      navigationRef.navigateDeprecated("offer", { offerId });
     }
   } else {
     return false;

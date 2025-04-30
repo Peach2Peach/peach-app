@@ -17,7 +17,7 @@ jest.mock("@react-navigation/material-top-tabs", () => {
   return {
     createMaterialTopTabNavigator: jest.fn(() => ({
       Navigator: (props: Attributes) => createElement("Navigator", props),
-      Screen: (props: { children: () => ReactElement }) =>
+      Screen: (props: { children: () => ReactElement<any> }) =>
         createElement("Screen", props, props.children()),
     })),
   };

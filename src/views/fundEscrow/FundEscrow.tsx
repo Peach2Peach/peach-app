@@ -130,7 +130,8 @@ function FundEscrowHeader() {
   const navigation = useStackNavigation();
 
   const { offerId } = useRoute<"fundEscrow">().params;
-  const goToPreferences = () => navigation.navigate("editPremium", { offerId });
+  const goToPreferences = () =>
+    navigation.navigateDeprecated("editPremium", { offerId });
   const fundMultiple = useWalletState((state) =>
     state.getFundMultipleByOfferId(offerId),
   );

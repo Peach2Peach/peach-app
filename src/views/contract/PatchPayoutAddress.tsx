@@ -1,4 +1,4 @@
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -51,12 +51,11 @@ function PatchOfferAddress({
 
   const [payoutAddress, payoutAddressLabel, messageSignature] =
     useSettingsStore(
-      (state) => [
+      useShallow((state) => [
         state.payoutAddress,
         state.payoutAddressLabel,
         state.payoutAddressSignature,
-      ],
-      shallow,
+      ]),
     );
 
   const defaultLabel =

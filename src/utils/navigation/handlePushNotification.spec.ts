@@ -28,7 +28,7 @@ describe("handlePushNotification", () => {
 
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("contract", {
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith("contract", {
       contractId: "1",
     });
   });
@@ -45,7 +45,7 @@ describe("handlePushNotification", () => {
     getContractMock.mockResolvedValueOnce(responseUtils);
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("contract", {
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith("contract", {
       contract: undefined,
       contractId: "1",
     });
@@ -61,7 +61,7 @@ describe("handlePushNotification", () => {
 
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("contract", {
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith("contract", {
       contractId: "1",
     });
   });
@@ -77,9 +77,12 @@ describe("handlePushNotification", () => {
 
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("contractChat", {
-      contractId: "1",
-    });
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith(
+      "contractChat",
+      {
+        contractId: "1",
+      },
+    );
   });
 
   it("navigates to yourTrades sell when shouldGoToYourTradesSell is true", async () => {
@@ -89,10 +92,13 @@ describe("handlePushNotification", () => {
 
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("homeScreen", {
-      screen: "yourTrades",
-      params: { tab: "yourTrades.sell" },
-    });
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith(
+      "homeScreen",
+      {
+        screen: "yourTrades",
+        params: { tab: "yourTrades.sell" },
+      },
+    );
   });
 
   it("navigates to yourTrades buy when shouldGoToYourTradesBuy is true", async () => {
@@ -102,10 +108,13 @@ describe("handlePushNotification", () => {
 
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("homeScreen", {
-      screen: "yourTrades",
-      params: { tab: "yourTrades.buy" },
-    });
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith(
+      "homeScreen",
+      {
+        screen: "yourTrades",
+        params: { tab: "yourTrades.buy" },
+      },
+    );
   });
 
   it("navigates to sell when shouldGoToSell is true", async () => {
@@ -114,9 +123,12 @@ describe("handlePushNotification", () => {
     } as MessageWithData;
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("homeScreen", {
-      screen: "home",
-    });
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith(
+      "homeScreen",
+      {
+        screen: "home",
+      },
+    );
   });
 
   it("navigates to search when shouldGoToSearch is true and offer is defined", async () => {
@@ -134,7 +146,7 @@ describe("handlePushNotification", () => {
 
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("search", {
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith("search", {
       offerId: sellOffer.id,
     });
   });
@@ -149,7 +161,7 @@ describe("handlePushNotification", () => {
 
     await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith("offer", {
+    expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith("offer", {
       offerId: sellOffer.id,
     });
   });

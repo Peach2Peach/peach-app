@@ -2,6 +2,8 @@ import { View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 
+import type { JSX } from "react";
+
 type Props = {
   text: string;
   textStyle?: ViewStyle | ViewStyle[];

@@ -40,7 +40,7 @@ export function WithdrawalConfirmationPopup({
     }
     setSelectedUTXOIds([]);
     closePopup();
-    navigation.navigate("homeScreen", { screen: "wallet" });
+    navigation.navigateDeprecated("homeScreen", { screen: "wallet" });
   };
 
   return (

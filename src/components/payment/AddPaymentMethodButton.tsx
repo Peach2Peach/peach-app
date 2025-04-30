@@ -20,7 +20,9 @@ export const AddPaymentMethodButton = ({ isCash }: Props) => {
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { data: meetupEvents, isLoading } = useMeetupEvents();
   const addPaymentMethods = () => {
-    navigation.navigate("selectCurrency", { origin: "paymentMethods" });
+    navigation.navigateDeprecated("selectCurrency", {
+      origin: "paymentMethods",
+    });
   };
 
   const goToEventDetails = (eventID: string) => {

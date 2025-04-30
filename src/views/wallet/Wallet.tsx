@@ -66,10 +66,10 @@ function WalletButtons() {
   useUTXOs();
 
   const goToSend = () => {
-    navigation.navigate("sendBitcoin");
+    navigation.navigateDeprecated("sendBitcoin");
   };
   const goToReceive = () => {
-    navigation.navigate("receiveBitcoin");
+    navigation.navigateDeprecated("receiveBitcoin");
   };
   return (
     <View

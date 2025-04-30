@@ -3,6 +3,8 @@ import { Wallet } from "../wallet/Wallet";
 import { YourTrades } from "../yourTrades/YourTrades";
 import { Home } from "./Home";
 
+import type { JSX } from "react";
+
 export const homeTabNames = [
   "home",
   "wallet",

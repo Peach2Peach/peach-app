@@ -1,4 +1,4 @@
-import { LegacyRef, forwardRef } from "react";
+import { Ref, forwardRef } from "react";
 import { TextInput, TextInputProps, View } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -10,7 +10,7 @@ type Props = Omit<TextInputProps, "onChange"> & {
 };
 
 export const PercentageInput = forwardRef(
-  ({ onChange, ...props }: Props, ref: LegacyRef<TextInput> | undefined) => {
+  ({ onChange, ...props }: Props, ref: Ref<TextInput> | undefined) => {
     const { isDarkMode } = useThemeStore();
 
     return (

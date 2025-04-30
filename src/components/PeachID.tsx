@@ -16,7 +16,7 @@ export function PeachID({ id, copyable = false }: Props) {
   const { isDarkMode } = useThemeStore();
 
   const goToUserProfile = () =>
-    navigation.navigate("publicProfile", { userId: id });
+    navigation.navigateDeprecated("publicProfile", { userId: id });
 
   const copyRef = useRef<CopyAbleRef>(null);
 

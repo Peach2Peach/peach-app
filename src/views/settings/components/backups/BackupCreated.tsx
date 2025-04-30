@@ -12,7 +12,7 @@ export const BackupCreated = () => {
   const setOverlay = useSetGlobalOverlay();
   const goToFileBackup = () => {
     setOverlay(undefined);
-    navigation.navigate("backups");
+    navigation.navigateDeprecated("backups");
   };
   return (
     <>

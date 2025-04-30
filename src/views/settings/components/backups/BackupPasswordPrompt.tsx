@@ -1,7 +1,7 @@
+import * as RNFS from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import { useMemo, useRef, useState } from "react";
 import { Keyboard, TextInput, View } from "react-native";
-import RNFS from "react-native-fs";
 import Share from "react-native-share";
 import { useSetGlobalOverlay } from "../../../../Overlay";
 import { PeachScrollView } from "../../../../components/PeachScrollView";
@@ -21,9 +21,7 @@ import { info } from "../../../../utils/log/info";
 import { parseError } from "../../../../utils/parseError";
 import { BackupCreated } from "./BackupCreated";
 
-type Props = {
-  toggle: () => void;
-};
+type Props = { toggle: () => void };
 
 const passwordRules = { required: true, password: true };
 
@@ -137,7 +135,9 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
           />
           <PasswordInput
             placeholder={i18n("form.repeatpassword.placeholder")}
-            reference={(el) => ($passwordRepeat = el)}
+            reference={(el) => {
+              $passwordRepeat = el;
+            }}
             onChangeText={setPasswordRepeat}
             onSubmitEditing={(e) => setPasswordRepeat(e.nativeEvent.text)}
             value={passwordRepeat}

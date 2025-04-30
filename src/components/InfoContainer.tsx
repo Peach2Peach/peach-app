@@ -3,6 +3,8 @@ import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { FixedHeightText } from "./text/FixedHeightText";
 
+import type { JSX } from "react";
+
 type InfoContainerProps = {
   text: string;
   icon: JSX.Element;

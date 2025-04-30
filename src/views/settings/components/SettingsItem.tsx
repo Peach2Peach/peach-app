@@ -47,7 +47,9 @@ export const SettingsItem = ({
   iconSize,
 }: SettingsItemProps) => {
   const navigation = useStackNavigation();
-  const onPress = pressAction ? pressAction : () => navigation.navigate(title);
+  const onPress = pressAction
+    ? pressAction
+    : () => navigation.navigateDeprecated(title);
   const { isDarkMode } = useThemeStore();
   const iconColor = warning
     ? tw.color("error-main")

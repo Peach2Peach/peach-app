@@ -35,8 +35,10 @@ export function Search() {
     <Screen style={tw`px-0`} header={<ExploreHeader />}>
       <OfferTab.Navigator
         initialRouteName="acceptTrade"
-        screenOptions={fullScreenTabNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          sceneStyle: [tw`px-sm`, tw`md:px-md`],
+        }}
       >
         <OfferTab.Screen
           name="acceptTrade"
@@ -108,7 +110,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
                 instantTrade={item.instantTrade}
                 tradeRequested={item.matched}
                 onPress={() => {
-                  navigation.navigate("tradeRequestForSellOffer", {
+                  navigation.navigateDeprecated("tradeRequestForSellOffer", {
                     userId: item.user.id,
                     offerId,
                     amount: item.amount,
@@ -173,7 +175,7 @@ function TradeRequestSummaryCard({
     return <ActivityIndicator />;
   }
   const onPress = () =>
-    navigation.navigate("tradeRequestForSellOffer", {
+    navigation.navigateDeprecated("tradeRequestForSellOffer", {
       userId,
       offerId,
       amount: offer?.amount as number,
@@ -208,7 +210,8 @@ function ExploreHeader() {
   const { offerId } = useRoute<"explore">().params;
   const setPopup = useSetPopup();
 
-  const goToPreferences = () => navigation.navigate("editPremium", { offerId });
+  const goToPreferences = () =>
+    navigation.navigateDeprecated("editPremium", { offerId });
 
   const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />);
 

@@ -24,18 +24,21 @@ export const AboutPeach = () => {
     {
       title: "peachFees",
       onPress: useCallback(
-        () => navigation.navigate("peachFees"),
+        () => navigation.navigateDeprecated("peachFees"),
         [navigation],
       ),
     },
     {
       title: "socials",
-      onPress: useCallback(() => navigation.navigate("socials"), [navigation]),
+      onPress: useCallback(
+        () => navigation.navigateDeprecated("socials"),
+        [navigation],
+      ),
     },
     {
       title: "bitcoinProducts",
       onPress: useCallback(
-        () => navigation.navigate("bitcoinProducts"),
+        () => navigation.navigateDeprecated("bitcoinProducts"),
         [navigation],
       ),
     },

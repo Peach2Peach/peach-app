@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Badge } from "../../components/Badge";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
@@ -69,13 +69,12 @@ function PreferenceWalletSelector() {
     payoutAddressLabel,
     setPayoutToPeachWallet,
   ] = useSettingsStore(
-    (state) => [
+    useShallow((state) => [
       state.payoutToPeachWallet,
       state.payoutAddress,
       state.payoutAddressLabel,
       state.setPayoutToPeachWallet,
-    ],
-    shallow,
+    ]),
   );
   const navigation = useStackNavigation();
 
@@ -83,7 +82,7 @@ function PreferenceWalletSelector() {
     if (payoutAddress) {
       setPayoutToPeachWallet(false);
     } else {
-      navigation.navigate("payoutAddress");
+      navigation.navigateDeprecated("payoutAddress");
     }
   };
 
@@ -100,7 +99,7 @@ function PreferenceWalletSelector() {
 }
 function PreferenceMarketInfo() {
   const offerPreferenes = useOfferPreferences(
-    (state) => ({
+    useShallow((state) => ({
       buyAmountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
@@ -111,8 +110,7 @@ function PreferenceMarketInfo() {
         CLIENT_RATING_RANGE,
         SERVER_RATING_RANGE,
       ),
-    }),
-    shallow,
+    })),
   );
   return <MarketInfo type="sellOffers" {...offerPreferenes} />;
 }
@@ -123,8 +121,7 @@ function AmountSelector({
   setIsSliding: (isSliding: boolean) => void;
 }) {
   const [buyAmountRange, setBuyAmountRange] = useOfferPreferences(
-    (state) => [state.buyAmountRange, state.setBuyAmountRange],
-    shallow,
+    useShallow((state) => [state.buyAmountRange, state.setBuyAmountRange]),
   );
 
   return (
@@ -148,7 +145,7 @@ function PublishOfferButton() {
     originalPaymentData,
     multi,
   } = useOfferPreferences(
-    (state) => ({
+    useShallow((state) => ({
       amountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
@@ -164,8 +161,7 @@ function PublishOfferButton() {
       instantTradeCriteria: state.instantTradeCriteria,
       originalPaymentData: state.originalPaymentData,
       multi: state.multi,
-    }),
-    shallow,
+    })),
   );
 
   const methodsAreValid =
@@ -274,22 +270,20 @@ function InstantTrade() {
     toggleBadge,
     toggleMinReputation,
   ] = useOfferPreferences(
-    (state) => [
+    useShallow((state) => [
       state.instantTrade,
       state.toggleInstantTrade,
       state.instantTradeCriteria,
       state.toggleMinTrades,
       state.toggleBadge,
       state.toggleMinReputation,
-    ],
-    shallow,
+    ]),
   );
   const [hasSeenPopup, setHasSeenPopup] = useOfferPreferences(
-    (state) => [
+    useShallow((state) => [
       state.hasSeenInstantTradePopup,
       state.setHasSeenInstantTradePopup,
-    ],
-    shallow,
+    ]),
   );
   const setPopup = useSetPopup();
   const onHelpIconPress = () => {

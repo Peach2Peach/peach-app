@@ -1,4 +1,4 @@
-import RNFS from "react-native-fs";
+import * as RNFS from "@dr.pogodin/react-native-fs";
 import { appendFile } from "./appendFile";
 
 describe("appendFile", () => {

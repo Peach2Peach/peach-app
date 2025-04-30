@@ -3,6 +3,8 @@ import tw from "../styles/tailwind";
 import { PeachText } from "./text/PeachText";
 import { HorizontalLine } from "./ui/HorizontalLine";
 
+import type { JSX } from "react";
+
 type Props = {
   text?: string;
   icon?: JSX.Element;

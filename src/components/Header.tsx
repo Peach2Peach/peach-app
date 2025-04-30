@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Style } from "twrnc";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { IconType } from "../assets/icons";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../hooks/useStackNavigation";
@@ -24,6 +24,8 @@ import { TouchableIcon } from "./TouchableIcon";
 import { BTCAmount } from "./bitcoin/BTCAmount";
 import { PeachText } from "./text/PeachText";
 import { PriceFormat } from "./text/PriceFormat";
+
+import type { JSX } from "react";
 
 export type HeaderIcon = {
   id: IconType;
@@ -261,8 +263,7 @@ function Tickers({ type = "sell" }: TickerProps) {
 function CurrencyScrollView() {
   const [showCurrencies, toggle] = useToggleBoolean();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
-    (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
+    useShallow((state) => [state.displayCurrency, state.setDisplayCurrency]),
   );
   const { isDarkMode } = useThemeStore();
 

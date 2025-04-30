@@ -16,7 +16,7 @@ export const OfferPublished = ({
   const setOverlay = useSetGlobalOverlay();
   const closeOverlay = () => setOverlay(undefined);
   const goBackHome = () => {
-    navigation.navigate("homeScreen", { screen: "home" });
+    navigation.navigateDeprecated("homeScreen", { screen: "home" });
     closeOverlay();
   };
   const goToOffer = () => {

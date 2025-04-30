@@ -33,7 +33,7 @@ function HelpPopupAction({ title }: { title?: string }) {
   const closePopup = useClosePopup();
   const goToHelp = useCallback(() => {
     closePopup();
-    navigation.navigate("report", { topic: title, reason: "other" });
+    navigation.navigateDeprecated("report", { topic: title, reason: "other" });
   }, [closePopup, navigation, title]);
   return <PopupAction label={i18n("help")} iconId="info" onPress={goToHelp} />;
 }

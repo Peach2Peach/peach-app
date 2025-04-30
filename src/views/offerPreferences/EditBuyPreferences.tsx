@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { createContext, memo, useContext, useReducer, useState } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { premiumBounds } from "../../components/PremiumInput";
 import { PremiumTextInput } from "../../components/PremiumTextInput";
 import { Screen } from "../../components/Screen";
@@ -153,13 +153,12 @@ function OfferWalletSelector({
     messageSignature,
     setPayoutToPeachWallet,
   ] = useSettingsStore(
-    (state) => [
+    useShallow((state) => [
       state.payoutAddress,
       state.payoutAddressLabel,
       state.payoutAddressSignature,
       state.setPayoutToPeachWallet,
-    ],
-    shallow,
+    ]),
   );
   const addressIsInPeachWallet = useIsMyAddress(releaseAddress);
   const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId);
@@ -190,7 +189,7 @@ function OfferWalletSelector({
   const onExternalWalletPress = () => {
     if (!addressIsInPeachWallet) return;
     if (!payoutAddress || !payoutAddressLabel) {
-      navigation.navigate("patchPayoutAddress", { offerId });
+      navigation.navigateDeprecated("patchPayoutAddress", { offerId });
       return;
     }
     const message = getMessageToSignForAddress(publicKey, payoutAddress);
@@ -203,7 +202,7 @@ function OfferWalletSelector({
         network: getNetwork(),
       })
     ) {
-      navigation.navigate("signMessage", {
+      navigation.navigateDeprecated("signMessage", {
         address: payoutAddress,
         addressLabel: payoutAddressLabel,
         offerId,
@@ -304,16 +303,11 @@ const MaxPremiumFilter = memo(() => {
   const [{ maxPremium }, dispatch] = usePreferenceContext();
 
   function handlePremiumChange(newPremium: number) {
-    dispatch({
-      type: "premium_changed",
-      premium: newPremium,
-    });
+    dispatch({ type: "premium_changed", premium: newPremium });
   }
 
   function handleToggle() {
-    dispatch({
-      type: "max_premium_toggled",
-    });
+    dispatch({ type: "max_premium_toggled" });
   }
 
   const onCheckboxPress = () => {

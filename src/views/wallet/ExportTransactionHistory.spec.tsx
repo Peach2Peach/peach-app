@@ -1,4 +1,4 @@
-import RNFS from "react-native-fs";
+import * as RNFS from "@dr.pogodin/react-native-fs";
 import Share from "react-native-share";
 import { fireEvent, render, waitFor } from "test-utils";
 import { ExportTransactionHistory } from "./ExportTransactionHistory";

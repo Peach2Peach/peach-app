@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { getSelectedPaymentDataIds } from "../../../utils/account/getSelectedPaymentDataIds";
@@ -8,13 +8,14 @@ import { peachAPI } from "../../../utils/peachAPI";
 
 export function useRemovePaymentData() {
   const [paymentData, removePaymentDataFromStore] = usePaymentDataStore(
-    (state) => [state.paymentData, state.removePaymentData],
-    shallow,
+    useShallow((state) => [state.paymentData, state.removePaymentData]),
   );
 
   const [preferredPaymentMethods, setPaymentMethods] = useOfferPreferences(
-    (state) => [state.preferredPaymentMethods, state.setPaymentMethods],
-    shallow,
+    useShallow((state) => [
+      state.preferredPaymentMethods,
+      state.setPaymentMethods,
+    ]),
   );
 
   return useMutation({

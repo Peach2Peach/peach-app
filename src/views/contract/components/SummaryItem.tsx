@@ -1,5 +1,5 @@
 import Clipboard from "@react-native-clipboard/clipboard";
-import { useRef } from "react";
+import { useRef, type JSX } from "react";
 import { Animated, TextProps, View } from "react-native";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import { PeachText } from "../../../components/text/PeachText";

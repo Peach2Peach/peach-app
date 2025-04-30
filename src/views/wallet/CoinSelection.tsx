@@ -134,7 +134,7 @@ function ConfirmButton({ selectedUTXOIds }: { selectedUTXOIds: string[] }) {
 
   const onPress = () => {
     setSelectedUTXOIds(selectedUTXOIds);
-    navigation.navigate("sendBitcoin");
+    navigation.popTo("sendBitcoin");
   };
   return (
     <Button style={tw`self-center`} onPress={onPress}>

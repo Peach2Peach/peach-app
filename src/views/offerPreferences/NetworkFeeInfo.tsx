@@ -16,7 +16,7 @@ export function NetworkFeeInfo({ type }: { type: "buy" | "sell" }) {
   const estimatedFeeRate =
     typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
   const navigation = useStackNavigation();
-  const onPress = () => navigation.navigate("networkFees");
+  const onPress = () => navigation.navigateDeprecated("networkFees");
   if (!estimatedFeeRate || (user?.isBatchingEnabled && type === "buy"))
     return null;
   return (

@@ -67,7 +67,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
       { reason, email, message },
       {
         onSuccess: () => {
-          navigation.navigate("contractChat", { contractId });
+          navigation.navigateDeprecated("contractChat", { contractId });
           setPopup(
             <DisputeRaisedSuccess
               view={contract.seller.id === publicKey ? "seller" : "buyer"}
@@ -100,7 +100,9 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
           <Input value={i18n(`dispute.reason.${reason}`)} disabled />
           <Input
             style={tw`h-40`}
-            reference={(el) => ($message = el)}
+            reference={(el) => {
+              $message = el;
+            }}
             onChangeText={setMessage}
             value={message}
             multiline={true}

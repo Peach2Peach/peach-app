@@ -1,4 +1,4 @@
-import RNFS from "react-native-fs";
+import * as RNFS from "@dr.pogodin/react-native-fs";
 import { encrypt } from "../crypto/encrypt";
 import { error } from "../log/error";
 import { info } from "../log/info";

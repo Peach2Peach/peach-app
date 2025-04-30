@@ -44,7 +44,7 @@ export const useGlobalHandlers = () => {
       msgKey: err.message || "GENERAL_ERROR",
       color: "red",
       action: {
-        onPress: () => navigation.navigate("contact"),
+        onPress: () => navigation.navigateDeprecated("contact"),
         label: i18n("contactUs"),
         iconId: "mail",
       },
@@ -66,7 +66,7 @@ export const useGlobalHandlers = () => {
       msgKey: errorMsgKey || "GENERAL_ERROR",
       color: "red",
       action: {
-        onPress: () => navigation.navigate("contact"),
+        onPress: () => navigation.navigateDeprecated("contact"),
         label: i18n("contactUs"),
         iconId: "mail",
       },

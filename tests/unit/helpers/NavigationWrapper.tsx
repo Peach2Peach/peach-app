@@ -18,14 +18,8 @@ const setOptionsMock = jest.fn();
 export const getStateMock = jest.fn(
   (): NavigationState<RootStackParamList> => ({
     routes: [
-      {
-        key: "homeScreen",
-        name: "homeScreen",
-      },
-      {
-        key: "meetupScreen",
-        name: "meetupScreen",
-      },
+      { key: "homeScreen", name: "homeScreen" },
+      { key: "meetupScreen", name: "meetupScreen" },
     ],
     index: 1,
     key: "key",
@@ -38,6 +32,8 @@ const dispatchMock = jest.fn();
 const getIdMock = jest.fn();
 const getParentMock = jest.fn();
 const removeListenerMock = jest.fn();
+const preloadMock = jest.fn();
+const setStateForNextRouteNamesChangeMock = jest.fn();
 
 export const navigationMock = {
   navigate: navigateMock,
@@ -55,6 +51,9 @@ export const navigationMock = {
   getId: getIdMock,
   getParent: getParentMock,
   removeListener: removeListenerMock,
+  navigateDeprecated: navigateMock,
+  preload: preloadMock,
+  setStateForNextRouteNamesChange: setStateForNextRouteNamesChangeMock,
 };
 
 type RouteMock<T extends keyof RootStackParamList = "homeScreen"> = {
@@ -62,19 +61,13 @@ type RouteMock<T extends keyof RootStackParamList = "homeScreen"> = {
   name: T;
   path?: string;
 } & (undefined extends RootStackParamList[T]
-  ? {
-      params?: RootStackParamList[T];
-    }
-  : {
-      params: RootStackParamList[T];
-    });
+  ? { params?: RootStackParamList[T] }
+  : { params: RootStackParamList[T] });
 
 export let routeMock: RouteMock<keyof RootStackParamList> = {
   key: "homeScreen",
   name: "homeScreen",
-  params: {
-    screen: "home",
-  },
+  params: { screen: "home" },
 };
 export const setRouteMock = <T extends keyof RootStackParamList = "homeScreen">(
   route: RouteMock<T>,

@@ -35,7 +35,7 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
       await mutateAsync([item.offerId]);
     }
 
-    navigation.navigate(...destination);
+    navigation.navigateDeprecated(...destination);
   }, [item, mutateAsync, navigation, queryClient, showStartRefundPopup]);
 
   return navigateToOfferOrContract;

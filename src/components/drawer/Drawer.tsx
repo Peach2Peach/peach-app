@@ -9,7 +9,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PeachScrollView } from "../PeachScrollView";
@@ -30,7 +30,7 @@ const SEVENTY_FIVE_PERCENT = 0.75;
 
 export const Drawer = () => {
   const [{ content, show, onClose, options, previousDrawer }, updateDrawer] =
-    useDrawerState((state) => [state, state.updateDrawer], shallow);
+    useDrawerState(useShallow((state) => [state, state.updateDrawer]));
   const { height } = useWindowDimensions();
   const slideAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -115,11 +115,10 @@ export const Drawer = () => {
 
 function DrawerOptions() {
   const { content, options } = useDrawerState(
-    (state) => ({
+    useShallow((state) => ({
       content: state.content,
       options: state.options,
-    }),
-    shallow,
+    })),
   );
   const $scroll = useRef<ScrollView>(null);
 

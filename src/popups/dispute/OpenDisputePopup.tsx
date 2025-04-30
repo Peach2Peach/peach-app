@@ -15,7 +15,7 @@ export function OpenDisputePopup({ contractId }: { contractId: string }) {
 
   const ok = useCallback(() => {
     closePopup();
-    navigation.navigate("disputeReasonSelector", { contractId });
+    navigation.navigateDeprecated("disputeReasonSelector", { contractId });
   }, [closePopup, contractId, navigation]);
 
   return (

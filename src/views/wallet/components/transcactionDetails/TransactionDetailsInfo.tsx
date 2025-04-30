@@ -38,10 +38,7 @@ export const TransactionDetailsInfo = ({
 }: Props) => {
   const { confirmed, height, date } = transactionSummary;
   const { receivingAddress, canBumpFees, goToBumpNetworkFees, openInExplorer } =
-    useTransactionDetailsInfoSetup({
-      transactionDetails,
-      transactionSummary,
-    });
+    useTransactionDetailsInfoSetup({ transactionDetails, transactionSummary });
   const addressParts =
     receivingAddress && getBitcoinAddressParts(receivingAddress);
   const isMediumScreen = useIsMediumScreen();
@@ -139,9 +136,7 @@ function getOfferDataId({ contractId, offerId }: OfferData) {
 
 const Tab = createMaterialTopTabNavigator();
 
-type OutputInfoProps = {
-  transactionSummary: TransactionSummary;
-};
+type OutputInfoProps = { transactionSummary: TransactionSummary };
 export function OfferData({
   transactionSummary: { type, offerData },
 }: OutputInfoProps) {
@@ -157,7 +152,7 @@ export function OfferData({
     return (
       <Tab.Navigator
         style={{ height: tabsHeight }}
-        sceneContainerStyle={tw`pt-4`}
+        screenOptions={{ sceneStyle: tw`pt-4` }}
         initialRouteName={getOfferDataId(offerData[0])}
         tabBar={TabBar}
       >

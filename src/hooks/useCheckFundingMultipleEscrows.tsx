@@ -1,6 +1,6 @@
 import { LocalUtxo } from "bdk-rn/lib/classes/Bindings";
 import { useCallback } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { SellOfferSummary } from "../../peach-api/src/@types/offer";
 import { MSINAMINUTE } from "../constants";
 import { estimateTransactionSize } from "../utils/bitcoin/estimateTransactionSize";
@@ -38,8 +38,10 @@ const getAmountAfterFees = (
 
 export const useCheckFundingMultipleEscrows = () => {
   const [fundMultipleMap, unregisterFundMultiple] = useWalletState(
-    (state) => [state.fundMultipleMap, state.unregisterFundMultiple],
-    shallow,
+    useShallow((state) => [
+      state.fundMultipleMap,
+      state.unregisterFundMultiple,
+    ]),
   );
 
   const handleTransactionError = useHandleTransactionError();

@@ -20,7 +20,7 @@ export function UserCard({
 }) {
   const navigation = useStackNavigation();
   const goToUserProfile = () => {
-    navigation.navigate("publicProfile", { userId: user.id });
+    navigation.navigateDeprecated("publicProfile", { userId: user.id });
   };
   return (
     <View

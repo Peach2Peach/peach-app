@@ -38,7 +38,7 @@ export const Contact = () => {
     setPopup(<HelpPopup id="contactEncryption" showTitle={false} />);
 
   const goToReport = (reason: ContactReason) => {
-    navigation.navigate("report", {
+    navigation.navigateDeprecated("report", {
       reason,
       topic: i18n(`contact.reason.${reason}`),
     });

@@ -11,13 +11,15 @@ export const useGetPNActionHandler = () => {
           return {
             label: i18n("goToChat"),
             iconId: "arrowLeftCircle" as const,
-            onPress: () => navigation.navigate("contractChat", { contractId }),
+            onPress: () =>
+              navigation.navigateDeprecated("contractChat", { contractId }),
           };
         }
         return {
           label: i18n("goToContract"),
           iconId: "arrowLeftCircle" as const,
-          onPress: () => navigation.navigate("contract", { contractId }),
+          onPress: () =>
+            navigation.navigateDeprecated("contract", { contractId }),
         };
       }
       if (offerId && type) {
@@ -25,21 +27,22 @@ export const useGetPNActionHandler = () => {
           return {
             label: i18n("goToOffer"),
             iconId: "arrowLeftCircle" as const,
-            onPress: () => navigation.navigate("offer", { offerId }),
+            onPress: () => navigation.navigateDeprecated("offer", { offerId }),
           };
         }
         if (type === "offer.matchSeller") {
           return {
             label: i18n("goToOffer"),
             iconId: "arrowLeftCircle" as const,
-            onPress: () => navigation.navigate("search", { offerId }),
+            onPress: () => navigation.navigateDeprecated("search", { offerId }),
           };
         }
         if (type === "offer.matchBuyer") {
           return {
             label: i18n("goToOffer"),
             iconId: "arrowLeftCircle" as const,
-            onPress: () => navigation.navigate("explore", { offerId }),
+            onPress: () =>
+              navigation.navigateDeprecated("explore", { offerId }),
           };
         }
       }

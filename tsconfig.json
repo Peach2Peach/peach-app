@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
     "jsx": "react-jsx",
     "typeRoots": ["./src/@types", "./node_modules/@types"],
@@ -12,20 +12,20 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["dom", "dom.iterable", "es2015", "es2016", "esnext"],
     "allowJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "noEmit": true,
-    "paths": {
-      "test-utils": ["./tests/unit/helpers/test-utils"]
-    }
+    "paths": { "test-utils": ["./tests/unit/helpers/test-utils"] },
+    "types": ["react"],
   },
+  "extends": "@react-native/typescript-config/tsconfig.json",
   "include": [
     "src",
     "@types",
     "tests",
     "tailwind.config.js",
     "index.js",
-    "peach-api"
+    "peach-api",
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
