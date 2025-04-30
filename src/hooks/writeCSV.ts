@@ -1,4 +1,4 @@
-import RNFS from "react-native-fs";
+import * as RNFS from "@dr.pogodin/react-native-fs";
 import Share from "react-native-share";
 import { writeFile } from "../utils/file/writeFile";
 import { info } from "../utils/log/info";

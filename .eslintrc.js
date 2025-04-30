@@ -5,10 +5,9 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
+    "@react-native",
   ],
-  env: {
-    "jest/globals": true,
-  },
+  env: { "jest/globals": true },
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "react-hooks"],
   parserOptions: {
@@ -16,12 +15,7 @@ module.exports = {
     sourceType: "module",
     project: "./tsconfig.json",
   },
-  globals: {
-    self: true,
-    caches: true,
-    jest: true,
-    Buffer: true,
-  },
+  globals: { self: true, caches: true, jest: true, Buffer: true },
   ignorePatterns: [
     "tests/unit/data/*.ts",
     ".eslintrc.js",
@@ -54,12 +48,7 @@ module.exports = {
     "default-case": "error",
     "default-case-last": "error",
     "default-param-last": "error",
-    "dot-notation": [
-      "error",
-      {
-        allowKeywords: true,
-      },
-    ],
+    "dot-notation": ["error", { allowKeywords: true }],
     eqeqeq: "error",
     "func-name-matching": "error",
     "func-names": "error",
@@ -90,6 +79,7 @@ module.exports = {
     "no-constructor-return": "error",
     "no-continue": "error",
     "no-div-regex": "error",
+    "no-dupe-class-members": "off",
     "no-duplicate-imports": "error",
     "no-else-return": "error",
     "no-empty-function": "off",
@@ -206,6 +196,7 @@ module.exports = {
     "prefer-template": "warn",
     "prettier/prettier": "off",
     "quote-props": "off",
+    quotes: "off",
     radix: "error",
     "require-atomic-updates": "error",
     "require-await": "warn",
@@ -229,9 +220,7 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/consistent-type-assertions": [
       "warn",
-      {
-        assertionStyle: "never",
-      },
+      { assertionStyle: "never" },
     ],
     "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/await-thenable": "error",
@@ -246,11 +235,6 @@ module.exports = {
     "react-native/no-inline-styles": "off",
   },
   overrides: [
-    {
-      files: ["src/utils/log/*.ts"],
-      rules: {
-        "no-console": "off",
-      },
-    },
+    { files: ["src/utils/log/*.ts"], rules: { "no-console": "off" } },
   ],
 };

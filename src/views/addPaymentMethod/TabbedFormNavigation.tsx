@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type JSX } from "react";
 import { Control, FieldError } from "react-hook-form";
 import { TouchableOpacity, View, ViewStyle } from "react-native";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";

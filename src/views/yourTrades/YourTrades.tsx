@@ -43,8 +43,10 @@ export const YourTrades = () => {
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || "yourTrades.buy"}
-        screenOptions={fullScreenTabNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          sceneStyle: [tw`px-sm`, tw`md:px-md`],
+        }}
       >
         {tabs.map((tab) => (
           <YourTradesTab.Screen
@@ -113,7 +115,7 @@ function TabBarBadge({
 function YourTradesHeader() {
   const navigation = useStackNavigation();
   const onPress = () => {
-    navigation.navigate("exportTradeHistory");
+    navigation.navigateDeprecated("exportTradeHistory");
   };
   return (
     <Header
@@ -140,7 +142,7 @@ export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {
   return data.length !== 0 && title !== "priority" ? (
-    <LinedText style={tw`pb-7 bg-transparent`}>
+    <LinedText style={tw`bg-transparent pb-7`}>
       <PeachText style={tw`text-black-50`}>
         {i18n(`yourTrades.${title}`)}
       </PeachText>

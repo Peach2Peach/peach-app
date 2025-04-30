@@ -8,7 +8,7 @@ import { PeachText } from "../text/PeachText";
 export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   const items = state.routes;
   const selected = items[state.index].name;
-  const select = navigation.navigate;
+  const select = navigation.navigateDeprecated;
   const colors = {
     text: tw`text-black-65`,
     textSelected: tw`text-black-100`,
@@ -27,7 +27,7 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
           <TouchableOpacity
             style={tw`shrink`}
             key={item.key + item.name}
-            onPress={() => select(item)}
+            onPress={() => select(item.name)}
           >
             <PeachText
               style={[

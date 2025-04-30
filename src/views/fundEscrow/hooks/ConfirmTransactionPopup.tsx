@@ -1,5 +1,5 @@
 import { PartiallySignedTransaction } from "bdk-rn";
-import { useCallback } from "react";
+import { useCallback, type JSX } from "react";
 import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";

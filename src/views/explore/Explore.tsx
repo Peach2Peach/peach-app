@@ -40,8 +40,10 @@ export function Explore() {
     <Screen style={tw`px-0`} header={<ExploreHeader />}>
       <OfferTab.Navigator
         initialRouteName="acceptTrade"
-        screenOptions={fullScreenTabNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          sceneStyle: [tw`px-sm`, tw`md:px-md`],
+        }}
       >
         <OfferTab.Screen
           name="acceptTrade"
@@ -125,7 +127,7 @@ function TradeRequestSummaryCard({
     return <ActivityIndicator />;
   }
   const onPress = () =>
-    navigation.navigate("tradeRequestForBuyOffer", {
+    navigation.navigateDeprecated("tradeRequestForBuyOffer", {
       userId,
       offerId,
       amount,
@@ -175,7 +177,10 @@ function ExploreCard({ match, offerId }: { match: Match; offerId: string }) {
   const { fiatPrice } = useBitcoinPrices(amount);
   const navigation = useStackNavigation();
   const onPress = () => {
-    navigation.navigate("matchDetails", { matchId: match.offerId, offerId });
+    navigation.navigateDeprecated("matchDetails", {
+      matchId: match.offerId,
+      offerId,
+    });
   };
 
   return (
@@ -255,7 +260,7 @@ function ExploreHeader() {
 
   const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />);
   const goToPreferences = () =>
-    navigation.navigate("editBuyPreferences", { offerId });
+    navigation.navigateDeprecated("editBuyPreferences", { offerId });
 
   return (
     <Header

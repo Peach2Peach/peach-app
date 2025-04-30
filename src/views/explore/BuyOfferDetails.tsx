@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { TradeRequest } from "../../../peach-api/src/private/offer/getTradeRequest";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -154,8 +154,7 @@ function RequestTradeAction({
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
 
   const [refundToPeachWallet, refundAddress] = useSettingsStore(
-    (state) => [state.refundToPeachWallet, state.refundAddress],
-    shallow,
+    useShallow((state) => [state.refundToPeachWallet, state.refundAddress]),
   );
 
   const getAddress = async () => {

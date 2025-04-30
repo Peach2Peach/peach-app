@@ -50,7 +50,10 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
 
   const setReason = (reason: DisputeReason) => {
     if (reason === "noPayment.buyer" || reason === "noPayment.seller") {
-      navigation.navigate("disputeForm", { contractId: contract.id, reason });
+      navigation.navigateDeprecated("disputeForm", {
+        contractId: contract.id,
+        reason,
+      });
       return;
     }
 

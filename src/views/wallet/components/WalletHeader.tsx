@@ -13,12 +13,12 @@ export const WalletHeader = () => {
         {
           ...headerIcons.search,
           accessibilityHint: `${i18n("goTo")} ${i18n("wallet.addressChecker")}`,
-          onPress: () => navigation.navigate("addressChecker"),
+          onPress: () => navigation.navigateDeprecated("addressChecker"),
         },
         {
           ...headerIcons.list,
           accessibilityHint: `${i18n("goTo")} ${i18n("wallet.transactionHistory")}`,
-          onPress: () => navigation.navigate("transactionHistory"),
+          onPress: () => navigation.navigateDeprecated("transactionHistory"),
         },
       ]}
     />

@@ -3,6 +3,8 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { statusCardStyles } from "./statusCardStyles";
 
+import type { JSX } from "react";
+
 type Props = {
   onPress: () => void;
   color: keyof typeof statusCardStyles.bg;

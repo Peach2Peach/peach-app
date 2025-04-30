@@ -1,10 +1,10 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
-type Props = TouchableOpacity["props"] & {
+type Props = TouchableOpacityProps & {
   checked: boolean;
   onPress: () => void;
   green?: boolean;

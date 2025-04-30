@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
@@ -27,8 +27,10 @@ const tabs = ["online", "meetups"] as const;
 export const PaymentMethods = () => {
   const navigation = useStackNavigation();
   const [preferredPaymentMethods, select] = useOfferPreferences(
-    (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
-    shallow,
+    useShallow((state) => [
+      state.preferredPaymentMethods,
+      state.selectPaymentMethod,
+    ]),
   );
   const selectedPaymentDataIds = getSelectedPaymentDataIds(
     preferredPaymentMethods,
@@ -36,13 +38,13 @@ export const PaymentMethods = () => {
 
   const editItem = (data: PaymentData) => {
     if (isCashTrade(data.type)) {
-      navigation.navigate("meetupScreen", {
+      navigation.navigateDeprecated("meetupScreen", {
         eventId: data.id.replace("cash.", ""),
         deletable: true,
         origin: "paymentMethods",
       });
     } else {
-      navigation.navigate("paymentMethodForm", {
+      navigation.navigateDeprecated("paymentMethodForm", {
         paymentData: data,
         origin: "paymentMethods",
       });
@@ -72,8 +74,10 @@ export const PaymentMethods = () => {
       }
     >
       <PaymentMethodsTab.Navigator
-        screenOptions={fullScreenTabNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          sceneStyle: [tw`px-sm`, tw`md:px-md`],
+        }}
       >
         {tabs.map((tab) => (
           <PaymentMethodsTab.Screen
@@ -118,8 +122,7 @@ function PaymentMethodsHeader({ isEditing, toggleIsEditing }: Props) {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<PaymentMethodsPopup />);
   const hasPaymentMethods = usePaymentDataStore(
-    (state) => Object.values(state.paymentData).length !== 0,
-    shallow,
+    useShallow((state) => Object.values(state.paymentData).length !== 0),
   );
 
   return (

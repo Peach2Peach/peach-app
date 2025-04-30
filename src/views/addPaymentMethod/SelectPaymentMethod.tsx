@@ -115,7 +115,7 @@ export const SelectPaymentMethod = () => {
 
   const goToPaymentMethodForm = (paymentMethod: PaymentMethod) => {
     const label = getPaymentMethodLabel(paymentMethod);
-    navigation.navigate("paymentMethodForm", {
+    navigation.navigateDeprecated("paymentMethodForm", {
       paymentData: {
         type: paymentMethod,
         label,
@@ -132,7 +132,10 @@ export const SelectPaymentMethod = () => {
     updateDrawer({ show: false });
 
     if (paymentMethod === "giftCard.amazon") {
-      navigation.navigate("selectCountry", { selectedCurrency, origin });
+      navigation.navigateDeprecated("selectCountry", {
+        selectedCurrency,
+        origin,
+      });
     } else {
       goToPaymentMethodForm(paymentMethod);
     }

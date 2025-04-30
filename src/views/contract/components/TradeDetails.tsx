@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Contract } from "../../../../peach-api/src/@types/contract";
 import { Icon } from "../../../components/Icon";
 import { Toggle } from "../../../components/inputs/Toggle";
@@ -85,12 +85,11 @@ function ChangePayoutWallet() {
 
   const [payoutAddress, payoutAddressLabel, payoutAddressSignature] =
     useSettingsStore(
-      (state) => [
+      useShallow((state) => [
         state.payoutAddress,
         state.payoutAddressLabel,
         state.payoutAddressSignature,
-      ],
-      shallow,
+      ]),
     );
   const publicKey = useAccountStore((state) => state.account.publicKey);
 
@@ -109,7 +108,9 @@ function ChangePayoutWallet() {
       mutate({ releaseAddress, messageSignature });
     } else {
       if (!payoutAddress || !payoutAddressLabel) {
-        navigation.navigate("patchPayoutAddress", { contractId: contract.id });
+        navigation.navigateDeprecated("patchPayoutAddress", {
+          contractId: contract.id,
+        });
         return;
       }
       const message = getMessageToSignForAddress(publicKey, payoutAddress);
@@ -122,7 +123,7 @@ function ChangePayoutWallet() {
           network: getNetwork(),
         })
       ) {
-        navigation.navigate("signMessage", {
+        navigation.navigateDeprecated("signMessage", {
           contractId: contract.id,
           address: payoutAddress,
           addressLabel: payoutAddressLabel,
@@ -140,7 +141,7 @@ function ChangePayoutWallet() {
     paidToPeachWallet || contract.paymentMade
       ? undefined
       : () => {
-          navigation.navigate("patchPayoutAddress", {
+          navigation.navigateDeprecated("patchPayoutAddress", {
             contractId: contract.id,
           });
         };

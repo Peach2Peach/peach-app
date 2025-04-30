@@ -1,5 +1,5 @@
 import { ScrollView, TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
@@ -11,8 +11,7 @@ import { textStyle } from "./SatsInputComponent";
 export function DisplayCurrencySelector() {
   const [showCurrencies, toggle] = useToggleBoolean();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
-    (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
+    useShallow((state) => [state.displayCurrency, state.setDisplayCurrency]),
   );
   return (
     <TouchableOpacity onPress={toggle} style={tw`items-end min-w-20`}>

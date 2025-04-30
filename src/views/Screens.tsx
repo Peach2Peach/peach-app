@@ -15,7 +15,6 @@ import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { useGlobalHandlers } from "../useGlobalHandlers";
 import i18n from "../utils/i18n";
-import { screenTransition } from "../utils/layout/screenTransition";
 import { isIOS } from "../utils/system/isIOS";
 import { useWSQueryInvalidation } from "./useWSQueryInvalidation";
 import { onboardingViews, views } from "./views";
@@ -43,15 +42,21 @@ export function Screens() {
       }}
     >
       {(isLoggedIn ? views : onboardingViews).map(
-        ({ name, component, animationEnabled }) => (
+        ({ name, component, animation }) => (
           <RootStack.Screen
             {...{ name, component }}
             key={name}
             options={{
-              animationEnabled,
+              animation,
               transitionSpec: {
-                open: screenTransition,
-                close: screenTransition,
+                open: {
+                  animation: "timing",
+                  config: { duration: 150, delay: 0 },
+                },
+                close: {
+                  animation: "timing",
+                  config: { duration: 150, delay: 0 },
+                },
               },
             }}
           />
@@ -81,7 +86,7 @@ function SplashScreenComponent({
             msgKey: statusResponse?.error || "NETWORK_ERROR",
             color: "red",
             action: {
-              onPress: () => navigation.navigate("contact"),
+              onPress: () => navigation.navigateDeprecated("contact"),
               label: i18n("contactUs"),
               iconId: "mail",
             },

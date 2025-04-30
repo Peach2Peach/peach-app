@@ -40,7 +40,7 @@ export const SelectCountry = () => {
     const type = `giftCard.amazon.${selectedCountry}` satisfies PaymentMethod;
     const label = getPaymentMethodLabel(type);
 
-    navigation.navigate("paymentMethodForm", {
+    navigation.navigateDeprecated("paymentMethodForm", {
       paymentData: {
         type,
         label,

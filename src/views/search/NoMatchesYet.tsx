@@ -78,7 +78,7 @@ import i18n from "../../utils/i18n";
 //     [offerId, setPopup],
 //   );
 //   const goToEditPremium = useCallback(
-//     () => navigation.navigate("editPremium", { offerId }),
+//     () => navigation.navigateDeprecated("editPremium", { offerId }),
 //     [navigation, offerId],
 //   );
 //   const memoizedHeaderIcons = useMemo(() => {

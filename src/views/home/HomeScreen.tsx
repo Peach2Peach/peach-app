@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { memo, useMemo } from "react";
+import { memo, useMemo, type JSX } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { setNumber } from "rn-notification-badge";
@@ -25,13 +25,9 @@ const Tab = createBottomTabNavigator();
 export function HomeScreen() {
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerShown: false, sceneStyle: tw`flex-1` }}
       initialRouteName="home"
-      sceneContainerStyle={tw`flex-1`}
       tabBar={() => <Footer />}
-      id="homeNavigator"
     >
       {homeTabNames.map((name) => (
         <Tab.Screen
@@ -63,7 +59,7 @@ const FooterItemBase = memo(
     const { isDarkMode } = useThemeStore();
     const onItemPress = () => {
       if (onPress) onPress();
-      else navigation.navigate("homeScreen", { screen: id });
+      else navigation.navigateDeprecated("homeScreen", { screen: id });
     };
     const colorTheme = tw.color(
       active
@@ -160,7 +156,7 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
           : "yourTrades.sell"
         : "yourTrades.buy";
 
-    navigation.navigate("homeScreen", {
+    navigation.navigateDeprecated("homeScreen", {
       screen: "yourTrades",
       params: { tab: destinationTab },
     });

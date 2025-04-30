@@ -1,3 +1,4 @@
+import * as RNFS from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import {
   Blockchain,
@@ -12,7 +13,6 @@ import { AddressIndex, BlockChainNames, Network } from "bdk-rn/lib/lib/enums";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
 import { Platform } from "react-native";
-import RNFS from "react-native-fs";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { getContractSummariesQuery } from "../../hooks/query/useContractSummaries";

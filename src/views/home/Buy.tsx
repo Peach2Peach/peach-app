@@ -20,8 +20,8 @@ export function Buy() {
         screenOptions={{
           ...fullScreenTabNavigationScreenOptions,
           swipeEnabled: false,
+          sceneStyle: [tw`px-sm`, tw`md:px-md`],
         }}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
         <BuyTab.Screen
           name="expressBuy"

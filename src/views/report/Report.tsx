@@ -43,19 +43,14 @@ export const Report = () => {
     if (!isFormValid) return;
 
     submitReport(
-      {
-        email,
-        reason: i18n(`contact.reason.${reason}`),
-        topic,
-        message,
-      },
+      { email, reason: i18n(`contact.reason.${reason}`), topic, message },
       {
         onError: (err) => showError(err.message),
         onSuccess: () => {
           if (publicKey) {
-            navigation.navigate("homeScreen", { screen: "settings" });
+            navigation.navigateDeprecated("homeScreen", { screen: "settings" });
           } else {
-            navigation.navigate("welcome");
+            navigation.navigateDeprecated("welcome");
           }
           setPopup(<AppPopup id="reportSuccess" />);
         },
@@ -79,7 +74,9 @@ export const Report = () => {
         <Input
           onChangeText={setTopic}
           onSubmitEditing={() => $message?.focus()}
-          reference={(el) => ($topic = el)}
+          reference={(el) => {
+            $topic = el;
+          }}
           value={topic}
           placeholder={i18n("form.topic.placeholder")}
           errorMessage={topicErrors}
@@ -87,7 +84,9 @@ export const Report = () => {
         <Input
           style={tw`h-40`}
           onChangeText={setMessage}
-          reference={(el) => ($message = el)}
+          reference={(el) => {
+            $message = el;
+          }}
           value={message}
           multiline={true}
           placeholder={i18n("form.message.placeholder")}

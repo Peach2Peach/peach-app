@@ -3,6 +3,8 @@ import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 import { PopupActions } from "./PopupActions";
 
+import type { JSX } from "react";
+
 export type PopupComponentProps = {
   content?: JSX.Element | string;
   actions: React.ReactNode;

@@ -1,12 +1,11 @@
 import { useCallback } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import i18n from "../../../utils/i18n";
 
 export const usePaymentMethodLabel = () => {
   const paymentMethods = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+    useShallow((state) => Object.values(state.paymentData)),
   );
 
   const getPaymentMethodLabel = useCallback(

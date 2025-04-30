@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -86,9 +86,9 @@ function useAcceptTradeRequest() {
   } = useRoute<"tradeRequestForBuyOffer">().params;
   const navigation = useStackNavigation();
   const paymentData = usePaymentDataStore(
-    (s) =>
+    useShallow((s) =>
       Object.values(s.paymentData).filter(({ type }) => type === paymentMethod),
-    shallow,
+    ),
   );
   const { maxMiningFeeRate } = useMaxMiningFee(amount);
   return useMutation({

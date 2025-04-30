@@ -145,7 +145,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
         />,
       );
     } else {
-      navigation.navigate("transactionDetails", { txId });
+      navigation.navigateDeprecated("transactionDetails", { txId });
     }
   };
 
@@ -182,7 +182,7 @@ function CloseAction() {
             />,
           );
         } else {
-          navigation.navigate("homeScreen", {
+          navigation.navigateDeprecated("homeScreen", {
             screen: "yourTrades",
             params: { tab: "yourTrades.history" },
           });

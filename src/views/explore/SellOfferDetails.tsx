@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
@@ -192,12 +192,11 @@ function RequestTradeAction({
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
     useSettingsStore(
-      (state) => [
+      useShallow((state) => [
         state.payoutAddress,
         state.payoutToPeachWallet,
         state.payoutAddressSignature,
-      ],
-      shallow,
+      ]),
     );
 
   const showError = useShowErrorBanner();

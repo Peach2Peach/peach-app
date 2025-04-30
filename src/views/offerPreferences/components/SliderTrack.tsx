@@ -1,6 +1,8 @@
 import { View } from "react-native";
 import tw from "../../../styles/tailwind";
 
+import type { JSX } from "react";
+
 type Props = {
   slider?: JSX.Element;
   trackWidth: number;

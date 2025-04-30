@@ -55,7 +55,7 @@ export const TransactionHistory = () => {
 function TransactionHistoryHeader() {
   const navigation = useStackNavigation();
   const onPress = () => {
-    navigation.navigate("exportTransactionHistory");
+    navigation.navigateDeprecated("exportTransactionHistory");
   };
   return (
     <Header

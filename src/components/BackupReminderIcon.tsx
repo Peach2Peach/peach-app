@@ -41,7 +41,7 @@ function BackupReminderPopup() {
             iconId="arrowRightCircle"
             label={i18n("error.firstBackup.action")}
             onPress={() => {
-              navigation.navigate("backups");
+              navigation.navigateDeprecated("backups");
               closePopup();
             }}
             reverseOrder

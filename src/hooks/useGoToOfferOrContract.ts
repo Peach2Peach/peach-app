@@ -10,13 +10,13 @@ export const useGoToOfferOrContract = () => {
   const goToOfferOrContract = useCallback(
     async (id: string) => {
       if (isContractId(id)) {
-        navigation.navigate("contract", { contractId: id });
+        navigation.navigateDeprecated("contract", { contractId: id });
       } else {
         const { result: newOffer } =
           await peachAPI.private.offer.getOfferDetails({ offerId: id });
         if (!newOffer) return;
         const destination = getNavigationDestinationForOffer(newOffer);
-        navigation.navigate(...destination);
+        navigation.navigateDeprecated(...destination);
       }
     },
     [navigation],

@@ -15,7 +15,7 @@ export const useShowErrorBanner = () => {
         bodyArgs,
         color: "red",
         action: {
-          onPress: () => navigation.navigate("contact"),
+          onPress: () => navigation.navigateDeprecated("contact"),
           label: i18n("contactUs"),
           iconId: "mail",
         },

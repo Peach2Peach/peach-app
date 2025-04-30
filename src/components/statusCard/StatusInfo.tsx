@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, type JSX } from "react";
 import { StyleProp, TextStyle, View } from "react-native";
 import tw from "../../styles/tailwind";
 import { FixedHeightText } from "../text/FixedHeightText";

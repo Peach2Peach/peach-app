@@ -5,7 +5,7 @@ import {
 } from "bdk-rn/lib/classes/Bindings";
 import { useCallback } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
@@ -61,8 +61,10 @@ export const useFundFromPeachWallet = () => {
 
   const feeRate = useFeeRate();
   const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
-    (state) => [state.setFundedFromPeachWallet, state.unregisterFundMultiple],
-    shallow,
+    useShallow((state) => [
+      state.setFundedFromPeachWallet,
+      state.unregisterFundMultiple,
+    ]),
   );
   const setPopup = useSetPopup();
 

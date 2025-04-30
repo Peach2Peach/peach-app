@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -33,8 +33,12 @@ export const NodeSetup = () => {
   const { isDarkMode } = useThemeStore();
 
   const [node, setCustomNode, enabled, toggleEnabled] = useNodeConfigState(
-    (state) => [state, state.setCustomNode, state.enabled, state.toggleEnabled],
-    shallow,
+    useShallow((state) => [
+      state,
+      state.setCustomNode,
+      state.enabled,
+      state.toggleEnabled,
+    ]),
   );
   const [ssl, toggleSSL] = useToggleBoolean(node.ssl);
   const [url, setURL, isURLValid, urlErrors] = useValidatedState<string>(

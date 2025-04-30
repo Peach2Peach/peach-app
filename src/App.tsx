@@ -36,7 +36,10 @@ export const App = () => {
     <QueryClientProvider client={queryClient}>
       <PeachWSContext.Provider value={peachWS}>
         <SafeAreaProvider>
-          <NavigationContainer theme={isDarkMode ? DarkTheme : LightTheme}>
+          <NavigationContainer
+            theme={isDarkMode ? DarkTheme : LightTheme}
+            navigationInChildEnabled
+          >
             <Screens />
             <Drawer />
             <GlobalPopup />

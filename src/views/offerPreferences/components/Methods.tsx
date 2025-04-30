@@ -18,7 +18,7 @@ export function Methods({
   meansOfPayment: MeansOfPayment;
 }) {
   const navigation = useStackNavigation();
-  const onPress = () => navigation.navigate("paymentMethods");
+  const onPress = () => navigation.navigateDeprecated("paymentMethods");
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
   const { isDarkMode } = useThemeStore();
 

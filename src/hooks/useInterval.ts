@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const useInterval = ({ callback, interval }: Props) => {
-  const savedCallback = useRef<Props["callback"]>();
+  const savedCallback = useRef<Props["callback"]>(undefined);
 
   useEffect(() => {
     savedCallback.current = callback;

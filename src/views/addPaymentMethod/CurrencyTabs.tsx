@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { CurrencyType } from "../../store/offerPreferenes/types";
@@ -27,8 +27,10 @@ const currencyTabs = [
 
 export const CurrencyTabs = (props: Props) => {
   const [preferredCurrencyType, setPreferredCurrencyType] = useOfferPreferences(
-    (state) => [state.preferredCurrenyType, state.setPreferredCurrencyType],
-    shallow,
+    useShallow((state) => [
+      state.preferredCurrenyType,
+      state.setPreferredCurrencyType,
+    ]),
   );
 
   return (
@@ -41,11 +43,11 @@ export const CurrencyTabs = (props: Props) => {
           props.setCurrency(defaultCurrencies[currencyType]);
         },
       }}
-      sceneContainerStyle={[tw`pb-2 px-sm`, tw`md:px-md`]}
       screenOptions={{
         ...fullScreenTabNavigationScreenOptions,
         tabBarLabelStyle: tw`capitalize input-title`,
         tabBarScrollEnabled: true,
+        sceneStyle: [tw`pb-2 px-sm`, tw`md:px-md`],
       }}
     >
       {currencyTabs.map((currencyTab) => (

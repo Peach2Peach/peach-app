@@ -160,7 +160,7 @@ const buttonStyle = tw`flex-1 px-5 py-3`;
 
 function BuyButton() {
   const navigation = useStackNavigation();
-  const goToBuyOfferPreferences = () => navigation.navigate("buy");
+  const goToBuyOfferPreferences = () => navigation.navigateDeprecated("buy");
   return (
     <Button
       style={[buttonStyle, tw`bg-success-main`]}
@@ -174,7 +174,7 @@ function BuyButton() {
 function SellButton() {
   const navigation = useStackNavigation();
   const goToSellOfferPreferences = () =>
-    navigation.navigate("sellOfferPreferences");
+    navigation.navigateDeprecated("sellOfferPreferences");
   return (
     <Button style={[buttonStyle]} onPress={goToSellOfferPreferences}>
       {i18n("sell")}

@@ -9,6 +9,8 @@ import {
   tradeInformationGetters,
 } from "./tradeInformationGetters";
 
+import type { JSX } from "react";
+
 jest.mock("../context", () => ({
   useContractContext: jest.fn(() => ({
     paymentData: "paymentData",

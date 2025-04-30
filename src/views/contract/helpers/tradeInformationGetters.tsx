@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Contract } from "../../../../peach-api/src/@types/contract";
 import { APPLINKS } from "../../../APPLINKS";
 import { Icon } from "../../../components/Icon";
@@ -29,6 +29,8 @@ import { UserId } from "../../settings/profile/profileOverview/UserId";
 import { SummaryItem } from "../components/SummaryItem";
 import { TradeBreakdownBubble } from "../components/TradeBreakdownBubble";
 import { useContractContext } from "../context";
+
+import type { JSX } from "react";
 
 const SATS_GROUP_SIZE = 3;
 
@@ -138,8 +140,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
   const openLink = () => (url ? openURL(url) : null);
   const { paymentData } = useContractContext();
   const paymentMethods = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+    useShallow((state) => Object.values(state.paymentData)),
   );
   const paymentMethodLabel = paymentData
     ? paymentMethods.find(

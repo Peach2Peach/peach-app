@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Contract } from "../../../peach-api/src/@types/contract";
 import { Button } from "../../components/buttons/Button";
 import { EmailInput } from "../../components/inputs/EmailInput";
@@ -44,8 +44,8 @@ export function NewOfferButton() {
     if (newOffer?.contractId) {
       navigation.replace("contract", { contractId: newOffer?.contractId });
     } else {
-      const [screen, params] = getNavigationDestinationForOffer(newOffer);
-      navigation.replace(screen, params);
+      const destination = getNavigationDestinationForOffer(newOffer);
+      navigation.replace(...destination);
     }
   }, [newOfferId, navigation]);
 
@@ -155,8 +155,10 @@ export function ChatButton() {
     [setPopup],
   );
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
-    (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
-    shallow,
+    useShallow((state) => [
+      state.seenDisputeDisclaimer,
+      state.setSeenDisputeDisclaimer,
+    ]),
   );
   const { contractId } = useRoute<"contract">().params;
   const queryClient = useQueryClient();
@@ -165,10 +167,7 @@ export function ChatButton() {
       contractKeys.detail(contractId),
       (oldQueryData: Contract | undefined) => {
         if (!oldQueryData) return oldQueryData;
-        return {
-          ...oldQueryData,
-          unreadMessages: 0,
-        };
+        return { ...oldQueryData, unreadMessages: 0 };
       },
     );
     navigation.push("contractChat", { contractId: id });

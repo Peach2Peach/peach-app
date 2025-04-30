@@ -13,11 +13,11 @@ export function UserExistsForDevice() {
   const route = useRoute<"userExistsForDevice">();
   const navigation = useStackNavigation();
   const goToRestoreFromFile = () =>
-    navigation.navigate("restoreBackup", { tab: "fileBackup" });
+    navigation.navigateDeprecated("restoreBackup", { tab: "fileBackup" });
   const goToRestoreFromSeed = () =>
-    navigation.navigate("restoreBackup", { tab: "seedPhrase" });
+    navigation.navigateDeprecated("restoreBackup", { tab: "seedPhrase" });
   const goToRestoreReputation = () =>
-    navigation.navigate("restoreReputation", route.params);
+    navigation.navigateDeprecated("restoreReputation", route.params);
 
   return (
     <Screen

@@ -1,6 +1,6 @@
+import * as RNFS from "@dr.pogodin/react-native-fs";
 import messaging from "@react-native-firebase/messaging";
 import { isAirplaneModeSync } from "react-native-device-info";
-import RNFS from "react-native-fs";
 import { openCrashReportPrompt } from "../utils/analytics/openCrashReportPrompt";
 import { deleteFile } from "../utils/file/deleteFile";
 import { readFile } from "../utils/file/readFile";

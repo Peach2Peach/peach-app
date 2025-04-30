@@ -58,7 +58,7 @@ export function FundingAmountDifferentPopup({
           reverseOrder
           onPress={() => {
             closePopup();
-            navigation.navigate("wrongFundingAmount", {
+            navigation.navigateDeprecated("wrongFundingAmount", {
               offerId: sellOffer.id,
             });
           }}

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Animated, Easing, Vibration } from "react-native";
 
 import { BarCodeReadEvent, RNCamera } from "react-native-camera";
+import { JSX } from "react/jsx-runtime";
 import tw from "../../styles/tailwind";
 
 type Props = {

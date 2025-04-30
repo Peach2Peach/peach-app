@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Icon } from "../../../components/Icon";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import { PeachText } from "../../../components/text/PeachText";
@@ -13,8 +13,7 @@ const FUND_MULTI_MAX = 21;
 
 export const FundMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
-    (state) => [state.multi, state.setMulti],
-    shallow,
+    useShallow((state) => [state.multi, state.setMulti]),
   );
 
   const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
@@ -30,8 +29,7 @@ export const FundMultipleOffers = () => {
 };
 export const CreateMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
-    (state) => [state.multi, state.setMulti],
-    shallow,
+    useShallow((state) => [state.multi, state.setMulti]),
   );
 
   const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
@@ -48,8 +46,7 @@ export const CreateMultipleOffers = () => {
 
 function NumberStepper({ green = false }) {
   const [multi, setMulti] = useOfferPreferences(
-    (state) => [state.multi, state.setMulti],
-    shallow,
+    useShallow((state) => [state.multi, state.setMulti]),
   );
   const { isDarkMode } = useThemeStore();
   if (multi === undefined) return null;

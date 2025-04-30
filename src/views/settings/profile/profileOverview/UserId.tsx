@@ -12,7 +12,7 @@ export const UserId = ({ id }: Props) => {
   const peachId = `Peach${id.slice(0, MAX_LENGTH)}`;
   const navigation = useStackNavigation();
   const goToUserProfile = () =>
-    navigation.navigate("publicProfile", { userId: id });
+    navigation.navigateDeprecated("publicProfile", { userId: id });
 
   return (
     <Bubble

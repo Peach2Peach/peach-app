@@ -18,14 +18,14 @@ export function BackupTime({
   const closeOverlay = () => setOverlay(undefined);
   const goToBackups = () => {
     closeOverlay();
-    navigation.navigate("backups");
+    navigation.navigateDeprecated("backups");
   };
   const skip = () => {
     closeOverlay();
     if (navigationParams) {
-      navigation.navigate(...navigationParams);
+      navigation.navigateDeprecated(...navigationParams);
     } else {
-      navigation.navigate("homeScreen", { screen: "home" });
+      navigation.navigateDeprecated("homeScreen", { screen: "home" });
     }
   };
 

@@ -17,7 +17,7 @@ export function BuyOfferExpiredPopup({
   const navigation = useStackNavigation();
   const goToContact = useCallback(() => {
     closePopup();
-    navigation.navigate("contact");
+    navigation.navigateDeprecated("contact");
   }, [closePopup, navigation]);
 
   return (

@@ -84,7 +84,7 @@ export const LetsGetStarted = () => {
     async (err?: string) => {
       const errorMsg = err || "UNKNOWN_ERROR";
       await deleteAccount();
-      navigation.navigate("createAccountError", {
+      navigation.navigateDeprecated("createAccountError", {
         err: errorMsg,
       });
       setIsLoading(false);
@@ -103,7 +103,7 @@ export const LetsGetStarted = () => {
         onSuccess: async ({ restored }) => {
           if (restored) {
             setAccount(newAccount);
-            navigation.navigate("userExistsForDevice", {
+            navigation.navigateDeprecated("userExistsForDevice", {
               referralCode: referralCodeParam,
             });
             setIsLoading(false);
@@ -113,11 +113,11 @@ export const LetsGetStarted = () => {
           await userUpdate(willUseReferralCode ? referralCode : undefined);
 
           await storeAccount(newAccount);
-          navigation.navigate("accountCreated");
+          navigation.navigateDeprecated("accountCreated");
           setIsLoading(false);
 
           setTimeout(() => {
-            navigation.navigate("userSource");
+            navigation.navigateDeprecated("userSource");
           }, LOGIN_DELAY);
         },
       });
@@ -126,7 +126,8 @@ export const LetsGetStarted = () => {
     }
   };
 
-  const goToRestoreBackup = () => navigation.navigate("restoreBackup");
+  const goToRestoreBackup = () =>
+    navigation.navigateDeprecated("restoreBackup");
   if (isLoading) return <CreateAccountLoading />;
   return (
     <View style={tw`items-center flex-1 gap-4 shrink`}>

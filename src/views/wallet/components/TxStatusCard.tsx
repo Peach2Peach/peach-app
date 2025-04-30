@@ -17,7 +17,7 @@ export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
   return (
     <StatusCard
       onPress={() => {
-        navigation.navigate("transactionDetails", { txId: id });
+        navigation.navigateDeprecated("transactionDetails", { txId: id });
       }}
       color={levelMap[type]}
       statusInfo={

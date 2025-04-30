@@ -28,7 +28,9 @@ export const useTransactionDetailsInfoSetup = ({
     [rbfEnabled, transactionSummary],
   );
   const goToBumpNetworkFees = () =>
-    navigation.navigate("bumpNetworkFees", { txId: transactionSummary.id });
+    navigation.navigateDeprecated("bumpNetworkFees", {
+      txId: transactionSummary.id,
+    });
   const openInExplorer = () => showTransaction(transactionSummary.id, NETWORK);
 
   return {
