@@ -272,9 +272,9 @@ function CurrentPrice() {
   );
 
   return (
-    <PeachText style={tw`text-center body-s`}>
+    <PeachText style={tw`text-center body-l`}>
       {i18n(
-        "offerPreferences.currentPrice",
+        "offerPreferences.finalPrice",
         `${priceWithPremium} ${displayCurrency}`,
       )}
     </PeachText>

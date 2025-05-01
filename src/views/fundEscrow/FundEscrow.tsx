@@ -17,6 +17,7 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
@@ -126,7 +127,10 @@ function CreateEscrowScreen({ offerIds }: { offerIds: string[] }) {
 }
 
 function FundEscrowHeader() {
+  const navigation = useStackNavigation();
+
   const { offerId } = useRoute<"fundEscrow">().params;
+  const goToPreferences = () => navigation.navigate("editPremium", { offerId });
   const fundMultiple = useWalletState((state) =>
     state.getFundMultipleByOfferId(offerId),
   );
@@ -144,6 +148,7 @@ function FundEscrowHeader() {
 
   const memoizedHeaderIcons = useMemo(() => {
     const icons = [
+      { ...headerIcons.sellPreferences, onPress: goToPreferences },
       {
         ...headerIcons.cancel,
         onPress: fundMultiple ? cancelFundMultipleOffers : cancelOffer,

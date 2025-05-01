@@ -11,8 +11,8 @@ export type SettingsStore = Settings & {
   reset: () => void;
   updateSettings: (settings: Settings) => void;
   getPureState: () => Settings;
-  setEnableAnalytics: (enableAnalytics: boolean) => void;
-  toggleAnalytics: () => void;
+  setEnableAnalytics: (enableAnalytics: boolean) => Promise<void>;
+  toggleAnalytics: () => Promise<void>;
   setAnalyticsPopupSeen: (analyticsPopupSeen: boolean) => void;
   setRefundAddress: (refundAddress: string | undefined) => void;
   setRefundAddressLabel: (refundAddressLabel: string | undefined) => void;
@@ -46,8 +46,8 @@ export const useSettingsStore = create(
         })),
       getPureState: () => getPureSettingsState(get()),
       updateSettings: (settings) => set({ ...settings }),
-      setEnableAnalytics: (enableAnalytics) => {
-        crashlytics().setCrashlyticsCollectionEnabled(enableAnalytics);
+      setEnableAnalytics: async (enableAnalytics) => {
+        await crashlytics().setCrashlyticsCollectionEnabled(enableAnalytics);
         set({ enableAnalytics });
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),

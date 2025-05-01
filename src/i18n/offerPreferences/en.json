@@ -19,6 +19,7 @@
   "offerPreferences.competingBuyOffers" : "$0 competing buy offers",
   "offerPreferences.competingBuyOffersBelowThisPremium" : "$0 competing buy offers below this premium",
   "offerPreferences.currentPrice" : "currently $0",
+  "offerPreferences.finalPrice" : "final price: $0",
   "offerPreferences.feature.instantTrade" : "instant - trade",
   "offerPreferences.filters" : "filters",
   "offerPreferences.filters.maxPremium" : "max premium",
