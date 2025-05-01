@@ -149,7 +149,7 @@ function ContractHeader() {
   );
 
   useEffect(() => {
-    if (!!isFirstTradeAsBuyer) setPopup(<HelpPopup id="firstTimeBuyer" />);
+    if (isFirstTradeAsBuyer) setPopup(<HelpPopup id="firstTimeBuyer" />);
   }, []);
 
   const memoizedIcons = useMemo(() => {
