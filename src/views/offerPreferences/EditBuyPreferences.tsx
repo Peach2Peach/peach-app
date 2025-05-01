@@ -119,11 +119,12 @@ function initializer(offer: BuyOffer) {
 }
 
 function ScreenContent({ offer }: { offer: BuyOffer }) {
+  useSettingsStore((state) => state.locale);
   const [isSliding, setIsSliding] = useState(false);
   const reducer = useReducer(offerReducer, offer, initializer);
   return (
     <PreferenceContext.Provider value={reducer}>
-      <Screen header={`edit offer ${offerIdToHex(offer.id)}`}>
+      <Screen header={i18n("offer.edit") + ` ${offerIdToHex(offer.id)}`}>
         <PreferenceScreen isSliding={isSliding} button={<PatchOfferButton />}>
           <OfferMarketInfo />
           <OfferMethods />
