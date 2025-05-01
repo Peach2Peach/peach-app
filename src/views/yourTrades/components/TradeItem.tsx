@@ -146,6 +146,9 @@ export function TradeItem({ item }: Props) {
       statusInfo={<TradeStatusInfo item={item} iconId={iconId} color={color} />}
       amountInfo={<AmountInfo item={item} />}
       label={<Label item={item} color={color} />}
+      instantTrade={
+        "instantTradeCriteria" in item && !!item.instantTradeCriteria
+      }
     />
   );
 }
