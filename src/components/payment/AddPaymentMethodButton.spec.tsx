@@ -1,9 +1,9 @@
 import { fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { BitcoinEvent } from "../../../peach-api/src/@types/events";
 import {
-  balticHoneyBadger,
   belgianBTCEmbassy,
   breizhBitcoin,
+  btcPrague,
   decouvreBTC,
 } from "../../../tests/unit/data/eventData";
 import {
@@ -149,7 +149,7 @@ describe("AddPaymentMethodButton", () => {
   });
   it("should sort the countries alphabetically and keep super featured events on top", async () => {
     getEventsSpy.mockResolvedValueOnce({
-      result: [...mockEvents, balticHoneyBadger],
+      result: [...mockEvents, btcPrague],
       ...responseUtils,
     });
     const { getByText } = render(<AddPaymentMethodButton isCash />);
@@ -162,12 +162,16 @@ describe("AddPaymentMethodButton", () => {
         {
           highlighted: true,
           onPress: expect.any(Function),
-          subtext: "Riga",
-          title: "Baltic Honeybadger",
+          subtext: "Prague",
+          title: "BTC Prague",
         },
         { flagID: "BE", onPress: expect.any(Function), title: "Belgium" },
         { flagID: "FR", onPress: expect.any(Function), title: "France" },
-        { flagID: "LV", onPress: expect.any(Function), title: "Latvia" },
+        {
+          flagID: "CZ",
+          onPress: expect.any(Function),
+          title: "Czech Republic",
+        },
       ]),
     );
   });

@@ -1,18 +1,18 @@
-import { balticHoneyBadger } from "../../../../tests/unit/data/eventData";
+import { btcPrague } from "../../../../tests/unit/data/eventData";
 import { mapEventToDrawerOption } from "./mapEventToDrawerOption";
 
 describe("mapEventToDrawerOption", () => {
   const onPress = jest.fn();
 
   it("should map event to drawer option", () => {
-    const result = mapEventToDrawerOption(onPress)(balticHoneyBadger);
+    const result = mapEventToDrawerOption(onPress)(btcPrague);
     expect(result).toEqual({
-      highlighted: balticHoneyBadger.featured,
+      highlighted: btcPrague.featured,
       onPress: expect.any(Function),
-      subtext: balticHoneyBadger.city,
-      title: balticHoneyBadger.longName,
+      subtext: btcPrague.city,
+      title: btcPrague.longName,
     });
     result.onPress();
-    expect(onPress).toHaveBeenCalledWith(balticHoneyBadger.id);
+    expect(onPress).toHaveBeenCalledWith(btcPrague.id);
   });
 });

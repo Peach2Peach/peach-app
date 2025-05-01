@@ -24,6 +24,7 @@ import { interpolate } from "../../utils/math/interpolate";
 import { round } from "../../utils/math/round";
 import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cutOffAddress } from "../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
@@ -35,10 +36,10 @@ import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
 } from "../settings/profile/profileOverview/Rating";
+import { CompetingOfferStats } from "./CreateBuyOffer";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
-import { BuyBitcoinHeader } from "./components/BuyBitcoinHeader";
 import { FilterContainer } from "./components/FilterContainer";
 import { MIN_REPUTATION_FILTER } from "./components/MIN_REPUTATION_FILTER";
 import { MarketInfo } from "./components/MarketInfo";
@@ -120,15 +121,17 @@ function initializer(offer: BuyOffer) {
 }
 
 function ScreenContent({ offer }: { offer: BuyOffer }) {
+  useSettingsStore((state) => state.locale);
   const [isSliding, setIsSliding] = useState(false);
   const reducer = useReducer(offerReducer, offer, initializer);
   return (
     <PreferenceContext.Provider value={reducer}>
-      <Screen header={<BuyBitcoinHeader />}>
+      <Screen header={i18n("offer.edit") + ` ${offerIdToHex(offer.id)}`}>
         <PreferenceScreen isSliding={isSliding} button={<PatchOfferButton />}>
           <OfferMarketInfo />
           <OfferMethods />
           <AmountSelector setIsSliding={setIsSliding} />
+          <CompetingOfferStats />
           <Filters />
           <OfferWalletSelector
             offerId={offer.id}

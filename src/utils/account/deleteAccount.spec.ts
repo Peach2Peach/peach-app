@@ -13,12 +13,12 @@ describe("deleteAccount", () => {
     setAccount(accountData.account1);
   });
 
-  it("would delete account file", () => {
+  it("should delete account file", async () => {
     const usePaymentDataStoreReset = jest.spyOn(
       usePaymentDataStore.getState(),
       "reset",
     );
-    deleteAccount();
+    await deleteAccount();
 
     expect(accountStorage.clearStore).toHaveBeenCalled();
     expect(chatStorage.clearStore).toHaveBeenCalled();

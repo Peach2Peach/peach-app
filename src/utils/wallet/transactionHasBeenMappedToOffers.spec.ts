@@ -1,4 +1,4 @@
-import { offerSummary } from "../../../tests/unit/data/offerSummaryData";
+import { buyOfferSummary } from "../../../tests/unit/data/offerSummaryData";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
 import { transactionHasBeenMappedToOffers } from "./transactionHasBeenMappedToOffers";
 import { useWalletState } from "./walletStore";
@@ -15,7 +15,7 @@ describe("transactionHasBeenMappedToOffer", () => {
   it("returns true if tx has been mapped to offer", () => {
     useWalletState
       .getState()
-      .updateTxOfferMap(confirmed1.txid, [offerSummary.id]);
+      .updateTxOfferMap(confirmed1.txid, [buyOfferSummary.id]);
     expect(transactionHasBeenMappedToOffers(confirmed1)).toBeTruthy();
   });
 });

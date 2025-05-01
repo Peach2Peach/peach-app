@@ -1,16 +1,16 @@
 import { BitcoinEvent } from "../../../peach-api/src/@types/events";
 
-export const balticHoneyBadger: BitcoinEvent = {
-  id: "lv.riga.baltic-honeybadger",
+export const btcPrague: BitcoinEvent = {
+  id: "cz.prague.btc-prague",
   featured: true,
   currencies: ["EUR"],
-  country: "LV",
-  city: "Riga",
-  shortName: "Baltic Honeybadger",
-  longName: "Baltic Honeybadger",
-  url: "https://baltichoneybadger.com/",
-  frequency: "September 2-3, 2023",
-  logo: "/v1/events/logo/baltic.jpg",
+  country: "CZ",
+  city: "Prague",
+  shortName: "BTC Prague",
+  longName: "BTC Prague",
+  url: "https://btcprague.com/",
+  frequency: "June 19-21, 2025",
+  logo: "/v1/events/logo/btc-prague.svg",
 };
 
 export const belgianBTCEmbassy: BitcoinEvent = {

@@ -22,6 +22,7 @@ import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
+import { isNotNull } from "../../utils/validation/isNotNull";
 import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
@@ -35,6 +36,8 @@ import { MarketInfo } from "./components/MarketInfo";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
 import { Section } from "./components/Section";
+import { useFilteredMarketStats } from "./components/useFilteredMarketStats";
+import { usePastOffersStats } from "./usePastOffersStats";
 import { usePostBuyOffer } from "./utils/usePostBuyOffer";
 import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
@@ -190,35 +193,34 @@ function PublishOfferButton() {
   });
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
-  const getPaymentData = () => {
-    if (instantTrade) {
-      return keys(paymentData).reduce(
-        async (accPromise: Promise<OfferPaymentData>, paymentMethod) => {
-          const acc = await accPromise;
-          const originalData = originalPaymentData.find(
-            (e) => e.type === paymentMethod,
-          );
-          if (originalData) {
-            const cleanedData = cleanPaymentData(originalData);
-            const { encrypted, signature } = await signAndEncrypt(
-              JSON.stringify(cleanedData),
-              peachPGPPublicKey,
-            );
-            return {
-              ...acc,
-              [paymentMethod]: {
-                ...paymentData[paymentMethod],
-                encrypted,
-                signature,
-              },
-            };
-          }
-          return acc;
-        },
-        Promise.resolve({}),
-      );
-    }
-    return Promise.resolve(paymentData);
+  const getPaymentData = async () => {
+    if (!instantTrade) return paymentData;
+
+    const entries = await Promise.all(
+      keys(paymentData).map(async (paymentMethod) => {
+        const originalData = originalPaymentData.find(
+          (e) => e.type === paymentMethod,
+        );
+        if (!originalData) return null;
+
+        const cleanedData = cleanPaymentData(originalData);
+        const { encrypted, signature } = await signAndEncrypt(
+          JSON.stringify(cleanedData),
+          peachPGPPublicKey,
+        );
+
+        return [
+          paymentMethod,
+          {
+            ...paymentData[paymentMethod],
+            encrypted,
+            signature,
+          },
+        ];
+      }),
+    );
+
+    return Object.fromEntries(entries.filter(isNotNull));
   };
   const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount: amountRange,
@@ -248,16 +250,30 @@ function PublishOfferButton() {
   );
 }
 
-function CompetingOfferStats() {
-  const text = tw`text-center text-success-dark-2`;
+export function CompetingOfferStats() {
+  const text = tw`text-center text-success-dark-2 subtitle-2`;
+
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment);
+
+  const { data: pastOfferData } = usePastOffersStats({ meansOfPayment });
+  const { data: marketStats } = useFilteredMarketStats({
+    type: "bid",
+    meansOfPayment,
+  });
 
   return (
     <Section.Container style={tw`gap-1 py-0`}>
       <PeachText style={text}>
-        {i18n("offerPreferences.competingSellOffers", "x")}
+        {i18n(
+          "offerPreferences.competingBuyOffers",
+          String(marketStats.offersWithinRange.length),
+        )}
       </PeachText>
       <PeachText style={text}>
-        {i18n("offerPreferences.premiumOfCompletedTrades", "9")}
+        {i18n(
+          "offerPreferences.premiumOfCompletedTrades",
+          String(pastOfferData?.avgPremium),
+        )}
       </PeachText>
     </Section.Container>
   );

@@ -2,10 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
 import { Match } from "../../../../peach-api/src/@types/match";
-import {
-  BuyOffer,
-  PaymentMethodCountry,
-} from "../../../../peach-api/src/@types/offer";
+import { BuyOffer } from "../../../../peach-api/src/@types/offer";
+import { GiftCardCountry } from "../../../../peach-api/src/@types/payment";
 import { offerKeys } from "../../../hooks/query/offerKeys";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
@@ -232,7 +230,7 @@ function useHandleMissingPaymentData() {
           label,
           currencies: [currency],
           country: /giftCard/u.test(paymentMethod)
-            ? (paymentMethod.split(".").pop() as PaymentMethodCountry)
+            ? (paymentMethod.split(".").pop() as GiftCardCountry)
             : undefined,
         },
         origin: isBuyOffer(offer) ? "matchDetails" : "search",

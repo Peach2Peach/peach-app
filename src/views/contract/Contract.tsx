@@ -2,7 +2,7 @@ import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
 import { networks } from "bitcoinjs-lib";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
 import { OverlayComponent } from "../../OverlayComponent";
@@ -42,10 +42,13 @@ export const Contract = () => {
       : "buyer"
     : undefined;
 
+  const isFirstTradeAsBuyer =
+    view === "buyer" ? contract?.buyer.trades === 0 : false;
+
   useHandleNotifications(
     useCallback(
-      (message) => {
-        if (message.data?.contractId === contractId) refetch();
+      async (message) => {
+        if (message.data?.contractId === contractId) await refetch();
       },
       [contractId, refetch],
     ),
@@ -60,15 +63,26 @@ export const Contract = () => {
     );
   }
 
-  return <ContractScreen contract={contract} view={view} />;
+  return (
+    <ContractScreen
+      contract={contract}
+      view={view}
+      isFirstTradeAsBuyer={isFirstTradeAsBuyer}
+    />
+  );
 };
 
 type ContractScreenProps = {
   contract: ContractType;
   view: "buyer" | "seller";
+  isFirstTradeAsBuyer?: boolean;
 };
 
-function ContractScreen({ contract, view }: ContractScreenProps) {
+function ContractScreen({
+  contract,
+  view,
+  isFirstTradeAsBuyer,
+}: ContractScreenProps) {
   const {
     data,
     isLoading: isLoadingPaymentData,
@@ -87,6 +101,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
         view,
         showBatchInfo,
         toggleShowBatchInfo,
+        isFirstTradeAsBuyer,
       }}
     >
       <Screen header={<ContractHeader />}>
@@ -104,7 +119,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
 }
 
 function ContractHeader() {
-  const { contract, view } = useContractContext();
+  const { contract, view, isFirstTradeAsBuyer } = useContractContext();
   const {
     tradeStatus,
     disputeActive,
@@ -132,6 +147,10 @@ function ContractHeader() {
     () => setPopup(<HelpPopup id="confirmPayment" />),
     [setPopup],
   );
+
+  useEffect(() => {
+    if (isFirstTradeAsBuyer) setPopup(<HelpPopup id="firstTimeBuyer" />);
+  }, []);
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = [];

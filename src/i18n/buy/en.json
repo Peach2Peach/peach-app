@@ -11,5 +11,7 @@
   "buy.title" : "buy bitcoin",
   "buy.title.highlight" : "buy",
   "buy.maxPremium" : "max premium",
-  "yourTrades.search.buy.subtitle" : "buy offer for"
+  "yourTrades.search.buy.subtitle" : "buy offer for",
+  "help.firstTimeBuyer.description" : "IMPORTANT: Do NOT slide «I made the payment» before having made the payment.\nThe payment must be made OUTSIDE of Peach using the payment method shared with the seller.",
+  "help.firstTimeBuyer.title" : "You are now in a Trade!"
 }

@@ -32,8 +32,8 @@ export const AddPaymentMethodButton = ({ isCash }: Props) => {
   };
 
   const selectCountry = (
-    eventsByCountry: Record<BitcoinEvent["country"], BitcoinEvent[]>,
-    selected: BitcoinEvent["country"],
+    eventsByCountry: Record<string, BitcoinEvent[]>,
+    selected: string,
   ) => {
     if (!meetupEvents) return;
 

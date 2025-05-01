@@ -3,4 +3,4 @@ BUILDNUMBER=$(cat android/app/build.gradle | grep versionCode | head -1 | sed s/
 cd android/app/build/outputs/apk/prod/release 
 MANIFEST="manifest-peach-$VERSION-$BUILDNUMBER"
 shasum -a 256 app-prod-* > "$MANIFEST.txt"
-gpg --sign --detach-sig --default-key 48339A19645E2E53488E0E5479E1B270FACD1BD2 --output "$MANIFEST.sig" "$MANIFEST.txt"
+gpg --sign --detach-sig --default-key E970EDB410C8E84198F141584AD3CE3043D8CD1B --output "$MANIFEST.sig" "$MANIFEST.txt"

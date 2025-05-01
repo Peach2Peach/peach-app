@@ -11,13 +11,13 @@ describe("fetch", () => {
     expect(result).toBeInstanceOf(Promise);
   });
 
-  it("should call fetch with the correct arguments", () => {
-    fetch("https://example.com");
+  it("should call fetch with the correct arguments", async () => {
+    await fetch("https://example.com");
     expect(mockFetch).toHaveBeenCalledWith("https://example.com", undefined);
   });
 
-  it("should call fetch with the correct arguments when init is passed", () => {
-    fetch("https://example.com", { method: "POST" });
+  it("should call fetch with the correct arguments when init is passed", async () => {
+    await fetch("https://example.com", { method: "POST" });
     expect(mockFetch).toHaveBeenCalledWith("https://example.com", {
       method: "POST",
     });
