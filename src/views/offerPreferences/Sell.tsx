@@ -144,12 +144,7 @@ function SellPreferenceMarketInfo() {
 function ExpectedTradingExperience() {
   const text = tw`text-center text-primary-main subtitle-2`;
 
-  const { meansOfPayment } = useOfferPreferences(
-    (state) => ({
-      meansOfPayment: state.meansOfPayment,
-    }),
-    shallow,
-  );
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment);
 
   const { data: pastOfferData } = usePastOffersStats({ meansOfPayment });
   const { data: marketStats } = useFilteredMarketStats({

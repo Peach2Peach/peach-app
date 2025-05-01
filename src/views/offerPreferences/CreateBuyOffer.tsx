@@ -256,7 +256,7 @@ export function CompetingOfferStats() {
   const text = tw`text-center text-success-dark-2 subtitle-2`;
 
   const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment);
-  console.log("means of payment: ", meansOfPayment);
+
   const { data: pastOfferData } = usePastOffersStats({ meansOfPayment });
   const { data: marketStats } = useFilteredMarketStats({
     type: "bid",
