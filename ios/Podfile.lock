@@ -734,7 +734,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  bdk-rn: cfbeb2b1e0c71a5a8650fa650d0c08843e074dec
+  bdk-rn: bea5d726082976ce496f09caa25c9d53a20511c9
   boost: 7dcd2de282d72e344012f7d6564d024930a6a440
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 038aa5ab388c9eec7a6a65b71596afd9ff99c949
@@ -758,36 +758,36 @@ SPEC CHECKSUMS:
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
-  RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
+  RCT-Folly: 8dc08ca5a393b48b1c523ab6220dfdcc0fe000ad
   RCTRequired: 79b5f823c2b4b865451ba9ddb33c676786760ea8
   RCTTypeSafety: 4f6d5414413d8848923ccd448c4cef4b6ffcd403
   React: d277ab7d840987a460690fcbe979e9234785ad63
   React-callinvoker: 2d15c3bc682ef720a9a23428606aab643df74622
-  React-Codegen: f00947eb19953c13e78c38d73233706e4d6f9bcb
-  React-Core: b3d9f6a3a406fb3a6ee84f98df0a3e45df3aed99
-  React-CoreModules: a70aed68d7cf8bb94f368cbfc8da02d9586e6a65
-  React-cxxreact: 12d097fb82c333c4a193cd2cd2111b0295257453
-  React-hermes: fa22fb2131e784d87105343833d88c1dc6971676
-  React-jsi: a7a06cf56e5af973a35972aa57443629d5621aed
-  React-jsiexecutor: 7263801e44e004967685dd40672bfcedcda00834
+  React-Codegen: 5828805f97189a35c179a24e5b6080c40dff6619
+  React-Core: b3377c8a149f4943c02d089689fe9d88fb4ee98c
+  React-CoreModules: 4865f456a432aefa5d0e86beefe29dd30699f2bc
+  React-cxxreact: 9fafa416940b7c56048976b769d24476a6d43445
+  React-hermes: 734ae2dc106c77af0f5170f1a687189055f86ee2
+  React-jsi: 6ea37d7eb59ea5b8300aa634e490b08d762ba546
+  React-jsiexecutor: ff40751c9fd087dc3dd2b18f5336081f2ee196e7
   React-jsinspector: e591d9ecb571456fc929ee10409d8847a442d6a7
-  React-logger: 70ddbe0e07179c8adb94c4bffc36c6abc952d3d4
-  react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
-  react-native-cookies: f54fcded06bb0cda05c11d86788020b43528a26c
-  react-native-document-picker: 3599b238843369026201d2ef466df53f77ae0452
-  react-native-fast-openpgp: f768d66fa127b20c92546aee13aca4c6a2543b54
-  react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
-  react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
-  react-native-pager-view: e26d35e382d86950c936f8917e3beb9188115ccc
-  react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
-  react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
-  react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-webview: f44e822d613d729859a140b79ca88641094f3550
+  React-logger: e1edee51442163c77f9fdfb4b08c7169cfc22424
+  react-native-camera: 079d80421f0572d6b4e836908114d614d0adb553
+  react-native-cookies: d648ab7025833b977c0b19e142503034f5f29411
+  react-native-document-picker: a2e1577d26b9758ef3092e66f5d67f6e8c7454d9
+  react-native-fast-openpgp: ec253427e7dc1be7dd794e8e71f7e0e73e571c47
+  react-native-mmkv-storage: 45287ac5851a967d15f6c59b4a8aee6331bec034
+  react-native-netinfo: 58a62fc2fc7245875718b99ac9914c307e1523ca
+  react-native-pager-view: 8f36f88437684bf5ea86f9172a91c266d99b975f
+  react-native-restart: 0bc732f4461709022a742bb29bcccf6bbc5b4863
+  react-native-safe-area-context: 435f4c13ac75ceed6135382ee77d57d1a5b5b2d6
+  react-native-splash-screen: 95994222cc95c236bd3cdc59fe45ed5f27969594
+  react-native-webview: 491038485a769cc7d0574c42576f3caf14c6e2f9
   React-perflogger: 0ba097528e325435aca94b32b5330f58f6acb6fb
   React-RCTActionSheet: 805b3a83f3dd7ae5a1213ea9df0ed748eeb74b85
   React-RCTAnimation: 2a0233681dee47e468302b8233652b35b68329cb
-  React-RCTAppDelegate: 3171d94d0ce2ed7fcf982689cd6bbaf4a8721ce8
-  React-RCTBlob: 8c6962fcab4a5a3d0078a3a4a98bb914a7703abf
+  React-RCTAppDelegate: ff8bab890caf7eeb7c90039f78b446ffce496a0b
+  React-RCTBlob: ebbc25c2cb443b95acdd978a587455fadd3be5e6
   React-RCTImage: 015ce2b9d2ad78c24deee5c807d88574225974f3
   React-RCTLinking: 6dd57d2d99ecdf6ee016c5a742ed9b68cdc8680a
   React-RCTNetwork: f14e9681496cd394196c2417966769d10b45e674
@@ -795,21 +795,21 @@ SPEC CHECKSUMS:
   React-RCTText: 4cbca7004176dd0ed495afa60a3978acf040059d
   React-RCTVibration: 5b2bfab941e938ee5060acefdd7598077b394975
   React-runtimeexecutor: b9be1f58ce9a8b849cb8a37dd998f04ca97e3619
-  ReactCommon: bb3d7051c9b8c58ee34f9af76f883bd0fd7c9c31
-  rn-notification-badge: 236186abb544c486e0a1fbb479301eb9b7fb4694
-  RNCClipboard: 60fed4b71560d7bfe40e9d35dea9762b024da86d
-  RNDeviceInfo: 4f9c7cfd6b9db1b05eb919620a001cf35b536423
-  RNFBApp: a3e139715386fe79a09c387f2dbeb6890eb05b39
-  RNFBCrashlytics: e6d595ed2619e5e8ee3cdfd12c6a62e470280a03
-  RNFBMessaging: a65862d8eba03cb6c838241bd328166504996894
-  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: bb8e0736ab2d42aa63f3a2389900cbac01a33545
-  RNPermissions: 9fa74223844f437bc309e112994859dc47194829
-  RNReanimated: d2412fbd9d2e0806d287166e44e0ad3ba9d8808f
-  RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
-  RNSecureRandom: 07efbdf2cd99efe13497433668e54acd7df49fef
-  RNShare: 0fad69ae2d71de9d1f7b9a43acf876886a6cb99c
-  RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
+  ReactCommon: 9d5423a44441e73260000f780f209004e7a15678
+  rn-notification-badge: 428971a1041ccf7682a1e3f74d465b6118f8e238
+  RNCClipboard: 4abb037e8fe3b98a952564c9e0474f91c492df6d
+  RNDeviceInfo: 538b62f03991eb4a2a15cf6fec5fff6bb5edc34e
+  RNFBApp: 20bfba7e2a61a959518c1d57e5d48817c62ed3f6
+  RNFBCrashlytics: 35e45b650ea8caa14f341eba943a58d47073f23e
+  RNFBMessaging: 48579eec1f6ffaed4038b67426d7076963ab9401
+  RNFS: 89de7d7f4c0f6bafa05343c578f61118c8282ed8
+  RNGestureHandler: ea1e2b6e796d766e36bcdd1e5e1cc6713661b089
+  RNPermissions: 1c84962b68465d1590078d3eae67b615357f2620
+  RNReanimated: ac13e60e40ad7eadc1e3a58bfd391d6fcc4eac94
+  RNScreens: a425ae50ad66d024a6e936121bf5c9fbe6a5cdc6
+  RNSecureRandom: b64d263529492a6897e236a22a2c4249aa1b53dc
+  RNShare: 694e19d7f74ac4c04de3a8af0649e9ccc03bd8b1
+  RNSVG: 67c430ac7a54043cac37f6bd7bc94f8e22d8a64a
   Yoga: d4f5b037672e6b68ba484c7cf7fe6790122df792
 
 PODFILE CHECKSUM: 55312c0424121cde3574fdba85447d5c041575e9
