@@ -10,6 +10,7 @@
   "offer.filter" : "filter",
   "offer.filter.maxPremium" : "max premium",
   "offer.fundMultiple" : "fund multiple offers",
+  "offer.createMultiple" : "create multiple offers",
   "offer.publish" : "publish",
   "offer.published.description" : "We'll send you a notification when there are matches available.",
   "offer.published.title" : "offer published!",

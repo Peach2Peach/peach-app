@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { round } from "../utils/math/round";
@@ -38,13 +39,18 @@ export const PremiumInput = ({
     setPremium(newPremium);
   };
 
+  const { isDarkMode } = useThemeStore();
+  const normalText = isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`;
+
   const textColor =
     premium === 0
-      ? tw`text-black-100`
+      ? normalText
       : premium > 0
         ? isBuy
-          ? tw`text-black-100`
-          : tw`text-success-main`
+          ? normalText
+          : isDarkMode
+            ? normalText
+            : tw`text-success-main`
         : tw`text-primary-main`;
 
   const buttonColor = isBuy

@@ -280,6 +280,8 @@ export function CompetingOfferStats() {
 }
 
 function InstantTrade() {
+  const { isDarkMode } = useThemeStore();
+
   const [
     enableInstantTrade,
     toggle,
@@ -319,7 +321,9 @@ function InstantTrade() {
   };
 
   return (
-    <Section.Container style={tw`bg-success-mild-1`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1"}`}
+    >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} green />
         <Section.Title>

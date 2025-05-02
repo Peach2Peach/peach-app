@@ -279,7 +279,7 @@ function CurrentPrice() {
   );
 
   return (
-    <PeachText style={tw`text-center body-l`}>
+    <PeachText style={tw`text-center body-m`}>
       {i18n(
         "offerPreferences.finalPrice",
         `${priceWithPremium} ${displayCurrency}`,
@@ -445,9 +445,10 @@ function FiatInput() {
 
 function FundMultipleOffersContainer() {
   const setPopup = useSetPopup();
+  const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`flex-row items-start justify-between bg-primary-background-dark`}
+      style={tw`flex-row items-start justify-between  ${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
     >
       <FundMultipleOffers />
       <TouchableIcon
@@ -498,8 +499,12 @@ function InstantTrade() {
     toggle();
   };
 
+  const { isDarkMode } = useThemeStore();
+
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
+    >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>

@@ -88,10 +88,7 @@ export function AmountSelectorComponent({
   );
 }
 
-
 function PremiumInputComponent() {
-          
-  
   const [buyPremium, setBuyPremium] = useOfferPreferences((state) => [
     state.buyPremium,
     state.setBuyPremium,
@@ -126,9 +123,9 @@ function CurrentPrice() {
   );
 
   return (
-    <PeachText style={tw`text-center body-s`}>
+    <PeachText style={tw`text-center body-m`}>
       {i18n(
-        "offerPreferences.currentPrice",
+        "offerPreferences.finalPrice",
         `${priceLowWithPremium} - ${priceHighWithPremium} ${displayCurrency}`,
       )}
     </PeachText>
@@ -137,7 +134,7 @@ function CurrentPrice() {
 
 const MIN_PREMIUM_INCREMENT = 0.01;
 function BuyPremiumInput() {
-  const { isDarkMode } = useThemeStore();   
+  const { isDarkMode } = useThemeStore();
   const preferences = useOfferPreferences(
     (state) => ({
       maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
@@ -152,7 +149,9 @@ function BuyPremiumInput() {
     <View style={tw`items-center self-stretch gap-10px`}>
       <PremiumInputComponent />
       <CurrentPrice />
-      <PeachText style={isDarkMode ? tw`text-success-main` : tw`text-success-dark-2`}> 
+      <PeachText
+        style={isDarkMode ? tw`text-success-main` : tw`text-success-dark-2`}
+      >
         {i18n(
           "offerPreferences.competingBuyOffersBelowThisPremium",
           String(data.offersWithinRange.length),
