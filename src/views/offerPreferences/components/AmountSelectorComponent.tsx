@@ -88,7 +88,10 @@ export function AmountSelectorComponent({
   );
 }
 
+
 function PremiumInputComponent() {
+          
+  
   const [buyPremium, setBuyPremium] = useOfferPreferences((state) => [
     state.buyPremium,
     state.setBuyPremium,
@@ -134,6 +137,7 @@ function CurrentPrice() {
 
 const MIN_PREMIUM_INCREMENT = 0.01;
 function BuyPremiumInput() {
+  const { isDarkMode } = useThemeStore();   
   const preferences = useOfferPreferences(
     (state) => ({
       maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
@@ -148,7 +152,7 @@ function BuyPremiumInput() {
     <View style={tw`items-center self-stretch gap-10px`}>
       <PremiumInputComponent />
       <CurrentPrice />
-      <PeachText style={tw`text-success-dark-2`}>
+      <PeachText style={isDarkMode ? tw`text-success-main` : tw`text-success-dark-2`}> 
         {i18n(
           "offerPreferences.competingBuyOffersBelowThisPremium",
           String(data.offersWithinRange.length),
@@ -292,9 +296,13 @@ function FiatPriceRange({ range: [min, max] }: { range: [number, number] }) {
   const { fiatPrice: minFiatPrice } = useBitcoinPrices(min);
   const { fiatPrice: maxFiatPrice } = useBitcoinPrices(max);
 
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View style={tw`z-10 flex-row self-stretch justify-between`}>
-      <PeachText style={tw`leading-loose text-center grow subtitle-0`}>
+      <PeachText
+        style={tw`leading-loose text-center grow subtitle-0 ${isDarkMode ? "text-success-main" : "text-black-100"}`}
+      >
         {minFiatPrice} - {maxFiatPrice}
       </PeachText>
       <DisplayCurrencySelector />
