@@ -38,6 +38,7 @@ export const ContractActions = () => {
   const { contract, view } = useContractContext();
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
+      <ContractButtons />
       <View style={tw`flex-row items-center justify-center gap-6`}>
         <EscrowButton {...contract} style={tw`flex-1`} />
         <ChatButton />
@@ -45,7 +46,6 @@ export const ContractActions = () => {
 
       <ContractStatusInfo />
 
-      <ContractButtons />
       {view === "buyer" ? <BuyerSliders /> : <SellerSliders />}
     </View>
   );
