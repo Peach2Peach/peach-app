@@ -19,10 +19,12 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { getRandom } from "../../utils/crypto/getRandom";
+import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
@@ -46,7 +48,7 @@ export function BuyOfferDetails() {
   const { data: offer, isLoading } = useOffer(offerId);
 
   return (
-    <Screen header={`offer ${offerIdToHex(offerId)}`}>
+    <Screen header={i18n("offer.buy.details") + ` ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
@@ -57,6 +59,8 @@ export function BuyOfferDetails() {
 }
 
 function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+  const { isDarkMode } = useThemeStore();
+
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     keys(offer.meansOfPayment).at(0) || "CHF",
   );
@@ -80,7 +84,14 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       <PeachScrollView contentStyle={tw`gap-8 grow`}>
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
-          <View style={tw`gap-8 m-1 bg-primary-background-light rounded-2xl`}>
+          <View
+            style={[
+              tw`gap-8 m-1 rounded-2xl`,
+              isDarkMode
+                ? tw`bg-backgroundMain-dark`
+                : tw`bg-primary-background-light`,
+            ]}
+          >
             <UserCard user={offer.user} isBuyer />
 
             <BuyPriceInfo

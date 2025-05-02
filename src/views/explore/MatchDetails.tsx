@@ -30,6 +30,7 @@ import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
@@ -61,7 +62,7 @@ export function MatchDetails() {
   if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
     return <LoadingScreen />;
   return (
-    <Screen header="sell offer details">
+    <Screen header={i18n("offer.sell.details") + ` ${offerIdToHex(offerId)}`}>
       <Match match={match} offer={offer} />
     </Screen>
   );
