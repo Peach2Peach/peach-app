@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* peachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* peachTests.m */; };
+		0E46B2A9A7E690927A44FC1C /* libPods-peach-peach regtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE37EC909592AC13A8C4A9E7 /* libPods-peach-peach regtest.a */; };
 		0F65AADB629A41A99AFB90FE /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -113,7 +114,10 @@
 		A210E620E620220610C91568 /* Pods-peach mainnet-peach testnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peach testnet.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peach testnet/Pods-peach mainnet-peach testnet.debug.xcconfig"; sourceTree = "<group>"; };
 		A93D9400EF3D3C597D1E51F0 /* Pods-peach-peach testnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach testnet.release.xcconfig"; path = "Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet.release.xcconfig"; sourceTree = "<group>"; };
 		AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Bold.ttf"; path = "../assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; };
+		AE37EC909592AC13A8C4A9E7 /* libPods-peach-peach regtest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peach regtest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2C460E24DEA50384BDD0DE7 /* Pods-peach-peach regtest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach regtest.release.xcconfig"; path = "Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest.release.xcconfig"; sourceTree = "<group>"; };
 		CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-SemiBold.ttf"; path = "../assets/fonts/Baloo2-SemiBold.ttf"; sourceTree = "<group>"; };
+		CFA29616EE3AE7D17BD4C258 /* Pods-peach-peach regtest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach regtest.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest.debug.xcconfig"; sourceTree = "<group>"; };
 		E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Medium.ttf"; path = "../assets/fonts/Baloo2-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F88D84630244EBFFA90177D7 /* Pods-peach mainnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet/Pods-peach mainnet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E46B2A9A7E690927A44FC1C /* libPods-peach-peach regtest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +203,7 @@
 				03126CFC831F657240FE1E3F /* libPods-peach-peach mainnet.a */,
 				FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */,
 				1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */,
+				AE37EC909592AC13A8C4A9E7 /* libPods-peach-peach regtest.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -309,6 +315,8 @@
 				053AE86B4FCFEB2126C3B539 /* Pods-peach-peach mainnet.release.xcconfig */,
 				55F4F89D050F9B09DCDEA67A /* Pods-peach-peach testnet.debug.xcconfig */,
 				A93D9400EF3D3C597D1E51F0 /* Pods-peach-peach testnet.release.xcconfig */,
+				CFA29616EE3AE7D17BD4C258 /* Pods-peach-peach regtest.debug.xcconfig */,
+				B2C460E24DEA50384BDD0DE7 /* Pods-peach-peach regtest.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -364,12 +372,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C36D5EC2DABF75A0098D9BF /* Build configuration list for PBXNativeTarget "peach regtest" */;
 			buildPhases = (
+				49BE2BAD338157393814E96B /* [CP] Check Pods Manifest.lock */,
 				4C36D5D52DABF75A0098D9BF /* Start Packager */,
 				4C36D5D62DABF75A0098D9BF /* Sources */,
 				4C36D5D92DABF75A0098D9BF /* Frameworks */,
 				4C36D5DB2DABF75A0098D9BF /* Resources */,
 				4C36D5E82DABF75A0098D9BF /* Bundle React Native code and images */,
 				4C36D5EB2DABF75A0098D9BF /* [RNFB] ios_config */,
+				0CA807F0362BA92F46E57D37 /* [CP] Embed Pods Frameworks */,
+				6253A0A3D248CA4D519493F7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -530,6 +541,23 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
+		0CA807F0362BA92F46E57D37 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		0EBD2D251CE704449470144B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -580,6 +608,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-peach-peachTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49BE2BAD338157393814E96B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-peach-peach regtest-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -639,6 +689,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../node_modules/@react-native-firebase/app/ios_config.sh\n";
+		};
+		6253A0A3D248CA4D519493F7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		671A562B2850E9AE0058434C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1051,6 +1118,7 @@
 		};
 		4C36D5ED2DABF75A0098D9BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFA29616EE3AE7D17BD4C258 /* Pods-peach-peach regtest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -1087,6 +1155,7 @@
 		};
 		4C36D5EE2DABF75A0098D9BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2C460E24DEA50384BDD0DE7 /* Pods-peach-peach regtest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;

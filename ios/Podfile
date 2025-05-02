@@ -72,6 +72,11 @@ abstract_target 'peach' do
     # Pods for testnet
   end
 
+  target 'peach regtest' do
+    inherit! :complete
+    # Pods for testnet
+  end
+
   target 'peachTests' do
     inherit! :complete
     # Pods for testing
