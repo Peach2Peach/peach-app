@@ -42,9 +42,6 @@ export const Contract = () => {
       : "buyer"
     : undefined;
 
-  const isFirstTradeAsBuyer =
-    view === "buyer" ? contract?.buyer.trades === 0 : false;
-
   useHandleNotifications(
     useCallback(
       async (message) => {
@@ -63,13 +60,7 @@ export const Contract = () => {
     );
   }
 
-  return (
-    <ContractScreen
-      contract={contract}
-      view={view}
-      isFirstTradeAsBuyer={isFirstTradeAsBuyer}
-    />
-  );
+  return <ContractScreen contract={contract} view={view} />;
 };
 
 type ContractScreenProps = {
@@ -78,11 +69,7 @@ type ContractScreenProps = {
   isFirstTradeAsBuyer?: boolean;
 };
 
-function ContractScreen({
-  contract,
-  view,
-  isFirstTradeAsBuyer,
-}: ContractScreenProps) {
+function ContractScreen({ contract, view }: ContractScreenProps) {
   const {
     data,
     isLoading: isLoadingPaymentData,
@@ -101,7 +88,6 @@ function ContractScreen({
         view,
         showBatchInfo,
         toggleShowBatchInfo,
-        isFirstTradeAsBuyer,
       }}
     >
       <Screen header={<ContractHeader />}>
@@ -119,7 +105,7 @@ function ContractScreen({
 }
 
 function ContractHeader() {
-  const { contract, view, isFirstTradeAsBuyer } = useContractContext();
+  const { contract, view } = useContractContext();
   const {
     tradeStatus,
     disputeActive,
@@ -149,8 +135,9 @@ function ContractHeader() {
   );
 
   useEffect(() => {
-    if (isFirstTradeAsBuyer) setPopup(<HelpPopup id="firstTimeBuyer" />);
-  }, []);
+    if (view === "buyer" && contract?.buyer.trades === 0)
+      setPopup(<HelpPopup id="firstTimeBuyer" />);
+  }, [contract?.buyer.trades, setPopup, view]);
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = [];
