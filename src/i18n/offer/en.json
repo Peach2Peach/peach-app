@@ -1,4 +1,6 @@
 {
+  "offer.sell.details":"sell offer details",
+  "offer.buy.details":"buy offer details",
   "offer.expressBuy":"express buy",
   "offer.expressSell":"express sell",
   "offer.create.title": "create offer",
@@ -10,6 +12,7 @@
   "offer.filter" : "filter",
   "offer.filter.maxPremium" : "max premium",
   "offer.fundMultiple" : "fund multiple offers",
+  "offer.createMultiple" : "create multiple offers",
   "offer.publish" : "publish",
   "offer.published.description" : "We'll send you a notification when there are matches available.",
   "offer.published.title" : "offer published!",

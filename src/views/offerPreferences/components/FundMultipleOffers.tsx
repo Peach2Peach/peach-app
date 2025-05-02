@@ -4,6 +4,7 @@ import { Icon } from "../../../components/Icon";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import { PeachText } from "../../../components/text/PeachText";
 import { useOfferPreferences } from "../../../store/offerPreferenes/useOfferPreferences";
+import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
@@ -12,6 +13,7 @@ const FUND_MULTI_MIN = 3;
 const FUND_MULTI_MAX = 21;
 
 export const FundMultipleOffers = () => {
+  useSettingsStore((state) => state.locale);
   const [multi, setMulti] = useOfferPreferences(
     (state) => [state.multi, state.setMulti],
     shallow,
@@ -39,7 +41,7 @@ export const CreateMultipleOffers = () => {
   return (
     <View style={tw`gap-3`}>
       <Checkbox checked={!!multi} onPress={toggleFundMultiple} green>
-        create multiple offers
+        {i18n("offer.createMultiple")}
       </Checkbox>
       <NumberStepper green />
     </View>

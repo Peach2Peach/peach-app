@@ -5,6 +5,7 @@ import { FixedHeightText } from "../../components/text/FixedHeightText";
 import { PeachText } from "../../components/text/PeachText";
 import { NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { useUserStatus } from "../publicProfile/useUserStatus";
@@ -22,6 +23,9 @@ export function UserCard({
   const goToUserProfile = () => {
     navigation.navigate("publicProfile", { userId: user.id });
   };
+
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View
       style={tw`self-stretch border-2 rounded-2xl border-primary-main gap-10px py-10px px-sm`}
@@ -29,7 +33,7 @@ export function UserCard({
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <TouchableOpacity
           onPress={goToUserProfile}
-          style={tw`flex-row items-center px-3 py-1 border rounded-full gap-2px border-primary-main bg-primary-background-dark`}
+          style={tw`flex-row items-center px-3 py-1 border rounded-full gap-2px border-primary-main ${isDarkMode ? "bg-card" : "bg-primary-background-dark"} `}
         >
           <PeachText style={tw`subtitle-1`}>
             {isBuyer ? "buyer" : "seller"}
