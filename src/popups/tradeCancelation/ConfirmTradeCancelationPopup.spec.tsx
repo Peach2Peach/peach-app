@@ -92,7 +92,9 @@ describe("ConfirmTradeCancelationPopup", () => {
     const { getAllByText } = render(
       <ConfirmTradeCancelationPopup view="buyer" contract={contract} />,
     );
-    act(() => fireEvent.press(getAllByText("cancel trade")[1]));
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
+    });
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("cancel trade")).toBeFalsy();
@@ -122,7 +124,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
 
-    act(() => fireEvent.press(getAllByText("cancel trade")[1]));
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
+    });
 
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
@@ -158,7 +162,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    act(() => fireEvent.press(getByText("cancel trade")));
+    act(() => {
+      fireEvent.press(getByText("cancel trade"));
+    });
     const { queryByText } = render(<GlobalPopup />);
 
     await waitFor(() => {
@@ -190,7 +196,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    act(() => fireEvent.press(getByText("cancel trade")));
+    act(() => {
+      fireEvent.press(getByText("cancel trade"));
+    });
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => act(jest.runAllTimers));
 
