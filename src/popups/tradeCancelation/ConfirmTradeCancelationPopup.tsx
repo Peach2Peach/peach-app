@@ -37,8 +37,8 @@ export function ConfirmTradeCancelationPopup({
     optimisticContract: { canceled: true, tradeStatus: "tradeCanceled" },
   });
 
-  const cancelAction = () => {
-    return view === "seller"
+  const cancelAction = () =>
+    view === "seller"
       ? cancelSeller(undefined, {
           onSuccess: async ({ psbt }) => {
             if (psbt) {
@@ -59,7 +59,6 @@ export function ConfirmTradeCancelationPopup({
               />,
             ),
         });
-  };
   const title = i18n(
     isCashTrade(contract.paymentMethod)
       ? "contract.cancel.cash.title"
