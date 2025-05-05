@@ -21,8 +21,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
-      - run: npm ci
       - run: git submodule update --init --recursive
+      - run: npm install
 
       - run: npx prettier --check .
       - run: npm run lint
