@@ -1,4 +1,5 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
+import { getError, getResult } from "../../../../peach-api/src/utils/result";
 import {
   twintData,
   validSEPAData,
@@ -49,7 +50,7 @@ describe("removePaymentData", () => {
   });
   it("removes payment data from account", async () => {
     const { result } = renderHook(useRemovePaymentData);
-    await act(() => result.current.mutate(validSEPAData.id));
+    act(() => result.current.mutate(validSEPAData.id));
     await waitFor(() => {
       expect(Object.values(usePaymentDataStore.getState().paymentData)).toEqual(
         [validSEPAData2, twintData],
@@ -106,11 +107,10 @@ describe("removePaymentData", () => {
   });
 
   it("does not remove payment data if there is an unexpected error from server request", async () => {
-    deletePaymentHashMock.mockResolvedValueOnce({
+    deletePaymentHashMock.mockResolvedValueOnce(
       // @ts-expect-error testing unexpected error
-      error: { error: "UNEXPECTED" },
-      ...responseUtils,
-    });
+      getError({ error: "UNEXPECTED" }),
+    );
     const { result } = renderHook(useRemovePaymentData);
     act(() => {
       result.current.mutate(validSEPAData.id);
@@ -121,7 +121,7 @@ describe("removePaymentData", () => {
       ).toEqual(validSEPAData);
     });
 
-    deletePaymentHashMock.mockResolvedValueOnce(responseUtils);
+    deletePaymentHashMock.mockResolvedValueOnce(getResult());
     act(() => {
       result.current.mutate(validSEPAData.id);
     });
@@ -133,10 +133,9 @@ describe("removePaymentData", () => {
   });
 
   it("removes payment data from account if server error is expected", async () => {
-    deletePaymentHashMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    deletePaymentHashMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     expect(
       usePaymentDataStore.getState().paymentData[validSEPAData.id],
     ).not.toBeUndefined();

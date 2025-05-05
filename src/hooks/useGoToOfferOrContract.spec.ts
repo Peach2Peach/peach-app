@@ -1,4 +1,5 @@
-import { renderHook, responseUtils } from "test-utils";
+import { renderHook } from "test-utils";
+import { getResult } from "../../peach-api/src/utils/result";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { peachAPI } from "../utils/peachAPI";
 import { useGoToOfferOrContract } from "./useGoToOfferOrContract";
@@ -29,7 +30,7 @@ describe("useGoToOfferOrContract", () => {
     expect(navigateMock).toHaveBeenCalledWith("search", { offerId: "38" });
   });
   it("should not navigate if the id is an offer id and the offer is not found", async () => {
-    getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
+    getOfferDetailsMock.mockResolvedValueOnce(getResult());
     const { result } = renderHook(useGoToOfferOrContract);
 
     await result.current("123");

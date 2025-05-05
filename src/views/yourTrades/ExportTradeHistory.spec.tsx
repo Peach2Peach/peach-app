@@ -1,4 +1,4 @@
-import * as RNFS from "@dr.pogodin/react-native-fs";
+import { writeFile } from "@dr.pogodin/react-native-fs";
 import Share from "react-native-share";
 import { fireEvent, render, waitFor } from "test-utils";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
@@ -40,7 +40,7 @@ describe("ExportTradeHistory", () => {
 
     fireEvent.press(exportButton);
 
-    expect(RNFS.writeFile).toHaveBeenCalledWith(
+    expect(writeFile).toHaveBeenCalledWith(
       "DDirPath//trade-history.csv",
       firstCSVRow,
       "utf8",
@@ -71,7 +71,7 @@ describe("ExportTradeHistory", () => {
 
     fireEvent.press(exportButton);
 
-    expect(RNFS.writeFile).toHaveBeenCalledWith(
+    expect(writeFile).toHaveBeenCalledWith(
       "DDirPath//trade-history.csv",
       `${firstCSVRow}02/12/2022, PC-1-2, sold, 50000, 10.00, EUR\n01/01/2023, P-27D, canceled, 50000, , \n`,
       "utf8",

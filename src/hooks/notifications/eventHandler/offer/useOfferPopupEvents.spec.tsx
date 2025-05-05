@@ -1,12 +1,13 @@
-import { act, render, renderHook, responseUtils } from "test-utils";
+import { act, render, renderHook } from "test-utils";
 import { sellOffer } from "../../../../../peach-api/src/testData/offers";
+import { getResult } from "../../../../../peach-api/src/utils/result";
 import { GlobalPopup } from "../../../../components/popup/GlobalPopup";
 import { peachAPI } from "../../../../utils/peachAPI";
 import { useOfferPopupEvents } from "./useOfferPopupEvents";
 
 jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")
-  .mockResolvedValue({ result: sellOffer, ...responseUtils });
+  .mockResolvedValue(getResult(sellOffer));
 
 describe("useOfferPopupEvents", () => {
   const offerId = "123";
@@ -14,7 +15,7 @@ describe("useOfferPopupEvents", () => {
   it("should show confirm escrow popup on offer.fundingAmountDifferent", async () => {
     const { result } = renderHook(() => useOfferPopupEvents());
     const eventData = { offerId: sellOffer.id } as PNData;
-    await act(() => {
+    act(() => {
       result.current["offer.fundingAmountDifferent"]?.(eventData);
     });
     const { queryByText } = render(<GlobalPopup />);
@@ -25,7 +26,7 @@ describe("useOfferPopupEvents", () => {
     const { result } = renderHook(() => useOfferPopupEvents());
 
     const eventData = { offerId: sellOffer.id } as PNData;
-    await act(() => {
+    act(() => {
       result.current["offer.wrongFundingAmount"]?.(eventData);
     });
     const { queryByText } = render(<GlobalPopup />);

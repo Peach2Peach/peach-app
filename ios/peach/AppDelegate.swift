@@ -3,7 +3,6 @@ import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import FirebaseCore
-import RNSplashScreen
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,11 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       launchOptions: launchOptions
     )
 
-    // Show splash screen
-    RNSplashScreen.show()
+    showSplashScreen() // Call the method to display the splash screen
 
     return true
   }
+
+  private func showSplashScreen() {
+        DispatchQueue.main.async {
+            if let splashClass = NSClassFromString("SplashView") as? NSObject.Type,
+               let splashInstance = splashClass.perform(NSSelectorFromString("sharedInstance"))?.takeUnretainedValue() as? NSObject {
+                splashInstance.perform(NSSelectorFromString("showSplash"))
+            }
+        }
+    }
 }
 
 class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {

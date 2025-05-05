@@ -1,11 +1,6 @@
-import {
-  fireEvent,
-  render,
-  renderHook,
-  responseUtils,
-  waitFor,
-} from "test-utils";
+import { fireEvent, render, renderHook, waitFor } from "test-utils";
 import { Contract } from "../../../../peach-api/src/@types/contract";
+import { getError } from "../../../../peach-api/src/utils/result";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -41,10 +36,9 @@ describe("useRepublishOffer", () => {
   });
 
   it("should show an error banner and close the popup if the sell offer could not be revived", async () => {
-    reviveSellOfferMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    reviveSellOfferMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     const { result } = renderHook(useRepublishOffer);
     result.current.mutate(contract);
     await waitFor(() => {

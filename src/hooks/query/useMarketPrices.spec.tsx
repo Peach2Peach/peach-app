@@ -1,4 +1,5 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { FIFTEEN_SECONDS } from "../../constants";
 import { peachAPI } from "../../utils/peachAPI";
 import { useMarketPrices } from "./useMarketPrices";
@@ -16,7 +17,7 @@ describe("useMarketPrices", () => {
     });
   });
   it("should handle errors", async () => {
-    marketPricesMock.mockResolvedValueOnce(responseUtils);
+    marketPricesMock.mockResolvedValueOnce(getResult());
     const { result } = renderHook(useMarketPrices);
     await waitFor(() => {
       expect(result.current.error).toEqual(
@@ -26,20 +27,8 @@ describe("useMarketPrices", () => {
   });
   it("should refetch every 15 seconds", async () => {
     marketPricesMock
-      .mockResolvedValueOnce({
-        result: {
-          EUR: 21000,
-          CHF: 21000,
-        },
-        ...responseUtils,
-      })
-      .mockResolvedValueOnce({
-        result: {
-          EUR: 1000000,
-          CHF: 1000000,
-        },
-        ...responseUtils,
-      });
+      .mockResolvedValueOnce(getResult({ EUR: 21000, CHF: 21000 }))
+      .mockResolvedValueOnce(getResult({ EUR: 1000000, CHF: 1000000 }));
 
     const { result } = renderHook(useMarketPrices);
     await waitFor(() => {
@@ -60,14 +49,8 @@ describe("useMarketPrices", () => {
   });
   it("should preserve the existing data on error", async () => {
     marketPricesMock
-      .mockResolvedValueOnce({
-        result: {
-          EUR: 21000,
-          CHF: 21000,
-        },
-        ...responseUtils,
-      })
-      .mockResolvedValueOnce(responseUtils);
+      .mockResolvedValueOnce(getResult({ EUR: 21000, CHF: 21000 }))
+      .mockResolvedValueOnce(getResult());
 
     const { result } = renderHook(useMarketPrices);
     await waitFor(() => {

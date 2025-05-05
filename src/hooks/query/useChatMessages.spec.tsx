@@ -1,4 +1,5 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { chat1 } from "../../../tests/unit/data/chatData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
@@ -65,10 +66,9 @@ describe("useChatMessages", () => {
       signature:
         "-----BEGIN PGP SIGNATURE-----\nVersion: openpgp-mobile\n\nsig\n-----END PGP SIGNATURE-----",
     };
-    getChatMock.mockResolvedValueOnce({
-      result: [systemMessage1, systemMessage2],
-      ...responseUtils,
-    });
+    getChatMock.mockResolvedValueOnce(
+      getResult([systemMessage1, systemMessage2]),
+    );
     const { result } = renderHook(useChatMessages, {
       initialProps: {
         contractId: chat1.id,
@@ -105,10 +105,7 @@ describe("useChatMessages", () => {
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    getChatMock.mockResolvedValueOnce({
-      result: chat1.messages.slice(-1),
-      ...responseUtils,
-    });
+    getChatMock.mockResolvedValueOnce(getResult(chat1.messages.slice(-1)));
 
     await act(async () => {
       await result.current.fetchNextPage();

@@ -1,5 +1,6 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
-import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { act, fireEvent, render, waitFor } from "test-utils";
+import { getError, getResult } from "../../../peach-api/src/utils/result";
 import { peachAPI } from "../../utils/peachAPI";
 import { CustomReferralCodePopup } from "./CustomReferralCodePopup";
 expect.extend({ toMatchDiffSnapshot });
@@ -28,10 +29,9 @@ describe("CustomReferralCodePopup", () => {
     expect(withoutText).toMatchDiffSnapshot(withText);
   });
   it("submits custom referral code", async () => {
-    redeemReferralCodeMock.mockResolvedValueOnce({
-      result: { success: true, bonusPoints: 0 },
-      ...responseUtils,
-    });
+    redeemReferralCodeMock.mockResolvedValueOnce(
+      getResult({ success: true, bonusPoints: 0 }),
+    );
     const { getByText, getByPlaceholderText } = render(
       <CustomReferralCodePopup />,
     );
@@ -44,12 +44,9 @@ describe("CustomReferralCodePopup", () => {
     });
   });
   it("handles referral code exists error", async () => {
-    redeemReferralCodeMock.mockResolvedValueOnce({
-      error: {
-        error: "ALREADY_TAKEN",
-      },
-      ...responseUtils,
-    });
+    redeemReferralCodeMock.mockResolvedValueOnce(
+      getError({ error: "ALREADY_TAKEN" }),
+    );
     const { getByText, getByPlaceholderText } = render(
       <CustomReferralCodePopup />,
     );
@@ -63,12 +60,9 @@ describe("CustomReferralCodePopup", () => {
     });
   });
   it("handles other API Errors", async () => {
-    redeemReferralCodeMock.mockResolvedValueOnce({
-      error: {
-        error: "NOT_ENOUGH_POINTS",
-      },
-      ...responseUtils,
-    });
+    redeemReferralCodeMock.mockResolvedValueOnce(
+      getError({ error: "NOT_ENOUGH_POINTS" }),
+    );
     const { getByText, getByPlaceholderText } = render(
       <CustomReferralCodePopup />,
     );

@@ -1,4 +1,5 @@
-import { render, responseUtils, waitFor } from "test-utils";
+import { render, waitFor } from "test-utils";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { setRouteMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { offerKeys } from "../../hooks/query/offerKeys";
@@ -8,12 +9,11 @@ import { EditPremium } from "./EditPremium";
 
 jest.useFakeTimers();
 
-jest.spyOn(peachAPI.public.market, "marketPrices").mockResolvedValue({
-  result: {
-    EUR: 1000000,
-  },
-  ...responseUtils,
-});
+jest.spyOn(peachAPI.public.market, "marketPrices").mockResolvedValue(
+  getResult({
+    EUR: 100000,
+  }),
+);
 
 describe("EditPremium", () => {
   beforeAll(() => {

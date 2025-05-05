@@ -1,4 +1,4 @@
-import * as RNFS from "@dr.pogodin/react-native-fs";
+import { DocumentDirectoryPath } from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import {
   Blockchain,
@@ -294,6 +294,6 @@ function getDBConfig(
   )
     return new DatabaseConfig().memory();
   const dbName = `peach-${network}${nodeType}`;
-  const directory = `${RNFS.DocumentDirectoryPath}/${dbName}`;
+  const directory = `${DocumentDirectoryPath}/${dbName}`;
   return new DatabaseConfig().sqlite(directory);
 }

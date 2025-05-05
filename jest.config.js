@@ -8,7 +8,7 @@ module.exports = {
   coverageReporters: ["lcov", "text-summary"],
   testPathIgnorePatterns: ["<rootDir>/peach-api"],
   transformIgnorePatterns: [
-    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-permissions|react-native-shadow-2|bdk-rn|react-native-parsed-text|react-native-reanimated|react-native-reanimated-carousel|react-native-url-polyfill|react-native-camera)/)",
+    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|@react-navigation|react-native-permissions|react-native-shadow-2|bdk-rn|react-native-parsed-text|react-native-reanimated|react-native-reanimated-carousel|react-native-url-polyfill|react-native-camera)/)",
   ],
   setupFiles: ["./tests/unit/prepare.ts", "dotenv/config"],
   moduleNameMapper: {

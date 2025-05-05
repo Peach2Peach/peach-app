@@ -1,5 +1,6 @@
-import { render, responseUtils, waitFor } from "test-utils";
+import { render, waitFor } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { setRouteMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
@@ -7,7 +8,7 @@ import { ContractChat } from "./ContractChat";
 
 const getContractQuery = jest
   .spyOn(peachAPI.private.contract, "getContract")
-  .mockResolvedValue({ result: contract, ...responseUtils });
+  .mockResolvedValue(getResult(contract));
 
 jest.useFakeTimers();
 
@@ -27,10 +28,9 @@ describe("ContractChat", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("should render chat disabled message when disabled", async () => {
-    getContractQuery.mockResolvedValueOnce({
-      result: { ...contract, isChatActive: false },
-      ...responseUtils,
-    });
+    getContractQuery.mockResolvedValueOnce(
+      getResult({ ...contract, isChatActive: false }),
+    );
     const { toJSON } = render(<ContractChat />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);

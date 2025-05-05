@@ -1,4 +1,5 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
+import { getError, getResult } from "../../../peach-api/src/utils/result";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { defaultFundingStatus } from "../../utils/offer/constants";
@@ -31,10 +32,7 @@ describe("useFundingStatus", () => {
     queryClient.clear();
   });
   it("fetches funding status from API", async () => {
-    getFundingStatusMock.mockResolvedValueOnce({
-      result: inMempool,
-      ...responseUtils,
-    });
+    getFundingStatusMock.mockResolvedValueOnce(getResult(inMempool));
 
     const { result } = renderHook(useEscrowInfo, {
       initialProps: sellOffer.id,
@@ -59,10 +57,9 @@ describe("useFundingStatus", () => {
     });
   });
   it("returns error", async () => {
-    getFundingStatusMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getFundingStatusMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
 
     const { result } = renderHook(useEscrowInfo, {
       initialProps: sellOffer.id,

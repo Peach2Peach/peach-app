@@ -1,4 +1,5 @@
-import { fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { fireEvent, render, waitFor } from "test-utils";
+import { getResult } from "../../../../../peach-api/src/utils/result";
 import { contractSummary } from "../../../../../tests/unit/data/contractSummaryData";
 import { buyOfferSummary } from "../../../../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../../../queryClient";
@@ -35,10 +36,10 @@ describe("TransactionHeader", () => {
 
   jest
     .spyOn(peachAPI.private.offer, "getOfferSummaries")
-    .mockResolvedValue({ result: [buyOfferSummary], ...responseUtils });
+    .mockResolvedValue(getResult([buyOfferSummary]));
   jest
     .spyOn(peachAPI.private.contract, "getContractSummaries")
-    .mockResolvedValue({ result: [contractSummary], ...responseUtils });
+    .mockResolvedValue(getResult([contractSummary]));
 
   afterEach(() => {
     queryClient.clear();

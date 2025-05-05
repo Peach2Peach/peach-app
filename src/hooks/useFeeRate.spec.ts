@@ -1,5 +1,6 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
 import { defaultUser } from "../../peach-api/src/testData/userData";
+import { getResult } from "../../peach-api/src/utils/result";
 import { estimatedFees } from "../../tests/unit/data/bitcoinNetworkData";
 import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../utils/peachAPI";
@@ -17,10 +18,9 @@ jest.useFakeTimers();
 describe("useFeeRate", () => {
   it("should return custom fee rate if set", async () => {
     const customFeeRate = 123;
-    getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: customFeeRate },
-      ...responseUtils,
-    });
+    getUserMock.mockResolvedValueOnce(
+      getResult({ ...defaultUser, feeRate: customFeeRate }),
+    );
     const { result } = renderHook(useFeeRate);
 
     await waitFor(() => {
@@ -28,19 +28,20 @@ describe("useFeeRate", () => {
     });
   });
   it("should return estimated fees", async () => {
-    getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: "fastestFee" },
-      ...responseUtils,
-    });
+    getUserMock.mockResolvedValueOnce(
+      getResult({ ...defaultUser, feeRate: "fastestFee" }),
+    );
     const { result } = renderHook(useFeeRate);
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.fastestFee);
     });
 
-    getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: "halfHourFee" },
-      ...responseUtils,
-    });
+    getUserMock.mockResolvedValueOnce(
+      getResult({
+        ...defaultUser,
+        feeRate: "halfHourFee",
+      }),
+    );
     await act(async () => {
       await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
@@ -48,10 +49,9 @@ describe("useFeeRate", () => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
     });
 
-    getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: "hourFee" },
-      ...responseUtils,
-    });
+    getUserMock.mockResolvedValueOnce(
+      getResult({ ...defaultUser, feeRate: "hourFee" }),
+    );
     await act(async () => {
       await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
@@ -60,20 +60,18 @@ describe("useFeeRate", () => {
     });
   });
   it("should return half hour fee as fallback", async () => {
-    getUserMock.mockResolvedValueOnce({
+    getUserMock.mockResolvedValueOnce(
       // @ts-expect-error testing unknown fee rate
-      result: { ...defaultUser, feeRate: "unknown" },
-      ...responseUtils,
-    });
+      getResult({ ...defaultUser, feeRate: "unknown" }),
+    );
     const { result } = renderHook(useFeeRate);
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
     });
 
-    getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: 0 },
-      ...responseUtils,
-    });
+    getUserMock.mockResolvedValueOnce(
+      getResult({ ...defaultUser, feeRate: 0 }),
+    );
     await act(async () => {
       await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
@@ -81,11 +79,10 @@ describe("useFeeRate", () => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
     });
 
-    getUserMock.mockResolvedValueOnce({
+    getUserMock.mockResolvedValueOnce(
       // @ts-expect-error testing undefined fee rate
-      result: { ...defaultUser, feeRate: undefined },
-      ...responseUtils,
-    });
+      getResult({ ...defaultUser, feeRate: undefined }),
+    );
     await act(async () => {
       await queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });

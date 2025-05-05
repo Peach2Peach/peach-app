@@ -1,5 +1,6 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
 import { defaultUser } from "../../../peach-api/src/testData/userData";
+import { getError } from "../../../peach-api/src/utils/result";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { userKeys } from "../query/useSelfUser";
@@ -41,10 +42,7 @@ describe("useToggleBatching", () => {
   });
 
   it("should call showErrorBanner on error", async () => {
-    setBatchingMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    setBatchingMock.mockResolvedValueOnce(getError({ error: "UNAUTHORIZED" }));
     const { result } = renderHook(() => useToggleBatching(defaultUser));
     result.current.mutate();
 

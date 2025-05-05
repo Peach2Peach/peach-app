@@ -1,4 +1,5 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
+import { getError, getResult } from "../../../../peach-api/src/utils/result";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { resetMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
@@ -35,10 +36,7 @@ describe("useConfirmEscrow", () => {
     queryClient.clear();
   });
   it("shows error banner if escrow could not be confirmed", async () => {
-    confirmEscrowMock.mockResolvedValueOnce({
-      error: unauthorizedError,
-      ...responseUtils,
-    });
+    confirmEscrowMock.mockResolvedValueOnce(getError(unauthorizedError));
     const { result } = renderHook(useConfirmEscrow);
     result.current.mutate({
       offerId: sellOffer.id,
@@ -49,7 +47,7 @@ describe("useConfirmEscrow", () => {
     });
   });
   it("shows error banner if escrow server did not return result", async () => {
-    confirmEscrowMock.mockResolvedValueOnce(responseUtils);
+    confirmEscrowMock.mockResolvedValueOnce(getResult());
     const { result } = renderHook(useConfirmEscrow);
     result.current.mutate({
       offerId: sellOffer.id,

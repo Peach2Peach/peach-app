@@ -1,4 +1,5 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
+import { getError } from "../../../peach-api/src/utils/result";
 import { buyOfferSummary } from "../../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
@@ -28,10 +29,9 @@ describe("useOfferSummaries", () => {
     expect(result.current.error).toBeFalsy();
   });
   it("returns error if server did return error", async () => {
-    getOfferSummariesMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getOfferSummariesMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     const { result } = renderHook(useOfferSummaries);
 
     expect(result.current.offers).toEqual([]);

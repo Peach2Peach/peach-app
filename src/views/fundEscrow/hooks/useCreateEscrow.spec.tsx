@@ -1,4 +1,5 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
+import { getError } from "../../../../peach-api/src/utils/result";
 import { account1 } from "../../../../tests/unit/data/accountData";
 import { updateAccount } from "../../../utils/account/updateAccount";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -44,10 +45,7 @@ describe("useCreateEscrow", () => {
     });
   });
   it("shows error banner on API errors", async () => {
-    createEscrowMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    createEscrowMock.mockResolvedValueOnce(getError({ error: "UNAUTHORIZED" }));
     const { result } = renderHook(useCreateEscrow);
     result.current.mutate(["38"]);
     await waitFor(() => expect(result.current.isPending).toBeFalsy());

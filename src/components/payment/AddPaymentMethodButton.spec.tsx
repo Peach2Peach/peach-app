@@ -1,5 +1,6 @@
-import { fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { fireEvent, render, waitFor } from "test-utils";
 import { BitcoinEvent } from "../../../peach-api/src/@types/events";
+import { getError, getResult } from "../../../peach-api/src/utils/result";
 import {
   belgianBTCEmbassy,
   breizhBitcoin,
@@ -20,7 +21,7 @@ const mockEvents: BitcoinEvent[] = [belgianBTCEmbassy, decouvreBTC];
 
 const getEventsSpy = jest
   .spyOn(peachAPI.public.events, "getEvents")
-  .mockResolvedValue({ result: mockEvents, ...responseUtils });
+  .mockResolvedValue(getResult(mockEvents));
 
 jest.useFakeTimers();
 
@@ -56,11 +57,10 @@ describe("AddPaymentMethodButton", () => {
   });
 
   it("should not update the drawer if meetupEvents are undefined", async () => {
-    getEventsSpy.mockResolvedValueOnce({
-      result: undefined,
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getEventsSpy.mockResolvedValueOnce(
+      getError({ error: "INTERNAL_SERVER_ERROR" }),
+    );
+    getEventsSpy.mockResolvedValueOnce(getError({ error: "UNAUTHORIZED" }));
     const { getByText } = render(<AddPaymentMethodButton isCash />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
@@ -148,10 +148,7 @@ describe("AddPaymentMethodButton", () => {
     });
   });
   it("should sort the countries alphabetically and keep super featured events on top", async () => {
-    getEventsSpy.mockResolvedValueOnce({
-      result: [...mockEvents, btcPrague],
-      ...responseUtils,
-    });
+    getEventsSpy.mockResolvedValueOnce(getResult([...mockEvents, btcPrague]));
     const { getByText } = render(<AddPaymentMethodButton isCash />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
@@ -176,10 +173,7 @@ describe("AddPaymentMethodButton", () => {
     );
   });
   it("should sort the meetups by their city alphabetically", async () => {
-    getEventsSpy.mockResolvedValueOnce({
-      result: [breizhBitcoin, ...mockEvents],
-      ...responseUtils,
-    });
+    getEventsSpy.mockResolvedValueOnce(getResult(mockEvents));
     const { getByText } = render(<AddPaymentMethodButton isCash />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
@@ -212,10 +206,7 @@ describe("AddPaymentMethodButton", () => {
       ...breizhBitcoin,
       featured: true,
     };
-    getEventsSpy.mockResolvedValueOnce({
-      result: [decouvreBTC, featuredEvent],
-      ...responseUtils,
-    });
+    getEventsSpy.mockResolvedValueOnce(getResult([decouvreBTC, featuredEvent]));
     const { getByText } = render(<AddPaymentMethodButton isCash />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);

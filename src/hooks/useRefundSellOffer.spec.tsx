@@ -1,11 +1,5 @@
-import {
-  act,
-  fireEvent,
-  render,
-  renderHook,
-  responseUtils,
-  waitFor,
-} from "test-utils";
+import { act, fireEvent, render, renderHook, waitFor } from "test-utils";
+import { getError, getResult } from "../../peach-api/src/utils/result";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { GlobalOverlay } from "../Overlay";
@@ -62,7 +56,7 @@ describe("useRefundEscrow", () => {
     signAndFinalizePSBTMock.mockReturnValueOnce({
       extractTransaction: () => ({ toHex: () => "hex", getId: () => "id" }),
     });
-    refundSellOfferMock.mockResolvedValueOnce(responseUtils);
+    refundSellOfferMock.mockResolvedValueOnce(getResult());
     getEscrowWalletForOfferMock.mockReturnValueOnce("escrowWallet");
   };
   beforeEach(() => {
@@ -114,10 +108,9 @@ describe("useRefundEscrow", () => {
     signAndFinalizePSBTMock.mockReturnValueOnce({
       extractTransaction: () => ({ toHex: () => "hex", getId: () => "id" }),
     });
-    refundSellOfferMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    refundSellOfferMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     getEscrowWalletForOfferMock.mockReturnValueOnce("escrowWallet");
     useSettingsStore.setState({ refundToPeachWallet: false });
     const { result } = renderHook(useRefundSellOffer);

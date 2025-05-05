@@ -1,5 +1,6 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
 import { match } from "../../../../peach-api/src/testData/match";
+import { getResult } from "../../../../peach-api/src/utils/result";
 import { MSINASECOND } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 import { PAGESIZE, useOfferMatches } from "./useOfferMatches";
@@ -28,26 +29,33 @@ describe("useOfferMatches", () => {
       const offerId = "offerId";
       const totalMatches = firstPage.length + secondPage.length;
       if (page === 0) {
-        return Promise.resolve({
-          result: { matches: firstPage, nextPage: 1, offerId, totalMatches },
-          ...responseUtils,
-        });
+        return Promise.resolve(
+          getResult({
+            matches: firstPage,
+            nextPage: 1,
+            offerId,
+            totalMatches,
+          }),
+        );
       }
       if (page === 1) {
-        return Promise.resolve({
-          result: { matches: secondPage, nextPage: 2, offerId, totalMatches },
-          ...responseUtils,
-        });
+        return Promise.resolve(
+          getResult({
+            matches: secondPage,
+            nextPage: 2,
+            offerId,
+            totalMatches,
+          }),
+        );
       }
-      return Promise.resolve({
-        result: {
+      return Promise.resolve(
+        getResult({
           matches: [],
           nextPage: (page || 2) + 1,
           offerId,
           totalMatches,
-        },
-        ...responseUtils,
-      });
+        }),
+      );
     });
 
     const { result } = renderHook(useOfferMatches, {
@@ -98,16 +106,15 @@ describe("useOfferMatches", () => {
 
   it("should return matches for a funded sell offer", async () => {
     getMatchesMock.mockImplementation((..._args) =>
-      Promise.resolve({
-        result: {
+      Promise.resolve(
+        getResult({
           matches: [match],
           remainingMatches: 0,
           nextPage: 1,
           totalMatches: 1,
           offerId: "offerId",
-        },
-        ...responseUtils,
-      }),
+        }),
+      ),
     );
     const { result } = renderHook(useOfferMatches, {
       initialProps: "thirdOfferId",

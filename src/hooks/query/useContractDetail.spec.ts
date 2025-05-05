@@ -1,5 +1,6 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { useContractDetail } from "./useContractDetail";
@@ -28,7 +29,7 @@ describe("useContractDetail", () => {
     expect(result.current.error).toBeFalsy();
   });
   it("returns error if server did not return result and no local contract exists", async () => {
-    getContractMock.mockResolvedValueOnce(responseUtils);
+    getContractMock.mockResolvedValueOnce(getResult());
     const { result } = renderHook(useContractDetail, {
       initialProps: contract.id,
     });

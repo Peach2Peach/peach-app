@@ -1,4 +1,5 @@
-import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { act, fireEvent, render, waitFor } from "test-utils";
+import { getError, getResult } from "../../peach-api/src/utils/result";
 import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { peachAPI } from "../utils/peachAPI";
 import { useWalletState } from "../utils/wallet/walletStore";
@@ -43,16 +44,13 @@ describe("CancelSellOffersPopup", () => {
   });
   it("not not cancel if no fundMultiple has been passed", async () => {
     const { getAllByText } = render(<CancelSellOffersPopup />);
-    await act(() => fireEvent.press(getAllByText("cancel offer")[1]));
+    act(() => fireEvent.press(getAllByText("cancel offer")[1]));
 
     expect(cancelOfferMock).not.toHaveBeenCalled();
   });
   it("should handle cancelation errors", async () => {
-    cancelOfferMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
-    cancelOfferMock.mockResolvedValueOnce(responseUtils);
+    cancelOfferMock.mockResolvedValueOnce(getError({ error: "UNAUTHORIZED" }));
+    cancelOfferMock.mockResolvedValueOnce(getResult());
 
     const { getAllByText } = render(
       <CancelSellOffersPopup fundMultiple={fundMultiple} />,

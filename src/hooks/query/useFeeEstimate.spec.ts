@@ -1,4 +1,5 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
+import { getError } from "../../../peach-api/src/utils/result";
 import { estimatedFees } from "../../../tests/unit/data/bitcoinNetworkData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
@@ -31,10 +32,9 @@ describe("useFeeEstimate", () => {
     });
   });
   it("returns error if server did not return result", async () => {
-    getFeeEstimateMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getFeeEstimateMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     const { result } = renderHook(useFeeEstimate);
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,

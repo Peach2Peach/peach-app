@@ -1,4 +1,4 @@
-import * as RNFS from "@dr.pogodin/react-native-fs";
+import { DocumentDirectoryPath, writeFile } from "@dr.pogodin/react-native-fs";
 import Share from "react-native-share";
 import { waitFor } from "test-utils";
 import { writeCSV } from "./writeCSV";
@@ -10,7 +10,7 @@ describe("useWriteCSV", () => {
   it("should create a CSV file", async () => {
     await writeCSV(csvValue, destinationFileName);
 
-    expect(RNFS.writeFile).toHaveBeenCalledWith(
+    expect(writeFile).toHaveBeenCalledWith(
       `DDirPath//${destinationFileName}`,
       csvValue,
       "utf8",
@@ -19,7 +19,7 @@ describe("useWriteCSV", () => {
     await waitFor(() => {
       expect(Share.open).toHaveBeenCalledWith({
         title: destinationFileName,
-        url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
+        url: `file://${DocumentDirectoryPath}/${destinationFileName}`,
       });
     });
   });

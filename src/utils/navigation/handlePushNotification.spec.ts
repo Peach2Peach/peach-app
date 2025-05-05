@@ -1,6 +1,6 @@
 import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { sellOffer } from "../../../tests/unit/data/offerData";
-import { responseUtils } from "../../../tests/unit/helpers/test-utils";
 import { peachAPI } from "../peachAPI";
 import { Navigation, handlePushNotification } from "./handlePushNotification";
 
@@ -42,7 +42,7 @@ describe("handlePushNotification", () => {
       },
     } as MessageWithData;
 
-    getContractMock.mockResolvedValueOnce(responseUtils);
+    getContractMock.mockResolvedValueOnce(getResult());
     await handlePushNotification(navigationRef, remoteMessage);
 
     expect(navigationRef.navigateDeprecated).toHaveBeenCalledWith("contract", {
@@ -132,10 +132,9 @@ describe("handlePushNotification", () => {
   });
 
   it("navigates to search when shouldGoToSearch is true and offer is defined", async () => {
-    getOfferDetailsMock.mockResolvedValueOnce({
-      result: { ...sellOffer, matches: ["2"] },
-      ...responseUtils,
-    });
+    getOfferDetailsMock.mockResolvedValueOnce(
+      getResult({ ...sellOffer, matches: ["2"] }),
+    );
 
     const remoteMessage = {
       data: {

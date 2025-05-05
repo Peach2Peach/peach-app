@@ -10,7 +10,7 @@ require_relative '../node_modules/react-native-permissions/scripts/setup'
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
-use_modular_headers!
+# use_modular_headers!
 
 setup_permissions([
   'Camera',
@@ -31,16 +31,33 @@ abstract_target 'peach' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-
-  # pod 'RNScreens', :path => '../node_modules/react-native-screens'
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseInstallations', :modular_headers => true
+  pod 'GoogleDataTransport', :modular_headers => true
+  pod 'nanopb', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
 
   pod 'react-native-fast-openpgp', :path => '../node_modules/react-native-fast-openpgp'
 
-  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+  # pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+  # pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
 
-  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
+  target 'peach mainnet' do
+    inherit! :complete
+    # Pods for mainnet
+  end
+
+  target 'peach testnet' do
+    inherit! :complete
+    # Pods for testnet
+  end
+
+  target 'peach regtest' do
+    inherit! :complete
+    # Pods for regtest
+  end
 
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202

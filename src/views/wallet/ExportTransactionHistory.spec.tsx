@@ -1,4 +1,4 @@
-import * as RNFS from "@dr.pogodin/react-native-fs";
+import { writeFile } from "@dr.pogodin/react-native-fs";
 import Share from "react-native-share";
 import { fireEvent, render, waitFor } from "test-utils";
 import { ExportTransactionHistory } from "./ExportTransactionHistory";
@@ -27,7 +27,7 @@ describe("ExportTransactionHistory", () => {
 
     fireEvent.press(exportButton);
 
-    expect(RNFS.writeFile).toHaveBeenCalledWith(
+    expect(writeFile).toHaveBeenCalledWith(
       "DDirPath//transaction-history.csv",
       firstCSVRow,
       "utf8",
@@ -48,7 +48,7 @@ describe("ExportTransactionHistory", () => {
 
     fireEvent.press(exportButton);
 
-    expect(RNFS.writeFile).toHaveBeenCalledWith(
+    expect(writeFile).toHaveBeenCalledWith(
       "DDirPath//transaction-history.csv",
       `${firstCSVRow}18/08/2023 19:50, WITHDRAWAL, 189000, 1\n18/08/2023 19:50, WITHDRAWAL, 42000, 2\n`,
       "utf8",

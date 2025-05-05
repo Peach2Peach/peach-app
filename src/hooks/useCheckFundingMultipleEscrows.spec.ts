@@ -1,4 +1,5 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
+import { getResult } from "../../peach-api/src/utils/result";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { sellOfferSummary } from "../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
@@ -48,19 +49,19 @@ const getOfferSpy = jest.spyOn(peachAPI.private.offer, "getOfferDetails");
 getOfferSpy.mockImplementation(({ offerId: id }) => {
   switch (id) {
     case "38":
-      return Promise.resolve({ result: sellOffer1, ...responseUtils });
+      return Promise.resolve(getResult(sellOffer1));
     case "39":
-      return Promise.resolve({ result: sellOffer2, ...responseUtils });
+      return Promise.resolve(getResult(sellOffer2));
     case "40":
-      return Promise.resolve({ result: sellOffer3, ...responseUtils });
+      return Promise.resolve(getResult(sellOffer3));
     default:
-      return Promise.resolve({ result: sellOffer1, ...responseUtils });
+      return Promise.resolve(getResult(sellOffer1));
   }
 });
 
 const getOfferSummariesSpy = jest
   .spyOn(peachAPI.private.offer, "getOfferSummaries")
-  .mockResolvedValue({ result: sellOfferSummaries, ...responseUtils });
+  .mockResolvedValue(getResult(sellOfferSummaries));
 
 describe("useCheckFundingMultipleEscrows", () => {
   beforeAll(() => {
@@ -113,13 +114,11 @@ describe("useCheckFundingMultipleEscrows", () => {
     );
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
     act(() => {
-      getOfferSummariesSpy.mockResolvedValueOnce({
-        result: sellOfferSummaries.map((offer) => ({
-          ...offer,
-          fundingTxId: "1",
-        })),
-        ...responseUtils,
-      });
+      getOfferSummariesSpy.mockResolvedValueOnce(
+        getResult(
+          sellOfferSummaries.map((offer) => ({ ...offer, fundingTxId: "1" })),
+        ),
+      );
     });
     act(() => jest.advanceTimersByTime(MSINAMINUTE));
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
@@ -127,10 +126,7 @@ describe("useCheckFundingMultipleEscrows", () => {
   it("aborts if no escrow addresses can be found", async () => {
     queryClient.clear();
     getOfferSpy.mockImplementation(() =>
-      Promise.resolve({
-        result: { ...sellOffer1, escrow: undefined },
-        ...responseUtils,
-      }),
+      Promise.resolve(getResult({ ...sellOffer1, escrow: undefined })),
     );
     renderHook(useCheckFundingMultipleEscrows);
 

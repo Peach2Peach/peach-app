@@ -1,4 +1,5 @@
-import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { act, fireEvent, render, waitFor } from "test-utils";
+import { getResult } from "../../peach-api/src/utils/result";
 import { buyOffer } from "../../tests/unit/data/offerData";
 import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { peachAPI } from "../utils/peachAPI";
@@ -8,7 +9,7 @@ jest.mock("../utils/offer/saveOffer");
 jest.useFakeTimers();
 jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")
-  .mockResolvedValue({ result: buyOffer, ...responseUtils });
+  .mockResolvedValue(getResult(buyOffer));
 
 describe("CancelOfferPopup", () => {
   it("should show cancel offer confirmation popup", async () => {

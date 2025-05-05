@@ -1,5 +1,5 @@
-import { responseUtils } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
+import { getError, getResult } from "../../../peach-api/src/utils/result";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { peachAPI } from "../../utils/peachAPI";
 import { patchSellOfferWithRefundTx } from "./patchSellOfferWithRefundTx";
@@ -65,11 +65,7 @@ describe("cancelContractAsSeller", () => {
       jest.requireActual("../../utils/offer/saveOffer"),
       "saveOffer",
     );
-    patchOfferMock.mockResolvedValueOnce({
-      result: { success: true },
-      error: undefined,
-      ...responseUtils,
-    });
+    patchOfferMock.mockResolvedValueOnce(getResult({ success: true }));
     await patchSellOfferWithRefundTx(contract, "psbt");
     expect(patchOfferMock).toHaveBeenCalledWith({
       offerId: sellOffer.id,
@@ -85,11 +81,9 @@ describe("cancelContractAsSeller", () => {
       jest.requireActual("../../utils/offer/saveOffer"),
       "saveOffer",
     );
-    patchOfferMock.mockResolvedValueOnce({
-      result: undefined,
-      error: { error: "INTERNAL_SERVER_ERROR" },
-      ...responseUtils,
-    });
+    patchOfferMock.mockResolvedValueOnce(
+      getError({ error: "INTERNAL_SERVER_ERROR" }),
+    );
     await patchSellOfferWithRefundTx(contract, "psbt");
     expect(saveOfferSpy).not.toHaveBeenCalled();
   });

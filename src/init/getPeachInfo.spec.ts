@@ -1,5 +1,5 @@
-import { responseUtils } from "test-utils";
 import { PaymentMethodInfo } from "../../peach-api/src/@types/payment";
+import { getError, getResult } from "../../peach-api/src/utils/result";
 import {
   defaultConfig,
   useConfigStore,
@@ -50,10 +50,9 @@ describe("getPeachInfo", () => {
     useConfigStore.setState({ ...defaultConfig, paymentMethods });
   });
   it("returns error response when server is not available", async () => {
-    getStatusMock.mockResolvedValueOnce({
-      error: { error: "INTERNAL_SERVER_ERROR" },
-      ...responseUtils,
-    });
+    getStatusMock.mockResolvedValueOnce(
+      getError({ error: "INTERNAL_SERVER_ERROR" }),
+    );
 
     const response = await getPeachInfo();
 
@@ -64,25 +63,21 @@ describe("getPeachInfo", () => {
   });
 
   it("stores peach info when getInfo returns a successful response", async () => {
-    getInfoMock.mockResolvedValueOnce({
-      result: {
+    getInfoMock.mockResolvedValueOnce(
+      getResult({
         paymentMethods,
         peach: { pgpPublicKey: "pgpPublicKey" },
         fees: { escrow: 0.02 },
         minAppVersion: "1.0.0",
         latestAppVersion: "1.0.1",
-      },
-      ...responseUtils,
-    });
+      }),
+    );
     const serverStatus = {
       error: null,
       status: "online" as const,
       serverTime: Date.now(),
     };
-    getStatusMock.mockResolvedValueOnce({
-      result: serverStatus,
-      ...responseUtils,
-    });
+    getStatusMock.mockResolvedValueOnce(getResult(serverStatus));
     const response = await getPeachInfo();
 
     expect(response).toEqual(serverStatus);
@@ -103,14 +98,8 @@ describe("getPeachInfo", () => {
       status: "online" as const,
       serverTime: Date.now(),
     };
-    getStatusMock.mockResolvedValueOnce({
-      result: serverStatus,
-      ...responseUtils,
-    });
-    getInfoMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getStatusMock.mockResolvedValueOnce(getResult(serverStatus));
+    getInfoMock.mockResolvedValueOnce(getError({ error: "UNAUTHORIZED" }));
 
     const response = await getPeachInfo();
 

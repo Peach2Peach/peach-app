@@ -1,7 +1,8 @@
 /* eslint-disable no-magic-numbers */
 import { TxBuilder } from "bdk-rn";
-import { act, fireEvent, render, renderHook, responseUtils } from "test-utils";
+import { act, fireEvent, render, renderHook } from "test-utils";
 import { defaultUser } from "../../../../peach-api/src/testData/userData";
+import { getResult } from "../../../../peach-api/src/utils/result";
 import { estimatedFees as mockEstimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
 import { transactionError } from "../../../../tests/unit/data/errors";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
@@ -28,10 +29,12 @@ jest.mock("../../../hooks/useShowErrorBanner", () => ({
 }));
 jest.useFakeTimers();
 
-jest.spyOn(peachAPI.private.user, "getSelfUser").mockResolvedValue({
-  result: { ...defaultUser, feeRate: mockEstimatedFees.halfHourFee },
-  ...responseUtils,
-});
+jest.spyOn(peachAPI.private.user, "getSelfUser").mockResolvedValue(
+  getResult({
+    ...defaultUser,
+    feeRate: mockEstimatedFees.halfHourFee,
+  }),
+);
 
 describe("useFundFromPeachWallet", () => {
   const offerId = sellOffer.id;
@@ -125,7 +128,7 @@ describe("useFundFromPeachWallet", () => {
     await act(() => result.current(initialProps));
     const { getByText, queryByText } = render(<GlobalPopup />);
 
-    await act(() => fireEvent.press(getByText("confirm & send")));
+    act(() => fireEvent.press(getByText("confirm & send")));
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
       txDetails.psbt,
@@ -145,7 +148,7 @@ describe("useFundFromPeachWallet", () => {
       await result.current(initialProps);
     });
     const { getByText, queryByText } = render(<GlobalPopup />);
-    await act(() => fireEvent.press(getByText("confirm & send")));
+    act(() => fireEvent.press(getByText("confirm & send")));
 
     expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
@@ -251,7 +254,7 @@ describe("useFundFromPeachWallet", () => {
     });
 
     const { getByText, queryByText } = render(<GlobalPopup />);
-    await act(() => fireEvent.press(getByText("confirm & send")));
+    act(() => fireEvent.press(getByText("confirm & send")));
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
       txDetails.psbt,

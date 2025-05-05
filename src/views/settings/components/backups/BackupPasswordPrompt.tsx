@@ -1,4 +1,4 @@
-import * as RNFS from "@dr.pogodin/react-native-fs";
+import { DocumentDirectoryPath } from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import { useMemo, useRef, useState } from "react";
 import { Keyboard, TextInput, View } from "react-native";
@@ -80,7 +80,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
 
       Share.open({
         title: destinationFileName,
-        url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
+        url: `file://${DocumentDirectoryPath}/${destinationFileName}`,
         subject: destinationFileName,
       })
         .then(({ message, success, dismissedAction }) => {

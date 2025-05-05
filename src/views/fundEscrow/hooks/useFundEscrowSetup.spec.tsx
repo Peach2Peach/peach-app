@@ -1,4 +1,5 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
+import { getError, getResult } from "../../../../peach-api/src/utils/result";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { unauthorizedError } from "../../../../tests/unit/data/peachAPIData";
 import { setRouteMock } from "../../../../tests/unit/helpers/NavigationWrapper";
@@ -33,7 +34,7 @@ const sellOfferWithEscrow = { ...sellOffer, escrow: "escrow" };
 
 const getOfferDetailsMock = jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")
-  .mockResolvedValue({ result: sellOfferWithEscrow, ...responseUtils });
+  .mockResolvedValue(getResult(sellOfferWithEscrow));
 jest.mock("./useHandleFundingStatus", () => ({
   useHandleFundingStatus: jest.fn(),
 }));
@@ -103,10 +104,9 @@ describe("useFundEscrowSetup", () => {
     expect(mockShowErrorBanner).toHaveBeenCalledWith(unauthorizedError.error);
   });
   it("should handle the case that no offer could be returned", () => {
-    getOfferDetailsMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getOfferDetailsMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
       isPending: true,
@@ -119,10 +119,9 @@ describe("useFundEscrowSetup", () => {
   });
   it("should handle the case that no offer could be returned but offer exists locally", () => {
     saveOffer(sellOfferWithEscrow);
-    getOfferDetailsMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getOfferDetailsMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
       isPending: false,

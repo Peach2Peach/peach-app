@@ -1,5 +1,6 @@
-import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { act, renderHook, waitFor } from "test-utils";
 import { BitcoinEvent } from "../../../../peach-api/src/@types/events";
+import { getResult } from "../../../../peach-api/src/utils/result";
 import {
   getStateMock,
   goBackMock,
@@ -44,7 +45,7 @@ const defaultEvent: BitcoinEvent = {
 };
 const getEventsMock = jest
   .spyOn(peachAPI.public.events, "getEvents")
-  .mockResolvedValue({ result: [defaultEvent], ...responseUtils });
+  .mockResolvedValue(getResult([defaultEvent]));
 
 jest.useFakeTimers();
 
@@ -121,7 +122,7 @@ describe("useMeetupScreenSetup", () => {
         origin: "matchDetails",
       },
     });
-    getEventsMock.mockResolvedValueOnce({ result: [], ...responseUtils });
+    getEventsMock.mockResolvedValueOnce(getResult([]));
     const { result } = renderHook(useMeetupScreenSetup);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
@@ -199,10 +200,9 @@ describe("useMeetupScreenSetup", () => {
     ];
     setPaymentMethods(newMethods);
     useConfigStore.getState().setPaymentMethods(newMethods);
-    getEventsMock.mockResolvedValueOnce({
-      result: [{ ...defaultEvent, currencies: ["EUR", "CHF"] }],
-      ...responseUtils,
-    });
+    getEventsMock.mockResolvedValueOnce(
+      getResult([{ ...defaultEvent, currencies: ["EUR", "CHF"] }]),
+    );
 
     const { result } = renderHook(useMeetupScreenSetup);
     await waitFor(() => {
@@ -223,10 +223,9 @@ describe("useMeetupScreenSetup", () => {
     ];
     setPaymentMethods(newMethods);
     useConfigStore.getState().setPaymentMethods(newMethods);
-    getEventsMock.mockResolvedValueOnce({
-      result: [{ ...defaultEvent, currencies: ["EUR", "CHF"] }],
-      ...responseUtils,
-    });
+    getEventsMock.mockResolvedValueOnce(
+      getResult([{ ...defaultEvent, currencies: ["EUR", "CHF"] }]),
+    );
 
     const { result } = renderHook(useMeetupScreenSetup);
     await waitFor(() => {
@@ -253,10 +252,9 @@ describe("useMeetupScreenSetup", () => {
     ];
     setPaymentMethods(newMethods);
     useConfigStore.getState().setPaymentMethods(newMethods);
-    getEventsMock.mockResolvedValueOnce({
-      result: [{ ...defaultEvent, currencies: [] }],
-      ...responseUtils,
-    });
+    getEventsMock.mockResolvedValueOnce(
+      getResult([{ ...defaultEvent, currencies: [] }]),
+    );
 
     const { result } = renderHook(useMeetupScreenSetup);
     await waitFor(() => {
@@ -276,10 +274,9 @@ describe("useMeetupScreenSetup", () => {
     ];
     setPaymentMethods(newMethods);
     useConfigStore.getState().setPaymentMethods(newMethods);
-    getEventsMock.mockResolvedValueOnce({
-      result: [{ ...defaultEvent, currencies: ["EUR", "CHF"] }],
-      ...responseUtils,
-    });
+    getEventsMock.mockResolvedValueOnce(
+      getResult([{ ...defaultEvent, currencies: ["EUR", "CHF"] }]),
+    );
 
     const { result } = renderHook(useMeetupScreenSetup);
     await waitFor(() => {

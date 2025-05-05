@@ -1,4 +1,5 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
+import { getError } from "../../peach-api/src/utils/result";
 import { peachAPI } from "../utils/peachAPI";
 import { usePatchOffer } from "./usePatchOffer";
 
@@ -29,10 +30,7 @@ describe("usePatchOffer - update Premium", () => {
   });
 
   it("should call showErrorBanner on error", async () => {
-    patchOfferMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    patchOfferMock.mockResolvedValueOnce(getError({ error: "UNAUTHORIZED" }));
     const newData = { premium: newPremium };
     const { result } = renderHook(() => usePatchOffer());
     result.current.mutate({ offerId, newData });
@@ -61,10 +59,7 @@ describe("usePatchOffer - update MaxPremium", () => {
   });
 
   it("should call showErrorBanner on error", async () => {
-    patchOfferMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    patchOfferMock.mockResolvedValueOnce(getError({ error: "UNAUTHORIZED" }));
     const newData = { maxPremium: newMaxPremium };
     const { result } = renderHook(() => usePatchOffer());
     result.current.mutate({ offerId, newData });

@@ -1,5 +1,6 @@
-import { renderHook, responseUtils, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
 import { sellOffer } from "../../../peach-api/src/testData/offers";
+import { getError, getResult } from "../../../peach-api/src/utils/result";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { useMultipleOfferDetails, useOfferDetail } from "./useOfferDetail";
@@ -42,10 +43,9 @@ describe("useOfferDetail", () => {
   });
   it("returns error if server did not return result", async () => {
     getStoredOfferMock.mockReturnValueOnce(undefined);
-    getOfferDetailsMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getOfferDetailsMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     const { result } = renderHook(useOfferDetail, {
       initialProps: sellOffer.id,
     });
@@ -69,7 +69,7 @@ describe("useOfferDetail", () => {
   it("returns correct error if server did not return result or error", async () => {
     const expectedError = new Error("NOT_FOUND");
     getStoredOfferMock.mockReturnValueOnce(undefined);
-    getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
+    getOfferDetailsMock.mockResolvedValueOnce(getResult());
     const { result } = renderHook(useOfferDetail, {
       initialProps: sellOffer.id,
     });
@@ -121,10 +121,9 @@ describe("useMultipleOfferDetails", () => {
   });
   it("returns errors if server did not return result", async () => {
     getStoredOfferMock.mockReturnValueOnce(undefined);
-    getOfferDetailsMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
+    getOfferDetailsMock.mockResolvedValueOnce(
+      getError({ error: "UNAUTHORIZED" }),
+    );
     const { result } = renderHook(useMultipleOfferDetails, {
       initialProps: [sellOffer.id],
     });
@@ -150,7 +149,7 @@ describe("useMultipleOfferDetails", () => {
   it("returns correct errors if server did not return result or error", async () => {
     const expectedError = new Error("NOT_FOUND");
     getStoredOfferMock.mockReturnValueOnce(undefined);
-    getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
+    getOfferDetailsMock.mockResolvedValueOnce(getResult());
     const { result } = renderHook(useMultipleOfferDetails, {
       initialProps: [sellOffer.id],
     });
