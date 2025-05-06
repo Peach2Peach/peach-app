@@ -4,6 +4,7 @@ import { queryClient } from "../../queryClient";
 
 export const saveOffer = (offer: SellOffer | BuyOffer) => {
   queryClient.setQueryData(offerKeys.detail(offer.id), offer);
+  if (offer.contractId) return;
   queryClient.setQueryData(
     offerKeys.summaries(),
     (offers: (SellOffer | BuyOffer)[] | undefined = []) => {
