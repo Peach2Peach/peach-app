@@ -46,7 +46,6 @@ export function ConfirmTradeCancelationPopup({
               await patchSellOfferWithRefundTx(contract, psbt);
             } else {
               closePopup();
-              navigation.navigate("homeScreen", { screen: "home" });
             }
           },
         })
@@ -66,12 +65,22 @@ export function ConfirmTradeCancelationPopup({
   );
   const isCash = isCashTrade(contract.paymentMethod);
 
+  const hasBeenFundedAndIsSeller =
+    view === "seller" && contract.fundingStatus !== "NULL";
+
+  const popupText = isCash
+    ? i18n("contract.cancel.cash.text")
+    : i18n(`contract.cancel.${view}`) +
+      (hasBeenFundedAndIsSeller
+        ? i18n(`contract.cancel.${view}Pt2WithEscrow`)
+        : "");
+
+  i18n(isCash ? "contract.cancel.cash.text" : `contract.cancel.${view}`);
+
   return (
     <PopupComponent
       title={title}
-      content={i18n(
-        isCash ? "contract.cancel.cash.text" : `contract.cancel.${view}`,
-      )}
+      content={popupText}
       actions={
         <>
           <PopupAction
