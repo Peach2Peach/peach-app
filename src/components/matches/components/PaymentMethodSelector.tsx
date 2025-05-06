@@ -78,28 +78,28 @@ export function PaymentMethodSelector({
 
       <View style={tw`gap-3 pb-2`}>
         {selectedMethodInfo || (
-          <View
-            style={tw`flex-wrap items-center self-stretch justify-center gap-1`}
-          >
-            {availableCurrencies.map((currency) => (
-              <TouchableOpacity
-                key={currency}
-                style={[
-                  tw`px-2 border rounded-lg border-black-100`,
-                  selectedCurrency === currency
-                    ? isDarkMode
-                      ? tw`border-primary-main text-primary-main`
-                      : tw`bg-black-5 border-black-100`
-                    : tw`border-transparent`,
-                ]}
-                disabled={selectedCurrency === currency}
-                onPress={() => onCurrencyChange(currency)}
-              >
-                <PeachText style={tw`leading-loose subtitle-0`}>
-                  {currency}
-                </PeachText>
-              </TouchableOpacity>
-            ))}
+          <View style={tw`items-center self-stretch justify-center gap-1`}>
+            <View style={tw`flex-row flex-wrap items-center justify-center`}>
+              {availableCurrencies.map((currency) => (
+                <TouchableOpacity
+                  key={currency}
+                  style={[
+                    tw`px-2 border rounded-lg border-black-100`,
+                    selectedCurrency === currency
+                      ? isDarkMode
+                        ? tw`border-primary-main text-primary-main`
+                        : tw`bg-black-5 border-black-100`
+                      : tw`border-transparent`,
+                  ]}
+                  disabled={selectedCurrency === currency}
+                  onPress={() => onCurrencyChange(currency)}
+                >
+                  <PeachText style={tw`leading-loose subtitle-0`}>
+                    {currency}
+                  </PeachText>
+                </TouchableOpacity>
+              ))}
+            </View>
             <CustomSelector
               selectedCurrency={selectedCurrency}
               selectedPaymentData={selectedPaymentData}
