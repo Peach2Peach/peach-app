@@ -51,8 +51,7 @@ function BuyerFundEscrow() {
     return (
       <View style={tw`items-center justify-center gap-8 grow`}>
         <PeachText style={tw`text-center body-l`}>
-          The seller has funded the escrow!{"\n\n"}Once his transaction has been
-          confirmed, you will be able to see the payment details
+          {i18n("offer.sellerSuccessfullyFunded")}
         </PeachText>
         <Image
           source={txInMempool}
@@ -65,7 +64,7 @@ function BuyerFundEscrow() {
   return (
     <View style={tw`items-center justify-center gap-8 grow`}>
       <PeachText style={tw`body-l`}>
-        The seller hasn't funded the escrow yet
+        {i18n("offer.requiredAction.sellerHasntFunded")}
       </PeachText>
       <Image
         source={txInMempool}
@@ -73,7 +72,7 @@ function BuyerFundEscrow() {
         resizeMode="contain"
       />
       <Timer
-        text="seller should fund the escrow in"
+        text={i18n("offer.requiredAction.sellerShouldFundIn")}
         end={contract.fundingExpectedBy.getTime()}
       />
     </View>
@@ -89,7 +88,7 @@ function SellerFundEscrow() {
     return (
       <View style={tw`items-center justify-center gap-8 grow`}>
         <PeachText style={tw`body-l`}>
-          Your bitcoin transaction is pending...
+          {i18n("offer.escrow.transactionPending")}
         </PeachText>
         <Image
           source={txInMempool}
@@ -97,7 +96,7 @@ function SellerFundEscrow() {
           resizeMode="contain"
         />
         <Timer
-          text="you should fund within"
+          text={i18n("offer.fundWithin")}
           end={contract.fundingExpectedBy.getTime()}
         />
       </View>
@@ -106,7 +105,7 @@ function SellerFundEscrow() {
   return (
     <View style={tw`items-center gap-4 grow`}>
       <View style={tw`items-center justify-center gap-1`}>
-        <PeachText style={tw`h6`}>you should fund within</PeachText>
+        <PeachText style={tw`h6`}>{i18n("offer.fundWithin")}</PeachText>
         <SimpleTimer
           style={tw`h5 text-error-main`}
           end={contract.fundingExpectedBy.getTime()}

@@ -8,7 +8,6 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { MSINAMINUTE } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
@@ -25,7 +24,6 @@ export function ConfirmTradeCancelationPopup({
   contract: Contract;
   view: "buyer" | "seller";
 }) {
-  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const { mutate: cancelSeller } = useCancelContract({
@@ -46,7 +44,6 @@ export function ConfirmTradeCancelationPopup({
               await patchSellOfferWithRefundTx(contract, psbt);
             } else {
               closePopup();
-              navigation.navigate("homeScreen", { screen: "home" });
             }
           },
         })
@@ -66,12 +63,22 @@ export function ConfirmTradeCancelationPopup({
   );
   const isCash = isCashTrade(contract.paymentMethod);
 
+  const hasBeenFundedAndIsSeller =
+    view === "seller" && contract.fundingStatus !== "NULL";
+
+  const popupText = isCash
+    ? i18n("contract.cancel.cash.text")
+    : i18n(`contract.cancel.${view}`) +
+      (hasBeenFundedAndIsSeller
+        ? i18n(`contract.cancel.${view}Pt2WithEscrow`)
+        : "");
+
+  i18n(isCash ? "contract.cancel.cash.text" : `contract.cancel.${view}`);
+
   return (
     <PopupComponent
       title={title}
-      content={i18n(
-        isCash ? "contract.cancel.cash.text" : `contract.cancel.${view}`,
-      )}
+      content={popupText}
       actions={
         <>
           <PopupAction

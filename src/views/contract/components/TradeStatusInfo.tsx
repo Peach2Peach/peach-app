@@ -168,7 +168,9 @@ function getSellerStatusText({
     contract.canceledBy === "buyer" && !contract.cancelationRequested
       ? contract.fundingStatus !== "NULL"
         ? "contract.seller.refund.buyerCanceled"
-        : "This trade has been canceled by the buyer."
-      : "contract.seller.refund",
+        : "contract.seller.refund.buyerCanceledNoRefund"
+      : contract.fundingStatus === "NULL"
+        ? "contract.seller.refundNotNeededAndReputationImpacted"
+        : "contract.seller.refund",
   );
 }
