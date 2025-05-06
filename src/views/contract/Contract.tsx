@@ -27,6 +27,7 @@ import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
+import { isPastOffer } from "../yourTrades/utils/isPastOffer";
 import { ContractActions } from "./ContractActions";
 import { PendingPayoutInfo } from "./components/PendingPayoutInfo";
 import { TradeInformation } from "./components/TradeInformation";
@@ -134,8 +135,14 @@ function ContractHeader() {
     [setPopup],
   );
 
+  const isCurrentOfferPastOffer = isPastOffer(contract.tradeStatus);
+
   useEffect(() => {
-    if (view === "buyer" && contract?.buyer.trades === 0)
+    if (
+      view === "buyer" &&
+      contract?.buyer.trades === 0 &&
+      !isCurrentOfferPastOffer
+    )
       setPopup(<HelpPopup id="firstTimeBuyer" />);
   }, [contract?.buyer.trades, setPopup, view]);
 
