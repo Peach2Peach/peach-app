@@ -19,6 +19,7 @@ import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
@@ -61,6 +62,7 @@ export function SellOfferDetails() {
 }
 
 function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+  const { isDarkMode } = useThemeStore();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     keys(offer.meansOfPayment).at(0) || "CHF",
   );
@@ -88,7 +90,9 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         />
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
-          <View style={tw`gap-8 m-1 rounded-2xl bg-primary-background-light`}>
+          <View
+            style={tw`gap-8 m-1 rounded-2xl ${isDarkMode ? "bg-backgroundMain-dark" : "bg-primary-background-light"}`}
+          >
             <UserCard user={offer.user} />
             {/** @ts-ignore */}
             <MiningFeeWarning amount={offer.amount} />

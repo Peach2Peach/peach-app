@@ -4,6 +4,7 @@ import { Icon } from "../../components/Icon";
 import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
 import { showAddress } from "../../utils/bitcoin/showAddress";
+import i18n from "../../utils/i18n";
 
 export function FundingInfo({
   escrow,
@@ -20,17 +21,17 @@ export function FundingInfo({
       <Icon id="lock" size={32} color={tw.color("black-100")} />
       {fundingStatus === "FUNDED" ? (
         <PeachText style={tw`leading-loose underline grow subtitle-0`}>
-          sats are in escrow
+          {i18n("offer.sell.satsInEscrow")}
         </PeachText>
       ) : (
         <>
           {fundingStatus === "MEMPOOL" ? (
             <PeachText style={tw`leading-loose underline grow subtitle-0`}>
-              sats are in mempool
+              {i18n("offer.sell.satsInMempool")}
             </PeachText>
           ) : (
             <PeachText style={tw`leading-loose underline grow subtitle-0`}>
-              sats are not in escrow
+              {i18n("offer.sell.satsNotInEscrow")}
             </PeachText>
           )}
         </>
