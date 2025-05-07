@@ -7,6 +7,7 @@ import { IconType } from "./assets/icons";
 import tw from "./styles/tailwind";
 import { sha256 } from "./utils/crypto/sha256";
 
+export const TIME_UNTIL_REFRESH_SECONDS = 5;
 export const THOUSANDS_GROUP = 3;
 export const CENT = 100;
 export const SATSINBTC = 100000000;
