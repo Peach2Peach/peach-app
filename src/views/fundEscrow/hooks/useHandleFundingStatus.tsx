@@ -5,7 +5,6 @@ import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { WronglyFundedPopup } from "../../../popups/WronglyFundedPopup";
 import { useStartRefundPopup } from "../../../popups/useStartRefundPopup";
 import { info } from "../../../utils/log/info";
-import { saveOffer } from "../../../utils/offer/saveOffer";
 import { OfferPublished } from "../../search/OfferPublished";
 import { useOfferMatches } from "../../search/hooks/useOfferMatches";
 
@@ -37,19 +36,13 @@ export const useHandleFundingStatus = ({
     if (!sellOffer || !fundingStatus) return;
 
     info("Checked funding status", fundingStatus);
-    const updatedOffer = {
-      ...sellOffer,
-      funding: fundingStatus,
-    };
-
-    saveOffer(updatedOffer);
 
     if (fundingStatus.status === "WRONG_FUNDING_AMOUNT") {
       setPopup(<WronglyFundedPopup sellOffer={sellOffer} />);
       return;
     }
     if (userConfirmationRequired) {
-      navigation.replace("wrongFundingAmount", { offerId: updatedOffer.id });
+      navigation.replace("wrongFundingAmount", { offerId: sellOffer.id });
       return;
     }
     if (fundingStatus.status === "FUNDED") {

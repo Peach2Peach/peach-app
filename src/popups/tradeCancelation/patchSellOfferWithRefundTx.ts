@@ -1,7 +1,8 @@
 import { Contract } from "../../../peach-api/src/@types/contract";
+import { offerKeys } from "../../hooks/query/offerKeys";
+import { queryClient } from "../../queryClient";
 import { checkRefundPSBT } from "../../utils/bitcoin/checkRefundPSBT";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
-import { saveOffer } from "../../utils/offer/saveOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { signPSBT } from "../../utils/wallet/signPSBT";
@@ -22,5 +23,8 @@ export async function patchSellOfferWithRefundTx(
       refundTx: signedPSBT.toBase64(),
     });
   if (!patchOfferResult || patchOfferError) return;
-  saveOffer({ ...sellOffer, refundTx: psbt.toBase64() });
+  await Promise.all([
+    queryClient.invalidateQueries({ queryKey: offerKeys.detail(sellOffer.id) }),
+    queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+  ]);
 }

@@ -11,8 +11,6 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { isBuyOffer } from "../utils/offer/isBuyOffer";
-import { isSellOffer } from "../utils/offer/isSellOffer";
-import { saveOffer } from "../utils/offer/saveOffer";
 import { GrayPopup } from "./GrayPopup";
 import { useCancelOffer } from "./useCancelOffer";
 import { useStartRefundPopup } from "./useStartRefundPopup";
@@ -34,18 +32,6 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
     cancelOffer(offerId, {
       onSuccess: async (result) => {
         if (result) {
-          if (isSellOffer(offer)) {
-            saveOffer({
-              ...offer,
-              online: false,
-              funding: {
-                ...offer.funding,
-                status: "CANCELED",
-              },
-            });
-          } else {
-            saveOffer({ ...offer, online: false });
-          }
           if (
             isBuyOffer(offer) ||
             offer.funding.status === "NULL" ||
@@ -67,7 +53,12 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
         showErrorBanner(err.message);
       },
       onSettled: () =>
-        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+        Promise.all([
+          queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+          queryClient.invalidateQueries({
+            queryKey: offerKeys.detail(offerId),
+          }),
+        ]),
     });
   };
 

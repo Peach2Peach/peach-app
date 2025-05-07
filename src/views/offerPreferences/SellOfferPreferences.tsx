@@ -35,7 +35,6 @@ import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
-import { saveOffer } from "../../utils/offer/saveOffer";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
@@ -675,11 +674,8 @@ function FundEscrowButton() {
           setIsPublishing(false);
         },
         onSuccess: async (result, offerDraft) => {
-          if (!Array.isArray(result)) {
-            saveOffer({ ...offerDraft, ...result });
-          } else {
+          if (Array.isArray(result)) {
             if (!peachWallet) throw new Error("Peach wallet not defined");
-            result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }));
 
             const internalAddress = await peachWallet.getInternalAddress();
             const diffToNextAddress = 10;
@@ -745,6 +741,11 @@ function FundEscrowButton() {
             },
           });
         },
+        onSettled: () =>
+          Promise.all([
+            queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+            queryClient.invalidateQueries({ queryKey: offerKeys.details() }),
+          ]),
       },
     );
   };
