@@ -4,8 +4,6 @@ import { peachAPI } from "../utils/peachAPI";
 import { useWalletState } from "../utils/wallet/walletStore";
 import { CancelSellOffersPopup } from "./CancelSellOffersPopup";
 
-jest.mock("../utils/offer/saveOffer");
-
 const cancelOfferMock = jest.spyOn(peachAPI.private.offer, "cancelOffer");
 jest.useFakeTimers();
 

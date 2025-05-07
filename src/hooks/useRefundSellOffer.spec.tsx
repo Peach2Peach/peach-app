@@ -32,9 +32,6 @@ const showTransactionMock = jest.requireMock(
   "../utils/bitcoin/showTransaction",
 ).showTransaction;
 
-jest.mock("../utils/offer/saveOffer");
-const saveOfferMock = jest.requireMock("../utils/offer/saveOffer").saveOffer;
-
 const mockRefetchTradeSummaries = jest.fn();
 jest.mock("../hooks/query/useTradeSummaries", () => ({
   useTradeSummaries: () => ({
@@ -85,12 +82,6 @@ describe("useRefundEscrow", () => {
     });
     const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("escrow refunded")).toBeTruthy();
-    expect(saveOfferMock).toHaveBeenCalledWith({
-      ...sellOffer,
-      tx: "hex",
-      txId: "id",
-      refunded: true,
-    });
   });
 
   it("should handle psbt errors", async () => {

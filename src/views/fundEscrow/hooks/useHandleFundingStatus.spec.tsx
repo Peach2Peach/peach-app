@@ -83,20 +83,6 @@ describe("useHandleFundingStatus", () => {
       queryClient.getQueryData(offerKeys.detail(sellOffer.id)),
     ).toBeUndefined();
   });
-  it("should save offer when funding status updates", () => {
-    const fundingStatus = defaultFundingStatus;
-    const initialProps = {
-      offerId: sellOffer.id,
-      sellOffer,
-      fundingStatus,
-      userConfirmationRequired: false,
-    };
-    renderHook(useHandleFundingStatus, { initialProps });
-    expect(queryClient.getQueryData(offerKeys.detail(sellOffer.id))).toEqual({
-      ...sellOffer,
-      funding: fundingStatus,
-    });
-  });
   it("should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT", () => {
     const fundingStatus: FundingStatus = {
       ...defaultFundingStatus,
