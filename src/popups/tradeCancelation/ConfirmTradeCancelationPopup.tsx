@@ -73,8 +73,6 @@ export function ConfirmTradeCancelationPopup({
         ? i18n(`contract.cancel.${view}Pt2WithEscrow`)
         : "");
 
-  i18n(isCash ? "contract.cancel.cash.text" : `contract.cancel.${view}`);
-
   return (
     <PopupComponent
       title={title}
