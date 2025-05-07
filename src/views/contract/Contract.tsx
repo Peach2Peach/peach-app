@@ -135,16 +135,14 @@ function ContractHeader() {
     [setPopup],
   );
 
-  const isCurrentOfferPastOffer = isPastOffer(contract.tradeStatus);
-
   useEffect(() => {
     if (
       view === "buyer" &&
       contract?.buyer.trades === 0 &&
-      !isCurrentOfferPastOffer
+      !isPastOffer(contract.tradeStatus)
     )
       setPopup(<HelpPopup id="firstTimeBuyer" />);
-  }, [contract?.buyer.trades, setPopup, view]);
+  }, [contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = [];
