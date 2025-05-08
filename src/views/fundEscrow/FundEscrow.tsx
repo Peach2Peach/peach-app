@@ -162,7 +162,13 @@ function FundEscrowHeader() {
       ];
     }
     return icons;
-  }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp]);
+  }, [
+    cancelFundMultipleOffers,
+    goToPreferences,
+    cancelOffer,
+    fundMultiple,
+    showHelp,
+  ]);
 
   return (
     <Header title={i18n("sell.escrow.title")} icons={memoizedHeaderIcons} />
