@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useSetGlobalOverlay } from "../../../Overlay";
 import { PaymentMade } from "../../../views/contract/PaymentMade";
 import { NewBadge } from "../../../views/overlays/NewBadge";
+import { EscrowOfContractFunded } from "../../../views/search/EscrowOfContractFunded";
 import { OfferPublished } from "../../../views/search/OfferPublished";
 
 type PNEventHandlers = Partial<
@@ -23,6 +24,13 @@ export const useOverlayEvents = () => {
       "offer.escrowFunded": ({ offerId }: PNData) =>
         offerId
           ? setOverlayContent(<OfferPublished offerId={offerId} shouldGoBack />)
+          : undefined,
+      // PN-???????????????????? TODO FIX THIS
+      "contract.escrowFunded": ({ contractId }: PNData) =>
+        contractId
+          ? setOverlayContent(
+              <EscrowOfContractFunded contractId={contractId} shouldGoBack />,
+            )
           : undefined,
       // PN-S11
       "contract.paymentMade": ({ contractId }: PNData) =>

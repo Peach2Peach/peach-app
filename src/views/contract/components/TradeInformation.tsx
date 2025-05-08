@@ -7,10 +7,12 @@ import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import tw from "../../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
+import { getOffer } from "../../../utils/offer/getOffer";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { FundFromPeachWalletButton } from "../../fundEscrow/FundFromPeachWalletButton";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
+import { useHandleFundingStatus } from "../../fundEscrow/hooks/useHandleFundingStatus";
 import { useContractContext } from "../context";
 import { shouldShowTradeStatusInfo } from "../helpers/shouldShowTradeStatusInfo";
 import { TradeDetails } from "./TradeDetails";
@@ -83,6 +85,17 @@ function SellerFundEscrow() {
   const { contract } = useContractContext();
   const sellOfferId = getSellOfferIdFromContract(contract);
   const { fundingStatus, isLoading } = useFundingStatus(sellOfferId);
+
+  const sellOffer = getOffer(sellOfferId) as SellOffer;
+
+  useHandleFundingStatus({
+    offerId: sellOfferId,
+    sellOffer,
+    fundingStatus,
+    userConfirmationRequired: false,
+    contractId: contract.id,
+  });
+
   if (isLoading) return <ActivityIndicator size="large" />;
   if (fundingStatus?.status === "MEMPOOL") {
     return (

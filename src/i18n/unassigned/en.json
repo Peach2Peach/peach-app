@@ -196,6 +196,7 @@
   "showEscrow" : "show escrow",
   "showInExplorer" : "show in explorer",
   "showOffer" : "show offer",
+  "showContract" : "show contract",
   "showTransaction" : "show transaction",
   "showTx" : "show tx",
   "status" : "status",
