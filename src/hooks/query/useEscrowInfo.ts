@@ -42,7 +42,10 @@ async function getEscrowInfoQuery({
     throw new Error(err?.error);
   }
   await Promise.all([
-    queryClient.invalidateQueries({ queryKey: offerKeys.detail(offerId) }),
+    queryClient.invalidateQueries({
+      queryKey: offerKeys.detail(offerId),
+      exact: true,
+    }),
     queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
   ]);
   return fundingStatus;
