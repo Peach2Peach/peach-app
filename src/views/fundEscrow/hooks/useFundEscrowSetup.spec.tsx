@@ -5,8 +5,8 @@ import { setRouteMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { MSINAMINUTE } from "../../../constants";
+import { offerKeys } from "../../../hooks/query/offerKeys";
 import { defaultFundingStatus } from "../../../utils/offer/constants";
-import { saveOffer } from "../../../utils/offer/saveOffer";
 import { peachAPI } from "../../../utils/peachAPI";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
@@ -66,7 +66,10 @@ describe("useFundEscrowSetup", () => {
     });
   });
   it("should return registered funding address for funding multiple offers", () => {
-    saveOffer(sellOfferWithEscrow);
+    queryClient.setQueryData(
+      offerKeys.detail(sellOfferWithEscrow.id),
+      sellOfferWithEscrow,
+    );
 
     const internalAddress = "internalAddress";
     useWalletState
@@ -80,7 +83,10 @@ describe("useFundEscrowSetup", () => {
     ]);
   });
   it("should return default values with locally stored offer", () => {
-    saveOffer(sellOfferWithEscrow);
+    queryClient.setQueryData(
+      offerKeys.detail(sellOfferWithEscrow.id),
+      sellOfferWithEscrow,
+    );
     const { result } = renderHook(useFundEscrowSetup);
 
     expect(result.current).toEqual({
@@ -118,7 +124,10 @@ describe("useFundEscrowSetup", () => {
     });
   });
   it("should handle the case that no offer could be returned but offer exists locally", () => {
-    saveOffer(sellOfferWithEscrow);
+    queryClient.setQueryData(
+      offerKeys.detail(sellOfferWithEscrow.id),
+      sellOfferWithEscrow,
+    );
     getOfferDetailsMock.mockResolvedValueOnce({
       error: { error: "UNAUTHORIZED" },
       ...responseUtils,
@@ -146,7 +155,10 @@ describe("useFundEscrowSetup", () => {
   it("should periodically sync peach wallet if funding multiple escrow", async () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
-    saveOffer(sellOfferWithEscrow);
+    queryClient.setQueryData(
+      offerKeys.detail(sellOfferWithEscrow.id),
+      sellOfferWithEscrow,
+    );
 
     const internalAddress = "internalAddress";
     useWalletState

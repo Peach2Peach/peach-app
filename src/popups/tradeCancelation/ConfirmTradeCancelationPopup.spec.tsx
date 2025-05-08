@@ -16,7 +16,6 @@ import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { ConfirmTradeCancelationPopup } from "./ConfirmTradeCancelationPopup";
 
 jest.useFakeTimers();
-jest.mock("../../utils/offer/saveOffer");
 jest.mock("./patchSellOfferWithRefundTx");
 
 const cancelContractMock = jest.spyOn(

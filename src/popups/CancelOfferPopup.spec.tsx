@@ -4,7 +4,6 @@ import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { peachAPI } from "../utils/peachAPI";
 import { CancelOfferPopup } from "./CancelOfferPopup";
 
-jest.mock("../utils/offer/saveOffer");
 jest.useFakeTimers();
 jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")

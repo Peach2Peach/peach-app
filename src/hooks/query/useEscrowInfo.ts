@@ -1,5 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { MSINASECOND } from "../../constants";
+import { queryClient } from "../../queryClient";
 import { error } from "../../utils/log/error";
 import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./offerKeys";
@@ -40,5 +41,12 @@ async function getEscrowInfoQuery({
     error("Could not fetch funding info for offer", offerId, err?.error);
     throw new Error(err?.error);
   }
+  await Promise.all([
+    queryClient.invalidateQueries({
+      queryKey: offerKeys.detail(offerId),
+      exact: true,
+    }),
+    queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+  ]);
   return fundingStatus;
 }

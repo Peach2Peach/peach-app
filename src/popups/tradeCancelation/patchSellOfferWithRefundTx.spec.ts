@@ -60,11 +60,7 @@ describe("cancelContractAsSeller", () => {
 
     expect(signPSBTSpy).not.toHaveBeenCalled();
   });
-  it("calls patchOffer and saves the new refundTx", async () => {
-    const saveOfferSpy = jest.spyOn(
-      jest.requireActual("../../utils/offer/saveOffer"),
-      "saveOffer",
-    );
+  it("calls patchOffer", async () => {
     patchOfferMock.mockResolvedValueOnce({
       result: { success: true },
       error: undefined,
@@ -75,22 +71,5 @@ describe("cancelContractAsSeller", () => {
       offerId: sellOffer.id,
       refundTx: "psbt",
     });
-    expect(saveOfferSpy).toHaveBeenCalledWith({
-      ...sellOffer,
-      refundTx: "psbt",
-    });
-  });
-  it("doesn't save the new refundTx if patchOffer fails", async () => {
-    const saveOfferSpy = jest.spyOn(
-      jest.requireActual("../../utils/offer/saveOffer"),
-      "saveOffer",
-    );
-    patchOfferMock.mockResolvedValueOnce({
-      result: undefined,
-      error: { error: "INTERNAL_SERVER_ERROR" },
-      ...responseUtils,
-    });
-    await patchSellOfferWithRefundTx(contract, "psbt");
-    expect(saveOfferSpy).not.toHaveBeenCalled();
   });
 });
