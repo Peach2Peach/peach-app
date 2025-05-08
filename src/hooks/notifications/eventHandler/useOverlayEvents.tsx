@@ -25,7 +25,7 @@ export const useOverlayEvents = () => {
         offerId
           ? setOverlayContent(<OfferPublished offerId={offerId} shouldGoBack />)
           : undefined,
-      // PN-???????????????????? TODO FIX THIS
+      // PN-???
       "contract.escrowFunded": ({ contractId }: PNData) =>
         contractId
           ? setOverlayContent(

@@ -54,19 +54,15 @@ export const useHandleFundingStatus = ({
         const hasMatches = allMatches.length > 0;
         if (hasMatches) {
           navigation.replace("search", { offerId });
+        } else if (contractId !== undefined) {
+          setOverlay(
+            <EscrowOfContractFunded
+              contractId={contractId}
+              shouldGoBack={false}
+            />,
+          );
         } else {
-          if (contractId !== undefined) {
-            setOverlay(
-              <EscrowOfContractFunded
-                contractId={contractId}
-                shouldGoBack={false}
-              />,
-            );
-          } else {
-            setOverlay(
-              <OfferPublished offerId={offerId} shouldGoBack={false} />,
-            );
-          }
+          setOverlay(<OfferPublished offerId={offerId} shouldGoBack={false} />);
         }
       });
     }
@@ -75,6 +71,7 @@ export const useHandleFundingStatus = ({
     fundingStatus,
     navigation,
     offerId,
+    contractId,
     sellOffer,
     setOverlay,
     setPopup,
