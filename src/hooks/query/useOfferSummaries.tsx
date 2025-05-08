@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { TIME_UNTIL_REFRESH_LONGER_SECONDS } from "../../constants";
 import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./offerKeys";
 
@@ -7,6 +8,7 @@ export const useOfferSummaries = (enabled = true) => {
     queryKey: offerKeys.summaries(),
     queryFn: getOfferSummariesQuery,
     enabled,
+    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000,
   });
 
   return {
