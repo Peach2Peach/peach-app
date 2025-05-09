@@ -48,8 +48,12 @@ function BuyerFundEscrow() {
   const { fundingStatus, isLoading } = useFundingStatus(
     getSellOfferIdFromContract(contract),
   );
+
   if (isLoading) return <ActivityIndicator size="large" />;
-  if (fundingStatus?.status === "MEMPOOL") {
+  if (
+    fundingStatus?.status === "MEMPOOL" ||
+    fundingStatus?.status === "FUNDED" //for regtest purposes
+  ) {
     return (
       <View style={tw`items-center justify-center gap-8 grow`}>
         <PeachText style={tw`text-center body-l`}>
