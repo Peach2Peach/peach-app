@@ -64,7 +64,6 @@ function RequestTrade({ offerId }: { offerId: string }) {
 }
 
 function AcceptTrade({ offerId }: { offerId: string }) {
-  console.log("sellliiii");
   const {
     allMatches: matches,
     isPending,

@@ -52,7 +52,7 @@ function BuyerFundEscrow() {
   if (isLoading) return <ActivityIndicator size="large" />;
   if (
     fundingStatus?.status === "MEMPOOL" ||
-    fundingStatus?.status === "FUNDED" //for regtest purposes
+    fundingStatus?.status === "FUNDED" // for regtest purposes
   ) {
     return (
       <View style={tw`items-center justify-center gap-8 grow`}>

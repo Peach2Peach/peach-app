@@ -90,7 +90,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         params: { tab: "yourTrades.buy" },
       });
     }
-  }, [data]);
+  }, [data, navigation]);
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
       <PeachScrollView contentStyle={tw`gap-8 grow`}>

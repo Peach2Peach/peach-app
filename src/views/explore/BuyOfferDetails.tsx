@@ -88,7 +88,7 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         params: { tab: "yourTrades.sell" },
       });
     }
-  }, [data]);
+  }, [data, navigation]);
 
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>

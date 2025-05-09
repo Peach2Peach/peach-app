@@ -6,7 +6,7 @@ import { peachAPI } from "../../utils/peachAPI";
 export function useTradeRequest(
   offerId: string,
   requestingOfferId?: string,
-  isSellOffer: boolean = false,
+  isSellOffer = false,
 ) {
   return useQuery({
     queryKey: offerKeys.tradeRequest(offerId),
