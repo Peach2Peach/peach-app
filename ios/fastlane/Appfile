@@ -1,0 +1,4 @@
+app_identifier ENV["APP_IDENTIFIER"] #  "com.yourcompany.yourapp" # Your app's Bundle ID
+apple_id ENV["APPLE_ID"] #  "your-apple-id@example.com"     # Your Apple ID email
+team_id ENV["APPLE_TEAM_ID"]
+itc_team_id ENV["ITC_TEAM_ID"] # Optional, App Store Connect Team ID if different
