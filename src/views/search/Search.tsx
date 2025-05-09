@@ -8,6 +8,8 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import {
   CENT,
   SATSINBTC,
+  TIME_UNTIL_REFRESH_LONGER_SECONDS,
+  TIME_UNTIL_REFRESH_SECONDS,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -62,13 +64,14 @@ function RequestTrade({ offerId }: { offerId: string }) {
 }
 
 function AcceptTrade({ offerId }: { offerId: string }) {
+  console.log("sellliiii");
   const {
     allMatches: matches,
     isPending,
     fetchNextPage,
     refetch,
     isRefetching,
-  } = useOfferMatches(offerId);
+  } = useOfferMatches(offerId, TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000);
   const { data } = useQuery({
     queryKey: ["tradeRequests", offerId],
     queryFn: async () => {
@@ -81,6 +84,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
       }
       return result;
     },
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS,
   });
 
   const tradeRequests = data?.tradeRequests || [];

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { TradeRequest } from "../../../peach-api/src/private/offer/getTradeRequest";
@@ -60,6 +60,7 @@ export function BuyOfferDetails() {
 
 function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const { isDarkMode } = useThemeStore();
+  const navigation = useStackNavigation();
 
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     keys(offer.meansOfPayment).at(0) || "CHF",
@@ -79,6 +80,16 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
   const { data } = useTradeRequest(offer.id, requestingOfferId);
+
+  useEffect(() => {
+    if (data?.contract || data?.online === false) {
+      navigation.navigate("homeScreen", {
+        screen: "yourTrades",
+        params: { tab: "yourTrades.sell" },
+      });
+    }
+  }, [data]);
+
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
       <PeachScrollView contentStyle={tw`gap-8 grow`}>
@@ -305,6 +316,7 @@ function BuyPriceInfo({ selectedCurrency }: { selectedCurrency: Currency }) {
   const { amount, premium, offerId, requestingOfferId } =
     useRoute<"buyOfferDetails">().params;
   const { data } = useTradeRequest(offerId, requestingOfferId);
+
   const { data: priceBook } = useMarketPrices();
 
   const amountInBTC = amount / SATSINBTC;

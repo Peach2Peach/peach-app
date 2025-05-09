@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
@@ -62,6 +62,7 @@ export function SellOfferDetails() {
 }
 
 function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+  const navigation = useStackNavigation();
   const { isDarkMode } = useThemeStore();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     keys(offer.meansOfPayment).at(0) || "CHF",
@@ -80,7 +81,16 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
-  const { data } = useTradeRequest(offer.id, requestingOfferId);
+  const { data } = useTradeRequest(offer.id, requestingOfferId, true);
+
+  useEffect(() => {
+    if (data?.contract || data?.online === false) {
+      navigation.navigate("homeScreen", {
+        screen: "yourTrades",
+        params: { tab: "yourTrades.buy" },
+      });
+    }
+  }, [data]);
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
       <PeachScrollView contentStyle={tw`gap-8 grow`}>
