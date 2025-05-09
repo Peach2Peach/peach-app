@@ -6,7 +6,7 @@ import { peachAPI } from "../../utils/peachAPI";
 export function useTradeRequest(
   offerId: string,
   requestingOfferId?: string,
-  isSellOffer = false,
+  // isSellOffer = false,
 ) {
   return useQuery({
     queryKey: offerKeys.tradeRequest(offerId),
@@ -17,23 +17,23 @@ export function useTradeRequest(
       });
       if (error) throw new Error(error.error);
 
-      if (result && isSellOffer) {
-        const offerResponse = await peachAPI.private.offer.getSellOfferSummary({
-          offerId,
-        });
-        if (offerResponse.error) throw new Error(offerResponse.error.error);
+      // if (result && isSellOffer) {
+      //   const offerResponse = await peachAPI.private.offer.getSellOfferSummary({
+      //     offerId,
+      //   });
+      //   if (offerResponse.error) throw new Error(offerResponse.error.error);
 
-        result.contract = offerResponse.result?.contract;
-        result.online = offerResponse.result?.online;
-      } else {
-        const offerResponse = await peachAPI.private.offer.getBuyOfferSummary({
-          offerId,
-        });
-        if (offerResponse.error) throw new Error(offerResponse.error.error);
+      //   result.contract = offerResponse.result?.contract;
+      //   result.online = offerResponse.result?.online;
+      // } else {
+      //   const offerResponse = await peachAPI.private.offer.getBuyOfferSummary({
+      //     offerId,
+      //   });
+      //   if (offerResponse.error) throw new Error(offerResponse.error.error);
 
-        result.contract = offerResponse.result?.contract;
-        result.online = offerResponse.result?.online;
-      }
+      //   result.contract = offerResponse.result?.contract;
+      //   result.online = offerResponse.result?.online;
+      // }
 
       return result;
     },

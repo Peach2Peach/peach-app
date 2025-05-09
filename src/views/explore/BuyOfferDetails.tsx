@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { TradeRequest } from "../../../peach-api/src/private/offer/getTradeRequest";
@@ -60,7 +60,7 @@ export function BuyOfferDetails() {
 
 function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const { isDarkMode } = useThemeStore();
-  const navigation = useStackNavigation();
+  // const navigation = useStackNavigation();
 
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     keys(offer.meansOfPayment).at(0) || "CHF",
@@ -81,14 +81,14 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
   const { data } = useTradeRequest(offer.id, requestingOfferId);
 
-  useEffect(() => {
-    if (data?.contract || data?.online === false) {
-      navigation.navigate("homeScreen", {
-        screen: "yourTrades",
-        params: { tab: "yourTrades.sell" },
-      });
-    }
-  }, [data, navigation]);
+  // useEffect(() => {
+  //   if (data?.contract || data?.online === false) {
+  //     navigation.navigate("homeScreen", {
+  //       screen: "yourTrades",
+  //       params: { tab: "yourTrades.sell" },
+  //     });
+  //   }
+  // }, [data, navigation]);
 
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
