@@ -20,7 +20,7 @@ export const useContractDetail = (id: string) => {
     queryKey: contractKeys.detail(id),
     queryFn: getContractDetail,
     enabled: isFocused,
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
   });
 
   return { contract: data, isLoading, isFetching, refetch, error };

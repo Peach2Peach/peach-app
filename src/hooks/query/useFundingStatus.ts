@@ -13,7 +13,7 @@ export const useFundingStatus = (id: string) => {
   } = useQuery({
     queryKey: offerKeys.fundingStatus(id),
     queryFn: getFundingStatusQuery,
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
   });
 
   return {

@@ -84,7 +84,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
       }
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
   });
 
   const tradeRequests = data?.tradeRequests || [];

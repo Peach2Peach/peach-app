@@ -4,7 +4,6 @@ import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { WronglyFundedPopup } from "../../../popups/WronglyFundedPopup";
 import { useStartRefundPopup } from "../../../popups/useStartRefundPopup";
-import { info } from "../../../utils/log/info";
 import { EscrowOfContractFunded } from "../../search/EscrowOfContractFunded";
 import { OfferPublished } from "../../search/OfferPublished";
 import { useOfferMatches } from "../../search/hooks/useOfferMatches";
@@ -37,8 +36,6 @@ export const useHandleFundingStatus = ({
 
   useEffect(() => {
     if (!sellOffer || !fundingStatus) return;
-
-    info("Checked funding status", fundingStatus);
 
     if (fundingStatus.status === "WRONG_FUNDING_AMOUNT") {
       setPopup(<WronglyFundedPopup sellOffer={sellOffer} />);
