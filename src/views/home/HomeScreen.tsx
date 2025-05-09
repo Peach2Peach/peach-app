@@ -141,9 +141,11 @@ const hasRequiredAction = ({
 const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
   useFocusEffect(
     useCallback(() => {
-      queryClient.invalidateQueries({ queryKey: contractKeys.summaries() });
-      queryClient.invalidateQueries({ queryKey: offerKeys.summaries() });
-    }, [queryClient]),
+      void queryClient.invalidateQueries({
+        queryKey: contractKeys.summaries(),
+      });
+      void queryClient.invalidateQueries({ queryKey: offerKeys.summaries() });
+    }, []),
   );
 
   const navigation = useStackNavigation();

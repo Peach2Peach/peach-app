@@ -4,6 +4,7 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
+import { TIME_UNTIL_REFRESH_LONGER_SECONDS } from "../../constants";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
@@ -31,6 +32,7 @@ export function ExpressSell({
       }
       return result;
     },
+    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000,
   });
 
   const setPopup = useSetPopup();

@@ -1,6 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useSetGlobalOverlay } from "../../Overlay";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -12,6 +14,7 @@ export const EscrowOfContractFunded = ({
   shouldGoBack: boolean;
   contractId: string;
 }) => {
+  const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const setOverlay = useSetGlobalOverlay();
   const closeOverlay = () => setOverlay(undefined);
@@ -19,7 +22,12 @@ export const EscrowOfContractFunded = ({
     navigation.navigate("homeScreen", { screen: "home" });
     closeOverlay();
   };
-  const goToContract = () => {
+  const goToContract = async () => {
+    // reset contracts to avoid a retrigger of the overlay
+    await queryClient.invalidateQueries({
+      queryKey: contractKeys.detail(contractId),
+    });
+
     navigation.reset({
       index: 1,
       routes: [
