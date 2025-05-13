@@ -187,6 +187,8 @@
   "search.unmatch" : "unmatch",
   "search.waitingForSeller" : "waiting for seller",
   "search.weWillNotifyYou" : "we'll notify you when there is a match!",
+  "search.noTradeRequestsYet": "no trade requests yet",
+  "search.weWillNotifyYouTradeRequest" : "you will receive a notification when someone wants to take your offer!",
   "search.youGotAMatch" : "you've got a match!",
   "search.youGotMatches" : "you've got matches!",
   "selectPaymentMethod.title" : "select payment method",
