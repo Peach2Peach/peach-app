@@ -130,7 +130,7 @@ function FundEscrowHeader() {
   const navigation = useStackNavigation();
 
   const { offerId } = useRoute<"fundEscrow">().params;
-  const goToPreferences = () => navigation.navigate("editPremium", { offerId });
+
   const fundMultiple = useWalletState((state) =>
     state.getFundMultipleByOfferId(offerId),
   );
@@ -147,6 +147,8 @@ function FundEscrowHeader() {
   );
 
   const memoizedHeaderIcons = useMemo(() => {
+    const goToPreferences = () =>
+      navigation.navigate("editPremium", { offerId });
     const icons = [
       { ...headerIcons.sellPreferences, onPress: goToPreferences },
       {
@@ -164,10 +166,11 @@ function FundEscrowHeader() {
     return icons;
   }, [
     cancelFundMultipleOffers,
-    goToPreferences,
     cancelOffer,
     fundMultiple,
     showHelp,
+    navigation,
+    offerId,
   ]);
 
   return (
