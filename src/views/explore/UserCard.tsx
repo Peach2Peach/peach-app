@@ -51,9 +51,10 @@ export function UserCard({
       <View style={tw`flex-row flex-wrap justify-end gap-1`}>
         {badges.map(([iconId, badgeName]) => {
           const isUnlocked = user.medals.includes(badgeName);
-          const color = tw.color(
-            isUnlocked ? "primary-main" : "primary-mild-1",
-          );
+
+          if (!isUnlocked) return <></>;
+
+          const color = tw.color("primary-main");
 
           return (
             <View
