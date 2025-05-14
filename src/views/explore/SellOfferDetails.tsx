@@ -25,6 +25,7 @@ import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { getRandom } from "../../utils/crypto/getRandom";
+import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
@@ -51,7 +52,7 @@ export function SellOfferDetails() {
   const { data: offer, isLoading } = useOffer(offerId);
 
   return (
-    <Screen header={`offer ${offerIdToHex(offerId)}`}>
+    <Screen header={`sell offer details ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
@@ -93,8 +94,8 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   //   }
   // }, [data, navigation]);
   return (
-    <View style={tw`items-center justify-between gap-8 grow`}>
-      <PeachScrollView contentStyle={tw`gap-8 grow`}>
+    <View style={tw`items-center justify-between grow`}>
+      <PeachScrollView contentStyle={tw`gap-8 grow pb-16`}>
         <FundingInfo
           escrow={offer.escrow!}
           fundingStatus={offer.fundingStatus!}
@@ -144,11 +145,15 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       </PeachScrollView>
 
       {!data?.tradeRequest && (
-        <RequestTradeAction
-          selectedPaymentData={selectedPaymentData}
-          selectedCurrency={selectedCurrency}
-          offer={offer}
-        />
+        <View
+          style={tw`absolute bottom-0 left-0 right-0 p-2  ${isDarkMode ? "bg-backgroundMain-dark" : "bg-primary-background-light"}`}
+        >
+          <RequestTradeAction
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            offer={offer}
+          />
+        </View>
       )}
     </View>
   );
@@ -352,7 +357,7 @@ function RequestTradeAction({
       disabled={selectedPaymentData === undefined}
       onPress={() => mutate(false)}
     >
-      request trade
+      {i18n("matchDetails.action.requestTrade")}
     </Button>
   );
 }

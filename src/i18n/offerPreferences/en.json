@@ -7,7 +7,7 @@
   "help.instantTradeBuy.title" : "instant trade",
   "matchDetails.action.instantTrade" : "instant trade",
   "matchDetails.action.missingSelection" : "select payment method",
-  "matchDetails.action.requestTrade" : "request trade ",
+  "matchDetails.action.requestTrade" : "request trade",
   "matchDetails.action.tradingLimitReached" : "trading limit reached",
   "matchDetails.title" : "match details",
   "offerPreferences.allPaymentMethods" : "all payment methods",

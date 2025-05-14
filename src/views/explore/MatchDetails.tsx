@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
+import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { Screen } from "../../components/Screen";
@@ -173,7 +174,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   );
   return (
     <>
-      <View style={tw`gap-8 grow`}>
+      <PeachScrollView style={tw`gap-8 grow`}>
         {match.escrow && (
           <FundingInfo escrow={match.escrow} fundingStatus={"FUNDED"} />
         )}
@@ -239,7 +240,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
             </View>
           </View>
         </View>
-      </View>
+      </PeachScrollView>
       {match.instantTrade ? (
         <InstantTradeSlider
           matchOffer={matchOffer}

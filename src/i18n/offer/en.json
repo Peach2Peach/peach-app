@@ -78,5 +78,6 @@
   "offer.summary.youAreBuying" : "you want to buy between",
   "offer.summary.youAreSelling" : "you're selling",
   "offer.summary.youWereSelling" : "you were selling",
-  "yourTrades.unknown" : "unknown"
+  "yourTrades.unknown" : "unknown",
+  "offer.fundwithPeachWallet" : "fund with peach wallet"
 }

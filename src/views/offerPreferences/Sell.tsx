@@ -564,7 +564,7 @@ function FundWithPeachWallet() {
         onPress={toggle}
         style={tw`flex-1`}
       >
-        fund with Peach wallet
+        {i18n("offer.fundwithPeachWallet")}
       </Checkbox>
     </Section.Container>
   );
