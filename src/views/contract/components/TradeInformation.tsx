@@ -9,8 +9,6 @@ import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOffer
 import i18n from "../../../utils/i18n";
 import { getOffer } from "../../../utils/offer/getOffer";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
-import { peachWallet } from "../../../utils/wallet/setWallet";
-import { FundFromPeachWalletButton } from "../../fundEscrow/FundFromPeachWalletButton";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
 import { useHandleFundingStatus } from "../../fundEscrow/hooks/useHandleFundingStatus";
 import { useContractContext } from "../context";
@@ -130,21 +128,10 @@ function SellerFundEscrow() {
       </View>
       <FundingAmount fundingAmount={contract.amount} />
       {!!contract.escrow && !!fundingStatus && (
-        <>
-          <BitcoinAddress
-            address={contract.escrow}
-            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
-          />
-          {!!peachWallet?.balance && peachWallet.balance > contract.amount && (
-            <FundFromPeachWalletButton
-              amount={contract.amount}
-              offerId={sellOfferId}
-              address={contract.escrow}
-              addresses={[contract.escrow]}
-              fundingStatus={fundingStatus}
-            />
-          )}
-        </>
+        <BitcoinAddress
+          address={contract.escrow}
+          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
+        />
       )}
     </View>
   );
