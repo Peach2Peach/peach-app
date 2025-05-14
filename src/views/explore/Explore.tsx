@@ -37,6 +37,7 @@ import { OfferSummaryCard } from "./OfferSummaryCard";
 const OfferTab = createMaterialTopTabNavigator();
 
 export function Explore() {
+  // THIS IS THE MENU OF A BUY OFFER
   const { offerId } = useRoute<"explore">().params;
   return (
     <Screen style={tw`px-0`} header={<ExploreHeader />}>

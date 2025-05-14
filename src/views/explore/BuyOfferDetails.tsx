@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { TradeRequest } from "../../../peach-api/src/private/offer/getTradeRequest";
@@ -11,12 +11,17 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
+import { PopupAction } from "../../components/popup/PopupAction";
+import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
+import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { WarningPopup } from "../../popups/WarningPopup";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
@@ -37,6 +42,7 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { PriceInfo } from "./BuyerPriceInfo";
+import { AnimatedButtons } from "./MatchDetails";
 import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
 import { canUserInstantTrade } from "./canUserInstantTrade";
@@ -60,6 +66,7 @@ export function BuyOfferDetails() {
 
 function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const { isDarkMode } = useThemeStore();
+  const setPopup = useSetPopup();
   // const navigation = useStackNavigation();
 
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
@@ -79,7 +86,7 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
-  const { data } = useTradeRequest(offer.id, requestingOfferId);
+  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
 
   // useEffect(() => {
   //   if (data?.contract || data?.online === false) {
@@ -89,6 +96,52 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   //     });
   //   }
   // }, [data, navigation]);
+
+  const closePopup = useClosePopup();
+  const showUnmatchPopup = useCallback(() => {
+    const undoTradeRequest = async () => {
+      await peachAPI.private.offer.undoRequestTradeWithBuyOffer({
+        offerId: offer.id,
+      });
+      await refetch();
+    };
+    setPopup(
+      <WarningPopup
+        title={i18n("search.popups.unmatch.title")}
+        content={i18n("search.popups.unmatch.text")}
+        actions={
+          <>
+            <PopupAction
+              label={i18n("search.popups.unmatch.confirm")}
+              iconId="minusCircle"
+              textStyle={tw`text-black-100`}
+              onPress={async () => {
+                setPopup(
+                  <WarningPopup
+                    title={i18n("search.popups.unmatched")}
+                    actions={
+                      <ClosePopupAction
+                        style={tw`justify-center`}
+                        textStyle={tw`text-black-100`}
+                      />
+                    }
+                  />,
+                );
+                await undoTradeRequest();
+              }}
+            />
+            <PopupAction
+              label={i18n("search.popups.unmatch.neverMind")}
+              textStyle={tw`text-black-100`}
+              iconId="xSquare"
+              onPress={closePopup}
+              reverseOrder
+            />
+          </>
+        }
+      />,
+    );
+  }, [closePopup, setPopup, offer.id, refetch]);
 
   return (
     <View style={tw`items-center justify-between gap-8 grow`}>
@@ -128,9 +181,10 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
                   <Button
                     iconId="minusCircle"
                     textColor={tw.color("error-main")}
-                    style={tw`hidden bg-primary-background-light`}
+                    style={tw`bg-primary-background-light`}
+                    onPress={showUnmatchPopup}
                   >
-                    UNDO
+                    {i18n("match.unmatchButton")}
                   </Button>
                 </View>
                 <View
@@ -153,6 +207,24 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
           instantTradeCriteria={offer.instantTradeCriteria}
         />
       )}
+
+      {data?.tradeRequest && <WaitingForBuyer />}
+    </View>
+  );
+}
+
+function WaitingForBuyer() {
+  return (
+    <View style={tw`items-center self-center`}>
+      <View style={tw`flex-row items-center justify-center`}>
+        <PeachText style={tw`subtitle-1`}>
+          {i18n("match.waitingForBuyer")}
+        </PeachText>
+        <AnimatedButtons />
+      </View>
+      <PeachText style={tw`text-center subtitle-2`}>
+        {i18n("match.waitingForBuyer.text")}
+      </PeachText>
     </View>
   );
 }
