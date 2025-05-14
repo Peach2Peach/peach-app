@@ -245,7 +245,7 @@ function PublishOfferButton() {
       disabled={!formValid || isSyncingWallet}
       loading={isPublishing || isSyncingWallet}
     >
-      create offer
+      {i18n("offer.create.button")}
     </Button>
   );
 }
