@@ -8,7 +8,6 @@ import { RadioButtons } from "../../../components/inputs/RadioButtons";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PeachText } from "../../../components/text/PeachText";
 import { useSetToast } from "../../../components/toast/Toast";
-import { HorizontalLine } from "../../../components/ui/HorizontalLine";
 import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useValidatedState } from "../../../hooks/useValidatedState";
@@ -111,26 +110,6 @@ export const NetworkFees = () => {
           selectedValue={displayRate}
           onButtonPress={setSelectedFeeRate}
         />
-        <HorizontalLine style={tw`mt-8`} />
-        <PeachText
-          style={tw.style(
-            "mt-4 text-center",
-            isDarkMode ? "text-backgroundLight-light" : "text-black-65",
-          )}
-        >
-          {i18n("settings.networkFees.averageFees")}
-        </PeachText>
-        <PeachText
-          style={tw.style(
-            "text-center subtitle-1",
-            isDarkMode ? "text-primary-mild-2" : "text-black-100",
-          )}
-        >
-          {i18n(
-            "settings.networkFees.xSatsPerByte",
-            estimatedFees.economyFee.toString(),
-          )}
-        </PeachText>
       </PeachScrollView>
       <Button
         onPress={submit}
