@@ -7,14 +7,18 @@ import {
 } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { PeachText } from "../../components/text/PeachText";
 import { Timer } from "../../components/text/Timer";
+import { useFundingStatus } from "../../hooks/query/useFundingStatus";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
+import { peachWallet } from "../../utils/wallet/setWallet";
+import { FundFromPeachWalletButton } from "../fundEscrow/FundFromPeachWalletButton";
 import {
   ChatButton,
   NewOfferButton,
@@ -36,9 +40,29 @@ import { useContractContext } from "./context";
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
+  const sellOfferId = getSellOfferIdFromContract(contract);
+  const { fundingStatus, isLoading } = useFundingStatus(sellOfferId);
+
+  const showFundFromPeachWallet =
+    view === "seller" &&
+    contract.tradeStatus === "fundEscrow" &&
+    !!peachWallet?.balance &&
+    peachWallet.balance > contract.amount &&
+    !isLoading;
+
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
       <ContractButtons />
+
+      {showFundFromPeachWallet && contract.escrow && fundingStatus && (
+        <FundFromPeachWalletButton
+          amount={contract.amount}
+          offerId={sellOfferId}
+          address={contract.escrow}
+          addresses={[contract.escrow]}
+          fundingStatus={fundingStatus}
+        />
+      )}
       <View style={tw`flex-row items-center justify-center gap-6`}>
         <EscrowButton {...contract} style={tw`flex-1`} />
         <ChatButton />

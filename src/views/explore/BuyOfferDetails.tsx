@@ -144,8 +144,8 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   }, [closePopup, setPopup, offer.id, refetch]);
 
   return (
-    <View style={tw`items-center justify-between gap-8 grow`}>
-      <PeachScrollView contentStyle={tw`gap-8 grow`}>
+    <View style={tw`items-center justify-between grow`}>
+      <PeachScrollView contentStyle={tw`gap-8 grow pb-16`}>
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
           <View
@@ -199,13 +199,17 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         </View>
       </PeachScrollView>
       {!data?.tradeRequest && (
-        <RequestTradeAction
-          selectedPaymentData={selectedPaymentData}
-          selectedCurrency={selectedCurrency}
-          offerId={offer.id}
-          counterparty={offer.user}
-          instantTradeCriteria={offer.instantTradeCriteria}
-        />
+        <View
+          style={tw`absolute bottom-0 left-0 right-0 p-2   ${isDarkMode ? "bg-backgroundMain-dark" : "bg-primary-background-light"}`}
+        >
+          <RequestTradeAction
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            offerId={offer.id}
+            counterparty={offer.user}
+            instantTradeCriteria={offer.instantTradeCriteria}
+          />
+        </View>
       )}
 
       {data?.tradeRequest && <WaitingForBuyer />}
@@ -376,10 +380,11 @@ function RequestTradeAction({
 
   return (
     <Button
+      style={tw`self-center`}
       disabled={selectedPaymentData === undefined}
       onPress={() => mutate(false)}
     >
-      request trade
+      {i18n("matchDetails.action.requestTrade")}
     </Button>
   );
 }
