@@ -374,7 +374,11 @@ function RequestTradeAction({
 
   if (canInstantTrade) {
     return (
-      <ConfirmSlider label1="instant trade" onConfirm={() => mutate(true)} />
+      <ConfirmSlider
+        label1={i18n("matchDetails.action.requestTrade")}
+        enabled={selectedPaymentData !== undefined}
+        onConfirm={() => mutate(true)}
+      />
     );
   }
 
