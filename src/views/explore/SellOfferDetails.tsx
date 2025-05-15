@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
@@ -69,7 +69,7 @@ export function SellOfferDetails() {
 }
 
 function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
-  // const navigation = useStackNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const { isDarkMode } = useThemeStore();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
@@ -91,16 +91,16 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
   const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
 
-  // const { data } = useTradeRequest(offer.id, requestingOfferId, true);
+  const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
-  // useEffect(() => {
-  //   if (data?.contract || data?.online === false) {
-  //     navigation.navigate("homeScreen", {
-  //       screen: "yourTrades",
-  //       params: { tab: "yourTrades.buy" },
-  //     });
-  //   }
-  // }, [data, navigation]);
+  useEffect(() => {
+    if (!hadTradeRequest && data?.tradeRequest) {
+      setHadTradeRequest(true);
+    } else if (hadTradeRequest && !data?.tradeRequest)
+      navigation.navigate("homeScreen", {
+        screen: "home",
+      });
+  }, [data, navigation]);
 
   const closePopup = useClosePopup();
   const showUnmatchPopup = useCallback(() => {
@@ -108,6 +108,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       await peachAPI.private.offer.undoRequestTradeWithSellOffer({
         offerId: offer.id,
       });
+      setHadTradeRequest(false);
       await refetch();
     };
 
