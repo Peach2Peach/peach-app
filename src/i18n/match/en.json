@@ -1,5 +1,10 @@
 {
   "match.feeWarning" : "You will pay up to $0% in mining fees!",
   "match.tradeRequested" : "trade requested",
-  "match.waitingForSeller" : "waiting for seller"
+  "match.waitingForSeller" : "waiting for seller",
+  "match.waitingForSeller.text" : "You have sent a Trade Request for this offer. You must wait for the Seller to accept the request.",
+  "match.waitingForBuyer" : "waiting for buyer",
+  "match.waitingForBuyer.text" : "You have sent a Trade Request for this offer. You must wait for the Buyer to accept the request.",
+  "match.matchButton": "MATCH",
+  "match.unmatchButton": "UNMATCH"  
 }

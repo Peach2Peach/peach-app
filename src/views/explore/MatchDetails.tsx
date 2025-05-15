@@ -352,12 +352,14 @@ function WaitingForSeller() {
   return (
     <View style={tw`items-center self-center`}>
       <View style={tw`flex-row items-center justify-center`}>
-        <PeachText style={tw`subtitle-1`}>Waiting for seller</PeachText>
+        <PeachText style={tw`subtitle-1`}>
+          {" "}
+          {i18n("match.waitingForSeller")}
+        </PeachText>
         <AnimatedButtons />
       </View>
       <PeachText style={tw`text-center subtitle-2`}>
-        You can match as many offers as you want! You will buy from the first
-        seller that accepts your trade request.
+        {i18n("match.waitingForSeller.text")}
       </PeachText>
     </View>
   );
@@ -368,7 +370,7 @@ const NUMBER_OF_DOTS = 3;
 const inputRange = new Array(NUMBER_OF_DOTS + 1)
   .fill(0)
   .map((_, i) => i / NUMBER_OF_DOTS);
-function AnimatedButtons() {
+export function AnimatedButtons() {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {

@@ -32,6 +32,7 @@ import { NoMatchesYet } from "./NoMatchesYet";
 const OfferTab = createMaterialTopTabNavigator();
 
 export function Search() {
+  // THIS IS THE MENU OF A SELL OFFER
   const { offerId } = useRoute<"explore">().params;
   return (
     <Screen style={tw`px-0`} header={<ExploreHeader />}>
