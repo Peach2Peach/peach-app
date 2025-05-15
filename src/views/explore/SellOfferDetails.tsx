@@ -100,7 +100,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       navigation.navigate("homeScreen", {
         screen: "home",
       });
-  }, [data, navigation]);
+  }, [data, navigation, hadTradeRequest]);
 
   const closePopup = useClosePopup();
   const showUnmatchPopup = useCallback(() => {

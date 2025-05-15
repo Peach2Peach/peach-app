@@ -98,7 +98,7 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         screen: "home",
       });
     }
-  }, [data]);
+  }, [data, navigation, hadTradeRequest]);
 
   const closePopup = useClosePopup();
   const showUnmatchPopup = useCallback(() => {
