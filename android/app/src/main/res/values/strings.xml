@@ -49,6 +49,7 @@
     <string name="notification.title.contract.contractCreated">Your match got accepted:</string>
     <string name="notification.title.contract.disputeResolved">Dispute</string>
     <string name="notification.title.contract.paymentMade"></string>
+    <string name="notification.title.contract.seller.instantTrade"></string>
     <string name="notification.title.contract.seller.canceledAfterEscrowExpiry">Trade cancelation</string>
     <string name="notification.title.contract.seller.disputeLost"></string>
     <string name="notification.title.contract.seller.disputeRaised"></string>

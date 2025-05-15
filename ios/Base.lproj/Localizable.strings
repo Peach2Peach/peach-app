@@ -47,6 +47,7 @@
 "notification.title.contract.contractCreated" = "Your match got accepted:";
 "notification.title.contract.disputeResolved" = "Dispute";
 "notification.title.contract.paymentMade" = "";
+"notification.title.contract.seller.instantTrade" = "";
 "notification.title.contract.seller.canceledAfterEscrowExpiry" = "Trade cancelation";
 "notification.title.contract.seller.disputeLost" = "";
 "notification.title.contract.seller.disputeRaised" = "";
