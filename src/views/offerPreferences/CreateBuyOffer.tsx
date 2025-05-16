@@ -129,11 +129,19 @@ function AmountSelector({
     shallow,
   );
 
+  const [buyPremium, setBuyPremium] = useOfferPreferences((state) => [
+    state.buyPremium,
+    state.setBuyPremium,
+  ]);
+
   return (
     <AmountSelectorComponent
       setIsSliding={setIsSliding}
       range={buyAmountRange}
       setRange={setBuyAmountRange}
+      maxPremium={buyPremium}
+      setMaxPremium={setBuyPremium}
+      showCompetingOffers
     />
   );
 }

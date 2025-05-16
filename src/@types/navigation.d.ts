@@ -31,6 +31,7 @@ type BuyFlow = {
   buy: undefined;
   sellOfferDetails: { offerId: string; requestingOfferId?: string };
   buyOfferPreferences: undefined;
+  editExpressBuyOfferFilters: undefined;
   explore: { offerId: string };
   editBuyPreferences: { offerId: string };
   matchDetails: { offerId: string; matchId: string };
