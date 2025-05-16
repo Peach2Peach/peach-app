@@ -1,0 +1,43 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and push a new beta build to TestFlight"
+  lane :beta do
+    # Set up CI environment
+    setup_ci if ENV['CI']
+
+    # Increment build number
+    increment_build_number(
+      build_number: ENV["GITHUB_RUN_NUMBER"] || Time.now.strftime("%Y%m%d%H%M")
+    )
+
+    # Update code signing settings
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      targets: [ENV["APP_TARGET"] || "YourAppTarget"],
+      code_sign_identity: "Apple Distribution",
+      bundle_identifier: ENV["APP_IDENTIFIER"] || "com.yourcompany.yourapp",
+      profile_name: "match AppStore #{ENV["APP_IDENTIFIER"] || "com.yourcompany.yourapp"}",
+      team_id: ENV["APPLE_TEAM_ID"],
+      build_configurations: ["Release"]
+    )
+
+    # Build the app
+    build_app(
+      workspace: ENV["XCODE_WORKSPACE"] || "YourApp.xcworkspace",
+      scheme: ENV["XCODE_SCHEME"] || "YourApp",
+      configuration: "Release",
+      export_options: {
+        method: "app-store"
+      }
+    )
+
+    # Upload to TestFlight
+    upload_to_testflight(
+      skip_waiting_for_build_processing: false,
+      apple_id: ENV["APPLE_APP_ID"],
+      username: ENV["APPLE_ID"],
+      team_id: ENV["ITC_TEAM_ID"] || ENV["APPLE_TEAM_ID"]
+    )
+  end
+end
