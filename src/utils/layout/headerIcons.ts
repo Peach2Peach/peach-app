@@ -19,4 +19,5 @@ export const headerIcons = {
   warning: { id: "alertOctagon", color: tw.color("error-main") },
   buyPreferences: { id: "edit", color: tw.color("success-main") },
   sellPreferences: { id: "percent", color: tw.color("primary-main") },
+  editExpressSellFilters: { id: "edit", color: tw.color("primary-main") },
 } as const;

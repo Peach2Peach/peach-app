@@ -74,6 +74,7 @@ import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTrackWidth } from "./utils/useTrackWidth";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
+const MIN_PREMIUM_INCREMENT = 0.01;
 const SellTab = createMaterialTopTabNavigator();
 
 export function SellOfferPreferences() {
@@ -107,6 +108,16 @@ export function SellOfferPreferences() {
 
 function CreateSellOffer() {
   const [isSliding, setIsSliding] = useState(false);
+
+  const [amount, setAmount, premium, setPremium] = useOfferPreferences(
+    (state) => [
+      state.sellAmount,
+      state.setSellAmount,
+      state.premium,
+      state.setPremium,
+    ],
+  );
+
   return (
     <PreferenceScreen
       button={
@@ -118,7 +129,15 @@ function CreateSellOffer() {
       isSliding={isSliding}
     >
       <SellPreferenceMarketInfo />
-      <AmountSelector setIsSliding={setIsSliding} />
+      <AmountSelector
+        setIsSliding={setIsSliding}
+        amount={amount}
+        setAmount={setAmount}
+        premium={premium}
+        setPremium={setPremium}
+        showCompetingSellOffers
+        minPremiumSearchCase={false}
+      />
       <PreferenceMethods type="sell" />
       <ExpectedTradingExperience />
       <FundMultipleOffersContainer />
@@ -170,21 +189,40 @@ function ExpectedTradingExperience() {
   );
 }
 
-function AmountSelector({
+export function AmountSelector({
   setIsSliding,
+  amount,
+  setAmount,
+  premium,
+  setPremium,
+  showCompetingSellOffers,
+  minPremiumSearchCase = false,
 }: {
   setIsSliding: (isSliding: boolean) => void;
+  amount: number;
+  premium: number;
+  setAmount: (newAmount: number) => void;
+  setPremium: (newAmount: number) => void;
+  showCompetingSellOffers: boolean;
+  minPremiumSearchCase: boolean;
 }) {
   const trackWidth = useTrackWidth();
 
   return (
     <AmountSelectorContainer
+      amount={amount}
+      premium={premium}
+      setPremium={setPremium}
+      showCompetingSellOffers={showCompetingSellOffers}
+      minPremiumSearchCase={minPremiumSearchCase}
       slider={
         <SliderTrack
           slider={
             <SellAmountSlider
               setIsSliding={setIsSliding}
               trackWidth={trackWidth}
+              amount={amount}
+              setAmount={setAmount}
             />
           }
           trackWidth={trackWidth}
@@ -193,9 +231,9 @@ function AmountSelector({
       }
       inputs={
         <View style={tw`z-10 items-center -gap-1`}>
-          <SatsInput />
+          <SatsInput amount={amount} setAmount={setAmount} />
           <PeachText style={tw`subtitle-1`}>=</PeachText>
-          <FiatInput />
+          <FiatInput amount={amount} setAmount={setAmount} />
         </View>
       }
     />
@@ -205,11 +243,47 @@ function AmountSelector({
 function AmountSelectorContainer({
   slider,
   inputs,
+  showCompetingSellOffers,
+  minPremiumSearchCase,
+  amount,
+  premium,
+  setPremium,
 }: {
   slider?: JSX.Element;
   inputs?: JSX.Element;
+  showCompetingSellOffers: boolean;
+  minPremiumSearchCase: boolean;
+  amount: number;
+  premium: number;
+  setPremium: (x: number) => void;
 }) {
   const { isDarkMode } = useThemeStore();
+  const { meansOfPayment } = useOfferPreferences(
+    (state) => ({
+      meansOfPayment: state.meansOfPayment,
+    }),
+    shallow,
+  );
+  let competingOffersComponent = <></>;
+
+  if (showCompetingSellOffers) {
+    const { data } = useFilteredMarketStats({
+      type: "ask",
+      maxPremium: premium - MIN_PREMIUM_INCREMENT,
+      meansOfPayment,
+    });
+
+    competingOffersComponent = (
+      <PeachText
+        style={tw`text-center body-s ${isDarkMode ? "text-primary-main" : "text-primary-dark-2"}`}
+      >
+        {i18n(
+          "offerPreferences.competingSellOffersBelowThisPremium",
+          String(data.offersWithinRange.length),
+        )}
+      </PeachText>
+    );
+  }
   return (
     <Section.Container
       style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark"}`}
@@ -220,7 +294,13 @@ function AmountSelectorContainer({
           {inputs}
           {slider}
         </View>
-        <Premium />
+        <Premium
+          minPremiumSearchCase={minPremiumSearchCase}
+          amount={amount}
+          premium={premium}
+          setPremium={setPremium}
+        />
+        {competingOffersComponent}
       </View>
     </Section.Container>
   );
@@ -228,49 +308,58 @@ function AmountSelectorContainer({
 
 const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, ".");
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, "");
-const MIN_PREMIUM_INCREMENT = 0.01;
-function Premium() {
-  const { isDarkMode } = useThemeStore();
-  const preferences = useOfferPreferences(
-    (state) => ({
-      maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
-      meansOfPayment: state.meansOfPayment,
-    }),
-    shallow,
-  );
-  const { data } = useFilteredMarketStats({ type: "ask", ...preferences });
+
+function Premium({
+  minPremiumSearchCase,
+  amount,
+  premium,
+  setPremium,
+}: {
+  minPremiumSearchCase: boolean;
+  amount: number;
+  premium: number;
+  setPremium: (x: number) => void;
+}) {
   return (
     <View style={tw`self-stretch gap-1`}>
-      <PremiumInputComponent />
-      <CurrentPrice />
-      <PeachText
-        style={tw`text-center body-s ${isDarkMode ? "text-primary-main" : "text-primary-dark-2"}`}
-      >
-        {i18n(
-          "offerPreferences.competingSellOffersBelowThisPremium",
-          String(data.offersWithinRange.length),
-        )}
-      </PeachText>
+      <PremiumInputComponent
+        minPremiumSearchCase={minPremiumSearchCase}
+        premium={premium}
+        setPremium={setPremium}
+      />
+      <CurrentPrice amount={amount} premium={premium} />
     </View>
   );
 }
 
-function PremiumInputComponent() {
-  const [premium, setPremium] = useOfferPreferences((state) => [
-    state.premium,
-    state.setPremium,
-  ]);
+function PremiumInputComponent({
+  minPremiumSearchCase,
+  premium,
+  setPremium,
+}: {
+  minPremiumSearchCase: boolean;
+  premium: number;
+  setPremium: (x: number) => void;
+}) {
   return (
-    <PremiumInput premium={premium} setPremium={setPremium} incrementBy={1} />
+    <PremiumInput
+      premium={premium}
+      setPremium={setPremium}
+      incrementBy={1}
+      minPremiumSearchCase={minPremiumSearchCase}
+    />
   );
 }
 
-function CurrentPrice() {
+function CurrentPrice({
+  amount,
+  premium,
+}: {
+  amount: number;
+  premium: number;
+}) {
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
-  const [amount, premium] = useOfferPreferences(
-    (state) => [state.sellAmount, state.premium],
-    shallow,
-  );
+
   const { fiatPrice } = useBitcoinPrices(amount);
   const priceWithPremium = useMemo(
     () => round(fiatPrice * (1 + premium / CENT), 2),
@@ -290,9 +379,16 @@ function CurrentPrice() {
 type SellAmountSliderProps = {
   trackWidth: number;
   setIsSliding: (isSliding: boolean) => void;
+  amount: number;
+  setAmount: (newAmount: number) => void;
 };
 
-function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
+function SellAmountSlider({
+  trackWidth,
+  setIsSliding,
+  amount,
+  setAmount,
+}: SellAmountSliderProps) {
   const [, maxLimit] = useTradingAmountLimits("sell");
 
   const trackMax = trackWidth - sliderWidth;
@@ -300,10 +396,6 @@ function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
 
   const getAmountInBounds = useAmountInBounds(trackWidth, "sell");
 
-  const [amount, setAmount] = useOfferPreferences((state) => [
-    state.sellAmount,
-    state.setSellAmount,
-  ]);
   const translateX = (amount / maxLimit) * trackDelta;
 
   const onDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
@@ -330,11 +422,13 @@ export const inputContainerStyle = [
   "border rounded-lg border-black-25",
 ];
 
-function SatsInput() {
-  const [amount, setAmount] = useOfferPreferences((state) => [
-    state.sellAmount,
-    state.setSellAmount,
-  ]);
+function SatsInput({
+  amount,
+  setAmount,
+}: {
+  amount: number;
+  setAmount: (newAmount: number) => void;
+}) {
   const inputRef = useRef<TextInput>(null);
   const [inputValue, setInputValue] = useState(String(amount));
   const restrictAmount = useRestrictSatsAmount("sell");
@@ -367,13 +461,15 @@ function SatsInput() {
   );
 }
 
-function FiatInput() {
+function FiatInput({
+  amount,
+  setAmount,
+}: {
+  amount: number;
+  setAmount: (newAmount: number) => void;
+}) {
   const { isDarkMode } = useThemeStore();
 
-  const [amount, setAmount] = useOfferPreferences((state) => [
-    state.sellAmount,
-    state.setSellAmount,
-  ]);
   const inputRef = useRef<TextInput>(null);
 
   const { bitcoinPrice, fiatPrice } = useBitcoinPrices(amount);
@@ -845,8 +941,12 @@ function RefundWalletSelector() {
 
 function SellHeader() {
   const { isDarkMode } = useThemeStore();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
+  const navigateToExpressSellFilters = () => {
+    navigation.navigate("editExpressSellOfferFilters");
+  };
   return (
     <Header
       titleComponent={
@@ -865,7 +965,13 @@ function SellHeader() {
           )}
         </>
       }
-      icons={[{ ...headerIcons.help, onPress }]}
+      icons={[
+        {
+          ...headerIcons.editExpressSellFilters,
+          onPress: navigateToExpressSellFilters,
+        },
+        { ...headerIcons.help, onPress },
+      ]}
     />
   );
 }

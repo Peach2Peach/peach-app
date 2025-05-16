@@ -26,6 +26,7 @@ import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
 import { CreateBuyOffer } from "./offerPreferences/CreateBuyOffer";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
 import { EditExpressBuyOfferFilters } from "./offerPreferences/EditExpressBuyOfferFilters";
+import { EditExpressSellOfferFilters } from "./offerPreferences/EditExpressSellOfferFilters";
 import { SellOfferPreferences } from "./offerPreferences/Sell";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
@@ -125,6 +126,10 @@ const buyFlow: ViewType[] = [
 
 const sellFlow: ViewType[] = [
   { name: "sellOfferPreferences", component: SellOfferPreferences },
+  {
+    name: "editExpressSellOfferFilters",
+    component: EditExpressSellOfferFilters,
+  },
   { name: "fundEscrow", component: FundEscrow },
   { name: "wrongFundingAmount", component: WrongFundingAmount },
   { name: "search", component: Search },

@@ -1,13 +1,9 @@
-import { useState } from "react";
 import { shallow } from "zustand/shallow";
 import { Screen } from "../../components/Screen";
-import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useExpressBuyFilterPreferences } from "../../store/useExpressBuyFilterPreferences/useExpressBuyFilterPreferences";
 import i18n from "../../utils/i18n";
-import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
-import { PreferenceScreen } from "./components/PreferenceScreen";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 export function EditExpressBuyOfferFilters() {
@@ -34,17 +30,14 @@ export function EditExpressBuyOfferFilters() {
 
 function ScreenContent() {
   useSettingsStore((state) => state.locale);
-  const [isSliding, setIsSliding] = useState(false);
 
   return (
     <Screen header={i18n("offer.expressBuy.filter.edit.title")}>
-      <PreferenceScreen isSliding={isSliding} button={<SaveFiltersButton />}>
-        {/* <OfferMarketInfo /> */}
-        {/* <OfferMethods /> */}
-        <AmountSelector setIsSliding={setIsSliding} />
-        {/* <CompetingOfferStats /> */}
-        {/* <Filters /> */}
-      </PreferenceScreen>
+      {/* <OfferMarketInfo /> */}
+      {/* <OfferMethods /> */}
+      <AmountSelector setIsSliding={() => {}} />
+      {/* <CompetingOfferStats /> */}
+      {/* <Filters /> */}
     </Screen>
   );
 }
@@ -118,16 +111,14 @@ function AmountSelector({
     setMinAmount(newAmount[0]);
     setMaxAmount(newAmount[1]);
   };
-  const handleMaxPremiumChange = (newMaxPremium: number) => {
-    setMaxPremium(newMaxPremium);
-  };
+
   return (
     <AmountSelectorComponent
       setIsSliding={setIsSliding}
       range={[minAmount, maxAmount]}
       setRange={handleAmountChange}
       maxPremium={maxPremium}
-      setMaxPremium={handleMaxPremiumChange}
+      setMaxPremium={setMaxPremium}
       showCompetingOffers={false}
     />
   );
@@ -229,14 +220,3 @@ function AmountSelector({
 //     />
 //   );
 // }
-
-function SaveFiltersButton() {
-  const navigation = useStackNavigation();
-  const onPress = () => {
-    navigation.goBack();
-  };
-
-  return (
-    <ShowOffersButton onPress={onPress} disabled={false} loading={false} />
-  );
-}

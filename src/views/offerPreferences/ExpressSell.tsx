@@ -7,6 +7,7 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { TIME_UNTIL_REFRESH_LONGER_SECONDS } from "../../constants";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useExpressSellFilterPreferences } from "../../store/useExpressSellFilterPreference/useExpressSellFilterPreference";
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { BuyOfferSummaryIdCard } from "../explore/OfferSummaryCard";
@@ -20,6 +21,12 @@ export function ExpressSell({
   const defaultSellOfferSorter = useOfferPreferences(
     (state) => state.sortBy.sellOffer[0],
   );
+
+  const [amount, minPremium] = useExpressSellFilterPreferences((state) => [
+    state.amount,
+    state.minPremium,
+  ]);
+
   const { data } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
     queryFn: async () => {
@@ -27,6 +34,8 @@ export function ExpressSell({
         await peachAPI.private.offer.getBuyOfferSummaryIds({
           sortBy: defaultSellOfferSorter,
           matchSellOfferId: requestingOfferId,
+          amount: requestingOfferId ? undefined : amount,
+          minPremium: requestingOfferId ? undefined : minPremium,
         });
       if (error || !result) {
         throw new Error(error?.message || "Buy offer summary ids not found");

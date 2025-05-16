@@ -1,5 +1,6 @@
 {
   "sell.discount" : "discount",
+  "sell.minDiscount" : "minimum discount",
   "sell.escrow.checkingFundingStatus" : "checking funding status",
   "sell.escrow.loading" : "creating escrow,\none sec...",
   "sell.escrow.mempool" : "Transaction has hit the Mempool!",
@@ -12,6 +13,7 @@
   "sell.funding.mempool.title" : "transaction pending",
   "sell.meansOfPayment" : "how would you like to be paid?",
   "sell.premium" : "premium",
+  "sell.minPremium" : "minimum premium",
   "sell.premium.currently" : "currently $0",
   "sell.premium.marketPrice" : "market\nprice",
   "sell.premium.title" : "set your premium / discount",

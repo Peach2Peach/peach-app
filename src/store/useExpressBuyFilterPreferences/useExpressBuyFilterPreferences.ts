@@ -12,8 +12,8 @@ type ExpressBuyFilterPreferences = {
 };
 
 export const defaultPreferences: ExpressBuyFilterPreferences = {
-  minAmount: 1, // check this
-  maxAmount: TOTAL_SATS, // check this
+  minAmount: 1,
+  maxAmount: TOTAL_SATS,
   maxPremium: 21,
 };
 

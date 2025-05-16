@@ -15,7 +15,6 @@ const BuyTab = createMaterialTopTabNavigator();
 
 export function Buy() {
   return (
-    // here
     <Screen style={tw`px-0`} header={<BuyHeader />}>
       <BuyTab.Navigator
         initialRouteName="expressBuy"

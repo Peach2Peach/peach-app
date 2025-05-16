@@ -31,8 +31,8 @@ export function ExpressBuy({
       const { result, error } =
         await peachAPI.private.offer.getSellOfferSummaryIds({
           sortBy: defaultBuyOfferSorter,
-          amount: [minAmount, maxAmount],
-          maxPremium,
+          amount: requestingOfferId ? undefined : [minAmount, maxAmount],
+          maxPremium: requestingOfferId ? undefined : maxPremium,
         });
       if (error || !result) {
         throw new Error(error?.message || "Sell offer summary ids not found");

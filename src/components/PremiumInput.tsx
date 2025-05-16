@@ -12,6 +12,7 @@ type Props = {
   setPremium: (newPremium: number) => void;
   incrementBy?: number;
   isBuy?: boolean;
+  minPremiumSearchCase?: boolean;
 };
 
 const defaultIncrement = 0.1;
@@ -22,6 +23,7 @@ export const PremiumInput = ({
   setPremium,
   incrementBy = defaultIncrement,
   isBuy = false,
+  minPremiumSearchCase = false,
 }: Props) => {
   const onMinusPress = () => {
     const newPremium = round(
@@ -71,8 +73,12 @@ export const PremiumInput = ({
             premium >= 0
               ? isBuy
                 ? "buy.maxPremium"
-                : "sell.premium"
-              : "sell.discount",
+                : minPremiumSearchCase
+                  ? "sell.minPremium"
+                  : "sell.premium"
+              : minPremiumSearchCase
+                ? "sell.minDiscount"
+                : "sell.discount",
           )}
           :
         </PeachText>

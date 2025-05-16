@@ -49,6 +49,7 @@ type BuyFlow = {
 
 type SellFlow = {
   sellOfferPreferences: undefined;
+  editExpressSellOfferFilters: undefined;
   buyOfferDetails: {
     offerId: string;
     amount: number;
