@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { useState } from "react";
 import { shallow } from "zustand/shallow";
 import { Screen } from "../../components/Screen";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -8,60 +8,27 @@ import i18n from "../../utils/i18n";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
 import { PreferenceScreen } from "./components/PreferenceScreen";
-
-interface Preferences {
-  minAmount: number;
-  maxAmount: number;
-  maxPremium: number;
-}
-
-type PreferenceAction =
-  | { type: "min_amount_changed"; minAmount: number }
-  | { type: "max_amount_changed"; maxAmount: number }
-  | { type: "max_premium_changed"; maxPremium: number };
-const PreferenceContext = createContext<
-  [Preferences, React.Dispatch<PreferenceAction>] | null
->(null);
-const usePreferenceContext = () => {
-  const context = useContext(PreferenceContext);
-  if (!context) {
-    throw new Error(
-      "usePreferenceContext must be used within a PreferenceContextProvider",
-    );
-  }
-  return context;
-};
-
-function offerReducer(state: Preferences, action: PreferenceAction) {
-  switch (action.type) {
-    case "min_amount_changed": {
-      return { ...state, minAmount: action.minAmount };
-    }
-    case "max_amount_changed": {
-      return { ...state, maxAmount: action.maxAmount };
-    }
-    case "max_premium_changed": {
-      return { ...state, maxPremium: action.maxPremium };
-    }
-    // case "reputation_toggled": {
-    //   return {
-    //     ...state,
-    //     minReputation:
-    //       state.minReputation === MIN_REPUTATION_FILTER
-    //         ? null
-    //         : MIN_REPUTATION_FILTER,
-    //   };
-    // }
-    // case "max_premium_toggled": {
-    //   return { ...state, maxPremium: state.maxPremium === null ? 0 : null };
-    // }
-    default: {
-      return state;
-    }
-  }
-}
+import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 export function EditExpressBuyOfferFilters() {
+  const [minAmountLimit, maxAmountLimit] = useTradingAmountLimits("buy");
+  const { minAmount, maxAmount, setMinAmount, setMaxAmount } =
+    useExpressBuyFilterPreferences(
+      (state) => ({
+        minAmount: state.minAmount,
+        maxAmount: state.maxAmount,
+        setMinAmount: state.setMinAmount,
+        setMaxAmount: state.setMaxAmount,
+      }),
+      shallow,
+    );
+  const rangeIsWithinLimits =
+    minAmount >= minAmountLimit && maxAmount <= maxAmountLimit;
+  if (!rangeIsWithinLimits) {
+    setMinAmount(minAmountLimit);
+    setMaxAmount(maxAmountLimit);
+  }
+
   return <ScreenContent />;
 }
 
@@ -69,34 +36,16 @@ function ScreenContent() {
   useSettingsStore((state) => state.locale);
   const [isSliding, setIsSliding] = useState(false);
 
-  const { minAmount, maxAmount, maxPremium } = useExpressBuyFilterPreferences(
-    (state) => ({
-      minAmount: state.minAmount,
-      maxAmount: state.maxAmount,
-      maxPremium: state.maxPremium,
-    }),
-    shallow,
-  );
-
-  const initialState: Preferences = {
-    minAmount,
-    maxAmount,
-    maxPremium,
-  };
-
-  const reducer = useReducer(offerReducer, initialState);
   return (
-    <PreferenceContext.Provider value={reducer}>
-      <Screen header={i18n("EditExpressBuyOfferFilters")}>
-        <PreferenceScreen isSliding={isSliding} button={<SaveFiltersButton />}>
-          {/* <OfferMarketInfo /> */}
-          {/* <OfferMethods /> */}
-          <AmountSelector setIsSliding={setIsSliding} />
-          {/* <CompetingOfferStats /> */}
-          {/* <Filters /> */}
-        </PreferenceScreen>
-      </Screen>
-    </PreferenceContext.Provider>
+    <Screen header={i18n("offer.expressBuy.filter.edit.title")}>
+      <PreferenceScreen isSliding={isSliding} button={<SaveFiltersButton />}>
+        {/* <OfferMarketInfo /> */}
+        {/* <OfferMethods /> */}
+        <AmountSelector setIsSliding={setIsSliding} />
+        {/* <CompetingOfferStats /> */}
+        {/* <Filters /> */}
+      </PreferenceScreen>
+    </Screen>
   );
 }
 
@@ -146,15 +95,31 @@ function AmountSelector({
 }: {
   setIsSliding: (isSliding: boolean) => void;
 }) {
-  const [{ minAmount, maxAmount, maxPremium }, dispatch] =
-    usePreferenceContext();
+  const {
+    minAmount,
+    maxAmount,
+    maxPremium,
+    setMinAmount,
+    setMaxAmount,
+    setMaxPremium,
+  } = useExpressBuyFilterPreferences(
+    (state) => ({
+      minAmount: state.minAmount,
+      maxAmount: state.maxAmount,
+      maxPremium: state.maxPremium,
+      setMinAmount: state.setMinAmount,
+      setMaxAmount: state.setMaxAmount,
+      setMaxPremium: state.setMaxPremium,
+    }),
+    shallow,
+  );
 
   const handleAmountChange = (newAmount: [number, number]) => {
-    dispatch({ type: "min_amount_changed", minAmount: newAmount[0] });
-    dispatch({ type: "max_amount_changed", maxAmount: newAmount[1] });
+    setMinAmount(newAmount[0]);
+    setMaxAmount(newAmount[1]);
   };
   const handleMaxPremiumChange = (newMaxPremium: number) => {
-    dispatch({ type: "max_premium_changed", maxPremium: newMaxPremium });
+    setMaxPremium(newMaxPremium);
   };
   return (
     <AmountSelectorComponent

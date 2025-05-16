@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { TOTAL_SATS } from "../../constants";
 import { createStorage } from "../../utils/storage/createStorage";
 import { createPersistStorage } from "../createPersistStorage";
 
@@ -12,7 +13,7 @@ type ExpressBuyFilterPreferences = {
 
 export const defaultPreferences: ExpressBuyFilterPreferences = {
   minAmount: 1, // check this
-  maxAmount: 1150000, // check this
+  maxAmount: TOTAL_SATS, // check this
   maxPremium: 21,
 };
 
