@@ -25,6 +25,7 @@ import { CreateAccountError } from "./newUser/CreateAccountError";
 import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
 import { CreateBuyOffer } from "./offerPreferences/CreateBuyOffer";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
+import { EditExpressBuyOfferFilters } from "./offerPreferences/EditExpressBuyOfferFilters";
 import { SellOfferPreferences } from "./offerPreferences/Sell";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
@@ -113,6 +114,7 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: "buy", component: Buy },
   { name: "sellOfferDetails", component: SellOfferDetails },
+  { name: "editExpressBuyOfferFilters", component: EditExpressBuyOfferFilters },
   { name: "buyOfferDetails", component: BuyOfferDetails },
   { name: "buyOfferPreferences", component: CreateBuyOffer },
   { name: "explore", component: Explore },

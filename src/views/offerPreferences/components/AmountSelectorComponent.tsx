@@ -35,16 +35,51 @@ type Props = {
   setIsSliding: (isSliding: boolean) => void;
   range: [number, number];
   setRange: (newRange: [number, number]) => void;
+  maxPremium: number;
+  setMaxPremium: (newMaxPremium: number) => void;
+  showCompetingOffers: boolean;
 };
-
+const MIN_PREMIUM_INCREMENT = 0.01;
 export function AmountSelectorComponent({
   setIsSliding,
-  range: [min, max],
+  range,
   setRange,
+  maxPremium,
+  setMaxPremium,
+  showCompetingOffers,
 }: Props) {
+  const [minAmount, maxAmount] = range;
   const trackWidth = useTrackWidth();
   const minSliderDeltaAsAmount = useMinSliderDeltaAsAmount(trackWidth);
   const { isDarkMode } = useThemeStore();
+
+  let competingOffersText = <></>;
+
+  const { meansOfPayment } = useOfferPreferences(
+    (state) => ({
+      meansOfPayment: state.meansOfPayment,
+    }),
+    shallow,
+  );
+
+  if (showCompetingOffers) {
+    const { data } = useFilteredMarketStats({
+      type: "bid",
+      meansOfPayment,
+      maxPremium: maxPremium - MIN_PREMIUM_INCREMENT,
+    });
+
+    competingOffersText = (
+      <PeachText
+        style={isDarkMode ? tw`text-success-main` : tw`text-success-dark-2`}
+      >
+        {i18n(
+          "offerPreferences.competingBuyOffersBelowThisPremium",
+          String(data.offersWithinRange.length),
+        )}
+      </PeachText>
+    );
+  }
 
   return (
     <Section.Container
@@ -59,67 +94,77 @@ export function AmountSelectorComponent({
         <BuyAmountInput
           type="min"
           minAmountDelta={minSliderDeltaAsAmount}
-          range={[min, max]}
+          range={range}
           setRange={setRange}
         />
         <PeachText style={tw`subtitle-1`}>-</PeachText>
         <BuyAmountInput
           type="max"
           minAmountDelta={minSliderDeltaAsAmount}
-          range={[min, max]}
+          range={range}
           setRange={setRange}
         />
       </View>
-      <FiatPriceRange range={[min, max]} />
+      <FiatPriceRange range={range} />
       <SliderTrack
         slider={
           <AmountSliders
             setIsSliding={setIsSliding}
             trackWidth={trackWidth}
-            range={[min, max]}
+            range={range}
             setRange={setRange}
           />
         }
         trackWidth={trackWidth}
         type="buy"
       />
-      <BuyPremiumInput />
+      <BuyPremiumInput maxPremium={maxPremium} setMaxPremium={setMaxPremium} />
+      <CurrentPrice
+        maxPremium={maxPremium}
+        minAmount={minAmount}
+        maxAmount={maxAmount}
+      />
+      {competingOffersText}
     </Section.Container>
   );
 }
 
-function PremiumInputComponent() {
-  const [buyPremium, setBuyPremium] = useOfferPreferences((state) => [
-    state.buyPremium,
-    state.setBuyPremium,
-  ]);
+type PremiumInputComponentProps = {
+  maxPremium: number;
+  setMaxPremium: (newMaxPremium: number) => void;
+};
+function PremiumInputComponent({
+  maxPremium,
+  setMaxPremium,
+}: PremiumInputComponentProps) {
   return (
     <PremiumInput
-      premium={buyPremium}
-      setPremium={setBuyPremium}
+      premium={maxPremium}
+      setPremium={setMaxPremium}
       incrementBy={1}
       isBuy
     />
   );
 }
 
-function CurrentPrice() {
+type CurrentPriceProps = {
+  minAmount: number;
+  maxAmount: number;
+  maxPremium: number;
+};
+function CurrentPrice({ minAmount, maxAmount, maxPremium }: CurrentPriceProps) {
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
-  const [buyAmountRange, premium] = useOfferPreferences(
-    (state) => [state.buyAmountRange, state.buyPremium],
-    shallow,
-  );
-  const [buyAmountRangeLow, buyAmountRangeHigh] = buyAmountRange;
-  const { fiatPrice: fiatPriceLow } = useBitcoinPrices(buyAmountRangeLow);
+
+  const { fiatPrice: fiatPriceLow } = useBitcoinPrices(minAmount);
   const priceLowWithPremium = useMemo(
-    () => round(fiatPriceLow * (1 + premium / CENT), 2),
-    [fiatPriceLow, premium],
+    () => round(fiatPriceLow * (1 + maxPremium / CENT), 2),
+    [fiatPriceLow, maxPremium],
   );
 
-  const { fiatPrice: fiatPriceHigh } = useBitcoinPrices(buyAmountRangeHigh);
+  const { fiatPrice: fiatPriceHigh } = useBitcoinPrices(maxAmount);
   const priceHighWithPremium = useMemo(
-    () => round(fiatPriceHigh * (1 + premium / CENT), 2),
-    [fiatPriceHigh, premium],
+    () => round(fiatPriceHigh * (1 + maxPremium / CENT), 2),
+    [fiatPriceHigh, maxPremium],
   );
 
   return (
@@ -132,31 +177,17 @@ function CurrentPrice() {
   );
 }
 
-const MIN_PREMIUM_INCREMENT = 0.01;
-function BuyPremiumInput() {
-  const { isDarkMode } = useThemeStore();
-  const preferences = useOfferPreferences(
-    (state) => ({
-      maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
-      meansOfPayment: state.meansOfPayment,
-    }),
-    shallow,
-  );
-
-  const { data } = useFilteredMarketStats({ type: "bid", ...preferences });
-
+type BuyPremiumInputProps = {
+  maxPremium: number;
+  setMaxPremium: (newMaxPremium: number) => void;
+};
+function BuyPremiumInput({ maxPremium, setMaxPremium }: BuyPremiumInputProps) {
   return (
     <View style={tw`items-center self-stretch gap-10px`}>
-      <PremiumInputComponent />
-      <CurrentPrice />
-      <PeachText
-        style={isDarkMode ? tw`text-success-main` : tw`text-success-dark-2`}
-      >
-        {i18n(
-          "offerPreferences.competingBuyOffersBelowThisPremium",
-          String(data.offersWithinRange.length),
-        )}
-      </PeachText>
+      <PremiumInputComponent
+        maxPremium={maxPremium}
+        setMaxPremium={setMaxPremium}
+      />
     </View>
   );
 }

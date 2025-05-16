@@ -278,11 +278,19 @@ function AmountSelector({
   const handleAmountChange = (newAmount: [number, number]) =>
     dispatch({ type: "amount_changed", amount: newAmount });
 
+  const [buyPremium, setBuyPremium] = useOfferPreferences((state) => [
+    state.buyPremium,
+    state.setBuyPremium,
+  ]);
+
   return (
     <AmountSelectorComponent
       setIsSliding={setIsSliding}
       range={amount}
       setRange={handleAmountChange}
+      maxPremium={buyPremium}
+      setMaxPremium={setBuyPremium}
+      showCompetingOffers
     />
   );
 }
