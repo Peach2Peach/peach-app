@@ -49,7 +49,7 @@ export function ExpressSell({
 
   useFocusEffect(
     useCallback(() => {
-      refetch();
+      void refetch();
     }, [refetch]),
   );
 

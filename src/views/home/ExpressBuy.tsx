@@ -46,7 +46,7 @@ export function ExpressBuy({
 
   useFocusEffect(
     useCallback(() => {
-      refetch();
+      void refetch();
     }, [refetch]),
   );
 
