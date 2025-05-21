@@ -5,13 +5,13 @@ import i18n from "../../utils/i18n";
 import { AmountSelector } from "./Sell";
 
 export function EditExpressSellOfferFilters() {
-  const { amount, minPremium, setAmount, setMinPremium } =
+  const { amount, premium, setAmount, setPremium } =
     useExpressSellFilterPreferences(
       (state) => ({
         amount: state.amount,
-        minPremium: state.minPremium,
+        premium: state.premium,
         setAmount: state.setAmount,
-        setMinPremium: state.setMinPremium,
+        setPremium: state.setPremium,
       }),
       shallow,
     );
@@ -22,8 +22,8 @@ export function EditExpressSellOfferFilters() {
         setIsSliding={() => {}}
         amount={amount}
         setAmount={setAmount}
-        premium={minPremium}
-        setPremium={setMinPremium}
+        premium={premium}
+        setPremium={setPremium}
         showCompetingSellOffers={false}
         minPremiumSearchCase
       />

@@ -6,16 +6,16 @@ import { createPersistStorage } from "../createPersistStorage";
 
 type ExpressSellFilterPreferences = {
   amount: number;
-  minPremium: number;
+  premium: number;
 };
 
 export const defaultPreferences: ExpressSellFilterPreferences = {
-  amount: 1,
-  minPremium: 0,
+  amount: 0,
+  premium: 0,
 };
 
 type ExpressSellFilterPreferencesActions = {
-  setMinPremium: (minPremium: number) => void;
+  setPremium: (premium: number) => void;
   setAmount: (amount: number) => void;
 };
 
@@ -33,7 +33,7 @@ export const useExpressSellFilterPreferences =
       immer((set) => ({
         ...defaultPreferences,
         setAmount: (amount) => set({ amount }),
-        setMinPremium: (minPremium) => set({ minPremium }),
+        setPremium: (premium) => set({ premium }),
       })),
       {
         name: "expressSellFilterPreferences",

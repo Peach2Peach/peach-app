@@ -1,4 +1,6 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
@@ -22,12 +24,12 @@ export function ExpressSell({
     (state) => state.sortBy.sellOffer[0],
   );
 
-  const [amount, minPremium] = useExpressSellFilterPreferences((state) => [
+  const [amount, premium] = useExpressSellFilterPreferences((state) => [
     state.amount,
-    state.minPremium,
+    state.premium,
   ]);
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
     queryFn: async () => {
       const { result, error } =
@@ -35,7 +37,7 @@ export function ExpressSell({
           sortBy: defaultSellOfferSorter,
           matchSellOfferId: requestingOfferId,
           amount: requestingOfferId ? undefined : amount,
-          minPremium: requestingOfferId ? undefined : minPremium,
+          minPremium: requestingOfferId ? undefined : premium,
         });
       if (error || !result) {
         throw new Error(error?.message || "Buy offer summary ids not found");
@@ -44,6 +46,12 @@ export function ExpressSell({
     },
     refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000,
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch]),
+  );
 
   const setPopup = useSetPopup();
 
