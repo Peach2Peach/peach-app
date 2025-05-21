@@ -36,6 +36,8 @@ import { MarketInfo } from "./components/MarketInfo";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
 import { Section } from "./components/Section";
+import { useFilteredMarketStats } from "./components/useFilteredMarketStats";
+import { usePastOffersStats } from "./usePastOffersStats";
 import { usePostBuyOffer } from "./utils/usePostBuyOffer";
 import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
@@ -127,11 +129,19 @@ function AmountSelector({
     shallow,
   );
 
+  const [buyPremium, setBuyPremium] = useOfferPreferences((state) => [
+    state.buyPremium,
+    state.setBuyPremium,
+  ]);
+
   return (
     <AmountSelectorComponent
       setIsSliding={setIsSliding}
       range={buyAmountRange}
       setRange={setBuyAmountRange}
+      maxPremium={buyPremium}
+      setMaxPremium={setBuyPremium}
+      showCompetingOffers
     />
   );
 }
@@ -152,9 +162,7 @@ function PublishOfferButton() {
       amountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
-      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium
-        : null,
+      maxPremium: state.buyPremium,
       minReputation: interpolate(
         state.filter.buyOffer.minReputation || 0,
         CLIENT_RATING_RANGE,
@@ -245,27 +253,43 @@ function PublishOfferButton() {
       disabled={!formValid || isSyncingWallet}
       loading={isPublishing || isSyncingWallet}
     >
-      create offer
+      {i18n("offer.create.button")}
     </Button>
   );
 }
 
-function CompetingOfferStats() {
-  const text = tw`text-center text-success-dark-2`;
+export function CompetingOfferStats() {
+  const text = tw`text-center text-success-dark-2 subtitle-2`;
+
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment);
+
+  const { data: pastOfferData } = usePastOffersStats({ meansOfPayment });
+  const { data: marketStats } = useFilteredMarketStats({
+    type: "bid",
+    meansOfPayment,
+  });
 
   return (
     <Section.Container style={tw`gap-1 py-0`}>
       <PeachText style={text}>
-        {i18n("offerPreferences.competingSellOffers", "x")}
+        {i18n(
+          "offerPreferences.competingBuyOffers",
+          String(marketStats.offersWithinRange.length),
+        )}
       </PeachText>
       <PeachText style={text}>
-        {i18n("offerPreferences.premiumOfCompletedTrades", "9")}
+        {i18n(
+          "offerPreferences.premiumOfCompletedTrades",
+          String(pastOfferData?.avgPremium),
+        )}
       </PeachText>
     </Section.Container>
   );
 }
 
 function InstantTrade() {
+  const { isDarkMode } = useThemeStore();
+
   const [
     enableInstantTrade,
     toggle,
@@ -305,7 +329,9 @@ function InstantTrade() {
   };
 
   return (
-    <Section.Container style={tw`bg-success-mild-1`}>
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1"}`}
+    >
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} green />
         <Section.Title>

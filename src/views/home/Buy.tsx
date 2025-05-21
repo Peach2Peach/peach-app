@@ -2,6 +2,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { Screen } from "../../components/Screen";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -26,7 +27,7 @@ export function Buy() {
         <BuyTab.Screen
           name="expressBuy"
           options={{
-            title: "express buy",
+            title: i18n("offer.expressBuy"),
           }}
           component={ExpressBuy}
         />
@@ -43,9 +44,18 @@ export function Buy() {
 }
 
 function BuyHeader() {
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<HelpPopup id="buyingBitcoin" />);
+  const navigateToExpressBuyFilters = () => {
+    navigation.navigate("editExpressBuyOfferFilters");
+  };
   return (
-    <BuyBitcoinHeader icons={[{ ...headerIcons.help, onPress: showHelp }]} />
+    <BuyBitcoinHeader
+      icons={[
+        { ...headerIcons.buyPreferences, onPress: navigateToExpressBuyFilters },
+        { ...headerIcons.help, onPress: showHelp },
+      ]}
+    />
   );
 }

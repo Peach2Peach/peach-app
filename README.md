@@ -96,6 +96,12 @@ npx react-native link
 cd ios && pod install
 ```
 
+You also might need to add the Node version to the .xcode.env
+`echo 'export NODE_BINARY=$(command -v node)' > .xcode.env`
+
+or even create a .xcode.env.local file with the same content
+`echo 'export NODE_BINARY=$(command -v node)' > .xcode.env.local`
+
 ### Adding fonts
 
 1. Add fonts to assets/fonts

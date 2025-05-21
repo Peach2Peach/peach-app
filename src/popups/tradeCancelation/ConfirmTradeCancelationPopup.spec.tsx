@@ -1,5 +1,6 @@
 import { act, fireEvent, render, waitFor } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
@@ -15,7 +16,6 @@ import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { ConfirmTradeCancelationPopup } from "./ConfirmTradeCancelationPopup";
 
 jest.useFakeTimers();
-jest.mock("../../utils/offer/saveOffer");
 jest.mock("./patchSellOfferWithRefundTx");
 
 const cancelContractMock = jest.spyOn(
@@ -91,10 +91,14 @@ describe("ConfirmTradeCancelationPopup", () => {
     const { getAllByText } = render(
       <ConfirmTradeCancelationPopup view="buyer" contract={contract} />,
     );
-    await act(() => fireEvent.press(getAllByText("cancel trade")[1]));
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
+    });
     const { queryByText } = render(<GlobalPopup />);
-    expect(queryByText("cancel trade")).toBeFalsy();
-    expect(queryByText("trade canceled!")).toBeTruthy();
+    await waitFor(() => {
+      expect(queryByText("cancel trade")).toBeFalsy();
+      expect(queryByText("trade canceled!")).toBeTruthy();
+    });
   });
   it("should show the correct confirmation popup for canceled trade as seller", async () => {
     queryClient.setQueryData(
@@ -103,6 +107,12 @@ describe("ConfirmTradeCancelationPopup", () => {
         ...sellOffer,
         id: getSellOfferIdFromContract(contract),
       },
+    );
+    cancelContractMock.mockResolvedValue(
+      getResult({
+        success: true,
+        psbt: "mocked_psbt",
+      }),
     );
     setAccount({
       ...account1,
@@ -113,11 +123,15 @@ describe("ConfirmTradeCancelationPopup", () => {
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
 
-    await act(() => fireEvent.press(getAllByText("cancel trade")[1]));
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
+    });
 
     const { queryByText } = render(<GlobalPopup />);
-    expect(queryByText("cancel trade")).toBeFalsy();
-    expect(queryByText("request sent")).toBeTruthy();
+    await waitFor(() => {
+      expect(queryByText("cancel trade")).toBeFalsy();
+      expect(queryByText("request sent")).toBeTruthy();
+    });
     expect(queryByText(i18n("contract.cancel.requestSent.text"))).toBeTruthy();
   });
   it("shows the correct confirmation popup for canceled cash trade as seller with republish available", async () => {
@@ -133,6 +147,12 @@ describe("ConfirmTradeCancelationPopup", () => {
       ...account1,
       publicKey: contract.seller.id,
     });
+    cancelContractMock.mockResolvedValue(
+      getResult({
+        success: true,
+        psbt: "mocked_psbt",
+      }),
+    );
 
     const { getByText } = render(
       <ConfirmTradeCancelationPopup
@@ -141,11 +161,15 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    await act(() => fireEvent.press(getByText("cancel trade")));
+    act(() => {
+      fireEvent.press(getByText("cancel trade"));
+    });
     const { queryByText } = render(<GlobalPopup />);
 
-    expect(queryByText("cancel trade")).toBeFalsy();
-    expect(queryByText("trade canceled")).toBeTruthy();
+    await waitFor(() => {
+      expect(queryByText("cancel trade")).toBeFalsy();
+      expect(queryByText("trade canceled")).toBeTruthy();
+    });
     expect(
       queryByText(i18n("contract.cancel.cash.refundOrRepublish.text")),
     ).toBeTruthy();
@@ -171,7 +195,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    await act(() => fireEvent.press(getByText("cancel trade")));
+    act(() => {
+      fireEvent.press(getByText("cancel trade"));
+    });
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => act(jest.runAllTimers));
 

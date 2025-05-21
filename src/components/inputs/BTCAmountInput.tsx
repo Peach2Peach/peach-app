@@ -25,6 +25,7 @@ export const BTCAmountInput = forwardRef<TextInput, Props>(
       <View
         style={[
           containerStyle,
+          isDarkMode && tw`bg-transparent`,
           ref &&
             "current" in ref &&
             ref.current?.isFocused() &&

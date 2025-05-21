@@ -1,5 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { peachAPI } from "../../utils/peachAPI";
 
 export const contractKeys = {
@@ -19,6 +20,7 @@ export const useContractDetail = (id: string) => {
     queryKey: contractKeys.detail(id),
     queryFn: getContractDetail,
     enabled: isFocused,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
   });
 
   return { contract: data, isLoading, isFetching, refetch, error };

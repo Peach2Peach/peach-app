@@ -1,6 +1,7 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { IconType } from "../../assets/icons";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
@@ -51,6 +52,8 @@ export function NewBubble({
   ghost,
   ...touchableOpacityProps
 }: NewBubbleProps) {
+  const { isDarkMode } = useThemeStore();
+
   const colorStyle = tw.color(
     color === "orange"
       ? "primary-main"
@@ -76,7 +79,10 @@ export function NewBubble({
         style={[
           tw`text-center button-medium`,
           {
-            color: ghost ? colorStyle : tw.color("primary-background-light"),
+            color:
+              ghost && !isDarkMode // added the !isDarkMode as a fix for the Trade Request card
+                ? colorStyle
+                : tw.color("primary-background-light"),
           },
         ]}
       >

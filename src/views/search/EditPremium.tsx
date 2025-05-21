@@ -81,7 +81,7 @@ function EditPremiumHeader() {
   const showHelp = () => setPopup(<HelpPopup id="premium" />);
   return (
     <Header
-      title={offerIdToHex(offerId)}
+      title={i18n("offer.edit") + " " + offerIdToHex(offerId)}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );

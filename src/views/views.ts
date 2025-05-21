@@ -25,6 +25,8 @@ import { CreateAccountError } from "./newUser/CreateAccountError";
 import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
 import { CreateBuyOffer } from "./offerPreferences/CreateBuyOffer";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
+import { EditExpressBuyOfferFilters } from "./offerPreferences/EditExpressBuyOfferFilters";
+import { EditExpressSellOfferFilters } from "./offerPreferences/EditExpressSellOfferFilters";
 import { SellOfferPreferences } from "./offerPreferences/Sell";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
@@ -47,6 +49,7 @@ import { PeachFees } from "./settings/aboutPeach/PeachFees";
 import { Socials } from "./settings/aboutPeach/Socials";
 import { NetworkFees } from "./settings/networkFees/NetworkFees";
 import { MyProfile } from "./settings/profile/MyProfile";
+import { UserBitcoinLevel } from "./userBitcoinLevel/UserBitcoinLevel";
 import { UserSource } from "./userSource/UserSource";
 import { AddressChecker } from "./wallet/AddressChecker";
 import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
@@ -84,6 +87,11 @@ const onboarding: ViewType[] = [
     animationEnabled: false,
   },
   { name: "userSource", component: UserSource, animationEnabled: false },
+  {
+    name: "userBitcoinLevel",
+    component: UserBitcoinLevel,
+    animationEnabled: false,
+  },
   { name: "restoreBackup", component: RestoreBackup, animationEnabled: false },
   {
     name: "restoreReputation",
@@ -107,6 +115,7 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: "buy", component: Buy },
   { name: "sellOfferDetails", component: SellOfferDetails },
+  { name: "editExpressBuyOfferFilters", component: EditExpressBuyOfferFilters },
   { name: "buyOfferDetails", component: BuyOfferDetails },
   { name: "buyOfferPreferences", component: CreateBuyOffer },
   { name: "explore", component: Explore },
@@ -117,6 +126,10 @@ const buyFlow: ViewType[] = [
 
 const sellFlow: ViewType[] = [
   { name: "sellOfferPreferences", component: SellOfferPreferences },
+  {
+    name: "editExpressSellOfferFilters",
+    component: EditExpressSellOfferFilters,
+  },
   { name: "fundEscrow", component: FundEscrow },
   { name: "wrongFundingAmount", component: WrongFundingAmount },
   { name: "search", component: Search },

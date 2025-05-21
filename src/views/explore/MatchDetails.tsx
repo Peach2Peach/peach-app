@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
+import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { Screen } from "../../components/Screen";
@@ -30,6 +31,7 @@ import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
@@ -61,7 +63,7 @@ export function MatchDetails() {
   if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
     return <LoadingScreen />;
   return (
-    <Screen header="sell offer details">
+    <Screen header={i18n("offer.sell.details") + ` ${offerIdToHex(offerId)}`}>
       <Match match={match} offer={offer} />
     </Screen>
   );
@@ -172,7 +174,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   );
   return (
     <>
-      <View style={tw`gap-8 grow`}>
+      <PeachScrollView style={tw`gap-8 grow`}>
         {match.escrow && (
           <FundingInfo escrow={match.escrow} fundingStatus={"FUNDED"} />
         )}
@@ -203,7 +205,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
 
               {isMatched ? (
                 <View style={tw`flex-row items-center justify-between px-3`}>
-                  <PeachText>paid via</PeachText>
+                  <PeachText>{i18n("offer.buy.paidVia")}</PeachText>
                   <NewBubble color="black" ghost>
                     {match.selectedPaymentMethod || selectedPaymentData?.type}
                   </NewBubble>
@@ -238,7 +240,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
             </View>
           </View>
         </View>
-      </View>
+      </PeachScrollView>
       {match.instantTrade ? (
         <InstantTradeSlider
           matchOffer={matchOffer}
@@ -351,12 +353,14 @@ function WaitingForSeller() {
   return (
     <View style={tw`items-center self-center`}>
       <View style={tw`flex-row items-center justify-center`}>
-        <PeachText style={tw`subtitle-1`}>Waiting for seller</PeachText>
+        <PeachText style={tw`subtitle-1`}>
+          {" "}
+          {i18n("match.waitingForSeller")}
+        </PeachText>
         <AnimatedButtons />
       </View>
       <PeachText style={tw`text-center subtitle-2`}>
-        You can match as many offers as you want! You will buy from the first
-        seller that accepts your trade request.
+        {i18n("match.waitingForSeller.text")}
       </PeachText>
     </View>
   );
@@ -367,7 +371,7 @@ const NUMBER_OF_DOTS = 3;
 const inputRange = new Array(NUMBER_OF_DOTS + 1)
   .fill(0)
   .map((_, i) => i / NUMBER_OF_DOTS);
-function AnimatedButtons() {
+export function AnimatedButtons() {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {

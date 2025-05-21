@@ -39,8 +39,12 @@ export function ConfirmTradeCancelationPopup({
     view === "seller"
       ? cancelSeller(undefined, {
           onSuccess: async ({ psbt }) => {
-            setPopup(<CancelPopup contract={contract} />);
-            if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
+            if (psbt) {
+              setPopup(<CancelPopup contract={contract} />);
+              await patchSellOfferWithRefundTx(contract, psbt);
+            } else {
+              closePopup();
+            }
           },
         })
       : cancelBuyer(undefined, {
@@ -59,12 +63,20 @@ export function ConfirmTradeCancelationPopup({
   );
   const isCash = isCashTrade(contract.paymentMethod);
 
+  const hasBeenFundedAndIsSeller =
+    view === "seller" && contract.fundingStatus !== "NULL";
+
+  const popupText = isCash
+    ? i18n("contract.cancel.cash.text")
+    : i18n(`contract.cancel.${view}`) +
+      (hasBeenFundedAndIsSeller
+        ? i18n(`contract.cancel.${view}Pt2WithEscrow`)
+        : "");
+
   return (
     <PopupComponent
       title={title}
-      content={i18n(
-        isCash ? "contract.cancel.cash.text" : `contract.cancel.${view}`,
-      )}
+      content={popupText}
       actions={
         <>
           <PopupAction

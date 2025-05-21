@@ -10,6 +10,7 @@ import { handlePushNotification } from "../utils/navigation/handlePushNotificati
 import { parseError } from "../utils/parseError";
 import { isDefined } from "../utils/validation/isDefined";
 import { NewBadge } from "../views/overlays/NewBadge";
+import { EscrowOfContractFunded } from "../views/search/EscrowOfContractFunded";
 import { OfferPublished } from "../views/search/OfferPublished";
 
 const dataIsDefined = (
@@ -39,6 +40,14 @@ export const useInitialNavigation = () => {
       if (remoteMessage.data.type === "offer.escrowFunded") {
         setOverlay(
           <OfferPublished offerId={remoteMessage.data.offerId} shouldGoBack />,
+        );
+        return true;
+      } else if (remoteMessage.data.type === "contract.escrowFunded") {
+        setOverlay(
+          <EscrowOfContractFunded
+            contractId={remoteMessage.data.contractId}
+            shouldGoBack
+          />,
         );
         return true;
       }

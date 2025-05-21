@@ -7,10 +7,10 @@ import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import tw from "../../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
+import { getOffer } from "../../../utils/offer/getOffer";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
-import { peachWallet } from "../../../utils/wallet/setWallet";
-import { FundFromPeachWalletButton } from "../../fundEscrow/FundFromPeachWalletButton";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
+import { useHandleFundingStatus } from "../../fundEscrow/hooks/useHandleFundingStatus";
 import { useContractContext } from "../context";
 import { shouldShowTradeStatusInfo } from "../helpers/shouldShowTradeStatusInfo";
 import { TradeDetails } from "./TradeDetails";
@@ -46,13 +46,16 @@ function BuyerFundEscrow() {
   const { fundingStatus, isLoading } = useFundingStatus(
     getSellOfferIdFromContract(contract),
   );
+
   if (isLoading) return <ActivityIndicator size="large" />;
-  if (fundingStatus?.status === "MEMPOOL") {
+  if (
+    fundingStatus?.status === "MEMPOOL" ||
+    fundingStatus?.status === "FUNDED" // for regtest purposes
+  ) {
     return (
       <View style={tw`items-center justify-center gap-8 grow`}>
         <PeachText style={tw`text-center body-l`}>
-          The seller has funded the escrow!{"\n\n"}Once his transaction has been
-          confirmed, you will be able to see the payment details
+          {i18n("offer.sellerSuccessfullyFunded")}
         </PeachText>
         <Image
           source={txInMempool}
@@ -65,7 +68,7 @@ function BuyerFundEscrow() {
   return (
     <View style={tw`items-center justify-center gap-8 grow`}>
       <PeachText style={tw`body-l`}>
-        The seller hasn't funded the escrow yet
+        {i18n("offer.requiredAction.sellerHasntFunded")}
       </PeachText>
       <Image
         source={txInMempool}
@@ -73,7 +76,7 @@ function BuyerFundEscrow() {
         resizeMode="contain"
       />
       <Timer
-        text="seller should fund the escrow in"
+        text={i18n("offer.requiredAction.sellerShouldFundIn")}
         end={contract.fundingExpectedBy.getTime()}
       />
     </View>
@@ -84,12 +87,23 @@ function SellerFundEscrow() {
   const { contract } = useContractContext();
   const sellOfferId = getSellOfferIdFromContract(contract);
   const { fundingStatus, isLoading } = useFundingStatus(sellOfferId);
+
+  const sellOffer = getOffer(sellOfferId) as SellOffer;
+
+  useHandleFundingStatus({
+    offerId: sellOfferId,
+    sellOffer,
+    fundingStatus,
+    userConfirmationRequired: false,
+    contractId: contract.id,
+  });
+
   if (isLoading) return <ActivityIndicator size="large" />;
   if (fundingStatus?.status === "MEMPOOL") {
     return (
       <View style={tw`items-center justify-center gap-8 grow`}>
         <PeachText style={tw`body-l`}>
-          Your bitcoin transaction is pending...
+          {i18n("offer.escrow.transactionPending")}
         </PeachText>
         <Image
           source={txInMempool}
@@ -97,7 +111,7 @@ function SellerFundEscrow() {
           resizeMode="contain"
         />
         <Timer
-          text="you should fund within"
+          text={i18n("offer.fundWithin")}
           end={contract.fundingExpectedBy.getTime()}
         />
       </View>
@@ -106,7 +120,7 @@ function SellerFundEscrow() {
   return (
     <View style={tw`items-center gap-4 grow`}>
       <View style={tw`items-center justify-center gap-1`}>
-        <PeachText style={tw`h6`}>you should fund within</PeachText>
+        <PeachText style={tw`h6`}>{i18n("offer.fundWithin")}</PeachText>
         <SimpleTimer
           style={tw`h5 text-error-main`}
           end={contract.fundingExpectedBy.getTime()}
@@ -114,21 +128,10 @@ function SellerFundEscrow() {
       </View>
       <FundingAmount fundingAmount={contract.amount} />
       {!!contract.escrow && !!fundingStatus && (
-        <>
-          <BitcoinAddress
-            address={contract.escrow}
-            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
-          />
-          {!!peachWallet?.balance && peachWallet.balance > contract.amount && (
-            <FundFromPeachWalletButton
-              amount={contract.amount}
-              offerId={sellOfferId}
-              address={contract.escrow}
-              addresses={[contract.escrow]}
-              fundingStatus={fundingStatus}
-            />
-          )}
-        </>
+        <BitcoinAddress
+          address={contract.escrow}
+          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
+        />
       )}
     </View>
   );

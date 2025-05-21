@@ -10,6 +10,8 @@ import { PeachText } from "../../components/text/PeachText";
 import {
   CENT,
   SATSINBTC,
+  TIME_UNTIL_REFRESH_LONGER_SECONDS,
+  TIME_UNTIL_REFRESH_SECONDS,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -35,6 +37,7 @@ import { OfferSummaryCard } from "./OfferSummaryCard";
 const OfferTab = createMaterialTopTabNavigator();
 
 export function Explore() {
+  // THIS IS THE MENU OF A BUY OFFER
   const { offerId } = useRoute<"explore">().params;
   return (
     <Screen style={tw`px-0`} header={<ExploreHeader />}>
@@ -69,7 +72,7 @@ function RequestTrade({ offerId }: { offerId: string }) {
     fetchNextPage,
     refetch,
     isRefetching,
-  } = useOfferMatches(offerId);
+  } = useOfferMatches(offerId, TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000);
 
   const hasMatches = matches.length > 0;
   if (isPending) return <LoadingScreen />;
@@ -223,6 +226,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
       }
       return result;
     },
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
   });
 
   const tradeRequests = data?.tradeRequests || [];

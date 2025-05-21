@@ -4,12 +4,14 @@ import { PeachText } from "../../components/text/PeachText";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFeeItem";
 import { Section } from "./components/Section";
 
 export function NetworkFeeInfo({ type }: { type: "buy" | "sell" }) {
+  const { isDarkMode } = useThemeStore();
   const { user } = useSelfUser();
   const feeRate = user?.feeRate || "halfHourFee";
   const feeEstimate = useFeeEstimate();
@@ -23,7 +25,11 @@ export function NetworkFeeInfo({ type }: { type: "buy" | "sell" }) {
     <Section.Container
       style={[
         tw`flex-row justify-between`,
-        type === "buy" ? tw`bg-success-mild-1` : tw`bg-primary-background-dark`,
+        isDarkMode
+          ? tw`bg-card`
+          : type === "buy"
+            ? tw`bg-success-mild-1`
+            : tw`bg-primary-background-dark`,
       ]}
     >
       <PeachText style={tw`subtitle-1`}>network fees:</PeachText>

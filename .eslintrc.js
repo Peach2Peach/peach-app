@@ -242,7 +242,7 @@ module.exports = {
     "no-async-promise-executor": "warn",
     "jest/expect-expect": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "error",
     "react-native/no-inline-styles": "off",
   },
   overrides: [

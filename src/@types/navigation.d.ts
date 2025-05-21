@@ -4,6 +4,7 @@ type Onboarding = {
   accountCreated: undefined;
   createAccountError: { err: string; referralCode?: string };
   userSource: undefined;
+  userBitcoinLevel: undefined;
   restoreBackup: { tab: "fileBackup" | "seedPhrase" } | undefined;
   restoreReputation: {
     referralCode?: string;
@@ -30,6 +31,7 @@ type BuyFlow = {
   buy: undefined;
   sellOfferDetails: { offerId: string; requestingOfferId?: string };
   buyOfferPreferences: undefined;
+  editExpressBuyOfferFilters: undefined;
   explore: { offerId: string };
   editBuyPreferences: { offerId: string };
   matchDetails: { offerId: string; matchId: string };
@@ -47,6 +49,7 @@ type BuyFlow = {
 
 type SellFlow = {
   sellOfferPreferences: undefined;
+  editExpressSellOfferFilters: undefined;
   buyOfferDetails: {
     offerId: string;
     amount: number;

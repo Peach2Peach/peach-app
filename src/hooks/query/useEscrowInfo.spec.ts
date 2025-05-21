@@ -48,7 +48,9 @@ describe("useFundingStatus", () => {
       error: null,
     });
 
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
 
     expect(result.current).toEqual({
       fundingStatus: inMempool.funding,

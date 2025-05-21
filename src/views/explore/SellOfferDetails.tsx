@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
@@ -10,6 +10,10 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
+import { PopupAction } from "../../components/popup/PopupAction";
+import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
+import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { offerKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -17,13 +21,16 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { WarningPopup } from "../../popups/WarningPopup";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { getRandom } from "../../utils/crypto/getRandom";
+import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
@@ -38,6 +45,7 @@ import { getNetwork } from "../../utils/wallet/getNetwork";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { FundingInfo } from "./FundingInfo";
+import { AnimatedButtons } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
 import { UserCard } from "./UserCard";
@@ -50,7 +58,7 @@ export function SellOfferDetails() {
   const { data: offer, isLoading } = useOffer(offerId);
 
   return (
-    <Screen header={`offer ${offerIdToHex(offerId)}`}>
+    <Screen header={`sell offer details ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
@@ -61,6 +69,9 @@ export function SellOfferDetails() {
 }
 
 function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+  const navigation = useStackNavigation();
+  const setPopup = useSetPopup();
+  const { isDarkMode } = useThemeStore();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     keys(offer.meansOfPayment).at(0) || "CHF",
   );
@@ -78,17 +89,79 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
-  const { data } = useTradeRequest(offer.id, requestingOfferId);
+  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
+
+  const [hadTradeRequest, setHadTradeRequest] = useState(false);
+
+  useEffect(() => {
+    if (!hadTradeRequest && data?.tradeRequest) {
+      setHadTradeRequest(true);
+    } else if (hadTradeRequest && !data?.tradeRequest)
+      navigation.navigate("homeScreen", {
+        screen: "home",
+      });
+  }, [data, navigation, hadTradeRequest]);
+
+  const closePopup = useClosePopup();
+  const showUnmatchPopup = useCallback(() => {
+    const undoTradeRequest = async () => {
+      await peachAPI.private.offer.undoRequestTradeWithSellOffer({
+        offerId: offer.id,
+      });
+      setHadTradeRequest(false);
+      await refetch();
+    };
+
+    setPopup(
+      <WarningPopup
+        title={i18n("search.popups.unmatch.title")}
+        content={i18n("search.popups.unmatch.text")}
+        actions={
+          <>
+            <PopupAction
+              label={i18n("search.popups.unmatch.confirm")}
+              iconId="minusCircle"
+              textStyle={tw`text-black-100`}
+              onPress={async () => {
+                setPopup(
+                  <WarningPopup
+                    title={i18n("search.popups.unmatched")}
+                    actions={
+                      <ClosePopupAction
+                        style={tw`justify-center`}
+                        textStyle={tw`text-black-100`}
+                      />
+                    }
+                  />,
+                );
+                await undoTradeRequest();
+              }}
+            />
+            <PopupAction
+              label={i18n("search.popups.unmatch.neverMind")}
+              textStyle={tw`text-black-100`}
+              iconId="xSquare"
+              onPress={closePopup}
+              reverseOrder
+            />
+          </>
+        }
+      />,
+    );
+  }, [closePopup, setPopup, offer.id, refetch]);
+
   return (
-    <View style={tw`items-center justify-between gap-8 grow`}>
-      <PeachScrollView contentStyle={tw`gap-8 grow`}>
+    <View style={tw`items-center justify-between grow`}>
+      <PeachScrollView contentStyle={tw`gap-8 grow pb-16`}>
         <FundingInfo
           escrow={offer.escrow!}
           fundingStatus={offer.fundingStatus!}
         />
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
-          <View style={tw`gap-8 m-1 rounded-2xl bg-primary-background-light`}>
+          <View
+            style={tw`gap-8 m-1 rounded-2xl ${isDarkMode ? "bg-backgroundMain-dark" : "bg-primary-background-light"}`}
+          >
             <UserCard user={offer.user} />
             {/** @ts-ignore */}
             <MiningFeeWarning amount={offer.amount} />
@@ -111,9 +184,12 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
                   <Button
                     iconId="minusCircle"
                     textColor={tw.color("error-main")}
-                    style={tw`hidden bg-primary-background-light`}
+                    style={tw`bg-primary-background-light`}
+                    onPress={() => {
+                      showUnmatchPopup();
+                    }}
                   >
-                    UNDO
+                    {i18n("match.unmatchButton")}
                   </Button>
                 </View>
                 <View
@@ -129,12 +205,35 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       </PeachScrollView>
 
       {!data?.tradeRequest && (
-        <RequestTradeAction
-          selectedPaymentData={selectedPaymentData}
-          selectedCurrency={selectedCurrency}
-          offer={offer}
-        />
+        <View
+          style={tw`absolute bottom-0 left-0 right-0 p-2  ${isDarkMode ? "bg-backgroundMain-dark" : "bg-primary-background-light"}`}
+        >
+          <RequestTradeAction
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            offer={offer}
+          />
+        </View>
       )}
+
+      {data?.tradeRequest && <WaitingForSeller />}
+    </View>
+  );
+}
+
+function WaitingForSeller() {
+  return (
+    <View style={tw`items-center self-center`}>
+      <View style={tw`flex-row items-center justify-center`}>
+        <PeachText style={tw`subtitle-1`}>
+          {" "}
+          {i18n("match.waitingForSeller")}
+        </PeachText>
+        <AnimatedButtons />
+      </View>
+      <PeachText style={tw`text-center subtitle-2`}>
+        {i18n("match.waitingForSeller.text")}
+      </PeachText>
     </View>
   );
 }
@@ -327,7 +426,11 @@ function RequestTradeAction({
 
   if (canInstantTrade) {
     return (
-      <ConfirmSlider label1="instant trade" onConfirm={() => mutate(true)} />
+      <ConfirmSlider
+        label1={i18n("matchDetails.action.instantTrade")}
+        enabled={selectedPaymentData !== undefined}
+        onConfirm={() => mutate(true)}
+      />
     );
   }
 
@@ -337,7 +440,7 @@ function RequestTradeAction({
       disabled={selectedPaymentData === undefined}
       onPress={() => mutate(false)}
     >
-      request trade
+      {i18n("matchDetails.action.requestTrade")}
     </Button>
   );
 }

@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { round } from "../utils/math/round";
@@ -10,6 +11,8 @@ type Props = {
   premium: number;
   setPremium: (newPremium: number) => void;
   incrementBy?: number;
+  isBuy?: boolean;
+  minPremiumSearchCase?: boolean;
 };
 
 const defaultIncrement = 0.1;
@@ -19,6 +22,8 @@ export const PremiumInput = ({
   premium,
   setPremium,
   incrementBy = defaultIncrement,
+  isBuy = false,
+  minPremiumSearchCase = false,
 }: Props) => {
   const onMinusPress = () => {
     const newPremium = round(
@@ -36,12 +41,23 @@ export const PremiumInput = ({
     setPremium(newPremium);
   };
 
+  const { isDarkMode } = useThemeStore();
+  const normalText = isDarkMode ? tw`text-backgroundLight` : tw`text-black-100`;
+
   const textColor =
     premium === 0
-      ? tw`text-black-100`
+      ? normalText
       : premium > 0
-        ? tw`text-success-main`
+        ? isBuy
+          ? normalText
+          : isDarkMode
+            ? normalText
+            : tw`text-success-main`
         : tw`text-primary-main`;
+
+  const buttonColor = isBuy
+    ? tw.color("success-main")
+    : tw.color("primary-main");
 
   return (
     <View style={tw`flex-row items-center justify-between`}>
@@ -49,11 +65,22 @@ export const PremiumInput = ({
         onPress={onMinusPress}
         accessibilityHint={i18n("number.decrease")}
       >
-        <Icon id="minusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon id="minusCircle" size={24} color={buttonColor} />
       </TouchableOpacity>
       <View style={tw`flex-row items-center justify-center gap-2 grow`}>
         <PeachText style={[tw`text-center`, textColor]}>
-          {i18n(premium >= 0 ? "sell.premium" : "sell.discount")}:
+          {i18n(
+            premium >= 0
+              ? isBuy
+                ? "buy.maxPremium"
+                : minPremiumSearchCase
+                  ? "sell.minPremium"
+                  : "sell.premium"
+              : minPremiumSearchCase
+                ? "sell.minDiscount"
+                : "sell.discount",
+          )}
+          :
         </PeachText>
         <PremiumTextInput premium={premium} setPremium={setPremium} />
       </View>
@@ -61,7 +88,7 @@ export const PremiumInput = ({
         onPress={onPlusPress}
         accessibilityHint={i18n("number.increase")}
       >
-        <Icon id="plusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon id="plusCircle" size={24} color={buttonColor} />
       </TouchableOpacity>
     </View>
   );

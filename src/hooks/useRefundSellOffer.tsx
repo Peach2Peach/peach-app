@@ -10,7 +10,6 @@ import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
 import i18n from "../utils/i18n";
-import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
 import { BackupTime } from "../views/overlays/BackupTime";
@@ -62,14 +61,8 @@ export function useRefundSellOffer() {
       showError(error.message);
       closePopup();
     },
-    onSuccess: ([tx, txId], { sellOffer }) => {
+    onSuccess: ([, txId]) => {
       setPopup(<RefundEscrowPopup txId={txId} />);
-      saveOffer({
-        ...sellOffer,
-        tx,
-        txId,
-        refunded: true,
-      });
       if (shouldShowBackupOverlay && isPeachWallet) {
         setShowBackupReminder(true);
       }

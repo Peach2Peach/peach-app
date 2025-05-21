@@ -1,11 +1,15 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
+import { TIME_UNTIL_REFRESH_LONGER_SECONDS } from "../../constants";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useExpressSellFilterPreferences } from "../../store/useExpressSellFilterPreference/useExpressSellFilterPreference";
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { BuyOfferSummaryIdCard } from "../explore/OfferSummaryCard";
@@ -19,19 +23,35 @@ export function ExpressSell({
   const defaultSellOfferSorter = useOfferPreferences(
     (state) => state.sortBy.sellOffer[0],
   );
-  const { data } = useQuery({
+
+  const [amount, premium] = useExpressSellFilterPreferences((state) => [
+    state.amount,
+    state.premium,
+  ]);
+
+  const { data, refetch } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
     queryFn: async () => {
       const { result, error } =
         await peachAPI.private.offer.getBuyOfferSummaryIds({
           sortBy: defaultSellOfferSorter,
+          matchSellOfferId: requestingOfferId,
+          amount: requestingOfferId ? undefined : amount,
+          minPremium: requestingOfferId ? undefined : premium,
         });
       if (error || !result) {
         throw new Error(error?.message || "Buy offer summary ids not found");
       }
       return result;
     },
+    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000,
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      void refetch();
+    }, [refetch]),
+  );
 
   const setPopup = useSetPopup();
 

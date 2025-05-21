@@ -2,7 +2,7 @@ import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
 import { networks } from "bitcoinjs-lib";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
 import { OverlayComponent } from "../../OverlayComponent";
@@ -27,6 +27,7 @@ import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
+import { isPastOffer } from "../yourTrades/utils/isPastOffer";
 import { ContractActions } from "./ContractActions";
 import { PendingPayoutInfo } from "./components/PendingPayoutInfo";
 import { TradeInformation } from "./components/TradeInformation";
@@ -66,6 +67,7 @@ export const Contract = () => {
 type ContractScreenProps = {
   contract: ContractType;
   view: "buyer" | "seller";
+  isFirstTradeAsBuyer?: boolean;
 };
 
 function ContractScreen({ contract, view }: ContractScreenProps) {
@@ -132,6 +134,15 @@ function ContractHeader() {
     () => setPopup(<HelpPopup id="confirmPayment" />),
     [setPopup],
   );
+
+  useEffect(() => {
+    if (
+      view === "buyer" &&
+      contract?.buyer.trades === 0 &&
+      !isPastOffer(contract.tradeStatus)
+    )
+      setPopup(<HelpPopup id="firstTimeBuyer" />);
+  }, [contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = [];
@@ -251,7 +262,8 @@ function getHeaderTitle(view: string, contract: ContractType) {
   }
 
   if (disputeActive) return i18n("offer.requiredAction.dispute");
-  if (tradeStatus === "fundingExpired") return "not funded on time";
+  if (tradeStatus === "fundingExpired")
+    return i18n("offer.requiredAction.fundingExpired");
   if (isPaymentTooLate(contract))
     return i18n("contract.paymentTimerHasRunOut.title");
 

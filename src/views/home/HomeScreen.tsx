@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { memo, useMemo } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { memo, useCallback, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { setNumber } from "rn-notification-badge";
@@ -9,11 +10,14 @@ import { IconType } from "../../assets/icons";
 import { Icon } from "../../components/Icon";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
+import { offerKeys } from "../../hooks/query/offerKeys";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { queryClient } from "../../queryClient";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -135,6 +139,15 @@ const hasRequiredAction = ({
   (type === "ask" && tradeStatus === "confirmPaymentRequired");
 
 const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
+  useFocusEffect(
+    useCallback(() => {
+      void queryClient.invalidateQueries({
+        queryKey: contractKeys.summaries(),
+      });
+      void queryClient.invalidateQueries({ queryKey: offerKeys.summaries() });
+    }, []),
+  );
+
   const navigation = useStackNavigation();
   const { summaries } = useTradeSummaries();
   const { offers } = useOfferSummaries();

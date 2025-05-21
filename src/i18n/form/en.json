@@ -29,6 +29,7 @@
   "form.chippertag": "chippertag",
   "form.chippertag.placeholder": "@chippertag",
   "form.currency": "select currency",
+  "form.currencyAndPayment": "select currency & payment method",
   "form.cvu": "CVU",
   "form.cvu.placeholder": "1112222222344444444445",
   "form.cvuAlias": "CVU Alias",
