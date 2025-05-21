@@ -28,7 +28,7 @@ export const useTradeRequestChatMessages = ({
     hasNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: tradeRequestChatKeys.chat(offerId + requestingUserId),
+    queryKey: ["tradeRequestChat", offerId, requestingUserId],
     queryFn: async ({ queryKey, pageParam }) => {
       const encryptedMessages = await getTradeRequestChatQuery({
         queryKey,
@@ -94,7 +94,7 @@ export const useTradeRequestChatMessages = ({
 };
 
 type GetTradeRequestChatQueryProps = {
-  queryKey: ReturnType<typeof tradeRequestChatKeys.chat>;
+  queryKey: string[];
   pageParam: number;
 };
 async function getTradeRequestChatQuery({
@@ -102,8 +102,8 @@ async function getTradeRequestChatQuery({
   pageParam,
 }: GetTradeRequestChatQueryProps) {
   const { result, error } = await peachAPI.private.offer.getTradeRequestChat({
-    offerId: queryKey[2],
-    requestingUserId: queryKey[3],
+    offerId: queryKey[1],
+    requestingUserId: queryKey[2],
     page: pageParam,
   });
 

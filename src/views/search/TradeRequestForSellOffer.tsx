@@ -11,6 +11,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
@@ -65,7 +66,7 @@ function AcceptButton() {
       style={tw`flex-1 py-3 bg-success-main`}
       onPress={() => mutation.mutate()}
     >
-      Accept Trade
+      {i18n("search.acceptTradeButton")}
     </Button>
   );
 }

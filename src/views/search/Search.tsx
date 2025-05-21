@@ -18,6 +18,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
@@ -44,14 +45,14 @@ export function Search() {
         <OfferTab.Screen
           name="acceptTrade"
           options={{
-            title: "accept trade",
+            title: i18n("search.acceptTrade"),
           }}
           children={() => <AcceptTrade offerId={offerId} />}
         />
         <OfferTab.Screen
           name="requestTrade"
           options={{
-            title: "request trade",
+            title: i18n("search.requestTrade"),
           }}
           children={() => <RequestTrade offerId={offerId} />}
         />

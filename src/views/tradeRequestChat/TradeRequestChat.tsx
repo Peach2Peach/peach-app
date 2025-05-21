@@ -6,6 +6,7 @@ import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
 import { MSINASECOND } from "../../constants";
 import { PAGE_SIZE } from "../../hooks/query/useChatMessages";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useTradeRequestChatMessages } from "../../hooks/query/useTradeRequestChatMessages";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
@@ -24,16 +25,16 @@ import { ChatBox } from "./components/ChatBox";
 
 export const TradeRequestChat = () => {
   const { offerId, requestingUserId } = useRoute<"tradeRequestChat">().params;
-  const { offer } = getOffer(offerId);
+  const offer = getOffer(offerId);
 
   return !offer ? (
     <LoadingScreen />
   ) : (
-    <TradeRequestScreen offer={offer} requestingUserId={requestingUserId} />
+    <TradeRequestChatScreen offer={offer} requestingUserId={requestingUserId} />
   );
 };
 
-function TradeRequestScreen({
+function TradeRequestChatScreen({
   offer,
   requestingUserId,
 }: {
@@ -41,7 +42,8 @@ function TradeRequestScreen({
   requestingUserId: string;
 }) {
   const queryClient = useQueryClient();
-  const { data: decryptedData, isPending } = useDecryptedContractData(contract);
+  const { user } = useSelfUser();
+  // const { data: decryptedData, isPending } = useDecryptedContractData(contract);
   // const { contractId } = useRoute<"tradeRequestChat">().params;
 
   const { connected, send, off, on } = useWebsocketContext();
@@ -53,11 +55,8 @@ function TradeRequestScreen({
       isLoadingSymmetricKey: isPending,
     });
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const tradingPartner = contract
-    ? publicKey === contract.seller.id
-      ? contract.buyer
-      : contract.seller
-    : null;
+  const tradingPartner =
+    user?.id === requestingUserId ? offer.user.id : requestingUserId;
 
   const chatId = offer.id + requestingUserId;
 

@@ -49,14 +49,14 @@ export function Explore() {
         <OfferTab.Screen
           name="acceptTrade"
           options={{
-            title: "accept trade",
+            title: i18n("search.acceptTrade"),
           }}
           children={() => <AcceptTrade offerId={offerId} />}
         />
         <OfferTab.Screen
           name="requestTrade"
           options={{
-            title: "request trade",
+            title: i18n("search.requestTrade"),
           }}
           children={() => <RequestTrade offerId={offerId} />}
         />

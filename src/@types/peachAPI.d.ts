@@ -242,4 +242,5 @@ type PNData = {
   offerId?: string;
   contractId?: string;
   isChat?: string;
+  requestingUserId?: string;
 };
