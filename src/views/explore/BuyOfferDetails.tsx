@@ -20,6 +20,7 @@ import { offerKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
@@ -48,7 +49,6 @@ import { UserCard } from "./UserCard";
 import { canUserInstantTrade } from "./canUserInstantTrade";
 import { useOffer } from "./useOffer";
 import { useTradeRequest } from "./useTradeRequest";
-
 export function BuyOfferDetails() {
   const { offerId } = useRoute<"buyOfferDetails">().params;
   const { data: offer, isLoading } = useOffer(offerId);
@@ -250,6 +250,7 @@ function RequestTradeAction({
   counterparty: PublicUser;
   instantTradeCriteria: InstantTradeCriteria | null;
 }) {
+  const showError = useShowErrorBanner();
   const { user } = useSelfUser();
   const { amount, premium, requestingOfferId } =
     useRoute<"buyOfferDetails">().params;
@@ -290,9 +291,7 @@ function RequestTradeAction({
         tradeRequest: TradeRequest | null;
       }>(offerKeys.tradeRequest(offerId));
 
-      queryClient.setQueryData(offerKeys.tradeRequest(offerId), {
-        tradeRequest,
-      });
+      queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequest);
 
       return { previousData };
     },
@@ -338,7 +337,8 @@ function RequestTradeAction({
       if (error) throw new Error(error.error);
       return result;
     },
-    onError: (_error, _variables, context) => {
+    onError: (error, _variables, context) => {
+      showError(error);
       if (context?.previousData) {
         queryClient.setQueryData(
           offerKeys.tradeRequest(offerId),
