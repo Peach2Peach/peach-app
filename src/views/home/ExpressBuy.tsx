@@ -1,4 +1,6 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
@@ -25,7 +27,7 @@ export function ExpressBuy({
     (state) => [state.minAmount, state.maxAmount, state.maxPremium],
   );
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["expressBuy", defaultBuyOfferSorter],
     queryFn: async () => {
       const { result, error } =
@@ -41,6 +43,12 @@ export function ExpressBuy({
     },
     refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      void refetch();
+    }, [refetch]),
+  );
 
   const setPopup = useSetPopup();
 

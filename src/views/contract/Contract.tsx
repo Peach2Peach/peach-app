@@ -262,7 +262,8 @@ function getHeaderTitle(view: string, contract: ContractType) {
   }
 
   if (disputeActive) return i18n("offer.requiredAction.dispute");
-  if (tradeStatus === "fundingExpired") return "not funded on time";
+  if (tradeStatus === "fundingExpired")
+    return i18n("offer.requiredAction.fundingExpired");
   if (isPaymentTooLate(contract))
     return i18n("contract.paymentTimerHasRunOut.title");
 
