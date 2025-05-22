@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { TradeRequest } from "../../../peach-api/src/private/offer/getTradeRequest";
+import { TradeRequest } from "../../../peach-api/src/@types/contract";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
@@ -45,6 +45,7 @@ import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { AnimatedButtons } from "./MatchDetails";
 import { PaidVia } from "./PaidVia";
+import ChatButton from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { canUserInstantTrade } from "./canUserInstantTrade";
 import { useOffer } from "./useOffer";
@@ -65,6 +66,7 @@ export function BuyOfferDetails() {
 }
 
 function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+  const { user: selfUser } = useSelfUser();
   const { isDarkMode } = useThemeStore();
   const setPopup = useSetPopup();
   const navigation = useStackNavigation();
@@ -85,8 +87,8 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
-  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
+
+  const { data, refetch } = useTradeRequest(offer.id, selfUser?.id);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -217,6 +219,12 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       )}
 
       {data?.tradeRequest && <WaitingForBuyer />}
+      {data?.tradeRequest && (
+        <ChatButton
+          offerId={offer.id}
+          requestingUserId={data.tradeRequest.requestingUserId}
+        />
+      )}
     </View>
   );
 }
@@ -291,7 +299,7 @@ function RequestTradeAction({
         tradeRequest: TradeRequest | null;
       }>(offerKeys.tradeRequest(offerId));
 
-      queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequest);
+      // queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequest);
 
       return { previousData };
     },

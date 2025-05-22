@@ -23,6 +23,7 @@ import { PriceInfo } from "./BuyerPriceInfo";
 import { useMaxMiningFee } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
+import ChatButton from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 
 export function TradeRequestForBuyOffer() {
@@ -57,7 +58,7 @@ export function TradeRequestForBuyOffer() {
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
         {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
-        <ChatButton offerId={offerId} />
+        <ChatButton offerId={offerId} requestingUserId={userId} />
         <AcceptButton />
       </View>
     </Screen>
@@ -72,19 +73,6 @@ function AcceptButton() {
       onPress={() => mutation.mutate()}
     >
       {i18n("search.acceptTradeButton")}
-    </Button>
-  );
-}
-
-function ChatButton({ offerId }: { offerId: string }) {
-  const navigation = useStackNavigation();
-
-  const onPressCallback = () =>
-    navigation.push("tradeRequestChat", { offerId });
-
-  return (
-    <Button style={tw`flex-1 py-3 bg-success-main`} onPress={onPressCallback}>
-      {i18n("CHAT BUTTON")}
     </Button>
   );
 }

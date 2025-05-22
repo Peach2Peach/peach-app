@@ -7,7 +7,6 @@ export const useUser = (id: string) => {
     queryKey: userKeys.user(id),
     queryFn: getUserQuery,
   });
-
   return { user: data, isLoading, error };
 };
 
@@ -16,6 +15,5 @@ async function getUserQuery({
 }: QueryFunctionContext<ReturnType<typeof userKeys.user>>) {
   const [, userId] = queryKey;
   const { result: user } = await peachAPI.public.user.getUser({ userId });
-
   return user;
 }

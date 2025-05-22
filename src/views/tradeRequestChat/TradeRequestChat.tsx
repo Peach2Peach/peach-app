@@ -1,10 +1,12 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
+import { TradeRequest } from "../../../peach-api/src/@types/contract";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
 import { MSINASECOND } from "../../constants";
+import { tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { PAGE_SIZE } from "../../hooks/query/useChatMessages";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useTradeRequestChatMessages } from "../../hooks/query/useTradeRequestChatMessages";
@@ -16,37 +18,47 @@ import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { error } from "../../utils/log/error";
-import { getOffer } from "../../utils/offer/getOffer";
+import { getOffer, getTradeRequest } from "../../utils/offer/getOffer";
+import { peachAPI } from "../../utils/peachAPI";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
+import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
 
 export const TradeRequestChat = () => {
   const { offerId, requestingUserId } = useRoute<"tradeRequestChat">().params;
-  const offer = getOffer(offerId);
 
-  return !offer ? (
+  const offer = getOffer(offerId);
+  const tradeRequest = getTradeRequest(offerId, requestingUserId);
+
+  return !offer || !tradeRequest ? (
     <LoadingScreen />
   ) : (
-    <TradeRequestChatScreen offer={offer} requestingUserId={requestingUserId} />
+    <TradeRequestChatScreen offer={offer} tradeRequest={tradeRequest} />
   );
 };
 
 function TradeRequestChatScreen({
   offer,
-  requestingUserId,
+  tradeRequest,
 }: {
   offer: BuyOffer | SellOffer;
-  requestingUserId: string;
+  tradeRequest: TradeRequest;
 }) {
+  const requestingUserId = tradeRequest.userId
+    ? tradeRequest.userId
+    : tradeRequest.requestingUserId; // FIX THIS
   const queryClient = useQueryClient();
+
   const { user } = useSelfUser();
-  // const { data: decryptedData, isPending } = useDecryptedContractData(contract);
-  // const { contractId } = useRoute<"tradeRequestChat">().params;
+
+  const { data: decryptedData, isPending } =
+    useDecryptedTradeRequestData(tradeRequest);
 
   const { connected, send, off, on } = useWebsocketContext();
+
   const { messages, isFetching, page, fetchNextPage } =
     useTradeRequestChatMessages({
       offerId: offer.id,
@@ -54,11 +66,12 @@ function TradeRequestChatScreen({
       symmetricKey: decryptedData?.symmetricKey,
       isLoadingSymmetricKey: isPending,
     });
+
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const tradingPartner =
     user?.id === requestingUserId ? offer.user.id : requestingUserId;
 
-  const chatId = offer.id + requestingUserId;
+  const chatId = offer.id + "-" + requestingUserId;
 
   const [chat, setChat] = useState(getChat(chatId));
   const [newMessage, setNewMessage] = useState(chat.draftMessage);
@@ -78,11 +91,12 @@ function TradeRequestChatScreen({
         message,
         decryptedData.symmetricKey,
       );
+
       const messageObject: Message = {
         roomId:
           offer.type === "bid"
-            ? `trade-requests-sell-offer-${offer.id}-${requestingUserId}`
-            : `trade-requests-buy-offer-${offer.id}-${requestingUserId}`,
+            ? `trade-requests-sell-offer-${chatId}`
+            : `trade-requests-buy-offer-${chatId}`,
         from: publicKey,
         date: new Date(),
         readBy: [],
@@ -99,6 +113,13 @@ function TradeRequestChatScreen({
             signature: encryptedResult.signature,
           }),
         );
+      } else {
+        await peachAPI.private.offer.postTradeRequestChat({
+          offerId: offer.id,
+          requestingUserId,
+          message: encryptedResult.encrypted,
+          signature: encryptedResult.signature,
+        });
       }
 
       setAndSaveChat(
@@ -113,7 +134,8 @@ function TradeRequestChatScreen({
     [
       tradingPartner,
       decryptedData?.symmetricKey,
-      contractId,
+      offer,
+      requestingUserId,
       publicKey,
       connected,
       setAndSaveChat,
@@ -122,13 +144,13 @@ function TradeRequestChatScreen({
   );
   const resendMessage = async (message: Message) => {
     if (!connected) return;
-    deleteMessage(contractId, message);
+    deleteMessage(chatId, message);
     await sendMessage(message.message);
   };
 
   const submit = async () => {
     if (
-      !contract ||
+      !offer ||
       !tradingPartner ||
       !decryptedData?.symmetricKey ||
       !newMessage
@@ -140,18 +162,18 @@ function TradeRequestChatScreen({
 
     await sendMessage(newMessage);
     setNewMessage("");
-    setAndSaveChat(contractId, {
+    setAndSaveChat(chatId, {
       draftMessage: "",
     });
   };
 
   useEffect(
     () => () => {
-      setAndSaveChat(contractId, {
+      setAndSaveChat(chatId, {
         draftMessage: newMessage,
       });
     },
-    [contractId, newMessage, setAndSaveChat],
+    [offer, requestingUserId, newMessage, setAndSaveChat],
   );
 
   useEffect(() => {
@@ -160,7 +182,7 @@ function TradeRequestChatScreen({
       const unsentMessages = getUnsentMessages(chat.messages);
       if (unsentMessages.length === 0) return;
 
-      setAndSaveChat(offerId, {
+      setAndSaveChat(chatId, {
         messages: unsentMessages.map((message) => ({
           ...message,
           failedToSend: true,
@@ -169,7 +191,7 @@ function TradeRequestChatScreen({
     }, timeoutSeconds * MSINASECOND);
 
     return () => clearTimeout(timeout);
-  }, [offerId, chat.messages, setAndSaveChat]);
+  }, [chatId, chat.messages, setAndSaveChat]);
 
   useEffect(() => {
     const chatMessageHandler = async (message?: Message) => {
@@ -178,15 +200,17 @@ function TradeRequestChatScreen({
       if (!message.message) return;
       if (
         !(
-          message.roomId ===
-            `trade-requests-buy-offer-${offer.id}-${requestingUserId}` ||
-          message.roomId ===
-            `trade-requests-sell-offer-${offer.id}-${requestingUserId}`
+          message.roomId === `trade-requests-buy-offer-${chatId}` ||
+          message.roomId === `trade-requests-sell-offer-${chatId}`
         )
       )
         return;
 
       let messageBody = "";
+
+      if (!decryptedData || !decryptedData.symmetricKey) {
+        throw Error;
+      }
       try {
         messageBody = await decryptSymmetric(
           message.message,
@@ -194,7 +218,7 @@ function TradeRequestChatScreen({
         );
       } catch {
         error(
-          new Error(`Could not decrypt message for contract ${contract.id}`),
+          new Error(`Could not decrypt message for Trade Request ${chatId}`),
         );
       }
       const decryptedMessage = {
@@ -202,11 +226,11 @@ function TradeRequestChatScreen({
         date: new Date(message.date),
         message: messageBody,
       };
-      setAndSaveChat(contractId, {
+      setAndSaveChat(chatId, {
         messages: [decryptedMessage],
       });
       queryClient.setQueryData(
-        offerKeys.chat(offerId, requestingUserId),
+        tradeRequestKeys.chat(offer.id, requestingUserId),
         (oldQueryData: InfiniteData<Message[]> | undefined) => {
           if (!oldQueryData) {
             return { pageParams: [], pages: [[decryptedMessage]] };
@@ -238,7 +262,7 @@ function TradeRequestChatScreen({
     return unsubscribe;
   }, [
     offer,
-    offerId,
+    requestingUserId,
     connected,
     on,
     send,
@@ -250,8 +274,8 @@ function TradeRequestChatScreen({
   ]);
 
   useEffect(() => {
-    if (messages) setAndSaveChat(offerId, requestingUserId, { messages });
-  }, [offerId, messages, setAndSaveChat]);
+    if (messages) setAndSaveChat(chatId, { messages });
+  }, [offer, messages, setAndSaveChat]);
 
   return (
     <Screen
@@ -259,7 +283,6 @@ function TradeRequestChatScreen({
       header={
         <TradeRequestChatHeader
           offer={offer}
-          requestingUserId={requestingUserId}
           symmetricKey={decryptedData?.symmetricKey}
         />
       }
@@ -268,7 +291,7 @@ function TradeRequestChatScreen({
         style={[tw`flex-1`, !decryptedData?.symmetricKey && tw`opacity-50`]}
       >
         <ChatBox
-          tradingPartner={tradingPartner?.id || ""}
+          tradingPartner={tradingPartner || ""}
           online={connected}
           chat={chat}
           setAndSaveChat={setAndSaveChat}
@@ -295,20 +318,18 @@ function TradeRequestChatScreen({
 
 type Props = {
   offer: BuyOffer | SellOffer;
-  requestingUserId: string;
   symmetricKey?: string;
 };
 
 function TradeRequestChatHeader({
   offer,
-  requestingUserId,
   // symmetricKey,
 }: Props) {
   // const { contractId } = useRoute<"tradeRequestChat">().params;
 
   // const setPopup = useSetPopup();
 
-  const title = "Offer " + offer.id + "-" + requestingUserId + " Chat";
+  const title = "Trade Request " + offer.id + " Chat";
 
   return <Header title={title} icons={[]} />;
 }

@@ -12,11 +12,13 @@ import {
   TIME_UNTIL_REFRESH_SECONDS,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
+import { tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
+import { queryClient } from "../../queryClient";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -83,6 +85,12 @@ function AcceptTrade({ offerId }: { offerId: string }) {
       if (error || !result) {
         throw new Error(error?.error || "Failed to fetch trade requests");
       }
+      result.tradeRequests.map((value) => {
+        queryClient.setQueryData(
+          tradeRequestKeys.detail(offerId, value.userId),
+          value,
+        );
+      });
       return result;
     },
     refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,

@@ -1,46 +1,32 @@
 import { useQuery } from "@tanstack/react-query";
 import OpenPGP from "react-native-fast-openpgp";
-import { Contract, TradeRequest } from "../../../peach-api/src/@types/contract";
-import { PublicUser } from "../../../peach-api/src/@types/user";
+import { TradeRequest } from "../../../peach-api/src/@types/contract";
 import { tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
-import { useUser } from "../publicProfile/useUser";
 
-export const useDecryptedTradeRequestData = (tradeRequest: TradeRequest) => {
-  // VERIFY THIS!!!!
-  const { user } = useUser(
-    tradeRequest.userId ? tradeRequest.userId : tradeRequest.requestingUserId,
-  );
-
-  return useQuery({
+export const useDecryptedTradeRequestData = (
+  offerId: string,
+  tradeRequest: TradeRequest,
+) =>
+  useQuery({
     queryKey: tradeRequestKeys.decryptedData(
-      tradeRequest.offerId,
-      tradeRequest.userId ? tradeRequest.userId : tradeRequest.requestingUserId,
+      offerId,
+      tradeRequest.requestingUserId,
     ),
     queryFn: async () => {
-      if (!user) {
-        throw new Error("Undefined user for decrypting data");
-      }
-
-      const { symmetricKey, paymentData } = await decryptTradeRequestData(
-        tradeRequest,
-        user,
-      );
+      const { symmetricKey, paymentData } =
+        await decryptTradeRequestData(tradeRequest);
       if (!symmetricKey || !paymentData)
-        throw new Error("Could not decrypt trade request data");
+        throw new Error("Could not decrypt tradeRequest data");
 
       return { symmetricKey, paymentData };
     },
-    retry: true,
+    retry: false,
   });
-};
 
-async function decryptTradeRequestData(
-  tradeRequest: TradeRequest,
-  user: PublicUser,
-) {
+async function decryptTradeRequestData(tradeRequest: TradeRequest) {
   const symmetricKey = await decryptSymmetricKey(
     tradeRequest.symmetricKeyEncrypted,
   );
@@ -49,7 +35,7 @@ async function decryptTradeRequestData(
     {
       paymentDataEncrypted: tradeRequest.paymentDataEncrypted,
       paymentDataSignature: tradeRequest.paymentDataSignature,
-      user: user,
+      user: tradeRequest.seller,
       paymentDataEncryptionMethod: "aes256",
     },
     symmetricKey,
@@ -82,7 +68,10 @@ async function hasValidSignature({
   return someSignatureIsValid;
 }
 
-type DecryptPaymentDataProps = Pick<Contract, "paymentDataEncryptionMethod"> & {
+type DecryptPaymentDataProps = Pick<
+  TradeRequest,
+  "paymentDataEncryptionMethod"
+> & {
   paymentDataEncrypted: string;
   paymentDataSignature: string;
   user: PublicUser;

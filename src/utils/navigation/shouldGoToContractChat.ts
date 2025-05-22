@@ -1,7 +1,7 @@
 export const shouldGoToTradeRequestChat = (
   data: PNData,
-): data is PNData & { offerId: string } =>
-  !!data.offerId && data.isChat === "true";
+): data is PNData & { offerId: string; requestingUserId: string } =>
+  !!data.offerId && !!data.requestingUserId && data.isChat === "true";
 
 export const shouldGoToContractChat = (
   data: PNData,

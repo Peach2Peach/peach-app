@@ -48,6 +48,7 @@ import { FundingInfo } from "./FundingInfo";
 import { AnimatedButtons } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
+import ChatButton from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { canUserInstantTrade } from "./canUserInstantTrade";
 import { useOffer } from "./useOffer";
@@ -69,6 +70,7 @@ export function SellOfferDetails() {
 }
 
 function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+  const { user: selfUser } = useSelfUser();
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const { isDarkMode } = useThemeStore();
@@ -88,8 +90,8 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
-  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
+
+  const { data, refetch } = useTradeRequest(offer.id);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -217,6 +219,9 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
       )}
 
       {data?.tradeRequest && <WaitingForSeller />}
+      {data?.tradeRequest && selfUser && (
+        <ChatButton offerId={offer.id} requestingUserId={selfUser.id} />
+      )}
     </View>
   );
 }
@@ -347,7 +352,7 @@ function RequestTradeAction({
       const previousData = queryClient.getQueryData(
         offerKeys.tradeRequest(offerId),
       );
-      queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequst);
+      // queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequst);
       return { previousData };
     },
     mutationFn: async (instantTrade) => {
