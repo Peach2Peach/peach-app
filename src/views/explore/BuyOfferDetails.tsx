@@ -48,6 +48,7 @@ import { PaidVia } from "./PaidVia";
 import ChatButton from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { canUserInstantTrade } from "./canUserInstantTrade";
+import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 import { useOffer } from "./useOffer";
 import { useTradeRequest } from "./useTradeRequest";
 export function BuyOfferDetails() {
@@ -88,7 +89,17 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
 
-  const { data, refetch } = useTradeRequest(offer.id, selfUser?.id);
+  const { data, refetch } = useTradeRequest(offer.id);
+
+  const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
+    offer.id,
+  );
+
+  const [isAllowedToChat, setIsAllowedToChat] = useState(false);
+
+  useEffect(() => {
+    setIsAllowedToChat(Boolean(isAllowedToTradeRequestData?.result));
+  }, [isAllowedToTradeRequestData]);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -218,13 +229,11 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         </View>
       )}
 
-      {data?.tradeRequest && <WaitingForBuyer />}
-      {data?.tradeRequest && (
-        <ChatButton
-          offerId={offer.id}
-          requestingUserId={data.tradeRequest.requestingUserId}
-        />
+      {isAllowedToChat && selfUser && (
+        <ChatButton offerId={offer.id} requestingUserId={selfUser.id} />
       )}
+
+      {data?.tradeRequest && <WaitingForBuyer />}
     </View>
   );
 }
@@ -278,28 +287,17 @@ function RequestTradeAction({
     return address;
   };
 
-  const { data: priceBook } = useMarketPrices();
-
   const navigation = useStackNavigation();
   const queryClient = useQueryClient();
   const { mutateAsync: createEscrow } = useCreateEscrow();
   const { mutate } = useMutation({
     onMutate: async (_instantTrade: boolean) => {
-      const bitcoinPrice = priceBook?.[selectedCurrency] ?? 0;
-      const tradeRequest = {
-        amount,
-        currency: selectedCurrency,
-        paymentMethod: selectedPaymentData?.type,
-        fiatPrice: (bitcoinPrice * (1 + premium / CENT) * amount) / SATSINBTC,
-      };
       await queryClient.cancelQueries({
         queryKey: offerKeys.tradeRequest(offerId),
       });
       const previousData = queryClient.getQueryData<{
         tradeRequest: TradeRequest | null;
       }>(offerKeys.tradeRequest(offerId));
-
-      // queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequest);
 
       return { previousData };
     },
@@ -408,7 +406,7 @@ function RequestTradeAction({
 function BuyPriceInfo({ selectedCurrency }: { selectedCurrency: Currency }) {
   const { amount, premium, offerId, requestingOfferId } =
     useRoute<"buyOfferDetails">().params;
-  const { data } = useTradeRequest(offerId, requestingOfferId);
+  const { data } = useTradeRequest(offerId);
 
   const { data: priceBook } = useMarketPrices();
 

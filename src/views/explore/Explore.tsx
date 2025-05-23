@@ -228,11 +228,11 @@ function AcceptTrade({ offerId }: { offerId: string }) {
       }
 
       result.tradeRequests.map((value) => {
-        console.log("setting ", offerId, " ", value.userId);
         queryClient.setQueryData(
           tradeRequestKeys.detail(offerId, value.userId),
           value,
         );
+        return null;
       });
 
       return result;

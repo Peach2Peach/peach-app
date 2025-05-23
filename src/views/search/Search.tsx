@@ -90,6 +90,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
           tradeRequestKeys.detail(offerId, value.userId),
           value,
         );
+        return null;
       });
       return result;
     },

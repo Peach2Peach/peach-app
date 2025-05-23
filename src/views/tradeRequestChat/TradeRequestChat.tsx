@@ -47,9 +47,12 @@ function TradeRequestChatScreen({
   offer: BuyOffer | SellOffer;
   tradeRequest: TradeRequest;
 }) {
-  const requestingUserId = tradeRequest.userId
-    ? tradeRequest.userId
-    : tradeRequest.requestingUserId; // FIX THIS
+  // const requestingUserId = tradeRequest.userId
+  //   ? tradeRequest.userId
+  //   : tradeRequest.requestingUserId; // FIX THIS
+
+  const requestingUserId = tradeRequest.requestingUserId;
+
   const queryClient = useQueryClient();
 
   const { user } = useSelfUser();
@@ -94,7 +97,7 @@ function TradeRequestChatScreen({
 
       const messageObject: Message = {
         roomId:
-          offer.type === "bid"
+          offer.type === "ask"
             ? `trade-requests-sell-offer-${chatId}`
             : `trade-requests-buy-offer-${chatId}`,
         from: publicKey,
@@ -132,6 +135,7 @@ function TradeRequestChatScreen({
       );
     },
     [
+      chatId,
       tradingPartner,
       decryptedData?.symmetricKey,
       offer,
@@ -173,7 +177,7 @@ function TradeRequestChatScreen({
         draftMessage: newMessage,
       });
     },
-    [offer, requestingUserId, newMessage, setAndSaveChat],
+    [chatId, offer, requestingUserId, newMessage, setAndSaveChat],
   );
 
   useEffect(() => {
@@ -241,12 +245,13 @@ function TradeRequestChatScreen({
           return oldQueryData;
         },
       );
+
       if (!message.readBy.includes(publicKey)) {
         send(
           JSON.stringify({
             path: "/v1/offer/tradeRequest/chat/received",
             offerId: offer.id,
-            requestingUserId: requestingUserId,
+            requestingUserId,
             start: message.date,
             end: message.date,
           }),
@@ -261,6 +266,8 @@ function TradeRequestChatScreen({
     on("message", chatMessageHandler);
     return unsubscribe;
   }, [
+    chatId,
+    decryptedData,
     offer,
     requestingUserId,
     connected,
@@ -275,7 +282,7 @@ function TradeRequestChatScreen({
 
   useEffect(() => {
     if (messages) setAndSaveChat(chatId, { messages });
-  }, [offer, messages, setAndSaveChat]);
+  }, [chatId, offer, messages, setAndSaveChat]);
 
   return (
     <Screen

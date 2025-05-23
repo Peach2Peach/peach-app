@@ -49,7 +49,7 @@ async function decryptTradeRequestData(
     {
       paymentDataEncrypted: tradeRequest.paymentDataEncrypted,
       paymentDataSignature: tradeRequest.paymentDataSignature,
-      user: user,
+      user,
       paymentDataEncryptionMethod: "aes256",
     },
     symmetricKey,

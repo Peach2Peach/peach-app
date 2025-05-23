@@ -18,6 +18,11 @@ export const tradeRequestKeys = {
   single: ["tradeRequest"] as const,
   tradeRequest: (id: string) => [...tradeRequestKeys.single, id] as const,
   details: () => [...tradeRequestKeys.all, "details"] as const,
+  isAllowedToChat: (offerId: string, requestingUserId: string) =>
+    [
+      ...tradeRequestKeys.detail(offerId, requestingUserId),
+      "isAllowedToChat",
+    ] as const,
   detail: (offerId: string, requestingUserId: string) =>
     [...tradeRequestKeys.details(), offerId + "-" + requestingUserId] as const,
   decryptedData: (offerId: string, requestingUserId: string) =>
