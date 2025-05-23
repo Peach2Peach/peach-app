@@ -74,8 +74,11 @@ function SellOfferSummaryCard({
       : offerSummary.premium;
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount);
   const navigation = useStackNavigation();
-  const onPress = () =>
-    navigation.navigate("sellOfferDetails", { offerId, requestingOfferId });
+  const onPress = () => {
+    navigation.navigate("sellOfferDetails", {
+      offerId,
+    });
+  };
 
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
   const { isDarkMode } = useThemeStore();

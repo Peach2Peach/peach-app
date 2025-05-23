@@ -10,7 +10,10 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { ProgressDonut } from "../../components/ui/ProgressDonut";
-import { MSINAMINUTE } from "../../constants";
+import {
+  MSINAMINUTE,
+  TIME_UNTIL_REFRESH_LONGER_SECONDS,
+} from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -129,7 +132,7 @@ function useOfferStats() {
         avgPremium: 0,
       },
     },
-    refetchInterval: MSINAMINUTE,
+    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000,
   });
 }
 

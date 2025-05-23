@@ -5,7 +5,18 @@ import { useStackNavigation } from "../useStackNavigation";
 export const useGetPNActionHandler = () => {
   const navigation = useStackNavigation();
   const getPNActionHandler = useCallback(
-    ({ type, contractId, isChat, offerId }: PNData) => {
+    ({ type, contractId, isChat, offerId, requestingUserId }: PNData) => {
+      if (offerId && isChat && requestingUserId) {
+        return {
+          label: i18n("goToChat"),
+          iconId: "arrowLeftCircle" as const,
+          onPress: () =>
+            navigation.navigate("tradeRequestChat", {
+              offerId,
+              requestingUserId,
+            }),
+        };
+      }
       if (contractId) {
         if (isChat) {
           return {

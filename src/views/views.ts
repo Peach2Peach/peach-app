@@ -49,6 +49,7 @@ import { PeachFees } from "./settings/aboutPeach/PeachFees";
 import { Socials } from "./settings/aboutPeach/Socials";
 import { NetworkFees } from "./settings/networkFees/NetworkFees";
 import { MyProfile } from "./settings/profile/MyProfile";
+import { TradeRequestChat } from "./tradeRequestChat/TradeRequestChat";
 import { UserBitcoinLevel } from "./userBitcoinLevel/UserBitcoinLevel";
 import { UserSource } from "./userSource/UserSource";
 import { AddressChecker } from "./wallet/AddressChecker";
@@ -140,6 +141,7 @@ const sellFlow: ViewType[] = [
 const trade: ViewType[] = [
   { name: "contract", component: Contract },
   { name: "contractChat", component: ContractChat },
+  { name: "tradeRequestChat", component: TradeRequestChat },
   { name: "patchPayoutAddress", component: PatchPayoutAddress },
   { name: "signMessage", component: SignMessage },
 ];

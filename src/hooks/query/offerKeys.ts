@@ -12,3 +12,24 @@ export const offerKeys = {
   fundingStatus: (id: string) =>
     [...offerKeys.detail(id), "fundingStatus"] as const,
 };
+
+export const tradeRequestKeys = {
+  all: ["tradeRequests"] as const,
+  single: ["tradeRequest"] as const,
+  tradeRequest: (id: string) => [...tradeRequestKeys.single, id] as const,
+  details: () => [...tradeRequestKeys.all, "details"] as const,
+  isAllowedToChat: (offerId: string, requestingUserId: string) =>
+    [
+      ...tradeRequestKeys.detail(offerId, requestingUserId),
+      "isAllowedToChat",
+    ] as const,
+  detail: (offerId: string, requestingUserId: string) =>
+    [...tradeRequestKeys.details(), offerId + "-" + requestingUserId] as const,
+  decryptedData: (offerId: string, requestingUserId: string) =>
+    [
+      ...tradeRequestKeys.detail(offerId, requestingUserId),
+      "decryptedData",
+    ] as const,
+  chat: (offerId: string, requestingUserId: string) =>
+    [...tradeRequestKeys.detail(offerId, requestingUserId), "chat"] as const,
+};

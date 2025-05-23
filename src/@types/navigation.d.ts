@@ -85,6 +85,10 @@ type ContractFlow = {
   contractChat: {
     contractId: string;
   };
+  tradeRequestChat: {
+    offerId: string;
+    requestingUserId: string;
+  };
   disputeReasonSelector: {
     contractId: string;
   };

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { offerKeys } from "../../hooks/query/offerKeys";
+import { queryClient } from "../../queryClient";
 import { peachAPI } from "../../utils/peachAPI";
 
 export function useOffer(offerId: string) {
@@ -12,6 +13,7 @@ export function useOffer(offerId: string) {
       if (error || !result) {
         throw new Error(error?.error || "Failed to fetch offer");
       }
+      queryClient.setQueryData(offerKeys.detail(offerId), result);
       return result;
     },
   });
