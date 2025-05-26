@@ -406,7 +406,7 @@ function RequestTradeAction({
 function BuyPriceInfo({ selectedCurrency }: { selectedCurrency: Currency }) {
   const { amount, premium, offerId, requestingOfferId } =
     useRoute<"buyOfferDetails">().params;
-  const { data } = useTradeRequest(offerId);
+  const { data } = useTradeRequest(offerId, requestingOfferId);
 
   const { data: priceBook } = useMarketPrices();
 

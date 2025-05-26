@@ -89,7 +89,6 @@ async function getMatchesQuery({
   ReturnType<typeof matchesKeys.sortedMatchesForOffer>,
   number
 >) {
-  console.log("WATER");
   info("Checking matches for", queryKey[1]);
 
   const offerId = queryKey[1];
@@ -101,11 +100,7 @@ async function getMatchesQuery({
     sortBy: queryKey[2],
   });
 
-  console.log("ICE ICE");
-
   if (err || !result) throw new Error(err?.error || "Unknown error");
-
-  console.log("LAVAAAA");
 
   return result;
 }
