@@ -35,7 +35,7 @@ async function decryptTradeRequestData(tradeRequest: TradeRequest) {
     {
       paymentDataEncrypted: tradeRequest.paymentDataEncrypted,
       paymentDataSignature: tradeRequest.paymentDataSignature,
-      user: tradeRequest.seller,
+      user: undefined,
       paymentDataEncryptionMethod: "aes256",
     },
     symmetricKey,
@@ -68,13 +68,11 @@ async function hasValidSignature({
   return someSignatureIsValid;
 }
 
-type DecryptPaymentDataProps = Pick<
-  TradeRequest,
-  "paymentDataEncryptionMethod"
-> & {
+type DecryptPaymentDataProps = {
   paymentDataEncrypted: string;
   paymentDataSignature: string;
-  user: PublicUser;
+  paymentDataEncryptionMethod: string;
+  user?: PublicUser;
 };
 async function decryptPaymentData(
   {
@@ -90,11 +88,13 @@ async function decryptPaymentData(
   }
 
   const verifySignature = (decryptedString: string) =>
-    hasValidSignature({
-      signature: paymentDataSignature,
-      message: decryptedString,
-      publicKeys: user.pgpPublicKeys,
-    });
+    user
+      ? hasValidSignature({
+          signature: paymentDataSignature,
+          message: decryptedString,
+          publicKeys: user.pgpPublicKeys,
+        })
+      : false;
 
   if (paymentDataEncryptionMethod === "asymmetric") {
     try {

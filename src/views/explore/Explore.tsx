@@ -79,6 +79,10 @@ function RequestTrade({ offerId }: { offerId: string }) {
 
   const { user } = useSelfUser();
 
+  if (!user) {
+    throw Error("Self User not found");
+  }
+
   // for tradeRequest chat
   matches.map((value) => {
     queryClient.setQueryData(
