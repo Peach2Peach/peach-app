@@ -10,7 +10,9 @@ import {
   GetMatchesErrorResponseBody,
   GetMatchesResponseBody,
 } from "../../../../peach-api/src/@types/api/offerAPI";
+import { tradeRequestKeys } from "../../../hooks/query/offerKeys";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
+import { queryClient } from "../../../queryClient";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import {
   BuySorter,
@@ -68,6 +70,15 @@ export const useOfferMatches = (
     [queryData.data?.pages],
   );
 
+  // saving this for the TradeRequest Chat
+  allMatches.map((value) => {
+    queryClient.setQueryData(
+      tradeRequestKeys.detail(offerId, value.user.id),
+      value,
+    );
+    return null;
+  });
+
   return { ...queryData, allMatches };
 };
 
@@ -79,8 +90,11 @@ async function getMatchesQuery({
   number
 >) {
   info("Checking matches for", queryKey[1]);
+
+  const offerId = queryKey[1];
+
   const { result, error: err } = await peachAPI.private.offer.getMatches({
-    offerId: queryKey[1],
+    offerId,
     page: pageParam,
     size: PAGESIZE,
     sortBy: queryKey[2],

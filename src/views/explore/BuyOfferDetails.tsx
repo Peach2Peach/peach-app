@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { TradeRequest } from "../../../peach-api/src/private/offer/getTradeRequest";
+import { TradeRequest } from "../../../peach-api/src/@types/contract";
 import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
@@ -45,8 +45,10 @@ import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { AnimatedButtons } from "./MatchDetails";
 import { PaidVia } from "./PaidVia";
+import ChatButton from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { canUserInstantTrade } from "./canUserInstantTrade";
+import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 import { useOffer } from "./useOffer";
 import { useTradeRequest } from "./useTradeRequest";
 export function BuyOfferDetails() {
@@ -65,6 +67,7 @@ export function BuyOfferDetails() {
 }
 
 function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+  const { user: selfUser } = useSelfUser();
   const { isDarkMode } = useThemeStore();
   const setPopup = useSetPopup();
   const navigation = useStackNavigation();
@@ -87,6 +90,16 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
   const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
+
+  const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
+    offer.id,
+  );
+
+  const [isAllowedToChat, setIsAllowedToChat] = useState(false);
+
+  useEffect(() => {
+    setIsAllowedToChat(Boolean(isAllowedToTradeRequestData?.result));
+  }, [isAllowedToTradeRequestData]);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -216,6 +229,10 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         </View>
       )}
 
+      {isAllowedToChat && selfUser && (
+        <ChatButton offerId={offer.id} requestingUserId={selfUser.id} />
+      )}
+
       {data?.tradeRequest && <WaitingForBuyer />}
     </View>
   );
@@ -270,28 +287,17 @@ function RequestTradeAction({
     return address;
   };
 
-  const { data: priceBook } = useMarketPrices();
-
   const navigation = useStackNavigation();
   const queryClient = useQueryClient();
   const { mutateAsync: createEscrow } = useCreateEscrow();
   const { mutate } = useMutation({
     onMutate: async (_instantTrade: boolean) => {
-      const bitcoinPrice = priceBook?.[selectedCurrency] ?? 0;
-      const tradeRequest = {
-        amount,
-        currency: selectedCurrency,
-        paymentMethod: selectedPaymentData?.type,
-        fiatPrice: (bitcoinPrice * (1 + premium / CENT) * amount) / SATSINBTC,
-      };
       await queryClient.cancelQueries({
         queryKey: offerKeys.tradeRequest(offerId),
       });
       const previousData = queryClient.getQueryData<{
         tradeRequest: TradeRequest | null;
       }>(offerKeys.tradeRequest(offerId));
-
-      queryClient.setQueryData(offerKeys.tradeRequest(offerId), tradeRequest);
 
       return { previousData };
     },

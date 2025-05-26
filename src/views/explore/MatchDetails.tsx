@@ -38,7 +38,9 @@ import { matchesKeys } from "../search/hooks/useOfferMatches";
 import { BuyerPriceInfo } from "./BuyerPriceInfo";
 import { FundingInfo } from "./FundingInfo";
 import { MiningFeeWarning } from "./MiningFeeWarning";
+import ChatButton from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
+import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
@@ -63,7 +65,7 @@ export function MatchDetails() {
   if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
     return <LoadingScreen />;
   return (
-    <Screen header={i18n("offer.sell.details") + ` ${offerIdToHex(offerId)}`}>
+    <Screen header={i18n("offer.sell.details") + ` ${offerIdToHex(matchId)}`}>
       <Match match={match} offer={offer} />
     </Screen>
   );
@@ -113,9 +115,20 @@ const isLimitReached = (
 
 const MATCH_DELAY = 5000;
 function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
+  const { user: selfUser } = useSelfUser();
   const { mutate } = useMatchOffer(offer, match);
   const { meansOfPayment } = match;
   const { isDarkMode } = useThemeStore();
+
+  const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
+    match.offerId,
+  );
+
+  const [isAllowedToChat, setIsAllowedToChat] = useState(false);
+
+  useEffect(() => {
+    setIsAllowedToChat(Boolean(isAllowedToTradeRequestData?.result));
+  }, [isAllowedToTradeRequestData]);
 
   const [selectedCurrency, setSelectedCurrency] = useState(
     match.selectedCurrency || keys(meansOfPayment)[0],
@@ -241,6 +254,11 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
           </View>
         </View>
       </PeachScrollView>
+
+      {selfUser && isAllowedToChat && (
+        <ChatButton offerId={match.offerId} requestingUserId={selfUser.id} />
+      )}
+
       {match.instantTrade ? (
         <InstantTradeSlider
           matchOffer={matchOffer}

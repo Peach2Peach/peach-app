@@ -12,6 +12,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
@@ -22,10 +23,11 @@ import { PriceInfo } from "./BuyerPriceInfo";
 import { useMaxMiningFee } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
+import ChatButton from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 
 export function TradeRequestForBuyOffer() {
-  const { userId, amount, fiatPrice, currency, paymentMethod } =
+  const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
     useRoute<"tradeRequestForBuyOffer">().params;
   const { user } = useUser(userId);
   const { data: marketPrices } = useMarketPrices();
@@ -56,6 +58,7 @@ export function TradeRequestForBuyOffer() {
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
         {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
+        <ChatButton offerId={offerId} requestingUserId={userId} />
         <AcceptButton />
       </View>
     </Screen>
@@ -69,7 +72,7 @@ function AcceptButton() {
       style={tw`flex-1 py-3 bg-success-main`}
       onPress={() => mutation.mutate()}
     >
-      Accept Trade
+      {i18n("search.acceptTradeButton")}
     </Button>
   );
 }

@@ -14,12 +14,15 @@ import {
   TIME_UNTIL_REFRESH_SECONDS,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
+import { offerKeys, tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
+import { queryClient } from "../../queryClient";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -49,14 +52,14 @@ export function Explore() {
         <OfferTab.Screen
           name="acceptTrade"
           options={{
-            title: "accept trade",
+            title: i18n("search.acceptTrade"),
           }}
           children={() => <AcceptTrade offerId={offerId} />}
         />
         <OfferTab.Screen
           name="requestTrade"
           options={{
-            title: "request trade",
+            title: i18n("search.requestTrade"),
           }}
           children={() => <RequestTrade offerId={offerId} />}
         />
@@ -73,6 +76,28 @@ function RequestTrade({ offerId }: { offerId: string }) {
     refetch,
     isRefetching,
   } = useOfferMatches(offerId, TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000);
+
+  const { user } = useSelfUser();
+
+  if (!user) {
+    throw Error("Self User not found");
+  }
+
+  // for tradeRequest chat
+  matches.map((value) => {
+    queryClient.setQueryData(
+      tradeRequestKeys.detail(value.offerId, user.id),
+      value,
+    );
+
+    // this is a hack to make the trade request chat work
+    // because we dont get offer info, just the match info
+    queryClient.setQueryData(offerKeys.detail(value.offerId), {
+      id: value.offerId,
+      user: value.user,
+    });
+    return null;
+  });
 
   const hasMatches = matches.length > 0;
   if (isPending) return <LoadingScreen />;
@@ -224,6 +249,15 @@ function AcceptTrade({ offerId }: { offerId: string }) {
       if (error || !result) {
         throw new Error(error?.error || "Failed to fetch trade requests");
       }
+
+      result.tradeRequests.map((value) => {
+        queryClient.setQueryData(
+          tradeRequestKeys.detail(offerId, value.userId),
+          value,
+        );
+        return null;
+      });
+
       return result;
     },
     refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
