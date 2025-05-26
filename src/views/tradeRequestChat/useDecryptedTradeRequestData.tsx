@@ -7,11 +7,7 @@ export const useDecryptedTradeRequestData = (tradeRequest: TradeRequest) =>
   useQuery({
     queryKey: tradeRequestKeys.decryptedData(
       tradeRequest.offerId,
-      tradeRequest.userId
-        ? tradeRequest.userId
-        : tradeRequest.requestingUserId
-          ? tradeRequest.requestingUserId
-          : tradeRequest.user.id,
+      tradeRequest.requestingUserId,
     ),
     queryFn: async () => {
       const { symmetricKey } = await decryptTradeRequestData(tradeRequest);
