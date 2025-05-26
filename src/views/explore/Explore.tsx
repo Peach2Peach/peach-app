@@ -14,9 +14,10 @@ import {
   TIME_UNTIL_REFRESH_SECONDS,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
-import { tradeRequestKeys } from "../../hooks/query/offerKeys";
+import { offerKeys, tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -75,6 +76,24 @@ function RequestTrade({ offerId }: { offerId: string }) {
     refetch,
     isRefetching,
   } = useOfferMatches(offerId, TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000);
+
+  const { user } = useSelfUser();
+
+  // for tradeRequest chat
+  matches.map((value) => {
+    queryClient.setQueryData(
+      tradeRequestKeys.detail(value.offerId, user.id),
+      value,
+    );
+
+    // this is a hack to make the trade request chat work
+    // because we dont get offer info, just the match info
+    queryClient.setQueryData(offerKeys.detail(value.offerId), {
+      id: value.offerId,
+      user: value.user,
+    });
+    return null;
+  });
 
   const hasMatches = matches.length > 0;
   if (isPending) return <LoadingScreen />;

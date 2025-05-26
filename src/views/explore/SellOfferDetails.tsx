@@ -91,8 +91,8 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-
-  const { data, refetch } = useTradeRequest(offer.id);
+  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
+  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
 
   const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
     offer.id,
@@ -103,21 +103,6 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   useEffect(() => {
     setIsAllowedToChat(Boolean(isAllowedToTradeRequestData?.result));
   }, [isAllowedToTradeRequestData]);
-
-  useEffect(() => {
-    const callback = async () => {
-      if (selfUser) {
-        const { result } =
-          await peachAPI.private.offer.isAllowedToTradeRequestChat({
-            offerId: offer.id,
-            requestingUserId: selfUser.id,
-          });
-        setIsAllowedToChat(Boolean(result?.result));
-      }
-    };
-
-    void callback();
-  }, [offer, data, selfUser]);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 

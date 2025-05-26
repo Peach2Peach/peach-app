@@ -6,56 +6,34 @@ import { tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
-import { useUser } from "../publicProfile/useUser";
 
 export const useDecryptedTradeRequestData = (tradeRequest: TradeRequest) => {
-  // VERIFY THIS!!!!
-  const { user } = useUser(
-    tradeRequest.userId ? tradeRequest.userId : tradeRequest.requestingUserId,
-  );
-
   return useQuery({
     queryKey: tradeRequestKeys.decryptedData(
       tradeRequest.offerId,
-      tradeRequest.userId ? tradeRequest.userId : tradeRequest.requestingUserId,
+      tradeRequest.userId
+        ? tradeRequest.userId
+        : tradeRequest.requestingUserId
+          ? tradeRequest.requestingUserId
+          : tradeRequest.user.id,
     ),
     queryFn: async () => {
-      if (!user) {
-        throw new Error("Undefined user for decrypting data");
-      }
-
-      const { symmetricKey, paymentData } = await decryptTradeRequestData(
-        tradeRequest,
-        user,
-      );
-      if (!symmetricKey || !paymentData)
+      const { symmetricKey } = await decryptTradeRequestData(tradeRequest);
+      if (!symmetricKey)
         throw new Error("Could not decrypt trade request data");
 
-      return { symmetricKey, paymentData };
+      return { symmetricKey };
     },
     retry: true,
   });
 };
 
-async function decryptTradeRequestData(
-  tradeRequest: TradeRequest,
-  user: PublicUser,
-) {
+async function decryptTradeRequestData(tradeRequest: TradeRequest) {
   const symmetricKey = await decryptSymmetricKey(
     tradeRequest.symmetricKeyEncrypted,
   );
 
-  const paymentData = await decryptPaymentData(
-    {
-      paymentDataEncrypted: tradeRequest.paymentDataEncrypted,
-      paymentDataSignature: tradeRequest.paymentDataSignature,
-      user,
-      paymentDataEncryptionMethod: "aes256",
-    },
-    symmetricKey,
-  );
-
-  return { symmetricKey, paymentData };
+  return { symmetricKey };
 }
 
 async function hasValidSignature({

@@ -77,6 +77,7 @@ function SellOfferSummaryCard({
   const onPress = () => {
     navigation.navigate("sellOfferDetails", {
       offerId,
+      requestingOfferId,
     });
   };
 

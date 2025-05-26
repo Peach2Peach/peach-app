@@ -1,7 +1,6 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
-import { TradeRequest } from "../../../peach-api/src/@types/contract";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
@@ -31,37 +30,33 @@ export const TradeRequestChat = () => {
   const { offerId, requestingUserId } = useRoute<"tradeRequestChat">().params;
 
   const offer = getOffer(offerId);
-  const tradeRequest = getTradeRequest(offerId, requestingUserId);
 
-  return !offer || !tradeRequest ? (
+  return !offer || !requestingUserId ? (
     <LoadingScreen />
   ) : (
-    <TradeRequestChatScreen offer={offer} tradeRequest={tradeRequest} />
+    <TradeRequestChatScreen offer={offer} requestingUserId={requestingUserId} />
   );
 };
 
 function TradeRequestChatScreen({
   offer,
-  tradeRequest,
+  requestingUserId,
 }: {
   offer: BuyOffer | SellOffer;
-  tradeRequest: TradeRequest;
+  requestingUserId: string;
 }) {
-  // const requestingUserId = tradeRequest.userId
-  //   ? tradeRequest.userId
-  //   : tradeRequest.requestingUserId; // FIX THIS
-
-  const requestingUserId = tradeRequest.requestingUserId;
-
   const queryClient = useQueryClient();
 
   const { user } = useSelfUser();
 
+  const tradeRequest = getTradeRequest(offer.id, requestingUserId);
+
+  if (!tradeRequest) {
+    throw Error;
+  }
   const { data: decryptedData, isPending } =
     useDecryptedTradeRequestData(tradeRequest);
-
   const { connected, send, off, on } = useWebsocketContext();
-
   const { messages, isFetching, page, fetchNextPage } =
     useTradeRequestChatMessages({
       offerId: offer.id,
@@ -328,14 +323,7 @@ type Props = {
   symmetricKey?: string;
 };
 
-function TradeRequestChatHeader({
-  offer,
-  // symmetricKey,
-}: Props) {
-  // const { contractId } = useRoute<"tradeRequestChat">().params;
-
-  // const setPopup = useSetPopup();
-
+function TradeRequestChatHeader({ offer }: Props) {
   const title = "Trade Request " + offer.id + " Chat";
 
   return <Header title={title} icons={[]} />;

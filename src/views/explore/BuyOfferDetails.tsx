@@ -88,8 +88,8 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-
-  const { data, refetch } = useTradeRequest(offer.id);
+  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
+  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
 
   const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
     offer.id,
