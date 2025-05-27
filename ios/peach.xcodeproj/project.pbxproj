@@ -20,14 +20,15 @@
 		4C36D5DD2DABF75A0098D9BF /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EC2A052B2D00F18766 /* CourierPrime-Regular.ttf */; };
 		4C36D5DE2DABF75A0098D9BF /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
 		4C36D5DF2DABF75A0098D9BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		4C36D5E02DABF75A0098D9BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6769491127F72D6900C73BEF /* GoogleService-Info.plist */; };
-		4C36D5E12DABF75A0098D9BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A9CC6529E4306400F514FA /* Images.xcassets */; };
 		4C36D5E22DABF75A0098D9BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		4C36D5E32DABF75A0098D9BF /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 		4C36D5E42DABF75A0098D9BF /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
 		4C36D5E52DABF75A0098D9BF /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
 		4C36D5E62DABF75A0098D9BF /* CourierPrime-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EB2A052B2D00F18766 /* CourierPrime-Bold.ttf */; };
 		4C36D5E72DABF75A0098D9BF /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
+		4CB974AB2DE610BD0031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
+		4CB974AE2DE611460031D71E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974AD2DE611460031D71E /* GoogleService-Info.plist */; };
+		4CB974AF2DE611780031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
 		4E2649D5628C1A64799D13F1 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */; };
 		671A562E2850E9AE0058434C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		671A562F2850E9AE0058434C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -84,6 +85,8 @@
 		3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Regular.ttf"; path = "../assets/fonts/Baloo2-Regular.ttf"; sourceTree = "<group>"; };
 		4C36D5EF2DABF75A0098D9BF /* peach regtest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "peach regtest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C36D5F02DABF75A0098D9BF /* peach regtest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "peach regtest-Info.plist"; path = "/Users/michael/Documents/Coding/Peach2Peach/peach-app/ios/peach regtest-Info.plist"; sourceTree = "<absolute>"; };
+		4CB974A82DE610BD0031D71E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4CB974AD2DE611460031D71E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55F4F89D050F9B09DCDEA67A /* Pods-peach-peach testnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach testnet.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet.debug.xcconfig"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
 		6709C1062A669A0D00A5A4F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -208,6 +211,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4CB974AA2DE610BD0031D71E /* PeachRegtest */ = {
+			isa = PBXGroup;
+			children = (
+				4CB974A82DE610BD0031D71E /* Images.xcassets */,
+				4CB974AD2DE611460031D71E /* GoogleService-Info.plist */,
+			);
+			path = PeachRegtest;
+			sourceTree = "<group>";
+		};
 		6099E5A24FA44EE9A47A52D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +284,7 @@
 				675514862812BA4E00A17B6C /* assets */,
 				6735D8CA29532CD800AD1C74 /* assets */,
 				675514832812B60700A17B6C /* main.jsbundle */,
+				4CB974AA2DE610BD0031D71E /* PeachRegtest */,
 				675F67FF2850FE96009208C5 /* PeachDevelopment */,
 				675F67FE2850FE8A009208C5 /* PeachProduction */,
 				13B07FAE1A68108700A75B9A /* peach */,
@@ -492,8 +505,8 @@
 				4C36D5DD2DABF75A0098D9BF /* CourierPrime-Regular.ttf in Resources */,
 				4C36D5DE2DABF75A0098D9BF /* assets in Resources */,
 				4C36D5DF2DABF75A0098D9BF /* LaunchScreen.storyboard in Resources */,
-				4C36D5E02DABF75A0098D9BF /* GoogleService-Info.plist in Resources */,
-				4C36D5E12DABF75A0098D9BF /* Images.xcassets in Resources */,
+				4CB974AF2DE611780031D71E /* Images.xcassets in Resources */,
+				4CB974AE2DE611460031D71E /* GoogleService-Info.plist in Resources */,
 				4C36D5E22DABF75A0098D9BF /* Images.xcassets in Resources */,
 				4C36D5E32DABF75A0098D9BF /* Baloo2-Bold.ttf in Resources */,
 				4C36D5E42DABF75A0098D9BF /* Baloo2-Medium.ttf in Resources */,
@@ -517,6 +530,7 @@
 				671A56362850E9AE0058434C /* assets in Resources */,
 				671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */,
 				675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */,
+				4CB974AB2DE610BD0031D71E /* Images.xcassets in Resources */,
 				676EA9EE2A052B2D00F18766 /* CourierPrime-Bold.ttf in Resources */,
 				671A56392850E9AE0058434C /* Baloo2-Bold.ttf in Resources */,
 			);
@@ -1442,6 +1456,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4C1B23902DE63EAF00889A41 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.13.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C1B23912DE63EAF00889A41 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C1B23902DE63EAF00889A41 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
