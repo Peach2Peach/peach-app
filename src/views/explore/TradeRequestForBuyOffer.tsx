@@ -41,7 +41,7 @@ export function TradeRequestForBuyOffer() {
   const premium = round((bitcoinPriceOfOffer / bitcoinPrice - 1) * CENT, 2);
 
   return (
-    <Screen header={<Header title="trade request" />}>
+    <Screen header={<Header title={i18n("tradeRequest.title")} />}>
       <PeachScrollView
         contentStyle={tw`items-center justify-center gap-8 grow`}
       >

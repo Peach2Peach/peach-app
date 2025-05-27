@@ -1,4 +1,5 @@
 {
+  "tradeRequest.title":"trade request",
   "match.feeWarning" : "You will pay up to $0% in mining fees!",
   "match.tradeRequested" : "trade requested",
   "match.waitingForSeller" : "waiting for seller",

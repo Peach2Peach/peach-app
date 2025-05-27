@@ -17,7 +17,7 @@ export default function ChatButton({
 
   return (
     <Button style={tw`flex-1 py-3 bg-success-main`} onPress={onPressCallback}>
-      {i18n("CHAT BUTTON")}
+      {i18n("chat")}
     </Button>
   );
 }
