@@ -126,7 +126,10 @@ function getSellerStatusText({
 }) {
   if (contract.tradeStatus === "fundingExpired") {
     if (!contract.canceled) {
-      return "Your funding transaction has not been confirmed yet. The buyer can decide to give you more time or to cancel the trade.\n\nIn either case, your reputation has been impacted.";
+      if (contract.fundingStatus === "MEMPOOL") {
+        return "Your funding transaction has not been confirmed yet. The buyer can decide to give you more time or to cancel the trade.\n\nIn either case, your reputation has been impacted.";
+      }
+      return "The funding transaction was not performed. The buyer can decide to give you more time or to cancel the trade.\n\nIn either case, your reputation has been impacted.";
     }
     // if not funded:
     return "You didn't fund the escrow on time and the trade has been canceled.";
