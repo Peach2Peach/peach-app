@@ -41,6 +41,7 @@
   "contract.cancel.pending": "pending cancelation",
   "contract.cancel.requestSent": "request sent",
   "contract.cancel.requestSent.text": "The buyer has been notified that you want to cancel the trade.",
+  "contract.cancel.sellerWithoutReputationPenalty": "Are you sure?",
   "contract.cancel.seller": "Are you sure? Canceling a trade will negatively impact your reputation.",
   "contract.cancel.sellerPt2WithEscrow": "\n\nThe buyer also needs to agree to cancel the trade, since they might have already made the payment.",
   "contract.cancel.seller.text.backOnline": "If the Buyer agrees to cancel this trade, we'll put your sell offer back into the matching pool.",
