@@ -128,7 +128,7 @@ exports[`EditPremium should render correctly 1`] = `
               ]
             }
           >
-            P‑7B
+            edit offer P‑7B
           </Text>
         </View>
         <View
