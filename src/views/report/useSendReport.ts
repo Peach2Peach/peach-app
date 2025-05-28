@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { APPVERSION, BUILDNUMBER, SESSION_ID, UNIQUEID } from "../../constants";
 import { useAppVersion } from "../../hooks/useAppVersion";
+import { useAccountStore } from "../../utils/account/account";
 import { sendErrors } from "../../utils/analytics/sendErrors";
 import { peachAPI } from "../../utils/peachAPI";
 import { compatibilityCheck } from "../../utils/system/compatibilityCheck";
@@ -13,14 +14,21 @@ type Params = {
 };
 export function useSendReport() {
   const { data } = useAppVersion();
+  const publicKey = useAccountStore((state) => state.account.publicKey);
   return useMutation({
-    mutationFn: (params: Params) => sendReport(params, data?.minAppVersion),
+    mutationFn: (params: Params) =>
+      sendReport(params, data?.minAppVersion, publicKey),
   });
 }
 
-async function sendReport(params: Params, minAppVersion: string | undefined) {
+async function sendReport(
+  params: Params,
+  minAppVersion: string | undefined,
+  publicKey?: string,
+) {
   const { email, reason, topic, message } = params;
-  let messageToSend = `${message}\n\nDevice ID Hash: ${UNIQUEID}`;
+  let messageToSend = `${message}\n\nUser ID: ${publicKey || "No public key available"}`;
+  messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`;
   messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`;
   if (
     minAppVersion &&
