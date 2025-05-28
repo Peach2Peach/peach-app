@@ -47,9 +47,9 @@ function BuyerStatusText({ contract }: { contract: Contract }) {
 function getBuyerStatusText(contract: Contract) {
   if (contract.tradeStatus === "fundingExpired") {
     if (contract.fundingStatus === "NULL") {
-      return "The seller has not funded the escrow yet.\n\nYou can either cancel the trade without a reputation penalty, or give the seller more time.";
+      return i18n("contract.buyer.fundingExpired");
     }
-    return "There is an unconfirmed transaction to the escrow. This means you will have to wait before you can make the payment.\n\nYou can either cancel the trade without a reputation penalty, or give the seller more time.";
+    return i18n("contract.buyer.fundingExpiredWithTXInMempool");
   }
   const isCash = isCashTrade(contract.paymentMethod);
   if (isCash && contract.canceled) {
@@ -58,6 +58,9 @@ function getBuyerStatusText(contract: Contract) {
         ? "contract.buyer.buyerCanceledCashTrade"
         : "contract.buyer.sellerCanceledCashTrade",
     );
+  }
+  if (contract.tradeStatus && contract.fundingStatus === "NULL") {
+    return i18n("contract.buyer.sellerCanceledBeforeFunding");
   }
 
   const { paymentMade, paymentExpectedBy, cancelationRequested } = contract;
@@ -123,7 +126,10 @@ function getSellerStatusText({
 }) {
   if (contract.tradeStatus === "fundingExpired") {
     if (!contract.canceled) {
-      return "Your funding transaction has not been confirmed yet. The buyer can decide to give you more time or to cancel the trade.\n\nIn either case, your reputation has been impacted.";
+      if (contract.fundingStatus === "MEMPOOL") {
+        return "Your funding transaction has not been confirmed yet. The buyer can decide to give you more time or to cancel the trade.\n\nIn either case, your reputation has been impacted.";
+      }
+      return "The funding transaction was not performed. The buyer can decide to give you more time or to cancel the trade.\n\nIn either case, your reputation has been impacted.";
     }
     // if not funded:
     return "You didn't fund the escrow on time and the trade has been canceled.";
