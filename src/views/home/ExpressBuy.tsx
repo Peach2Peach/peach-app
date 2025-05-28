@@ -6,6 +6,7 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
+import { PeachText } from "../../components/text/PeachText";
 import { TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { BuySorters } from "../../popups/sorting/BuySorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -13,6 +14,7 @@ import { useExpressBuyFilterPreferences } from "../../store/useExpressBuyFilterP
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { SellOfferSummaryIdCard } from "../explore/OfferSummaryCard";
+import { useOffer } from "../explore/useOffer";
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 
 export function ExpressBuy({
@@ -26,6 +28,20 @@ export function ExpressBuy({
   const [minAmount, maxAmount, maxPremium] = useExpressBuyFilterPreferences(
     (state) => [state.minAmount, state.maxAmount, state.maxPremium],
   );
+
+  const { data: requestingOffer } = useOffer(requestingOfferId || "");
+
+  const marketFilterAmount = (
+    requestingOffer
+      ? requestingOffer.amount
+      : minAmount > 1
+        ? [minAmount, maxAmount]
+        : undefined
+  ) as [number, number];
+
+  const marketFilterMaxPremium = requestingOffer
+    ? requestingOffer.premium
+    : maxPremium;
 
   const { data, refetch } = useQuery({
     queryKey: ["expressBuy", defaultBuyOfferSorter],
@@ -58,20 +74,30 @@ export function ExpressBuy({
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
         <Placeholder style={tw`w-6 h-6`} />
-        <MarketInfo type="sellOffers" />
+        <MarketInfo
+          type="sellOffers"
+          buyAmountRange={marketFilterAmount}
+          maxPremium={marketFilterMaxPremium}
+        />
         <TouchableIcon id="sliders" onPress={showSortAndFilterPopup} />
       </View>
       {!data ? (
         <ActivityIndicator size="large" />
       ) : (
         <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
-          {data.map((offerId) => (
-            <SellOfferSummaryIdCard
-              key={offerId}
-              offerId={offerId}
-              requestingOfferId={requestingOfferId}
-            />
-          ))}
+          {data &&
+            data.map((offerId) => (
+              <SellOfferSummaryIdCard
+                key={offerId}
+                offerId={offerId}
+                requestingOfferId={requestingOfferId}
+              />
+            ))}
+          {data.length === 0 && (
+            <PeachText>
+              No offers! Please check your filters to find more offers!
+            </PeachText>
+          )}
         </View>
       )}
     </PeachScrollView>

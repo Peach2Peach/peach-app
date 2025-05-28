@@ -7,9 +7,11 @@ import { Section } from "./Section";
 import { useFilteredMarketStats } from "./useFilteredMarketStats";
 
 export function MarketInfo({
+  offerIds,
   type,
   ...preferences
 }: {
+  offerIds?: string[];
   type: "buyOffers" | "sellOffers";
   meansOfPayment?: MeansOfPayment;
   maxPremium?: number;

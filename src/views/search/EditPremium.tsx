@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { View } from "react-native";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { Header } from "../../components/Header";
 import { PremiumInput } from "../../components/PremiumInput";
 import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Button } from "../../components/buttons/Button";
 import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlider";
+import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -14,18 +16,26 @@ import { usePatchOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
+import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { getOfferPrice } from "../../utils/offer/getOfferPrice";
+import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
+import { Section } from "../offerPreferences/components/Section";
 
 export const EditPremium = () => {
   const { offerId } = useRoute<"editPremium">().params;
   const { offer } = useOfferDetail(offerId);
+
+  if (!offer) {
+    throw new Error("offer not found");
+  }
+
   const offerPremium =
     !!offer && "premium" in offer ? offer.premium : undefined;
   const [premium, setPremium] = useState(offerPremium);
@@ -55,6 +65,7 @@ export const EditPremium = () => {
         meansOfPayment={offer?.meansOfPayment}
         maxPremium={displayPremium}
       />
+      <OfferMethods offer={offer} />
       <Premium
         premium={displayPremium}
         setPremium={setPremium}
@@ -74,6 +85,32 @@ export const EditPremium = () => {
     </Screen>
   );
 };
+
+function OfferMethods({ offer }: { offer: SellOffer }) {
+  const meansOfPayment = offer.meansOfPayment;
+
+  const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
+
+  const { isDarkMode } = useThemeStore();
+  const backgroundColor = isDarkMode
+    ? tw.color("card")
+    : tw.color("primary-mild-1");
+  return (
+    <Section.Container style={{ backgroundColor }}>
+      {hasSelectedMethods ? (
+        <MeansOfPayment
+          meansOfPayment={meansOfPayment}
+          style={tw`self-stretch `}
+          noSelection
+        />
+      ) : (
+        <Section.Title>
+          {i18n("offerPreferences.allPaymentMethods")}
+        </Section.Title>
+      )}
+    </Section.Container>
+  );
+}
 
 function EditPremiumHeader() {
   const { offerId } = useRoute<"editPremium">().params;
