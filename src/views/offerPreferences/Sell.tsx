@@ -266,13 +266,13 @@ function AmountSelectorContainer({
   );
   let competingOffersComponent = <></>;
 
-  if (showCompetingSellOffers) {
-    const { data } = useFilteredMarketStats({
-      type: "ask",
-      maxPremium: premium - MIN_PREMIUM_INCREMENT,
-      meansOfPayment,
-    });
+  const { data } = useFilteredMarketStats({
+    type: "ask",
+    maxPremium: premium - MIN_PREMIUM_INCREMENT,
+    meansOfPayment,
+  });
 
+  if (showCompetingSellOffers) {
     competingOffersComponent = (
       <PeachText
         style={tw`text-center body-s ${isDarkMode ? "text-primary-main" : "text-primary-dark-2"}`}

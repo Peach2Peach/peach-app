@@ -62,13 +62,13 @@ export function AmountSelectorComponent({
     shallow,
   );
 
-  if (showCompetingOffers) {
-    const { data } = useFilteredMarketStats({
-      type: "bid",
-      meansOfPayment,
-      maxPremium: maxPremium - MIN_PREMIUM_INCREMENT,
-    });
+  const { data } = useFilteredMarketStats({
+    type: "bid",
+    meansOfPayment,
+    maxPremium: maxPremium - MIN_PREMIUM_INCREMENT,
+  });
 
+  if (showCompetingOffers) {
     competingOffersText = (
       <PeachText
         style={isDarkMode ? tw`text-success-main` : tw`text-success-dark-2`}
