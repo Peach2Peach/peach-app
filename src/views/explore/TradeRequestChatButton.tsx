@@ -16,7 +16,7 @@ export default function ChatButton({
     navigation.push("tradeRequestChat", { offerId, requestingUserId });
 
   return (
-    <Button style={tw`flex-1 py-3 bg-success-main`} onPress={onPressCallback}>
+    <Button style={tw`flex-1 py-3 bg-primary-main`} onPress={onPressCallback}>
       {i18n("chat")}
     </Button>
   );
