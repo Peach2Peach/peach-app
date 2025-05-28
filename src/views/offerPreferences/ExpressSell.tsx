@@ -37,7 +37,8 @@ export function ExpressSell({
     ? (requestingOffer.amount as number)
     : amount;
 
-  //todo: add MaxPremium to market analysis
+  // eslint-disable-next-line
+  // todo: add MaxPremium to market analysis
 
   const { data, refetch } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
