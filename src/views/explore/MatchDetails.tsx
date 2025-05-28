@@ -127,7 +127,9 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const [isAllowedToChat, setIsAllowedToChat] = useState(false);
 
   useEffect(() => {
-    setIsAllowedToChat(Boolean(isAllowedToTradeRequestData?.result));
+    setIsAllowedToChat(
+      Boolean(isAllowedToTradeRequestData?.symmetricKeyEncrypted),
+    );
   }, [isAllowedToTradeRequestData]);
 
   const [selectedCurrency, setSelectedCurrency] = useState(

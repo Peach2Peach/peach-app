@@ -1,28 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { TradeRequest } from "../../../peach-api/src/@types/contract";
 import { tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 
-export const useDecryptedTradeRequestData = (tradeRequest: TradeRequest) =>
+export const useDecryptedTradeRequestData = (
+  offerId: string,
+  requestingUserId: string,
+  symmetricKeyEncrypted: string,
+) =>
   useQuery({
-    queryKey: tradeRequestKeys.decryptedData(
-      tradeRequest.offerId,
-      tradeRequest.requestingUserId,
-    ),
+    queryKey: tradeRequestKeys.decryptedData(offerId, requestingUserId),
     queryFn: async () => {
-      const { symmetricKey } = await decryptTradeRequestData(tradeRequest);
+      const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted);
       if (!symmetricKey)
         throw new Error("Could not decrypt trade request data");
 
       return { symmetricKey };
     },
-    retry: true,
+    retry: false,
   });
-
-async function decryptTradeRequestData(tradeRequest: TradeRequest) {
-  const symmetricKey = await decryptSymmetricKey(
-    tradeRequest.symmetricKeyEncrypted,
-  );
-
-  return { symmetricKey };
-}

@@ -101,7 +101,9 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const [isAllowedToChat, setIsAllowedToChat] = useState(false);
 
   useEffect(() => {
-    setIsAllowedToChat(Boolean(isAllowedToTradeRequestData?.result));
+    setIsAllowedToChat(
+      Boolean(isAllowedToTradeRequestData?.symmetricKeyEncrypted),
+    );
   }, [isAllowedToTradeRequestData]);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
