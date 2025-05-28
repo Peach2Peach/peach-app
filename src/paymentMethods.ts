@@ -57,7 +57,6 @@ export const NATIONALTRANSFERCOUNTRIES = [
   "NG",
 ] as const;
 
-export let PAYMENTMETHODS: PaymentMethod[] = ["sepa"];
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
     id: "sepa",
@@ -157,7 +156,6 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
       [],
     )
     .filter(uniqueArray);
-  PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id);
   PAYMENTCATEGORIES.cash = [
     ...PAYMENTCATEGORIES.cash,
     ...paymentMethodInfos.map(({ id }) => id).filter(isCashTrade),

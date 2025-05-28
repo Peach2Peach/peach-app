@@ -1,3 +1,4 @@
+import { GetInfoResponseBody } from "../../peach-api/src/@types/api/systemAPI";
 import { APIError } from "../../peach-api/src/@types/global";
 import { MSINASECOND, setClientServerTimeDifference } from "../constants";
 import { PAYMENTCATEGORIES, setPaymentMethods } from "../paymentMethods";
@@ -49,7 +50,7 @@ export const getPeachInfo = async (): Promise<
   return statusResponse;
 };
 
-function storePeachInfo(peachInfo: GetInfoResponse) {
+function storePeachInfo(peachInfo: GetInfoResponseBody) {
   const {
     setPaymentMethods: setPaymentMethodsStore,
     setPeachFee,
