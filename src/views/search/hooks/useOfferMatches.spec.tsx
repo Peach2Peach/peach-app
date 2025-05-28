@@ -14,7 +14,7 @@ describe("useOfferMatches", () => {
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);
     });
-    expect(result.current.allMatches).toEqual(["match"]);
+    expect(result.current.allMatches).toEqual([match]);
   });
   it("should not make a request if not enabled", () => {
     renderHook(() => useOfferMatches("offerId", undefined, false), {});
