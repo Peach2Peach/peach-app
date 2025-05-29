@@ -17,11 +17,12 @@ import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { error } from "../../utils/log/error";
-import { getOffer, getTradeRequest } from "../../utils/offer/getOffer";
+import { getOffer } from "../../utils/offer/getOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
+import { useOffer } from "../explore/useOffer";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
 import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
@@ -29,33 +30,56 @@ import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
 export const TradeRequestChat = () => {
   const { offerId, requestingUserId } = useRoute<"tradeRequestChat">().params;
 
+  useOffer(offerId);
+
   const offer = getOffer(offerId);
 
-  return !offer || !requestingUserId ? (
+  const [symmetricKeyEncrypted, setSymmetricKeyEncrypted] = useState("");
+
+  useEffect(() => {
+    const callback = async () => {
+      const { result } =
+        await peachAPI.private.offer.isAllowedToTradeRequestChat({
+          offerId,
+          requestingUserId,
+        });
+      if (result) {
+        setSymmetricKeyEncrypted(result.symmetricKeyEncrypted);
+      }
+    };
+    callback();
+  }, []);
+
+  return !offer || !requestingUserId || !symmetricKeyEncrypted ? (
     <LoadingScreen />
   ) : (
-    <TradeRequestChatScreen offer={offer} requestingUserId={requestingUserId} />
+    <TradeRequestChatScreen
+      offer={offer}
+      requestingUserId={requestingUserId}
+      symmetricKeyEncrypted={symmetricKeyEncrypted}
+    />
   );
 };
 
 function TradeRequestChatScreen({
   offer,
   requestingUserId,
+  symmetricKeyEncrypted,
 }: {
   offer: BuyOffer | SellOffer;
   requestingUserId: string;
+  symmetricKeyEncrypted: string;
 }) {
   const queryClient = useQueryClient();
 
   const { user } = useSelfUser();
 
-  const tradeRequest = getTradeRequest(offer.id, requestingUserId);
+  const { data: decryptedData, isPending } = useDecryptedTradeRequestData(
+    offer.id,
+    requestingUserId,
+    symmetricKeyEncrypted,
+  );
 
-  if (!tradeRequest) {
-    throw Error;
-  }
-  const { data: decryptedData, isPending } =
-    useDecryptedTradeRequestData(tradeRequest);
   const { connected, send, off, on } = useWebsocketContext();
   const { messages, isFetching, page, fetchNextPage } =
     useTradeRequestChatMessages({

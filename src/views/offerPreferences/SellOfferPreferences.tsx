@@ -421,12 +421,12 @@ function InstantTrade() {
     toggleMinReputation,
   ] = useOfferPreferences(
     (state) => [
-      state.instantTrade,
-      state.toggleInstantTrade,
-      state.instantTradeCriteria,
-      state.toggleMinTrades,
-      state.toggleBadge,
-      state.toggleMinReputation,
+      state.sellInstantTrade,
+      state.toggleSellInstantTrade,
+      state.sellInstantTradeCriteria,
+      state.toggleSellMinTrades,
+      state.toggleSellBadge,
+      state.toggleSellMinReputation,
     ],
     shallow,
   );
@@ -535,7 +535,7 @@ function FundEscrowButton() {
   const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
     (state) => [
       state.sellAmount,
-      state.instantTrade,
+      state.sellInstantTrade,
       state.fundWithPeachWallet,
     ],
     shallow,
@@ -562,9 +562,9 @@ function FundEscrowButton() {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
-      multi: state.multi,
-      instantTradeCriteria: state.instantTrade
-        ? state.instantTradeCriteria
+      multi: state.sellMultiOffers,
+      instantTradeCriteria: state.sellInstantTrade
+        ? state.sellInstantTradeCriteria
         : undefined,
     }),
     shallow,

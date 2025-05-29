@@ -6,13 +6,15 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { TIME_UNTIL_REFRESH_LONGER_SECONDS } from "../../constants";
+import { PeachText } from "../../components/text/PeachText";
+import { TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useExpressSellFilterPreferences } from "../../store/useExpressSellFilterPreference/useExpressSellFilterPreference";
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { BuyOfferSummaryIdCard } from "../explore/OfferSummaryCard";
+import { useOffer } from "../explore/useOffer";
 import { MarketInfo } from "./components/MarketInfo";
 
 export function ExpressSell({
@@ -29,6 +31,15 @@ export function ExpressSell({
     state.premium,
   ]);
 
+  const { data: requestingOffer } = useOffer(requestingOfferId || "");
+
+  const marketFilterAmount = requestingOffer
+    ? (requestingOffer.amount as number)
+    : amount;
+
+  // eslint-disable-next-line
+  // todo: add MaxPremium to market analysis
+
   const { data, refetch } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
     queryFn: async () => {
@@ -44,7 +55,7 @@ export function ExpressSell({
       }
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
   });
 
   useFocusEffect(
@@ -61,7 +72,7 @@ export function ExpressSell({
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
         <Placeholder style={tw`w-6 h-6`} />
-        <MarketInfo type="buyOffers" />
+        <MarketInfo type="buyOffers" sellAmount={marketFilterAmount} />
         <TouchableIcon
           id="sliders"
           onPress={showSortAndFilterPopup}
@@ -71,15 +82,22 @@ export function ExpressSell({
       {!data ? (
         <ActivityIndicator size="large" />
       ) : (
-        <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
-          {data.map((offerId) => (
-            <BuyOfferSummaryIdCard
-              key={offerId}
-              offerId={offerId}
-              requestingOfferId={requestingOfferId}
-            />
-          ))}
-        </View>
+        <>
+          <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
+            {data.map((offerId) => (
+              <BuyOfferSummaryIdCard
+                key={offerId}
+                offerId={offerId}
+                requestingOfferId={requestingOfferId}
+              />
+            ))}
+          </View>
+          {data.length === 0 && (
+            <PeachText>
+              No offers! Please check your filters to find more offers!
+            </PeachText>
+          )}
+        </>
       )}
     </PeachScrollView>
   );

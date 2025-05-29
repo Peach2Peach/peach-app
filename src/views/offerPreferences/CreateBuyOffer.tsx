@@ -168,10 +168,10 @@ function PublishOfferButton() {
         CLIENT_RATING_RANGE,
         SERVER_RATING_RANGE,
       ),
-      instantTrade: state.instantTrade,
-      instantTradeCriteria: state.instantTradeCriteria,
+      instantTrade: state.buyInstantTrade,
+      instantTradeCriteria: state.buyInstantTradeCriteria,
       originalPaymentData: state.originalPaymentData,
-      multi: state.multi,
+      multi: state.buyMultiOffers,
     }),
     shallow,
   );
@@ -299,12 +299,12 @@ function InstantTrade() {
     toggleMinReputation,
   ] = useOfferPreferences(
     (state) => [
-      state.instantTrade,
-      state.toggleInstantTrade,
-      state.instantTradeCriteria,
-      state.toggleMinTrades,
-      state.toggleBadge,
-      state.toggleMinReputation,
+      state.buyInstantTrade,
+      state.toggleBuyInstantTrade,
+      state.buyInstantTradeCriteria,
+      state.toggleBuyMinTrades,
+      state.toggleBuyBadge,
+      state.toggleBuyMinReputation,
     ],
     shallow,
   );

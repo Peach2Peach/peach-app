@@ -11,9 +11,10 @@ import { PeachText } from "../text/PeachText";
 type Props = {
   meansOfPayment: MeansOfPayment;
   style?: StyleProp<ViewStyle>;
+  noSelection?: boolean;
 };
 
-export function MeansOfPayment({ meansOfPayment, style }: Props) {
+export function MeansOfPayment({ meansOfPayment, style, noSelection }: Props) {
   const currencies = getCurrencies(meansOfPayment);
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
 
@@ -23,6 +24,7 @@ export function MeansOfPayment({ meansOfPayment, style }: Props) {
         currencies={currencies}
         selected={selectedCurrency}
         select={setSelectedCurrency}
+        noSelection={noSelection}
       />
       <View style={tw`flex-row flex-wrap items-center justify-center gap-1`}>
         {meansOfPayment[selectedCurrency]?.map((p) => (
@@ -90,12 +92,14 @@ type CurrencySelectionProps = {
   currencies: Currency[];
   selected: Currency;
   select: (currency: Currency) => void;
+  noSelection?: boolean;
 };
 
 function CurrencySelection({
   currencies,
   selected,
   select,
+  noSelection,
 }: CurrencySelectionProps) {
   const { isDarkMode } = useThemeStore();
   return (
@@ -105,18 +109,19 @@ function CurrencySelection({
           key={`currency-selection-${currency}`}
           style={tw`items-center grow min-w-1/8 max-w-1/4`}
           onPress={() => select(currency)}
+          disabled={noSelection}
         >
           <PeachText
             numberOfLines={1}
             style={[
               tw`text-center button-large text-black-50`,
-              currency === selected &&
+              (currency === selected || noSelection) &&
                 tw.style(isDarkMode ? "text-primary-main" : "text-black-100"),
             ]}
           >
             {currency}
           </PeachText>
-          {currency === selected && (
+          {currency === selected && !noSelection && (
             <View
               style={[
                 tw`w-full h-2px bg-black-100 rounded-1px`,
