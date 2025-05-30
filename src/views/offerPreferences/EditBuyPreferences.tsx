@@ -38,7 +38,7 @@ import {
 } from "../settings/profile/profileOverview/Rating";
 import { CompetingOfferStats } from "./CreateBuyOffer";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
-import { ShowOffersButton } from "./ShowOffersButton";
+import { SaveBuyOfferPreferencesButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
 import { FilterContainer } from "./components/FilterContainer";
 import { MIN_REPUTATION_FILTER } from "./components/MIN_REPUTATION_FILTER";
@@ -444,7 +444,7 @@ function PatchOfferButton() {
     );
   };
   return (
-    <ShowOffersButton
+    <SaveBuyOfferPreferencesButton
       onPress={onPress}
       disabled={!formValid}
       loading={isPatching}

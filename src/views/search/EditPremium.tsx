@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { SellOffer } from "../../../peach-api/src/@types/offer";
-import { Header } from "../../components/Header";
-import { PremiumInput } from "../../components/PremiumInput";
-import { Screen } from "../../components/Screen";
-import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Button } from "../../components/buttons/Button";
+import { Header } from "../../components/Header";
 import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlider";
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
+import { PremiumInput } from "../../components/PremiumInput";
+import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
@@ -27,6 +26,7 @@ import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 import { Section } from "../offerPreferences/components/Section";
+import { AmountSelector } from "../offerPreferences/Sell";
 
 export const EditPremium = () => {
   const { offerId } = useRoute<"editPremium">().params;
@@ -66,6 +66,16 @@ export const EditPremium = () => {
         maxPremium={displayPremium}
       />
       <OfferMethods offer={offer} />
+      <AmountSelector
+        setIsSliding={() => {}}
+        amount={offer.amount}
+        setAmount={() => {}}
+        premium={offer.premium}
+        setPremium={() => {}}
+        showCompetingSellOffers={false}
+        minPremiumSearchCase={false}
+        justShow
+      />
       <Premium
         premium={displayPremium}
         setPremium={setPremium}
@@ -93,8 +103,9 @@ function OfferMethods({ offer }: { offer: SellOffer }) {
 
   const { isDarkMode } = useThemeStore();
   const backgroundColor = isDarkMode
-    ? tw.color("card")
-    : tw.color("primary-mild-1");
+    ? tw.color("bg-card")
+    : tw.color("bg-primary-background-dark");
+
   return (
     <Section.Container style={{ backgroundColor }}>
       {hasSelectedMethods ? (
@@ -161,12 +172,12 @@ function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
         <PeachText style={[tw`text-center h6`, tw`md:h5`]}>
           {i18n("sell.premium.title")}
         </PeachText>
-        <View style={tw`flex-row items-center gap-1`}>
+        {/* <View style={tw`flex-row items-center gap-1`}>
           <PeachText style={tw`text-center subtitle-1`}>
             {i18n("search.sellOffer")}
           </PeachText>
           <BTCAmount size="small" amount={amount} />
-        </View>
+        </View> */}
       </View>
       <View style={tw`items-center gap-1`}>
         <PremiumInput premium={premium} setPremium={setPremium} />
