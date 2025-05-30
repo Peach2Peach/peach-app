@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { PublicUser } from "../../../peach-api/src/@types/user";
 import { Icon } from "../../components/Icon";
@@ -52,7 +53,7 @@ export function UserCard({
         {badges.map(([iconId, badgeName]) => {
           const isUnlocked = user.medals.includes(badgeName);
 
-          if (!isUnlocked) return <></>;
+          if (!isUnlocked) return <Fragment key={badgeName} />;
 
           const color = tw.color("primary-main");
 
