@@ -37,8 +37,9 @@ export function ExpressSell({
     ? (requestingOffer.amount as number)
     : amount;
 
-  // eslint-disable-next-line
-  // todo: add MaxPremium to market analysis
+  const marketFilterPremium = requestingOffer
+    ? (requestingOffer.premium as number)
+    : premium;
 
   const { data, refetch } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
@@ -72,7 +73,11 @@ export function ExpressSell({
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
         <Placeholder style={tw`w-6 h-6`} />
-        <MarketInfo type="buyOffers" sellAmount={marketFilterAmount} />
+        <MarketInfo
+          type="buyOffers"
+          sellAmount={marketFilterAmount}
+          maxPremium={marketFilterPremium}
+        />
         <TouchableIcon
           id="sliders"
           onPress={showSortAndFilterPopup}

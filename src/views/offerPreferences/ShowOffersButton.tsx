@@ -9,7 +9,11 @@ type Props = {
   loading: boolean;
 };
 
-export function ShowOffersButton({ onPress, disabled, loading }: Props) {
+export function SaveBuyOfferPreferencesButton({
+  onPress,
+  disabled,
+  loading,
+}: Props) {
   const keyboardIsOpen = useKeyboard();
   if (keyboardIsOpen) return null;
   return (
@@ -19,7 +23,7 @@ export function ShowOffersButton({ onPress, disabled, loading }: Props) {
       disabled={disabled}
       loading={loading}
     >
-      {i18n("offerPreferences.showOffers")}
+      {i18n("offerPreferences.saveBuyOfferPreferences")}
     </Button>
   );
 }

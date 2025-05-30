@@ -33,5 +33,6 @@
   "offerPreferences.premiumOfCompletedTrades" : "premium of completed trades: $0%",
   "offerPreferences.refundTo" : "refund to:",
   "offerPreferences.sellOffers" : "$0 sell offers",
-  "offerPreferences.showOffers" : "show offers"
+  "offerPreferences.showOffers" : "show offers",
+  "offerPreferences.saveBuyOfferPreferences" :"confirm"
 }

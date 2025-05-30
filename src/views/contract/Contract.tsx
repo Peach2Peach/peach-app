@@ -1,7 +1,6 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
-import { networks } from "bitcoinjs-lib";
 import { useCallback, useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
@@ -22,8 +21,6 @@ import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { generateBlock } from "../../utils/regtest/generateBlock";
-import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
@@ -163,12 +160,12 @@ function ContractHeader() {
         ...headerIcons.help,
         onPress: showConfirmPaymentHelp,
       });
-    if (getNetwork() === networks.regtest && tradeStatus === "fundEscrow") {
-      return [
-        { ...headerIcons.generateBlock, onPress: generateBlock },
-        ...icons,
-      ];
-    }
+    // if (getNetwork() === networks.regtest && tradeStatus === "fundEscrow") {
+    //   return [
+    //     { ...headerIcons.generateBlock, onPress: generateBlock },
+    //     ...icons,
+    //   ];
+    // }
     return icons;
   }, [
     disputeActive,
