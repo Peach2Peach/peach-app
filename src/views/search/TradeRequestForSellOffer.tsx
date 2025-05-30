@@ -19,7 +19,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { PriceInfo } from "../explore/BuyerPriceInfo";
 import { PaidVia } from "../explore/PaidVia";
-import ChatButton from "../explore/TradeRequestChatButton";
+import { ChatButton } from "../explore/TradeRequestChatButton";
 import { UserCard } from "../explore/UserCard";
 import { useUser } from "../publicProfile/useUser";
 

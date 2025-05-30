@@ -45,7 +45,7 @@ import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { AnimatedButtons } from "./MatchDetails";
 import { PaidVia } from "./PaidVia";
-import ChatButton from "./TradeRequestChatButton";
+import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { canUserInstantTrade } from "./canUserInstantTrade";
 import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";

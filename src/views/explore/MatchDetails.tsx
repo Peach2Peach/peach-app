@@ -38,7 +38,7 @@ import { matchesKeys } from "../search/hooks/useOfferMatches";
 import { BuyerPriceInfo } from "./BuyerPriceInfo";
 import { FundingInfo } from "./FundingInfo";
 import { MiningFeeWarning } from "./MiningFeeWarning";
-import ChatButton from "./TradeRequestChatButton";
+import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 
