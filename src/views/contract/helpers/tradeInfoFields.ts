@@ -36,7 +36,12 @@ const createActiveBuyTradeFields = (
 ): TradeInfoField[][] => [["youShouldPay"], fields, ["seller", "tradeId"]];
 const createActiveSellTradeFields = (
   fields: TradeInfoField[],
-): TradeInfoField[][] => [["youWillGet"], fields, ["buyer", "tradeId"]];
+): TradeInfoField[][] => [
+  ["youWillGet"],
+  fields,
+  ["buyer", "buyerName", "buyerIban", "buyerSwift"],
+  ["tradeId"],
+];
 
 const activeCashSellTradeFields = createActiveSellTradeFields([
   "meetup",

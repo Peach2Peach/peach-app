@@ -4,6 +4,7 @@ import { Contract } from "../../../../peach-api/src/@types/contract";
 type ContractContextType = {
   contract: Contract;
   paymentData?: PaymentData;
+  buyerPaymentData?: PaymentData;
   isDecryptionError: boolean;
   view: "buyer" | "seller";
   showBatchInfo: boolean;
