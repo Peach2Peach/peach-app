@@ -82,6 +82,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
       value={{
         contract,
         paymentData: data?.paymentData,
+        buyerPaymentData: data?.buyerPaymentData,
         isDecryptionError: isError,
         view,
         showBatchInfo,

@@ -10,11 +10,12 @@ export const useDecryptedContractData = (contract: Contract) =>
   useQuery({
     queryKey: contractKeys.decryptedData(contract.id),
     queryFn: async () => {
-      const { symmetricKey, paymentData } = await decryptContractData(contract);
+      const { symmetricKey, paymentData, buyerPaymentData } =
+        await decryptContractData(contract);
       if (!symmetricKey || !paymentData)
         throw new Error("Could not decrypt contract data");
 
-      return { symmetricKey, paymentData };
+      return { symmetricKey, paymentData, buyerPaymentData };
     },
     retry: false,
   });
@@ -34,7 +35,17 @@ async function decryptContractData(contract: Contract) {
     symmetricKey,
   );
 
-  return { symmetricKey, paymentData };
+  const buyerPaymentData = await decryptPaymentData(
+    {
+      paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
+      paymentDataSignature: contract.buyerPaymentDataSignature,
+      user: contract.buyer,
+      paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
+    },
+    symmetricKey,
+  );
+
+  return { symmetricKey, paymentData, buyerPaymentData };
 }
 
 async function hasValidSignature({
