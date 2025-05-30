@@ -63,15 +63,12 @@ function NumberStepper({ isBuy = false }) {
     ],
     shallow,
   );
-  let multi = buyMultiOffers;
-  let setMulti = setBuyMultiOffers;
-  if (!isBuy) {
-    multi = sellMultiOffers;
-    setMulti = setSellMultiOffers;
-  }
+  const multi = isBuy ? buyMultiOffers : sellMultiOffers;
+  const setMulti = isBuy ? setBuyMultiOffers : setSellMultiOffers;
 
   const { isDarkMode } = useThemeStore();
   if (multi === undefined) return null;
+
   const decrease = () => setMulti(Math.max(multi - 1, FUND_MULTI_MIN));
   const increase = () => setMulti(Math.min(multi + 1, FUND_MULTI_MAX));
 

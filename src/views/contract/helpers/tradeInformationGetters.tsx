@@ -50,18 +50,15 @@ export const tradeInformationGetters: Record<
   | "tradeId"
   | "via"
   | "youPaid"
-  | "youWillGet"
-  | "buyerName"
-  | "buyerIban"
-  | "buyerSwift",
-  (
-    contract: Contract,
-    pd: PaymentData,
-  ) => string | number | JSX.Element | undefined
+  | "youWillGet",
+  (contract: Contract) => string | number | JSX.Element | undefined
 > & {
   buyer: (contract: Contract) => JSX.Element;
   seller: (contract: Contract) => JSX.Element;
   youShouldPay: (contract: Contract) => JSX.Element;
+  buyerName: (_contract: Contract, pd: PaymentData) => string | undefined;
+  buyerIban: (_contract: Contract, pd: PaymentData) => string | undefined;
+  buyerSwift: (_contract: Contract, pd: PaymentData) => string | undefined;
 } = {
   price: getPrice,
   soldFor: getPrice,
