@@ -6,7 +6,6 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { PeachText } from "../../components/text/PeachText";
 import { TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -15,6 +14,7 @@ import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { BuyOfferSummaryIdCard } from "../explore/OfferSummaryCard";
 import { useOffer } from "../explore/useOffer";
+import { NoOffersMessage } from "../search/NoOffersMessage";
 import { MarketInfo } from "./components/MarketInfo";
 
 export function ExpressSell({
@@ -97,11 +97,7 @@ export function ExpressSell({
               />
             ))}
           </View>
-          {data.length === 0 && (
-            <PeachText>
-              No offers! Please check your filters to find more offers!
-            </PeachText>
-          )}
+          {data.length === 0 && <NoOffersMessage />}
         </>
       )}
     </PeachScrollView>
