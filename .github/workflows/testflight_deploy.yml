@@ -1,0 +1,62 @@
+name: Deploy to TestFlight
+
+on:
+  push:
+    branches:
+      - peach-for-trader
+
+jobs:
+  deploy:
+    if: github.repository == 'Peach2Peach/peach-app' # to ensure this doesnt run on forks
+    runs-on: macos-13
+    env:
+      APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      ITC_TEAM_ID: ${{ secrets.ITC_TEAM_ID }}
+      APPLE_APP_ID: ${{ secrets.APPLE_APP_ID }}
+      APP_TARGET: ${{ secrets.APP_TARGET }}
+      XCODE_WORKSPACE: ${{ secrets.XCODE_WORKSPACE }}
+      XCODE_SCHEME: ${{ secrets.XCODE_SCHEME }}
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install CocoaPods
+        run: |
+          cd ios
+          pod install
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      # - name: Set up Fastlane Match
+      #   run: |
+      #     echo "machine github.com login ${{ secrets.GITHUB_TOKEN }}" > ~/.netrc
+      #     cd ios
+      #     fastlane match appstore --readonly
+      #   env:
+      #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      #     MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+
+      - name: Deploy to TestFlight
+        run: |
+          cd ios
+          fastlane beta
