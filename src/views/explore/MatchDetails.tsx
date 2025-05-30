@@ -65,7 +65,7 @@ export function MatchDetails() {
   if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
     return <LoadingScreen />;
   return (
-    <Screen header={i18n("offer.sell.details") + ` ${offerIdToHex(matchId)}`}>
+    <Screen header={`${i18n("offer.sell.details")} ${offerIdToHex(matchId)}`}>
       <Match match={match} offer={offer} />
     </Screen>
   );
@@ -123,12 +123,6 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
     match.offerId,
   );
-
-  const [isAllowedToChat, setIsAllowedToChat] = useState(false);
-
-  useEffect(() => {
-    setIsAllowedToChat(Boolean(isAllowedToTradeRequestData?.result));
-  }, [isAllowedToTradeRequestData]);
 
   const [selectedCurrency, setSelectedCurrency] = useState(
     match.selectedCurrency || keys(meansOfPayment)[0],
@@ -255,9 +249,10 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
         </View>
       </PeachScrollView>
 
-      {selfUser && isAllowedToChat && (
-        <ChatButton offerId={match.offerId} requestingUserId={selfUser.id} />
-      )}
+      {selfUser &&
+        isAllowedToTradeRequestData?.symmetricKeyEncrypted !== undefined && (
+          <ChatButton offerId={match.offerId} requestingUserId={selfUser.id} />
+        )}
 
       {match.instantTrade ? (
         <InstantTradeSlider
