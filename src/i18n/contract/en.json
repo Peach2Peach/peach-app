@@ -49,7 +49,7 @@
   "contract.cancel.sellerWantsToCancel.text": "The seller wants to cancel trade $0 for $1 sats.\n\nYou are free to reject the cancellation, especially if you have already made the payment.",
   "contract.cancel.success": "trade canceled!",
   "contract.cancel.title": "cancel trade",
-  "contract.cancel.tradeCanceled": "trade canceledaaaa",
+  "contract.cancel.tradeCanceled": "trade canceled",
   "contract.cancel.tradeCanceled.refund": "refund escrow",
   "contract.cancel.tradeCanceled.republish": "re-publish offer",
   "contract.cancel.tradeCanceled.text.backOnline": "Your sell offer has been put back into the matching pool.",
