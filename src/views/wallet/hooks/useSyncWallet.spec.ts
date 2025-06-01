@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
@@ -50,9 +50,11 @@ describe("useSyncWallet", () => {
     const { result } = renderHook(() => useSyncWallet({ enabled: true }));
     await waitFor(() => expect(mockSyncWallet).toHaveBeenCalled());
 
-    await act(() => result.current.refetch());
+    void result.current.refetch();
 
-    expect(mockSyncWallet).toHaveBeenCalledTimes(2);
+    await waitFor(() => {
+      expect(mockSyncWallet).toHaveBeenCalledTimes(2);
+    });
   });
   it("should not call peachWallet.syncWallet if already syncing", async () => {
     const { result } = renderHook(() => useSyncWallet({ enabled: true }));
