@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { SellOffer } from "../../../peach-api/src/@types/offer";
-import { Button } from "../../components/buttons/Button";
 import { Header } from "../../components/Header";
+import { PremiumInput } from "../../components/PremiumInput";
+import { Screen } from "../../components/Screen";
+import { Button } from "../../components/buttons/Button";
 import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlider";
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { PremiumInput } from "../../components/PremiumInput";
-import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
@@ -24,9 +24,9 @@ import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { priceFormat } from "../../utils/string/priceFormat";
+import { AmountSelector } from "../offerPreferences/Sell";
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 import { Section } from "../offerPreferences/components/Section";
-import { AmountSelector } from "../offerPreferences/Sell";
 
 export const EditPremium = () => {
   const { offerId } = useRoute<"editPremium">().params;
@@ -129,7 +129,7 @@ function EditPremiumHeader() {
   const showHelp = () => setPopup(<HelpPopup id="premium" />);
   return (
     <Header
-      title={i18n("offer.edit") + " " + offerIdToHex(offerId)}
+      title={`${i18n("offer.edit")} ${offerIdToHex(offerId)}`}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );
@@ -165,7 +165,7 @@ type PremiumProps = {
   offerPrice: React.ReactNode;
 };
 
-function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
+function Premium({ premium, setPremium, offerPrice }: PremiumProps) {
   return (
     <View style={tw`items-center justify-center grow gap-7`}>
       <View style={tw`items-center`}>

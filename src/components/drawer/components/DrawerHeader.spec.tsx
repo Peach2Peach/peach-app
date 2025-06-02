@@ -37,29 +37,29 @@ describe("DrawerHeader", () => {
     const { toJSON } = render(<DrawerHeader closeDrawer={closeDrawerMock} />);
     expect(toJSON()).toMatchSnapshot();
   });
-  it("closes the drawer when the user swipes down more than 20px", () => {
+  it("closes the drawer when the user swipes down more than 20px", async () => {
     const { getByTestId } = render(
       <DrawerHeader closeDrawer={closeDrawerMock} />,
     );
     const touchResponder = getByTestId("touchResponder");
-    act(() => {
+    await act(() => {
       fireEvent(touchResponder, "touchStart", { nativeEvent: { pageY: 80 } });
     });
-    act(() => {
+    await act(() => {
       fireEvent(touchResponder, "touchMove", { nativeEvent: { pageY: 100 } });
     });
     expect(closeDrawerMock).not.toHaveBeenCalled();
-    act(() => {
+    await act(() => {
       fireEvent(touchResponder, "touchMove", { nativeEvent: { pageY: 101 } });
     });
     expect(closeDrawerMock).toHaveBeenCalled();
   });
-  it("doesn't close the drawer when no touch start has been detected", () => {
+  it("doesn't close the drawer when no touch start has been detected", async () => {
     const { getByTestId } = render(
       <DrawerHeader closeDrawer={closeDrawerMock} />,
     );
     const touchResponder = getByTestId("touchResponder");
-    act(() => {
+    await act(() => {
       fireEvent(touchResponder, "touchMove", { nativeEvent: { pageY: 80 } });
       fireEvent(touchResponder, "touchMove", { nativeEvent: { pageY: 101 } });
     });

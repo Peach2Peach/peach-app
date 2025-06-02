@@ -3,7 +3,7 @@ import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { useGetPNActionHandler } from "./useGetPNActionHandler";
 
 describe("useGetPNActionHandler", () => {
-  it("should return an action properties when contractId and isChat are truthy", () => {
+  it("should return an action properties when contractId and isChat are truthy", async () => {
     const { result } = renderHook(useGetPNActionHandler);
     const data = {
       type: "contract.chat",
@@ -11,7 +11,7 @@ describe("useGetPNActionHandler", () => {
       isChat: "true",
     } as PNData;
     let action;
-    act(() => {
+    await act(() => {
       action = result.current(data);
       action?.onPress();
     });
@@ -25,14 +25,14 @@ describe("useGetPNActionHandler", () => {
     });
   });
 
-  it("should return an action properties when contractId is truthy", () => {
+  it("should return an action properties when contractId is truthy", async () => {
     const { result } = renderHook(useGetPNActionHandler);
     const data = {
       type: "contract.paymentMade",
       contractId: "123-456",
     } as PNData;
     let action;
-    act(() => {
+    await act(() => {
       action = result.current(data);
       action?.onPress();
     });
@@ -46,11 +46,11 @@ describe("useGetPNActionHandler", () => {
     });
   });
 
-  it("should return an action properties when offerId and type are truthy and type is offer.sellOfferExpired", () => {
+  it("should return an action properties when offerId and type are truthy and type is offer.sellOfferExpired", async () => {
     const { result } = renderHook(useGetPNActionHandler);
     const data = { type: "offer.sellOfferExpired", offerId: "123" } as PNData;
     let action;
-    act(() => {
+    await act(() => {
       action = result.current(data);
       action?.onPress();
     });
@@ -64,11 +64,11 @@ describe("useGetPNActionHandler", () => {
     });
   });
 
-  it("should return an action properties when offerId and type are truthy and type is in searchEvents", () => {
+  it("should return an action properties when offerId and type are truthy and type is in searchEvents", async () => {
     const { result } = renderHook(useGetPNActionHandler);
     const data = { type: "offer.matchSeller", offerId: "123" } as PNData;
     let action;
-    act(() => {
+    await act(() => {
       action = result.current(data);
       action?.onPress();
     });
@@ -82,12 +82,12 @@ describe("useGetPNActionHandler", () => {
     });
   });
 
-  it("should return undefined if no match is found", () => {
+  it("should return undefined if no match is found", async () => {
     const { result } = renderHook(useGetPNActionHandler);
     // @ts-expect-error testing invalid data
     const data = { type: "someOtherType" } as PNData;
     let action;
-    act(() => {
+    await act(() => {
       action = result.current(data);
     });
     expect(action).toBeUndefined();

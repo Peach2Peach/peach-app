@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from "test-utils";
+import { fireEvent, render } from "test-utils";
 import { NumberInput } from "./NumberInput";
 
 describe("NumberInput", () => {
@@ -12,9 +12,7 @@ describe("NumberInput", () => {
       />,
     );
     const input = getByPlaceholderText("placeholder");
-    act(() => {
-      fireEvent.changeText(input, "1,523");
-    });
+    fireEvent.changeText(input, "1,523");
     expect(onChangeMock).toHaveBeenLastCalledWith("1.52");
   });
 });

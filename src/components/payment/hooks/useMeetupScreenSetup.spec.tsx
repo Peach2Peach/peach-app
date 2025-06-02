@@ -157,9 +157,7 @@ describe("useMeetupScreenSetup", () => {
     expect(
       useOfferPreferences.getState().preferredPaymentMethods,
     ).toStrictEqual({});
-    act(() => {
-      result.current.addToPaymentMethods();
-    });
+    result.current.addToPaymentMethods();
     expect(useOfferPreferences.getState()).toStrictEqual(
       expect.objectContaining({
         meansOfPayment: {
@@ -233,11 +231,11 @@ describe("useMeetupScreenSetup", () => {
       expect(queryClient.isFetching()).toBe(0);
     });
 
-    act(() => {
+    await act(() => {
       result.current.onCurrencyToggle("CHF");
     });
     expect(result.current.selectedCurrencies).toStrictEqual(["EUR"]);
-    act(() => {
+    await act(() => {
       result.current.onCurrencyToggle("CHF");
     });
     expect(result.current.selectedCurrencies).toStrictEqual(["EUR", "CHF"]);
@@ -286,10 +284,10 @@ describe("useMeetupScreenSetup", () => {
       expect(queryClient.isFetching()).toBe(0);
     });
 
-    act(() => {
+    await act(() => {
       result.current.onCurrencyToggle("EUR");
     });
-    act(() => {
+    await act(() => {
       result.current.addToPaymentMethods();
     });
     expect(

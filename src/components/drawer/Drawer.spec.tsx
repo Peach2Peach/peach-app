@@ -27,12 +27,12 @@ describe("Drawer", () => {
   beforeEach(() => {
     updateDrawer(defaultState);
   });
-  it("should close the drawer and call onClose on hardware back press", () => {
+  it("should close the drawer and call onClose on hardware back press", async () => {
     render(<Drawer />);
 
     expect(useDrawerState.getState().show).toBe(true);
 
-    act(() => {
+    await act(() => {
       // @ts-expect-error it works for testing
       BackHandler.mockPressBack();
       jest.runAllTimers();
@@ -41,7 +41,7 @@ describe("Drawer", () => {
     expect(useDrawerState.getState().show).toBe(false);
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
-  it("should show the previous drawer on hardware back press if it exists", () => {
+  it("should show the previous drawer on hardware back press if it exists", async () => {
     updateDrawer({
       ...defaultState,
       previousDrawer: {
@@ -51,7 +51,7 @@ describe("Drawer", () => {
     });
     render(<Drawer />);
 
-    act(() => {
+    await act(() => {
       // @ts-expect-error it works for testing
       BackHandler.mockPressBack();
       jest.runAllTimers();
@@ -61,11 +61,11 @@ describe("Drawer", () => {
     expect(useDrawerState.getState().previousDrawer).toEqual(undefined);
     expect(useDrawerState.getState().title).toBe("previousDrawerTitle");
   });
-  it("should perform default action on hardware back press when drawer is not shown", () => {
+  it("should perform default action on hardware back press when drawer is not shown", async () => {
     updateDrawer({ ...defaultState, show: false });
     render(<Drawer />);
 
-    act(() => {
+    await act(() => {
       // @ts-expect-error it works for testing
       BackHandler.mockPressBack();
       jest.runAllTimers();

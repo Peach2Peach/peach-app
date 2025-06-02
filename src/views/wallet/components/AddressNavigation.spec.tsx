@@ -1,5 +1,5 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
-import { act, fireEvent, render, waitFor } from "test-utils";
+import { fireEvent, render, waitFor } from "test-utils";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
@@ -43,14 +43,10 @@ describe("AddressNavigation", () => {
     const leftArrow = UNSAFE_getByProps({ id: "arrowLeftCircle" });
     const rightArrow = UNSAFE_getByProps({ id: "arrowRightCircle" });
 
-    act(() => {
-      fireEvent.press(leftArrow);
-    });
+    fireEvent.press(leftArrow);
     expect(setIndexMock).toHaveBeenCalledWith(0);
 
-    act(() => {
-      fireEvent.press(rightArrow);
-    });
+    fireEvent.press(rightArrow);
     expect(setIndexMock).toHaveBeenCalledWith(2);
   });
   it("should go to the last unused address when the user clicks on the chevrons", () => {
@@ -62,16 +58,12 @@ describe("AddressNavigation", () => {
     );
     const leftChevron = UNSAFE_getByProps({ id: "chevronsLeft" });
 
-    act(() => {
-      fireEvent.press(leftChevron);
-    });
+    fireEvent.press(leftChevron);
     expect(setIndexMock).toHaveBeenCalledWith(index);
 
     rerender(<AddressNavigation index={0} setIndex={setIndexMock} />);
     const rightChevron = UNSAFE_getByProps({ id: "chevronsRight" });
-    act(() => {
-      fireEvent.press(rightChevron);
-    });
+    fireEvent.press(rightChevron);
     expect(setIndexMock).toHaveBeenCalledWith(index);
   });
   it("should prefetch the next address when the user clicks on the right arrow", async () => {
@@ -85,9 +77,7 @@ describe("AddressNavigation", () => {
       <AddressNavigation index={1} setIndex={jest.fn()} />,
     );
     const rightArrow = UNSAFE_getByProps({ id: "arrowRightCircle" });
-    act(() => {
-      fireEvent.press(rightArrow);
-    });
+    fireEvent.press(rightArrow);
     const nextIndex = 3;
 
     await waitFor(() => {
@@ -111,9 +101,7 @@ describe("AddressNavigation", () => {
       <AddressNavigation index={3} setIndex={jest.fn()} />,
     );
     const leftArrow = UNSAFE_getByProps({ id: "arrowLeftCircle" });
-    act(() => {
-      fireEvent.press(leftArrow);
-    });
+    fireEvent.press(leftArrow);
 
     await waitFor(() => {
       expect(

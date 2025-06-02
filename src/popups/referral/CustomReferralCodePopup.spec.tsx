@@ -1,5 +1,5 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
-import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
+import { fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { peachAPI } from "../../utils/peachAPI";
 import { CustomReferralCodePopup } from "./CustomReferralCodePopup";
 expect.extend({ toMatchDiffSnapshot });
@@ -55,9 +55,7 @@ describe("CustomReferralCodePopup", () => {
     );
 
     fireEvent.changeText(getByPlaceholderText("creative thing here"), "HODL");
-    act(() => {
-      fireEvent.press(getByText("set referral"));
-    });
+    fireEvent.press(getByText("set referral"));
     await waitFor(() => {
       expect(mockShowErrorBanner).toHaveBeenCalledWith("ALREADY_TAKEN");
     });

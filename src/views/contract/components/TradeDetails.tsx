@@ -180,10 +180,6 @@ function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
   const { contract, view, paymentData, buyerPaymentData } =
     useContractContext();
 
-  // console.log("PAYMENT DATA: ", paymentData);
-  // console.log(contract.buyerPaymentDataEncrypted);
-  //here
-
   if (!buyerPaymentData) throw Error("invalid buyerPaymentData");
 
   const information = isTradeInformationGetter(fieldName)

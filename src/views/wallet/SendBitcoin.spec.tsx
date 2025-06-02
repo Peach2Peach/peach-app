@@ -259,7 +259,7 @@ describe("SendBitcoin - With selected coins", () => {
     });
     const withSelectedCoins = toJSON();
 
-    act(() => {
+    await act(() => {
       useWalletState.setState({ selectedUTXOIds: [] });
     });
     const withoutSelectedCoins = render(<SendBitcoin />).toJSON();

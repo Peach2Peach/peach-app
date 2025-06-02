@@ -83,14 +83,14 @@ describe("SelectCountry", () => {
     });
   });
 
-  it("should not go to payment method form if no country is selected", () => {
+  it("should not go to payment method form if no country is selected", async () => {
     const { getByText, UNSAFE_getByType } = render(<SelectCountry />);
     fireEvent.press(getByText("next"));
     expect(navigateMock).not.toHaveBeenCalled();
 
     const nextButton = UNSAFE_getByType(Button);
     expect(nextButton.props.disabled).toBe(true);
-    act(() => {
+    await act(() => {
       nextButton.props.onPress();
     });
     expect(navigateMock).not.toHaveBeenCalled();

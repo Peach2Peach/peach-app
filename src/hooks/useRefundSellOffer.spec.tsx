@@ -70,7 +70,7 @@ describe("useRefundEscrow", () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: false });
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     await waitFor(() => {
@@ -90,7 +90,7 @@ describe("useRefundEscrow", () => {
       err: "error",
     });
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     await waitFor(() => {
@@ -112,7 +112,7 @@ describe("useRefundEscrow", () => {
     getEscrowWalletForOfferMock.mockReturnValueOnce("escrowWallet");
     useSettingsStore.setState({ refundToPeachWallet: false });
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     await waitFor(() => {
@@ -126,7 +126,7 @@ describe("useRefundEscrow", () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: false });
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<GlobalPopup />);
@@ -146,7 +146,7 @@ describe("useRefundEscrow", () => {
     useSettingsStore.getState().setShowBackupReminder(true);
 
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<GlobalPopup />);
@@ -163,7 +163,7 @@ describe("useRefundEscrow", () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: true });
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText } = render(<GlobalPopup />);
@@ -178,7 +178,7 @@ describe("useRefundEscrow", () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: true });
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<GlobalPopup />);
@@ -197,7 +197,7 @@ describe("useRefundEscrow", () => {
     useSettingsStore.getState().setShowBackupReminder(true);
 
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<GlobalPopup />);
@@ -213,7 +213,7 @@ describe("useRefundEscrow", () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: false });
     const { result } = renderHook(useRefundSellOffer);
-    act(() => {
+    await act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<GlobalPopup />);

@@ -23,7 +23,7 @@ describe("usePostSellOffer", () => {
   it("should call postSellOffer with offerDraft", async () => {
     const { result } = renderHook(usePostSellOffer);
 
-    act(() => {
+    await act(() => {
       result.current.mutate(offerDraft);
     });
 

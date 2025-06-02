@@ -161,12 +161,6 @@ function ContractHeader() {
         ...headerIcons.help,
         onPress: showConfirmPaymentHelp,
       });
-    // if (getNetwork() === networks.regtest && tradeStatus === "fundEscrow") {
-    //   return [
-    //     { ...headerIcons.generateBlock, onPress: generateBlock },
-    //     ...icons,
-    //   ];
-    // }
     return icons;
   }, [
     disputeActive,
@@ -176,7 +170,6 @@ function ContractHeader() {
     requiredAction,
     showMakePaymentHelp,
     showConfirmPaymentHelp,
-    tradeStatus,
   ]);
 
   const { paymentMade, paymentExpectedBy } = contract;

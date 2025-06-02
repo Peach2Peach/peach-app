@@ -82,13 +82,13 @@ describe("useCheckFundingMultipleEscrows", () => {
     renderHook(useCheckFundingMultipleEscrows);
 
     expect(getAddressUTXOSpy).not.toHaveBeenCalled();
-    act(() => jest.advanceTimersByTime(MSINAMINUTE));
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
     await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(getAddressUTXOSpy).toHaveBeenCalledWith("address");
 
     getAddressUTXOSpy.mockResolvedValueOnce([]);
-    act(() => jest.advanceTimersByTime(MSINAMINUTE));
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
     await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(getAddressUTXOSpy).toHaveBeenCalledTimes(2);
@@ -96,7 +96,7 @@ describe("useCheckFundingMultipleEscrows", () => {
   it("craft batched funding transaction once funds have been detected in address", async () => {
     renderHook(useCheckFundingMultipleEscrows);
 
-    act(() => jest.advanceTimersByTime(MSINAMINUTE));
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() =>
       expect(signAndBroadcastPSBTSpy).toHaveBeenCalledWith(txDetails.psbt),
     );
@@ -107,12 +107,12 @@ describe("useCheckFundingMultipleEscrows", () => {
     });
     renderHook(useCheckFundingMultipleEscrows);
 
-    act(() => jest.advanceTimersByTime(MSINAMINUTE));
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() =>
       expect(signAndBroadcastPSBTSpy).toHaveBeenCalledWith(txDetails.psbt),
     );
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
-    act(() => {
+    await act(() => {
       getOfferSummariesSpy.mockResolvedValueOnce({
         result: sellOfferSummaries.map((offer) => ({
           ...offer,
@@ -121,7 +121,7 @@ describe("useCheckFundingMultipleEscrows", () => {
         ...responseUtils,
       });
     });
-    act(() => jest.advanceTimersByTime(MSINAMINUTE));
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE));
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
   });
   it("aborts if no escrow addresses can be found", async () => {
@@ -134,7 +134,7 @@ describe("useCheckFundingMultipleEscrows", () => {
     );
     renderHook(useCheckFundingMultipleEscrows);
 
-    act(() => jest.advanceTimersByTime(MSINAMINUTE));
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
     await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(getAddressUTXOSpy).not.toHaveBeenCalled();
@@ -143,18 +143,16 @@ describe("useCheckFundingMultipleEscrows", () => {
     renderHook(useCheckFundingMultipleEscrows);
 
     getAddressUTXOSpy.mockResolvedValueOnce([]);
-    act(() => jest.advanceTimersByTime(MSINAMINUTE));
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
     await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(signAndBroadcastPSBTSpy).not.toHaveBeenCalled();
   });
-  it("should not call sync peach wallet when not funding multiple escrow", () => {
+  it("should not call sync peach wallet when not funding multiple escrow", async () => {
     useWalletState.setState({ fundMultipleMap: {} });
     renderHook(useCheckFundingMultipleEscrows);
 
-    act(() => {
-      jest.advanceTimersByTime(MSINAMINUTE * 2);
-    });
+    await act(() => jest.advanceTimersByTime(MSINAMINUTE * 2));
 
     expect(syncWalletSpy).not.toHaveBeenCalled();
   });

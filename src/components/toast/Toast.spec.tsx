@@ -16,22 +16,22 @@ describe("Toast", () => {
       iconId: "bitcoin" as const,
     },
   };
-  it("renders correctly", () => {
+  it("renders correctly", async () => {
     const { result } = renderHook(useSetToast);
     const { toJSON } = render(<Toast />);
-    act(() => {
+    await act(() => {
       result.current(defaultProps);
     });
     expect(toJSON()).toMatchSnapshot();
   });
-  it("renders correctly with no action", () => {
+  it("renders correctly with no action", async () => {
     const { result } = renderHook(useSetToast);
-    act(() => {
+    await act(() => {
       result.current(defaultProps);
     });
     const { toJSON } = render(<Toast />);
     const withAction = toJSON();
-    act(() => {
+    await act(() => {
       result.current({ ...defaultProps, action: undefined });
     });
     const withoutAction = toJSON();

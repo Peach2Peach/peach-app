@@ -1,5 +1,5 @@
 import OpenPGP from "react-native-fast-openpgp";
-import { act, renderHook, waitFor } from "test-utils";
+import { renderHook, waitFor } from "test-utils";
 import { match } from "../../../../peach-api/src/testData/match";
 import { account1 } from "../../../../tests/unit/data/accountData";
 import { buyOffer } from "../../../../tests/unit/data/offerData";
@@ -28,11 +28,9 @@ describe("useMatchOffer", () => {
     encryptSymmetricSpy.mockResolvedValue(symmetricallyEncrypted);
     const { result } = renderHook(() => useMatchOffer(buyOffer, match));
 
-    act(() => {
-      result.current.mutate({
-        selectedCurrency: currency,
-        paymentData: validSEPAData,
-      });
+    result.current.mutate({
+      selectedCurrency: currency,
+      paymentData: validSEPAData,
     });
 
     await waitFor(() => {
