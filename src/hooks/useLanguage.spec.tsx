@@ -10,16 +10,16 @@ describe("useLanguage", () => {
       updateLocale: expect.any(Function),
     });
   });
-  it("should set locale", () => {
+  it("should set locale", async () => {
     const { result } = renderHook(useLanguage);
-    act(() => {
+    await act(() => {
       result.current.updateLocale("es");
     });
     expect(useSettingsStore.getState().locale).toBe("es");
   });
-  it("should save locale", () => {
+  it("should save locale", async () => {
     const { result } = renderHook(useLanguage);
-    act(() => {
+    await act(() => {
       result.current.updateLocale("es");
     });
     expect(useSettingsStore.getState().locale).toBe("es");

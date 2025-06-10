@@ -48,7 +48,7 @@ describe("useMarketPrices", () => {
         CHF: 21000,
       });
     });
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(FIFTEEN_SECONDS);
     });
     await waitFor(() => {
@@ -76,9 +76,7 @@ describe("useMarketPrices", () => {
         CHF: 21000,
       });
     });
-    act(() => {
-      jest.advanceTimersByTime(FIFTEEN_SECONDS);
-    });
+    jest.advanceTimersByTime(FIFTEEN_SECONDS);
     await waitFor(() => {
       expect(result.current.isError).toBe(true);
       expect(result.current.data).toEqual({

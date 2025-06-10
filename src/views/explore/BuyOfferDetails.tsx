@@ -223,10 +223,9 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         </View>
       )}
 
-      {isAllowedToTradeRequestData?.symmetricKeyEncrypted !== undefined &&
-        selfUser && (
-          <ChatButton offerId={offer.id} requestingUserId={selfUser.id} />
-        )}
+      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
+        <ChatButton offerId={offer.id} requestingUserId={selfUser.id} />
+      )}
 
       {data?.tradeRequest && <WaitingForBuyer />}
     </View>

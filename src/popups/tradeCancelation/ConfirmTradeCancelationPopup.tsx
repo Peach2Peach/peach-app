@@ -48,13 +48,14 @@ export function ConfirmTradeCancelationPopup({
           },
         })
       : cancelBuyer(undefined, {
-          onSuccess: () =>
+          onSuccess: () => {
             setPopup(
               <GrayPopup
                 title={i18n("contract.cancel.success")}
                 actions={<ClosePopupAction style={tw`justify-center`} />}
               />,
-            ),
+            );
+          },
         });
   const title = i18n(
     isCashTrade(contract.paymentMethod)
@@ -66,9 +67,16 @@ export function ConfirmTradeCancelationPopup({
   const hasBeenFundedAndIsSeller =
     view === "seller" && contract.fundingStatus !== "NULL";
 
+  const hasntSellerReputationMessage =
+    contract.tradeStatus === "fundingExpired" && view === "seller";
+
   const popupText = isCash
     ? i18n("contract.cancel.cash.text")
-    : i18n(`contract.cancel.${view}`) +
+    : i18n(
+        `contract.cancel.${view}${
+          hasntSellerReputationMessage ? "WithoutReputationPenalty" : ""
+        }`,
+      ) +
       (hasBeenFundedAndIsSeller
         ? i18n(`contract.cancel.${view}Pt2WithEscrow`)
         : "");

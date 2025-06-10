@@ -25,14 +25,14 @@ describe("useRestoreFromFileSetup", () => {
   const password = "password";
   it("restores account from file", async () => {
     const { result } = renderHook(useRestoreFromFileSetup);
-    act(() => {
+    await act(() => {
       result.current.setFile({
         name: "",
         content: encryptedAccount,
       });
       result.current.setPassword(password);
     });
-    act(() => {
+    await act(() => {
       result.current.submit();
     });
     await waitFor(() => {
@@ -52,14 +52,14 @@ describe("useRestoreFromFileSetup", () => {
     const MOCK_DATE = 123456789;
     jest.spyOn(Date, "now").mockReturnValue(MOCK_DATE);
     const { result } = renderHook(useRestoreFromFileSetup);
-    act(() => {
+    await act(() => {
       result.current.setFile({
         name: "",
         content: encryptedAccount,
       });
       result.current.setPassword(password);
     });
-    act(() => {
+    await act(() => {
       result.current.submit();
     });
     await waitFor(() => {

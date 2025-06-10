@@ -2,6 +2,7 @@ import { shallow } from "zustand/shallow";
 import { Screen } from "../../components/Screen";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useExpressBuyFilterPreferences } from "../../store/useExpressBuyFilterPreferences/useExpressBuyFilterPreferences";
+import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
@@ -32,7 +33,10 @@ function ScreenContent() {
   useSettingsStore((state) => state.locale);
 
   return (
-    <Screen header={i18n("offer.expressBuy.filter.edit.title")}>
+    <Screen
+      header={i18n("offer.expressBuy.filter.edit.title")}
+      style={tw`gap-6`}
+    >
       {/* <OfferMarketInfo /> */}
       {/* <OfferMethods /> */}
       <AmountSelector setIsSliding={() => {}} />

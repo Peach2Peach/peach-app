@@ -56,12 +56,18 @@ export const tradeInformationGetters: Record<
   buyer: (contract: Contract) => JSX.Element;
   seller: (contract: Contract) => JSX.Element;
   youShouldPay: (contract: Contract) => JSX.Element;
+  buyerName: (_contract: Contract, pd: PaymentData) => string | undefined;
+  buyerIban: (_contract: Contract, pd: PaymentData) => string | undefined;
+  buyerSwift: (_contract: Contract, pd: PaymentData) => string | undefined;
 } = {
   price: getPrice,
   soldFor: getPrice,
   youShouldPay: (contract: Contract) => <YouShouldPay contract={contract} />,
   youPaid: getPrice,
   youWillGet: getPrice,
+  buyerName: (_contract: Contract, pd: PaymentData) => pd.beneficiary,
+  buyerIban: (_contract: Contract, pd: PaymentData) => pd.iban,
+  buyerSwift: (_contract: Contract, pd: PaymentData) => pd.bic,
   buyer: (contract: Contract) => <UserId id={contract.buyer.id} />,
   paidWithMethod: getPaymentMethod,
   paidToMethod: getPaymentMethodBubble,
@@ -94,6 +100,9 @@ const allPossibleFields = [
   "bitcoinAmount",
   "bitcoinPrice",
   "buyer",
+  "buyerName",
+  "buyerIban",
+  "buyerSwift",
   "location",
   "meetup",
   "method",

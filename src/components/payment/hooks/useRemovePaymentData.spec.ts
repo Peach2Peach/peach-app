@@ -40,7 +40,7 @@ describe("removePaymentData", () => {
       "removePaymentData",
     );
     const { result } = renderHook(useRemovePaymentData);
-    act(() => {
+    await act(() => {
       result.current.mutate("nonExisting");
     });
     await waitFor(() => {
@@ -62,7 +62,7 @@ describe("removePaymentData", () => {
   it("updates the offerPreferences state if method was not preferred", async () => {
     useOfferPreferences.getState().setPaymentMethods([validSEPAData2.id]);
     const { result } = renderHook(useRemovePaymentData);
-    act(() => {
+    await act(() => {
       result.current.mutate(validSEPAData.id);
     });
     await waitFor(() => {
@@ -74,7 +74,7 @@ describe("removePaymentData", () => {
   it("replaces payment method from preferred payment methods if set and fallback exists", async () => {
     useOfferPreferences.getState().setPaymentMethods([validSEPAData.id]);
     const { result } = renderHook(useRemovePaymentData);
-    act(() => {
+    await act(() => {
       result.current.mutate(validSEPAData.id);
     });
     await waitFor(() => {
@@ -86,7 +86,7 @@ describe("removePaymentData", () => {
   it("removes payment method from preferred payment methods if set and no fallback exists", async () => {
     useOfferPreferences.getState().setPaymentMethods([validSEPAData.id]);
     const { result } = renderHook(useRemovePaymentData);
-    act(() => {
+    await act(() => {
       result.current.mutate(validSEPAData.id);
     });
 
@@ -95,7 +95,7 @@ describe("removePaymentData", () => {
         sepa: validSEPAData2.id,
       });
     });
-    act(() => {
+    await act(() => {
       result.current.mutate(validSEPAData2.id);
     });
     await waitFor(() => {
@@ -112,7 +112,7 @@ describe("removePaymentData", () => {
       ...responseUtils,
     });
     const { result } = renderHook(useRemovePaymentData);
-    act(() => {
+    await act(() => {
       result.current.mutate(validSEPAData.id);
     });
     await waitFor(() => {
@@ -122,7 +122,7 @@ describe("removePaymentData", () => {
     });
 
     deletePaymentHashMock.mockResolvedValueOnce(responseUtils);
-    act(() => {
+    await act(() => {
       result.current.mutate(validSEPAData.id);
     });
     await waitFor(() => {
@@ -141,7 +141,7 @@ describe("removePaymentData", () => {
       usePaymentDataStore.getState().paymentData[validSEPAData.id],
     ).not.toBeUndefined();
     const { result } = renderHook(useRemovePaymentData);
-    act(() => {
+    await act(() => {
       result.current.mutate(validSEPAData.id);
     });
     await waitFor(() => {

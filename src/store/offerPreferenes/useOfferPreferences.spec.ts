@@ -47,16 +47,29 @@ describe("useOfferPreferences - actions - setSellAmount", () => {
   });
 });
 
-describe("useOfferPreferences - actions - setMulti", () => {
-  it("should update multi", () => {
+describe("useOfferPreferences - actions - setBuyOfferMulti", () => {
+  it("should update buyOfferMulti", () => {
     const newMulti = 5;
-    useOfferPreferences.getState().setMulti(newMulti);
-    expect(useOfferPreferences.getState().multi).toBe(newMulti);
+    useOfferPreferences.getState().setBuyMultiOffers(newMulti);
+    expect(useOfferPreferences.getState().buyMultiOffers).toBe(newMulti);
   });
-  it("should reset multi", () => {
+  it("should reset buyOffermulti", () => {
     const newMulti = undefined;
-    useOfferPreferences.getState().setMulti(newMulti);
-    expect(useOfferPreferences.getState().multi).toBe(newMulti);
+    useOfferPreferences.getState().setBuyMultiOffers(newMulti);
+    expect(useOfferPreferences.getState().buyMultiOffers).toBe(newMulti);
+  });
+});
+
+describe("useOfferPreferences - actions - setSellOfferMulti", () => {
+  it("should update sellOfferMulti", () => {
+    const newMulti = 5;
+    useOfferPreferences.getState().setSellMultiOffers(newMulti);
+    expect(useOfferPreferences.getState().sellMultiOffers).toBe(newMulti);
+  });
+  it("should reset sellOfferMulti", () => {
+    const newMulti = undefined;
+    useOfferPreferences.getState().setSellMultiOffers(newMulti);
+    expect(useOfferPreferences.getState().sellMultiOffers).toBe(newMulti);
   });
 });
 

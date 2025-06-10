@@ -27,7 +27,8 @@ type OfferPreferences = {
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>;
   originalPaymentData: PaymentData[];
   preferredCurrenyType: CurrencyType;
-  multi?: number;
+  buyMultiOffers?: number;
+  sellMultiOffers?: number;
   sortBy: {
     buyOffer: BuySorter[];
     sellOffer: SellSorter[];
@@ -37,8 +38,12 @@ type OfferPreferences = {
       shouldApplyMaxPremium: boolean;
     };
   };
-  instantTrade: boolean;
-  instantTradeCriteria: InstantTradeCriteria;
+
+  buyInstantTrade: boolean;
+  buyInstantTradeCriteria: InstantTradeCriteria;
+  sellInstantTrade: boolean;
+  sellInstantTradeCriteria: InstantTradeCriteria;
+
   hasSeenInstantTradePopup: boolean;
   fundWithPeachWallet: boolean;
 };
@@ -52,7 +57,8 @@ export const defaultPreferences: OfferPreferences = {
   paymentData: {},
   preferredPaymentMethods: {},
   originalPaymentData: [],
-  multi: undefined,
+  buyMultiOffers: undefined,
+  sellMultiOffers: undefined,
   preferredCurrenyType: "europe",
   sortBy: {
     buyOffer: ["bestReputation"],
@@ -65,8 +71,14 @@ export const defaultPreferences: OfferPreferences = {
       shouldApplyMaxPremium: false,
     },
   },
-  instantTrade: false,
-  instantTradeCriteria: {
+  buyInstantTrade: false,
+  buyInstantTradeCriteria: {
+    minReputation: 0,
+    minTrades: 0,
+    badges: [],
+  },
+  sellInstantTrade: false,
+  sellInstantTradeCriteria: {
     minReputation: 0,
     minTrades: 0,
     badges: [],
@@ -78,7 +90,8 @@ export const defaultPreferences: OfferPreferences = {
 type OfferPreferencesActions = {
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
   setSellAmount: (sellAmount: number) => void;
-  setMulti: (number?: number) => void;
+  setBuyMultiOffers: (number?: number) => void;
+  setSellMultiOffers: (number?: number) => void;
   setPremium: (newPremium: number, isValid?: boolean) => void; // for Sell
   setBuyPremium: (newPremium: number, isValid?: boolean) => void; // for Buy
   setPaymentMethods: (ids: string[]) => void;
@@ -86,10 +99,14 @@ type OfferPreferencesActions = {
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
   setBuyOfferSorter: (sorter: BuySorter) => void;
   setSellOfferSorter: (sorter: SellSorter) => void;
-  toggleInstantTrade: () => void;
-  toggleMinTrades: () => void;
-  toggleMinReputation: () => void;
-  toggleBadge: (badge: Medal) => void;
+  toggleBuyInstantTrade: () => void;
+  toggleSellInstantTrade: () => void;
+  toggleBuyMinTrades: () => void;
+  toggleBuyMinReputation: () => void;
+  toggleBuyBadge: (badge: Medal) => void;
+  toggleSellMinTrades: () => void;
+  toggleSellMinReputation: () => void;
+  toggleSellBadge: (badge: Medal) => void;
   setHasSeenInstantTradePopup: (hasSeenInstantTradePopup: boolean) => void;
   setFundWithPeachWallet: (fundWithPeachWallet: boolean) => void;
 };
@@ -105,7 +122,8 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       ...defaultPreferences,
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
       setSellAmount: (sellAmount) => set({ sellAmount }),
-      setMulti: (multi) => set({ multi }),
+      setBuyMultiOffers: (buyMultiOffers) => set({ buyMultiOffers }),
+      setSellMultiOffers: (sellMultiOffers) => set({ sellMultiOffers }),
       setPremium: (premium) => set({ premium }),
       setBuyPremium: (buyPremium) => set({ buyPremium }),
       setPaymentMethods: (ids) => {
@@ -145,25 +163,53 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set((state) => {
           state.sortBy.sellOffer = [sorter];
         }),
-      toggleInstantTrade: () =>
-        set((state) => ({ instantTrade: !state.instantTrade })),
-      toggleMinTrades: () =>
+
+      toggleBuyInstantTrade: () =>
+        set((state) => ({ buyInstantTrade: !state.buyInstantTrade })),
+      toggleSellInstantTrade: () =>
+        set((state) => ({ sellInstantTrade: !state.sellInstantTrade })),
+
+      toggleBuyMinTrades: () =>
         set((state) => {
-          state.instantTradeCriteria.minTrades =
-            state.instantTradeCriteria.minTrades === 0
+          state.buyInstantTradeCriteria.minTrades =
+            state.buyInstantTradeCriteria.minTrades === 0
               ? NEW_USER_TRADE_THRESHOLD
               : 0;
         }),
-      toggleMinReputation: () =>
+      toggleBuyMinReputation: () =>
         set((state) => {
-          state.instantTradeCriteria.minReputation =
-            state.instantTradeCriteria.minReputation === 0
+          state.buyInstantTradeCriteria.minReputation =
+            state.buyInstantTradeCriteria.minReputation === 0
               ? MIN_REPUTATION_FILTER
               : 0;
         }),
-      toggleBadge: (badge: Medal) =>
+      toggleBuyBadge: (badge: Medal) =>
         set((state) => {
-          const badges = state.instantTradeCriteria.badges;
+          const badges = state.buyInstantTradeCriteria.badges;
+          if (badges.includes(badge)) {
+            badges.splice(badges.indexOf(badge), 1);
+          } else {
+            badges.push(badge);
+          }
+        }),
+
+      toggleSellMinTrades: () =>
+        set((state) => {
+          state.sellInstantTradeCriteria.minTrades =
+            state.sellInstantTradeCriteria.minTrades === 0
+              ? NEW_USER_TRADE_THRESHOLD
+              : 0;
+        }),
+      toggleSellMinReputation: () =>
+        set((state) => {
+          state.sellInstantTradeCriteria.minReputation =
+            state.sellInstantTradeCriteria.minReputation === 0
+              ? MIN_REPUTATION_FILTER
+              : 0;
+        }),
+      toggleSellBadge: (badge: Medal) =>
+        set((state) => {
+          const badges = state.sellInstantTradeCriteria.badges;
           if (badges.includes(badge)) {
             badges.splice(badges.indexOf(badge), 1);
           } else {

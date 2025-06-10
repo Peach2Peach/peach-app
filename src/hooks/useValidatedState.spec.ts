@@ -22,14 +22,14 @@ describe("useValidatedState", () => {
     expect(valueErrors).toHaveLength(0);
   });
 
-  it("updates the state correctly", () => {
+  it("updates the state correctly", async () => {
     const { result } = renderHook(() =>
       useValidatedState<string>("", requiredRule),
     );
     const [value, setValue] = result.current;
     expect(value).toBe("");
 
-    act(() => {
+    await act(() => {
       setValue("newValue");
     });
 

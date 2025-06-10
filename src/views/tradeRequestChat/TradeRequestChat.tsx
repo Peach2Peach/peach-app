@@ -1,7 +1,7 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Header } from "../../components/Header";
+import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
 import { MSINASECOND } from "../../constants";
@@ -17,11 +17,11 @@ import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { error } from "../../utils/log/error";
-import { getOffer, getTradeRequest } from "../../utils/offer/getOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
+import { useOffer } from "../explore/useOffer";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
 import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
@@ -29,33 +29,54 @@ import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
 export const TradeRequestChat = () => {
   const { offerId, requestingUserId } = useRoute<"tradeRequestChat">().params;
 
-  const offer = getOffer(offerId);
+  const { data: offer } = useOffer(offerId);
 
-  return !offer || !requestingUserId ? (
+  const [symmetricKeyEncrypted, setSymmetricKeyEncrypted] = useState("");
+
+  useEffect(() => {
+    const callback = async () => {
+      const { result } =
+        await peachAPI.private.offer.isAllowedToTradeRequestChat({
+          offerId,
+          requestingUserId,
+        });
+      if (result) {
+        setSymmetricKeyEncrypted(result.symmetricKeyEncrypted);
+      }
+    };
+    void callback();
+  }, [offerId, requestingUserId]);
+
+  return !offer || !requestingUserId || !symmetricKeyEncrypted ? (
     <LoadingScreen />
   ) : (
-    <TradeRequestChatScreen offer={offer} requestingUserId={requestingUserId} />
+    <TradeRequestChatScreen
+      offer={offer}
+      requestingUserId={requestingUserId}
+      symmetricKeyEncrypted={symmetricKeyEncrypted}
+    />
   );
 };
 
 function TradeRequestChatScreen({
   offer,
   requestingUserId,
+  symmetricKeyEncrypted,
 }: {
-  offer: BuyOffer | SellOffer;
+  offer: GetOfferResponseBody;
   requestingUserId: string;
+  symmetricKeyEncrypted: string;
 }) {
   const queryClient = useQueryClient();
 
   const { user } = useSelfUser();
 
-  const tradeRequest = getTradeRequest(offer.id, requestingUserId);
+  const { data: decryptedData, isPending } = useDecryptedTradeRequestData(
+    offer.id,
+    requestingUserId,
+    symmetricKeyEncrypted,
+  );
 
-  if (!tradeRequest) {
-    throw Error;
-  }
-  const { data: decryptedData, isPending } =
-    useDecryptedTradeRequestData(tradeRequest);
   const { connected, send, off, on } = useWebsocketContext();
   const { messages, isFetching, page, fetchNextPage } =
     useTradeRequestChatMessages({
@@ -69,7 +90,7 @@ function TradeRequestChatScreen({
   const tradingPartner =
     user?.id === requestingUserId ? offer.user.id : requestingUserId;
 
-  const chatId = offer.id + "-" + requestingUserId;
+  const chatId = `${offer.id}-${requestingUserId}`;
 
   const [chat, setChat] = useState(getChat(chatId));
   const [newMessage, setNewMessage] = useState(chat.draftMessage);
@@ -280,15 +301,7 @@ function TradeRequestChatScreen({
   }, [chatId, offer, messages, setAndSaveChat]);
 
   return (
-    <Screen
-      style={tw`p-0`}
-      header={
-        <TradeRequestChatHeader
-          offer={offer}
-          symmetricKey={decryptedData?.symmetricKey}
-        />
-      }
-    >
+    <Screen style={tw`p-0`} header={`Trade Request ${offer.id} Chat`}>
       <View
         style={[tw`flex-1`, !decryptedData?.symmetricKey && tw`opacity-50`]}
       >
@@ -316,15 +329,4 @@ function TradeRequestChatScreen({
       }
     </Screen>
   );
-}
-
-type Props = {
-  offer: BuyOffer | SellOffer;
-  symmetricKey?: string;
-};
-
-function TradeRequestChatHeader({ offer }: Props) {
-  const title = "Trade Request " + offer.id + " Chat";
-
-  return <Header title={title} icons={[]} />;
 }

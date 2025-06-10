@@ -25,10 +25,10 @@ const storeAccountMock = jest.requireMock(
 describe("useRestoreFromSeedSetup", () => {
   it("restores account from seed", async () => {
     const { result } = renderHook(useRestoreFromSeedSetup);
-    act(() => {
+    await act(() => {
       result.current.setWords(account1.mnemonic.split(" "));
     });
-    act(() => {
+    await act(() => {
       result.current.submit();
     });
     await waitFor(() => {
@@ -46,10 +46,10 @@ describe("useRestoreFromSeedSetup", () => {
     const MOCK_DATE = 123456789;
     jest.spyOn(Date, "now").mockReturnValue(MOCK_DATE);
     const { result } = renderHook(useRestoreFromSeedSetup);
-    act(() => {
+    await act(() => {
       result.current.setWords(account1.mnemonic.split(" "));
     });
-    act(() => {
+    await act(() => {
       result.current.submit();
     });
     await waitFor(() => {

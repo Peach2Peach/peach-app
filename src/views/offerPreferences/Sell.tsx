@@ -197,6 +197,7 @@ export function AmountSelector({
   setPremium,
   showCompetingSellOffers,
   minPremiumSearchCase = false,
+  justShow = false,
 }: {
   setIsSliding: (isSliding: boolean) => void;
   amount: number;
@@ -205,6 +206,7 @@ export function AmountSelector({
   setPremium: (newAmount: number) => void;
   showCompetingSellOffers: boolean;
   minPremiumSearchCase: boolean;
+  justShow?: boolean;
 }) {
   const trackWidth = useTrackWidth();
 
@@ -213,21 +215,26 @@ export function AmountSelector({
       amount={amount}
       premium={premium}
       setPremium={setPremium}
+      justShow={justShow}
       showCompetingSellOffers={showCompetingSellOffers}
       minPremiumSearchCase={minPremiumSearchCase}
       slider={
-        <SliderTrack
-          slider={
-            <SellAmountSlider
-              setIsSliding={setIsSliding}
-              trackWidth={trackWidth}
-              amount={amount}
-              setAmount={setAmount}
-            />
-          }
-          trackWidth={trackWidth}
-          type="sell"
-        />
+        justShow ? (
+          <></>
+        ) : (
+          <SliderTrack
+            slider={
+              <SellAmountSlider
+                setIsSliding={setIsSliding}
+                trackWidth={trackWidth}
+                amount={amount}
+                setAmount={setAmount}
+              />
+            }
+            trackWidth={trackWidth}
+            type="sell"
+          />
+        )
       }
       inputs={
         <View style={tw`z-10 items-center -gap-1`}>
@@ -248,6 +255,7 @@ function AmountSelectorContainer({
   amount,
   premium,
   setPremium,
+  justShow,
 }: {
   slider?: JSX.Element;
   inputs?: JSX.Element;
@@ -256,6 +264,7 @@ function AmountSelectorContainer({
   amount: number;
   premium: number;
   setPremium: (x: number) => void;
+  justShow: boolean;
 }) {
   const { isDarkMode } = useThemeStore();
   const { meansOfPayment } = useOfferPreferences(
@@ -294,12 +303,14 @@ function AmountSelectorContainer({
           {inputs}
           {slider}
         </View>
-        <Premium
-          minPremiumSearchCase={minPremiumSearchCase}
-          amount={amount}
-          premium={premium}
-          setPremium={setPremium}
-        />
+        {!justShow && (
+          <Premium
+            minPremiumSearchCase={minPremiumSearchCase}
+            amount={amount}
+            premium={premium}
+            setPremium={setPremium}
+          />
+        )}
         {competingOffersComponent}
       </View>
     </Section.Container>
@@ -565,12 +576,12 @@ function InstantTrade() {
     toggleMinReputation,
   ] = useOfferPreferences(
     (state) => [
-      state.instantTrade,
-      state.toggleInstantTrade,
-      state.instantTradeCriteria,
-      state.toggleMinTrades,
-      state.toggleBadge,
-      state.toggleMinReputation,
+      state.sellInstantTrade,
+      state.toggleSellInstantTrade,
+      state.sellInstantTradeCriteria,
+      state.toggleSellMinTrades,
+      state.toggleSellBadge,
+      state.toggleSellMinReputation,
     ],
     shallow,
   );
@@ -671,7 +682,7 @@ function FundEscrowButton() {
   const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
     (state) => [
       state.sellAmount,
-      state.instantTrade,
+      state.sellInstantTrade,
       state.fundWithPeachWallet,
     ],
     shallow,
@@ -698,9 +709,9 @@ function FundEscrowButton() {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
-      multi: state.multi,
-      instantTradeCriteria: state.instantTrade
-        ? state.instantTradeCriteria
+      multi: state.sellMultiOffers,
+      instantTradeCriteria: state.sellInstantTrade
+        ? state.sellInstantTradeCriteria
         : undefined,
     }),
     shallow,

@@ -14,7 +14,7 @@ export const TwelveWords = () => {
         {i18n("settings.backups.seedPhrase.yourSeedPhrase")}
       </PeachText>
       <View style={tw`flex-row gap-4 mt-4`}>
-        <View style={tw`flex-1`}>
+        <View style={tw`flex-1 gap-2`}>
           {mnemonic
             ?.split(" ")
             .slice(0, NUMBER_OF_WORDS / 2)
@@ -22,7 +22,7 @@ export const TwelveWords = () => {
               <Word word={word} index={i + 1} key={`seedPhraseWord${i}`} />
             ))}
         </View>
-        <View style={tw`flex-1 gap-2`}>
+        <View style={tw`flex-1 gap-2 `}>
           {mnemonic
             ?.split(" ")
             .slice(NUMBER_OF_WORDS / 2, NUMBER_OF_WORDS)

@@ -31,21 +31,21 @@ describe("useOfferPopupEvents", () => {
     const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("Incorrect funding")).toBeTruthy();
   });
-  it("should show offer outside range popup on offer.outsideRange", () => {
+  it("should show offer outside range popup on offer.outsideRange", async () => {
     const { result } = renderHook(() => useOfferPopupEvents());
 
     const eventData = { offerId } as PNData;
-    act(() => {
+    await act(() => {
       result.current["offer.outsideRange"]?.(eventData);
     });
     const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("bitcoin pumped!")).toBeTruthy();
   });
-  it("should show buy offer expired popup on offer.buyOfferExpired", () => {
+  it("should show buy offer expired popup on offer.buyOfferExpired", async () => {
     const { result } = renderHook(() => useOfferPopupEvents());
 
     const eventData = { offerId: "1" } as PNData;
-    act(() => {
+    await act(() => {
       result.current["offer.buyOfferExpired"]?.(eventData, {
         bodyLocArgs: ["P-1", "30"],
       });
@@ -54,20 +54,20 @@ describe("useOfferPopupEvents", () => {
     expect(queryByText("Buy offer removed")).toBeTruthy();
   });
 
-  it("should not call popup functions when offerId is null", () => {
+  it("should not call popup functions when offerId is null", async () => {
     const { result } = renderHook(() => useOfferPopupEvents());
 
     const eventData = {} as PNData;
-    act(() => {
+    await act(() => {
       result.current["offer.fundingAmountDifferent"]?.(eventData);
     });
     const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("different amounts")).toBeFalsy();
-    act(() => {
+    await act(() => {
       result.current["offer.wrongFundingAmount"]?.(eventData);
     });
     expect(queryByText("Incorrect funding")).toBeFalsy();
-    act(() => {
+    await act(() => {
       result.current["offer.outsideRange"]?.(eventData);
     });
     expect(queryByText("bitcoin pumped!")).toBeFalsy();

@@ -42,9 +42,7 @@ describe("ConfirmTradeCancelationPopup", () => {
     );
 
     expect(getByText(i18n("contract.cancel.buyer"))).toBeTruthy();
-    act(() => {
-      fireEvent.press(getAllByText("cancel trade")[1]);
-    });
+    fireEvent.press(getAllByText("cancel trade")[1]);
     await waitFor(() =>
       expect(cancelContractMock).toHaveBeenCalledWith({
         contractId: contract.id,
@@ -66,10 +64,13 @@ describe("ConfirmTradeCancelationPopup", () => {
     const { getByText, getAllByText } = render(
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
-    expect(getByText(i18n("contract.cancel.seller"))).toBeTruthy();
-    act(() => {
-      fireEvent.press(getAllByText("cancel trade")[1]);
-    });
+    expect(
+      getByText(
+        i18n("contract.cancel.seller") +
+          i18n("contract.cancel.sellerPt2WithEscrow"),
+      ),
+    ).toBeTruthy();
+    fireEvent.press(getAllByText("cancel trade")[1]);
     await waitFor(() => {
       expect(cancelContractMock).toHaveBeenCalledWith({
         contractId: contract.id,
@@ -91,9 +92,7 @@ describe("ConfirmTradeCancelationPopup", () => {
     const { getAllByText } = render(
       <ConfirmTradeCancelationPopup view="buyer" contract={contract} />,
     );
-    act(() => {
-      fireEvent.press(getAllByText("cancel trade")[1]);
-    });
+    fireEvent.press(getAllByText("cancel trade")[1]);
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("cancel trade")).toBeFalsy();
@@ -123,9 +122,7 @@ describe("ConfirmTradeCancelationPopup", () => {
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
 
-    act(() => {
-      fireEvent.press(getAllByText("cancel trade")[1]);
-    });
+    fireEvent.press(getAllByText("cancel trade")[1]);
 
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
@@ -161,9 +158,7 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    act(() => {
-      fireEvent.press(getByText("cancel trade"));
-    });
+    fireEvent.press(getByText("cancel trade"));
     const { queryByText } = render(<GlobalPopup />);
 
     await waitFor(() => {
@@ -195,9 +190,7 @@ describe("ConfirmTradeCancelationPopup", () => {
       />,
     );
 
-    act(() => {
-      fireEvent.press(getByText("cancel trade"));
-    });
+    fireEvent.press(getByText("cancel trade"));
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => act(jest.runAllTimers));
 

@@ -13,7 +13,10 @@ describe("useDecryptedContractData", () => {
   const symmetricKey = "symmetricKey";
   const paymentDataEncrypted = "paymentDataEncrypted";
   const paymentDataSignature = "paymentDataSignature";
+  const buyerPaymentDataEncrypted = "buyerPaymentDataEncrypted";
+  const buyerPaymentDataSignature = "buyerPaymentDataSignature";
   const paymentData = { type: "sepa" };
+  const buyerPaymentData = { type: "sepa" };
   const decryptSpy = jest.spyOn(OpenPGP, "decrypt");
   const decryptSymmetricSpy = jest.spyOn(OpenPGP, "decryptSymmetric");
   const verifySpy = jest.spyOn(OpenPGP, "verify").mockResolvedValue(true);
@@ -24,6 +27,8 @@ describe("useDecryptedContractData", () => {
     symmetricKeySignature: "symmetricKeySignature",
     paymentDataEncrypted,
     paymentDataSignature,
+    buyerPaymentDataEncrypted,
+    buyerPaymentDataSignature,
     paymentDataEncryptionMethod: "aes256" as const,
     seller: defaultUser,
   };
@@ -55,7 +60,8 @@ describe("useDecryptedContractData", () => {
   it("decrypts payment data with pgp private key", async () => {
     decryptSpy
       .mockResolvedValueOnce(symmetricKey)
-      .mockResolvedValueOnce(JSON.stringify(paymentData));
+      .mockResolvedValueOnce(JSON.stringify(paymentData))
+      .mockResolvedValueOnce(JSON.stringify(buyerPaymentData));
     verifySpy.mockResolvedValueOnce(true);
     const { result } = renderHook(useDecryptedContractData, {
       initialProps: {

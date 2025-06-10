@@ -18,27 +18,27 @@ describe("useGoToOrigin", () => {
     type: "stack",
     stale: false,
   });
-  it("goes back to origin and stops when found", () => {
+  it("goes back to origin and stops when found", async () => {
     const { result } = renderHook(useGoToOrigin);
-    act(() => {
+    await act(() => {
       result.current("buyOfferPreferences");
     });
 
     expect(goBackMock).toHaveBeenCalledTimes(2);
   });
 
-  it("goes back to second origin and stops when found", () => {
+  it("goes back to second origin and stops when found", async () => {
     const { result } = renderHook(useGoToOrigin);
-    act(() => {
+    await act(() => {
       result.current("sellOfferPreferences");
     });
 
     expect(goBackMock).toHaveBeenCalledTimes(1);
   });
 
-  it("does nothing if origin not found", () => {
+  it("does nothing if origin not found", async () => {
     const { result } = renderHook(useGoToOrigin);
-    act(() => {
+    await act(() => {
       result.current("settings");
     });
 

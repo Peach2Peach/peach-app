@@ -249,10 +249,9 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
         </View>
       </PeachScrollView>
 
-      {selfUser &&
-        isAllowedToTradeRequestData?.symmetricKeyEncrypted !== undefined && (
-          <ChatButton offerId={match.offerId} requestingUserId={selfUser.id} />
-        )}
+      {selfUser && !!isAllowedToTradeRequestData?.symmetricKeyEncrypted && (
+        <ChatButton offerId={match.offerId} requestingUserId={selfUser.id} />
+      )}
 
       {match.instantTrade ? (
         <InstantTradeSlider

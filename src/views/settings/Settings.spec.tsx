@@ -32,7 +32,7 @@ describe("Settings", () => {
     const { toJSON } = render(<Settings />);
     await act(() => jest.runAllTimersAsync());
     const withReminder = toJSON();
-    act(() => {
+    await act(() => {
       useSettingsStore.getState().setShowBackupReminder(false);
     });
     const withoutReminder = toJSON();

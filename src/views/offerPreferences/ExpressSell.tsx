@@ -1,18 +1,19 @@
-import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { TIME_UNTIL_REFRESH_LONGER_SECONDS } from "../../constants";
+import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
+import { useRefreshOnFocus } from "../../hooks/query/useRefreshOnFocus";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useExpressSellFilterPreferences } from "../../store/useExpressSellFilterPreference/useExpressSellFilterPreference";
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { BuyOfferSummaryIdCard } from "../explore/OfferSummaryCard";
+import { useOffer } from "../explore/useOffer";
+import { NoOffersMessage } from "../search/NoOffersMessage";
 import { MarketInfo } from "./components/MarketInfo";
 
 export function ExpressSell({
@@ -29,6 +30,16 @@ export function ExpressSell({
     state.premium,
   ]);
 
+  const { data: requestingOffer } = useOffer(requestingOfferId || "");
+
+  const marketFilterAmount = requestingOffer
+    ? (requestingOffer.amount as number)
+    : amount;
+
+  const marketFilterPremium = requestingOffer
+    ? (requestingOffer.premium as number)
+    : premium;
+
   const { data, refetch } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
     queryFn: async () => {
@@ -44,14 +55,9 @@ export function ExpressSell({
       }
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
   });
-
-  useFocusEffect(
-    useCallback(() => {
-      void refetch();
-    }, [refetch]),
-  );
+  useRefreshOnFocus(refetch);
 
   const setPopup = useSetPopup();
 
@@ -60,13 +66,23 @@ export function ExpressSell({
   return (
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
-        <Placeholder style={tw`w-6 h-6`} />
-        <MarketInfo type="buyOffers" />
-        <TouchableIcon
-          id="sliders"
-          onPress={showSortAndFilterPopup}
-          iconColor={tw.color("success-main")}
-        />
+        {data?.length === 0 ? (
+          <NoOffersMessage />
+        ) : (
+          <>
+            <Placeholder style={tw`w-6 h-6`} />
+            <MarketInfo
+              type="buyOffers"
+              sellAmount={marketFilterAmount}
+              maxPremium={marketFilterPremium}
+            />
+            <TouchableIcon
+              id="sliders"
+              onPress={showSortAndFilterPopup}
+              iconColor={tw.color("success-main")}
+            />
+          </>
+        )}
       </View>
       {!data ? (
         <ActivityIndicator size="large" />

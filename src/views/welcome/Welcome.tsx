@@ -31,6 +31,7 @@ export const Welcome = () => {
   const { width } = useWindowDimensions();
   const $carousel = useRef<ICarouselInstance>(null);
   const [page, setPage] = useState(0);
+  const [isCarouselEnabled, setIsCarouselEnabled] = useState(true);
 
   const next = () => {
     $carousel.current?.next();
@@ -75,13 +76,14 @@ export const Welcome = () => {
           snapEnabled={true}
           loop={false}
           width={width}
+          enabled={isCarouselEnabled}
           onSnapToItem={setPage}
           renderItem={({ item: Item }) => (
             <View
               onStartShouldSetResponder={() => !keyboardOpen}
               style={tw`h-full px-6`}
             >
-              <Item />
+              <Item setIsCarouselEnabled={setIsCarouselEnabled} />
             </View>
           )}
         />

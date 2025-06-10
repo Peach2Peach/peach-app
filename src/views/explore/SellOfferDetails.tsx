@@ -211,7 +211,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         </View>
       </PeachScrollView>
 
-      {isAllowedToTradeRequestData?.symmetricKeyEncrypted !== undefined && selfUser && (
+      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
         <ChatButton
           offerId={offer.id}
           requestingUserId={selfUser.id}

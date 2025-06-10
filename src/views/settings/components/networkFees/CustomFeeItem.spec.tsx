@@ -1,5 +1,5 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
-import { act, fireEvent, render } from "test-utils";
+import { fireEvent, render } from "test-utils";
 import { CustomFeeItem } from "./CustomFeeItem";
 expect.extend({ toMatchDiffSnapshot });
 
@@ -27,9 +27,7 @@ describe("CustomFeeItem", () => {
   it("sets custom fee rate", () => {
     const { getByTestId } = render(defaultComponent);
     const input = getByTestId("input-custom-fees");
-    act(() => {
-      fireEvent.changeText(input, "60.23");
-    });
+    fireEvent.changeText(input, "60.23");
     expect(setCustomFeeRate).toHaveBeenCalledWith("60.23");
   });
 });

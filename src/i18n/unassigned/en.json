@@ -191,6 +191,8 @@
   "search.waitingForSeller" : "waiting for seller",
   "search.weWillNotifyYou" : "we'll notify you when there is a match!",
   "search.noTradeRequestsYet": "no trade requests yet",
+  "search.noOffersTitle" :  "no offers available",
+  "search.noOffersText" : "Please adjust your filters to find more offers!",
   "search.weWillNotifyYouTradeRequest" : "you will receive a notification when someone wants to take your offer!",
   "search.youGotAMatch" : "you've got a match!",
   "search.youGotMatches" : "you've got matches!",

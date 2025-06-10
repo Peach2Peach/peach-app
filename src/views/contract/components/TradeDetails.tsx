@@ -177,10 +177,13 @@ function ChangePayoutWallet() {
 }
 
 function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
-  const { contract, view, paymentData } = useContractContext();
+  const { contract, view, paymentData, buyerPaymentData } =
+    useContractContext();
+
+  if (!buyerPaymentData) throw Error("invalid buyerPaymentData");
 
   const information = isTradeInformationGetter(fieldName)
-    ? tradeInformationGetters[fieldName](contract)
+    ? tradeInformationGetters[fieldName](contract, buyerPaymentData)
     : paymentData?.[fieldName];
 
   if (!information) return null;

@@ -18,9 +18,9 @@ describe("QRCodeScanner", () => {
     const { toJSON } = render(defaultScanner);
     expect(toJSON()).toMatchSnapshot();
   });
-  it("fades in", () => {
+  it("fades in", async () => {
     const { toJSON } = render(defaultScanner);
-    act(() => {
+    await act(() => {
       jest.runAllTimers();
     });
     expect(render(defaultScanner).toJSON()).toMatchDiffSnapshot(toJSON());

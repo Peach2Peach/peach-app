@@ -1,7 +1,6 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
-import { networks } from "bitcoinjs-lib";
 import { useCallback, useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
@@ -22,8 +21,6 @@ import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { generateBlock } from "../../utils/regtest/generateBlock";
-import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
@@ -85,6 +82,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
       value={{
         contract,
         paymentData: data?.paymentData,
+        buyerPaymentData: data?.buyerPaymentData,
         isDecryptionError: isError,
         view,
         showBatchInfo,
@@ -139,10 +137,11 @@ function ContractHeader() {
     if (
       view === "buyer" &&
       contract?.buyer.trades === 0 &&
-      !isPastOffer(contract.tradeStatus)
+      !isPastOffer(contract.tradeStatus) &&
+      getRequiredAction(contract) === "sendPayment"
     )
       setPopup(<HelpPopup id="firstTimeBuyer" />);
-  }, [contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
+  }, [contract, contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = [];
@@ -163,12 +162,6 @@ function ContractHeader() {
         ...headerIcons.help,
         onPress: showConfirmPaymentHelp,
       });
-    if (getNetwork() === networks.regtest && tradeStatus === "fundEscrow") {
-      return [
-        { ...headerIcons.generateBlock, onPress: generateBlock },
-        ...icons,
-      ];
-    }
     return icons;
   }, [
     disputeActive,
@@ -178,7 +171,6 @@ function ContractHeader() {
     requiredAction,
     showMakePaymentHelp,
     showConfirmPaymentHelp,
-    tradeStatus,
   ]);
 
   const { paymentMade, paymentExpectedBy } = contract;

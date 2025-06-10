@@ -15,7 +15,7 @@ const FUND_MULTI_MAX = 21;
 export const FundMultipleOffers = () => {
   useSettingsStore((state) => state.locale);
   const [multi, setMulti] = useOfferPreferences(
-    (state) => [state.multi, state.setMulti],
+    (state) => [state.sellMultiOffers, state.setSellMultiOffers],
     shallow,
   );
 
@@ -32,7 +32,7 @@ export const FundMultipleOffers = () => {
 };
 export const CreateMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
-    (state) => [state.multi, state.setMulti],
+    (state) => [state.buyMultiOffers, state.setBuyMultiOffers],
     shallow,
   );
 
@@ -43,18 +43,32 @@ export const CreateMultipleOffers = () => {
       <Checkbox checked={!!multi} onPress={toggleFundMultiple} green>
         {i18n("offer.createMultiple")}
       </Checkbox>
-      <NumberStepper green />
+      <NumberStepper isBuy />
     </View>
   );
 };
 
-function NumberStepper({ green = false }) {
-  const [multi, setMulti] = useOfferPreferences(
-    (state) => [state.multi, state.setMulti],
+function NumberStepper({ isBuy = false }) {
+  const [
+    buyMultiOffers,
+    setBuyMultiOffers,
+    sellMultiOffers,
+    setSellMultiOffers,
+  ] = useOfferPreferences(
+    (state) => [
+      state.buyMultiOffers,
+      state.setBuyMultiOffers,
+      state.sellMultiOffers,
+      state.setSellMultiOffers,
+    ],
     shallow,
   );
+  const multi = isBuy ? buyMultiOffers : sellMultiOffers;
+  const setMulti = isBuy ? setBuyMultiOffers : setSellMultiOffers;
+
   const { isDarkMode } = useThemeStore();
   if (multi === undefined) return null;
+
   const decrease = () => setMulti(Math.max(multi - 1, FUND_MULTI_MIN));
   const increase = () => setMulti(Math.min(multi + 1, FUND_MULTI_MAX));
 
@@ -72,7 +86,7 @@ function NumberStepper({ green = false }) {
         <Icon
           id="minusCircle"
           size={24}
-          color={tw.color(green ? "success-main" : "primary-main")}
+          color={tw.color(isBuy ? "success-main" : "primary-main")}
         />
       </TouchableOpacity>
       <PeachText
@@ -92,7 +106,7 @@ function NumberStepper({ green = false }) {
         <Icon
           id="plusCircle"
           size={24}
-          color={tw.color(green ? "success-main" : "primary-main")}
+          color={tw.color(isBuy ? "success-main" : "primary-main")}
         />
       </TouchableOpacity>
     </View>

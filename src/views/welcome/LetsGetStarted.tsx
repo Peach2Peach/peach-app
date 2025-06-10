@@ -26,7 +26,11 @@ import { useRegisterUser } from "../newUser/useRegisterUser";
 import { LOGIN_DELAY } from "../restoreReputation/LOGIN_DELAY";
 
 const referralCodeRules = { referralCode: true };
-export const LetsGetStarted = () => {
+export const LetsGetStarted = ({
+  setIsCarouselEnabled,
+}: {
+  setIsCarouselEnabled: (v: boolean) => void;
+}) => {
   const navigation = useStackNavigation();
   const showError = useShowErrorBanner();
   const setToast = useSetToast();
@@ -93,6 +97,7 @@ export const LetsGetStarted = () => {
   );
   const setAccount = useAccountStore((state) => state.setAccount);
   const createNewUser = async () => {
+    setIsCarouselEnabled(false);
     setIsLoading(true);
     const referralCodeParam = willUseReferralCode ? referralCode : undefined;
     try {
