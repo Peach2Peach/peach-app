@@ -137,7 +137,8 @@ function ContractHeader() {
     if (
       view === "buyer" &&
       contract?.buyer.trades === 0 &&
-      !isPastOffer(contract.tradeStatus)
+      !isPastOffer(contract.tradeStatus) &&
+      getRequiredAction(contract) === "sendPayment"
     )
       setPopup(<HelpPopup id="firstTimeBuyer" />);
   }, [contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
