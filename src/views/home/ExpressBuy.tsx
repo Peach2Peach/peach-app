@@ -1,4 +1,3 @@
-import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -69,27 +68,31 @@ export function ExpressBuy({
   return (
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
-        <Placeholder style={tw`w-6 h-6`} />
-        <MarketInfo
-          type="sellOffers"
-          buyAmountRange={marketFilterAmount}
-          maxPremium={marketFilterMaxPremium}
-        />
-        <TouchableIcon id="sliders" onPress={showSortAndFilterPopup} />
+        {data?.length === 0 ? (
+          <NoOffersMessage />
+        ) : (
+          <>
+            <Placeholder style={tw`w-6 h-6`} />
+            <MarketInfo
+              type="sellOffers"
+              buyAmountRange={marketFilterAmount}
+              maxPremium={marketFilterMaxPremium}
+            />
+            <TouchableIcon id="sliders" onPress={showSortAndFilterPopup} />
+          </>
+        )}
       </View>
       {!data ? (
         <ActivityIndicator size="large" />
       ) : (
         <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
-          {data &&
-            data.map((offerId) => (
-              <SellOfferSummaryIdCard
-                key={offerId}
-                offerId={offerId}
-                requestingOfferId={requestingOfferId}
-              />
-            ))}
-          {data.length === 0 && <NoOffersMessage />}
+          {data.map((offerId) => (
+            <SellOfferSummaryIdCard
+              key={offerId}
+              offerId={offerId}
+              requestingOfferId={requestingOfferId}
+            />
+          ))}
         </View>
       )}
     </PeachScrollView>

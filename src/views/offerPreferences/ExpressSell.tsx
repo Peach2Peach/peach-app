@@ -4,7 +4,7 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
+import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { useRefreshOnFocus } from "../../hooks/query/useRefreshOnFocus";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -66,33 +66,36 @@ export function ExpressSell({
   return (
     <PeachScrollView style={tw`grow`} onStartShouldSetResponder={() => true}>
       <View style={tw`flex-row items-center justify-between`}>
-        <Placeholder style={tw`w-6 h-6`} />
-        <MarketInfo
-          type="buyOffers"
-          sellAmount={marketFilterAmount}
-          maxPremium={marketFilterPremium}
-        />
-        <TouchableIcon
-          id="sliders"
-          onPress={showSortAndFilterPopup}
-          iconColor={tw.color("success-main")}
-        />
+        {data?.length === 0 ? (
+          <NoOffersMessage />
+        ) : (
+          <>
+            <Placeholder style={tw`w-6 h-6`} />
+            <MarketInfo
+              type="buyOffers"
+              sellAmount={marketFilterAmount}
+              maxPremium={marketFilterPremium}
+            />
+            <TouchableIcon
+              id="sliders"
+              onPress={showSortAndFilterPopup}
+              iconColor={tw.color("success-main")}
+            />
+          </>
+        )}
       </View>
       {!data ? (
         <ActivityIndicator size="large" />
       ) : (
-        <>
-          <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
-            {data.map((offerId) => (
-              <BuyOfferSummaryIdCard
-                key={offerId}
-                offerId={offerId}
-                requestingOfferId={requestingOfferId}
-              />
-            ))}
-          </View>
-          {data.length === 0 && <NoOffersMessage />}
-        </>
+        <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
+          {data.map((offerId) => (
+            <BuyOfferSummaryIdCard
+              key={offerId}
+              offerId={offerId}
+              requestingOfferId={requestingOfferId}
+            />
+          ))}
+        </View>
       )}
     </PeachScrollView>
   );
