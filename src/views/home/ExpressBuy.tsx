@@ -1,12 +1,12 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
+import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
+import { useRefreshOnFocus } from "../../hooks/query/useRefreshOnFocus";
 import { BuySorters } from "../../popups/sorting/BuySorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useExpressBuyFilterPreferences } from "../../store/useExpressBuyFilterPreferences/useExpressBuyFilterPreferences";
@@ -57,14 +57,10 @@ export function ExpressBuy({
       }
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
   });
 
-  useFocusEffect(
-    useCallback(() => {
-      void refetch();
-    }, [refetch]),
-  );
+  useRefreshOnFocus(refetch);
 
   const setPopup = useSetPopup();
 

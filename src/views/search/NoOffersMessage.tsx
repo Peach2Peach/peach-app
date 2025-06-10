@@ -6,7 +6,7 @@ import i18n from "../../utils/i18n";
 export function NoOffersMessage() {
   return (
     <View style={tw`items-center justify-center flex-1 gap-10px`}>
-      <PeachText style={tw`text-center h5 `}>
+      <PeachText style={tw`text-center h5`}>
         {i18n("search.noOffersTitle")}
       </PeachText>
       <PeachText style={tw`text-center subtitle-2`}>
