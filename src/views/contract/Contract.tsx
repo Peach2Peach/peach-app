@@ -141,7 +141,7 @@ function ContractHeader() {
       getRequiredAction(contract) === "sendPayment"
     )
       setPopup(<HelpPopup id="firstTimeBuyer" />);
-  }, [contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
+  }, [contract, contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = [];
