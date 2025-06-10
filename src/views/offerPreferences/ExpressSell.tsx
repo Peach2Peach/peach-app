@@ -55,7 +55,7 @@ export function ExpressSell({
       }
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
   });
   useRefreshOnFocus(refetch);
 
