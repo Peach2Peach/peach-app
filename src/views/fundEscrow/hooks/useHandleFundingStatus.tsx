@@ -46,12 +46,8 @@ export const useHandleFundingStatus = ({
       return;
     }
     if (fundingStatus.status === "FUNDED") {
-      void fetchMatches().then(({ data }) => {
-        const allMatches = (data?.pages || []).flatMap((page) => page.matches);
-        const hasMatches = allMatches.length > 0;
-        if (hasMatches) {
-          navigation.replace("search", { offerId });
-        } else if (contractId !== undefined) {
+      void fetchMatches().then(() => {
+        if (contractId !== undefined) {
           setOverlay(
             <EscrowOfContractFunded
               contractId={contractId}
@@ -59,6 +55,7 @@ export const useHandleFundingStatus = ({
             />,
           );
         } else {
+          navigation.replace("search", { offerId });
           setOverlay(<OfferPublished offerId={offerId} shouldGoBack={false} />);
         }
       });
