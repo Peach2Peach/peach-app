@@ -98,14 +98,6 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     offer.id,
   );
 
-  const [isAllowedToChat, setIsAllowedToChat] = useState(false);
-
-  useEffect(() => {
-    setIsAllowedToChat(
-      Boolean(isAllowedToTradeRequestData?.symmetricKeyEncrypted),
-    );
-  }, [isAllowedToTradeRequestData]);
-
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
   useEffect(() => {
@@ -230,7 +222,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
           />
         </View>
       )}
-      {isAllowedToChat && selfUser && (
+      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
         <ChatButton offerId={offer.id} requestingUserId={selfUser.id} />
       )}
       {data?.tradeRequest && <WaitingForSeller />}
