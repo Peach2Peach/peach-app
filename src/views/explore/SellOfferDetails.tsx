@@ -60,7 +60,7 @@ export function SellOfferDetails() {
   const { data: offer, isLoading } = useOffer(offerId);
 
   return (
-    <Screen header={i18n("offer.sell.details") + ` ${offerIdToHex(offerId)}`}>
+    <Screen header={`${i18n("offer.sell.details")} ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
@@ -167,7 +167,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
 
   return (
     <View style={tw`items-center justify-between grow`}>
-      <PeachScrollView contentStyle={tw`gap-8 grow pb-16`}>
+      <PeachScrollView contentStyle={tw`gap-8 pb-16 grow`}>
         <FundingInfo
           escrow={offer.escrow!}
           fundingStatus={offer.fundingStatus!}
