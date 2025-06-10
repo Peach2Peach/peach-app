@@ -218,6 +218,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
           style={tw`self-center`}
         />
       )}
+
       {!data?.tradeRequest ? (
         <RequestTradeAction
           selectedPaymentData={selectedPaymentData}
