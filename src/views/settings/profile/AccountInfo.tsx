@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const AccountInfo = ({ user }: Props) => (
-  <View style={tw`gap-4 pl-1`}>
+  <View style={tw`gap-4`}>
     <PublicKey publicKey={user.id} />
     <AccountCreated {...user} />
     <Disputes {...user.disputes} />
@@ -23,23 +23,16 @@ export const AccountInfo = ({ user }: Props) => (
 function PublicKey({ publicKey }: { publicKey: string }) {
   const { isDarkMode } = useThemeStore();
   return (
-    <View style={tw`pr-3`}>
-      <PeachText
-        style={tw.style(
-          `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
-        )}
-      >
-        {i18n("profile.publicKey")}:
-      </PeachText>
+    <View style={tw`gap-1 pr-3`}>
+      <Title text={i18n("profile.publicKey")} />
       <View style={tw`flex-row items-center gap-3`}>
         <PeachText
           style={tw.style(
-            `uppercase subtitle-2 shrink`,
+            `uppercase subtitle-0 shrink`,
             isDarkMode ? "text-black-25" : "text-black-100",
           )}
         >
-          <PeachText style={tw`text-primary-main subtitle-2`}>
+          <PeachText style={tw`text-primary-main subtitle-0`}>
             {publicKey.slice(0, PEACH_ID_LENGTH)}
           </PeachText>
           {publicKey.slice(PEACH_ID_LENGTH)}
@@ -54,18 +47,11 @@ function PublicKey({ publicKey }: { publicKey: string }) {
 function AccountCreated({ creationDate }: { creationDate: Date }) {
   const { isDarkMode } = useThemeStore();
   return (
-    <View>
+    <View style={tw`gap-1`}>
+      <Title text={i18n("profile.accountCreated")} />
       <PeachText
         style={tw.style(
-          `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
-        )}
-      >
-        {i18n("profile.accountCreated")}:
-      </PeachText>
-      <PeachText
-        style={tw.style(
-          `subtitle-1`,
+          `subtitle-0`,
           isDarkMode ? "text-primary-mild-1" : "text-black-100",
         )}
       >
@@ -78,21 +64,14 @@ function AccountCreated({ creationDate }: { creationDate: Date }) {
 function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
   const { isDarkMode } = useThemeStore();
   return (
-    <View>
-      <PeachText
-        style={tw.style(
-          `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
-        )}
-      >
-        {i18n("profile.disputes")}:
-      </PeachText>
-      <View style={tw`flex-row`}>
+    <View style={tw`gap-1`}>
+      <Title text={i18n("profile.disputes")} />
+      <View style={tw`flex-row flex-wrap`}>
         {[opened, won, lost, resolved].map((value, index) => (
           <PeachText
             key={`myProfile-disputes-${index}`}
             style={tw.style(
-              `pr-4 lowercase subtitle-1`,
+              `pr-4 lowercase subtitle-0`,
               isDarkMode ? "text-primary-mild-1" : "text-black-100",
             )}
           >
@@ -110,23 +89,30 @@ function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
 function Trades({ trades }: { trades: number }) {
   const { isDarkMode } = useThemeStore();
   return (
-    <View>
+    <View style={tw`gap-1`}>
+      <Title text={i18n("profile.numberOfTrades")} />
       <PeachText
         style={tw.style(
-          `lowercase`,
-          isDarkMode ? "text-backgroundLight" : "text-black-50",
-        )}
-      >
-        {i18n("profile.numberOfTrades")}:
-      </PeachText>
-      <PeachText
-        style={tw.style(
-          `subtitle-1`,
+          `subtitle-0`,
           isDarkMode ? "text-primary-mild-1" : "text-black-100",
         )}
       >
         {trades}
       </PeachText>
     </View>
+  );
+}
+
+function Title({ text }: { text: string }) {
+  const { isDarkMode } = useThemeStore();
+  return (
+    <PeachText
+      style={tw.style(
+        `lowercase body-l`,
+        isDarkMode ? "text-backgroundLight" : "text-black-50",
+      )}
+    >
+      {text}:
+    </PeachText>
   );
 }
