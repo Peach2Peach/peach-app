@@ -147,7 +147,14 @@ function ContractHeader() {
       setPopup(<HelpPopup id="firstTimeBuyer" />);
       setHasShownFirstTraderPopup(true);
     }
-  }, [contract, contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
+  }, [
+    hasShownFirstTraderPopup,
+    contract,
+    contract?.buyer.trades,
+    contract.tradeStatus,
+    setPopup,
+    view,
+  ]);
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = [];
