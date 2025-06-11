@@ -16,6 +16,7 @@ const shouldGetFundingStatus = (offer: SellOffer) =>
   !!offer.escrow &&
   !offer.refunded &&
   !offer.released &&
+  offer.funding !== undefined &&
   offer.funding.status !== "FUNDED";
 
 export const useFundEscrowSetup = () => {
