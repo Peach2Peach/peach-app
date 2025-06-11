@@ -1,7 +1,7 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Contract as ContractType } from "../../../peach-api/src/@types/contract";
 import { OverlayComponent } from "../../OverlayComponent";
@@ -133,14 +133,20 @@ function ContractHeader() {
     [setPopup],
   );
 
+  const [hasShownFirstTraderPopup, setHasShownFirstTraderPopup] =
+    useState(false);
+
   useEffect(() => {
     if (
       view === "buyer" &&
       contract?.buyer.trades === 0 &&
       !isPastOffer(contract.tradeStatus) &&
-      getRequiredAction(contract) === "sendPayment"
-    )
+      getRequiredAction(contract) === "sendPayment" &&
+      !hasShownFirstTraderPopup
+    ) {
       setPopup(<HelpPopup id="firstTimeBuyer" />);
+      setHasShownFirstTraderPopup(true);
+    }
   }, [contract, contract?.buyer.trades, contract.tradeStatus, setPopup, view]);
 
   const memoizedIcons = useMemo(() => {
