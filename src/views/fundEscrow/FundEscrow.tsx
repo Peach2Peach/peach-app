@@ -320,6 +320,7 @@ function shouldGetFundingStatus(offer: SellOffer) {
     !!offer.escrow &&
     !offer.refunded &&
     !offer.released &&
+    offer.funding &&
     offer.funding.status !== "FUNDED"
   );
 }
