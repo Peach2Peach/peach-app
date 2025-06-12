@@ -67,7 +67,6 @@ export const RemotePaymentMethods = ({
     (state) => Object.values(state.paymentData),
     shallow,
   );
-  console.log("payment data ", paymentData);
   const [, setRandom] = useState(0);
   const { mutate: removePaymentData } = useRemovePaymentData();
   const deletePaymentData = (data: PaymentData) => {

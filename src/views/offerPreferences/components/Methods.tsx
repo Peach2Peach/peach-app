@@ -25,7 +25,6 @@ export function Methods({
       expressFilter: expressFilter ? type : undefined,
     });
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
-  console.log("MOP!!:", meansOfPayment);
   const { isDarkMode } = useThemeStore();
 
   const backgroundColor = isDarkMode

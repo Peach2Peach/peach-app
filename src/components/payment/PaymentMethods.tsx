@@ -42,7 +42,6 @@ export const PaymentMethods = () => {
     ],
     shallow,
   );
-  console.log("prefered payment methods", preferredPaymentMethods);
   const selectedPaymentDataIds = getSelectedPaymentDataIds(
     expressFilter
       ? expressFilter === "buy"
