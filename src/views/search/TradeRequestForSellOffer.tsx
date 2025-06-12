@@ -53,8 +53,11 @@ export function TradeRequestForSellOffer() {
         <PaidVia paymentMethod={paymentMethod} />
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
-        {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
-        <ChatButton offerId={offerId} requestingUserId={userId} />
+        <ChatButton
+          style={tw`flex-1 py-3`}
+          offerId={offerId}
+          requestingUserId={userId}
+        />
         <AcceptButton />
       </View>
     </Screen>
