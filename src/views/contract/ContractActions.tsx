@@ -41,7 +41,7 @@ import { useContractContext } from "./context";
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
   const sellOfferId = getSellOfferIdFromContract(contract);
-  const { fundingStatus, isLoading } = useFundingStatus(sellOfferId);
+  const { data: fundingStatus, isLoading } = useFundingStatus(sellOfferId);
 
   const showFundFromPeachWallet =
     view === "seller" &&
