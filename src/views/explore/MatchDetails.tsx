@@ -182,9 +182,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   return (
     <>
       <PeachScrollView style={tw`gap-8 grow`}>
-        {match.escrow && (
-          <FundingInfo escrow={match.escrow} fundingStatus={"FUNDED"} />
-        )}
+        {match.escrow && <FundingInfo fundingStatus={"FUNDED"} />}
         <View style={tw`grow`}>
           <View style={tw`overflow-hidden rounded-2xl`}>
             {isMatched && <PeachyBackground />}
