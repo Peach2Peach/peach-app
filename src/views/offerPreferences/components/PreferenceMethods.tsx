@@ -8,16 +8,26 @@ export function PreferenceMethods({
   type: "buy" | "sell";
   expressFilter?: boolean;
 }) {
-  const meansOfPayment = expressFilter
-    ? type === "sell"
-      ? useOfferPreferences((state) => state.meansOfPaymentOnExpressSellFilter)
-      : useOfferPreferences((state) => state.meansOfPaymentOnExpressBuyFilter)
-    : useOfferPreferences((state) => state.meansOfPayment);
+  const [
+    meansOfPayment,
+    meansOfPaymentOnExpressBuyFilter,
+    meansOfPaymentOnExpressSellFilter,
+  ] = useOfferPreferences((state) => [
+    state.meansOfPayment,
+    state.meansOfPaymentOnExpressBuyFilter,
+    state.meansOfPaymentOnExpressSellFilter,
+  ]);
 
   return (
     <Methods
       type={type}
-      meansOfPayment={meansOfPayment}
+      meansOfPayment={
+        expressFilter
+          ? type === "sell"
+            ? meansOfPaymentOnExpressSellFilter
+            : meansOfPaymentOnExpressBuyFilter
+          : meansOfPayment
+      }
       expressFilter={expressFilter}
     />
   );
