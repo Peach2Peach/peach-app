@@ -116,7 +116,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
                 user={item.user}
                 amount={item.amount}
                 // @ts-ignore
-                price={item.prices[item.selectedCurrency || "EUR"]}
+                price={item.matchedPrice}
                 currency={item.selectedCurrency || "EUR"}
                 premium={item.premium}
                 instantTrade={item.instantTrade}
@@ -127,7 +127,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
                     offerId,
                     amount: item.amount,
                     // @ts-ignore
-                    fiatPrice: item.prices[item.selectedCurrency || "EUR"],
+                    fiatPrice: item.matchedPrice,
                     currency: item.selectedCurrency || "EUR",
                     // @ts-ignore
                     paymentMethod: item.selectedPaymentMethod,
