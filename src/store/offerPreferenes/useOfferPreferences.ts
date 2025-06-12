@@ -23,9 +23,21 @@ type OfferPreferences = {
   premium: number; // for Sell
   buyPremium: number;
   meansOfPayment: MeansOfPayment;
+  meansOfPaymentOnExpressBuyFilter: MeansOfPayment;
+  meansOfPaymentOnExpressSellFilter: MeansOfPayment;
   paymentData: OfferPaymentData;
+  paymentDataOnExpressBuyFilter: OfferPaymentData;
+  paymentDataOnExpressSellFilter: OfferPaymentData;
+  preferredPaymentMethodsOnExpressBuyFilter: Partial<
+    Record<PaymentMethod, string>
+  >;
+  preferredPaymentMethodsOnExpressSellFilter: Partial<
+    Record<PaymentMethod, string>
+  >;
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>;
   originalPaymentData: PaymentData[];
+  originalPaymentDataOnExpressBuyFilter: PaymentData[];
+  originalPaymentDataOnExpressSellFilter: PaymentData[];
   preferredCurrenyType: CurrencyType;
   buyMultiOffers?: number;
   sellMultiOffers?: number;
@@ -54,9 +66,17 @@ export const defaultPreferences: OfferPreferences = {
   premium: 1.5,
   buyPremium: 21,
   meansOfPayment: {},
+  meansOfPaymentOnExpressBuyFilter: {},
+  meansOfPaymentOnExpressSellFilter: {},
   paymentData: {},
+  paymentDataOnExpressBuyFilter: {},
+  paymentDataOnExpressSellFilter: {},
   preferredPaymentMethods: {},
+  preferredPaymentMethodsOnExpressBuyFilter: {},
+  preferredPaymentMethodsOnExpressSellFilter: {},
   originalPaymentData: [],
+  originalPaymentDataOnExpressBuyFilter: [],
+  originalPaymentDataOnExpressSellFilter: [],
   buyMultiOffers: undefined,
   sellMultiOffers: undefined,
   preferredCurrenyType: "europe",
@@ -95,7 +115,9 @@ type OfferPreferencesActions = {
   setPremium: (newPremium: number, isValid?: boolean) => void; // for Sell
   setBuyPremium: (newPremium: number, isValid?: boolean) => void; // for Buy
   setPaymentMethods: (ids: string[]) => void;
-  selectPaymentMethod: (id: string) => void;
+  setPaymentMethodsOfExpressBuyFilter: (ids: string[]) => void;
+  setPaymentMethodsOfExpressSellFilter: (ids: string[]) => void;
+  selectPaymentMethod: (id: string, filterSelection?: "buy" | "sell") => void;
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
   setBuyOfferSorter: (sorter: BuySorter) => void;
   setSellOfferSorter: (sorter: SellSorter) => void;
@@ -141,16 +163,67 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           originalPaymentData,
         });
       },
-      selectPaymentMethod: (id: string) => {
-        const selectedPaymentDataIds = getSelectedPaymentDataIds(
-          get().preferredPaymentMethods,
+      setPaymentMethodsOfExpressBuyFilter: (ids) => {
+        const preferredPaymentMethodsOnExpressBuyFilter =
+          getPreferredMethods(ids);
+        const originalPaymentDataOnExpressBuyFilter = getOriginalPaymentData(
+          preferredPaymentMethodsOnExpressBuyFilter,
         );
-        if (selectedPaymentDataIds.includes(id)) {
-          get().setPaymentMethods(
-            selectedPaymentDataIds.filter((v) => v !== id),
-          );
-        } else {
-          get().setPaymentMethods([...selectedPaymentDataIds, id]);
+        const meansOfPaymentOnExpressBuyFilter = getMeansOfPayment(
+          originalPaymentDataOnExpressBuyFilter,
+        );
+        const paymentDataOnExpressBuyFilter = getHashedPaymentData(
+          originalPaymentDataOnExpressBuyFilter,
+        );
+
+        set({
+          preferredPaymentMethodsOnExpressBuyFilter,
+          meansOfPaymentOnExpressBuyFilter,
+          paymentDataOnExpressBuyFilter,
+          originalPaymentDataOnExpressBuyFilter,
+        });
+      },
+      setPaymentMethodsOfExpressSellFilter: (ids) => {
+        const preferredPaymentMethodsOnExpressSellFilter =
+          getPreferredMethods(ids);
+        const originalPaymentDataOnExpressSellFilter = getOriginalPaymentData(
+          preferredPaymentMethodsOnExpressSellFilter,
+        );
+        const meansOfPaymentOnExpressSellFilter = getMeansOfPayment(
+          originalPaymentDataOnExpressSellFilter,
+        );
+        const paymentDataOnExpressSellFilter = getHashedPaymentData(
+          originalPaymentDataOnExpressSellFilter,
+        );
+
+        set({
+          preferredPaymentMethodsOnExpressSellFilter,
+          meansOfPaymentOnExpressSellFilter,
+          paymentDataOnExpressSellFilter,
+          originalPaymentDataOnExpressSellFilter,
+        });
+      },
+      selectPaymentMethod: (id: string, filterSelection?: "buy" | "sell") => {
+        const selectedPaymentDataIds = filterSelection
+          ? filterSelection === "buy"
+            ? getSelectedPaymentDataIds(
+                get().preferredPaymentMethodsOnExpressBuyFilter,
+              )
+            : getSelectedPaymentDataIds(
+                get().preferredPaymentMethodsOnExpressSellFilter,
+              )
+          : getSelectedPaymentDataIds(get().preferredPaymentMethods);
+
+        const newSelectedPaymentDataIds = selectedPaymentDataIds.includes(id)
+          ? selectedPaymentDataIds.filter((v) => v !== id)
+          : [...selectedPaymentDataIds, id];
+
+        if (filterSelection === undefined) {
+          get().setPaymentMethods(newSelectedPaymentDataIds);
+        } else if (filterSelection === "buy") {
+          get().setPaymentMethodsOfExpressBuyFilter(newSelectedPaymentDataIds);
+        } else if (filterSelection === "sell") {
+          get().setPaymentMethodsOfExpressSellFilter(newSelectedPaymentDataIds);
         }
       },
       setPreferredCurrencyType: (preferredCurrenyType) =>

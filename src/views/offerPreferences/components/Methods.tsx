@@ -13,13 +13,19 @@ import { Section } from "./Section";
 export function Methods({
   type,
   meansOfPayment,
+  expressFilter,
 }: {
   type: "buy" | "sell";
   meansOfPayment: MeansOfPayment;
+  expressFilter: boolean;
 }) {
   const navigation = useStackNavigation();
-  const onPress = () => navigation.navigate("paymentMethods");
+  const onPress = () =>
+    navigation.navigate("paymentMethods", {
+      expressFilter: expressFilter ? type : undefined,
+    });
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
+  console.log("MOP!!:", meansOfPayment);
   const { isDarkMode } = useThemeStore();
 
   const backgroundColor = isDarkMode
