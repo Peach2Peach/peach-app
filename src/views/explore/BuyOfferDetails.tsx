@@ -3,7 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { TradeRequest } from "../../../peach-api/src/@types/contract";
-import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
+import { BuyOfferSummary } from "../../../peach-api/src/@types/match";
+import { PaymentMethod } from "../../../peach-api/src/@types/payment";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
@@ -17,6 +18,7 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { offerKeys } from "../../hooks/query/offerKeys";
+import { useCHFTradingLimits } from "../../hooks/query/useCHFTradingLimits";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -41,41 +43,48 @@ import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/payme
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
+import { usePaymentMethodInfo } from "../addPaymentMethod/usePaymentMethodInfo";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { AnimatedButtons } from "./MatchDetails";
 import { PaidVia } from "./PaidVia";
-import ChatButton from "./TradeRequestChatButton";
+import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
-import { canUserInstantTrade } from "./canUserInstantTrade";
 import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
-import { useOffer } from "./useOffer";
+import { useBuyOfferSummary } from "./useBuyOfferSummary";
 import { useTradeRequest } from "./useTradeRequest";
+
 export function BuyOfferDetails() {
   const { offerId } = useRoute<"buyOfferDetails">().params;
-  const { data: offer, isLoading } = useOffer(offerId);
+  const { data: offer, isLoading } = useBuyOfferSummary(offerId);
 
   return (
     <Screen header={`${i18n("offer.buy.details")} ${offerIdToHex(offerId)}`}>
       {isLoading || !offer ? (
         <ActivityIndicator size={"large"} />
       ) : (
-        <BuyOfferDetailsComponent offer={offer} />
+        <BuyOfferDetailsComponent {...offer} />
       )}
     </Screen>
   );
 }
 
-function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+function BuyOfferDetailsComponent({
+  meansOfPayment,
+  user,
+  canInstantTrade,
+  amount,
+}: BuyOfferSummary) {
+  const { offerId } = useRoute<"buyOfferDetails">().params;
   const { user: selfUser } = useSelfUser();
   const { isDarkMode } = useThemeStore();
   const setPopup = useSetPopup();
   const navigation = useStackNavigation();
 
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
-    keys(offer.meansOfPayment).at(0) || "CHF",
+    keys(meansOfPayment).at(0) || "CHF",
   );
-  const allPaymentMethods = getPaymentMethods(offer.meansOfPayment);
+  const allPaymentMethods = getPaymentMethods(meansOfPayment);
   const allMethodsForCurrency = allPaymentMethods.filter((p) =>
     paymentMethodAllowedForCurrency(p, selectedCurrency),
   );
@@ -89,11 +98,10 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
-  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
+  const { data, refetch } = useTradeRequest(offerId, requestingOfferId);
 
-  const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
-    offer.id,
-  );
+  const { data: isAllowedToTradeRequestData } =
+    useIsAllowedToTradeRequestChat(offerId);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -110,9 +118,7 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const closePopup = useClosePopup();
   const showUnmatchPopup = useCallback(() => {
     const undoTradeRequest = async () => {
-      await peachAPI.private.offer.undoRequestTradeWithBuyOffer({
-        offerId: offer.id,
-      });
+      await peachAPI.private.offer.undoRequestTradeWithBuyOffer({ offerId });
       setHadTradeRequest(false);
       await refetch();
     };
@@ -152,11 +158,11 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         }
       />,
     );
-  }, [closePopup, setPopup, offer.id, refetch]);
+  }, [closePopup, setPopup, offerId, refetch]);
 
   return (
-    <View style={tw`items-center justify-between grow`}>
-      <PeachScrollView contentStyle={tw`gap-8 pb-16 grow`}>
+    <View style={tw`gap-4 shrink`}>
+      <PeachScrollView contentStyle={tw`gap-8 pb-16`}>
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
           <View
@@ -167,18 +173,24 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
                 : tw`bg-primary-background-light`,
             ]}
           >
-            <UserCard user={offer.user} isBuyer />
+            <UserCard user={user} isBuyer />
 
             <BuyPriceInfo
               selectedCurrency={
                 data?.tradeRequest?.currency || selectedCurrency
+              }
+              amount={amount}
+              paymentMethod={
+                data?.tradeRequest?.paymentMethod ||
+                selectedPaymentData?.type ||
+                Object.values(meansOfPayment)[0][0]
               }
             />
             {data?.tradeRequest ? (
               <PaidVia paymentMethod={data.tradeRequest.paymentMethod} />
             ) : (
               <PaymentMethodSelector
-                meansOfPayment={offer.meansOfPayment}
+                meansOfPayment={meansOfPayment}
                 selectedCurrency={selectedCurrency}
                 setSelectedCurrency={setSelectedCurrency}
                 selectedPaymentData={selectedPaymentData}
@@ -209,25 +221,33 @@ function BuyOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
           </View>
         </View>
       </PeachScrollView>
-      {!data?.tradeRequest && (
-        <View
-          style={tw`absolute bottom-0 left-0 right-0 p-2   ${isDarkMode ? "bg-backgroundMain-dark" : "bg-primary-background-light"}`}
-        >
+
+      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
+        <ChatButton
+          offerId={offerId}
+          requestingUserId={selfUser.id}
+          style={tw`self-center`}
+        />
+      )}
+
+      {!data?.tradeRequest ? (
+        selectedPaymentData ? (
           <RequestTradeAction
             selectedPaymentData={selectedPaymentData}
             selectedCurrency={selectedCurrency}
-            offerId={offer.id}
-            counterparty={offer.user}
-            instantTradeCriteria={offer.instantTradeCriteria}
+            offerId={offerId}
+            counterparty={user}
+            canInstantTrade={canInstantTrade}
+            amountRange={amount}
           />
-        </View>
+        ) : (
+          <Button style={tw`self-center`} disabled>
+            {i18n("matchDetails.action.requestTrade")}
+          </Button>
+        )
+      ) : (
+        <WaitingForBuyer />
       )}
-
-      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
-        <ChatButton offerId={offer.id} requestingUserId={selfUser.id} />
-      )}
-
-      {data?.tradeRequest && <WaitingForBuyer />}
     </View>
   );
 }
@@ -253,18 +273,24 @@ function RequestTradeAction({
   selectedPaymentData,
   offerId,
   counterparty,
-  instantTradeCriteria,
+  canInstantTrade,
+  amountRange,
 }: {
   selectedCurrency: Currency;
-  selectedPaymentData: PaymentData | undefined;
+  selectedPaymentData: PaymentData;
   offerId: string;
   counterparty: PublicUser;
-  instantTradeCriteria: InstantTradeCriteria | null;
+  canInstantTrade: boolean;
+  amountRange: [number, number];
 }) {
   const showError = useShowErrorBanner();
   const { user } = useSelfUser();
-  const { amount, premium, requestingOfferId } =
-    useRoute<"buyOfferDetails">().params;
+  const { premium, requestingOfferId } = useRoute<"buyOfferDetails">().params;
+  const amount = useAdjustedSatsAmount(
+    amountRange,
+    premium,
+    selectedPaymentData.type,
+  );
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
 
   const [refundToPeachWallet, refundAddress] = useSettingsStore(
@@ -296,8 +322,6 @@ function RequestTradeAction({
       return { previousData };
     },
     mutationFn: async (instantTrade) => {
-      if (!selectedPaymentData) throw new Error("MISSING_VALUES");
-
       const SYMMETRIC_KEY_BYTES = 32;
       const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString(
         "hex",
@@ -373,38 +397,66 @@ function RequestTradeAction({
 
   if (user === undefined) return null;
 
-  const canInstantTrade =
-    instantTradeCriteria && canUserInstantTrade(user, instantTradeCriteria);
-
   if (canInstantTrade) {
     return (
       <ConfirmSlider
         label1={i18n("matchDetails.action.requestTrade")}
-        enabled={selectedPaymentData !== undefined}
         onConfirm={() => mutate(true)}
       />
     );
   }
 
   return (
-    <Button
-      style={tw`self-center`}
-      disabled={selectedPaymentData === undefined}
-      onPress={() => mutate(false)}
-    >
+    <Button style={tw`self-center`} onPress={() => mutate(false)}>
       {i18n("matchDetails.action.requestTrade")}
     </Button>
   );
 }
 
-function BuyPriceInfo({ selectedCurrency }: { selectedCurrency: Currency }) {
-  const { amount, premium, offerId, requestingOfferId } =
+function useAdjustedSatsAmount(
+  amount: [number, number],
+  premium: number,
+  paymentMethod: PaymentMethod,
+) {
+  const { data: paymentMethodInfo } = usePaymentMethodInfo(paymentMethod);
+  const { data: limits } = useCHFTradingLimits();
+  const { data: marketPrices } = useMarketPrices();
+  if (paymentMethodInfo?.anonymous === false) return amount[1];
+  const maxAnonymousCHFAmount = limits
+    ? limits?.monthlyAnonymous - limits?.monthlyAnonymousAmount
+    : 0;
+  const maxAnonymousSatsAmount = marketPrices?.CHF
+    ? Math.floor(
+        (maxAnonymousCHFAmount / (marketPrices.CHF * (1 + premium / CENT))) *
+          SATSINBTC,
+      )
+    : 0;
+
+  return Math.max(amount[0], Math.min(amount[1], maxAnonymousSatsAmount));
+}
+
+function BuyPriceInfo({
+  selectedCurrency,
+  amount,
+  paymentMethod,
+}: {
+  selectedCurrency: Currency;
+  amount: [number, number];
+  paymentMethod: PaymentMethod;
+}) {
+  const { premium, offerId, requestingOfferId } =
     useRoute<"buyOfferDetails">().params;
+
+  const adjustedSatsAmount = useAdjustedSatsAmount(
+    amount,
+    premium,
+    paymentMethod,
+  );
   const { data } = useTradeRequest(offerId, requestingOfferId);
 
   const { data: priceBook } = useMarketPrices();
 
-  const amountInBTC = amount / SATSINBTC;
+  const amountInBTC = adjustedSatsAmount / SATSINBTC;
 
   const bitcoinPrice = priceBook?.[selectedCurrency] ?? 0;
   const displayPrice = data?.tradeRequest
@@ -422,7 +474,7 @@ function BuyPriceInfo({ selectedCurrency }: { selectedCurrency: Currency }) {
   return (
     <PriceInfo
       selectedCurrency={selectedCurrency}
-      satsAmount={amount}
+      satsAmount={adjustedSatsAmount}
       price={displayPrice}
       premium={data?.tradeRequest ? premiumOfTradeRequest : premium}
     />

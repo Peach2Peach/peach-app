@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FundingStatus } from "../../../peach-api/src/@types/offer";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
 import { TradeInfo } from "../../components/offer/TradeInfo";
@@ -11,7 +12,7 @@ type Props = {
   address: string;
   addresses: string[];
   amount: number;
-  fundingStatus: FundingStatus;
+  fundingStatus: FundingStatus["status"];
   offerId: string;
 };
 export function FundFromPeachWalletButton({
@@ -32,7 +33,7 @@ export function FundFromPeachWalletButton({
     await fundFromPeachWallet({
       offerId,
       amount,
-      fundingStatus: fundingStatus?.status,
+      fundingStatus,
       address,
       addresses,
     }).then(() => setIsFunding(false));

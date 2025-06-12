@@ -5,7 +5,7 @@ import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
-const textStyle = tw`font-bold tooltip`;
+const textStyle = tw`font-bold subtitle-1 md:subtitle-0`;
 
 type Props = {
   style?: ViewStyle;
@@ -27,7 +27,7 @@ export const TradingLimitAmount = ({
   return (
     <View style={style}>
       <PeachText
-        style={tw`tooltip ${isDarkMode ? "text-backgroundLight" : "text-black-65"}`}
+        style={tw`subtitle-1 md:subtitle-0 ${isDarkMode ? "text-backgroundLight" : "text-black-65"}`}
       >
         {i18n(`profile.tradingLimits.${type}`)}
         {"  "}

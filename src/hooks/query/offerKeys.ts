@@ -24,7 +24,7 @@ export const tradeRequestKeys = {
       "isAllowedToChat",
     ] as const,
   detail: (offerId: string, requestingUserId: string) =>
-    [...tradeRequestKeys.details(), offerId + "-" + requestingUserId] as const,
+    [...tradeRequestKeys.details(), `${offerId}-${requestingUserId}`] as const,
   decryptedData: (offerId: string, requestingUserId: string) =>
     [
       ...tradeRequestKeys.detail(offerId, requestingUserId),

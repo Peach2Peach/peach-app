@@ -9,6 +9,7 @@ import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlid
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
+import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { usePatchOffer } from "../../hooks/usePatchOffer";
@@ -19,7 +20,7 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { getOfferPrice } from "../../utils/offer/getOfferPrice";
+import { round } from "../../utils/math/round";
 import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
@@ -48,15 +49,11 @@ export const EditPremium = () => {
 
   const displayCurrency =
     (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
+
+  const getOfferPrice = (price = 0) =>
+    round((price * offer?.amount * (1 + displayPremium / CENT)) / SATSINBTC, 2);
   const currentPrice =
-    offer && isSuccess
-      ? getOfferPrice({
-          amount: offer?.amount,
-          premium: displayPremium,
-          prices: priceBook,
-          currency: displayCurrency,
-        })
-      : 0;
+    offer && isSuccess ? getOfferPrice(priceBook[displayCurrency]) : 0;
 
   return (
     <Screen header={<EditPremiumHeader />}>

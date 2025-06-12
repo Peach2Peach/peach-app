@@ -19,7 +19,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { PriceInfo } from "../explore/BuyerPriceInfo";
 import { PaidVia } from "../explore/PaidVia";
-import ChatButton from "../explore/TradeRequestChatButton";
+import { ChatButton } from "../explore/TradeRequestChatButton";
 import { UserCard } from "../explore/UserCard";
 import { useUser } from "../publicProfile/useUser";
 
@@ -53,8 +53,11 @@ export function TradeRequestForSellOffer() {
         <PaidVia paymentMethod={paymentMethod} />
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
-        {/* <Button style={tw`flex-1 py-3 bg-error-main`}>Decline</Button> */}
-        <ChatButton offerId={offerId} requestingUserId={userId} />
+        <ChatButton
+          style={tw`flex-1 py-3`}
+          offerId={offerId}
+          requestingUserId={userId}
+        />
         <AcceptButton />
       </View>
     </Screen>

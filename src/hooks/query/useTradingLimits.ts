@@ -1,15 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { defaultLimits } from "../../utils/account/account";
-import { peachAPI } from "../../utils/peachAPI";
 import { useMarketPrices } from "../query/useMarketPrices";
-import { userKeys } from "./useSelfUser";
+import { useCHFTradingLimits } from "./useCHFTradingLimits";
 
 export const useTradingLimits = () => {
-  const { data: limits } = useQuery({
-    queryKey: userKeys.tradingLimits(),
-    queryFn: tradingLimitQuery,
-  });
+  const { data: limits } = useCHFTradingLimits();
   const { data: marketPrices } = useMarketPrices();
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
 
@@ -30,11 +25,3 @@ export const useTradingLimits = () => {
 
   return roundedDisplayLimits;
 };
-
-async function tradingLimitQuery() {
-  const { result, error: err } = await peachAPI.private.user.getTradingLimit();
-  if (err) {
-    throw new Error(err.error || "Could not fetch trading limits");
-  }
-  return result;
-}

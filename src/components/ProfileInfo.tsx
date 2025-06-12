@@ -1,21 +1,22 @@
 import { View } from "react-native";
 import { NEW_USER_TRADE_THRESHOLD } from "../constants";
 import tw from "../styles/tailwind";
+import { BigBadges } from "../views/explore/BigBadges";
+import { UserBubble } from "../views/explore/UserBubble";
 import { Rating } from "../views/settings/profile/profileOverview/Rating";
-import { PeachID } from "./PeachID";
-import { Badges } from "./matches/components/Badges";
 
-type Props = {
-  user: Pick<
-    User,
-    "openedTrades" | "canceledTrades" | "disputes" | "id" | "rating" | "medals"
-  >;
-  isOnMatchCard?: boolean;
-};
+type Props = Pick<
+  User,
+  "openedTrades" | "canceledTrades" | "disputes" | "id" | "rating" | "medals"
+>;
 
 export const ProfileInfo = ({
-  user: { openedTrades, canceledTrades, disputes, id, rating, medals },
-  isOnMatchCard = false,
+  openedTrades,
+  canceledTrades,
+  disputes,
+  id,
+  rating,
+  medals,
 }: Props) => {
   const isNewUser =
     openedTrades < NEW_USER_TRADE_THRESHOLD &&
@@ -24,11 +25,16 @@ export const ProfileInfo = ({
   return (
     <View style={tw`gap-1`}>
       <View style={tw`flex-row items-center justify-between`}>
-        <PeachID id={id} copyable={!isOnMatchCard} />
-        <Rating rating={rating} isNewUser={isNewUser} />
+        <UserBubble userId={id} hideIcons />
+        <Rating
+          rating={rating}
+          isNewUser={isNewUser}
+          peachSize={20}
+          textStyle={tw`-my-10 leading-loose h5`}
+        />
       </View>
 
-      {!isNewUser && <Badges unlockedBadges={medals} id={id} />}
+      {!isNewUser && <BigBadges medals={medals} id={id} />}
     </View>
   );
 };

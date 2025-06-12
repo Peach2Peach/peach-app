@@ -38,7 +38,7 @@ import { matchesKeys } from "../search/hooks/useOfferMatches";
 import { BuyerPriceInfo } from "./BuyerPriceInfo";
 import { FundingInfo } from "./FundingInfo";
 import { MiningFeeWarning } from "./MiningFeeWarning";
-import ChatButton from "./TradeRequestChatButton";
+import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 
@@ -65,7 +65,7 @@ export function MatchDetails() {
   if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
     return <LoadingScreen />;
   return (
-    <Screen header={i18n("offer.sell.details") + ` ${offerIdToHex(matchId)}`}>
+    <Screen header={`${i18n("offer.sell.details")} ${offerIdToHex(matchId)}`}>
       <Match match={match} offer={offer} />
     </Screen>
   );
@@ -123,14 +123,6 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
     match.offerId,
   );
-
-  const [isAllowedToChat, setIsAllowedToChat] = useState(false);
-
-  useEffect(() => {
-    setIsAllowedToChat(
-      Boolean(isAllowedToTradeRequestData?.symmetricKeyEncrypted),
-    );
-  }, [isAllowedToTradeRequestData]);
 
   const [selectedCurrency, setSelectedCurrency] = useState(
     match.selectedCurrency || keys(meansOfPayment)[0],
@@ -190,9 +182,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   return (
     <>
       <PeachScrollView style={tw`gap-8 grow`}>
-        {match.escrow && (
-          <FundingInfo escrow={match.escrow} fundingStatus={"FUNDED"} />
-        )}
+        {match.escrow && <FundingInfo fundingStatus={"FUNDED"} />}
         <View style={tw`grow`}>
           <View style={tw`overflow-hidden rounded-2xl`}>
             {isMatched && <PeachyBackground />}
@@ -257,7 +247,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
         </View>
       </PeachScrollView>
 
-      {selfUser && isAllowedToChat && (
+      {selfUser && !!isAllowedToTradeRequestData?.symmetricKeyEncrypted && (
         <ChatButton offerId={match.offerId} requestingUserId={selfUser.id} />
       )}
 

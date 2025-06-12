@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { TouchableOpacity, View } from "react-native";
 import {
   BuyOfferSummary,
@@ -19,8 +18,9 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { peachAPI } from "../../utils/peachAPI";
 import { Rating } from "../settings/profile/profileOverview/Rating";
+import { useBuyOfferSummary } from "./useBuyOfferSummary";
+import { useSellOfferSummary } from "./useSellOfferSummary";
 
 export function SellOfferSummaryIdCard({
   offerId,
@@ -29,15 +29,7 @@ export function SellOfferSummaryIdCard({
   offerId: string;
   requestingOfferId?: string;
 }) {
-  const { data: offerSummary } = useQuery({
-    queryKey: ["sellOfferSummary", offerId],
-    queryFn: async () => {
-      const { result, error } =
-        await peachAPI.private.offer.getSellOfferSummary({ offerId });
-      if (error) throw error;
-      return result;
-    },
-  });
+  const { data: offerSummary } = useSellOfferSummary(offerId);
   if (!offerSummary) return <Loading />;
 
   return (
@@ -153,16 +145,7 @@ export function BuyOfferSummaryIdCard({
   offerId: string;
   requestingOfferId?: string;
 }) {
-  const { data: offerSummary } = useQuery({
-    queryKey: ["buyOfferSummary", offerId],
-    queryFn: async () => {
-      const { result, error } = await peachAPI.private.offer.getBuyOfferSummary(
-        { offerId },
-      );
-      if (error) throw error;
-      return result;
-    },
-  });
+  const { data: offerSummary } = useBuyOfferSummary(offerId);
   if (!offerSummary) return <Loading />;
 
   return (
@@ -206,7 +189,6 @@ function BuyOfferSummaryCard({
   const onPress = () =>
     navigation.navigate("buyOfferDetails", {
       offerId,
-      amount,
       premium,
       requestingOfferId,
     });

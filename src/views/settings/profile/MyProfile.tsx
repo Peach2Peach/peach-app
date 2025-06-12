@@ -42,7 +42,7 @@ export const MyProfile = () => {
       >
         <View style={tw`gap-12`}>
           <View style={tw`gap-6`}>
-            <ProfileInfo user={user} />
+            <ProfileInfo {...user} />
             <TradingLimits />
           </View>
           <AccountInfo user={user} />

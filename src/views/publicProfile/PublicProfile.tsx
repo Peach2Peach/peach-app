@@ -19,7 +19,7 @@ export const PublicProfile = () => {
   return (
     <Screen header={i18n("profile.user.title")}>
       <View style={tw`gap-12 grow`}>
-        <ProfileInfo user={user} />
+        <ProfileInfo {...user} />
         <AccountInfo user={user} />
       </View>
       <BlockUser style={tw`self-center`} />

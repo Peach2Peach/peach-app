@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
+import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { tradeRequestKeys } from "../../hooks/query/offerKeys";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { peachAPI } from "../../utils/peachAPI";
 
 export function useIsAllowedToTradeRequestChat(offerId: string) {
   const { user } = useSelfUser();
-  if (!user) throw Error;
   return useQuery({
-    queryKey: tradeRequestKeys.isAllowedToChat(offerId, user.id),
+    queryKey: tradeRequestKeys.isAllowedToChat(offerId, user?.id || ""),
     queryFn: async () => {
+      if (!user?.id) throw new Error("User not found");
       const { result, error } =
         await peachAPI.private.offer.isAllowedToTradeRequestChat({
           offerId,
@@ -20,6 +20,7 @@ export function useIsAllowedToTradeRequestChat(offerId: string) {
 
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
+    enabled: !!user?.id,
   });
 }
