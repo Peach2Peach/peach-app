@@ -52,7 +52,6 @@ type SellFlow = {
   editExpressSellOfferFilters: undefined;
   buyOfferDetails: {
     offerId: string;
-    amount: number;
     premium: number;
     requestingOfferId?: string;
   };
