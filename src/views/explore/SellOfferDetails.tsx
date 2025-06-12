@@ -2,7 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
+import { Pricebook } from "../../../peach-api/src/@types/global";
+import { SellOfferSummary } from "../../../peach-api/src/@types/match";
+import { FundingStatus } from "../../../peach-api/src/@types/offer";
+import { PublicUser } from "../../../peach-api/src/@types/user";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { PeachyGradient } from "../../components/PeachyGradient";
@@ -16,6 +19,7 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { offerKeys } from "../../hooks/query/offerKeys";
+import { useFundingStatus } from "../../hooks/query/useFundingStatus";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -50,35 +54,49 @@ import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
 import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
-import { canUserInstantTrade } from "./canUserInstantTrade";
 import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
-import { useOffer } from "./useOffer";
+import { useSellOfferSummary } from "./useSellOfferSummary";
 import { useTradeRequest } from "./useTradeRequest";
 
 export function SellOfferDetails() {
   const { offerId } = useRoute<"sellOfferDetails">().params;
-  const { data: offer, isLoading } = useOffer(offerId);
+  const { data: offerSummary, isLoading } = useSellOfferSummary(offerId);
+  const { data: fundingStatus } = useFundingStatus(offerId);
 
   return (
     <Screen header={`${i18n("offer.sell.details")} ${offerIdToHex(offerId)}`}>
-      {isLoading || !offer ? (
+      {isLoading || !offerSummary || !fundingStatus ? (
         <ActivityIndicator size={"large"} />
       ) : (
-        <SellOfferDetailsComponent offer={offer} />
+        <SellOfferDetailsComponent
+          {...offerSummary}
+          fundingStatus={fundingStatus}
+        />
       )}
     </Screen>
   );
 }
 
-function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
+type Props = SellOfferSummary & { fundingStatus: FundingStatus["status"] };
+function SellOfferDetailsComponent({
+  amount,
+  meansOfPayment,
+  user,
+  fundingStatus,
+  canInstantTrade,
+  tradeRequested,
+  premium,
+  prices,
+}: Props) {
+  const { offerId } = useRoute<"sellOfferDetails">().params;
   const { user: selfUser } = useSelfUser();
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const { isDarkMode } = useThemeStore();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
-    keys(offer.meansOfPayment).at(0) || "CHF",
+    keys(meansOfPayment).at(0) || "CHF",
   );
-  const allPaymentMethods = getPaymentMethods(offer.meansOfPayment);
+  const allPaymentMethods = getPaymentMethods(meansOfPayment);
   const allMethodsForCurrency = allPaymentMethods.filter((p) =>
     paymentMethodAllowedForCurrency(p, selectedCurrency),
   );
@@ -92,11 +110,10 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
-  const { data, refetch } = useTradeRequest(offer.id, requestingOfferId);
+  const { data, refetch } = useTradeRequest(offerId, requestingOfferId);
 
-  const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
-    offer.id,
-  );
+  const { data: isAllowedToTradeRequestData } =
+    useIsAllowedToTradeRequestChat(offerId);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -113,7 +130,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
   const showUnmatchPopup = useCallback(() => {
     const undoTradeRequest = async () => {
       await peachAPI.private.offer.undoRequestTradeWithSellOffer({
-        offerId: offer.id,
+        offerId,
       });
       setHadTradeRequest(false);
       await refetch();
@@ -155,29 +172,31 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         }
       />,
     );
-  }, [closePopup, setPopup, offer.id, refetch]);
+  }, [closePopup, setPopup, offerId, refetch]);
 
   return (
     <View style={tw`gap-4 shrink`}>
       <PeachScrollView contentStyle={tw`gap-8 pb-16`}>
-        <FundingInfo
-          escrow={offer.escrow!}
-          fundingStatus={offer.fundingStatus!}
-        />
+        <FundingInfo fundingStatus={fundingStatus} />
         <View style={tw`overflow-hidden rounded-2xl`}>
           {!!data?.tradeRequest && <PeachyBackground />}
           <View
             style={tw`gap-8 m-1 rounded-2xl ${isDarkMode ? "bg-backgroundMain-dark" : "bg-primary-background-light"}`}
           >
-            <UserCard user={offer.user} />
-            {/** @ts-ignore */}
-            <MiningFeeWarning amount={offer.amount} />
-            <SellPriceInfo offer={offer} selectedCurrency={selectedCurrency} />
+            <UserCard user={user} />
+            <MiningFeeWarning amount={amount} />
+            <SellPriceInfo
+              amount={amount}
+              tradeRequested={tradeRequested}
+              premium={premium}
+              prices={prices}
+              selectedCurrency={selectedCurrency}
+            />
             {data?.tradeRequest ? (
               <PaidVia paymentMethod={data.tradeRequest.paymentMethod} />
             ) : (
               <PaymentMethodSelector
-                meansOfPayment={offer.meansOfPayment}
+                meansOfPayment={meansOfPayment}
                 selectedCurrency={selectedCurrency}
                 setSelectedCurrency={setSelectedCurrency}
                 selectedPaymentData={selectedPaymentData}
@@ -213,7 +232,7 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
 
       {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
         <ChatButton
-          offerId={offer.id}
+          offerId={offerId}
           requestingUserId={selfUser.id}
           style={tw`self-center`}
         />
@@ -223,7 +242,9 @@ function SellOfferDetailsComponent({ offer }: { offer: GetOfferResponseBody }) {
         <RequestTradeAction
           selectedPaymentData={selectedPaymentData}
           selectedCurrency={selectedCurrency}
-          offer={offer}
+          offerId={offerId}
+          counterparty={user}
+          canInstantTrade={canInstantTrade}
         />
       ) : (
         <WaitingForSeller />
@@ -250,36 +271,38 @@ function WaitingForSeller() {
 }
 
 function SellPriceInfo({
-  offer,
+  amount,
+  tradeRequested,
+  premium,
+  prices,
   selectedCurrency,
 }: {
-  offer: GetOfferResponseBody;
+  amount: number;
+  tradeRequested: boolean;
+  premium: number;
+  prices: Pricebook;
   selectedCurrency: Currency;
 }) {
   const { data: priceBook, isSuccess } = useMarketPrices();
 
-  // @ts-ignore
-  const amountInBTC = offer.amount / SATSINBTC;
-  const displayPrice = offer.prices?.[selectedCurrency] ?? 0;
+  const amountInBTC = amount / SATSINBTC;
+  const displayPrice = prices?.[selectedCurrency] ?? 0;
 
   const bitcoinPrice =
     priceBook?.[selectedCurrency] ?? amountInBTC / displayPrice;
   const marketPrice = amountInBTC * bitcoinPrice;
 
-  // @ts-ignore
-  const premium = offer.matched
+  const displayPremium = tradeRequested
     ? isSuccess
       ? round((displayPrice / marketPrice - 1) * CENT, 2)
       : 0
-    : offer.premium;
+    : premium;
 
   return (
     <PriceInfo
-      // @ts-ignore
-      satsAmount={offer.amount}
+      satsAmount={amount}
       selectedCurrency={selectedCurrency}
-      // @ts-ignore
-      premium={premium}
+      premium={displayPremium}
       price={displayPrice}
     />
   );
@@ -288,13 +311,16 @@ function SellPriceInfo({
 function RequestTradeAction({
   selectedCurrency,
   selectedPaymentData,
-  offer,
+  offerId,
+  counterparty,
+  canInstantTrade,
 }: {
   selectedCurrency: Currency;
   selectedPaymentData: PaymentData | undefined;
-  offer: GetOfferResponseBody;
+  offerId: string;
+  counterparty: PublicUser;
+  canInstantTrade: boolean;
 }) {
-  const { id: offerId, user: counterparty } = offer;
   const { user } = useSelfUser();
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
@@ -423,10 +449,6 @@ function RequestTradeAction({
   });
 
   if (user === undefined) return null;
-
-  const { instantTradeCriteria } = offer;
-  const canInstantTrade =
-    instantTradeCriteria && canUserInstantTrade(user, instantTradeCriteria);
 
   if (canInstantTrade) {
     return (
