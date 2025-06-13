@@ -33,3 +33,24 @@ export const tradeRequestKeys = {
   chat: (offerId: string, requestingUserId: string) =>
     [...tradeRequestKeys.detail(offerId, requestingUserId), "chat"] as const,
 };
+
+export const matchChatKeys = {
+  all: ["matchChats"] as const,
+  single: ["matchChat"] as const,
+  matchChat: (id: string) => [...matchChatKeys.single, id] as const,
+  details: () => [...matchChatKeys.all, "details"] as const,
+  isAllowedToChat: (offerId: string, matchingOfferId: string) =>
+    [
+      ...matchChatKeys.detail(offerId, matchingOfferId),
+      "isAllowedToChat",
+    ] as const,
+  detail: (offerId: string, matchingOfferId: string) =>
+    [...matchChatKeys.details(), `${offerId}-${matchingOfferId}`] as const,
+  decryptedData: (offerId: string, matchingOfferId: string) =>
+    [
+      ...matchChatKeys.detail(offerId, matchingOfferId),
+      "decryptedData",
+    ] as const,
+  chat: (offerId: string, matchingOfferId: string) =>
+    [...matchChatKeys.detail(offerId, matchingOfferId), "chat"] as const,
+};

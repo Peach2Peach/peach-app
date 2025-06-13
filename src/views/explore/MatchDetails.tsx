@@ -37,10 +37,10 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
 import { BuyerPriceInfo } from "./BuyerPriceInfo";
 import { FundingInfo } from "./FundingInfo";
+import { ChatButton } from "./MatchChatButton";
 import { MiningFeeWarning } from "./MiningFeeWarning";
-import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
-import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
+import { useIsAllowedToMatchChat } from "./isAllowedToMatchChat";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
@@ -120,7 +120,8 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { meansOfPayment } = match;
   const { isDarkMode } = useThemeStore();
 
-  const { data: isAllowedToTradeRequestData } = useIsAllowedToTradeRequestChat(
+  const { data: isAllowedToMatchData } = useIsAllowedToMatchChat(
+    offer.id,
     match.offerId,
   );
 
@@ -247,8 +248,8 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
         </View>
       </PeachScrollView>
 
-      {selfUser && !!isAllowedToTradeRequestData?.symmetricKeyEncrypted && (
-        <ChatButton offerId={match.offerId} requestingUserId={selfUser.id} />
+      {selfUser && !!isAllowedToMatchData?.symmetricKeyEncrypted && (
+        <ChatButton offerId={offer.id} matchingOfferId={match.offerId} />
       )}
 
       {match.instantTrade ? (
