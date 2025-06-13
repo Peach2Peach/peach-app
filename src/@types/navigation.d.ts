@@ -88,10 +88,6 @@ type ContractFlow = {
     offerId: string;
     requestingUserId: string;
   };
-  matchChat: {
-    offerId: string;
-    matchingOfferId: string;
-  };
   disputeReasonSelector: {
     contractId: string;
   };

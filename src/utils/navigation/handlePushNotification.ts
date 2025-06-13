@@ -6,7 +6,6 @@ import { isDefined } from "../validation/isDefined";
 import { shouldGoToContract } from "./shouldGoToContract";
 import {
   shouldGoToContractChat,
-  shouldGoToMatchChat,
   shouldGoToTradeRequestChat,
 } from "./shouldGoToContractChat";
 import { shouldGoToSearch } from "./shouldGoToSearch";
@@ -35,9 +34,6 @@ export const handlePushNotification = async (
   } else if (shouldGoToTradeRequestChat(data)) {
     const { offerId, requestingUserId } = data;
     navigationRef.navigate("tradeRequestChat", { offerId, requestingUserId });
-  } else if (shouldGoToMatchChat(data)) {
-    const { offerId, matchingOfferId } = data;
-    navigationRef.navigate("matchChat", { offerId, matchingOfferId });
   } else if (shouldGoToYourTradesSell(data)) {
     navigationRef.navigate("homeScreen", {
       screen: "yourTrades",
