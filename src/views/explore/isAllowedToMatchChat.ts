@@ -13,7 +13,7 @@ export function useIsAllowedToMatchChat(
       const { result, error } =
         await peachAPI.private.offer.isAllowedToMatchChat({
           offerId,
-          matchingOfferId: matchingOfferId,
+          matchingOfferId,
         });
 
       if (error) throw new Error(error.error);
