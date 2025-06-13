@@ -154,7 +154,9 @@ type RootStackParamList = Onboarding &
     seedWords: undefined;
     refundAddress: undefined;
     payoutAddress: undefined;
-    paymentMethods: undefined;
+    paymentMethods?: {
+      expressFilter?: "buy" | "sell";
+    };
     meetupScreen: {
       eventId: string;
       deletable?: boolean;

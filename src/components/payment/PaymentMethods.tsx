@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
+import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { InfoPopup } from "../../popups/InfoPopup";
@@ -25,13 +26,28 @@ const PaymentMethodsTab = createMaterialTopTabNavigator();
 const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
+  const { expressFilter } = useRoute<"paymentMethods">().params ?? {};
   const navigation = useStackNavigation();
-  const [preferredPaymentMethods, select] = useOfferPreferences(
-    (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
+  const [
+    preferredPaymentMethods,
+    preferredPaymentMethodsOnExpressBuyFilter,
+    preferredPaymentMethodsOnExpressSellFilter,
+    select,
+  ] = useOfferPreferences(
+    (state) => [
+      state.preferredPaymentMethods,
+      state.preferredPaymentMethodsOnExpressBuyFilter,
+      state.preferredPaymentMethodsOnExpressSellFilter,
+      state.selectPaymentMethod,
+    ],
     shallow,
   );
   const selectedPaymentDataIds = getSelectedPaymentDataIds(
-    preferredPaymentMethods,
+    expressFilter
+      ? expressFilter === "buy"
+        ? preferredPaymentMethodsOnExpressBuyFilter
+        : preferredPaymentMethodsOnExpressSellFilter
+      : preferredPaymentMethods,
   );
 
   const editItem = (data: PaymentData) => {
@@ -91,11 +107,23 @@ export const PaymentMethods = () => {
               >
                 {tab === "online" ? (
                   <RemotePaymentMethods
-                    {...{ isEditing, editItem, select, isSelected }}
+                    {...{
+                      isEditing,
+                      editItem,
+                      select,
+                      isSelected,
+                      expressFilter,
+                    }}
                   />
                 ) : (
                   <MeetupPaymentMethods
-                    {...{ isEditing, editItem, select, isSelected }}
+                    {...{
+                      isEditing,
+                      editItem,
+                      select,
+                      isSelected,
+                      expressFilter,
+                    }}
                   />
                 )}
                 <HorizontalLine style={tw`m-5`} />

@@ -28,6 +28,10 @@ export function ExpressBuy({
     (state) => [state.minAmount, state.maxAmount, state.maxPremium],
   );
 
+  const meansOfPaymentOnExpressBuyFilter = useOfferPreferences(
+    (state) => state.meansOfPaymentOnExpressBuyFilter,
+  );
+
   const { data: requestingOffer } = useOffer(requestingOfferId || "");
 
   const marketFilterAmount = (
@@ -50,6 +54,9 @@ export function ExpressBuy({
           sortBy: defaultBuyOfferSorter,
           amount: requestingOfferId ? undefined : [minAmount, maxAmount],
           maxPremium: requestingOfferId ? undefined : maxPremium,
+          meansOfPayment: requestingOfferId
+            ? undefined
+            : meansOfPaymentOnExpressBuyFilter,
         });
       if (error || !result) {
         throw new Error(error?.message || "Sell offer summary ids not found");
