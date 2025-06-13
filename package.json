@@ -41,7 +41,7 @@
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.5",
     "@react-native-clipboard/clipboard": "^1.11.2",
-    "@react-native-community/cli-platform-android": "^12.3.6",
+    "@react-native-community/cli-platform-android": "^13.5.2",
     "@react-native-community/netinfo": "^9.4.1",
     "@react-native-cookies/cookies": "^6.2.1",
     "@react-native-firebase/app": "^18.9.0",
@@ -71,7 +71,7 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
-    "react-native": "^0.71.15",
+    "react-native": "^0.74.0",
     "react-native-camera": "^4.2.1",
     "react-native-crypto-js": "^1.0.0",
     "react-native-device-info": "^10.12.0",
