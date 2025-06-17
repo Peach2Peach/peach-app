@@ -3,38 +3,32 @@ import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
 import { AppPopup } from "../../../popups/AppPopup";
 import tw from "../../../styles/tailwind";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { offerKeys } from "../../../hooks/query/offerKeys";
+import { UseMutateFunction } from "@tanstack/react-query";
 import { WarningPopup } from "../../../popups/WarningPopup";
 import i18n from "../../../utils/i18n";
-import { error } from "../../../utils/log/error";
-import { peachAPI } from "../../../utils/peachAPI";
-import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { Button } from "../../buttons/Button";
 import { useClosePopup, useSetPopup } from "../../popup/GlobalPopup";
 import { PopupAction } from "../../popup/PopupAction";
 import { ClosePopupAction } from "../../popup/actions/ClosePopupAction";
-import { useSetToast } from "../../toast/Toast";
 import { UndoButton } from "./UndoButton";
 
 type Props = {
-  match: Pick<Match, "matched" | "offerId">;
-  offer: BuyOffer;
-  interruptMatching: () => void;
-  setShowMatchedCard: (show: boolean) => void;
+  tradeRequested: boolean;
+  interruptTradeRequest: () => void;
+  setShowTradeRequested: (show: boolean) => void;
+  undoTradeRequest: UseMutateFunction;
 };
 
 export const UnmatchButton = ({
-  match,
-  offer,
-  interruptMatching,
-  setShowMatchedCard,
+  tradeRequested,
+  interruptTradeRequest,
+  setShowTradeRequested,
+  undoTradeRequest,
 }: Props) => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
-  const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId);
 
-  const [showUnmatch, toggle] = useToggleBoolean(match.matched);
+  const [showUnmatch, toggle] = useToggleBoolean(tradeRequested);
 
   const showUnmatchPopup = useCallback(() => {
     setPopup(
@@ -59,9 +53,9 @@ export const UnmatchButton = ({
                     }
                   />,
                 );
-                unmatch(undefined, {
+                undoTradeRequest(undefined, {
                   onSuccess: () => {
-                    setShowMatchedCard(false);
+                    setShowTradeRequested(false);
                   },
                 });
               }}
@@ -77,10 +71,10 @@ export const UnmatchButton = ({
         }
       />,
     );
-  }, [closePopup, setPopup, setShowMatchedCard, unmatch]);
+  }, [closePopup, setPopup, setShowTradeRequested, undoTradeRequest]);
 
   const onUndoPress = () => {
-    interruptMatching();
+    interruptTradeRequest();
     setPopup(<AppPopup id="matchUndone" />);
   };
 
@@ -97,64 +91,3 @@ export const UnmatchButton = ({
     <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />
   );
 };
-
-function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
-  const queryClient = useQueryClient();
-  const setToast = useSetToast();
-
-  return useMutation({
-    onMutate: async () => {
-      await queryClient.cancelQueries({
-        queryKey: matchesKeys.matchesForOffer(offer.id),
-      });
-      await queryClient.cancelQueries({
-        queryKey: matchesKeys.matchDetail(offer.id, matchingOfferId),
-      });
-      const previousData = queryClient.getQueryData<Match>([
-        "matchDetails",
-        offer.id,
-        matchingOfferId,
-      ]);
-      queryClient.setQueryData<Match>(
-        matchesKeys.matchDetail(offer.id, matchingOfferId),
-        (old) => {
-          if (!old) return old;
-          return {
-            ...old,
-            matched: false,
-          };
-        },
-      );
-      return { previousData };
-    },
-    mutationFn: async () => {
-      const { result, error: err } = await peachAPI.private.offer.unmatchOffer({
-        offerId: offer.id,
-        matchingOfferId,
-      });
-      if (result) {
-        return result;
-      }
-      error("Error", err);
-      setToast({ msgKey: err?.error || "error.general", color: "red" });
-      throw new Error();
-    },
-    onError: (_error, _variables, context) => {
-      queryClient.setQueryData(
-        matchesKeys.matchDetail(offer.id, matchingOfferId),
-        context?.previousData,
-      );
-    },
-    onSettled: () =>
-      Promise.all([
-        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
-        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
-        queryClient.invalidateQueries({
-          queryKey: matchesKeys.matchesForOffer(offer.id),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: matchesKeys.matchDetail(offer.id, matchingOfferId),
-        }),
-      ]),
-  });
-}

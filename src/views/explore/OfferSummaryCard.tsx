@@ -70,7 +70,7 @@ function SellOfferSummaryCard({
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount);
   const navigation = useStackNavigation();
   const onPress = () => {
-    navigation.navigate("sellOfferDetails", {
+    navigation.navigate("sellOffer", {
       offerId,
       requestingOfferId,
     });
@@ -186,7 +186,7 @@ function BuyOfferSummaryCard({
   const navigation = useStackNavigation();
   const price = requestedPrice ?? fiatPrice * (1 + premium / CENT);
   const onPress = () =>
-    navigation.navigate("buyOfferDetails", {
+    navigation.navigate("buyOffer", {
       offerId,
       premium,
       requestingOfferId,
