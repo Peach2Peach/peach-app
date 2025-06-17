@@ -18,6 +18,7 @@ import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
+import { ChatButton as MatchChatButton } from "../explore/MatchChatButton";
 import { useUser } from "../publicProfile/useUser";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { useMaxMiningFee } from "./MatchDetails";
@@ -27,8 +28,15 @@ import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 
 export function TradeRequestForBuyOffer() {
-  const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
-    useRoute<"tradeRequestForBuyOffer">().params;
+  const {
+    userId,
+    amount,
+    fiatPrice,
+    currency,
+    paymentMethod,
+    offerId,
+    requestingOfferId,
+  } = useRoute<"tradeRequestForBuyOffer">().params;
   const { user } = useUser(userId);
   const { data: marketPrices } = useMarketPrices();
   if (!user || !marketPrices) {
@@ -57,11 +65,19 @@ export function TradeRequestForBuyOffer() {
         <PaidVia paymentMethod={paymentMethod} />
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
-        <ChatButton
-          style={tw`flex-1 py-3`}
-          offerId={offerId}
-          requestingUserId={userId}
-        />
+        {requestingOfferId ? (
+          <MatchChatButton
+            style={tw`flex-1 py-3`}
+            offerId={offerId}
+            matchingOfferId={requestingOfferId}
+          />
+        ) : (
+          <ChatButton
+            style={tw`flex-1 py-3`}
+            offerId={offerId}
+            requestingUserId={userId}
+          />
+        )}
         <AcceptButton />
       </View>
     </Screen>
