@@ -1,11 +1,11 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
-import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
+import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getPublicOffer";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
 import { MSINASECOND } from "../../constants";
-import { tradeRequestKeys } from "../../hooks/query/offerKeys";
+import { tradeRequestKeys } from "../../hooks/query/tradeRequestKeys";
 import { PAGE_SIZE } from "../../hooks/query/useChatMessages";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useTradeRequestChatMessages } from "../../hooks/query/useTradeRequestChatMessages";
@@ -21,7 +21,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
-import { useOffer } from "../explore/useOffer";
+import { usePublicOffer } from "../explore/usePublicOffer";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
 import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
@@ -29,7 +29,7 @@ import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
 export const TradeRequestChat = () => {
   const { offerId, requestingUserId } = useRoute<"tradeRequestChat">().params;
 
-  const { data: offer } = useOffer(offerId);
+  const { data: offer } = usePublicOffer(offerId);
 
   const [symmetricKeyEncrypted, setSymmetricKeyEncrypted] = useState("");
 
