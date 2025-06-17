@@ -112,8 +112,10 @@ function SellOfferDetailsComponent({
   const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
   const { data, refetch } = useTradeRequest(offerId, requestingOfferId);
 
-  const { data: isAllowedToTradeRequestData } =
-    useIsAllowedToTradeRequestChat(offerId);
+  const {
+    data: isAllowedToTradeRequestData,
+    isError: isAllowedToTradeRequestChatError,
+  } = useIsAllowedToTradeRequestChat(offerId);
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -230,13 +232,16 @@ function SellOfferDetailsComponent({
         </View>
       </PeachScrollView>
 
-      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
-        <ChatButton
-          offerId={offerId}
-          requestingUserId={selfUser.id}
-          style={tw`self-center`}
-        />
-      )}
+      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted &&
+        !isAllowedToTradeRequestChatError &&
+        !!data?.tradeRequest &&
+        selfUser && (
+          <ChatButton
+            offerId={offerId}
+            requestingUserId={selfUser.id}
+            style={tw`self-center`}
+          />
+        )}
 
       {!data?.tradeRequest ? (
         <RequestTradeAction

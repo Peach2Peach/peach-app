@@ -22,5 +22,6 @@ export function useIsAllowedToTradeRequestChat(offerId: string) {
     },
     refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
     enabled: !!user?.id,
+    refetchOnWindowFocus: true,
   });
 }
