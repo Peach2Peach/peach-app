@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { useRefreshOnFocus } from "../../hooks/query/useRefreshOnFocus";
+import { useSellOfferPreferences } from "../../hooks/query/useSellOfferPreferences";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useExpressSellFilterPreferences } from "../../store/useExpressSellFilterPreference/useExpressSellFilterPreference";
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { BuyOfferSummaryIdCard } from "../explore/OfferSummaryCard";
-import { useOffer } from "../explore/useOffer";
 import { NoOffersMessage } from "../search/NoOffersMessage";
 import { MarketInfo } from "./components/MarketInfo";
 
@@ -25,20 +26,16 @@ export function ExpressSell({
     (state) => state.sortBy.sellOffer[0],
   );
 
-  const [amount, premium] = useExpressSellFilterPreferences((state) => [
-    state.amount,
-    state.premium,
-  ]);
+  const [amount, premium] = useExpressSellFilterPreferences(
+    (state) => [state.amount, state.premium],
+    shallow,
+  );
 
-  const { data: requestingOffer } = useOffer(requestingOfferId || "");
+  const { data: requestingOffer } = useSellOfferPreferences(requestingOfferId);
 
-  const marketFilterAmount = requestingOffer
-    ? (requestingOffer.amount as number)
-    : amount;
+  const marketFilterAmount = requestingOffer ? requestingOffer.amount : amount;
 
-  const marketFilterPremium = requestingOffer
-    ? (requestingOffer.premium as number)
-    : premium;
+  const marketFilterPremium = requestingOffer?.premium ?? premium;
 
   const { data, refetch } = useQuery({
     queryKey: ["expressSell", defaultSellOfferSorter],
@@ -73,8 +70,9 @@ export function ExpressSell({
             <Placeholder style={tw`w-6 h-6`} />
             <MarketInfo
               type="buyOffers"
-              sellAmount={marketFilterAmount}
+              meansOfPayment={requestingOffer?.meansOfPayment}
               maxPremium={marketFilterPremium}
+              sellAmount={marketFilterAmount}
             />
             <TouchableIcon
               id="sliders"
@@ -87,7 +85,7 @@ export function ExpressSell({
       {!data ? (
         <ActivityIndicator size="large" />
       ) : (
-        <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
+        <View style={tw`gap-10px`}>
           {data.map((offerId) => (
             <BuyOfferSummaryIdCard
               key={offerId}

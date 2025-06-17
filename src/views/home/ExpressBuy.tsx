@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { ActivityIndicator, View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Placeholder } from "../../components/Placeholder";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
+import { useBuyOfferPreferences } from "../../hooks/query/useBuyOfferPreferences";
 import { useRefreshOnFocus } from "../../hooks/query/useRefreshOnFocus";
 import { BuySorters } from "../../popups/sorting/BuySorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -12,7 +14,6 @@ import { useExpressBuyFilterPreferences } from "../../store/useExpressBuyFilterP
 import tw from "../../styles/tailwind";
 import { peachAPI } from "../../utils/peachAPI";
 import { SellOfferSummaryIdCard } from "../explore/OfferSummaryCard";
-import { useOffer } from "../explore/useOffer";
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 import { NoOffersMessage } from "../search/NoOffersMessage";
 
@@ -26,20 +27,16 @@ export function ExpressBuy({
   );
   const [minAmount, maxAmount, maxPremium] = useExpressBuyFilterPreferences(
     (state) => [state.minAmount, state.maxAmount, state.maxPremium],
+    shallow,
   );
 
-  const { data: requestingOffer } = useOffer(requestingOfferId || "");
+  const { data: requestingOffer } = useBuyOfferPreferences(requestingOfferId);
 
-  const marketFilterAmount = (
-    requestingOffer
-      ? requestingOffer.amount
-      : minAmount > 1
-        ? [minAmount, maxAmount]
-        : undefined
-  ) as [number, number];
-
+  const amount: [number, number] = requestingOffer
+    ? requestingOffer.amount
+    : [minAmount, maxAmount];
   const marketFilterMaxPremium = requestingOffer
-    ? requestingOffer.premium
+    ? requestingOffer.maxPremium
     : maxPremium;
 
   const { data, refetch } = useQuery({
@@ -47,9 +44,12 @@ export function ExpressBuy({
     queryFn: async () => {
       const { result, error } =
         await peachAPI.private.offer.getSellOfferSummaryIds({
+          amount,
+          maxPremium: requestingOffer
+            ? requestingOffer?.maxPremium || undefined
+            : maxPremium,
+          meansOfPayment: requestingOffer?.meansOfPayment,
           sortBy: defaultBuyOfferSorter,
-          amount: requestingOfferId ? undefined : [minAmount, maxAmount],
-          maxPremium: requestingOfferId ? undefined : maxPremium,
         });
       if (error || !result) {
         throw new Error(error?.message || "Sell offer summary ids not found");
@@ -75,8 +75,10 @@ export function ExpressBuy({
             <Placeholder style={tw`w-6 h-6`} />
             <MarketInfo
               type="sellOffers"
-              buyAmountRange={marketFilterAmount}
-              maxPremium={marketFilterMaxPremium}
+              meansOfPayment={requestingOffer?.meansOfPayment}
+              maxPremium={marketFilterMaxPremium || undefined}
+              minReputation={requestingOffer?.minReputation || undefined}
+              buyAmountRange={amount}
             />
             <TouchableIcon id="sliders" onPress={showSortAndFilterPopup} />
           </>
@@ -85,7 +87,7 @@ export function ExpressBuy({
       {!data ? (
         <ActivityIndicator size="large" />
       ) : (
-        <View style={tw`gap-10px`} key={"sellOfferSummaryCards"}>
+        <View style={tw`gap-10px`}>
           {data.map((offerId) => (
             <SellOfferSummaryIdCard
               key={offerId}
