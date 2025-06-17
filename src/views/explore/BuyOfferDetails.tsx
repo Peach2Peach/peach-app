@@ -44,12 +44,14 @@ import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { usePaymentMethodInfo } from "../addPaymentMethod/usePaymentMethodInfo";
+import { ChatButton as MatchChatButton } from "../explore/MatchChatButton";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { AnimatedButtons } from "./MatchDetails";
 import { PaidVia } from "./PaidVia";
 import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
+import { useIsAllowedToMatchChat } from "./isAllowedToMatchChat";
 import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 import { useBuyOfferSummary } from "./useBuyOfferSummary";
 import { useTradeRequest } from "./useTradeRequest";
@@ -97,11 +99,17 @@ function BuyOfferDetailsComponent({
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-  const { requestingOfferId } = useRoute<"sellOfferDetails">().params;
+  const { requestingOfferId } = useRoute<"buyOfferDetails">().params;
+
   const { data, refetch } = useTradeRequest(offerId, requestingOfferId);
 
-  const { data: isAllowedToTradeRequestData } =
-    useIsAllowedToTradeRequestChat(offerId);
+  const {
+    data: isAllowedToTradeRequestData,
+    isError: isAllowedToTradeRequestChatError,
+  } = useIsAllowedToTradeRequestChat(offerId);
+
+  const { data: isAllowedToMatchChatData, isError: isAllowedToMatchChatError } =
+    useIsAllowedToMatchChat(offerId, requestingOfferId || "none");
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
@@ -222,13 +230,27 @@ function BuyOfferDetailsComponent({
         </View>
       </PeachScrollView>
 
-      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
-        <ChatButton
-          offerId={offerId}
-          requestingUserId={selfUser.id}
-          style={tw`self-center`}
-        />
-      )}
+      {!!isAllowedToMatchChatData?.symmetricKeyEncrypted &&
+        !isAllowedToMatchChatError &&
+        !!data?.tradeRequest &&
+        requestingOfferId && (
+          <MatchChatButton
+            offerId={offerId}
+            matchingOfferId={requestingOfferId}
+            style={tw`self-center`}
+          />
+        )}
+
+      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted &&
+        !isAllowedToTradeRequestChatError &&
+        !!data?.tradeRequest &&
+        selfUser && (
+          <ChatButton
+            offerId={offerId}
+            requestingUserId={selfUser.id}
+            style={tw`self-center`}
+          />
+        )}
 
       {!data?.tradeRequest ? (
         selectedPaymentData ? (

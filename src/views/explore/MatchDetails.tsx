@@ -120,7 +120,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { meansOfPayment } = match;
   const { isDarkMode } = useThemeStore();
 
-  const { data: isAllowedToMatchData } = useIsAllowedToMatchChat(
+  const { data: isAllowedToMatchData, isError } = useIsAllowedToMatchChat(
     offer.id,
     match.offerId,
   );
@@ -248,9 +248,12 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
         </View>
       </PeachScrollView>
 
-      {selfUser && !!isAllowedToMatchData?.symmetricKeyEncrypted && (
-        <ChatButton offerId={offer.id} matchingOfferId={match.offerId} />
-      )}
+      {selfUser &&
+        !isError &&
+        isAllowedToMatchData &&
+        isAllowedToMatchData.symmetricKeyEncrypted && (
+          <ChatButton offerId={offer.id} matchingOfferId={match.offerId} />
+        )}
 
       {match.instantTrade ? (
         <InstantTradeSlider
