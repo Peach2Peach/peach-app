@@ -20,11 +20,11 @@ import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { useUser } from "../publicProfile/useUser";
 import { PriceInfo } from "./BuyerPriceInfo";
-import { useMaxMiningFee } from "./MatchDetails";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
 import { ChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
+import { useMaxMiningFee } from "./useMaxMiningFee";
 
 export function TradeRequestForBuyOffer() {
   const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =

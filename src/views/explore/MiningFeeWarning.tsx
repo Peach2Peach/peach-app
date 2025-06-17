@@ -2,7 +2,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { CENT } from "../../constants";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { useMaxMiningFee } from "./MatchDetails";
+import { useMaxMiningFee } from "./useMaxMiningFee";
 
 export function MiningFeeWarning({ amount }: { amount: number }) {
   const { currentFeePercentage, maxMiningFeeRate } = useMaxMiningFee(amount);
