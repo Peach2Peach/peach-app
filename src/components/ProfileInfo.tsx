@@ -34,7 +34,7 @@ export const ProfileInfo = ({
         />
       </View>
 
-      {!isNewUser && <BigBadges medals={medals} id={id} />}
+      <BigBadges medals={medals} id={id} />
     </View>
   );
 };

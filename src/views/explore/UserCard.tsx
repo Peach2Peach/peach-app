@@ -30,7 +30,7 @@ export function UserCard({
           textStyle={tw`-my-10 leading-loose h5`}
         />
       </View>
-      <BigBadges {...user} />
+      <BigBadges {...user} hideDisabled />
     </View>
   );
 }

@@ -12,10 +12,10 @@ const BADGE_SIZE = 16;
 function BigBadge({ userId }: { userId: string }) {
   const { data } = useUserStatus(userId);
 
-  if (!data?.trades) return null;
+  if (!data) return null;
 
-  const hadBadExperience = data?.badExperience;
-  const color = tw.color(!hadBadExperience ? "primary-main" : "error-main");
+  const { badExperience, trades } = data;
+  const color = tw.color(!badExperience ? "primary-main" : "error-main");
   return (
     <View
       style={[
@@ -26,14 +26,11 @@ function BigBadge({ userId }: { userId: string }) {
       <PeachText style={[tw`subtitle-1`, { color }]}>
         {i18n(`peachBadges.repeatTrader`)}
       </PeachText>
-      {!hadBadExperience ? (
+      {!badExperience ? (
         <View
           style={[
-            tw`items-center justify-center border rounded-full px-2px`,
+            tw`items-center justify-center border rounded-full px-2px border-primary-main`,
             {
-              borderColor: tw.color(
-                hadBadExperience ? "error-main" : "primary-main",
-              ),
               height: BADGE_SIZE,
               minWidth: BADGE_SIZE,
             },
@@ -41,22 +38,15 @@ function BigBadge({ userId }: { userId: string }) {
         >
           <FixedHeightText
             height={8}
-            style={[
-              tw`pt-px text-center subtitle-1 text-13px`,
-              {
-                color: tw.color(
-                  hadBadExperience ? "error-main" : "primary-main",
-                ),
-              },
-            ]}
+            style={tw`pt-px text-center subtitle-1 text-13px text-primary-main`}
           >
-            {data.trades}
+            {trades}
           </FixedHeightText>
         </View>
       ) : (
         <Icon
           id={"thumbsDown"}
-          color={tw.color(hadBadExperience ? "error-main" : "primary-main")}
+          color={tw.color("error-main")}
           size={BADGE_SIZE}
         />
       )}
@@ -64,31 +54,30 @@ function BigBadge({ userId }: { userId: string }) {
   );
 }
 
-export function BigBadges({ medals, id }: { medals: Medal[]; id: string }) {
+export function BigBadges({
+  medals,
+  id,
+  hideDisabled = false,
+}: {
+  medals: Medal[];
+  id: string;
+  hideDisabled?: boolean;
+}) {
   return (
     <View style={tw`flex-row flex-wrap justify-end gap-1`}>
       {badges.map(([iconId, badgeName]) => {
         const isUnlocked = medals.includes(badgeName);
-        if (!isUnlocked) return <Fragment key={badgeName} />;
-        const color = tw.color("primary-main");
+        if (hideDisabled && !isUnlocked) return <Fragment key={badgeName} />;
+        const color = tw.color(isUnlocked ? "primary-main" : "primary-mild-1");
         return (
           <View
             style={[
               tw`flex-row items-center px-2 border rounded-full gap-2px`,
-              {
-                borderColor: color,
-              },
+              { borderColor: color },
             ]}
             key={badgeName}
           >
-            <PeachText
-              style={[
-                tw`subtitle-1`,
-                {
-                  color,
-                },
-              ]}
-            >
+            <PeachText style={[tw`subtitle-1`, { color }]}>
               {i18n(`peachBadges.${badgeName}`)}
             </PeachText>
             <Icon id={iconId} color={color} size={16} />
