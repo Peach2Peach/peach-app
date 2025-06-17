@@ -1,6 +1,6 @@
 {
   "chat" : "chat",
-  "chat.decyptionFailed" : "nem sikerült az üzenetet visszafejteni...",
+  "chat.decryptionFailed" : "nem sikerült az üzenetet visszafejteni...",
   "chat.disabled" : "a chat letiltva",
   "chat.disputeDisclaimer.1" : "Ez a te privát kereskedési beszélgetésed.",
   "chat.disputeDisclaimer.2" : "Ha a kereskedési partnered a Peach-en kívüli kereskedést javasolja, tartsd észben, hogy már nem vagy",

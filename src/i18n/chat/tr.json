@@ -1,6 +1,6 @@
 {
   "chat" : "sohbet",
-  "chat.decyptionFailed" : "mesaj şifresi çözülemedi...",
+  "chat.decryptionFailed" : "mesaj şifresi çözülemedi...",
   "chat.disabled" : "sohbet devre dışı bırakıldı",
   "chat.disputeDisclaimer.1" : "Bu sizin alışverişe özel sohbetinizdir.",
   "chat.disputeDisclaimer.2" : "Karşı taraf, Peach dışında bir alışveriş önerirse, Peach'in",

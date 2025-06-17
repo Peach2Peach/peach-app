@@ -65,7 +65,7 @@
   "contract.payment.received": "pagamento ricevuto",
   "contract.payment.sent": "pagamento inviato",
   "contract.payment.to": "a",
-  "contract.paymentData.decyptionFailed": "i dettagli del pagamento non possono essere decifrati, chiedi i dettagli in chat se necessario",
+  "contract.paymentData.decryptionFailed": "i dettagli del pagamento non possono essere decifrati, chiedi i dettagli in chat se necessario",
   "contract.paymentDetails": "Dettagli pagamento",
   "contract.paymentMade.description": "Se l'hai ricevuto, conferma il pagamento nella scheda degli scambi.",
   "contract.paymentMade.title": "pagamento effettuato!",

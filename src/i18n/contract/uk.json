@@ -66,7 +66,7 @@
   "contract.payment.received": "платіж отримано",
   "contract.payment.sent": "платіж відправлено",
   "contract.payment.to": "до",
-  "contract.paymentData.decyptionFailed": "не вдалося розшифрувати платіжні дані, запитуйте деталі в чаті, якщо потрібно",
+  "contract.paymentData.decryptionFailed": "не вдалося розшифрувати платіжні дані, запитуйте деталі в чаті, якщо потрібно",
   "contract.paymentDetails": "деталі оплати",
   "contract.paymentMade.description": "Якщо ви його отримали, підтвердьте платіж у вкладці торгів.",
   "contract.paymentMade.title": "сплачено!",

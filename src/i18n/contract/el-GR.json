@@ -64,7 +64,7 @@
   "contract.payment.received": "η πληρωμή λήφθηκε",
   "contract.payment.sent": "η πληρωμή απεστάλη",
   "contract.payment.to": "προς",
-  "contract.paymentData.decyptionFailed": "αδυναμία αποκρυπτογράφησης των στοιχείων πληρωμής, ζητήστε λεπτομέρειες στη συνομιλία αν είναι απαραίτητο",
+  "contract.paymentData.decryptionFailed": "αδυναμία αποκρυπτογράφησης των στοιχείων πληρωμής, ζητήστε λεπτομέρειες στη συνομιλία αν είναι απαραίτητο",
   "contract.paymentDetails": "στοιχεία πληρωμής",
   "contract.paymentMade.description": "Εάν την έχετε λάβει, επιβεβαιώστε την πληρωμή στην καρτέλα συναλλαγών.",
   "contract.paymentMade.title": "η πληρωμή ολοκληρώθηκε!",

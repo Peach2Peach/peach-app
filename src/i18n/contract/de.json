@@ -64,7 +64,7 @@
   "contract.payment.received": "Zahlung erhalten",
   "contract.payment.sent": "Zahlung gesendet",
   "contract.payment.to": "an",
-  "contract.paymentData.decyptionFailed": "Zahlungsinformationen konnten nicht entschlüsselt werden. Bitte frag im Chat nach weiteren Details, falls erforderlich.",
+  "contract.paymentData.decryptionFailed": "Zahlungsinformationen konnten nicht entschlüsselt werden. Bitte frag im Chat nach weiteren Details, falls erforderlich.",
   "contract.paymentDetails": "Zahlungsinformationen",
   "contract.paymentMade.description": "Wenn du die Zahlung erhalten hast, bestätige sie im Bereich 'Trades'.",
   "contract.paymentMade.title": "Zahlung getätigt!",

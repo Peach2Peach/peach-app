@@ -64,7 +64,7 @@
   "contract.payment.received": "ödeme alındı",
   "contract.payment.sent": "ödeme gönderildi",
   "contract.payment.to": "alıcı:",
-  "contract.paymentData.decyptionFailed": "ödeme verileri çözülemedi, gerekiyorsa sohbette ayrıntıları sorun",
+  "contract.paymentData.decryptionFailed": "ödeme verileri çözülemedi, gerekiyorsa sohbette ayrıntıları sorun",
   "contract.paymentDetails": "ödeme ayrıntıları",
   "contract.paymentMade.description": "Eğer ödeme aldıysan, ödemeyi alışverişler sekmesinde onayla.",
   "contract.paymentMade.title": "ödeme yapıldı!",

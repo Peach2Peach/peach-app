@@ -1,6 +1,6 @@
 {
   "chat" : "chat",
-  "chat.decyptionFailed" : "não foi possível desencriptar a mensagem...",
+  "chat.decryptionFailed" : "não foi possível desencriptar a mensagem...",
   "chat.disabled" : "o chat foi desativado",
   "chat.disputeDisclaimer.1" : "Este é o chat privado da sua negociação.",
   "chat.disputeDisclaimer.2" : "Se a contraparte sugerir negociar fora da Peach, tenha em mente que",

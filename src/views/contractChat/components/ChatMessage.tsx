@@ -152,7 +152,7 @@ export const ChatMessage = ({
         )}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
           <PeachText style={tw`shrink-0 text-black-100`} selectable>
-            {message.message || i18n("chat.decyptionFailed")}
+            {message.message || i18n("chat.decryptionFailed")}
           </PeachText>
           <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
             <PeachText style={tw`subtitle-2 leading-xs text-black-50`}>

@@ -73,7 +73,7 @@
   "contract.payment.received": "payment received",
   "contract.payment.sent": "payment sent",
   "contract.payment.to": "to",
-  "contract.paymentData.decyptionFailed": "could not decrypt payment data, ask for details in the chat if needed",
+  "contract.paymentData.decryptionFailed": "could not decrypt payment data, ask for details in the chat if needed",
   "contract.paymentDetails": "payment details",
   "contract.paymentMade.description": "If you have received it,  confirm the payment in the trades tab.",
   "contract.paymentMade.title": "payment made!",

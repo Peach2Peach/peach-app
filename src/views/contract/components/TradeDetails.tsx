@@ -2,9 +2,8 @@ import { Fragment } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Contract } from "../../../../peach-api/src/@types/contract";
-import { Icon } from "../../../components/Icon";
+import { ErrorBox } from "../../../components/ErrorBox";
 import { Toggle } from "../../../components/inputs/Toggle";
-import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../../hooks/wallet/useIsMyAddress";
@@ -62,20 +61,7 @@ export const TradeDetails = () => {
 };
 
 function DecryptionErrorBox() {
-  return (
-    <View
-      style={tw`flex-row items-center gap-3 px-3 py-2 rounded-xl bg-error-light`}
-    >
-      <Icon
-        id="alertTriangle"
-        size={24}
-        color={tw.color("primary-background-light")}
-      />
-      <PeachText style={tw`shrink subtitle-2 text-primary-background-light`}>
-        {i18n("contract.paymentData.decyptionFailed")}
-      </PeachText>
-    </View>
-  );
+  return <ErrorBox message={i18n("contract.paymentData.decryptionFailed")} />;
 }
 
 function ChangePayoutWallet() {
