@@ -1,14 +1,15 @@
+import { Currency } from "../../../peach-api/src/@types/global";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { defaultLimits } from "../../utils/account/account";
 import { useMarketPrices } from "../query/useMarketPrices";
 import { useCHFTradingLimits } from "./useCHFTradingLimits";
 
-export const useTradingLimits = () => {
+export const useTradingLimits = (currency?: Currency) => {
   const { data: limits } = useCHFTradingLimits();
   const { data: marketPrices } = useMarketPrices();
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
 
-  const displayPrice = marketPrices?.[displayCurrency];
+  const displayPrice = marketPrices?.[currency || displayCurrency];
   const exchangeRate =
     displayPrice && marketPrices.CHF ? displayPrice / marketPrices.CHF : 1;
 
