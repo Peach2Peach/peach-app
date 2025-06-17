@@ -193,7 +193,15 @@ async function generateMatchOfferData({
     result: {
       offerId: offer.id,
       matchingOfferId: match.offerId,
-      price: getMatchPrice(match, paymentMethod, currency),
+      price: getMatchPrice(
+        {
+          matched: match.matched,
+          matchedPrice: match.matchedPrice,
+          prices: match.prices,
+        },
+        paymentMethod,
+        currency,
+      ),
       premium: match.premium,
       currency,
       paymentMethod,
