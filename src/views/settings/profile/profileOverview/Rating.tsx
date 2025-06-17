@@ -9,7 +9,7 @@ import { interpolate } from "../../../../utils/math/interpolate";
 
 type RatingProps = {
   rating: number;
-  isNewUser?: boolean;
+  shouldHideRating: boolean;
   peachSize?: number;
   textStyle?: StyleProp<TextStyle>;
 };
@@ -24,13 +24,13 @@ export const SERVER_RATING_RANGE = [-1, 1] satisfies [number, number];
 
 export const Rating = ({
   rating,
-  isNewUser,
+  shouldHideRating,
   peachSize = DEFAULT_PEACH_SIZE,
   textStyle,
 }: RatingProps) => {
   const { isDarkMode } = useThemeStore();
 
-  return isNewUser ? (
+  return shouldHideRating ? (
     <PeachText
       style={[
         tw.style(

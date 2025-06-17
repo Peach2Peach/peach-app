@@ -18,7 +18,7 @@ export const ProfileInfo = ({
   rating,
   medals,
 }: Props) => {
-  const isNewUser =
+  const shouldHideRating =
     openedTrades < NEW_USER_TRADE_THRESHOLD &&
     canceledTrades === 0 &&
     disputes.lost === 0;
@@ -28,7 +28,7 @@ export const ProfileInfo = ({
         <UserBubble userId={id} hideIcons />
         <Rating
           rating={rating}
-          isNewUser={isNewUser}
+          shouldHideRating={shouldHideRating}
           peachSize={20}
           textStyle={tw`-my-10 leading-loose h5`}
         />
