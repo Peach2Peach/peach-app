@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { tradeRequestKeys } from "../../hooks/query/offerKeys";
+import { tradeRequestKeys } from "../../hooks/query/tradeRequestKeys";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 
 export const useDecryptedTradeRequestData = (
