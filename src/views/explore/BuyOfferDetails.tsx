@@ -109,9 +109,7 @@ function BuyOfferDetailsComponent({
   } = useIsAllowedToTradeRequestChat(offerId);
 
   const { data: isAllowedToMatchChatData, isError: isAllowedToMatchChatError } =
-    requestingOfferId === undefined
-      ? { data: undefined, isError: true }
-      : useIsAllowedToMatchChat(offerId, requestingOfferId);
+    useIsAllowedToMatchChat(offerId, requestingOfferId || "none");
 
   const [hadTradeRequest, setHadTradeRequest] = useState(false);
 
