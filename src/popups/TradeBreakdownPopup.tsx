@@ -46,6 +46,7 @@ function TradeBreakdown({
   releaseTransaction,
   releaseAddress,
   amount,
+  batchId,
 }: Contract) {
   const { totalAmount, peachFee, networkFee, amountReceived } =
     getTradeBreakdown({
@@ -54,31 +55,56 @@ function TradeBreakdown({
       inputAmount: amount,
     });
 
-  const data = [
-    [
-      { text: i18n("tradeComplete.popup.tradeBreakdown.sellerAmount"), amount },
-      {
-        text: i18n("tradeComplete.popup.tradeBreakdown.peachFees"),
-        amount: peachFee,
-      },
-    ],
-    [
-      {
-        text: i18n("tradeComplete.popup.tradeBreakdown.tradeAmount"),
-        amount: totalAmount - peachFee,
-      },
-      {
-        text: i18n("tradeComplete.popup.tradeBreakdown.networkFees"),
-        amount: networkFee,
-      },
-    ],
-    [
-      {
-        text: i18n("tradeComplete.popup.tradeBreakdown.youGet"),
-        amount: amountReceived,
-      },
-    ],
-  ];
+  const data =
+    batchId !== undefined
+      ? [
+          [
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.sellerAmount"),
+              amount,
+            },
+          ],
+          [
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.peachBatchFees"),
+              amount: peachFee + networkFee,
+            },
+          ],
+          [
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.youGet"),
+              amount: amountReceived,
+            },
+          ],
+        ]
+      : [
+          [
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.sellerAmount"),
+              amount,
+            },
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.peachFees"),
+              amount: peachFee,
+            },
+          ],
+          [
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.tradeAmount"),
+              amount: totalAmount - peachFee,
+            },
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.networkFees"),
+              amount: networkFee,
+            },
+          ],
+          [
+            {
+              text: i18n("tradeComplete.popup.tradeBreakdown.youGet"),
+              amount: amountReceived,
+            },
+          ],
+        ];
 
   return (
     <View style={tw`gap-4`}>

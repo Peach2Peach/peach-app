@@ -220,6 +220,7 @@
   "tradeComplete.popup.tradeBreakdown.sellerAmount" : "seller amount",
   "tradeComplete.popup.tradeBreakdown.title" : "trade breakdown",
   "tradeComplete.popup.tradeBreakdown.tradeAmount" : "trade amount",
+   "tradeComplete.popup.tradeBreakdown.peachBatchFees" : "Peach batch fees",
   "tradeComplete.popup.tradeBreakdown.youGet" : "you get",
   "tradeComplete.title.buyer.default" : "trade complete, stacked some sats!",
   "tradeComplete.title.seller.default" : "trade complete,\ncash in the pocket!",
