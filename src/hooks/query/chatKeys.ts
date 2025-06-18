@@ -14,5 +14,5 @@ export const chatKeys = {
       "symmetricKeyEncrypted",
     ] as const,
   symmetricKey: (symmetricKeyEncrypted = "none") =>
-    [chatKeys.all, "symmetricKey", symmetricKeyEncrypted] as const,
+    [...chatKeys.all, "symmetricKey", symmetricKeyEncrypted] as const,
 };
