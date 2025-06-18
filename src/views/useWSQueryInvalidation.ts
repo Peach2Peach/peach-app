@@ -5,7 +5,7 @@ import { info } from "../utils/log/info";
 import { useWebsocketContext } from "../utils/peachAPI/websocket";
 const queryUpdateEventSchema = z.object({
   event: z.literal("dataStale"),
-  data: z.array(z.any()),
+  data: z.array(z.string()),
 });
 
 export function useWSQueryInvalidation() {
