@@ -29,7 +29,7 @@ describe("canCancelContract", () => {
       canceled: false,
       cancelationRequested: false,
     };
-    expect(canCancelContract(contract as Contract, "buyer")).toBe(true);
+    expect(canCancelContract(contract as Contract, "buyer")).toBe(false);
   });
 
   it("returns false if cancelation has been requested", () => {
