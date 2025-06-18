@@ -1,10 +1,10 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
 import { MSINASECOND } from "../../constants";
-import { tradeRequestKeys } from "../../hooks/query/tradeRequestKeys";
+import { chatKeys } from "../../hooks/query/chatKeys";
 import { PAGE_SIZE } from "../../hooks/query/useChatMessages";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useTradeRequestChatMessages } from "../../hooks/query/useTradeRequestChatMessages";
@@ -15,6 +15,7 @@ import { deleteMessage } from "../../utils/chat/deleteMessage";
 import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
@@ -26,9 +27,10 @@ import { useSymmetricKey } from "./useSymmetricKey";
 
 export const TradeRequestChat = () => {
   const { chatRoomId } = useRoute<"tradeRequestChat">().params;
-  const [offerId] = chatRoomId.split("-");
+  const [offerId, requestingId] = chatRoomId.split("-");
 
   const { data: offer } = usePublicOffer(offerId);
+  const { data: offerFromTradeRequest } = usePublicOffer(requestingId);
 
   return !offer ? (
     <LoadingScreen />
@@ -36,6 +38,7 @@ export const TradeRequestChat = () => {
     <TradeRequestChatScreen
       offerType={offer.type === "ask" ? "sellOffer" : "buyOffer"}
       offerUserId={offer.user.id}
+      requestingUserId={offerFromTradeRequest?.user.id || requestingId}
     />
   );
 };
@@ -43,15 +46,20 @@ export const TradeRequestChat = () => {
 type Props = {
   offerType: "buyOffer" | "sellOffer";
   offerUserId: string;
+  requestingUserId: string;
 };
 
-function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
+function TradeRequestChatScreen({
+  offerType,
+  offerUserId,
+  requestingUserId,
+}: Props) {
   const { chatRoomId } = useRoute<"tradeRequestChat">().params;
-  const [offerId, requestingId] = chatRoomId.split("-");
+  const [offerId] = chatRoomId.split("-");
 
   const queryClient = useQueryClient();
 
-  const { user } = useSelfUser();
+  const { user: selfUser } = useSelfUser();
 
   const { data: symmetricKey } = useSymmetricKey(offerType, chatRoomId);
 
@@ -65,7 +73,11 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
     });
 
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const tradingPartner = user?.id === requestingId ? offerUserId : requestingId;
+  const tradingPartner = selfUser
+    ? selfUser.id === offerUserId
+      ? requestingUserId
+      : offerUserId
+    : undefined;
 
   const [chat, setChat] = useState(getChat(chatRoomId));
   const [newMessage, setNewMessage] = useState(chat.draftMessage);
@@ -79,7 +91,7 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
 
   const sendMessage = useCallback(
     async (message: string) => {
-      if (!tradingPartner || !symmetricKey || !message) return;
+      if (!symmetricKey || !message) return;
 
       const encryptedResult = await signAndEncryptSymmetric(
         message,
@@ -130,7 +142,6 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
       send,
       setAndSaveChat,
       symmetricKey,
-      tradingPartner,
     ],
   );
   const resendMessage = async (message: Message) => {
@@ -140,7 +151,7 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
   };
 
   const submit = async () => {
-    if (!tradingPartner || !symmetricKey || !newMessage) return;
+    if (!symmetricKey || !newMessage) return;
     setDisableSend(true);
     const enableDelay = 300;
     setTimeout(() => setDisableSend(false), enableDelay);
@@ -205,7 +216,7 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
         messages: [decryptedMessage],
       });
       queryClient.setQueryData(
-        tradeRequestKeys.chat(offerId, requestingId),
+        chatKeys.tradeRequest(offerType, chatRoomId),
         (oldQueryData: InfiniteData<Message[]> | undefined) => {
           if (!oldQueryData) {
             return { pageParams: [], pages: [[decryptedMessage]] };
@@ -241,10 +252,10 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
     connected,
     off,
     offerId,
+    offerType,
     on,
     publicKey,
     queryClient,
-    requestingId,
     send,
     setAndSaveChat,
     symmetricKey,
@@ -255,30 +266,37 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
   }, [chatRoomId, messages, setAndSaveChat]);
 
   return (
-    <Screen style={tw`p-0`} header={`Trade Request ${offerId} Chat`}>
+    <Screen
+      style={tw`p-0`}
+      header={`Trade Request ${offerIdToHex(offerId)} Chat`}
+    >
       <View style={[tw`flex-1`, !symmetricKey && tw`opacity-50`]}>
-        <ChatBox
-          tradingPartner={tradingPartner}
-          online={connected}
-          chat={chat}
-          setAndSaveChat={setAndSaveChat}
-          page={page}
-          fetchNextPage={fetchNextPage}
-          isLoading={isFetching}
-          resendMessage={resendMessage}
+        {!tradingPartner ? (
+          <View style={tw`items-center justify-center flex-1`}>
+            <ActivityIndicator size="large" color={tw.color("info-main")} />
+          </View>
+        ) : (
+          <ChatBox
+            tradingPartner={tradingPartner}
+            online={connected}
+            chat={chat}
+            setAndSaveChat={setAndSaveChat}
+            page={page}
+            fetchNextPage={fetchNextPage}
+            isLoading={isFetching}
+            resendMessage={resendMessage}
+          />
+        )}
+      </View>
+      <View style={tw`w-full`}>
+        <MessageInput
+          onChangeText={setNewMessage}
+          onSubmit={submit}
+          disabled={!symmetricKey}
+          disableSubmit={disableSend}
+          value={newMessage}
         />
       </View>
-      {
-        <View style={tw`w-full`}>
-          <MessageInput
-            onChangeText={setNewMessage}
-            onSubmit={submit}
-            disabled={!symmetricKey}
-            disableSubmit={disableSend}
-            value={newMessage}
-          />
-        </View>
-      }
     </Screen>
   );
 }
