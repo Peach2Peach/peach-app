@@ -65,6 +65,7 @@ export function TradeRequestForBuyOffer() {
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
         <TradeRequestChatButton
+          offerType="buyOffer"
           style={tw`flex-1 py-3`}
           chatRoomId={`${offerId}-${requestingOfferId || userId}`}
         />

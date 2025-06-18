@@ -46,7 +46,6 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { peachWallet } from "../../utils/wallet/setWallet";
-import { useSymmetricKeyEncrypted } from "../tradeRequestChat/useSymmetricKeyEncrypted";
 import { AnimatedButtons } from "./AnimatedButtons";
 import { BuyerPriceInfo } from "./BuyerPriceInfo";
 import { FundingInfo } from "./FundingInfo";
@@ -173,12 +172,6 @@ function SellOfferSummaryComponent({
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-
-  const publicKey = useAccountStore((state) => state.account.publicKey);
-  const { data: symmetricKeyEncrypted } = useSymmetricKeyEncrypted(
-    "sellOffer",
-    `${offerId}-${requestingOfferId || publicKey}`,
-  );
 
   const queryClient = useQueryClient();
   const { mutate: undoTradeRequest } = useMutation({
@@ -345,8 +338,9 @@ function SellOfferSummaryComponent({
         </View>
       </PeachScrollView>
 
-      {!!symmetricKeyEncrypted && selfUser && (
+      {selfUser && (
         <TradeRequestChatButton
+          offerType="sellOffer"
           chatRoomId={`${offerId}-${requestingOfferId || selfUser.id}`}
           style={tw`self-center`}
         />

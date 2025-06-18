@@ -33,7 +33,6 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import { useAccountStore } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { getRandom } from "../../utils/crypto/getRandom";
 import i18n from "../../utils/i18n";
@@ -50,7 +49,6 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { usePaymentMethodInfo } from "../addPaymentMethod/usePaymentMethodInfo";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
-import { useSymmetricKeyEncrypted } from "../tradeRequestChat/useSymmetricKeyEncrypted";
 import { AnimatedButtons } from "./AnimatedButtons";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { PaidVia } from "./PaidVia";
@@ -165,12 +163,6 @@ function BuyOfferSummaryComponent({
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-
-  const publicKey = useAccountStore((state) => state.account.publicKey);
-  const { data: symmetricKeyEncrypted } = useSymmetricKeyEncrypted(
-    "buyOffer",
-    `${offerId}-${requestingOfferId || publicKey}`,
-  );
 
   const queryClient = useQueryClient();
   const { mutate: undoTradeRequest } = useMutation({
@@ -355,8 +347,9 @@ function BuyOfferSummaryComponent({
         </View>
       </PeachScrollView>
 
-      {!!symmetricKeyEncrypted && selfUser && (
+      {selfUser && (
         <TradeRequestChatButton
+          offerType="buyOffer"
           chatRoomId={`${offerId}-${requestingOfferId || selfUser.id}`}
           style={tw`self-center`}
         />

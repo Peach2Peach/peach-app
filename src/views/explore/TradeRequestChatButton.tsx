@@ -3,14 +3,25 @@ import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { useSymmetricKeyEncrypted } from "../tradeRequestChat/useSymmetricKeyEncrypted";
 
 type Props = {
   chatRoomId: string;
+  offerType: "buyOffer" | "sellOffer";
   style?: ViewStyle;
 };
 
-export function TradeRequestChatButton({ chatRoomId, style }: Props) {
+export function TradeRequestChatButton({
+  chatRoomId,
+  offerType,
+  style,
+}: Props) {
   const navigation = useStackNavigation();
+  const { data: symmmetricKeyEncrypted } = useSymmetricKeyEncrypted(
+    offerType,
+    chatRoomId,
+  );
+  if (!symmmetricKeyEncrypted) return null;
 
   const onPressCallback = () =>
     navigation.navigate("tradeRequestChat", { chatRoomId });

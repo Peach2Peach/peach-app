@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
 import { chatKeys } from "../../hooks/query/chatKeys";
 import { peachAPI } from "../../utils/peachAPI";
 
@@ -21,5 +22,6 @@ export function useSymmetricKeyEncrypted(
 
       return result;
     },
+    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
   });
 }

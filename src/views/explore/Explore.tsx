@@ -9,7 +9,7 @@ import {
   CENT,
   MSINASECOND,
   SATSINBTC,
-  TIME_UNTIL_REFRESH_SECONDS,
+  TIME_UNTIL_REFRESH_LONGER_SECONDS,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
 import { tradeRequestKeys } from "../../hooks/query/tradeRequestKeys";
@@ -128,7 +128,7 @@ function AcceptTrade({ offerId }: { offerId: string }) {
 
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
+    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * MSINASECOND,
   });
 
   const tradeRequests = data || [];
