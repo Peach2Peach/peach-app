@@ -66,7 +66,7 @@
   "contract.payment.received": "malipo yamepokelewa",
   "contract.payment.sent": "malipo yametumwa",
   "contract.payment.to": "kwa",
-  "contract.paymentData.decyptionFailed": "haiwezekani kufuta data ya malipo, omba maelezo zaidi kwenye gumzo ikiwa ni lazima",
+  "contract.paymentData.decryptionFailed": "haiwezekani kufuta data ya malipo, omba maelezo zaidi kwenye gumzo ikiwa ni lazima",
   "contract.paymentDetails": "maelezo ya malipo",
   "contract.paymentMade.description": "Ikiwa umeyapokea, thibitisha malipo kwenye kichupo cha biashara.",
   "contract.paymentMade.title": "malipo yamefanywa!",

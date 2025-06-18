@@ -99,6 +99,6 @@ export const meetupScreenRoute: RouteMock<"meetupScreen"> = {
   name: "meetupScreen",
   params: {
     eventId: "pt.porto.portugal-norte-bitcoin",
-    origin: "matchDetails",
+    origin: "sellOffer",
   },
 };

@@ -12,7 +12,12 @@ const waitingBuyStatus = [
   "waitingForFunding",
 ];
 const waitingSellStatus = ["paymentRequired", "fundingExpired"];
-export const isWaiting = (type: "ask" | "bid", tradeStatus: TradeStatus) =>
-  waitingStatus.includes(tradeStatus) ||
-  (waitingSellStatus.includes(tradeStatus) && type === "ask") ||
-  (waitingBuyStatus.includes(tradeStatus) && type === "bid");
+export const isWaiting = (type: "ask" | "bid", tradeStatus: TradeStatus) => {
+  if (waitingStatus.includes(tradeStatus)) {
+    return true;
+  }
+  if (type === "ask") {
+    return waitingSellStatus.includes(tradeStatus);
+  }
+  return waitingBuyStatus.includes(tradeStatus);
+};

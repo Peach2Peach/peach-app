@@ -66,7 +66,7 @@
   "contract.payment.received": "Fizetés megérkezett",
   "contract.payment.sent": "Fizetés elküldve",
   "contract.payment.to": "címére",
-  "contract.paymentData.decyptionFailed": "A fizetési adatokat nem sikerült visszafejteni, ha szükséges a chat-ben kérd el a részleteket",
+  "contract.paymentData.decryptionFailed": "A fizetési adatokat nem sikerült visszafejteni, ha szükséges a chat-ben kérd el a részleteket",
   "contract.paymentDetails": "fizetési részletek",
   "contract.paymentMade.description": "Ha megkaptad, a kereskedések fülön erősítsd meg a fizetést.",
   "contract.paymentMade.title": "Fizetés megtörtént!",

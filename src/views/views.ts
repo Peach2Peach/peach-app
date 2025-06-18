@@ -12,10 +12,9 @@ import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
-import { BuyOfferDetails } from "./explore/BuyOfferDetails";
+import { BuyOffer } from "./explore/BuyOffer";
 import { Explore } from "./explore/Explore";
-import { MatchDetails } from "./explore/MatchDetails";
-import { SellOfferDetails } from "./explore/SellOfferDetails";
+import { SellOffer } from "./explore/SellOffer";
 import { TradeRequestForBuyOffer } from "./explore/TradeRequestForBuyOffer";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
 import { Buy } from "./home/Buy";
@@ -49,7 +48,6 @@ import { PeachFees } from "./settings/aboutPeach/PeachFees";
 import { Socials } from "./settings/aboutPeach/Socials";
 import { NetworkFees } from "./settings/networkFees/NetworkFees";
 import { MyProfile } from "./settings/profile/MyProfile";
-import { MatchChat } from "./tradeRequestChat/MatchChat";
 import { TradeRequestChat } from "./tradeRequestChat/TradeRequestChat";
 import { UserBitcoinLevel } from "./userBitcoinLevel/UserBitcoinLevel";
 import { UserSource } from "./userSource/UserSource";
@@ -116,13 +114,12 @@ const wallet: ViewType[] = [
 ];
 const buyFlow: ViewType[] = [
   { name: "buy", component: Buy },
-  { name: "sellOfferDetails", component: SellOfferDetails },
+  { name: "sellOffer", component: SellOffer },
   { name: "editExpressBuyOfferFilters", component: EditExpressBuyOfferFilters },
-  { name: "buyOfferDetails", component: BuyOfferDetails },
+  { name: "buyOffer", component: BuyOffer },
   { name: "buyOfferPreferences", component: CreateBuyOffer },
   { name: "explore", component: Explore },
   { name: "editBuyPreferences", component: EditBuyPreferences },
-  { name: "matchDetails", component: MatchDetails },
   { name: "tradeRequestForBuyOffer", component: TradeRequestForBuyOffer },
 ];
 
@@ -143,7 +140,6 @@ const trade: ViewType[] = [
   { name: "contract", component: Contract },
   { name: "contractChat", component: ContractChat },
   { name: "tradeRequestChat", component: TradeRequestChat },
-  { name: "matchChat", component: MatchChat },
   { name: "patchPayoutAddress", component: PatchPayoutAddress },
   { name: "signMessage", component: SignMessage },
 ];

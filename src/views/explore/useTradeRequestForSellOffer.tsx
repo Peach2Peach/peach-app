@@ -1,19 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { MSINASECOND, TIME_UNTIL_REFRESH_SECONDS } from "../../constants";
-import { matchChatKeys } from "../../hooks/query/offerKeys";
+import { tradeRequestKeys } from "../../hooks/query/tradeRequestKeys";
 import { peachAPI } from "../../utils/peachAPI";
 
-export function useIsAllowedToMatchChat(
+export function useTradeRequestForSellOffer(
   offerId: string,
-  matchingOfferId: string,
+  requestingOfferId?: string,
 ) {
   return useQuery({
-    queryKey: matchChatKeys.isAllowedToChat(offerId, matchingOfferId),
+    queryKey: tradeRequestKeys.tradeRequestForSellOffer(
+      offerId,
+      requestingOfferId,
+    ),
     queryFn: async () => {
       const { result, error } =
-        await peachAPI.private.offer.isAllowedToMatchChat({
+        await peachAPI.private.offer.getTradeRequestForSellOffer({
           offerId,
-          matchingOfferId,
+          requestingOfferId,
         });
 
       if (error) throw new Error(error.error);

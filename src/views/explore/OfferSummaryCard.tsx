@@ -29,7 +29,10 @@ export function SellOfferSummaryIdCard({
   offerId: string;
   requestingOfferId?: string;
 }) {
-  const { data: offerSummary } = useSellOfferSummary(offerId);
+  const { data: offerSummary } = useSellOfferSummary(
+    offerId,
+    requestingOfferId,
+  );
   if (!offerSummary) return <Loading />;
 
   return (
@@ -67,13 +70,16 @@ function SellOfferSummaryCard({
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount);
   const navigation = useStackNavigation();
   const onPress = () => {
-    navigation.navigate("sellOfferDetails", {
+    navigation.navigate("sellOffer", {
       offerId,
       requestingOfferId,
     });
   };
 
-  const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
+  const shouldHideRating =
+    user.openedTrades < NEW_USER_TRADE_THRESHOLD &&
+    user.canceledTrades === 0 &&
+    user.disputes.lost === 0;
   const { isDarkMode } = useThemeStore();
 
   return (
@@ -104,18 +110,11 @@ function SellOfferSummaryCard({
             { paddingLeft: horizontalBadgePadding },
           ]}
         >
-          <Rating rating={user.rating} isNewUser={isNewUser} />
+          <Rating rating={user.rating} shouldHideRating={shouldHideRating} />
           <BTCAmount amount={amount} size="small" />
         </View>
-        <View
-          style={[
-            tw`flex-row items-center justify-between`,
-            isNewUser && tw`justify-end`,
-          ]}
-        >
-          {!isNewUser && (
-            <Badges id={user.id} unlockedBadges={user.medals} disabled />
-          )}
+        <View style={tw`flex-row items-center justify-between`}>
+          <Badges id={user.id} unlockedBadges={user.medals} />
           <PeachText style={tw`text-center`}>
             <PriceFormat
               style={tw`tooltip`}
@@ -145,7 +144,7 @@ export function BuyOfferSummaryIdCard({
   offerId: string;
   requestingOfferId?: string;
 }) {
-  const { data: offerSummary } = useBuyOfferSummary(offerId);
+  const { data: offerSummary } = useBuyOfferSummary(offerId, requestingOfferId);
   if (!offerSummary) return <Loading />;
 
   return (
@@ -187,7 +186,7 @@ function BuyOfferSummaryCard({
   const navigation = useStackNavigation();
   const price = requestedPrice ?? fiatPrice * (1 + premium / CENT);
   const onPress = () =>
-    navigation.navigate("buyOfferDetails", {
+    navigation.navigate("buyOffer", {
       offerId,
       premium,
       requestingOfferId,
@@ -212,7 +211,14 @@ export function OfferSummaryCard({
   tradeRequested,
   onPress,
 }: {
-  user: { id: string; rating: number; medals: Medal[]; openedTrades: number };
+  user: {
+    id: string;
+    rating: number;
+    medals: Medal[];
+    openedTrades: number;
+    canceledTrades: number;
+    disputes: { lost: number };
+  };
   amount: number;
   price: number;
   currency: Currency;
@@ -221,7 +227,10 @@ export function OfferSummaryCard({
   tradeRequested: boolean;
   onPress: () => void;
 }) {
-  const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
+  const shouldHideRating =
+    user.openedTrades < NEW_USER_TRADE_THRESHOLD &&
+    user.canceledTrades === 0 &&
+    user.disputes.lost === 0;
   const { isDarkMode } = useThemeStore();
   return (
     <TouchableOpacity
@@ -251,18 +260,11 @@ export function OfferSummaryCard({
             { paddingLeft: horizontalBadgePadding },
           ]}
         >
-          <Rating rating={user.rating} isNewUser={isNewUser} />
+          <Rating rating={user.rating} shouldHideRating={shouldHideRating} />
           <BTCAmount amount={amount} size="small" />
         </View>
-        <View
-          style={[
-            tw`flex-row items-center justify-between`,
-            isNewUser && tw`justify-end`,
-          ]}
-        >
-          {!isNewUser && (
-            <Badges id={user.id} unlockedBadges={user.medals} disabled />
-          )}
+        <View style={tw`flex-row items-center justify-between`}>
+          <Badges id={user.id} unlockedBadges={user.medals} />
           <PeachText style={tw`text-center`}>
             <PriceFormat
               style={tw`tooltip`}

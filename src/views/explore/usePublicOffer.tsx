@@ -1,19 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { offerKeys } from "../../hooks/query/offerKeys";
-import { queryClient } from "../../queryClient";
 import { peachAPI } from "../../utils/peachAPI";
 
-export function useOffer(offerId: string) {
+export function usePublicOffer(offerId: string) {
   return useQuery({
-    queryKey: offerKeys.offer(offerId),
+    queryKey: offerKeys.publicOffer(offerId),
     queryFn: async () => {
-      const { result, error } = await peachAPI.public.offer.getOffer({
+      const { result, error } = await peachAPI.public.offer.getPublicOffer({
         offerId,
       });
       if (error || !result) {
         throw new Error(error?.error || "Failed to fetch offer");
       }
-      queryClient.setQueryData(offerKeys.detail(offerId), result);
       return result;
     },
   });

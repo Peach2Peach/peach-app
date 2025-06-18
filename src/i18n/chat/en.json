@@ -1,6 +1,6 @@
 {
   "chat" : "chat",
-  "chat.decyptionFailed" : "could not decrypt message...",
+  "chat.decryptionFailed" : "could not decrypt message...",
   "chat.disabled" : "chat has been disabled",
   "chat.disputeDisclaimer.1" : "This is your private trade chat.",
   "chat.disputeDisclaimer.2" : "If your counterparty suggests trading outside of Peach, keep in mind that you will ",

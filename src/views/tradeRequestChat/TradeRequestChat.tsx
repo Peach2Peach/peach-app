@@ -1,11 +1,10 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
-import { GetOfferResponseBody } from "../../../peach-api/src/public/offer/getOffer";
+import { ActivityIndicator, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
 import { MSINASECOND } from "../../constants";
-import { tradeRequestKeys } from "../../hooks/query/offerKeys";
+import { chatKeys } from "../../hooks/query/chatKeys";
 import { PAGE_SIZE } from "../../hooks/query/useChatMessages";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useTradeRequestChatMessages } from "../../hooks/query/useTradeRequestChatMessages";
@@ -16,83 +15,71 @@ import { deleteMessage } from "../../utils/chat/deleteMessage";
 import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
-import { error } from "../../utils/log/error";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
-import { useOffer } from "../explore/useOffer";
+import { usePublicOffer } from "../explore/usePublicOffer";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
-import { useDecryptedTradeRequestData } from "./useDecryptedTradeRequestData";
+import { useSymmetricKey } from "./useSymmetricKey";
 
 export const TradeRequestChat = () => {
-  const { offerId, requestingUserId } = useRoute<"tradeRequestChat">().params;
+  const { chatRoomId } = useRoute<"tradeRequestChat">().params;
+  const [offerId, requestingId] = chatRoomId.split("-");
 
-  const { data: offer } = useOffer(offerId);
+  const { data: offer } = usePublicOffer(offerId);
+  const { data: offerFromTradeRequest } = usePublicOffer(requestingId);
 
-  const [symmetricKeyEncrypted, setSymmetricKeyEncrypted] = useState("");
-
-  useEffect(() => {
-    const callback = async () => {
-      const { result } =
-        await peachAPI.private.offer.isAllowedToTradeRequestChat({
-          offerId,
-          requestingUserId,
-        });
-      if (result) {
-        setSymmetricKeyEncrypted(result.symmetricKeyEncrypted);
-      }
-    };
-    void callback();
-  }, [offerId, requestingUserId]);
-
-  return !offer || !requestingUserId || !symmetricKeyEncrypted ? (
+  return !offer ? (
     <LoadingScreen />
   ) : (
     <TradeRequestChatScreen
-      offer={offer}
-      requestingUserId={requestingUserId}
-      symmetricKeyEncrypted={symmetricKeyEncrypted}
+      offerType={offer.type === "ask" ? "sellOffer" : "buyOffer"}
+      offerUserId={offer.user.id}
+      requestingUserId={offerFromTradeRequest?.user.id || requestingId}
     />
   );
 };
 
-function TradeRequestChatScreen({
-  offer,
-  requestingUserId,
-  symmetricKeyEncrypted,
-}: {
-  offer: GetOfferResponseBody;
+type Props = {
+  offerType: "buyOffer" | "sellOffer";
+  offerUserId: string;
   requestingUserId: string;
-  symmetricKeyEncrypted: string;
-}) {
+};
+
+function TradeRequestChatScreen({
+  offerType,
+  offerUserId,
+  requestingUserId,
+}: Props) {
+  const { chatRoomId } = useRoute<"tradeRequestChat">().params;
+  const [offerId] = chatRoomId.split("-");
+
   const queryClient = useQueryClient();
 
-  const { user } = useSelfUser();
+  const { user: selfUser } = useSelfUser();
 
-  const { data: decryptedData, isPending } = useDecryptedTradeRequestData(
-    offer.id,
-    requestingUserId,
-    symmetricKeyEncrypted,
-  );
+  const { data: symmetricKey } = useSymmetricKey(offerType, chatRoomId);
 
   const { connected, send, off, on } = useWebsocketContext();
+
   const { messages, isFetching, page, fetchNextPage } =
     useTradeRequestChatMessages({
-      offerId: offer.id,
-      requestingUserId,
-      symmetricKey: decryptedData?.symmetricKey,
-      isLoadingSymmetricKey: isPending,
+      chatRoomId,
+      symmetricKey,
+      offerType,
     });
 
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const tradingPartner =
-    user?.id === requestingUserId ? offer.user.id : requestingUserId;
+  const tradingPartner = selfUser
+    ? selfUser.id === offerUserId
+      ? requestingUserId
+      : offerUserId
+    : undefined;
 
-  const chatId = `${offer.id}-${requestingUserId}`;
-
-  const [chat, setChat] = useState(getChat(chatId));
+  const [chat, setChat] = useState(getChat(chatRoomId));
   const [newMessage, setNewMessage] = useState(chat.draftMessage);
   const [disableSend, setDisableSend] = useState(false);
 
@@ -104,18 +91,15 @@ function TradeRequestChatScreen({
 
   const sendMessage = useCallback(
     async (message: string) => {
-      if (!tradingPartner || !decryptedData?.symmetricKey || !message) return;
+      if (!symmetricKey || !message) return;
 
       const encryptedResult = await signAndEncryptSymmetric(
         message,
-        decryptedData.symmetricKey,
+        symmetricKey,
       );
 
       const messageObject: Message = {
-        roomId:
-          offer.type === "ask"
-            ? `trade-requests-sell-offer-${chatId}`
-            : `trade-requests-buy-offer-${chatId}`,
+        roomId: chatRoomId,
         from: publicKey,
         date: new Date(),
         readBy: [],
@@ -125,24 +109,24 @@ function TradeRequestChatScreen({
       if (connected) {
         send(
           JSON.stringify({
-            path: "/v1/offer/tradeRequest/chat",
-            offerId: offer.id,
-            requestingUserId,
+            path: `/v1/chat/tradeRequest`,
+            chatRoomId,
+            offerType,
             message: encryptedResult.encrypted,
             signature: encryptedResult.signature,
           }),
         );
       } else {
         await peachAPI.private.offer.postTradeRequestChat({
-          offerId: offer.id,
-          requestingUserId,
+          chatRoomId,
+          offerType,
           message: encryptedResult.encrypted,
           signature: encryptedResult.signature,
         });
       }
 
       setAndSaveChat(
-        chatId,
+        chatRoomId,
         {
           messages: [messageObject],
           lastSeen: new Date(),
@@ -151,49 +135,41 @@ function TradeRequestChatScreen({
       );
     },
     [
-      chatId,
-      tradingPartner,
-      decryptedData?.symmetricKey,
-      offer,
-      requestingUserId,
-      publicKey,
+      chatRoomId,
       connected,
-      setAndSaveChat,
+      offerType,
+      publicKey,
       send,
+      setAndSaveChat,
+      symmetricKey,
     ],
   );
   const resendMessage = async (message: Message) => {
     if (!connected) return;
-    deleteMessage(chatId, message);
+    deleteMessage(chatRoomId, message);
     await sendMessage(message.message);
   };
 
   const submit = async () => {
-    if (
-      !offer ||
-      !tradingPartner ||
-      !decryptedData?.symmetricKey ||
-      !newMessage
-    )
-      return;
+    if (!symmetricKey || !newMessage) return;
     setDisableSend(true);
     const enableDelay = 300;
     setTimeout(() => setDisableSend(false), enableDelay);
 
     await sendMessage(newMessage);
     setNewMessage("");
-    setAndSaveChat(chatId, {
+    setAndSaveChat(chatRoomId, {
       draftMessage: "",
     });
   };
 
   useEffect(
     () => () => {
-      setAndSaveChat(chatId, {
+      setAndSaveChat(chatRoomId, {
         draftMessage: newMessage,
       });
     },
-    [chatId, offer, requestingUserId, newMessage, setAndSaveChat],
+    [chatRoomId, newMessage, setAndSaveChat],
   );
 
   useEffect(() => {
@@ -202,7 +178,7 @@ function TradeRequestChatScreen({
       const unsentMessages = getUnsentMessages(chat.messages);
       if (unsentMessages.length === 0) return;
 
-      setAndSaveChat(chatId, {
+      setAndSaveChat(chatRoomId, {
         messages: unsentMessages.map((message) => ({
           ...message,
           failedToSend: true,
@@ -211,34 +187,24 @@ function TradeRequestChatScreen({
     }, timeoutSeconds * MSINASECOND);
 
     return () => clearTimeout(timeout);
-  }, [chatId, chat.messages, setAndSaveChat]);
+  }, [chat.messages, chatRoomId, setAndSaveChat]);
 
   useEffect(() => {
     const chatMessageHandler = async (message?: Message) => {
       if (!message) return;
-      if (!offer) return;
       if (!message.message) return;
-      if (
-        !(
-          message.roomId === `trade-requests-buy-offer-${chatId}` ||
-          message.roomId === `trade-requests-sell-offer-${chatId}`
-        )
-      )
-        return;
+      if (!(message.roomId === chatRoomId)) return;
 
       let messageBody = "";
 
-      if (!decryptedData || !decryptedData.symmetricKey) {
+      if (!symmetricKey) {
         throw Error;
       }
       try {
-        messageBody = await decryptSymmetric(
-          message.message,
-          decryptedData.symmetricKey,
-        );
+        messageBody = await decryptSymmetric(message.message, symmetricKey);
       } catch {
-        error(
-          new Error(`Could not decrypt message for Trade Request ${chatId}`),
+        throw new Error(
+          `Could not decrypt message for Trade Request ${chatRoomId}`,
         );
       }
       const decryptedMessage = {
@@ -246,11 +212,11 @@ function TradeRequestChatScreen({
         date: new Date(message.date),
         message: messageBody,
       };
-      setAndSaveChat(chatId, {
+      setAndSaveChat(chatRoomId, {
         messages: [decryptedMessage],
       });
       queryClient.setQueryData(
-        tradeRequestKeys.chat(offer.id, requestingUserId),
+        chatKeys.tradeRequest(offerType, chatRoomId),
         (oldQueryData: InfiniteData<Message[]> | undefined) => {
           if (!oldQueryData) {
             return { pageParams: [], pages: [[decryptedMessage]] };
@@ -265,9 +231,9 @@ function TradeRequestChatScreen({
       if (!message.readBy.includes(publicKey)) {
         send(
           JSON.stringify({
-            path: "/v1/offer/tradeRequest/chat/received",
-            offerId: offer.id,
-            requestingUserId,
+            path: "/v1/chat/tradeRequest/received",
+            chatRoomId,
+            offerType,
             start: message.date,
             end: message.date,
           }),
@@ -282,51 +248,55 @@ function TradeRequestChatScreen({
     on("message", chatMessageHandler);
     return unsubscribe;
   }, [
-    chatId,
-    decryptedData,
-    offer,
-    requestingUserId,
+    chatRoomId,
     connected,
-    on,
-    send,
     off,
-    decryptedData?.symmetricKey,
+    offerId,
+    offerType,
+    on,
     publicKey,
     queryClient,
+    send,
     setAndSaveChat,
+    symmetricKey,
   ]);
 
   useEffect(() => {
-    if (messages) setAndSaveChat(chatId, { messages });
-  }, [chatId, offer, messages, setAndSaveChat]);
+    if (messages) setAndSaveChat(chatRoomId, { messages });
+  }, [chatRoomId, messages, setAndSaveChat]);
 
   return (
-    <Screen style={tw`p-0`} header={`Trade Request ${offer.id} Chat`}>
-      <View
-        style={[tw`flex-1`, !decryptedData?.symmetricKey && tw`opacity-50`]}
-      >
-        <ChatBox
-          tradingPartner={tradingPartner || ""}
-          online={connected}
-          chat={chat}
-          setAndSaveChat={setAndSaveChat}
-          page={page}
-          fetchNextPage={fetchNextPage}
-          isLoading={isFetching}
-          resendMessage={resendMessage}
+    <Screen
+      style={tw`p-0`}
+      header={`Trade Request ${offerIdToHex(offerId)} Chat`}
+    >
+      <View style={[tw`flex-1`, !symmetricKey && tw`opacity-50`]}>
+        {!tradingPartner ? (
+          <View style={tw`items-center justify-center flex-1`}>
+            <ActivityIndicator size="large" color={tw.color("info-main")} />
+          </View>
+        ) : (
+          <ChatBox
+            tradingPartner={tradingPartner}
+            online={connected}
+            chat={chat}
+            setAndSaveChat={setAndSaveChat}
+            page={page}
+            fetchNextPage={fetchNextPage}
+            isLoading={isFetching}
+            resendMessage={resendMessage}
+          />
+        )}
+      </View>
+      <View style={tw`w-full`}>
+        <MessageInput
+          onChangeText={setNewMessage}
+          onSubmit={submit}
+          disabled={!symmetricKey}
+          disableSubmit={disableSend}
+          value={newMessage}
         />
       </View>
-      {
-        <View style={tw`w-full`}>
-          <MessageInput
-            onChangeText={setNewMessage}
-            onSubmit={submit}
-            disabled={!decryptedData?.symmetricKey}
-            disableSubmit={disableSend}
-            value={newMessage}
-          />
-        </View>
-      }
     </Screen>
   );
 }

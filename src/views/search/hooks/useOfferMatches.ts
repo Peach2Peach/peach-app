@@ -10,9 +10,7 @@ import {
   GetMatchesErrorResponseBody,
   GetMatchesResponseBody,
 } from "../../../../peach-api/src/@types/api/offerAPI";
-import { tradeRequestKeys } from "../../../hooks/query/offerKeys";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
-import { queryClient } from "../../../queryClient";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import {
   BuySorter,
@@ -69,15 +67,6 @@ export const useOfferMatches = (
     () => (queryData.data?.pages || []).flatMap((page) => page.matches),
     [queryData.data?.pages],
   );
-
-  // saving this for the TradeRequest Chat
-  allMatches.map((value) => {
-    queryClient.setQueryData(
-      tradeRequestKeys.detail(offerId, value.user.id),
-      value,
-    );
-    return null;
-  });
 
   return { ...queryData, allMatches };
 };

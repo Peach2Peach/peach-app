@@ -21,12 +21,16 @@ export function UserCard({
         <UserBubble userId={user.id} title={isBuyer ? "buyer" : "seller"} />
         <Rating
           rating={user.rating}
-          isNewUser={user.trades < NEW_USER_TRADE_THRESHOLD}
+          shouldHideRating={
+            user.trades < NEW_USER_TRADE_THRESHOLD &&
+            user.canceledTrades === 0 &&
+            user.disputes.lost === 0
+          }
           peachSize={20}
           textStyle={tw`-my-10 leading-loose h5`}
         />
       </View>
-      <BigBadges {...user} />
+      <BigBadges {...user} hideDisabled />
     </View>
   );
 }

@@ -66,7 +66,7 @@
   "contract.payment.received": "betaling ontvangen",
   "contract.payment.sent": "betaling verstuurd",
   "contract.payment.to": "naar",
-  "contract.paymentData.decyptionFailed": "kon de betalingsgegevens niet ontcijferen, vraag indien nodig om details in de chat",
+  "contract.paymentData.decryptionFailed": "kon de betalingsgegevens niet ontcijferen, vraag indien nodig om details in de chat",
   "contract.paymentDetails": "betalingsdetails",
   "contract.paymentMade.description": "Als je deze hebt ontvangen, bevestig de betaling op het tabblad Transacties.",
   "contract.paymentMade.title": "betaling gedaan!",

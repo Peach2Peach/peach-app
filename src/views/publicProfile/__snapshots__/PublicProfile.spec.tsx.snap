@@ -469,6 +469,66 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       "paddingRight": 8,
                     },
                     {
+                      "borderColor": "#FCCCB6",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      false,
+                      [
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                        },
+                        {
+                          "color": "#FCCCB6",
+                        },
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  supertrader
+                </Text>
+                <test-file-stub
+                  fill="#FCCCB6"
+                  style={
+                    [
+                      {
+                        "height": 16,
+                        "width": 16,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "borderRadius": 9999,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 2,
+                      "paddingLeft": 8,
+                      "paddingRight": 8,
+                    },
+                    {
                       "borderColor": "#F56522",
                     },
                   ]

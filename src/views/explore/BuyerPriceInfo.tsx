@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { View } from "react-native";
+import { Pricebook } from "../../../peach-api/src/@types/global";
 import { Icon } from "../../components/Icon";
 import { getDisplayAmount } from "../../components/bitcoin/BTCAmount";
 import { getMatchPrice } from "../../components/matches/utils/getMatchPrice";
@@ -12,20 +13,32 @@ import { round } from "../../utils/math/round";
 import { thousands } from "../../utils/string/thousands";
 
 type PriceInfoProps = {
-  match: Match;
+  matched: boolean;
+  matchedPrice: number | null;
+  prices: Pricebook;
+  amount: number;
+  premium: number;
   selectedCurrency: Currency;
   selectedPaymentMethod: PaymentMethod | undefined;
 };
 export function BuyerPriceInfo({
-  match,
+  matched,
+  matchedPrice,
+  prices,
+  amount,
+  premium,
   selectedCurrency,
   selectedPaymentMethod,
 }: PriceInfoProps) {
   const { data: priceBook, isSuccess } = useMarketPrices();
 
-  const amountInBTC = match.amount / SATSINBTC;
+  const amountInBTC = amount / SATSINBTC;
   const displayPrice = getMatchPrice(
-    match,
+    {
+      matched,
+      matchedPrice,
+      prices,
+    },
     selectedPaymentMethod,
     selectedCurrency,
   );
@@ -34,17 +47,17 @@ export function BuyerPriceInfo({
     priceBook?.[selectedCurrency] ?? amountInBTC / displayPrice;
   const marketPrice = amountInBTC * bitcoinPrice;
 
-  const premium = match.matched
+  const displayPremium = matched
     ? isSuccess
       ? round((displayPrice / marketPrice - 1) * CENT, 2)
       : 0
-    : match.premium;
+    : premium;
 
   return (
     <PriceInfo
-      satsAmount={match.amount}
+      satsAmount={amount}
       selectedCurrency={selectedCurrency}
-      premium={premium}
+      premium={displayPremium}
       price={displayPrice}
     />
   );

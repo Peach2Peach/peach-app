@@ -1,6 +1,6 @@
 {
   "chat" : "czat",
-  "chat.decyptionFailed" : "nie można odszyfrować wiadomości...",
+  "chat.decryptionFailed" : "nie można odszyfrować wiadomości...",
   "chat.disabled" : "czat został wyłączony",
   "chat.disputeDisclaimer.1" : "To jest twój prywatny czat handlowy.",
   "chat.disputeDisclaimer.2" : "Jeśli twój kontrahent sugeruje handel poza Peach, pamiętaj, że ",

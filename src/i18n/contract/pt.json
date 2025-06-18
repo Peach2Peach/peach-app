@@ -66,7 +66,7 @@
   "contract.payment.received" : "pagamento recebido",
   "contract.payment.sent" : "pagamento enviado",
   "contract.payment.to" : "para",
-  "contract.paymentData.decyptionFailed" : "não foi possível desencriptar os dados de pagamento, peça por mais detalhes no chat se necessário",
+  "contract.paymentData.decryptionFailed" : "não foi possível desencriptar os dados de pagamento, peça por mais detalhes no chat se necessário",
   "contract.paymentDetails" : "detalhes do pagamento",
   "contract.paymentMade.description" : "Se recebeu, confirme o pagamento no separador de negociações.",
   "contract.paymentMade.title" : "pagamento realizado!",

@@ -29,12 +29,11 @@ type Home = {
 
 type BuyFlow = {
   buy: undefined;
-  sellOfferDetails: { offerId: string; requestingOfferId?: string };
+  sellOffer: { offerId: string; requestingOfferId?: string };
   buyOfferPreferences: undefined;
   editExpressBuyOfferFilters: undefined;
   explore: { offerId: string };
   editBuyPreferences: { offerId: string };
-  matchDetails: { offerId: string; matchId: string };
   tradeRequestForBuyOffer: {
     userId: string;
     offerId: string;
@@ -50,7 +49,7 @@ type BuyFlow = {
 type SellFlow = {
   sellOfferPreferences: undefined;
   editExpressSellOfferFilters: undefined;
-  buyOfferDetails: {
+  buyOffer: {
     offerId: string;
     premium: number;
     requestingOfferId?: string;
@@ -85,12 +84,7 @@ type ContractFlow = {
     contractId: string;
   };
   tradeRequestChat: {
-    offerId: string;
-    requestingUserId: string;
-  };
-  matchChat: {
-    offerId: string;
-    matchingOfferId: string;
+    chatRoomId: string;
   };
   disputeReasonSelector: {
     contractId: string;

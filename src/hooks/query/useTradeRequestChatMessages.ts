@@ -4,19 +4,18 @@ import { useMemo } from "react";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
+import { chatKeys } from "./chatKeys";
 
-export const PAGE_SIZE = 22;
+const PAGE_SIZE = 22;
 
 export const useTradeRequestChatMessages = ({
-  offerId,
-  requestingUserId,
   symmetricKey,
-  isLoadingSymmetricKey,
+  chatRoomId,
+  offerType,
 }: {
-  offerId: string;
-  requestingUserId: string;
   symmetricKey?: string;
-  isLoadingSymmetricKey: boolean;
+  chatRoomId: string;
+  offerType: "buyOffer" | "sellOffer";
 }) => {
   const isFocused = useIsFocused();
   const {
@@ -28,19 +27,19 @@ export const useTradeRequestChatMessages = ({
     hasNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ["tradeRequestChat", offerId, requestingUserId],
+    queryKey: chatKeys.tradeRequest(offerType, chatRoomId),
     queryFn: async ({ queryKey, pageParam }) => {
       const encryptedMessages = await getTradeRequestChatQuery({
         queryKey,
         pageParam,
       });
+
       if (!symmetricKey) {
         return encryptedMessages.map((message) => ({
           ...message,
           decrypted: false,
         }));
       }
-
       const decryptedMessages = await Promise.all(
         encryptedMessages.map(async (message) => {
           try {
@@ -69,11 +68,10 @@ export const useTradeRequestChatMessages = ({
           }
         }),
       );
-
       return decryptedMessages;
     },
     placeholderData: keepPreviousData,
-    enabled: isFocused && !isLoadingSymmetricKey,
+    enabled: isFocused && !!symmetricKey,
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) =>
       lastPage.length === PAGE_SIZE ? allPages.length : null,
@@ -93,17 +91,16 @@ export const useTradeRequestChatMessages = ({
   };
 };
 
-type GetTradeRequestChatQueryProps = {
-  queryKey: string[];
-  pageParam: number;
-};
 async function getTradeRequestChatQuery({
   queryKey,
   pageParam,
-}: GetTradeRequestChatQueryProps) {
+}: {
+  queryKey: ReturnType<typeof chatKeys.tradeRequest>;
+  pageParam: number;
+}) {
   const { result, error } = await peachAPI.private.offer.getTradeRequestChat({
-    offerId: queryKey[1],
-    requestingUserId: queryKey[2],
+    chatRoomId: queryKey[3],
+    offerType: queryKey[2],
     page: pageParam,
   });
 

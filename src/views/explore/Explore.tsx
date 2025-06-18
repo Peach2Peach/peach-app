@@ -1,40 +1,32 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useQuery } from "@tanstack/react-query";
-import { ActivityIndicator, FlatList, View } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 import { TradeRequestForBuyOffer } from "../../../peach-api/src/private/offer/getTradeRequestsForBuyOffer";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
-import { getPremiumOfMatchedOffer } from "../../components/matches/getPremiumOfMatchedOffer";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { PeachText } from "../../components/text/PeachText";
 import {
   CENT,
+  MSINASECOND,
   SATSINBTC,
   TIME_UNTIL_REFRESH_LONGER_SECONDS,
-  TIME_UNTIL_REFRESH_SECONDS,
   fullScreenTabNavigationScreenOptions,
 } from "../../constants";
-import { offerKeys, tradeRequestKeys } from "../../hooks/query/offerKeys";
+import { tradeRequestKeys } from "../../hooks/query/tradeRequestKeys";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useSelfUser } from "../../hooks/query/useSelfUser";
-import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
-import { queryClient } from "../../queryClient";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
-import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
-import { LoadingScreen } from "../loading/LoadingScreen";
-import { MarketInfo } from "../offerPreferences/components/MarketInfo";
+import { ExpressBuy } from "../home/ExpressBuy";
 import { useUser } from "../publicProfile/useUser";
 import { NoMatchesYet } from "../search/NoMatchesYet";
-import { useOfferMatches } from "../search/hooks/useOfferMatches";
 import { OfferSummaryCard } from "./OfferSummaryCard";
 
 const OfferTab = createMaterialTopTabNavigator();
@@ -61,71 +53,10 @@ export function Explore() {
           options={{
             title: i18n("search.requestTrade"),
           }}
-          children={() => <RequestTrade offerId={offerId} />}
+          children={() => <ExpressBuy requestingOfferId={offerId} />}
         />
       </OfferTab.Navigator>
     </Screen>
-  );
-}
-
-function RequestTrade({ offerId }: { offerId: string }) {
-  const {
-    allMatches: matches,
-    isPending,
-    fetchNextPage,
-    refetch,
-    isRefetching,
-  } = useOfferMatches(offerId, TIME_UNTIL_REFRESH_LONGER_SECONDS * 1000);
-
-  const { user } = useSelfUser();
-
-  if (!user) {
-    throw Error("Self User not found");
-  }
-
-  // for tradeRequest chat
-  matches.map((value) => {
-    queryClient.setQueryData(
-      tradeRequestKeys.detail(value.offerId, user.id),
-      value,
-    );
-
-    // this is a hack to make the trade request chat work
-    // because we dont get offer info, just the match info
-    queryClient.setQueryData(offerKeys.detail(value.offerId), {
-      id: value.offerId,
-      user: value.user,
-    });
-    return null;
-  });
-
-  const hasMatches = matches.length > 0;
-  if (isPending) return <LoadingScreen />;
-  return (
-    <>
-      {hasMatches ? (
-        <FlatList
-          ListHeaderComponent={<BuyOfferMarketInfo offerId={offerId} />}
-          data={matches}
-          onRefresh={() => refetch()}
-          refreshing={isRefetching}
-          keyExtractor={(item) => item.offerId}
-          renderItem={({ item }) => (
-            <ExploreCard match={item} offerId={offerId} />
-          )}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => fetchNextPage()}
-          contentContainerStyle={tw`gap-10px`}
-        />
-      ) : (
-        <View style={tw`items-center justify-center flex-1 gap-4`}>
-          <BuyOfferMarketInfo offerId={offerId} />
-          <PeachText style={tw`text-center subtitle-2`}>
-            {i18n("search.weWillNotifyYou")}
-          </PeachText>
-        </View>
-      )}
-    </>
   );
 }
 
@@ -183,64 +114,9 @@ function TradeRequestSummaryCard({
   );
 }
 
-function ExploreCard({ match, offerId }: { match: Match; offerId: string }) {
-  const {
-    matched,
-    amount,
-    user,
-    instantTrade,
-    matchedPrice,
-    selectedCurrency,
-  } = match;
-  const { data: priceBook } = useMarketPrices();
-  const premium =
-    matched && matchedPrice && selectedCurrency
-      ? getPremiumOfMatchedOffer(
-          { amount, price: matchedPrice, currency: selectedCurrency },
-          priceBook,
-        )
-      : match.premium;
-  const { fiatPrice } = useBitcoinPrices(amount);
-  const navigation = useStackNavigation();
-  const onPress = () => {
-    navigation.navigate("matchDetails", { matchId: match.offerId, offerId });
-  };
-
-  return (
-    <OfferSummaryCard
-      user={user}
-      amount={amount}
-      price={fiatPrice}
-      currency={selectedCurrency!}
-      premium={premium}
-      instantTrade={instantTrade}
-      tradeRequested={matched}
-      onPress={onPress}
-    />
-  );
-}
-
-function BuyOfferMarketInfo({ offerId }: { offerId: string }) {
-  const { offer } = useOfferDetail(offerId);
-
-  if (offer && isSellOffer(offer)) {
-    throw new Error("Offer should be a buy offer");
-  }
-
-  return (
-    <MarketInfo
-      type={"sellOffers"}
-      meansOfPayment={offer?.meansOfPayment}
-      maxPremium={offer?.maxPremium || undefined}
-      minReputation={offer?.minReputation || undefined}
-      buyAmountRange={offer?.amount}
-    />
-  );
-}
-
 function AcceptTrade({ offerId }: { offerId: string }) {
   const { data } = useQuery({
-    queryKey: ["tradeRequests", offerId],
+    queryKey: tradeRequestKeys.tradeRequestsForBuyOffer(offerId),
     queryFn: async () => {
       const { result, error } =
         await peachAPI.private.offer.getTradeRequestsForBuyOffer({
@@ -250,20 +126,12 @@ function AcceptTrade({ offerId }: { offerId: string }) {
         throw new Error(error?.error || "Failed to fetch trade requests");
       }
 
-      result.tradeRequests.map((value) => {
-        queryClient.setQueryData(
-          tradeRequestKeys.detail(offerId, value.userId),
-          value,
-        );
-        return null;
-      });
-
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * 1000,
+    refetchInterval: TIME_UNTIL_REFRESH_LONGER_SECONDS * MSINASECOND,
   });
 
-  const tradeRequests = data?.tradeRequests || [];
+  const tradeRequests = data || [];
   const hasMatches = tradeRequests.length > 0;
   if (hasMatches) {
     return (
