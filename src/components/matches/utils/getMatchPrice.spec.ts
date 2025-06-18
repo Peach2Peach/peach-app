@@ -37,7 +37,7 @@ describe("getMatchPrice", () => {
 
   it("should get the payment method info if the selected payment method is defined", () => {
     const match = {
-      matched: true,
+      matched: false,
       matchedPrice: 0,
       prices: {
         USD: 200,
