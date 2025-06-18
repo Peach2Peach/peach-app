@@ -4,10 +4,7 @@ import { isBuyOffer } from "../offer/isBuyOffer";
 import { peachAPI } from "../peachAPI";
 import { isDefined } from "../validation/isDefined";
 import { shouldGoToContract } from "./shouldGoToContract";
-import {
-  shouldGoToContractChat,
-  shouldGoToTradeRequestChat,
-} from "./shouldGoToContractChat";
+import { shouldGoToContractChat } from "./shouldGoToContractChat";
 import { shouldGoToSearch } from "./shouldGoToSearch";
 import { shouldGoToSell } from "./shouldGoToSell";
 import { shouldGoToYourTradesBuy } from "./shouldGoToYourTradesBuy";
@@ -31,9 +28,10 @@ export const handlePushNotification = async (
   } else if (shouldGoToContractChat(data)) {
     const { contractId } = data;
     navigationRef.navigate("contractChat", { contractId });
-  } else if (shouldGoToTradeRequestChat(data)) {
-    const { offerId, requestingUserId } = data;
-    navigationRef.navigate("tradeRequestChat", { offerId, requestingUserId });
+  } else if (data.chatRoomId) {
+    navigationRef.navigate("tradeRequestChat", {
+      chatRoomId: data.chatRoomId,
+    });
   } else if (shouldGoToYourTradesSell(data)) {
     navigationRef.navigate("homeScreen", {
       screen: "yourTrades",

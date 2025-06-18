@@ -46,14 +46,14 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { peachWallet } from "../../utils/wallet/setWallet";
+import { useSymmetricKeyEncrypted } from "../tradeRequestChat/useSymmetricKeyEncrypted";
 import { AnimatedButtons } from "./AnimatedButtons";
 import { BuyerPriceInfo } from "./BuyerPriceInfo";
 import { FundingInfo } from "./FundingInfo";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
-import { ChatButton } from "./TradeRequestChatButton";
+import { TradeRequestChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
-import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 import { useMaxMiningFee } from "./useMaxMiningFee";
 import { useSellOfferSummary } from "./useSellOfferSummary";
 import { useTradeRequestForSellOffer } from "./useTradeRequestForSellOffer";
@@ -174,8 +174,11 @@ function SellOfferSummaryComponent({
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
 
-  const { data: isAllowedToTradeRequestData } =
-    useIsAllowedToTradeRequestChat(offerId);
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const { data: symmetricKeyEncrypted } = useSymmetricKeyEncrypted(
+    "sellOffer",
+    `${offerId}-${requestingOfferId || publicKey}`,
+  );
 
   const queryClient = useQueryClient();
   const { mutate: undoTradeRequest } = useMutation({
@@ -342,10 +345,9 @@ function SellOfferSummaryComponent({
         </View>
       </PeachScrollView>
 
-      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
-        <ChatButton
-          offerId={offerId}
-          requestingUserId={selfUser.id}
+      {!!symmetricKeyEncrypted && selfUser && (
+        <TradeRequestChatButton
+          chatRoomId={`${offerId}-${requestingOfferId || selfUser.id}`}
           style={tw`self-center`}
         />
       )}

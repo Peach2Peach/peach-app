@@ -50,8 +50,9 @@ const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
 type Props = {
   isEditing: boolean;
   editItem: (data: PaymentData) => void;
-  select: (value: string) => void;
+  select: (value: string, value2?: "buy" | "sell") => void;
   isSelected: (item: { value: string }) => boolean;
+  expressFilter?: "buy" | "sell";
 };
 
 export const RemotePaymentMethods = ({
@@ -59,6 +60,7 @@ export const RemotePaymentMethods = ({
   editItem,
   select,
   isSelected,
+  expressFilter,
 }: Props) => {
   const { isDarkMode } = useThemeStore();
   const paymentData = usePaymentDataStore(
@@ -121,7 +123,9 @@ export const RemotePaymentMethods = ({
                   <View style={tw`gap-3`}>
                     <PaymentDetailsCheckbox
                       onPress={() =>
-                        isEditing ? editItem(item.data) : select(item.value)
+                        isEditing
+                          ? editItem(item.data)
+                          : select(item.value, expressFilter)
                       }
                       item={item}
                       checked={isSelected(item)}

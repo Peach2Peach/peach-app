@@ -4,6 +4,7 @@ import { useExpressSellFilterPreferences } from "../../store/useExpressSellFilte
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { AmountSelector } from "./Sell";
+import { PreferenceMethods } from "./components/PreferenceMethods";
 
 export function EditExpressSellOfferFilters() {
   const { amount, premium, setAmount, setPremium } =
@@ -31,7 +32,7 @@ export function EditExpressSellOfferFilters() {
         showCompetingSellOffers={false}
         minPremiumSearchCase
       />
-      {/* <PreferenceMethodsForFilter type="sell" /> */}
+      <PreferenceMethods type="sell" expressFilter />
     </Screen>
   );
 }

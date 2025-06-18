@@ -31,6 +31,9 @@ export function ExpressBuy({
   );
 
   const { data: requestingOffer } = useBuyOfferPreferences(requestingOfferId);
+  const meansOfPaymentOnExpressBuyFilter = useOfferPreferences(
+    (state) => state.meansOfPaymentOnExpressBuyFilter,
+  );
 
   const amount: [number, number] = requestingOffer
     ? requestingOffer.amount
@@ -48,7 +51,8 @@ export function ExpressBuy({
           maxPremium: requestingOffer
             ? requestingOffer?.maxPremium || undefined
             : maxPremium,
-          meansOfPayment: requestingOffer?.meansOfPayment,
+          meansOfPayment:
+            requestingOffer?.meansOfPayment || meansOfPaymentOnExpressBuyFilter,
           sortBy: defaultBuyOfferSorter,
         });
       if (error || !result) {

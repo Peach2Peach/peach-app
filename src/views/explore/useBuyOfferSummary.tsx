@@ -10,7 +10,7 @@ export function useBuyOfferSummary(
     queryKey: offerKeys.publicBuySummary(offerId, requestingOfferId),
     queryFn: async () => {
       const { result, error } = await peachAPI.private.offer.getBuyOfferSummary(
-        { offerId },
+        { offerId, requestingOfferId },
       );
       if (error) throw error;
       return result;

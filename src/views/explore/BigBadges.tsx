@@ -12,7 +12,7 @@ const BADGE_SIZE = 16;
 function BigBadge({ userId }: { userId: string }) {
   const { data } = useUserStatus(userId);
 
-  if (!data) return null;
+  if (!data?.trades) return null;
 
   const { badExperience, trades } = data;
   const color = tw.color(!badExperience ? "primary-main" : "error-main");

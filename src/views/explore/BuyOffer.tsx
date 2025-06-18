@@ -33,6 +33,7 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import { useAccountStore } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { getRandom } from "../../utils/crypto/getRandom";
 import i18n from "../../utils/i18n";
@@ -49,12 +50,12 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { usePaymentMethodInfo } from "../addPaymentMethod/usePaymentMethodInfo";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
+import { useSymmetricKeyEncrypted } from "../tradeRequestChat/useSymmetricKeyEncrypted";
 import { AnimatedButtons } from "./AnimatedButtons";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { PaidVia } from "./PaidVia";
-import { ChatButton } from "./TradeRequestChatButton";
+import { TradeRequestChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
-import { useIsAllowedToTradeRequestChat } from "./isAllowedToTradeRequestChat";
 import { useBuyOfferSummary } from "./useBuyOfferSummary";
 import { useTradeRequestForBuyOffer } from "./useTradeRequestForBuyOffer";
 
@@ -65,7 +66,11 @@ export function BuyOffer() {
     requestingOfferId,
   );
   const { data: tradeRequest, isLoading: isLoadingTradeRequest } =
-    useTradeRequestForBuyOffer(offerId, requestingOfferId);
+    useTradeRequestForBuyOffer(
+      offerId,
+      requestingOfferId,
+      offerSummary?.tradeRequested,
+    );
 
   const navigation = useStackNavigation();
   const isLoading = isLoadingOffer || isLoadingTradeRequest;
@@ -129,6 +134,7 @@ type Props = BuyOfferSummary & {
   tradeRequest?: TradeRequestForBuyOffer | null;
 };
 
+// eslint-disable-next-line complexity
 function BuyOfferSummaryComponent({
   meansOfPayment,
   user,
@@ -160,8 +166,11 @@ function BuyOfferSummaryComponent({
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
 
-  const { data: isAllowedToTradeRequestData } =
-    useIsAllowedToTradeRequestChat(offerId);
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const { data: symmetricKeyEncrypted } = useSymmetricKeyEncrypted(
+    "buyOffer",
+    `${offerId}-${requestingOfferId || publicKey}`,
+  );
 
   const queryClient = useQueryClient();
   const { mutate: undoTradeRequest } = useMutation({
@@ -346,10 +355,9 @@ function BuyOfferSummaryComponent({
         </View>
       </PeachScrollView>
 
-      {!!isAllowedToTradeRequestData?.symmetricKeyEncrypted && selfUser && (
-        <ChatButton
-          offerId={offerId}
-          requestingUserId={selfUser.id}
+      {!!symmetricKeyEncrypted && selfUser && (
+        <TradeRequestChatButton
+          chatRoomId={`${offerId}-${requestingOfferId || selfUser.id}`}
           style={tw`self-center`}
         />
       )}

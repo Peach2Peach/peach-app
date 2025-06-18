@@ -84,8 +84,7 @@ type ContractFlow = {
     contractId: string;
   };
   tradeRequestChat: {
-    offerId: string;
-    requestingUserId: string;
+    chatRoomId: string;
   };
   disputeReasonSelector: {
     contractId: string;
@@ -153,7 +152,9 @@ type RootStackParamList = Onboarding &
     seedWords: undefined;
     refundAddress: undefined;
     payoutAddress: undefined;
-    paymentMethods: undefined;
+    paymentMethods?: {
+      expressFilter?: "buy" | "sell";
+    };
     meetupScreen: {
       eventId: string;
       deletable?: boolean;

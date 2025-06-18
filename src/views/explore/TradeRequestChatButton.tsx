@@ -5,16 +5,15 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
 type Props = {
-  offerId: string;
-  requestingUserId: string;
+  chatRoomId: string;
   style?: ViewStyle;
 };
 
-export function ChatButton({ offerId, requestingUserId, style }: Props) {
+export function TradeRequestChatButton({ chatRoomId, style }: Props) {
   const navigation = useStackNavigation();
 
   const onPressCallback = () =>
-    navigation.push("tradeRequestChat", { offerId, requestingUserId });
+    navigation.navigate("tradeRequestChat", { chatRoomId });
 
   return (
     <Button style={[tw`bg-primary-main`, style]} onPress={onPressCallback}>

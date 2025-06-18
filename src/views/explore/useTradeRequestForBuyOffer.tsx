@@ -6,6 +6,7 @@ import { peachAPI } from "../../utils/peachAPI";
 export function useTradeRequestForBuyOffer(
   offerId: string,
   requestingOfferId?: string,
+  enabled = false,
 ) {
   return useQuery({
     queryKey: tradeRequestKeys.tradeRequestForBuyOffer(
@@ -24,5 +25,6 @@ export function useTradeRequestForBuyOffer(
       return result;
     },
     refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
+    enabled,
   });
 }

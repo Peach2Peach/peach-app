@@ -22,13 +22,20 @@ import { useUser } from "../publicProfile/useUser";
 import { PriceInfo } from "./BuyerPriceInfo";
 import { MiningFeeWarning } from "./MiningFeeWarning";
 import { PaidVia } from "./PaidVia";
-import { ChatButton } from "./TradeRequestChatButton";
+import { TradeRequestChatButton } from "./TradeRequestChatButton";
 import { UserCard } from "./UserCard";
 import { useMaxMiningFee } from "./useMaxMiningFee";
 
 export function TradeRequestForBuyOffer() {
-  const { userId, amount, fiatPrice, currency, paymentMethod, offerId } =
-    useRoute<"tradeRequestForBuyOffer">().params;
+  const {
+    userId,
+    amount,
+    fiatPrice,
+    currency,
+    paymentMethod,
+    offerId,
+    requestingOfferId,
+  } = useRoute<"tradeRequestForBuyOffer">().params;
   const { user } = useUser(userId);
   const { data: marketPrices } = useMarketPrices();
   if (!user || !marketPrices) {
@@ -57,10 +64,9 @@ export function TradeRequestForBuyOffer() {
         <PaidVia paymentMethod={paymentMethod} />
       </PeachScrollView>
       <View style={tw`flex-row items-center justify-center gap-8px`}>
-        <ChatButton
+        <TradeRequestChatButton
           style={tw`flex-1 py-3`}
-          offerId={offerId}
-          requestingUserId={userId}
+          chatRoomId={`${offerId}-${requestingOfferId || userId}`}
         />
         <AcceptButton />
       </View>
