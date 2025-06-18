@@ -186,7 +186,7 @@ function TradeRequestChatScreen({ offerType, offerUserId }: Props) {
 
       let messageBody = "";
 
-      if (!symmetricKey || !symmetricKey) {
+      if (!symmetricKey) {
         throw Error;
       }
       try {
