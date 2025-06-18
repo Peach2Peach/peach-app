@@ -10,6 +10,7 @@ export function useSymmetricKey(
   const { data: symmetricKeyEncrypted } = useSymmetricKeyEncrypted(
     offerType,
     chatRoomId,
+    0,
   );
   return useQuery({
     queryKey: chatKeys.symmetricKey(symmetricKeyEncrypted),

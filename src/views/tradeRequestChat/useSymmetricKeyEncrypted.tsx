@@ -6,6 +6,7 @@ import { peachAPI } from "../../utils/peachAPI";
 export function useSymmetricKeyEncrypted(
   offerType: "buyOffer" | "sellOffer",
   chatRoomId: string,
+  refetchInterval = TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
 ) {
   return useQuery({
     queryKey: chatKeys.symmetricKeyEncrypted(offerType, chatRoomId),
@@ -22,6 +23,6 @@ export function useSymmetricKeyEncrypted(
 
       return result;
     },
-    refetchInterval: TIME_UNTIL_REFRESH_SECONDS * MSINASECOND,
+    refetchInterval,
   });
 }
