@@ -17,11 +17,8 @@ export function TradeRequestChatButton({
   style,
 }: Props) {
   const navigation = useStackNavigation();
-  const { data: symmmetricKeyEncrypted } = useSymmetricKeyEncrypted(
-    offerType,
-    chatRoomId,
-  );
-  if (!symmmetricKeyEncrypted) return null;
+  const { isSuccess } = useSymmetricKeyEncrypted(offerType, chatRoomId);
+  if (!isSuccess) return null;
 
   const onPressCallback = () =>
     navigation.navigate("tradeRequestChat", { chatRoomId });

@@ -23,6 +23,7 @@ export function useSymmetricKeyEncrypted(
 
       return result;
     },
+    retry: false,
     refetchInterval,
   });
 }
