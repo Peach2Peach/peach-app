@@ -46,12 +46,16 @@ function TradeBreakdown({
   releaseTransaction,
   releaseAddress,
   amount,
+  batchId,
+  batchTxMinerFees,
 }: Contract) {
   const { totalAmount, peachFee, networkFee, amountReceived } =
     getTradeBreakdown({
       releaseTransaction,
       releaseAddress,
       inputAmount: amount,
+      batchTxMinerFees,
+      batchChosen: batchId !== undefined,
     });
 
   const data = [

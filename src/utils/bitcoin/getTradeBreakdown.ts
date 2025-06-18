@@ -7,13 +7,23 @@ type Props = {
   releaseAddress: string;
   inputAmount: number;
   discount?: number;
+  batchTxMinerFees?: number;
+  batchChosen: boolean;
 };
 export const getTradeBreakdown = ({
   releaseTransaction,
   releaseAddress,
   inputAmount,
+  batchTxMinerFees,
+  batchChosen,
 }: Props) => {
   try {
+    if (batchChosen) {
+      if (batchTxMinerFees === undefined)
+        throw Error("Expected batchTxMinerFees");
+      console.log("BATCH FEEES", batchTxMinerFees);
+    }
+
     if (!releaseTransaction) throw new Error("No release transaction provided");
     const transaction = Transaction.fromHex(releaseTransaction);
     const outputs = transaction.outs;
