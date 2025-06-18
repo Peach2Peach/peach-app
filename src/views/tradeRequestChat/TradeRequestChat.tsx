@@ -232,8 +232,8 @@ function TradeRequestChatScreen({
         send(
           JSON.stringify({
             path: "/v1/chat/tradeRequest/received",
-            offerId,
-            requestingUserId: requestingId,
+            chatRoomId,
+            offerType,
             start: message.date,
             end: message.date,
           }),
