@@ -207,7 +207,7 @@ function getTradeInfoFields(
     !!releaseTxId || (!!batchInfo && !batchInfo.completed);
   if (view === "seller") {
     if (isCashTrade(paymentMethod)) {
-      return tradeFields.seller[isTradeCompleted ? "past" : "active"]["cash"];
+      return tradeFields.seller[isTradeCompleted ? "past" : "active"].cash;
     }
 
     if (isTradeCompleted) {

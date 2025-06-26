@@ -44,10 +44,6 @@ const activeCashSellTradeFields = createActiveSellTradeFields([
   "meetup",
   "location",
 ]);
-const activeSellTradeFields: TradeInfoField[][] = createActiveSellTradeFields([
-  "paidToMethod",
-  "reference",
-]);
 
 const activeCashBuyTradeFields = createActiveBuyTradeFields([
   "meetup",
