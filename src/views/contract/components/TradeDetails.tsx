@@ -214,7 +214,7 @@ function getTradeInfoFields(
       return tradeFields.seller.past.default;
     }
 
-    return tradeFields.seller.active.default[paymentMethod];
+    return tradeFields.seller.active.default[paymentMethod] || [];
   }
 
   if (isTradeCompleted) {
