@@ -13,6 +13,8 @@ describe("useDecryptedContractData", () => {
   const symmetricKey = "symmetricKey";
   const paymentDataEncrypted = "paymentDataEncrypted";
   const paymentDataSignature = "paymentDataSignature";
+  const buyerPaymentDataEncrypted = "buyerPaymentDataEncrypted";
+  const buyerPaymentDataSignature = "buyerPaymentDataSignature";
   const paymentData = { type: "sepa" };
   const decryptSpy = jest.spyOn(OpenPGP, "decrypt");
   const decryptSymmetricSpy = jest.spyOn(OpenPGP, "decryptSymmetric");
@@ -24,6 +26,8 @@ describe("useDecryptedContractData", () => {
     symmetricKeySignature: "symmetricKeySignature",
     paymentDataEncrypted,
     paymentDataSignature,
+    buyerPaymentDataEncrypted,
+    buyerPaymentDataSignature,
     paymentDataEncryptionMethod: "aes256" as const,
     seller: defaultUser,
   };

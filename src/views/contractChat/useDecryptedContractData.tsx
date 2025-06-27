@@ -41,7 +41,7 @@ async function decryptContractData(contract: Contract) {
       paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
       paymentDataSignature: contract.buyerPaymentDataSignature,
       user: contract.buyer,
-      paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
+      paymentDataEncryptionMethod: "aes256",
     },
     symmetricKey,
   );
