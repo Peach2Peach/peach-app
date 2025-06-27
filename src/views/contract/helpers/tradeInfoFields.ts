@@ -44,17 +44,18 @@ const activeCashSellTradeFields = createActiveSellTradeFields([
   "meetup",
   "location",
 ]);
-const activeSellTradeFields: TradeInfoField[][] = createActiveSellTradeFields([
-  "paidToMethod",
-  "reference",
-]);
 
 const activeCashBuyTradeFields = createActiveBuyTradeFields([
   "meetup",
   "location",
 ]);
-const wrapInSharedFields = (fields: TradeInfoField[]): TradeInfoField[][] =>
-  createActiveBuyTradeFields(["via", ...fields]);
+const wrapInSharedFieldsBuyer = (
+  fields: TradeInfoField[],
+): TradeInfoField[][] => createActiveBuyTradeFields(["via", ...fields]);
+
+const wrapInSharedFieldsSeller = (
+  fields: TradeInfoField[],
+): TradeInfoField[][] => createActiveSellTradeFields(["via", ...fields]);
 
 const template1Fields: TradeInfoField[] = [
   "beneficiary",
@@ -99,76 +100,106 @@ const template19Fields: TradeInfoField[] = ["userName"];
 const template20Fields: TradeInfoField[] = ["beneficiary", "postePayNumber"];
 const template22Fields: TradeInfoField[] = ["pixAlias"];
 
-const PaymentMethodFields: {
-  [key in PaymentMethod]?: TradeInfoField[][];
-} = {
-  sepa: wrapInSharedFields(template1Fields),
-  fasterPayments: wrapInSharedFields(template5Fields),
-  instantSepa: wrapInSharedFields(template1Fields),
-  paypal: wrapInSharedFields(template6Fields),
-  revolut: wrapInSharedFields(template6Fields),
-  vipps: wrapInSharedFields(template3Fields),
-  advcash: wrapInSharedFields(template2Fields),
-  blik: wrapInSharedFields(template3Fields),
-  wise: wrapInSharedFields(template6Fields),
-  twint: wrapInSharedFields(template3Fields),
-  swish: wrapInSharedFields(template3Fields),
-  satispay: wrapInSharedFields(template3Fields),
-  mbWay: wrapInSharedFields(template3Fields),
-  bizum: wrapInSharedFields(template3Fields),
-  mobilePay: wrapInSharedFields(template3Fields),
-  skrill: wrapInSharedFields(template4Fields),
-  neteller: wrapInSharedFields(template4Fields),
-  paysera: wrapInSharedFields(template8Fields),
-  straksbetaling: wrapInSharedFields(template7Fields),
-  keksPay: wrapInSharedFields(template3Fields),
-  friends24: wrapInSharedFields(template3Fields),
-  n26: wrapInSharedFields(template6Fields),
-  paylib: wrapInSharedFields(template3Fields),
-  lydia: wrapInSharedFields(template3Fields),
-  iris: wrapInSharedFields(template3Fields),
-  papara: wrapInSharedFields(template3Fields),
-  liquid: wrapInSharedFields(template10Fields),
-  lnurl: wrapInSharedFields(template11Fields),
-  rappipay: wrapInSharedFields(template12Fields),
-  mercadoPago: wrapInSharedFields(template13Fields),
-  nequi: wrapInSharedFields(template3Fields),
-  cbu: wrapInSharedFields(template7Fields),
-  cvu: wrapInSharedFields(template7Fields),
-  alias: wrapInSharedFields(template7Fields),
-  bancolombia: wrapInSharedFields(template7Fields),
-  orangeMoney: wrapInSharedFields(template12Fields),
-  moov: wrapInSharedFields(template12Fields),
-  wave: wrapInSharedFields(template12Fields),
-  airtelMoney: wrapInSharedFields(template12Fields),
-  "m-pesa": wrapInSharedFields(template12Fields),
-  nationalTransferNG: wrapInSharedFields(template7Fields),
-  chippercash: wrapInSharedFields(template18Fields),
-  mtn: wrapInSharedFields(template12Fields),
-  eversend: wrapInSharedFields(template18Fields),
-  payday: wrapInSharedFields(template18Fields),
-  sinpe: wrapInSharedFields(template1Fields),
-  sinpeMovil: wrapInSharedFields(template3Fields),
-  pix: wrapInSharedFields(template22Fields),
-  rebellion: wrapInSharedFields(template19Fields),
-  klasha: wrapInSharedFields(template19Fields),
-  accrue: wrapInSharedFields(template19Fields),
-  wirepay: wrapInSharedFields(template19Fields),
-  strike: wrapInSharedFields(template19Fields),
-  bankera: wrapInSharedFields(template13Fields),
-  postePay: wrapInSharedFields(template20Fields),
+const CommonPaymentMethodFields = {
+  sepa: template1Fields,
+  fasterPayments: template5Fields,
+  instantSepa: template1Fields,
+  paypal: template6Fields,
+  revolut: template6Fields,
+  vipps: template3Fields,
+  advcash: template2Fields,
+  blik: template3Fields,
+  wise: template6Fields,
+  twint: template3Fields,
+  swish: template3Fields,
+  satispay: template3Fields,
+  mbWay: template3Fields,
+  bizum: template3Fields,
+  mobilePay: template3Fields,
+  skrill: template4Fields,
+  neteller: template4Fields,
+  paysera: template8Fields,
+  straksbetaling: template7Fields,
+  keksPay: template3Fields,
+  friends24: template3Fields,
+  n26: template6Fields,
+  paylib: template3Fields,
+  lydia: template3Fields,
+  iris: template3Fields,
+  papara: template3Fields,
+  liquid: template10Fields,
+  lnurl: template11Fields,
+  rappipay: template12Fields,
+  mercadoPago: template13Fields,
+  nequi: template3Fields,
+  cbu: template7Fields,
+  cvu: template7Fields,
+  alias: template7Fields,
+  bancolombia: template7Fields,
+  orangeMoney: template12Fields,
+  moov: template12Fields,
+  wave: template12Fields,
+  airtelMoney: template12Fields,
+  "m-pesa": template12Fields,
+  nationalTransferNG: template7Fields,
+  chippercash: template18Fields,
+  mtn: template12Fields,
+  eversend: template18Fields,
+  payday: template18Fields,
+  sinpe: template1Fields,
+  sinpeMovil: template3Fields,
+  pix: template22Fields,
+  rebellion: template19Fields,
+  klasha: template19Fields,
+  accrue: template19Fields,
+  wirepay: template19Fields,
+  strike: template19Fields,
+  bankera: template13Fields,
+  postePay: template20Fields,
 };
+
+const BuyerPaymentMethodFields: {
+  [key in PaymentMethod]?: TradeInfoField[][];
+} = Object.fromEntries(
+  Object.entries(CommonPaymentMethodFields).map(([key, value]) => [
+    key,
+    wrapInSharedFieldsBuyer(value),
+  ]),
+);
 
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
-    (PaymentMethodFields[`giftCard.amazon.${c}`] =
-      wrapInSharedFields(template4Fields)),
+    (BuyerPaymentMethodFields[`giftCard.amazon.${c}`] =
+      wrapInSharedFieldsBuyer(template4Fields)),
 );
 
 NATIONALTRANSFERCOUNTRIES.forEach(
   (c) =>
-    (PaymentMethodFields[`nationalTransfer${c}`] =
-      wrapInSharedFields(template9Fields)),
+    (BuyerPaymentMethodFields[`nationalTransfer${c}`] =
+      wrapInSharedFieldsBuyer(template9Fields)),
+);
+
+// SELLER
+
+const SellerPaymentMethodFields: {
+  [key in PaymentMethod]?: TradeInfoField[][];
+} = Object.fromEntries(
+  Object.entries(CommonPaymentMethodFields).map(([key, value]) => [
+    key,
+    wrapInSharedFieldsSeller(value),
+  ]),
+);
+
+GIFTCARDCOUNTRIES.forEach(
+  (c) =>
+    (SellerPaymentMethodFields[`giftCard.amazon.${c}`] =
+      wrapInSharedFieldsSeller(template4Fields)),
+);
+
+NATIONALTRANSFERCOUNTRIES.forEach(
+  (c) =>
+    (SellerPaymentMethodFields[`nationalTransfer${c}`] =
+      wrapInSharedFieldsSeller(template9Fields)),
 );
 
 export const tradeFields = {
@@ -179,7 +210,7 @@ export const tradeFields = {
     },
     active: {
       cash: activeCashBuyTradeFields,
-      default: PaymentMethodFields,
+      default: BuyerPaymentMethodFields,
     },
   },
   seller: {
@@ -189,7 +220,7 @@ export const tradeFields = {
     },
     active: {
       cash: activeCashSellTradeFields,
-      default: activeSellTradeFields,
+      default: SellerPaymentMethodFields,
     },
   },
 };

@@ -162,11 +162,14 @@ function ChangePayoutWallet() {
 }
 
 function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
-  const { contract, view, paymentData } = useContractContext();
+  const { contract, view, paymentData, buyerPaymentData } =
+    useContractContext();
 
   const information = isTradeInformationGetter(fieldName)
     ? tradeInformationGetters[fieldName](contract)
-    : paymentData?.[fieldName];
+    : view === "seller"
+      ? buyerPaymentData?.[fieldName]
+      : paymentData?.[fieldName];
 
   if (!information) return null;
 
@@ -203,9 +206,15 @@ function getTradeInfoFields(
   const isTradeCompleted =
     !!releaseTxId || (!!batchInfo && !batchInfo.completed);
   if (view === "seller") {
-    return tradeFields.seller[isTradeCompleted ? "past" : "active"][
-      isCashTrade(paymentMethod) ? "cash" : "default"
-    ];
+    if (isCashTrade(paymentMethod)) {
+      return tradeFields.seller[isTradeCompleted ? "past" : "active"].cash;
+    }
+
+    if (isTradeCompleted) {
+      return tradeFields.seller.past.default;
+    }
+
+    return tradeFields.seller.active.default[paymentMethod] || [];
   }
 
   if (isTradeCompleted) {
