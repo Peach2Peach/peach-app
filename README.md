@@ -2,7 +2,7 @@
 
 Follow [react native setup guide](https://reactnative.dev/docs/environment-setup)
 
-Run
+Run these commands
 
 ```
 npm install
