@@ -15,7 +15,6 @@ import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/Conf
 import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
@@ -33,13 +32,15 @@ export const Contract = () => {
   const { contract, isLoading, refetch } = useContractDetail(contractId);
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const view = contract
-    ? getContractViewer(contract.seller.id, publicKey)
+    ? contract.seller.id === publicKey
+      ? "seller"
+      : "buyer"
     : undefined;
 
   useHandleNotifications(
     useCallback(
-      (message) => {
-        if (message.data?.contractId === contractId) refetch();
+      async (message) => {
+        if (message.data?.contractId === contractId) await refetch();
       },
       [contractId, refetch],
     ),
@@ -59,7 +60,7 @@ export const Contract = () => {
 
 type ContractScreenProps = {
   contract: Contract;
-  view: ContractViewer;
+  view: "buyer" | "seller";
 };
 
 function ContractScreen({ contract, view }: ContractScreenProps) {
@@ -148,6 +149,7 @@ function ContractHeader() {
       });
     return icons;
   }, [
+    disputeActive,
     contract,
     view,
     requiredAction,
@@ -157,12 +159,26 @@ function ContractHeader() {
     showConfirmPopup,
   ]);
 
+  const { paymentMade, paymentExpectedBy } = contract;
   const theme = useMemo(() => {
     if (disputeActive || disputeWinner) return "dispute";
     if (canceled || tradeStatus === "confirmCancelation") return "cancel";
-    if (isPaymentTooLate(contract)) return "paymentTooLate";
+    if (
+      isPaymentTooLate({ paymentMade, paymentExpectedBy }) ||
+      tradeStatus === "fundingExpired"
+    ) {
+      return "paymentTooLate";
+    }
     return view;
-  }, [canceled, contract, disputeActive, disputeWinner, tradeStatus, view]);
+  }, [
+    canceled,
+    disputeActive,
+    disputeWinner,
+    paymentExpectedBy,
+    paymentMade,
+    tradeStatus,
+    view,
+  ]);
 
   const title = getHeaderTitle(view, contract);
 
@@ -205,7 +221,8 @@ function getHeaderTitle(view: string, contract: Contract) {
     if (disputeWinner === "seller") return i18n("contract.disputeLost");
 
     if (tradeStatus === "paymentRequired") {
-      if (isPaymentTooLate(contract))
+      const { paymentMade, paymentExpectedBy } = contract;
+      if (isPaymentTooLate({ paymentMade, paymentExpectedBy }))
         return i18n("contract.paymentTimerHasRunOut.title");
       return i18n("offer.requiredAction.paymentRequired");
     }
@@ -213,6 +230,7 @@ function getHeaderTitle(view: string, contract: Contract) {
       return i18n("offer.requiredAction.waiting.seller");
     if (tradeStatus === "confirmCancelation")
       return i18n("offer.requiredAction.confirmCancelation.buyer");
+    if (tradeStatus === "tradeCanceled") return i18n("contract.tradeCanceled");
   }
 
   if (view === "seller") {
@@ -222,6 +240,8 @@ function getHeaderTitle(view: string, contract: Contract) {
   }
 
   if (disputeActive) return i18n("offer.requiredAction.dispute");
+  if (tradeStatus === "fundingExpired")
+    return i18n("offer.requiredAction.fundingExpired");
   if (isPaymentTooLate(contract))
     return i18n("contract.paymentTimerHasRunOut.title");
 

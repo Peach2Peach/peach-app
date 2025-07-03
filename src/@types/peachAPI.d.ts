@@ -246,7 +246,9 @@ type TradeStatus =
   | "createEscrow"
   | "waitingForFunding"
   | "fundEscrow"
-  | "escrowWaitingForConfirmation";
+  | "escrowWaitingForConfirmation"
+  | "fundingExpired";
+// | "fundingExpired";
 
 type OfferPaymentData = Partial<
   Record<

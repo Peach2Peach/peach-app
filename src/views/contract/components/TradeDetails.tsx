@@ -28,6 +28,7 @@ import { SummaryItem } from "./SummaryItem";
 import { usePatchReleaseAddress } from "./usePatchReleaseAddress";
 
 export const TradeDetails = () => {
+  console.log("here TRADE DETAILS INFO");
   const { contract, paymentData, isDecryptionError, view } =
     useContractContext();
   const sections = getTradeInfoFields(contract, view);

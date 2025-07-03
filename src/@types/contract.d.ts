@@ -84,6 +84,8 @@ type Contract = {
   unreadMessages: number;
   isChatActive: boolean;
   paymentDataEncryptionMethod: EncryptionMethod;
+
+  fundingExpectedBy?: Date;
 };
 
 type LocalContract = {
