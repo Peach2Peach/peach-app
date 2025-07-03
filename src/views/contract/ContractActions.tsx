@@ -39,7 +39,7 @@ export const ContractActions = () => {
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
-        <EscrowButton {...contract} style={tw`flex-1`} />
+        {contract.escrow && <EscrowButton {...contract} style={tw`flex-1`} />}
         <ChatButton />
       </View>
 
@@ -65,7 +65,12 @@ function ContractStatusInfo() {
   if (shouldShowInfo) {
     const requiredAction = getRequiredAction(contract);
 
-    if (requiredAction === "sendPayment" && !isCashTrade(paymentMethod)) {
+    if (
+      requiredAction === "sendPayment" &&
+      contract.tradeStatus !== "waitingForFunding" &&
+      contract.tradeStatus !== "escrowWaitingForConfirmation" &&
+      !isCashTrade(paymentMethod)
+    ) {
       const paymentExpectedBy = getPaymentExpectedBy(contract);
       if (Date.now() <= paymentExpectedBy || view === "buyer") {
         return (
@@ -129,6 +134,10 @@ function BuyerSliders() {
   const { contract } = useContractContext();
   const { tradeStatus, disputeWinner } = contract;
   const requiredAction = getRequiredAction(contract);
+
+  if (tradeStatus === "waitingForFunding") {
+    return <></>;
+  }
 
   if (tradeStatus === "confirmCancelation") {
     return <ResolveCancelRequestSliders />;

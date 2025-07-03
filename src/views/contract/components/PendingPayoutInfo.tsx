@@ -14,7 +14,6 @@ import { useContractContext } from "../context";
 const NO_ENTRY_VALUE = -2;
 
 export const PendingPayoutInfo = () => {
-  console.log("here PAYOUT PENDING INFO");
   const { releaseAddress, batchInfo } = useContractContext().contract;
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<HelpPopup id="payoutPending" />);
