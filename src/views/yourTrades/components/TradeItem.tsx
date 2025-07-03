@@ -308,8 +308,9 @@ function getActionLabel(
   const { tradeStatus } = tradeSummary;
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 
-  if (!isTradeStatus(tradeSummary.tradeStatus))
+  if (!isTradeStatus(tradeSummary.tradeStatus)) {
     return i18n("offer.requiredAction.unknown");
+  }
 
   if (isContractSummary(tradeSummary)) {
     const { unreadMessages, type, disputeWinner } = tradeSummary;

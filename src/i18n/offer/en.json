@@ -39,6 +39,7 @@
   "offer.requiredAction.waiting" : "waiting for $0",
   "offer.requiredAction.waiting.buyer" : "waiting for payment",
   "offer.requiredAction.waiting.seller" : "waiting for seller",
+  "offer.requiredAction.createEscrow" : "create escrow",
   "offer.sorting.bestReputation" : "best reputation first",
   "offer.sorting.highestAmount" : "highest amount first",
   "offer.sorting.highestPrice" : "highest price first",

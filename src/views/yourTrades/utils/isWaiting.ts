@@ -3,6 +3,7 @@ const waitingStatus = [
   "searchingForPeer",
   "offerHidden",
   "payoutPending",
+  "waitingForFunding",
 ];
 const waitingBuyStatus = ["confirmPaymentRequired", "paymentTooLate"];
 export const isWaiting = (type: Offer["type"], tradeStatus: TradeStatus) =>

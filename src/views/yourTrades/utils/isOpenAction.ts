@@ -4,6 +4,7 @@ const openActionStatus = [
   "hasMatchesAvailable",
   "offerHiddenWithMatchesAvailable",
   "rateUser",
+  "createEscrow",
 ];
 const sellOpenActionStatus = ["confirmPaymentRequired", "paymentTooLate"];
 

@@ -241,7 +241,12 @@ type TradeStatus =
   | "releaseEscrow"
   | "searchingForPeer"
   | "tradeCanceled"
-  | "tradeCompleted";
+  | "tradeCompleted"
+  // Trade Status related to Contract Without Escrow being funded
+  | "createEscrow"
+  | "waitingForFunding"
+  | "fundEscrow"
+  | "escrowWaitingForConfirmation";
 
 type OfferPaymentData = Partial<
   Record<
