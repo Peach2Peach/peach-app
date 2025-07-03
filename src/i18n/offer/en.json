@@ -32,6 +32,8 @@
   "offer.requiredAction.refundOrReviveRequired.dispute" : "dispute won: resolve now",
   "offer.requiredAction.refundTxSignatureRequired" : "refund escrow",
   "offer.requiredAction.refundTxSignatureRequired.dispute" : "dispute won: resolve now",
+  "offer.requiredAction.sellerHasntFunded" : "The seller hasn't funded the escrow yet",
+  "offer.requiredAction.sellerShouldFundIn" :"seller should fund the escrow in",
   "offer.requiredAction.releaseEscrow" : "release escrow",
   "offer.requiredAction.releaseEscrow.dispute" : "dispute lost: release escrow",
   "offer.requiredAction.searchingForPeer" : "looking for match",
