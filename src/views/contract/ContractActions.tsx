@@ -32,6 +32,7 @@ import {
   RepublishOfferSlider,
   ResolveCancelRequestSliders,
 } from "./ContractSliders";
+import { isFundingTradeStatus } from "./components/TradeInformation";
 import { useContractContext } from "./context";
 
 export const ContractActions = () => {
@@ -46,7 +47,8 @@ export const ContractActions = () => {
       <ContractStatusInfo />
 
       <ContractButtons />
-      {view === "buyer" ? <BuyerSliders /> : <SellerSliders />}
+      {!isFundingTradeStatus(contract.tradeStatus) &&
+        (view === "buyer" ? <BuyerSliders /> : <SellerSliders />)}
     </View>
   );
 };
@@ -134,10 +136,6 @@ function BuyerSliders() {
   const { contract } = useContractContext();
   const { tradeStatus, disputeWinner } = contract;
   const requiredAction = getRequiredAction(contract);
-
-  if (tradeStatus === "waitingForFunding") {
-    return <></>;
-  }
 
   if (tradeStatus === "confirmCancelation") {
     return <ResolveCancelRequestSliders />;

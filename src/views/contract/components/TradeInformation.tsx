@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
-import { useSetGlobalOverlay } from "../../../Overlay";
 import txInMempool from "../../../assets/escrow/tx-in-mempool.png";
 import { BitcoinAddress } from "../../../components/bitcoin/BitcoinAddress";
 import { PeachText } from "../../../components/text/PeachText";
@@ -12,19 +10,24 @@ import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOffer
 import i18n from "../../../utils/i18n";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
-import { EscrowOfContractFunded } from "../../search/EscrowOfContractFunded";
 import { useContractContext } from "../context";
 import { shouldShowTradeStatusInfo } from "../helpers/shouldShowTradeStatusInfo";
 import { TradeDetails } from "./TradeDetails";
 import { TradeStatusInfo } from "./TradeStatusInfo";
 
+export const isFundingTradeStatus = (tradeStatus: string): boolean => {
+  return [
+    "createEscrow",
+    "fundEscrow",
+    "waitingForFunding",
+    "escrowWaitingForConfirmation",
+  ].includes(tradeStatus);
+};
+
 export const TradeInformation = () => {
   const { contract, view } = useContractContext();
-  if (
-    ["createEscrow", "fundEscrow", "waitingForFunding"].includes(
-      contract.tradeStatus,
-    )
-  ) {
+
+  if (isFundingTradeStatus(contract.tradeStatus)) {
     return <FundEscrow />;
   }
   return shouldShowTradeStatusInfo(contract, view) ? (
@@ -96,18 +99,18 @@ function SellerFundEscrow() {
 
   const [showPopup, toggle] = useToggleBoolean(true);
 
-  const setOverlay = useSetGlobalOverlay();
-  useEffect(() => {
-    if (fundingStatus?.status === "FUNDED" && showPopup) {
-      toggle();
-      setOverlay(
-        <EscrowOfContractFunded
-          shouldGoBack={false}
-          contractId={contract.id}
-        />,
-      );
-    }
-  }, [fundingStatus, contract.id, setOverlay, toggle, showPopup]);
+  // const setOverlay = useSetGlobalOverlay();
+  // useEffect(() => {
+  //   if (fundingStatus?.status === "FUNDED" && showPopup) {
+  //     toggle();
+  //     setOverlay(
+  //       <EscrowOfContractFunded
+  //         shouldGoBack={false}
+  //         contractId={contract.id}
+  //       />,
+  //     );
+  //   }
+  // }, [fundingStatus, contract.id, setOverlay, toggle, showPopup]);
 
   if (isLoading) return <ActivityIndicator size="large" />;
   if (fundingStatus?.status === "MEMPOOL") {

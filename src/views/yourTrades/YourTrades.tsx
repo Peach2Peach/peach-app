@@ -38,7 +38,6 @@ export const YourTrades = () => {
   useEffect(() => {
     if (error) showErrorBanner(parseError(error));
   }, [error, showErrorBanner]);
-
   return (
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
