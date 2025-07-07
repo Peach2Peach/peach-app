@@ -16,6 +16,10 @@ import {
 import { CurrencyType } from "./types";
 
 type OfferPreferences = {
+  //peach069
+  createBuyOfferAmount: number;
+  createBuyOfferPremium: number;
+
   buyAmountRange: [number, number];
   sellAmount: number;
   premium: number;
@@ -41,6 +45,9 @@ type OfferPreferences = {
 };
 
 export const defaultPreferences: OfferPreferences = {
+  createBuyOfferAmount: 1,
+  createBuyOfferPremium: 1.5,
+
   buyAmountRange: [1, TOTAL_SATS],
   sellAmount: 1,
   premium: 1.5,
@@ -72,6 +79,8 @@ export const defaultPreferences: OfferPreferences = {
 };
 
 type OfferPreferencesActions = {
+  setCreateBuyOfferAmount: (createBuyOfferAmount: number) => void;
+  setCreateBuyOfferPremium: (createBuyOfferPremium: number) => void;
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
@@ -98,6 +107,11 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
     immer((set, get) => ({
       ...defaultPreferences,
+      setCreateBuyOfferAmount: (createBuyOfferAmount) =>
+        set({ createBuyOfferAmount }),
+      setCreateBuyOfferPremium: (createBuyOfferPremium) =>
+        set({ createBuyOfferPremium }),
+
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),

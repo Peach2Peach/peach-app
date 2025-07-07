@@ -2,7 +2,8 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { Match as MatchType } from "../../../peach-api/src/@types/match";
+import { Pricebook } from "../../../peach-api/src/@types/global";
+import { BuyOffer69 } from "../../../peach-api/src/@types/offer";
 import { GradientBorder } from "../../components/GradientBorder";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { ProfileInfo } from "../../components/ProfileInfo";
@@ -13,106 +14,89 @@ import {
   ConfirmSlider,
   UnlockedSlider,
 } from "../../components/inputs/confirmSlider/ConfirmSlider";
-import { UnmatchButton } from "../../components/matches/buttons/UnmatchButton";
 import { options } from "../../components/matches/buttons/options";
-import { EscrowLink } from "../../components/matches/components/EscrowLink";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
 import { PriceInfo } from "../../components/matches/components/PriceInfo";
 import { useInterruptibleFunction } from "../../components/matches/hooks/useInterruptibleFunction";
-import { useMatchOffer } from "../../components/matches/hooks/useMatchOffer";
-import { getMatchPrice } from "../../components/matches/utils/getMatchPrice";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
+import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
+import { useBuyOfferTradeRequestBySelfUser } from "../../hooks/query/useBuyOfferTradeRequestBySelfUser";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
-import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import { getRandom } from "../../utils/crypto/getRandom";
 import i18n from "../../utils/i18n";
-import { isLimitReached } from "../../utils/match/isLimitReached";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
-import { isBuyOffer } from "../../utils/offer/isBuyOffer";
+import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
+import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../../utils/peachAPI";
+import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { matchesKeys } from "../search/hooks/useOfferMatches";
 
-export function MatchDetails() {
-  const { matchId, offerId } = useRoute<"matchDetails">().params;
-
-  const { data: match } = useMatchDetails({ offerId, matchId });
-  console.log("MATCH:", match);
-  const { offer } = useOfferDetail(offerId);
+export function ExpressSellTradeRequestToBuyOffer() {
+  const { offerId } = useRoute<"expressSellTradeRequest">().params;
 
   const navigation = useStackNavigation();
-  if (offer?.contractId) {
-    navigation.reset({
-      index: 1,
-      routes: [
-        {
-          name: "homeScreen",
-          params: { screen: "yourTrades", params: { tab: "yourTrades.buy" } },
-        },
-        { name: "contract", params: { contractId: offer.contractId } },
-      ],
-    });
-  }
 
-  if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
-    return <LoadingScreen />;
+  const { buyOffer, isLoading } = useBuyOfferDetail(offerId);
+
+  if (isLoading || !buyOffer) return <LoadingScreen />;
   return (
-    <Screen showTradingLimit header={i18n("matchDetails.title")}>
-      <Match match={match} offer={offer} />
+    <Screen showTradingLimit header={"Buy Offer 0.69: " + buyOffer.id}>
+      <TradeRequest buyOffer={buyOffer} />
     </Screen>
   );
 }
 
-function useMatchDetails({
-  offerId,
-  matchId,
-}: {
-  offerId: string;
-  matchId: string;
-}) {
+function useUserDetails({ userId }: { userId: string }) {
   const queryData = useQuery({
-    queryKey: matchesKeys.matchDetail(offerId, matchId),
-    queryFn: getMatchDetails,
-    refetchInterval: 10000,
+    queryKey: ["user", userId],
+    queryFn: getUserDetails,
   });
 
   return queryData;
 }
 
-async function getMatchDetails({
-  queryKey,
-}: QueryFunctionContext<ReturnType<typeof matchesKeys.matchDetail>>) {
-  const [, offerId, matchId] = queryKey;
-  const { result, error } = await peachAPI.private.offer.getMatch({
-    offerId,
-    matchId,
+async function getUserDetails({ queryKey }: QueryFunctionContext) {
+  const [, userId] = queryKey;
+  const { result, error } = await peachAPI.public.user.getUser({
+    userId,
   });
-  if (error || !result) throw new Error(error?.error || "Match not found");
+
   return result;
 }
 
-const MATCH_DELAY = 5000;
-function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
-  const { mutate } = useMatchOffer(offer, match);
-  const { meansOfPayment } = match;
+const TRADE_REQUEST_DELAY = 5000;
+function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
   const { isDarkMode } = useThemeStore();
 
+  const { user: selfUser } = useSelfUser();
+  const { data: buyOfferUser } = useUserDetails({ userId: buyOffer.userId });
+
+  const {
+    data: buyOfferTradeRequestPerformedBySelfUser,
+    refetch: buyOfferTradeRequestPerformedBySelfUserRefetch,
+  } = useBuyOfferTradeRequestBySelfUser({ buyOfferId: buyOffer.id });
+
+  const { data: priceBook, isLoading: isPricebookLoading } = useMarketPrices();
+
   const [selectedCurrency, setSelectedCurrency] = useState(
-    keys(meansOfPayment)[0],
+    keys(buyOffer.meansOfPayment)[0],
   );
 
-  const allMethodsForCurrency = meansOfPayment[selectedCurrency];
+  const allMethodsForCurrency = buyOffer.meansOfPayment[selectedCurrency];
   const paymentData = usePaymentDataStore(
     (state) => Object.values(state.paymentData),
     shallow,
@@ -124,35 +108,28 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
 
-  const [showMatchedCard, setShowMatchedCard] = useState(match.matched);
-  const isMatched = match.matched || showMatchedCard;
-  const { maxMiningFeeRate } = useMaxMiningFee(match.amount);
+  console.log("SELECTED PAYMENT DATA", selectedPaymentData);
 
-  const matchOffer = () =>
-    mutate(
-      { selectedCurrency, paymentData: selectedPaymentData, maxMiningFeeRate },
-      { onError: () => setShowMatchedCard(false) },
-    );
+  const [showMatchedCard, setShowMatchedCard] = useState(false);
+  const isMatched = showMatchedCard;
+  const { maxMiningFeeRate } = useMaxMiningFee(buyOffer.amountSats); //TODO: validate this
+
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
     useInterruptibleFunction(() => {
-      matchOffer();
-    }, MATCH_DELAY);
+      //   matchOffer();
+    }, TRADE_REQUEST_DELAY);
   const onInterruptMatch = () => {
     interruptMatchFunction();
     setShowMatchedCard(false);
   };
 
-  const onMatchPress = () => {
-    setShowMatchedCard(true);
-    matchFunction();
-  };
-
   const [showPaymentMethodPulse, setShowPaymentMethodPulse] = useState(false);
 
-  const tradingLimitReached = isLimitReached(
-    match.unavailable.exceedsLimit || [],
-    selectedPaymentData?.type,
-  );
+  //   const tradingLimitReached = isLimitReached(
+  //     match.unavailable.exceedsLimit || [],
+  //     selectedPaymentData?.type,
+  //   );
+  const tradingLimitReached = false;
 
   const currentOptionName = useMemo(
     () =>
@@ -165,9 +142,13 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
             : "matchOffer",
     [isMatched, selectedPaymentData, tradingLimitReached],
   );
+
   return (
     <>
       <View style={tw`justify-center flex-1`}>
+        {buyOfferTradeRequestPerformedBySelfUser && (
+          <PeachText>TRADE REQUEST ALREADY EXISTS</PeachText>
+        )}
         <GradientBorder
           gradientBorderWidth={4}
           showBorder={isMatched}
@@ -186,24 +167,20 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
             ]}
           >
             <View style={tw`gap-2 p-4 md:gap-4`}>
-              <ProfileInfo user={match.user} isOnMatchCard />
-
+              {buyOfferUser !== undefined && (
+                <ProfileInfo user={buyOfferUser} isOnMatchCard />
+              )}
               <HorizontalLine />
-
-              <BuyerPriceInfo
-                match={match}
-                selectedCurrency={match.selectedCurrency || selectedCurrency}
-                selectedPaymentMethod={
-                  match.selectedPaymentMethod ||
-                  selectedPaymentData?.type ||
-                  allMethodsForCurrency?.[0]
-                }
-              />
-
-              <HorizontalLine />
-
+              {priceBook && (
+                <BuyerPriceInfo
+                  buyOffer={buyOffer}
+                  selectedCurrency={selectedCurrency}
+                  priceBook={priceBook}
+                />
+              )}
               <PaymentMethodSelector
-                meansOfPayment={meansOfPayment}
+                origin="expressSellTradeRequest"
+                meansOfPayment={buyOffer.meansOfPayment}
                 disabled={currentOptionName === "tradingLimitReached"}
                 selectedCurrency={selectedCurrency}
                 setSelectedCurrency={setSelectedCurrency}
@@ -211,18 +188,15 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
                 setSelectedPaymentData={setSelectedPaymentData}
                 showPaymentMethodPulse={showPaymentMethodPulse}
                 selectedMethodInfo={
-                  match.matched ? (
-                    <SelectedMethodInfo
-                      selectedCurrency={match.selectedCurrency}
-                      selectedPaymentMethod={match.selectedPaymentMethod}
-                    />
-                  ) : undefined
+                  // match.matched ? (
+                  //   <SelectedMethodInfo
+                  //     selectedCurrency={match.selectedCurrency}
+                  //     selectedPaymentMethod={match.selectedPaymentMethod}
+                  //   />
+                  // ) :
+                  undefined // TODO: check this
                 }
               />
-
-              <HorizontalLine />
-
-              <EscrowLink address={match.escrow || ""} />
             </View>
             {isMatched && (
               <>
@@ -236,29 +210,28 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
                   style={tw`absolute top-0 left-0 items-center justify-center w-full h-full`}
                   pointerEvents="box-none"
                 >
-                  <UnmatchButton
+                  {/* <UnmatchButton
                     {...{ match, offer }}
                     interruptMatching={onInterruptMatch}
                     setShowMatchedCard={setShowMatchedCard}
-                  />
+                  /> */}
                 </View>
               </>
             )}
           </View>
         </GradientBorder>
       </View>
-      {match.instantTrade ? (
-        <InstantTradeSlider
-          matchOffer={matchOffer}
-          optionName={currentOptionName}
-        />
-      ) : (
-        <MatchOfferButton
-          matchOffer={onMatchPress}
-          optionName={currentOptionName}
-          setShowPaymentMethodPulse={setShowPaymentMethodPulse}
-        />
-      )}
+      <PerformTradeRequestButton
+        maxMiningFeeRate={maxMiningFeeRate || 5}
+        selectedPaymentData={selectedPaymentData}
+        selectedCurrency={selectedCurrency}
+        buyOfferId={buyOffer.id}
+        selfUser={selfUser}
+        buyOfferUser={buyOfferUser}
+        buyOfferTradeRequestPerformedBySelfUserRefetch={
+          buyOfferTradeRequestPerformedBySelfUserRefetch
+        }
+      />
     </>
   );
 }
@@ -298,12 +271,6 @@ function SelectedMethodInfo({
   );
 }
 
-type Props = {
-  matchOffer: () => void;
-  optionName: keyof typeof options;
-  setShowPaymentMethodPulse: (showPulse: boolean) => void;
-};
-
 function InstantTradeSlider({
   matchOffer,
   optionName,
@@ -336,37 +303,87 @@ function InstantTradeSlider({
     />
   );
 }
+const SYMMETRIC_KEY_BYTES = 32;
+function PerformTradeRequestButton({
+  selectedPaymentData,
+  maxMiningFeeRate,
+  selectedCurrency,
+  buyOfferId,
+  selfUser,
+  buyOfferUser,
+  buyOfferTradeRequestPerformedBySelfUserRefetch,
+}: {
+  maxMiningFeeRate?: number;
+  selectedPaymentData?: PaymentData;
+  selectedCurrency?: Currency;
+  buyOfferId: number;
+  selfUser?: User;
+  buyOfferUser?: PublicUser;
+  buyOfferTradeRequestPerformedBySelfUserRefetch: Function;
+}) {
+  const onPress = async () => {
+    if (!peachWallet) throw Error("Peach Wallet not ready");
+    if (
+      !maxMiningFeeRate ||
+      !selectedPaymentData ||
+      !selectedCurrency ||
+      !peachWallet ||
+      !selfUser ||
+      !buyOfferUser
+    )
+      throw Error("values not ready");
+    const { address: returnAddress } = await peachWallet.getAddress();
 
-function MatchOfferButton({
-  matchOffer,
-  optionName,
-  setShowPaymentMethodPulse,
-}: Props) {
-  const onPress = () => {
-    if (optionName === "matchOffer") {
-      matchOffer();
-    } else if (optionName === "missingSelection") {
-      setShowPaymentMethodPulse(true);
-    }
+    const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
+    const { encrypted, signature } = await signAndEncrypt(
+      symmetricKey,
+      [
+        ...selfUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
+        ...buyOfferUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
+      ].join("\n"),
+    );
+
+    const encryptedPaymentData = await encryptPaymentData(
+      cleanPaymentData(selectedPaymentData),
+      symmetricKey,
+    );
+    if (!encryptedPaymentData)
+      return { error: "PAYMENTDATA_ENCRYPTION_FAILED" };
+    const hashedPaymentData = getHashedPaymentData([selectedPaymentData]);
+
+    await peachAPI.private.peach069.performBuyOfferTradeRequest({
+      buyOfferId,
+      paymentMethod: selectedPaymentData.type,
+      currency: selectedCurrency,
+      paymentDataHashed: hashedPaymentData,
+      paymentDataEncrypted: encryptedPaymentData.encrypted,
+      paymentDataSignature: encryptedPaymentData.signature,
+      symmetricKeyEncrypted: encrypted,
+      symmetricKeySignature: signature,
+      maxMiningFeeRate: maxMiningFeeRate,
+      returnAddress,
+    });
+
+    buyOfferTradeRequestPerformedBySelfUserRefetch();
   };
-
-  if (optionName === "offerMatched") return <WaitingForSeller />;
 
   return (
     <Button
       style={[
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
         tw`bg-primary-main`,
-        optionName === "missingSelection" && tw`bg-primary-mild-1`,
-        optionName === "tradingLimitReached" && tw`bg-black-50`,
       ]}
       onPress={onPress}
+      disabled={
+        !maxMiningFeeRate ||
+        !selectedPaymentData ||
+        !selectedCurrency ||
+        !peachWallet ||
+        !selfUser ||
+        !buyOfferUser
+      }
     >
-      {i18n(
-        optionName === "tradingLimitReached"
-          ? "matchDetails.action.tradingLimitReached"
-          : "matchDetails.action.requestTrade",
-      )}
+      {i18n("matchDetails.action.requestTrade")}
     </Button>
   );
 }
@@ -435,43 +452,26 @@ function AnimatedButtons() {
 }
 
 type PriceInfoProps = {
-  match: Match;
+  buyOffer: BuyOffer69;
   selectedCurrency: Currency;
-  selectedPaymentMethod: PaymentMethod | undefined;
+  priceBook: Pricebook;
+  // selectedPaymentMethod: PaymentMethod | undefined;
 };
 
 function BuyerPriceInfo({
-  match,
+  buyOffer,
   selectedCurrency,
-  selectedPaymentMethod,
+  priceBook,
 }: PriceInfoProps) {
-  const { data: priceBook, isSuccess } = useMarketPrices();
-
-  const amountInBTC = match.amount / SATSINBTC;
-  const displayPrice = getMatchPrice(
-    match,
-    selectedPaymentMethod,
-    selectedCurrency,
-  );
-
-  const bitcoinPrice =
-    priceBook?.[selectedCurrency] ?? amountInBTC / displayPrice;
-
-  const marketPrice = amountInBTC * bitcoinPrice;
-
-  const premium = match.matched
-    ? isSuccess
-      ? round((displayPrice / marketPrice - 1) * CENT, 2)
-      : 0
-    : match.premium;
-
+  const premium = buyOffer.premium; // TODO: handle match
+  const price = (priceBook[selectedCurrency] * buyOffer.amountSats) / SATSINBTC;
   return (
     <PriceInfo
-      amount={match.amount}
-      price={displayPrice}
+      amount={buyOffer.amountSats} // TODO: handle match
+      price={price}
       currency={selectedCurrency}
       premium={premium}
-      miningFeeWarning={<MiningFeeWarning amount={match.amount} />}
+      miningFeeWarning={<MiningFeeWarning amount={buyOffer.amountSats} />}
     />
   );
 }

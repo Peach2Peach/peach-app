@@ -25,6 +25,10 @@ import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
 import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
 import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
+import { BrowseTradeRequestsToMyBuyOffer } from "./peach069/BrowseTradeRequestsToMyBuyOffer";
+import { ExpressSellBrowseBuyOffers } from "./peach069/ExpressSellBrowseBuyOffers";
+import { ExpressSellTradeRequestToBuyOffer } from "./peach069/ExpressSellTradeRequestToBuyOffer";
+import { CreateBuyOffer } from "./peach069/createBuyOffer";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
 import { Report } from "./report/Report";
@@ -169,6 +173,34 @@ const testViews: ViewType[] = [
   { name: "testViewPNs", component: TestViewPNs },
 ];
 
+// Peach 0.69
+
+const expressBuyFlow: ViewType[] = [
+  { name: "expressBuyBrowseSellOffers", component: HomeScreen },
+  { name: "expressBuyTradeRequest", component: HomeScreen },
+];
+const expressSellFlow: ViewType[] = [
+  { name: "expressSellBrowseBuyOffers", component: ExpressSellBrowseBuyOffers },
+  {
+    name: "expressSellTradeRequest",
+    component: ExpressSellTradeRequestToBuyOffer,
+  },
+];
+
+const buyOfferOwnerFlow: ViewType[] = [
+  { name: "createBuyOffer", component: CreateBuyOffer },
+  {
+    name: "browseTradeRequestsToMyBuyOffer",
+    component: BrowseTradeRequestsToMyBuyOffer,
+  },
+  { name: "tradeRequestToMyBuyOfferDetails", component: HomeScreen },
+];
+
+const sellOfferOwnerFlow: ViewType[] = [
+  { name: "browseTradeRequestsToMySellOffer", component: HomeScreen },
+  { name: "tradeRequestToMySellOfferDetails", component: HomeScreen },
+];
+
 export const views = [
   ...home,
   ...buyFlow,
@@ -180,6 +212,10 @@ export const views = [
   ...contact,
   ...settings,
   ...testViews,
+  ...expressBuyFlow,
+  ...expressSellFlow,
+  ...buyOfferOwnerFlow,
+  ...sellOfferOwnerFlow,
 ];
 
 export const onboardingViews = [...onboarding, ...contact];

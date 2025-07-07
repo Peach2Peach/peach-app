@@ -65,6 +65,36 @@ type ContractFlow = {
   };
 };
 
+// peach 069 flows START
+type ExpressBuyFlow = {
+  expressBuyBrowseSellOffers: undefined;
+  expressBuyTradeRequest: { offerId: string };
+};
+
+type ExpressSellFlow = {
+  expressSellBrowseBuyOffers: undefined;
+  expressSellTradeRequest: { offerId: string };
+};
+
+type BuyOfferOwnerFlow = {
+  createBuyOffer: undefined;
+  browseTradeRequestsToMyBuyOffer: { offerId: string };
+  tradeRequestToMyBuyOfferDetails: {
+    offerId: string;
+    requestingUserId: string;
+  };
+};
+
+type SellOfferOwnerFlow = {
+  browseTradeRequestsToMySellOffer: { offerId: string };
+  tradeRequestToMySellOfferDetails: {
+    offerId: string;
+    requestingUserId: string;
+  };
+};
+
+// peach 069 flows END
+
 type RootStackParamList = Onboarding &
   Home &
   BuyFlow &
@@ -146,4 +176,8 @@ type RootStackParamList = Onboarding &
       | { address: string; addressLabel: string }
       | { contractId: Contract["id"]; address: string; addressLabel: string }
       | { offerId: string; address: string; addressLabel: string };
-  } & TestViews;
+  } & TestViews &
+  ExpressBuyFlow &
+  ExpressSellFlow &
+  BuyOfferOwnerFlow &
+  SellOfferOwnerFlow;

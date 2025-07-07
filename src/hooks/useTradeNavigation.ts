@@ -8,6 +8,7 @@ import { peachAPI } from "../utils/peachAPI";
 import { useCreateEscrow } from "../views/fundEscrow/hooks/useCreateEscrow";
 import { isContractSummary } from "../views/yourTrades/utils/isContractSummary";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
+import { getNavigationDestinationForPeach069BuyOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForPeach069BuyOffer";
 import { offerKeys } from "./query/useOfferDetail";
 import { useStackNavigation } from "./useStackNavigation";
 
@@ -20,7 +21,9 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
   const navigateToOfferOrContract = useCallback(async () => {
     const destination = isContractSummary(item)
       ? (["contract", { contractId: item.id }] as const)
-      : getNavigationDestinationForOffer(item);
+      : item.amountSats //TODO: fix this
+        ? getNavigationDestinationForPeach069BuyOffer(item)
+        : getNavigationDestinationForOffer(item);
     if (item.tradeStatus === "refundTxSignatureRequired") {
       const offerId = isContractSummary(item) ? item.offerId : item.id;
       const { result: sellOffer } =

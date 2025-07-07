@@ -27,6 +27,7 @@ const tabs = [
   "yourTrades.buy",
   "yourTrades.sell",
   "yourTrades.history",
+  "yourTrades.69BuyOffer",
 ] as const;
 
 export const YourTrades = () => {

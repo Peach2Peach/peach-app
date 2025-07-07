@@ -4,6 +4,7 @@ import { getPastOffers } from "../../views/yourTrades/utils/getPastOffers";
 import { isPastOffer } from "../../views/yourTrades/utils/isPastOffer";
 import { useContractSummaries } from "./useContractSummaries";
 import { useOfferSummaries } from "./useOfferSummaries";
+import { useOwnPeach069BuyOffers } from "./usePeach069BuyOffers";
 
 export const useTradeSummaries = (enabled = true) => {
   const {
@@ -21,14 +22,23 @@ export const useTradeSummaries = (enabled = true) => {
     isRefetching: isRefetchingContracts,
   } = useContractSummaries(enabled);
 
+  const {
+    buyOffers,
+    isLoading: buyOffers69Loading,
+    error: buyOffers69Error,
+    refetch: refetchBuyOffers69,
+    isRefetching: isRefetchingBuyOffers69,
+  } = useOwnPeach069BuyOffers(enabled);
+
   const refetch = useCallback(() => {
     refetchOffers();
     refetchContracts();
-  }, [refetchContracts, refetchOffers]);
+    refetchBuyOffers69();
+  }, [refetchContracts, refetchOffers, refetchBuyOffers69]);
 
   const tradeSummaries = useMemo(
     () => [...offers, ...contracts].sort(sortSummariesByDate).reverse(),
-    [contracts, offers],
+    [contracts, offers, buyOffers],
   );
 
   const allOpenOffers = useMemo(
@@ -40,14 +50,16 @@ export const useTradeSummaries = (enabled = true) => {
       "yourTrades.buy": allOpenOffers.filter(({ type }) => type === "bid"),
       "yourTrades.sell": allOpenOffers.filter(({ type }) => type === "ask"),
       "yourTrades.history": getPastOffers(tradeSummaries),
+      "yourTrades.69BuyOffer": buyOffers,
     }),
-    [allOpenOffers, tradeSummaries],
+    [allOpenOffers, tradeSummaries, buyOffers],
   );
 
   return {
-    isLoading: offersLoading || contractsLoading,
-    error: offersError || contractsError,
-    isRefetching: isRefetchingOffers || isRefetchingContracts,
+    isLoading: offersLoading || contractsLoading || buyOffers69Loading,
+    error: offersError || contractsError || buyOffers69Error,
+    isRefetching:
+      isRefetchingOffers || isRefetchingContracts || isRefetchingBuyOffers69,
     summaries,
     refetch,
   };

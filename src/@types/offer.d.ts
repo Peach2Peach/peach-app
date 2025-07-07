@@ -64,6 +64,18 @@ type BuyOfferDraft = OfferDraft & {
   minReputation: number | null;
 };
 
+type BuyOffer69Draft = OfferDraft & {
+  releaseAddress: string;
+  amount: number;
+  messageSignature?: string;
+  premium: number;
+  minReputation: number | null;
+};
+
 type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {
+  message: string;
+};
+
+type BuyOffer69 = Omit<BuyOffer69Draft & Offer, "originalPaymentData"> & {
   message: string;
 };

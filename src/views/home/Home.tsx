@@ -38,6 +38,12 @@ export function Home() {
         </View>
       </View>
       <View style={tw`flex-row gap-10px`}>
+        <ExpressSellButton />
+      </View>
+      <View style={tw`flex-row gap-10px`}>
+        <CreateBuyOfferButton />
+      </View>
+      <View style={tw`flex-row gap-10px`}>
         <BuyButton />
         <SellButton />
       </View>
@@ -154,6 +160,29 @@ function MarketStats() {
 }
 
 const buttonStyle = tw`flex-1 px-5 py-3`;
+
+function CreateBuyOfferButton() {
+  const navigation = useStackNavigation();
+  const goToCreateBuyOffer = () => navigation.navigate("createBuyOffer");
+  return (
+    <Button
+      style={[buttonStyle, tw`bg-success-main`]}
+      onPress={goToCreateBuyOffer}
+    >
+      {i18n("69CreateBuyOffer")}
+    </Button>
+  );
+}
+function ExpressSellButton() {
+  const navigation = useStackNavigation();
+  const goToExpressSell = () =>
+    navigation.navigate("expressSellBrowseBuyOffers");
+  return (
+    <Button style={[buttonStyle, tw`bg-error-main`]} onPress={goToExpressSell}>
+      {i18n("69ExpressSell")}
+    </Button>
+  );
+}
 
 function BuyButton() {
   const navigation = useStackNavigation();

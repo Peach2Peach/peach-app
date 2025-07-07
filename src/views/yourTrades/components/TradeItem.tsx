@@ -115,7 +115,7 @@ const TradeStatusInfo = memo(({ item, iconId, color }: Props & TradeTheme) => {
 });
 const AmountInfo = memo(({ item }: Props) => {
   const { type, amount, currency, premium, price } = getInfoPropsWithType({
-    amount: item.amount,
+    amount: item.amount ? item.amount : item.amountSats, // TODO: fix this
     currency: "currency" in item ? item.currency : undefined,
     premium:
       "premium" in item && typeof item.premium === "number"
