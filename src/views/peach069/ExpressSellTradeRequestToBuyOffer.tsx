@@ -28,7 +28,6 @@ import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
-import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
@@ -43,12 +42,11 @@ import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
+import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 export function ExpressSellTradeRequestToBuyOffer() {
   const { offerId } = useRoute<"expressSellTradeRequest">().params;
-
-  const navigation = useStackNavigation();
 
   const { buyOffer, isLoading } = useBuyOfferDetail(offerId);
 
@@ -71,7 +69,7 @@ function useUserDetails({ userId }: { userId: string }) {
 
 async function getUserDetails({ queryKey }: QueryFunctionContext) {
   const [, userId] = queryKey;
-  const { result, error } = await peachAPI.public.user.getUser({
+  const { result } = await peachAPI.public.user.getUser({
     userId,
   });
 
@@ -90,7 +88,7 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
     refetch: buyOfferTradeRequestPerformedBySelfUserRefetch,
   } = useBuyOfferTradeRequestBySelfUser({ buyOfferId: buyOffer.id });
 
-  const { data: priceBook, isLoading: isPricebookLoading } = useMarketPrices();
+  const { data: priceBook } = useMarketPrices();
 
   const [selectedCurrency, setSelectedCurrency] = useState(
     keys(buyOffer.meansOfPayment)[0],
@@ -107,8 +105,6 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
   const defaultData =
     dataForCurrency.length === 1 ? dataForCurrency[0] : undefined;
   const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData);
-
-  console.log("SELECTED PAYMENT DATA", selectedPaymentData);
 
   const [showMatchedCard, setShowMatchedCard] = useState(false);
   const isMatched = showMatchedCard;
@@ -129,7 +125,7 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
   //     match.unavailable.exceedsLimit || [],
   //     selectedPaymentData?.type,
   //   );
-  const tradingLimitReached = false;
+  const tradingLimitReached = false; // TODO: HANDLE LIMIT REACHED
 
   const currentOptionName = useMemo(
     () =>
@@ -343,6 +339,12 @@ function PerformTradeRequestButton({
       ].join("\n"),
     );
 
+    const decryptionResult = await decryptSymmetricKey(encrypted, signature, [
+      ...selfUser.pgpPublicKeys,
+      ...buyOfferUser.pgpPublicKeys,
+    ]);
+    if (!decryptionResult)
+      throw Error("Couldnt decrypt the created symmetric key");
     const encryptedPaymentData = await encryptPaymentData(
       cleanPaymentData(selectedPaymentData),
       symmetricKey,
@@ -464,7 +466,10 @@ function BuyerPriceInfo({
   priceBook,
 }: PriceInfoProps) {
   const premium = buyOffer.premium; // TODO: handle match
-  const price = (priceBook[selectedCurrency] * buyOffer.amountSats) / SATSINBTC;
+  const conversionPriceOfCurrency = priceBook[selectedCurrency];
+  if (!conversionPriceOfCurrency)
+    throw Error("invalid price conversion for currency");
+  const price = (conversionPriceOfCurrency * buyOffer.amountSats) / SATSINBTC;
   return (
     <PriceInfo
       amount={buyOffer.amountSats} // TODO: handle match

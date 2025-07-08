@@ -23,7 +23,7 @@ async function decryptContractData(contract: Contract) {
   const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
-    contract.buyer.pgpPublicKeys,
+    [...contract.buyer.pgpPublicKeys, ...contract.seller.pgpPublicKeys],
   );
 
   const paymentData = await decryptPaymentData(

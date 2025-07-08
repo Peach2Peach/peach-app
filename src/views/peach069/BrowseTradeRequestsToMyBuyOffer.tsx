@@ -8,6 +8,7 @@ import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
 import { useBuyOfferTradeRequestsReceived } from "../../hooks/query/peach069/useBuyOfferTradeRequests";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
@@ -35,6 +36,7 @@ const rejectTradeRequest = async (
 const acceptTradeRequest = async (
   buyOffer: BuyOffer69,
   tradeRequest: BuyOffer69TradeRequest,
+  selfUser: User,
   navigation: StackNavigation,
 ): Promise<void> => {
   const ress = await peachAPI.public.user.getUser({
@@ -55,7 +57,7 @@ const acceptTradeRequest = async (
   const symmetricKey = await decryptSymmetricKey(
     tradeRequest.symmetricKeyEncrypted,
     tradeRequest.symmetricKeySignature,
-    pgpPubKeysOfRequestingUser,
+    [...selfUser.pgpPublicKeys, ...pgpPubKeysOfRequestingUser],
   );
 
   if (!symmetricKey) throw Error("error decrypting symmetric key");
@@ -69,50 +71,19 @@ const acceptTradeRequest = async (
     await peachAPI.private.peach069.acceptBuyOfferTradeRequestReceivedByIds({
       buyOfferId: buyOffer.id,
       userId: tradeRequest.userId,
+      paymentDataEncrypted: encryptedPaymentData.encrypted,
+      paymentDataSignature: encryptedPaymentData.signature,
+      paymentData: "", // TODO: validate what this is in practice. maybe this only makes sense in Instant Trade
     });
-  console.log("RESULT:", result);
   if (result) {
     navigation.navigate("contract", { contractId: result.id });
   }
 };
 
-async function generateMatchOfferData({
-  offer,
-  match,
-  paymentMethod,
-  pgpPubKeysOfRequestingUser,
-}) {
-  const { paymentData, error: err } = getPaymentDataFromOffer(
-    offer,
-    paymentMethod,
-  );
-
-  if (!paymentData) return { error: err };
-
-  const { symmetricKeyEncrypted, symmetricKeySignature, user } = match;
-
-  const symmetricKey = await decryptSymmetricKey(
-    symmetricKeyEncrypted,
-    symmetricKeySignature,
-    pgpPubKeysOfRequestingUser,
-  );
-
-  if (!symmetricKey) return { error: "SYMMETRIC_KEY_DECRYPTION_FAILED" };
-
-  const encryptedPaymentData = await encryptPaymentData(
-    cleanPaymentData(paymentData),
-    symmetricKey,
-  );
-  if (!encryptedPaymentData) return { error: "PAYMENTDATA_ENCRYPTION_FAILED" };
-
-  return {
-    paymentDataEncrypted: encryptedPaymentData.encrypted,
-    paymentDataSignature: encryptedPaymentData.signature,
-  };
-}
-
 export function BrowseTradeRequestsToMyBuyOffer() {
   const navigation = useStackNavigation();
+
+  const { user: selfUser } = useSelfUser();
 
   const { offerId } = useRoute<"browseTradeRequestsToMyBuyOffer">().params;
   const title = "Peach69 Buy Offer " + offerId;
@@ -152,7 +123,7 @@ export function BrowseTradeRequestsToMyBuyOffer() {
                     <Button
                       style={[tw`bg-success-main`]}
                       onPress={() =>
-                        acceptTradeRequest(buyOffer, item, navigation)
+                        acceptTradeRequest(buyOffer, item, selfUser, navigation)
                       }
                     >
                       accept
