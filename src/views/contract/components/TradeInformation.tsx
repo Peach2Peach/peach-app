@@ -84,7 +84,7 @@ function BuyerFundEscrow() {
       />
       <Timer
         text={i18n("offer.requiredAction.sellerShouldFundIn")}
-        end={contract.fundingExpectedBy.getTime()}
+        end={contract.fundingExpectedBy}
       />
     </View>
   );
@@ -126,7 +126,7 @@ function SellerFundEscrow() {
         />
         <Timer
           text={i18n("offer.fundWithin")}
-          end={contract.fundingExpectedBy.getTime()}
+          end={contract.fundingExpectedBy}
         />
       </View>
     );
@@ -137,7 +137,7 @@ function SellerFundEscrow() {
         <PeachText style={tw`h6`}>{i18n("offer.fundWithin")}</PeachText>
         <SimpleTimer
           style={tw`h5 text-error-main`}
-          end={contract.fundingExpectedBy.getTime()}
+          end={contract.fundingExpectedBy}
         />
       </View>
       <FundingAmount fundingAmount={contract.amount} />

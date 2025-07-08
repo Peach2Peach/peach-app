@@ -85,7 +85,7 @@ type Contract = {
   isChatActive: boolean;
   paymentDataEncryptionMethod: EncryptionMethod;
 
-  fundingExpectedBy?: Date;
+  fundingExpectedBy?: number;
 };
 
 type LocalContract = {
