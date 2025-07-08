@@ -2,10 +2,16 @@ import { useIsFocused } from "@react-navigation/native";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { peachAPI } from "../../../utils/peachAPI";
 
+const buyOfferDetailKeys = {
+  all: ["peach069buyOffer"] as const,
+  details: () => [...buyOfferDetailKeys.all, "details"] as const,
+  detail: (id: string) => [...buyOfferDetailKeys.details(), id] as const,
+};
+
 export const useBuyOfferDetail = (id: string) => {
   const isFocused = useIsFocused();
   const { data, isLoading, isFetching, refetch, error } = useQuery({
-    queryKey: ["peach069buyOffer", id],
+    queryKey: buyOfferDetailKeys.detail(id),
     queryFn: getBuyOfferDetail,
     enabled: isFocused,
   });
@@ -13,15 +19,17 @@ export const useBuyOfferDetail = (id: string) => {
   return { buyOffer: data, isLoading, isFetching, refetch, error };
 };
 
-async function getBuyOfferDetail({ queryKey }: QueryFunctionContext) {
-  const buyOfferId = queryKey[1];
-  const { result: contract } = await peachAPI.private.peach069.getBuyOfferById({
+async function getBuyOfferDetail({
+  queryKey,
+}: QueryFunctionContext<ReturnType<typeof buyOfferDetailKeys.detail>>) {
+  const buyOfferId = queryKey[2];
+  const { result } = await peachAPI.private.peach069.getBuyOfferById({
     buyOfferId,
   });
 
-  if (!contract) {
-    throw new Error("Contract not found");
+  if (!result) {
+    throw new Error("Buy Offer not found");
   }
 
-  return contract;
+  return result;
 }

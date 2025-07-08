@@ -34,7 +34,7 @@ const rejectTradeRequest = async (
 };
 
 const acceptTradeRequest = async (
-  buyOffer: BuyOffer69,
+  buyOffer: Pick<BuyOffer69, "id" | "paymentData">,
   tradeRequest: BuyOffer69TradeRequest,
   selfUser: User,
   navigation: StackNavigation,
