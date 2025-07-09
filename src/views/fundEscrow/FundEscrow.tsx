@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { networks } from "bitcoinjs-lib";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -10,7 +10,6 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
-import { TradeInfo } from "../../components/offer/TradeInfo";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
@@ -32,10 +31,10 @@ import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
+import { FundFromPeachWalletButton } from "./FundFromPeachWalletButton";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
-import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
 export const FundEscrow = () => {
   const { offerId } = useRoute<"fundEscrow">().params;
@@ -208,55 +207,5 @@ function InfoText({ children }: { children: string }) {
       <Icon id="info" size={32} color={tw.color("black-100")} />
       <PeachText style={tw`shrink text-black-100`}>{children}</PeachText>
     </View>
-  );
-}
-
-type Props = {
-  address: string;
-  addresses: string[];
-  amount: number;
-  fundingStatus: FundingStatus;
-};
-
-function FundFromPeachWalletButton(props: Props) {
-  const { offerId } = useRoute<"fundEscrow">().params;
-  const fundFromPeachWallet = useFundFromPeachWallet();
-  const fundedFromPeachWallet = useWalletState((state) =>
-    state.isFundedFromPeachWallet(props.address),
-  );
-  const [isFunding, setIsFunding] = useState(false);
-
-  const onButtonPress = () => {
-    setIsFunding(true);
-    fundFromPeachWallet({
-      offerId,
-      amount: props.amount,
-      fundingStatus: props.fundingStatus.status,
-      address: props.address,
-      addresses: props.addresses,
-    }).then(() => setIsFunding(false));
-  };
-
-  return (
-    <>
-      {fundedFromPeachWallet ? (
-        <TradeInfo
-          text={i18n("fundFromPeachWallet.funded")}
-          IconComponent={
-            <Icon id="checkCircle" size={16} color={tw.color("success-main")} />
-          }
-        />
-      ) : (
-        <Button
-          ghost
-          textColor={tw.color("primary-main")}
-          iconId="sell"
-          onPress={onButtonPress}
-          loading={isFunding}
-        >
-          {i18n("fundFromPeachWallet.button")}
-        </Button>
-      )}
-    </>
   );
 }

@@ -9,6 +9,7 @@ import tw from "../../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
+import { FundFromPeachWalletButton } from "../../fundEscrow/FundFromPeachWalletButton";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
 import { useContractContext } from "../context";
 import { shouldShowTradeStatusInfo } from "../helpers/shouldShowTradeStatusInfo";
@@ -142,10 +143,18 @@ function SellerFundEscrow() {
       </View>
       <FundingAmount fundingAmount={contract.amount} />
       {!!contract.escrow && !!fundingStatus && (
-        <BitcoinAddress
-          address={contract.escrow}
-          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
-        />
+        <>
+          <BitcoinAddress
+            address={contract.escrow}
+            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
+          />
+          <FundFromPeachWalletButton
+            address={contract.escrow}
+            addresses={[contract.escrow]}
+            amount={contract.amount}
+            fundingStatus={fundingStatus}
+          />
+        </>
       )}
     </View>
   );
