@@ -176,7 +176,7 @@ function PayementMethodBubble({
           updateDrawer({
             title: i18n("selectPaymentMethod.title"),
             options: paymentDataForType.map((p, index) => ({
-              title: getPaymentMethodName(p.type),
+              title: p.label.trim(),
               onPress: () => {
                 onPress(paymentDataForType[index]);
                 updateDrawer({ show: false });
