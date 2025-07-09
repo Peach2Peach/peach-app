@@ -151,7 +151,7 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
     <>
       <View style={tw`justify-center flex-1`}>
         {buyOfferTradeRequestPerformedBySelfUser && (
-          <PeachText>TRADE REQUEST ALREADY EXISTS</PeachText>
+          <PeachText>TRADE REQUEST HAS BEEN PERFORMED</PeachText>
         )}
         <GradientBorder
           gradientBorderWidth={4}
