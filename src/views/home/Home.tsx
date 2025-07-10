@@ -39,6 +39,7 @@ export function Home() {
       </View>
       <View style={tw`flex-row gap-10px`}>
         <ExpressSellButton />
+        <ExpressBuyButton />
       </View>
       <View style={tw`flex-row gap-10px`}>
         <CreateBuyOfferButton />
@@ -180,6 +181,16 @@ function ExpressSellButton() {
   return (
     <Button style={[buttonStyle, tw`bg-error-main`]} onPress={goToExpressSell}>
       {i18n("69ExpressSell")}
+    </Button>
+  );
+}
+function ExpressBuyButton() {
+  const navigation = useStackNavigation();
+  const goToExpressBuy = () =>
+    navigation.navigate("expressBuyBrowseSellOffers");
+  return (
+    <Button style={[buttonStyle, tw`bg-success-main`]} onPress={goToExpressBuy}>
+      {i18n("69ExpressBuy")}
     </Button>
   );
 }

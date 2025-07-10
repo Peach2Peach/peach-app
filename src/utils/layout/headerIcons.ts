@@ -4,6 +4,7 @@ export const headerIcons = {
   bitcoin: { id: "bitcoin", color: tw.color("bitcoin") },
   buyFilter: { id: "filter", color: tw.color("success-main") },
   cancel: { id: "xCircle", color: tw.color("black-50") },
+  sixnine: { id: "bitcoin", color: tw.color("success-main") },
   checkbox: { id: "checkboxMark", color: tw.color("primary-main") },
   delete: { id: "trash", color: tw.color("error-main") },
   edit: { id: "edit3", color: tw.color("black-65") },

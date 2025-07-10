@@ -4,29 +4,29 @@ import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
-import { useExpressSellBuyOffers } from "../../hooks/query/peach069/useExpressSellBuyOffers";
+import { useExpressBuySellOffers } from "../../hooks/query/peach069/useExpressBuySellOffers";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 
-export function ExpressSellBrowseBuyOffers() {
-  const title = "Express Sell: Browse Buy Offers";
-  const { buyOffers, isLoading } = useExpressSellBuyOffers();
+export function ExpressBuyBrowseSellOffers() {
+  const title = "Express Buy: Browse Sell Offers";
+  const { sellOffers, isLoading } = useExpressBuySellOffers();
   const navigation = useStackNavigation();
 
   return (
     <Screen header={<Header title={title} />}>
       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
-        <PeachText>All Buy Offers 0.69</PeachText>
+        <PeachText>All Sell Offers 0.69</PeachText>
         <>
           {!isLoading &&
-            buyOffers !== undefined &&
-            buyOffers.map((item, index) => {
+            sellOffers !== undefined &&
+            sellOffers.map((item, index) => {
               return (
                 <>
                   <PeachText>-------</PeachText>
                   <PeachText>ID: {item.id}</PeachText>
-                  <PeachText>User: {item.userId}</PeachText>
-                  <PeachText>Amount: {item.amountSats}</PeachText>
+                  <PeachText>User: {item.user.id}</PeachText>
+                  <PeachText>Amount: {item.amount}</PeachText>
                   <PeachText>Premium: {item.premium}</PeachText>
                   <PeachText>
                     MeansOfPayment: {JSON.stringify(item.meansOfPayment)}
@@ -35,7 +35,7 @@ export function ExpressSellBrowseBuyOffers() {
                     <Button
                       style={[tw`bg-error-main`]}
                       onPress={() => {
-                        navigation.navigate("expressSellTradeRequest", {
+                        navigation.navigate("expressBuyTradeRequest", {
                           offerId: String(item.id),
                         });
                       }}

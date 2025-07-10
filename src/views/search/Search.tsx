@@ -111,9 +111,15 @@ function SearchHeader({ offer }: { offer: SellOffer }) {
     [navigation, offerId],
   );
 
+  const goToSixNineSellOfferTradeRequests = useCallback(
+    () => navigation.navigate("browseTradeRequestsToMySellOffer", { offerId }),
+    [navigation, offerId],
+  );
+
   const memoizedHeaderIcons = useMemo(() => {
     if (!offer) return undefined;
     const icons = [
+      { ...headerIcons.sixnine, onPress: goToSixNineSellOfferTradeRequests },
       { ...headerIcons.sellFilter, onPress: showSortAndFilterPopup },
       { ...headerIcons.percent, onPress: goToEditPremium },
       { ...headerIcons.cancel, onPress: cancelOffer },

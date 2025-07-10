@@ -26,6 +26,9 @@ import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
 import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
 import { BrowseTradeRequestsToMyBuyOffer } from "./peach069/BrowseTradeRequestsToMyBuyOffer";
+import { BrowseTradeRequestsToMySellOffer } from "./peach069/BrowseTradeRequestsToMySellOffer";
+import { ExpressBuyBrowseSellOffers } from "./peach069/ExpressBuyBrowseSellOffers";
+import { ExpressBuyTradeRequestToSellOffer } from "./peach069/ExpressBuyTradeRequestToSellOffer";
 import { ExpressSellBrowseBuyOffers } from "./peach069/ExpressSellBrowseBuyOffers";
 import { ExpressSellTradeRequestToBuyOffer } from "./peach069/ExpressSellTradeRequestToBuyOffer";
 import { CreateBuyOffer } from "./peach069/createBuyOffer";
@@ -176,8 +179,11 @@ const testViews: ViewType[] = [
 // Peach 0.69
 
 const expressBuyFlow: ViewType[] = [
-  { name: "expressBuyBrowseSellOffers", component: HomeScreen },
-  { name: "expressBuyTradeRequest", component: HomeScreen },
+  { name: "expressBuyBrowseSellOffers", component: ExpressBuyBrowseSellOffers },
+  {
+    name: "expressBuyTradeRequest",
+    component: ExpressBuyTradeRequestToSellOffer,
+  },
 ];
 const expressSellFlow: ViewType[] = [
   { name: "expressSellBrowseBuyOffers", component: ExpressSellBrowseBuyOffers },
@@ -197,7 +203,10 @@ const buyOfferOwnerFlow: ViewType[] = [
 ];
 
 const sellOfferOwnerFlow: ViewType[] = [
-  { name: "browseTradeRequestsToMySellOffer", component: HomeScreen },
+  {
+    name: "browseTradeRequestsToMySellOffer",
+    component: BrowseTradeRequestsToMySellOffer,
+  },
   { name: "tradeRequestToMySellOfferDetails", component: HomeScreen },
 ];
 

@@ -1,6 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { FIFTEEN_SECONDS } from "../../constants";
-import { peachAPI } from "../../utils/peachAPI";
+import { FIFTEEN_SECONDS } from "../../../constants";
+import { peachAPI } from "../../../utils/peachAPI";
 
 export function useBuyOfferTradeRequestBySelfUser({
   buyOfferId,

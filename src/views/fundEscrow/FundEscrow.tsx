@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { networks } from "bitcoinjs-lib";
 import { useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
@@ -25,8 +24,6 @@ import tw from "../../styles/tailwind";
 import i18n, { languageState } from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
-import { generateBlock } from "../../utils/regtest/generateBlock";
-import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
@@ -158,12 +155,12 @@ function FundEscrowHeader() {
       },
       { ...headerIcons.help, onPress: showHelp },
     ];
-    if (getNetwork() === networks.regtest) {
-      return [
-        { ...headerIcons.generateBlock, onPress: generateBlock },
-        ...icons,
-      ];
-    }
+    // if (getNetwork() === networks.regtest) {
+    //   return [
+    //     { ...headerIcons.generateBlock, onPress: generateBlock },
+    //     ...icons,
+    //   ];
+    // }
     return icons;
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp]);
 

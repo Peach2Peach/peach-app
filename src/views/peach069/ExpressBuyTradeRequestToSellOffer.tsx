@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Pricebook } from "../../../peach-api/src/@types/global";
-import { BuyOffer69 } from "../../../peach-api/src/@types/offer";
 import { GradientBorder } from "../../components/GradientBorder";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { ProfileInfo } from "../../components/ProfileInfo";
@@ -20,8 +19,8 @@ import { useInterruptibleFunction } from "../../components/matches/hooks/useInte
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
-import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
-import { useBuyOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useBuyOfferTradeRequestBySelfUser";
+import { useSellOfferDetail } from "../../hooks/query/peach069/useSellOffer";
+import { useSellOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useSellOfferTradeRequestBySelfUser";
 import { useUserDetails } from "../../hooks/query/peach069/useUser";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -32,6 +31,7 @@ import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHas
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { getRandom } from "../../utils/crypto/getRandom";
 import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
@@ -45,38 +45,38 @@ import { peachWallet } from "../../utils/wallet/setWallet";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
-export function ExpressSellTradeRequestToBuyOffer() {
-  const { offerId } = useRoute<"expressSellTradeRequest">().params;
+export function ExpressBuyTradeRequestToSellOffer() {
+  const { offerId } = useRoute<"expressBuyTradeRequest">().params;
 
-  const { buyOffer, isLoading } = useBuyOfferDetail(offerId);
+  const { sellOffer, isLoading } = useSellOfferDetail(offerId);
 
-  if (isLoading || !buyOffer) return <LoadingScreen />;
+  if (isLoading || !sellOffer) return <LoadingScreen />;
   return (
-    <Screen showTradingLimit header={"Buy Offer 0.69: " + buyOffer.id}>
-      <TradeRequest buyOffer={buyOffer} />
+    <Screen showTradingLimit header={"Sell Offer 0.69: " + sellOffer.id}>
+      <TradeRequest sellOffer={sellOffer} />
     </Screen>
   );
 }
 
 const TRADE_REQUEST_DELAY = 5000;
-function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
+function TradeRequest({ sellOffer }: { sellOffer: SellOffer }) {
   const { isDarkMode } = useThemeStore();
 
   const { user: selfUser } = useSelfUser();
-  const { data: buyOfferUser } = useUserDetails({ userId: buyOffer.userId });
+  const { data: sellOfferUser } = useUserDetails({ userId: sellOffer.user.id });
 
   const {
-    data: buyOfferTradeRequestPerformedBySelfUser,
-    refetch: buyOfferTradeRequestPerformedBySelfUserRefetch,
-  } = useBuyOfferTradeRequestBySelfUser({ buyOfferId: buyOffer.id });
+    data: sellOfferTradeRequestPerformedBySelfUser,
+    refetch: sellOfferTradeRequestPerformedBySelfUserRefetch,
+  } = useSellOfferTradeRequestBySelfUser({ sellOfferId: sellOffer.id });
 
   const { data: priceBook } = useMarketPrices();
 
   const [selectedCurrency, setSelectedCurrency] = useState(
-    keys(buyOffer.meansOfPayment)[0],
+    keys(sellOffer.meansOfPayment)[0],
   );
 
-  const allMethodsForCurrency = buyOffer.meansOfPayment[selectedCurrency];
+  const allMethodsForCurrency = sellOffer.meansOfPayment[selectedCurrency];
   const paymentData = usePaymentDataStore(
     (state) => Object.values(state.paymentData),
     shallow,
@@ -90,7 +90,7 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
 
   const [showMatchedCard, setShowMatchedCard] = useState(false);
   const isMatched = showMatchedCard;
-  const { maxMiningFeeRate } = useMaxMiningFee(buyOffer.amountSats); //TODO: validate this
+  const { maxMiningFeeRate } = useMaxMiningFee(sellOffer.amount); //TODO: validate this
 
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
     useInterruptibleFunction(() => {
@@ -124,7 +124,7 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
   return (
     <>
       <View style={tw`justify-center flex-1`}>
-        {buyOfferTradeRequestPerformedBySelfUser && (
+        {sellOfferTradeRequestPerformedBySelfUser && (
           <PeachText>TRADE REQUEST HAS BEEN PERFORMED</PeachText>
         )}
         <GradientBorder
@@ -145,20 +145,20 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
             ]}
           >
             <View style={tw`gap-2 p-4 md:gap-4`}>
-              {buyOfferUser !== undefined && (
-                <ProfileInfo user={buyOfferUser} isOnMatchCard />
+              {sellOfferUser !== undefined && (
+                <ProfileInfo user={sellOfferUser} isOnMatchCard />
               )}
               <HorizontalLine />
               {priceBook && (
-                <BuyerPriceInfo
-                  buyOffer={buyOffer}
+                <SellerPriceInfo
+                  sellOffer={sellOffer}
                   selectedCurrency={selectedCurrency}
                   priceBook={priceBook}
                 />
               )}
               <PaymentMethodSelector
-                origin="expressSellTradeRequest"
-                meansOfPayment={buyOffer.meansOfPayment}
+                origin="expressBuyTradeRequest"
+                meansOfPayment={sellOffer.meansOfPayment}
                 disabled={currentOptionName === "tradingLimitReached"}
                 selectedCurrency={selectedCurrency}
                 setSelectedCurrency={setSelectedCurrency}
@@ -199,24 +199,24 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
           </View>
         </GradientBorder>
       </View>
-      {!buyOfferTradeRequestPerformedBySelfUser && (
+      {!sellOfferTradeRequestPerformedBySelfUser && (
         <PerformTradeRequestButton
           maxMiningFeeRate={maxMiningFeeRate || 5}
           selectedPaymentData={selectedPaymentData}
           selectedCurrency={selectedCurrency}
-          buyOfferId={buyOffer.id}
+          sellOfferId={sellOffer.id}
           selfUser={selfUser}
-          buyOfferUser={buyOfferUser}
-          buyOfferTradeRequestPerformedBySelfUserRefetch={
-            buyOfferTradeRequestPerformedBySelfUserRefetch
+          sellOfferUser={sellOfferUser}
+          sellOfferTradeRequestPerformedBySelfUserRefetch={
+            sellOfferTradeRequestPerformedBySelfUserRefetch
           }
         />
       )}
-      {buyOfferTradeRequestPerformedBySelfUser && (
+      {sellOfferTradeRequestPerformedBySelfUser && (
         <RemoveTradeRequestButton
-          buyOfferId={buyOffer.id}
-          buyOfferTradeRequestPerformedBySelfUserRefetch={
-            buyOfferTradeRequestPerformedBySelfUserRefetch
+          sellOfferId={sellOffer.id}
+          sellOfferTradeRequestPerformedBySelfUserRefetch={
+            sellOfferTradeRequestPerformedBySelfUserRefetch
           }
         />
       )}
@@ -293,20 +293,20 @@ function InstantTradeSlider({
 }
 
 const RemoveTradeRequestButton = ({
-  buyOfferId,
-  buyOfferTradeRequestPerformedBySelfUserRefetch,
+  sellOfferId,
+  sellOfferTradeRequestPerformedBySelfUserRefetch,
 }: {
-  buyOfferId: number;
+  sellOfferId: string;
   selfUser?: User;
-  buyOfferUser?: PublicUser;
-  buyOfferTradeRequestPerformedBySelfUserRefetch: Function;
+  sellOfferUser?: PublicUser;
+  sellOfferTradeRequestPerformedBySelfUserRefetch: Function;
 }) => {
   const onPress = async () => {
-    await peachAPI.private.peach069.removePerformedBuyOfferTradeRequest({
-      buyOfferId,
+    await peachAPI.private.peach069.removePerformedSellOfferTradeRequest({
+      sellOfferId,
     });
 
-    buyOfferTradeRequestPerformedBySelfUserRefetch();
+    sellOfferTradeRequestPerformedBySelfUserRefetch();
   };
 
   return (
@@ -327,18 +327,18 @@ function PerformTradeRequestButton({
   selectedPaymentData,
   maxMiningFeeRate,
   selectedCurrency,
-  buyOfferId,
+  sellOfferId,
   selfUser,
-  buyOfferUser,
-  buyOfferTradeRequestPerformedBySelfUserRefetch,
+  sellOfferUser,
+  sellOfferTradeRequestPerformedBySelfUserRefetch,
 }: {
   maxMiningFeeRate?: number;
   selectedPaymentData?: PaymentData;
   selectedCurrency?: Currency;
-  buyOfferId: number;
+  sellOfferId: string;
   selfUser?: User;
-  buyOfferUser?: PublicUser;
-  buyOfferTradeRequestPerformedBySelfUserRefetch: Function;
+  sellOfferUser?: PublicUser;
+  sellOfferTradeRequestPerformedBySelfUserRefetch: Function;
 }) {
   const onPress = async () => {
     if (!peachWallet) throw Error("Peach Wallet not ready");
@@ -348,23 +348,30 @@ function PerformTradeRequestButton({
       !selectedCurrency ||
       !peachWallet ||
       !selfUser ||
-      !buyOfferUser
+      !sellOfferUser
     )
       throw Error("values not ready");
-    const { address: returnAddress } = await peachWallet.getAddress();
+    const { address: releaseAddress, index } = await peachWallet.getAddress();
+
+    const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
+
+    const releaseAddressMessageSignature = peachWallet.signMessage(
+      message,
+      index,
+    );
 
     const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
     const { encrypted, signature } = await signAndEncrypt(
       symmetricKey,
       [
         ...selfUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
-        ...buyOfferUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
+        ...sellOfferUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
       ].join("\n"),
     );
 
     const decryptionResult = await decryptSymmetricKey(encrypted, signature, [
       ...selfUser.pgpPublicKeys,
-      ...buyOfferUser.pgpPublicKeys,
+      ...sellOfferUser.pgpPublicKeys,
     ]);
     if (!decryptionResult)
       throw Error("Couldnt decrypt the created symmetric key");
@@ -376,8 +383,8 @@ function PerformTradeRequestButton({
       return { error: "PAYMENTDATA_ENCRYPTION_FAILED" };
     const hashedPaymentData = getHashedPaymentData([selectedPaymentData]);
 
-    await peachAPI.private.peach069.performBuyOfferTradeRequest({
-      buyOfferId,
+    await peachAPI.private.peach069.performSellOfferTradeRequest({
+      sellOfferId,
       paymentMethod: selectedPaymentData.type,
       currency: selectedCurrency,
       paymentDataHashed: hashedPaymentData,
@@ -386,10 +393,11 @@ function PerformTradeRequestButton({
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
       maxMiningFeeRate: maxMiningFeeRate,
-      returnAddress,
+      releaseAddress,
+      releaseAddressMessageSignature,
     });
 
-    buyOfferTradeRequestPerformedBySelfUserRefetch();
+    sellOfferTradeRequestPerformedBySelfUserRefetch();
   };
 
   return (
@@ -405,7 +413,7 @@ function PerformTradeRequestButton({
         !selectedCurrency ||
         !peachWallet ||
         !selfUser ||
-        !buyOfferUser
+        !sellOfferUser
       }
     >
       {i18n("matchDetails.action.requestTrade")}
@@ -477,29 +485,29 @@ function AnimatedButtons() {
 }
 
 type PriceInfoProps = {
-  buyOffer: BuyOffer69;
+  sellOffer: SellOffer;
   selectedCurrency: Currency;
   priceBook: Pricebook;
   // selectedPaymentMethod: PaymentMethod | undefined;
 };
 
-function BuyerPriceInfo({
-  buyOffer,
+function SellerPriceInfo({
+  sellOffer,
   selectedCurrency,
   priceBook,
 }: PriceInfoProps) {
-  const premium = buyOffer.premium; // TODO: handle match
+  const premium = sellOffer.premium; // TODO: handle match
   const conversionPriceOfCurrency = priceBook[selectedCurrency];
   if (!conversionPriceOfCurrency)
     throw Error("invalid price conversion for currency");
-  const price = (conversionPriceOfCurrency * buyOffer.amountSats) / SATSINBTC;
+  const price = (conversionPriceOfCurrency * sellOffer.amount) / SATSINBTC;
   return (
     <PriceInfo
-      amount={buyOffer.amountSats} // TODO: handle match
+      amount={sellOffer.amount} // TODO: handle match
       price={price}
       currency={selectedCurrency}
       premium={premium}
-      miningFeeWarning={<MiningFeeWarning amount={buyOffer.amountSats} />}
+      miningFeeWarning={<MiningFeeWarning amount={sellOffer.amount} />}
     />
   );
 }
