@@ -225,17 +225,27 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
           </View>
         </GradientBorder>
       </View>
-      <PerformTradeRequestButton
-        maxMiningFeeRate={maxMiningFeeRate || 5}
-        selectedPaymentData={selectedPaymentData}
-        selectedCurrency={selectedCurrency}
-        buyOfferId={buyOffer.id}
-        selfUser={selfUser}
-        buyOfferUser={buyOfferUser}
-        buyOfferTradeRequestPerformedBySelfUserRefetch={
-          buyOfferTradeRequestPerformedBySelfUserRefetch
-        }
-      />
+      {!buyOfferTradeRequestPerformedBySelfUser && (
+        <PerformTradeRequestButton
+          maxMiningFeeRate={maxMiningFeeRate || 5}
+          selectedPaymentData={selectedPaymentData}
+          selectedCurrency={selectedCurrency}
+          buyOfferId={buyOffer.id}
+          selfUser={selfUser}
+          buyOfferUser={buyOfferUser}
+          buyOfferTradeRequestPerformedBySelfUserRefetch={
+            buyOfferTradeRequestPerformedBySelfUserRefetch
+          }
+        />
+      )}
+      {buyOfferTradeRequestPerformedBySelfUser && (
+        <RemoveTradeRequestButton
+          buyOfferId={buyOffer.id}
+          buyOfferTradeRequestPerformedBySelfUserRefetch={
+            buyOfferTradeRequestPerformedBySelfUserRefetch
+          }
+        />
+      )}
     </>
   );
 }
@@ -307,6 +317,37 @@ function InstantTradeSlider({
     />
   );
 }
+
+const RemoveTradeRequestButton = ({
+  buyOfferId,
+  buyOfferTradeRequestPerformedBySelfUserRefetch,
+}: {
+  buyOfferId: number;
+  selfUser?: User;
+  buyOfferUser?: PublicUser;
+  buyOfferTradeRequestPerformedBySelfUserRefetch: Function;
+}) => {
+  const onPress = async () => {
+    await peachAPI.private.peach069.removePerformedBuyOfferTradeRequest({
+      buyOfferId,
+    });
+
+    buyOfferTradeRequestPerformedBySelfUserRefetch();
+  };
+
+  return (
+    <Button
+      style={[
+        tw`flex-row items-center self-center justify-center py-2 gap-10px`,
+        tw`bg-primary-main`,
+      ]}
+      onPress={onPress}
+    >
+      {i18n("matchDetails.action.unrequestTrade")}
+    </Button>
+  );
+};
+
 const SYMMETRIC_KEY_BYTES = 32;
 function PerformTradeRequestButton({
   selectedPaymentData,
