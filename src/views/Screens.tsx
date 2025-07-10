@@ -33,7 +33,21 @@ export function Screens() {
     ? "bg-backgroundMain-dark"
     : "bg-backgroundMain-light";
 
-  if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />;
+  const [hasHydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const unsubFinishHydration = useSettingsStore.persist.onFinishHydration(
+      () => setHydrated(true),
+    );
+
+    setHydrated(useSettingsStore.persist.hasHydrated());
+
+    return unsubFinishHydration;
+  }, []);
+
+  if (isLoading || !hasHydrated) {
+    return <SplashScreenComponent setIsLoading={setIsLoading} />;
+  }
   return (
     <RootStack.Navigator
       screenOptions={{
