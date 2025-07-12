@@ -76,6 +76,14 @@ type ExpressSellFlow = {
   expressSellTradeRequest: { offerId: string };
 };
 
+type ExpressBuySellFlowChat = {
+  tradeRequestChat: {
+    offerId: string;
+    requestingUserId: string;
+    offerType: "buy" | "sell";
+  };
+};
+
 type BuyOfferOwnerFlow = {
   createBuyOffer: undefined;
   browseTradeRequestsToMyBuyOffer: { offerId: string };
@@ -180,4 +188,5 @@ type RootStackParamList = Onboarding &
   ExpressBuyFlow &
   ExpressSellFlow &
   BuyOfferOwnerFlow &
-  SellOfferOwnerFlow;
+  SellOfferOwnerFlow &
+  ExpressBuySellFlowChat;

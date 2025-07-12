@@ -23,6 +23,8 @@ const DAYS_IN_A_MONTH = 30;
 export const MSINAMONTH = DAYS_IN_A_MONTH * MSINADAY;
 const FIFTEEN = 15;
 export const FIFTEEN_SECONDS = FIFTEEN * MSINASECOND;
+const FIVE = 5;
+export const FIVE_SECONDS = FIVE * MSINASECOND;
 
 export const NEW_USER_TRADE_THRESHOLD = 3;
 

@@ -27,11 +27,12 @@ import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
 import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
 import { BrowseTradeRequestsToMyBuyOffer } from "./peach069/BrowseTradeRequestsToMyBuyOffer";
 import { BrowseTradeRequestsToMySellOffer } from "./peach069/BrowseTradeRequestsToMySellOffer";
+import { CreateBuyOffer } from "./peach069/CreateBuyOffer";
 import { ExpressBuyBrowseSellOffers } from "./peach069/ExpressBuyBrowseSellOffers";
 import { ExpressBuyTradeRequestToSellOffer } from "./peach069/ExpressBuyTradeRequestToSellOffer";
 import { ExpressSellBrowseBuyOffers } from "./peach069/ExpressSellBrowseBuyOffers";
 import { ExpressSellTradeRequestToBuyOffer } from "./peach069/ExpressSellTradeRequestToBuyOffer";
-import { CreateBuyOffer } from "./peach069/createBuyOffer";
+import { TradeRequestChat } from "./peach069/TradeRequestChat";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
 import { Report } from "./report/Report";
@@ -210,6 +211,13 @@ const sellOfferOwnerFlow: ViewType[] = [
   { name: "tradeRequestToMySellOfferDetails", component: HomeScreen },
 ];
 
+const tradeRequestChat: ViewType[] = [
+  {
+    name: "tradeRequestChat",
+    component: TradeRequestChat,
+  },
+];
+
 export const views = [
   ...home,
   ...buyFlow,
@@ -225,6 +233,7 @@ export const views = [
   ...expressSellFlow,
   ...buyOfferOwnerFlow,
   ...sellOfferOwnerFlow,
+  ...tradeRequestChat,
 ];
 
 export const onboardingViews = [...onboarding, ...contact];

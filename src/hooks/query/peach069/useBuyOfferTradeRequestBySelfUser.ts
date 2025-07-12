@@ -4,13 +4,16 @@ import { peachAPI } from "../../../utils/peachAPI";
 
 export function useBuyOfferTradeRequestBySelfUser({
   buyOfferId,
+  isEnabled = true,
 }: {
-  buyOfferId: number;
+  buyOfferId: string;
+  isEnabled?: boolean;
 }) {
   const queryData = useQuery({
     queryKey: ["useBuyOfferTradeRequestBySelfUser", buyOfferId],
     queryFn: getBuyOfferTradeRequestBySelfUser,
     refetchInterval: FIFTEEN_SECONDS,
+    enabled: isEnabled,
   });
 
   return queryData;
@@ -25,5 +28,5 @@ async function getBuyOfferTradeRequestBySelfUser({
       buyOfferId,
     });
 
-  return result ? true : false;
+  return result;
 }

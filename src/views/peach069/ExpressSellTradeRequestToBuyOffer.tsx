@@ -28,6 +28,7 @@ import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
@@ -35,6 +36,7 @@ import tw from "../../styles/tailwind";
 import { getRandom } from "../../utils/crypto/getRandom";
 import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
+import { StackNavigation } from "../../utils/navigation/handlePushNotification";
 import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
@@ -44,6 +46,18 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
+
+const goToChat = async (
+  navigation: StackNavigation,
+  buyOfferId: number,
+  userId: string,
+): Promise<void> => {
+  navigation.navigate("tradeRequestChat", {
+    offerId: String(buyOfferId),
+    offerType: "buy",
+    requestingUserId: userId,
+  });
+};
 
 export function ExpressSellTradeRequestToBuyOffer() {
   const { offerId } = useRoute<"expressSellTradeRequest">().params;
@@ -60,6 +74,7 @@ export function ExpressSellTradeRequestToBuyOffer() {
 
 const TRADE_REQUEST_DELAY = 5000;
 function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
+  const navigation = useStackNavigation();
   const { isDarkMode } = useThemeStore();
 
   const { user: selfUser } = useSelfUser();
@@ -68,7 +83,7 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
   const {
     data: buyOfferTradeRequestPerformedBySelfUser,
     refetch: buyOfferTradeRequestPerformedBySelfUserRefetch,
-  } = useBuyOfferTradeRequestBySelfUser({ buyOfferId: buyOffer.id });
+  } = useBuyOfferTradeRequestBySelfUser({ buyOfferId: String(buyOffer.id) });
 
   const { data: priceBook } = useMarketPrices();
 
@@ -212,13 +227,26 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
           }
         />
       )}
-      {buyOfferTradeRequestPerformedBySelfUser && (
-        <RemoveTradeRequestButton
-          buyOfferId={buyOffer.id}
-          buyOfferTradeRequestPerformedBySelfUserRefetch={
-            buyOfferTradeRequestPerformedBySelfUserRefetch
-          }
-        />
+      {buyOfferTradeRequestPerformedBySelfUser && selfUser && (
+        <>
+          <RemoveTradeRequestButton
+            buyOfferId={buyOffer.id}
+            buyOfferTradeRequestPerformedBySelfUserRefetch={
+              buyOfferTradeRequestPerformedBySelfUserRefetch
+            }
+          />
+          <Button
+            style={[
+              tw`flex-row items-center self-center justify-center py-2 gap-10px`,
+              tw`bg-primary-main`,
+            ]}
+            onPress={() => {
+              goToChat(navigation, buyOffer.id, selfUser.id);
+            }}
+          >
+            Chat
+          </Button>
+        </>
       )}
     </>
   );
