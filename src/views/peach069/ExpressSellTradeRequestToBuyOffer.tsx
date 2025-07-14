@@ -325,8 +325,6 @@ const RemoveTradeRequestButton = ({
   buyOfferTradeRequestPerformedBySelfUserRefetch,
 }: {
   buyOfferId: number;
-  selfUser?: User;
-  buyOfferUser?: PublicUser;
   buyOfferTradeRequestPerformedBySelfUserRefetch: Function;
 }) => {
   const onPress = async () => {

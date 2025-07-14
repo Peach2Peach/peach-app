@@ -16,6 +16,8 @@ export const useBuyOfferTradeRequestReceivedByIds = ({
     queryKey: ["peach069buyOfferTradeRequestReceivedByIds", buyOfferId, userId],
     queryFn: getBuyOfferTradeRequest,
     enabled: isFocused && isEnabled,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   return { data, isLoading, isFetching, refetch, error };

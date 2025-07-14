@@ -20,6 +20,8 @@ export const useSellOfferTradeRequestReceivedByIds = ({
     ],
     queryFn: getSellOfferTradeRequest,
     enabled: isFocused && isEnabled,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   return { data, isLoading, isFetching, refetch, error };

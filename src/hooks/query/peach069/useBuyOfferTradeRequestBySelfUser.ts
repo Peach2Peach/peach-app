@@ -14,6 +14,8 @@ export function useBuyOfferTradeRequestBySelfUser({
     queryFn: getBuyOfferTradeRequestBySelfUser,
     refetchInterval: FIFTEEN_SECONDS,
     enabled: isEnabled,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   return queryData;
@@ -28,5 +30,5 @@ async function getBuyOfferTradeRequestBySelfUser({
       buyOfferId,
     });
 
-  return result;
+  return result === undefined ? null : result;
 }

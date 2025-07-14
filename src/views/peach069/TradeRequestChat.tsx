@@ -8,7 +8,9 @@ import { MessageInput } from "../../components/inputs/MessageInput";
 import { useBuyOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useBuyOfferTradeRequestBySelfUser";
 import { useBuyOfferTradeRequestReceivedByIds } from "../../hooks/query/peach069/useBuyOfferTradeRequestReceivedByIds";
 import { useChatMessagesOfTradeRequestPerformedToBuyOffer } from "../../hooks/query/peach069/useChatMessagesOfTradeRequestPerformedToBuyOffer";
+import { useChatMessagesOfTradeRequestPerformedToSellOffer } from "../../hooks/query/peach069/useChatMessagesOfTradeRequestPerformedToSellOffer";
 import { useChatMessagesOfTradeRequestReceivedToBuyOffer } from "../../hooks/query/peach069/useChatMessagesOfTradeRequestReceivedToBuyOffer";
+import { useChatMessagesOfTradeRequestReceivedToSellOffer } from "../../hooks/query/peach069/useChatMessagesOfTradeRequestReceivedToSellOffer";
 import { useSellOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useSellOfferTradeRequestBySelfUser";
 import { useSellOfferTradeRequestReceivedByIds } from "../../hooks/query/peach069/useSellOfferTradeRequestReceivedByIds";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
@@ -64,27 +66,6 @@ export const TradeRequestChat = () => {
         selfUser && selfUser.id !== requestingUserId && offerType === "sell",
     });
 
-  const validData =
-    sellOfferTradeRequestReceived ??
-    buyOfferTradeRequestReceived ??
-    sellOfferTradeRequestPerformedBySelfUser ??
-    buyOfferTradeRequestPerformedBySelfUser;
-
-  const [symmetricKey, setSymmetricKey] = useState("");
-
-  useEffect(() => {
-    const asyncFunc = async () => {
-      if (validData) {
-        const symmetricKey = await decrypt(validData.symmetricKeyEncrypted);
-        setSymmetricKey(symmetricKey);
-      }
-    };
-
-    asyncFunc();
-  }, [validData]);
-
-  // TODO: implement Sell Offer side
-
   const {
     data: buyOfferTradeRequestReceivedMessages,
     refetch: buyOfferTradeRequestReceivedMessagesRefetch,
@@ -103,17 +84,23 @@ export const TradeRequestChat = () => {
       selfUser && selfUser.id === requestingUserId && offerType === "buy",
   });
 
-  const [messages, refetchFunction] = buyOfferTradeRequestReceived
-    ? [
-        buyOfferTradeRequestReceivedMessages,
-        buyOfferTradeRequestReceivedMessagesRefetch,
-      ]
-    : buyOfferTradeRequestPerformedBySelfUser
-      ? [
-          buyOfferTradeRequestPerformedMessages,
-          buyOfferTradeRequestPerformedMessagesRefetch,
-        ]
-      : [undefined, undefined];
+  const {
+    data: sellOfferTradeRequestReceivedMessages,
+    refetch: sellOfferTradeRequestReceivedMessagesRefetch,
+  } = useChatMessagesOfTradeRequestReceivedToSellOffer({
+    sellOfferId: offerId,
+    userId: requestingUserId,
+    isEnabled:
+      selfUser && selfUser.id !== requestingUserId && offerType === "sell",
+  });
+  const {
+    data: sellOfferTradeRequestPerformedMessages,
+    refetch: sellOfferTradeRequestPerformedMessagesRefetch,
+  } = useChatMessagesOfTradeRequestPerformedToSellOffer({
+    sellOfferId: offerId,
+    isEnabled:
+      selfUser && selfUser.id === requestingUserId && offerType === "sell",
+  });
 
   const sendMessageAsBuyOfferOwner = async ({
     messageEncrypted,
@@ -135,11 +122,69 @@ export const TradeRequestChat = () => {
     );
   };
 
-  const sendMessageFunction = buyOfferTradeRequestReceived
-    ? sendMessageAsBuyOfferOwner
-    : buyOfferTradeRequestPerformedBySelfUser
-      ? sendMessageAsBuyOfferTradeRequester
-      : undefined;
+  const sendMessageAsSellOfferOwner = async ({
+    messageEncrypted,
+  }: {
+    messageEncrypted: string;
+  }): Promise<void> => {
+    await peachAPI.private.peach069.sendChatMessagesOfReceivedSellOfferTradeRequest(
+      { sellOfferId: offerId, userId: requestingUserId, messageEncrypted },
+    );
+  };
+
+  const sendMessageAsSellOfferTradeRequester = async ({
+    messageEncrypted,
+  }: {
+    messageEncrypted: string;
+  }): Promise<void> => {
+    await peachAPI.private.peach069.sendChatMessagesOfPerformedSellOfferTradeRequest(
+      { sellOfferId: offerId, messageEncrypted },
+    );
+  };
+
+  const [tradeRequest, messages, refetchFunction, sendMessageFunction] =
+    selfUser && selfUser.id !== requestingUserId && offerType === "buy"
+      ? [
+          buyOfferTradeRequestReceived,
+          buyOfferTradeRequestReceivedMessages,
+          buyOfferTradeRequestReceivedMessagesRefetch,
+          sendMessageAsBuyOfferOwner,
+        ]
+      : selfUser && selfUser.id === requestingUserId && offerType === "buy"
+        ? [
+            buyOfferTradeRequestPerformedBySelfUser,
+            buyOfferTradeRequestPerformedMessages,
+            buyOfferTradeRequestPerformedMessagesRefetch,
+            sendMessageAsBuyOfferTradeRequester,
+          ]
+        : selfUser && selfUser.id !== requestingUserId && offerType === "sell"
+          ? [
+              sellOfferTradeRequestReceived,
+              sellOfferTradeRequestReceivedMessages,
+              sellOfferTradeRequestReceivedMessagesRefetch,
+              sendMessageAsSellOfferOwner,
+            ]
+          : selfUser && selfUser.id === requestingUserId && offerType === "sell"
+            ? [
+                sellOfferTradeRequestPerformedBySelfUser,
+                sellOfferTradeRequestPerformedMessages,
+                sellOfferTradeRequestPerformedMessagesRefetch,
+                sendMessageAsSellOfferTradeRequester,
+              ]
+            : [undefined, undefined, undefined, undefined];
+
+  const [symmetricKey, setSymmetricKey] = useState("");
+
+  useEffect(() => {
+    const asyncFunc = async () => {
+      if (tradeRequest) {
+        const symmetricKey = await decrypt(tradeRequest.symmetricKeyEncrypted);
+        setSymmetricKey(symmetricKey);
+      }
+    };
+
+    asyncFunc();
+  }, [tradeRequest]);
 
   return !symmetricKey || !messages || !sendMessageFunction ? (
     <LoadingScreen />

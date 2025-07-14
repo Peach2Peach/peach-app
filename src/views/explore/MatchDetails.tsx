@@ -48,7 +48,7 @@ export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
 
   const { data: match } = useMatchDetails({ offerId, matchId });
-  console.log("MATCH:", match);
+
   const { offer } = useOfferDetail(offerId);
 
   const navigation = useStackNavigation();

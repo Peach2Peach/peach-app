@@ -27,6 +27,7 @@ import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { useThemeStore } from "../../store/theme";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
@@ -35,6 +36,7 @@ import { getMessageToSignForAddress } from "../../utils/account/getMessageToSign
 import { getRandom } from "../../utils/crypto/getRandom";
 import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
+import { StackNavigation } from "../../utils/navigation/handlePushNotification";
 import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
@@ -61,6 +63,7 @@ export function ExpressBuyTradeRequestToSellOffer() {
 const TRADE_REQUEST_DELAY = 5000;
 function TradeRequest({ sellOffer }: { sellOffer: SellOffer }) {
   const { isDarkMode } = useThemeStore();
+  const navigation = useStackNavigation();
 
   const { user: selfUser } = useSelfUser();
   const { data: sellOfferUser } = useUserDetails({ userId: sellOffer.user.id });
@@ -212,13 +215,26 @@ function TradeRequest({ sellOffer }: { sellOffer: SellOffer }) {
           }
         />
       )}
-      {sellOfferTradeRequestPerformedBySelfUser && (
-        <RemoveTradeRequestButton
-          sellOfferId={sellOffer.id}
-          sellOfferTradeRequestPerformedBySelfUserRefetch={
-            sellOfferTradeRequestPerformedBySelfUserRefetch
-          }
-        />
+      {sellOfferTradeRequestPerformedBySelfUser && selfUser && (
+        <>
+          <RemoveTradeRequestButton
+            sellOfferId={sellOffer.id}
+            sellOfferTradeRequestPerformedBySelfUserRefetch={
+              sellOfferTradeRequestPerformedBySelfUserRefetch
+            }
+          />
+          <Button
+            style={[
+              tw`flex-row items-center self-center justify-center py-2 gap-10px`,
+              tw`bg-primary-main`,
+            ]}
+            onPress={() => {
+              goToChat(navigation, sellOffer.id, selfUser.id);
+            }}
+          >
+            Chat
+          </Button>
+        </>
       )}
     </>
   );
@@ -291,14 +307,23 @@ function InstantTradeSlider({
     />
   );
 }
+const goToChat = async (
+  navigation: StackNavigation,
+  sellOfferId: string,
+  userId: string,
+): Promise<void> => {
+  navigation.navigate("tradeRequestChat", {
+    offerId: sellOfferId,
+    offerType: "sell",
+    requestingUserId: userId,
+  });
+};
 
 const RemoveTradeRequestButton = ({
   sellOfferId,
   sellOfferTradeRequestPerformedBySelfUserRefetch,
 }: {
   sellOfferId: string;
-  selfUser?: User;
-  sellOfferUser?: PublicUser;
   sellOfferTradeRequestPerformedBySelfUserRefetch: Function;
 }) => {
   const onPress = async () => {

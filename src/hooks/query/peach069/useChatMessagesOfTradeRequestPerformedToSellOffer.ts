@@ -2,19 +2,19 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { FIVE_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
-export const useChatMessagesOfTradeRequestPerformedToBuyOffer = ({
-  buyOfferId,
+export const useChatMessagesOfTradeRequestPerformedToSellOffer = ({
+  sellOfferId,
   isEnabled = true,
 }: {
-  buyOfferId: string;
+  sellOfferId: string;
   isEnabled?: boolean;
 }) => {
   const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: [
-      "peach069ChatMessagesOfTradeRequestPerformedToBuyOffer",
-      buyOfferId,
+      "peach069ChatMessagesOfTradeRequestPerformedToSellOffer",
+      sellOfferId,
     ],
-    queryFn: getChatMessagesOfTradeRequestPerformedToBuyOffer,
+    queryFn: getChatMessagesOfTradeRequestPerformedToSellOffer,
     enabled: isEnabled,
     refetchInterval: FIVE_SECONDS,
     refetchOnMount: true,
@@ -24,14 +24,14 @@ export const useChatMessagesOfTradeRequestPerformedToBuyOffer = ({
   return { data, isLoading, isFetching, refetch, error };
 };
 
-async function getChatMessagesOfTradeRequestPerformedToBuyOffer({
+async function getChatMessagesOfTradeRequestPerformedToSellOffer({
   queryKey,
 }: QueryFunctionContext) {
-  const buyOfferId = queryKey[1];
+  const sellOfferId = queryKey[1];
   const { result: messages } =
-    await peachAPI.private.peach069.getChatMessagesOfPerformedBuyOfferTradeRequest(
+    await peachAPI.private.peach069.getChatMessagesOfPerformedSellOfferTradeRequest(
       {
-        buyOfferId,
+        sellOfferId,
       },
     );
 

@@ -20,6 +20,8 @@ export const useChatMessagesOfTradeRequestReceivedToSellOffer = ({
     queryFn: getChatMessagesOfTradeRequestReceivedToSellOffer,
     enabled: isEnabled,
     refetchInterval: FIVE_SECONDS,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   return { data, isLoading, isFetching, refetch, error };

@@ -76,7 +76,6 @@ const acceptTradeRequest = async (
       paymentData: "", // TODO: validate what this is in practice. maybe this only makes sense in Instant Trade
     });
 
-  console.log("errro", error);
   if (result) {
     navigation.navigate("contract", { contractId: result.id });
   }
