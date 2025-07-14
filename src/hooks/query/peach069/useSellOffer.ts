@@ -1,5 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { FIVE_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
 const sellOfferDetailKeys = {
@@ -14,6 +15,7 @@ export const useSellOfferDetail = (id: string) => {
     queryKey: sellOfferDetailKeys.detail(id),
     queryFn: getSellOfferDetail,
     enabled: isFocused,
+    refetchInterval: FIVE_SECONDS,
   });
 
   return { sellOffer: data, isLoading, isFetching, refetch, error };

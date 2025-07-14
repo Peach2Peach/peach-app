@@ -1,5 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { FIVE_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export const useExpressSellBuyOffers = () => {
@@ -8,6 +9,7 @@ export const useExpressSellBuyOffers = () => {
     queryKey: ["peach069expressSellBuyOffers"],
     queryFn: getExpressSellBuyOffers,
     enabled: isFocused,
+    refetchInterval: FIVE_SECONDS,
   });
 
   return { buyOffers: data, isLoading, isFetching, refetch, error };

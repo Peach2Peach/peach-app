@@ -88,7 +88,24 @@ const acceptTradeRequest = async (
       paymentData: "", // TODO: validate what this is in practice. maybe this only makes sense in Instant Trade
     });
   if (result) {
-    navigation.navigate("contract", { contractId: result.id });
+    // navigation.navigate("contract", { contractId: result.id });
+
+    navigation.reset({
+      index: 1,
+      routes: [
+        {
+          name: "homeScreen",
+          params: {
+            screen: "home",
+            params: { tab: "home" },
+          },
+        },
+        {
+          name: "contract",
+          params: { contractId: result.id },
+        },
+      ],
+    });
   }
 };
 
