@@ -160,15 +160,6 @@ function PayementMethodBubble({
   const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
-  const { data: meetupEvents } = useMeetupEvents();
-  const getPaymentMethodName = (methodType: PaymentMethod) => {
-    if (isCashTrade(methodType)) {
-      const eventId = methodType.replace("cash.", "");
-      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
-      return meetupEvent?.shortName ?? eventId;
-    }
-    return i18n(`paymentMethod.${methodType}`);
-  };
   const onPressBubble = () => {
     if (onPress) {
       if (hasPaymentData) {
