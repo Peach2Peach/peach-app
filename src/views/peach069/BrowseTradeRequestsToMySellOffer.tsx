@@ -20,7 +20,7 @@ import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 
 const rejectTradeRequest = async (
   navigation: any,
-  sellOfferId: number,
+  sellOfferId: string,
   userId: string,
 ): Promise<void> => {
   await peachAPI.private.peach069.rejectSellOfferTradeRequestReceivedByIds({
@@ -30,6 +30,18 @@ const rejectTradeRequest = async (
 
   navigation.navigate("homeScreen", {
     screen: "home",
+  });
+};
+
+const goToChat = async (
+  navigation: StackNavigation,
+  sellOfferId: string,
+  userId: string,
+): Promise<void> => {
+  navigation.navigate("tradeRequestChat", {
+    offerId: sellOfferId,
+    offerType: "sell",
+    requestingUserId: userId,
   });
 };
 
@@ -145,6 +157,14 @@ export function BrowseTradeRequestsToMySellOffer() {
                       }
                     >
                       reject
+                    </Button>
+                    <Button
+                      style={[tw`bg-error-main`]}
+                      onPress={() =>
+                        goToChat(navigation, item.sellOfferId, item.userId)
+                      }
+                    >
+                      chat
                     </Button>
                   </View>
                   <PeachText>-------</PeachText>
