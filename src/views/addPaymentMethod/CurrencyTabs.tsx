@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { shallow } from "zustand/shallow";
+import { Currency } from "../../../peach-api/src/@types/global";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { CurrencyType } from "../../store/offerPreferenes/types";
@@ -15,7 +16,16 @@ type Props = {
 
 const CurrencyTab = createMaterialTopTabNavigator();
 
-const currencyTabs = ["europe", "latinAmerica", "africa", "other"] as const;
+const currencyTabs = [
+  "europe",
+  "asia",
+  "northAmerica",
+  "latinAmerica",
+  "middleEast",
+  "oceania",
+  "africa",
+  "other",
+] as const;
 
 export const CurrencyTabs = (props: Props) => {
   const [preferredCurrencyType, setPreferredCurrencyType] = useOfferPreferences(

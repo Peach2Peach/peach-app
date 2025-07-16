@@ -75,13 +75,24 @@ describe("useOfferPreferences - actions - setPaymentMethods", () => {
     usePaymentDataStore.getState().addPaymentData(revolutData);
 
     setPaymentMethods([
-      { id: "sepa", currencies: ["EUR", "CHF"], anonymous: false },
+      {
+        id: "sepa",
+        currencies: ["EUR", "CHF"],
+        fields: { mandatory: [], optional: [] },
+        anonymous: false,
+      },
       {
         id: "revolut",
         currencies: ["EUR"],
+        fields: { mandatory: [], optional: [] },
         anonymous: false,
       },
-      { id: "paypal", currencies: ["EUR"], anonymous: false },
+      {
+        id: "paypal",
+        currencies: ["EUR"],
+        fields: { mandatory: [], optional: [] },
+        anonymous: false,
+      },
     ]);
   });
 
@@ -127,7 +138,12 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
   beforeAll(() => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData);
     setPaymentMethods([
-      { id: "sepa", currencies: ["EUR", "CHF"], anonymous: false },
+      {
+        id: "sepa",
+        currencies: ["EUR", "CHF"],
+        fields: { mandatory: [], optional: [] },
+        anonymous: false,
+      },
     ]);
     useOfferPreferences.getState().setPaymentMethods([]);
   });

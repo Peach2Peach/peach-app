@@ -7,10 +7,10 @@ import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import { getSelectedPaymentDataIds } from "../../utils/account/getSelectedPaymentDataIds";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
+import { isDefined } from "../../utils/validation/isDefined";
 import { Header } from "../Header";
 import { PeachScrollView } from "../PeachScrollView";
 import { Screen } from "../Screen";
@@ -30,8 +30,8 @@ export const PaymentMethods = () => {
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
     shallow,
   );
-  const selectedPaymentDataIds = getSelectedPaymentDataIds(
-    preferredPaymentMethods,
+  const selectedPaymentDataIds = Object.values(preferredPaymentMethods).filter(
+    isDefined,
   );
 
   const editItem = (data: PaymentData) => {

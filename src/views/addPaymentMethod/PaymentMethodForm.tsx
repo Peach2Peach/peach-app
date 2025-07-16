@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { Control, useController, useForm } from "react-hook-form";
 import { View } from "react-native";
+import { Currency } from "../../../peach-api/src/@types/global";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
 import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -12,7 +13,6 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { useGoToOrigin } from "../../hooks/useGoToOrigin";
 import { useRoute } from "../../hooks/useRoute";
-import { PAYMENTMETHODINFOS } from "../../paymentMethods";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -20,7 +20,9 @@ import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
+import { keys } from "../../utils/object/keys";
+import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
+import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
 import { TabbedFormNavigation } from "./TabbedFormNavigation";
@@ -63,7 +65,13 @@ export const PaymentMethodForm = () => {
       country,
     } satisfies PaymentData;
 
-    const dataIsValid = isValidPaymentData(finalData);
+    const dataIsValid =
+      isCashTrade(finalData.type) ||
+      (queryResult.data?.currencies?.some((c) =>
+        finalData.currencies.includes(c),
+      ) &&
+        keys(cleanPaymentData(finalData)).some((key) => finalData[key]));
+
     if (dataIsValid) {
       addPaymentData(finalData);
       selectPaymentMethod(finalData.id);
@@ -163,8 +171,11 @@ function CurrencySelectionController({
       : [...field.value, currency];
     setValue("currencies", newCurrencies);
   };
+  const { data: paymentMethodInfo } = usePaymentMethodInfo(type);
 
-  if (!hasMultipleAvailableCurrencies(type)) return null;
+  if (!paymentMethodInfo || paymentMethodInfo.currencies.length <= 1) {
+    return null;
+  }
 
   return (
     <CurrencySelection
@@ -173,13 +184,6 @@ function CurrencySelectionController({
       selectedCurrencies={field.value}
     />
   );
-}
-
-function hasMultipleAvailableCurrencies(paymentMethod: PaymentMethod) {
-  const selectedMethod = PAYMENTMETHODINFOS.find(
-    (pm) => pm.id === paymentMethod,
-  );
-  return !!selectedMethod && selectedMethod.currencies.length > 1;
 }
 
 function PaymentMethodFormHeader() {

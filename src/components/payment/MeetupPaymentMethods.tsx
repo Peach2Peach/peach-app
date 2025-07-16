@@ -5,19 +5,11 @@ import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
-import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 import { LinedText } from "../ui/LinedText";
 import { PaymentDetailsCheckbox } from "./PaymentDetailsCheckbox";
 import { PaymentDataKeyFacts } from "./components/PaymentDataKeyFacts";
-
-const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
-  value: data.id,
-  display: <PeachText style={tw`subtitle-1`}>{data.label}</PeachText>,
-  isValid: isValidPaymentData(data),
-  data,
-});
 
 type Props = {
   isEditing: boolean;
@@ -41,10 +33,10 @@ export const MeetupPaymentMethods = ({
   return (
     <>
       {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (
-        <LinedText style={tw`pb-3`}>
+        <LinedText style={tw`gap-1 pb-3`}>
           <PeachText
             style={tw.style(
-              `mr-1 h6`,
+              `h6`,
               isDarkMode ? "text-backgroundLight-light" : "text-black-65",
             )}
           >
@@ -56,23 +48,26 @@ export const MeetupPaymentMethods = ({
           />
         </LinedText>
       )}
-      {paymentData
-        .filter((item) => !item.hidden)
-        .filter((item) => isCashTrade(item.type))
-        .map(mapPaymentDataToCheckboxes)
-        .map((item, i) => (
-          <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
-            <PaymentDetailsCheckbox
-              onPress={() =>
-                isEditing ? editItem(item.data) : select(item.value)
-              }
-              item={item}
-              checked={isSelected(item)}
-              editing={isEditing}
-            />
-            <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
-          </View>
-        ))}
+      <View style={tw`gap-4`}>
+        {paymentData
+          .filter((item) => !item.hidden && isCashTrade(item.type))
+          .map((item) => (
+            <View key={item.id} style={tw`gap-1`}>
+              <PaymentDetailsCheckbox
+                onPress={() => (isEditing ? editItem(item) : select(item.id))}
+                item={{
+                  value: item.id,
+                  display: (
+                    <PeachText style={tw`subtitle-1`}>{item.label}</PeachText>
+                  ),
+                }}
+                checked={isSelected({ value: item.id })}
+                editing={isEditing}
+              />
+              <PaymentDataKeyFacts paymentData={item} />
+            </View>
+          ))}
+      </View>
     </>
   );
 };

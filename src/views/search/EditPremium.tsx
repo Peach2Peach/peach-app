@@ -14,6 +14,7 @@ import { usePatchOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -36,8 +37,7 @@ export const EditPremium = () => {
     throw new Error("Offer is not a sell offer");
   }
 
-  const displayCurrency =
-    (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const currentPrice =
     offer && isSuccess
       ? getOfferPrice({

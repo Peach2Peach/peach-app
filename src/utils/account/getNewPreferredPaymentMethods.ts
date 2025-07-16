@@ -3,7 +3,7 @@ import { keys } from "../object/keys";
 export const getNewPreferredPaymentMethods = (
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>,
   updateDatedPaymentData: PaymentData[],
-) =>
+): Partial<Record<PaymentMethod, string>> =>
   keys(preferredPaymentMethods).reduce(
     (obj, method) => {
       const id = preferredPaymentMethods[method];
