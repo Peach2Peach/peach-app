@@ -195,5 +195,17 @@
   "dispute.reason.unresponsive.buyer" : "не надійний продавець",
   "dispute.reason.unresponsive.seller" : "не надійний покупець",
   "dispute.seller.won.button" : "отримати відшкодування",
-  "dispute.won" : "спір вигран!"
+  "dispute.won" : "спір вигран!",
+  "contract.summary.bankAccountNumber" : "номер банківського рахунку",
+  "contract.summary.bankBranch" : "відділення банку",
+  "contract.summary.bankName" : "назва банку",
+  "contract.summary.beneficiaryAddress" : "адреса отримувача",
+  "contract.summary.bsbNumber" : "номер BSB",
+  "contract.summary.cedulaID" : "посвідчення особи",
+  "contract.summary.DNI" : "DNI",
+  "contract.summary.nameTag" : "тег імені",
+  "contract.summary.routingDetails" : "деталі маршрутизації",
+  "contract.summary.RUT" : "RUT",
+  "contract.summary.steamFriendCode" : "код друга Steam",
+  "contract.summary.userId" : "ID користувача"
 }

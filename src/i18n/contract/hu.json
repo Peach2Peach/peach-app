@@ -196,5 +196,17 @@
   "dispute.reason.unresponsive.buyer" : "az eladó nem reagál",
   "dispute.reason.unresponsive.seller" : "a vevő nem reagál",
   "dispute.seller.won.button" : "visszatérítés kérése",
-  "dispute.won" : "vita megnyerve!"
+  "dispute.won" : "vita megnyerve!",
+  "contract.summary.bankAccountNumber" : "bankszámlaszám",
+  "contract.summary.bankBranch" : "bankfiók",
+  "contract.summary.bankName" : "bank neve",
+  "contract.summary.beneficiaryAddress" : "kedvezményezett címe",
+  "contract.summary.bsbNumber" : "BSB szám",
+  "contract.summary.cedulaID" : "személyazonosító",
+  "contract.summary.DNI" : "DNI",
+  "contract.summary.nameTag" : "névtag",
+  "contract.summary.routingDetails" : "útvonal részletek",
+  "contract.summary.RUT" : "RUT",
+  "contract.summary.steamFriendCode" : "Steam barát kód",
+  "contract.summary.userId" : "felhasználó ID"
 }

@@ -196,5 +196,17 @@
   "dispute.reason.unresponsive.buyer" : "verkoper reageert niet",
   "dispute.reason.unresponsive.seller" : "koper reageert niet",
   "dispute.seller.won.button" : "terugbetaling ontvangen",
-  "dispute.won" : "geschil gewonnen!"
+  "dispute.won" : "geschil gewonnen!",
+  "contract.summary.bankAccountNumber" : "bankrekeningnummer",
+  "contract.summary.bankBranch" : "bankkantoor",
+  "contract.summary.bankName" : "banknaam",
+  "contract.summary.beneficiaryAddress" : "begunstigde adres",
+  "contract.summary.bsbNumber" : "BSB nummer",
+  "contract.summary.cedulaID" : "identiteitskaart",
+  "contract.summary.DNI" : "DNI",
+  "contract.summary.nameTag" : "naamlabel",
+  "contract.summary.routingDetails" : "routing details",
+  "contract.summary.RUT" : "RUT",
+  "contract.summary.steamFriendCode" : "Steam vriendcode",
+  "contract.summary.userId" : "gebruikers ID"
 }

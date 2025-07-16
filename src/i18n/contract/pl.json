@@ -196,5 +196,17 @@
   "dispute.reason.unresponsive.buyer" : "sprzedawca nie odpowiada",
   "dispute.reason.unresponsive.seller" : "kupujący nie odpowiada",
   "dispute.seller.won.button" : "uzyskaj zwrot",
-  "dispute.won" : "spór wygrany!"
+  "dispute.won" : "spór wygrany!",
+  "contract.summary.bankAccountNumber" : "numer konta bankowego",
+  "contract.summary.bankBranch" : "oddział banku",
+  "contract.summary.bankName" : "nazwa banku",
+  "contract.summary.beneficiaryAddress" : "adres beneficjenta",
+  "contract.summary.bsbNumber" : "numer BSB",
+  "contract.summary.cedulaID" : "dowód osobisty",
+  "contract.summary.DNI" : "DNI",
+  "contract.summary.nameTag" : "etykieta nazwy",
+  "contract.summary.routingDetails" : "szczegóły routingu",
+  "contract.summary.RUT" : "RUT",
+  "contract.summary.steamFriendCode" : "kod znajomego Steam",
+  "contract.summary.userId" : "ID użytkownika"
 }
