@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { shallow } from "zustand/shallow";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -23,11 +24,14 @@ export const Currency = () => {
   };
 
   const { data: paymentMethods } = usePaymentMethods();
-  if (!paymentMethods) return <LoadingScreen />;
-
-  const allCurrencies = paymentMethods
-    .reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
-    .filter(uniqueArray);
+  const allCurrencies = useMemo(
+    () =>
+      paymentMethods
+        ?.reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
+        .filter(uniqueArray),
+    [paymentMethods],
+  );
+  if (!allCurrencies) return <LoadingScreen />;
 
   return (
     <Screen header={i18n("currency")}>
