@@ -2,7 +2,7 @@ import { Currency } from "../../../peach-api/src/@types/global";
 import { CurrencyType } from "../../store/offerPreferenes/types";
 
 const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
-  africa: ["USD", "XOF", "CDF", "NGN", "ZAR", "MAD", "KES", "TZS"],
+  africa: ["XOF", "CDF", "NGN", "ZAR", "MAD", "KES", "TZS"],
   asia: [
     "KZT",
     "INR",
@@ -33,7 +33,6 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "TRY",
   ],
   latinAmerica: [
-    "USD",
     "BRL",
     "COP",
     "HNL",
@@ -54,7 +53,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
   middleEast: ["ILS", "AED", "EGP", "SAR"],
   northAmerica: ["CAD"],
   oceania: ["NZD", "AUD"],
-  other: ["USDT", "SAT"],
+  other: ["USDT", "SAT", "USD"],
 };
 
 export const getCurrencyTypeFilter =
