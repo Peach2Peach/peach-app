@@ -41,10 +41,14 @@ export const Currency = () => {
       >
         <RadioButtons
           selectedValue={displayCurrency}
-          items={allCurrencies.map((c) => ({
-            value: c,
-            display: i18n(`currency.${c}`),
-          }))}
+          items={allCurrencies
+            .sort((a, b) =>
+              i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
+            )
+            .map((c) => ({
+              value: c,
+              display: i18n(`currency.${c}`),
+            }))}
           onButtonPress={setDisplayCurrency}
         />
       </PeachScrollView>

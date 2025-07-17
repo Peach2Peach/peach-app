@@ -318,6 +318,7 @@ function CurrencyScrollView() {
           </View>
           {showCurrencies &&
             allCurrencies
+              .sort((a, b) => a.localeCompare(b))
               .filter((c) => c !== displayCurrency)
               .map((c) => (
                 <PeachText
