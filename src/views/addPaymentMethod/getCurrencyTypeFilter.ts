@@ -8,7 +8,6 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "INR",
     "SGD",
     "TRY",
-    "SAR",
     "PHP",
     "JPY",
     "IDR",
