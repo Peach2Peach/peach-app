@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "cash",
   "paymentCategory.cryptoCurrency" : "crypto",
   "paymentCategory.giftCard" : "online gift cards",
+  "paymentCategory.global" : "global",
   "paymentCategory.globalOptions" : "global options",
   "paymentCategory.nationalOption" : "national options",
   "paymentCategory.onlineWallet" : "online wallets",

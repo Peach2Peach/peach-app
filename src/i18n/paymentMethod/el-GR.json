@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "μετρητά",
   "paymentCategory.cryptoCurrency" : "κρυπτονόμισμα",
   "paymentCategory.giftCard" : "ηλεκτρονικές δωροκάρτες",
+  "paymentCategory.global" : "παγκόσμιες",
   "paymentCategory.globalOptions" : "παγκόσμιες επιλογές",
   "paymentCategory.nationalOption" : "εθνικές επιλογές",
   "paymentCategory.onlineWallet" : "ηλεκτρονικά πορτοφόλια",

@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "efectivo",
   "paymentCategory.cryptoCurrency" : "cripto",
   "paymentCategory.giftCard" : "tarjetas de regalo en línea",
+  "paymentCategory.global" : "globales",
   "paymentCategory.globalOptions" : "opciones globales",
   "paymentCategory.nationalOption" : "opciones nacionales",
   "paymentCategory.onlineWallet" : "carteras en línea",

@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "gotówka",
   "paymentCategory.cryptoCurrency" : "kryptowaluty",
   "paymentCategory.giftCard" : "karty podarunkowe online",
+  "paymentCategory.global" : "globalne",
   "paymentCategory.globalOptions" : "opcje globalne",
   "paymentCategory.nationalOption" : "opcje krajowe",
   "paymentCategory.onlineWallet" : "portfele online",

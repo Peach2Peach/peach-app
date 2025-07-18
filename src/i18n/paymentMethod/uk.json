@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "готівка",
   "paymentCategory.cryptoCurrency" : "кріпто",
   "paymentCategory.giftCard" : "онлайн подарункові картки",
+  "paymentCategory.global" : "глобальні",
   "paymentCategory.globalOptions" : "міжнародні варіанти",
   "paymentCategory.nationalOption" : "національні варіанти",
   "paymentCategory.onlineWallet" : "онлайн гаманці",

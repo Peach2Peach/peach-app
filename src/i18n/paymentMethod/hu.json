@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "készpénz",
   "paymentCategory.cryptoCurrency" : "kriptovaluta",
   "paymentCategory.giftCard" : "online ajándékutalványok",
+  "paymentCategory.global" : "globális",
   "paymentCategory.globalOptions" : "globális lehetőségek",
   "paymentCategory.nationalOption" : "nemzeti lehetőségek",
   "paymentCategory.onlineWallet" : "online pénztárcák",

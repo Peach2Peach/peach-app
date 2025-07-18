@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "numerário",
   "paymentCategory.cryptoCurrency" : "criptomoeda",
   "paymentCategory.giftCard" : "cartões-presente online",
+  "paymentCategory.global" : "globais",
   "paymentCategory.globalOptions" : "opções globais",
   "paymentCategory.nationalOption" : "opções nacionais",
   "paymentCategory.onlineWallet" : "carteiras online",

@@ -109,7 +109,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     "satispay",
   ],
   cash: [],
-  other: ["liquid", "lnurl"],
+  global: ["liquid", "lnurl"],
 };
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {

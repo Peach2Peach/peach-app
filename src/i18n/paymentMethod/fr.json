@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "espèces",
   "paymentCategory.cryptoCurrency" : "crypto-monnaie",
   "paymentCategory.giftCard" : "cartes-cadeaux en ligne",
+  "paymentCategory.global" : "globales",
   "paymentCategory.globalOptions" : "options mondiales",
   "paymentCategory.nationalOption" : "options nationales",
   "paymentCategory.onlineWallet" : "portefeuilles en ligne",

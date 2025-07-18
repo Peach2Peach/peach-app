@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "contant",
   "paymentCategory.cryptoCurrency" : "crypto",
   "paymentCategory.giftCard" : "online cadeaubonnen",
+  "paymentCategory.global" : "wereldwijd",
   "paymentCategory.globalOptions" : "wereldwijde opties",
   "paymentCategory.nationalOption" : "landelijke opties",
   "paymentCategory.onlineWallet" : "online portemonnees",

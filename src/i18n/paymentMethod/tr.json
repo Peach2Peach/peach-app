@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "nakit",
   "paymentCategory.cryptoCurrency" : "kripto",
   "paymentCategory.giftCard" : "çevrimiçi hediye kartları",
+  "paymentCategory.global" : "küresel",
   "paymentCategory.globalOptions" : "global seçenekler",
   "paymentCategory.nationalOption" : "ulusal seçenekler",
   "paymentCategory.onlineWallet" : "çevrimiçi cüzdanlar",

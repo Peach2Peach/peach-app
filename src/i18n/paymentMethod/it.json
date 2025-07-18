@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "Contanti",
   "paymentCategory.cryptoCurrency" : "Layer",
   "paymentCategory.giftCard" : "Buoni regalo online",
+  "paymentCategory.global" : "Globali",
   "paymentCategory.globalOptions" : "Opzioni globali",
   "paymentCategory.nationalOption" : "Opzioni nazionali",
   "paymentCategory.onlineWallet" : "Conti online",

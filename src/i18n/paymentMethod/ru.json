@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "наличные",
   "paymentCategory.cryptoCurrency" : "криптовалюты",
   "paymentCategory.giftCard" : "подарочные карты онлайн",
+  "paymentCategory.global" : "глобальные",
   "paymentCategory.globalOptions" : "глобальные варианты",
   "paymentCategory.nationalOption" : "местные варианты",
   "paymentCategory.onlineWallet" : "онлайн-кошельки",

@@ -3,6 +3,7 @@
   "paymentCategory.cash" : "Fedha Taslimu",
   "paymentCategory.cryptoCurrency" : "Krypto",
   "paymentCategory.giftCard" : "Kadi za Zawadi Mtandaoni",
+  "paymentCategory.global" : "Kimataifa",
   "paymentCategory.globalOptions" : "Chaguo za Kimataifa",
   "paymentCategory.nationalOption" : "Chaguo za Kitaifa",
   "paymentCategory.onlineWallet" : "Mikoba Mtandaoni",

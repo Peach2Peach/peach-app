@@ -24,7 +24,7 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ""> = {
   giftCard: "creditCard",
   nationalOption: "flag",
   cash: "",
-  other: "shuffle",
+  global: "globe",
 };
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>

@@ -27,7 +27,7 @@ type PaymentCategory =
   | "giftCard"
   | "nationalOption"
   | "cash"
-  | "other";
+  | "global";
 type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[];
 };
