@@ -24,7 +24,7 @@ const currencyTabs = [
   "middleEast",
   "oceania",
   "africa",
-  "other",
+  "global",
 ] as const;
 
 export const CurrencyTabs = (props: Props) => {

@@ -4,7 +4,7 @@ export const defaultCurrencies: Record<CurrencyType, Currency> = {
   europe: "EUR",
   latinAmerica: "ARS",
   africa: "ZAR",
-  other: "USDT",
+  global: "USDT",
   asia: "AED",
   northAmerica: "CAD",
   middleEast: "ILS",

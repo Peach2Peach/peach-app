@@ -7,6 +7,6 @@ export const CurrencyType = z.enum([
   "middleEast",
   "oceania",
   "africa",
-  "other",
+  "global",
 ]);
 export type CurrencyType = z.infer<typeof CurrencyType>;
