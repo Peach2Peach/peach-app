@@ -74,6 +74,7 @@ type OfferPreferencesActions = {
   setMulti: (number?: number) => void;
   setPremium: (newPremium: number, isValid?: boolean) => void;
   setPaymentMethods: (ids: string[]) => void;
+  togglePaymentMethod: (id: string) => void;
   selectPaymentMethod: (id: string) => void;
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
   setBuyOfferSorter: (sorter: BuySorter) => void;
@@ -118,7 +119,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           originalPaymentData,
         });
       },
-      selectPaymentMethod: (id: string) => {
+      togglePaymentMethod: (id) => {
         const selectedPaymentDataIds = Object.values(
           get().preferredPaymentMethods,
         ).filter(isDefined);
@@ -129,6 +130,13 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         } else {
           get().setPaymentMethods([...selectedPaymentDataIds, id]);
         }
+      },
+      selectPaymentMethod: (id) => {
+        const selectedPaymentDataIds = Object.values(
+          get().preferredPaymentMethods,
+        ).filter(isDefined);
+        if (selectedPaymentDataIds.includes(id)) return;
+        get().setPaymentMethods([...selectedPaymentDataIds, id]);
       },
       setPreferredCurrencyType: (preferredCurrenyType) =>
         set({ preferredCurrenyType }),
@@ -156,7 +164,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
               ? MIN_REPUTATION_FILTER
               : 0;
         }),
-      toggleBadge: (badge: Medal) =>
+      toggleBadge: (badge) =>
         set((state) => {
           const badges = state.instantTradeCriteria.badges;
           if (badges.includes(badge)) {

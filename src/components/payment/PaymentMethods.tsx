@@ -26,8 +26,8 @@ const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
   const navigation = useStackNavigation();
-  const [preferredPaymentMethods, select] = useOfferPreferences(
-    (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
+  const [preferredPaymentMethods, toggle] = useOfferPreferences(
+    (state) => [state.preferredPaymentMethods, state.togglePaymentMethod],
     shallow,
   );
   const selectedPaymentDataIds = Object.values(preferredPaymentMethods).filter(
@@ -91,11 +91,11 @@ export const PaymentMethods = () => {
               >
                 {tab === "online" ? (
                   <RemotePaymentMethods
-                    {...{ isEditing, editItem, select, isSelected }}
+                    {...{ isEditing, editItem, toggle, isSelected }}
                   />
                 ) : (
                   <MeetupPaymentMethods
-                    {...{ isEditing, editItem, select, isSelected }}
+                    {...{ isEditing, editItem, toggle, isSelected }}
                   />
                 )}
                 <HorizontalLine style={tw`m-5`} />

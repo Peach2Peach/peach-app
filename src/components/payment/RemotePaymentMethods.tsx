@@ -43,14 +43,14 @@ const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
 type Props = {
   isEditing: boolean;
   editItem: (data: PaymentData) => void;
-  select: (value: string) => void;
+  toggle: (value: string) => void;
   isSelected: (item: { value: string }) => boolean;
 };
 
 export const RemotePaymentMethods = ({
   isEditing,
   editItem,
-  select,
+  toggle,
   isSelected,
 }: Props) => {
   const { isDarkMode } = useThemeStore();
@@ -128,7 +128,7 @@ export const RemotePaymentMethods = ({
                       <View style={tw`gap-1`}>
                         <PaymentDetailsCheckbox
                           onPress={() =>
-                            isEditing ? editItem(item) : select(item.id)
+                            isEditing ? editItem(item) : toggle(item.id)
                           }
                           item={{
                             value: item.id,
