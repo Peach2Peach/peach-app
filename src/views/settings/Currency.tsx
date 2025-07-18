@@ -1,13 +1,16 @@
+import { useMemo } from "react";
 import { shallow } from "zustand/shallow";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { CURRENCIES } from "../../paymentMethods";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
+import { uniqueArray } from "../../utils/array/uniqueArray";
 import i18n from "../../utils/i18n";
+import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
+import { LoadingScreen } from "../loading/LoadingScreen";
 
 export const Currency = () => {
   const navigation = useStackNavigation();
@@ -20,6 +23,16 @@ export const Currency = () => {
     navigation.goBack();
   };
 
+  const { data: paymentMethods } = usePaymentMethods();
+  const allCurrencies = useMemo(
+    () =>
+      paymentMethods
+        ?.reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
+        .filter(uniqueArray),
+    [paymentMethods],
+  );
+  if (!allCurrencies) return <LoadingScreen />;
+
   return (
     <Screen header={i18n("currency")}>
       <PeachScrollView
@@ -28,10 +41,14 @@ export const Currency = () => {
       >
         <RadioButtons
           selectedValue={displayCurrency}
-          items={CURRENCIES.map((c) => ({
-            value: c,
-            display: i18n(`currency.${c}`),
-          }))}
+          items={allCurrencies
+            .sort((a, b) =>
+              i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
+            )
+            .map((c) => ({
+              value: c,
+              display: i18n(`currency.${c}`),
+            }))}
           onButtonPress={setDisplayCurrency}
         />
       </PeachScrollView>

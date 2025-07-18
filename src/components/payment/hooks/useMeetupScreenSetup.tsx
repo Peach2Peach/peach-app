@@ -5,7 +5,7 @@ import { useRoute } from "../../../hooks/useRoute";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { useAccountStore } from "../../../utils/account/account";
-import { getPaymentMethodInfo } from "../../../utils/paymentMethod/getPaymentMethodInfo";
+import { usePaymentMethodInfo } from "../../../views/addPaymentMethod/usePaymentMethodInfo";
 import { toggleCurrency } from "../../inputs/paymentForms/utils";
 
 export const useMeetupScreenSetup = () => {
@@ -40,9 +40,9 @@ export const useMeetupScreenSetup = () => {
   const selectPaymentMethod = useOfferPreferences(
     (state) => state.selectPaymentMethod,
   );
+  const { data: meetupInfo } = usePaymentMethodInfo(`cash.${eventId}`);
 
   const addToPaymentMethods = () => {
-    const meetupInfo = getPaymentMethodInfo(`cash.${event.id}`);
     if (!meetupInfo) return;
     const meetup: PaymentData = {
       id: meetupInfo.id,

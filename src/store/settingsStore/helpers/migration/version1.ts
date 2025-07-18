@@ -1,5 +1,5 @@
-import { getSelectedPaymentDataIds } from "../../../../utils/account/getSelectedPaymentDataIds";
 import { info } from "../../../../utils/log/info";
+import { isDefined } from "../../../../utils/validation/isDefined";
 import { useOfferPreferences } from "../../../offerPreferenes";
 import { SettingsVersion2 } from "./version2";
 
@@ -48,16 +48,11 @@ export const version1 = (migratedState: SettingsVersion1): SettingsVersion2 => {
     useOfferPreferences.getState();
   info("settingsStore - migrating from version 1");
   setPaymentMethods(
-    getSelectedPaymentDataIds(migratedState.preferredPaymentMethods),
+    Object.values(migratedState.preferredPaymentMethods).filter(isDefined),
   );
   setPremium(migratedState.premium);
   setBuyAmountRange([migratedState.minBuyAmount, migratedState.maxBuyAmount]);
   setSellAmount(migratedState.sellAmount);
-  useOfferPreferences
-    .getState()
-    .setPaymentMethods(
-      getSelectedPaymentDataIds(migratedState.preferredPaymentMethods),
-    );
   return {
     appVersion: migratedState.appVersion,
     analyticsPopupSeen: migratedState.analyticsPopupSeen,

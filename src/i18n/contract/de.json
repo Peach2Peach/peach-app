@@ -184,5 +184,17 @@
   "dispute.reason.unresponsive.buyer" : "Verkäufer reagiert nicht",
   "dispute.reason.unresponsive.seller" : "Käufer reagiert nicht",
   "dispute.seller.won.button" : "Rückerstattung erhalten",
-  "dispute.won" : "Streitfall gewonnen!"
+  "dispute.won" : "Streitfall gewonnen!",
+  "contract.summary.bankAccountNumber" : "Bankkontonummer",
+  "contract.summary.bankBranch" : "Bankfiliale",
+  "contract.summary.bankName" : "Bankname",
+  "contract.summary.beneficiaryAddress" : "Begünstigtenadresse",
+  "contract.summary.bsbNumber" : "BSB-Nummer",
+  "contract.summary.cedulaID" : "Ausweis-ID",
+  "contract.summary.DNI" : "DNI",
+  "contract.summary.nameTag" : "Namensschild",
+  "contract.summary.routingDetails" : "Routing-Details",
+  "contract.summary.RUT" : "RUT",
+  "contract.summary.steamFriendCode" : "Steam-Freundescode",
+  "contract.summary.userId" : "Benutzer-ID"
 }

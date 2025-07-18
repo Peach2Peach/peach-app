@@ -121,6 +121,18 @@ const allPossibleFields = [
   "youPaid",
   "youShouldPay",
   "youWillGet",
+  "bankAccountNumber",
+  "bankBranch",
+  "bankName",
+  "beneficiaryAddress",
+  "bsbNumber",
+  "cedulaID",
+  "DNI",
+  "nameTag",
+  "routingDetails",
+  "RUT",
+  "steamFriendCode",
+  "userId",
 ] as const;
 export type TradeInfoField = (typeof allPossibleFields)[number];
 export const isTradeInformationGetter = (

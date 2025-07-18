@@ -49,6 +49,7 @@ import { priceFormat } from "../../utils/string/priceFormat";
 import { isDefined } from "../../utils/validation/isDefined";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { useWalletState } from "../../utils/wallet/walletStore";
+import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
 import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
@@ -602,8 +603,10 @@ function FundEscrowButton() {
     }),
     shallow,
   );
-  const paymentMethodsAreValid =
-    sellPreferences.originalPaymentData.every(isValidPaymentData);
+  const { data: paymentMethods } = usePaymentMethods();
+  const paymentMethodsAreValid = sellPreferences.originalPaymentData.every(
+    (data) => isValidPaymentData(data, paymentMethods),
+  );
   const formValid =
     sellAmountIsValid &&
     paymentMethodsAreValid &&

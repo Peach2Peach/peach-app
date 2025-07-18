@@ -3,16 +3,13 @@ import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { MatchFilter } from "../../../peach-api/src/@types/api/offerAPI";
 import { NEW_USER_TRADE_THRESHOLD, TOTAL_SATS } from "../../constants";
-import { getSelectedPaymentDataIds } from "../../utils/account/getSelectedPaymentDataIds";
+import { dataToMeansOfPayment } from "../../utils/paymentMethod/dataToMeansOfPayment";
 import { createStorage } from "../../utils/storage/createStorage";
+import { isDefined } from "../../utils/validation/isDefined";
 import { MIN_REPUTATION_FILTER } from "../../views/offerPreferences/components/MIN_REPUTATION_FILTER";
 import { createPersistStorage } from "../createPersistStorage";
-import {
-  getHashedPaymentData,
-  getMeansOfPayment,
-  getOriginalPaymentData,
-  getPreferredMethods,
-} from "./helpers";
+import { usePaymentDataStore } from "../usePaymentDataStore";
+import { getHashedPaymentData, getPreferredMethods } from "./helpers";
 import { CurrencyType } from "./types";
 
 type OfferPreferences = {
@@ -77,6 +74,7 @@ type OfferPreferencesActions = {
   setMulti: (number?: number) => void;
   setPremium: (newPremium: number, isValid?: boolean) => void;
   setPaymentMethods: (ids: string[]) => void;
+  togglePaymentMethod: (id: string) => void;
   selectPaymentMethod: (id: string) => void;
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
   setBuyOfferSorter: (sorter: BuySorter) => void;
@@ -104,10 +102,14 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setPremium: (premium) => set({ premium }),
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids);
-        const originalPaymentData = getOriginalPaymentData(
-          preferredPaymentMethods,
+        const originalPaymentData = Object.values(preferredPaymentMethods)
+          .filter(isDefined)
+          .map((id) => usePaymentDataStore.getState().paymentData[id])
+          .filter(isDefined);
+        const meansOfPayment = originalPaymentData.reduce(
+          dataToMeansOfPayment,
+          {},
         );
-        const meansOfPayment = getMeansOfPayment(originalPaymentData);
         const paymentData = getHashedPaymentData(originalPaymentData);
 
         set({
@@ -117,10 +119,10 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           originalPaymentData,
         });
       },
-      selectPaymentMethod: (id: string) => {
-        const selectedPaymentDataIds = getSelectedPaymentDataIds(
+      togglePaymentMethod: (id) => {
+        const selectedPaymentDataIds = Object.values(
           get().preferredPaymentMethods,
-        );
+        ).filter(isDefined);
         if (selectedPaymentDataIds.includes(id)) {
           get().setPaymentMethods(
             selectedPaymentDataIds.filter((v) => v !== id),
@@ -128,6 +130,13 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         } else {
           get().setPaymentMethods([...selectedPaymentDataIds, id]);
         }
+      },
+      selectPaymentMethod: (id) => {
+        const selectedPaymentDataIds = Object.values(
+          get().preferredPaymentMethods,
+        ).filter(isDefined);
+        if (selectedPaymentDataIds.includes(id)) return;
+        get().setPaymentMethods([...selectedPaymentDataIds, id]);
       },
       setPreferredCurrencyType: (preferredCurrenyType) =>
         set({ preferredCurrenyType }),
@@ -155,7 +164,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
               ? MIN_REPUTATION_FILTER
               : 0;
         }),
-      toggleBadge: (badge: Medal) =>
+      toggleBadge: (badge) =>
         set((state) => {
           const badges = state.instantTradeCriteria.badges;
           if (badges.includes(badge)) {

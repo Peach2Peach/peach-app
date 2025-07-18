@@ -11,6 +11,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
           "justifyContent": "center",
         },
         {
+          "gap": 4,
           "paddingBottom": 12,
         },
       ]
@@ -46,7 +47,6 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
             "fontSize": 20,
             "letterSpacing": 0.2,
             "lineHeight": 32,
-            "marginRight": 4,
           },
           false,
         ]
@@ -80,74 +80,64 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
     />
   </View>,
   <View
-    style={{}}
+    style={
+      {
+        "gap": 16,
+      }
+    }
   >
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "transparent",
-          "borderRadius": 12,
-          "borderWidth": 2,
-          "flexDirection": "row",
-          "gap": 16,
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 8,
-          "paddingLeft": 12,
-          "paddingRight": 12,
-          "paddingTop": 8,
-          "width": "100%",
+          "gap": 4,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            false,
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
-            false,
-          ]
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "transparent",
+            "borderRadius": 12,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "gap": 16,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 8,
+            "width": "100%",
+          }
         }
       >
         <Text
@@ -163,96 +153,114 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
               },
               false,
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
               },
               false,
             ]
           }
         >
-          EINUNDZWANZIG
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                },
+                false,
+              ]
+            }
+          >
+            EINUNDZWANZIG
+          </Text>
         </Text>
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            undefined,
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
-      }
-    >
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
+              {
+                "height": 24,
+                "width": 24,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
       <View
         style={
           [
             {
-              "borderRadius": 8,
-              "borderWidth": 1,
+              "flexDirection": "row",
+              "flexWrap": "wrap",
               "justifyContent": "center",
-              "marginLeft": 4,
-              "marginRight": 4,
-              "paddingLeft": 4,
-              "paddingRight": 4,
             },
-            {
-              "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
-            },
+            undefined,
           ]
         }
       >
-        <Text
-          allowFontScaling={false}
+        <View
           style={
             [
               {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "justifyContent": "center",
+                "marginLeft": 4,
+                "marginRight": 4,
+                "paddingLeft": 4,
+                "paddingRight": 4,
               },
-              false,
-              [
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.5,
-                  "lineHeight": 24,
-                  "textTransform": "uppercase",
-                },
-                {
-                  "color": "#2B1911",
-                },
-              ],
-              false,
+              {
+                "borderColor": "#2B1911",
+              },
+              undefined,
             ]
           }
         >
-          EUR
-        </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 14,
+                    "letterSpacing": 0.5,
+                    "lineHeight": 24,
+                    "textTransform": "uppercase",
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            EUR
+          </Text>
+        </View>
       </View>
     </View>
   </View>,
@@ -270,6 +278,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
           "justifyContent": "center",
         },
         {
+          "gap": 4,
           "paddingBottom": 12,
         },
       ]
@@ -305,7 +314,6 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             "fontSize": 20,
             "letterSpacing": 0.2,
             "lineHeight": 32,
-            "marginRight": 4,
           },
           false,
         ]
@@ -339,255 +347,64 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
     />
   </View>,
   <View
-    style={{}}
-  >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "transparent",
-          "borderRadius": 12,
-          "borderWidth": 2,
-          "flexDirection": "row",
-          "gap": 16,
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 8,
-          "paddingLeft": 12,
-          "paddingRight": 12,
-          "paddingTop": 8,
-          "width": "100%",
-        }
-      }
-    >
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            false,
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
-            false,
-          ]
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              false,
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-              },
-              false,
-            ]
-          }
-        >
-          EINUNDZWANZIG
-        </Text>
-      </Text>
-      <test-file-stub
-        fill="#9F8C82"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            undefined,
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "borderRadius": 8,
-              "borderWidth": 1,
-              "justifyContent": "center",
-              "marginLeft": 4,
-              "marginRight": 4,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-            },
-            {
-              "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
-            },
-          ]
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              false,
-              [
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.5,
-                  "lineHeight": 24,
-                  "textTransform": "uppercase",
-                },
-                {
-                  "color": "#2B1911",
-                },
-              ],
-              false,
-            ]
-          }
-        >
-          EUR
-        </Text>
-      </View>
-    </View>
-  </View>,
-  <View
     style={
       {
-        "marginTop": 16,
+        "gap": 16,
       }
     }
   >
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "transparent",
-          "borderRadius": 12,
-          "borderWidth": 2,
-          "flexDirection": "row",
-          "gap": 16,
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 8,
-          "paddingLeft": 12,
-          "paddingRight": 12,
-          "paddingTop": 8,
-          "width": "100%",
+          "gap": 4,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            false,
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
-            false,
-          ]
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "transparent",
+            "borderRadius": 12,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "gap": 16,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 8,
+            "width": "100%",
+          }
         }
       >
         <Text
@@ -603,64 +420,168 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
               },
               false,
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
               },
               false,
             ]
           }
         >
-          ZWEIUNDZWANZIG
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                },
+                false,
+              ]
+            }
+          >
+            EINUNDZWANZIG
+          </Text>
         </Text>
-      </Text>
-      <test-file-stub
-        fill="#9F8C82"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            undefined,
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
-      }
-    >
+        <test-file-stub
+          fill="#9F8C82"
+          style={
+            [
+              {
+                "height": 24,
+                "width": 24,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
       <View
         style={
           [
             {
-              "borderRadius": 8,
-              "borderWidth": 1,
+              "flexDirection": "row",
+              "flexWrap": "wrap",
               "justifyContent": "center",
-              "marginLeft": 4,
-              "marginRight": 4,
-              "paddingLeft": 4,
-              "paddingRight": 4,
             },
-            {
-              "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
-            },
+            undefined,
           ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "justifyContent": "center",
+                "marginLeft": 4,
+                "marginRight": 4,
+                "paddingLeft": 4,
+                "paddingRight": 4,
+              },
+              {
+                "borderColor": "#2B1911",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 14,
+                    "letterSpacing": 0.5,
+                    "lineHeight": 24,
+                    "textTransform": "uppercase",
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            EUR
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "transparent",
+            "borderRadius": 12,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "gap": 16,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 8,
+            "width": "100%",
+          }
         }
       >
         <Text
@@ -675,24 +596,115 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "lineHeight": 24,
               },
               false,
-              [
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.5,
-                  "lineHeight": 24,
-                  "textTransform": "uppercase",
-                },
-                {
-                  "color": "#2B1911",
-                },
-              ],
+              {
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              },
               false,
             ]
           }
         >
-          EUR
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                },
+                false,
+              ]
+            }
+          >
+            ZWEIUNDZWANZIG
+          </Text>
         </Text>
+        <test-file-stub
+          fill="#9F8C82"
+          style={
+            [
+              {
+                "height": 24,
+                "width": 24,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          [
+            {
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "justifyContent": "center",
+                "marginLeft": 4,
+                "marginRight": 4,
+                "paddingLeft": 4,
+                "paddingRight": 4,
+              },
+              {
+                "borderColor": "#2B1911",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 14,
+                    "letterSpacing": 0.5,
+                    "lineHeight": 24,
+                    "textTransform": "uppercase",
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            EUR
+          </Text>
+        </View>
       </View>
     </View>
   </View>,
@@ -710,6 +722,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
           "justifyContent": "center",
         },
         {
+          "gap": 4,
           "paddingBottom": 12,
         },
       ]
@@ -745,7 +758,6 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
             "fontSize": 20,
             "letterSpacing": 0.2,
             "lineHeight": 32,
-            "marginRight": 4,
           },
           false,
         ]
@@ -779,74 +791,64 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
     />
   </View>,
   <View
-    style={{}}
+    style={
+      {
+        "gap": 16,
+      }
+    }
   >
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#F56522",
-          "borderRadius": 12,
-          "borderWidth": 2,
-          "flexDirection": "row",
-          "gap": 16,
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 8,
-          "paddingLeft": 12,
-          "paddingRight": 12,
-          "paddingTop": 8,
-          "width": "100%",
+          "gap": 4,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            false,
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
-            false,
-          ]
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "#F56522",
+            "borderRadius": 12,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "gap": 16,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 8,
+            "width": "100%",
+          }
         }
       >
         <Text
@@ -862,100 +864,126 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
               },
               false,
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
               },
               false,
             ]
           }
         >
-          EINUNDZWANZIG
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                },
+                false,
+              ]
+            }
+          >
+            EINUNDZWANZIG
+          </Text>
         </Text>
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            undefined,
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-          },
-          {
-            "marginTop": 4,
-          },
-        ]
-      }
-    >
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
+              {
+                "height": 24,
+                "width": 24,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
       <View
         style={
           [
             {
-              "borderRadius": 8,
-              "borderWidth": 1,
+              "flexDirection": "row",
+              "flexWrap": "wrap",
               "justifyContent": "center",
-              "marginLeft": 4,
-              "marginRight": 4,
-              "paddingLeft": 4,
-              "paddingRight": 4,
             },
-            {
-              "borderColor": "#2B1911",
-            },
-            {
-              "marginTop": 4,
-            },
+            undefined,
           ]
         }
       >
-        <Text
-          allowFontScaling={false}
+        <View
           style={
             [
               {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "justifyContent": "center",
+                "marginLeft": 4,
+                "marginRight": 4,
+                "paddingLeft": 4,
+                "paddingRight": 4,
               },
-              false,
-              [
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.5,
-                  "lineHeight": 24,
-                  "textTransform": "uppercase",
-                },
-                {
-                  "color": "#2B1911",
-                },
-              ],
-              false,
+              {
+                "borderColor": "#2B1911",
+              },
+              undefined,
             ]
           }
         >
-          EUR
-        </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                false,
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 14,
+                    "letterSpacing": 0.5,
+                    "lineHeight": 24,
+                    "textTransform": "uppercase",
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            EUR
+          </Text>
+        </View>
       </View>
     </View>
   </View>,
 ]
 `;
 
-exports[`MeetupPaymentMethods should render correctly without available methods 1`] = `null`;
+exports[`MeetupPaymentMethods should render correctly without available methods 1`] = `
+<View
+  style={
+    {
+      "gap": 16,
+    }
+  }
+/>
+`;

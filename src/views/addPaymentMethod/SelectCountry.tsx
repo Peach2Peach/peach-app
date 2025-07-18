@@ -11,25 +11,29 @@ import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { countrySupportsCurrency } from "../../utils/paymentMethod/countrySupportsCurrency";
-import { getPaymentMethodInfo } from "../../utils/paymentMethod/getPaymentMethodInfo";
+import { countryCurrencyMap } from "../../utils/paymentMethod/countrySupportsCurrency";
 import { usePaymentMethodLabel } from "./hooks";
+import { usePaymentMethodInfo } from "./usePaymentMethodInfo";
 
 export const SelectCountry = () => {
   const { origin, selectedCurrency } = useRoute<"selectCountry">().params;
   const navigation = useStackNavigation();
   const [selectedCountry, setCountry] = useState<PaymentMethodCountry>();
   const setPopup = useSetPopup();
+  const { data: paymentMethodInfo } = usePaymentMethodInfo("giftCard.amazon");
 
   const countries = useMemo(
     () =>
-      getPaymentMethodInfo("giftCard.amazon")
-        ?.countries?.filter(countrySupportsCurrency(selectedCurrency))
+      paymentMethodInfo?.countries
+        ?.filter(
+          (country) =>
+            !!countryCurrencyMap[selectedCurrency]?.includes(country),
+        )
         .map((c) => ({
           value: c,
           display: i18n(`country.${c}`),
         })),
-    [selectedCurrency],
+    [paymentMethodInfo?.countries, selectedCurrency],
   );
 
   const getPaymentMethodLabel = usePaymentMethodLabel();

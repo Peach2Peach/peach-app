@@ -196,5 +196,17 @@
   "dispute.reason.unresponsive.buyer" : "muuzaji hajajibu",
   "dispute.reason.unresponsive.seller" : "mnunuzi hajajibu",
   "dispute.seller.won.button" : "pata kurudishiwa",
-  "dispute.won" : "mzozo umeshindwa!"
+  "dispute.won" : "mzozo umeshindwa!",
+  "contract.summary.bankAccountNumber" : "nambari ya akaunti ya benki",
+  "contract.summary.bankBranch" : "tawi la benki",
+  "contract.summary.bankName" : "jina la benki",
+  "contract.summary.beneficiaryAddress" : "anwani ya mpokeaji",
+  "contract.summary.bsbNumber" : "nambari ya BSB",
+  "contract.summary.cedulaID" : "kitambulisho",
+  "contract.summary.DNI" : "DNI",
+  "contract.summary.nameTag" : "lebo ya jina",
+  "contract.summary.routingDetails" : "maelezo ya njia",
+  "contract.summary.RUT" : "RUT",
+  "contract.summary.steamFriendCode" : "msimbo wa rafiki wa Steam",
+  "contract.summary.userId" : "kitambulisho cha mtumiaji"
 }

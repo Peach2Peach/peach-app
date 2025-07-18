@@ -191,5 +191,17 @@
   "dispute.reason.unresponsive.buyer" : "ο πωλητής δεν απαντά",
   "dispute.reason.unresponsive.seller" : "ο αγοραστής δεν απαντά",
   "dispute.seller.won.button" : "επιστροφή χρημάτων",
-  "dispute.won" : "η διένεξη κερδήθηκε!"
+  "dispute.won" : "η διένεξη κερδήθηκε!",
+  "contract.summary.bankAccountNumber" : "αριθμός τραπεζικού λογαριασμού",
+  "contract.summary.bankBranch" : "υποκατάστημα τράπεζας",
+  "contract.summary.bankName" : "όνομα τράπεζας",
+  "contract.summary.beneficiaryAddress" : "διεύθυνση δικαιούχου",
+  "contract.summary.bsbNumber" : "αριθμός BSB",
+  "contract.summary.cedulaID" : "ταυτότητα",
+  "contract.summary.DNI" : "DNI",
+  "contract.summary.nameTag" : "ετικέτα ονόματος",
+  "contract.summary.routingDetails" : "λεπτομέρειες δρομολόγησης",
+  "contract.summary.RUT" : "RUT",
+  "contract.summary.steamFriendCode" : "κωδικός φίλου Steam",
+  "contract.summary.userId" : "ταυτότητα χρήστη"
 }

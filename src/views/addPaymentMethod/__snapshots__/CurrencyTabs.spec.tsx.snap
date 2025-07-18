@@ -64,10 +64,50 @@ exports[`CurrencyTabs should render correctly 1`] = `
     [Function]
   </Screen>
   <Screen
+    name="asia"
+    options={
+      {
+        "title": "Asia",
+      }
+    }
+  >
+    [Function]
+  </Screen>
+  <Screen
+    name="northAmerica"
+    options={
+      {
+        "title": "North America",
+      }
+    }
+  >
+    [Function]
+  </Screen>
+  <Screen
     name="latinAmerica"
     options={
       {
         "title": "Latin America",
+      }
+    }
+  >
+    [Function]
+  </Screen>
+  <Screen
+    name="middleEast"
+    options={
+      {
+        "title": "Middle East",
+      }
+    }
+  >
+    [Function]
+  </Screen>
+  <Screen
+    name="oceania"
+    options={
+      {
+        "title": "Oceania",
       }
     }
   >

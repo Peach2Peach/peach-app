@@ -93,37 +93,70 @@ type TradingLimit = {
 type TradingPair = "BTCEUR" | "BTCCHF" | "BTCGBP";
 
 type Currency =
-  | "BTC"
-  | "SAT"
-  | "USD"
-  | "EUR"
-  | "CHF"
-  | "GBP"
-  | "SEK"
-  | "DKK"
-  | "BGN"
-  | "CZK"
-  | "HUF"
-  | "PLN"
-  | "RON"
-  | "ISK"
-  | "NOK"
-  | "TRY"
-  | "USDT"
+  | "AED"
   | "ARS"
-  | "COP"
-  | "PEN"
-  | "MXN"
-  | "CLP"
-  | "XOF"
-  | "NGN"
-  | "CDF"
-  | "CRC"
+  | "AUD"
+  | "BGN"
+  | "BOB"
   | "BRL"
+  | "BRL"
+  | "BTC"
+  | "CAD"
+  | "CDF"
+  | "CHF"
+  | "CLP"
+  | "CNY"
+  | "COP"
+  | "CRC"
+  | "CUP"
+  | "CZK"
+  | "DKK"
+  | "DOP"
+  | "EGP"
+  | "EUR"
+  | "GBP"
+  | "GHS"
   | "GTQ"
-  | "ZAR"
+  | "HNL"
+  | "HUF"
+  | "IDR"
+  | "ILS"
+  | "INR"
+  | "ISK"
+  | "JPY"
   | "KES"
-  | "GHS";
+  | "KZT"
+  | "MAD"
+  | "MXN"
+  | "MYR"
+  | "NGN"
+  | "NOK"
+  | "NZD"
+  | "PAB"
+  | "PEN"
+  | "PHP"
+  | "PKR"
+  | "PLN"
+  | "PYG"
+  | "RON"
+  | "RSD"
+  | "SAR"
+  | "SAT"
+  | "SEK"
+  | "SGD"
+  | "TRY"
+  | "TZS"
+  | "UAH"
+  | "USD"
+  | "USD"
+  | "USDT"
+  | "UYU"
+  | "VEF"
+  | "VES"
+  | "VND"
+  | "XOF"
+  | "ZAR";
+
 type Pricebook = {
   [key in Currency]?: number;
 };
@@ -183,14 +216,6 @@ type MeetupEvent = {
 };
 type CountryEventsMap = Record<Country, MeetupEvent[]>;
 
-type PaymentMethodInfo = {
-  id: PaymentMethod;
-  currencies: Currency[];
-  countries?: PaymentMethodCountry[];
-  rounded?: boolean;
-  anonymous: boolean;
-};
-
 type FundingStatus = {
   status: "NULL" | "MEMPOOL" | "FUNDED" | "WRONG_FUNDING_AMOUNT" | "CANCELED";
   confirmations?: number;
@@ -204,18 +229,6 @@ type GetStatusResponse = {
   error: null;
   status: "online";
   serverTime: number;
-};
-
-type GetInfoResponse = {
-  peach: {
-    pgpPublicKey: string;
-  };
-  fees: {
-    escrow: number;
-  };
-  paymentMethods: PaymentMethodInfo[];
-  latestAppVersion: string;
-  minAppVersion: string;
 };
 
 type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>;

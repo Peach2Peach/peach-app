@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
+import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { Toggle } from "../../../components/inputs/Toggle";
 import { ErrorBox } from "../../../components/ui/ErrorBox";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
@@ -17,6 +18,7 @@ import { cutOffAddress } from "../../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
+import { usePaymentMethodInfo } from "../../addPaymentMethod/usePaymentMethodInfo";
 import { useContractContext } from "../context";
 import { tradeFields } from "../helpers/tradeInfoFields";
 import {
@@ -30,7 +32,11 @@ import { usePatchReleaseAddress } from "./usePatchReleaseAddress";
 export const TradeDetails = () => {
   const { contract, paymentData, isDecryptionError, view } =
     useContractContext();
-  const sections = getTradeInfoFields(contract, view);
+  const { data: paymentMethodInfo } = usePaymentMethodInfo(
+    contract.paymentMethod,
+  );
+  if (!paymentMethodInfo) return null;
+  const sections = getTradeInfoFields(contract, view, paymentMethodInfo.fields);
 
   return (
     <View style={tw`justify-center gap-4 grow`}>
@@ -195,6 +201,7 @@ function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
   );
 }
 
+const FIELDS_ARRAY_DEPTH = 3;
 function getTradeInfoFields(
   {
     paymentMethod,
@@ -202,6 +209,7 @@ function getTradeInfoFields(
     batchInfo,
   }: Pick<Contract, "paymentMethod" | "releaseTxId" | "batchInfo">,
   view: ContractViewer,
+  paymentMethodFields: PaymentMethodInfo["fields"],
 ) {
   const isTradeCompleted =
     !!releaseTxId || (!!batchInfo && !batchInfo.completed);
@@ -213,8 +221,11 @@ function getTradeInfoFields(
     if (isTradeCompleted) {
       return tradeFields.seller.past.default;
     }
-
-    return tradeFields.seller.active.default[paymentMethod] || [];
+    const fields = [
+      ...paymentMethodFields?.mandatory.flat(FIELDS_ARRAY_DEPTH),
+      ...paymentMethodFields?.optional,
+    ];
+    return tradeFields.seller.active.default(fields) || [];
   }
 
   if (isTradeCompleted) {
@@ -223,7 +234,11 @@ function getTradeInfoFields(
     ];
   }
 
+  const fields = [
+    ...paymentMethodFields.mandatory.flat(FIELDS_ARRAY_DEPTH),
+    ...paymentMethodFields.optional,
+  ];
   return isCashTrade(paymentMethod)
     ? tradeFields.buyer.active.cash
-    : tradeFields.buyer.active.default[paymentMethod] || [];
+    : tradeFields.buyer.active.default(fields) || [];
 }

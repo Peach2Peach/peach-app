@@ -30,7 +30,7 @@ export const useHandleMissingPaymentData = () => {
           type: paymentMethod,
           label,
           currencies: [currency],
-          country: /giftCard/u.test(paymentMethod)
+          country: paymentMethod.startsWith("giftCard.amazon")
             ? (paymentMethod.split(".").pop() as PaymentMethodCountry)
             : undefined,
         },

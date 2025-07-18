@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
 import { Match } from "../../../../peach-api/src/@types/match";
+import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
@@ -15,6 +16,7 @@ import { cleanPaymentData } from "../../../utils/paymentMethod/cleanPaymentData"
 import { encryptPaymentData } from "../../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../../utils/peachAPI";
 import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
+import { usePaymentMethods } from "../../../views/addPaymentMethod/usePaymentMethodInfo";
 import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { useSetPopup } from "../../popup/GlobalPopup";
 import { getMatchPrice } from "../utils/getMatchPrice";
@@ -30,6 +32,7 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
   const { user } = useSelfUser();
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
   const handleMissingPaymentData = useHandleMissingPaymentData();
+  const { data: paymentMethods } = usePaymentMethods();
 
   return useMutation({
     onMutate: async ({ selectedCurrency, paymentData }) => {
@@ -70,6 +73,9 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
       maxMiningFeeRate?: number;
     }) => {
       if (!selectedCurrency || !paymentData) throw new Error("MISSING_VALUES");
+      const paymentMethodInfo = paymentMethods?.find(
+        ({ id }) => id === paymentData.type,
+      );
 
       const { result: matchOfferData, error: dataError } =
         await generateMatchOfferData({
@@ -78,6 +84,7 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
           currency: selectedCurrency,
           paymentData,
           pgpPublicKeys,
+          paymentMethodInfo,
         });
       if (!matchOfferData) throw new Error(dataError || "UNKNOWN_ERROR");
       const { result, error: err } = await peachAPI.private.offer.matchOffer({
@@ -147,6 +154,7 @@ type Params = {
   currency: Currency;
   paymentData: PaymentData;
   pgpPublicKeys: string[];
+  paymentMethodInfo?: PaymentMethodInfo;
 };
 
 const SYMMETRIC_KEY_BYTES = 32;
@@ -156,6 +164,7 @@ async function generateMatchOfferData({
   currency,
   paymentData,
   pgpPublicKeys,
+  paymentMethodInfo,
 }: Params) {
   const paymentMethod = paymentData.type;
 
@@ -178,7 +187,7 @@ async function generateMatchOfferData({
     result: {
       offerId: offer.id,
       matchingOfferId: match.offerId,
-      price: getMatchPrice(match, paymentMethod, currency),
+      price: getMatchPrice(match, currency, paymentMethodInfo),
       premium: match.premium,
       currency,
       paymentMethod,

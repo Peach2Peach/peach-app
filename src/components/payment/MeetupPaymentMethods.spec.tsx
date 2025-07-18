@@ -21,7 +21,7 @@ describe("MeetupPaymentMethods", () => {
   const defaultProps = {
     isEditing: false,
     editItem: editItemMock,
-    select: selectMock,
+    toggle: selectMock,
     isSelected: isSelectedMock,
   };
   beforeEach(() => {
