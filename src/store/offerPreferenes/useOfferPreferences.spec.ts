@@ -217,8 +217,8 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
 describe("useOfferPreferences - actions - setPrefferedCurrencyType", () => {
   it("should update the preferred currencytype", () => {
     expect(useOfferPreferences.getState().preferredCurrenyType).toBe("europe");
-    useOfferPreferences.getState().setPreferredCurrencyType("other");
-    expect(useOfferPreferences.getState().preferredCurrenyType).toBe("other");
+    useOfferPreferences.getState().setPreferredCurrencyType("global");
+    expect(useOfferPreferences.getState().preferredCurrenyType).toBe("global");
   });
 });
 

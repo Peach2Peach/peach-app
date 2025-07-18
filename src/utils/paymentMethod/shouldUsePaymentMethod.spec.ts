@@ -8,7 +8,7 @@ describe("shouldUsePaymentMethod", () => {
     nationalOption: ["mbWay", "bizum", "satispay", "mobilePay"],
     giftCard: [],
     cash: [],
-    other: ["liquid", "lnurl"],
+    global: ["liquid", "lnurl"],
   };
   it("returns true for a supported payment method", () => {
     const info: PaymentMethodInfo = {
