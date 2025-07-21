@@ -27,19 +27,6 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ""> = {
   global: "globe",
 };
 
-const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
-  PAYMENTCATEGORIES[category].includes(data.type) &&
-  !(
-    category === "nationalOption" &&
-    data.type === "mobilePay" &&
-    data.currencies[0] === "DKK"
-  ) &&
-  !(
-    category === "onlineWallet" &&
-    data.type === "mobilePay" &&
-    data.currencies[0] === "EUR"
-  );
-
 type Props = {
   isEditing: boolean;
   editItem: (data: PaymentData) => void;
@@ -87,7 +74,7 @@ export const RemotePaymentMethods = ({
               (item) =>
                 !item.hidden &&
                 !isCashTrade(item.type) &&
-                belongsToCategory(category)(item) &&
+                PAYMENTCATEGORIES[category]?.includes(item.type) &&
                 paymentMethods?.find(({ id }) => id === item.type),
             )
             .sort((a, b) => (a.id > b.id ? 1 : -1)),

@@ -46,7 +46,6 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     "klasha",
     "m-pesa",
     "mercadoPago",
-    "mobilePay",
     "moov",
     "mtn",
     "n26",

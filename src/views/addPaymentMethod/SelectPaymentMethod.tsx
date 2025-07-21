@@ -31,6 +31,7 @@ const NATIONALOPTIONS: Record<
     FR: ["paylib", "lydia", "satispay"],
     DE: ["satispay"],
     GR: ["iris"],
+    DK: ["mobilePay"],
   },
   LATAM: {
     BR: ["pix"],
@@ -38,7 +39,7 @@ const NATIONALOPTIONS: Record<
 };
 
 const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
-  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR"],
+  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "DK"],
   LATAM: ["BR"],
 };
 
@@ -63,21 +64,10 @@ export const SelectPaymentMethod = () => {
       keys(PAYMENTCATEGORIES)
         .filter(
           (category) =>
-            PAYMENTCATEGORIES[category]?.filter(
-              (paymentMethod) =>
-                paymentMethodInfos
-                  ?.find(({ id }) => id === paymentMethod)
-                  ?.currencies.includes(selectedCurrency) &&
-                !(
-                  category === "nationalOption" &&
-                  paymentMethod === "mobilePay" &&
-                  selectedCurrency === "DKK"
-                ) &&
-                !(
-                  category === "onlineWallet" &&
-                  paymentMethod === "mobilePay" &&
-                  selectedCurrency === "EUR"
-                ),
+            PAYMENTCATEGORIES[category]?.filter((paymentMethod) =>
+              paymentMethodInfos
+                ?.find(({ id }) => id === paymentMethod)
+                ?.currencies.includes(selectedCurrency),
             ).length > 0 && category !== "cash",
         )
         .map((c) => ({
