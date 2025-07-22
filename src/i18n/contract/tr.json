@@ -87,6 +87,7 @@
   "contract.seller.republished" : "Bu ticareti yeniden yayınlamayı seçtin. Yeni teklifi aşağıda bulabilirsin.",
   "contract.subtitle" : "kabul edilen teklif:",
   "contract.summary.accountNumber" : "hesap #",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "ad",
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "BTC fiyatı",
@@ -195,5 +196,12 @@
   "contract.summary.routingDetails" : "yönlendirme detayları",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "Steam arkadaş kodu",
-  "contract.summary.userId" : "kullanıcı kimliği"
+  "contract.summary.userId" : "kullanıcı kimliği",
+  "contract.summary.accountType" : "hesap türü",
+  "contract.summary.aliasType" : "takma ad türü",
+  "contract.summary.bankCode" : "banka kodu",
+  "contract.summary.branchCode" : "şube kodu",
+  "contract.summary.branchName" : "şube adı",
+  "contract.summary.mobileMoneyIdentifier" : "mobil para tanımlayıcısı",
+  "contract.summary.residentialAddress" : "ikamet adresi"
 }

@@ -88,6 +88,7 @@
   "contract.sold" : "πωλείται",
   "contract.subtitle" : "αποδεκτή προσφορά για",
   "contract.summary.accountNumber" : "αριθμός λογαριασμού #",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "όνομα δικαιούχου",
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "τιμή BTC",
@@ -203,5 +204,12 @@
   "contract.summary.routingDetails" : "λεπτομέρειες δρομολόγησης",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "κωδικός φίλου Steam",
-  "contract.summary.userId" : "ταυτότητα χρήστη"
+  "contract.summary.userId" : "ταυτότητα χρήστη",
+  "contract.summary.accountType" : "τύπος λογαριασμού",
+  "contract.summary.aliasType" : "τύπος ψευδώνυμου",
+  "contract.summary.bankCode" : "κωδικός τράπεζας",
+  "contract.summary.branchCode" : "κωδικός υποκαταστήματος",
+  "contract.summary.branchName" : "όνομα υποκαταστήματος",
+  "contract.summary.mobileMoneyIdentifier" : "αναγνωριστικό κινητού χρήματος",
+  "contract.summary.residentialAddress" : "διεύθυνση κατοικίας"
 }

@@ -93,6 +93,7 @@
   "contract.sold" : "продано",
   "contract.subtitle" : "пропозиція прийнята",
   "contract.summary.accountNumber" : "акаунт #",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "імʼя",
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "вартість біткоіна",
@@ -207,5 +208,12 @@
   "contract.summary.routingDetails" : "деталі маршрутизації",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "код друга Steam",
-  "contract.summary.userId" : "ID користувача"
+  "contract.summary.userId" : "ID користувача",
+  "contract.summary.accountType" : "тип рахунку",
+  "contract.summary.aliasType" : "тип псевдоніма",
+  "contract.summary.bankCode" : "код банку",
+  "contract.summary.branchCode" : "код відділення",
+  "contract.summary.branchName" : "назва відділення",
+  "contract.summary.mobileMoneyIdentifier" : "ідентифікатор мобільних грошей",
+  "contract.summary.residentialAddress" : "адреса проживання"
 }

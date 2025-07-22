@@ -87,6 +87,7 @@
   "contract.seller.republished" : "Du hast dich dazu entschieden, diesen Handel neu zu veröffentlichen. Du findest das Angebot unten.",
   "contract.subtitle" : "Akzeptiertes Angebot für",
   "contract.summary.accountNumber" : "Kontonummer",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "Name",
   "contract.summary.bic" : "SWIFT/BIC",
   "contract.summary.bitcoinPrice" : "BTC-Kurs",
@@ -196,5 +197,12 @@
   "contract.summary.routingDetails" : "Routing-Details",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "Steam-Freundescode",
-  "contract.summary.userId" : "Benutzer-ID"
+  "contract.summary.userId" : "Benutzer-ID",
+  "contract.summary.accountType" : "Kontotyp",
+  "contract.summary.aliasType" : "Alias-Typ",
+  "contract.summary.bankCode" : "Bankleitzahl",
+  "contract.summary.branchCode" : "Filialcode",
+  "contract.summary.branchName" : "Filialname",
+  "contract.summary.mobileMoneyIdentifier" : "Mobile-Money-Identifikator",
+  "contract.summary.residentialAddress" : "Wohnadresse"
 }

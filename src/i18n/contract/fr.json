@@ -93,6 +93,7 @@
   "contract.sold" : "vendu",
   "contract.subtitle" : "offre acceptée pour",
   "contract.summary.accountNumber" : "n° de compte",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "nom",
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "Prix BTC",
@@ -208,5 +209,12 @@
   "contract.summary.routingDetails" : "détails de routage",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "code d'ami Steam",
-  "contract.summary.userId" : "ID utilisateur"
+  "contract.summary.userId" : "ID utilisateur",
+  "contract.summary.accountType" : "type de compte",
+  "contract.summary.aliasType" : "type d'alias",
+  "contract.summary.bankCode" : "code banque",
+  "contract.summary.branchCode" : "code agence",
+  "contract.summary.branchName" : "nom agence",
+  "contract.summary.mobileMoneyIdentifier" : "identifiant argent mobile",
+  "contract.summary.residentialAddress" : "adresse résidentielle"
 }

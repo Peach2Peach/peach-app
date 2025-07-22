@@ -23,13 +23,15 @@ const NATIONALOPTIONS: Record<
   Record<string, PaymentMethod[]>
 > = {
   EUR: {
+    BE: ["wero"],
+    LU: ["wero"],
     IT: ["satispay", "postePay"],
     PT: ["mbWay"],
     ES: ["bizum", "rebellion"],
     FI: ["mobilePay"],
     HR: ["keksPay"],
-    FR: ["paylib", "lydia", "satispay"],
-    DE: ["satispay"],
+    FR: ["wero", "lydia", "satispay"],
+    DE: ["satispay", "wero"],
     GR: ["iris"],
     DK: ["mobilePay"],
   },

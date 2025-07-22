@@ -93,6 +93,7 @@
   "contract.sold" : "eladva",
   "contract.subtitle" : "Elfogadott ajánlat a következőre:",
   "contract.summary.accountNumber" : "számlaszám",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "név",
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "BTC ára",
@@ -208,5 +209,12 @@
   "contract.summary.routingDetails" : "útvonal részletek",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "Steam barát kód",
-  "contract.summary.userId" : "felhasználó ID"
+  "contract.summary.userId" : "felhasználó ID",
+  "contract.summary.accountType" : "számla típusa",
+  "contract.summary.aliasType" : "álnév típusa",
+  "contract.summary.bankCode" : "bankkód",
+  "contract.summary.branchCode" : "fiók kódja",
+  "contract.summary.branchName" : "fiók neve",
+  "contract.summary.mobileMoneyIdentifier" : "mobil pénz azonosító",
+  "contract.summary.residentialAddress" : "lakóhely címe"
 }

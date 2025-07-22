@@ -93,6 +93,7 @@
   "contract.sold" : "verkocht",
   "contract.subtitle" : "geaccepteerd bod voor",
   "contract.summary.accountNumber" : "account #",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "naam",
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "BTC prijs",
@@ -208,5 +209,12 @@
   "contract.summary.routingDetails" : "routing details",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "Steam vriendcode",
-  "contract.summary.userId" : "gebruikers ID"
+  "contract.summary.userId" : "gebruikers ID",
+  "contract.summary.accountType" : "accounttype",
+  "contract.summary.aliasType" : "alias type",
+  "contract.summary.bankCode" : "bankcode",
+  "contract.summary.branchCode" : "vestigingscode",
+  "contract.summary.branchName" : "vestigingsnaam",
+  "contract.summary.mobileMoneyIdentifier" : "mobiele geld identificatie",
+  "contract.summary.residentialAddress" : "woonadres"
 }

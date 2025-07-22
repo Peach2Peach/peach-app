@@ -93,6 +93,7 @@
   "contract.sold" : "продано",
   "contract.subtitle" : "принято предложение на",
   "contract.summary.accountNumber" : "счёт #",
+  "contract.summary.alias" : "alias",
   "contract.summary.beneficiary" : "имя",
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "цена BTC",
@@ -208,5 +209,12 @@
   "contract.summary.routingDetails" : "детали маршрутизации",
   "contract.summary.RUT" : "RUT",
   "contract.summary.steamFriendCode" : "код друга Steam",
-  "contract.summary.userId" : "ID пользователя"
+  "contract.summary.userId" : "ID пользователя",
+  "contract.summary.accountType" : "тип счёта",
+  "contract.summary.aliasType" : "тип псевдонима",
+  "contract.summary.bankCode" : "код банка",
+  "contract.summary.branchCode" : "код отделения",
+  "contract.summary.branchName" : "название отделения",
+  "contract.summary.mobileMoneyIdentifier" : "идентификатор мобильных денег",
+  "contract.summary.residentialAddress" : "адрес проживания"
 }
