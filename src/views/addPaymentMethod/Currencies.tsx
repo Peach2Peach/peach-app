@@ -29,6 +29,7 @@ export const Currencies = ({ currency, setCurrency, type }: Props) => {
     .reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
     .filter(uniqueArray)
     .filter(getCurrencyTypeFilter(type))
+    .sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b)))
     .map((c) => ({
       value: c,
       display: getDisplayName(c),
