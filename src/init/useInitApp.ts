@@ -10,7 +10,8 @@ import { chatStorage } from "../utils/account/chatStorage";
 import { updateAccount } from "../utils/account/updateAccount";
 import { info } from "../utils/log/info";
 import { getIndexedMap } from "../utils/storage/getIndexedMap";
-import { dataMigrationAfterLoadingAccount } from "./dataMigration/dataMigrationAfterLoadingAccount";
+import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
+import { checkSupportedPaymentMethods } from "./dataMigration/checkSupportedPaymentMethods";
 import { getPeachInfo } from "./getPeachInfo";
 import { useUserUpdate } from "./useUserUpdate";
 
@@ -23,6 +24,7 @@ export function useInitApp() {
     (state) => state.cloudflareChallenge?.cfClearance,
   );
   const userUpdate = useUserUpdate();
+  const { data: paymentMethods } = usePaymentMethods();
 
   const initApp = useCallback(async () => {
     if (cfClearance) {
@@ -34,14 +36,16 @@ export function useInitApp() {
       if (!statusResponse?.error && publicKey) {
         setIsLoggedIn(true);
         userUpdate();
-        dataMigrationAfterLoadingAccount();
+        if (paymentMethods) {
+          checkSupportedPaymentMethods(paymentMethods);
+        }
       }
 
       return statusResponse;
     } catch (err) {
       return null;
     }
-  }, [cfClearance, setIsLoggedIn, storedPublicKey, userUpdate]);
+  }, [cfClearance, paymentMethods, setIsLoggedIn, storedPublicKey, userUpdate]);
 
   return initApp;
 }

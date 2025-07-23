@@ -46,14 +46,22 @@ describe("MeetupScreen", () => {
       {
         id: "cash.pt.porto.portugal-norte-bitcoin",
         currencies: ["EUR"],
-        countries: ["PT"],
+        countries: ["DE"],
+        fields: {
+          mandatory: [],
+          optional: [],
+        },
         rounded: true,
         anonymous: true,
       },
       {
         id: "cash.cz.prague.btc-prague",
         currencies: ["CZK", "EUR"],
-        countries: ["CZ"],
+        fields: {
+          mandatory: [],
+          optional: [],
+        },
+        countries: ["DE"],
         rounded: true,
         anonymous: true,
       },

@@ -8,6 +8,7 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { interpolate } from "../../utils/math/interpolate";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
+import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
 import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
@@ -146,7 +147,10 @@ function PublishOfferButton() {
   const originalPaymentData = useOfferPreferences(
     (state) => state.originalPaymentData,
   );
-  const methodsAreValid = originalPaymentData.every(isValidPaymentData);
+  const { data: paymentMethods } = usePaymentMethods();
+  const methodsAreValid = originalPaymentData.every((data) =>
+    isValidPaymentData(data, paymentMethods),
+  );
   const [minAmount, maxAmount] = useTradingAmountLimits("buy");
   const restrictAmount = useRestrictSatsAmount("buy");
   const setBuyAmountRange = useOfferPreferences(

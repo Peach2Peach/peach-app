@@ -106,6 +106,7 @@ export const PaymentLogos = {
   paypal,
   paysera,
   pix: placeholder,
+  placeholder,
   postePay: placeholder,
   rappipay: placeholder,
   rebellion: placeholder,

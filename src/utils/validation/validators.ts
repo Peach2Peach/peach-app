@@ -80,12 +80,23 @@ const validators: Record<PaymentMethodField, NewRule> = {
   lnurlAddress: {
     lnurlAddress: emailValidator,
   },
+  bankAccountNumber: {},
+  bankBranch: {},
+  bankName: {},
+  beneficiaryAddress: {},
+  bsbNumber: {},
+  cedulaID: {},
+  DNI: {},
+  name: {},
+  nameTag: {},
+  routingDetails: {},
+  RUT: {},
+  steamFriendCode: {},
+  userId: {},
 };
 
-export type PaymentFieldTypes = keyof typeof validators;
-
 export const getValidators = (
-  fieldName: PaymentFieldTypes,
+  fieldName: PaymentMethodField,
   optional = false,
 ) => {
   const rulesForField = validators[fieldName];

@@ -1,4 +1,4 @@
-export const peachInfo: GetInfoResponse = {
+export const peachInfo = {
   peach: {
     pgpPublicKey: "pgpPublicKey",
   },

@@ -7,10 +7,10 @@ import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import { getSelectedPaymentDataIds } from "../../utils/account/getSelectedPaymentDataIds";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
+import { isDefined } from "../../utils/validation/isDefined";
 import { Header } from "../Header";
 import { PeachScrollView } from "../PeachScrollView";
 import { Screen } from "../Screen";
@@ -26,12 +26,12 @@ const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
   const navigation = useStackNavigation();
-  const [preferredPaymentMethods, select] = useOfferPreferences(
-    (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
+  const [preferredPaymentMethods, toggle] = useOfferPreferences(
+    (state) => [state.preferredPaymentMethods, state.togglePaymentMethod],
     shallow,
   );
-  const selectedPaymentDataIds = getSelectedPaymentDataIds(
-    preferredPaymentMethods,
+  const selectedPaymentDataIds = Object.values(preferredPaymentMethods).filter(
+    isDefined,
   );
 
   const editItem = (data: PaymentData) => {
@@ -91,11 +91,11 @@ export const PaymentMethods = () => {
               >
                 {tab === "online" ? (
                   <RemotePaymentMethods
-                    {...{ isEditing, editItem, select, isSelected }}
+                    {...{ isEditing, editItem, toggle, isSelected }}
                   />
                 ) : (
                   <MeetupPaymentMethods
-                    {...{ isEditing, editItem, select, isSelected }}
+                    {...{ isEditing, editItem, toggle, isSelected }}
                   />
                 )}
                 <HorizontalLine style={tw`m-5`} />

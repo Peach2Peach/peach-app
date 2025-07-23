@@ -1,15 +1,19 @@
-import { usePaymentDataStore } from "../../store/usePaymentDataStore";
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
+import { keys } from "../object/keys";
+import { cleanPaymentData } from "./cleanPaymentData";
 import { isCashTrade } from "./isCashTrade";
-import { paymentMethodAllowedForCurrencies } from "./paymentMethodAllowedForCurrencies";
-import { somePaymentDataExists } from "./somePaymentDataExists";
 
-export const isValidPaymentData = (data: PaymentData) => {
+export const isValidPaymentData = (
+  data: PaymentData,
+  paymentMethods?: PaymentMethodInfo[],
+) => {
   if (isCashTrade(data.type)) return true;
-  if (!data.currencies) {
-    // can be removed in a subsequent release. This prevents a crash introduced in 0.3.5
-    return usePaymentDataStore.getState().removePaymentData(data.id);
-  }
-  if (!paymentMethodAllowedForCurrencies(data.type, data.currencies))
+  if (
+    !paymentMethods
+      ?.find(({ id }) => id === data.type)
+      ?.currencies.some((c) => data.currencies.includes(c))
+  ) {
     return false;
-  return somePaymentDataExists(data);
+  }
+  return keys(cleanPaymentData(data)).some((key) => data[key]);
 };

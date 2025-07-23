@@ -8,9 +8,9 @@ import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { keys } from "../../utils/object/keys";
-import { getPaymentMethodInfo } from "../../utils/paymentMethod/getPaymentMethodInfo";
+import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
-import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
+import { usePaymentMethods } from "../../views/addPaymentMethod/usePaymentMethodInfo";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 import { LinedText } from "../ui/LinedText";
@@ -18,46 +18,26 @@ import { PaymentDetailsCheckbox } from "./PaymentDetailsCheckbox";
 import { PaymentDataKeyFacts } from "./components/PaymentDataKeyFacts";
 import { useRemovePaymentData } from "./hooks/useRemovePaymentData";
 
-const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
-  value: data.id,
-  display: <PeachText style={tw`subtitle-1`}>{data.label}</PeachText>,
-  isValid: isValidPaymentData(data),
-  data,
-});
-
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ""> = {
   bankTransfer: "inbox",
   onlineWallet: "cloud",
   giftCard: "creditCard",
   nationalOption: "flag",
   cash: "",
-  other: "shuffle",
+  global: "globe",
 };
-
-const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
-  PAYMENTCATEGORIES[category].includes(data.type) &&
-  !(
-    category === "nationalOption" &&
-    data.type === "mobilePay" &&
-    data.currencies[0] === "DKK"
-  ) &&
-  !(
-    category === "onlineWallet" &&
-    data.type === "mobilePay" &&
-    data.currencies[0] === "EUR"
-  );
 
 type Props = {
   isEditing: boolean;
   editItem: (data: PaymentData) => void;
-  select: (value: string) => void;
+  toggle: (value: string) => void;
   isSelected: (item: { value: string }) => boolean;
 };
 
 export const RemotePaymentMethods = ({
   isEditing,
   editItem,
-  select,
+  toggle,
   isSelected,
 }: Props) => {
   const { isDarkMode } = useThemeStore();
@@ -74,6 +54,7 @@ export const RemotePaymentMethods = ({
       },
     });
   };
+  const { data: paymentMethods } = usePaymentMethods();
   return paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
     <PeachText
       style={tw.style(
@@ -84,25 +65,27 @@ export const RemotePaymentMethods = ({
       {i18n("paymentMethod.empty")}
     </PeachText>
   ) : (
-    <View testID={"checkboxes-buy-mops"}>
+    <View style={tw`gap-4`}>
       {keys(PAYMENTCATEGORIES)
         .map((category) => ({
           category,
           checkboxes: paymentData
-            .filter((item) => !item.hidden)
-            .filter((item) => !isCashTrade(item.type))
-            .filter(belongsToCategory(category))
-            .filter((data) => getPaymentMethodInfo(data.type))
-            .sort((a, b) => (a.id > b.id ? 1 : -1))
-            .map(mapPaymentDataToCheckboxes),
+            .filter(
+              (item) =>
+                !item.hidden &&
+                !isCashTrade(item.type) &&
+                PAYMENTCATEGORIES[category]?.includes(item.type) &&
+                paymentMethods?.find(({ id }) => id === item.type),
+            )
+            .sort((a, b) => (a.id > b.id ? 1 : -1)),
         }))
         .filter(({ checkboxes }) => checkboxes.length)
         .map(({ category, checkboxes }, i) => (
           <View key={category} style={i > 0 ? tw`mt-8` : {}}>
-            <LinedText style={tw`pb-3`}>
+            <LinedText style={tw`gap-1 pb-3`}>
               <PeachText
                 style={tw.style(
-                  `mr-1 h6`,
+                  `h6`,
                   isDarkMode ? "text-backgroundLight-light" : "text-black-65",
                 )}
               >
@@ -117,41 +100,56 @@ export const RemotePaymentMethods = ({
                 />
               )}
             </LinedText>
-            {checkboxes.map((item, j) => (
-              <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
-                {item.isValid ? (
-                  <View>
-                    <PaymentDetailsCheckbox
-                      onPress={() =>
-                        isEditing ? editItem(item.data) : select(item.value)
-                      }
-                      item={item}
-                      checked={isSelected(item)}
-                      editing={isEditing}
-                    />
-                    <PaymentDataKeyFacts
-                      style={tw`mt-1`}
-                      paymentData={item.data}
-                    />
+            <View style={tw`gap-4`}>
+              {checkboxes.map((item) => {
+                const currenciesAreValid = !!paymentMethods
+                  ?.find(({ id }) => id === item.type)
+                  ?.currencies.some((c) => item.currencies.includes(c));
+                const hasData = keys(cleanPaymentData(item)).some(
+                  (key) => item[key],
+                );
+                const isValid = currenciesAreValid && hasData;
+                return (
+                  <View key={item.id}>
+                    {isValid ? (
+                      <View style={tw`gap-1`}>
+                        <PaymentDetailsCheckbox
+                          onPress={() =>
+                            isEditing ? editItem(item) : toggle(item.id)
+                          }
+                          item={{
+                            value: item.id,
+                            display: (
+                              <PeachText style={tw`subtitle-1`}>
+                                {item.label}
+                              </PeachText>
+                            ),
+                          }}
+                          checked={isSelected({ value: item.id })}
+                          editing={isEditing}
+                        />
+                        <PaymentDataKeyFacts paymentData={item} />
+                      </View>
+                    ) : (
+                      <TouchableOpacity
+                        onPress={() => deletePaymentData(item)}
+                        style={tw`flex-row justify-between`}
+                      >
+                        <PeachText style={tw`text-error-main`}>
+                          {item.label}
+                        </PeachText>
+                        <Icon
+                          id="trash"
+                          color={tw.color(
+                            isDarkMode ? "backgroundLight-light" : "black-65",
+                          )}
+                        />
+                      </TouchableOpacity>
+                    )}
                   </View>
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => deletePaymentData(item.data)}
-                    style={tw`flex-row justify-between`}
-                  >
-                    <PeachText style={tw`text-error-main`}>
-                      {item.data.label}
-                    </PeachText>
-                    <Icon
-                      id="trash"
-                      color={tw.color(
-                        isDarkMode ? "backgroundLight-light" : "black-65",
-                      )}
-                    />
-                  </TouchableOpacity>
-                )}
-              </View>
-            ))}
+                );
+              })}
+            </View>
           </View>
         ))}
     </View>

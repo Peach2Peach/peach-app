@@ -1,8 +1,9 @@
-import { useOfferPreferences } from "../../../store/offerPreferenes";
-import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
-import { waitForHydration } from "../../../store/waitForHydration";
-import { getNewPreferredPaymentMethods } from "../../../utils/account/getNewPreferredPaymentMethods";
-import { getSelectedPaymentDataIds } from "../../../utils/account/getSelectedPaymentDataIds";
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
+import { useOfferPreferences } from "../../store/offerPreferenes";
+import { usePaymentDataStore } from "../../store/usePaymentDataStore";
+import { waitForHydration } from "../../store/waitForHydration";
+import { getNewPreferredPaymentMethods } from "../../utils/account/getNewPreferredPaymentMethods";
+import { isDefined } from "../../utils/validation/isDefined";
 
 export const checkSupportedPaymentMethods = async (
   paymentInfo: PaymentMethodInfo[],
@@ -20,7 +21,9 @@ export const checkSupportedPaymentMethods = async (
   );
   useOfferPreferences
     .getState()
-    .setPaymentMethods(getSelectedPaymentDataIds(newPreferredPaymentMethods));
+    .setPaymentMethods(
+      Object.values(newPreferredPaymentMethods).filter(isDefined),
+    );
   updatedPaymentData.forEach((data) =>
     usePaymentDataStore.getState().setPaymentDataHidden(data.id, data.hidden),
   );

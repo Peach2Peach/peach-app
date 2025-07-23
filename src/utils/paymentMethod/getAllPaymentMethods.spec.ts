@@ -7,7 +7,7 @@ describe("getAllPaymentMethods", () => {
     nationalOption: ["mbWay", "bizum", "satispay", "mobilePay"],
     giftCard: [],
     cash: [],
-    other: ["liquid", "lnurl"],
+    global: ["liquid", "lnurl"],
   };
   it("returns all payment methods", () => {
     expect(getAllPaymentMethods(paymentCategories)).toStrictEqual([

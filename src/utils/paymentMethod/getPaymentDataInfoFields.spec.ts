@@ -13,12 +13,12 @@ describe("getPaymentDataInfoFields", () => {
         value: "Hal Finney",
       },
       {
-        field: "iban",
-        value: "IE29 AIBK 9311 5212 3456 78",
-      },
-      {
         field: "bic",
         value: "AAAA BB CC 123",
+      },
+      {
+        field: "iban",
+        value: "IE29 AIBK 9311 5212 3456 78",
       },
     ]);
     expect(getPaymentDataInfoFields(twintData)).toEqual([

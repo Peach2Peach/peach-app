@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
+import { PaymentMethod } from "../../../peach-api/src/@types/payment";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
@@ -12,21 +13,27 @@ import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
-import { getApplicablePaymentCategories } from "../../utils/paymentMethod/getApplicablePaymentCategories";
-import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
+import { keys } from "../../utils/object/keys";
+import { getCurrencyTypeFilter } from "./getCurrencyTypeFilter";
 import { usePaymentMethodLabel } from "./hooks";
-import { getCurrencyTypeFilter } from "./utils";
+import { usePaymentMethods } from "./usePaymentMethodInfo";
 
-const NATIONALOPTIONS: NationalOptions = {
+const NATIONALOPTIONS: Record<
+  "EUR" | "LATAM",
+  Record<string, PaymentMethod[]>
+> = {
   EUR: {
+    BE: ["wero"],
+    LU: ["wero"],
     IT: ["satispay", "postePay"],
     PT: ["mbWay"],
     ES: ["bizum", "rebellion"],
     FI: ["mobilePay"],
     HR: ["keksPay"],
-    FR: ["paylib", "lydia", "satispay"],
-    DE: ["satispay"],
+    FR: ["wero", "lydia", "satispay"],
+    DE: ["satispay", "wero"],
     GR: ["iris"],
+    DK: ["mobilePay"],
   },
   LATAM: {
     BR: ["pix"],
@@ -34,7 +41,7 @@ const NATIONALOPTIONS: NationalOptions = {
 };
 
 const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
-  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR"],
+  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "DK"],
   LATAM: ["BR"],
 };
 
@@ -52,13 +59,24 @@ export const SelectPaymentMethod = () => {
 
   const [selectedPaymentCategory, setSelectedPaymentCategory] =
     useState<PaymentCategory>();
+  const { data: paymentMethodInfos } = usePaymentMethods();
+
   const paymentCategories = useMemo(
     () =>
-      getApplicablePaymentCategories(selectedCurrency).map((c) => ({
-        value: c,
-        display: i18n(`paymentCategory.${c}`),
-      })),
-    [selectedCurrency],
+      keys(PAYMENTCATEGORIES)
+        .filter(
+          (category) =>
+            PAYMENTCATEGORIES[category]?.filter((paymentMethod) =>
+              paymentMethodInfos
+                ?.find(({ id }) => id === paymentMethod)
+                ?.currencies.includes(selectedCurrency),
+            ).length > 0 && category !== "cash",
+        )
+        .map((c) => ({
+          value: c,
+          display: i18n(`paymentCategory.${c}`),
+        })),
+    [paymentMethodInfos, selectedCurrency],
   );
 
   const getPaymentMethodLabel = usePaymentMethodLabel();
@@ -131,6 +149,8 @@ export const SelectPaymentMethod = () => {
     });
   };
 
+  const { data: paymentMethods } = usePaymentMethods();
+
   const getDrawerOptions = (category: PaymentCategory) =>
     category === "nationalOption"
       ? getNationalOptionCountries().map(
@@ -140,10 +160,15 @@ export const SelectPaymentMethod = () => {
         )
       : PAYMENTCATEGORIES[category]
           .filter((method) =>
-            paymentMethodAllowedForCurrency(method, selectedCurrency),
+            paymentMethods
+              ?.find((pm) => pm.id === method)
+              ?.currencies.includes(selectedCurrency),
           )
           .filter(
-            (method) => category !== "giftCard" || method === "giftCard.amazon",
+            (method) =>
+              category !== "giftCard" ||
+              method === "giftCard.amazon" ||
+              method === "giftCard.steam",
           )
           .map(mapMethodToDrawerOption);
 
