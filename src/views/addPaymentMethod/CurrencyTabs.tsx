@@ -16,8 +16,7 @@ type Props = {
 
 const CurrencyTab = createMaterialTopTabNavigator();
 
-const currencyTabs = [
-  "global",
+const currencyTabs: CurrencyType[] = [
   "africa",
   "asia",
   "europe",
@@ -25,7 +24,7 @@ const currencyTabs = [
   "middleEast",
   "northAmerica",
   "oceania",
-] as const;
+];
 
 export const CurrencyTabs = (props: Props) => {
   const [preferredCurrencyType, setPreferredCurrencyType] = useOfferPreferences(
@@ -50,14 +49,21 @@ export const CurrencyTabs = (props: Props) => {
         tabBarScrollEnabled: true,
       }}
     >
-      {currencyTabs.map((currencyTab) => (
-        <CurrencyTab.Screen
-          key={currencyTab}
-          name={currencyTab}
-          options={{ title: i18n(currencyTab) }}
-          children={() => <Currencies type={currencyTab} {...props} />}
-        />
-      ))}
+      <CurrencyTab.Screen
+        name={"global"}
+        options={{ title: i18n("currencyTab.global") }}
+        children={() => <Currencies type={"global"} {...props} />}
+      />
+      {currencyTabs
+        .sort((a, b) => i18n(a).localeCompare(i18n(b)))
+        .map((currencyTab) => (
+          <CurrencyTab.Screen
+            key={currencyTab}
+            name={currencyTab}
+            options={{ title: i18n(currencyTab) }}
+            children={() => <Currencies type={currencyTab} {...props} />}
+          />
+        ))}
     </CurrencyTab.Navigator>
   );
 };
