@@ -93,6 +93,14 @@ const validators: Record<PaymentMethodField, NewRule> = {
   RUT: {},
   steamFriendCode: {},
   userId: {},
+  accountType: {},
+  alias: {},
+  aliasType: {},
+  bankCode: {},
+  branchCode: {},
+  branchName: {},
+  mobileMoneyIdentifier: {},
+  residentialAddress: {},
 };
 
 export const getValidators = (
