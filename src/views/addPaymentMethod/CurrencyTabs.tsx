@@ -17,14 +17,14 @@ type Props = {
 const CurrencyTab = createMaterialTopTabNavigator();
 
 const currencyTabs = [
-  "europe",
+  "global",
+  "africa",
   "asia",
-  "northAmerica",
+  "europe",
   "latinAmerica",
   "middleEast",
+  "northAmerica",
   "oceania",
-  "africa",
-  "global",
 ] as const;
 
 export const CurrencyTabs = (props: Props) => {
