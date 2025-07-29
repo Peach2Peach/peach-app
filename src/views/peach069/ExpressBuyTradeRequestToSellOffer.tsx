@@ -19,6 +19,7 @@ import { useInterruptibleFunction } from "../../components/matches/hooks/useInte
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
+import { useCanInstantTradeWithSellOffer } from "../../hooks/query/peach069/useCanInstantTradeWithSellOffer";
 import { useSellOfferDetail } from "../../hooks/query/peach069/useSellOffer";
 import { useSellOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useSellOfferTradeRequestBySelfUser";
 import { useUserDetails } from "../../hooks/query/peach069/useUser";
@@ -60,6 +61,88 @@ export function ExpressBuyTradeRequestToSellOffer() {
   );
 }
 
+const performInstantTrade = async ({
+  selectedPaymentData,
+  maxMiningFeeRate,
+  selectedCurrency,
+  sellOfferId,
+  selfUser,
+  sellOfferUser,
+  navigation,
+}: {
+  maxMiningFeeRate?: number;
+  selectedPaymentData?: PaymentData;
+  selectedCurrency?: Currency;
+  sellOfferId: string;
+  selfUser?: User;
+  sellOfferUser?: PublicUser;
+  navigation: StackNavigation;
+}): Promise<void> => {
+  {
+    if (!peachWallet) throw Error("Peach Wallet not ready");
+    if (
+      !maxMiningFeeRate ||
+      !selectedPaymentData ||
+      !selectedCurrency ||
+      !peachWallet ||
+      !selfUser ||
+      !sellOfferUser
+    )
+      throw Error("values not ready");
+    const { address: releaseAddress, index } = await peachWallet.getAddress();
+
+    const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
+
+    const releaseAddressMessageSignature = peachWallet.signMessage(
+      message,
+      index,
+    );
+
+    const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
+    const { encrypted, signature } = await signAndEncrypt(
+      symmetricKey,
+      [
+        ...selfUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
+        ...sellOfferUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
+      ].join("\n"),
+    );
+
+    const decryptionResult = await decryptSymmetricKey(encrypted, signature, [
+      ...selfUser.pgpPublicKeys,
+      ...sellOfferUser.pgpPublicKeys,
+    ]);
+    if (!decryptionResult)
+      throw Error("Couldnt decrypt the created symmetric key");
+    const encryptedPaymentData = await encryptPaymentData(
+      cleanPaymentData(selectedPaymentData),
+      symmetricKey,
+    );
+    if (!encryptedPaymentData) throw Error("PAYMENTDATA_ENCRYPTION_FAILED");
+    const hashedPaymentData = getHashedPaymentData([selectedPaymentData]);
+
+    const instantTradeResp =
+      await peachAPI.private.peach069.performInstantTradeWithSellOfferById({
+        sellOfferId,
+        paymentMethod: selectedPaymentData.type,
+        currency: selectedCurrency,
+        paymentDataHashed: hashedPaymentData,
+        paymentDataEncrypted: encryptedPaymentData.encrypted,
+        paymentDataSignature: encryptedPaymentData.signature,
+        symmetricKeyEncrypted: encrypted,
+        symmetricKeySignature: signature,
+        maxMiningFeeRate: maxMiningFeeRate,
+        releaseAddress,
+        releaseAddressMessageSignature,
+      });
+
+    if (instantTradeResp.result?.id) {
+      navigation.navigate("contract", {
+        contractId: instantTradeResp.result?.id,
+      });
+    }
+  }
+};
+
 const TRADE_REQUEST_DELAY = 5000;
 function TradeRequest({ sellOffer }: { sellOffer: SellOffer }) {
   const { isDarkMode } = useThemeStore();
@@ -72,6 +155,9 @@ function TradeRequest({ sellOffer }: { sellOffer: SellOffer }) {
     data: sellOfferTradeRequestPerformedBySelfUser,
     refetch: sellOfferTradeRequestPerformedBySelfUserRefetch,
   } = useSellOfferTradeRequestBySelfUser({ sellOfferId: sellOffer.id });
+
+  const { data: canInstantTradeWithSellOffer } =
+    useCanInstantTradeWithSellOffer(sellOffer.id);
 
   const { data: priceBook } = useMarketPrices();
 
@@ -202,19 +288,32 @@ function TradeRequest({ sellOffer }: { sellOffer: SellOffer }) {
           </View>
         </GradientBorder>
       </View>
-      {!sellOfferTradeRequestPerformedBySelfUser && (
-        <PerformTradeRequestButton
-          maxMiningFeeRate={maxMiningFeeRate || 5}
-          selectedPaymentData={selectedPaymentData}
-          selectedCurrency={selectedCurrency}
-          sellOfferId={sellOffer.id}
-          selfUser={selfUser}
-          sellOfferUser={sellOfferUser}
-          sellOfferTradeRequestPerformedBySelfUserRefetch={
-            sellOfferTradeRequestPerformedBySelfUserRefetch
-          }
-        />
-      )}
+      {!sellOfferTradeRequestPerformedBySelfUser &&
+        !canInstantTradeWithSellOffer && (
+          <PerformTradeRequestButton
+            maxMiningFeeRate={maxMiningFeeRate || 5}
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            sellOfferId={sellOffer.id}
+            selfUser={selfUser}
+            sellOfferUser={sellOfferUser}
+            sellOfferTradeRequestPerformedBySelfUserRefetch={
+              sellOfferTradeRequestPerformedBySelfUserRefetch
+            }
+          />
+        )}
+      {!sellOfferTradeRequestPerformedBySelfUser &&
+        canInstantTradeWithSellOffer && (
+          <InstantTradeSlider
+            maxMiningFeeRate={maxMiningFeeRate || 5}
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            sellOfferId={sellOffer.id}
+            selfUser={selfUser}
+            sellOfferUser={sellOfferUser}
+            navigation={navigation}
+          />
+        )}
       {sellOfferTradeRequestPerformedBySelfUser && selfUser && (
         <>
           <RemoveTradeRequestButton
@@ -275,38 +374,44 @@ function SelectedMethodInfo({
   );
 }
 
-function InstantTradeSlider({
-  matchOffer,
-  optionName,
+const InstantTradeSlider = ({
+  selectedPaymentData,
+  maxMiningFeeRate,
+  selectedCurrency,
+  sellOfferId,
+  selfUser,
+  sellOfferUser,
+  navigation,
 }: {
-  matchOffer: () => void;
-  optionName: keyof typeof options;
-}) {
-  const label =
-    optionName === "missingSelection"
-      ? i18n("matchDetails.action.missingSelection")
-      : optionName === "tradingLimitReached"
-        ? i18n("matchDetails.action.tradingLimitReached")
-        : i18n("matchDetails.action.instantTrade");
+  maxMiningFeeRate?: number;
+  selectedPaymentData?: PaymentData;
+  selectedCurrency?: Currency;
+  sellOfferId: string;
+  selfUser?: User;
+  sellOfferUser?: PublicUser;
+  navigation: StackNavigation;
+}) => {
+  const label = i18n("matchDetails.action.instantTrade");
 
   const [showUnlockedSlider, setShowUnlockedSlider] = useState(false);
 
   const onConfirm = () => {
     setShowUnlockedSlider(true);
-    matchOffer();
+    performInstantTrade({
+      selectedPaymentData,
+      maxMiningFeeRate,
+      selectedCurrency,
+      sellOfferId,
+      selfUser,
+      sellOfferUser,
+      navigation,
+    });
   };
 
-  if (optionName === "offerMatched" && showUnlockedSlider)
-    return <UnlockedSlider label={label} />;
+  if (showUnlockedSlider) return <UnlockedSlider label={label} />;
 
-  return (
-    <ConfirmSlider
-      label1={label}
-      onConfirm={onConfirm}
-      enabled={optionName === "matchOffer"}
-    />
-  );
-}
+  return <ConfirmSlider label1={label} onConfirm={onConfirm} enabled={true} />;
+};
 const goToChat = async (
   navigation: StackNavigation,
   sellOfferId: string,
