@@ -51,7 +51,7 @@ export const CurrencyTabs = (props: Props) => {
     >
       <CurrencyTab.Screen
         name={"global"}
-        options={{ title: i18n("currencyTab.global") }}
+        options={{ title: i18n("global") }}
         children={() => <Currencies type={"global"} {...props} />}
       />
       {currencyTabs
