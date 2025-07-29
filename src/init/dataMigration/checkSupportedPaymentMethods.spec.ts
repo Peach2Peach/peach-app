@@ -1,15 +1,17 @@
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import {
   paypalData,
   validSEPAData,
-} from "../../../../tests/unit/data/paymentData";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
-import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
+} from "../../../tests/unit/data/paymentData";
+import { useOfferPreferences } from "../../store/offerPreferenes";
+import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import { checkSupportedPaymentMethods } from "./checkSupportedPaymentMethods";
 
 const paymentInfo: PaymentMethodInfo[] = [
   {
     id: "sepa",
     currencies: ["EUR"],
+    fields: { mandatory: [], optional: [] },
     anonymous: false,
   },
 ];

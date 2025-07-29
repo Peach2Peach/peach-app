@@ -8,17 +8,19 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Style } from "twrnc";
 import { shallow } from "zustand/shallow";
+import { Currency } from "../../peach-api/src/@types/global";
 import { IconType } from "../assets/icons";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import { useToggleBoolean } from "../hooks/useToggleBoolean";
-import { CURRENCIES } from "../paymentMethods";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
+import { uniqueArray } from "../utils/array/uniqueArray";
 import i18n from "../utils/i18n";
 import { getHeaderStyles } from "../utils/layout/getHeaderStyles";
 import { thousands } from "../utils/string/thousands";
+import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { Icon } from "./Icon";
 import { TouchableIcon } from "./TouchableIcon";
 import { BTCAmount } from "./bitcoin/BTCAmount";
@@ -274,6 +276,12 @@ function CurrencyScrollView() {
     ? tw`text-primary-mild-1`
     : tw`text-black-100`;
 
+  const { data: paymentMethods } = usePaymentMethods();
+  const allCurrencies =
+    paymentMethods
+      ?.reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
+      .filter(uniqueArray) || [];
+
   return (
     <TouchableOpacity
       onPress={toggle}
@@ -309,16 +317,19 @@ function CurrencyScrollView() {
             />
           </View>
           {showCurrencies &&
-            CURRENCIES.filter((c) => c !== displayCurrency).map((c) => (
-              <PeachText
-                onPress={() => {
-                  setDisplayCurrency(c);
-                  toggle();
-                }}
-                key={c}
-                style={[unitStyle, currencyTextStyle]}
-              >{`1 ${c}`}</PeachText>
-            ))}
+            allCurrencies
+              .sort((a, b) => a.localeCompare(b))
+              .filter((c) => c !== displayCurrency)
+              .map((c) => (
+                <PeachText
+                  onPress={() => {
+                    setDisplayCurrency(c);
+                    toggle();
+                  }}
+                  key={c}
+                  style={[unitStyle, currencyTextStyle]}
+                >{`1 ${c}`}</PeachText>
+              ))}
         </View>
       </ScrollView>
     </TouchableOpacity>

@@ -1,3 +1,4 @@
+import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import { shouldUsePaymentMethod } from "./shouldUsePaymentMethod";
 
 describe("shouldUsePaymentMethod", () => {
@@ -7,12 +8,16 @@ describe("shouldUsePaymentMethod", () => {
     nationalOption: ["mbWay", "bizum", "satispay", "mobilePay"],
     giftCard: [],
     cash: [],
-    other: ["liquid", "lnurl"],
+    global: ["liquid", "lnurl"],
   };
   it("returns true for a supported payment method", () => {
     const info: PaymentMethodInfo = {
       id: "sepa",
       currencies: ["EUR"],
+      fields: {
+        mandatory: [],
+        optional: [],
+      },
       anonymous: false,
     };
     expect(shouldUsePaymentMethod(paymentCategories)(info)).toBe(true);
@@ -20,6 +25,10 @@ describe("shouldUsePaymentMethod", () => {
   it("returns true for a any cash trade", () => {
     const info: PaymentMethodInfo = {
       id: "cash.this-is-not-defined-in-the-categories-but-valid",
+      fields: {
+        mandatory: [],
+        optional: [],
+      },
       currencies: ["EUR"],
       rounded: true,
       anonymous: true,

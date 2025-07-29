@@ -27,11 +27,10 @@ type PaymentCategory =
   | "giftCard"
   | "nationalOption"
   | "cash"
-  | "other";
+  | "global";
 type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[];
 };
-type NationalOptions = Record<"EUR" | "LATAM", Record<string, PaymentMethod[]>>;
 
 type HashedPaymentData = string;
 
@@ -132,12 +131,3 @@ type ContactReason =
   | "question"
   | "sellMore"
   | "other";
-
-type Config = {
-  paymentMethods: PaymentMethodInfo[];
-  peachPGPPublicKey: string;
-  peachFee: number;
-  minTradingAmount: number;
-  maxTradingAmount: number;
-  seenDisputeDisclaimer: boolean;
-};
