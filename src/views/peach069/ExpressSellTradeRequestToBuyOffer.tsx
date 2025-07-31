@@ -72,6 +72,80 @@ export function ExpressSellTradeRequestToBuyOffer() {
   );
 }
 
+const performInstantTrade = async ({
+  selectedPaymentData,
+  maxMiningFeeRate,
+  selectedCurrency,
+  buyOfferId,
+  selfUser,
+  buyOfferUser,
+  navigation,
+}: {
+  maxMiningFeeRate?: number;
+  selectedPaymentData?: PaymentData;
+  selectedCurrency?: Currency;
+  buyOfferId: string;
+  selfUser?: User;
+  buyOfferUser?: PublicUser;
+  navigation: StackNavigation;
+}): Promise<void> => {
+  {
+    if (!peachWallet) throw Error("Peach Wallet not ready");
+    if (
+      !maxMiningFeeRate ||
+      !selectedPaymentData ||
+      !selectedCurrency ||
+      !peachWallet ||
+      !selfUser ||
+      !buyOfferUser
+    )
+      throw Error("values not ready");
+    const { address: returnAddress, index } = await peachWallet.getAddress();
+
+    const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
+    const { encrypted, signature } = await signAndEncrypt(
+      symmetricKey,
+      [
+        ...selfUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
+        ...buyOfferUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
+      ].join("\n"),
+    );
+
+    const decryptionResult = await decryptSymmetricKey(encrypted, signature, [
+      ...selfUser.pgpPublicKeys,
+      ...buyOfferUser.pgpPublicKeys,
+    ]);
+    if (!decryptionResult)
+      throw Error("Couldnt decrypt the created symmetric key");
+    const encryptedPaymentData = await encryptPaymentData(
+      cleanPaymentData(selectedPaymentData),
+      symmetricKey,
+    );
+    if (!encryptedPaymentData) throw Error("PAYMENTDATA_ENCRYPTION_FAILED");
+    const hashedPaymentData = getHashedPaymentData([selectedPaymentData]);
+
+    const instantTradeResp =
+      await peachAPI.private.peach069.performInstantTradeWithBuyOfferById({
+        buyOfferId,
+        paymentMethod: selectedPaymentData.type,
+        currency: selectedCurrency,
+        paymentDataHashed: hashedPaymentData,
+        paymentDataEncrypted: encryptedPaymentData.encrypted,
+        paymentDataSignature: encryptedPaymentData.signature,
+        symmetricKeyEncrypted: encrypted,
+        symmetricKeySignature: signature,
+        maxMiningFeeRate: maxMiningFeeRate,
+        returnAddress,
+      });
+
+    if (instantTradeResp.result?.id) {
+      navigation.navigate("contract", {
+        contractId: instantTradeResp.result?.id,
+      });
+    }
+  }
+};
+
 const TRADE_REQUEST_DELAY = 5000;
 function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
   const navigation = useStackNavigation();

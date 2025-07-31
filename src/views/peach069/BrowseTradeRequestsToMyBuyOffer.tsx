@@ -133,6 +133,10 @@ export function BrowseTradeRequestsToMyBuyOffer() {
             <PeachText>
               Means of Payment: {JSON.stringify(buyOffer?.meansOfPayment)}
             </PeachText>
+            <PeachText>
+              Instant Trade Criteria:
+              {JSON.stringify(buyOffer?.instantTradeCriteria)}
+            </PeachText>
           </>
         )}
         <>
