@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -22,6 +22,7 @@ import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
+import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
@@ -29,7 +30,10 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
+import { keys } from "../../utils/object/keys";
+import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
+import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
@@ -514,10 +518,58 @@ function PublishOfferButton() {
   const { isLoading: isSyncingWallet } = useSyncWallet({
     enabled: payoutToPeachWallet,
   });
+
+  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+
+  const getPaymentData = async () => {
+    if (instantTradeCriteria !== undefined) {
+      const selectedMethods = keys(paymentData);
+      const cleanedData = selectedMethods.map((method) => {
+        const originalData = originalPaymentData.find((e) => e.type === method);
+        return originalData ? cleanPaymentData(originalData) : null;
+      });
+
+      const encryptedData = await Promise.all(
+        cleanedData.map((data) =>
+          data ? signAndEncrypt(JSON.stringify(data), peachPGPPublicKey) : null,
+        ),
+      );
+
+      const finalPaymentData = encryptedData.reduce(
+        (acc, encryptedDatum, index) => {
+          if (!encryptedDatum) return acc;
+          const { encrypted, signature } = encryptedDatum;
+          const method = selectedMethods[index];
+          return {
+            ...acc,
+            [method]: {
+              ...paymentData[method],
+              encrypted,
+              signature,
+            },
+          };
+        },
+        {},
+      );
+
+      return finalPaymentData;
+    }
+    return paymentData;
+  };
+
+  const [paymentDataToPublish, setPaymentDataToPublish] = useState(paymentData);
+
+  useEffect(() => {
+    const getPaymentDataToPublishCallback = async () => {
+      setPaymentDataToPublish(await getPaymentData());
+    };
+    getPaymentDataToPublishCallback();
+  }, []);
+
   const { mutate: publishOffer, isPending: isPublishing } = useCreateBuyOffer({
     amount,
     meansOfPayment,
-    paymentData,
+    paymentData: paymentDataToPublish,
     premium,
     minReputation,
     instantTradeCriteria,

@@ -22,6 +22,7 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
 import { useBuyOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useBuyOfferTradeRequestBySelfUser";
+import { useCanInstantTradeWithBuyOffer } from "../../hooks/query/peach069/useCanInstantTradeWithBuyOffer";
 import { useUserDetails } from "../../hooks/query/peach069/useUser";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -46,6 +47,45 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
+
+const InstantTradeSlider = ({
+  selectedPaymentData,
+  maxMiningFeeRate,
+  selectedCurrency,
+  buyOfferId,
+  selfUser,
+  buyOfferUser,
+  navigation,
+}: {
+  maxMiningFeeRate?: number;
+  selectedPaymentData?: PaymentData;
+  selectedCurrency?: Currency;
+  buyOfferId: number;
+  selfUser?: User;
+  buyOfferUser?: PublicUser;
+  navigation: StackNavigation;
+}) => {
+  const label = i18n("matchDetails.action.instantTrade");
+
+  const [showUnlockedSlider, setShowUnlockedSlider] = useState(false);
+
+  const onConfirm = () => {
+    setShowUnlockedSlider(true);
+    performInstantTrade({
+      selectedPaymentData,
+      maxMiningFeeRate,
+      selectedCurrency,
+      buyOfferId,
+      selfUser,
+      buyOfferUser,
+      navigation,
+    });
+  };
+
+  if (showUnlockedSlider) return <UnlockedSlider label={label} />;
+
+  return <ConfirmSlider label1={label} onConfirm={onConfirm} enabled={true} />;
+};
 
 const goToChat = async (
   navigation: StackNavigation,
@@ -84,7 +124,7 @@ const performInstantTrade = async ({
   maxMiningFeeRate?: number;
   selectedPaymentData?: PaymentData;
   selectedCurrency?: Currency;
-  buyOfferId: string;
+  buyOfferId: number;
   selfUser?: User;
   buyOfferUser?: PublicUser;
   navigation: StackNavigation;
@@ -126,7 +166,7 @@ const performInstantTrade = async ({
 
     const instantTradeResp =
       await peachAPI.private.peach069.performInstantTradeWithBuyOfferById({
-        buyOfferId,
+        buyOfferId: String(buyOfferId),
         paymentMethod: selectedPaymentData.type,
         currency: selectedCurrency,
         paymentDataHashed: hashedPaymentData,
@@ -159,6 +199,9 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
     refetch: buyOfferTradeRequestPerformedBySelfUserRefetch,
   } = useBuyOfferTradeRequestBySelfUser({ buyOfferId: String(buyOffer.id) });
 
+  const { data: canInstantTradeWithBuyOffer } = useCanInstantTradeWithBuyOffer(
+    String(buyOffer.id),
+  );
   const { data: priceBook } = useMarketPrices();
 
   const [selectedCurrency, setSelectedCurrency] = useState(
@@ -288,19 +331,32 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
           </View>
         </GradientBorder>
       </View>
-      {!buyOfferTradeRequestPerformedBySelfUser && (
-        <PerformTradeRequestButton
-          maxMiningFeeRate={maxMiningFeeRate || 5}
-          selectedPaymentData={selectedPaymentData}
-          selectedCurrency={selectedCurrency}
-          buyOfferId={buyOffer.id}
-          selfUser={selfUser}
-          buyOfferUser={buyOfferUser}
-          buyOfferTradeRequestPerformedBySelfUserRefetch={
-            buyOfferTradeRequestPerformedBySelfUserRefetch
-          }
-        />
-      )}
+      {!buyOfferTradeRequestPerformedBySelfUser &&
+        !canInstantTradeWithBuyOffer && (
+          <PerformTradeRequestButton
+            maxMiningFeeRate={maxMiningFeeRate || 5}
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            buyOfferId={buyOffer.id}
+            selfUser={selfUser}
+            buyOfferUser={buyOfferUser}
+            buyOfferTradeRequestPerformedBySelfUserRefetch={
+              buyOfferTradeRequestPerformedBySelfUserRefetch
+            }
+          />
+        )}
+      {!buyOfferTradeRequestPerformedBySelfUser &&
+        canInstantTradeWithBuyOffer && (
+          <InstantTradeSlider
+            maxMiningFeeRate={maxMiningFeeRate || 5}
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            buyOfferId={buyOffer.id}
+            selfUser={selfUser}
+            buyOfferUser={buyOfferUser}
+            navigation={navigation}
+          />
+        )}
       {buyOfferTradeRequestPerformedBySelfUser && selfUser && (
         <>
           <RemoveTradeRequestButton
@@ -358,39 +414,6 @@ function SelectedMethodInfo({
         </NewBubble>
       </View>
     </>
-  );
-}
-
-function InstantTradeSlider({
-  matchOffer,
-  optionName,
-}: {
-  matchOffer: () => void;
-  optionName: keyof typeof options;
-}) {
-  const label =
-    optionName === "missingSelection"
-      ? i18n("matchDetails.action.missingSelection")
-      : optionName === "tradingLimitReached"
-        ? i18n("matchDetails.action.tradingLimitReached")
-        : i18n("matchDetails.action.instantTrade");
-
-  const [showUnlockedSlider, setShowUnlockedSlider] = useState(false);
-
-  const onConfirm = () => {
-    setShowUnlockedSlider(true);
-    matchOffer();
-  };
-
-  if (optionName === "offerMatched" && showUnlockedSlider)
-    return <UnlockedSlider label={label} />;
-
-  return (
-    <ConfirmSlider
-      label1={label}
-      onConfirm={onConfirm}
-      enabled={optionName === "matchOffer"}
-    />
   );
 }
 
