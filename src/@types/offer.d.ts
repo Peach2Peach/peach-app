@@ -70,6 +70,7 @@ type BuyOffer69Draft = OfferDraft & {
   messageSignature?: string;
   premium: number;
   minReputation: number | null;
+  instantTradeCriteria?: InstantTradeCriteria;
 };
 
 type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {

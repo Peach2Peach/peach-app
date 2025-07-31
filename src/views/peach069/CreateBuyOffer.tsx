@@ -4,14 +4,19 @@ import {
   NativeSyntheticEvent,
   TextInput,
   TextInputEndEditingEventData,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { interpolate } from "react-native-reanimated";
 import { shallow } from "zustand/shallow";
+import { Badge } from "../../components/Badge";
 import { Button } from "../../components/buttons/Button";
+import { Checkbox } from "../../components/inputs/Checkbox";
+import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PremiumInput } from "../../components/PremiumInput";
 import { PeachText } from "../../components/text/PeachText";
+import { TouchableIcon } from "../../components/TouchableIcon";
 import { CENT, SATSINBTC } from "../../constants";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
@@ -27,7 +32,6 @@ import { round } from "../../utils/math/round";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
-import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
 import { PreferenceScreen } from "../offerPreferences/components/PreferenceScreen";
 import {
@@ -63,8 +67,101 @@ export function CreateBuyOffer() {
     >
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
+      <InstantTrade />
       <PreferenceWalletSelector />
     </PreferenceScreen>
+  );
+}
+
+function InstantTrade() {
+  const [
+    enableInstantTrade,
+    toggle,
+    criteria,
+    toggleMinTrades,
+    toggleBadge,
+    toggleMinReputation,
+  ] = useOfferPreferences(
+    (state) => [
+      state.instantTrade,
+      state.toggleInstantTrade,
+      state.instantTradeCriteria,
+      state.toggleMinTrades,
+      state.toggleBadge,
+      state.toggleMinReputation,
+    ],
+    shallow,
+  );
+  const [hasSeenPopup, setHasSeenPopup] = useOfferPreferences(
+    (state) => [
+      state.hasSeenInstantTradePopup,
+      state.setHasSeenInstantTradePopup,
+    ],
+    shallow,
+  );
+  const setPopup = useSetPopup();
+  const onHelpIconPress = () => {
+    setPopup(<HelpPopup id="instantTrade" />);
+    setHasSeenPopup(true);
+  };
+
+  const onToggle = () => {
+    if (!hasSeenPopup) {
+      onHelpIconPress();
+    }
+    toggle();
+  };
+
+  const { isDarkMode } = useThemeStore();
+
+  return (
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-background-dark-color"}`}
+    >
+      <View style={tw`flex-row items-center self-stretch justify-between`}>
+        <Toggle onPress={onToggle} enabled={enableInstantTrade} />
+        <Section.Title>
+          {i18n("offerPreferences.feature.instantTrade")}
+        </Section.Title>
+        <TouchableIcon
+          id="helpCircle"
+          iconColor={tw.color("info-light")}
+          onPress={onHelpIconPress}
+        />
+      </View>
+      {enableInstantTrade && (
+        <>
+          <Checkbox
+            checked={criteria.minTrades !== 0}
+            style={tw`self-stretch`}
+            onPress={toggleMinTrades}
+          >
+            {i18n("offerPreferences.filters.noNewUsers")}
+          </Checkbox>
+          <Checkbox
+            checked={criteria.minReputation !== 0}
+            style={tw`self-stretch`}
+            onPress={toggleMinReputation}
+          >
+            {i18n("offerPreferences.filters.minReputation", "4.5")}
+          </Checkbox>
+          <View style={tw`flex-row items-start self-stretch gap-10px`}>
+            <TouchableOpacity onPress={() => toggleBadge("fastTrader")}>
+              <Badge
+                badgeName="fastTrader"
+                isUnlocked={criteria.badges.includes("fastTrader")}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => toggleBadge("superTrader")}>
+              <Badge
+                badgeName="superTrader"
+                isUnlocked={criteria.badges.includes("superTrader")}
+              />
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
+    </Section.Container>
   );
 }
 
@@ -111,25 +208,6 @@ function PreferenceHeader() {
   return (
     <BuyBitcoinHeader icons={[{ ...headerIcons.help, onPress: showHelp }]} />
   );
-}
-
-function PreferenceMarketInfo() {
-  const offerPreferenes = useOfferPreferences(
-    (state) => ({
-      buyAmountRange: state.buyAmountRange,
-      meansOfPayment: state.meansOfPayment,
-      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium ?? undefined
-        : undefined,
-      minReputation: interpolate(
-        state.filter.buyOffer.minReputation ?? 0,
-        CLIENT_RATING_RANGE,
-        SERVER_RATING_RANGE,
-      ),
-    }),
-    shallow,
-  );
-  return <MarketInfo type="sellOffers" {...offerPreferenes} />;
 }
 
 function AmountSelector({
@@ -334,9 +412,9 @@ function AmountSelectorContainer({
   const { isDarkMode } = useThemeStore();
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+      style={tw`${isDarkMode ? "bg-card" : "bg-success-background-dark-color"}`}
     >
-      <Section.Title>{i18n("offerPreferences.amountToSell")}</Section.Title>
+      <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
@@ -406,6 +484,15 @@ function PublishOfferButton() {
       shallow,
     );
 
+  const { instantTradeCriteria } = useOfferPreferences(
+    (state) => ({
+      instantTradeCriteria: state.instantTrade
+        ? state.instantTradeCriteria
+        : undefined,
+    }),
+    shallow,
+  );
+
   const originalPaymentData = useOfferPreferences(
     (state) => state.originalPaymentData,
   );
@@ -433,6 +520,7 @@ function PublishOfferButton() {
     paymentData,
     premium,
     minReputation,
+    instantTradeCriteria,
   });
 
   return (

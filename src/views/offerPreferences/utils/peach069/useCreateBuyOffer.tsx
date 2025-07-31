@@ -29,9 +29,15 @@ export function useCreateBuyOffer({
   paymentData,
   premium,
   minReputation,
+  instantTradeCriteria,
 }: Pick<
   BuyOffer69Draft,
-  "amount" | "meansOfPayment" | "paymentData" | "premium" | "minReputation"
+  | "amount"
+  | "meansOfPayment"
+  | "paymentData"
+  | "premium"
+  | "minReputation"
+  | "instantTradeCriteria"
 >) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
@@ -96,6 +102,7 @@ export function useCreateBuyOffer({
         minReputation: minReputation ? minReputation : undefined, // TODO fix this
         releaseAddress: address,
         releaseAddressMessageSignature: signature,
+        instantTradeCriteria,
       };
 
       const { result, error: err } =
