@@ -44,6 +44,8 @@ import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
+import { getPublicKeyForEscrow } from "../../utils/wallet/getPublicKeyForEscrow";
+import { getWallet } from "../../utils/wallet/getWallet";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -112,6 +114,18 @@ export function ExpressSellTradeRequestToBuyOffer() {
   );
 }
 
+const createEscrowFn = async (offerId: string) => {
+  const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
+
+  const { result, error: err } = await peachAPI.private.offer.createEscrow({
+    offerId,
+    publicKey,
+  });
+
+  if (err) throw new Error(err.error);
+  return result;
+};
+
 const performInstantTrade = async ({
   selectedPaymentData,
   maxMiningFeeRate,
@@ -179,8 +193,18 @@ const performInstantTrade = async ({
       });
 
     if (instantTradeResp.result?.id) {
-      navigation.navigate("contract", {
-        contractId: instantTradeResp.result?.id,
+      createEscrowFn(instantTradeResp.result.id.split("-")[0]);
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: "homeScreen", params: { screen: "yourTrades" } },
+          {
+            name: "contract",
+            params: {
+              contractId: instantTradeResp.result?.id,
+            },
+          },
+        ],
       });
     }
   }
