@@ -30,6 +30,7 @@ export function useCreateBuyOffer({
   premium,
   minReputation,
   instantTradeCriteria,
+  multi,
 }: Pick<
   BuyOffer69Draft,
   | "amount"
@@ -38,7 +39,7 @@ export function useCreateBuyOffer({
   | "premium"
   | "minReputation"
   | "instantTradeCriteria"
->) {
+> & { multi?: number }) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
@@ -80,29 +81,38 @@ export function useCreateBuyOffer({
 
   return useMutation({
     mutationFn: async () => {
-      const { message, signature, address } =
-        await getSignedAddress(payoutToPeachWallet);
+      let releaseAddresses: string[] = [];
+      let releaseAddressMessageSignatures: string[] = [];
+      const howManyOffers = multi ? multi : 1;
+      for (let i = 0; i < howManyOffers; i++) {
+        const { message, signature, address } =
+          await getSignedAddress(payoutToPeachWallet);
 
-      if (
-        !signature ||
-        !isValidBitcoinSignature({
-          message,
-          address,
-          signature,
-          network: getNetwork(),
-        })
-      ) {
-        throw new Error("INVALID_SIGNATURE");
+        if (
+          !signature ||
+          !isValidBitcoinSignature({
+            message,
+            address,
+            signature,
+            network: getNetwork(),
+          })
+        ) {
+          throw new Error("INVALID_SIGNATURE");
+        }
+        releaseAddresses.push(address);
+        releaseAddressMessageSignatures.push(signature);
       }
+
       const finalizedOfferDraft = {
         amount,
         meansOfPayment,
         paymentData,
         premium,
         minReputation: minReputation ? minReputation : undefined, // TODO fix this
-        releaseAddress: address,
-        releaseAddressMessageSignature: signature,
+        releaseAddresses,
+        releaseAddressMessageSignatures,
         instantTradeCriteria,
+        multi,
       };
 
       const { result, error: err } =

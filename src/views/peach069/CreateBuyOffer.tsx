@@ -36,6 +36,7 @@ import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
+import { CreateMultipleOffers } from "../offerPreferences/components/createMultipleOffers";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
 import { PreferenceScreen } from "../offerPreferences/components/PreferenceScreen";
 import {
@@ -62,6 +63,11 @@ import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 
 export function CreateBuyOffer() {
   const [isSliding, setIsSliding] = useState(false);
+  const setBuyOfferMulti = useOfferPreferences(
+    (state) => state.setBuyOfferMulti,
+  );
+
+  setBuyOfferMulti(undefined);
 
   return (
     <PreferenceScreen
@@ -71,6 +77,7 @@ export function CreateBuyOffer() {
     >
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
+      <CreateMultipleOffersContainer />
       <InstantTrade />
       <PreferenceWalletSelector />
     </PreferenceScreen>
@@ -472,7 +479,7 @@ function CurrentPrice() {
 }
 
 function PublishOfferButton() {
-  const { amount, meansOfPayment, paymentData, premium, minReputation } =
+  const { amount, meansOfPayment, paymentData, premium, minReputation, multi } =
     useOfferPreferences(
       (state) => ({
         amount: state.createBuyOfferAmount,
@@ -484,6 +491,7 @@ function PublishOfferButton() {
           CLIENT_RATING_RANGE,
           SERVER_RATING_RANGE,
         ),
+        multi: state.buyOfferMulti,
       }),
       shallow,
     );
@@ -573,6 +581,7 @@ function PublishOfferButton() {
     premium,
     minReputation,
     instantTradeCriteria,
+    multi,
   });
 
   return (
@@ -590,6 +599,24 @@ type CreateBuyOfferButtonProps = {
   onPress: () => void;
   disabled: boolean;
   loading: boolean;
+};
+
+const CreateMultipleOffersContainer = () => {
+  const setPopup = useSetPopup();
+
+  const { isDarkMode } = useThemeStore();
+  return (
+    <Section.Container
+      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-success-background-dark-color"}`}
+    >
+      <CreateMultipleOffers />
+      <TouchableIcon
+        id="helpCircle"
+        iconColor={tw.color("info-light")}
+        onPress={() => setPopup(<HelpPopup id="createMultiple" />)}
+      />
+    </Section.Container>
+  );
 };
 
 export function CreateBuyOfferButton({
