@@ -129,6 +129,7 @@ export function BrowseTradeRequestsToMyBuyOffer() {
         {!isLoading && (
           <>
             <PeachText>Amount: {buyOffer?.amountSats}</PeachText>
+            <PeachText>Premium: {buyOffer?.premium}</PeachText>
             <PeachText>Release Address: {buyOffer?.releaseAddress}</PeachText>
             <PeachText>
               Means of Payment: {JSON.stringify(buyOffer?.meansOfPayment)}
