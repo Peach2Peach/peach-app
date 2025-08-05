@@ -29,8 +29,10 @@ import { BrowseTradeRequestsToMyBuyOffer } from "./peach069/BrowseTradeRequestsT
 import { BrowseTradeRequestsToMySellOffer } from "./peach069/BrowseTradeRequestsToMySellOffer";
 import { CreateBuyOffer } from "./peach069/CreateBuyOffer";
 import { ExpressBuyBrowseSellOffers } from "./peach069/ExpressBuyBrowseSellOffers";
+import { ExpressBuyFilters } from "./peach069/ExpressBuyFilters";
 import { ExpressBuyTradeRequestToSellOffer } from "./peach069/ExpressBuyTradeRequestToSellOffer";
 import { ExpressSellBrowseBuyOffers } from "./peach069/ExpressSellBrowseBuyOffers";
+import { ExpressSellFilters } from "./peach069/ExpressSellFilters";
 import { ExpressSellTradeRequestToBuyOffer } from "./peach069/ExpressSellTradeRequestToBuyOffer";
 import { TradeRequestChat } from "./peach069/TradeRequestChat";
 import { PublicProfile } from "./publicProfile/PublicProfile";
@@ -181,6 +183,7 @@ const testViews: ViewType[] = [
 
 const expressBuyFlow: ViewType[] = [
   { name: "expressBuyBrowseSellOffers", component: ExpressBuyBrowseSellOffers },
+  { name: "expressBuyFilters", component: ExpressBuyFilters },
   {
     name: "expressBuyTradeRequest",
     component: ExpressBuyTradeRequestToSellOffer,
@@ -188,6 +191,7 @@ const expressBuyFlow: ViewType[] = [
 ];
 const expressSellFlow: ViewType[] = [
   { name: "expressSellBrowseBuyOffers", component: ExpressSellBrowseBuyOffers },
+  { name: "expressSellFilters", component: ExpressSellFilters },
   {
     name: "expressSellTradeRequest",
     component: ExpressSellTradeRequestToBuyOffer,

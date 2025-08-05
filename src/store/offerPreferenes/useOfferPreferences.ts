@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { MatchFilter } from "../../../peach-api/src/@types/api/offerAPI";
-import { NEW_USER_TRADE_THRESHOLD, TOTAL_SATS } from "../../constants";
+import { NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { getSelectedPaymentDataIds } from "../../utils/account/getSelectedPaymentDataIds";
 import { createStorage } from "../../utils/storage/createStorage";
 import { MIN_REPUTATION_FILTER } from "../../views/offerPreferences/components/MIN_REPUTATION_FILTER";
@@ -19,6 +19,8 @@ type OfferPreferences = {
   //peach069
   createBuyOfferAmount: number;
   createBuyOfferPremium: number;
+  expressBuyFilterByAmountRange: [number, number];
+  expressSellFilterByAmountRange: [number, number];
 
   buyAmountRange: [number, number];
   sellAmount: number;
@@ -49,7 +51,9 @@ export const defaultPreferences: OfferPreferences = {
   createBuyOfferAmount: 1,
   createBuyOfferPremium: 1.5,
 
-  buyAmountRange: [1, TOTAL_SATS],
+  buyAmountRange: [20000, 1090000], //TODO: verify this
+  expressBuyFilterByAmountRange: [20000, 1090000],
+  expressSellFilterByAmountRange: [20000, 1090000],
   sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},
@@ -84,6 +88,12 @@ type OfferPreferencesActions = {
   setCreateBuyOfferAmount: (createBuyOfferAmount: number) => void;
   setCreateBuyOfferPremium: (createBuyOfferPremium: number) => void;
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
+  setExpressBuyFilterByAmountRange: (
+    expressBuyFilterByAmountRange: [number, number],
+  ) => void;
+  setExpressSellFilterByAmountRange: (
+    expressSellFilterByAmountRange: [number, number],
+  ) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
   setBuyOfferMulti: (number?: number) => void;
@@ -116,6 +126,10 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set({ createBuyOfferPremium }),
 
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
+      setExpressBuyFilterByAmountRange: (expressBuyFilterByAmountRange) =>
+        set({ expressBuyFilterByAmountRange }),
+      setExpressSellFilterByAmountRange: (expressSellFilterByAmountRange) =>
+        set({ expressSellFilterByAmountRange }),
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
       setBuyOfferMulti: (buyOfferMulti) => set({ buyOfferMulti }),

@@ -19,4 +19,5 @@ export const headerIcons = {
   wallet: { id: "wallet", color: tw.color("black-65") },
   warning: { id: "alertOctagon", color: tw.color("error-main") },
   buyPreferences: { id: "edit", color: tw.color("success-main") },
+  filter: { id: "filter", color: tw.color("primary-main") },
 } as const;

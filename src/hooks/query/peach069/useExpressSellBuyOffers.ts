@@ -3,10 +3,13 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { FIVE_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
-export const useExpressSellBuyOffers = () => {
+export const useExpressSellBuyOffers = (
+  minAmountSats: number,
+  maxAmountSats: number,
+) => {
   const isFocused = useIsFocused();
   const { data, isLoading, isFetching, refetch, error } = useQuery({
-    queryKey: ["peach069expressSellBuyOffers"],
+    queryKey: ["peach069expressSellBuyOffers", minAmountSats, maxAmountSats],
     queryFn: getExpressSellBuyOffers,
     enabled: isFocused,
     refetchInterval: FIVE_SECONDS,
@@ -17,6 +20,8 @@ export const useExpressSellBuyOffers = () => {
 
 async function getExpressSellBuyOffers({ queryKey }: QueryFunctionContext) {
   const { result: buyOffers } = await peachAPI.private.peach069.getBuyOffers({
+    minAmountSats: queryKey[1] as number,
+    maxAmountSats: queryKey[2] as number,
     ownOffers: false,
   });
 

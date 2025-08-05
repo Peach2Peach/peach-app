@@ -6,15 +6,34 @@ import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useExpressBuySellOffers } from "../../hooks/query/peach069/useExpressBuySellOffers";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
+import { headerIcons } from "../../utils/layout/headerIcons";
 
 export function ExpressBuyBrowseSellOffers() {
   const title = "Express Buy: Browse Sell Offers";
-  const { sellOffers, isLoading } = useExpressBuySellOffers();
+
+  const expressBuyFilterByAmountRange = useOfferPreferences(
+    (state) => state.expressBuyFilterByAmountRange,
+  );
+
+  const { sellOffers, isLoading } = useExpressBuySellOffers(
+    expressBuyFilterByAmountRange[0],
+    expressBuyFilterByAmountRange[1],
+  );
   const navigation = useStackNavigation();
 
+  const expressBuyHeaderIcons = [
+    {
+      ...headerIcons["filter"],
+      onPress: () => {
+        navigation.navigate("expressBuyFilters");
+      },
+    },
+  ];
+
   return (
-    <Screen header={<Header title={title} />}>
+    <Screen header={<Header title={title} icons={expressBuyHeaderIcons} />}>
       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
         <PeachText>All Sell Offers 0.69</PeachText>
         <>
