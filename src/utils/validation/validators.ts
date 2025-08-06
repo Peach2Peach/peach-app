@@ -3,7 +3,6 @@ import i18n from "../i18n";
 import { getMessages } from "./getMessages";
 import { isAdvcashWallet } from "./isAdvcashWallet";
 import { isBIC } from "./isBIC";
-import { isEUIBAN } from "./isEUIBAN";
 import { isEmail } from "./isEmail";
 import { isIBAN } from "./isIBAN";
 import { isPhone } from "./isPhone";
@@ -15,8 +14,6 @@ import { isValidDigitLength } from "./isValidDigitLength";
 import { isValidPaymentReference } from "./isValidPaymentReference";
 
 const ibanValidator = (value: string) => isIBAN(value) || getMessages().iban;
-const isEUIBANValidator = (value: string) =>
-  isEUIBAN(value) || getMessages().isEUIBAN;
 const bicValidator = (value: string) => isBIC(value) || getMessages().bic;
 const referenceValidator = (value: string) =>
   isValidPaymentReference(value) || getMessages().isValidPaymentReference;
@@ -44,7 +41,6 @@ const validators: Record<PaymentMethodField, NewRule> = {
   beneficiary: {},
   iban: {
     iban: ibanValidator,
-    isEUIBAN: isEUIBANValidator,
   },
   bic: {
     bic: bicValidator,
