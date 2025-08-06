@@ -28,6 +28,8 @@ export function ExpressSellBrowseBuyOffers() {
   const { buyOffers, isLoading } = useExpressSellBuyOffers(
     expressSellFilterByAmountRange[0],
     expressSellFilterByAmountRange[1],
+    expressSellFilterByCurrencyList,
+    expressSellFilterByPaymentMethodList.map((obj) => obj.id),
   );
   const navigation = useStackNavigation();
 

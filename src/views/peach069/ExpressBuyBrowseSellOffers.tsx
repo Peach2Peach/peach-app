@@ -17,9 +17,17 @@ export function ExpressBuyBrowseSellOffers() {
     (state) => state.expressBuyFilterByAmountRange,
   );
 
+  const [expressBuyFilterByCurrencyList, expressBuyFilterByPaymentMethodList] =
+    useOfferPreferences((state) => [
+      state.expressBuyFilterByCurrencyList,
+      state.expressBuyFilterByPaymentMethodList,
+    ]);
+
   const { sellOffers, isLoading } = useExpressBuySellOffers(
     expressBuyFilterByAmountRange[0],
     expressBuyFilterByAmountRange[1],
+    expressBuyFilterByCurrencyList,
+    expressBuyFilterByPaymentMethodList.map((obj) => obj.id),
   );
   const navigation = useStackNavigation();
 

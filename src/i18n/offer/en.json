@@ -4,6 +4,8 @@
   "offer.canceled" : "canceled",
   "offer.canceled.popup.title" : "offer canceled!",
   "offer.filter" : "filter",
+  "offer.buy.filter" : "filter buy offers",
+  "offer.sell.filter" : "filter sell offers",
   "offer.filter.maxPremium" : "max premium",
   "offer.fundMultiple" : "fund multiple offers",
   "offer.createMultiple" : "create multiple offers",

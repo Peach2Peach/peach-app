@@ -4,11 +4,12 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
 import { AmountSelectorComponent } from "../offerPreferences/components/AmountSelectorComponent";
 import { CurrenciesAndPaymentMethodsSelector } from "../offerPreferences/components/CurrenciesAndPaymentMethodsSelector";
 
 export function ExpressSellFilters() {
-  const title = "Filter Buy Offers";
+  const title = i18n("offer.buy.filter");
 
   const [
     expressSellFilterByCurrencyList,
