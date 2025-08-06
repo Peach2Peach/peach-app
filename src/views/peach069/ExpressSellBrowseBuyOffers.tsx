@@ -1,3 +1,4 @@
+import React from "react";
 import { View } from "react-native";
 import { Button } from "../../components/buttons/Button";
 import { Header } from "../../components/Header";
@@ -15,6 +16,14 @@ export function ExpressSellBrowseBuyOffers() {
   const expressSellFilterByAmountRange = useOfferPreferences(
     (state) => state.expressSellFilterByAmountRange,
   );
+
+  const [
+    expressSellFilterByCurrencyList,
+    expressSellFilterByPaymentMethodList,
+  ] = useOfferPreferences((state) => [
+    state.expressSellFilterByCurrencyList,
+    state.expressSellFilterByPaymentMethodList,
+  ]);
 
   const { buyOffers, isLoading } = useExpressSellBuyOffers(
     expressSellFilterByAmountRange[0],
@@ -40,7 +49,7 @@ export function ExpressSellBrowseBuyOffers() {
             buyOffers !== undefined &&
             buyOffers.map((item, index) => {
               return (
-                <>
+                <React.Fragment key={index}>
                   <PeachText>-------</PeachText>
                   <PeachText>ID: {item.id}</PeachText>
                   <PeachText>User: {item.userId}</PeachText>
@@ -62,7 +71,7 @@ export function ExpressSellBrowseBuyOffers() {
                     </Button>
                   </View>
                   <PeachText>-------</PeachText>
-                </>
+                </React.Fragment>
               );
             })}
         </>

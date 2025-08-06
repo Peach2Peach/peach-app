@@ -22,6 +22,12 @@ type OfferPreferences = {
   expressBuyFilterByAmountRange: [number, number];
   expressSellFilterByAmountRange: [number, number];
 
+  expressBuyFilterByCurrencyList: Currency[];
+  expressSellFilterByCurrencyList: Currency[];
+
+  expressBuyFilterByPaymentMethodList: PaymentMethodInfo[];
+  expressSellFilterByPaymentMethodList: PaymentMethodInfo[];
+
   buyAmountRange: [number, number];
   sellAmount: number;
   premium: number;
@@ -54,6 +60,10 @@ export const defaultPreferences: OfferPreferences = {
   buyAmountRange: [20000, 1090000], //TODO: verify this
   expressBuyFilterByAmountRange: [20000, 1090000],
   expressSellFilterByAmountRange: [20000, 1090000],
+  expressBuyFilterByCurrencyList: [],
+  expressSellFilterByCurrencyList: [],
+  expressBuyFilterByPaymentMethodList: [],
+  expressSellFilterByPaymentMethodList: [],
   sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},
@@ -94,6 +104,18 @@ type OfferPreferencesActions = {
   setExpressSellFilterByAmountRange: (
     expressSellFilterByAmountRange: [number, number],
   ) => void;
+  setExpressBuyFilterByCurrencyList: (
+    expressBuyFilterByCurrencyList: Currency[],
+  ) => void;
+  setExpressSellFilterByCurrencyList: (
+    expressSellFilterByCurrencyList: Currency[],
+  ) => void;
+  setExpressBuyFilterByPaymentMethodList: (
+    expressBuyFilterByPaymentMethodList: PaymentMethodInfo[],
+  ) => void;
+  setExpressSellFilterByPaymentMethodList: (
+    expressSellFilterByPaymentMethodList: PaymentMethodInfo[],
+  ) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
   setBuyOfferMulti: (number?: number) => void;
@@ -130,6 +152,19 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set({ expressBuyFilterByAmountRange }),
       setExpressSellFilterByAmountRange: (expressSellFilterByAmountRange) =>
         set({ expressSellFilterByAmountRange }),
+
+      setExpressBuyFilterByCurrencyList: (expressBuyFilterByCurrencyList) =>
+        set({ expressBuyFilterByCurrencyList }),
+      setExpressSellFilterByCurrencyList: (expressSellFilterByCurrencyList) =>
+        set({ expressSellFilterByCurrencyList }),
+
+      setExpressBuyFilterByPaymentMethodList: (
+        expressBuyFilterByPaymentMethodList,
+      ) => set({ expressBuyFilterByPaymentMethodList }),
+      setExpressSellFilterByPaymentMethodList: (
+        expressSellFilterByPaymentMethodList,
+      ) => set({ expressSellFilterByPaymentMethodList }),
+
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
       setBuyOfferMulti: (buyOfferMulti) => set({ buyOfferMulti }),
