@@ -66,6 +66,7 @@ function CurrenciesSelector({
     <>
       <PeachText>Currencies</PeachText>
       <FlatList
+        scrollEnabled={false}
         data={filteredCurrencies}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
@@ -103,6 +104,7 @@ function PaymentMethodsSelector({
     <>
       <PeachText>Payment Methods</PeachText>
       <FlatList
+        scrollEnabled={false}
         data={filteredPaymentMethods}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
