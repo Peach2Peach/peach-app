@@ -9,6 +9,7 @@ export const useExpressSellBuyOffers = (
   currencies: Currency[],
   paymentMethodIds: string[],
   minPremium: number,
+  expressSellOffersSorter: ExpressSellOfferSorter,
 ) => {
   const isFocused = useIsFocused();
   const { data, isLoading, isFetching, refetch, error } = useQuery({
@@ -19,6 +20,7 @@ export const useExpressSellBuyOffers = (
       currencies,
       paymentMethodIds,
       minPremium,
+      expressSellOffersSorter,
     ],
     queryFn: getExpressSellBuyOffers,
     enabled: isFocused,
@@ -36,6 +38,7 @@ async function getExpressSellBuyOffers({ queryKey }: QueryFunctionContext) {
     paymentMethods: queryKey[4] as string[],
     minPremium: queryKey[5] as number,
     ownOffers: false,
+    offersSorter: queryKey[6] as ExpressSellOfferSorter,
   });
 
   return buyOffers;

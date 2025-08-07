@@ -31,6 +31,9 @@ type OfferPreferences = {
   expressSellFilterMinPremium: number;
   expressBuyFilterMaxPremium: number;
 
+  expressSellOffersSorter: ExpressSellOfferSorter;
+  expressBuyOffersSorter: ExpressBuyOfferSorter;
+
   buyAmountRange: [number, number];
   sellAmount: number;
   premium: number;
@@ -69,6 +72,8 @@ export const defaultPreferences: OfferPreferences = {
   expressSellFilterByPaymentMethodList: [],
   expressSellFilterMinPremium: -21, // TODO: replace hardcoded value with constant
   expressBuyFilterMaxPremium: 21, // TODO: replace hardcoded value with constant
+  expressSellOffersSorter: "bestReputation",
+  expressBuyOffersSorter: "bestReputation",
   sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},
@@ -132,6 +137,8 @@ type OfferPreferencesActions = {
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
   setBuyOfferSorter: (sorter: BuySorter) => void;
   setSellOfferSorter: (sorter: SellSorter) => void;
+  setExpressSellOffersSorter: (sorter: ExpressSellOfferSorter) => void;
+  setExpressBuyOffersSorter: (sorter: ExpressBuyOfferSorter) => void;
   toggleInstantTrade: () => void;
   toggleMinTrades: () => void;
   toggleMinReputation: () => void;
@@ -217,6 +224,14 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setSellOfferSorter: (sorter) =>
         set((state) => {
           state.sortBy.sellOffer = [sorter];
+        }),
+      setExpressSellOffersSorter: (sorter) =>
+        set((state) => {
+          state.expressSellOffersSorter = sorter;
+        }),
+      setExpressBuyOffersSorter: (sorter) =>
+        set((state) => {
+          state.expressBuyOffersSorter = sorter;
         }),
       toggleInstantTrade: () =>
         set((state) => ({ instantTrade: !state.instantTrade })),

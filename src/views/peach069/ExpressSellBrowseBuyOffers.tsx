@@ -3,16 +3,19 @@ import { View } from "react-native";
 import { Button } from "../../components/buttons/Button";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useExpressSellBuyOffers } from "../../hooks/query/peach069/useExpressSellBuyOffers";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { ExpressSellSorters } from "../../popups/sorting/ExpressSellSorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
 import { headerIcons } from "../../utils/layout/headerIcons";
 
 export function ExpressSellBrowseBuyOffers() {
-  const title = "Express Sell: Browse Buy Offers";
+  const setPopup = useSetPopup();
+  const title = "Exp Sell: Browse Buy Offers";
   const expressSellFilterByAmountRange = useOfferPreferences(
     (state) => state.expressSellFilterByAmountRange,
   );
@@ -21,10 +24,12 @@ export function ExpressSellBrowseBuyOffers() {
     expressSellFilterByCurrencyList,
     expressSellFilterByPaymentMethodList,
     expressSellFilterMinPremium,
+    expressSellOffersSorter,
   ] = useOfferPreferences((state) => [
     state.expressSellFilterByCurrencyList,
     state.expressSellFilterByPaymentMethodList,
     state.expressSellFilterMinPremium,
+    state.expressSellOffersSorter,
   ]);
 
   const { buyOffers, isLoading } = useExpressSellBuyOffers(
@@ -33,10 +38,14 @@ export function ExpressSellBrowseBuyOffers() {
     expressSellFilterByCurrencyList,
     expressSellFilterByPaymentMethodList.map((obj) => obj.id),
     expressSellFilterMinPremium,
+    expressSellOffersSorter,
   );
   const navigation = useStackNavigation();
 
+  const showSortAndFilterPopup = () => setPopup(<ExpressSellSorters />);
+
   const expressSellHeaderIcons = [
+    { ...headerIcons.expressFlowSorter, onPress: showSortAndFilterPopup },
     {
       ...headerIcons["filter"],
       onPress: () => {

@@ -104,6 +104,7 @@ import shuffle from "./shuffle.svg";
 import skipForward from "./skipForward.svg";
 import slash from "./slash.svg";
 import smile from "./smile.svg";
+import sort from "./sort.svg";
 import square from "./square.svg";
 import star from "./star.svg";
 import starCircleInverted from "./starCircleInverted.svg";
@@ -235,6 +236,7 @@ export const Icons = {
   skipForward,
   slash,
   smile,
+  sort,
   square,
   star,
   starCircleInverted,

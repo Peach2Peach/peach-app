@@ -2,10 +2,12 @@ import { View } from "react-native";
 import { Button } from "../../components/buttons/Button";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useExpressBuySellOffers } from "../../hooks/query/peach069/useExpressBuySellOffers";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { ExpressBuySorters } from "../../popups/sorting/ExpressBuySorters";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -21,10 +23,12 @@ export function ExpressBuyBrowseSellOffers() {
     expressBuyFilterByCurrencyList,
     expressBuyFilterByPaymentMethodList,
     expressBuyFilterMaxPremium,
+    expressBuyOffersSorter,
   ] = useOfferPreferences((state) => [
     state.expressBuyFilterByCurrencyList,
     state.expressBuyFilterByPaymentMethodList,
     state.expressBuyFilterMaxPremium,
+    state.expressBuyOffersSorter,
   ]);
 
   const { sellOffers, isLoading } = useExpressBuySellOffers(
@@ -33,10 +37,16 @@ export function ExpressBuyBrowseSellOffers() {
     expressBuyFilterByCurrencyList,
     expressBuyFilterByPaymentMethodList.map((obj) => obj.id),
     expressBuyFilterMaxPremium,
+    expressBuyOffersSorter,
   );
   const navigation = useStackNavigation();
 
+  const setPopup = useSetPopup();
+
+  const showSortAndFilterPopup = () => setPopup(<ExpressBuySorters />);
+
   const expressBuyHeaderIcons = [
+    { ...headerIcons.expressFlowSorter, onPress: showSortAndFilterPopup },
     {
       ...headerIcons["filter"],
       onPress: () => {

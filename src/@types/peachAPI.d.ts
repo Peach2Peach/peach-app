@@ -365,6 +365,13 @@ type PNNotification = {
   bodyLocArgs?: string[];
 };
 
+type ExpressFlowsOfferSorter =
+  | "highestAmount"
+  | "lowestAmount"
+  | "bestReputation";
+type ExpressSellOfferSorter = ExpressFlowsOfferSorter | "highestPremium";
+type ExpressBuyOfferSorter = ExpressFlowsOfferSorter | "lowestPremium";
+
 type BuySorter = "highestAmount" | "lowestPremium" | "bestReputation";
 type SellSorter = "highestPrice" | "bestReputation";
 
