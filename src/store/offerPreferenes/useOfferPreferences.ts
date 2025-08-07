@@ -28,6 +28,9 @@ type OfferPreferences = {
   expressBuyFilterByPaymentMethodList: PaymentMethodInfo[];
   expressSellFilterByPaymentMethodList: PaymentMethodInfo[];
 
+  expressSellFilterMinPremium: number;
+  expressBuyFilterMaxPremium: number;
+
   buyAmountRange: [number, number];
   sellAmount: number;
   premium: number;
@@ -64,6 +67,8 @@ export const defaultPreferences: OfferPreferences = {
   expressSellFilterByCurrencyList: [],
   expressBuyFilterByPaymentMethodList: [],
   expressSellFilterByPaymentMethodList: [],
+  expressSellFilterMinPremium: -21, // TODO: replace hardcoded value with constant
+  expressBuyFilterMaxPremium: 21, // TODO: replace hardcoded value with constant
   sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},
@@ -116,6 +121,8 @@ type OfferPreferencesActions = {
   setExpressSellFilterByPaymentMethodList: (
     expressSellFilterByPaymentMethodList: PaymentMethodInfo[],
   ) => void;
+  setExpressBuyFilterMaxPremium: (expressBuyFilterMaxPremium: number) => void;
+  setExpressSellFilterMinPremium: (expressSellFilterMinPremium: number) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
   setBuyOfferMulti: (number?: number) => void;
@@ -164,6 +171,11 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setExpressSellFilterByPaymentMethodList: (
         expressSellFilterByPaymentMethodList,
       ) => set({ expressSellFilterByPaymentMethodList }),
+
+      setExpressBuyFilterMaxPremium: (expressBuyFilterMaxPremium: number) =>
+        set({ expressBuyFilterMaxPremium }),
+      setExpressSellFilterMinPremium: (expressSellFilterMinPremium: number) =>
+        set({ expressSellFilterMinPremium }),
 
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),

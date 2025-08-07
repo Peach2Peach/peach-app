@@ -8,6 +8,7 @@ export const useExpressBuySellOffers = (
   maxAmountSats: number,
   currencies: Currency[],
   paymentMethodIds: string[],
+  maxPremium: number,
 ) => {
   const isFocused = useIsFocused();
   const { data, isLoading, isFetching, refetch, error } = useQuery({
@@ -17,6 +18,7 @@ export const useExpressBuySellOffers = (
       maxAmountSats,
       currencies,
       paymentMethodIds,
+      maxPremium,
     ],
     queryFn: getExpressBuySellOffers,
     enabled: isFocused,
@@ -32,6 +34,7 @@ async function getExpressBuySellOffers({ queryKey }: QueryFunctionContext) {
     maxAmountSats: queryKey[2] as number,
     currencies: queryKey[3] as string[],
     paymentMethods: queryKey[4] as string[],
+    maxPremium: queryKey[5] as number,
   });
 
   return sellOffers;

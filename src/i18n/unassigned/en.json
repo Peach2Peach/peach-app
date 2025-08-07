@@ -1,4 +1,6 @@
 {
+  "filter.maxPremium":"max premium",
+  "filter.minPremium":"min premium",
   "accessibility.bulletPoint" : "bullet point",
   "address.changingLocations" : "changing locations - get in touch with organizers",
   "backupRestored" : "backup restored",

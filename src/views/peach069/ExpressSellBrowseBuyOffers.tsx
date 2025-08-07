@@ -20,9 +20,11 @@ export function ExpressSellBrowseBuyOffers() {
   const [
     expressSellFilterByCurrencyList,
     expressSellFilterByPaymentMethodList,
+    expressSellFilterMinPremium,
   ] = useOfferPreferences((state) => [
     state.expressSellFilterByCurrencyList,
     state.expressSellFilterByPaymentMethodList,
+    state.expressSellFilterMinPremium,
   ]);
 
   const { buyOffers, isLoading } = useExpressSellBuyOffers(
@@ -30,6 +32,7 @@ export function ExpressSellBrowseBuyOffers() {
     expressSellFilterByAmountRange[1],
     expressSellFilterByCurrencyList,
     expressSellFilterByPaymentMethodList.map((obj) => obj.id),
+    expressSellFilterMinPremium,
   );
   const navigation = useStackNavigation();
 

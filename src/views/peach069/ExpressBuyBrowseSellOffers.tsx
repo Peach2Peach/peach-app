@@ -17,17 +17,22 @@ export function ExpressBuyBrowseSellOffers() {
     (state) => state.expressBuyFilterByAmountRange,
   );
 
-  const [expressBuyFilterByCurrencyList, expressBuyFilterByPaymentMethodList] =
-    useOfferPreferences((state) => [
-      state.expressBuyFilterByCurrencyList,
-      state.expressBuyFilterByPaymentMethodList,
-    ]);
+  const [
+    expressBuyFilterByCurrencyList,
+    expressBuyFilterByPaymentMethodList,
+    expressBuyFilterMaxPremium,
+  ] = useOfferPreferences((state) => [
+    state.expressBuyFilterByCurrencyList,
+    state.expressBuyFilterByPaymentMethodList,
+    state.expressBuyFilterMaxPremium,
+  ]);
 
   const { sellOffers, isLoading } = useExpressBuySellOffers(
     expressBuyFilterByAmountRange[0],
     expressBuyFilterByAmountRange[1],
     expressBuyFilterByCurrencyList,
     expressBuyFilterByPaymentMethodList.map((obj) => obj.id),
+    expressBuyFilterMaxPremium,
   );
   const navigation = useStackNavigation();
 

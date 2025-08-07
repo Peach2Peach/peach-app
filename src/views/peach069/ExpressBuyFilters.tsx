@@ -1,6 +1,8 @@
+import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
+import { PremiumInput } from "../../components/PremiumInput";
 import { Screen } from "../../components/Screen";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
@@ -27,6 +29,7 @@ export function ExpressBuyFilters() {
     <Screen header={<Header title={title} />}>
       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
         <AmountSelector />
+        <Premium />
         <CurrenciesAndPaymentMethodsSelector
           selectedCurrencies={expressBuyFilterByCurrencyList}
           setSelectedCurrencies={setExpressBuyFilterByCurrencyList}
@@ -35,6 +38,24 @@ export function ExpressBuyFilters() {
         />
       </PeachScrollView>
     </Screen>
+  );
+}
+
+function Premium() {
+  const [premium, setPremium] = useOfferPreferences((state) => [
+    state.expressBuyFilterMaxPremium,
+    state.setExpressBuyFilterMaxPremium,
+  ]);
+
+  return (
+    <View style={tw`self-stretch gap-1`}>
+      <PremiumInput
+        premium={premium}
+        setPremium={setPremium}
+        incrementBy={1}
+        incrementType="maxPremium"
+      />
+    </View>
   );
 }
 

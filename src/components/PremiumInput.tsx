@@ -10,6 +10,7 @@ type Props = {
   premium: number;
   setPremium: (newPremium: number) => void;
   incrementBy?: number;
+  incrementType?: "offerCreation" | "maxPremium" | "minPremium";
 };
 
 const defaultIncrement = 0.1;
@@ -19,6 +20,7 @@ export const PremiumInput = ({
   premium,
   setPremium,
   incrementBy = defaultIncrement,
+  incrementType = "offerCreation",
 }: Props) => {
   const onMinusPress = () => {
     const newPremium = round(
@@ -48,20 +50,43 @@ export const PremiumInput = ({
       <TouchableOpacity
         onPress={onMinusPress}
         accessibilityHint={i18n("number.decrease")}
+        disabled={premium === premiumBounds.min}
       >
-        <Icon id="minusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon
+          id="minusCircle"
+          size={24}
+          color={
+            premium === premiumBounds.min
+              ? tw.color("gray-400") // TODO: check correct color
+              : tw.color("primary-main")
+          }
+        />
       </TouchableOpacity>
       <View style={tw`flex-row items-center justify-center gap-2 grow`}>
         <PeachText style={[tw`text-center`, textColor]}>
-          {i18n(premium >= 0 ? "sell.premium" : "sell.discount")}:
+          {incrementType === "offerCreation"
+            ? i18n(premium >= 0 ? "sell.premium" : "sell.discount")
+            : incrementType === "maxPremium"
+              ? i18n("filter.maxPremium")
+              : i18n("filter.minPremium")}
+          :
         </PeachText>
         <PremiumTextInput premium={premium} setPremium={setPremium} />
       </View>
       <TouchableOpacity
         onPress={onPlusPress}
         accessibilityHint={i18n("number.increase")}
+        disabled={premium === premiumBounds.max}
       >
-        <Icon id="plusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon
+          id="plusCircle"
+          size={24}
+          color={
+            premium === premiumBounds.max
+              ? tw.color("gray-400") // TODO: check correct color
+              : tw.color("primary-main")
+          }
+        />
       </TouchableOpacity>
     </View>
   );
