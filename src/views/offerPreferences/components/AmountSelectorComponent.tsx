@@ -70,7 +70,7 @@ export function AmountSelectorComponent({
             trackWidth={trackWidth}
             range={[min, max]}
             setRange={setRange}
-            isSell
+            isSell={isSell}
           />
         }
         trackWidth={trackWidth}
