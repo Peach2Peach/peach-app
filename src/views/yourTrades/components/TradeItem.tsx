@@ -305,10 +305,13 @@ function getActionLabel(
   tradeSummary: OfferSummary | ContractSummary,
   isWaiting: boolean,
 ) {
-  const { tradeStatus } = tradeSummary;
+  const { tradeStatus, tradeStatusNew } = tradeSummary;
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 
-  if (!isTradeStatus(tradeSummary.tradeStatus)) {
+  if (
+    !isTradeStatus(tradeSummary.tradeStatus) &&
+    !isTradeStatus(tradeSummary.tradeStatusNew)
+  ) {
     return i18n("offer.requiredAction.unknown");
   }
 
@@ -350,6 +353,10 @@ function getActionLabel(
     return i18n("offer.requiredAction.fundMultipleEscrow");
   }
 
+  if (tradeStatusNew) {
+    return i18n(`offer.requiredAction.${tradeStatusNew}`);
+  }
+
   return i18n(`offer.requiredAction.${tradeStatus}`);
 }
 
@@ -367,6 +374,15 @@ function getActionIcon(
 
   if (tradeSummary.tradeStatus === "payoutPending")
     return statusIcons.payoutPending;
+
+  if (isTradeStatus(tradeSummary.tradeStatusNew)) {
+    if (tradeSummary.tradeStatusNew === "waitingForTradeRequest") {
+      return statusIcons["waiting"];
+    }
+    if (tradeSummary.tradeStatusNew === "acceptTradeRequest") {
+      return "checkCircle";
+    }
+  }
 
   if (!isTradeStatus(tradeSummary.tradeStatus)) return "refreshCw";
 

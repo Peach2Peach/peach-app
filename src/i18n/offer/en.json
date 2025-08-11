@@ -41,6 +41,8 @@
   "offer.requiredAction.releaseEscrow.dispute" : "dispute lost: release escrow",
   "offer.requiredAction.searchingForPeer" : "looking for match",
   "offer.requiredAction.unknown" : "unknown - update your app!",
+  "offer.requiredAction.waitingForTradeRequest" : "waiting for trade request",
+  "offer.requiredAction.acceptTradeRequest" : "accept trade request",
   "offer.requiredAction.waiting" : "waiting for $0",
   "offer.requiredAction.waiting.buyer" : "waiting for payment",
   "offer.requiredAction.waiting.seller" : "waiting for seller",

@@ -11,9 +11,9 @@ import { isWaiting } from "./isWaiting";
 export const getOfferColor = (
   trade: OfferSummary | ContractSummary,
 ): keyof typeof statusCardStyles.bg => {
-  const { tradeStatus, type } = trade;
-
-  if (!isTradeStatus(trade.tradeStatus)) return "info";
+  const { tradeStatus, tradeStatusNew, type } = trade;
+  if (!isTradeStatus(trade.tradeStatus) && !isTradeStatus(tradeStatusNew))
+    return "info";
   if (tradeStatus === "paymentTooLate") return "warning";
   if (isPastOffer(tradeStatus)) {
     if (tradeStatus === "tradeCompleted")
@@ -31,7 +31,8 @@ export const getOfferColor = (
 
   if (isError(tradeStatus)) return "error";
   if (isPrioritary(tradeStatus)) return "warning";
-  if (isWaiting(type, tradeStatus)) return "primary-mild";
+  if (isWaiting(type, tradeStatus) || isWaiting(type, tradeStatusNew))
+    return "primary-mild";
 
   if (isContractSummary(trade)) {
     if (trade.disputeWinner) return "warning";
