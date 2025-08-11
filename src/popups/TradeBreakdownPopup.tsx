@@ -1,6 +1,8 @@
-import { NETWORK } from "@env";
+import { GROUPHUG_URL, NETWORK } from "@env";
+import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
+import { z } from "zod";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
@@ -11,6 +13,7 @@ import tw from "../styles/tailwind";
 import { getTradeBreakdown } from "../utils/bitcoin/getTradeBreakdown";
 import { showAddress } from "../utils/bitcoin/showAddress";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
+import fetch from "../utils/fetch";
 import i18n from "../utils/i18n";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
@@ -18,6 +21,7 @@ export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
     contract.releaseTxId
       ? showTransaction(contract.releaseTxId, NETWORK)
       : showAddress(contract.escrow, NETWORK);
+
   return (
     <PopupComponent
       title={i18n("tradeComplete.popup.tradeBreakdown.title")}
@@ -41,7 +45,11 @@ function TradeBreakdown({
   releaseTransaction,
   releaseAddress,
   amount,
+  batchId,
 }: Contract) {
+  if (batchId) {
+    return <BatchTradeBreakdown batchId={batchId} />;
+  }
   const { totalAmount, peachFee, networkFee, amountReceived } =
     getTradeBreakdown({
       releaseTransaction,
@@ -49,9 +57,61 @@ function TradeBreakdown({
       inputAmount: amount,
     });
 
+  return (
+    <TradeBreakdownTable
+      peachFee={peachFee}
+      totalAmount={totalAmount}
+      networkFee={networkFee}
+      amountReceived={amountReceived}
+    />
+  );
+}
+
+const PSBTInfoSchema = z.object({
+  inputValue: z.number().min(0),
+  outputValue: z.number().min(0),
+  networkFee: z.number().min(0),
+  serviceFee: z.number().min(0),
+});
+function BatchTradeBreakdown({ batchId }: { batchId: string }) {
+  const { data } = useQuery({
+    queryKey: ["batching", "psbt", batchId, "info"],
+    queryFn: async () => {
+      const response = await fetch(`${GROUPHUG_URL}/v1/psbt/${batchId}/info`);
+      return PSBTInfoSchema.parse(await response.json());
+    },
+  });
+  if (!data)
+    return <ActivityIndicator size="large" color={tw.color("primary-main")} />;
+  return (
+    <TradeBreakdownTable
+      totalAmount={data.inputValue}
+      amountReceived={data.outputValue}
+      peachFee={data.serviceFee}
+      networkFee={data.networkFee}
+    />
+  );
+}
+
+type TradeBreakdownTableProps = {
+  peachFee: number;
+  totalAmount: number;
+  networkFee: number;
+  amountReceived: number;
+};
+
+function TradeBreakdownTable({
+  peachFee,
+  totalAmount,
+  networkFee,
+  amountReceived,
+}: TradeBreakdownTableProps) {
   const data = [
     [
-      { text: i18n("tradeComplete.popup.tradeBreakdown.sellerAmount"), amount },
+      {
+        text: i18n("tradeComplete.popup.tradeBreakdown.sellerAmount"),
+        amount: totalAmount,
+      },
       {
         text: i18n("tradeComplete.popup.tradeBreakdown.peachFees"),
         amount: peachFee,
