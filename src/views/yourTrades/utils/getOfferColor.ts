@@ -12,8 +12,13 @@ export const getOfferColor = (
   trade: OfferSummary | ContractSummary,
 ): keyof typeof statusCardStyles.bg => {
   const { tradeStatus, tradeStatusNew, type } = trade;
-  if (!isTradeStatus(trade.tradeStatus) && !isTradeStatus(tradeStatusNew))
-    return "info";
+
+  if (tradeStatusNew !== undefined) {
+    if (tradeStatusNew === "waitingForTradeRequest") return "primary-mild";
+    if (tradeStatusNew === "acceptTradeRequest") return "primary";
+  }
+
+  if (!isTradeStatus(trade.tradeStatus)) return "info";
   if (tradeStatus === "paymentTooLate") return "warning";
   if (isPastOffer(tradeStatus)) {
     if (tradeStatus === "tradeCompleted")

@@ -39,6 +39,7 @@ import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { StackNavigation } from "../../utils/navigation/handlePushNotification";
 import { keys } from "../../utils/object/keys";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
@@ -108,7 +109,10 @@ export function ExpressSellTradeRequestToBuyOffer() {
 
   if (isLoading || !buyOffer) return <LoadingScreen />;
   return (
-    <Screen showTradingLimit header={"Buy Offer 0.69: " + buyOffer.id}>
+    <Screen
+      showTradingLimit
+      header={"Buy Offer 0.69: " + offerIdToHex(String(buyOffer.id))}
+    >
       <TradeRequest buyOffer={buyOffer} />
     </Screen>
   );

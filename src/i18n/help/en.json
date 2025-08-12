@@ -2,6 +2,8 @@
   "help" : "help",
   "help.acceptMatch.description" : "You can only match one buyer per offer. Once you've accepted a match, the trade is started.\n\nOnce started, you can only do a collaborative cancel with your buyer, or your reputation will be harmed.",
   "help.acceptMatch.title" : "accept match = start trade",
+  "help.acceptTradeRequest.description" : "You can only accept one buyer per offer. Once you've accepted a buyer's trade request, the trade is initiated.\n\nOnce started, your reputation will be harmed if you decide to cancel.",
+  "help.acceptTradeRequest.title" : "accept trade request = start trade",
   "help.addressSigning.description" : "Because of Swiss law, you'll need to sign to verify that you own the address the trade will be paid out to.\n\nIf you don't know how this works, we recommend using the Peach wallet, where you don't need to go manually through this step.",
   "help.addressSigning.title" : "address signing",
   "help.buyingBitcoin.description" : "When buying bitcoin on Peach, you'll first select a range of how much you want to buy.\n\nAfter you've selected, you'll be shown all the sell offers that fit in that range.\n\nPeach fees are 2% of the trading amount.",

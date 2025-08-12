@@ -1,9 +1,14 @@
+import { useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { SellOffer69TradeRequest } from "../../../peach-api/src/@types/offer";
 import { Button } from "../../components/buttons/Button";
 import { Header } from "../../components/Header";
+import { TradeRequestsReceived } from "../../components/matches/TradeRequestsReceived";
 import { getPaymentDataFromOffer } from "../../components/matches/utils/getPaymentDataFromOffer";
+import { SellOfferSummary } from "../../components/offer/SellOfferSummary";
+import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { PeachScrollView } from "../../components/PeachScrollView";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useSellOfferDetail } from "../../hooks/query/peach069/useSellOffer";
@@ -11,25 +16,27 @@ import { useSellOfferTradeRequestsReceived } from "../../hooks/query/peach069/us
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
+import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { headerIcons } from "../../utils/layout/headerIcons";
 import { StackNavigation } from "../../utils/navigation/handlePushNotification";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
+import { LoadingScreen } from "../loading/LoadingScreen";
 
 const rejectTradeRequest = async (
-  navigation: any,
   sellOfferId: string,
   userId: string,
+  navigation: any,
 ): Promise<void> => {
   await peachAPI.private.peach069.rejectSellOfferTradeRequestReceivedByIds({
     sellOfferId,
     userId,
-  });
-
-  navigation.navigate("homeScreen", {
-    screen: "home",
   });
 };
 
@@ -109,7 +116,7 @@ const acceptTradeRequest = async (
   }
 };
 
-export function BrowseTradeRequestsToMySellOffer() {
+export function BrowseTradeRequestsToMySellOfferOLD() {
   const navigation = useStackNavigation();
 
   const { user: selfUser } = useSelfUser();
@@ -166,9 +173,9 @@ export function BrowseTradeRequestsToMySellOffer() {
                       style={[tw`bg-error-main`]}
                       onPress={() =>
                         rejectTradeRequest(
-                          navigation,
                           item.sellOfferId,
                           item.userId,
+                          navigation,
                         )
                       }
                     >
@@ -191,4 +198,139 @@ export function BrowseTradeRequestsToMySellOffer() {
       </PeachScrollView>
     </Screen>
   );
+}
+
+////
+
+// new component
+export const BrowseTradeRequestsToMySellOffer = () => {
+  const { offerId } = useRoute<"browseTradeRequestsToMySellOffer">().params;
+
+  const { sellOffer, isLoading } = useSellOfferDetail(offerId);
+  const {
+    sellOfferTradeRequests,
+    isLoading: isLoadingTradeRequests,
+    refetch: refetchTradeRequests,
+  } = useSellOfferTradeRequestsReceived(offerId);
+
+  if (
+    isLoading ||
+    isLoadingTradeRequests ||
+    sellOfferTradeRequests === undefined ||
+    sellOffer === undefined
+  )
+    return <LoadingScreen />;
+  return (
+    <Screen
+      style={!!sellOfferTradeRequests.length && tw`px-0`}
+      header={
+        <SearchHeader
+          offer={sellOffer}
+          tradeRequests={sellOfferTradeRequests}
+        />
+      }
+      showTradingLimit
+    >
+      <PeachScrollView
+        contentContainerStyle={tw`justify-center grow`}
+        bounces={false}
+      >
+        {sellOfferTradeRequests.length ? (
+          <TradeRequestsReceived
+            offer={sellOffer}
+            tradeRequests={sellOfferTradeRequests}
+            acceptTradeRequestFunction={acceptTradeRequest}
+            rejectTradeRequestFunction={rejectTradeRequest}
+            refetchTradeRequests={refetchTradeRequests}
+          />
+        ) : (
+          <NoMatchesYet offer={sellOffer} />
+        )}
+      </PeachScrollView>
+    </Screen>
+  );
+};
+
+function NoMatchesYet({ offer }: { offer: SellOffer }) {
+  return (
+    <View style={tw`gap-8`}>
+      <PeachText style={tw`text-center subtitle-1`}>
+        {i18n("search.weWillNotifyYou")}
+      </PeachText>
+
+      <SellOfferSummary
+        offer={offer}
+        walletLabel={<WalletLabel address={offer.returnAddress} />}
+      />
+    </View>
+  );
+}
+
+function WalletLabel({ address }: { address: string }) {
+  const walletLabel = useWalletLabel({ address });
+  return (
+    <PeachText style={tw`text-center subtitle-1`}>{walletLabel}</PeachText>
+  );
+}
+
+function SearchHeader({
+  offer,
+  tradeRequests,
+}: {
+  offer: SellOffer;
+  tradeRequests: SellOffer69TradeRequest[];
+}) {
+  const offerId = offer.id;
+  const navigation = useStackNavigation();
+  const setPopup = useSetPopup();
+  const showMatchPopup = useCallback(
+    () => setPopup(<HelpPopup id="matchmatchmatch" />),
+    [setPopup],
+  );
+  const showAcceptTradeRequestPopup = useCallback(
+    () => setPopup(<HelpPopup id="acceptTradeRequest" />),
+    [setPopup],
+  );
+  // const showSortAndFilterPopup = useCallback(
+  //   () => setPopup(<SellSorters />),
+  //   [setPopup],
+  // );
+  const cancelOffer = useCallback(
+    () => setPopup(<CancelOfferPopup offerId={offerId} />),
+    [offerId, setPopup],
+  );
+
+  const goToEditPremium = useCallback(
+    () => navigation.navigate("editPremium", { offerId }),
+    [navigation, offerId],
+  );
+
+  const memoizedHeaderIcons = useMemo(() => {
+    if (!offer) return undefined;
+    const icons = [
+      // { ...headerIcons.sellFilter, onPress: showSortAndFilterPopup },
+      { ...headerIcons.percent, onPress: goToEditPremium },
+      { ...headerIcons.cancel, onPress: cancelOffer },
+    ];
+
+    if (tradeRequests.length > 0) {
+      return [
+        ...icons,
+        {
+          ...headerIcons.help,
+          onPress: showAcceptTradeRequestPopup,
+        },
+      ];
+    }
+    return icons;
+  }, [
+    offer,
+    cancelOffer,
+    goToEditPremium,
+    showMatchPopup,
+    showAcceptTradeRequestPopup,
+    tradeRequests,
+  ]);
+
+  return <Header title={offerIdToHex(offerId)} icons={memoizedHeaderIcons} />;
 }

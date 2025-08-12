@@ -38,7 +38,21 @@ export const useTradeSummaries = (enabled = true) => {
 
   const tradeSummaries = useMemo(
     () => [...offers, ...contracts].sort(sortSummariesByDate).reverse(),
-    [contracts, offers, buyOffers],
+    [contracts, offers],
+  );
+
+  const buy69 = useMemo(
+    () =>
+      [
+        ...contracts.filter(
+          ({ type, tradeStatus }) =>
+            type === "bid" && !isPastOffer(tradeStatus),
+        ),
+        ...buyOffers,
+      ]
+        .sort(sortSummariesByDate)
+        .reverse(),
+    [buyOffers, contracts],
   );
 
   const allOpenOffers = useMemo(
@@ -50,9 +64,9 @@ export const useTradeSummaries = (enabled = true) => {
       "yourTrades.buy": allOpenOffers.filter(({ type }) => type === "bid"),
       "yourTrades.sell": allOpenOffers.filter(({ type }) => type === "ask"),
       "yourTrades.history": getPastOffers(tradeSummaries),
-      "yourTrades.69BuyOffer": buyOffers,
+      "yourTrades.69BuyOffer": buy69,
     }),
-    [allOpenOffers, tradeSummaries, buyOffers],
+    [allOpenOffers, tradeSummaries, buy69],
   );
 
   return {

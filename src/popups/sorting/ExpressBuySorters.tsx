@@ -10,7 +10,7 @@ export const ExpressBuySorters = () => {
     (state) => state.expressBuyOffersSorter,
   );
   const [sortBy, setSortBy] = useState(defaultSorter);
-  console.log("sort buy: ", sortBy);
+
   const items: RadioButtonItem<ExpressBuyOfferSorter>[] = [
     {
       display: i18n("offer.sorting.bestReputation"),
