@@ -14,9 +14,11 @@ type Props = {
     "amount" | "tradeStatus" | "premium" | "meansOfPayment"
   > & {
     escrow?: string;
+    amountSats?: number;
   };
   numberOfOffers?: number;
   walletLabel: JSX.Element;
+  type?: "buy" | "sell";
 };
 
 const isSellOfferWithDefinedEscrow = (
@@ -29,25 +31,31 @@ const isSellOfferWithDefinedEscrow = (
 ): offer is SellOffer & { escrow: string } =>
   "escrow" in offer && !!offer.escrow;
 
-export const SellOfferSummary = ({
+export const SellOrBuyOfferSummary = ({
   offer,
   numberOfOffers,
   walletLabel,
+  type = "sell",
 }: Props) => {
-  const { tradeStatus, amount, premium, meansOfPayment } = offer;
+  const { tradeStatus, amount, premium, meansOfPayment, amountSats } = offer;
   return (
     <SummaryCard>
       <SummaryCard.Section>
         <PeachText style={tw`text-center text-black-65`}>
           {i18n(
-            `offer.summary.${tradeStatus !== "offerCanceled" ? "youAreSelling" : "youWereSelling"}`,
+            type === "sell"
+              ? `offer.summary.${tradeStatus !== "offerCanceled" ? "youAreSelling" : "youWereSelling"}`
+              : "offer.summary.youAreBuying69",
           )}
         </PeachText>
         <View style={tw`flex-row items-center justify-center gap-2`}>
           {!!numberOfOffers && (
             <PeachText style={tw`h6`}>{numberOfOffers} x</PeachText>
           )}
-          <BTCAmount amount={amount} size="small" />
+          <BTCAmount
+            amount={type === "sell" ? amount : amountSats || 0}
+            size="small"
+          />
         </View>
       </SummaryCard.Section>
 
@@ -78,7 +86,9 @@ export const SellOfferSummary = ({
 
       <SummaryCard.Section>
         <PeachText style={tw`text-center text-black-65`}>
-          {i18n("offer.summary.refundWallet")}
+          {type === "sell"
+            ? i18n("offer.summary.refundWallet")
+            : i18n("offer.summary.releaseWallet")}
         </PeachText>
         {walletLabel}
       </SummaryCard.Section>

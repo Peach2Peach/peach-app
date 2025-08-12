@@ -1,11 +1,10 @@
 import { useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { SellOffer69TradeRequest } from "../../../peach-api/src/@types/offer";
-import { Button } from "../../components/buttons/Button";
 import { Header } from "../../components/Header";
 import { TradeRequestsReceived } from "../../components/matches/TradeRequestsReceived";
 import { getPaymentDataFromOffer } from "../../components/matches/utils/getPaymentDataFromOffer";
-import { SellOfferSummary } from "../../components/offer/SellOfferSummary";
+import { SellOrBuyOfferSummary } from "../../components/offer/SellOfferSummary";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
@@ -13,7 +12,6 @@ import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useSellOfferDetail } from "../../hooks/query/peach069/useSellOffer";
 import { useSellOfferTradeRequestsReceived } from "../../hooks/query/peach069/useSellOfferTradeRequests";
-import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
@@ -116,89 +114,89 @@ const acceptTradeRequest = async (
   }
 };
 
-export function BrowseTradeRequestsToMySellOfferOLD() {
-  const navigation = useStackNavigation();
+// export function BrowseTradeRequestsToMySellOfferOLD() {
+//   const navigation = useStackNavigation();
 
-  const { user: selfUser } = useSelfUser();
+//   const { user: selfUser } = useSelfUser();
 
-  const { offerId } = useRoute<"browseTradeRequestsToMySellOffer">().params;
-  const title = "Peach69 Sell Offer " + offerId;
+//   const { offerId } = useRoute<"browseTradeRequestsToMySellOffer">().params;
+//   const title = "Peach69 Sell Offer " + offerId;
 
-  const { sellOffer, isLoading } = useSellOfferDetail(offerId);
-  const { sellOfferTradeRequests, isLoading: isLoadingTradeRequests } =
-    useSellOfferTradeRequestsReceived(offerId);
+//   const { sellOffer, isLoading } = useSellOfferDetail(offerId);
+//   const { sellOfferTradeRequests, isLoading: isLoadingTradeRequests } =
+//     useSellOfferTradeRequestsReceived(offerId);
 
-  return (
-    <Screen header={<Header title={title} />}>
-      <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
-        <PeachText>0.69 Peach Sell Offer </PeachText>
-        <PeachText>Offer ID: {offerId}</PeachText>
-        {!isLoading && (
-          <>
-            <PeachText>Amount: {sellOffer?.amount}</PeachText>
-            <PeachText>
-              Means of Payment: {JSON.stringify(sellOffer?.meansOfPayment)}
-            </PeachText>
-          </>
-        )}
-        <>
-          {!isLoadingTradeRequests &&
-            !!sellOfferTradeRequests &&
-            !!sellOffer &&
-            !!selfUser &&
-            sellOfferTradeRequests.map((item, index) => {
-              return (
-                <>
-                  <PeachText>-------</PeachText>
-                  <PeachText>TR ID: {item.id}</PeachText>
-                  <PeachText>TR User: {item.userId}</PeachText>
-                  <PeachText>TR Price: {item.price}</PeachText>
-                  <PeachText>TR Currency: {item.currency}</PeachText>
-                  <PeachText>TR PM: {item.paymentMethod}</PeachText>
-                  <View style={tw`flex-row gap-10px`}>
-                    <Button
-                      style={[tw`bg-success-main`]}
-                      onPress={() =>
-                        acceptTradeRequest(
-                          sellOffer,
-                          item,
-                          selfUser,
-                          navigation,
-                        )
-                      }
-                    >
-                      accept
-                    </Button>
-                    <Button
-                      style={[tw`bg-error-main`]}
-                      onPress={() =>
-                        rejectTradeRequest(
-                          item.sellOfferId,
-                          item.userId,
-                          navigation,
-                        )
-                      }
-                    >
-                      reject
-                    </Button>
-                    <Button
-                      style={[tw`bg-error-main`]}
-                      onPress={() =>
-                        goToChat(navigation, item.sellOfferId, item.userId)
-                      }
-                    >
-                      chat
-                    </Button>
-                  </View>
-                  <PeachText>-------</PeachText>
-                </>
-              );
-            })}
-        </>
-      </PeachScrollView>
-    </Screen>
-  );
-}
+//   return (
+//     <Screen header={<Header title={title} />}>
+//       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
+//         <PeachText>0.69 Peach Sell Offer </PeachText>
+//         <PeachText>Offer ID: {offerId}</PeachText>
+//         {!isLoading && (
+//           <>
+//             <PeachText>Amount: {sellOffer?.amount}</PeachText>
+//             <PeachText>
+//               Means of Payment: {JSON.stringify(sellOffer?.meansOfPayment)}
+//             </PeachText>
+//           </>
+//         )}
+//         <>
+//           {!isLoadingTradeRequests &&
+//             !!sellOfferTradeRequests &&
+//             !!sellOffer &&
+//             !!selfUser &&
+//             sellOfferTradeRequests.map((item, index) => {
+//               return (
+//                 <>
+//                   <PeachText>-------</PeachText>
+//                   <PeachText>TR ID: {item.id}</PeachText>
+//                   <PeachText>TR User: {item.userId}</PeachText>
+//                   <PeachText>TR Price: {item.price}</PeachText>
+//                   <PeachText>TR Currency: {item.currency}</PeachText>
+//                   <PeachText>TR PM: {item.paymentMethod}</PeachText>
+//                   <View style={tw`flex-row gap-10px`}>
+//                     <Button
+//                       style={[tw`bg-success-main`]}
+//                       onPress={() =>
+//                         acceptTradeRequest(
+//                           sellOffer,
+//                           item,
+//                           selfUser,
+//                           navigation,
+//                         )
+//                       }
+//                     >
+//                       accept
+//                     </Button>
+//                     <Button
+//                       style={[tw`bg-error-main`]}
+//                       onPress={() =>
+//                         rejectTradeRequest(
+//                           item.sellOfferId,
+//                           item.userId,
+//                           navigation,
+//                         )
+//                       }
+//                     >
+//                       reject
+//                     </Button>
+//                     <Button
+//                       style={[tw`bg-error-main`]}
+//                       onPress={() =>
+//                         goToChat(navigation, item.sellOfferId, item.userId)
+//                       }
+//                     >
+//                       chat
+//                     </Button>
+//                   </View>
+//                   <PeachText>-------</PeachText>
+//                 </>
+//               );
+//             })}
+//         </>
+//       </PeachScrollView>
+//     </Screen>
+//   );
+// }
 
 ////
 
@@ -242,6 +240,8 @@ export const BrowseTradeRequestsToMySellOffer = () => {
             acceptTradeRequestFunction={acceptTradeRequest}
             rejectTradeRequestFunction={rejectTradeRequest}
             refetchTradeRequests={refetchTradeRequests}
+            goToChat={goToChat}
+            type="sell"
           />
         ) : (
           <NoMatchesYet offer={sellOffer} />
@@ -255,10 +255,10 @@ function NoMatchesYet({ offer }: { offer: SellOffer }) {
   return (
     <View style={tw`gap-8`}>
       <PeachText style={tw`text-center subtitle-1`}>
-        {i18n("search.weWillNotifyYou")}
+        {i18n("search.weWillNotifyYouTradeRequest")}
       </PeachText>
 
-      <SellOfferSummary
+      <SellOrBuyOfferSummary
         offer={offer}
         walletLabel={<WalletLabel address={offer.returnAddress} />}
       />
@@ -283,10 +283,7 @@ function SearchHeader({
   const offerId = offer.id;
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
-  const showMatchPopup = useCallback(
-    () => setPopup(<HelpPopup id="matchmatchmatch" />),
-    [setPopup],
-  );
+
   const showAcceptTradeRequestPopup = useCallback(
     () => setPopup(<HelpPopup id="acceptTradeRequest" />),
     [setPopup],
@@ -327,7 +324,6 @@ function SearchHeader({
     offer,
     cancelOffer,
     goToEditPremium,
-    showMatchPopup,
     showAcceptTradeRequestPopup,
     tradeRequests,
   ]);

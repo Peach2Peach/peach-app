@@ -1,6 +1,10 @@
 import { View, useWindowDimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-import { SellOffer69TradeRequest } from "../../../peach-api/src/@types/offer";
+import {
+  BuyOffer69,
+  BuyOffer69TradeRequest,
+  SellOffer69TradeRequest,
+} from "../../../peach-api/src/@types/offer";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -20,12 +24,16 @@ export const TradeRequestsReceived = ({
   acceptTradeRequestFunction,
   rejectTradeRequestFunction,
   refetchTradeRequests,
+  goToChat,
+  type,
 }: {
-  offer: SellOffer;
-  tradeRequests: SellOffer69TradeRequest[];
+  offer: SellOffer | BuyOffer69;
+  tradeRequests: SellOffer69TradeRequest[] | BuyOffer69TradeRequest[];
   acceptTradeRequestFunction: Function;
   rejectTradeRequestFunction: Function;
   refetchTradeRequests: Function;
+  goToChat: Function;
+  type: "sell" | "buy";
 }) => {
   const { width } = useWindowDimensions();
   const isMediumScreen = useIsMediumScreen();
@@ -35,7 +43,11 @@ export const TradeRequestsReceived = ({
 
   return (
     <View style={tw`h-full`}>
-      <TradeRequestsInformation offer={offer} tradeRequests={tradeRequests} />
+      <TradeRequestsInformation
+        offer={offer}
+        tradeRequests={tradeRequests}
+        type={type}
+      />
       {selfUser && (
         <View style={tw`shrink`}>
           <Carousel
@@ -56,6 +68,7 @@ export const TradeRequestsReceived = ({
                 offer={offer}
                 tradeRequest={item}
                 acceptTradeRequestFunction={() => {
+                  console.log(111111);
                   acceptTradeRequestFunction(offer, item, selfUser, navigation);
                 }}
                 rejectTradeRequestFunction={async () => {
@@ -66,6 +79,10 @@ export const TradeRequestsReceived = ({
                   );
                   refetchTradeRequests();
                 }}
+                goToChatFunction={() => {
+                  goToChat(navigation, offer.id, item.userId);
+                }}
+                type={type}
               />
             )}
           />
@@ -78,12 +95,12 @@ export const TradeRequestsReceived = ({
 function TradeRequestsInformation({
   offer,
   tradeRequests,
+  type,
 }: {
-  offer: SellOffer;
-  tradeRequests: SellOffer69TradeRequest[];
+  offer: SellOffer | BuyOffer69;
+  tradeRequests: SellOffer69TradeRequest[] | BuyOffer69TradeRequest[];
+  type: "sell" | "buy";
 }) {
-  const offerId = offer.id;
-
   const color = getPremiumColor(offer.premium || 0, false);
 
   return (
@@ -94,10 +111,17 @@ function TradeRequestsInformation({
         )}
       </PeachText>
       <PeachText style={tw`text-center body-l text-black-65`}>
-        {i18n("search.sellOffer")}:
+        {type === "sell" ? i18n("search.sellOffer") : i18n("search.buyOffer")}:
       </PeachText>
       <View style={tw`flex-row items-center justify-center`}>
-        <BTCAmount amount={offer.amount} size="medium" />
+        <BTCAmount
+          amount={
+            type === "sell"
+              ? (offer as SellOffer).amount
+              : (offer as BuyOffer69).amountSats ?? 0
+          }
+          size="medium"
+        />
         {offer.premium !== undefined && (
           <PeachText style={[tw`leading-loose body-l`, color]}>
             {" "}

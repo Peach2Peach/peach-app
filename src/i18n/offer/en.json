@@ -62,10 +62,12 @@
   "offer.summary.premium" : "premium",
   "offer.summary.refundTx" : "refund tx",
   "offer.summary.refundWallet" : "refund wallet:",
+  "offer.summary.releaseWallet" : "release wallet:",
   "offer.summary.via" : "via",
   "offer.summary.withA" : "with a",
   "offer.summary.withTheseMethods" : "with these payment methods:",
   "offer.summary.youAreBuying" : "you want to buy between",
+  "offer.summary.youAreBuying69" : "you want to buy",
   "offer.summary.youAreSelling" : "you're selling",
   "offer.summary.youWereSelling" : "you were selling",
   "yourTrades.unknown" : "unknown"

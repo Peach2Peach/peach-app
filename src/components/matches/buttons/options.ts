@@ -31,6 +31,11 @@ export const options = {
     iconId: "xCircle",
     backgroundColor: tw`bg-primary-main`,
   },
+  goToChat: {
+    text: "search.matchButton.goToChat",
+    iconId: "messageFull",
+    backgroundColor: tw`bg-primary-main`,
+  },
   offerMatched: {
     text: "search.matchButton.offerMatched",
     iconId: "checkSquare",

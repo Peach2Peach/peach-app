@@ -4,7 +4,7 @@ import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Matches } from "../../components/matches/Matches";
-import { SellOfferSummary } from "../../components/offer/SellOfferSummary";
+import { SellOrBuyOfferSummary } from "../../components/offer/SellOfferSummary";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
@@ -70,7 +70,7 @@ function NoMatchesYet({ offer }: { offer: SellOffer }) {
         {i18n("search.weWillNotifyYou")}
       </PeachText>
 
-      <SellOfferSummary
+      <SellOrBuyOfferSummary
         offer={offer}
         walletLabel={<WalletLabel address={offer.returnAddress} />}
       />
