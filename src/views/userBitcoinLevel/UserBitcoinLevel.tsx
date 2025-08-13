@@ -42,11 +42,13 @@ export function UserBitcoinLevel() {
     <Screen gradientBackground>
       <View style={tw`items-center justify-center flex-1 gap-8`}>
         <View style={tw`items-center gap-2px`}>
-          <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          <PeachText
+            style={tw`text-center h4 text-primary-background-light-color`}
+          >
             {i18n("userSource.title")}
           </PeachText>
           <PeachText
-            style={tw`text-center text-primary-background-light body-l`}
+            style={tw`text-center text-primary-background-light-color body-l`}
           >
             {i18n("userBitcoinLevel.subtitle")}
           </PeachText>
