@@ -109,10 +109,7 @@ export function ExpressSellTradeRequestToBuyOffer() {
 
   if (isLoading || !buyOffer) return <LoadingScreen />;
   return (
-    <Screen
-      showTradingLimit
-      header={"Buy Offer 0.69: " + offerIdToHex(String(buyOffer.id))}
-    >
+    <Screen showTradingLimit header={offerIdToHex(String(buyOffer.id))}>
       <TradeRequest buyOffer={buyOffer} />
     </Screen>
   );
@@ -284,9 +281,6 @@ function TradeRequest({ buyOffer }: { buyOffer: BuyOffer69 }) {
   return (
     <>
       <View style={tw`justify-center flex-1`}>
-        {buyOfferTradeRequestPerformedBySelfUser && (
-          <PeachText>TRADE REQUEST HAS BEEN PERFORMED</PeachText>
-        )}
         <GradientBorder
           gradientBorderWidth={4}
           showBorder={isMatched}
