@@ -1,11 +1,12 @@
 import { TouchableOpacity, View } from "react-native";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   BuyOffer69TradeRequest,
   SellOffer69TradeRequest,
 } from "../../../peach-api/src/@types/offer";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { RejectTradeRequestPopup } from "../../popups/RejectTradeRequestPopup";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -14,6 +15,7 @@ import { useUser } from "../../views/publicProfile/useUser";
 import { Icon } from "../Icon";
 import { ProfileInfo } from "../ProfileInfo";
 import { NewBubble as Bubble } from "../bubble/Bubble";
+import { useClosePopup, useSetPopup } from "../popup/GlobalPopup";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
 import { options } from "./buttons/options";
@@ -36,7 +38,6 @@ export const TradeRequestReceived = ({
   goToChatFunction: () => void;
   type: "sell" | "buy";
 }) => {
-  console.log("GO TO CHAT:", goToChatFunction);
   const {
     paymentMethod,
     userId,
@@ -71,6 +72,20 @@ export const TradeRequestReceived = ({
   const currentGoToChatOptionName = "goToChat";
 
   const { isDarkMode } = useThemeStore();
+  const setPopup = useSetPopup();
+  const closePopup = useClosePopup();
+  const rejectTradeRequestCallback = useCallback(
+    () =>
+      setPopup(
+        <RejectTradeRequestPopup
+          rejectFunction={async () => {
+            rejectTradeRequestFunction();
+            closePopup();
+          }}
+        />,
+      ),
+    [setPopup, closePopup],
+  );
 
   return (
     <View style={tw`justify-center flex-1`}>
@@ -128,7 +143,7 @@ export const TradeRequestReceived = ({
         />
         <RejectTradeRequestButton
           optionName={currentRejectOptionName}
-          rejectFunction={rejectTradeRequestFunction}
+          rejectFunction={rejectTradeRequestCallback}
         />
         <GoToChatButton
           optionName={currentGoToChatOptionName}
@@ -170,9 +185,7 @@ function AcceptTradeRequestButton({
   const [hasPressed, setHasPressed] = useState(false);
 
   const onPress = () => {
-    console.log(999, optionName);
     if (optionName === "acceptTradeRequest") {
-      console.log("sdffdsafsda");
       setHasPressed(true);
       acceptFunction();
     }
@@ -205,25 +218,22 @@ function RejectTradeRequestButton({
   rejectFunction,
 }: RejectTradeRequestButtonProps) {
   const currentOption = options[optionName];
-  const [hasPressed, setHasPressed] = useState(false);
 
   const onPress = () => {
-    setHasPressed(true);
     rejectFunction();
   };
 
   return (
     <TouchableOpacity
-      style={tw`flex-row items-center justify-center py-2 gap-10px`}
+      style={tw`flex-row items-center justify-center py-2 gap-10px bg-error-mild`}
       onPress={onPress}
-      disabled={hasPressed}
     >
-      <PeachText style={tw`button-large text-primary-background-light-color`}>
+      <PeachText style={tw`button-large text-primary-main`}>
         {i18n(currentOption.text)}
       </PeachText>
       <Icon
         id={currentOption.iconId}
-        color={tw.color("primary-background-light-color")}
+        color={tw.color("text-primary-main")}
         size={24}
       />
     </TouchableOpacity>

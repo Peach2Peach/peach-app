@@ -191,6 +191,8 @@
   "search.undo" : "undo",
   "search.unmatch" : "unmatch",
   "search.waitingForSeller" : "waiting for seller",
+  "express.buy.noOffers" : "there are no Sell Offers available currently",
+  "express.sell.noOffers" : "there are no Buy Offers available currently",
   "search.weWillNotifyYou" : "we'll notify you when there is a match!",
   "search.weWillNotifyYouTradeRequest" : "we'll notify you when there is a trade request!",
   "search.youGotAMatch" : "you've got a match!",

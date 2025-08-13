@@ -90,18 +90,10 @@ type ExpressBuySellFlowChat = {
 type BuyOfferOwnerFlow = {
   createBuyOffer: undefined;
   browseTradeRequestsToMyBuyOffer: { offerId: string };
-  tradeRequestToMyBuyOfferDetails: {
-    offerId: string;
-    requestingUserId: string;
-  };
 };
 
 type SellOfferOwnerFlow = {
   browseTradeRequestsToMySellOffer: { offerId: string };
-  tradeRequestToMySellOfferDetails: {
-    offerId: string;
-    requestingUserId: string;
-  };
 };
 
 // peach 069 flows END

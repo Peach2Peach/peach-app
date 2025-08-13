@@ -210,7 +210,6 @@ const buyOfferOwnerFlow: ViewType[] = [
     name: "browseTradeRequestsToMyBuyOffer",
     component: BrowseTradeRequestsToMyBuyOffer,
   },
-  { name: "tradeRequestToMyBuyOfferDetails", component: HomeScreen },
 ];
 
 const sellOfferOwnerFlow: ViewType[] = [
@@ -218,7 +217,6 @@ const sellOfferOwnerFlow: ViewType[] = [
     name: "browseTradeRequestsToMySellOffer",
     component: BrowseTradeRequestsToMySellOffer,
   },
-  { name: "tradeRequestToMySellOfferDetails", component: HomeScreen },
 ];
 
 const tradeRequestChat: ViewType[] = [

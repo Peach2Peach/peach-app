@@ -70,5 +70,8 @@
   "offer.summary.youAreBuying69" : "you want to buy",
   "offer.summary.youAreSelling" : "you're selling",
   "offer.summary.youWereSelling" : "you were selling",
-  "yourTrades.unknown" : "unknown"
+  "yourTrades.unknown" : "unknown",
+  "tradeRequest.reject.popup.title":"reject trade request",
+  "tradeRequest.reject.popup.text":"Are you sure?",
+  "rejectTradeRequest":"reject"
 }
