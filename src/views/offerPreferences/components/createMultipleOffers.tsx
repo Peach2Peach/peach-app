@@ -30,6 +30,7 @@ export const CreateMultipleOffers = () => {
           onChange={setBuyOfferMulti}
           min={CREATE_MULTI_MIN}
           max={CREATE_MULTI_MAX}
+          green
         />
       )}
     </View>

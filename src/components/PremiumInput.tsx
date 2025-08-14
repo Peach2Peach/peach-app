@@ -11,6 +11,7 @@ type Props = {
   setPremium: (newPremium: number) => void;
   incrementBy?: number;
   incrementType?: "offerCreation" | "maxPremium" | "minPremium";
+  type?: "buy" | "sell";
 };
 
 const defaultIncrement = 0.1;
@@ -21,6 +22,7 @@ export const PremiumInput = ({
   setPremium,
   incrementBy = defaultIncrement,
   incrementType = "offerCreation",
+  type = "sell",
 }: Props) => {
   const onMinusPress = () => {
     const newPremium = round(
@@ -57,8 +59,10 @@ export const PremiumInput = ({
           size={24}
           color={
             premium === premiumBounds.min
-              ? tw.color("gray-400") // TODO: check correct color
-              : tw.color("primary-main")
+              ? tw.color("gray-400")
+              : type === "sell"
+                ? tw.color("primary-main")
+                : tw.color("success-main")
           }
         />
       </TouchableOpacity>
@@ -83,8 +87,10 @@ export const PremiumInput = ({
           size={24}
           color={
             premium === premiumBounds.max
-              ? tw.color("gray-400") // TODO: check correct color
-              : tw.color("primary-main")
+              ? tw.color("gray-400")
+              : type === "sell"
+                ? tw.color("primary-main")
+                : tw.color("success-main")
           }
         />
       </TouchableOpacity>

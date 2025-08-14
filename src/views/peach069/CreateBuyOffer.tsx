@@ -124,13 +124,13 @@ function InstantTrade() {
   };
 
   const { isDarkMode } = useThemeStore();
-
+  const backgroundColor = isDarkMode
+    ? tw.color("card")
+    : tw.color("success-mild-1-color");
   return (
-    <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-success-background-dark-color"}`}
-    >
+    <Section.Container style={{ backgroundColor }}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
-        <Toggle onPress={onToggle} enabled={enableInstantTrade} />
+        <Toggle onPress={onToggle} enabled={enableInstantTrade} red={false} />
         <Section.Title>
           {i18n("offerPreferences.feature.instantTrade")}
         </Section.Title>
@@ -146,6 +146,7 @@ function InstantTrade() {
             checked={criteria.minTrades !== 0}
             style={tw`self-stretch`}
             onPress={toggleMinTrades}
+            green
           >
             {i18n("offerPreferences.filters.noNewUsers")}
           </Checkbox>
@@ -153,6 +154,7 @@ function InstantTrade() {
             checked={criteria.minReputation !== 0}
             style={tw`self-stretch`}
             onPress={toggleMinReputation}
+            green
           >
             {i18n("offerPreferences.filters.minReputation", "4.5")}
           </Checkbox>
@@ -391,6 +393,7 @@ function AmountSelectorComponent({
 
   return (
     <AmountSelectorContainer
+      type="buy"
       slider={
         <SliderTrack
           slider={
@@ -416,43 +419,52 @@ function AmountSelectorComponent({
 function AmountSelectorContainer({
   slider,
   inputs,
+  type = "sell",
 }: {
   slider?: JSX.Element;
   inputs?: JSX.Element;
+  type?: "buy" | "sell";
 }) {
   const { isDarkMode } = useThemeStore();
+  const backgroundColor = isDarkMode
+    ? tw.color("card")
+    : tw.color("success-mild-1-color");
+
   return (
-    <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-success-background-dark-color"}`}
-    >
+    <Section.Container style={{ backgroundColor }}>
       <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
           {slider}
         </View>
-        <Premium />
+        <Premium type={type} />
       </View>
     </Section.Container>
   );
 }
-const MIN_PREMIUM_INCREMENT = 0.01;
-function Premium() {
+
+function Premium({ type = "sell" }: { type?: "buy" | "sell" }) {
   return (
     <View style={tw`self-stretch gap-1`}>
-      <PremiumInputComponent />
+      <PremiumInputComponent type={type} />
       <CurrentPrice />
     </View>
   );
 }
 
-function PremiumInputComponent() {
+function PremiumInputComponent({ type = "sell" }: { type?: "buy" | "sell" }) {
   const [premium, setPremium] = useOfferPreferences((state) => [
     state.createBuyOfferPremium,
     state.setCreateBuyOfferPremium,
   ]);
   return (
-    <PremiumInput premium={premium} setPremium={setPremium} incrementBy={1} />
+    <PremiumInput
+      premium={premium}
+      setPremium={setPremium}
+      incrementBy={1}
+      type={type}
+    />
   );
 }
 
@@ -605,9 +617,12 @@ const CreateMultipleOffersContainer = () => {
   const setPopup = useSetPopup();
 
   const { isDarkMode } = useThemeStore();
+  const backgroundColor = isDarkMode
+    ? tw.color("card")
+    : tw.color("success-mild-1-color");
   return (
     <Section.Container
-      style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-success-background-dark-color"}`}
+      style={[tw`flex-row items-start justify-between`, { backgroundColor }]}
     >
       <CreateMultipleOffers />
       <TouchableIcon
@@ -633,7 +648,7 @@ export function CreateBuyOfferButton({
       disabled={disabled}
       loading={loading}
     >
-      {i18n("69createBuyOffer")}
+      {i18n("offer.create.buy")}
     </Button>
   );
 }

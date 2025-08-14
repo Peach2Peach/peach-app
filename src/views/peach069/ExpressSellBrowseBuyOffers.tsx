@@ -154,7 +154,11 @@ export function ExpressSellBrowseBuyOffers() {
   );
 }
 
-function OfferCard({ offer }: { offer: BuyOffer69 & { user: User } }) {
+function OfferCard({
+  offer,
+}: {
+  offer: BuyOffer69 & { user: User; allowedToInstantTrade: boolean };
+}) {
   // const { data: priceBook } = useMarketPrices();
   // const premium =
   //   matched && matchedPrice && selectedCurrency
@@ -164,7 +168,8 @@ function OfferCard({ offer }: { offer: BuyOffer69 & { user: User } }) {
   //       )
   //     : match.premium;
 
-  const { instantTradeCriteria, user, amountSats, premium } = offer;
+  const { allowedToInstantTrade, user, amountSats, premium } = offer;
+
   const { fiatPrice, displayCurrency } = useBitcoinPrices(offer.amountSats);
   // const { offerId } = useRoute<"explore">().params;
   const navigation = useStackNavigation();
@@ -188,7 +193,7 @@ function OfferCard({ offer }: { offer: BuyOffer69 & { user: User } }) {
       ]}
       onPress={onPress}
     >
-      {instantTradeCriteria !== undefined && (
+      {allowedToInstantTrade && (
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
           <PeachText
