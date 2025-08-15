@@ -52,27 +52,6 @@ describe("walletStore", () => {
       address1: "label update",
     });
   });
-  it("registers offer ids for funding multiple escrows", () => {
-    useWalletState.getState().registerFundMultiple("address1", ["1", "2", "3"]);
-    expect(useWalletState.getState().fundMultipleMap).toEqual({
-      address1: ["1", "2", "3"],
-    });
-  });
-  it("unregisters address for funding multiple escrows", () => {
-    useWalletState.getState().registerFundMultiple("address1", ["1", "2", "3"]);
-    useWalletState.getState().unregisterFundMultiple("address1");
-    expect(useWalletState.getState().fundMultipleMap).toEqual({});
-  });
-  it("searches fund multiple info by offer id", () => {
-    useWalletState.getState().registerFundMultiple("address1", ["1", "2", "3"]);
-    expect(useWalletState.getState().getFundMultipleByOfferId("1")).toEqual({
-      address: "address1",
-      offerIds: ["1", "2", "3"],
-    });
-    expect(useWalletState.getState().getFundMultipleByOfferId("4")).toEqual(
-      undefined,
-    );
-  });
   it("toggles show balance", () => {
     expect(useWalletState.getState().showBalance).toEqual(true);
     useWalletState.getState().toggleShowBalance();

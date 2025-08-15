@@ -51,7 +51,6 @@ describe("useOptimisticTxHistoryUpdate", () => {
   it("should label transaction with multiple offer Ids for fund multiple", async () => {
     const address =
       "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh";
-    useWalletState.getState().registerFundMultiple(address, offerIds);
     const { result } = renderHook(useOptimisticTxHistoryUpdate);
 
     await act(() => {

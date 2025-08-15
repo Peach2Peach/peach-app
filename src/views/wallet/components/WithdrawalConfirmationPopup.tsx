@@ -48,8 +48,10 @@ export function WithdrawalConfirmationPopup({
       title={i18n("wallet.confirmWithdraw.title")}
       content={
         <ConfirmTxPopup
-          {...{ amount, address, fee, feeRate }}
+          totalAmount={amount}
+          outputs={[{ address, amount }]}
           text={i18n("wallet.sendBitcoin.youreSending")}
+          {...{ fee, feeRate }}
         />
       }
       actions={

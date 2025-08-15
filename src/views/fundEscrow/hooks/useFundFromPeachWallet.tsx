@@ -60,24 +60,19 @@ export const useFundFromPeachWallet = () => {
   const { refetch: syncPeachWallet } = useSyncWallet();
 
   const feeRate = useFeeRate();
-  const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
-    (state) => [state.setFundedFromPeachWallet, state.unregisterFundMultiple],
+  const setFundedFromPeachWallet = useWalletState(
+    (state) => state.setFundedFromPeachWallet,
     shallow,
   );
   const setPopup = useSetPopup();
 
   const onSuccess = useCallback(
     ({ txDetails, offerId, address, addresses }: OnSuccessParams) => {
-      optimisticTxHistoryUpdate(txDetails, offerId);
-      unregisterFundMultiple(address);
+      optimisticTxHistoryUpdate(txDetails, [offerId]);
       setFundedFromPeachWallet(address);
       addresses.forEach(setFundedFromPeachWallet);
     },
-    [
-      optimisticTxHistoryUpdate,
-      setFundedFromPeachWallet,
-      unregisterFundMultiple,
-    ],
+    [optimisticTxHistoryUpdate, setFundedFromPeachWallet],
   );
 
   const fundFromPeachWallet = useCallback(
@@ -103,8 +98,9 @@ export const useFundFromPeachWallet = () => {
       let finishedTransaction: TxBuilderResult;
       try {
         const transaction = await buildTransaction({ feeRate });
-        if (addresses.length > 0)
+        if (addresses.length > 0) {
           await setMultipleRecipients(transaction, amount, addresses);
+        }
 
         finishedTransaction = await peachWallet.finishTransaction(transaction);
       } catch (e) {
@@ -133,8 +129,12 @@ export const useFundFromPeachWallet = () => {
               title={i18n("fundFromPeachWallet.insufficientFunds.title")}
               content={
                 <ConfirmTxPopup
-                  amount={amountToConfirm}
-                  {...{ address, fee, feeRate }}
+                  totalAmount={amountToConfirm}
+                  outputs={addresses.map((addr) => ({
+                    address: addr,
+                    amount: Math.round(amountToConfirm / addresses.length),
+                  }))}
+                  {...{ fee, feeRate }}
                   text={i18n(
                     "fundFromPeachWallet.insufficientFunds.description.1",
                   )}
@@ -165,8 +165,12 @@ export const useFundFromPeachWallet = () => {
           content={
             <ConfirmTxPopup
               text={i18n("fundFromPeachWallet.confirm.description")}
-              amount={amountToConfirm}
-              {...{ address, feeRate, fee }}
+              totalAmount={amountToConfirm}
+              outputs={addresses.map((addr) => ({
+                address: addr,
+                amount: Math.round((amountToConfirm - fee) / addresses.length),
+              }))}
+              {...{ feeRate, fee }}
             />
           }
           psbt={psbt}
