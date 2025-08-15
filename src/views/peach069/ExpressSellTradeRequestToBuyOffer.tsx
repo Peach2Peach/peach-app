@@ -270,7 +270,7 @@ export function ExpressSellTradeRequestToBuyOffer() {
   }) => {
     await performInstantTrade({
       selectedPaymentData,
-      maxMiningFeeRate,
+      maxMiningFeeRate: maxMiningFeeRate || 5, // TODO: check this 5 value
       selectedCurrency,
       buyOfferId: Number(offerId),
       selfUser,

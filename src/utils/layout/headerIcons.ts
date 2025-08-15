@@ -2,7 +2,7 @@ import tw from "../../styles/tailwind";
 
 export const headerIcons = {
   bitcoin: { id: "bitcoin", color: tw.color("bitcoin") },
-  expressFlowSorter: { id: "filter", color: tw.color("success-main") }, // todo: change to Sort svg
+  expressFlowSorter: { id: "sortBy", color: tw.color("warning-main") }, // todo: change to Sort svg
   buyFilter: { id: "filter", color: tw.color("success-main") },
   cancel: { id: "xCircle", color: tw.color("black-50") },
   sixnine: { id: "bitcoin", color: tw.color("success-main") },

@@ -791,7 +791,6 @@ const performInstantTrade = async ({
     !maxMiningFeeRate ||
     !selectedPaymentData ||
     !selectedCurrency ||
-    !peachWallet ||
     !selfUser ||
     !offerOwnerUser
   )
@@ -895,7 +894,7 @@ export function ExpressBuyTradeRequestToSellOffer() {
   }) => {
     await performInstantTrade({
       selectedPaymentData,
-      maxMiningFeeRate,
+      maxMiningFeeRate: maxMiningFeeRate || 5, // TODO: check this 5 value
       selectedCurrency,
       sellOfferId: offerId,
       selfUser,

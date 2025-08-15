@@ -108,11 +108,11 @@ export function ExpressFlowTradeRequestToOffer({
   );
 
   const isMatched = showMatchedCard;
-  const { maxMiningFeeRate } = useMaxMiningFee(
+  const amountSats =
     offer.amountSats !== undefined
       ? (offer as BuyOffer69).amountSats
-      : (offer as SellOffer).amount,
-  ); //TODO: validate this
+      : (offer as SellOffer).amount;
+  const { maxMiningFeeRate } = useMaxMiningFee(amountSats); //TODO: validate this
 
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
     useInterruptibleFunction(() => {
@@ -261,6 +261,10 @@ export function ExpressFlowTradeRequestToOffer({
           sliderCallback={
             performThisTradeRequestInstantTradeFunctionArgsDefined
           }
+          selectedPaymentData={selectedPaymentData}
+          selectedCurrency={selectedCurrency}
+          selfUser={selfUser}
+          offerOwnerUser={offerOwnerUser}
         />
       )}
       {offerTradeRequestPerformedBySelfUser && selfUser && (
@@ -282,8 +286,16 @@ export function ExpressFlowTradeRequestToOffer({
 }
 const InstantTradeSlider = ({
   sliderCallback,
+  selectedPaymentData,
+  selectedCurrency,
+  selfUser,
+  offerOwnerUser,
 }: {
   sliderCallback: () => void;
+  selectedPaymentData?: PaymentData;
+  selectedCurrency?: Currency;
+  selfUser?: User;
+  offerOwnerUser?: PublicUser;
 }) => {
   const label = i18n("matchDetails.action.instantTrade");
 
@@ -296,7 +308,19 @@ const InstantTradeSlider = ({
 
   if (showUnlockedSlider) return <UnlockedSlider label={label} />;
 
-  return <ConfirmSlider label1={label} onConfirm={onConfirm} enabled={true} />;
+  return (
+    <ConfirmSlider
+      label1={label}
+      onConfirm={onConfirm}
+      enabled={
+        Boolean(selectedPaymentData) &&
+        Boolean(selectedCurrency) &&
+        Boolean(peachWallet) &&
+        Boolean(selfUser) &&
+        Boolean(offerOwnerUser)
+      }
+    />
+  );
 };
 // function SelectedMethodInfo({
 //   selectedCurrency,
