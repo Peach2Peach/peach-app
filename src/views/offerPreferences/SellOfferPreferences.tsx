@@ -30,7 +30,6 @@ import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
-import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
@@ -564,6 +563,13 @@ function FundWithPeachWallet() {
   );
 }
 
+function usePeachInfo() {
+  return useQuery({
+    queryKey: ["public", "system", "getInfo"],
+    queryFn: () => peachAPI.public.system.getInfo(),
+  });
+}
+
 function FundEscrowButton() {
   const amountRange = useTradingAmountLimits("sell");
   const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
@@ -614,10 +620,10 @@ function FundEscrowButton() {
   const showErrorBanner = useShowErrorBanner();
 
   const { mutate: postSellOffer } = usePostSellOffer();
+  const { data: peachInfo } = usePeachInfo();
+  const peachPGPPublicKey = peachInfo?.result?.peach.pgpPublicKey;
 
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
-
-  const getPaymentData = async () => {
+  const getPaymentData = async (encryptionKey: string) => {
     const { paymentData, originalPaymentData } = sellPreferences;
     if (instantTrade) {
       const selectedMethods = keys(paymentData);
@@ -628,7 +634,7 @@ function FundEscrowButton() {
 
       const encryptedData = await Promise.all(
         cleanedData.map((data) =>
-          data ? signAndEncrypt(JSON.stringify(data), peachPGPPublicKey) : null,
+          data ? signAndEncrypt(JSON.stringify(data), encryptionKey) : null,
         ),
       );
 
@@ -682,6 +688,10 @@ function FundEscrowButton() {
   const onPress = async () => {
     if (isPublishing) return;
     if (!peachWallet) throw new Error("Peach wallet not defined");
+    if (!peachPGPPublicKey) {
+      showErrorBanner("PGP_PUBLIC_KEY_NOT_FOUND");
+      return;
+    }
     if (!formValid) {
       showPublishingError();
       return;
@@ -694,7 +704,7 @@ function FundEscrowButton() {
       setIsPublishing(false);
       return;
     }
-    const paymentData = await getPaymentData();
+    const paymentData = await getPaymentData(peachPGPPublicKey);
 
     postSellOffer(
       {
