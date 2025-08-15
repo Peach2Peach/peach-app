@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import OpenPGP from "react-native-fast-openpgp";
-import { useConfigStore } from "../../store/configStore/configStore";
 import { peachAPI } from "../../utils/peachAPI";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
+import { usePeachInfo } from "../offerPreferences/usePeachInfo";
 
 type Props = {
   symmetricKey?: string;
@@ -14,10 +14,13 @@ type Props = {
 
 export function useRaiseDispute(contract: Contract) {
   const { data } = useDecryptedContractData(contract);
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const { data: peachInfo } = usePeachInfo();
+  const peachPGPPublicKey = peachInfo?.result?.peach.pgpPublicKey;
   return useMutation({
     mutationFn: async ({ email, reason, message }: Props) => {
       if (!data) throw new Error("Could not decrypt contract data");
+      if (!peachPGPPublicKey)
+        throw new Error("Could not find Peach PGP public key");
       const { symmetricKey, paymentData } = data;
       const [symmetricKeyEncrypted, paymentDataSellerEncrypted] =
         await Promise.all([

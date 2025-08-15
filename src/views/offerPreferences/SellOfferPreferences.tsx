@@ -62,6 +62,7 @@ import { Section } from "./components/Section";
 import { Slider, sliderWidth } from "./components/Slider";
 import { SliderTrack } from "./components/SliderTrack";
 import { useFilteredMarketStats } from "./components/useFilteredMarketStats";
+import { usePeachInfo } from "./usePeachInfo";
 import { trackMin } from "./utils/constants";
 import { enforceDigitFormat } from "./utils/enforceDigitFormat";
 import { useAmountInBounds } from "./utils/useAmountInBounds";
@@ -561,13 +562,6 @@ function FundWithPeachWallet() {
       <TouchableIcon id="bitcoin" onPress={onPress} />
     </Section.Container>
   );
-}
-
-function usePeachInfo() {
-  return useQuery({
-    queryKey: ["public", "system", "getInfo"],
-    queryFn: () => peachAPI.public.system.getInfo(),
-  });
 }
 
 function FundEscrowButton() {

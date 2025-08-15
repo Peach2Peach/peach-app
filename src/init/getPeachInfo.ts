@@ -48,16 +48,12 @@ export const getPeachInfo = async (): Promise<
 };
 
 function storePeachInfo(peachInfo: GetInfoResponseBody) {
-  const {
-    setPaymentMethods: setPaymentMethodsStore,
-    setPeachFee,
-    setPeachPGPPublicKey,
-  } = useConfigStore.getState();
+  const { setPaymentMethods: setPaymentMethodsStore, setPeachFee } =
+    useConfigStore.getState();
 
   const paymentMethods = peachInfo.paymentMethods.filter(
     shouldUsePaymentMethod(PAYMENTCATEGORIES),
   );
-  setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey);
   setPaymentMethodsStore(paymentMethods);
   setPaymentMethods(paymentMethods);
   setPeachFee(peachInfo.fees.escrow);

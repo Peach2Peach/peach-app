@@ -6,7 +6,6 @@ import { createPersistStorage } from "../createPersistStorage";
 
 type Config = {
   paymentMethods: PaymentMethodInfo[];
-  peachPGPPublicKey: string;
   peachFee: number;
   minTradingAmount: number;
   maxTradingAmount: number;
@@ -15,7 +14,6 @@ type Config = {
 type ConfigStore = Config & {
   reset: () => void;
   setPaymentMethods: (paymentMethods: PaymentMethodInfo[]) => void;
-  setPeachPGPPublicKey: (pgpPublicKey: string) => void;
   setPeachFee: (fee: number) => void;
   setMinTradingAmount: (minTradingAmount: number) => void;
   setMaxTradingAmount: (maxTradingAmount: number) => void;
@@ -27,7 +25,6 @@ const storage = createPersistStorage<ConfigStore>(configStorage);
 
 export const defaultConfig: Config = {
   paymentMethods: [],
-  peachPGPPublicKey: "",
   peachFee: 0.02,
   minTradingAmount: 0,
   maxTradingAmount: Infinity,
@@ -40,7 +37,6 @@ export const useConfigStore = create(
       ...defaultConfig,
       reset: () => set(() => defaultConfig),
       setPaymentMethods: (paymentMethods) => set({ paymentMethods }),
-      setPeachPGPPublicKey: (peachPGPPublicKey) => set({ peachPGPPublicKey }),
       setPeachFee: (peachFee) => set({ peachFee }),
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
