@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useClosePopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
@@ -13,8 +13,7 @@ import { openURL } from "../utils/web/openURL";
 export function AnalyticsPopup() {
   const closePopup = useClosePopup();
   const setEnableAnalytics = useSettingsStore(
-    (state) => state.setEnableAnalytics,
-    shallow,
+    useShallow((state) => state.setEnableAnalytics),
   );
 
   const accept = useCallback(() => {

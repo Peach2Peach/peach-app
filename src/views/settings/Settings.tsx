@@ -2,7 +2,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useMemo, useState } from "react";
 import { AppState, View } from "react-native";
 import { useAppColorScheme } from "twrnc";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -35,12 +35,11 @@ export const Settings = () => {
 
   const [enableAnalytics, toggleAnalytics, showBackupReminder] =
     useSettingsStore(
-      (state) => [
+    useShallow((state) => [
         state.enableAnalytics,
         state.toggleAnalytics,
         state.showBackupReminder,
-      ],
-      shallow,
+      ]),
     );
 
   useFocusEffect(

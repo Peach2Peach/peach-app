@@ -1,7 +1,7 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
 import { GradientBorder } from "../../components/GradientBorder";
 import { PeachyGradient } from "../../components/PeachyGradient";
@@ -114,8 +114,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
 
   const allMethodsForCurrency = meansOfPayment[selectedCurrency];
   const paymentData = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+    useShallow((state) => Object.values(state.paymentData)),
   );
   const dataForCurrency = paymentData.filter((d) =>
     allMethodsForCurrency?.includes(d.type),

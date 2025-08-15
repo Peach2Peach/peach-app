@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { PeachScrollView } from "../../../../components/PeachScrollView";
 import { Button } from "../../../../components/buttons/Button";
 import { Checkbox } from "../../../../components/inputs/Checkbox";
@@ -22,8 +22,7 @@ export const screens = [
 
 export const SeedPhrase = () => {
   const [updateSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
-    (state) => [state.updateSeedBackupDate, state.lastSeedBackupDate],
-    shallow,
+    useShallow((state) => [state.updateSeedBackupDate, state.lastSeedBackupDate]),
   );
 
   const [checked, toggleChecked] = useToggleBoolean();

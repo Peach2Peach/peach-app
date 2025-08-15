@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { Toggle } from "../../../components/inputs/Toggle";
 import { ErrorBox } from "../../../components/ui/ErrorBox";
@@ -76,12 +76,11 @@ function ChangePayoutWallet() {
 
   const [payoutAddress, payoutAddressLabel, payoutAddressSignature] =
     useSettingsStore(
-      (state) => [
+    useShallow((state) => [
         state.payoutAddress,
         state.payoutAddressLabel,
         state.payoutAddressSignature,
-      ],
-      shallow,
+      ]),
     );
   const publicKey = useAccountStore((state) => state.account.publicKey);
 

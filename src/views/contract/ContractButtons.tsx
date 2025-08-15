@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Button } from "../../components/buttons/Button";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
@@ -154,8 +154,7 @@ export function ChatButton() {
     [setPopup],
   );
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
-    (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
-    shallow,
+    useShallow((state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer]),
   );
   const { contractId } = useRoute<"contract">().params;
   const queryClient = useQueryClient();

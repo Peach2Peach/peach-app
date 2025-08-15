@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Screen } from "../../components/Screen";
@@ -153,8 +153,7 @@ function RemoveWalletPopup({
 }: PopupProps) {
   const [setCustomAddress, setCustomAddressLabel, setPeachWalletActive] =
     useSettingsStore(
-      (state) =>
-        isPayout
+    useShallow((state) => isPayout
           ? [
               state.setPayoutAddress,
               state.setPayoutAddressLabel,
@@ -164,8 +163,7 @@ function RemoveWalletPopup({
               state.setRefundAddress,
               state.setRefundAddressLabel,
               state.setRefundToPeachWallet,
-            ],
-      shallow,
+            ]),
     );
   const closePopup = useClosePopup();
   const removeWallet = () => {

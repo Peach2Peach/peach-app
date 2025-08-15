@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Icon } from "../../../components/Icon";
 import { Loading } from "../../../components/Loading";
 import { Placeholder } from "../../../components/Placeholder";
@@ -16,8 +16,7 @@ type Props = {
 };
 export const TotalBalance = ({ amount, isRefreshing }: Props) => {
   const [showBalance, toggleShowBalance] = useWalletState(
-    (state) => [state.showBalance, state.toggleShowBalance],
-    shallow,
+    useShallow((state) => [state.showBalance, state.toggleShowBalance]),
   );
   const { isDarkMode } = useThemeStore();
 
