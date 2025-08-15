@@ -10,6 +10,7 @@
   "peachWallet" : "Πορτοφόλι της Peach",
   "transaction.details.networkFee" : "τέλη δικτύου: $0 sats ($1 sat/vB)",
   "transaction.details.to" : "προς:",
+  "transaction.details.total" : "σύνολο",
   "transaction.eta.in1Block" : "σε 1 block",
   "transaction.eta.inXBlocks" : "σε $0 block",
   "transaction.viewInExplorer" : "προβολή  στο πρόγραμμα περιήγησης (mempool.space)",

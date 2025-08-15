@@ -10,6 +10,7 @@
   "peachWallet" : "Portfel Peach",
   "transaction.details.networkFee" : "opłata sieciowa: $0 sats ($1 sat/vB)",
   "transaction.details.to" : "do:",
+  "transaction.details.total" : "suma",
   "transaction.eta.in1Block" : "w następnym bloku",
   "transaction.eta.inXBlocks" : "w ciągu $0 bloków",
   "transaction.viewInExplorer" : "wyświetl w eksploratorze",

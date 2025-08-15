@@ -10,6 +10,7 @@
   "peachWallet" : "Peach tárca",
   "transaction.details.networkFee" : "hálózati díj: $0 sats ($1 sat/vB)",
   "transaction.details.to" : "cím:",
+  "transaction.details.total" : "összesen",
   "transaction.eta.in1Block" : "1 blokkon belül",
   "transaction.eta.inXBlocks" : "$0 blokkon belül",
   "transaction.viewInExplorer" : "megtekintés a böngészőben",

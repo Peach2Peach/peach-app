@@ -10,6 +10,7 @@
   "peachWallet" : "Wallet Peach",
   "transaction.details.networkFee" : "commissione di rete:  $0 sats ($1 sat/vB)",
   "transaction.details.to" : "a",
+  "transaction.details.total" : "totale",
   "transaction.eta.in1Block" : "in 1 blocco",
   "transaction.eta.inXBlocks" : "\nin $0 blocchi",
   "transaction.viewInExplorer" : "mostra in explorer",
