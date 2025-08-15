@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
@@ -23,8 +23,10 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [registerFundMultiple, unregisterFundMultiple] = useWalletState(
-    (state) => [state.registerFundMultiple, state.unregisterFundMultiple],
-    shallow,
+    useShallow((state) => [
+      state.registerFundMultiple,
+      state.unregisterFundMultiple,
+    ]),
   );
   const showOfferCanceled = useCallback(() => {
     setPopup(

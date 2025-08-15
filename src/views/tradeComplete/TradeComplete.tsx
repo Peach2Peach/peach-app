@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { TouchableOpacity, View, ViewStyle } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Contract } from "../../../peach-api/src/@types/contract";
 import { useSetGlobalOverlay } from "../../Overlay";
 import { IconType } from "../../assets/icons";
@@ -138,14 +138,13 @@ function useRateUser({ contract, view, vote }: RateProps) {
   const showError = useShowErrorBanner();
   const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] =
     useSettingsStore(
-      (state) => [
+      useShallow((state) => [
         state.shouldShowBackupOverlay,
         state.setShowBackupReminder,
         view === "buyer"
           ? state.payoutToPeachWallet
           : state.refundToPeachWallet,
-      ],
-      shallow,
+      ]),
     );
   const setOverlayContent = useSetGlobalOverlay();
 

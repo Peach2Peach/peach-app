@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import { NumberStepper } from "../../../components/inputs/NumberStepper";
 import { useOfferPreferences } from "../../../store/offerPreferenes/useOfferPreferences";
@@ -11,8 +11,7 @@ const FUND_MULTI_MAX = 21;
 
 export const FundMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
-    (state) => [state.multi, state.setMulti],
-    shallow,
+    useShallow((state) => [state.multi, state.setMulti]),
   );
 
   const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);

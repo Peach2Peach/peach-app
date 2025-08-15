@@ -1,13 +1,12 @@
 import { TouchableOpacity } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import tw from "../../../styles/tailwind";
 import { Icon } from "../../Icon";
 import { useDrawerState } from "../useDrawerState";
 
 export const GoBackIcon = () => {
   const [previousDrawer, updateDrawer] = useDrawerState(
-    (state) => [state.previousDrawer, state.updateDrawer],
-    shallow,
+    useShallow((state) => [state.previousDrawer, state.updateDrawer]),
   );
   const goBack = () => {
     if (previousDrawer) {
