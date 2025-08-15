@@ -153,7 +153,8 @@ function RemoveWalletPopup({
 }: PopupProps) {
   const [setCustomAddress, setCustomAddressLabel, setPeachWalletActive] =
     useSettingsStore(
-    useShallow((state) => isPayout
+      useShallow((state) =>
+        isPayout
           ? [
               state.setPayoutAddress,
               state.setPayoutAddressLabel,
@@ -163,7 +164,8 @@ function RemoveWalletPopup({
               state.setRefundAddress,
               state.setRefundAddressLabel,
               state.setRefundToPeachWallet,
-            ]),
+            ],
+      ),
     );
   const closePopup = useClosePopup();
   const removeWallet = () => {

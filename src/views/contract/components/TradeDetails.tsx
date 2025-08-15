@@ -76,7 +76,7 @@ function ChangePayoutWallet() {
 
   const [payoutAddress, payoutAddressLabel, payoutAddressSignature] =
     useSettingsStore(
-    useShallow((state) => [
+      useShallow((state) => [
         state.payoutAddress,
         state.payoutAddressLabel,
         state.payoutAddressSignature,

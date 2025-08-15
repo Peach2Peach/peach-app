@@ -43,7 +43,7 @@ export function usePostBuyOffer({
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
     useSettingsStore(
-    useShallow((state) => [
+      useShallow((state) => [
         state.payoutAddress,
         state.payoutToPeachWallet,
         state.payoutAddressSignature,

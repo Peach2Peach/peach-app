@@ -138,7 +138,7 @@ function useRateUser({ contract, view, vote }: RateProps) {
   const showError = useShowErrorBanner();
   const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] =
     useSettingsStore(
-    useShallow((state) => [
+      useShallow((state) => [
         state.shouldShowBackupOverlay,
         state.setShowBackupReminder,
         view === "buyer"

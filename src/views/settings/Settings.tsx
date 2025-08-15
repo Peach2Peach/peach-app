@@ -35,7 +35,7 @@ export const Settings = () => {
 
   const [enableAnalytics, toggleAnalytics, showBackupReminder] =
     useSettingsStore(
-    useShallow((state) => [
+      useShallow((state) => [
         state.enableAnalytics,
         state.toggleAnalytics,
         state.showBackupReminder,

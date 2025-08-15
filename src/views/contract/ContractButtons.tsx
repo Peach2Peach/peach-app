@@ -154,7 +154,10 @@ export function ChatButton() {
     [setPopup],
   );
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
-    useShallow((state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer]),
+    useShallow((state) => [
+      state.seenDisputeDisclaimer,
+      state.setSeenDisputeDisclaimer,
+    ]),
   );
   const { contractId } = useRoute<"contract">().params;
   const queryClient = useQueryClient();

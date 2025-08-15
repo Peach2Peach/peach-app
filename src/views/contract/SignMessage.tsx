@@ -102,7 +102,7 @@ function ScreenContent({ onSubmit }: ScreenContentProps) {
   const { address, addressLabel } = useRoute<"signMessage">().params;
   const [setPayoutAddress, setPayoutAddressLabel, setPayoutAddressSignature] =
     useSettingsStore(
-    useShallow((state) => [
+      useShallow((state) => [
         state.setPayoutAddress,
         state.setPayoutAddressLabel,
         state.setPayoutAddressSignature,

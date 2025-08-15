@@ -22,7 +22,10 @@ export const screens = [
 
 export const SeedPhrase = () => {
   const [updateSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
-    useShallow((state) => [state.updateSeedBackupDate, state.lastSeedBackupDate]),
+    useShallow((state) => [
+      state.updateSeedBackupDate,
+      state.lastSeedBackupDate,
+    ]),
   );
 
   const [checked, toggleChecked] = useToggleBoolean();

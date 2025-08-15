@@ -51,7 +51,7 @@ function PatchOfferAddress({
 
   const [payoutAddress, payoutAddressLabel, messageSignature] =
     useSettingsStore(
-    useShallow((state) => [
+      useShallow((state) => [
         state.payoutAddress,
         state.payoutAddressLabel,
         state.payoutAddressSignature,
