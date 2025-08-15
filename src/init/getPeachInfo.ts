@@ -34,11 +34,8 @@ export const getPeachInfo = async (): Promise<
     return statusResponse;
   }
 
-  const NUMBER_OF_SECONDS = 5;
   const { result: getInfoResponse, error: getInfoError } =
-    await peachAPI.public.system.getInfo({
-      signal: getAbortWithTimeout(NUMBER_OF_SECONDS * MSINASECOND).signal,
-    });
+    await peachAPI.public.system.getInfo();
 
   if (getInfoError) {
     error("Error fetching peach info", getInfoError.error);
