@@ -9,13 +9,13 @@ const sellOfferDetailKeys = {
   detail: (id: string) => [...sellOfferDetailKeys.details(), id] as const,
 };
 
-export const useSellOfferDetail = (id: string) => {
+export const useSellOfferDetail = (id: string, withRefetch: boolean = true) => {
   const isFocused = useIsFocused();
   const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: sellOfferDetailKeys.detail(id),
     queryFn: getSellOfferDetail,
     enabled: isFocused,
-    refetchInterval: FIVE_SECONDS,
+    refetchInterval: withRefetch ? FIVE_SECONDS : false,
   });
 
   return { sellOffer: data, isLoading, isFetching, refetch, error };

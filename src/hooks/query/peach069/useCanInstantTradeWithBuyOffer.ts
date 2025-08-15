@@ -1,6 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { FIFTEEN_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
 const canInstantTradeWithBuyOfferKeys = {
@@ -16,7 +15,7 @@ export const useCanInstantTradeWithBuyOffer = (id: string) => {
     queryKey: canInstantTradeWithBuyOfferKeys.detail(id),
     queryFn: canInstantTradeWithBuyOffer,
     enabled: isFocused,
-    refetchInterval: FIFTEEN_SECONDS,
+    // refetchInterval: FIFTEEN_SECONDS,
   });
 
   return { data, isLoading, isFetching, refetch, error };

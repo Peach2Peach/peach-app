@@ -14,6 +14,7 @@ import { BTCAmount } from "../bitcoin/BTCAmount";
 import { PeachText } from "../text/PeachText";
 import { TradeRequestReceived } from "./TradeRequestReceived";
 import { getPremiumColor } from "./utils/getPremiumColor";
+import { useHandleError } from "./utils/useHandleError";
 
 const MEDIUM_SCREEN_OFFSET = 48;
 const SMALL_SCREEN_OFFSET = 40;
@@ -35,6 +36,7 @@ export const TradeRequestsReceived = ({
   goToChat: Function;
   type: "sell" | "buy";
 }) => {
+  const handleError = useHandleError();
   const { width } = useWindowDimensions();
   const isMediumScreen = useIsMediumScreen();
 
@@ -68,8 +70,13 @@ export const TradeRequestsReceived = ({
                 offer={offer}
                 tradeRequest={item}
                 acceptTradeRequestFunction={() => {
-                  console.log(111111);
-                  acceptTradeRequestFunction(offer, item, selfUser, navigation);
+                  acceptTradeRequestFunction(
+                    offer,
+                    item,
+                    selfUser,
+                    navigation,
+                    handleError,
+                  );
                 }}
                 rejectTradeRequestFunction={async () => {
                   await rejectTradeRequestFunction(

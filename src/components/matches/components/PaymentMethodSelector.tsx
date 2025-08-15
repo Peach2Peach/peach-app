@@ -201,7 +201,7 @@ function PayementMethodBubble({
       } else if (isCashTrade(paymentMethod)) {
         navigation.navigate("meetupScreen", {
           eventId: paymentMethod.replace("cash.", ""),
-          origin: "matchDetails",
+          origin,
         });
       } else {
         const country = paymentMethod.startsWith("giftCard.amazon.")
@@ -214,7 +214,7 @@ function PayementMethodBubble({
             currencies: [selectedCurrency],
             country,
           },
-          origin: "matchDetails",
+          origin,
         });
       }
     }

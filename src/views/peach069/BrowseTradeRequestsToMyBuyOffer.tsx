@@ -54,6 +54,7 @@ const acceptTradeRequest = async (
   tradeRequest: BuyOffer69TradeRequest,
   selfUser: User,
   navigation: StackNavigation,
+  handleError: Function,
 ): Promise<void> => {
   const ress = await peachAPI.public.user.getUser({
     userId: tradeRequest.userId,
@@ -83,7 +84,7 @@ const acceptTradeRequest = async (
     symmetricKey,
   );
 
-  const { result } =
+  const { result, error } =
     await peachAPI.private.peach069.acceptBuyOfferTradeRequestReceivedByIds({
       buyOfferId: buyOffer.id,
       userId: tradeRequest.userId,
@@ -91,6 +92,11 @@ const acceptTradeRequest = async (
       paymentDataSignature: encryptedPaymentData.signature,
       paymentData: "", // TODO: validate what this is in practice. maybe this only makes sense in Instant Trade
     });
+
+  if (error) {
+    handleError(error);
+  }
+
   if (result) {
     // navigation.navigate("contract", { contractId: result.id });
 

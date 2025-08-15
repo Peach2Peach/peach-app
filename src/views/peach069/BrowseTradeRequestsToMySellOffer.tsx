@@ -55,6 +55,7 @@ const acceptTradeRequest = async (
   tradeRequest: SellOffer69TradeRequest,
   selfUser: User,
   navigation: StackNavigation,
+  handleError: Function,
 ): Promise<void> => {
   const ress = await peachAPI.public.user.getUser({
     userId: tradeRequest.userId,
@@ -93,8 +94,9 @@ const acceptTradeRequest = async (
       paymentData: "", // TODO: validate what this is in practice. maybe this only makes sense in Instant Trade
     });
 
+  if (error) handleError(error);
+
   if (result) {
-    // navigation.navigate("contract", { contractId: result.id });
     navigation.reset({
       index: 1,
       routes: [
