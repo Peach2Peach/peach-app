@@ -135,7 +135,9 @@ function SellerFundEscrow() {
   return (
     <View style={tw`items-center gap-4 grow`}>
       <View style={tw`items-center justify-center gap-1`}>
-        <PeachText style={tw`h6`}>{i18n("offer.fundWithin")}</PeachText>
+        <PeachText style={tw`h6 text-center`}>
+          {i18n("offer.fundWithin")}
+        </PeachText>
         <SimpleTimer
           style={tw`h5 text-error-main`}
           end={contract.fundingExpectedBy}
