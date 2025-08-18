@@ -9,6 +9,7 @@ import {
 import { GradientBorder } from "../../components/GradientBorder";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { ProfileInfo } from "../../components/ProfileInfo";
+import { NewBubble } from "../../components/bubble/Bubble";
 import { Button } from "../../components/buttons/Button";
 import {
   ConfirmSlider,
@@ -28,6 +29,7 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { AppPopup } from "../../popups/AppPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
@@ -37,6 +39,7 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
+import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachWallet } from "../../utils/wallet/setWallet";
 
 const TRADE_REQUEST_DELAY = 5000;
@@ -205,13 +208,16 @@ export function ExpressFlowTradeRequestToOffer({
                 setSelectedPaymentData={setSelectedPaymentData}
                 showPaymentMethodPulse={showPaymentMethodPulse}
                 selectedMethodInfo={
-                  // match.matched ? (
-                  //   <SelectedMethodInfo
-                  //     selectedCurrency={match.selectedCurrency}
-                  //     selectedPaymentMethod={match.selectedPaymentMethod}
-                  //   />
-                  // ) :
-                  undefined // TODO: check this
+                  offerTradeRequestPerformedBySelfUser ? (
+                    <SelectedMethodInfo
+                      selectedCurrency={
+                        offerTradeRequestPerformedBySelfUser.currency as Currency
+                      }
+                      selectedPaymentMethod={
+                        offerTradeRequestPerformedBySelfUser.paymentMethod as PaymentMethod
+                      }
+                    />
+                  ) : undefined
                 }
               />
             </View>
@@ -322,40 +328,40 @@ const InstantTradeSlider = ({
     />
   );
 };
-// function SelectedMethodInfo({
-//   selectedCurrency,
-//   selectedPaymentMethod,
-// }: {
-//   selectedCurrency: Currency | undefined;
-//   selectedPaymentMethod: PaymentMethod | undefined;
-// }) {
-//   const { data: meetupEvents } = useMeetupEvents();
-//   const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
-//     if (isCashTrade(paymentMethod)) {
-//       const eventId = paymentMethod.replace("cash.", "");
-//       const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
-//       return meetupEvent?.shortName ?? eventId;
-//     }
-//     return i18n(`paymentMethod.${paymentMethod}`);
-//   };
-//   if (!selectedCurrency || !selectedPaymentMethod) return null;
+function SelectedMethodInfo({
+  selectedCurrency,
+  selectedPaymentMethod,
+}: {
+  selectedCurrency: Currency | undefined;
+  selectedPaymentMethod: PaymentMethod | undefined;
+}) {
+  const { data: meetupEvents } = useMeetupEvents();
+  const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
+    if (isCashTrade(paymentMethod)) {
+      const eventId = paymentMethod.replace("cash.", "");
+      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
+      return meetupEvent?.shortName ?? eventId;
+    }
+    return i18n(`paymentMethod.${paymentMethod}`);
+  };
+  if (!selectedCurrency || !selectedPaymentMethod) return null;
 
-//   return (
-//     <>
-//       <PeachText style={tw`text-center button-large`}>
-//         {selectedCurrency}
-//       </PeachText>
-//       <View
-//         style={[tw`w-1/4 self-center h-0.5 -mt-3 bg-black-100 rounded-1px`]}
-//       />
-//       <View style={tw`items-center`}>
-//         <NewBubble color="orange" iconId="checkSquare">
-//           {getPaymentMethodName(selectedPaymentMethod)}
-//         </NewBubble>
-//       </View>
-//     </>
-//   );
-// }
+  return (
+    <>
+      <PeachText style={tw`text-center button-large`}>
+        {selectedCurrency}
+      </PeachText>
+      <View
+        style={[tw`w-1/4 self-center h-0.5 -mt-3 bg-black-100 rounded-1px`]}
+      />
+      <View style={tw`items-center`}>
+        <NewBubble color="orange" iconId="checkSquare">
+          {getPaymentMethodName(selectedPaymentMethod)}
+        </NewBubble>
+      </View>
+    </>
+  );
+}
 
 function PerformTradeRequestButton({
   selectedPaymentData,
