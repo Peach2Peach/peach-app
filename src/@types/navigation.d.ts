@@ -48,6 +48,7 @@ type SellFlow = {
   };
   search: { offerId: string };
   editPremium: { offerId: string };
+  editPremiumOfBuyOffer: { offerId: string };
 };
 
 type ContractFlow = {

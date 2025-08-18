@@ -14,6 +14,7 @@ export const headerIcons = {
   list: { id: "yourTrades", color: tw.color("black-65") },
   listFlipped: { id: "listFlipped", color: tw.color("primary-main") },
   percent: { id: "percent", color: tw.color("primary-main") },
+  percentBuy: { id: "percent", color: tw.color("success-main") },
   search: { id: "search", color: tw.color("primary-mild-2") },
   sellFilter: { id: "filter", color: tw.color("primary-main") },
   share: { id: "share", color: tw.color("black-50") },

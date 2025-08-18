@@ -13,6 +13,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
 import { useBuyOfferTradeRequestsReceived } from "../../hooks/query/peach069/useBuyOfferTradeRequests";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelBuyOffer68Popup } from "../../popups/CancelBuyOffer69Popup";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
@@ -292,6 +293,7 @@ function SearchHeader({
   offerId: string;
   tradeRequests: BuyOffer69TradeRequest[];
 }) {
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
 
   const showAcceptTradeRequestPopup = useCallback(
@@ -315,10 +317,17 @@ function SearchHeader({
       ),
     [offerId, setPopup],
   );
+  const goToEditPremium = useCallback(
+    () => navigation.navigate("editPremiumOfBuyOffer", { offerId }),
+    [navigation, offerId],
+  );
 
   const memoizedHeaderIcons = useMemo(() => {
     if (!offerId) return undefined;
-    const icons = [{ ...headerIcons.cancel, onPress: cancelOffer }];
+    const icons = [
+      { ...headerIcons.percentBuy, onPress: goToEditPremium },
+      { ...headerIcons.cancel, onPress: cancelOffer },
+    ];
 
     if (tradeRequests.length > 0) {
       return [

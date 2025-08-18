@@ -15,10 +15,16 @@ const onStartShouldSetResponder = () => true;
 type Props = {
   premium: number;
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void;
+  green?: boolean;
 } & ComponentProps;
 
 const LABEL_AMOUNT = 5;
-export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
+export const PremiumSlider = ({
+  style,
+  premium,
+  setPremium,
+  green = false,
+}: Props) => {
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
     usePremiumSliderSetup(premium, setPremium);
   const { isDarkMode } = useThemeStore();
@@ -32,6 +38,8 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
     [trackWidth],
   );
 
+  console.log("green", green);
+
   return (
     <View
       style={style}
@@ -41,18 +49,21 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
       <View
         style={[
           tw`w-full h-8`,
-          tw`border p-0.5 rounded-full border-primary-mild-1 justify-center`,
+          tw`border p-0.5 rounded-full justify-center`,
+          green ? tw`border-success-mild-2` : tw`border-primary-mild-1`,
           isDarkMode
             ? tw`bg-transparent`
-            : tw`bg-primary-background-dark-color`,
+            : green
+              ? tw`bg-success-background-dark-color`
+              : tw`bg-primary-background-dark-color`,
         ]}
       >
-        <SliderMarkers positions={labelPosition} />
+        <SliderMarkers positions={labelPosition} green={green} />
         <View {...{ onLayout }}>
           <Animated.View
             style={[
               { width: knobWidth },
-              tw`z-10 items-center justify-center h-full rounded-full bg-primary-main`,
+              tw`z-10 items-center justify-center h-full rounded-full ${green ? "bg-success-main" : "bg-primary-main"}`,
               getTranslateX(pan, [0, trackWidth]),
             ]}
           >

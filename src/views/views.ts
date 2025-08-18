@@ -41,6 +41,7 @@ import { Report } from "./report/Report";
 import { RestoreBackup } from "./restoreBackup/RestoreBackup";
 import { RestoreReputation } from "./restoreReputation/RestoreReputation";
 import { EditPremium } from "./search/EditPremium";
+import { EditPremiumOfBuyOffer } from "./search/EditPremiumOfBuyOffer";
 import { Search } from "./search/Search";
 import { Backups } from "./settings/Backups";
 import { Currency } from "./settings/Currency";
@@ -210,6 +211,7 @@ const buyOfferOwnerFlow: ViewType[] = [
     name: "browseTradeRequestsToMyBuyOffer",
     component: BrowseTradeRequestsToMyBuyOffer,
   },
+  { name: "editPremiumOfBuyOffer", component: EditPremiumOfBuyOffer },
 ];
 
 const sellOfferOwnerFlow: ViewType[] = [

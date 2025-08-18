@@ -8,9 +8,8 @@ import { Button } from "../../components/buttons/Button";
 import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlider";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
+import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { usePatchOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -18,30 +17,24 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { getOfferPrice } from "../../utils/offer/getOfferPrice";
-import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
+import { peachAPI } from "../../utils/peachAPI";
 import { priceFormat } from "../../utils/string/priceFormat";
-// import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 
-export const EditPremium = () => {
-  const { offerId } = useRoute<"editPremium">().params;
-  const { offer } = useOfferDetail(offerId);
-  const offerPremium =
-    !!offer && "premium" in offer ? offer.premium : undefined;
+export const EditPremiumOfBuyOffer = () => {
+  const { offerId } = useRoute<"editPremiumOfBuyOffer">().params;
+  const { buyOffer } = useBuyOfferDetail(offerId);
+  const offerPremium = buyOffer ? buyOffer.premium : undefined;
   const [premium, setPremium] = useState(offerPremium);
   const displayPremium = premium ?? offerPremium ?? 0;
   const { data: priceBook, isSuccess } = useMarketPrices();
 
-  if (offer && !isSellOffer(offer)) {
-    throw new Error("Offer is not a sell offer");
-  }
-
   const displayCurrency =
-    (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
+    (Object.keys(buyOffer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
   const currentPrice =
-    offer && isSuccess
+    buyOffer && isSuccess
       ? getOfferPrice({
-          amount: offer?.amount,
+          amount: buyOffer?.amountSats,
           premium: displayPremium,
           prices: priceBook,
           currency: displayCurrency,
@@ -50,15 +43,10 @@ export const EditPremium = () => {
 
   return (
     <Screen header={<EditPremiumHeader />}>
-      {/* <MarketInfo
-        type="buyOffers"
-        meansOfPayment={offer?.meansOfPayment}
-        maxPremium={displayPremium}
-      /> */}
       <Premium
         premium={displayPremium}
         setPremium={setPremium}
-        amount={offer?.amount ?? 0}
+        amount={buyOffer?.amountSats ?? 0}
         offerPrice={
           <PeachText style={tw`text-center text-black-50`}>
             (
@@ -76,9 +64,9 @@ export const EditPremium = () => {
 };
 
 function EditPremiumHeader() {
-  const { offerId } = useRoute<"editPremium">().params;
+  const { offerId } = useRoute<"editPremiumOfBuyOffer">().params;
   const setPopup = useSetPopup();
-  const showHelp = () => setPopup(<HelpPopup id="premium" />);
+  const showHelp = () => setPopup(<HelpPopup id="premiumBuy" />);
   return (
     <Header
       title={offerIdToHex(offerId)}
@@ -92,17 +80,22 @@ type Props = {
   newPremium: number;
 };
 function ConfirmButton({ offerId, newPremium }: Props) {
-  const { mutate: confirmPremium, isPending } = usePatchOffer();
+  const editPremiumFunc = async () => {
+    await peachAPI.private.peach069.patchBuyOfferPremiumById({
+      buyOfferId: offerId,
+      premium: newPremium,
+    });
+  };
+  const [isPending, setIsPending] = useState(false);
   const navigation = useStackNavigation();
   return (
     <Button
-      onPress={() =>
-        confirmPremium(
-          { offerId, newData: { premium: newPremium } },
-          { onSuccess: navigation.goBack },
-        )
-      }
-      style={tw`self-center`}
+      onPress={async () => {
+        setIsPending(true);
+        await editPremiumFunc();
+        navigation.goBack();
+      }}
+      style={tw`self-center bg-success-main`}
       loading={isPending}
     >
       {i18n("confirm")}
@@ -126,19 +119,20 @@ function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
         </PeachText>
         <View style={tw`flex-row items-center gap-1`}>
           <PeachText style={tw`text-center subtitle-1`}>
-            {i18n("search.sellOffer")}
+            {i18n("search.buyOffer")}
           </PeachText>
           <BTCAmount size="small" amount={amount} />
         </View>
       </View>
       <View style={tw`items-center gap-1`}>
-        <PremiumInput premium={premium} setPremium={setPremium} />
+        <PremiumInput premium={premium} setPremium={setPremium} type={"buy"} />
         {offerPrice}
       </View>
       <PremiumSlider
         style={tw`items-center self-stretch gap-6px`}
         premium={premium}
         setPremium={setPremium}
+        green
       />
     </View>
   );
