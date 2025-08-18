@@ -1,4 +1,5 @@
 {
+  "offer.seller.refunded" : "You've decided to refund this offer to your $0.",
   "offer.create.buy":"create buy offer",
   "offer.create.sell":"create sell offer",
   "offer.cancel.popup.description" : "Are you sure?\n\nIf you have already sent your bitcoin to the escrow, you will be refunded, minus the bitcoin network fees.",
