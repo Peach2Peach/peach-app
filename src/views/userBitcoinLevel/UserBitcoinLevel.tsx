@@ -60,7 +60,7 @@ export function UserBitcoinLevel() {
               ghost={selectedBitcoinLevel !== bitcoinLevelOption}
               style={
                 bitcoinLevelOption === selectedBitcoinLevel &&
-                tw`bg-primary-background-light`
+                tw`bg-primary-background-light-color`
               }
               textColor={
                 bitcoinLevelOption === selectedBitcoinLevel
