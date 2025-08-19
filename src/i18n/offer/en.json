@@ -1,5 +1,6 @@
 {
   "offer.seller.refunded" : "You've decided to refund this offer to your $0.",
+  "offer.sellerSuccessfullyFunded":"The Seller has funded the Escrow. Please wait until a block is mined for confirmation.",
   "offer.create.buy":"create buy offer",
   "offer.create.sell":"create sell offer",
   "offer.cancel.popup.description" : "Are you sure?\n\nIf you have already sent your bitcoin to the escrow, you will be refunded, minus the bitcoin network fees.",
@@ -45,6 +46,7 @@
   "offer.requiredAction.releaseEscrow.dispute" : "dispute lost: release escrow",
   "offer.requiredAction.searchingForPeer" : "looking for match",
   "offer.requiredAction.unknown" : "unknown - update your app!",
+  "offer.requiredAction.waitingForSellerToFund": "waiting for seller to fund escrow",
   "offer.requiredAction.waitingForTradeRequest" : "waiting for trade request",
   "offer.requiredAction.acceptTradeRequest" : "accept trade request",
   "offer.requiredAction.waiting" : "waiting for $0",
