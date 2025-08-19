@@ -844,8 +844,17 @@ const performInstantTrade = async ({
   if (instantTradeResp.error) handleError(instantTradeResp.error);
   else {
     if (instantTradeResp.result?.id) {
-      navigation.navigate("contract", {
-        contractId: instantTradeResp.result?.id,
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: "homeScreen", params: { screen: "yourTrades" } },
+          {
+            name: "contract",
+            params: {
+              contractId: instantTradeResp.result?.id,
+            },
+          },
+        ],
       });
     }
   }
