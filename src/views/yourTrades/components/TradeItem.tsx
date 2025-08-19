@@ -305,7 +305,6 @@ function getActionLabel(
   tradeSummary: OfferSummary | ContractSummary,
   isWaiting: boolean,
 ) {
-  console.log("ITEM: ", tradeSummary.id, tradeSummary.tradeStatus);
   const { tradeStatus, tradeStatusNew } = tradeSummary;
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 

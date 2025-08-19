@@ -38,8 +38,6 @@ export const PremiumSlider = ({
     [trackWidth],
   );
 
-  console.log("green", green);
-
   return (
     <View
       style={style}
