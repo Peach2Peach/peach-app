@@ -125,10 +125,6 @@ function SellerFundEscrow() {
           style={{ width: 311, height: 224 }}
           resizeMode="contain"
         />
-        <Timer
-          text={i18n("offer.fundWithin")}
-          end={contract.fundingExpectedBy}
-        />
       </View>
     );
   }
