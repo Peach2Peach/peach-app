@@ -24,7 +24,7 @@ export const statusIcons: Record<TradeStatus | "waiting", IconType> = {
   refundOrReviveRequired: "crossOutlined",
   tradeCompleted: "checkCircle",
   createEscrow: "fundEscrow",
-  waitingForFunding: "clock",
+  waitingForFunding: "bitcoin",
   fundingExpired: "clock",
   waitingForTradeRequest: "dollarSign",
   acceptTradeRequest: "checkCircle",

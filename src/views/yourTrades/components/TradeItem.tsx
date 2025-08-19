@@ -335,6 +335,8 @@ function getActionLabel(
       return i18n("offer.requiredAction.payoutPending");
     if (tradeStatus === "confirmCancelation")
       return i18n(`offer.requiredAction.confirmCancelation.${viewer}`);
+    if (tradeStatus === "waitingForFunding")
+      return i18n(`offer.requiredAction.waitingForSellerToFund`);
 
     return isWaiting || tradeStatus === "rateUser"
       ? i18n(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
@@ -383,8 +385,10 @@ function getActionIcon(
       return "checkCircle";
     }
   }
-
   if (!isTradeStatus(tradeSummary.tradeStatus)) return "refreshCw";
+  if (tradeSummary.tradeStatus === "waitingForFunding") {
+    return statusIcons["waitingForFunding"];
+  }
 
   return statusIcons[isWaiting ? "waiting" : tradeSummary.tradeStatus];
 }
