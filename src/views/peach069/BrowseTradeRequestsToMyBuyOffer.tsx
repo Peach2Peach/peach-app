@@ -99,8 +99,6 @@ const acceptTradeRequest = async (
   }
 
   if (result) {
-    // navigation.navigate("contract", { contractId: result.id });
-
     navigation.reset({
       index: 1,
       routes: [
