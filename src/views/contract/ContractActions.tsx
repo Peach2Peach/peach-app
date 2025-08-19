@@ -74,7 +74,10 @@ function ContractStatusInfo() {
       !isCashTrade(paymentMethod)
     ) {
       const paymentExpectedBy = getPaymentExpectedBy(contract);
-      if (Date.now() <= paymentExpectedBy || view === "buyer") {
+      if (
+        (Date.now() <= paymentExpectedBy || view === "buyer") &&
+        contract.tradeStatus !== "fundEscrow"
+      ) {
         return (
           <Timer
             text={i18n(`contract.timer.${requiredAction}.${view}`)}
