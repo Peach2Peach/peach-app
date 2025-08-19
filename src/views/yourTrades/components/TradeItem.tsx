@@ -305,6 +305,7 @@ function getActionLabel(
   tradeSummary: OfferSummary | ContractSummary,
   isWaiting: boolean,
 ) {
+  console.log("ITEM: ", tradeSummary.id, tradeSummary.tradeStatus);
   const { tradeStatus, tradeStatusNew } = tradeSummary;
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 
@@ -337,6 +338,8 @@ function getActionLabel(
       return i18n(`offer.requiredAction.confirmCancelation.${viewer}`);
     if (tradeStatus === "waitingForFunding")
       return i18n(`offer.requiredAction.waitingForSellerToFund`);
+    if (tradeStatus === "escrowWaitingForConfirmation")
+      return i18n(`offer.requiredAction.escrowWaitingForConfirmation`);
 
     return isWaiting || tradeStatus === "rateUser"
       ? i18n(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
