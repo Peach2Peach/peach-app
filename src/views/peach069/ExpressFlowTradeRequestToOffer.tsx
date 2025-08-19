@@ -19,7 +19,6 @@ import { UndoButton } from "../../components/matches/buttons/UndoButton";
 import { options } from "../../components/matches/buttons/options";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
 import { PriceInfo } from "../../components/matches/components/PriceInfo";
-import { useInterruptibleFunction } from "../../components/matches/hooks/useInterruptibleFunction";
 import { useHandleError } from "../../components/matches/utils/useHandleError";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
@@ -31,6 +30,7 @@ import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useThemeStore } from "../../store/theme";
@@ -110,6 +110,8 @@ export function ExpressFlowTradeRequestToOffer({
     Boolean(offerTradeRequestPerformedBySelfUser),
   );
 
+  const [hasPendingAction, setHasPendingAction] = useState(false);
+
   const isMatched = showMatchedCard;
   const amountSats =
     offer.amountSats !== undefined
@@ -117,13 +119,13 @@ export function ExpressFlowTradeRequestToOffer({
       : (offer as SellOffer).amount;
   const { maxMiningFeeRate } = useMaxMiningFee(amountSats); //TODO: validate this
 
-  const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
-    useInterruptibleFunction(() => {
-      //   matchOffer();
-    }, TRADE_REQUEST_DELAY);
-  const onInterruptMatch = () => {
-    interruptMatchFunction();
-  };
+  // const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
+  //   useInterruptibleFunction(() => {
+  //     //   matchOffer();
+  //   }, TRADE_REQUEST_DELAY);
+  // const onInterruptMatch = () => {
+  //   interruptMatchFunction();
+  // };
 
   const [showPaymentMethodPulse, setShowPaymentMethodPulse] = useState(false);
 
@@ -148,15 +150,21 @@ export function ExpressFlowTradeRequestToOffer({
   const { isDarkMode } = useThemeStore();
 
   const performThisTradeRequestFunctionArgsDefined = async () => {
-    const success = await performThisTradeRequestFunction({
-      maxMiningFeeRate: maxMiningFeeRate!,
-      selectedPaymentData: selectedPaymentData!,
-      selectedCurrency,
-      handleError,
-    });
-    if (!success) {
-      setShowMatchedCard(false);
+    try {
+      const success = await performThisTradeRequestFunction({
+        maxMiningFeeRate: maxMiningFeeRate!,
+        selectedPaymentData: selectedPaymentData!,
+        selectedCurrency,
+        handleError,
+      });
+      if (!success) {
+        setShowMatchedCard(false);
+      }
+    } catch (err) {
+      console.log("error: ", err);
     }
+
+    setHasPendingAction(false);
   };
 
   const performThisTradeRequestInstantTradeFunctionArgsDefined = () =>
@@ -166,6 +174,26 @@ export function ExpressFlowTradeRequestToOffer({
       selectedCurrency,
       handleError,
     });
+
+  const navigation = useStackNavigation();
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("beforeRemove", async (e) => {
+      if (!hasPendingAction) return;
+
+      e.preventDefault();
+
+      try {
+        await performThisTradeRequestFunctionArgsDefined();
+      } catch (err) {
+        console.log("Error: ", err);
+      }
+
+      navigation.dispatch(e.data.action);
+    });
+
+    return unsubscribe;
+  }, [navigation, hasPendingAction]);
 
   return (
     <>
@@ -259,6 +287,7 @@ export function ExpressFlowTradeRequestToOffer({
             offerOwnerUser={offerOwnerUser}
             proceedWithPerformingTradeRequest={() => {
               setShowMatchedCard(true);
+              setHasPendingAction(true);
             }}
           />
         )}
