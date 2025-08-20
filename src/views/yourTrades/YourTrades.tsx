@@ -24,10 +24,9 @@ import { getCategories } from "./utils/getCategories";
 
 const YourTradesTab = createMaterialTopTabNavigator();
 const tabs = [
-  "yourTrades.buy",
+  "yourTrades.69BuyOffer",
   "yourTrades.sell",
   "yourTrades.history",
-  "yourTrades.69BuyOffer",
 ] as const;
 
 export const YourTrades = () => {
@@ -47,7 +46,7 @@ export const YourTrades = () => {
   return (
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
-        initialRouteName={params?.tab || "yourTrades.buy"}
+        initialRouteName={params?.tab || "yourTrades.69BuyOffer"}
         screenOptions={fullScreenTabNavigationScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >

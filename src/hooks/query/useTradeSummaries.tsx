@@ -61,7 +61,7 @@ export const useTradeSummaries = (enabled = true) => {
   );
   const summaries = useMemo(
     () => ({
-      "yourTrades.buy": allOpenOffers.filter(({ type }) => type === "bid"),
+      // "yourTrades.buy": allOpenOffers.filter(({ type }) => type === "bid"),
       "yourTrades.sell": allOpenOffers.filter(({ type }) => type === "ask"),
       "yourTrades.history": getPastOffers(tradeSummaries),
       "yourTrades.69BuyOffer": buy69,

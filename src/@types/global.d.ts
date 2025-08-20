@@ -18,7 +18,7 @@ type ComponentProps = {
 };
 
 type TradeTab =
-  | "yourTrades.buy"
+  | "yourTrades.buy" // TODO: remove this eventually
   | "yourTrades.sell"
   | "yourTrades.history"
   | "yourTrades.69BuyOffer";
