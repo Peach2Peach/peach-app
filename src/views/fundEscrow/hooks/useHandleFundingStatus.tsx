@@ -57,7 +57,7 @@ export const useHandleFundingStatus = ({
         const allMatches = (data?.pages || []).flatMap((page) => page.matches);
         const hasMatches = allMatches.length > 0;
         if (hasMatches) {
-          navigation.replace("search", { offerId });
+          navigation.replace("browseTradeRequestsToMySellOffer", { offerId }); // check if this is correct
         } else {
           setOverlay(<OfferPublished offerId={offerId} shouldGoBack={false} />);
         }

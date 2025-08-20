@@ -34,7 +34,9 @@ export const useHandleMissingPaymentData = () => {
             ? (paymentMethod.split(".").pop() as PaymentMethodCountry)
             : undefined,
         },
-        origin: isBuyOffer(offer) ? "matchDetails" : "search",
+        origin: isBuyOffer(offer) // TODO: improve logic!!! 2 screens missing
+          ? "expressBuyTradeRequest"
+          : "browseTradeRequestsToMySellOffer",
       });
     },
     [navigation, paymentMethods],

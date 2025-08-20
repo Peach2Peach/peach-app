@@ -38,7 +38,10 @@ export const useConfirmEscrow = () => {
       );
     },
     onSuccess: (_data, { offerId, funding }) => {
-      const destination = funding.status === "FUNDED" ? "search" : "fundEscrow";
+      const destination =
+        funding.status === "FUNDED"
+          ? "browseTradeRequestsToMySellOffer" // TODO: check if this is correct
+          : "fundEscrow";
       navigation.reset({
         index: 1,
         routes: [

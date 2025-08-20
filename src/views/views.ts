@@ -15,15 +15,11 @@ import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
-import { Explore } from "./explore/Explore";
-import { MatchDetails } from "./explore/MatchDetails";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
 import { HomeScreen } from "./home/HomeScreen";
 import { AccountCreated } from "./newUser/AccountCreated";
 import { CreateAccountError } from "./newUser/CreateAccountError";
 import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
-import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
-import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
 import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
 import { BrowseTradeRequestsToMyBuyOffer } from "./peach069/BrowseTradeRequestsToMyBuyOffer";
 import { BrowseTradeRequestsToMySellOffer } from "./peach069/BrowseTradeRequestsToMySellOffer";
@@ -42,7 +38,6 @@ import { RestoreBackup } from "./restoreBackup/RestoreBackup";
 import { RestoreReputation } from "./restoreReputation/RestoreReputation";
 import { EditPremium } from "./search/EditPremium";
 import { EditPremiumOfBuyOffer } from "./search/EditPremiumOfBuyOffer";
-import { Search } from "./search/Search";
 import { Backups } from "./settings/Backups";
 import { Currency } from "./settings/Currency";
 import { Language } from "./settings/Language";
@@ -120,17 +115,17 @@ const wallet: ViewType[] = [
   { name: "bumpNetworkFees", component: BumpNetworkFees },
 ];
 const buyFlow: ViewType[] = [
-  { name: "buyOfferPreferences", component: BuyOfferPreferences },
-  { name: "explore", component: Explore },
-  { name: "editBuyPreferences", component: EditBuyPreferences },
-  { name: "matchDetails", component: MatchDetails },
+  // { name: "buyOfferPreferences", component: BuyOfferPreferences },
+  // { name: "explore", component: Explore },
+  // { name: "editBuyPreferences", component: EditBuyPreferences },
+  // { name: "matchDetails", component: MatchDetails },
 ];
 
 const sellFlow: ViewType[] = [
   { name: "sellOfferPreferences", component: SellOfferPreferences },
   { name: "fundEscrow", component: FundEscrow },
   { name: "wrongFundingAmount", component: WrongFundingAmount },
-  { name: "search", component: Search },
+  // { name: "search", component: Search },
   { name: "editPremium", component: EditPremium },
 ];
 

@@ -38,11 +38,12 @@ export function Home() {
         </View>
       </View>
       <View style={tw`flex-row gap-10px`}>
-        <ExpressSellButton />
         <ExpressBuyButton />
+        <ExpressSellButton />
       </View>
       <View style={tw`flex-row gap-10px`}>
-        <CreateBuyOfferButton />
+        <PeachText>{""}</PeachText>
+        {/* TODO: REPLACE THIS FIX WITH PROPER SPACING */}
       </View>
       <View style={tw`flex-row gap-10px`}>
         <BuyButton />
@@ -162,25 +163,25 @@ function MarketStats() {
 
 const buttonStyle = tw`flex-1 px-5 py-3`;
 
-function CreateBuyOfferButton() {
-  const navigation = useStackNavigation();
-  const goToCreateBuyOffer = () => navigation.navigate("createBuyOffer");
-  return (
-    <Button
-      style={[buttonStyle, tw`bg-success-main`]}
-      onPress={goToCreateBuyOffer}
-    >
-      {i18n("69CreateBuyOffer")}
-    </Button>
-  );
-}
+// function CreateBuyOfferButton() {
+//   const navigation = useStackNavigation();
+//   const goToCreateBuyOffer = () => navigation.navigate("createBuyOffer");
+//   return (
+//     <Button
+//       style={[buttonStyle, tw`bg-success-main`]}
+//       onPress={goToCreateBuyOffer}
+//     >
+//       {i18n("69CreateBuyOffer")}
+//     </Button>
+//   );
+// }
 function ExpressSellButton() {
   const navigation = useStackNavigation();
   const goToExpressSell = () =>
     navigation.navigate("expressSellBrowseBuyOffers");
   return (
-    <Button style={[buttonStyle, tw`bg-error-main`]} onPress={goToExpressSell}>
-      {i18n("69ExpressSell")}
+    <Button style={[buttonStyle]} onPress={goToExpressSell}>
+      {i18n("sell")}
     </Button>
   );
 }
@@ -190,21 +191,20 @@ function ExpressBuyButton() {
     navigation.navigate("expressBuyBrowseSellOffers");
   return (
     <Button style={[buttonStyle, tw`bg-success-main`]} onPress={goToExpressBuy}>
-      {i18n("69ExpressBuy")}
+      {i18n("buy")}
     </Button>
   );
 }
 
 function BuyButton() {
   const navigation = useStackNavigation();
-  const goToBuyOfferPreferences = () =>
-    navigation.navigate("buyOfferPreferences");
+  const goToBuyOfferPreferences = () => navigation.navigate("createBuyOffer");
   return (
     <Button
       style={[buttonStyle, tw`bg-success-main`]}
       onPress={goToBuyOfferPreferences}
     >
-      {i18n("buy")}
+      {i18n("offer.create.buy")}
     </Button>
   );
 }
@@ -215,7 +215,7 @@ function SellButton() {
     navigation.navigate("sellOfferPreferences");
   return (
     <Button style={[buttonStyle]} onPress={goToSellOfferPreferences}>
-      {i18n("sell")}
+      {i18n("offer.create.sell")}
     </Button>
   );
 }

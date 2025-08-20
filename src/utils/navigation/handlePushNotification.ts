@@ -54,7 +54,7 @@ export const handlePushNotification = async (
       if (offer && isBuyOffer(offer)) {
         navigationRef.navigate("explore", { offerId });
       } else {
-        navigationRef.navigate("search", { offerId });
+        navigationRef.navigate("browseTradeRequestsToMySellOffer", { offerId }); // TODO: CHECK IF CORRECT
       }
     } else {
       navigationRef.navigate("offer", { offerId });
