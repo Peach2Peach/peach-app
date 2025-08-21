@@ -1,4 +1,5 @@
 export const canCancelContract = (contract: Contract, view: ContractViewer) => {
+  if (view === "seller") return false;
   if (
     [
       "createEscrow",
@@ -15,10 +16,10 @@ export const canCancelContract = (contract: Contract, view: ContractViewer) => {
     !contract.disputeActive &&
     !contract.paymentMade &&
     !contract.canceled &&
-    !contract.cancelationRequested &&
-    !(
-      view === "seller" &&
-      (contract.paymentExpectedBy?.getTime() || 0) < Date.now()
-    )
+    !contract.cancelationRequested //&&
+    // !(
+    //   view === "seller" &&
+    //   (contract.paymentExpectedBy?.getTime() || 0) < Date.now()
+    // )
   );
 };
