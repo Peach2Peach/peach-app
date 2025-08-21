@@ -69,6 +69,7 @@ function ContractStatusInfo() {
 
     if (
       requiredAction === "sendPayment" &&
+      contract.tradeStatus !== "paymentTooLate" &&
       contract.tradeStatus !== "waitingForFunding" &&
       contract.tradeStatus !== "escrowWaitingForConfirmation" &&
       !isCashTrade(paymentMethod)

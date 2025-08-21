@@ -24,7 +24,7 @@ export async function getOwnPeach069BuyOffersQuery() {
   const { result: buyOffers, error } =
     await peachAPI.private.peach069.getBuyOffers({ ownOffers: true });
 
-  if (error?.error || !buyOffers)
+  if (error?.error || buyOffers === undefined)
     throw new Error(error?.error || "Error fetching contract summaries");
 
   return buyOffers.map((buyOffer) => ({

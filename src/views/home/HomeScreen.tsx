@@ -151,13 +151,13 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
 
   const onPress = () => {
     const destinationTab =
-      summaries["yourTrades.buy"].length === 0
+      summaries["yourTrades.69BuyOffer"].length === 0
         ? summaries["yourTrades.sell"].length === 0
           ? summaries["yourTrades.history"].length === 0
-            ? "yourTrades.buy"
+            ? "yourTrades.69BuyOffer"
             : "yourTrades.history"
           : "yourTrades.sell"
-        : "yourTrades.buy";
+        : "yourTrades.69BuyOffer";
 
     navigation.navigate("homeScreen", {
       screen: "yourTrades",

@@ -36,7 +36,7 @@ export const handlePushNotification = async (
   } else if (shouldGoToYourTradesBuy(data)) {
     navigationRef.navigate("homeScreen", {
       screen: "yourTrades",
-      params: { tab: "yourTrades.buy" },
+      params: { tab: "yourTrades.69BuyOffer" },
     });
   } else if (shouldGoToSell(data)) {
     navigationRef.navigate("homeScreen", { screen: "home" });
