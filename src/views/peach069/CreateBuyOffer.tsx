@@ -584,7 +584,7 @@ function PublishOfferButton() {
       setPaymentDataToPublish(await getPaymentData());
     };
     getPaymentDataToPublishCallback();
-  }, [instantTradeCriteria]);
+  }, [instantTradeCriteria, paymentData]);
 
   const { mutate: publishOffer, isPending: isPublishing } = useCreateBuyOffer({
     amount,
