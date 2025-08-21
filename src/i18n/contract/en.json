@@ -1,4 +1,6 @@
 {
+  "contract.seller.sellerDidntFundEscrowInTime":"You didn't fund the escrow in time. The contract was automatically canceled.",
+  "contract.buyer.sellerDidntFundEscrowInTime":"The seller didn't fund the escrow in time. The contract was automatically canceled.",
   "contact.reason.accountLost" : "I lost my account",
   "contact.reason.bug" : "I found a bug",
   "contact.reason.other" : "something else",

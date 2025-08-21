@@ -1,4 +1,6 @@
 {
+  "offer.create.buy":"Crear oferta de compra",
+  "offer.create.sell":"Crear oferta de venta",
   "offer.cancel.popup.description" : "¿Estás seguro?\n\nSi ya has enviado tus bitcoins al escrow, se te reembolsará el importe menos las comisiones de la red de los mineros.",
   "offer.cancel.popup.title" : "cancelar oferta",
   "offer.canceled" : "cancelado",

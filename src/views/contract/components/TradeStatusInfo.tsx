@@ -43,6 +43,10 @@ function BuyerStatusText({ contract }: { contract: Contract }) {
 }
 
 function getBuyerStatusText(contract: Contract) {
+  if (contract.escrowFundingTimeLimitExpired) {
+    return i18n("contract.buyer.sellerDidntFundEscrowInTime");
+  }
+
   const buyerCanceledTrade =
     !contract.cancelationRequested && contract.canceledBy === "buyer";
   const collaborativeTradeCancel = contract.cancelationRequested;
@@ -103,6 +107,9 @@ function getSellerStatusText({
   sellOffer: SellOffer;
   walletLabel: string;
 }) {
+  if (contract.escrowFundingTimeLimitExpired) {
+    return i18n("contract.seller.sellerDidntFundEscrowInTime");
+  }
   const [hasDisputeWinner, paymentWasTooLate] = [
     !!contract.disputeWinner,
     isPaymentTooLate(contract),

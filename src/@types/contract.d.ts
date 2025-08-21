@@ -86,6 +86,7 @@ type Contract = {
   paymentDataEncryptionMethod: EncryptionMethod;
 
   fundingExpectedBy?: number;
+  escrowFundingTimeLimitExpired?: boolean;
 };
 
 type LocalContract = {

@@ -248,6 +248,7 @@ type TradeStatus =
   | "fundEscrow"
   | "escrowWaitingForConfirmation"
   | "fundingExpired"
+  // other 69 Trade Status
   | "waitingForTradeRequest"
   | "acceptTradeRequest";
 
