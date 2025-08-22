@@ -2,9 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
-import { getSelectedPaymentDataIds } from "../../../utils/account/getSelectedPaymentDataIds";
 import { hashPaymentData } from "../../../utils/paymentMethod/hashPaymentData";
 import { peachAPI } from "../../../utils/peachAPI";
+import { isDefined } from "../../../utils/validation/isDefined";
 
 export function useRemovePaymentData() {
   const [paymentData, removePaymentDataFromStore] = usePaymentDataStore(
@@ -45,10 +45,11 @@ export function useRemovePaymentData() {
         if (nextInLine?.id) {
           newPaymentMethods[dataToBeRemoved.type] = nextInLine.id;
         }
-
-        setPaymentMethods(getSelectedPaymentDataIds(newPaymentMethods));
+        setPaymentMethods(Object.values(newPaymentMethods).filter(isDefined));
       } else {
-        setPaymentMethods(getSelectedPaymentDataIds(preferredPaymentMethods));
+        setPaymentMethods(
+          Object.values(preferredPaymentMethods).filter(isDefined),
+        );
       }
     },
   });

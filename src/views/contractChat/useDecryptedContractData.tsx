@@ -26,25 +26,51 @@ async function decryptContractData(contract: Contract) {
     [...contract.buyer.pgpPublicKeys, ...contract.seller.pgpPublicKeys],
   );
 
-  const paymentData = await decryptPaymentData(
-    {
-      paymentDataEncrypted: contract.paymentDataEncrypted,
-      paymentDataSignature: contract.paymentDataSignature,
-      user: contract.seller,
-      paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
-    },
-    symmetricKey,
-  );
+  let paymentData;
+  try {
+    paymentData = await decryptPaymentData(
+      {
+        paymentDataEncrypted: contract.paymentDataEncrypted,
+        paymentDataSignature: contract.paymentDataSignature,
+        user: contract.seller,
+        paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
+      },
+      symmetricKey,
+    );
+  } catch (err) {
+    paymentData = await decryptPaymentData(
+      {
+        paymentDataEncrypted: contract.paymentDataEncrypted,
+        paymentDataSignature: contract.paymentDataSignature,
+        user: contract.seller,
+        paymentDataEncryptionMethod: "aes256",
+      },
+      symmetricKey,
+    );
+  }
 
-  const buyerPaymentData = await decryptPaymentData(
-    {
-      paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
-      paymentDataSignature: contract.buyerPaymentDataSignature,
-      user: contract.buyer,
-      paymentDataEncryptionMethod: "aes256",
-    },
-    symmetricKey,
-  );
+  let buyerPaymentData;
+  try {
+    buyerPaymentData = await decryptPaymentData(
+      {
+        paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
+        paymentDataSignature: contract.buyerPaymentDataSignature,
+        user: contract.buyer,
+        paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
+      },
+      symmetricKey,
+    );
+  } catch (err) {
+    buyerPaymentData = await decryptPaymentData(
+      {
+        paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
+        paymentDataSignature: contract.buyerPaymentDataSignature,
+        user: contract.buyer,
+        paymentDataEncryptionMethod: "aes256",
+      },
+      symmetricKey,
+    );
+  }
 
   return { symmetricKey, paymentData, buyerPaymentData };
 }

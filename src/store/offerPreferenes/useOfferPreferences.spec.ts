@@ -75,13 +75,24 @@ describe("useOfferPreferences - actions - setPaymentMethods", () => {
     usePaymentDataStore.getState().addPaymentData(revolutData);
 
     setPaymentMethods([
-      { id: "sepa", currencies: ["EUR", "CHF"], anonymous: false },
+      {
+        id: "sepa",
+        currencies: ["EUR", "CHF"],
+        fields: { mandatory: [], optional: [] },
+        anonymous: false,
+      },
       {
         id: "revolut",
         currencies: ["EUR"],
+        fields: { mandatory: [], optional: [] },
         anonymous: false,
       },
-      { id: "paypal", currencies: ["EUR"], anonymous: false },
+      {
+        id: "paypal",
+        currencies: ["EUR"],
+        fields: { mandatory: [], optional: [] },
+        anonymous: false,
+      },
     ]);
   });
 
@@ -127,7 +138,12 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
   beforeAll(() => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData);
     setPaymentMethods([
-      { id: "sepa", currencies: ["EUR", "CHF"], anonymous: false },
+      {
+        id: "sepa",
+        currencies: ["EUR", "CHF"],
+        fields: { mandatory: [], optional: [] },
+        anonymous: false,
+      },
     ]);
     useOfferPreferences.getState().setPaymentMethods([]);
   });
@@ -136,7 +152,7 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
   });
   const id = validSEPAData.id;
   it("should add the payment method to the preferred payment methods", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     const expected = {
       sepa: validSEPAData.id,
     };
@@ -145,15 +161,15 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
     ).toStrictEqual(expected);
   });
   it("should remove the payment method if it is already in the preferred payment methods", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     const expected = {};
     expect(
       useOfferPreferences.getState().preferredPaymentMethods,
     ).toStrictEqual(expected);
   });
   it("should add the payment method to the means of payment", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     const expected = {
       EUR: ["sepa"],
     };
@@ -162,35 +178,35 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
     );
   });
   it("should remove the payment method if it is already in the means of payment", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     const expected = {};
     expect(useOfferPreferences.getState().meansOfPayment).toStrictEqual(
       expected,
     );
   });
   it("should add the payment data to the payment data", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     const expected = {
       sepa: { country: undefined, hashes: validSEPADataHashes },
     };
     expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected);
   });
   it("should remove the payment data if it is already in the payment data", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     const expected = {};
     expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected);
   });
   it("should add the payment data to the original payment data", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual([
       validSEPAData,
     ]);
   });
   it("should remove the payment data if it is already in the original payment data", () => {
-    useOfferPreferences.getState().selectPaymentMethod(id);
-    useOfferPreferences.getState().selectPaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
+    useOfferPreferences.getState().togglePaymentMethod(id);
     const expected: PaymentData[] = [];
     expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(
       expected,
@@ -201,8 +217,8 @@ describe("useOfferPreferences - actions - selectPaymentMethod", () => {
 describe("useOfferPreferences - actions - setPrefferedCurrencyType", () => {
   it("should update the preferred currencytype", () => {
     expect(useOfferPreferences.getState().preferredCurrenyType).toBe("europe");
-    useOfferPreferences.getState().setPreferredCurrencyType("other");
-    expect(useOfferPreferences.getState().preferredCurrenyType).toBe("other");
+    useOfferPreferences.getState().setPreferredCurrencyType("global");
+    expect(useOfferPreferences.getState().preferredCurrenyType).toBe("global");
   });
 });
 

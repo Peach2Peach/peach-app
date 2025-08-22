@@ -10,7 +10,6 @@ import { useAccountStore } from "../../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../../utils/account/getMessageToSignForAddress";
 import i18n from "../../../../utils/i18n";
 import { peachAPI } from "../../../../utils/peachAPI";
-import { isPaymentMethod } from "../../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../../utils/wallet/setWallet";
@@ -19,9 +18,7 @@ const isForbiddenPaymentMethodError = (
   errorMessage: string | null,
   errorDetails: unknown,
 ): errorDetails is PaymentMethod[] =>
-  errorMessage === "FORBIDDEN" &&
-  Array.isArray(errorDetails) &&
-  errorDetails.every(isPaymentMethod);
+  errorMessage === "FORBIDDEN" && Array.isArray(errorDetails);
 
 export function useCreateBuyOffer({
   amount,

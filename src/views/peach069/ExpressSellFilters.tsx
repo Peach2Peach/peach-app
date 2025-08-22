@@ -1,17 +1,28 @@
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
+import { Loading } from "../../components/Loading";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { PremiumInput } from "../../components/PremiumInput";
 import { Screen } from "../../components/Screen";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
+import { uniqueArray } from "../../utils/array/uniqueArray";
 import i18n from "../../utils/i18n";
+import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
 import { AmountSelectorComponent } from "../offerPreferences/components/AmountSelectorComponent";
 import { CurrenciesAndPaymentMethodsSelector } from "../offerPreferences/components/CurrenciesAndPaymentMethodsSelector";
 
 export function ExpressSellFilters() {
   const title = i18n("offer.buy.filter");
+
+  const { data: paymentMethods } = usePaymentMethods();
+
+  if (!paymentMethods) return <Loading />;
+
+  const currencies = paymentMethods
+    .reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
+    .filter(uniqueArray);
 
   const [
     expressSellFilterByCurrencyList,
@@ -31,6 +42,8 @@ export function ExpressSellFilters() {
         <AmountSelector />
         <Premium />
         <CurrenciesAndPaymentMethodsSelector
+          allDefaultCurrencies={currencies}
+          allDefaultPaymentMethods={paymentMethods}
           selectedCurrencies={expressSellFilterByCurrencyList}
           setSelectedCurrencies={setExpressSellFilterByCurrencyList}
           selectedPaymentMethods={expressSellFilterByPaymentMethodList}

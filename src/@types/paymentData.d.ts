@@ -1,29 +1,42 @@
-type PaymentDataInfo = {
-  accountNumber?: string;
-  beneficiary?: string;
-  bic?: string;
-  email?: string;
-  iban?: string;
-  name?: string;
-  phone?: string;
-  reference?: string;
-  ukBankAccount?: string;
-  ukSortCode?: string;
-  userName?: string;
-  wallet?: string;
-  receiveAddress?: string;
-  lnurlAddress?: string;
-  userId?: string;
-  cbu?: string;
-  cvu?: string;
-  cvuAlias?: string;
-  chipperTag?: string;
-  eversendUserName?: string;
-  pixAlias?: string;
-  postePayNumber?: string;
-};
+type PaymentDataField =
+  | "accountNumber"
+  | "accountType"
+  | "alias"
+  | "aliasType"
+  | "bankAccountNumber"
+  | "bankBranch"
+  | "bankCode"
+  | "bankName"
+  | "beneficiary"
+  | "beneficiaryAddress"
+  | "bic"
+  | "branchCode"
+  | "branchName"
+  | "bsbNumber"
+  | "cedulaID"
+  | "DNI"
+  | "email"
+  | "iban"
+  | "lnurlAddress"
+  | "mobileMoneyIdentifier"
+  | "name"
+  | "nameTag"
+  | "phone"
+  | "pixAlias"
+  | "postePayNumber"
+  | "receiveAddress"
+  | "reference"
+  | "residentialAddress"
+  | "routingDetails"
+  | "RUT"
+  | "steamFriendCode"
+  | "ukBankAccount"
+  | "ukSortCode"
+  | "userId"
+  | "userName"
+  | "wallet";
 
-type PaymentDataField = keyof PaymentDataInfo;
+type PaymentDataInfo = Partial<Record<PaymentDataField, string>>;
 
 type PaymentData = PaymentDataInfo & {
   id: string;

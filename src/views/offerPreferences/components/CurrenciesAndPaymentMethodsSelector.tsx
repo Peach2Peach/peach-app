@@ -1,32 +1,40 @@
 import { useMemo } from "react";
 import { FlatList, Switch, View } from "react-native";
+import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { PeachText } from "../../../components/text/PeachText";
-import { CURRENCIES, PAYMENTMETHODINFOS } from "../../../paymentMethods";
 
 export function CurrenciesAndPaymentMethodsSelector({
+  allDefaultCurrencies,
+  allDefaultPaymentMethods,
   selectedPaymentMethods,
   setSelectedPaymentMethods,
   selectedCurrencies,
   setSelectedCurrencies,
 }: {
+  allDefaultCurrencies: Currency[];
+  allDefaultPaymentMethods: PaymentMethodInfo[];
   selectedPaymentMethods: PaymentMethodInfo[];
   setSelectedPaymentMethods: (paymentMethodList: PaymentMethodInfo[]) => void;
   selectedCurrencies: Currency[];
   setSelectedCurrencies: (currencyList: Currency[]) => void;
 }) {
   const filteredPaymentMethods = useMemo(() => {
-    if (selectedCurrencies.length === 0) return PAYMENTMETHODINFOS;
+    if (selectedCurrencies.length === 0) return allDefaultPaymentMethods;
 
-    return PAYMENTMETHODINFOS.filter((method: PaymentMethodInfo) =>
+    return allDefaultPaymentMethods.filter((method: PaymentMethodInfo) =>
       method.currencies.some((c) => selectedCurrencies.includes(c)),
     );
   }, [selectedCurrencies]);
 
   const filteredCurrencies = useMemo(() => {
-    if (selectedPaymentMethods.length === 0) return CURRENCIES;
+    if (selectedPaymentMethods.length === 0) return allDefaultCurrencies;
 
-    const allCurrencies = selectedPaymentMethods.flatMap((pm) => pm.currencies);
-    return CURRENCIES.filter((currency) => allCurrencies.includes(currency));
+    const justCurrencies = selectedPaymentMethods.flatMap(
+      (pm) => pm.currencies,
+    );
+    return allDefaultCurrencies.filter((currency) =>
+      justCurrencies.includes(currency),
+    );
   }, [selectedPaymentMethods]);
 
   return (

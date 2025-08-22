@@ -41,6 +41,7 @@ import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../../utils/peachAPI";
+import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
 
@@ -446,13 +447,13 @@ function BuyerPriceInfo({
   selectedPaymentMethod,
 }: PriceInfoProps) {
   const { data: priceBook, isSuccess } = useMarketPrices();
+  const { data: paymentMethods } = usePaymentMethods();
+  const paymentInfo = paymentMethods?.find(
+    (method) => method.id === selectedPaymentMethod,
+  );
 
   const amountInBTC = match.amount / SATSINBTC;
-  const displayPrice = getMatchPrice(
-    match,
-    selectedPaymentMethod,
-    selectedCurrency,
-  );
+  const displayPrice = getMatchPrice(match, selectedCurrency, paymentInfo);
 
   const bitcoinPrice =
     priceBook?.[selectedCurrency] ?? amountInBTC / displayPrice;

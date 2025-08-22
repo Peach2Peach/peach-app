@@ -18,18 +18,18 @@ import { keys } from "../object/keys";
 import { getLocaleLanguage } from "./getLocaleLanguage";
 
 const localeMapping: Record<string, Record<string, string>> = {
+  de,
+  "el-GR": elGR,
   en,
   es,
   fr,
-  it,
-  de,
-  nl,
-  "el-GR": elGR,
-  tr,
-  sw,
   hu,
-  pt,
+  it,
+  nl,
   "pt-BR": ptBR,
+  pt,
+  sw,
+  tr,
 };
 
 type LanguageState = {

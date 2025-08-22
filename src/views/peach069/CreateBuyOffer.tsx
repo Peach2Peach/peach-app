@@ -32,7 +32,6 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
-import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
@@ -520,7 +519,7 @@ function PublishOfferButton() {
   const originalPaymentData = useOfferPreferences(
     (state) => state.originalPaymentData,
   );
-  const methodsAreValid = originalPaymentData.every(isValidPaymentData);
+  // const methodsAreValid = originalPaymentData.every(isValidPaymentData);
   const [minAmount, maxAmount] = useTradingAmountLimits("buy");
   const restrictAmount = useRestrictSatsAmount("buy");
   const setBuyAmountRange = useOfferPreferences(
@@ -531,7 +530,7 @@ function PublishOfferButton() {
     setBuyAmountRange(restrictAmount(amount));
   }
   const rangeIsValid = rangeIsWithinLimits;
-  const formValid = methodsAreValid && rangeIsValid;
+  const formValid = rangeIsValid; //&& methodsAreValid;
   const payoutToPeachWallet = useSettingsStore(
     (state) => state.payoutToPeachWallet,
   );

@@ -6,7 +6,6 @@ type Props = {
   releaseTransaction?: string;
   releaseAddress: string;
   inputAmount: number;
-  discount?: number;
 };
 export const getTradeBreakdown = ({
   releaseTransaction,
