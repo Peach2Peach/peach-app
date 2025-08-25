@@ -131,6 +131,7 @@ function useOfferStats() {
     placeholderData: {
       buy: {
         open: 0,
+        avgPremium: 0,
       },
       sell: {
         open: 0,
@@ -155,6 +156,16 @@ function MarketStats() {
           style={tw`subtitle-1 ${isDarkMode ? "text-primary-mild-1" : "text-primary-main"}`}
         >
           {i18n("home.averagePremium", String(data?.sell.avgPremium))}
+        </PeachText>
+      </View>
+      <View style={tw`items-center -gap-2`}>
+        <PeachText style={tw`subtitle-0 text-success-main`}>
+          {i18n("home.openBuyOffers", String(data?.buy.open))}
+        </PeachText>
+        <PeachText
+          style={tw`subtitle-1 ${isDarkMode ? "text-success-mild-1" : "text-success-main"}`}
+        >
+          {i18n("home.averagePremium", String(data?.buy.avgPremium))}
         </PeachText>
       </View>
     </View>
