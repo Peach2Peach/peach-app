@@ -109,6 +109,18 @@ export function ExpressFlowTradeRequestToOffer({
   const [showMatchedCard, setShowMatchedCard] = useState(
     Boolean(offerTradeRequestPerformedBySelfUser),
   );
+  const [hasHadTradeRequest, setHasHadTradeRequest] = useState(
+    Boolean(offerTradeRequestPerformedBySelfUser),
+  );
+
+  useEffect(() => {
+    if (offerTradeRequestPerformedBySelfUser === null && hasHadTradeRequest) {
+      setHasHadTradeRequest(false);
+      setShowMatchedCard(false);
+    } else if (offerTradeRequestPerformedBySelfUser && !hasHadTradeRequest) {
+      setHasHadTradeRequest(true);
+    }
+  }, [offerTradeRequestPerformedBySelfUser]);
 
   const [hasPendingAction, setHasPendingAction] = useState(false);
 
