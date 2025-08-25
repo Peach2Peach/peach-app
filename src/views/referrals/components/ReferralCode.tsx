@@ -4,8 +4,9 @@ import { Button } from "../../../components/buttons/Button";
 import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
+import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import tw from "../../../styles/tailwind";
-import i18n, { languageState } from "../../../utils/i18n";
+import i18n from "../../../utils/i18n";
 import { info } from "../../../utils/log/info";
 import { getLocalizedLink } from "../../../utils/web/getLocalizedLink";
 
@@ -16,15 +17,12 @@ type Props = {
 export const ReferralCode = () => {
   const { user } = useSelfUser();
   const referralCode = user?.referralCode;
-
+  const locale = useSettingsStore((state) => state.locale);
   if (!referralCode) {
     return <></>;
   }
 
-  const inviteLink = getLocalizedLink(
-    `referral?code=${referralCode}`,
-    languageState.locale,
-  );
+  const inviteLink = getLocalizedLink(`referral?code=${referralCode}`, locale);
 
   return (
     <View style={tw`gap-4`}>

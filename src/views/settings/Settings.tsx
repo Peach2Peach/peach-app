@@ -27,6 +27,7 @@ const contactUs = isProduction()
   : (["testView", "contact", "aboutPeach"] as const);
 
 export const Settings = () => {
+  useSettingsStore((state) => state.locale);
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);

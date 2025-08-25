@@ -14,6 +14,7 @@ import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -23,6 +24,7 @@ import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
 const Tab = createBottomTabNavigator();
 
 export function HomeScreen() {
+  useSettingsStore((state) => state.locale);
   return (
     <Tab.Navigator
       screenOptions={{

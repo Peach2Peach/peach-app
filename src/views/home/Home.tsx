@@ -13,6 +13,7 @@ import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -22,6 +23,7 @@ import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
+  useSettingsStore((state) => state.locale);
   const { isDarkMode } = useThemeStore();
   return (
     <Screen showTradingLimit header={<Header showPriceStats />}>

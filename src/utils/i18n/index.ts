@@ -14,6 +14,7 @@ import ru from "../../i18n/ru";
 import sw from "../../i18n/sw";
 import tr from "../../i18n/tr";
 import uk from "../../i18n/uk";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { keys } from "../object/keys";
 import { getLocaleLanguage } from "./getLocaleLanguage";
 
@@ -32,12 +33,6 @@ const localeMapping: Record<string, Record<string, string>> = {
   tr,
 };
 
-type LanguageState = {
-  locale: string;
-};
-export const languageState: LanguageState = {
-  locale: "en",
-};
 if (NETWORK !== "bitcoin") {
   localeMapping.pl = pl;
   localeMapping.ru = ru;
@@ -47,7 +42,7 @@ if (NETWORK !== "bitcoin") {
 const locales = keys(localeMapping);
 
 const i18n = (id: string, ...args: string[]) => {
-  const locale = languageState.locale.replace("_", "-");
+  const locale = useSettingsStore.getState().locale.replace("_", "-");
   if (locale === "raw") return id;
   let text = localeMapping[locale]?.[id];
 
@@ -77,7 +72,7 @@ i18n.getLocales = () => locales;
 
 i18n.setLocale = (newLocale: string) => {
   if (!localeMapping[newLocale]) newLocale = "en";
-  languageState.locale = newLocale;
+  useSettingsStore.setState({ locale: newLocale });
 };
 
 export default i18n;

@@ -2,7 +2,7 @@ type Settings = {
   appVersion: string;
   analyticsPopupSeen: boolean;
   enableAnalytics: boolean;
-  locale?: string;
+  locale: string;
   refundAddress?: string;
   refundAddressLabel?: string;
   refundToPeachWallet: boolean;

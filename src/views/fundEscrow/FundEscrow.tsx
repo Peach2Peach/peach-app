@@ -20,8 +20,9 @@ import { useRoute } from "../../hooks/useRoute";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import i18n, { languageState } from "../../utils/i18n";
+import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { useWalletState } from "../../utils/wallet/walletStore";
@@ -169,10 +170,10 @@ function FundEscrowHeader() {
   );
 }
 
-const goToEscrowInfo = () =>
-  openURL(getLocalizedLink("terms-and-conditions", languageState.locale));
-
 function EscrowPopup() {
+  const locale = useSettingsStore((state) => state.locale);
+  const goToEscrowInfo = () =>
+    openURL(getLocalizedLink("terms-and-conditions", locale));
   return (
     <InfoPopup
       title={i18n("help.escrow.title")}

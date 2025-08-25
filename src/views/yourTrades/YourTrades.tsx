@@ -12,6 +12,7 @@ import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -30,6 +31,7 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
+  useSettingsStore((state) => state.locale);
   const {
     summaries,
     isLoading,

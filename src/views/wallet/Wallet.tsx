@@ -8,6 +8,7 @@ import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { WarningFrame } from "../../components/ui/WarningFrame";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { fundAddress } from "../../utils/regtest/fundAddress";
@@ -19,6 +20,7 @@ import { useSyncWallet } from "./hooks/useSyncWallet";
 import { useWalletBalance } from "./hooks/useWalletBalance";
 
 export const Wallet = () => {
+  useSettingsStore((state) => state.locale);
   const { balance } = useWalletBalance();
   const [fundAddressMessage, setFundAddressMessage] = useState("");
   const { refetch, isRefetching, isLoading } = useSyncWallet({ enabled: true });
