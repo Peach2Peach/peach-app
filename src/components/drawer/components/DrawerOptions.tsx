@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef } from "react";
 import { ScrollView } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import tw from "../../../styles/tailwind";
 import { PeachScrollView } from "../../PeachScrollView";
 import { HorizontalLine } from "../../ui/HorizontalLine";
@@ -9,11 +9,10 @@ import { DrawerOption } from "./DrawerOption";
 
 export const DrawerOptions = ({ style }: ComponentProps) => {
   const { content, options } = useDrawerState(
-    (state) => ({
+    useShallow((state) => ({
       content: state.content,
       options: state.options,
-    }),
-    shallow,
+    })),
   );
   const $scroll = useRef<ScrollView>(null);
 

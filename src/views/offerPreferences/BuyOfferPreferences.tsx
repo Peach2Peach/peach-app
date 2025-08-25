@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -49,13 +49,12 @@ function PreferenceWalletSelector() {
     payoutAddressLabel,
     setPayoutToPeachWallet,
   ] = useSettingsStore(
-    (state) => [
+    useShallow((state) => [
       state.payoutToPeachWallet,
       state.payoutAddress,
       state.payoutAddressLabel,
       state.setPayoutToPeachWallet,
-    ],
-    shallow,
+    ]),
   );
   const navigation = useStackNavigation();
 
@@ -89,7 +88,7 @@ function PreferenceHeader() {
 
 function PreferenceMarketInfo() {
   const offerPreferenes = useOfferPreferences(
-    (state) => ({
+    useShallow((state) => ({
       buyAmountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
@@ -100,8 +99,7 @@ function PreferenceMarketInfo() {
         CLIENT_RATING_RANGE,
         SERVER_RATING_RANGE,
       ),
-    }),
-    shallow,
+    })),
   );
   return <MarketInfo type="sellOffers" {...offerPreferenes} />;
 }
@@ -112,8 +110,7 @@ function AmountSelector({
   setIsSliding: (isSliding: boolean) => void;
 }) {
   const [buyAmountRange, setBuyAmountRange] = useOfferPreferences(
-    (state) => [state.buyAmountRange, state.setBuyAmountRange],
-    shallow,
+    useShallow((state) => [state.buyAmountRange, state.setBuyAmountRange]),
   );
 
   return (
@@ -128,7 +125,7 @@ function AmountSelector({
 function PublishOfferButton() {
   const { amount, meansOfPayment, paymentData, maxPremium, minReputation } =
     useOfferPreferences(
-      (state) => ({
+      useShallow((state) => ({
         amount: state.buyAmountRange,
         meansOfPayment: state.meansOfPayment,
         paymentData: state.paymentData,
@@ -140,8 +137,7 @@ function PublishOfferButton() {
           CLIENT_RATING_RANGE,
           SERVER_RATING_RANGE,
         ),
-      }),
-      shallow,
+      })),
     );
 
   const originalPaymentData = useOfferPreferences(

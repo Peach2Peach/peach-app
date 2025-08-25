@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
@@ -43,12 +43,11 @@ export function usePostBuyOffer({
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
     useSettingsStore(
-      (state) => [
+      useShallow((state) => [
         state.payoutAddress,
         state.payoutToPeachWallet,
         state.payoutAddressSignature,
-      ],
-      shallow,
+      ]),
     );
 
   const getSignedAddress = async (signWithPeachWallet: boolean) => {

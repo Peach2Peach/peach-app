@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { APPLINKS } from "../../../APPLINKS";
 import { Icon } from "../../../components/Icon";
 import { Bubble } from "../../../components/bubble/Bubble";
@@ -167,8 +167,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
   const openLink = () => (url ? openURL(url) : null);
   const { paymentData } = useContractContext();
   const paymentMethods = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+    useShallow((state) => Object.values(state.paymentData)),
   );
   const paymentMethodLabel = paymentData
     ? paymentMethods.find(
