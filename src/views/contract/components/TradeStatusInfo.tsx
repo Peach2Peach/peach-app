@@ -46,6 +46,9 @@ function getBuyerStatusText(contract: Contract) {
   if (contract.escrowFundingTimeLimitExpired) {
     return i18n("contract.buyer.sellerDidntFundEscrowInTime");
   }
+  if (contract.escrowFundedWithWrongAmount) {
+    return i18n("contract.buyer.escrowFundedWithWrongAmount");
+  }
 
   const buyerCanceledTrade =
     !contract.cancelationRequested && contract.canceledBy === "buyer";
@@ -109,6 +112,12 @@ function getSellerStatusText({
 }) {
   if (contract.escrowFundingTimeLimitExpired) {
     return i18n("contract.seller.sellerDidntFundEscrowInTime");
+  }
+  if (contract.tradeStatus === "wrongAmountFundedOnContract") {
+    return i18n("contract.seller.escrowFundedWithWrongAmount");
+  }
+  if (contract.tradeStatus === "wrongAmountFundedOnContractRefundWaiting") {
+    return i18n("contract.seller.escrowFundedWithWrongAmountRefundWaiting");
   }
   const [hasDisputeWinner, paymentWasTooLate] = [
     !!contract.disputeWinner,

@@ -28,4 +28,6 @@ export const statusIcons: Record<TradeStatus | "waiting", IconType> = {
   fundingExpired: "clock",
   waitingForTradeRequest: "dollarSign",
   acceptTradeRequest: "checkCircle",
+  wrongAmountFundedOnContract: "crossOutlined",
+  wrongAmountFundedOnContractRefundWaiting: "crossOutlined",
 };

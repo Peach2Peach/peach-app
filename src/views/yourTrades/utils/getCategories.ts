@@ -12,7 +12,8 @@ export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
     {
       title: "priority",
       data: trades.filter(
-        ({ tradeStatus }) => isPrioritary(tradeStatus) || isError(tradeStatus),
+        ({ tradeStatus, type }) =>
+          isPrioritary(tradeStatus, type) || isError(tradeStatus),
       ),
     },
     {
@@ -42,7 +43,7 @@ export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
     {
       title: "history",
       data: trades
-        .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+        .filter(({ type, tradeStatus }) => isPastOffer(tradeStatus, type))
         .filter(
           (trade) => !("unreadMessages" in trade) || trade.unreadMessages === 0,
         ),

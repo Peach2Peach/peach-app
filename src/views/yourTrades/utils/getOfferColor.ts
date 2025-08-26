@@ -20,7 +20,7 @@ export const getOfferColor = (
 
   if (!isTradeStatus(trade.tradeStatus)) return "info";
   if (tradeStatus === "paymentTooLate") return "warning";
-  if (isPastOffer(tradeStatus)) {
+  if (isPastOffer(tradeStatus, type)) {
     if (tradeStatus === "tradeCompleted")
       return type === "ask" ? "primary" : "success";
     return "black";
@@ -30,6 +30,7 @@ export const getOfferColor = (
       "confirmCancelation",
       "refundOrReviveRequired",
       "refundTxSignatureRequired",
+      "wrongAmountFundedOnContractRefundWaiting",
     ].includes(tradeStatus)
   )
     return "black";

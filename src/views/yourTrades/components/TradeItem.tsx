@@ -305,7 +305,7 @@ function getActionLabel(
   tradeSummary: OfferSummary | ContractSummary,
   isWaiting: boolean,
 ) {
-  const { tradeStatus, tradeStatusNew } = tradeSummary;
+  const { tradeStatus, tradeStatusNew, type } = tradeSummary;
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 
   if (
@@ -320,7 +320,7 @@ function getActionLabel(
     const counterparty = type === "bid" ? "seller" : "buyer";
     const viewer = type === "bid" ? "buyer" : "seller";
 
-    if (isPastOffer(tradeStatus)) {
+    if (isPastOffer(tradeStatus, type)) {
       return unreadMessages > 0 ? i18n("yourTrades.newMessages") : undefined;
     }
     if (disputeWinner) {
@@ -345,7 +345,7 @@ function getActionLabel(
       : i18n(`offer.requiredAction.${translationStatusKey}`);
   }
 
-  if (isPastOffer(tradeStatus)) {
+  if (isPastOffer(tradeStatus, type)) {
     return undefined;
   }
 

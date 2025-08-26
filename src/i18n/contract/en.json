@@ -1,6 +1,9 @@
 {
   "contract.seller.sellerDidntFundEscrowInTime":"You didn't fund the escrow in time. The contract was automatically canceled.",
+  "contract.seller.escrowFundedWithWrongAmount":"You funded the escrow with the wrong amount. Since this was an agreed specific amount, the trade was canceled.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting":"You funded the escrow with the wrong amount. Since this was an agreed specific amount, the trade was canceled. You can get refunded now.",
   "contract.buyer.sellerDidntFundEscrowInTime":"The seller didn't fund the escrow in time. The contract was automatically canceled.",
+  "contract.buyer.escrowFundedWithWrongAmount":"The seller funded the escrow with the wrong amount of Bitcoin. The trade was canceled.",
   "contact.reason.accountLost" : "I lost my account",
   "contact.reason.bug" : "I found a bug",
   "contact.reason.other" : "something else",

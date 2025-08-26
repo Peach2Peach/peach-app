@@ -87,6 +87,7 @@ type Contract = {
 
   fundingExpectedBy?: number;
   escrowFundingTimeLimitExpired?: boolean;
+  escrowFundedWithWrongAmount?: boolean;
 };
 
 type LocalContract = {

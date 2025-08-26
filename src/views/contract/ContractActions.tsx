@@ -180,6 +180,14 @@ function SellerSliders() {
   }
   if (requiredAction === "confirmPayment") return <PaymentReceivedSlider />;
 
+  if (tradeStatus === "wrongAmountFundedOnContractRefundWaiting") {
+    return (
+      <>
+        <RefundEscrowSlider />
+      </>
+    );
+  }
+
   if (tradeStatus === "refundOrReviveRequired") {
     return (
       <>
