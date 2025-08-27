@@ -367,6 +367,7 @@ type NotificationType =
   | "contract.cancelationRequest" // PN-B08
   | "contract.cancelationRequestAccepted" // PN-S15
   | "contract.cancelationRequestRejected" // PN-S16
+  | "contract.wrongFundingAmount" // PN-??? TODO SET THIS
   | "offer.buyOfferExpired"; // PN-B14
 
 type PNData = {

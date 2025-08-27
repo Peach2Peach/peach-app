@@ -3,6 +3,7 @@ import { useSetPopup } from "../../../../components/popup/GlobalPopup";
 import { BuyOfferExpiredPopup } from "../../../../popups/BuyOfferExpiredPopup";
 import { FundingAmountDifferentPopup } from "../../../../popups/FundingAmountDifferentPopup";
 import { OfferOutsideRangePopup } from "../../../../popups/OfferOutsideRangePopup";
+import { WronglyFundedContractPopup } from "../../../../popups/WronglyFundedContractPopup";
 import { WronglyFundedPopup } from "../../../../popups/WronglyFundedPopup";
 import { isSellOffer } from "../../../../utils/offer/isSellOffer";
 import { peachAPI } from "../../../../utils/peachAPI";
@@ -36,6 +37,12 @@ export const useOfferPopupEvents = () => {
 
         if (!sellOffer || !isSellOffer(sellOffer)) return;
         setPopup(<WronglyFundedPopup sellOffer={sellOffer} />);
+      },
+      // PN-??? TODO: set this number
+      "contract.wrongFundingAmount": async ({ contractId }) => {
+        if (contractId) {
+          setPopup(<WronglyFundedContractPopup contractId={contractId} />);
+        }
       },
       // PN-S10
       "offer.outsideRange": ({ offerId }) => {
