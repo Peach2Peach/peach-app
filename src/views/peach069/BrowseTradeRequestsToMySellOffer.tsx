@@ -306,11 +306,7 @@ function SearchHeader({
 
   const memoizedHeaderIcons = useMemo(() => {
     if (!offer) return undefined;
-    const icons = [
-      // { ...headerIcons.sellFilter, onPress: showSortAndFilterPopup },
-      { ...headerIcons.percent, onPress: goToEditPremium },
-      { ...headerIcons.cancel, onPress: cancelOffer },
-    ];
+    const icons = [{ ...headerIcons.cancel, onPress: cancelOffer }];
 
     if (tradeRequests.length > 0) {
       return [
@@ -320,8 +316,9 @@ function SearchHeader({
           onPress: showAcceptTradeRequestPopup,
         },
       ];
+    } else {
+      return [{ ...headerIcons.percent, onPress: goToEditPremium }, ...icons];
     }
-    return icons;
   }, [
     offer,
     cancelOffer,

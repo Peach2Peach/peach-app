@@ -118,96 +118,6 @@ const acceptTradeRequest = async (
   }
 };
 
-// export function BrowseTradeRequestsToMyBuyOfferOLD() {
-//   const navigation = useStackNavigation();
-
-//   const { user: selfUser } = useSelfUser();
-
-//   const { offerId } = useRoute<"browseTradeRequestsToMyBuyOffer">().params;
-//   const title = "Peach69 Buy Offer " + offerId;
-
-//   const { buyOffer, isLoading } = useBuyOfferDetail(offerId);
-//   const { buyOfferTradeRequests, isLoading: isLoadingTradeRequests } =
-//     useBuyOfferTradeRequestsReceived(offerId);
-
-//   return (
-//     <Screen header={<Header title={title} />}>
-//       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
-//         <PeachText>0.69 Peach Buy Offer </PeachText>
-//         <PeachText>Offer ID: {offerId}</PeachText>
-//         {!isLoading && (
-//           <>
-//             <PeachText>Amount: {buyOffer?.amountSats}</PeachText>
-//             <PeachText>Premium: {buyOffer?.premium}</PeachText>
-//             <PeachText>Release Address: {buyOffer?.releaseAddress}</PeachText>
-//             <PeachText>
-//               Means of Payment: {JSON.stringify(buyOffer?.meansOfPayment)}
-//             </PeachText>
-//             <PeachText>
-//               Instant Trade Criteria:
-//               {JSON.stringify(buyOffer?.instantTradeCriteria)}
-//             </PeachText>
-//           </>
-//         )}
-//         <>
-//           {!isLoadingTradeRequests &&
-//             !!buyOfferTradeRequests &&
-//             !!buyOffer &&
-//             buyOfferTradeRequests.map((item, index) => {
-//               return (
-//                 <>
-//                   <PeachText>-------</PeachText>
-//                   <PeachText>TR ID: {item.id}</PeachText>
-//                   <PeachText>TR User: {item.userId}</PeachText>
-//                   <PeachText>TR Price: {item.price}</PeachText>
-//                   <PeachText>TR Currency: {item.currency}</PeachText>
-//                   <PeachText>TR PM: {item.paymentMethod}</PeachText>
-//                   <View style={tw`flex-row gap-10px`}>
-//                     <Button
-//                       style={[tw`bg-success-main`]}
-//                       onPress={() =>
-//                         acceptTradeRequest(buyOffer, item, selfUser, navigation)
-//                       }
-//                     >
-//                       accept
-//                     </Button>
-//                     <Button
-//                       style={[tw`bg-error-main`]}
-//                       onPress={() =>
-//                         rejectTradeRequest(
-//                           navigation,
-//                           item.buyOfferId,
-//                           item.userId,
-//                         )
-//                       }
-//                     >
-//                       reject
-//                     </Button>
-//                     <Button
-//                       style={[tw`bg-error-main`]}
-//                       onPress={() =>
-//                         goToChat(navigation, item.buyOfferId, item.userId)
-//                       }
-//                     >
-//                       chat
-//                     </Button>
-//                   </View>
-//                   <PeachText>-------</PeachText>
-//                 </>
-//               );
-//             })}
-//         </>
-//       </PeachScrollView>
-//     </Screen>
-//   );
-// }
-
-///
-///
-///
-///
-
-// new component
 export const BrowseTradeRequestsToMyBuyOffer = () => {
   const { offerId } = useRoute<"browseTradeRequestsToMyBuyOffer">().params;
 
@@ -322,10 +232,7 @@ function SearchHeader({
 
   const memoizedHeaderIcons = useMemo(() => {
     if (!offerId) return undefined;
-    const icons = [
-      { ...headerIcons.percentBuy, onPress: goToEditPremium },
-      { ...headerIcons.cancel, onPress: cancelOffer },
-    ];
+    const icons = [{ ...headerIcons.cancel, onPress: cancelOffer }];
 
     if (tradeRequests.length > 0) {
       return [
@@ -335,8 +242,12 @@ function SearchHeader({
           onPress: showAcceptTradeRequestPopup,
         },
       ];
+    } else {
+      return [
+        { ...headerIcons.percentBuy, onPress: goToEditPremium },
+        ...icons,
+      ];
     }
-    return icons;
   }, [offerId, cancelOffer, showAcceptTradeRequestPopup, tradeRequests]);
 
   return (
