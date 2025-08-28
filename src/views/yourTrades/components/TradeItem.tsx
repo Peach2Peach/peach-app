@@ -392,5 +392,9 @@ function getActionIcon(
     return statusIcons["waitingForFunding"];
   }
 
+  if (tradeSummary.tradeStatus === "escrowWaitingForConfirmation") {
+    return "bitcoin";
+  }
+
   return statusIcons[isWaiting ? "waiting" : tradeSummary.tradeStatus];
 }
