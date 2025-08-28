@@ -365,7 +365,7 @@ function getActionLabel(
 }
 
 function getActionIcon(
-  tradeSummary: Pick<OfferSummary | ContractSummary, "tradeStatus">,
+  tradeSummary: Pick<OfferSummary | ContractSummary, "tradeStatus" | "type">,
   isWaiting: boolean,
 ): IconType | undefined {
   if (isPastOffer(tradeSummary.tradeStatus)) {
@@ -381,7 +381,7 @@ function getActionIcon(
 
   if (isTradeStatus(tradeSummary.tradeStatusNew)) {
     if (tradeSummary.tradeStatusNew === "waitingForTradeRequest") {
-      return statusIcons["waiting"];
+      return tradeSummary.type === "ask" ? statusIcons["waiting"] : "bitcoin";
     }
     if (tradeSummary.tradeStatusNew === "acceptTradeRequest") {
       return "checkCircle";
@@ -396,5 +396,8 @@ function getActionIcon(
     return "bitcoin";
   }
 
+  if (isWaiting && tradeSummary.type === "bid") {
+    return "bitcoin";
+  }
   return statusIcons[isWaiting ? "waiting" : tradeSummary.tradeStatus];
 }
