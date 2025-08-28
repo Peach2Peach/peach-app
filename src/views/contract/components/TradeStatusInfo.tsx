@@ -43,6 +43,9 @@ function BuyerStatusText({ contract }: { contract: Contract }) {
 }
 
 function getBuyerStatusText(contract: Contract) {
+  if (contract.wasCanceledBySellerBeforeFundingTheEscrow) {
+    return i18n("contract.buyer.cancelBeforeFunding");
+  }
   if (contract.escrowFundingTimeLimitExpired) {
     return i18n("contract.buyer.sellerDidntFundEscrowInTime");
   }
@@ -110,6 +113,9 @@ function getSellerStatusText({
   sellOffer: SellOffer;
   walletLabel: string;
 }) {
+  if (contract.wasCanceledBySellerBeforeFundingTheEscrow) {
+    return i18n("contract.seller.cancelBeforeFunding");
+  }
   if (contract.escrowFundingTimeLimitExpired) {
     return i18n("contract.seller.sellerDidntFundEscrowInTime");
   }

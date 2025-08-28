@@ -1,5 +1,13 @@
-export const canCancelContract = (contract: Contract, view: ContractViewer) => {
-  if (view === "seller") return false;
+export const canCancelContract = (
+  contract: Contract,
+  view: ContractViewer,
+  fundingStatus?: FundingStatus,
+) => {
+  if (view === "seller") {
+    return (
+      fundingStatus?.status === "NULL" && contract.tradeStatus === "fundEscrow"
+    );
+  }
   if (
     [
       "createEscrow",

@@ -8,6 +8,7 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useHandleNotifications } from "../../hooks/notifications/useHandleNotifications";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
+import { useFundingStatus } from "../../hooks/query/useFundingStatus";
 import { useRoute } from "../../hooks/useRoute";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -16,6 +17,7 @@ import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -110,6 +112,8 @@ function ContractHeader() {
     amount,
     premium,
   } = contract;
+  const sellOfferId = getSellOfferIdFromContract(contract);
+  const { fundingStatus } = useFundingStatus(sellOfferId);
   const requiredAction = getRequiredAction(contract);
   const setPopup = useSetPopup();
   const showConfirmPopup = useCallback(
@@ -132,7 +136,7 @@ function ContractHeader() {
     const icons: HeaderIcon[] = [];
     if (disputeActive) return icons;
 
-    if (canCancelContract(contract, view))
+    if (canCancelContract(contract, view, fundingStatus))
       icons.push({
         ...headerIcons.cancel,
         onPress: showConfirmPopup,
@@ -157,6 +161,7 @@ function ContractHeader() {
     showConfirmPaymentHelp,
     disputeActive,
     showConfirmPopup,
+    fundingStatus,
   ]);
 
   const { paymentMade, paymentExpectedBy } = contract;
