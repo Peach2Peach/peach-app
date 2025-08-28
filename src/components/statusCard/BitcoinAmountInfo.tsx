@@ -12,7 +12,10 @@ export const BitcoinAmountInfo = memo(
       <BTCAmount size="small" amount={amount} />
       {premium !== undefined && (
         <FixedHeightText style={tw`body-m text-black-65`} height={17}>
-          {premium}% {i18n("offer.summary.premium")}
+          {Math.abs(premium)}%{" "}
+          {i18n(
+            premium > 0 ? "offer.summary.premium" : "offer.summary.discount",
+          )}
         </FixedHeightText>
       )}
     </View>
