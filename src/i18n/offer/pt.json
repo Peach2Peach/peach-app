@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"ofertas de compra",
+  "offer.sellOffers":"ofertas de venda",
+  "offer.openOffers":"ofertas abertas",
+  "offer.averagePremium":"prémio médio:",
   "offer.cancel.popup.description" : "Tem a certeza?\n\nSe já enviou seus bitcoins para o depósito de caução um reembolso será gerado, retirando-se as taxas da rede Bitcoin.",
   "offer.cancel.popup.title" : "cancelar oferta",
   "offer.canceled" : "cancelado",

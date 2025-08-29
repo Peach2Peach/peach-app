@@ -29,14 +29,13 @@ export function Home() {
   const navigation = useStackNavigation();
   const goToProfile = () => navigation.navigate("myProfile");
   const isMediumScreen = useIsMediumScreen();
-  const isDarkMode = useThemeStore();
+  const { isDarkMode } = useThemeStore();
   return (
     <Screen
       showTradingLimit
-      style={[
-        tw`bg-primary-background-dark-color`,
-        isDarkMode && tw`bg-backgroundMain-dark`,
-      ]}
+      style={
+        isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`
+      }
       actions={
         <View
           style={tw`flex-row gap-10px px-sm md:px-md border-t-[px] py-sm md:py-md border-primary-mild-1`}
@@ -71,10 +70,10 @@ export function Home() {
     </Screen>
   );
 }
-
+const GROUP_SIZE = 3;
 function BTCPriceInfo() {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();
-  const isDarkMode = useThemeStore();
+  const { isDarkMode } = useThemeStore();
   if (!bitcoinPrice) return null;
 
   return (
@@ -94,7 +93,7 @@ function BTCPriceInfo() {
           </View>
           <PeachText style={tw`h5 text-primary-background-light-color`}>
             {displayCurrency === "SAT"
-              ? groupChars(bitcoinPrice.toFixed(), 3)
+              ? groupChars(bitcoinPrice.toFixed(), GROUP_SIZE)
               : priceFormat(bitcoinPrice, true)}
             {` ${displayCurrency}`}
           </PeachText>
@@ -104,7 +103,13 @@ function BTCPriceInfo() {
             <PeachText style={tw`leading-normal subtitle-0`}>
               {`1 ${displayCurrency}`}
             </PeachText>
-            <TouchableIcon iconSize={16} iconColor="#FFFCFA" id="chevronDown" />
+            <TouchableIcon
+              iconSize={16}
+              iconColor={tw.color(
+                isDarkMode ? "backgroundLight-light" : "black-100",
+              )}
+              id="chevronDown"
+            />
           </View>
 
           <PeachText style={tw`h5 text-primary-background-dark-color`}>
@@ -130,13 +135,8 @@ function useNews() {
 }
 
 function News() {
-  const { data } = useNews();
-  const message = {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-    shareText: "Check out this news article!",
-    url: "https://example.com/news-article",
-  };
-  const isDarkMode = useThemeStore();
+  const { data: message } = useNews();
+  const { isDarkMode } = useThemeStore();
   if (!message) return null;
 
   const onSharePress = () => {
@@ -170,8 +170,7 @@ function News() {
             <PeachText
               style={tw`uppercase text-primary-background-light-color subtitle-1`}
             >
-              {/** TODO: i18n */}
-              news
+              {i18n("home.news")}
             </PeachText>
           </View>
           <TouchableIcon
@@ -219,7 +218,7 @@ function useOfferStats() {
 
 function MarketStats() {
   const { data } = useOfferStats();
-  const isDarkMode = useThemeStore();
+  const { isDarkMode } = useThemeStore();
   return (
     <RadialGradientBorder
       style={tw`self-stretch rounded-2xl`}
@@ -238,14 +237,12 @@ function MarketStats() {
             <PeachText
               style={tw`uppercase text-primary-background-light-color subtitle-1`}
             >
-              {/** TODO: i18n */}
-              open offers
+              {i18n("offer.openOffers")}
             </PeachText>
           </View>
           <View style={tw`flex-row items-center gap-6px`}>
             <PeachText style={tw`uppercase notification`}>
-              {/** TODO: i18n */}
-              avg. premium:{" "}
+              {i18n("offer.averagePremium")}
             </PeachText>
             <View style={tw`rounded-md bg-success-mild-2 px-5px`}>
               <PeachText
@@ -304,7 +301,7 @@ function ExpressBuyButton() {
 function BuyButton() {
   const navigation = useStackNavigation();
   const goToBuyOfferPreferences = () => navigation.navigate("createBuyOffer");
-  const isDarkMode = useThemeStore();
+  const { isDarkMode } = useThemeStore();
   return (
     <Button
       style={[
@@ -325,7 +322,7 @@ function SellButton() {
   const navigation = useStackNavigation();
   const goToSellOfferPreferences = () =>
     navigation.navigate("sellOfferPreferences");
-  const isDarkMode = useThemeStore();
+  const { isDarkMode } = useThemeStore();
   return (
     <Button
       style={[
@@ -349,7 +346,7 @@ function OfferCounter({
   numberOfOffers?: number;
   type: "buy" | "sell";
 }) {
-  const isDarkMode = useThemeStore();
+  const { isDarkMode } = useThemeStore();
   return (
     <View style={tw`flex-row items-center flex-1 gap-6px`}>
       <View
@@ -381,7 +378,7 @@ function OfferCounter({
         )}
       </View>
       <PeachText style={tw`text-xs font-medium leading-6 font-baloo`}>
-        {type === "buy" ? "buy offers" : "sell offers"}
+        {i18n(type === "buy" ? "offer.buyOffers" : "offer.sellOffers")}
       </PeachText>
     </View>
   );

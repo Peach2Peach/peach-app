@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"satın alma teklifleri",
+  "offer.sellOffers":"satış teklifleri",
+  "offer.openOffers":"açık teklifler",
+  "offer.averagePremium":"ort. prim:",
   "offer.cancel.popup.description" : "Emin misiniz?\n\nEğer bitcoininizi escrow'a göndermişseniz, bitcoin ağ ücretleri düşülerek iade edilecektir.",
   "offer.cancel.popup.title" : "teklifi iptal et",
   "offer.canceled" : "iptal edildi",
