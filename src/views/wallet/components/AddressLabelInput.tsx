@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Icon } from "../../../components/Icon";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
@@ -15,8 +15,10 @@ export function AddressLabelInput({ address, fallback }: Props) {
   const { isDarkMode } = useThemeStore();
   const [isEditing, setIsEditing] = useState(false);
   const [label, setLabel] = useWalletState(
-    (state) => [state.addressLabelMap[address] ?? fallback, state.labelAddress],
-    shallow,
+    useShallow((state) => [
+      state.addressLabelMap[address] ?? fallback,
+      state.labelAddress,
+    ]),
   );
 
   const $input = useRef<TextInput>(null);

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Style } from "twrnc";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Currency } from "../../peach-api/src/@types/global";
 import { IconType } from "../assets/icons";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
@@ -267,8 +267,7 @@ function Tickers({ type = "sell" }: TickerProps) {
 function CurrencyScrollView() {
   const [showCurrencies, toggle] = useToggleBoolean();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
-    (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
+    useShallow((state) => [state.displayCurrency, state.setDisplayCurrency]),
   );
   const { isDarkMode } = useThemeStore();
 

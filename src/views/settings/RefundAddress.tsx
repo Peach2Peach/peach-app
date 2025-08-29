@@ -1,4 +1,4 @@
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { CustomAddressScreen } from "./CustomAddressScreen";
@@ -13,14 +13,13 @@ export const RefundAddress = () => {
     setRefundAddressLabel,
     setRefundToPeachWallet,
   ] = useSettingsStore(
-    (state) => [
+    useShallow((state) => [
       state.refundAddress,
       state.setRefundAddress,
       state.refundAddressLabel,
       state.setRefundAddressLabel,
       state.setRefundToPeachWallet,
-    ],
-    shallow,
+    ]),
   );
 
   const onSave = (address: string, addressLabel: string) => {

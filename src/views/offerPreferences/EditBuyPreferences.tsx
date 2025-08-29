@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { createContext, memo, useContext, useReducer, useState } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { premiumBounds } from "../../components/PremiumInput";
 import { PremiumTextInput } from "../../components/PremiumTextInput";
 import { TouchableIcon } from "../../components/TouchableIcon";
@@ -154,13 +154,12 @@ function OfferWalletSelector({
     messageSignature,
     setPayoutToPeachWallet,
   ] = useSettingsStore(
-    (state) => [
+    useShallow((state) => [
       state.payoutAddress,
       state.payoutAddressLabel,
       state.payoutAddressSignature,
       state.setPayoutToPeachWallet,
-    ],
-    shallow,
+    ]),
   );
   const addressIsInPeachWallet = useIsMyAddress(releaseAddress);
   const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId);
