@@ -226,9 +226,17 @@ const performInstantTrade = async ({
 export function ExpressBuyTradeRequestToSellOffer() {
   const { offerId } = useRoute<"expressBuyTradeRequest">().params;
 
-  const { sellOffer, isLoading } = useSellOfferDetail(offerId, false);
-
+  const { sellOffer, isLoading, error } = useSellOfferDetail(offerId, false);
   const navigation = useStackNavigation();
+
+  //TODO: make this work by deactivating the refresh of the useSellOfferDetail
+  if (error) {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "homeScreen", params: { screen: "home" } }],
+    });
+  }
+
   const performThisTradeRequest = async ({
     maxMiningFeeRate,
     selectedPaymentData,
