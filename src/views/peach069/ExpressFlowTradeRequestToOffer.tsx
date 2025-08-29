@@ -131,20 +131,8 @@ export function ExpressFlowTradeRequestToOffer({
       : (offer as SellOffer).amount;
   const { maxMiningFeeRate } = useMaxMiningFee(amountSats); //TODO: validate this
 
-  // const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
-  //   useInterruptibleFunction(() => {
-  //     //   matchOffer();
-  //   }, TRADE_REQUEST_DELAY);
-  // const onInterruptMatch = () => {
-  //   interruptMatchFunction();
-  // };
-
   const [showPaymentMethodPulse, setShowPaymentMethodPulse] = useState(false);
 
-  //   const tradingLimitReached = isLimitReached(
-  //     match.unavailable.exceedsLimit || [],
-  //     selectedPaymentData?.type,
-  //   );
   const tradingLimitReached = false; // TODO: HANDLE LIMIT REACHED
 
   const currentOptionName = useMemo(
