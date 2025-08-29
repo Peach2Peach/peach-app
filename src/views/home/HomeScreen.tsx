@@ -71,7 +71,7 @@ const FooterItemBase = memo(
           ? "primary-main"
           : "black-100"
         : isDarkMode
-          ? "black-50"
+          ? "primary-background-light-color"
           : "black-65",
     );
     const size = tw`w-6 h-6`;
