@@ -113,7 +113,7 @@ function TradeRequestsInformation({
   return (
     <View>
       <PeachText
-        style={tw`text-center h4 ${type === "sell" ? "text-primary-main" : "text-success-main"}text-success-main`}
+        style={tw`text-center h4 ${type === "sell" ? "text-primary-main" : "text-success-main"}`}
       >
         {i18n(
           `search.youGot${tradeRequests.length === 1 ? "ATradeRequest" : "TradeRequests"}`,
