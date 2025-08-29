@@ -68,11 +68,11 @@
     <string name="notification.title.user.badge.unlocked">New badge unlocked</string>
     <string name="notification.body.contract.contractCreatedFromExpressBuy.buyer">Your request got accepted!\n\nYou need to make the payment within twelve hours. The faster you are, the better your Peach score will be.</string>
     <string name="notification.title.contract.contractCreatedFromExpressBuy.buyer">The Seller accepted your request!</string>
-    <string name="notification.body.contract.contractCreatedFromExpressBuy.seller.instantTrade">It's time for the Buyer to make the payment. Keep an eye on your chosen Payment Method!</string>
+    <string name="notification.body.contract.contractCreatedFromExpressBuy.seller.instantTrade">It&apos;s for the Buyer to make the payment. Keep an eye on your chosen Payment Method!</string>
     <string name="notification.title.contract.contractCreatedFromExpressBuy.seller.instantTrade">Your Sell Offer is now a Contract!</string>
     <string name="notification.body.contract.contractCreatedFromExpressSell.seller">Your request got accepted!\n\nYou need to fund the escrow within twelve hours. The faster you are, the better your Peach score will be.</string>
     <string name="notification.title.contract.contractCreatedFromExpressSell.seller">The Buyer accepted your request!</string>
-    <string name="notification.body.contract.contractCreatedFromExpressSell.buyer.instantTrade">It's time for the Seller to fund the escrow. Don't send any payment before the escrow is funded!</string>
+    <string name="notification.body.contract.contractCreatedFromExpressSell.buyer.instantTrade">It&apos;s time for the Seller to fund the escrow. Don't send any payment before the escrow is funded!</string>
     <string name="notification.title.contract.contractCreatedFromExpressSell.buyer.instantTrade">Your Buy Offer is now a Contract!</string>
     <string name="notification.body.offer.expressBuyTradeRequestReceived">Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!</string>
     <string name="notification.title.offer.expressBuyTradeRequestReceived">Your Sell Offer received a Trade Request!</string>
