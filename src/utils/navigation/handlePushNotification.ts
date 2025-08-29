@@ -38,6 +38,20 @@ export const handlePushNotification = async (
       screen: "yourTrades",
       params: { tab: "yourTrades.69BuyOffer" },
     });
+  } else if (
+    data.type === "offer.expressBuyTradeRequestReceived" &&
+    data.offerId
+  ) {
+    navigationRef.navigate("browseTradeRequestsToMySellOffer", {
+      offerId: data.offerId,
+    });
+  } else if (
+    data.type === "offer.expressSellTradeRequestReceived" &&
+    data.offerId
+  ) {
+    navigationRef.navigate("browseTradeRequestsToMyBuyOffer", {
+      offerId: data.offerId,
+    });
   } else if (shouldGoToSell(data)) {
     navigationRef.navigate("homeScreen", { screen: "home" });
   } else if (isDefined(data.offerId)) {

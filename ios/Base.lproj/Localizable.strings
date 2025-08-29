@@ -64,3 +64,16 @@
 "notification.title.offer.sellOfferExpired" = "No match";
 "notification.title.offer.wrongFundingAmount" = "Escrow not funded";
 "notification.title.user.badge.unlocked" = "New badge unlocked";
+"notification.body.contract.contractCreatedFromExpressBuy.buyer" =  "Your request got accepted!\n\nYou need to make the payment within twelve hours. The faster you are, the better your Peach score will be.";
+"notification.title.contract.contractCreatedFromExpressBuy.buyer" = "The Seller accepted your request!";
+"notification.body.contract.contractCreatedFromExpressBuy.seller.instantTrade" = "It's time for the Buyer to make the payment. Keep an eye on your chosen Payment Method!";
+"notification.title.contract.contractCreatedFromExpressBuy.seller.instantTrade" = "Your Sell Offer is now a Contract!";
+"notification.body.contract.contractCreatedFromExpressSell.seller" =  "Your request got accepted!\n\nYou need to fund the escrow within twelve hours. The faster you are, the better your Peach score will be.";
+"notification.title.contract.contractCreatedFromExpressSell.seller" = "The Buyer accepted your request!";
+"notification.body.contract.contractCreatedFromExpressSell.buyer.instantTrade" = "It's time for the Seller to fund the escrow. Don't send any payment before the escrow is funded!";
+"notification.title.contract.contractCreatedFromExpressSell.buyer.instantTrade" = "Your Buy Offer is now a Contract!";
+"notification.body.offer.expressBuyTradeRequestReceived" = "Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!";
+"notification.title.offer.expressBuyTradeRequestReceived" = "Your Sell Offer received a Trade Request!";
+"notification.body.offer.expressSellTradeRequestReceived" = "Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!";
+"notification.title.offer.expressSellTradeRequestReceived" = "Your Buy Offer received a Trade Request!";
+  

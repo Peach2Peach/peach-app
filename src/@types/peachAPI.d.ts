@@ -346,6 +346,12 @@ type NotificationType =
   | "offer.matchSeller" // PN-S09
   | "offer.outsideRange" // PN-S10
   | "contract.contractCreated" // PN-B03
+  | "contract.contractCreatedFromExpressBuy.buyer" // PN-69-???? TODO mark this
+  | "contract.contractCreatedFromExpressBuy.seller.instantTrade" // PN-69-???? TODO mark this
+  | "contract.contractCreatedFromExpressBuy.buyer" // PN-69-???? TODO mark this
+  | "contract.contractCreatedFromExpressBuy.seller.instantTrade" // PN-69-???? TODO mark this
+  | "offer.expressBuyTradeRequestReceived" // PN-69-???? TODO mark this
+  | "offer.expressSellTradeRequestReceived" // PN-69-???? TODO mark this
   | "contract.buyer.paymentReminderSixHours" // PN-B04
   | "contract.buyer.paymentReminderOneHour" // PN-B05
   | "contract.buyer.paymentTimerHasRunOut" // PN-B12
