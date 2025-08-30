@@ -225,6 +225,7 @@ function useOfferStats() {
         open: 0,
         avgPremium: 0,
       },
+      totalAvgPremium: 0,
     },
     refetchInterval: MSINAMINUTE,
   });
@@ -262,12 +263,11 @@ function MarketStats() {
               <PeachText
                 style={tw`text-success-dark-2 font-baloo-semibold text-3xs`}
               >
-                {/** TODO: Fix avg */}
-                {data?.sell.avgPremium !== undefined &&
-                data?.sell.avgPremium >= 0
+                {data?.totalAvgPremium !== undefined &&
+                data?.totalAvgPremium >= 0
                   ? "+"
                   : "-"}
-                {data?.sell.avgPremium}%
+                {data?.totalAvgPremium}%
               </PeachText>
             </View>
           </View>
