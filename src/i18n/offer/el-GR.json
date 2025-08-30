@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"προσφορές αγοράς",
+  "offer.sellOffers":"προσφορές πώλησης",
+  "offer.openOffers":"ανοιχτές προσφορές",
+  "offer.averagePremium":"μέσο ασφάλιστρο:",
   "offer.cancel.popup.description" : "Είσατε σίγουροι;\n\nΕάν έχετε ήδη αποστείλει τα Bitcoin σας στην εγγύηση, θα σας επιστραφούν μείον τα τέλη του δικτύου Bitcoin.",
   "offer.cancel.popup.title" : "ακύρωση προσφοράς",
   "offer.canceled" : "ακυρωμένο",

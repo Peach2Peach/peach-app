@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"offerte di acquisto",
+  "offer.sellOffers":"offerte di vendita",
+  "offer.openOffers":"offerte aperte",
+  "offer.averagePremium":"premio medio:",
   "offer.cancel.popup.description" : "Sei sicuro?\n\nSe hai già inviato i tuoi bitcoin nel deposito, ti verranno rimborsati, al netto delle commissioni di rete bitcoin.",
   "offer.cancel.popup.title" : "annulla offerta",
   "offer.canceled" : "cancellato",

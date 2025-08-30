@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"предложения покупки",
+  "offer.sellOffers":"предложения продажи",
+  "offer.openOffers":"открытые предложения",
+  "offer.averagePremium":"ср. наценка:",
   "offer.cancel.popup.description" : "Вы уверены? Если вы уже отправили биткойн на эскроу-счёт, деньги будут возвращены за вычетом комиссии блокчейна.",
   "offer.cancel.popup.title" : "отменить предложение",
   "offer.canceled" : "отменено",

@@ -125,6 +125,7 @@ import userX from "./userX.svg";
 import users from "./users.svg";
 import wallet from "./wallet.svg";
 import watch from "./watch.svg";
+import x from "./x.svg";
 import xCircle from "./xCircle.svg";
 import xSquare from "./xSquare.svg";
 import yourTrades from "./yourTrades.svg";
@@ -258,6 +259,7 @@ export const Icons = {
   userX,
   wallet,
   watch,
+  x,
   xCircle,
   xSquare,
   yourTrades,

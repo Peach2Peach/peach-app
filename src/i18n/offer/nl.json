@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"koopaanbiedingen",
+  "offer.sellOffers":"verkoopaanbiedingen",
+  "offer.openOffers":"open aanbiedingen",
+  "offer.averagePremium":"gem. toeslag:",
   "offer.cancel.popup.description" : "Weet je het zeker? Als je jouw bitcoin reeds als borg hebt  gestuurd, krijg je jouw geld terug, minus de bitcoin-netwerkkosten.",
   "offer.cancel.popup.title" : "annuleer aanbod",
   "offer.canceled" : "geannuleerd",

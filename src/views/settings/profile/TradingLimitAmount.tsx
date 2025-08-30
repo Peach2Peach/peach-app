@@ -43,8 +43,7 @@ export const TradingLimitAmount = ({
             tw`${isDarkMode ? "text-backgroundLight-light" : "text-black-65"}`,
           ]}
         >
-          {" "}
-          /{" "}
+          {" / "}
         </PeachText>
         <PriceFormat
           style={[textStyle, tw`text-primary-mild-1`]}

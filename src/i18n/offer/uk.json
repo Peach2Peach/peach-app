@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"пропозиції покупки",
+  "offer.sellOffers":"пропозиції продажу",
+  "offer.openOffers":"відкриті пропозиції",
+  "offer.averagePremium":"сер. надбавка:",
   "offer.cancel.popup.description" : "Ти впевнений? Якщо ви вже надіслали свій біткойн на умовне депонування, вам буде повернено кошти за мінусом комісій мережі біткойн.",
   "offer.cancel.popup.title" : "видалити пропозицію",
   "offer.canceled" : "скасовано",

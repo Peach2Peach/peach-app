@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"oferty kupna",
+  "offer.sellOffers":"oferty sprzedaży",
+  "offer.openOffers":"otwarte oferty",
+  "offer.averagePremium":"śr. marża:",
   "offer.cancel.popup.description" : "Jesteś pewien?\n\nJeśli już wysłałeś swoje bitcoiny do depozytu kaucyjnego, kwota zostanie zwrócona, pomniejszona o opłaty sieciowe.",
   "offer.cancel.popup.title" : "anuluj ofertę",
   "offer.canceled" : "anulowane",

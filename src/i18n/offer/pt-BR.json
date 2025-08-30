@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"ofertas de compra",
+  "offer.sellOffers":"ofertas de venda",
+  "offer.openOffers":"ofertas abertas",
+  "offer.averagePremium":"prêmio médio:",
   "offer.cancel.popup.description" : "Tem certeza?\n\nSe você já enviou seus bitcoins para o depósito de garantia, você será reembolsado, descontando as taxas da rede Bitcoin.",
   "offer.cancel.popup.title" : "cancelar oferta",
   "offer.canceled" : "cancelado",

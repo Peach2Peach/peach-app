@@ -36,17 +36,17 @@ export const Button = ({
         tw`bg-primary-main min-w-26`,
         tw`md:min-w-32`,
         tw`flex-row items-center justify-center gap-2 px-6 rounded-full py-3px`,
-        tw`md:py-7px md:px-8`,
-        touchableOpacityProps.style,
+        tw`md:py-2 md:px-8`,
         touchableOpacityProps.disabled && tw`opacity-33`,
         ghost && tw`bg-transparent border-2`,
         { borderColor: ghost ? textColor : undefined },
+        touchableOpacityProps.style,
       ]}
     >
       <PeachText
         numberOfLines={1}
         ellipsizeMode="tail"
-        style={[tw`button-small`, tw`md:button-large`, { color: textColor }]}
+        style={[tw`button-small`, tw`md:button-medium`, { color: textColor }]}
       >
         {children}
       </PeachText>

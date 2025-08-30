@@ -1,70 +1,137 @@
 import { useQuery } from "@tanstack/react-query";
-import { View } from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 import Share from "react-native-share";
 import { LogoIcons } from "../../assets/logo";
-import { Header } from "../../components/Header";
-import { PeachyGradient } from "../../components/PeachyGradient";
+import { CurrencyDrawer } from "../../components/CurrencyDrawer";
+import { DiamondGradientBackground } from "../../components/DiamondGradientBackground";
+import { RadialGradientBorder } from "../../components/RadialGradientBorder";
 import { Screen } from "../../components/Screen";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { ProgressDonut } from "../../components/ui/ProgressDonut";
+import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
-import { useSelfUser } from "../../hooks/query/useSelfUser";
+import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
+import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
+import { groupChars } from "../../utils/string/groupChars";
+import { priceFormat } from "../../utils/string/priceFormat";
+import { thousands } from "../../utils/string/thousands";
 import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
+  const navigation = useStackNavigation();
+  const goToProfile = () => navigation.navigate("myProfile");
+  const isMediumScreen = useIsMediumScreen();
   const { isDarkMode } = useThemeStore();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
-    <Screen showTradingLimit header={<Header showPriceStats />}>
-      <View style={tw`items-center flex-1 gap-10px`}>
-        {isDarkMode ? (
-          <LogoIcons.homeLogoDark height={76} width={173} />
-        ) : (
-          <LogoIcons.homeLogo height={76} width={173} />
-        )}
-        <View style={tw`self-stretch flex-1 gap-10px`}>
-          <DailyMessage />
-          <MarketStats />
-          <FreeTradesDonut />
+    <>
+      <Screen
+        showTradingLimit
+        style={
+          isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`
+        }
+        actions={
+          <View
+            style={tw`flex-row gap-10px px-sm md:px-md border-t-[px] py-sm md:py-md border-primary-mild-1`}
+          >
+            <ExpressBuyButton />
+            <ExpressSellButton />
+          </View>
+        }
+      >
+        <View style={tw`items-center flex-1 gap-2 md:gap-4`}>
+          <View style={tw`self-stretch gap-2`}>
+            <View style={tw`flex-row items-center justify-between w-full px-2`}>
+              {isMediumScreen ? (
+                <LogoIcons.homeLogo />
+              ) : (
+                <LogoIcons.homeLogoSmall />
+              )}
+              <TouchableIcon
+                id="user"
+                onPress={goToProfile}
+                iconSize={20}
+                style={tw`items-center justify-center py-px px-10px md:py-2`}
+              />
+            </View>
+            <BTCPriceInfo
+              onChevronPress={() => setIsDrawerOpen(!isDrawerOpen)}
+            />
+          </View>
+          <View style={tw`self-stretch gap-2 md:gap-4`}>
+            <News />
+            <MarketStats />
+          </View>
         </View>
-      </View>
-      <View style={tw`flex-row gap-10px`}>
-        <ExpressBuyButton />
-        <ExpressSellButton />
-      </View>
-      <View style={tw`flex-row gap-10px`}>
-        <PeachText>{""}</PeachText>
-        {/* TODO: REPLACE THIS FIX WITH PROPER SPACING */}
-      </View>
-      <View style={tw`flex-row gap-10px`}>
-        <BuyButton />
-        <SellButton />
-      </View>
-    </Screen>
+      </Screen>
+
+      <CurrencyDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      />
+    </>
   );
 }
+const GROUP_SIZE = 3;
+function BTCPriceInfo({ onChevronPress }: { onChevronPress: () => void }) {
+  const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();
+  const { isDarkMode } = useThemeStore();
+  if (!bitcoinPrice) return null;
 
-function FreeTradesDonut() {
-  const { user } = useSelfUser();
-  const freeTrades = user?.freeTrades || 0;
-  const maxFreeTrades = user?.maxFreeTrades || 0;
-  if (freeTrades === 0) return null;
   return (
-    <ProgressDonut
-      style={tw`py-2`}
-      title={i18n("settings.referrals.noPeachFees.freeTrades")}
-      value={freeTrades}
-      max={maxFreeTrades}
-    />
+    <DiamondGradientBackground
+      style={tw`self-stretch rounded-2xl`}
+      centerColor={isDarkMode ? "#DD8B75" : "#FFBD71"}
+      middleColor={isDarkMode ? "#C1705C" : "#FF9472"}
+      edgeColor={isDarkMode ? "#8F4A35" : "#FFA59F"}
+    >
+      <View style={tw`flex-row items-center justify-between p-2 md:p-4`}>
+        <View>
+          <View style={tw`flex-row gap-5px`}>
+            <LogoIcons.newBitcoinLogo />
+            <PeachText
+              style={tw`leading-normal subtitle-0`}
+            >{`1 ${i18n("btc")}`}</PeachText>
+          </View>
+          <PeachText style={tw`h5 text-primary-background-light-color`}>
+            {displayCurrency === "SAT"
+              ? groupChars(bitcoinPrice.toFixed(), GROUP_SIZE)
+              : priceFormat(bitcoinPrice, true)}
+            {` ${displayCurrency}`}
+          </PeachText>
+        </View>
+        <View style={tw`items-end`}>
+          <View style={tw`flex-row items-center justify-center gap-2`}>
+            <PeachText style={tw`leading-normal subtitle-0`}>
+              {`1 ${displayCurrency}`}
+            </PeachText>
+            <TouchableIcon
+              onPress={onChevronPress}
+              iconSize={16}
+              iconColor={tw.color(
+                isDarkMode ? "backgroundLight-light" : "black-100",
+              )}
+              id="chevronDown"
+            />
+          </View>
+
+          <PeachText style={tw`h5 text-primary-background-dark-color`}>
+            {i18n("currency.format.sats", thousands(moscowTime))}
+          </PeachText>
+        </View>
+      </View>
+    </DiamondGradientBackground>
   );
 }
 
@@ -81,8 +148,9 @@ function useNews() {
   });
 }
 
-function DailyMessage() {
+function News() {
   const { data: message } = useNews();
+  const { isDarkMode } = useThemeStore();
   if (!message) return null;
 
   const onSharePress = () => {
@@ -99,24 +167,44 @@ function DailyMessage() {
   };
 
   return (
-    <View style={tw`overflow-hidden rounded-2xl`}>
-      <PeachyGradient style={tw`absolute w-full h-full`} />
+    <RadialGradientBorder
+      style={tw`self-stretch rounded-2xl`}
+      centerColor={isDarkMode ? "#DD8B75" : "#FFB76F"}
+      middleColor={isDarkMode ? "#C1705C" : "#FFAB90"}
+      edgeColor={isDarkMode ? "#8F4A35" : "#FF837B"}
+    >
       <View
-        style={tw`flex-row items-center self-stretch justify-center p-4 gap-10px`}
+        style={[
+          tw`self-stretch justify-center p-2 gap-10px bg-primary-background-light-color rounded-2xl md:p-4`,
+          isDarkMode && tw`bg-[#3F221C]`,
+        ]}
       >
+        <View style={tw`flex-row items-center self-stretch justify-between`}>
+          <View style={tw`rounded-md bg-primary-main px-5px`}>
+            <PeachText
+              style={tw`uppercase text-primary-background-light-color subtitle-1`}
+            >
+              {i18n("home.news")}
+            </PeachText>
+          </View>
+          <TouchableIcon
+            onPress={onSharePress}
+            id="externalLink"
+            iconColor={tw.color("primary-main")}
+            iconSize={20}
+            style={tw`pr-12.5px`}
+          />
+        </View>
         <PeachText
           onPress={onTextPress}
-          style={tw`flex-1 text-center subtitle-1 text-primary-background-light-color`}
+          disabled={!message.url}
+          style={tw`body-s`}
+          numberOfLines={3}
         >
           {message.text}
         </PeachText>
-        <TouchableIcon
-          onPress={onSharePress}
-          id="share"
-          iconColor={tw.color("primary-background-light-color")}
-        />
       </View>
-    </View>
+    </RadialGradientBorder>
   );
 }
 
@@ -137,6 +225,7 @@ function useOfferStats() {
         open: 0,
         avgPremium: 0,
       },
+      totalAvgPremium: 0,
     },
     refetchInterval: MSINAMINUTE,
   });
@@ -145,47 +234,63 @@ function useOfferStats() {
 function MarketStats() {
   const { data } = useOfferStats();
   const { isDarkMode } = useThemeStore();
-
   return (
-    <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
-      <View style={tw`items-center -gap-2`}>
-        <PeachText style={tw`subtitle-0 text-primary-main`}>
-          {i18n("home.openSellOffers", String(data?.sell.open))}
-        </PeachText>
-        <PeachText
-          style={tw`subtitle-1 ${isDarkMode ? "text-primary-mild-1" : "text-primary-main"}`}
-        >
-          {i18n("home.averagePremium", String(data?.sell.avgPremium))}
-        </PeachText>
+    <RadialGradientBorder
+      style={tw`self-stretch rounded-2xl`}
+      centerColor={isDarkMode ? "#DD8B75" : "#FFB76F"}
+      middleColor={isDarkMode ? "#C1705C" : "#FFAB90"}
+      edgeColor={isDarkMode ? "#8F4A35" : "#FF837B"}
+    >
+      <View
+        style={[
+          tw`self-stretch justify-center gap-2 p-2 md:gap-4 bg-primary-background-light-color rounded-2xl md:p-4`,
+          isDarkMode && tw`bg-[#3F221C]`,
+        ]}
+      >
+        <View style={tw`flex-row items-center self-stretch justify-between`}>
+          <View style={tw`rounded-md bg-primary-main px-5px`}>
+            <PeachText
+              style={tw`uppercase text-primary-background-light-color subtitle-1`}
+            >
+              {i18n("offer.openOffers")}
+            </PeachText>
+          </View>
+          <View style={tw`flex-row items-center gap-6px`}>
+            <PeachText style={tw`uppercase notification`}>
+              {i18n("offer.averagePremium")}
+            </PeachText>
+            <View style={tw`rounded-md bg-success-mild-2 px-5px`}>
+              <PeachText
+                style={tw`text-success-dark-2 font-baloo-semibold text-3xs`}
+              >
+                {data?.totalAvgPremium !== undefined &&
+                data?.totalAvgPremium >= 0
+                  ? "+"
+                  : "-"}
+                {data?.totalAvgPremium}%
+              </PeachText>
+            </View>
+          </View>
+        </View>
+        <View style={tw`gap-1 md:gap-2`}>
+          <View style={tw`flex-row items-center p-2 gap-14px`}>
+            <OfferCounter numberOfOffers={data?.buy.open} type="buy" />
+            <View style={tw`w-px h-6 bg-black-10`} />
+            <OfferCounter numberOfOffers={data?.sell.open} type="sell" />
+          </View>
+          <HorizontalLine />
+          <View style={tw`flex-row pt-2 gap-10px`}>
+            <BuyButton />
+            <SellButton />
+          </View>
+        </View>
       </View>
-      <View style={tw`items-center -gap-2`}>
-        <PeachText style={tw`subtitle-0 text-success-main`}>
-          {i18n("home.openBuyOffers", String(data?.buy.open))}
-        </PeachText>
-        <PeachText
-          style={tw`subtitle-1 ${isDarkMode ? "text-success-mild-1" : "text-success-main"}`}
-        >
-          {i18n("home.averagePremium", String(data?.buy.avgPremium))}
-        </PeachText>
-      </View>
-    </View>
+    </RadialGradientBorder>
   );
 }
 
-const buttonStyle = tw`flex-1 px-5 py-3`;
+const buttonStyle = tw`flex-1 px-1 py-1 md:py-2`;
 
-// function CreateBuyOfferButton() {
-//   const navigation = useStackNavigation();
-//   const goToCreateBuyOffer = () => navigation.navigate("createBuyOffer");
-//   return (
-//     <Button
-//       style={[buttonStyle, tw`bg-success-main`]}
-//       onPress={goToCreateBuyOffer}
-//     >
-//       {i18n("69CreateBuyOffer")}
-//     </Button>
-//   );
-// }
 function ExpressSellButton() {
   const navigation = useStackNavigation();
   const goToExpressSell = () =>
@@ -210,10 +315,17 @@ function ExpressBuyButton() {
 function BuyButton() {
   const navigation = useStackNavigation();
   const goToBuyOfferPreferences = () => navigation.navigate("createBuyOffer");
+  const { isDarkMode } = useThemeStore();
   return (
     <Button
-      style={[buttonStyle, tw`bg-success-main`]}
+      style={[
+        buttonStyle,
+        tw`border`,
+        isDarkMode && tw`bg-backgroundMain-dark`,
+      ]}
+      textColor={tw.color("success-main")}
       onPress={goToBuyOfferPreferences}
+      ghost
     >
       {i18n("offer.create.buy")}
     </Button>
@@ -224,9 +336,64 @@ function SellButton() {
   const navigation = useStackNavigation();
   const goToSellOfferPreferences = () =>
     navigation.navigate("sellOfferPreferences");
+  const { isDarkMode } = useThemeStore();
   return (
-    <Button style={[buttonStyle]} onPress={goToSellOfferPreferences}>
+    <Button
+      style={[
+        buttonStyle,
+        tw`border`,
+        isDarkMode && tw`bg-backgroundMain-dark`,
+      ]}
+      ghost
+      textColor={tw.color("primary-main")}
+      onPress={goToSellOfferPreferences}
+    >
       {i18n("offer.create.sell")}
     </Button>
+  );
+}
+
+function OfferCounter({
+  numberOfOffers,
+  type,
+}: {
+  numberOfOffers?: number;
+  type: "buy" | "sell";
+}) {
+  const { isDarkMode } = useThemeStore();
+  return (
+    <View style={tw`flex-row items-center flex-1 gap-6px`}>
+      <View
+        style={[
+          tw`px-2 rounded-1`,
+          type === "buy"
+            ? isDarkMode
+              ? tw`bg-success-mild-1-color`
+              : tw`bg-success-mild-2`
+            : isDarkMode
+              ? tw`bg-primary-mild-1`
+              : tw`bg-primary-background-dark-color`,
+        ]}
+      >
+        {numberOfOffers === undefined ? (
+          <ActivityIndicator
+            size="small"
+            color={tw.color(type === "buy" ? "success-main" : "error-main")}
+          />
+        ) : (
+          <PeachText
+            style={[
+              tw`text-xl font-medium leading-normal tracking-normal font-baloo`,
+              isDarkMode && tw`text-black-90`,
+            ]}
+          >
+            {numberOfOffers}
+          </PeachText>
+        )}
+      </View>
+      <PeachText style={tw`text-xs font-medium leading-6 font-baloo`}>
+        {i18n(type === "buy" ? "offer.buyOffers" : "offer.sellOffers")}
+      </PeachText>
+    </View>
   );
 }

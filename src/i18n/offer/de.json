@@ -1,4 +1,8 @@
 {
+  "offer.buyOffers":"Kaufangebote",
+  "offer.sellOffers":"Verkaufsangebote",
+  "offer.openOffers":"offene Angebote",
+  "offer.averagePremium":"Ø Aufpreis:",
   "offer.cancel.popup.description" : "Bist du sicher?\n\nWenn du bereits deine Bitcoin an die Escrow gesendet hast, wird dir der Betrag abzüglich der Bitcoin-Netzwerkgebühren erstattet.",
   "offer.cancel.popup.title" : "Angebot stornieren",
   "offer.canceled" : "storniert",
