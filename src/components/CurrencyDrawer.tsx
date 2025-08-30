@@ -13,7 +13,6 @@ import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
-import { uniqueArray } from "../utils/array/uniqueArray";
 import i18n from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { Icon } from "./Icon";
@@ -128,8 +127,8 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
   const allCurrencies = useMemo(
     () =>
       paymentMethods
-        ?.reduce((arr: Currency[], info) => arr.concat(info.currencies), [])
-        .filter(uniqueArray),
+        ? Array.from(new Set(paymentMethods.flatMap((info) => info.currencies)))
+        : undefined,
     [paymentMethods],
   );
   if (!modalVisible || !allCurrencies) return null;
