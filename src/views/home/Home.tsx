@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import Share from "react-native-share";
 import { LogoIcons } from "../../assets/logo";
+import { CurrencyDrawer } from "../../components/CurrencyDrawer";
 import { DiamondGradientBackground } from "../../components/DiamondGradientBackground";
 import { RadialGradientBorder } from "../../components/RadialGradientBorder";
 import { Screen } from "../../components/Screen";
@@ -30,48 +32,59 @@ export function Home() {
   const goToProfile = () => navigation.navigate("myProfile");
   const isMediumScreen = useIsMediumScreen();
   const { isDarkMode } = useThemeStore();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
-    <Screen
-      showTradingLimit
-      style={
-        isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`
-      }
-      actions={
-        <View
-          style={tw`flex-row gap-10px px-sm md:px-md border-t-[px] py-sm md:py-md border-primary-mild-1`}
-        >
-          <ExpressBuyButton />
-          <ExpressSellButton />
-        </View>
-      }
-    >
-      <View style={tw`items-center flex-1 gap-2 md:gap-4`}>
-        <View style={tw`self-stretch gap-2`}>
-          <View style={tw`flex-row items-center justify-between w-full px-2`}>
-            {isMediumScreen ? (
-              <LogoIcons.homeLogo />
-            ) : (
-              <LogoIcons.homeLogoSmall />
-            )}
-            <TouchableIcon
-              id="user"
-              onPress={goToProfile}
-              iconSize={20}
-              style={tw`items-center justify-center py-px px-10px md:py-2`}
+    <>
+      <Screen
+        showTradingLimit
+        style={
+          isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`
+        }
+        actions={
+          <View
+            style={tw`flex-row gap-10px px-sm md:px-md border-t-[px] py-sm md:py-md border-primary-mild-1`}
+          >
+            <ExpressBuyButton />
+            <ExpressSellButton />
+          </View>
+        }
+      >
+        <View style={tw`items-center flex-1 gap-2 md:gap-4`}>
+          <View style={tw`self-stretch gap-2`}>
+            <View style={tw`flex-row items-center justify-between w-full px-2`}>
+              {isMediumScreen ? (
+                <LogoIcons.homeLogo />
+              ) : (
+                <LogoIcons.homeLogoSmall />
+              )}
+              <TouchableIcon
+                id="user"
+                onPress={goToProfile}
+                iconSize={20}
+                style={tw`items-center justify-center py-px px-10px md:py-2`}
+              />
+            </View>
+            <BTCPriceInfo
+              onChevronPress={() => setIsDrawerOpen(!isDrawerOpen)}
             />
           </View>
-          <BTCPriceInfo />
+          <View style={tw`self-stretch gap-2 md:gap-4`}>
+            <News />
+            <MarketStats />
+          </View>
         </View>
-        <View style={tw`self-stretch gap-2 md:gap-4`}>
-          <News />
-          <MarketStats />
-        </View>
-      </View>
-    </Screen>
+      </Screen>
+
+      <CurrencyDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      />
+    </>
   );
 }
 const GROUP_SIZE = 3;
-function BTCPriceInfo() {
+function BTCPriceInfo({ onChevronPress }: { onChevronPress: () => void }) {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();
   const { isDarkMode } = useThemeStore();
   if (!bitcoinPrice) return null;
@@ -104,6 +117,7 @@ function BTCPriceInfo() {
               {`1 ${displayCurrency}`}
             </PeachText>
             <TouchableIcon
+              onPress={onChevronPress}
               iconSize={16}
               iconColor={tw.color(
                 isDarkMode ? "backgroundLight-light" : "black-100",
