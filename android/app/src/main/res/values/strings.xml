@@ -76,6 +76,35 @@
     <string name="notification.title.contract.contractCreatedFromExpressSell.buyer.instantTrade">Your Buy Offer is now a Contract!</string>
     <string name="notification.body.offer.expressBuyTradeRequestReceived">Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!</string>
     <string name="notification.title.offer.expressBuyTradeRequestReceived">Your Sell Offer received a Trade Request!</string>
+    <string name="notification.body.offer.expressBuyTradeRequestRejected">The Seller has rejected your Trade Request! Try again with another offer.</string>
+    <string name="notification.title.offer.expressBuyTradeRequestRejected">Your Trade Request was rejected...</string>
+    <string name="notification.body.offer.expressSellTradeRequestRejected">The Buyer has rejected your Trade Request! Try again with another offer.</string>
+    <string name="notification.title.offer.expressSellTradeRequestRejected">Your Trade Request was rejected...</string>    
     <string name="notification.body.offer.expressSellTradeRequestReceived">Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!</string>
     <string name="notification.title.offer.expressSellTradeRequestReceived">Your Buy Offer received a Trade Request!</string>
+
+    <string name="notification.body.contract.escrowFunded.buyer">You need to make the payment within twelve hours. The faster you are, the better your Peach score will be.</string>
+    <string name="notification.title.contract.escrowFunded.buyer">The escrow has been funded!</string>
+    <string name="notification.body.contract.escrowFunded">The Buyer has 12h to declare the payment as made.</string>
+    <string name="notification.title.contract.escrowFunded">The escrow has been funded!</string>
+
+    <string name="notification.body.contract.escrowFundingTimeExpired.buyer">The Contract was canceled. Please create a new Buy Offer.</string>
+    <string name="notification.title.contract.escrowFundingTimeExpired.buyer">The escrow wasn\'t funded in time!</string>
+
+    <string name="notification.body.contract.escrowFundingTimeExpired.seller">The Contract was cancelled and your reputation is strongly impacted.</string>
+    <string name="notification.title.contract.escrowFundingTimeExpired.seller">The escrow wasn\'t funded in time!</string>
+
+    <string name="notification.body.contract.escrowFundingTimeExpiring6hLeft">If you don\'t fund in time, the trade will be cancelled and your reputation will be strongly impacted.</string>
+    <string name="notification.title.contract.escrowFundingTimeExpiring6hLeft">You have 6h left to fund the escrow.</string>
+
+    <string name="notification.body.contract.escrowFundingTimeExpiring1hLeft">If you don\'t fund in time, the trade will be cancelled and your reputation will be strongly impacted.</string>
+    <string name="notification.title.contract.escrowFundingTimeExpiring1hLeft">You have 1h left to fund the escrow.</string>
+
+
+
+
+
+ 
+
+
 </resources>

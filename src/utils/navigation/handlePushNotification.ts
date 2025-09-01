@@ -25,6 +25,30 @@ export const handlePushNotification = async (
   if (shouldGoToContract(data)) {
     const { contractId } = data;
     navigationRef.navigate("contract", { contractId });
+  } else if (data.type === "offer.expressBuyTradeRequestRejected") {
+    navigationRef.navigate("expressBuyBrowseSellOffers");
+  } else if (data.type === "offer.expressSellTradeRequestRejected") {
+    navigationRef.navigate("expressSellBrowseBuyOffers");
+  } else if (
+    data.type === "contract.escrowFundingTimeExpired.buyer" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
+  } else if (
+    data.type === "contract.escrowFundingTimeExpired.seller" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
+  } else if (
+    data.type === "contract.escrowFundingTimeExpiring6hLeft" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
+  } else if (
+    data.type === "contract.escrowFundingTimeExpiring1hLeft" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
   } else if (shouldGoToContractChat(data)) {
     const { contractId } = data;
     navigationRef.navigate("contractChat", { contractId });
@@ -44,6 +68,14 @@ export const handlePushNotification = async (
   ) {
     navigationRef.navigate("browseTradeRequestsToMySellOffer", {
       offerId: data.offerId,
+    });
+  } else if (data.type === "contract.escrowFunded.buyer" && data.contractId) {
+    navigationRef.navigate("contract", {
+      contractId: data.contractId,
+    });
+  } else if (data.type === "contract.escrowFunded" && data.contractId) {
+    navigationRef.navigate("contract", {
+      contractId: data.contractId,
     });
   } else if (
     data.type === "offer.expressSellTradeRequestReceived" &&

@@ -352,6 +352,8 @@ type NotificationType =
   | "contract.contractCreatedFromExpressBuy.seller.instantTrade" // PN-69-???? TODO mark this
   | "offer.expressBuyTradeRequestReceived" // PN-69-???? TODO mark this
   | "offer.expressSellTradeRequestReceived" // PN-69-???? TODO mark this
+  | "offer.expressBuyTradeRequestRejected" // PN-69-???? TODO mark this
+  | "offer.expressSellTradeRequestRejected" // PN-69-???? TODO mark this
   | "contract.buyer.paymentReminderSixHours" // PN-B04
   | "contract.buyer.paymentReminderOneHour" // PN-B05
   | "contract.buyer.paymentTimerHasRunOut" // PN-B12
@@ -374,7 +376,13 @@ type NotificationType =
   | "contract.cancelationRequestAccepted" // PN-S15
   | "contract.cancelationRequestRejected" // PN-S16
   | "contract.wrongFundingAmount" // PN-??? TODO SET THIS
-  | "offer.buyOfferExpired"; // PN-B14
+  | "offer.buyOfferExpired" // PN-B14
+  | "contract.escrowFunded.buyer"
+  | "contract.escrowFunded"
+  | "contract.escrowFundingTimeExpired.buyer"
+  | "contract.escrowFundingTimeExpired.seller"
+  | "contract.escrowFundingTimeExpiring6hLeft"
+  | "contract.escrowFundingTimeExpiring1hLeft";
 
 type PNData = {
   type?: NotificationType;

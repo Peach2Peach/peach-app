@@ -23,6 +23,10 @@
   "notification.contract.contractCreatedFromExpressSell.buyer.instantTrade.title" : "Your Buy Offer is now a Contract!",
   "notification.offer.expressBuyTradeRequestReceived.text" : "Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!",
   "notification.offer.expressBuyTradeRequestReceived.title" : "Your Sell Offer received a Trade Request!",
+  "notification.offer.expressBuyTradeRequestRejected.text" : "The Seller has rejected your Trade Request! Try again with another offer.",
+  "notification.offer.expressBuyTradeRequestRejected.title" : "Your Trade Request was rejected...",
+  "notification.offer.expressSellTradeRequestRejected.text" : "The Buyer has rejected your Trade Request! Try again with another offer.",
+  "notification.offer.expressSellTradeRequestRejected.title" : "Your Trade Request was rejected...",
   "notification.offer.expressSellTradeRequestReceived.text" : "Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!",
   "notification.offer.expressSellTradeRequestReceived.title" : "Your Buy Offer received a Trade Request!",
   "notification.contract.contractCreated.text" : "Your match got accepted!\n\nYou need to make the payment within twelve hours. The faster you are, the better your Peach score will be.",
@@ -51,5 +55,28 @@
   "notification.offer.sellOfferExpired.text" : "We've canceled your sell offer, since you haven't matched anyone after $1 days.",
   "notification.offer.sellOfferExpired.title" : "No match",
   "notification.user.badge.unlocked.text" : "Congrats, you unlocked the $0 badge on your profile!",
-  "notification.user.badge.unlocked.title" : "new badge!"
+  "notification.user.badge.unlocked.title" : "new badge!",
+
+  "notification.contract.escrowFunded.buyer.text" : "You need to make the payment within twelve hours. The faster you are, the better your Peach score will be.",
+  "notification.contract.escrowFunded.buyer.title" : "The escrow has been funded!",
+
+  "notification.contract.escrowFunded.text" : "The Buyer has 12h to declare the payment as made",
+  "notification.contract.escrowFunded.title" : "The escrow has been funded!",
+
+  "notification.contract.escrowFundingTimeExpired.buyer.text" : "The Contract was canceled. Please create a new Buy Offer.",
+  "notification.contract.escrowFundingTimeExpired.buyer.title" :  "The escrow wasn't funded in time!",
+
+  "notification.contract.escrowFundingTimeExpired.seller.text" : "The Contract was cancelled and your reputation is strongly impacted.",
+  "notification.contract.escrowFundingTimeExpired.seller.title" : "You haven't funded the escrow in time!",
+  
+
+  "notification.contract.escrowFundingTimeExpiring6hLeft.text" : "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.",
+  "notification.contract.escrowFundingTimeExpiring6hLeft.title" : "You have 6h left to fund the escrow.",
+  
+  "notification.contract.escrowFundingTimeExpiring1hLeft.text" : "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.",
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title" : "You have 1h left to fund the escrow."
+  
+
+
+  
 }
