@@ -39,7 +39,9 @@ export function Home() {
       <Screen
         showTradingLimit
         style={
-          isDarkMode ? tw`bg-backgroundMain-dark` : tw`bg-backgroundMain-light`
+          isDarkMode
+            ? tw`bg-backgroundMain-dark`
+            : tw`bg-primary-background-dark-color`
         }
         actions={
           <View
