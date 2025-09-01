@@ -37,7 +37,12 @@ export function ConfirmTradeCancelationPopup({
     view === "seller"
       ? cancelSeller(undefined, {
           onSuccess: async ({ psbt }) => {
-            // setPopup(<CancelPopup contract={contract} />);
+            setPopup(
+              <GrayPopup
+                title={i18n("contract.cancel.success")}
+                actions={<ClosePopupAction style={tw`justify-center`} />}
+              />,
+            );
             if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
           },
         })
