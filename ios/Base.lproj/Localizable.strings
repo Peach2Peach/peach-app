@@ -86,15 +86,15 @@
 "notification.body.contract.escrowFunded" = "The Buyer has 12h to declare the payment as made";
 "notification.title.contract.escrowFunded" = "The escrow has been funded!";
 
-"notification.body.contract.escrowFundingTimeExpired.buyer" = "The Contract was canceled. Please create a new Buy Offer."
-"notification.title.contract.escrowFundingTimeExpired.buyer" = "The escrow wasn't funded in time!"
+"notification.body.contract.escrowFundingTimeExpired.buyer" = "The Contract was canceled. Please create a new Buy Offer.";
+"notification.title.contract.escrowFundingTimeExpired.buyer" = "The escrow wasn't funded in time!";
 
-"notification.body.contract.escrowFundingTimeExpired.seller" = "The Contract was cancelled and your reputation is strongly impacted."
-"notification.title.contract.escrowFundingTimeExpired.seller" = "The escrow wasn't funded in time!"
+"notification.body.contract.escrowFundingTimeExpired.seller" = "The Contract was cancelled and your reputation is strongly impacted.";
+"notification.title.contract.escrowFundingTimeExpired.seller" = "The escrow wasn't funded in time!";
 
-"notification.body.contract.escrowFundingTimeExpiring6hLeft" = "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted."
-"notification.title.contract.escrowFundingTimeExpiring6hLeft" = "You have 6h left to fund the escrow."
+"notification.body.contract.escrowFundingTimeExpiring6hLeft" = "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.";
+"notification.title.contract.escrowFundingTimeExpiring6hLeft" = "You have 6h left to fund the escrow.";
 
-"notification.body.contract.escrowFundingTimeExpiring1hLeft" = "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted."
-"notification.title.contract.escrowFundingTimeExpiring1hLeft" = "You have 1h left to fund the escrow."
+"notification.body.contract.escrowFundingTimeExpiring1hLeft" = "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.";
+"notification.title.contract.escrowFundingTimeExpiring1hLeft" = "You have 1h left to fund the escrow.";
 
