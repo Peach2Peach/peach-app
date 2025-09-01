@@ -223,5 +223,7 @@
   "contract.summary.branchCode" : "branch code",
   "contract.summary.branchName" : "branch name",
   "contract.summary.mobileMoneyIdentifier" : "mobile money identifier",
-  "contract.summary.residentialAddress" : "residential address"
+  "contract.summary.residentialAddress" : "residential address",
+  "contract.escrowFunded.description" : "The Buyer has 12h to declare the payment as made",
+  "contract.escrowFunded.title" : "The escrow has been funded!"
 }

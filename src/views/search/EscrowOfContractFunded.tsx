@@ -49,7 +49,7 @@ export const EscrowOfContractFunded = ({
       buttons={
         <>
           <Button
-            style={tw`bg-primary-background-light`}
+            style={tw`bg-primary-background-light-color`}
             textColor={tw.color("primary-main")}
             onPress={goToContract}
           >
