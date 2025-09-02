@@ -9,10 +9,12 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useHandleNotifications } from "../../hooks/notifications/useHandleNotifications";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useFundingStatus } from "../../hooks/query/useFundingStatus";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/ConfirmTradeCancelationPopup";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
@@ -73,8 +75,27 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
   } = useDecryptedContractData(contract);
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean();
 
+  const { user: selfUser } = useSelfUser();
+  const setPopup = useSetPopup();
+  const hasSeenFirstTimeBuyerPopup = useSettingsStore(
+    (state) => state.seenFirstTimeBuyerPopup,
+  );
+  const setSeenFirstTimeBuyerPopup = useSettingsStore(
+    (state) => state.setSeenFirstTimeBuyerPopup,
+  );
+
   if (isLoadingPaymentData) return <LoadingScreen />;
 
+  if (
+    selfUser &&
+    selfUser.trades === 0 &&
+    contract.tradeStatus === "paymentRequired" &&
+    !hasSeenFirstTimeBuyerPopup &&
+    selfUser.id === contract.buyer.id
+  ) {
+    setPopup(<HelpPopup id="firstTimeBuyer" />);
+    setSeenFirstTimeBuyerPopup();
+  }
   return (
     <ContractContext.Provider
       value={{
