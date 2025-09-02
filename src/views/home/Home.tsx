@@ -98,6 +98,7 @@ function DailyMessage() {
       >
         <PeachText
           onPress={onTextPress}
+          disabled={!message.url}
           style={tw`flex-1 text-center subtitle-1 text-primary-background-light-color`}
         >
           {message.text}
