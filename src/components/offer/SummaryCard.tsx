@@ -28,14 +28,20 @@ SummaryCard.Section = SummarySection;
 
 const PaymentMethods = ({
   meansOfPayment,
+  setDisplayedCurrency,
 }: {
   meansOfPayment: MeansOfPayment;
+  setDisplayedCurrency: Function;
 }) => (
   <SummaryCard.Section>
     <PeachText style={tw`text-center text-black-65`}>
       {i18n("offer.summary.withTheseMethods")}
     </PeachText>
-    <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch`} />
+    <MeansOfPayment
+      meansOfPayment={meansOfPayment}
+      style={tw`self-stretch`}
+      setDisplayedCurrency={setDisplayedCurrency}
+    />
   </SummaryCard.Section>
 );
 

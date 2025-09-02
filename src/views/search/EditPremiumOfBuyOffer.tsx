@@ -22,7 +22,8 @@ import { peachAPI } from "../../utils/peachAPI";
 import { priceFormat } from "../../utils/string/priceFormat";
 
 export const EditPremiumOfBuyOffer = () => {
-  const { offerId } = useRoute<"editPremiumOfBuyOffer">().params;
+  const { offerId, preferedDisplayCurrency } =
+    useRoute<"editPremiumOfBuyOffer">().params;
   const { buyOffer } = useBuyOfferDetail(offerId);
   const offerPremium = buyOffer ? buyOffer.premium : undefined;
   const [premium, setPremium] = useState(offerPremium);
@@ -30,7 +31,9 @@ export const EditPremiumOfBuyOffer = () => {
   const { data: priceBook, isSuccess } = useMarketPrices();
 
   const displayCurrency =
-    (Object.keys(buyOffer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
+    preferedDisplayCurrency !== undefined
+      ? preferedDisplayCurrency
+      : (Object.keys(buyOffer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
   const currentPrice =
     buyOffer && isSuccess
       ? getOfferPrice({

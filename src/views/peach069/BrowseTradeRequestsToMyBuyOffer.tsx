@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { BuyOffer69TradeRequest } from "../../../peach-api/src/@types/offer";
 import { Header } from "../../components/Header";
@@ -125,6 +125,20 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
 
   const buyOffer = buyOfferApiResp as unknown as BuyOffer69;
 
+  const [displayedCurrency, setDisplayedCurrency] = useState<
+    Currency | undefined
+  >(undefined);
+
+  useEffect(() => {
+    if (displayedCurrency === undefined) {
+      setDisplayedCurrency(
+        buyOffer === undefined
+          ? undefined
+          : (Object.keys(buyOffer?.meansOfPayment ?? {})[0] as Currency),
+      );
+    }
+  }, [buyOffer]);
+
   const {
     buyOfferTradeRequests,
     isLoading: isLoadingTradeRequests,
@@ -135,7 +149,8 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
     isLoading ||
     isLoadingTradeRequests ||
     buyOfferTradeRequests === undefined ||
-    buyOffer === undefined
+    buyOffer === undefined ||
+    displayedCurrency === undefined
   )
     return <LoadingScreen />;
   return (
@@ -145,6 +160,7 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
         <SearchHeader
           offerId={buyOffer.id}
           tradeRequests={buyOfferTradeRequests}
+          displayedCurrency={displayedCurrency}
         />
       }
       showTradingLimit
@@ -164,14 +180,23 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
             type="buy"
           />
         ) : (
-          <NoMatchesYet offer={buyOffer} />
+          <NoMatchesYet
+            offer={buyOffer}
+            setDisplayedCurrency={setDisplayedCurrency}
+          />
         )}
       </PeachScrollView>
     </Screen>
   );
 };
 
-function NoMatchesYet({ offer }: { offer: BuyOffer69 }) {
+function NoMatchesYet({
+  offer,
+  setDisplayedCurrency,
+}: {
+  offer: BuyOffer69;
+  setDisplayedCurrency: Function;
+}) {
   return (
     <View style={tw`gap-8`}>
       <PeachText style={tw`text-center subtitle-1`}>
@@ -182,6 +207,7 @@ function NoMatchesYet({ offer }: { offer: BuyOffer69 }) {
         offer={offer}
         walletLabel={<WalletLabel address={offer.releaseAddress} />}
         type="buy"
+        setDisplayedCurrency={setDisplayedCurrency}
       />
     </View>
   );
@@ -197,9 +223,11 @@ function WalletLabel({ address }: { address: string }) {
 function SearchHeader({
   offerId,
   tradeRequests,
+  displayedCurrency,
 }: {
   offerId: string;
   tradeRequests: BuyOffer69TradeRequest[];
+  displayedCurrency: Currency;
 }) {
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
@@ -225,10 +253,13 @@ function SearchHeader({
       ),
     [offerId, setPopup],
   );
-  const goToEditPremium = useCallback(
-    () => navigation.navigate("editPremiumOfBuyOffer", { offerId }),
-    [navigation, offerId],
-  );
+
+  const goToEditPremium = useCallback(() => {
+    navigation.navigate("editPremiumOfBuyOffer", {
+      offerId,
+      preferedDisplayCurrency: displayedCurrency,
+    });
+  }, [navigation, offerId, displayedCurrency]);
 
   const memoizedHeaderIcons = useMemo(() => {
     if (!offerId) return undefined;
@@ -248,7 +279,13 @@ function SearchHeader({
         ...icons,
       ];
     }
-  }, [offerId, cancelOffer, showAcceptTradeRequestPopup, tradeRequests]);
+  }, [
+    offerId,
+    cancelOffer,
+    showAcceptTradeRequestPopup,
+    tradeRequests,
+    displayedCurrency,
+  ]);
 
   return (
     <Header title={offerIdToHex(String(offerId))} icons={memoizedHeaderIcons} />

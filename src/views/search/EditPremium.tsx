@@ -14,7 +14,6 @@ import { usePatchOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -25,7 +24,7 @@ import { priceFormat } from "../../utils/string/priceFormat";
 // import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 
 export const EditPremium = () => {
-  const { offerId } = useRoute<"editPremium">().params;
+  const { offerId, preferedDisplayCurrency } = useRoute<"editPremium">().params;
   const { offer } = useOfferDetail(offerId);
   const offerPremium =
     !!offer && "premium" in offer ? offer.premium : undefined;
@@ -37,7 +36,11 @@ export const EditPremium = () => {
     throw new Error("Offer is not a sell offer");
   }
 
-  const displayCurrency = useSettingsStore((state) => state.displayCurrency);
+  // const displayCurrency = useSettingsStore((state) => state.displayCurrency);
+  const displayCurrency =
+    preferedDisplayCurrency !== undefined
+      ? preferedDisplayCurrency
+      : (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
   const currentPrice =
     offer && isSuccess
       ? getOfferPrice({

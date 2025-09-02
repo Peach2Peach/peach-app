@@ -19,6 +19,7 @@ type Props = {
   numberOfOffers?: number;
   walletLabel: JSX.Element;
   type?: "buy" | "sell";
+  setDisplayedCurrency: Function;
 };
 
 const isSellOfferWithDefinedEscrow = (
@@ -35,6 +36,7 @@ export const SellOrBuyOfferSummary = ({
   offer,
   numberOfOffers,
   walletLabel,
+  setDisplayedCurrency,
   type = "sell",
 }: Props) => {
   const { tradeStatus, amount, premium, meansOfPayment, amountSats } = offer;
@@ -80,7 +82,10 @@ export const SellOrBuyOfferSummary = ({
 
       <HorizontalLine />
 
-      <SummaryCard.PaymentMethods meansOfPayment={meansOfPayment} />
+      <SummaryCard.PaymentMethods
+        meansOfPayment={meansOfPayment}
+        setDisplayedCurrency={setDisplayedCurrency}
+      />
 
       <HorizontalLine />
 

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { SellOffer69TradeRequest } from "../../../peach-api/src/@types/offer";
 import { Header } from "../../components/Header";
@@ -116,97 +116,25 @@ const acceptTradeRequest = async (
   }
 };
 
-// export function BrowseTradeRequestsToMySellOfferOLD() {
-//   const navigation = useStackNavigation();
-
-//   const { user: selfUser } = useSelfUser();
-
-//   const { offerId } = useRoute<"browseTradeRequestsToMySellOffer">().params;
-//   const title = "Peach69 Sell Offer " + offerId;
-
-//   const { sellOffer, isLoading } = useSellOfferDetail(offerId);
-//   const { sellOfferTradeRequests, isLoading: isLoadingTradeRequests } =
-//     useSellOfferTradeRequestsReceived(offerId);
-
-//   return (
-//     <Screen header={<Header title={title} />}>
-//       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
-//         <PeachText>0.69 Peach Sell Offer </PeachText>
-//         <PeachText>Offer ID: {offerId}</PeachText>
-//         {!isLoading && (
-//           <>
-//             <PeachText>Amount: {sellOffer?.amount}</PeachText>
-//             <PeachText>
-//               Means of Payment: {JSON.stringify(sellOffer?.meansOfPayment)}
-//             </PeachText>
-//           </>
-//         )}
-//         <>
-//           {!isLoadingTradeRequests &&
-//             !!sellOfferTradeRequests &&
-//             !!sellOffer &&
-//             !!selfUser &&
-//             sellOfferTradeRequests.map((item, index) => {
-//               return (
-//                 <>
-//                   <PeachText>-------</PeachText>
-//                   <PeachText>TR ID: {item.id}</PeachText>
-//                   <PeachText>TR User: {item.userId}</PeachText>
-//                   <PeachText>TR Price: {item.price}</PeachText>
-//                   <PeachText>TR Currency: {item.currency}</PeachText>
-//                   <PeachText>TR PM: {item.paymentMethod}</PeachText>
-//                   <View style={tw`flex-row gap-10px`}>
-//                     <Button
-//                       style={[tw`bg-success-main`]}
-//                       onPress={() =>
-//                         acceptTradeRequest(
-//                           sellOffer,
-//                           item,
-//                           selfUser,
-//                           navigation,
-//                         )
-//                       }
-//                     >
-//                       accept
-//                     </Button>
-//                     <Button
-//                       style={[tw`bg-error-main`]}
-//                       onPress={() =>
-//                         rejectTradeRequest(
-//                           item.sellOfferId,
-//                           item.userId,
-//                           navigation,
-//                         )
-//                       }
-//                     >
-//                       reject
-//                     </Button>
-//                     <Button
-//                       style={[tw`bg-error-main`]}
-//                       onPress={() =>
-//                         goToChat(navigation, item.sellOfferId, item.userId)
-//                       }
-//                     >
-//                       chat
-//                     </Button>
-//                   </View>
-//                   <PeachText>-------</PeachText>
-//                 </>
-//               );
-//             })}
-//         </>
-//       </PeachScrollView>
-//     </Screen>
-//   );
-// }
-
-////
-
-// new component
 export const BrowseTradeRequestsToMySellOffer = () => {
   const { offerId } = useRoute<"browseTradeRequestsToMySellOffer">().params;
 
   const { sellOffer, isLoading } = useSellOfferDetail(offerId);
+
+  const [displayedCurrency, setDisplayedCurrency] = useState<
+    Currency | undefined
+  >(undefined);
+
+  useEffect(() => {
+    if (displayedCurrency === undefined) {
+      setDisplayedCurrency(
+        sellOffer === undefined
+          ? undefined
+          : (Object.keys(sellOffer?.meansOfPayment ?? {})[0] as Currency),
+      );
+    }
+  }, [sellOffer]);
+
   const {
     sellOfferTradeRequests,
     isLoading: isLoadingTradeRequests,
@@ -217,7 +145,8 @@ export const BrowseTradeRequestsToMySellOffer = () => {
     isLoading ||
     isLoadingTradeRequests ||
     sellOfferTradeRequests === undefined ||
-    sellOffer === undefined
+    sellOffer === undefined ||
+    displayedCurrency === undefined
   )
     return <LoadingScreen />;
   return (
@@ -227,6 +156,7 @@ export const BrowseTradeRequestsToMySellOffer = () => {
         <SearchHeader
           offer={sellOffer}
           tradeRequests={sellOfferTradeRequests}
+          displayedCurrency={displayedCurrency}
         />
       }
       showTradingLimit
@@ -246,14 +176,23 @@ export const BrowseTradeRequestsToMySellOffer = () => {
             type="sell"
           />
         ) : (
-          <NoMatchesYet offer={sellOffer} />
+          <NoMatchesYet
+            offer={sellOffer}
+            setDisplayedCurrency={setDisplayedCurrency}
+          />
         )}
       </PeachScrollView>
     </Screen>
   );
 };
 
-function NoMatchesYet({ offer }: { offer: SellOffer }) {
+function NoMatchesYet({
+  offer,
+  setDisplayedCurrency,
+}: {
+  offer: SellOffer;
+  setDisplayedCurrency: Function;
+}) {
   return (
     <View style={tw`gap-8`}>
       <PeachText style={tw`text-center subtitle-1`}>
@@ -263,6 +202,7 @@ function NoMatchesYet({ offer }: { offer: SellOffer }) {
       <SellOrBuyOfferSummary
         offer={offer}
         walletLabel={<WalletLabel address={offer.returnAddress} />}
+        setDisplayedCurrency={setDisplayedCurrency}
       />
     </View>
   );
@@ -278,9 +218,11 @@ function WalletLabel({ address }: { address: string }) {
 function SearchHeader({
   offer,
   tradeRequests,
+  displayedCurrency,
 }: {
   offer: SellOffer;
   tradeRequests: SellOffer69TradeRequest[];
+  displayedCurrency: Currency;
 }) {
   const offerId = offer.id;
   const navigation = useStackNavigation();
@@ -300,8 +242,12 @@ function SearchHeader({
   );
 
   const goToEditPremium = useCallback(
-    () => navigation.navigate("editPremium", { offerId }),
-    [navigation, offerId],
+    () =>
+      navigation.navigate("editPremium", {
+        offerId,
+        preferedDisplayCurrency: displayedCurrency,
+      }),
+    [navigation, offerId, displayedCurrency],
   );
 
   const memoizedHeaderIcons = useMemo(() => {
@@ -325,6 +271,7 @@ function SearchHeader({
     goToEditPremium,
     showAcceptTradeRequestPopup,
     tradeRequests,
+    displayedCurrency,
   ]);
 
   return <Header title={offerIdToHex(offerId)} icons={memoizedHeaderIcons} />;
