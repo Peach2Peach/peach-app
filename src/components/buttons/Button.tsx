@@ -13,6 +13,7 @@ export type ButtonProps = {
   textColor?: string;
   children: ReactNode;
   loading?: boolean;
+  numberOfLines?: number;
 } & TouchableOpacityProps;
 
 const MEDIUM_ICON_SIZE = 18;
@@ -24,6 +25,7 @@ export const Button = ({
   textColor = tw.color("backgroundMain-light"),
   children,
   loading,
+  numberOfLines,
   ...touchableOpacityProps
 }: ButtonProps) => {
   const isMediumScreen = useIsMediumScreen();
@@ -44,9 +46,13 @@ export const Button = ({
       ]}
     >
       <PeachText
-        numberOfLines={1}
+        numberOfLines={numberOfLines || 1}
         ellipsizeMode="tail"
-        style={[tw`button-small`, tw`md:button-medium`, { color: textColor }]}
+        style={[
+          tw`button-small`,
+          tw`md:button-medium`,
+          { color: textColor, textAlign: "center" },
+        ]}
       >
         {children}
       </PeachText>

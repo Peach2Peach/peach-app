@@ -68,6 +68,7 @@ export function UserBitcoinLevel() {
                   : undefined
               }
               onPress={() => submitBitcoinLevel(bitcoinLevelOption)}
+              numberOfLines={2}
             >
               {i18n("userBitcoinLevel.answer." + bitcoinLevelOption)}
             </Button>
