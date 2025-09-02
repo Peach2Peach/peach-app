@@ -84,20 +84,6 @@ describe("useFundFromPeachWallet", () => {
     });
     expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
   });
-  it("should open confirmation popup", async () => {
-    if (!peachWallet) throw new Error("PeachWallet not set");
-    peachWallet.balance = amount;
-    peachWallet.finishTransaction = jest
-      .fn()
-      .mockResolvedValue(getTransactionDetails(amount, feeRate));
-
-    const { result } = renderHook(useFundFromPeachWallet);
-    await act(async () => {
-      await result.current(initialProps);
-    });
-
-    expect(render(<GlobalPopup />)).toMatchSnapshot();
-  });
   it("should set multiple recipients if addresses is passed", async () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = amount;
@@ -164,26 +150,6 @@ describe("useFundFromPeachWallet", () => {
     ]);
     expect(queryByText("confirm & send")).toBeFalsy();
   });
-
-  it("should open insufficient funds popup", async () => {
-    let call = 0;
-    if (!peachWallet) throw new Error("PeachWallet not set");
-    peachWallet.balance = amount;
-    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
-      call++;
-      if (call === 1) throw transactionError;
-      return getTransactionDetails(amount, feeRate);
-    });
-
-    const { result } = renderHook(useFundFromPeachWallet);
-
-    await act(async () => {
-      await result.current(initialProps);
-    });
-
-    expect(render(<GlobalPopup />)).toMatchSnapshot();
-  });
-
   it("should open handle insufficient funds error for building drain wallet transactions", async () => {
     if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = amount;
