@@ -23,5 +23,8 @@
   "settings.batching.youPay" : "Vigyázat! A Peach által okozott többletköltségeket Ön fizeti. Ez a költség dinamikus, és a díjcsúcsok idején jelentős lehet.\nGyőződjön meg róla, hogy érti, mire vállalkozik!",
   "settings.batching.youPay.highlight" : "Vigyázat!",
   "settings.batching.youSave" : "Akár 23%-nyi tranzakciós díjat takaríthatsz meg",
-  "settings.batching.youSave.highlight" : "akár 23%-ot takaríthatsz meg"
+  "settings.batching.youSave.highlight" : "akár 23%-ot takaríthatsz meg",
+  "offer.requiredAction.wrongAmountFundedOnContract": "helytelen összeg került befizetésre",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "helytelen összeg került befizetésre"
+  
 }

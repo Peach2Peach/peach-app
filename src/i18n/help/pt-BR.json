@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "aceitar match = iniciar negociação",
   "help.addressSigning.description" : "Devido à lei suíça, você precisará assinar para verificar que é o proprietário do endereço para o qual a negociação será paga.\n\nSe você não sabe como isso funciona, recomendamos usar a carteira Peach, onde você não precisa passar por essa etapa manualmente.",
   "help.addressSigning.title" : "assinatura de endereço",
-  "help.buyingBitcoin.description" : "Ao comprar bitcoin na Peach, você primeiro selecionará uma faixa de quanto deseja comprar.\n\nDepois de selecionar, você verá todas as ofertas de venda que se encaixam nessa faixa.\n\nAs taxas da Peach são de 2% do valor da negociação.",
-  "help.buyingBitcoin.title" : "comprando bitcoin",
   "help.checkTrade" : "verificar negociação",
   "help.confirmPayment.description" : "Assim que você deslizar o controle para \"pagamento recebido\", o bitcoin será enviado ao comprador.\n\nCertifique-se de que tudo esteja correto, pois isso não pode ser desfeito!",
   "help.confirmPayment.title" : "pagamento recebido?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Você pode adicionar e selecionar quantos métodos de pagamento desejar para cada negociação!",
   "help.paymentMethods.description.2" : "Eles são armazenados em seu telefone, e apenas a pessoa com quem você está negociando pode ver essas informações (a menos que você abra uma disputa).",
   "help.paymentMethods.description.3" : "Métodos de pagamento confiáveis têm pelo menos três negociações concluídas e têm mais de 30 dias.",
-  "help.premium.description" : "Você definirá um desconto em relação ao preço de mercado (calculado a partir de várias exchanges).\n\nO preço final pelo qual você está vendendo será determinado quando um comprador corresponder à sua oferta.",
   "help.premium.title" : "o preço é relativo",
   "help.referral.description.1" : "Por cada 10.000 sats que seus indicados negociarem na Peach, você ganha um ponto de indicação.",
   "help.referral.description.2" : "Acumule seus pontos para obter recompensas incríveis!",
@@ -42,5 +39,12 @@
   "help.sellingBitcoin.description" : "Vender seus sats na Peach é gratuito!\n\nPara publicar uma oferta de venda, você deve enviar seus sats para uma custódia para provar ao comprador que você possui os sats que deseja vender!\n\nA custódia é uma carteira de Bitcoin com várias assinaturas, onde você possui uma chave e a Peach possui outra.",
   "help.sellingBitcoin.title" : "vendendo bitcoin",
   "help.tradingLimit.description" : "A Peach precisa cumprir os limites de negociação para obedecer à lei suíça. Existem três limites de negociação:\n\nVocê pode comprar ou vender bitcoin no valor de 1000 CHF na Peach todos os dias.\n\nVocê pode comprar ou vender bitcoin no valor de 1000 CHF em dinheiro ou cartões-presente online (também conhecidos como métodos de pagamento anônimos) todos os meses.\n\nVocê pode comprar ou vender bitcoin no valor de 100.000 CHF por ano.",
-  "help.tradingLimit.title" : "limites de negociação"
+  "help.tradingLimit.title" : "limites de negociação",
+  "help.acceptTradeRequest.description": "Você só pode aceitar um comprador por oferta. Uma vez que aceite a solicitação de troca de um comprador, a negociação é iniciada.\n\nUma vez iniciada, sua reputação será prejudicada se decidir cancelar.",
+  "help.acceptTradeRequest.title": "aceitar solicitação de troca = iniciar negociação",
+  "help.buyingBitcoin.description": "A carteira Peach é self-custodial, o que significa que VOCÊ possui as chaves da sua carteira.\nVá em Configurações > seed phrase e anote! #NãoSãoSuasChavesNãoÉSeuBitcoin",
+  "help.buyingBitcoin.title": "comprar bitcoin no Peach custa 2% da transação",
+  "help.premiumBuy.description": "Você definirá um desvio de preço relativo ao preço de mercado (média de múltiplas exchanges).\n\nO preço final pelo qual você venderá será determinado quando um vendedor solicitar uma negociação com sua oferta.",
+  "help.premiumBuy.title": "o preço é relativo",
+  "help.premium.description": "Você definirá um desvio de preço relativo ao preço de mercado (média de múltiplas exchanges).\n\nO preço final pelo qual você venderá será determinado quando um comprador solicitar uma negociação com sua oferta."
 }

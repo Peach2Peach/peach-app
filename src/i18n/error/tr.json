@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "bir yedek oluşturun",
   "error.firstBackup.description" : "Peach Cüzdan'ı kullandığınıza göre devam etmeden önce gerçekten bir yedek oluşturmalısınız.\n\nYapmazsanız, telefonunuzu kaybederseniz Peach hesabınızı ve Peach cüzdanında bulunan herhangi bir fonunuzu kaybedersiniz.",
   "error.firstBackup.title" : "bir yedek oluşturun!",
-  "error.general" : "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin veya hata devam ederse bizimle iletişime geçin."
+  "error.general" : "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin veya hata devam ederse bizimle iletişime geçin.",
+  "ACCOUNT_BANNED.text": "Hesabınız yasaklandı. İtiraz etmek isterseniz Peach ile iletişime geçin ve benzersiz ID’yi sağlayın."
 }

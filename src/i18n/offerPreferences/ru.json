@@ -28,5 +28,8 @@
   "offerPreferences.premiumOfCompletedTrades" : "премия завершенных сделок: $0%",
   "offerPreferences.refundTo" : "возврат на:",
   "offerPreferences.sellOffers" : "$0 открытых предложений на продажу",
-  "offerPreferences.showOffers" : "показать предложения"
+  "offerPreferences.showOffers" : "показать предложения",
+  "help.createMultiple.description": "Если вы хотите купить много у многих продавцов, вы можете создать несколько предложений на покупку!",
+  "help.createMultiple.title": "создать несколько предложений на покупку",
+   "matchDetails.action.unrequestTrade": "удалить запрос на сделку"
 }

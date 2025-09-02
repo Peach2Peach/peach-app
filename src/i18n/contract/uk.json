@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "очікує на скасування",
   "contract.cancel.requestSent" : "запит надіслано",
   "contract.cancel.requestSent.text" : "Покупець буде проінформований про те, що ви хочете скасувати торгівлю.",
-  "contract.cancel.seller" : "Ви впевнені? Скасування обміну негативно вплине на вашу репутацію. Покупець також повинен погодитися скасувати угоду, оскільки він міг вже здійснити платіж.",
   "contract.cancel.seller.text.backOnline" : "Якщо Покупець погоджується скасувати цю операцію, ми повернемо вашу пропозицію про продаж у відповідний пул.",
   "contract.cancel.seller.text.refundEscrow" : "Якщо Покупець погоджується скасувати цю торгівлю, ми повернемо ваш депозит. ",
   "contract.cancel.sellerWantsToCancel.text" : "Продавець хоче скасувати торгівлю $0 за $1 сат. Ви можете відмовитися від скасування, особливо якщо ви вже здійснили платіж.",
@@ -215,5 +214,16 @@
   "contract.summary.branchCode" : "код відділення",
   "contract.summary.branchName" : "назва відділення",
   "contract.summary.mobileMoneyIdentifier" : "ідентифікатор мобільних грошей",
-  "contract.summary.residentialAddress" : "адреса проживання"
+  "contract.summary.residentialAddress" : "адреса проживання",
+  "contract.seller.sellerDidntFundEscrowInTime": "Ви не профінансували ескроу вчасно. Контракт був автоматично скасований.",
+  "contract.seller.escrowFundedWithWrongAmount": "Ви профінансували ескроу неправильною сумою. Оскільки це була узгоджена конкретна сума, угода була скасована.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Ви профінансували ескроу неправильною сумою. Оскільки це була узгоджена конкретна сума, угода була скасована. Тепер ви можете отримати відшкодування.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Продавець не профінансував ескроу вчасно. Контракт був автоматично скасований.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Продавець профінансував ескроу неправильною сумою Bitcoin. Угода була скасована.",
+  "contract.cancel.seller": "Ви впевнені? Скасування угоди негативно вплине на вашу репутацію.",
+  "contract.seller.cancelBeforeFunding": "Ви скасували угоду до фінансування ескроу.",
+  "contract.buyer.cancelBeforeFunding": "Продавець скасував угоду до фінансування ескроу.",
+  "contract.escrowFunded.description": "У покупця є 12 годин, щоб оголосити платіж як здійснений",
+  "contract.escrowFunded.title": "Ескроу профінансовано!"
+  
 }

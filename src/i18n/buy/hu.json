@@ -10,5 +10,7 @@
   "buy.summary.title" : "vásárlási ajánlat közzététele",
   "buy.title" : "Bitcoin vásárlás",
   "buy.title.highlight" : "vásárlás",
-  "yourTrades.search.buy.subtitle" : "vásárlási ajánlat"
+  "yourTrades.search.buy.subtitle" : "vásárlási ajánlat",
+  "help.firstTimeBuyer.description": "FONTOS: NE húzza el a «Kifizettem» gombot, mielőtt valóban teljesítette a fizetést.\nA fizetést a Peach-en KÍVÜL kell teljesíteni az eladó által megadott fizetési móddal.",
+  "help.firstTimeBuyer.title": "Most egy kereskedésben vagy!"
 }

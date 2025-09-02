@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "készíts egy mentést",
   "error.firstBackup.description" : "Most, hogy a Peach Wallet-et használtad, mielőtt továbbmennél valóban érdemes mentést készítened.\n\nHa nem teszed meg és a telefonodat elhagyod, akkor elveszíted a Peach fiókodat és a Peach tárcádban tárolt összegeket is.",
   "error.firstBackup.title" : "készíts egy mentést!",
-  "error.general" : "Valami hiba történt. Kérlek később próbálkozz újra, vagy lépj kapcsolatba a Peach támogatással."
+  "error.general" : "Valami hiba történt. Kérlek később próbálkozz újra, vagy lépj kapcsolatba a Peach támogatással.",
+  "ACCOUNT_BANNED.text": "A fiókját letiltották. Ha fellebbezni szeretne, lépjen kapcsolatba a Peach-sel és adja meg az egyedi azonosítót."
 }

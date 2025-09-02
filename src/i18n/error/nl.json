@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "maak een back-up",
   "error.firstBackup.description" : "Nu je de Peach Wallet hebt gebruikt, moet je echt een back-up maken voordat je verdergaat. Als je dat niet doet, verlies je jouw Peach-account en al het geld dat in de Peach wallet is opgeslagen als je jouw telefoon verliest.",
   "error.firstBackup.title" : "maak een back-up!",
-  "error.general" : "Er ging iets mis. Probeer het later nog eens, of neem contact op met het Peach support-team."
+  "error.general" : "Er ging iets mis. Probeer het later nog eens, of neem contact op met het Peach support-team.",
+  "ACCOUNT_BANNED.text": "Je account is geblokkeerd. Als je in beroep wilt gaan, neem contact op met Peach en geef de unieke ID op."
 }

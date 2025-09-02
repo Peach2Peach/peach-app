@@ -1,5 +1,6 @@
 {
   "match.feeWarning" : "Je betaalt tot $0% aan mijnbouwkosten!",
   "match.tradeRequested" : "handel aangevraagd",
-  "match.waitingForSeller" : "wachten op verkoper"
+  "match.waitingForSeller" : "wachten op verkoper",
+  "match.waitingForTrader": "wachten op handelaar"
 }

@@ -28,5 +28,8 @@
   "offerPreferences.premiumOfCompletedTrades" : "προσφορά τελειωμένων συναλλαγών: $0%",
   "offerPreferences.refundTo" : "επιστροφή προς:",
   "offerPreferences.sellOffers" : "$0 προσφορές πώλησης",
-  "offerPreferences.showOffers" : "εμφάνιση προσφορών"
+  "offerPreferences.showOffers" : "εμφάνιση προσφορών",
+  "help.createMultiple.description": "Αν θέλετε να αγοράσετε πολλά από πολλούς πωλητές, μπορείτε να δημιουργήσετε πολλές προσφορές αγοράς!",
+  "help.createMultiple.title": "δημιουργία πολλαπλών προσφορών αγοράς",
+   "matchDetails.action.unrequestTrade": "αφαίρεση αιτήματος συναλλαγής"
 }

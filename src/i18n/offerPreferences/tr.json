@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "tamamlanan işlemlerin primi: $0%",
   "offerPreferences.refundTo" : "iade için:",
   "offerPreferences.sellOffers" : "$0 açık satış teklifi",
-  "offerPreferences.showOffers" : "teklifleri göster"
+  "offerPreferences.showOffers" : "teklifleri göster",
+  "help.createMultiple.description": "Birçok satıcıdan çok almak istiyorsanız, birden fazla alım teklifi oluşturabilirsiniz!",
+  "help.createMultiple.title": "birden fazla alım teklifi oluştur",
+   "matchDetails.action.unrequestTrade": "ticaret isteğini kaldır"
+
 }

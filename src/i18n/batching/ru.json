@@ -23,5 +23,7 @@
   "settings.batching.youPay" : "Внимание! Вы оплачиваете дополнительные расходы, которые несет Peach. Эти расходы являются динамическими и могут быть значительными во время скачков тарифов.\nУбедитесь, что вы понимаете, что делаете!",
   "settings.batching.youPay.highlight" : "Внимание!",
   "settings.batching.youSave" : "Вы сэкономите до 23% на комиссиях блокчейна",
-  "settings.batching.youSave.highlight" : "сэкономите до 23%"
+  "settings.batching.youSave.highlight" : "сэкономите до 23%",
+  "offer.requiredAction.wrongAmountFundedOnContract": "неверная сумма внесена",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "неверная сумма внесена"
 }

@@ -35,7 +35,6 @@
   "contract.cancel.pending" : "Stornierung ausstehend",
   "contract.cancel.requestSent" : "Anfrage gesendet",
   "contract.cancel.requestSent.text" : "Der Käufer wurde darüber informiert, dass du den Handel stornieren möchtest.",
-  "contract.cancel.seller" : "Bist du sicher? Die Stornierung eines Handels wirkt sich negativ auf deinen Ruf aus.\n\nDer Käufer muss ebenfalls der Stornierung zustimmen, da er ggf. bereits die Zahlung geleistet hat.",
   "contract.cancel.seller.text.backOnline" : "Wenn der Käufer der Stornierung zustimmt, werden wir dein Verkaufsangebot wieder veröffentlichen.",
   "contract.cancel.seller.text.refundEscrow" : "Wenn der Käufer der Stornierung zustimmt, erstatten wir dir das Treuhandguthaben.",
   "contract.cancel.sellerWantsToCancel.text" : "Der Verkäufer möchte den Handel $0 für $1 Sats abbrechen.\n\nDu kannst die Stornierung ablehnen, v.a. wenn du bereits die Zahlung geleistet hast.",
@@ -204,5 +203,13 @@
   "contract.summary.branchCode" : "Filialcode",
   "contract.summary.branchName" : "Filialname",
   "contract.summary.mobileMoneyIdentifier" : "Mobile-Money-Identifikator",
-  "contract.summary.residentialAddress" : "Wohnadresse"
+  "contract.summary.residentialAddress" : "Wohnadresse",
+   "contract.seller.sellerDidntFundEscrowInTime": "Sie haben das Treuhandkonto nicht rechtzeitig finanziert. Der Vertrag wurde automatisch storniert.",
+  "contract.seller.escrowFundedWithWrongAmount": "Sie haben das Treuhandkonto mit dem falschen Betrag finanziert. Da es sich um einen vereinbarten spezifischen Betrag handelte, wurde der Handel storniert.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Sie haben das Treuhandkonto mit dem falschen Betrag finanziert. Da es sich um einen vereinbarten spezifischen Betrag handelte, wurde der Handel storniert. Sie können jetzt eine Rückerstattung erhalten.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Der Verkäufer hat das Treuhandkonto nicht rechtzeitig finanziert. Der Vertrag wurde automatisch storniert.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Der Verkäufer hat das Treuhandkonto mit dem falschen Bitcoin-Betrag finanziert. Der Handel wurde storniert.",
+  "contract.cancel.seller": "Sind Sie sicher? Das Abbrechen eines Handels wirkt sich negativ auf Ihren Ruf aus.",
+  "contract.seller.cancelBeforeFunding": "Sie haben den Handel abgebrochen, bevor das Treuhandkonto finanziert wurde.",
+  "contract.buyer.cancelBeforeFunding": "Der Verkäufer hat den Handel abgebrochen, bevor das Treuhandkonto finanziert wurde."  
 }

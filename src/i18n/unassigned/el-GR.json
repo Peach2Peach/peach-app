@@ -245,5 +245,21 @@
   "yourTrades.start.selling" : "αρχίστε να πωλείτε!",
   "yourTrades.title" : "οι συναλλαγές σας",
   "yourTrades.tradeCanceled.subtitle" : "η συναλλαγή ακυρώθηκε",
-  "yourTrades.waiting" : "αναμονή"
+  "yourTrades.waiting" : "αναμονή",
+  "profile.numberOfFreeTrades": "αριθμός διαθέσιμων δωρεάν συναλλαγών",
+  "filter.maxPremium": "μέγιστο premium",
+  "filter.minPremium": "ελάχιστο premium",
+  "search.matchButton.goToChat": "συνομιλήστε με τον χρήστη",
+  "search.matchButton.acceptTradeRequest": "αποδοχή αιτήματος συναλλαγής",
+  "search.matchButton.rejectTradeRequest": "απόρριψη αιτήματος συναλλαγής",
+  "express.buy.noOffers": "δεν υπάρχουν διαθέσιμες προσφορές πώλησης αυτή τη στιγμή",
+  "express.sell.noOffers": "δεν υπάρχουν διαθέσιμες προσφορές αγοράς αυτή τη στιγμή",
+  "search.weWillNotifyYouTradeRequest": "θα σας ειδοποιήσουμε όταν υπάρχει αίτημα συναλλαγής!",
+  "search.youGotATradeRequest": "έχετε λάβει ένα αίτημα συναλλαγής!",
+  "search.youGotTradeRequests": "έχετε λάβει αιτήματα συναλλαγής!",
+  "userBitcoinLevel.answer.firstTime": "είναι η πρώτη φορά που κάνω συναλλαγές με Bitcoin",
+  "userBitcoinLevel.answer.firstTimeP2P": "είναι η πρώτη φορά που το συναλλάσσομαι peer to peer",
+  "userBitcoinLevel.answer.bitcoiner": "Είμαι Bitcoiner",
+  "userBitcoinLevel.subtitle": "Πόσο άνετα είστε με το Bitcoin;",
+  "yourTrades.69BuyOffer": "αγορά"
 }

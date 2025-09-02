@@ -252,5 +252,21 @@
   "yourTrades.title" : "deine Trades",
   "yourTrades.tradeCanceled.subtitle" : "Trade abgebrochen",
   "yourTrades.waiting" : "ausstehend",
-  "youtube" : "YouTube"
+  "youtube" : "YouTube",
+  "profile.numberOfFreeTrades": "Anzahl verfügbarer kostenloser Trades",
+  "filter.maxPremium": "maximale Prämie",
+  "filter.minPremium": "minimale Prämie",
+  "search.matchButton.goToChat": "mit Benutzer chatten",
+  "search.matchButton.acceptTradeRequest": "Handelsanfrage akzeptieren",
+  "search.matchButton.rejectTradeRequest": "Handelsanfrage ablehnen",
+  "express.buy.noOffers": "Derzeit sind keine Verkaufsangebote verfügbar",
+  "express.sell.noOffers": "Derzeit sind keine Kaufangebote verfügbar",
+  "search.weWillNotifyYouTradeRequest": "Wir benachrichtigen Sie, wenn eine Handelsanfrage eingeht!",
+  "search.youGotATradeRequest": "Sie haben eine Handelsanfrage erhalten!",
+  "search.youGotTradeRequests": "Sie haben Handelsanfragen erhalten!",
+  "userBitcoinLevel.answer.firstTime": "Ich handle zum ersten Mal mit Bitcoin",
+  "userBitcoinLevel.answer.firstTimeP2P": "Ich handle zum ersten Mal Peer-to-Peer mit Bitcoin",
+  "userBitcoinLevel.answer.bitcoiner": "Ich bin ein Bitcoiner",
+  "userBitcoinLevel.subtitle": "Wie vertraut sind Sie mit Bitcoin?",
+  "yourTrades.69BuyOffer": "kaufen"
 }

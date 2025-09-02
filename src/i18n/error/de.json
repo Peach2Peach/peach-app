@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "ein Backup erstellen",
   "error.firstBackup.description" : "Jetzt, wo du die Peach Wallet benutzt hast, solltest du unbedingt ein Backup erstellen, bevor du weitermachst.\n\nWenn du es nicht tust, verlierst du dein Peach-Konto und alle Sats in der Peach Wallet, falls du dein Handy verlierst.",
   "error.firstBackup.title" : "Erstelle ein Backup!",
-  "error.general" : "Etwas ist schiefgelaufen. Bitte versuche es später erneut oder kontaktiere das Peach-Supportteam."
+  "error.general" : "Etwas ist schiefgelaufen. Bitte versuche es später erneut oder kontaktiere das Peach-Supportteam.",
+  "ACCOUNT_BANNED.text": "Ihr Konto wurde gesperrt. Wenn Sie Einspruch einlegen möchten, kontaktieren Sie Peach und geben Sie die eindeutige ID an."
 }

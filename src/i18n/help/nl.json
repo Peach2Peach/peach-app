@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "match accepteren = transactie starten",
   "help.addressSigning.description" : "Vanwege de Zwitserse wet moet je tekenen om te verifiëren dat je eigenaar bent van het adres waarop de transactie wordt uitbetaald. Als je niet weet hoe dit werkt, raden wij je aan de Peach wallet te gebruiken, waarbij je deze stap niet handmatig hoeft te doorlopen.",
   "help.addressSigning.title" : "adres ondertekening",
-  "help.buyingBitcoin.description" : "Wanneer je bitcoin op Peach koopt, selecteer je eerst een bereik van hoeveel je wilt kopen. Nadat je de keuze hebt gemaakt, krijg je alle verkoop-aanboden te zien die binnen dat bereik passen. Peach-kosten bedragen 2% van het handelsbedrag.",
-  "help.buyingBitcoin.title" : "koop bitcoin",
   "help.checkTrade" : "controleer transactie",
   "help.confirmPayment.description" : "Zodra je over de slider ‘betaling ontvangen’ swipet, wordt de bitcoin naar de koper verzonden. Zorg ervoor dat alles klopt, want dit kan niet ongedaan worden gemaakt!",
   "help.confirmPayment.title" : "betaling ontvangen?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Je kunt zoveel mogelijk betaalmethoden selecteren en toevoegen als je wilt voor iedere transactie",
   "help.paymentMethods.description.2" : "Ze worden op je telefoon opgeslagen en alleen de persoon met wie je handelt, kan deze informatie zien (tenzij je een geschil start).",
   "help.paymentMethods.description.3" : "Vertrouwde betaalmethoden hebben minimaal drie voltooide transacties en zijn ouder dan 30 dagen.",
-  "help.premium.description" : "Je stelt een prijsverschil in ten opzichte van de marktprijs (gemiddelde over verschillende beurzen). De uiteindelijke prijs waarvoor je verkoopt, wordt bepaald wanneer een koper jouw aanbod matched.",
   "help.premium.title" : "de prijs is relatief",
   "help.referral.description.1" : "Voor iedere 10.000 sats die je referenties verhandelen op Peach, krijg jij een referentie punt.",
   "help.referral.description.2" : "Spaar je punten op om toffe beloningen te krijgen!",
@@ -42,5 +39,13 @@
   "help.sellingBitcoin.description" : "Het verkopen van je sats op Peach is gratis!\n\nOm een verkoopaanbieding te publiceren, moet je je sats naar een escrow sturen om aan de koper te bewijzen dat je de sats hebt die je wilt verkopen!\n\nDe escrow is een Bitcoin multi-handtekeningen portemonnee waarbij je één sleutel bezit en Peach een andere vasthoudt.",
   "help.sellingBitcoin.title" : "bitcoin verkopen",
   "help.tradingLimit.description" : "Peach moet handelslimieten stellen om aan de Zwitserse wet te voldoen. Er zijn drie handelslimieten: \nJe kunt elke dag tot 1000 CHF aan bitcoin kopen of verkopen op Peach. \nJe kunt elke maand tot 1000 CHF aan bitcoin kopen of verkopen met contant geld of online cadeaubonnen (ook wel anonieme betaalmethoden genoemd). \nJe kunt tot 100 000 CHF aan bitcoin kopen of verkopen per jaar.",
-  "help.tradingLimit.title" : "handelslimieten"
+  "help.tradingLimit.title" : "handelslimieten",
+  "help.acceptTradeRequest.description": "U kunt slechts één koper per aanbod accepteren. Zodra u een handelsverzoek van een koper accepteert, wordt de handel gestart.\n\nEenmaal gestart, wordt uw reputatie geschaad als u besluit te annuleren.",
+  "help.acceptTradeRequest.title": "handelsverzoek accepteren = handel starten",
+  "help.buyingBitcoin.description": "De Peach-portemonnee is zelf-beheerd, wat betekent dat U de sleutels van uw portemonnee bezit.\nGa naar Instellingen > seed phrase en schrijf deze op! #GeenSleutelsGeenBitcoin",
+  "help.buyingBitcoin.title": "bitcoin kopen op Peach kost 2% van de transactie",
+  "help.premiumBuy.description": "U stelt een prijsafwijking in ten opzichte van de marktprijs (gemiddeld van meerdere beurzen).\n\nDe uiteindelijke prijs waarvoor u verkoopt, wordt bepaald wanneer een verkoper een handel aanvraagt met uw aanbod.",
+  "help.premiumBuy.title": "de prijs is relatief",
+  "help.premium.description": "U stelt een prijsafwijking in ten opzichte van de marktprijs (gemiddeld van meerdere beurzen).\n\nDe uiteindelijke prijs waarvoor u verkoopt, wordt bepaald wanneer een koper een handel aanvraagt met uw aanbod."
+
 }

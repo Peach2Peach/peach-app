@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "cancelación pendiente",
   "contract.cancel.requestSent" : "solicitud enviada",
   "contract.cancel.requestSent.text" : "El comprador ha sido notificado que quieres anular el intercambio.",
-  "contract.cancel.seller" : "¿Estás seguro? Cancelar un intercambio afectará negativamente tu reputación.\n\nEl comprador debe acceder a cancelar el intercambio, ya que ya ha hecho el pago.",
   "contract.cancel.seller.text.backOnline" : "Si el comprador acepta cancelar este intercambio, pondremos tu oferta de venta de nuevo en la lista de matches.",
   "contract.cancel.seller.text.refundEscrow" : "Si el comprador acepta cancelar este intercambio, te devolveremos el depósito en garantía.",
   "contract.cancel.sellerWantsToCancel.text" : "El vendedor quiere cancelar el intercambio de $0 por $1 sats.\n\nEres libre de rechazar la cancelación, especialmente si ya has realizado el pago.",
@@ -216,5 +215,16 @@
   "contract.summary.branchCode" : "código de sucursal",
   "contract.summary.branchName" : "nombre de sucursal",
   "contract.summary.mobileMoneyIdentifier" : "identificador de dinero móvil",
-  "contract.summary.residentialAddress" : "dirección residencial"
+  "contract.summary.residentialAddress" : "dirección residencial",
+  "contract.seller.sellerDidntFundEscrowInTime": "No financiaste el depósito en garantía a tiempo. El contrato fue cancelado automáticamente.",
+  "contract.seller.escrowFundedWithWrongAmount": "Financiaste el depósito en garantía con un monto incorrecto. Como era una cantidad específica acordada, la operación fue cancelada.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Financiaste el depósito en garantía con un monto incorrecto. Como era una cantidad específica acordada, la operación fue cancelada. Ahora puedes recibir un reembolso.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "El vendedor no financió el depósito en garantía a tiempo. El contrato fue cancelado automáticamente.",
+  "contract.buyer.escrowFundedWithWrongAmount": "El vendedor financió el depósito en garantía con un monto incorrecto de Bitcoin. La operación fue cancelada.",
+  "contract.cancel.seller": "¿Estás seguro? Cancelar una operación afectará negativamente tu reputación.",
+  "contract.seller.cancelBeforeFunding": "Has cancelado la operación antes de financiar el depósito en garantía.",
+  "contract.buyer.cancelBeforeFunding": "El vendedor ha cancelado la operación antes de financiar el depósito en garantía.",
+  "contract.escrowFunded.description": "El comprador tiene 12 horas para declarar el pago como realizado",
+  "contract.escrowFunded.title": "¡El depósito en garantía ha sido financiado!"
+  
 }

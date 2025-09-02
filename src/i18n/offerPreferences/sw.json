@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "malipo ya biashara zilizokamilika: $0%",
   "offerPreferences.refundTo" : "marejesho kwa:",
   "offerPreferences.sellOffers" : "$0 maombi ya mauzo yaliyofunguliwa",
-  "offerPreferences.showOffers" : "onyesha maombi"
+  "offerPreferences.showOffers" : "onyesha maombi",
+  "help.createMultiple.description": "Ikiwa unataka kununua mengi kutoka kwa wauzaji wengi, unaweza kuunda ofa nyingi za kununua!",
+  "help.createMultiple.title": "unda ofa nyingi za kununua",
+   "matchDetails.action.unrequestTrade": "ondoa ombi la biashara"
+
 }
