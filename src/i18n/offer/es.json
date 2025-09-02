@@ -67,8 +67,6 @@
   "yourTrades.unknown" : "desconocido",
   "offer.seller.refunded": "Has decidido reembolsar esta oferta a tu $0.",
   "offer.sellerSuccessfullyFunded": "El vendedor ha financiado el Escrow. Por favor espera hasta que se mine un bloque para confirmación.",
-  "offer.create.buy": "crear oferta de compra",
-  "offer.create.sell": "crear oferta de venta",
   "offer.buy.filter": "filtrar ofertas de compra",
   "offer.sell.filter": "filtrar ofertas de venta",
   "offer.fundWithin": "tienes un tiempo limitado para financiar el escrow de este contrato",
