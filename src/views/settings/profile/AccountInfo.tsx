@@ -17,6 +17,7 @@ export const AccountInfo = ({ user }: Props) => (
     <AccountCreated {...user} />
     <Disputes {...user.disputes} />
     <Trades trades={user.trades} />
+    {"freeTrades" in user && <FreeTrades freeTrades={user.freeTrades} />}
   </View>
 );
 
@@ -126,6 +127,30 @@ function Trades({ trades }: { trades: number }) {
         )}
       >
         {trades}
+      </PeachText>
+    </View>
+  );
+}
+
+function FreeTrades({ freeTrades }: { freeTrades?: number }) {
+  const { isDarkMode } = useThemeStore();
+  return (
+    <View>
+      <PeachText
+        style={tw.style(
+          `lowercase`,
+          isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+        )}
+      >
+        {i18n("profile.numberOfFreeTrades")}:
+      </PeachText>
+      <PeachText
+        style={tw.style(
+          `subtitle-1`,
+          isDarkMode ? "text-primary-mild-1" : "text-black-100",
+        )}
+      >
+        {freeTrades || 0}
       </PeachText>
     </View>
   );
