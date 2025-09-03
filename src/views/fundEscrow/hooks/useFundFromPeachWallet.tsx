@@ -1,8 +1,11 @@
-import { PartiallySignedTransaction } from "bdk-rn";
+import { NETWORK } from "@env";
+import { Address, PartiallySignedTransaction } from "bdk-rn";
 import {
+  ScriptAmount,
   TransactionDetails,
   TxBuilderResult,
 } from "bdk-rn/lib/classes/Bindings";
+import { Network } from "bdk-rn/lib/lib/enums";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -18,10 +21,11 @@ import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
+import { isDefined } from "../../../utils/validation/isDefined";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
   buildTransaction,
-  setMultipleRecipients,
+  getScriptPubKeyFromAddress,
 } from "../../../utils/wallet/transaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
@@ -31,11 +35,35 @@ import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
 
 const getPropsFromFinishedTransaction = async (
   psbt: PartiallySignedTransaction,
-  { sent, received }: TransactionDetails,
-) => ({
-  amountToConfirm: sent - received,
-  fee: await psbt.feeAmount(),
-});
+) => {
+  const tx = await psbt.extractTx();
+  const outputs = await tx.output();
+  const outputDetails = (
+    await Promise.all(
+      outputs.map(async (output) => ({
+        address: (await peachWallet?.wallet?.isMine(output.script))
+          ? undefined
+          : await (
+              await new Address().fromScript(output.script, NETWORK as Network)
+            ).asString(),
+        amount: output.value,
+      })),
+    )
+  ).filter((output): output is { address: string; amount: number } =>
+    isDefined(output.address),
+  );
+
+  const fee = await psbt.feeAmount();
+
+  const amountToConfirm =
+    outputDetails.reduce((sum, { amount }) => sum + amount, 0) + fee;
+
+  return {
+    amountToConfirm,
+    fee,
+    outputs: outputDetails,
+  };
+};
 
 type FundFromWalletParams = {
   offerId: string;
@@ -99,7 +127,13 @@ export const useFundFromPeachWallet = () => {
       try {
         const transaction = await buildTransaction({ feeRate });
         if (addresses.length > 0) {
-          await setMultipleRecipients(transaction, amount, addresses);
+          const splitAmount = Math.floor(amount / addresses.length);
+          const recipients = await Promise.all(
+            addresses.map(getScriptPubKeyFromAddress),
+          );
+          await transaction.setRecipients(
+            recipients.map((script) => new ScriptAmount(script, splitAmount)),
+          );
         }
 
         finishedTransaction = await peachWallet.finishTransaction(transaction);
@@ -122,19 +156,15 @@ export const useFundFromPeachWallet = () => {
           finishedTransaction =
             await peachWallet.finishTransaction(transaction);
           const { txDetails, psbt } = finishedTransaction;
-          const { amountToConfirm, fee } =
-            await getPropsFromFinishedTransaction(psbt, txDetails);
+          const { amountToConfirm, fee, outputs } =
+            await getPropsFromFinishedTransaction(psbt);
           return setPopup(
             <ConfirmTransactionPopup
               title={i18n("fundFromPeachWallet.insufficientFunds.title")}
               content={
                 <ConfirmTxPopup
                   totalAmount={amountToConfirm}
-                  outputs={addresses.map((addr) => ({
-                    address: addr,
-                    amount: Math.round(amountToConfirm / addresses.length),
-                  }))}
-                  {...{ fee, feeRate }}
+                  {...{ fee, feeRate, outputs }}
                   text={i18n(
                     "fundFromPeachWallet.insufficientFunds.description.1",
                   )}
@@ -155,10 +185,9 @@ export const useFundFromPeachWallet = () => {
       }
 
       const { txDetails, psbt } = finishedTransaction;
-      const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(
-        psbt,
-        txDetails,
-      );
+      const { amountToConfirm, fee, outputs } =
+        await getPropsFromFinishedTransaction(psbt);
+
       return setPopup(
         <ConfirmTransactionPopup
           title={i18n("fundFromPeachWallet.confirm.title")}
@@ -166,11 +195,7 @@ export const useFundFromPeachWallet = () => {
             <ConfirmTxPopup
               text={i18n("fundFromPeachWallet.confirm.description")}
               totalAmount={amountToConfirm}
-              outputs={addresses.map((addr) => ({
-                address: addr,
-                amount: Math.round((amountToConfirm - fee) / addresses.length),
-              }))}
-              {...{ feeRate, fee }}
+              {...{ feeRate, fee, outputs }}
             />
           }
           psbt={psbt}
