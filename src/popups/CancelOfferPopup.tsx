@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { shallow } from "zustand/shallow";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
@@ -7,6 +8,7 @@ import { LoadingPopupAction } from "../components/popup/actions/LoadingPopupActi
 import { offerKeys, useOfferDetail } from "../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../hooks/useStackNavigation";
+import { useOfferPreferences } from "../store/offerPreferenes";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { isBuyOffer } from "../utils/offer/isBuyOffer";
@@ -26,6 +28,10 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const { mutate: cancelOffer, isPending } = useCancelOffer();
 
   const startRefund = useStartRefundPopup();
+  const [multiOfferList, removeMultiOffer] = useOfferPreferences(
+    (state) => [state.multiOfferList, state.removeMultiOffer],
+    shallow,
+  );
 
   const confirmCancelOffer = () => {
     if (!offer) return;
@@ -33,6 +39,9 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
     cancelOffer(offerId, {
       onSuccess: (result) => {
         if (result) {
+          if (multiOfferList.find((e) => e.includes(offerId))) {
+            removeMultiOffer(offerId);
+          }
           if (isSellOffer(offer)) {
             saveOffer({
               ...offer,

@@ -6,28 +6,29 @@ import { useOfferPreferences } from "../../../store/offerPreferenes/useOfferPref
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
-const FUND_MULTI_MIN = 3;
-const FUND_MULTI_MAX = 21;
+const CREATE_MULTI_MIN = 2;
+const CREATE_MULTI_MAX = 21;
 
-export const FundMultipleOffers = () => {
+export const CreateMultipleOffers = () => {
   const [multi, setMulti] = useOfferPreferences(
     (state) => [state.multi, state.setMulti],
     shallow,
   );
 
-  const toggleFundMultiple = () => setMulti(multi ? undefined : FUND_MULTI_MIN);
+  const toggleCreateMultiple = () =>
+    setMulti(multi ? undefined : CREATE_MULTI_MIN);
 
   return (
     <View style={tw`gap-3`}>
-      <Checkbox checked={!!multi} onPress={toggleFundMultiple}>
-        {i18n("offer.fundMultiple")}
+      <Checkbox checked={!!multi} onPress={toggleCreateMultiple}>
+        {i18n("offer.createMultiple")}
       </Checkbox>
       {!!multi && (
         <NumberStepper
           value={multi}
           onChange={setMulti}
-          min={FUND_MULTI_MIN}
-          max={FUND_MULTI_MAX}
+          min={CREATE_MULTI_MIN}
+          max={CREATE_MULTI_MAX}
         />
       )}
     </View>

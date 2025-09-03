@@ -13,6 +13,7 @@
   "transaction.eta.in1Block" : "dans 1 block",
   "transaction.eta.inXBlocks" : "dans $0 blocks\n",
   "transaction.viewInExplorer" : "voir la dans l'explorateur",
+  "transaction.details.total" : "total",
   "wallet" : "portefeuille",
   "wallet.address.used" : "utilisé",
   "wallet.addressChecker" : "vérificateur d'adresses",

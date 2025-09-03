@@ -1,46 +1,53 @@
 import Clipboard from "@react-native-clipboard/clipboard";
-import { useRef } from "react";
-import { Animated, TouchableOpacity, View } from "react-native";
+import { useCallback, useRef } from "react";
+import {
+  Animated,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import "react-native-url-polyfill/auto";
 import { IconType } from "../../assets/icons";
-import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
+import { CENT } from "../../constants";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
 import { openInWallet } from "../../utils/bitcoin/openInWallet";
 import i18n from "../../utils/i18n";
+import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { Icon } from "../Icon";
+import { TouchableIcon } from "../TouchableIcon";
 import { PeachText } from "../text/PeachText";
 import QRCode from "./QRCode";
 
 type BitcoinAddressProps = {
   address: string;
-  amount?: number;
-  label?: string;
+  amount: number;
+  offerId: string;
 };
 
-const MEDIUM_SCREEN_WIDTH = 327;
-const SMALL_SCREEN_WIDTH = 242;
 const SHORT_ANIMATION_DURATION = 200;
 const LONG_ANIMATION_DURATION = 300;
+const PADDING = 80;
 export const BitcoinAddress = ({
   address,
   amount,
-  label,
+  offerId,
 }: BitcoinAddressProps) => {
-  const isMediumScreen = useIsMediumScreen();
-  const width = isMediumScreen ? MEDIUM_SCREEN_WIDTH : SMALL_SCREEN_WIDTH;
+  const windowDimensions = useWindowDimensions();
+  const width = windowDimensions.width - PADDING;
 
   const requestTextOpacity = useRef(new Animated.Value(0)).current;
   const addressTextOpacity = useRef(new Animated.Value(0)).current;
 
   const urn = new URL(`bitcoin:${address}`);
+  const label = `${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`;
 
   if (amount) urn.searchParams.set("amount", String(amount));
-  if (label) {
-    urn.searchParams.set("message", label);
-    urn.searchParams.set("label", label);
-  }
+  urn.searchParams.set("message", label);
+  urn.searchParams.set("label", label);
 
   const addressParts = getBitcoinAddressParts(address);
 
@@ -59,6 +66,23 @@ export const BitcoinAddress = ({
   };
 
   const { isDarkMode } = useThemeStore();
+  const multiOfferList = useOfferPreferences((state) => state.multiOfferList);
+  const multiOffers = multiOfferList.find((list) => list.includes(offerId));
+  const previousOfferId = multiOffers?.[multiOffers.indexOf(offerId) - 1];
+  const nextOfferId = multiOffers?.[multiOffers.indexOf(offerId) + 1];
+  const navigation = useStackNavigation();
+
+  const goToPreviousOffer = useCallback(() => {
+    if (previousOfferId) {
+      navigation.navigate("fundEscrow", { offerId: previousOfferId });
+    }
+  }, [navigation, previousOfferId]);
+
+  const goToNextOffer = useCallback(() => {
+    if (nextOfferId) {
+      navigation.navigate("fundEscrow", { offerId: nextOfferId });
+    }
+  }, [navigation, nextOfferId]);
 
   return (
     <>
@@ -73,12 +97,30 @@ export const BitcoinAddress = ({
             {i18n("copied")}
           </PeachText>
         </Animated.View>
-        <TouchableOpacity
-          onPress={openInWalletOrCopyPaymentRequest}
-          onLongPress={copyPaymentRequest}
-        >
-          <QRCode size={width} value={urn.toString()} />
-        </TouchableOpacity>
+        <View style={tw`flex-row items-center gap-1`}>
+          {multiOffers && (
+            <TouchableIcon
+              id="chevronsLeft"
+              onPress={goToPreviousOffer}
+              disabled={!previousOfferId}
+              style={tw`opacity-${previousOfferId ? CENT : CENT / 2}`}
+            />
+          )}
+          <TouchableOpacity
+            onPress={openInWalletOrCopyPaymentRequest}
+            onLongPress={copyPaymentRequest}
+          >
+            <QRCode size={width} value={urn.toString()} />
+          </TouchableOpacity>
+          {multiOffers && (
+            <TouchableIcon
+              id="chevronsRight"
+              onPress={goToNextOffer}
+              disabled={!nextOfferId}
+              style={tw`opacity-${nextOfferId ? CENT : CENT / 2}`}
+            />
+          )}
+        </View>
       </View>
 
       <View style={tw`flex-row items-stretch w-full gap-2`}>

@@ -10,6 +10,7 @@
   "peachWallet" : "Şeftali cüzdanı",
   "transaction.details.networkFee" : "ağ ücreti: $0 sat ($1 sat/vB)",
   "transaction.details.to" : "alıcı:",
+  "transaction.details.total" : "toplam",
   "transaction.eta.in1Block" : "1 blok içinde",
   "transaction.eta.inXBlocks" : "$0 blok içinde",
   "transaction.viewInExplorer" : "tarayıcıda görüntüle",

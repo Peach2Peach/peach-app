@@ -3,6 +3,7 @@
   "offer.cancel.popup.title" : "teklifi iptal et",
   "offer.canceled" : "iptal edildi",
   "offer.canceled.popup.title" : "teklif iptal edildi!",
+  "offer.createMultiple" : "çoklu teklif oluştur",
   "offer.filter" : "filtrele",
   "offer.filter.maxPremium" : "maksimum prim",
   "offer.fundMultiple" : "birden fazla teklifi fonlayın",

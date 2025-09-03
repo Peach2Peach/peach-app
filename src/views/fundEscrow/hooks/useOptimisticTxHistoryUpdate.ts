@@ -6,23 +6,17 @@ import { useWalletState } from "../../../utils/wallet/walletStore";
 
 // can be removed after sync issue have been resolved
 export const useOptimisticTxHistoryUpdate = () => {
-  const [updateTxOfferMap, addTransaction, getFundMultipleByOfferId] =
-    useWalletState(
-      (state) => [
-        state.updateTxOfferMap,
-        state.addTransaction,
-        state.getFundMultipleByOfferId,
-      ],
-      shallow,
-    );
+  const [updateTxOfferMap, addTransaction] = useWalletState(
+    (state) => [state.updateTxOfferMap, state.addTransaction],
+    shallow,
+  );
   const optimisticTxHistoryUpdate = useCallback(
-    (txDetails: TransactionDetails, offerId: string) => {
-      const fundMultiple = getFundMultipleByOfferId(offerId);
+    (txDetails: TransactionDetails, offerIds: string[]) => {
       addTransaction(txDetails);
-      updateTxOfferMap(txDetails.txid, fundMultiple?.offerIds || [offerId]);
+      updateTxOfferMap(txDetails.txid, offerIds);
       labelAddressByTransaction(txDetails);
     },
-    [addTransaction, getFundMultipleByOfferId, updateTxOfferMap],
+    [addTransaction, updateTxOfferMap],
   );
   return optimisticTxHistoryUpdate;
 };

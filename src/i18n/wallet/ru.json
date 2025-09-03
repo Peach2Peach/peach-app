@@ -10,6 +10,7 @@
   "peachWallet" : "кошелек peach",
   "transaction.details.networkFee" : "комиссия блокчейна: $0 сатоши ($1 sat/vB)",
   "transaction.details.to" : "кому:",
+  "transaction.details.total" : "итого",
   "transaction.eta.in1Block" : "за один блок",
   "transaction.eta.inXBlocks" : "за $0 блоков",
   "transaction.viewInExplorer" : "показать в сканере блокчейна",

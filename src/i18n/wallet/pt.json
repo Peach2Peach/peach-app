@@ -10,6 +10,7 @@
   "peachWallet" : "carteira Peach",
   "transaction.details.networkFee" : "taxa de rede: $0 sats ($1 sat/vB)",
   "transaction.details.to" : "para:",
+  "transaction.details.total" : "total",
   "transaction.eta.in1Block" : "em 1 bloco",
   "transaction.eta.inXBlocks" : "em $0 blocos",
   "transaction.viewInExplorer" : "ver no explorador",

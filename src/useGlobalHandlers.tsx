@@ -5,7 +5,6 @@ import { useSetPopup } from "./components/popup/GlobalPopup";
 import { useSetToast } from "./components/toast/Toast";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
-import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useStackNavigation } from "./hooks/useStackNavigation";
@@ -28,7 +27,6 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder();
   useInitialNavigation();
   useShowUpdateAvailable();
-  useCheckFundingMultipleEscrows();
   useHandleNotifications(messageHandler);
 
   const setPopup = useSetPopup();

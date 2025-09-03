@@ -3,6 +3,7 @@
   "offer.cancel.popup.title" : "Angebot stornieren",
   "offer.canceled" : "storniert",
   "offer.canceled.popup.title" : "Angebot storniert!",
+  "offer.createMultiple" : "mehrere angebote erstellen",
   "offer.filter" : "Filter",
   "offer.filter.maxPremium" : "max. Aufpreis",
   "offer.fundMultiple" : "mehrere Angebote finanzieren",

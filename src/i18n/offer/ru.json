@@ -3,6 +3,7 @@
   "offer.cancel.popup.title" : "отменить предложение",
   "offer.canceled" : "отменено",
   "offer.canceled.popup.title" : "предложение отменено!",
+  "offer.createMultiple" : "создать несколько предложений",
   "offer.filter" : "фильтр",
   "offer.filter.maxPremium" : "макс. наценка",
   "offer.fundMultiple" : "оплатить несколько предложений",

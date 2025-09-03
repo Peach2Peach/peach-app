@@ -10,6 +10,7 @@
   "peachWallet" : "Peach wallet",
   "transaction.details.networkFee" : "Ada ya mtandao: $0 sats ($1 sat/vB)",
   "transaction.details.to" : "kwa:",
+  "transaction.details.total" : "jumla",
   "transaction.eta.in1Block" : "katika block 1",
   "transaction.eta.inXBlocks" : "katika block $0",
   "transaction.viewInExplorer" : "tazama kwenye mtandao",
