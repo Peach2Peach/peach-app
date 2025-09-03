@@ -109,17 +109,19 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         });
       },
       removeMultiOffer: (offer) => {
-        const multiOffers = get().multiOfferList.filter(
-          (o) => !o.includes(offer),
+        const currentMultiOfferList = get().multiOfferList;
+        const groupWithOffer = currentMultiOfferList.find((group) =>
+          group.includes(offer),
         );
-        const newMultiOfferList = get()
-          .multiOfferList.find((o) => o.includes(offer))
-          ?.filter((o) => o !== offer);
+        const multiOffers = currentMultiOfferList.filter(
+          (group) => !group.includes(offer),
+        );
 
-        if (newMultiOfferList) {
-          if (newMultiOfferList.length > 1) {
+        if (groupWithOffer) {
+          const updatedGroup = groupWithOffer.filter((item) => item !== offer);
+          if (updatedGroup.length > 1) {
             set({
-              multiOfferList: multiOffers.concat([newMultiOfferList]),
+              multiOfferList: [...multiOffers, updatedGroup],
             });
           } else {
             set({
