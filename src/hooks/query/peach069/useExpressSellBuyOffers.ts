@@ -41,5 +41,5 @@ async function getExpressSellBuyOffers({ queryKey }: QueryFunctionContext) {
     offersSorter: queryKey[6] as ExpressSellOfferSorter,
   });
 
-  return buyOffers;
+  return buyOffers?.offers;
 }

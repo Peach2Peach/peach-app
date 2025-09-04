@@ -27,7 +27,7 @@ export async function getOwnPeach069BuyOffersQuery() {
   if (error?.error || buyOffers === undefined)
     throw new Error(error?.error || "Error fetching contract summaries");
 
-  return buyOffers.map((buyOffer) => ({
+  return buyOffers.offers.map((buyOffer) => ({
     ...buyOffer,
     creationDate: new Date(buyOffer.creationDate),
     lastModified: new Date(buyOffer.creationDate),
