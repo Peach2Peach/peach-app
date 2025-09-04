@@ -12,6 +12,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     isLoading,
     error: fundingStatusError,
     isPending,
+    refetch,
   } = useQuery({
     queryKey: offerKeys.fundingStatus(id),
     queryFn: getFundingStatusQuery,
@@ -25,6 +26,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     isLoading,
     isPending,
     error: fundingStatusError,
+    refetch,
   };
 };
 
