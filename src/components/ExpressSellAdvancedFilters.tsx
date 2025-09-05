@@ -28,14 +28,14 @@ interface Props {
   onClose: () => void;
 }
 
-export type FilterSection =
+type FilterSection =
   | "sortBy"
   | "paymentMethods"
   | "currencies"
   | "amount"
   | "price";
 
-export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
+export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
   const [expandedSection, setExpandedSection] = useState<FilterSection | null>(
     null,
   );
@@ -45,10 +45,10 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
   };
 
   const selectedPaymentMethods = useOfferPreferences(
-    (state) => state.expressBuyFilterByPaymentMethodList,
+    (state) => state.expressSellFilterByPaymentMethodList,
   );
   const selectedCurrencies = useOfferPreferences(
-    (state) => state.expressBuyFilterByCurrencyList,
+    (state) => state.expressSellFilterByCurrencyList,
   );
 
   const filterSections = [
@@ -75,7 +75,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
     { id: "price" as const, label: "Price", content: <PriceSection /> },
   ];
 
-  const HEADER_AND_PADDING = 120; // Space for padding, header text, etc.
+  const HEADER_AND_PADDING = 120;
   const DRAWER_HEIGHT_LARGE = 600;
   const DRAWER_HEIGHT_SMALL = 450;
   const isMediumScreen = useIsMediumScreen();
@@ -123,16 +123,16 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
 
 function SortByList() {
   const selectedSorter = useOfferPreferences(
-    (state) => state.expressBuyOffersSorter,
+    (state) => state.expressSellOffersSorter,
   );
   const setSorter = useOfferPreferences(
-    (state) => state.setExpressBuyOffersSorter,
+    (state) => state.setExpressSellOffersSorter,
   );
   const list = [
     "bestReputation",
     "highestAmount",
     "lowestAmount",
-    "lowestPremium",
+    "highestPremium",
   ] as const;
 
   const items = list.map((item) => ({
@@ -147,10 +147,10 @@ function SortByList() {
 function PaymentMethodsList() {
   const { data: paymentMethods } = usePaymentMethods();
   const selectedPaymentMethods = useOfferPreferences(
-    (state) => state.expressBuyFilterByPaymentMethodList,
+    (state) => state.expressSellFilterByPaymentMethodList,
   );
-  const setExpressBuyFilterByPaymentMethodList = useOfferPreferences(
-    (state) => state.setExpressBuyFilterByPaymentMethodList,
+  const setExpressSellFilterByPaymentMethodList = useOfferPreferences(
+    (state) => state.setExpressSellFilterByPaymentMethodList,
   );
   const onTogglePaymentMethod = useCallback(
     (paymentMethod: PaymentMethod) => {
@@ -158,17 +158,17 @@ function PaymentMethodsList() {
         (pm) => pm === paymentMethod,
       );
       if (isSelected) {
-        setExpressBuyFilterByPaymentMethodList(
+        setExpressSellFilterByPaymentMethodList(
           selectedPaymentMethods.filter((pm) => pm !== paymentMethod),
         );
       } else {
-        setExpressBuyFilterByPaymentMethodList([
+        setExpressSellFilterByPaymentMethodList([
           ...selectedPaymentMethods,
           paymentMethod,
         ]);
       }
     },
-    [selectedPaymentMethods, setExpressBuyFilterByPaymentMethodList],
+    [selectedPaymentMethods, setExpressSellFilterByPaymentMethodList],
   );
 
   const items = useMemo(() => {
@@ -187,24 +187,24 @@ function PaymentMethodsList() {
 
 function CurrenciesList() {
   const selectedCurrencies = useOfferPreferences(
-    (state) => state.expressBuyFilterByCurrencyList,
+    (state) => state.expressSellFilterByCurrencyList,
   );
-  const setExpressBuyFilterByCurrencyList = useOfferPreferences(
-    (state) => state.setExpressBuyFilterByCurrencyList,
+  const setExpressSellFilterByCurrencyList = useOfferPreferences(
+    (state) => state.setExpressSellFilterByCurrencyList,
   );
 
   const handleToggleCurrency = useCallback(
     (currency: Currency) => {
       const isSelected = selectedCurrencies.includes(currency);
       if (isSelected) {
-        setExpressBuyFilterByCurrencyList(
+        setExpressSellFilterByCurrencyList(
           selectedCurrencies.filter((c) => c !== currency),
         );
       } else {
-        setExpressBuyFilterByCurrencyList([...selectedCurrencies, currency]);
+        setExpressSellFilterByCurrencyList([...selectedCurrencies, currency]);
       }
     },
-    [selectedCurrencies, setExpressBuyFilterByCurrencyList],
+    [selectedCurrencies, setExpressSellFilterByCurrencyList],
   );
   const { data: paymentMethods } = usePaymentMethods();
 
@@ -235,24 +235,24 @@ function CurrenciesList() {
 }
 
 function AmountSelection() {
-  const [expressBuyFilterByAmountRange, setExpressBuyFilterByAmountRange] =
+  const [expressSellFilterByAmountRange, setExpressSellFilterByAmountRange] =
     useOfferPreferences(
       (state) => [
-        state.expressBuyFilterByAmountRange,
-        state.setExpressBuyFilterByAmountRange,
+        state.expressSellFilterByAmountRange,
+        state.setExpressSellFilterByAmountRange,
       ],
       shallow,
     );
   const [minLimit, maxLimit] = useTradingAmountLimits("buy");
 
   // Local state for immediate UI updates during dragging
-  const [localRange, setLocalRange] = useState(expressBuyFilterByAmountRange);
+  const [localRange, setLocalRange] = useState(expressSellFilterByAmountRange);
   const [isDragging, setIsDragging] = useState(false);
 
   // Use local state during dragging, store state otherwise
   const [minAmount, maxAmount] = isDragging
     ? localRange
-    : expressBuyFilterByAmountRange;
+    : expressSellFilterByAmountRange;
 
   const AMOUNT_RANGE = maxLimit - minLimit;
   const THUMB_SIZE = 24;
@@ -316,7 +316,7 @@ function AmountSelection() {
   // Handle drag end - update store with final values
   const onDragEnd = () => {
     setIsDragging(false);
-    setExpressBuyFilterByAmountRange(localRange);
+    setExpressSellFilterByAmountRange(localRange);
   };
 
   const { fiatPrice: minFiatPrice, displayCurrency } =
@@ -325,7 +325,7 @@ function AmountSelection() {
 
   return (
     <View style={tw`pb-4 gap-10px`}>
-      <PeachText style={tw`subtitle-1`}>Amount to buy</PeachText>
+      <PeachText style={tw`subtitle-1`}>Amount to sell</PeachText>
       <View style={tw`gap-6 px-2`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row items-center justify-between gap-4`}>
@@ -434,34 +434,38 @@ function AmountSelection() {
 }
 
 function PriceSection() {
-  const [expressBuyFilterMaxPremium, setExpressBuyFilterMaxPremium] =
+  const [expressSellFilterMinPremium, setExpressSellFilterMinPremium] =
     useOfferPreferences(
       (state) => [
-        state.expressBuyFilterMaxPremium,
-        state.setExpressBuyFilterMaxPremium,
+        state.expressSellFilterMinPremium,
+        state.setExpressSellFilterMinPremium,
       ],
       shallow,
     );
 
   const PREMIUM_STEP = 0.1;
+  const MIN_PREMIUM = -21;
   const MAX_PREMIUM = 21;
 
   const onMinusPress = () => {
-    setExpressBuyFilterMaxPremium(
-      Math.max(0, round(expressBuyFilterMaxPremium - PREMIUM_STEP, 1)),
+    setExpressSellFilterMinPremium(
+      Math.max(
+        MIN_PREMIUM,
+        round(expressSellFilterMinPremium - PREMIUM_STEP, 1),
+      ),
     );
   };
   const onPlusPress = () => {
-    setExpressBuyFilterMaxPremium(
+    setExpressSellFilterMinPremium(
       Math.min(
         MAX_PREMIUM,
-        round(expressBuyFilterMaxPremium + PREMIUM_STEP, 1),
+        round(expressSellFilterMinPremium + PREMIUM_STEP, 1),
       ),
     );
   };
   return (
     <View style={tw`gap-4 py-4`}>
-      <PeachText>max. premium:</PeachText>
+      <PeachText>min. premium:</PeachText>
       <View style={tw`flex-row items-center gap-2`}>
         <TouchableIcon
           id="minus"
@@ -474,7 +478,7 @@ function PriceSection() {
           style={tw`flex-1 p-2 border rounded-full border-black-10 bg-backgroundLight-light`}
         >
           <PeachText style={tw`text-center`}>
-            {expressBuyFilterMaxPremium}%
+            {expressSellFilterMinPremium}%
           </PeachText>
         </View>
         <TouchableIcon
@@ -491,20 +495,20 @@ function PriceSection() {
 
 function ResetAllButton() {
   const [
-    expressBuyFilterByAmountRange,
-    expressBuyFilterByCurrencyList,
-    expressBuyFilterByPaymentMethodList,
-    expressBuyFilterMaxPremium,
-    expressBuyOffersSorter,
-    resetExpressBuyFilters,
+    expressSellFilterByAmountRange,
+    expressSellFilterByCurrencyList,
+    expressSellFilterByPaymentMethodList,
+    expressSellFilterMinPremium,
+    expressSellOffersSorter,
+    resetExpressSellFilters,
   ] = useOfferPreferences(
     (state) => [
-      state.expressBuyFilterByAmountRange,
-      state.expressBuyFilterByCurrencyList,
-      state.expressBuyFilterByPaymentMethodList,
-      state.expressBuyFilterMaxPremium,
-      state.expressBuyOffersSorter,
-      state.resetExpressBuyFilters,
+      state.expressSellFilterByAmountRange,
+      state.expressSellFilterByCurrencyList,
+      state.expressSellFilterByPaymentMethodList,
+      state.expressSellFilterMinPremium,
+      state.expressSellOffersSorter,
+      state.resetExpressSellFilters,
     ],
     shallow,
   );
@@ -512,19 +516,19 @@ function ResetAllButton() {
   // Check if current values differ from defaults
   const hasFilters = useMemo(
     () =>
-      JSON.stringify(expressBuyFilterByAmountRange) !==
-        JSON.stringify(defaultPreferences.expressBuyFilterByAmountRange) ||
-      expressBuyFilterByCurrencyList.length > 0 ||
-      expressBuyFilterByPaymentMethodList.length > 0 ||
-      expressBuyFilterMaxPremium !==
-        defaultPreferences.expressBuyFilterMaxPremium ||
-      expressBuyOffersSorter !== defaultPreferences.expressBuyOffersSorter,
+      JSON.stringify(expressSellFilterByAmountRange) !==
+        JSON.stringify(defaultPreferences.expressSellFilterByAmountRange) ||
+      expressSellFilterByCurrencyList.length > 0 ||
+      expressSellFilterByPaymentMethodList.length > 0 ||
+      expressSellFilterMinPremium !==
+        defaultPreferences.expressSellFilterMinPremium ||
+      expressSellOffersSorter !== defaultPreferences.expressSellOffersSorter,
     [
-      expressBuyFilterByAmountRange,
-      expressBuyFilterByCurrencyList,
-      expressBuyFilterByPaymentMethodList,
-      expressBuyFilterMaxPremium,
-      expressBuyOffersSorter,
+      expressSellFilterByAmountRange,
+      expressSellFilterByCurrencyList,
+      expressSellFilterByPaymentMethodList,
+      expressSellFilterMinPremium,
+      expressSellOffersSorter,
     ],
   );
 
@@ -533,7 +537,7 @@ function ResetAllButton() {
       textColor={tw.color(hasFilters ? "success-main" : "black-50")}
       style={tw`py-1 border md:py-2`}
       disabled={!hasFilters}
-      onPress={resetExpressBuyFilters}
+      onPress={resetExpressSellFilters}
       ghost
     >
       reset all

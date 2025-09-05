@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { BuyOffer69 } from "../../../peach-api/src/@types/offer";
+import { ExpressSellAdvancedFilters } from "../../components/ExpressSellAdvancedFilters";
 import { ExpressSellCurrenciesDrawer } from "../../components/ExpressSellCurrenciesDrawer";
 import { ExpressSellPaymentMethodsDrawer } from "../../components/ExpressSellPaymentMethodsDrawer";
 import { horizontalBadgePadding } from "../../components/InfoContainer";
@@ -206,6 +207,10 @@ function ExploreHeader() {
             onPress: () => setShowAdvancedFilters(true),
           },
         ]}
+      />
+      <ExpressSellAdvancedFilters
+        isOpen={showAdvancedFilters}
+        onClose={() => setShowAdvancedFilters(false)}
       />
     </>
   );

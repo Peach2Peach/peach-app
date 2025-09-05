@@ -144,6 +144,7 @@ type OfferPreferencesActions = {
   setHasSeenInstantTradePopup: (hasSeenInstantTradePopup: boolean) => void;
   setFundWithPeachWallet: (fundWithPeachWallet: boolean) => void;
   resetExpressBuyFilters: () => void;
+  resetExpressSellFilters: () => void;
 };
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions;
@@ -283,6 +284,18 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           expressBuyFilterMaxPremium:
             defaultPreferences.expressBuyFilterMaxPremium,
           expressBuyOffersSorter: defaultPreferences.expressBuyOffersSorter,
+        }),
+      resetExpressSellFilters: () =>
+        set({
+          expressSellFilterByAmountRange:
+            defaultPreferences.expressSellFilterByAmountRange,
+          expressSellFilterByCurrencyList:
+            defaultPreferences.expressSellFilterByCurrencyList,
+          expressSellFilterByPaymentMethodList:
+            defaultPreferences.expressSellFilterByPaymentMethodList,
+          expressSellFilterMinPremium:
+            defaultPreferences.expressSellFilterMinPremium,
+          expressSellOffersSorter: defaultPreferences.expressSellOffersSorter,
         }),
     })),
     {
