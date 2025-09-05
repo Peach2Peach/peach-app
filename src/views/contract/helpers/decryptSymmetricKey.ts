@@ -11,6 +11,7 @@ export const decryptSymmetricKey = async (
   let symmetricKey: string;
   try {
     symmetricKey = await decrypt(symmetricKeyEncrypted);
+
     log("successfully decrypted symmetric key");
     const isValid = await hasValidSignature({
       signature: symmetricKeySignature,

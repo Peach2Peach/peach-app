@@ -22,5 +22,8 @@
   "settings.batching.youPay" : "Προσοχή! Εσείς πληρώνετε το πρόσθετο κόστος που προκύπτει για την Peach. Αυτό το κόστος είναι δυναμικό και μπορεί να γίνει σημαντικό κατά τη διάρκεια αιχμής των τελών.\nΒεβαιωθείτε ότι καταλαβαίνετε τι κάνετε!",
   "settings.batching.youPay.highlight" : "Προσοχή!",
   "settings.batching.youSave" : "\nΕξοικονομείτε έως και 23% από τα τέλη δικτύου",
-  "settings.batching.youSave.highlight" : "εξοικονομείτε έως και 23%"
+  "settings.batching.youSave.highlight" : "εξοικονομείτε έως και 23%",
+  "offer.requiredAction.wrongAmountFundedOnContract": "κατατέθηκε λάθος ποσό",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "κατατέθηκε λάθος ποσό"
+  
 }

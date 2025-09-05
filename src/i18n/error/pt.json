@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "faça um backup",
   "error.firstBackup.description" : "Agora que usou a Carteira Peach, deve mesmo fazer um backup antes de continuar.\n\nSe não o fizer, perderá a sua conta Peach e quaisquer fundos armazenados na carteira Peach caso perca o seu telefone.",
   "error.firstBackup.title" : "faça um backup!",
-  "error.general" : "Algo deu errado. Por favor, tente novamente mais tarde ou entre em contato com a equipa de suporte da Peach."
+  "error.general" : "Algo deu errado. Por favor, tente novamente mais tarde ou entre em contato com a equipa de suporte da Peach.",
+  "ACCOUNT_BANNED.text": "A sua conta foi banida. Se desejar recorrer, contacte a Peach e forneça o ID único."
 }

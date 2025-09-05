@@ -28,5 +28,8 @@
   "offerPreferences.premiumOfCompletedTrades" : "prima de transacciones completadas: $0%",
   "offerPreferences.refundTo" : "reembolsar a:",
   "offerPreferences.sellOffers" : "$0 ofertas de venta",
-  "offerPreferences.showOffers" : "mostrar ofertas"
+  "offerPreferences.showOffers" : "mostrar ofertas",
+  "help.createMultiple.description": "Si deseas comprar mucho de varios vendedores, ¡puedes crear muchas ofertas de compra!",
+  "help.createMultiple.title": "crear múltiples ofertas de compra",
+  "matchDetails.action.unrequestTrade": "eliminar solicitud de comercio"
 }

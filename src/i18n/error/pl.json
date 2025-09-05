@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "zrób kopię zapasową",
   "error.firstBackup.description" : "Jako, że już skorzystałeś z portfela Peach, powinieneś zrobić kopię zapasową zanim będziesz kontynuować.\n\nJeśli tego nie zrobisz, w przypadku utraty telefonu, stracisz swoje konto Peach oraz środki przechowywane w portfelu Peach.",
   "error.firstBackup.title" : "zrób kopię zapasową!",
-  "error.general" : "Coś poszło nie tak. Spróbuj ponownie później lub skontaktuj się z zespołem wsparcia Peach."
+  "error.general" : "Coś poszło nie tak. Spróbuj ponownie później lub skontaktuj się z zespołem wsparcia Peach.",
+  "ACCOUNT_BANNED.text": "Twoje konto zostało zablokowane. Jeśli chcesz odwołać się, skontaktuj się z Peach i podaj unikalny identyfikator."
 }

@@ -23,5 +23,8 @@
   "settings.batching.youPay" : "Let op! Je betaalt voor de extra kosten die Peach maakt. Deze kosten zijn dynamisch en kunnen aanzienlijk zijn tijdens kostenpieken.\nZorg ervoor dat u begrijpt wat u doet!",
   "settings.batching.youPay.highlight" : "Let op!",
   "settings.batching.youSave" : "Bespaar tot wel 23% in netwerkkosten",
-  "settings.batching.youSave.highlight" : "bespaar tot wel 23%"
+  "settings.batching.youSave.highlight" : "bespaar tot wel 23%",
+  "offer.requiredAction.wrongAmountFundedOnContract": "verkeerd bedrag gestort",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "verkeerd bedrag gestort"
+  
 }

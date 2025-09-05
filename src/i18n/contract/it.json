@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "annullamento in attesa",
   "contract.cancel.requestSent" : "richiesta inviata",
   "contract.cancel.requestSent.text" : "È stato comunicato al compratore che desideri annullare lo scambio.",
-  "contract.cancel.seller" : "Sei sicuro? Annullare uno scambio avrà conseguenze negative sulla tua reputazione. È inoltre necessario che il compratore acconsenta ad annullare lo scambio, poiché potrebbe aver già effettuato il pagamento.",
   "contract.cancel.seller.text.backOnline" : "Se il compratore accetta di annullare questo scambio, reinseriremo la tua offerta di vendita nell'elenco dei match.",
   "contract.cancel.seller.text.refundEscrow" : "Se il compratore accetta di annullare questo scambio, ti rimborseremo il deposito.",
   "contract.cancel.sellerWantsToCancel.text" : "Il venditore desidera annullare lo scambio $0 di $1 sats. Se hai già effettuato il pagamento, sei libero di rifiutare.",
@@ -208,5 +207,16 @@
   "contract.summary.branchCode" : "codice filiale",
   "contract.summary.branchName" : "nome filiale",
   "contract.summary.mobileMoneyIdentifier" : "identificativo denaro mobile",
-  "contract.summary.residentialAddress" : "indirizzo di residenza"
+  "contract.summary.residentialAddress" : "indirizzo di residenza",
+  "contract.seller.sellerDidntFundEscrowInTime": "Non hai finanziato l’escrow in tempo. Il contratto è stato annullato automaticamente.",
+  "contract.seller.escrowFundedWithWrongAmount": "Hai finanziato l’escrow con l’importo sbagliato. Poiché si trattava di un importo specifico concordato, lo scambio è stato annullato.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Hai finanziato l’escrow con l’importo sbagliato. Poiché si trattava di un importo specifico concordato, lo scambio è stato annullato. Ora puoi ottenere il rimborso.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Il venditore non ha finanziato l’escrow in tempo. Il contratto è stato annullato automaticamente.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Il venditore ha finanziato l’escrow con l’importo sbagliato di Bitcoin. Lo scambio è stato annullato.",
+  "contract.cancel.seller": "Sei sicuro? Annullare una transazione influenzerà negativamente la tua reputazione.",
+  "contract.seller.cancelBeforeFunding": "Hai annullato la transazione prima di finanziare l’escrow.",
+  "contract.buyer.cancelBeforeFunding": "Il venditore ha annullato la transazione prima di finanziare l’escrow.",
+  "contract.escrowFunded.description": "L’acquirente ha 12 ore per dichiarare il pagamento come effettuato",
+  "contract.escrowFunded.title": "L’escrow è stato finanziato!"
+  
 }

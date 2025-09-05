@@ -1,5 +1,6 @@
 {
   "match.feeWarning" : "Pagará até $0% em taxas de extração!",
   "match.tradeRequested" : "negociação solicitada",
-  "match.waitingForSeller" : "aguardando o vendedor"
+  "match.waitingForSeller" : "aguardando o vendedor",
+   "match.waitingForTrader": "aguardando o trader"
 }

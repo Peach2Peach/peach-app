@@ -1,5 +1,6 @@
 {
   "match.feeWarning" : "Ви заплатите до $0% комісії за майнінг!",
   "match.tradeRequested" : "торгівля запитана",
-  "match.waitingForSeller" : "очікується продавець"
+  "match.waitingForSeller" : "очікується продавець",
+  "match.waitingForTrader": "очікування трейдера"
 }

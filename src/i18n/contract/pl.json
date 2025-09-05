@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "oczekiwanie na anulowanie",
   "contract.cancel.requestSent" : "żądanie wysłane",
   "contract.cancel.requestSent.text" : "Kupujący został powiadomiony, że chcesz anulować transakcję.",
-  "contract.cancel.seller" : "Jesteś pewien? Anulowanie transakcji negatywnie wpłynie na Twoją reputację.\n\nKupujący również musi zgodzić się na anulowanie transakcji, ponieważ mógł już dokonać płatności.",
   "contract.cancel.seller.text.backOnline" : "Jeśli kupujący zgodzi się na anulowanie tej transakcji, ponownie umieścimy Twoją ofertę w puli dopasowań.",
   "contract.cancel.seller.text.refundEscrow" : "Jeśli kupujący zgodzi się na anulowanie tej transakcji, zwrócimy Ci kaucję.",
   "contract.cancel.sellerWantsToCancel.text" : "Sprzedawca chce anulować transakcję $0 za $1 sats.\n\nMożesz odmówić anulowania, szczególnie jeśli już dokonałeś płatności.",
@@ -216,5 +215,16 @@
   "contract.summary.branchCode" : "kod oddziału",
   "contract.summary.branchName" : "nazwa oddziału",
   "contract.summary.mobileMoneyIdentifier" : "identyfikator mobile money",
-  "contract.summary.residentialAddress" : "adres zamieszkania"
+  "contract.summary.residentialAddress" : "adres zamieszkania",
+  "contract.seller.sellerDidntFundEscrowInTime": "Nie zasiliłeś depozytu na czas. Umowa została automatycznie anulowana.",
+  "contract.seller.escrowFundedWithWrongAmount": "Zasiliłeś depozyt niewłaściwą kwotą. Ponieważ była to uzgodniona konkretna kwota, transakcja została anulowana.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Zasiliłeś depozyt niewłaściwą kwotą. Ponieważ była to uzgodniona konkretna kwota, transakcja została anulowana. Teraz możesz otrzymać zwrot pieniędzy.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Sprzedawca nie zasilił depozytu na czas. Umowa została automatycznie anulowana.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Sprzedawca zasilił depozyt niewłaściwą ilością Bitcoinów. Transakcja została anulowana.",
+  "contract.cancel.seller": "Czy na pewno? Anulowanie transakcji negatywnie wpłynie na twoją reputację.",
+  "contract.seller.cancelBeforeFunding": "Anulowałeś transakcję przed sfinansowaniem escrow.",
+  "contract.buyer.cancelBeforeFunding": "Sprzedawca anulował transakcję przed sfinansowaniem escrow.",
+  "contract.escrowFunded.description": "Kupujący ma 12 godzin na zadeklarowanie płatności jako dokonanej",
+  "contract.escrowFunded.title": "Escrow został sfinansowany!"
+  
 }

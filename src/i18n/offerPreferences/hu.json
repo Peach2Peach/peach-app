@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "befejezett ügyletek prémiuma: $0%",
   "offerPreferences.refundTo" : "visszatérítés ide:",
   "offerPreferences.sellOffers" : "$0 eladási ajánlat",
-  "offerPreferences.showOffers" : "ajánlatok megjelenítése"
+  "offerPreferences.showOffers" : "ajánlatok megjelenítése",
+  "help.createMultiple.description": "Ha sokat szeretnél vásárolni sok eladótól, létrehozhatsz több vételi ajánlatot!",
+  "help.createMultiple.title": "több vételi ajánlat létrehozása",
+   "matchDetails.action.unrequestTrade": "kereskedési kérés eltávolítása"
+
 }

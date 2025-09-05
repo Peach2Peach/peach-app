@@ -53,7 +53,7 @@ function OfferDetailsScreen({ offer }: { offer: SellOffer }) {
     <Screen header={<OfferDetailsHeader {...offer} />}>
       <View style={tw`justify-center grow`}>
         <PeachText style={tw`md:body-l`}>
-          {i18n("contract.seller.refunded", walletLabel)}
+          {i18n("offer.seller.refunded", walletLabel)}
         </PeachText>
       </View>
 

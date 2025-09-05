@@ -43,7 +43,9 @@ export const Checkbox = ({
               ? tw`text-black-25`
               : isDarkMode
                 ? tw`text-backgroundLight-light`
-                : tw`text-primary-main`,
+                : green
+                  ? tw`text-black-100`
+                  : tw`text-primary-main`,
           ]}
         >
           {children}

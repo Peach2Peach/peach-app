@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "faire une sauvegarde",
   "error.firstBackup.description" : "Maintenant que vous avez utilisé le portefeuille Peach, vous devriez vraiment faire une sauvegarde avant de continuer.\n\nSi vous ne le faites pas, vous perdrez votre compte Peach ainsi que les fonds stockés dans le portefeuille Peach si vous perdez votre téléphone.",
   "error.firstBackup.title" : "faites une sauvegarde !",
-  "error.general" : "Quelque chose s'est mal passé. Veuillez réessayer ultérieurement ou contacter l'équipe d'assistance de Peach."
+  "error.general" : "Quelque chose s'est mal passé. Veuillez réessayer ultérieurement ou contacter l'équipe d'assistance de Peach.",
+  "ACCOUNT_BANNED.text": "Votre compte a été banni. Si vous souhaitez faire appel, contactez Peach et fournissez l’ID unique."
 }

@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "aceptar match = comenzar intercambio",
   "help.addressSigning.description" : "Debido a la ley suiza, deberás firmar para verificar que eres el propietario de la dirección a la que se pagará el bitcoin.\n\nSi no sabes cómo funciona esto, te recomendamos usar la cartera Peach, donde no necesitas realizar este paso manualmente.",
   "help.addressSigning.title" : "firma de dirección",
-  "help.buyingBitcoin.description" : "Al comprar bitcoin en Peach, primero seleccionarás un rango de cuánto quieres comprar.\n\nDespués de seleccionar, se te mostrarán todas las ofertas de venta que se ajusten a ese rango.\n\nLas comisiones de Peach son del 2% del monto de la transacción.",
-  "help.buyingBitcoin.title" : "comprar bitcoin",
   "help.checkTrade" : "verificar intercambio",
   "help.confirmPayment.description" : "Tan pronto como deslizes \"pago recibido\", el bitcoin se enviará al comprador.\n\nAsegúrate de que esto es correcto porque no lo podrás deshacer",
   "help.confirmPayment.title" : "¿recibiste el pago?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "¡Puedes agregar y seleccionar tantos métodos de pago como desees para cada intercambio!",
   "help.paymentMethods.description.2" : "Se almacenan en tu teléfono, y solo la persona con la que estás intercambiando puede ver esta información (a menos que presentes una disputa).",
   "help.paymentMethods.description.3" : "Los métodos de pago verificados tienen al menos tres intercambios finalizados y más de 30 días de antigüedad.",
-  "help.premium.description" : "Establecerás un desplazamiento de precio en relación al precio del mercado (promediado de varios exchanges).\n\nEl precio final al que venderás se determinará cuando un comprador acepte tu oferta.",
   "help.premium.title" : "el precio es relativo",
   "help.referral.description.1" : "Por cada 10.000 sats que tus referidos intercambien en Peach, obtienes un punto de referido.",
   "help.referral.description.2" : "¡Ahorra tus puntos para obtener recompensas geniales!",
@@ -42,5 +39,13 @@
   "help.sellingBitcoin.description" : "¡Vender tus sats en Peach es gratis!\n\nPara publicar una oferta de venta, debes enviar tus sats a un depósito en garantía para demostrar al comprador que tienes los sats que deseas vender.\n\nEl depósito en garantía es una billetera de Bitcoin con múltiples firmas donde posees una clave y Peach tiene otra.",
   "help.sellingBitcoin.title" : "vender Bitcoin",
   "help.tradingLimit.description" : "Peach tiene que cumplir con los límites de intercambio para cumplir con la ley suiza. Hay tres límites de intercambio:\n\nPuedes comprar o vender 1000 CHF en bitcoin en Peach todos los días\n\nPuedes comprar o vender 1000 CHF en bitcoin con efectivo o tarjetas de regalo en línea (también conocidos como métodos de pago anónimos) todos los meses\n\nPuedes comprar o vender 100 000 CHF en bitcoin por año.",
-  "help.tradingLimit.title" : "límites de intercambio"
+  "help.tradingLimit.title" : "límites de intercambio",
+  "help.acceptTradeRequest.description": "Solo puede aceptar un comprador por oferta. Una vez que acepte la solicitud de intercambio de un comprador, se inicia la operación.\n\nUna vez iniciada, su reputación se verá afectada si decide cancelar.",
+  "help.acceptTradeRequest.title": "aceptar solicitud de intercambio = iniciar intercambio",
+  "help.buyingBitcoin.description": "La wallet de Peach es auto-custodial, lo que significa que USTED posee las llaves de su wallet.\nVaya a Configuración > frase semilla y anótela! #NoSonTusLlavesNoEsTuBitcoin",
+  "help.buyingBitcoin.title": "comprar bitcoin en Peach cuesta el 2% de la transacción",
+  "help.premiumBuy.description": "Establecerá un margen de precio relativo al precio de mercado (promediado de múltiples exchanges).\n\nEl precio final al que venderá se determinará cuando un vendedor solicite una operación con su oferta.",
+  "help.premiumBuy.title": "el precio es relativo",
+  "help.premium.description": "Establecerá un margen de precio relativo al precio de mercado (promediado de múltiples exchanges).\n\nEl precio final al que venderá se determinará cuando un comprador solicite una operación con su oferta."
+
 }

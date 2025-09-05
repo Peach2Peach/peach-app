@@ -22,7 +22,7 @@ export const useRepublishOffer = () => {
     closePopup();
   };
   const goToOfferAction = (offerId: string) => {
-    navigation.replace("search", { offerId });
+    navigation.replace("browseTradeRequestsToMySellOffer", { offerId }); // TODO: check if correct
     closePopup();
   };
 

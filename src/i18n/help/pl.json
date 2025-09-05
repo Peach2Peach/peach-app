@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "zaakceptuj dopasowanie = rozpocznij transakcję",
   "help.addressSigning.description" : "Szwajcarskie prawo wymaga wygenerowania podpisu potwierdzającego, że jesteś właścicielem adresu, na który zostanie przelana transakcja. Jeżeli nie wiesz jak to zrobić, polecamy użyć portfela Peach, który nie wymaga wykonywania tego kroku ręcznie.",
   "help.addressSigning.title" : "podpisywanie adresu",
-  "help.buyingBitcoin.description" : "Kupując bitcoiny na Peach, najpierw wybierzesz zakres, ile chcesz kupić. Po wyborze zostaną Ci pokazane wszystkie oferty sprzedaży, które mieszczą się w tym zakresie. Opłaty Peach wynoszą 2% od kwoty transakcji.",
-  "help.buyingBitcoin.title" : "kup bitcoin",
   "help.checkTrade" : "sprawdź transakcję",
   "help.confirmPayment.description" : "Gdy przesuniesz suwak \"płatność otrzymana\", bitcoin zostanie wysłany do kupującego. Upewnij się, że wszystko jest w porządku, ponieważ tej operacji nie można cofnąć!",
   "help.confirmPayment.title" : "płatność otrzymana?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Możesz dodać i wybrać tyle metod płatności, ile chcesz, dla każdej transakcji!",
   "help.paymentMethods.description.2" : "Są one przechowywane na Twoim telefonie i tylko osoba, z którą dokonujesz wymiany, może zobaczyć te informacje (chyba że zgłosisz spór).",
   "help.paymentMethods.description.3" : "Zaufane metody płatności mają przynajmniej trzy zakończone transakcje i są starsze niż 30 dni.",
-  "help.premium.description" : "Ustalisz przesunięcie cenowe względem cen rynkowych (średnia z kilku giełd). Ostateczna cena, po jakiej sprzedasz, zostanie ustalona, gdy kupujący dopasuje się do twojej oferty.",
   "help.premium.title" : "cena jest względna",
   "help.referral.description.1" : "Za każdy obrót o wartości 10 000 sats dokonany przez osoby, które poleciłeś na platformie Peach, zdobywasz punkt w ramach programu poleceń.",
   "help.referral.description.2" : "Oszczędzaj zgromadzone punkty, aby zdobyć atrakcyjne nagrody!",
@@ -42,5 +39,12 @@
   "help.sellingBitcoin.description" : "Sprzedaż twoich satsów na Peach jest darmowa!\n\nAby opublikować ofertę sprzedaży, musisz wysłać swoje satsy na zastaw, aby udowodnić kupującemu, że masz satsy, które chcesz sprzedać!\n\nZastaw to portfel wielokrotnego podpisu Bitcoin, w którym posiadasz jedno klucz, a Peach trzyma drugi.",
   "help.sellingBitcoin.title" : "sprzedaj bitcoin",
   "help.tradingLimit.description" : "Peach musi egzekwować limity transakcyjne, aby przestrzegać prawa szwajcarskiego. Istnieją trzy limity transakcyjne: Możesz kupić lub sprzedać bitcoiny o wartości 1000 CHF na Peach każdego dnia. Możesz kupić lub sprzedać bitcoiny o wartości 1000 CHF za gotówkę lub karty podarunkowe online (znane również jako anonimowe metody płatności) każdego miesiąca. Możesz kupić lub sprzedać bitcoiny o wartości 100 000 CHF rocznie.",
-  "help.tradingLimit.title" : "limity transakcyjne"
+  "help.tradingLimit.title" : "limity transakcyjne",
+   "help.acceptTradeRequest.description": "Możesz zaakceptować tylko jednego kupującego na ofertę. Po zaakceptowaniu żądania transakcji od kupującego, transakcja zostaje rozpoczęta.\n\nPo rozpoczęciu, twoja reputacja ucierpi, jeśli zdecydujesz się anulować.",
+  "help.acceptTradeRequest.title": "zaakceptuj żądanie transakcji = rozpocznij transakcję",
+  "help.buyingBitcoin.description": "Portfel Peach jest samodzielny, co oznacza, że POSIADASZ klucze do swojego portfela.\nPrzejdź do Ustawienia > seed phrase i zapisz ją! #NieTwojeKluczeNieTwójBitcoin",
+  "help.buyingBitcoin.title": "kupowanie bitcoina na Peach kosztuje 2% transakcji",
+  "help.premiumBuy.description": "Ustawisz przesunięcie ceny względem ceny rynkowej (średnia z wielu giełd).\n\nOstateczna cena sprzedaży zostanie określona, gdy sprzedawca zażąda transakcji z Twoją ofertą.",
+  "help.premiumBuy.title": "cena jest względna",
+  "help.premium.description": "Ustawisz przesunięcie ceny względem ceny rynkowej (średnia z wielu giełd).\n\nOstateczna cena sprzedaży zostanie określona, gdy kupujący zażąda transakcji z Twoją ofertą."
 }

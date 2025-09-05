@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "kufuta inasubiri",
   "contract.cancel.requestSent" : "ombi limepelekwa",
   "contract.cancel.requestSent.text" : "Mnunuzi amepewa taarifa kwamba unataka kufuta biashara.",
-  "contract.cancel.seller" : "Je, una uhakika? Kufuta biashara kutaaathiri sana sifa yako.\n\nMnunuzi pia anahitaji kukubaliana kufuta biashara, tayari wanaweza kuwa wamelipa.",
   "contract.cancel.seller.text.backOnline" : "Ikiwa Mnunuzi anakubaliana kufuta biashara hii, tutarudisha ofa yako kwenye dimbwi la mechi.",
   "contract.cancel.seller.text.refundEscrow" : "Ikiwa Mnunuzi anakubaliana kufuta biashara hii, tutakurudishia escrow.",
   "contract.cancel.sellerWantsToCancel.text" : "Muuzaji anataka kufuta biashara $0 kwa $1 sats.\n\nUko huru kukataa kufuta, hasa ikiwa tayari umefanya malipo.",
@@ -216,5 +215,15 @@
   "contract.summary.branchCode" : "msimbo wa tawi",
   "contract.summary.branchName" : "jina la tawi",
   "contract.summary.mobileMoneyIdentifier" : "kitambulisho cha pesa za simu",
-  "contract.summary.residentialAddress" : "anwani ya makazi"
+  "contract.summary.residentialAddress" : "anwani ya makazi",
+  "contract.seller.sellerDidntFundEscrowInTime": "Hukuweka fedha kwenye escrow kwa wakati. Mkataba umefutwa moja kwa moja.",
+  "contract.seller.escrowFundedWithWrongAmount": "Uliweka fedha kwenye escrow kwa kiasi kibaya. Kwa kuwa kilikuwa kiasi kilichokubaliwa mahsusi, biashara imefutwa.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Uliweka fedha kwenye escrow kwa kiasi kibaya. Kwa kuwa kilikuwa kiasi kilichokubaliwa mahsusi, biashara imefutwa. Unaweza kurejeshewa sasa.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Muuzaji hakuweka fedha kwenye escrow kwa wakati. Mkataba umefutwa moja kwa moja.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Muuzaji aliweka kiasi kibaya cha Bitcoin kwenye escrow. Biashara imefutwa.",
+  "contract.cancel.seller": "Una uhakika? Kufuta biashara kutaathiri sifa yako vibaya.",
+  "contract.seller.cancelBeforeFunding": "Umefuta biashara kabla ya kufadhili escrow.",
+  "contract.buyer.cancelBeforeFunding": "Muuzaji amefuta biashara kabla ya kufadhili escrow.",
+  "contract.escrowFunded.description": "Mnunuzi ana saa 12 kutangaza malipo kama yametolewa",
+  "contract.escrowFunded.title": "Escrow imefadhiliwa!"
 }

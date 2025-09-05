@@ -23,6 +23,7 @@ type Props = {
   setSelectedPaymentData: (paymentMethod?: PaymentData) => void;
   showPaymentMethodPulse: boolean;
   selectedMethodInfo: ReactNode;
+  origin?: keyof RootStackParamList;
 };
 
 export function PaymentMethodSelector({
@@ -34,6 +35,7 @@ export function PaymentMethodSelector({
   showPaymentMethodPulse,
   selectedMethodInfo,
   meansOfPayment,
+  origin = "matchDetails",
 }: Props) {
   const availableCurrencies = keys(meansOfPayment);
   const allPaymentMethods = meansOfPayment[selectedCurrency];
@@ -90,6 +92,7 @@ export function PaymentMethodSelector({
               selectedPaymentData={selectedPaymentData}
               onPress={setSelectedPaymentData}
               items={items}
+              origin={origin}
             />
           </>
         )}
@@ -103,6 +106,7 @@ type SelectorProps = {
   selectedPaymentData?: PaymentData;
   selectedCurrency: Currency;
   onPress?: (value: PaymentData) => void;
+  origin?: keyof RootStackParamList;
 };
 
 function CustomSelector({
@@ -110,6 +114,7 @@ function CustomSelector({
   selectedCurrency,
   selectedPaymentData,
   onPress,
+  origin = "matchDetails",
 }: SelectorProps) {
   return (
     <View style={tw`flex-row flex-wrap justify-center gap-1`}>
@@ -120,6 +125,7 @@ function CustomSelector({
           onPress={onPress}
           selectedPaymentData={selectedPaymentData}
           selectedCurrency={selectedCurrency}
+          origin={origin}
         >
           {display}
         </PayementMethodBubble>
@@ -134,6 +140,7 @@ type PaymentMethodBubbleProps = {
   selectedCurrency: Currency;
   children: React.ReactNode;
   onPress?: (value: PaymentData) => void;
+  origin?: keyof RootStackParamList;
 };
 
 function PayementMethodBubble({
@@ -142,6 +149,7 @@ function PayementMethodBubble({
   selectedCurrency,
   children,
   onPress,
+  origin = "matchDetails",
 }: PaymentMethodBubbleProps) {
   const paymentDataRecord = usePaymentDataStore((state) => state.paymentData);
   const paymentDataForType = useMemo(
@@ -184,7 +192,7 @@ function PayementMethodBubble({
       } else if (isCashTrade(paymentMethod)) {
         navigation.navigate("meetupScreen", {
           eventId: paymentMethod.replace("cash.", ""),
-          origin: "matchDetails",
+          origin,
         });
       } else {
         const country = paymentMethod.startsWith("giftCard.amazon.")
@@ -197,7 +205,7 @@ function PayementMethodBubble({
             currencies: [selectedCurrency],
             country,
           },
-          origin: "matchDetails",
+          origin,
         });
       }
     }

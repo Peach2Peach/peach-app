@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "fanya nakala rudufu",
   "error.firstBackup.description" : "Sasa unapotumia Peach Wallet, unapaswa kweli kufanya nakala rudufu kabla ya kuendelea.\n\nIkiwa hutafanya hivyo, utapoteza akaunti yako ya Peach na pesa zilizohifadhiwa kwenye mkoba wa Peach ikiwa utapoteza simu yako.",
   "error.firstBackup.title" : "fanya nakala rudufu!",
-  "error.general" : "Kitu kimetokea kimetokea. Tafadhali jaribu tena baadaye au wasiliana na timu ya usaidizi ya Peach."
+  "error.general" : "Kitu kimetokea kimetokea. Tafadhali jaribu tena baadaye au wasiliana na timu ya usaidizi ya Peach.",
+  "ACCOUNT_BANNED.text": "Akaunti yako imezuiliwa. Ikiwa ungependa kufungua rufaa, wasiliana na Peach na toa ID ya kipekee."
 }

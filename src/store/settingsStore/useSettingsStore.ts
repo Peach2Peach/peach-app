@@ -20,6 +20,7 @@ export type SettingsStore = Settings & {
   setPayoutAddressLabel: (payoutAddressLabel: string | undefined) => void;
   setPayoutAddressSignature: (payoutAddressSignature: string) => void;
   setLocale: (locale: string) => void;
+  setSeenFirstTimeBuyerPopup: () => void;
   setDisplayCurrency: (displayCurrency: Currency) => void;
   updateSeedBackupDate: () => void;
   updateFileBackupDate: () => void;
@@ -87,6 +88,7 @@ export const useSettingsStore = create(
       setCloudflareChallenge: (cloudflareChallenge) =>
         set({ cloudflareChallenge }),
       setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
+      setSeenFirstTimeBuyerPopup: () => set({ seenFirstTimeBuyerPopup: true }),
     }),
     {
       name: "settings",

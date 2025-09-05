@@ -32,12 +32,14 @@ function GoTradeButton({
 
   const onPress = () => {
     const destination =
-      tab === "yourTrades.buy" ? "buyOfferPreferences" : "sellOfferPreferences";
+      tab === "yourTrades.69BuyOffer"
+        ? "createBuyOffer"
+        : "sellOfferPreferences";
     navigation.navigate(destination);
   };
 
   const textColor =
-    tab === "yourTrades.buy"
+    tab === "yourTrades.69BuyOffer"
       ? tw.color("success-main")
       : tw.color("primary-main");
 

@@ -12,19 +12,24 @@ export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
     {
       title: "priority",
       data: trades.filter(
-        ({ tradeStatus }) => isPrioritary(tradeStatus) || isError(tradeStatus),
+        ({ tradeStatus, type }) =>
+          isPrioritary(tradeStatus, type) || isError(tradeStatus),
       ),
     },
     {
       title: "openActions",
-      data: trades.filter(({ type, tradeStatus }) =>
-        isOpenAction(type, tradeStatus),
+      data: trades.filter(
+        ({ type, tradeStatus, tradeStatusNew }) =>
+          (isOpenAction(type, tradeStatus) && tradeStatusNew === undefined) ||
+          (tradeStatusNew !== undefined && isOpenAction(type, tradeStatusNew)),
       ),
     },
     {
       title: "waiting",
-      data: trades.filter(({ type, tradeStatus }) =>
-        isWaiting(type, tradeStatus),
+      data: trades.filter(
+        ({ type, tradeStatus, tradeStatusNew }) =>
+          (isWaiting(type, tradeStatus) && tradeStatusNew === undefined) ||
+          (tradeStatusNew !== undefined && isWaiting(type, tradeStatusNew)),
       ),
     },
     {
@@ -38,13 +43,16 @@ export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
     {
       title: "history",
       data: trades
-        .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+        .filter(({ type, tradeStatus }) => isPastOffer(tradeStatus, type))
         .filter(
           (trade) => !("unreadMessages" in trade) || trade.unreadMessages === 0,
         ),
     },
     {
       title: "unknown",
-      data: trades.filter(({ tradeStatus }) => !isTradeStatus(tradeStatus)),
+      data: trades.filter(
+        ({ tradeStatus, tradeStatusNew }) =>
+          !isTradeStatus(tradeStatus) && !isTradeStatus(tradeStatusNew),
+      ),
     },
   ].filter(({ data }) => data.length > 0);

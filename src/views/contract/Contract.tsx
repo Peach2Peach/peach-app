@@ -8,15 +8,18 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useHandleNotifications } from "../../hooks/notifications/useHandleNotifications";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
+import { useFundingStatus } from "../../hooks/query/useFundingStatus";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/ConfirmTradeCancelationPopup";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -33,13 +36,15 @@ export const Contract = () => {
   const { contract, isLoading, refetch } = useContractDetail(contractId);
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const view = contract
-    ? getContractViewer(contract.seller.id, publicKey)
+    ? contract.seller.id === publicKey
+      ? "seller"
+      : "buyer"
     : undefined;
 
   useHandleNotifications(
     useCallback(
-      (message) => {
-        if (message.data?.contractId === contractId) refetch();
+      async (message) => {
+        if (message.data?.contractId === contractId) await refetch();
       },
       [contractId, refetch],
     ),
@@ -59,7 +64,7 @@ export const Contract = () => {
 
 type ContractScreenProps = {
   contract: Contract;
-  view: ContractViewer;
+  view: "buyer" | "seller";
 };
 
 function ContractScreen({ contract, view }: ContractScreenProps) {
@@ -70,8 +75,27 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
   } = useDecryptedContractData(contract);
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean();
 
+  const { user: selfUser } = useSelfUser();
+  const setPopup = useSetPopup();
+  const hasSeenFirstTimeBuyerPopup = useSettingsStore(
+    (state) => state.seenFirstTimeBuyerPopup,
+  );
+  const setSeenFirstTimeBuyerPopup = useSettingsStore(
+    (state) => state.setSeenFirstTimeBuyerPopup,
+  );
+
   if (isLoadingPaymentData) return <LoadingScreen />;
 
+  if (
+    selfUser &&
+    selfUser.trades === 0 &&
+    contract.tradeStatus === "paymentRequired" &&
+    !hasSeenFirstTimeBuyerPopup &&
+    selfUser.id === contract.buyer.id
+  ) {
+    setPopup(<HelpPopup id="firstTimeBuyer" />);
+    setSeenFirstTimeBuyerPopup();
+  }
   return (
     <ContractContext.Provider
       value={{
@@ -109,6 +133,8 @@ function ContractHeader() {
     amount,
     premium,
   } = contract;
+  const sellOfferId = getSellOfferIdFromContract(contract);
+  const { fundingStatus } = useFundingStatus(sellOfferId);
   const requiredAction = getRequiredAction(contract);
   const setPopup = useSetPopup();
   const showConfirmPopup = useCallback(
@@ -131,7 +157,7 @@ function ContractHeader() {
     const icons: HeaderIcon[] = [];
     if (disputeActive) return icons;
 
-    if (canCancelContract(contract, view))
+    if (canCancelContract(contract, view, fundingStatus))
       icons.push({
         ...headerIcons.cancel,
         onPress: showConfirmPopup,
@@ -148,6 +174,7 @@ function ContractHeader() {
       });
     return icons;
   }, [
+    disputeActive,
     contract,
     view,
     requiredAction,
@@ -155,14 +182,29 @@ function ContractHeader() {
     showConfirmPaymentHelp,
     disputeActive,
     showConfirmPopup,
+    fundingStatus,
   ]);
 
+  const { paymentMade, paymentExpectedBy } = contract;
   const theme = useMemo(() => {
     if (disputeActive || disputeWinner) return "dispute";
     if (canceled || tradeStatus === "confirmCancelation") return "cancel";
-    if (isPaymentTooLate(contract)) return "paymentTooLate";
+    if (
+      isPaymentTooLate({ paymentMade, paymentExpectedBy }) ||
+      tradeStatus === "fundingExpired"
+    ) {
+      return "paymentTooLate";
+    }
     return view;
-  }, [canceled, contract, disputeActive, disputeWinner, tradeStatus, view]);
+  }, [
+    canceled,
+    disputeActive,
+    disputeWinner,
+    paymentExpectedBy,
+    paymentMade,
+    tradeStatus,
+    view,
+  ]);
 
   const title = getHeaderTitle(view, contract);
 
@@ -205,7 +247,8 @@ function getHeaderTitle(view: string, contract: Contract) {
     if (disputeWinner === "seller") return i18n("contract.disputeLost");
 
     if (tradeStatus === "paymentRequired") {
-      if (isPaymentTooLate(contract))
+      const { paymentMade, paymentExpectedBy } = contract;
+      if (isPaymentTooLate({ paymentMade, paymentExpectedBy }))
         return i18n("contract.paymentTimerHasRunOut.title");
       return i18n("offer.requiredAction.paymentRequired");
     }
@@ -213,6 +256,7 @@ function getHeaderTitle(view: string, contract: Contract) {
       return i18n("offer.requiredAction.waiting.seller");
     if (tradeStatus === "confirmCancelation")
       return i18n("offer.requiredAction.confirmCancelation.buyer");
+    if (tradeStatus === "tradeCanceled") return i18n("contract.tradeCanceled");
   }
 
   if (view === "seller") {
@@ -222,6 +266,8 @@ function getHeaderTitle(view: string, contract: Contract) {
   }
 
   if (disputeActive) return i18n("offer.requiredAction.dispute");
+  if (tradeStatus === "fundingExpired")
+    return i18n("offer.requiredAction.fundingExpired");
   if (isPaymentTooLate(contract))
     return i18n("contract.paymentTimerHasRunOut.title");
 

@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "kubali kulinganisha = anzisha biashara",
   "help.addressSigning.description" : "Kwa sababu ya sheria za Uswisi, utahitaji kusaini ili kuthibitisha kuwa una umiliki wa anwani ambayo biashara italipwa.\n\nIkiwa hujui jinsi hii inavyofanya kazi, tunapendekeza kutumia mkoba wa Peach, ambapo hauitaji kwenda kwa hatua hii kwa mkono.",
   "help.addressSigning.title" : "kusaini anwani",
-  "help.buyingBitcoin.description" : "Unaponunua bitcoin kwenye Peach, kwanza utachagua kiasi cha bitcoin unachotaka kununua.\n\nBaada ya kuchagua, utaonyeshwa ofa zote za kuuza ambazo zinafaa kwenye kipimo hicho.\n\nAda za Peach ni 2% ya kiasi cha biashara.",
-  "help.buyingBitcoin.title" : "kununua bitcoin",
   "help.checkTrade" : "angalia biashara",
   "help.confirmPayment.description" : "Mara tu unapowasha kitufe cha \"malipo yamepokelewa\", bitcoin itatumwa kwa mnunuzi.\n\nHakikisha kila kitu kiko sahihi, kwa sababu hii haiwezi kufutwa!",
   "help.confirmPayment.title" : "malipo yamepokelewa?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Unaweza kuongeza na kuchagua njia za malipo kadri unavyotaka kwa kila biashara!",
   "help.paymentMethods.description.2" : "Zinahifadhiwa kwenye simu yako, na mtu anayefanya biashara nawe anaweza kuona habari hii (isipokuwa unapopandisha malalamiko).",
   "help.paymentMethods.description.3" : "Njia za malipo zilizoidhinishwa zina biashara zisizopungua tatu na zina zaidi ya siku 30.",
-  "help.premium.description" : "Utaweka kiasi cha bei kulingana na bei ya soko (iliyopangwa kutoka kwa ubadilishanaji wa wengi).\n\nBei ya mwisho ya kuuza itaamuliwa wakati mnunuzi anapofanana na ofa yako.",
   "help.premium.title" : "bei ni suala la kulinganisha",
   "help.referral.description.1" : "Kwa kila sats 10,000 ambazo rufaa zako hufanya biashara kwenye Peach, unapata pointi ya rufaa.",
   "help.referral.description.2" : "Hifadhi pointi zako kupata zawadi nzuri!",
@@ -42,5 +39,12 @@
   "help.sellingBitcoin.description" : "Kuuza sats zako kwenye Peach ni bure!\n\nKuchapisha ombi la kuuza, lazima utume sats zako kwa escrow kuthibitisha kwa mnunuzi kuwa una sats unazotaka kuuza!\n\nEscrow ni mkoba wa Bitcoin wenye vielelezo vingi ambapo unamiliki funguo moja na Peach inashikilia nyingine.",
   "help.sellingBitcoin.title" : "kuuza bitcoin",
   "help.tradingLimit.description" : "Peach lazima itekeleze mipaka ya biashara kufuata sheria za Uswisi. Kuna mipaka mitatu ya biashara:\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwenye Peach kila siku\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwa pesa au kadi za zawadi mtandaoni (yaani njia za malipo isiyo na utambulisho) kila mwezi\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 100,000 kwa mwaka.",
-  "help.tradingLimit.title" : "mipaka ya biashara"
+  "help.tradingLimit.title" : "mipaka ya biashara",
+   "help.acceptTradeRequest.description": "Unaweza kukubali mnunuzi mmoja tu kwa kila ofa. Mara tu unapokubali ombi la biashara la mnunuzi, biashara inaanza.\n\nMara inaanza, sifa yako itadhurika ikiwa utaamua kufuta.",
+  "help.acceptTradeRequest.title": "kubali ombi la biashara = anzisha biashara",
+  "help.buyingBitcoin.description": "Wallet ya Peach ni self-custodial, ambayo inamaanisha kwamba WEWE unamiliki funguo za wallet yako.\nNenda kwenye Mipangilio > seed phrase na uandike! #SioVifunguoVyakoSioBitcoinYako",
+  "help.buyingBitcoin.title": "kununua bitcoin kwenye Peach kunagharimu 2% ya muamala",
+  "help.premiumBuy.description": "Utaweka tofauti ya bei kulingana na bei ya soko (wastani kutoka kwa exchangers nyingi).\n\nBei ya mwisho utakayouza itatolewa wakati muuzaji ataomba biashara kwa ofa yako.",
+  "help.premiumBuy.title": "bei ni ya kisalia",
+  "help.premium.description": "Utaweka tofauti ya bei kulingana na bei ya soko (wastani kutoka kwa exchangers nyingi).\n\nBei ya mwisho utakayouza itatolewa wakati mnunuzi ataomba biashara kwa ofa yako."
 }

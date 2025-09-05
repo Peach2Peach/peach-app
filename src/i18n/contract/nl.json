@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "annulering in behandeling",
   "contract.cancel.requestSent" : "verzoek verzonden",
   "contract.cancel.requestSent.text" : "De koper heeft bericht gekregen dat je de transactie wilt annuleren.",
-  "contract.cancel.seller" : "Weet je het zeker? Het annuleren van een transactie heeft een negatieve invloed op jouw reputatie. De koper moet ook akkoord gaan met het annuleren van de transactie, omdat hij of zij de betaling mogelijk al heeft gedaan.",
   "contract.cancel.seller.text.backOnline" : "Als de koper ermee instemt deze transactie te annuleren, plaatsen we jouw verkoopaanbod terug in de matchingpool.",
   "contract.cancel.seller.text.refundEscrow" : "Als de koper ermee instemt deze transactie te annuleren, betalen wij jou de borg terug.",
   "contract.cancel.sellerWantsToCancel.text" : "De verkoper wil de transactie van $ 0 voor $ 1 sats annuleren. Het staat je vrij om de annulering af te wijzen, zeker als je de betaling al hebt gedaan.",
@@ -216,5 +215,15 @@
   "contract.summary.branchCode" : "vestigingscode",
   "contract.summary.branchName" : "vestigingsnaam",
   "contract.summary.mobileMoneyIdentifier" : "mobiele geld identificatie",
-  "contract.summary.residentialAddress" : "woonadres"
+  "contract.summary.residentialAddress" : "woonadres",
+  "contract.seller.sellerDidntFundEscrowInTime": "Je hebt de escrow niet op tijd gefinancierd. Het contract is automatisch geannuleerd.",
+  "contract.seller.escrowFundedWithWrongAmount": "Je hebt de escrow met het verkeerde bedrag gefinancierd. Omdat het om een afgesproken specifiek bedrag ging, is de handel geannuleerd.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Je hebt de escrow met het verkeerde bedrag gefinancierd. Omdat het om een afgesproken specifiek bedrag ging, is de handel geannuleerd. Je kunt nu een terugbetaling krijgen.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "De verkoper heeft de escrow niet op tijd gefinancierd. Het contract is automatisch geannuleerd.",
+  "contract.buyer.escrowFundedWithWrongAmount": "De verkoper heeft de escrow met een verkeerd Bitcoin-bedrag gefinancierd. De handel is geannuleerd.",
+  "contract.cancel.seller": "Weet je het zeker? Het annuleren van een handel beïnvloedt je reputatie negatief.",
+  "contract.seller.cancelBeforeFunding": "Je hebt de handel geannuleerd voordat de escrow werd gefinancierd.",
+  "contract.buyer.cancelBeforeFunding": "De verkoper heeft de handel geannuleerd voordat de escrow werd gefinancierd.",
+  "contract.escrowFunded.description": "De koper heeft 12 uur om de betaling als voltooid te verklaren",
+  "contract.escrowFunded.title": "De escrow is gefinancierd!"
 }

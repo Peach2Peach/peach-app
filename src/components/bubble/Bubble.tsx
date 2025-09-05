@@ -49,6 +49,7 @@ export function NewBubble({
   iconId,
   color,
   ghost,
+  style,
   ...touchableOpacityProps
 }: NewBubbleProps) {
   const colorStyle = tw.color(
@@ -69,6 +70,7 @@ export function NewBubble({
         tw`flex-row items-center justify-center gap-1 px-2 rounded-lg py-2px`,
         [tw`border`, { borderColor: colorStyle }],
         ghost ? tw`bg-transparent` : { backgroundColor: colorStyle },
+        style,
       ]}
       {...touchableOpacityProps}
     >

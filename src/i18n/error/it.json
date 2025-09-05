@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "fai un backup",
   "error.firstBackup.description" : "Ora che hai utilizzato il Wallet di Peach, è davvero importante eseguire un backup prima di continuare. Se non lo fai, perderai il tuo account Peach e tutti i fondi presenti nel wallet di Peach in caso di smarrimento del telefono.",
   "error.firstBackup.title" : "fai un backup!",
-  "error.general" : "Oops! Qualcosa è andato storto. Per favore, riprova più tardi o contatta il team di supporto di Peach."
+  "error.general" : "Oops! Qualcosa è andato storto. Per favore, riprova più tardi o contatta il team di supporto di Peach.",
+  "ACCOUNT_BANNED.text": "Il tuo account è stato bloccato. Se vuoi fare appello, contatta Peach e fornisci l’ID univoco."
 }

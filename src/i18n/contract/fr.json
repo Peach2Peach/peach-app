@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "annulation en attente",
   "contract.cancel.requestSent" : "demande envoyée",
   "contract.cancel.requestSent.text" : "L'acheteur a été informé que vous souhaitez annuler l'échange.",
-  "contract.cancel.seller" : "L'acheteur doit accepter d'annuler l'échange, car il a peut-être déjà effectué le paiement.",
   "contract.cancel.seller.text.backOnline" : "Si l'acheteur accepte d'annuler cet échange, nous remettrons votre offre de vente en ligne.",
   "contract.cancel.seller.text.refundEscrow" : "Si l'acheteur accepte d'annuler cet échange, nous vous reverserons la garantie du coffre. ",
   "contract.cancel.sellerWantsToCancel.text" : "Le vendeur souhaite annuler l'échange $0 contre $1 sats.\n\nVous êtes libre de rejeter l'annulation, surtout si vous avez déjà effectué le paiement.",
@@ -216,5 +215,15 @@
   "contract.summary.branchCode" : "code agence",
   "contract.summary.branchName" : "nom agence",
   "contract.summary.mobileMoneyIdentifier" : "identifiant argent mobile",
-  "contract.summary.residentialAddress" : "adresse résidentielle"
+  "contract.summary.residentialAddress" : "adresse résidentielle",
+  "contract.seller.sellerDidntFundEscrowInTime": "Vous n'avez pas financé l'entiercement à temps. Le contrat a été automatiquement annulé.",
+  "contract.seller.escrowFundedWithWrongAmount": "Vous avez financé l'entiercement avec un montant incorrect. Comme il s'agissait d'un montant spécifique convenu, l'échange a été annulé.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Vous avez financé l'entiercement avec un montant incorrect. Comme il s'agissait d'un montant spécifique convenu, l'échange a été annulé. Vous pouvez maintenant être remboursé.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Le vendeur n'a pas financé l'entiercement à temps. Le contrat a été automatiquement annulé.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Le vendeur a financé l'entiercement avec un montant incorrect de Bitcoin. L'échange a été annulé.",
+  "contract.cancel.seller": "Êtes-vous sûr ? Annuler une transaction aura un impact négatif sur votre réputation.",
+  "contract.seller.cancelBeforeFunding": "Vous avez annulé la transaction avant de financer l’entiercement.",
+  "contract.buyer.cancelBeforeFunding": "Le vendeur a annulé la transaction avant de financer l’entiercement.",
+  "contract.escrowFunded.description": "L’acheteur a 12 heures pour déclarer le paiement comme effectué",
+  "contract.escrowFunded.title": "L’entiercement a été financé !"
 }

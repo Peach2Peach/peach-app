@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "várakozás a lemondásra...",
   "contract.cancel.requestSent" : "kérelem elküldve",
   "contract.cancel.requestSent.text" : "A vevő értesítve lett arról, hogy a kereskedést le szeretnéd mondani.",
-  "contract.cancel.seller" : "Biztos vagy benne? A kereskedés lemondása a hírnevedet negatívan befolyásolja.\n\nA lemondással a vevőnek is egyet kell értenie, mivel elképzelhető, hogy az összeget már kifizette.",
   "contract.cancel.seller.text.backOnline" : "Ha a vevő a kereskedés lemondásával egyetért, akkor az eladási ajánlatod újra a partner kereső rendszerébe kerül.",
   "contract.cancel.seller.text.refundEscrow" : "Ha a vevő a kereskedés lemondásával egyetért, akkor a letét összegét visszatérítjük neked.",
   "contract.cancel.sellerWantsToCancel.text" : "Az eladó a(z) $1 satoshi összegű $0 kereskedés lemondását kéri.\n\nA lemondást Te szabadon elutasíthatod, különösen, ha az összeget már kifizetted.",
@@ -216,5 +215,16 @@
   "contract.summary.branchCode" : "fiók kódja",
   "contract.summary.branchName" : "fiók neve",
   "contract.summary.mobileMoneyIdentifier" : "mobil pénz azonosító",
-  "contract.summary.residentialAddress" : "lakóhely címe"
+  "contract.summary.residentialAddress" : "lakóhely címe",
+  "contract.seller.sellerDidntFundEscrowInTime": "Nem finanszírozta időben az escrow-t. A szerződés automatikusan törlésre került.",
+  "contract.seller.escrowFundedWithWrongAmount": "Az escrow-t hibás összeggel finanszírozta. Mivel egy előre egyeztetett konkrét összeg volt, a kereskedés törölve lett.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Az escrow-t hibás összeggel finanszírozta. Mivel egy előre egyeztetett konkrét összeg volt, a kereskedés törölve lett. Most visszatérítést kaphat.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Az eladó nem finanszírozta időben az escrow-t. A szerződés automatikusan törlésre került.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Az eladó hibás összegű Bitcoinnal finanszírozta az escrow-t. A kereskedés törölve lett.",
+  "contract.cancel.seller": "Biztos benne? Egy kereskedés törlése negatívan befolyásolja a hírnevét.",
+  "contract.seller.cancelBeforeFunding": "Törölte a kereskedést, mielőtt finanszírozta volna az escrow-t.",
+  "contract.buyer.cancelBeforeFunding": "Az eladó törölte a kereskedést, mielőtt finanszírozta volna az escrow-t.",
+  "contract.escrowFunded.description": "A vevőnek 12 órája van, hogy a fizetést teljesítettként jelezze",
+  "contract.escrowFunded.title": "Az escrow finanszírozva lett!"
+  
 }

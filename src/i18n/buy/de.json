@@ -10,5 +10,7 @@
   "buy.summary.title" : "Kaufangebot veröffentlichen",
   "buy.title" : "Bitcoin kaufen",
   "buy.title.highlight" : "kaufen",
-  "yourTrades.search.buy.subtitle" : "Kaufangebot für"
+  "yourTrades.search.buy.subtitle" : "Kaufangebot für",
+  "help.firstTimeBuyer.description": "WICHTIG: Schieben Sie «Ich habe die Zahlung getätigt» NICHT, bevor Sie die Zahlung durchgeführt haben.\nDie Zahlung muss AUSSERHALB von Peach mit der vom Verkäufer angegebenen Zahlungsmethode erfolgen.",
+  "help.firstTimeBuyer.title": "Sie befinden sich jetzt in einem Handel!"
 }

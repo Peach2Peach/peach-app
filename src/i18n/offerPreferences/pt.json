@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "prêmio de negociações concluídas: $0%",
   "offerPreferences.refundTo" : "reembolsar para:",
   "offerPreferences.sellOffers" : "$0 ofertas de venda aberta(s).",
-  "offerPreferences.showOffers" : "mostrar ofertas"
+  "offerPreferences.showOffers" : "mostrar ofertas",
+  "help.createMultiple.description": "Se você deseja comprar muito de vários vendedores, pode criar muitas ofertas de compra!",
+  "help.createMultiple.title": "criar múltiplas ofertas de compra",
+   "matchDetails.action.unrequestTrade": "remover solicitação de negociação"
+
 }

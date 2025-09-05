@@ -23,5 +23,7 @@
   "settings.batching.youPay" : "Обережно! Ви оплачуєте додаткові витрати, які несе Peach. Ці витрати є динамічними і можуть бути значними під час стрибків комісій.\nПереконайтеся, що ви розумієте, що робите!",
   "settings.batching.youPay.highlight" : "Обережно!",
   "settings.batching.youSave" : "Ви заощаджуєте до 23% на платі за мережу",
-  "settings.batching.youSave.highlight" : "заощадьте більше до 23 відсотків"
+  "settings.batching.youSave.highlight" : "заощадьте більше до 23 відсотків",
+  "offer.requiredAction.wrongAmountFundedOnContract": "неправильна сума внесена",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "неправильна сума внесена"
 }

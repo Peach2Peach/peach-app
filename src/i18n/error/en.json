@@ -1,4 +1,5 @@
 {
+  "ACCOUNT_BANNED.text" : "Your Account has been banned. If you wish to appeal, contact Peach and provide the Unique ID.",
   "CANNOT_DOUBLEMATCH.text" : "We couldn't make this match. The buyer probably just retracted their match with you, or another seller was faster.",
   "CANNOT_DOUBLEMATCH.title" : "match failed",
   "CREATE_ESCROW_ERROR.text" : "Oops, something went wrong while creating the escrow for your offer! Please try again later, or contact us if the error persists.",

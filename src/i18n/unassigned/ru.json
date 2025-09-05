@@ -250,5 +250,21 @@
   "yourTrades.title" : "ваши сделки",
   "yourTrades.tradeCanceled.subtitle" : "сделка отменена",
   "yourTrades.waiting" : "ждём",
-  "youtube" : "YouTube"
+  "youtube" : "YouTube",
+  "profile.numberOfFreeTrades": "количество доступных бесплатных сделок",
+  "filter.maxPremium": "максимальная премия",
+  "filter.minPremium": "минимальная премия",
+  "search.matchButton.goToChat": "чат с пользователем",
+  "search.matchButton.acceptTradeRequest": "принять запрос на сделку",
+  "search.matchButton.rejectTradeRequest": "отклонить запрос на сделку",
+  "express.buy.noOffers": "В настоящее время нет доступных предложений продажи",
+  "express.sell.noOffers": "В настоящее время нет доступных предложений покупки",
+  "search.weWillNotifyYouTradeRequest": "Мы уведомим вас, когда появится запрос на сделку!",
+  "search.youGotATradeRequest": "Вы получили запрос на сделку!",
+  "search.youGotTradeRequests": "Вы получили запросы на сделку!",
+  "userBitcoinLevel.answer.firstTime": "Это мой первый раз, когда я торгую биткоином",
+  "userBitcoinLevel.answer.firstTimeP2P": "Это мой первый раз, когда я торгую peer-to-peer",
+  "userBitcoinLevel.answer.bitcoiner": "Я биткоинер",
+  "userBitcoinLevel.subtitle": "Насколько вы уверены в обращении с Биткоином?",
+  "yourTrades.69BuyOffer": "купить"
 }

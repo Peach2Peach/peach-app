@@ -20,5 +20,7 @@
   "settings.batching.youPay" : "Unalipa hadi 30% zaidi",
   "settings.batching.youPay.highlight" : "30% zaidi",
   "settings.batching.youSave" : "Unaweza kuokoa hadi 23% kwenye ada za mtandao",
-  "settings.batching.youSave.highlight" : "okoa hadi 23%"
+  "settings.batching.youSave.highlight" : "okoa hadi 23%",
+  "offer.requiredAction.wrongAmountFundedOnContract": "kiasi kibaya kimewekwa",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "kiasi kibaya kimewekwa"  
 }

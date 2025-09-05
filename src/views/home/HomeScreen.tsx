@@ -71,7 +71,7 @@ const FooterItemBase = memo(
           ? "primary-main"
           : "black-100"
         : isDarkMode
-          ? "black-50"
+          ? "primary-background-light-color"
           : "black-65",
     );
     const size = tw`w-6 h-6`;
@@ -151,13 +151,13 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
 
   const onPress = () => {
     const destinationTab =
-      summaries["yourTrades.buy"].length === 0
+      summaries["yourTrades.69BuyOffer"].length === 0
         ? summaries["yourTrades.sell"].length === 0
           ? summaries["yourTrades.history"].length === 0
-            ? "yourTrades.buy"
+            ? "yourTrades.69BuyOffer"
             : "yourTrades.history"
           : "yourTrades.sell"
-        : "yourTrades.buy";
+        : "yourTrades.69BuyOffer";
 
     navigation.navigate("homeScreen", {
       screen: "yourTrades",

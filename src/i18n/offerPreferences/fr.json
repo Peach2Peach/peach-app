@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "prime des transactions achevées : $0%",
   "offerPreferences.refundTo" : "remboursement à :",
   "offerPreferences.sellOffers" : "$0 offres de vente",
-  "offerPreferences.showOffers" : "afficher les offres"
+  "offerPreferences.showOffers" : "afficher les offres",
+  "help.createMultiple.description": "Si vous souhaitez acheter beaucoup auprès de plusieurs vendeurs, vous pouvez créer plusieurs offres d'achat !",
+  "help.createMultiple.title": "créer plusieurs offres d'achat",
+  "matchDetails.action.unrequestTrade": "supprimer la demande de transaction"
+
 }

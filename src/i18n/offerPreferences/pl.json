@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "premia zakończonych transakcji: $0%",
   "offerPreferences.refundTo" : "zwrot na:",
   "offerPreferences.sellOffers" : "$0 otwartych ofert sprzedaży",
-  "offerPreferences.showOffers" : "pokaż oferty"
+  "offerPreferences.showOffers" : "pokaż oferty",
+  "help.createMultiple.description": "Jeśli chcesz kupić dużo od wielu sprzedawców, możesz utworzyć wiele ofert kupna!",
+  "help.createMultiple.title": "utwórz wiele ofert kupna",
+   "matchDetails.action.unrequestTrade": "usuń żądanie transakcji"
+
 }

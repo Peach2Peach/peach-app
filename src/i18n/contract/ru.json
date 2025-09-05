@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "отменяется",
   "contract.cancel.requestSent" : "запрос отправлен",
   "contract.cancel.requestSent.text" : "Покупатель был оповещён о том, что вы хотите отменить сделку.",
-  "contract.cancel.seller" : "Вы уверены? Отмена сделки плохо повлияет на вашу репутацию. Покупатель также должен согласиться отменить сделку, так как он уже мог отправить платёж.",
   "contract.cancel.seller.text.backOnline" : "Если покупатель согласится отменить эту сделку, мы отправим ваше предложение обратно в пул для поиска.",
   "contract.cancel.seller.text.refundEscrow" : "Если покупатель согласен отменить эту сделку, мы вернем вам сумму из эскроу.",
   "contract.cancel.sellerWantsToCancel.text" : "Продавец хочет отменить сделку $0 за $1 сатоши. Вы можете отказать, особенно если вы уже отправили платёж.",
@@ -216,5 +215,15 @@
   "contract.summary.branchCode" : "код отделения",
   "contract.summary.branchName" : "название отделения",
   "contract.summary.mobileMoneyIdentifier" : "идентификатор мобильных денег",
-  "contract.summary.residentialAddress" : "адрес проживания"
+  "contract.summary.residentialAddress" : "адрес проживания",
+  "contract.seller.sellerDidntFundEscrowInTime": "Вы не внесли средства в эскроу вовремя. Контракт был автоматически отменен.",
+  "contract.seller.escrowFundedWithWrongAmount": "Вы внесли средства в эскроу неправильной суммой. Так как это была согласованная конкретная сумма, сделка была отменена.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Вы внесли средства в эскроу неправильной суммой. Так как это была согласованная конкретная сумма, сделка была отменена. Сейчас вы можете получить возврат.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Продавец не внес средства в эскроу вовремя. Контракт был автоматически отменен.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Продавец внес средства в эскроу неправильной суммой Bitcoin. Сделка была отменена.",
+  "contract.cancel.seller": "Вы уверены? Отмена сделки негативно повлияет на вашу репутацию.",
+  "contract.seller.cancelBeforeFunding": "Вы отменили сделку до финансирования эскроу.",
+  "contract.buyer.cancelBeforeFunding": "Продавец отменил сделку до финансирования эскроу.",
+  "contract.escrowFunded.description": "У покупателя есть 12 часов, чтобы объявить оплату выполненной",
+  "contract.escrowFunded.title": "Эскроу профинансирован!"
 }

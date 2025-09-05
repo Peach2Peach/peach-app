@@ -10,5 +10,8 @@
   "buy.summary.title" : "satın alma teklifi yayınla",
   "buy.title" : "bitcoin satın al",
   "buy.title.highlight" : "satın al",
-  "yourTrades.search.buy.subtitle" : "alma teklifi miktarı"
+  "yourTrades.search.buy.subtitle" : "alma teklifi miktarı",
+  "help.firstTimeBuyer.description": "ÖNEMLİ: «Ödemeyi yaptım» kaydırmasını, ödemeyi gerçekten yapmadan YAPMAYIN.\nÖdeme, satıcının paylaştığı ödeme yöntemi kullanılarak Peach DIŞINDA yapılmalıdır.",
+  "help.firstTimeBuyer.title": "Şu anda bir ticarette bulunuyorsun!"
+  
 }

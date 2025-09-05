@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "Match annehmen = Handel starten",
   "help.addressSigning.description" : "Aufgrund schweizer Gesetze musst du eine Signatur abgeben, um zu bestätigen, dass du im Besitz der Adresse bist, an die der Handel ausgezahlt wird.\n\nWenn du nicht weißt, wie das funktioniert, empfehlen wir dir das Peach Wallet zu verwenden. Dann musst du diesen Schritt nicht manuell durchführen.",
   "help.addressSigning.title" : "Adresssignierung",
-  "help.buyingBitcoin.description" : "Wenn du Bitcoin auf Peach kaufst, wählst du zunächst einen Bereich aus, wie viel du kaufen möchtest.\n\nAnschließend werden dir alle Verkaufsangebote angezeigt, die in diesen Bereich passen.\n\nDie Gebühren bei Peach betragen 2% des Handelsbetrags.",
-  "help.buyingBitcoin.title" : "Bitcoin kaufen",
   "help.checkTrade" : "Handel überprüfen",
   "help.confirmPayment.description" : "Sobald du den Schieberegler für \"Zahlung erhalten\" betätigst, wird der Bitcoin an den Käufer gesendet.\n\nStelle sicher, dass alles korrekt ist, denn dies kann nicht rückgängig gemacht werden!",
   "help.confirmPayment.title" : "Zahlung erhalten?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Du kannst für jeden Handel beliebig viele Zahlungsmethoden hinzufügen und auswählen!",
   "help.paymentMethods.description.2" : "Sie werden auf deinem Handy gespeichert, und nur die Person, mit der du handelst, kann diese Informationen sehen (es sei denn, du beginnst einen Streitfall).",
   "help.paymentMethods.description.3" : "Vertrauenswürdige Zahlungsmethoden haben mindestens drei abgeschlossene Trades und sind älter als 30 Tage.",
-  "help.premium.description" : "Du legst einen Aufpreis relativ zum Marktpreis fest (gemittelt aus mehreren Börsen).\n\nDer endgültige Verkaufspreis wird festgelegt, wenn ein Käufer dein Angebot annimmt.",
   "help.premium.title" : "Der Preis ist relativ",
   "help.referral.description.1" : "Für jede 10.000 Sats, die deine Empfehlungen auf Peach handeln, erhältst du einen Empfehlungspunkt.",
   "help.referral.description.2" : "Sammle Punkte, um coole Belohnungen zu erhalten!",
@@ -42,5 +39,13 @@
   "help.sellingBitcoin.description" : "Das Verkaufen deiner Sats auf Peach ist kostenlos!\n\nUm ein Verkaufsangebot zu veröffentlichen, musst du deine Sats an ein Treuhandkonto senden, um dem Käufer zu beweisen, dass du die Sats, die du verkaufen möchtest, besitzt!\n\nDas Treuhandkonto ist eine Bitcoin-Mehrparteienbrieftasche, bei der du einen Schlüssel besitzt und Peach einen anderen hält.",
   "help.sellingBitcoin.title" : "Bitcoin verkaufen",
   "help.tradingLimit.description" : "Peach muss Handelsbeschränkungen einhalten, um die schweizerischen Gesetze einzuhalten. Es gibt drei Handelsbeschränkungen:\n\nDu kannst jeden Tag Bitcoin im Wert von 1000 CHF auf Peach kaufen oder verkaufen.\n\nDu kannst jeden Monat Bitcoin im Wert von 1000 CHF mit Bargeld oder Online-Geschenkkarten (anonyme Zahlungsmethoden) kaufen oder verkaufen.\n\nDu kannst jedes Jahr Bitcoin im Wert von 100.000 CHF kaufen oder verkaufen.",
-  "help.tradingLimit.title" : "Handelsbeschränkungen"
+  "help.tradingLimit.title" : "Handelsbeschränkungen",
+  "help.acceptTradeRequest.description": "Sie können pro Angebot nur einen Käufer akzeptieren. Sobald Sie eine Handelsanfrage eines Käufers akzeptiert haben, wird der Handel gestartet.\n\nEinmal gestartet, wird Ihre Reputation beeinträchtigt, wenn Sie sich entscheiden, den Handel abzubrechen.",
+  "help.acceptTradeRequest.title": "Handelsanfrage akzeptieren = Handel starten",
+  "help.buyingBitcoin.description": "Die Peach-Wallet ist selbstverwaltet, das bedeutet, dass SIE die Schlüssel zu Ihrer Wallet besitzen.\nGehen Sie zu Einstellungen > Seed-Phrase und schreiben Sie sie auf! #NichtIhreSchlüsselNichtIhrBitcoin",
+  "help.buyingBitcoin.title": "Bitcoin auf Peach kaufen kostet 2 % der Transaktion",
+  "help.premiumBuy.description": "Sie legen einen Preisaufschlag relativ zum Marktpreis fest (durchschnittlich von mehreren Börsen).\n\nDer endgültige Preis, zu dem Sie verkaufen, wird bestimmt, wenn ein Verkäufer einen Handel mit Ihrem Angebot anfragt.",
+  "help.premiumBuy.title": "Der Preis ist relativ",
+  "help.premium.description": "Sie legen einen Preisaufschlag relativ zum Marktpreis fest (durchschnittlich von mehreren Börsen).\n\nDer endgültige Preis, zu dem Sie verkaufen, wird bestimmt, wenn ein Käufer einen Handel mit Ihrem Angebot anfragt."
+
 }

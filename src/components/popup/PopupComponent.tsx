@@ -10,6 +10,7 @@ export type PopupComponentProps = {
   bgColor?: ViewStyle;
   actionBgColor?: ViewStyle;
   textColor?: string;
+  dontShowHelpButton?: boolean;
 };
 
 export const PopupComponent = ({

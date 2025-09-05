@@ -78,5 +78,6 @@
   "error.firstBackup.action" : "hacer copia",
   "error.firstBackup.description" : "Ahora que has usado la cartera de Peach, deberías guardar una copia de seguridad antes de continuar.\n\nSino, podrías perder tu cuenta junto a tus fondos si pierdes tu teléfono.",
   "error.firstBackup.title" : "¡Haz una copia de seguridad!",
-  "error.general" : "Algo salió mal. Por favor, inténtalo de nuevo más tarde o contacta al equipo de soporte de Peach."
+  "error.general" : "Algo salió mal. Por favor, inténtalo de nuevo más tarde o contacta al equipo de soporte de Peach.",
+  "ACCOUNT_BANNED.text": "Tu cuenta ha sido bloqueada. Si deseas apelar, contacta a Peach y proporciona el ID único."
 }

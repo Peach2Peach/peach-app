@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "premie van voltooide transacties: $0%",
   "offerPreferences.refundTo" : "terugbetaling naar:",
   "offerPreferences.sellOffers" : "$0 openstaande verkoopaanbiedingen",
-  "offerPreferences.showOffers" : "toon aanbiedingen"
+  "offerPreferences.showOffers" : "toon aanbiedingen",
+   "help.createMultiple.description": "Als je veel van meerdere verkopers wilt kopen, kun je meerdere koopaanbiedingen maken!",
+  "help.createMultiple.title": "maak meerdere koopaanbiedingen",
+  "matchDetails.action.unrequestTrade": "handelsverzoek verwijderen"
+
 }

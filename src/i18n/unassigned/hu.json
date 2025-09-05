@@ -255,5 +255,21 @@
   "yourTrades.title" : "kereskedéseid",
   "yourTrades.tradeCanceled.subtitle" : "kereskedés törölve",
   "yourTrades.waiting" : "várakozás",
-  "youtube" : "YouTube"
+  "youtube" : "YouTube",
+   "profile.numberOfFreeTrades": "elérhető ingyenes kereskedések száma",
+  "filter.maxPremium": "maximális prémium",
+  "filter.minPremium": "minimális prémium",
+  "search.matchButton.goToChat": "csevegés a felhasználóval",
+  "search.matchButton.acceptTradeRequest": "kereskedési kérés elfogadása",
+  "search.matchButton.rejectTradeRequest": "kereskedési kérés elutasítása",
+  "express.buy.noOffers": "Jelenleg nincs elérhető eladási ajánlat",
+  "express.sell.noOffers": "Jelenleg nincs elérhető vételi ajánlat",
+  "search.weWillNotifyYouTradeRequest": "Értesítünk, amikor van kereskedési kérés!",
+  "search.youGotATradeRequest": "Kaptál egy kereskedési kérést!",
+  "search.youGotTradeRequests": "Kaptál kereskedési kéréseket!",
+  "userBitcoinLevel.answer.firstTime": "Ez az első alkalom, hogy Bitcoinnal kereskedem",
+  "userBitcoinLevel.answer.firstTimeP2P": "Ez az első alkalom, hogy peer-to-peer kereskedem vele",
+  "userBitcoinLevel.answer.bitcoiner": "Bitcoin felhasználó vagyok",
+  "userBitcoinLevel.subtitle": "Mennyire vagy jártas a Bitcoinban?",
+  "yourTrades.69BuyOffer": "vétel"
 }

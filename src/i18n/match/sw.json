@@ -1,4 +1,5 @@
 {
   "match.tradeRequested" : "biashara imeombwa",
-  "match.waitingForSeller" : "inasubiri muuzaji"
+  "match.waitingForSeller" : "inasubiri muuzaji",
+  "match.waitingForTrader": "inango kwa mfanyabiashara"
 }

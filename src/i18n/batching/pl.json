@@ -23,5 +23,8 @@
   "settings.batching.youPay" : "Uwaga! Płacisz za dodatkowe koszty ponoszone przez Peach. Koszt ten jest dynamiczny i może być znaczący podczas skoków opłat.\nUpewnij się, że rozumiesz, co robisz!",
   "settings.batching.youPay.highlight" : "Uwaga!",
   "settings.batching.youSave" : "Oszczędzasz nawet do 23% na opłatach sieciowych",
-  "settings.batching.youSave.highlight" : "oszczędzasz do 23%"
+  "settings.batching.youSave.highlight" : "oszczędzasz do 23%",
+  "offer.requiredAction.wrongAmountFundedOnContract": "wpłacono niewłaściwą kwotę",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "wpłacono niewłaściwą kwotę"
+  
 }

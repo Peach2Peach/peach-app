@@ -17,7 +17,20 @@ export const useGetPNActionHandler = () => {
         return {
           label: i18n("goToContract"),
           iconId: "arrowLeftCircle",
-          onPress: () => navigation.navigate("contract", { contractId }),
+          onPress: () => {
+            navigation.reset({
+              index: 1,
+              routes: [
+                { name: "homeScreen", params: { screen: "yourTrades" } },
+                {
+                  name: "contract",
+                  params: {
+                    contractId: contractId,
+                  },
+                },
+              ],
+            });
+          },
         };
       }
       if (offerId && type) {

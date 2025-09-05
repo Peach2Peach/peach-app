@@ -12,9 +12,14 @@ import { PeachText } from "../text/PeachText";
 type Props = {
   meansOfPayment: MeansOfPayment;
   style?: StyleProp<ViewStyle>;
+  setDisplayedCurrency?: Function;
 };
 
-export function MeansOfPayment({ meansOfPayment, style }: Props) {
+export function MeansOfPayment({
+  meansOfPayment,
+  style,
+  setDisplayedCurrency,
+}: Props) {
   const currencies = getCurrencies(meansOfPayment);
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
 
@@ -23,7 +28,13 @@ export function MeansOfPayment({ meansOfPayment, style }: Props) {
       <CurrencySelection
         currencies={currencies}
         selected={selectedCurrency}
-        select={setSelectedCurrency}
+        select={(a) => {
+          console.log("bottom", a, setDisplayedCurrency);
+          setSelectedCurrency(a);
+          if (setDisplayedCurrency !== undefined) {
+            setDisplayedCurrency(a);
+          }
+        }}
       />
       <View style={tw`flex-row flex-wrap items-center justify-center`}>
         {meansOfPayment[selectedCurrency]?.map((p) => (

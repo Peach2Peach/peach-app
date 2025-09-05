@@ -245,5 +245,21 @@
   "yourTrades.start.selling" : "satmaya başla!",
   "yourTrades.title" : "alışverişlerin",
   "yourTrades.tradeCanceled.subtitle" : "alışveriş iptal edildi",
-  "yourTrades.waiting" : "bekleniyor"
+  "yourTrades.waiting" : "bekleniyor",
+   "profile.numberOfFreeTrades": "mevcut ücretsiz işlem sayısı",
+  "filter.maxPremium": "maksimum prim",
+  "filter.minPremium": "minimum prim",
+  "search.matchButton.goToChat": "kullanıcıyla sohbet et",
+  "search.matchButton.acceptTradeRequest": "ticaret isteğini kabul et",
+  "search.matchButton.rejectTradeRequest": "ticaret isteğini reddet",
+  "express.buy.noOffers": "Şu anda mevcut Satış Teklifi yok",
+  "express.sell.noOffers": "Şu anda mevcut Alış Teklifi yok",
+  "search.weWillNotifyYouTradeRequest": "Bir ticaret isteği olduğunda sizi bilgilendireceğiz!",
+  "search.youGotATradeRequest": "Bir ticaret isteği aldınız!",
+  "search.youGotTradeRequests": "Ticaret istekleri aldınız!",
+  "userBitcoinLevel.answer.firstTime": "Bitcoin ile ilk kez işlem yapıyorum",
+  "userBitcoinLevel.answer.firstTimeP2P": "Bitcoin'i peer-to-peer ilk kez işlem yapıyorum",
+  "userBitcoinLevel.answer.bitcoiner": "Ben bir Bitcoiner'ım",
+  "userBitcoinLevel.subtitle": "Bitcoin ile ne kadar rahatsınız?",
+  "yourTrades.69BuyOffer": "al"
 }

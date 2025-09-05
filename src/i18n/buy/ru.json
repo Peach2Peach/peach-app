@@ -10,5 +10,7 @@
   "buy.summary.title" : "опубликовать предложение о покупке",
   "buy.title" : "купить биткойн",
   "buy.title.highlight" : "купить",
-  "yourTrades.search.buy.subtitle" : "предложение о покупке на"
+  "yourTrades.search.buy.subtitle" : "предложение о покупке на",
+  "help.firstTimeBuyer.description": "ВАЖНО: НЕ перемещайте «Я оплатил» до того, как вы действительно произвели оплату.\nОплата должна быть произведена ВНЕ Peach с использованием метода оплаты, предоставленного продавцом.",
+  "help.firstTimeBuyer.title": "Вы теперь участвуете в сделке!"
 }

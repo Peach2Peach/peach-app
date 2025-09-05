@@ -30,7 +30,7 @@ import { SummaryItem } from "./SummaryItem";
 import { usePatchReleaseAddress } from "./usePatchReleaseAddress";
 
 export const TradeDetails = () => {
-  const { contract, paymentData, isDecryptionError, view } =
+  const { contract, paymentData, buyerPaymentData, view } =
     useContractContext();
   const { data: paymentMethodInfo } = usePaymentMethodInfo(
     contract.paymentMethod,
@@ -60,7 +60,12 @@ export const TradeDetails = () => {
           <ChangePayoutWallet />
         </>
       )}
-      {!paymentData && isDecryptionError && (
+      {!paymentData && view === "buyer" && (
+        <ErrorBox style={tw`mt-[2px]`}>
+          {i18n("contract.paymentData.decyptionFailed")}
+        </ErrorBox>
+      )}
+      {!buyerPaymentData && view === "seller" && (
         <ErrorBox style={tw`mt-[2px]`}>
           {i18n("contract.paymentData.decyptionFailed")}
         </ErrorBox>

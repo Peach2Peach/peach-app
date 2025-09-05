@@ -10,5 +10,7 @@
   "buy.summary.title" : "anunciar oferta de compra",
   "buy.title" : "comprar bitcoin",
   "buy.title.highlight" : "comprar",
-  "yourTrades.search.buy.subtitle" : "oferta de compra para"
+  "yourTrades.search.buy.subtitle" : "oferta de compra para",
+  "help.firstTimeBuyer.description": "IMPORTANTE: NÃO deslize «Efetuei o pagamento» antes de realmente pagar.\nO pagamento deve ser feito FORA do Peach usando o método de pagamento compartilhado pelo vendedor.",
+  "help.firstTimeBuyer.title": "Agora você está em uma negociação!"
 }

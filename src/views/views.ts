@@ -15,23 +15,27 @@ import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
-import { Explore } from "./explore/Explore";
-import { MatchDetails } from "./explore/MatchDetails";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
 import { HomeScreen } from "./home/HomeScreen";
 import { AccountCreated } from "./newUser/AccountCreated";
 import { CreateAccountError } from "./newUser/CreateAccountError";
 import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
-import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
-import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
 import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
+import { BrowseTradeRequestsToMyBuyOffer } from "./peach069/BrowseTradeRequestsToMyBuyOffer";
+import { BrowseTradeRequestsToMySellOffer } from "./peach069/BrowseTradeRequestsToMySellOffer";
+import { CreateBuyOffer } from "./peach069/CreateBuyOffer";
+import { ExpressBuyBrowseSellOffers } from "./peach069/ExpressBuyBrowseSellOffers";
+import { ExpressBuyTradeRequestToSellOffer } from "./peach069/ExpressBuyTradeRequestToSellOffer";
+import { ExpressSellBrowseBuyOffers } from "./peach069/ExpressSellBrowseBuyOffers";
+import { ExpressSellTradeRequestToBuyOffer } from "./peach069/ExpressSellTradeRequestToBuyOffer";
+import { TradeRequestChat } from "./peach069/TradeRequestChat";
 import { PublicProfile } from "./publicProfile/PublicProfile";
 import { Referrals } from "./referrals/Referrals";
 import { Report } from "./report/Report";
 import { RestoreBackup } from "./restoreBackup/RestoreBackup";
 import { RestoreReputation } from "./restoreReputation/RestoreReputation";
 import { EditPremium } from "./search/EditPremium";
-import { Search } from "./search/Search";
+import { EditPremiumOfBuyOffer } from "./search/EditPremiumOfBuyOffer";
 import { Backups } from "./settings/Backups";
 import { Currency } from "./settings/Currency";
 import { Language } from "./settings/Language";
@@ -45,6 +49,7 @@ import { PeachFees } from "./settings/aboutPeach/PeachFees";
 import { Socials } from "./settings/aboutPeach/Socials";
 import { NetworkFees } from "./settings/networkFees/NetworkFees";
 import { MyProfile } from "./settings/profile/MyProfile";
+import { UserBitcoinLevel } from "./userBitcoinLevel/UserBitcoinLevel";
 import { UserSource } from "./userSource/UserSource";
 import { AddressChecker } from "./wallet/AddressChecker";
 import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
@@ -82,6 +87,11 @@ const onboarding: ViewType[] = [
     animationEnabled: false,
   },
   { name: "userSource", component: UserSource, animationEnabled: false },
+  {
+    name: "userBitcoinLevel",
+    component: UserBitcoinLevel,
+    animationEnabled: false,
+  },
   { name: "restoreBackup", component: RestoreBackup, animationEnabled: false },
   {
     name: "restoreReputation",
@@ -102,18 +112,11 @@ const wallet: ViewType[] = [
   { name: "transactionDetails", component: TransactionDetails },
   { name: "bumpNetworkFees", component: BumpNetworkFees },
 ];
-const buyFlow: ViewType[] = [
-  { name: "buyOfferPreferences", component: BuyOfferPreferences },
-  { name: "explore", component: Explore },
-  { name: "editBuyPreferences", component: EditBuyPreferences },
-  { name: "matchDetails", component: MatchDetails },
-];
 
 const sellFlow: ViewType[] = [
   { name: "sellOfferPreferences", component: SellOfferPreferences },
   { name: "fundEscrow", component: FundEscrow },
   { name: "wrongFundingAmount", component: WrongFundingAmount },
-  { name: "search", component: Search },
   { name: "editPremium", component: EditPremium },
 ];
 
@@ -169,9 +172,48 @@ const testViews: ViewType[] = [
   { name: "testViewPNs", component: TestViewPNs },
 ];
 
+// Peach 0.69
+
+const expressBuyFlow: ViewType[] = [
+  { name: "expressBuyBrowseSellOffers", component: ExpressBuyBrowseSellOffers },
+  {
+    name: "expressBuyTradeRequest",
+    component: ExpressBuyTradeRequestToSellOffer,
+  },
+];
+const expressSellFlow: ViewType[] = [
+  { name: "expressSellBrowseBuyOffers", component: ExpressSellBrowseBuyOffers },
+  {
+    name: "expressSellTradeRequest",
+    component: ExpressSellTradeRequestToBuyOffer,
+  },
+];
+
+const buyOfferOwnerFlow: ViewType[] = [
+  { name: "createBuyOffer", component: CreateBuyOffer },
+  {
+    name: "browseTradeRequestsToMyBuyOffer",
+    component: BrowseTradeRequestsToMyBuyOffer,
+  },
+  { name: "editPremiumOfBuyOffer", component: EditPremiumOfBuyOffer },
+];
+
+const sellOfferOwnerFlow: ViewType[] = [
+  {
+    name: "browseTradeRequestsToMySellOffer",
+    component: BrowseTradeRequestsToMySellOffer,
+  },
+];
+
+const tradeRequestChat: ViewType[] = [
+  {
+    name: "tradeRequestChat",
+    component: TradeRequestChat,
+  },
+];
+
 export const views = [
   ...home,
-  ...buyFlow,
   ...sellFlow,
   ...wallet,
   ...trade,
@@ -180,6 +222,11 @@ export const views = [
   ...contact,
   ...settings,
   ...testViews,
+  ...expressBuyFlow,
+  ...expressSellFlow,
+  ...buyOfferOwnerFlow,
+  ...sellOfferOwnerFlow,
+  ...tradeRequestChat,
 ];
 
 export const onboardingViews = [...onboarding, ...contact];

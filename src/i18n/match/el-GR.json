@@ -1,5 +1,6 @@
 {
   "match.feeWarning" : "Θα πληρώσετε έως και $0% σε τέλη εξόρυξης!",
   "match.tradeRequested" : "Ζητήθηκε συναλλαγή",
-  "match.waitingForSeller" : "Αναμονή για τον πωλητή"
+  "match.waitingForSeller" : "Αναμονή για τον πωλητή",
+   "match.waitingForTrader": "αναμονή για έμπορο"
 }
