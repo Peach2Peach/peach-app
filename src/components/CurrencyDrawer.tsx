@@ -1,9 +1,11 @@
 import { useMemo } from "react";
 import { shallow } from "zustand/shallow";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
+import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
+import { PeachText } from "./text/PeachText";
 
 interface CurrencyDrawerProps {
   isOpen: boolean;
@@ -33,7 +35,11 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
         i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
       )
       .map((currency) => ({
-        text: `${i18n(`currency.${currency}`)} (${currency})`,
+        text: (
+          <PeachText
+            style={tw`input-title`}
+          >{`${i18n(`currency.${currency}`)} (${currency})`}</PeachText>
+        ),
         onPress: () => setDisplayCurrency(currency),
         isSelected: currency === displayCurrency,
       }));

@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { PaymentMethod } from "../../peach-api/src/@types/payment";
 import { useOfferPreferences } from "../store/offerPreferenes";
+import { peachAPI } from "../utils/peachAPI";
 import { PaymentMethodsDrawer } from "./PaymentMethodsDrawer";
 
 interface Props {
@@ -29,6 +31,13 @@ export function ExpressSellPaymentMethodsDrawer({ isOpen, onClose }: Props) {
       ]);
     }
   };
+  const { data: buyOfferPaymentMethods } = useQuery({
+    queryKey: ["peach069expressBuyOffers"],
+    queryFn: async () => {
+      const { result } = await peachAPI.private.peach069.getBuyOffers({});
+      return result?.stats.paymentMethods;
+    },
+  });
 
   return (
     <PaymentMethodsDrawer
@@ -36,6 +45,7 @@ export function ExpressSellPaymentMethodsDrawer({ isOpen, onClose }: Props) {
       onClose={onClose}
       selectedPaymentMethods={selectedPaymentMethods}
       onTogglePaymentMethod={onTogglePaymentMethod}
+      paymentMethodOfferAmounts={buyOfferPaymentMethods}
     />
   );
 }

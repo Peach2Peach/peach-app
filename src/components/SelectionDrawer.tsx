@@ -5,7 +5,7 @@ import { SelectionList } from "./SelectionList";
 import { HorizontalLine } from "./ui/HorizontalLine";
 
 export interface SelectionDrawerItem {
-  text: string;
+  text: JSX.Element;
   onPress: () => void;
   isSelected?: boolean;
   leftIcon?: string;

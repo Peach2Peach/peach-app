@@ -1,14 +1,18 @@
 import { useMemo } from "react";
+import { View } from "react-native";
 import { Currency } from "../../peach-api/src/@types/global";
+import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
+import { PeachText } from "./text/PeachText";
 
 interface CurrenciesDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   selectedCurrencies: Currency[];
   onToggleCurrency: (currency: Currency) => void;
+  currencyOfferAmounts: Record<Currency, number>;
 }
 
 export function CurrenciesDrawer({
@@ -16,6 +20,7 @@ export function CurrenciesDrawer({
   onClose,
   selectedCurrencies,
   onToggleCurrency,
+  currencyOfferAmounts,
 }: CurrenciesDrawerProps) {
   const { data: paymentMethods } = usePaymentMethods();
 
@@ -34,12 +39,29 @@ export function CurrenciesDrawer({
       .sort((a, b) =>
         i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
       )
-      .map((currency) => ({
-        text: `${i18n(`currency.${currency}`)} (${currency})`,
-        onPress: () => onToggleCurrency(currency),
-        isSelected: selectedCurrencies.includes(currency),
-      }));
-  }, [allCurrencies, selectedCurrencies, onToggleCurrency]);
+      .map((currency) => {
+        const numberOfOffers = currencyOfferAmounts?.[currency] || 0;
+        return {
+          text: (
+            <View style={tw`flex-row items-center gap-6px shrink`}>
+              <PeachText style={tw`input-title shrink`}>
+                {`${i18n(`currency.${currency}`)} (${currency})`}
+              </PeachText>
+              <PeachText style={tw`body-m text-black-50 shrink`}>
+                ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
+              </PeachText>
+            </View>
+          ),
+          onPress: () => onToggleCurrency(currency),
+          isSelected: selectedCurrencies.includes(currency),
+        };
+      });
+  }, [
+    allCurrencies,
+    currencyOfferAmounts,
+    selectedCurrencies,
+    onToggleCurrency,
+  ]);
 
   if (!allCurrencies) return null;
 

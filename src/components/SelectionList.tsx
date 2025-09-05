@@ -3,7 +3,6 @@ import { TouchableOpacity, View } from "react-native";
 import tw from "../styles/tailwind";
 import { Icon } from "./Icon";
 import { SelectionDrawerItem } from "./SelectionDrawer";
-import { PeachText } from "./text/PeachText";
 import { HorizontalLine } from "./ui/HorizontalLine";
 
 interface SelectionListProps {
@@ -19,10 +18,10 @@ export function SelectionList({
       {items.map((item, index) => (
         <Fragment key={`drawer-item-${index}`}>
           <TouchableOpacity
-            style={tw`flex-row items-center justify-between px-4 py-px`}
+            style={tw`flex-row items-center justify-between gap-3 px-4 py-px`}
             onPress={item.onPress}
           >
-            <PeachText style={tw`input-title`}>{item.text}</PeachText>
+            {item.text}
             <Icon
               id={
                 type === "checkbox"

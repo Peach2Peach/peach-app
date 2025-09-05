@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -11,6 +12,7 @@ import {
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { round } from "../utils/math/round";
+import { peachAPI } from "../utils/peachAPI";
 import { thousands } from "../utils/string/thousands";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { useTradingAmountLimits } from "../views/offerPreferences/utils/useTradingAmountLimits";
@@ -51,6 +53,15 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
     (state) => state.expressSellFilterByCurrencyList,
   );
 
+  // Fetch offer stats for payment method and currency counts
+  const { data: buyOfferStats } = useQuery({
+    queryKey: ["peach069expressBuyOffers"],
+    queryFn: async () => {
+      const { result } = await peachAPI.private.peach069.getBuyOffers({});
+      return result?.stats;
+    },
+  });
+
   const filterSections = [
     {
       id: "sortBy" as const,
@@ -62,14 +73,16 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
       label: selectedPaymentMethods.length
         ? `Payment Methods (${selectedPaymentMethods.length})`
         : "Payment Methods",
-      content: <PaymentMethodsList />,
+      content: (
+        <PaymentMethodsList offerCounts={buyOfferStats?.paymentMethods} />
+      ),
     },
     {
       id: "currencies" as const,
       label: selectedCurrencies.length
         ? `Currencies (${selectedCurrencies.length})`
         : "Currencies",
-      content: <CurrenciesList />,
+      content: <CurrenciesList offerCounts={buyOfferStats?.currencies} />,
     },
     { id: "amount" as const, label: "Amount", content: <AmountSelection /> },
     { id: "price" as const, label: "Price", content: <PriceSection /> },
@@ -136,7 +149,11 @@ function SortByList() {
   ] as const;
 
   const items = list.map((item) => ({
-    text: i18n(`offer.sorting.${item}`),
+    text: (
+      <PeachText style={tw`input-title`}>
+        {i18n(`offer.sorting.${item}`)}
+      </PeachText>
+    ),
     onPress: () => setSorter(item),
     isSelected: selectedSorter === item,
   }));
@@ -144,7 +161,11 @@ function SortByList() {
   return <SelectionList type="radioButton" items={items} />;
 }
 
-function PaymentMethodsList() {
+function PaymentMethodsList({
+  offerCounts,
+}: {
+  offerCounts?: Record<PaymentMethod, number>;
+}) {
   const { data: paymentMethods } = usePaymentMethods();
   const selectedPaymentMethods = useOfferPreferences(
     (state) => state.expressSellFilterByPaymentMethodList,
@@ -174,18 +195,41 @@ function PaymentMethodsList() {
   const items = useMemo(() => {
     if (!paymentMethods) return [];
 
-    return paymentMethods.map((paymentMethod) => ({
-      text: i18n(`paymentMethod.${paymentMethod.id}`),
-      onPress: () => onTogglePaymentMethod(paymentMethod.id),
-      isSelected: selectedPaymentMethods.some((pm) => pm === paymentMethod.id),
-    }));
-  }, [paymentMethods, selectedPaymentMethods, onTogglePaymentMethod]);
+    return paymentMethods.map((paymentMethod) => {
+      const numberOfOffers = offerCounts?.[paymentMethod.id] || 0;
+      return {
+        text: (
+          <View style={tw`flex-row items-center gap-6px shrink`}>
+            <PeachText style={tw`input-title shrink`}>
+              {i18n(`paymentMethod.${paymentMethod.id}`)}
+            </PeachText>
+            <PeachText style={tw`body-m text-black-50 shrink`}>
+              ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
+            </PeachText>
+          </View>
+        ),
+        onPress: () => onTogglePaymentMethod(paymentMethod.id),
+        isSelected: selectedPaymentMethods.some(
+          (pm) => pm === paymentMethod.id,
+        ),
+      };
+    });
+  }, [
+    paymentMethods,
+    selectedPaymentMethods,
+    onTogglePaymentMethod,
+    offerCounts,
+  ]);
 
   if (!paymentMethods) return null;
   return <SelectionList type="checkbox" items={items} />;
 }
 
-function CurrenciesList() {
+function CurrenciesList({
+  offerCounts,
+}: {
+  offerCounts?: Record<Currency, number>;
+}) {
   const selectedCurrencies = useOfferPreferences(
     (state) => state.expressSellFilterByCurrencyList,
   );
@@ -223,12 +267,24 @@ function CurrenciesList() {
       .sort((a, b) =>
         i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
       )
-      .map((currency) => ({
-        text: `${i18n(`currency.${currency}`)} (${currency})`,
-        onPress: () => handleToggleCurrency(currency),
-        isSelected: selectedCurrencies.includes(currency),
-      }));
-  }, [allCurrencies, selectedCurrencies, handleToggleCurrency]);
+      .map((currency) => {
+        const numberOfOffers = offerCounts?.[currency] || 0;
+        return {
+          text: (
+            <View style={tw`flex-row items-center gap-6px shrink`}>
+              <PeachText style={tw`input-title shrink`}>
+                {`${i18n(`currency.${currency}`)} (${currency})`}
+              </PeachText>
+              <PeachText style={tw`body-m text-black-50 shrink`}>
+                ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
+              </PeachText>
+            </View>
+          ),
+          onPress: () => handleToggleCurrency(currency),
+          isSelected: selectedCurrencies.includes(currency),
+        };
+      });
+  }, [allCurrencies, selectedCurrencies, handleToggleCurrency, offerCounts]);
 
   if (!allCurrencies) return null;
   return <SelectionList type="checkbox" items={items} />;

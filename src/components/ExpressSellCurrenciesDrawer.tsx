@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { Currency } from "../../peach-api/src/@types/global";
 import { useOfferPreferences } from "../store/offerPreferenes";
+import { peachAPI } from "../utils/peachAPI";
 import { CurrenciesDrawer } from "./CurrenciesDrawer";
 
 interface Props {
@@ -25,12 +27,21 @@ export function ExpressSellCurrenciesDrawer({ isOpen, onClose }: Props) {
       setExpressSellFilterByCurrencyList([...selectedCurrencies, currency]);
     }
   };
+  const { data: buyOfferCurrencies } = useQuery({
+    queryKey: ["peach069expressBuyOffers"],
+    queryFn: async () => {
+      const { result } = await peachAPI.private.peach069.getBuyOffers({});
+      return result?.stats.currencies;
+    },
+  });
+
   return (
     <CurrenciesDrawer
       isOpen={isOpen}
       onClose={onClose}
       selectedCurrencies={selectedCurrencies}
       onToggleCurrency={handleToggleCurrency}
+      currencyOfferAmounts={buyOfferCurrencies}
     />
   );
 }
