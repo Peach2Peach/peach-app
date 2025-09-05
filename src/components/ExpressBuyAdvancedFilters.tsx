@@ -195,9 +195,16 @@ function PaymentMethodsList({
   const items = useMemo(() => {
     if (!paymentMethods) return [];
 
-    return paymentMethods.map((paymentMethod) => {
-      const numberOfOffers = offerCounts?.[paymentMethod.id] || 0;
-      return {
+    return paymentMethods
+      .map((paymentMethod) => {
+        const numberOfOffers = offerCounts?.[paymentMethod.id] || 0;
+        return {
+          paymentMethod,
+          numberOfOffers,
+        };
+      })
+      .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .map(({ paymentMethod, numberOfOffers }) => ({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
             <PeachText style={tw`input-title shrink`}>
@@ -212,8 +219,7 @@ function PaymentMethodsList({
         isSelected: selectedPaymentMethods.some(
           (pm) => pm === paymentMethod.id,
         ),
-      };
-    });
+      }));
   }, [
     paymentMethods,
     selectedPaymentMethods,
@@ -264,26 +270,28 @@ function CurrenciesList({
     if (!allCurrencies) return [];
 
     return allCurrencies
-      .sort((a, b) =>
-        i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
-      )
       .map((currency) => {
         const numberOfOffers = offerCounts?.[currency] || 0;
         return {
-          text: (
-            <View style={tw`flex-row items-center gap-6px shrink`}>
-              <PeachText style={tw`input-title shrink`}>
-                {`${i18n(`currency.${currency}`)} (${currency})`}
-              </PeachText>
-              <PeachText style={tw`body-m text-black-50 shrink`}>
-                ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
-              </PeachText>
-            </View>
-          ),
-          onPress: () => handleToggleCurrency(currency),
-          isSelected: selectedCurrencies.includes(currency),
+          currency,
+          numberOfOffers,
         };
-      });
+      })
+      .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .map(({ currency, numberOfOffers }) => ({
+        text: (
+          <View style={tw`flex-row items-center gap-6px shrink`}>
+            <PeachText style={tw`input-title shrink`}>
+              {`${i18n(`currency.${currency}`)} (${currency})`}
+            </PeachText>
+            <PeachText style={tw`body-m text-black-50 shrink`}>
+              ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
+            </PeachText>
+          </View>
+        ),
+        onPress: () => handleToggleCurrency(currency),
+        isSelected: selectedCurrencies.includes(currency),
+      }));
   }, [allCurrencies, selectedCurrencies, handleToggleCurrency, offerCounts]);
 
   if (!allCurrencies) return null;

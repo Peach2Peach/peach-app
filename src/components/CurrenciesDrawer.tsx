@@ -36,26 +36,28 @@ export function CurrenciesDrawer({
     if (!allCurrencies) return [];
 
     return allCurrencies
-      .sort((a, b) =>
-        i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
-      )
       .map((currency) => {
         const numberOfOffers = currencyOfferAmounts?.[currency] || 0;
         return {
-          text: (
-            <View style={tw`flex-row items-center gap-6px shrink`}>
-              <PeachText style={tw`input-title shrink`}>
-                {`${i18n(`currency.${currency}`)} (${currency})`}
-              </PeachText>
-              <PeachText style={tw`body-m text-black-50 shrink`}>
-                ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
-              </PeachText>
-            </View>
-          ),
-          onPress: () => onToggleCurrency(currency),
-          isSelected: selectedCurrencies.includes(currency),
+          currency,
+          numberOfOffers,
         };
-      });
+      })
+      .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .map(({ currency, numberOfOffers }) => ({
+        text: (
+          <View style={tw`flex-row items-center gap-6px shrink`}>
+            <PeachText style={tw`input-title shrink`}>
+              {`${i18n(`currency.${currency}`)} (${currency})`}
+            </PeachText>
+            <PeachText style={tw`body-m text-black-50 shrink`}>
+              ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
+            </PeachText>
+          </View>
+        ),
+        onPress: () => onToggleCurrency(currency),
+        isSelected: selectedCurrencies.includes(currency),
+      }));
   }, [
     allCurrencies,
     currencyOfferAmounts,

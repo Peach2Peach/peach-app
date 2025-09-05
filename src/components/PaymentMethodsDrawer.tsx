@@ -27,9 +27,17 @@ export function PaymentMethodsDrawer({
   const items = useMemo(() => {
     if (!paymentMethods) return [];
 
-    return paymentMethods.map((paymentMethod) => {
-      const numberOfOffers = paymentMethodOfferAmounts?.[paymentMethod.id] || 0;
-      return {
+    return paymentMethods
+      .map((paymentMethod) => {
+        const numberOfOffers =
+          paymentMethodOfferAmounts?.[paymentMethod.id] || 0;
+        return {
+          paymentMethod,
+          numberOfOffers,
+        };
+      })
+      .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .map(({ paymentMethod, numberOfOffers }) => ({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
             <PeachText
@@ -45,8 +53,7 @@ export function PaymentMethodsDrawer({
         isSelected: selectedPaymentMethods.some(
           (pm) => pm === paymentMethod.id,
         ),
-      };
-    });
+      }));
   }, [
     paymentMethods,
     paymentMethodOfferAmounts,
