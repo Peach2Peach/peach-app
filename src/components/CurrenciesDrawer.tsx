@@ -12,7 +12,7 @@ interface CurrenciesDrawerProps {
   onClose: () => void;
   selectedCurrencies: Currency[];
   onToggleCurrency: (currency: Currency) => void;
-  currencyOfferAmounts: Record<Currency, number>;
+  currencyOfferAmounts: Partial<Record<Currency, number>>;
 }
 
 export function CurrenciesDrawer({

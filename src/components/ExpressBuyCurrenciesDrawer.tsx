@@ -1,14 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import { Currency } from "../../peach-api/src/@types/global";
 import { useOfferPreferences } from "../store/offerPreferenes";
-import { peachAPI } from "../utils/peachAPI";
 import { CurrenciesDrawer } from "./CurrenciesDrawer";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  stats: Partial<Record<Currency, number>>;
 }
-export function ExpressBuyCurrenciesDrawer({ isOpen, onClose }: Props) {
+export function ExpressBuyCurrenciesDrawer({ isOpen, onClose, stats }: Props) {
   const selectedCurrencies = useOfferPreferences(
     (state) => state.expressBuyFilterByCurrencyList,
   );
@@ -26,13 +25,14 @@ export function ExpressBuyCurrenciesDrawer({ isOpen, onClose }: Props) {
       setExpressBuyFilterByCurrencyList([...selectedCurrencies, currency]);
     }
   };
-  const { data: sellOfferCurrencies } = useQuery({
-    queryKey: ["peach069expressBuySellOffers"],
-    queryFn: async () => {
-      const { result } = await peachAPI.private.peach069.getSellOffers({});
-      return result?.stats.currencies;
-    },
-  });
+  // const { data: sellOfferCurrencies } = useQuery({
+  //   queryKey: ["peach069expressBuySellOffers"],
+  //   queryFn: async () => {
+  //     const { result } = await peachAPI.private.peach069.getSellOffers({});
+  //     return result?.stats.currencies;
+  //   },
+  //   refetchInterval: MSINASECOND,
+  // });
 
   return (
     <CurrenciesDrawer
@@ -40,7 +40,7 @@ export function ExpressBuyCurrenciesDrawer({ isOpen, onClose }: Props) {
       onClose={onClose}
       selectedCurrencies={selectedCurrencies}
       onToggleCurrency={handleToggleCurrency}
-      currencyOfferAmounts={sellOfferCurrencies}
+      currencyOfferAmounts={stats}
     />
   );
 }

@@ -44,11 +44,18 @@ export const useExpressBuySellOffers = () => {
           offersSorter: queryKey[6],
         });
 
-      return sellOffers?.offers;
+      return sellOffers;
     },
     enabled: isFocused,
     refetchInterval: FIVE_SECONDS,
   });
 
-  return { sellOffers: data, isLoading, isFetching, refetch, error };
+  return {
+    sellOffers: data?.offers,
+    stats: data?.stats,
+    isLoading,
+    isFetching,
+    refetch,
+    error,
+  };
 };

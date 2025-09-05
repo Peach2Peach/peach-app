@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -12,7 +11,6 @@ import {
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { round } from "../utils/math/round";
-import { peachAPI } from "../utils/peachAPI";
 import { thousands } from "../utils/string/thousands";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { useTradingAmountLimits } from "../views/offerPreferences/utils/useTradingAmountLimits";
@@ -28,6 +26,10 @@ import { HorizontalLine } from "./ui/HorizontalLine";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  stats: {
+    paymentMethods: Partial<Record<PaymentMethod, number>>;
+    currencies: Partial<Record<Currency, number>>;
+  };
 }
 
 export type FilterSection =
@@ -37,7 +39,7 @@ export type FilterSection =
   | "amount"
   | "price";
 
-export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
+export function ExpressBuyAdvancedFilters({ isOpen, onClose, stats }: Props) {
   const [expandedSection, setExpandedSection] = useState<FilterSection | null>(
     null,
   );
@@ -53,15 +55,6 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
     (state) => state.expressBuyFilterByCurrencyList,
   );
 
-  // Fetch offer stats for payment method and currency counts
-  const { data: sellOfferStats } = useQuery({
-    queryKey: ["peach069expressBuySellOffers"],
-    queryFn: async () => {
-      const { result } = await peachAPI.private.peach069.getSellOffers({});
-      return result?.stats;
-    },
-  });
-
   const filterSections = [
     {
       id: "sortBy" as const,
@@ -73,16 +66,14 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
       label: selectedPaymentMethods.length
         ? `Payment Methods (${selectedPaymentMethods.length})`
         : "Payment Methods",
-      content: (
-        <PaymentMethodsList offerCounts={sellOfferStats?.paymentMethods} />
-      ),
+      content: <PaymentMethodsList offerCounts={stats?.paymentMethods} />,
     },
     {
       id: "currencies" as const,
       label: selectedCurrencies.length
         ? `Currencies (${selectedCurrencies.length})`
         : "Currencies",
-      content: <CurrenciesList offerCounts={sellOfferStats?.currencies} />,
+      content: <CurrenciesList offerCounts={stats?.currencies} />,
     },
     { id: "amount" as const, label: "Amount", content: <AmountSelection /> },
     { id: "price" as const, label: "Price", content: <PriceSection /> },
@@ -164,7 +155,7 @@ function SortByList() {
 function PaymentMethodsList({
   offerCounts,
 }: {
-  offerCounts?: Record<PaymentMethod, number>;
+  offerCounts?: Partial<Record<PaymentMethod, number>>;
 }) {
   const { data: paymentMethods } = usePaymentMethods();
   const selectedPaymentMethods = useOfferPreferences(
@@ -234,7 +225,7 @@ function PaymentMethodsList({
 function CurrenciesList({
   offerCounts,
 }: {
-  offerCounts?: Record<Currency, number>;
+  offerCounts?: Partial<Record<Currency, number>>;
 }) {
   const selectedCurrencies = useOfferPreferences(
     (state) => state.expressBuyFilterByCurrencyList,

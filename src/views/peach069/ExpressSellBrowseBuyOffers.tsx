@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { BuyOffer69 } from "../../../peach-api/src/@types/offer";
 import { ExpressSellAdvancedFilters } from "../../components/ExpressSellAdvancedFilters";
@@ -24,18 +24,49 @@ import { SellBitcoinHeader } from "../offerPreferences/components/SellBitcoinHea
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
 export function ExpressSellBrowseBuyOffers() {
+  const { buyOffers, stats, isLoading, isFetching, refetch } =
+    useExpressSellBuyOffers();
+
+  const [displayableStats, setDisplayableStats] = useState<{
+    currencies: Partial<Record<Currency, number>>;
+    paymentMethods: Partial<Record<PaymentMethod, number>>;
+  }>({
+    currencies: {},
+    paymentMethods: {},
+  });
+
+  useEffect(() => {
+    console.log(stats);
+    if (stats) {
+      setDisplayableStats(stats);
+    }
+  }, [stats]);
+
   return (
-    <Screen header={<ExploreHeader />}>
+    <Screen header={<ExploreHeader stats={displayableStats} />}>
       <View style={tw`flex-row self-stretch justify-between gap-13px`}>
-        <PaymentMethodsBubble />
-        <CurrenciesBubble />
+        {displayableStats && (
+          <>
+            <PaymentMethodsBubble stats={displayableStats.paymentMethods} />
+            <CurrenciesBubble stats={displayableStats.currencies} />
+          </>
+        )}
       </View>
-      <BuyOfferList />
+      <BuyOfferList
+        buyOffers={buyOffers}
+        isLoading={isLoading}
+        isFetching={isFetching}
+        refetch={refetch}
+      />
     </Screen>
   );
 }
 
-function PaymentMethodsBubble() {
+function PaymentMethodsBubble({
+  stats,
+}: {
+  stats: Partial<Record<PaymentMethod, number>>;
+}) {
   const [isPaymentMethodDrawerOpen, setIsPaymentMethodDrawerOpen] =
     useState(false);
 
@@ -53,12 +84,17 @@ function PaymentMethodsBubble() {
       <ExpressSellPaymentMethodsDrawer
         isOpen={isPaymentMethodDrawerOpen}
         onClose={() => setIsPaymentMethodDrawerOpen(false)}
+        stats={stats}
       />
     </>
   );
 }
 
-function CurrenciesBubble() {
+function CurrenciesBubble({
+  stats,
+}: {
+  stats: Partial<Record<Currency, number>>;
+}) {
   const [isCurrencyDrawerOpen, setIsCurrencyDrawerOpen] = useState(false);
   return (
     <>
@@ -72,6 +108,7 @@ function CurrenciesBubble() {
         {i18n("currencies")}
       </Bubble>
       <ExpressSellCurrenciesDrawer
+        stats={stats}
         isOpen={isCurrencyDrawerOpen}
         onClose={() => setIsCurrencyDrawerOpen(false)}
       />
@@ -79,10 +116,22 @@ function CurrenciesBubble() {
   );
 }
 
-function BuyOfferList() {
-  const { buyOffers, isLoading, isFetching, refetch } =
-    useExpressSellBuyOffers();
-
+function BuyOfferList({
+  buyOffers,
+  isLoading,
+  isFetching,
+  refetch,
+}: {
+  buyOffers?: (BuyOffer69 & {
+    tradeStatusNew?: TradeStatus;
+    user: User;
+    allowedToInstantTrade: boolean;
+    hasPerformedTradeRequest: boolean;
+  })[];
+  isLoading: boolean;
+  isFetching: boolean;
+  refetch: Function;
+}) {
   if (isLoading || buyOffers === undefined) return <LoadingScreen />;
   return (
     <>
@@ -194,7 +243,14 @@ function OfferCard({
   );
 }
 
-function ExploreHeader() {
+function ExploreHeader({
+  stats,
+}: {
+  stats: {
+    paymentMethods: Partial<Record<PaymentMethod, number>>;
+    currencies: Partial<Record<Currency, number>>;
+  };
+}) {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
   return (
@@ -211,6 +267,7 @@ function ExploreHeader() {
       <ExpressSellAdvancedFilters
         isOpen={showAdvancedFilters}
         onClose={() => setShowAdvancedFilters(false)}
+        stats={stats}
       />
     </>
   );

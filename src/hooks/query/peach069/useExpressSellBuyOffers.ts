@@ -44,11 +44,18 @@ export const useExpressSellBuyOffers = () => {
           minPremium: queryKey[5],
           offersSorter: queryKey[6],
         });
-      return buyOffers?.offers;
+      return buyOffers;
     },
     enabled: isFocused,
     refetchInterval: FIVE_SECONDS,
   });
 
-  return { buyOffers: data, isLoading, isFetching, refetch, error };
+  return {
+    buyOffers: data?.offers,
+    stats: data?.stats,
+    isLoading,
+    isFetching,
+    refetch,
+    error,
+  };
 };

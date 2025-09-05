@@ -12,7 +12,7 @@ interface PaymentMethodsDrawerProps {
   onClose: () => void;
   selectedPaymentMethods: PaymentMethod[];
   onTogglePaymentMethod: (paymentMethod: PaymentMethod) => void;
-  paymentMethodOfferAmounts: Record<PaymentMethod, number>;
+  paymentMethodOfferAmounts: Partial<Record<PaymentMethod, number>>;
 }
 
 export function PaymentMethodsDrawer({
