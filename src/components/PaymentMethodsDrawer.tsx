@@ -5,6 +5,7 @@ import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
+import { Button } from "./buttons/Button";
 import { PeachText } from "./text/PeachText";
 
 interface PaymentMethodsDrawerProps {
@@ -13,6 +14,7 @@ interface PaymentMethodsDrawerProps {
   selectedPaymentMethods: PaymentMethod[];
   onTogglePaymentMethod: (paymentMethod: PaymentMethod) => void;
   paymentMethodOfferAmounts: Partial<Record<PaymentMethod, number>>;
+  onReset?: () => void;
 }
 
 export function PaymentMethodsDrawer({
@@ -21,6 +23,7 @@ export function PaymentMethodsDrawer({
   selectedPaymentMethods,
   onTogglePaymentMethod,
   paymentMethodOfferAmounts,
+  onReset,
 }: PaymentMethodsDrawerProps) {
   const { data: paymentMethods } = usePaymentMethods();
 
@@ -74,6 +77,21 @@ export function PaymentMethodsDrawer({
       }
       items={items}
       type="checkbox"
+      resetButton={
+        onReset && (
+          <Button
+            textColor={tw.color(
+              selectedPaymentMethods.length > 0 ? "success-main" : "black-50",
+            )}
+            style={tw`py-1 border md:py-2`}
+            disabled={selectedPaymentMethods.length === 0}
+            onPress={onReset}
+            ghost
+          >
+            reset all
+          </Button>
+        )
+      }
     />
   );
 }

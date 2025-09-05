@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -11,6 +12,7 @@ import {
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { round } from "../utils/math/round";
+import { peachAPI } from "../utils/peachAPI";
 import { thousands } from "../utils/string/thousands";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { useTradingAmountLimits } from "../views/offerPreferences/utils/useTradingAmountLimits";
@@ -26,10 +28,6 @@ import { HorizontalLine } from "./ui/HorizontalLine";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  stats: {
-    paymentMethods: Partial<Record<PaymentMethod, number>>;
-    currencies: Partial<Record<Currency, number>>;
-  };
 }
 
 export type FilterSection =
@@ -39,7 +37,7 @@ export type FilterSection =
   | "amount"
   | "price";
 
-export function ExpressBuyAdvancedFilters({ isOpen, onClose, stats }: Props) {
+export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
   const [expandedSection, setExpandedSection] = useState<FilterSection | null>(
     null,
   );
@@ -66,14 +64,14 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose, stats }: Props) {
       label: selectedPaymentMethods.length
         ? `Payment Methods (${selectedPaymentMethods.length})`
         : "Payment Methods",
-      content: <PaymentMethodsList offerCounts={stats?.paymentMethods} />,
+      content: <PaymentMethodsList />,
     },
     {
       id: "currencies" as const,
       label: selectedCurrencies.length
         ? `Currencies (${selectedCurrencies.length})`
         : "Currencies",
-      content: <CurrenciesList offerCounts={stats?.currencies} />,
+      content: <CurrenciesList />,
     },
     { id: "amount" as const, label: "Amount", content: <AmountSelection /> },
     { id: "price" as const, label: "Price", content: <PriceSection /> },
@@ -152,11 +150,7 @@ function SortByList() {
   return <SelectionList type="radioButton" items={items} />;
 }
 
-function PaymentMethodsList({
-  offerCounts,
-}: {
-  offerCounts?: Partial<Record<PaymentMethod, number>>;
-}) {
+function PaymentMethodsList() {
   const { data: paymentMethods } = usePaymentMethods();
   const selectedPaymentMethods = useOfferPreferences(
     (state) => state.expressBuyFilterByPaymentMethodList,
@@ -183,12 +177,20 @@ function PaymentMethodsList({
     [selectedPaymentMethods, setExpressBuyFilterByPaymentMethodList],
   );
 
+  const { data: sellOfferPaymentMethods } = useQuery({
+    queryKey: ["peach069expressBuySellOffers", "stats", "paymentMethods"],
+    queryFn: async () => {
+      const { result } = await peachAPI.private.peach069.getSellOffers({});
+      return result?.stats.paymentMethods;
+    },
+  });
+
   const items = useMemo(() => {
     if (!paymentMethods) return [];
 
     return paymentMethods
       .map((paymentMethod) => {
-        const numberOfOffers = offerCounts?.[paymentMethod.id] || 0;
+        const numberOfOffers = sellOfferPaymentMethods?.[paymentMethod.id] || 0;
         return {
           paymentMethod,
           numberOfOffers,
@@ -213,20 +215,16 @@ function PaymentMethodsList({
       }));
   }, [
     paymentMethods,
+    sellOfferPaymentMethods,
     selectedPaymentMethods,
     onTogglePaymentMethod,
-    offerCounts,
   ]);
 
   if (!paymentMethods) return null;
   return <SelectionList type="checkbox" items={items} />;
 }
 
-function CurrenciesList({
-  offerCounts,
-}: {
-  offerCounts?: Partial<Record<Currency, number>>;
-}) {
+function CurrenciesList() {
   const selectedCurrencies = useOfferPreferences(
     (state) => state.expressBuyFilterByCurrencyList,
   );
@@ -257,12 +255,20 @@ function CurrenciesList({
     [paymentMethods],
   );
 
+  const { data: sellOfferCurrencies } = useQuery({
+    queryKey: ["peach069expressBuySellOffers", "stats", "currencies"],
+    queryFn: async () => {
+      const { result } = await peachAPI.private.peach069.getSellOffers({});
+      return result?.stats.currencies;
+    },
+  });
+
   const items = useMemo(() => {
     if (!allCurrencies) return [];
 
     return allCurrencies
       .map((currency) => {
-        const numberOfOffers = offerCounts?.[currency] || 0;
+        const numberOfOffers = sellOfferCurrencies?.[currency] || 0;
         return {
           currency,
           numberOfOffers,
@@ -283,7 +289,12 @@ function CurrenciesList({
         onPress: () => handleToggleCurrency(currency),
         isSelected: selectedCurrencies.includes(currency),
       }));
-  }, [allCurrencies, selectedCurrencies, handleToggleCurrency, offerCounts]);
+  }, [
+    allCurrencies,
+    selectedCurrencies,
+    handleToggleCurrency,
+    sellOfferCurrencies,
+  ]);
 
   if (!allCurrencies) return null;
   return <SelectionList type="checkbox" items={items} />;

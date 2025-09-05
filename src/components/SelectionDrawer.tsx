@@ -18,6 +18,7 @@ interface SelectionDrawerProps {
   title: string | JSX.Element;
   items: SelectionDrawerItem[];
   type?: "radioButton" | "checkbox";
+  resetButton?: JSX.Element;
 }
 
 export function SelectionDrawer({
@@ -26,6 +27,7 @@ export function SelectionDrawer({
   title,
   items,
   type = "radioButton",
+  resetButton,
 }: SelectionDrawerProps) {
   const HEADER_AND_PADDING = 120; // Space for padding, header text, etc.
   const DRAWER_HEIGHT_LARGE = 600;
@@ -48,6 +50,7 @@ export function SelectionDrawer({
         <ScrollView style={{ maxHeight: SCROLL_HEIGHT }}>
           <SelectionList items={items} type={type} />
         </ScrollView>
+        {resetButton}
       </>
     </Drawer>
   );

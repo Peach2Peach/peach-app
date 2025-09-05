@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { ExpressBuyAdvancedFilters } from "../../components/ExpressBuyAdvancedFilters";
 import { ExpressBuyCurrenciesDrawer } from "../../components/ExpressBuyCurrenciesDrawer";
@@ -23,33 +23,14 @@ import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeade
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
 export function ExpressBuyBrowseSellOffers() {
-  const { sellOffers, stats, isLoading, isFetching, refetch } =
+  const { sellOffers, isLoading, isFetching, refetch } =
     useExpressBuySellOffers();
 
-  const [displayableStats, setDisplayableStats] = useState<{
-    currencies: Partial<Record<Currency, number>>;
-    paymentMethods: Partial<Record<PaymentMethod, number>>;
-  }>({
-    currencies: {},
-    paymentMethods: {},
-  });
-
-  useEffect(() => {
-    console.log(stats);
-    if (stats) {
-      setDisplayableStats(stats);
-    }
-  }, [stats]);
-
   return (
-    <Screen header={<ExploreHeader stats={displayableStats} />}>
+    <Screen header={<ExploreHeader />}>
       <View style={tw`flex-row self-stretch justify-between gap-13px`}>
-        {displayableStats && (
-          <>
-            <PaymentMethodsBubble stats={displayableStats.paymentMethods} />
-            <CurrenciesBubble stats={displayableStats.currencies} />
-          </>
-        )}
+        <PaymentMethodsBubble />
+        <CurrenciesBubble />
       </View>
       <SellOfferList
         sellOffers={sellOffers}
@@ -61,11 +42,7 @@ export function ExpressBuyBrowseSellOffers() {
   );
 }
 
-function PaymentMethodsBubble({
-  stats,
-}: {
-  stats: Partial<Record<PaymentMethod, number>>;
-}) {
+function PaymentMethodsBubble() {
   const [isPaymentMethodDrawerOpen, setIsPaymentMethodDrawerOpen] =
     useState(false);
 
@@ -83,17 +60,12 @@ function PaymentMethodsBubble({
       <ExpressBuyPaymentMethodsDrawer
         isOpen={isPaymentMethodDrawerOpen}
         onClose={() => setIsPaymentMethodDrawerOpen(false)}
-        stats={stats}
       />
     </>
   );
 }
 
-function CurrenciesBubble({
-  stats,
-}: {
-  stats: Partial<Record<Currency, number>>;
-}) {
+function CurrenciesBubble() {
   const [isCurrencyDrawerOpen, setIsCurrencyDrawerOpen] = useState(false);
   return (
     <>
@@ -109,7 +81,6 @@ function CurrenciesBubble({
       <ExpressBuyCurrenciesDrawer
         isOpen={isCurrencyDrawerOpen}
         onClose={() => setIsCurrencyDrawerOpen(false)}
-        stats={stats}
       />
     </>
   );
@@ -239,14 +210,7 @@ function OfferCard({
   );
 }
 
-function ExploreHeader({
-  stats,
-}: {
-  stats: {
-    paymentMethods: Partial<Record<PaymentMethod, number>>;
-    currencies: Partial<Record<Currency, number>>;
-  };
-}) {
+function ExploreHeader() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
   return (
@@ -263,7 +227,6 @@ function ExploreHeader({
       <ExpressBuyAdvancedFilters
         isOpen={showAdvancedFilters}
         onClose={() => setShowAdvancedFilters(false)}
-        stats={stats}
       />
     </>
   );

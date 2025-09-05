@@ -5,6 +5,7 @@ import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
+import { Button } from "./buttons/Button";
 import { PeachText } from "./text/PeachText";
 
 interface CurrenciesDrawerProps {
@@ -13,6 +14,7 @@ interface CurrenciesDrawerProps {
   selectedCurrencies: Currency[];
   onToggleCurrency: (currency: Currency) => void;
   currencyOfferAmounts: Partial<Record<Currency, number>>;
+  onReset?: () => void;
 }
 
 export function CurrenciesDrawer({
@@ -21,6 +23,7 @@ export function CurrenciesDrawer({
   selectedCurrencies,
   onToggleCurrency,
   currencyOfferAmounts,
+  onReset,
 }: CurrenciesDrawerProps) {
   const { data: paymentMethods } = usePaymentMethods();
 
@@ -78,6 +81,21 @@ export function CurrenciesDrawer({
       }
       items={items}
       type="checkbox"
+      resetButton={
+        onReset && (
+          <Button
+            textColor={tw.color(
+              selectedCurrencies.length > 0 ? "success-main" : "black-50",
+            )}
+            style={tw`py-1 border md:py-2`}
+            disabled={selectedCurrencies.length === 0}
+            onPress={onReset}
+            ghost
+          >
+            reset all
+          </Button>
+        )
+      }
     />
   );
 }
