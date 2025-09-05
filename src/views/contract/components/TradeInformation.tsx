@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import txInMempool from "../../../assets/escrow/tx-in-mempool.png";
 import { BitcoinAddress } from "../../../components/bitcoin/BitcoinAddress";
@@ -9,6 +10,9 @@ import tw from "../../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
+import { peachAPI } from "../../../utils/peachAPI";
+import { getPublicKeyForEscrow } from "../../../utils/wallet/getPublicKeyForEscrow";
+import { getWallet } from "../../../utils/wallet/getWallet";
 import { FundFromPeachWalletButton } from "../../fundEscrow/FundFromPeachWalletButton";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
 import { useContractContext } from "../context";
@@ -96,9 +100,28 @@ function SellerFundEscrow() {
   if (!contract.fundingExpectedBy)
     throw Error("expected contract.fundingExpectedBy");
   const sellOfferId = getSellOfferIdFromContract(contract);
-  const { fundingStatus, isLoading } = useFundingStatus(sellOfferId);
+  const { fundingStatus, isLoading, refetch } = useFundingStatus(sellOfferId);
+  const [fundedEscrow, setFundedEscrow] = useState(false);
 
   const [showPopup, toggle] = useToggleBoolean(true);
+
+  useEffect(() => {
+    const setupEscrow = async () => {
+      const publicKey = getPublicKeyForEscrow(getWallet(), sellOfferId);
+
+      await peachAPI.private.offer.createEscrow({
+        offerId: sellOfferId,
+        publicKey,
+      });
+
+      await refetch();
+    };
+
+    if (contract && !contract.escrow && !fundedEscrow) {
+      setupEscrow();
+      setFundedEscrow(true);
+    }
+  }, [contract, sellOfferId, fundedEscrow]);
 
   // const setOverlay = useSetGlobalOverlay();
   // useEffect(() => {

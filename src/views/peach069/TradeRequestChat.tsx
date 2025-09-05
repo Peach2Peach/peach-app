@@ -104,41 +104,59 @@ export const TradeRequestChat = () => {
 
   const sendMessageAsBuyOfferOwner = async ({
     messageEncrypted,
+    signature,
   }: {
     messageEncrypted: string;
+    signature?: string;
   }): Promise<void> => {
     await peachAPI.private.peach069.sendChatMessagesOfReceivedBuyOfferTradeRequest(
-      { buyOfferId: offerId, userId: requestingUserId, messageEncrypted },
+      {
+        buyOfferId: offerId,
+        userId: requestingUserId,
+        messageEncrypted,
+        signature,
+      },
     );
   };
 
   const sendMessageAsBuyOfferTradeRequester = async ({
     messageEncrypted,
+    signature,
   }: {
     messageEncrypted: string;
+    signature?: string;
   }): Promise<void> => {
     await peachAPI.private.peach069.sendChatMessagesOfPerformedBuyOfferTradeRequest(
-      { buyOfferId: offerId, messageEncrypted },
+      { buyOfferId: offerId, messageEncrypted, signature },
     );
   };
 
   const sendMessageAsSellOfferOwner = async ({
     messageEncrypted,
+    signature,
   }: {
     messageEncrypted: string;
+    signature?: string;
   }): Promise<void> => {
     await peachAPI.private.peach069.sendChatMessagesOfReceivedSellOfferTradeRequest(
-      { sellOfferId: offerId, userId: requestingUserId, messageEncrypted },
+      {
+        sellOfferId: offerId,
+        userId: requestingUserId,
+        messageEncrypted,
+        signature,
+      },
     );
   };
 
   const sendMessageAsSellOfferTradeRequester = async ({
     messageEncrypted,
+    signature,
   }: {
     messageEncrypted: string;
+    signature?: string;
   }): Promise<void> => {
     await peachAPI.private.peach069.sendChatMessagesOfPerformedSellOfferTradeRequest(
-      { sellOfferId: offerId, messageEncrypted },
+      { sellOfferId: offerId, messageEncrypted, signature },
     );
   };
 
@@ -209,7 +227,10 @@ function ChatScreen({
   messages: Offer69TradeRequestChatMessage[];
   symmetricKey: string;
   whoAmI: "offerOwner" | "tradeRequester";
-  sendMessageFunction: (args: { messageEncrypted: string }) => Promise<void>;
+  sendMessageFunction: (args: {
+    messageEncrypted: string;
+    signature: string;
+  }) => Promise<void>;
   refetchFunction: Function;
 }) {
   const queryClient = useQueryClient();
@@ -288,6 +309,7 @@ function ChatScreen({
 
     await sendMessageFunction({
       messageEncrypted: encryptionResult.encrypted,
+      signature: encryptionResult.signature,
     });
 
     await refetchFunction();

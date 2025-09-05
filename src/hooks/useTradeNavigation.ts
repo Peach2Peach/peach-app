@@ -35,6 +35,7 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
       }
     }
 
+    // this is for contracts that need funding
     if (item.tradeStatus === "createEscrow" && "offerId" in item) {
       await mutateAsync([item.offerId]);
     }

@@ -44,7 +44,7 @@ export const useExpressBuySellOffers = () => {
           offersSorter: queryKey[6],
         });
 
-      return sellOffers;
+      return sellOffers?.offers;
     },
     enabled: isFocused,
     refetchInterval: FIVE_SECONDS,
