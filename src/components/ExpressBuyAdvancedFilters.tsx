@@ -44,6 +44,13 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
     setExpandedSection(expandedSection === section ? null : section);
   };
 
+  const selectedPaymentMethods = useOfferPreferences(
+    (state) => state.expressBuyFilterByPaymentMethodList,
+  );
+  const selectedCurrencies = useOfferPreferences(
+    (state) => state.expressBuyFilterByCurrencyList,
+  );
+
   const filterSections = [
     {
       id: "sortBy" as const,
@@ -52,12 +59,16 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
     },
     {
       id: "paymentMethods" as const,
-      label: "Payment Methods",
+      label: selectedPaymentMethods.length
+        ? `Payment Methods (${selectedPaymentMethods.length})`
+        : "Payment Methods",
       content: <PaymentMethodsList />,
     },
     {
       id: "currencies" as const,
-      label: "Currencies",
+      label: selectedCurrencies.length
+        ? `Currencies (${selectedCurrencies.length})`
+        : "Currencies",
       content: <CurrenciesList />,
     },
     { id: "amount" as const, label: "Amount", content: <AmountSelection /> },

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
-import { shallow } from "zustand/shallow";
 import { ExpressBuyAdvancedFilters } from "../../components/ExpressBuyAdvancedFilters";
 import { ExpressBuyCurrenciesDrawer } from "../../components/ExpressBuyCurrenciesDrawer";
 import { ExpressBuyPaymentMethodsDrawer } from "../../components/ExpressBuyPaymentMethodsDrawer";
@@ -16,7 +15,6 @@ import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressBuySellOffers } from "../../hooks/query/peach069/useExpressBuySellOffers";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -81,34 +79,8 @@ function CurrenciesBubble() {
 }
 
 function SellOfferList() {
-  const expressBuyFilterByAmountRange = useOfferPreferences(
-    (state) => state.expressBuyFilterByAmountRange,
-  );
-
-  const [
-    expressBuyFilterByCurrencyList,
-    expressBuyFilterByPaymentMethodList,
-    expressBuyFilterMaxPremium,
-    expressBuyOffersSorter,
-  ] = useOfferPreferences(
-    (state) => [
-      state.expressBuyFilterByCurrencyList,
-      state.expressBuyFilterByPaymentMethodList,
-      state.expressBuyFilterMaxPremium,
-      state.expressBuyOffersSorter,
-    ],
-    shallow,
-  );
-
   const { sellOffers, isLoading, isFetching, refetch } =
-    useExpressBuySellOffers(
-      expressBuyFilterByAmountRange[0],
-      expressBuyFilterByAmountRange[1],
-      expressBuyFilterByCurrencyList,
-      expressBuyFilterByPaymentMethodList,
-      expressBuyFilterMaxPremium,
-      expressBuyOffersSorter,
-    );
+    useExpressBuySellOffers();
 
   if (isLoading || sellOffers === undefined) return <LoadingScreen />;
   return (

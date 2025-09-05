@@ -1,44 +1,54 @@
 import { useIsFocused } from "@react-navigation/native";
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { shallow } from "zustand/shallow";
 import { FIVE_SECONDS } from "../../../constants";
+import { useOfferPreferences } from "../../../store/offerPreferenes/useOfferPreferences";
 import { peachAPI } from "../../../utils/peachAPI";
 
-export const useExpressBuySellOffers = (
-  minAmountSats: number,
-  maxAmountSats: number,
-  currencies: Currency[],
-  paymentMethodIds: string[],
-  maxPremium: number,
-  expressBuyOffersSorter: ExpressBuyOfferSorter,
-) => {
+export const useExpressBuySellOffers = () => {
+  const [
+    expressBuyFilterByAmountRange,
+    expressBuyFilterByCurrencyList,
+    expressBuyFilterByPaymentMethodList,
+    expressBuyFilterMaxPremium,
+    expressBuyOffersSorter,
+  ] = useOfferPreferences(
+    (state) => [
+      state.expressBuyFilterByAmountRange,
+      state.expressBuyFilterByCurrencyList,
+      state.expressBuyFilterByPaymentMethodList,
+      state.expressBuyFilterMaxPremium,
+      state.expressBuyOffersSorter,
+    ],
+    shallow,
+  );
   const isFocused = useIsFocused();
   const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: [
       "peach069expressBuySellOffers",
-      minAmountSats,
-      maxAmountSats,
-      currencies,
-      paymentMethodIds,
-      maxPremium,
+      expressBuyFilterByAmountRange[0],
+      expressBuyFilterByAmountRange[1],
+      expressBuyFilterByCurrencyList,
+      expressBuyFilterByPaymentMethodList,
+      expressBuyFilterMaxPremium,
       expressBuyOffersSorter,
-    ],
-    queryFn: getExpressBuySellOffers,
+    ] as const,
+    queryFn: async ({ queryKey }) => {
+      const { result: sellOffers } =
+        await peachAPI.private.peach069.getSellOffers({
+          minAmountSats: queryKey[1],
+          maxAmountSats: queryKey[2],
+          currencies: queryKey[3],
+          paymentMethods: queryKey[4],
+          maxPremium: queryKey[5],
+          offersSorter: queryKey[6],
+        });
+
+      return sellOffers;
+    },
     enabled: isFocused,
     refetchInterval: FIVE_SECONDS,
   });
 
   return { sellOffers: data, isLoading, isFetching, refetch, error };
 };
-
-async function getExpressBuySellOffers({ queryKey }: QueryFunctionContext) {
-  const { result: sellOffers } = await peachAPI.private.peach069.getSellOffers({
-    minAmountSats: queryKey[1] as number,
-    maxAmountSats: queryKey[2] as number,
-    currencies: queryKey[3] as string[],
-    paymentMethods: queryKey[4] as string[],
-    maxPremium: queryKey[5] as number,
-    offersSorter: queryKey[6] as ExpressBuyOfferSorter,
-  });
-
-  return sellOffers;
-}
