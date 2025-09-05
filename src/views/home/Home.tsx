@@ -268,7 +268,7 @@ function MarketStats() {
                 {data?.totalAvgPremium !== undefined &&
                 data?.totalAvgPremium >= 0
                   ? "+"
-                  : "-"}
+                  : ""}
                 {data?.totalAvgPremium}%
               </PeachText>
             </View>

@@ -73,13 +73,11 @@ type ContractFlow = {
 // peach 069 flows START
 type ExpressBuyFlow = {
   expressBuyBrowseSellOffers: undefined;
-  expressBuyFilters: undefined;
   expressBuyTradeRequest: { offerId: string };
 };
 
 type ExpressSellFlow = {
   expressSellBrowseBuyOffers: undefined;
-  expressSellFilters: undefined;
   expressSellTradeRequest: { offerId: string };
 };
 

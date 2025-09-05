@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { MatchFilter } from "../../../peach-api/src/@types/api/offerAPI";
-import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
 import { NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { dataToMeansOfPayment } from "../../utils/paymentMethod/dataToMeansOfPayment";
 import { createStorage } from "../../utils/storage/createStorage";
@@ -14,7 +13,7 @@ import { getHashedPaymentData, getPreferredMethods } from "./helpers";
 import { CurrencyType } from "./types";
 
 type OfferPreferences = {
-  //peach069
+  // peach069
   createBuyOfferAmount: number;
   createBuyOfferPremium: number;
   expressBuyFilterByAmountRange: [number, number];
@@ -23,8 +22,8 @@ type OfferPreferences = {
   expressBuyFilterByCurrencyList: Currency[];
   expressSellFilterByCurrencyList: Currency[];
 
-  expressBuyFilterByPaymentMethodList: PaymentMethodInfo[];
-  expressSellFilterByPaymentMethodList: PaymentMethodInfo[];
+  expressBuyFilterByPaymentMethodList: PaymentMethod[];
+  expressSellFilterByPaymentMethodList: PaymentMethod[];
 
   expressSellFilterMinPremium: number;
   expressBuyFilterMaxPremium: number;
@@ -61,7 +60,7 @@ export const defaultPreferences: OfferPreferences = {
   createBuyOfferAmount: 1,
   createBuyOfferPremium: 1.5,
 
-  buyAmountRange: [20000, 1090000], //TODO: verify this
+  buyAmountRange: [20000, 1090000], // TODO: verify this
   expressBuyFilterByAmountRange: [20000, 1090000],
   expressSellFilterByAmountRange: [20000, 1090000],
   expressBuyFilterByCurrencyList: [],
@@ -119,10 +118,10 @@ type OfferPreferencesActions = {
     expressSellFilterByCurrencyList: Currency[],
   ) => void;
   setExpressBuyFilterByPaymentMethodList: (
-    expressBuyFilterByPaymentMethodList: PaymentMethodInfo[],
+    expressBuyFilterByPaymentMethodList: PaymentMethod[],
   ) => void;
   setExpressSellFilterByPaymentMethodList: (
-    expressSellFilterByPaymentMethodList: PaymentMethodInfo[],
+    expressSellFilterByPaymentMethodList: PaymentMethod[],
   ) => void;
   setExpressBuyFilterMaxPremium: (expressBuyFilterMaxPremium: number) => void;
   setExpressSellFilterMinPremium: (expressSellFilterMinPremium: number) => void;
@@ -144,6 +143,8 @@ type OfferPreferencesActions = {
   toggleBadge: (badge: Medal) => void;
   setHasSeenInstantTradePopup: (hasSeenInstantTradePopup: boolean) => void;
   setFundWithPeachWallet: (fundWithPeachWallet: boolean) => void;
+  resetExpressBuyFilters: () => void;
+  resetExpressSellFilters: () => void;
 };
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions;
@@ -272,6 +273,30 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set({ hasSeenInstantTradePopup }),
       setFundWithPeachWallet: (fundWithPeachWallet) =>
         set({ fundWithPeachWallet }),
+      resetExpressBuyFilters: () =>
+        set({
+          expressBuyFilterByAmountRange:
+            defaultPreferences.expressBuyFilterByAmountRange,
+          expressBuyFilterByCurrencyList:
+            defaultPreferences.expressBuyFilterByCurrencyList,
+          expressBuyFilterByPaymentMethodList:
+            defaultPreferences.expressBuyFilterByPaymentMethodList,
+          expressBuyFilterMaxPremium:
+            defaultPreferences.expressBuyFilterMaxPremium,
+          expressBuyOffersSorter: defaultPreferences.expressBuyOffersSorter,
+        }),
+      resetExpressSellFilters: () =>
+        set({
+          expressSellFilterByAmountRange:
+            defaultPreferences.expressSellFilterByAmountRange,
+          expressSellFilterByCurrencyList:
+            defaultPreferences.expressSellFilterByCurrencyList,
+          expressSellFilterByPaymentMethodList:
+            defaultPreferences.expressSellFilterByPaymentMethodList,
+          expressSellFilterMinPremium:
+            defaultPreferences.expressSellFilterMinPremium,
+          expressSellOffersSorter: defaultPreferences.expressSellOffersSorter,
+        }),
     })),
     {
       name: "offerPreferences",

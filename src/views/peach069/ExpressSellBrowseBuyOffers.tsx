@@ -1,139 +1,140 @@
+import { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { BuyOffer69 } from "../../../peach-api/src/@types/offer";
-import { BTCAmount } from "../../components/bitcoin/BTCAmount";
+import { ExpressSellAdvancedFilters } from "../../components/ExpressSellAdvancedFilters";
+import { ExpressSellCurrenciesDrawer } from "../../components/ExpressSellCurrenciesDrawer";
+import { ExpressSellPaymentMethodsDrawer } from "../../components/ExpressSellPaymentMethodsDrawer";
 import { horizontalBadgePadding } from "../../components/InfoContainer";
-import { Badges } from "../../components/matches/components/Badges";
 import { PeachyBackground } from "../../components/PeachyBackground";
-import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { Screen } from "../../components/Screen";
+import { BTCAmount } from "../../components/bitcoin/BTCAmount";
+import { NewBubble as Bubble } from "../../components/bubble/Bubble";
+import { Badges } from "../../components/matches/components/Badges";
 import { PeachText } from "../../components/text/PeachText";
 import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressSellBuyOffers } from "../../hooks/query/peach069/useExpressSellBuyOffers";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { ExpressSellSorters } from "../../popups/sorting/ExpressSellSorters";
-import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { headerIcons } from "../../utils/layout/headerIcons";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { SellBitcoinHeader } from "../offerPreferences/components/SellBitcoinHeader";
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
-// export function ExpressSellBrowseBuyOffersOLD() {
-//   const setPopup = useSetPopup();
-//   const title = "Exp Sell: Browse Buy Offers";
-//   const expressSellFilterByAmountRange = useOfferPreferences(
-//     (state) => state.expressSellFilterByAmountRange,
-//   );
-
-//   const [
-//     expressSellFilterByCurrencyList,
-//     expressSellFilterByPaymentMethodList,
-//     expressSellFilterMinPremium,
-//     expressSellOffersSorter,
-//   ] = useOfferPreferences((state) => [
-//     state.expressSellFilterByCurrencyList,
-//     state.expressSellFilterByPaymentMethodList,
-//     state.expressSellFilterMinPremium,
-//     state.expressSellOffersSorter,
-//   ]);
-
-//   const { buyOffers, isLoading } = useExpressSellBuyOffers(
-//     expressSellFilterByAmountRange[0],
-//     expressSellFilterByAmountRange[1],
-//     expressSellFilterByCurrencyList,
-//     expressSellFilterByPaymentMethodList.map((obj) => obj.id),
-//     expressSellFilterMinPremium,
-//     expressSellOffersSorter,
-//   );
-//   const navigation = useStackNavigation();
-
-//   const showSortAndFilterPopup = () => setPopup(<ExpressSellSorters />);
-
-//   const expressSellHeaderIcons = [
-//     { ...headerIcons.expressFlowSorter, onPress: showSortAndFilterPopup },
-//     {
-//       ...headerIcons["filter"],
-//       onPress: () => {
-//         navigation.navigate("expressSellFilters");
-//       },
-//     },
-//   ];
-
-//   return (
-//     <Screen header={<Header title={title} icons={expressSellHeaderIcons} />}>
-//       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
-//         <PeachText>All Buy Offers 0.69</PeachText>
-//         <>
-//           {!isLoading &&
-//             buyOffers !== undefined &&
-//             buyOffers.map((item, index) => {
-//               return (
-//                 <React.Fragment key={index}>
-//                   <PeachText>-------</PeachText>
-//                   <PeachText>ID: {item.id}</PeachText>
-//                   <PeachText>User: {item.userId}</PeachText>
-//                   <PeachText>Amount: {item.amountSats}</PeachText>
-//                   <PeachText>Premium: {item.premium}</PeachText>
-//                   <PeachText>
-//                     MeansOfPayment: {JSON.stringify(item.meansOfPayment)}
-//                   </PeachText>
-//                   <View style={tw`flex-row gap-10px`}>
-//                     <Button
-//                       style={[tw`bg-error-main`]}
-//                       onPress={() => {
-//                         navigation.navigate("expressSellTradeRequest", {
-//                           offerId: String(item.id),
-//                         });
-//                       }}
-//                     >
-//                       go to page
-//                     </Button>
-//                   </View>
-//                   <PeachText>-------</PeachText>
-//                 </React.Fragment>
-//               );
-//             })}
-//         </>
-//       </PeachScrollView>
-//     </Screen>
-//   );
-// }
-
-/////
-
 export function ExpressSellBrowseBuyOffers() {
-  const expressSellFilterByAmountRange = useOfferPreferences(
-    (state) => state.expressSellFilterByAmountRange,
+  const { buyOffers, stats, isLoading, isFetching, refetch } =
+    useExpressSellBuyOffers();
+
+  const [displayableStats, setDisplayableStats] = useState<{
+    currencies: Partial<Record<Currency, number>>;
+    paymentMethods: Partial<Record<PaymentMethod, number>>;
+  }>({
+    currencies: {},
+    paymentMethods: {},
+  });
+
+  useEffect(() => {
+    console.log(stats);
+    if (stats) {
+      setDisplayableStats(stats);
+    }
+  }, [stats]);
+
+  return (
+    <Screen header={<ExploreHeader stats={displayableStats} />}>
+      <View style={tw`flex-row self-stretch justify-between gap-13px`}>
+        {displayableStats && (
+          <>
+            <PaymentMethodsBubble stats={displayableStats.paymentMethods} />
+            <CurrenciesBubble stats={displayableStats.currencies} />
+          </>
+        )}
+      </View>
+      <BuyOfferList
+        buyOffers={buyOffers}
+        isLoading={isLoading}
+        isFetching={isFetching}
+        refetch={refetch}
+      />
+    </Screen>
   );
+}
 
-  const [
-    expressSellFilterByCurrencyList,
-    expressSellFilterByPaymentMethodList,
-    expressSellFilterMinPremium,
-    expressSellOffersSorter,
-  ] = useOfferPreferences((state) => [
-    state.expressSellFilterByCurrencyList,
-    state.expressSellFilterByPaymentMethodList,
-    state.expressSellFilterMinPremium,
-    state.expressSellOffersSorter,
-  ]);
+function PaymentMethodsBubble({
+  stats,
+}: {
+  stats: Partial<Record<PaymentMethod, number>>;
+}) {
+  const [isPaymentMethodDrawerOpen, setIsPaymentMethodDrawerOpen] =
+    useState(false);
 
-  const { buyOffers, isLoading, isFetching, refetch } = useExpressSellBuyOffers(
-    expressSellFilterByAmountRange[0],
-    expressSellFilterByAmountRange[1],
-    expressSellFilterByCurrencyList,
-    expressSellFilterByPaymentMethodList.map((obj) => obj.id),
-    expressSellFilterMinPremium,
-    expressSellOffersSorter,
+  return (
+    <>
+      <Bubble
+        color="gray"
+        iconId="chevronDown"
+        ghost
+        style={tw`self-stretch`}
+        onPress={() => setIsPaymentMethodDrawerOpen(true)}
+      >
+        {i18n("paymentMethods.title")}
+      </Bubble>
+      <ExpressSellPaymentMethodsDrawer
+        isOpen={isPaymentMethodDrawerOpen}
+        onClose={() => setIsPaymentMethodDrawerOpen(false)}
+        stats={stats}
+      />
+    </>
   );
+}
 
+function CurrenciesBubble({
+  stats,
+}: {
+  stats: Partial<Record<Currency, number>>;
+}) {
+  const [isCurrencyDrawerOpen, setIsCurrencyDrawerOpen] = useState(false);
+  return (
+    <>
+      <Bubble
+        color="gray"
+        iconId="chevronDown"
+        ghost
+        style={tw`self-stretch`}
+        onPress={() => setIsCurrencyDrawerOpen(true)}
+      >
+        {i18n("currencies")}
+      </Bubble>
+      <ExpressSellCurrenciesDrawer
+        stats={stats}
+        isOpen={isCurrencyDrawerOpen}
+        onClose={() => setIsCurrencyDrawerOpen(false)}
+      />
+    </>
+  );
+}
+
+function BuyOfferList({
+  buyOffers,
+  isLoading,
+  isFetching,
+  refetch,
+}: {
+  buyOffers?: (BuyOffer69 & {
+    tradeStatusNew?: TradeStatus;
+    user: User;
+    allowedToInstantTrade: boolean;
+    hasPerformedTradeRequest: boolean;
+  })[];
+  isLoading: boolean;
+  isFetching: boolean;
+  refetch: Function;
+}) {
   if (isLoading || buyOffers === undefined) return <LoadingScreen />;
   return (
-    <Screen header={<ExploreHeader />}>
+    <>
       {buyOffers.length > 0 ? (
         <FlatList
           data={buyOffers}
@@ -150,7 +151,7 @@ export function ExpressSellBrowseBuyOffers() {
           </PeachText>
         </View>
       )}
-    </Screen>
+    </>
   );
 }
 
@@ -163,15 +164,6 @@ function OfferCard({
     hasPerformedTradeRequest: boolean;
   };
 }) {
-  // const { data: priceBook } = useMarketPrices();
-  // const premium =
-  //   matched && matchedPrice && selectedCurrency
-  //     ? getPremiumOfMatchedOffer(
-  //         { amount, price: matchedPrice, currency: selectedCurrency },
-  //         priceBook,
-  //       )
-  //     : match.premium;
-
   const {
     allowedToInstantTrade,
     hasPerformedTradeRequest,
@@ -181,7 +173,6 @@ function OfferCard({
   } = offer;
 
   const { fiatPrice, displayCurrency } = useBitcoinPrices(offer.amountSats);
-  // const { offerId } = useRoute<"explore">().params;
   const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("expressSellTradeRequest", {
@@ -252,21 +243,32 @@ function OfferCard({
   );
 }
 
-function ExploreHeader() {
-  const setPopup = useSetPopup();
-  const navigation = useStackNavigation();
+function ExploreHeader({
+  stats,
+}: {
+  stats: {
+    paymentMethods: Partial<Record<PaymentMethod, number>>;
+    currencies: Partial<Record<Currency, number>>;
+  };
+}) {
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
-  const showSortAndFilterPopup = () => setPopup(<ExpressSellSorters />);
-
-  const expressSellHeaderIcons = [
-    { ...headerIcons.expressFlowSorter, onPress: showSortAndFilterPopup },
-    {
-      ...headerIcons["filter"],
-      onPress: () => {
-        navigation.navigate("expressSellFilters");
-      },
-    },
-  ];
-
-  return <SellBitcoinHeader icons={expressSellHeaderIcons} />;
+  return (
+    <>
+      <SellBitcoinHeader
+        icons={[
+          {
+            id: "filter",
+            color: tw.color("black-50"),
+            onPress: () => setShowAdvancedFilters(true),
+          },
+        ]}
+      />
+      <ExpressSellAdvancedFilters
+        isOpen={showAdvancedFilters}
+        onClose={() => setShowAdvancedFilters(false)}
+        stats={stats}
+      />
+    </>
+  );
 }
