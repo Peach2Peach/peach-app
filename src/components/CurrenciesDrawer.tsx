@@ -1,22 +1,24 @@
 import { useMemo } from "react";
-import { shallow } from "zustand/shallow";
-import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
+import { Currency } from "../../peach-api/src/@types/global";
 import i18n from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
 
-interface CurrencyDrawerProps {
+interface CurrenciesDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  selectedCurrencies: Currency[];
+  onToggleCurrency: (currency: Currency) => void;
 }
 
-export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
-  const [displayCurrency, setDisplayCurrency] = useSettingsStore(
-    (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
-  );
-
+export function CurrenciesDrawer({
+  isOpen,
+  onClose,
+  selectedCurrencies,
+  onToggleCurrency,
+}: CurrenciesDrawerProps) {
   const { data: paymentMethods } = usePaymentMethods();
+
   const allCurrencies = useMemo(
     () =>
       paymentMethods
@@ -34,10 +36,10 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
       )
       .map((currency) => ({
         text: `${i18n(`currency.${currency}`)} (${currency})`,
-        onPress: () => setDisplayCurrency(currency),
-        isSelected: currency === displayCurrency,
+        onPress: () => onToggleCurrency(currency),
+        isSelected: selectedCurrencies.includes(currency),
       }));
-  }, [allCurrencies, displayCurrency, setDisplayCurrency]);
+  }, [allCurrencies, selectedCurrencies, onToggleCurrency]);
 
   if (!allCurrencies) return null;
 
@@ -45,8 +47,13 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
     <SelectionDrawer
       isOpen={isOpen}
       onClose={onClose}
-      title={i18n("currencies")}
+      title={
+        selectedCurrencies.length > 0
+          ? `${i18n("currencies")} (${selectedCurrencies.length})`
+          : i18n("currencies")
+      }
       items={items}
+      type="checkbox"
     />
   );
 }

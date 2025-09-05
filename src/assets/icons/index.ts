@@ -72,6 +72,7 @@ import maximize from "./maximize.svg";
 import menu from "./menu.svg";
 import messageCircle from "./messageCircle.svg";
 import messageFull from "./messageFull.svg";
+import minus from "./minus.svg";
 import minusCircle from "./minusCircle.svg";
 import minusSquare from "./minusSquare.svg";
 import noNetwork from "./noNetwork.svg";
@@ -81,6 +82,7 @@ import paperclip from "./paperclip.svg";
 import pauseCircle from "./pauseCircle.svg";
 import peachSettings from "./peachSettings.svg";
 import percent from "./percent.svg";
+import plus from "./plus.svg";
 import plusCircle from "./plusCircle.svg";
 import plusSquare from "./plusSquare.svg";
 import prev from "./prev.svg";
@@ -206,6 +208,7 @@ export const Icons = {
   menu,
   messageCircle,
   messageFull,
+  minus,
   minusCircle,
   minusSquare,
   noNetwork,
@@ -214,6 +217,7 @@ export const Icons = {
   paperclip,
   pauseCircle,
   percent,
+  plus,
   plusCircle,
   plusSquare,
   prev,
