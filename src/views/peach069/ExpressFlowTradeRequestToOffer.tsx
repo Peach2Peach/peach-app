@@ -69,7 +69,7 @@ export function ExpressFlowTradeRequestToOffer({
     selectedCurrency,
     handleError,
   }: {
-    maxMiningFeeRate: number;
+    maxMiningFeeRate?: number;
     selectedPaymentData: PaymentData;
     selectedCurrency: Currency;
     handleError: Function;
@@ -80,7 +80,7 @@ export function ExpressFlowTradeRequestToOffer({
     selectedCurrency,
     handleError,
   }: {
-    maxMiningFeeRate: number;
+    maxMiningFeeRate?: number;
     selectedPaymentData: PaymentData;
     selectedCurrency: Currency;
     handleError: Function;
@@ -152,7 +152,7 @@ export function ExpressFlowTradeRequestToOffer({
   const performThisTradeRequestFunctionArgsDefined = async () => {
     try {
       const success = await performThisTradeRequestFunction({
-        maxMiningFeeRate: maxMiningFeeRate!,
+        maxMiningFeeRate: maxMiningFeeRate,
         selectedPaymentData: selectedPaymentData!,
         selectedCurrency,
         handleError,
@@ -169,7 +169,7 @@ export function ExpressFlowTradeRequestToOffer({
 
   const performThisTradeRequestInstantTradeFunctionArgsDefined = () =>
     performThisTradeRequestInstantTradeFunction({
-      maxMiningFeeRate: maxMiningFeeRate!,
+      maxMiningFeeRate: maxMiningFeeRate,
       selectedPaymentData: selectedPaymentData!,
       selectedCurrency,
       handleError,
@@ -280,7 +280,7 @@ export function ExpressFlowTradeRequestToOffer({
         !canInstantTradeWithOffer &&
         !isMatched && (
           <PerformTradeRequestButton
-            maxMiningFeeRate={maxMiningFeeRate || 5}
+            maxMiningFeeRate={maxMiningFeeRate}
             selectedPaymentData={selectedPaymentData}
             selectedCurrency={selectedCurrency}
             selfUser={selfUser}
@@ -415,7 +415,6 @@ function PerformTradeRequestButton({
       ]}
       onPress={proceedWithPerformingTradeRequest}
       disabled={
-        !maxMiningFeeRate ||
         !selectedPaymentData ||
         !selectedCurrency ||
         !peachWallet ||

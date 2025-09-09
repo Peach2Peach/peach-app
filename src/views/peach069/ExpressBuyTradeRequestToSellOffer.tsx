@@ -68,7 +68,6 @@ const performTradeRequestFunction = async ({
 }): Promise<boolean> => {
   if (!peachWallet) throw Error("Peach Wallet not ready");
   if (
-    !maxMiningFeeRate ||
     !selectedPaymentData ||
     !selectedCurrency ||
     !peachWallet ||
@@ -150,13 +149,7 @@ const performInstantTrade = async ({
   handleError: Function;
 }): Promise<void> => {
   if (!peachWallet) throw Error("Peach Wallet not ready");
-  if (
-    !maxMiningFeeRate ||
-    !selectedPaymentData ||
-    !selectedCurrency ||
-    !selfUser ||
-    !offerOwnerUser
-  )
+  if (!selectedPaymentData || !selectedCurrency || !selfUser || !offerOwnerUser)
     throw Error("values not ready");
   const { address: releaseAddress, index } = await peachWallet.getAddress();
 
@@ -243,14 +236,14 @@ export function ExpressBuyTradeRequestToSellOffer() {
     selectedCurrency,
     handleError,
   }: {
-    maxMiningFeeRate: number;
+    maxMiningFeeRate?: number;
     selectedPaymentData: PaymentData;
     selectedCurrency: Currency;
     handleError: Function;
   }) => {
     return await performTradeRequestFunction({
       sellOfferId: offerId,
-      maxMiningFeeRate: maxMiningFeeRate || 5, // TODO: check this 5 value
+      maxMiningFeeRate: maxMiningFeeRate,
       selectedPaymentData: selectedPaymentData,
       selectedCurrency: selectedCurrency,
       selfUser: selfUser,
@@ -267,14 +260,14 @@ export function ExpressBuyTradeRequestToSellOffer() {
     selectedCurrency,
     handleError,
   }: {
-    maxMiningFeeRate: number;
+    maxMiningFeeRate?: number;
     selectedPaymentData: PaymentData;
     selectedCurrency: Currency;
     handleError: Function;
   }) => {
     await performInstantTrade({
       selectedPaymentData,
-      maxMiningFeeRate: maxMiningFeeRate || 5, // TODO: check this 5 value
+      maxMiningFeeRate: maxMiningFeeRate,
       selectedCurrency,
       sellOfferId: offerId,
       selfUser,
