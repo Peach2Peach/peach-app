@@ -203,7 +203,10 @@ const performInstantTrade = async ({
       navigation.reset({
         index: 1,
         routes: [
-          { name: "homeScreen", params: { screen: "yourTrades" } },
+          {
+            name: "homeScreen",
+            params: { screen: "yourTrades", params: { tab: "yourTrades.buy" } },
+          },
           {
             name: "contract",
             params: {
