@@ -528,6 +528,8 @@ function PriceSection() {
       ),
     );
   };
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View style={tw`gap-4 py-4`}>
       <PeachText>max. premium:</PeachText>
@@ -540,7 +542,7 @@ function PriceSection() {
           onPress={onMinusPress}
         />
         <View
-          style={tw`flex-1 p-2 border rounded-full border-black-10 bg-backgroundLight-light`}
+          style={tw`flex-1 p-2 border rounded-full  ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
         >
           <PeachText style={tw`text-center`}>
             {expressBuyFilterMaxPremium}%
