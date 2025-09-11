@@ -13,7 +13,7 @@ export function SellBitcoinHeader(props: HeaderProps) {
       {...props}
       titleComponent={
         <>
-          <PeachText style={tw`h7 md:h6 text-success-main`}>
+          <PeachText style={tw`h7 md:h6 text-primary-main`}>
             {i18n("sell")}
           </PeachText>
           {isDarkMode ? (
