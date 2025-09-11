@@ -9,6 +9,7 @@ import {
   defaultPreferences,
   useOfferPreferences,
 } from "../store/offerPreferenes/useOfferPreferences";
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { round } from "../utils/math/round";
@@ -389,6 +390,8 @@ function AmountSelection() {
     useBitcoinPrices(minAmount);
   const { fiatPrice: maxFiatPrice } = useBitcoinPrices(maxAmount);
 
+  const { isDarkMode } = useThemeStore();
+
   return (
     <View style={tw`pb-4 gap-10px`}>
       <PeachText style={tw`subtitle-1`}>Amount to buy</PeachText>
@@ -396,7 +399,7 @@ function AmountSelection() {
         <View style={tw`gap-2`}>
           <View style={tw`flex-row items-center justify-between gap-4`}>
             <View
-              style={tw`flex-1 px-2 py-2 border rounded-full border-black-10 bg-backgroundLight-light`}
+              style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
               <PeachText
                 style={tw`text-center`}
@@ -404,7 +407,7 @@ function AmountSelection() {
             </View>
             <View style={tw`w-2 h-px bg-black-65`} />
             <View
-              style={tw`flex-1 px-2 py-2 border rounded-full border-black-10 bg-backgroundLight-light`}
+              style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
               <PeachText
                 style={tw`text-center`}
@@ -416,7 +419,7 @@ function AmountSelection() {
           </PeachText>
           <View style={tw`flex-row items-center justify-between gap-4`}>
             <View
-              style={tw`flex-1 px-2 py-2 border rounded-full border-black-10 bg-backgroundLight-light`}
+              style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
               <PeachText
                 style={tw`text-center`}
@@ -424,7 +427,7 @@ function AmountSelection() {
             </View>
             <View style={tw`w-2 h-px bg-black-65`} />
             <View
-              style={tw`flex-1 px-2 py-2 border rounded-full border-black-10 bg-backgroundLight-light`}
+              style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
               <PeachText
                 style={tw`text-center`}
