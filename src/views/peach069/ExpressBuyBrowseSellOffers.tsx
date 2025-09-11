@@ -23,21 +23,22 @@ import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeade
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
 export function ExpressBuyBrowseSellOffers() {
-  const { sellOffers, isLoading, isFetching, refetch } =
-    useExpressBuySellOffers();
+  const { sellOffers, isLoading, refetch } = useExpressBuySellOffers();
 
   return (
     <Screen header={<ExploreHeader />}>
-      <View style={tw`flex-row self-stretch justify-between gap-13px`}>
-        <PaymentMethodsBubble />
-        <CurrenciesBubble />
+      <View style={tw`gap-10px`}>
+        <View style={tw`flex-row self-stretch justify-between gap-13px`}>
+          <PaymentMethodsBubble />
+          <CurrenciesBubble />
+        </View>
+        <SellOfferList
+          sellOffers={sellOffers}
+          isLoading={isLoading}
+          // isFetching={isFetching}
+          refetch={refetch}
+        />
       </View>
-      <SellOfferList
-        sellOffers={sellOffers}
-        isLoading={isLoading}
-        isFetching={isFetching}
-        refetch={refetch}
-      />
     </Screen>
   );
 }
@@ -89,7 +90,7 @@ function CurrenciesBubble() {
 function SellOfferList({
   sellOffers,
   isLoading,
-  isFetching,
+  // isFetching,
   refetch,
 }: {
   sellOffers?: (SellOffer & {
@@ -97,7 +98,7 @@ function SellOfferList({
     hasPerformedTradeRequest: boolean;
   })[];
   isLoading: boolean;
-  isFetching: boolean;
+  // isFetching: boolean;
   refetch: Function;
 }) {
   if (isLoading || sellOffers === undefined) return <LoadingScreen />;
@@ -107,7 +108,7 @@ function SellOfferList({
         <FlatList
           data={sellOffers}
           onRefresh={() => refetch()}
-          refreshing={isFetching}
+          refreshing={false} // removed isFetching because the animation was not cool
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <OfferCard offer={item} />}
           contentContainerStyle={tw`gap-10px`}
