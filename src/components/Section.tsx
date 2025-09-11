@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
+import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { FilterSection } from "./ExpressBuyAdvancedFilters";
 import { Icon } from "./Icon";
@@ -18,12 +19,14 @@ export function Section({
   toggleSection,
   children,
 }: SectionProps) {
+  const { isDarkMode } = useThemeStore();
   return (
     <>
       <TouchableOpacity
         style={[
           tw`flex-row items-center justify-between px-4 rounded-full py-6px`,
-          isExpanded && tw`bg-primary-background-dark-color`,
+          isExpanded &&
+            (isDarkMode ? tw`` : tw`bg-primary-background-dark-color`),
         ]}
         onPress={() => toggleSection(section.id)}
       >
