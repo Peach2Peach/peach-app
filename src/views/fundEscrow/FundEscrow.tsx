@@ -254,6 +254,7 @@ function FundFromPeachWalletButton(props: Props) {
       amount: props.amount,
       fundingStatus: props.fundingStatus.status,
       address: props.address,
+      addresses: [props.address],
     }).then(() => setIsFunding(false));
   };
 
