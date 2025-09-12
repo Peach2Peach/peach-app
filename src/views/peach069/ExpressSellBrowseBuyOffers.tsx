@@ -16,6 +16,7 @@ import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressSellBuyOffers } from "../../hooks/query/peach069/useExpressSellBuyOffers";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -27,7 +28,7 @@ export function ExpressSellBrowseBuyOffers() {
   const { buyOffers, isLoading, refetch } = useExpressSellBuyOffers();
   return (
     <Screen header={<ExploreHeader />} style={tw`gap-10px`}>
-      <View style={tw`flex-row self-stretch justify-between gap-13px`}>
+      <View style={tw`flex-row self-stretch justify-between pt-1 gap-13px`}>
         <PaymentMethodsBubble />
         <CurrenciesBubble />
       </View>
@@ -44,17 +45,34 @@ function PaymentMethodsBubble() {
   const [isPaymentMethodDrawerOpen, setIsPaymentMethodDrawerOpen] =
     useState(false);
 
+  const selectedPaymentMethods = useOfferPreferences(
+    (state) => state.expressSellFilterByPaymentMethodList,
+  );
+
   return (
     <>
-      <Bubble
-        color="gray"
-        iconId="chevronDown"
-        ghost
-        style={tw`self-stretch`}
-        onPress={() => setIsPaymentMethodDrawerOpen(true)}
-      >
-        {i18n("paymentMethods.title")}
-      </Bubble>
+      <View style={tw`relative self-stretch`}>
+        <Bubble
+          color="gray"
+          iconId="chevronDown"
+          ghost
+          style={tw`self-stretch`}
+          onPress={() => setIsPaymentMethodDrawerOpen(true)}
+        >
+          {i18n("paymentMethods.title")}
+        </Bubble>
+        {selectedPaymentMethods.length > 0 && (
+          <View
+            style={tw`absolute items-center justify-center w-5 h-5 border-2 border-white rounded-full -top-2.5 -right-0 bg-info-main`}
+          >
+            <PeachText
+              style={tw`ml-px font-semibold text-white font-baloo text-3xs -mt-3px`}
+            >
+              {selectedPaymentMethods.length}
+            </PeachText>
+          </View>
+        )}
+      </View>
       <ExpressSellPaymentMethodsDrawer
         isOpen={isPaymentMethodDrawerOpen}
         onClose={() => setIsPaymentMethodDrawerOpen(false)}
@@ -65,17 +83,35 @@ function PaymentMethodsBubble() {
 
 function CurrenciesBubble() {
   const [isCurrencyDrawerOpen, setIsCurrencyDrawerOpen] = useState(false);
+
+  const selectedCurrencies = useOfferPreferences(
+    (state) => state.expressSellFilterByCurrencyList,
+  );
+
   return (
     <>
-      <Bubble
-        color="gray"
-        iconId="chevronDown"
-        ghost
-        style={tw`self-stretch`}
-        onPress={() => setIsCurrencyDrawerOpen(true)}
-      >
-        {i18n("currencies")}
-      </Bubble>
+      <View style={tw`relative self-stretch`}>
+        <Bubble
+          color="gray"
+          iconId="chevronDown"
+          ghost
+          style={tw`self-stretch`}
+          onPress={() => setIsCurrencyDrawerOpen(true)}
+        >
+          {i18n("currencies")}
+        </Bubble>
+        {selectedCurrencies.length > 0 && (
+          <View
+            style={tw`absolute items-center justify-center w-5 h-5 border-2 border-white rounded-full -top-2.5 -right-0 bg-info-main`}
+          >
+            <PeachText
+              style={tw`ml-px font-semibold text-white font-baloo text-3xs -mt-3px`}
+            >
+              {selectedCurrencies.length}
+            </PeachText>
+          </View>
+        )}
+      </View>
       <ExpressSellCurrenciesDrawer
         isOpen={isCurrencyDrawerOpen}
         onClose={() => setIsCurrencyDrawerOpen(false)}
