@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import Share from "react-native-share";
 import { LogoIcons } from "../../assets/logo";
 import { CurrencyDrawer } from "../../components/CurrencyDrawer";
 import { DiamondGradientBackground } from "../../components/DiamondGradientBackground";
+import { Icon } from "../../components/Icon";
 import { RadialGradientBorder } from "../../components/RadialGradientBorder";
 import { Screen } from "../../components/Screen";
 import { TouchableIcon } from "../../components/TouchableIcon";
@@ -67,9 +68,7 @@ export function Home() {
                 style={tw`items-center justify-center py-px px-10px md:py-2`}
               />
             </View>
-            <BTCPriceInfo
-              onChevronPress={() => setIsDrawerOpen(!isDrawerOpen)}
-            />
+            <BTCPriceInfo onPress={() => setIsDrawerOpen(!isDrawerOpen)} />
           </View>
           <View style={tw`self-stretch gap-2 md:gap-4`}>
             <News />
@@ -86,7 +85,7 @@ export function Home() {
   );
 }
 const GROUP_SIZE = 3;
-function BTCPriceInfo({ onChevronPress }: { onChevronPress: () => void }) {
+function BTCPriceInfo({ onPress }: { onPress: () => void }) {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();
   const { isDarkMode } = useThemeStore();
   if (!bitcoinPrice) return null;
@@ -114,19 +113,21 @@ function BTCPriceInfo({ onChevronPress }: { onChevronPress: () => void }) {
           </PeachText>
         </View>
         <View style={tw`items-end`}>
-          <View style={tw`flex-row items-center justify-center gap-2`}>
+          <TouchableOpacity
+            style={tw`flex-row items-center justify-center gap-2`}
+            onPress={onPress}
+          >
             <PeachText style={tw`leading-normal subtitle-0`}>
               {`1 ${displayCurrency}`}
             </PeachText>
-            <TouchableIcon
-              onPress={onChevronPress}
-              iconSize={16}
-              iconColor={tw.color(
+            <Icon
+              size={16}
+              color={tw.color(
                 isDarkMode ? "backgroundLight-light" : "black-100",
               )}
               id="chevronDown"
             />
-          </View>
+          </TouchableOpacity>
 
           <PeachText style={tw`h5 text-primary-background-dark-color`}>
             {i18n("currency.format.sats", thousands(moscowTime))}
