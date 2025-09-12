@@ -75,9 +75,20 @@ export function CurrenciesDrawer({
       isOpen={isOpen}
       onClose={onClose}
       title={
-        selectedCurrencies.length > 0
-          ? `${i18n("currencies")} (${selectedCurrencies.length})`
-          : i18n("currencies")
+        selectedCurrencies.length > 0 ? (
+          <PeachText
+            style={tw`text-base font-extrabold tracking-widest text-center uppercase grow font-baloo`}
+          >
+            {i18n("currencies")}{" "}
+            <PeachText
+              style={tw`text-base font-normal text-info-main font-baloo`}
+            >
+              ({selectedCurrencies.length})
+            </PeachText>
+          </PeachText>
+        ) : (
+          i18n("currencies")
+        )
       }
       items={items}
       type="checkbox"

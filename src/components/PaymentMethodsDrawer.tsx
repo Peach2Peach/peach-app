@@ -89,9 +89,20 @@ export function PaymentMethodsDrawer({
       isOpen={isOpen}
       onClose={onClose}
       title={
-        selectedPaymentMethods.length > 0
-          ? `${i18n("paymentMethods.title")} (${selectedPaymentMethods.length})`
-          : i18n("paymentMethods.title")
+        selectedPaymentMethods.length > 0 ? (
+          <PeachText
+            style={tw`text-base font-extrabold tracking-widest text-center uppercase grow font-baloo`}
+          >
+            {i18n("paymentMethods.title")}{" "}
+            <PeachText
+              style={tw`text-base font-normal text-info-main font-baloo`}
+            >
+              ({selectedPaymentMethods.length})
+            </PeachText>
+          </PeachText>
+        ) : (
+          i18n("paymentMethods.title")
+        )
       }
       items={items}
       type="checkbox"
