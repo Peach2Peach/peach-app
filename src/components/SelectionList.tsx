@@ -14,7 +14,7 @@ export function SelectionList({
   type = "radioButton",
 }: SelectionListProps) {
   return (
-    <View style={tw`gap-4 py-4`}>
+    <View onStartShouldSetResponder={() => true} style={tw`gap-4 py-4`}>
       {items.map((item, index) => (
         <Fragment key={`drawer-item-${index}`}>
           <TouchableOpacity
