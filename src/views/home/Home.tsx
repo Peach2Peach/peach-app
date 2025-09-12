@@ -258,7 +258,7 @@ function MarketStats() {
               {i18n("offer.openOffers")}
             </PeachText>
           </View>
-          <View style={tw`flex-row items-center gap-6px`}>
+          {/* <View style={tw`flex-row items-center gap-6px`}>
             <PeachText style={tw`uppercase notification`}>
               {i18n("offer.averagePremium")}
             </PeachText>
@@ -273,13 +273,21 @@ function MarketStats() {
                 {data?.totalAvgPremium}%
               </PeachText>
             </View>
-          </View>
+          </View> */}
         </View>
         <View style={tw`gap-1 md:gap-2`}>
-          <View style={tw`flex-row items-center p-2 gap-14px`}>
-            <OfferCounter numberOfOffers={data?.buy.open} type="buy" />
-            <View style={tw`w-px h-6 bg-black-10`} />
-            <OfferCounter numberOfOffers={data?.sell.open} type="sell" />
+          <View style={tw`flex-row items-center py-2 gap-14px`}>
+            <OfferCounter
+              numberOfOffers={data?.buy.open}
+              averagePremium={data?.buy.avgPremium}
+              type="buy"
+            />
+            <View style={tw`w-px h-full bg-black-10`} />
+            <OfferCounter
+              numberOfOffers={data?.sell.open}
+              averagePremium={data?.sell.avgPremium}
+              type="sell"
+            />
           </View>
           <HorizontalLine />
           <View style={tw`flex-row pt-2 gap-10px`}>
@@ -358,44 +366,67 @@ function SellButton() {
 
 function OfferCounter({
   numberOfOffers,
+  averagePremium,
   type,
 }: {
   numberOfOffers?: number;
+  averagePremium?: number;
   type: "buy" | "sell";
 }) {
   const { isDarkMode } = useThemeStore();
   return (
-    <View style={tw`flex-row items-center flex-1 gap-6px`}>
-      <View
+    <View style={tw`flex-1 gap-2`}>
+      <View style={tw`flex-row items-center gap-6px`}>
+        <View
+          style={[
+            tw`items-center flex-1 px-2 rounded-1`,
+            type === "buy"
+              ? isDarkMode
+                ? tw`bg-success-mild-1-color`
+                : tw`bg-success-mild-2`
+              : isDarkMode
+                ? tw`bg-primary-mild-1`
+                : tw`bg-primary-background-dark-color`,
+          ]}
+        >
+          {numberOfOffers === undefined ? (
+            <ActivityIndicator
+              size="small"
+              color={tw.color(type === "buy" ? "success-main" : "error-main")}
+            />
+          ) : (
+            <PeachText
+              style={[
+                tw`text-xl font-medium leading-normal tracking-normal font-baloo`,
+                isDarkMode && tw`text-black-90`,
+              ]}
+            >
+              {numberOfOffers}
+            </PeachText>
+          )}
+        </View>
+        <PeachText style={tw`text-xs font-medium leading-6 font-baloo`}>
+          {i18n(type === "buy" ? "offer.buyOffers" : "offer.sellOffers")}
+        </PeachText>
+      </View>
+      <PeachText
         style={[
-          tw`px-2 rounded-1`,
-          type === "buy"
-            ? isDarkMode
-              ? tw`bg-success-mild-1-color`
-              : tw`bg-success-mild-2`
-            : isDarkMode
-              ? tw`bg-primary-mild-1`
-              : tw`bg-primary-background-dark-color`,
+          tw`font-semibold font-baloo text-3xs text-black-50`,
+          isDarkMode && tw`text-black-25`,
         ]}
       >
-        {numberOfOffers === undefined ? (
-          <ActivityIndicator
-            size="small"
-            color={tw.color(type === "buy" ? "success-main" : "error-main")}
-          />
-        ) : (
-          <PeachText
-            style={[
-              tw`text-xl font-medium leading-normal tracking-normal font-baloo`,
-              isDarkMode && tw`text-black-90`,
-            ]}
-          >
-            {numberOfOffers}
-          </PeachText>
-        )}
-      </View>
-      <PeachText style={tw`text-xs font-medium leading-6 font-baloo`}>
-        {i18n(type === "buy" ? "offer.buyOffers" : "offer.sellOffers")}
+        {i18n("offer.averagePremium")}{" "}
+        <PeachText
+          style={tw`font-semibold font-baloo text-3xs ${
+            averagePremium !== undefined && averagePremium >= 0
+              ? "text-success-main"
+              : "text-error-main"
+          }`}
+        >
+          {averagePremium !== undefined
+            ? `${averagePremium >= 0 ? "+" : ""}${averagePremium}%`
+            : "-"}
+        </PeachText>
       </PeachText>
     </View>
   );
