@@ -375,7 +375,7 @@ function OfferCounter({
 }) {
   const { isDarkMode } = useThemeStore();
   return (
-    <View style={tw`flex-1 gap-2`}>
+    <View style={tw`flex-1`}>
       <View style={tw`flex-row items-center gap-6px`}>
         <View
           style={[
