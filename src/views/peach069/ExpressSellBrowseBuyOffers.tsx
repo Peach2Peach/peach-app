@@ -102,17 +102,20 @@ function BuyOfferList({
   return (
     <>
       {buyOffers.length > 0 ? (
-        <FlatList
-          data={buyOffers}
-          onRefresh={() => refetch()}
-          refreshing={false}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <OfferCard offer={item} />}
-          contentContainerStyle={tw`gap-10px`}
-          initialNumToRender={10}
-          maxToRenderPerBatch={10}
-          windowSize={10}
-        />
+        <>
+          <OfferStats buyOffers={buyOffers} />
+          <FlatList
+            data={buyOffers}
+            onRefresh={() => refetch()}
+            refreshing={false}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => <OfferCard offer={item} />}
+            contentContainerStyle={tw`gap-10px`}
+            initialNumToRender={10}
+            maxToRenderPerBatch={10}
+            windowSize={10}
+          />
+        </>
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <PeachText style={tw`text-center subtitle-2`}>
@@ -121,6 +124,34 @@ function BuyOfferList({
         </View>
       )}
     </>
+  );
+}
+
+function OfferStats({
+  buyOffers,
+}: {
+  buyOffers: (BuyOffer69 & {
+    user: User;
+    allowedToInstantTrade: boolean;
+    hasPerformedTradeRequest: boolean;
+  })[];
+}) {
+  const { isDarkMode } = useThemeStore();
+  const averagePremium = Math.round(
+    buyOffers.reduce((acc, offer) => acc + offer.premium, 0) / buyOffers.length,
+  );
+
+  return (
+    <View style={tw`items-center justify-center -gap-1 py-md`}>
+      <PeachText
+        style={[tw`h5 text-black-65`, isDarkMode && tw`text-black-25`]}
+      >
+        There are {buyOffers.length} buy offers
+      </PeachText>
+      <PeachText style={tw`body-s text-black-25`}>
+        Average premium: {averagePremium}%
+      </PeachText>
+    </View>
   );
 }
 

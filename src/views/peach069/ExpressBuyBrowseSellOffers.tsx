@@ -87,7 +87,6 @@ function CurrenciesBubble() {
 function SellOfferList({
   sellOffers,
   isLoading,
-  // isFetching,
   refetch,
 }: {
   sellOffers?: (SellOffer & {
@@ -101,17 +100,20 @@ function SellOfferList({
   return (
     <>
       {sellOffers.length > 0 ? (
-        <FlatList
-          data={sellOffers}
-          onRefresh={() => refetch()}
-          refreshing={false}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <OfferCard offer={item} />}
-          contentContainerStyle={tw`gap-10px`}
-          initialNumToRender={10}
-          maxToRenderPerBatch={10}
-          windowSize={10}
-        />
+        <>
+          <OfferStats sellOffers={sellOffers} />
+          <FlatList
+            data={sellOffers}
+            onRefresh={() => refetch()}
+            refreshing={false}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <OfferCard offer={item} />}
+            contentContainerStyle={tw`gap-10px`}
+            initialNumToRender={10}
+            maxToRenderPerBatch={10}
+            windowSize={10}
+          />
+        </>
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <PeachText style={tw`text-center subtitle-2`}>
@@ -120,6 +122,34 @@ function SellOfferList({
         </View>
       )}
     </>
+  );
+}
+
+function OfferStats({
+  sellOffers,
+}: {
+  sellOffers: (SellOffer & {
+    allowedToInstantTrade: boolean;
+    hasPerformedTradeRequest: boolean;
+  })[];
+}) {
+  const { isDarkMode } = useThemeStore();
+  const averagePremium = Math.round(
+    sellOffers.reduce((acc, offer) => acc + offer.premium, 0) /
+      sellOffers.length,
+  );
+
+  return (
+    <View style={tw`items-center justify-center -gap-1 py-md`}>
+      <PeachText
+        style={[tw`h5 text-black-65`, isDarkMode && tw`text-black-25`]}
+      >
+        There are {sellOffers.length} sell offers
+      </PeachText>
+      <PeachText style={tw`body-s text-black-25`}>
+        Average premium: {averagePremium}%
+      </PeachText>
+    </View>
   );
 }
 

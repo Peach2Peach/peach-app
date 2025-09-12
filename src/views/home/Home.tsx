@@ -258,22 +258,6 @@ function MarketStats() {
               {i18n("offer.openOffers")}
             </PeachText>
           </View>
-          {/* <View style={tw`flex-row items-center gap-6px`}>
-            <PeachText style={tw`uppercase notification`}>
-              {i18n("offer.averagePremium")}
-            </PeachText>
-            <View style={tw`rounded-md bg-success-mild-2 px-5px`}>
-              <PeachText
-                style={tw`text-success-dark-2 font-baloo-semibold text-3xs`}
-              >
-                {data?.totalAvgPremium !== undefined &&
-                data?.totalAvgPremium >= 0
-                  ? "+"
-                  : ""}
-                {data?.totalAvgPremium}%
-              </PeachText>
-            </View>
-          </View> */}
         </View>
         <View style={tw`gap-1 md:gap-2`}>
           <View style={tw`flex-row items-center py-2 gap-14px`}>
