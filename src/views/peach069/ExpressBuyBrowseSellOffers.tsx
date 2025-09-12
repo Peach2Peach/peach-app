@@ -35,7 +35,6 @@ export function ExpressBuyBrowseSellOffers() {
         <SellOfferList
           sellOffers={sellOffers}
           isLoading={isLoading}
-          // isFetching={isFetching}
           refetch={refetch}
         />
       </View>
@@ -98,7 +97,6 @@ function SellOfferList({
     hasPerformedTradeRequest: boolean;
   })[];
   isLoading: boolean;
-  // isFetching: boolean;
   refetch: Function;
 }) {
   if (isLoading || sellOffers === undefined) return <LoadingScreen />;
@@ -108,10 +106,13 @@ function SellOfferList({
         <FlatList
           data={sellOffers}
           onRefresh={() => refetch()}
-          refreshing={false} // removed isFetching because the animation was not cool
+          refreshing={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <OfferCard offer={item} />}
           contentContainerStyle={tw`gap-10px`}
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          windowSize={10}
         />
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
