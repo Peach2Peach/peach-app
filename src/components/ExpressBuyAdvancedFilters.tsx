@@ -468,6 +468,7 @@ function AmountSelection() {
               },
             ]}
             onStartShouldSetResponder={() => true}
+            onResponderTerminationRequest={() => false}
             onResponderMove={onDrag("min")}
             onTouchStart={onDragStart("min")}
             onTouchEnd={onDragEnd}
@@ -486,6 +487,7 @@ function AmountSelection() {
               },
             ]}
             onStartShouldSetResponder={() => true}
+            onResponderTerminationRequest={() => false}
             onResponderMove={onDrag("max")}
             onTouchStart={onDragStart("max")}
             onTouchEnd={onDragEnd}
