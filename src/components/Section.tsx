@@ -26,7 +26,9 @@ export function Section({
         style={[
           tw`flex-row items-center justify-between px-4 rounded-full py-6px`,
           isExpanded &&
-            (isDarkMode ? tw`` : tw`bg-primary-background-dark-color`),
+            (isDarkMode
+              ? tw`bg-black-5 bg-opacity-5`
+              : tw`bg-primary-background-dark-color`),
         ]}
         onPress={() => toggleSection(section.id)}
       >
@@ -39,7 +41,9 @@ export function Section({
         <Icon
           id={isExpanded ? "chevronUp" : "chevronDown"}
           size={24}
-          color={tw.color("black-100")}
+          color={tw.color(
+            isDarkMode ? "primary-background-light-color" : "black-100",
+          )}
         />
       </TouchableOpacity>
 
