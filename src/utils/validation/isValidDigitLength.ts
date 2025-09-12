@@ -3,7 +3,7 @@ export const isValidDigitLength = (
   limit: number[] | number,
 ) => {
   // remove spaces and dashes
-  const clean = number.replace(/[\s-]/g, "");
+  const clean = number.replace(/[\s-]/gu, "");
 
   return typeof limit === "number"
     ? new RegExp(`^\\d{${limit}}$`, "u").test(clean)
