@@ -7,7 +7,7 @@ import { Icon } from "./Icon";
 import { PeachText } from "./text/PeachText";
 
 interface SectionProps {
-  section: { id: FilterSection; label: string };
+  section: { id: FilterSection; label: string | ReactNode };
   isExpanded: boolean;
   toggleSection: (section: FilterSection) => void;
   children: ReactNode;

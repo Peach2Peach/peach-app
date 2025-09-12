@@ -60,16 +60,38 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
     },
     {
       id: "paymentMethods" as const,
-      label: selectedPaymentMethods.length
-        ? `Payment Methods (${selectedPaymentMethods.length})`
-        : "Payment Methods",
+      label: selectedPaymentMethods.length ? (
+        <PeachText
+          style={tw`text-base font-extrabold tracking-widest uppercase grow font-baloo`}
+        >
+          Payment Methods{" "}
+          <PeachText
+            style={tw`text-base font-normal text-info-main font-baloo`}
+          >
+            ({selectedPaymentMethods.length})
+          </PeachText>
+        </PeachText>
+      ) : (
+        "Payment Methods"
+      ),
       content: <PaymentMethodsList />,
     },
     {
       id: "currencies" as const,
-      label: selectedCurrencies.length
-        ? `Currencies (${selectedCurrencies.length})`
-        : "Currencies",
+      label: selectedCurrencies.length ? (
+        <PeachText
+          style={tw`text-base font-extrabold tracking-widest uppercase grow font-baloo`}
+        >
+          Currencies{" "}
+          <PeachText
+            style={tw`text-base font-normal text-info-main font-baloo`}
+          >
+            ({selectedCurrencies.length})
+          </PeachText>
+        </PeachText>
+      ) : (
+        "Currencies"
+      ),
       content: <CurrenciesList />,
     },
     { id: "amount" as const, label: "Amount", content: <AmountSelection /> },
@@ -100,7 +122,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
               {filterSections.map(
                 (section: {
                   id: FilterSection;
-                  label: string;
+                  label: string | ReactNode;
                   content: ReactNode;
                 }) => (
                   <Section
