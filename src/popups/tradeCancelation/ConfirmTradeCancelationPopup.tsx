@@ -30,7 +30,7 @@ export function ConfirmTradeCancelationPopup({
 
   const { mutate: cancelBuyer } = useCancelContract({
     contractId: contract.id,
-    optimisticContract: { canceled: true, tradeStatus: "tradeCanceled" },
+    optimisticContract: contract,
   });
 
   const cancelAction = () =>
