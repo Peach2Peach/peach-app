@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
-import { SATSINBTC } from "../constants";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import {
@@ -326,7 +325,6 @@ function AmountSelection() {
   const TRACK_HEIGHT = 10;
   const TRACK_PADDING = 22;
   const VISUAL_CLEARANCE = 8; // Extra spacing between sliders
-  const BTC_DECIMAL_PLACES = 4; // Number of decimal places for BTC display
 
   const DEFAULT_TRACK_WIDTH = 300;
   const [trackWidth, setTrackWidth] = useState(DEFAULT_TRACK_WIDTH);
@@ -401,17 +399,17 @@ function AmountSelection() {
             <View
               style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
-              <PeachText
-                style={tw`text-center`}
-              >{`${(minAmount / SATSINBTC).toFixed(BTC_DECIMAL_PLACES).toString()} BTC`}</PeachText>
+              <PeachText style={tw`text-center`}>
+                {thousands(Math.round(minAmount))}
+              </PeachText>
             </View>
             <View style={tw`w-2 h-px bg-black-65`} />
             <View
               style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
-              <PeachText
-                style={tw`text-center`}
-              >{`${(maxAmount / SATSINBTC).toFixed(BTC_DECIMAL_PLACES).toString()} BTC`}</PeachText>
+              <PeachText style={tw`text-center`}>
+                {thousands(Math.round(maxAmount))}
+              </PeachText>
             </View>
           </View>
           <PeachText style={tw`text-xs font-normal tracking-normal font-baloo`}>
