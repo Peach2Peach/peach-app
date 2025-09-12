@@ -26,18 +26,16 @@ export function ExpressBuyBrowseSellOffers() {
   const { sellOffers, isLoading, refetch } = useExpressBuySellOffers();
 
   return (
-    <Screen header={<ExploreHeader />}>
-      <View style={tw`gap-10px`}>
-        <View style={tw`flex-row self-stretch justify-between gap-13px`}>
-          <PaymentMethodsBubble />
-          <CurrenciesBubble />
-        </View>
-        <SellOfferList
-          sellOffers={sellOffers}
-          isLoading={isLoading}
-          refetch={refetch}
-        />
+    <Screen header={<ExploreHeader />} style={tw`gap-10px`}>
+      <View style={tw`flex-row self-stretch justify-between gap-13px`}>
+        <PaymentMethodsBubble />
+        <CurrenciesBubble />
       </View>
+      <SellOfferList
+        sellOffers={sellOffers}
+        isLoading={isLoading}
+        refetch={refetch}
+      />
     </Screen>
   );
 }

@@ -26,18 +26,16 @@ import { Rating } from "../settings/profile/profileOverview/Rating";
 export function ExpressSellBrowseBuyOffers() {
   const { buyOffers, isLoading, refetch } = useExpressSellBuyOffers();
   return (
-    <Screen header={<ExploreHeader />}>
-      <View style={tw`gap-10px`}>
-        <View style={tw`flex-row self-stretch justify-between gap-13px`}>
-          <PaymentMethodsBubble />
-          <CurrenciesBubble />
-        </View>
-        <BuyOfferList
-          buyOffers={buyOffers}
-          isLoading={isLoading}
-          refetch={refetch}
-        />
+    <Screen header={<ExploreHeader />} style={tw`gap-10px`}>
+      <View style={tw`flex-row self-stretch justify-between gap-13px`}>
+        <PaymentMethodsBubble />
+        <CurrenciesBubble />
       </View>
+      <BuyOfferList
+        buyOffers={buyOffers}
+        isLoading={isLoading}
+        refetch={refetch}
+      />
     </Screen>
   );
 }
