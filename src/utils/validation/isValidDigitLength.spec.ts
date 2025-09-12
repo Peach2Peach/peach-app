@@ -5,6 +5,10 @@ describe("isValidDigitLength", () => {
     const str = "123";
     expect(isValidDigitLength(str, str.length)).toBe(true);
   });
+  it("should return true for a number with the exact length specified as a number even with dashes", () => {
+    const str = "12-3";
+    expect(isValidDigitLength(str, 3)).toBe(true);
+  });
 
   it("should return false for a number with a different length than the one specified as a number", () => {
     const str = "123";
