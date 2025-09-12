@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { networks } from "bitcoinjs-lib";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
+import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Loading } from "../../components/Loading";
@@ -18,7 +19,11 @@ import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
 import { useFundingStatus } from "../../hooks/query/useFundingStatus";
-import { offerKeys, useOfferDetail } from "../../hooks/query/useOfferDetail";
+import {
+  offerKeys,
+  useMultipleOfferDetails,
+  useOfferDetail,
+} from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
@@ -61,6 +66,22 @@ export const FundEscrow = () => {
     error: fundingStatusError,
     isPending: fundingStatusIsPending,
   } = useFundingStatus(offerId, canFetchFundingStatus);
+  const [multiOfferList, removeMultiOffer] = useOfferPreferences(
+    (state) => [state.multiOfferList, state.removeMultiOffer],
+    shallow,
+  );
+  const multiOffers = multiOfferList.find((list) => list.includes(offerId));
+  const { offers } = useMultipleOfferDetails(multiOffers || []);
+  const offersToRemoveFromMulti = useMemo(() => {
+    if (!offers) return [];
+    return offers.filter(
+      (o): o is SellOffer =>
+        !!o && isSellOffer(o) && o.funding.status !== "NULL",
+    );
+  }, [offers]);
+  if (offersToRemoveFromMulti.length > 0) {
+    offersToRemoveFromMulti.forEach((o) => removeMultiOffer(o.id));
+  }
 
   useHandleFundingStatus({
     offerId,
