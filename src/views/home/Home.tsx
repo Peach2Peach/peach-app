@@ -382,8 +382,8 @@ function OfferCounter({
             tw`items-center flex-1 px-2 rounded-1`,
             type === "buy"
               ? isDarkMode
-                ? tw`bg-success-mild-1-color`
-                : tw`bg-success-mild-2`
+                ? tw`bg-success-mild-2`
+                : tw`bg-success-mild-1-color`
               : isDarkMode
                 ? tw`bg-primary-mild-1`
                 : tw`bg-primary-background-dark-color`,
