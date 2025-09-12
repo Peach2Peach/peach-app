@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
+import { ProgressDonut } from "../../../components/ui/ProgressDonut";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import { PEACH_ID_LENGTH } from "../../../utils/account/PEACH_ID_LENGTH";
@@ -17,7 +18,13 @@ export const AccountInfo = ({ user }: Props) => (
     <AccountCreated {...user} />
     <Disputes {...user.disputes} />
     <Trades trades={user.trades} />
-    {"freeTrades" in user && <FreeTrades freeTrades={user.freeTrades} />}
+    {"freeTrades" in user && !!user.freeTrades && !!user.maxFreeTrades && (
+      <ProgressDonut
+        title={i18n("settings.referrals.noPeachFees.freeTrades")}
+        value={user.freeTrades}
+        max={user.maxFreeTrades}
+      />
+    )}
   </View>
 );
 
@@ -127,30 +134,6 @@ function Trades({ trades }: { trades: number }) {
         )}
       >
         {trades}
-      </PeachText>
-    </View>
-  );
-}
-
-function FreeTrades({ freeTrades }: { freeTrades?: number }) {
-  const { isDarkMode } = useThemeStore();
-  return (
-    <View>
-      <PeachText
-        style={tw.style(
-          `lowercase`,
-          isDarkMode ? "text-backgroundLight-light" : "text-black-50",
-        )}
-      >
-        {i18n("profile.numberOfFreeTrades")}:
-      </PeachText>
-      <PeachText
-        style={tw.style(
-          `subtitle-1`,
-          isDarkMode ? "text-primary-mild-1" : "text-black-100",
-        )}
-      >
-        {freeTrades || 0}
       </PeachText>
     </View>
   );
