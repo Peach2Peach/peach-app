@@ -29,7 +29,7 @@ const userNameValidator = (value: string) =>
   isUsername(value) || getMessages().userName;
 const isPhoneAllowedValidator = (value: string) =>
   isPhoneAllowed(value) || getMessages().isPhoneAllowed;
-const minAccountNumberLength = 10;
+const minAccountNumberLength = 9;
 const maxAccountNumberLength = 28;
 const accountNumberValidator = (value: string) =>
   isValidDigitLength(value, [minAccountNumberLength, maxAccountNumberLength]) ||
