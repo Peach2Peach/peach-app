@@ -1,6 +1,5 @@
 import { Transaction, address } from "bitcoinjs-lib";
 import { useCallback } from "react";
-import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
@@ -11,10 +10,7 @@ import { useWalletState } from "../../../utils/wallet/walletStore";
 import { ConfirmRbfPopup } from "../components/ConfirmRbfPopup";
 
 const useRemoveTxFromPeachWallet = () => {
-  const [removeTransaction] = useWalletState(
-    (state) => [state.removeTransaction],
-    shallow,
-  );
+  const removeTransaction = useWalletState((state) => state.removeTransaction);
 
   const removeTxFromPeachWallet = useCallback(
     (txId: string) => {

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
@@ -15,8 +15,7 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 export const Currency = () => {
   const navigation = useStackNavigation();
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
-    (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
+    useShallow((state) => [state.displayCurrency, state.setDisplayCurrency]),
   );
 
   const goBack = () => {

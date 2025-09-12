@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import i18n from "../../../utils/i18n";
@@ -11,8 +11,7 @@ export const useHandleMissingPaymentData = () => {
   const navigation = useStackNavigation();
   const setToast = useSetToast();
   const paymentMethods = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+    useShallow((state) => Object.values(state.paymentData)),
   );
 
   const openAddPaymentMethodDialog = useCallback(

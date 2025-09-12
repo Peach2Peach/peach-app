@@ -1,7 +1,7 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { useMemo } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -102,12 +102,11 @@ function ScreenContent({ onSubmit }: ScreenContentProps) {
   const { address, addressLabel } = useRoute<"signMessage">().params;
   const [setPayoutAddress, setPayoutAddressLabel, setPayoutAddressSignature] =
     useSettingsStore(
-      (state) => [
+      useShallow((state) => [
         state.setPayoutAddress,
         state.setPayoutAddressLabel,
         state.setPayoutAddressSignature,
-      ],
-      shallow,
+      ]),
     );
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const message = useMemo(

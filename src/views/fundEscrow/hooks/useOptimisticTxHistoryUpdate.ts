@@ -1,6 +1,6 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { useCallback } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { labelAddressByTransaction } from "../../../utils/wallet/labelAddressByTransaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 
@@ -8,12 +8,11 @@ import { useWalletState } from "../../../utils/wallet/walletStore";
 export const useOptimisticTxHistoryUpdate = () => {
   const [updateTxOfferMap, addTransaction, getFundMultipleByOfferId] =
     useWalletState(
-      (state) => [
+      useShallow((state) => [
         state.updateTxOfferMap,
         state.addTransaction,
         state.getFundMultipleByOfferId,
-      ],
-      shallow,
+      ]),
     );
   const optimisticTxHistoryUpdate = useCallback(
     (txDetails: TransactionDetails, offerId: string) => {

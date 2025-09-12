@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
@@ -27,8 +27,10 @@ const tabs = ["online", "meetups"] as const;
 export const PaymentMethods = () => {
   const navigation = useStackNavigation();
   const [preferredPaymentMethods, toggle] = useOfferPreferences(
-    (state) => [state.preferredPaymentMethods, state.togglePaymentMethod],
-    shallow,
+    useShallow((state) => [
+      state.preferredPaymentMethods,
+      state.togglePaymentMethod,
+    ]),
   );
   const selectedPaymentDataIds = Object.values(preferredPaymentMethods).filter(
     isDefined,
@@ -118,8 +120,7 @@ function PaymentMethodsHeader({ isEditing, toggleIsEditing }: Props) {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<PaymentMethodsPopup />);
   const hasPaymentMethods = usePaymentDataStore(
-    (state) => Object.values(state.paymentData).length !== 0,
-    shallow,
+    useShallow((state) => Object.values(state.paymentData).length !== 0),
   );
 
   return (

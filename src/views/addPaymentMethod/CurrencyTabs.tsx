@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { Currency } from "../../../peach-api/src/@types/global";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -27,8 +27,10 @@ const currencyTabs: CurrencyType[] = [
 
 export const CurrencyTabs = (props: Props) => {
   const [preferredCurrencyType, setPreferredCurrencyType] = useOfferPreferences(
-    (state) => [state.preferredCurrenyType, state.setPreferredCurrencyType],
-    shallow,
+    useShallow((state) => [
+      state.preferredCurrenyType,
+      state.setPreferredCurrencyType,
+    ]),
   );
 
   return (

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { useIsMyAddress } from "../../hooks/wallet/useIsMyAddress";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import i18n from "../../utils/i18n";
@@ -11,11 +11,11 @@ type Props = {
 
 export const useWalletLabel = ({ address, isPayoutWallet = false }: Props) => {
   const [customAddress, customAddressLabel] = useSettingsStore(
-    (state) =>
+    useShallow((state) =>
       isPayoutWallet
         ? [state.payoutAddress, state.payoutAddressLabel]
         : [state.refundAddress, state.refundAddressLabel],
-    shallow,
+    ),
   );
   const belongsToPeachWallet = useIsMyAddress(address || "");
 

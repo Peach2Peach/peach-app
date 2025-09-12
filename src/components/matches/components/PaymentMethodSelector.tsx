@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
@@ -53,8 +53,7 @@ export function PaymentMethodSelector({
   }));
 
   const accountPaymentData = usePaymentDataStore(
-    (state) => Object.values(state.paymentData),
-    shallow,
+    useShallow((state) => Object.values(state.paymentData)),
   );
 
   const onCurrencyChange = (currency: Currency) => {
