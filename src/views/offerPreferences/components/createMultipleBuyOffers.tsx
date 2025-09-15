@@ -9,7 +9,7 @@ import i18n from "../../../utils/i18n";
 const CREATE_MULTI_MIN = 3;
 const CREATE_MULTI_MAX = 21;
 
-export const CreateMultipleOffers = () => {
+export const CreateMultipleBuyOffers = () => {
   const [buyOfferMulti, setBuyOfferMulti] = useOfferPreferences(
     (state) => [state.buyOfferMulti, state.setBuyOfferMulti],
     shallow,

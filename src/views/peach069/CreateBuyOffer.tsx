@@ -35,7 +35,7 @@ import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
-import { CreateMultipleOffers } from "../offerPreferences/components/createMultipleOffers";
+import { CreateMultipleBuyOffers } from "../offerPreferences/components/createMultipleBuyOffers";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
 import { PreferenceScreen } from "../offerPreferences/components/PreferenceScreen";
 import {
@@ -623,7 +623,7 @@ const CreateMultipleOffersContainer = () => {
     <Section.Container
       style={[tw`flex-row items-start justify-between`, { backgroundColor }]}
     >
-      <CreateMultipleOffers />
+      <CreateMultipleBuyOffers />
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color("info-light")}
