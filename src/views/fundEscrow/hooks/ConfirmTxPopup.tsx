@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import { View } from "react-native";
+import { PeachScrollView } from "../../../components/PeachScrollView";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { ShortBitcoinAddress } from "../../../components/bitcoin/ShortBitcoinAddress";
 import { PeachText } from "../../../components/text/PeachText";
@@ -7,33 +9,60 @@ import i18n from "../../../utils/i18n";
 import { thousands } from "../../../utils/string/thousands";
 
 type Props = {
-  amount: number;
-  address: string;
+  totalAmount: number;
   fee: number;
   feeRate: number;
   text: string;
   secondText?: string;
+  outputs: { address: string; amount: number }[];
 };
 
 export function ConfirmTxPopup({
-  amount,
-  address,
+  totalAmount,
   fee,
   feeRate,
   text,
   secondText,
+  outputs,
 }: Props) {
   return (
     <View style={tw`gap-3`}>
       <PeachText style={tw`text-black-100`}>{text}</PeachText>
-      <BTCAmount amount={amount} size="medium" textStyle={tw`text-black-100`} />
+      {outputs.length > 1 && (
+        <View style={tw`flex-row items-center`}>
+          <PeachText style={tw`text-black-100`}>
+            {`${i18n("transaction.details.total")}: `}
+          </PeachText>
+          <BTCAmount
+            amount={totalAmount}
+            size="medium"
+            textStyle={tw`text-black-100`}
+          />
+        </View>
+      )}
+      <PeachScrollView
+        style={tw`max-h-40`}
+        contentStyle={tw`gap-3`}
+        scrollEnabled={outputs.length > 2}
+        showsVerticalScrollIndicator
+      >
+        {outputs.map((output, index) => (
+          <Fragment key={`transaction-output-${index}`}>
+            <BTCAmount
+              amount={output.amount}
+              size="medium"
+              textStyle={tw`text-black-100`}
+            />
+            <PeachText style={tw`text-black-100`}>
+              {i18n("transaction.details.to")}{" "}
+              <ShortBitcoinAddress address={output.address} />
+            </PeachText>
+          </Fragment>
+        ))}
+      </PeachScrollView>
       {!!secondText && (
         <PeachText style={tw`text-black-100`}>{secondText}</PeachText>
       )}
-      <PeachText style={tw`text-black-100`}>
-        {i18n("transaction.details.to")}{" "}
-        <ShortBitcoinAddress address={address} />
-      </PeachText>
       <PeachText style={tw`text-black-100`}>
         {i18n(
           "transaction.details.networkFee",

@@ -34,7 +34,7 @@
     "postversion": "react-native-version",
     "test": "jest ./src",
     "test:coverage": "jest --coverage ./src",
-    "test:ci": "jest --maxWorkers=100% --ci ./src",
+    "test:ci": "jest --ci ./src",
     "tsc": "tsc",
     "lint": "eslint . --ext .tsx,.ts"
   },

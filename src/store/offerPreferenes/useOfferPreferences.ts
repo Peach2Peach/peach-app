@@ -22,6 +22,7 @@ type OfferPreferences = {
   originalPaymentData: PaymentData[];
   preferredCurrenyType: CurrencyType;
   multi?: number;
+  multiOfferList: string[][];
   sortBy: {
     buyOffer: BuySorter[];
     sellOffer: SellSorter[];
@@ -46,6 +47,7 @@ export const defaultPreferences: OfferPreferences = {
   preferredPaymentMethods: {},
   originalPaymentData: [],
   multi: undefined,
+  multiOfferList: [],
   preferredCurrenyType: "europe",
   sortBy: {
     buyOffer: ["bestReputation"],
@@ -72,6 +74,8 @@ type OfferPreferencesActions = {
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
+  addMultiOffers: (offers: string[]) => void;
+  removeMultiOffer: (offer: string) => void;
   setPremium: (newPremium: number, isValid?: boolean) => void;
   setPaymentMethods: (ids: string[]) => void;
   togglePaymentMethod: (id: string) => void;
@@ -99,6 +103,33 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
+      addMultiOffers: (offers) => {
+        set({
+          multiOfferList: [...get().multiOfferList, offers],
+        });
+      },
+      removeMultiOffer: (offer) => {
+        const currentMultiOfferList = get().multiOfferList;
+        const groupWithOffer = currentMultiOfferList.find((group) =>
+          group.includes(offer),
+        );
+        const multiOffers = currentMultiOfferList.filter(
+          (group) => !group.includes(offer),
+        );
+
+        if (groupWithOffer) {
+          const updatedGroup = groupWithOffer.filter((item) => item !== offer);
+          if (updatedGroup.length > 1) {
+            set({
+              multiOfferList: [...multiOffers, updatedGroup],
+            });
+          } else {
+            set({
+              multiOfferList: multiOffers,
+            });
+          }
+        }
+      },
       setPremium: (premium) => set({ premium }),
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids);

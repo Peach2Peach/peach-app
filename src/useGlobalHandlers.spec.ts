@@ -1,6 +1,5 @@
 import { renderHook } from "test-utils";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
-import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useInitialNavigation } from "./init/useInitialNavigation";
@@ -18,9 +17,6 @@ jest.mock("./init/useInitialNavigation", () => ({
 }));
 jest.mock("./hooks/useShowUpdateAvailable", () => ({
   useShowUpdateAvailable: jest.fn(),
-}));
-jest.mock("./hooks/useCheckFundingMultipleEscrows", () => ({
-  useCheckFundingMultipleEscrows: jest.fn(),
 }));
 jest.mock("./hooks/notifications/useHandleNotifications");
 jest.mock("react-native-promise-rejection-utils", () => ({
@@ -47,10 +43,6 @@ describe("useGlobalHandlers", () => {
   it("should call useShowUpdateAvailable", () => {
     renderHook(useGlobalHandlers);
     expect(useShowUpdateAvailable).toHaveBeenCalled();
-  });
-  it("should call useCheckFundingMultipleEscrows", () => {
-    renderHook(useGlobalHandlers);
-    expect(useCheckFundingMultipleEscrows).toHaveBeenCalled();
   });
   it("should call useHandleNotifications", () => {
     renderHook(useGlobalHandlers);

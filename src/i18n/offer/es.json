@@ -3,6 +3,7 @@
   "offer.cancel.popup.title" : "cancelar oferta",
   "offer.canceled" : "cancelado",
   "offer.canceled.popup.title" : "¡oferta cancelada!",
+  "offer.createMultiple" : "crear múltiples ofertas",
   "offer.filter" : "filtrar",
   "offer.filter.maxPremium" : "prima máxima",
   "offer.fundMultiple" : "fondear múltiples ofertas",

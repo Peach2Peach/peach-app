@@ -10,6 +10,7 @@
   "peachWallet" : "гаманець Peach",
   "transaction.details.networkFee" : "комісія системи: $0 сат ($1 sat/vB)",
   "transaction.details.to" : "до",
+  "transaction.details.total" : "загалом",
   "transaction.eta.in1Block" : "у першому блоці",
   "transaction.eta.inXBlocks" : "у $0 блоці",
   "transaction.viewInExplorer" : "подивитись у explorer",
