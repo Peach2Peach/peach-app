@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { View } from "react-native";
+import { PeachScrollView } from "../../../components/PeachScrollView";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { ShortBitcoinAddress } from "../../../components/bitcoin/ShortBitcoinAddress";
 import { PeachText } from "../../../components/text/PeachText";
@@ -35,19 +36,26 @@ export function ConfirmTxPopup({
           <BTCAmount amount={totalAmount} size="medium" />
         </View>
       )}
-      {outputs.map((output, index) => (
-        <Fragment key={`transaction-output-${index}`}>
-          <BTCAmount
-            amount={output.amount}
-            size="medium"
-            textStyle={tw`text-black-100`}
-          />
-          <PeachText style={tw`text-black-100`}>
-            {i18n("transaction.details.to")}{" "}
-            <ShortBitcoinAddress address={output.address} />
-          </PeachText>
-        </Fragment>
-      ))}
+      <PeachScrollView
+        style={tw`max-h-40`}
+        contentStyle={tw`gap-3`}
+        scrollEnabled
+        showsVerticalScrollIndicator
+      >
+        {outputs.map((output, index) => (
+          <Fragment key={`transaction-output-${index}`}>
+            <BTCAmount
+              amount={output.amount}
+              size="medium"
+              textStyle={tw`text-black-100`}
+            />
+            <PeachText style={tw`text-black-100`}>
+              {i18n("transaction.details.to")}{" "}
+              <ShortBitcoinAddress address={output.address} />
+            </PeachText>
+          </Fragment>
+        ))}
+      </PeachScrollView>
       {!!secondText && (
         <PeachText style={tw`text-black-100`}>{secondText}</PeachText>
       )}
