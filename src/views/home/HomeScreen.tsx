@@ -11,6 +11,7 @@ import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
 import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
+import { useOwnPeach069BuyOffers } from "../../hooks/query/usePeach069BuyOffers";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -116,20 +117,25 @@ const FooterItem = memo(
 const statusWithRequiredAction: TradeStatus[] = [
   "fundEscrow",
   "fundingAmountDifferent",
-  "hasMatchesAvailable",
+  // "hasMatchesAvailable",
   "refundAddressRequired",
   "refundTxSignatureRequired",
   "dispute",
   "rateUser",
   "confirmCancelation",
   "refundOrReviveRequired",
+  // peach v0.69
+  "acceptTradeRequest",
 ];
 
 const hasRequiredAction = ({
   type,
   tradeStatus,
+  tradeStatusNew,
 }: OfferSummary | ContractSummary) =>
   statusWithRequiredAction.includes(tradeStatus) ||
+  (tradeStatusNew !== undefined &&
+    statusWithRequiredAction.includes(tradeStatusNew)) ||
   (type === "bid" && tradeStatus === "paymentRequired") ||
   (type === "ask" && tradeStatus === "confirmPaymentRequired");
 
@@ -137,11 +143,16 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
   const navigation = useStackNavigation();
   const { summaries } = useTradeSummaries();
   const { offers } = useOfferSummaries();
+  const { buyOffers } = useOwnPeach069BuyOffers();
   const { contracts } = useContractSummaries();
   const notifications = useMemo(() => {
-    const offersWithAction = offers.filter((offer) =>
-      hasRequiredAction(offer),
+    const sellOffersWithAction = offers.filter(
+      (offer) => hasRequiredAction(offer) && offer.type === "ask",
     ).length;
+    const buyOffersWithAction = buyOffers.filter(
+      (offer) => offer.tradeStatusNew === "acceptTradeRequest",
+    ).length;
+    const offersWithAction = buyOffersWithAction + sellOffersWithAction;
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length;
