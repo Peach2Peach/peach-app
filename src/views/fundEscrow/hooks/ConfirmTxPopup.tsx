@@ -43,7 +43,7 @@ export function ConfirmTxPopup({
       <PeachScrollView
         style={tw`max-h-40`}
         contentStyle={tw`gap-3`}
-        scrollEnabled
+        scrollEnabled={outputs.length > 2}
         showsVerticalScrollIndicator
       >
         {outputs.map((output, index) => (
