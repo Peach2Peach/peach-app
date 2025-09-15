@@ -10,6 +10,7 @@
   "peachWallet" : "Peach wallet",
   "transaction.details.networkFee" : "Netwerk kosten: $0 sats ($1 sat/vB)",
   "transaction.details.to" : "Naar:",
+  "transaction.details.total" : "totaal",
   "transaction.eta.in1Block" : "Binnen 1 blok",
   "transaction.eta.inXBlocks" : "Binnen $0 blokken",
   "transaction.viewInExplorer" : "Bekijk in verkenner",

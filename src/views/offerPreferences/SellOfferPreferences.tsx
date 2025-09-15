@@ -48,14 +48,12 @@ import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { isDefined } from "../../utils/validation/isDefined";
 import { peachWallet } from "../../utils/wallet/setWallet";
-import { useWalletState } from "../../utils/wallet/walletStore";
 import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
 import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
 import { WalletSelector } from "./WalletSelector";
-import { FundMultipleOffers } from "./components/FundMultipleOffers";
-// import { MarketInfo } from "./components/MarketInfo";
+import { CreateMultipleOffers } from "./components/CreateMultipleOffers";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
 import { SatsInputComponent, textStyle } from "./components/SatsInputComponent";
@@ -88,7 +86,7 @@ export function SellOfferPreferences() {
       <PreferenceMethods type="sell" />
       <CompetingOfferStats />
       <AmountSelector setIsSliding={setIsSliding} />
-      <FundMultipleOffersContainer />
+      <CreateMultipleOffersContainer />
       <InstantTrade />
       <RefundWalletSelector />
     </PreferenceScreen>
@@ -427,7 +425,7 @@ function FiatInput() {
   );
 }
 
-function FundMultipleOffersContainer() {
+function CreateMultipleOffersContainer() {
   const setPopup = useSetPopup();
 
   const { isDarkMode } = useThemeStore();
@@ -435,7 +433,7 @@ function FundMultipleOffersContainer() {
     <Section.Container
       style={tw`flex-row items-start justify-between ${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
     >
-      <FundMultipleOffers />
+      <CreateMultipleOffers />
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color("info-light")}
@@ -671,13 +669,10 @@ function FundEscrowButton() {
   };
 
   const queryClient = useQueryClient();
-  const [registerFundMultiple, getFundMultipleByOfferId] = useWalletState(
-    (state) => [state.registerFundMultiple, state.getFundMultipleByOfferId],
-    shallow,
-  );
   const { mutate: createEscrow } = useCreateEscrow();
   const navigation = useStackNavigation();
   const fundFromPeachWallet = useFundFromPeachWallet();
+  const addMultiOffers = useOfferPreferences((state) => state.addMultiOffers);
 
   const onPress = async () => {
     if (isPublishing) return;
@@ -709,42 +704,29 @@ function FundEscrowButton() {
           showErrorBanner(error.message);
           setIsPublishing(false);
         },
-        onSuccess: async (result, offerDraft) => {
+        onSuccess: (result, offerDraft) => {
+          const offerIds = Array.isArray(result)
+            ? result.map((r) => r.id)
+            : [result.id];
+
           if (!Array.isArray(result)) {
             saveOffer({ ...offerDraft, ...result });
           } else {
             if (!peachWallet) throw new Error("Peach wallet not defined");
             result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }));
-
-            const internalAddress = await peachWallet.getInternalAddress();
-            const diffToNextAddress = 10;
-            const newInternalAddress = await peachWallet.getInternalAddress(
-              internalAddress.index + diffToNextAddress,
-            );
-            registerFundMultiple(
-              newInternalAddress.address,
-              result.map((offer) => offer.id),
-            );
+            addMultiOffers(offerIds);
           }
           const navigationParams = {
             offerId: Array.isArray(result) ? result[0].id : result.id,
           };
 
-          const fundMultiple = getFundMultipleByOfferId(
-            navigationParams.offerId,
-          );
-          const offerIds = fundMultiple?.offerIds || [navigationParams.offerId];
           createEscrow(offerIds, {
             onSuccess: async (res) => {
               if (fundWithPeachWallet) {
-                const amount = getFundingAmount(
-                  fundMultiple,
-                  offerDraft.amount,
-                );
-                const fundingAddress =
-                  fundMultiple?.address ||
-                  res.find((e) => e?.offerId === navigationParams.offerId)
-                    ?.escrow;
+                const amount = getFundingAmount(offerIds, offerDraft.amount);
+                const fundingAddress = res.find(
+                  (e) => e?.offerId === navigationParams.offerId,
+                )?.escrow;
                 const fundingAddresses = res
                   .filter(isDefined)
                   .map((e) => e.escrow);

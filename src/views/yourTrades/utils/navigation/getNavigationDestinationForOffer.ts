@@ -1,5 +1,4 @@
 import { OfferSummary } from "../../../../../peach-api/src/@types/offer";
-import { shouldGoToFundEscrow } from "./shouldGoToFundEscrow";
 import { shouldGoToSearch } from "./shouldGoToSearch";
 import { shouldGoToWrongFundingAmount } from "./shouldGoToWrongFundingAmount";
 
@@ -12,7 +11,7 @@ export const getNavigationDestinationForOffer = ({
     return ["offer", { offerId }] as const;
   }
 
-  if (shouldGoToFundEscrow(tradeStatus))
+  if (["fundEscrow", "escrowWaitingForConfirmation"].includes(tradeStatus))
     return ["fundEscrow", { offerId }] as const;
   if (shouldGoToSearch(tradeStatus)) {
     if (type === "bid") return ["explore", { offerId }] as const;

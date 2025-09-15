@@ -27,7 +27,6 @@ import { offerIdFromHex } from "../../../utils/offer/offerIdFromHex";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
 import { groupChars } from "../../../utils/string/groupChars";
 import { priceFormat } from "../../../utils/string/priceFormat";
-import { useWalletState } from "../../../utils/wallet/walletStore";
 import {
   TradeTheme,
   getThemeForTradeItem,
@@ -347,14 +346,6 @@ function getActionLabel(
 
   if (isPastOffer(tradeStatus, type)) {
     return undefined;
-  }
-
-  if (
-    tradeStatus === "fundEscrow" &&
-    tradeSummary.id &&
-    useWalletState.getState().getFundMultipleByOfferId(tradeSummary.id)
-  ) {
-    return i18n("offer.requiredAction.fundMultipleEscrow");
   }
 
   if (tradeStatusNew) {
