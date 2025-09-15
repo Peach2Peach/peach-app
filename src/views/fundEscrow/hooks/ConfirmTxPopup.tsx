@@ -33,7 +33,11 @@ export function ConfirmTxPopup({
           <PeachText style={tw`text-black-100`}>
             {`${i18n("transaction.details.total")}: `}
           </PeachText>
-          <BTCAmount amount={totalAmount} size="medium" />
+          <BTCAmount
+            amount={totalAmount}
+            size="medium"
+            textStyle={tw`text-black-100`}
+          />
         </View>
       )}
       <PeachScrollView
