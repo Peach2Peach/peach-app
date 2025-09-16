@@ -6,6 +6,7 @@ import { ExpressBuyPaymentMethodsDrawer } from "../../components/ExpressBuyPayme
 import { horizontalBadgePadding } from "../../components/InfoContainer";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { Screen } from "../../components/Screen";
+import { TouchableIcon } from "../../components/TouchableIcon";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { NewBubble as Bubble } from "../../components/bubble/Bubble";
 import { Badges } from "../../components/matches/components/Badges";
@@ -15,7 +16,10 @@ import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressBuySellOffers } from "../../hooks/query/peach069/useExpressBuySellOffers";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { useOfferPreferences } from "../../store/offerPreferenes/useOfferPreferences";
+import {
+  defaultPreferences,
+  useOfferPreferences,
+} from "../../store/offerPreferenes/useOfferPreferences";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -279,15 +283,46 @@ function OfferCard({
 function ExploreHeader() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
+  const [
+    expressBuyFilterByAmountRange,
+    expressBuyFilterByCurrencyList,
+    expressBuyFilterByPaymentMethodList,
+    expressBuyFilterMaxPremium,
+    expressBuyOffersSorter,
+  ] = useOfferPreferences((state) => [
+    state.expressBuyFilterByAmountRange,
+    state.expressBuyFilterByCurrencyList,
+    state.expressBuyFilterByPaymentMethodList,
+    state.expressBuyFilterMaxPremium,
+    state.expressBuyOffersSorter,
+  ]);
+
+  const hasFilters =
+    JSON.stringify(expressBuyFilterByAmountRange) !==
+      JSON.stringify(defaultPreferences.expressBuyFilterByAmountRange) ||
+    expressBuyFilterByCurrencyList.length > 0 ||
+    expressBuyFilterByPaymentMethodList.length > 0 ||
+    expressBuyFilterMaxPremium !==
+      defaultPreferences.expressBuyFilterMaxPremium ||
+    expressBuyOffersSorter !== defaultPreferences.expressBuyOffersSorter;
+
   return (
     <>
       <BuyBitcoinHeader
         icons={[
-          {
-            id: "filter",
-            color: tw.color("black-50"),
-            onPress: () => setShowAdvancedFilters(true),
-          },
+          <View style={tw`relative`}>
+            <TouchableIcon
+              id={"filter"}
+              onPress={() => setShowAdvancedFilters(true)}
+              iconColor={tw.color("black-50")}
+              style={tw`w-5 h-5 md:w-6 md:h-6`}
+            />
+            {hasFilters && (
+              <View
+                style={tw`absolute w-3 h-3 border-2 border-white rounded-full -right-1.5 -top-1.4 bg-info-main`}
+              />
+            )}
+          </View>,
         ]}
       />
       <ExpressBuyAdvancedFilters

@@ -20,6 +20,7 @@ import { useExpressSellBuyOffers } from "../../hooks/query/peach069/useExpressSe
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useOfferPreferences } from "../../store/offerPreferenes";
+import { defaultPreferences } from "../../store/offerPreferenes/useOfferPreferences";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -284,16 +285,46 @@ function OfferCard({
 function ExploreHeader() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const { isDarkMode } = useThemeStore();
+  const [
+    expressSellFilterByAmountRange,
+    expressSellFilterByCurrencyList,
+    expressSellFilterByPaymentMethodList,
+    expressSellFilterMinPremium,
+    expressSellOffersSorter,
+  ] = useOfferPreferences((state) => [
+    state.expressSellFilterByAmountRange,
+    state.expressSellFilterByCurrencyList,
+    state.expressSellFilterByPaymentMethodList,
+    state.expressSellFilterMinPremium,
+    state.expressSellOffersSorter,
+  ]);
+
+  const hasFilters =
+    JSON.stringify(expressSellFilterByAmountRange) !==
+      JSON.stringify(defaultPreferences.expressSellFilterByAmountRange) ||
+    expressSellFilterByCurrencyList.length > 0 ||
+    expressSellFilterByPaymentMethodList.length > 0 ||
+    expressSellFilterMinPremium !==
+      defaultPreferences.expressSellFilterMinPremium ||
+    expressSellOffersSorter !== defaultPreferences.expressSellOffersSorter;
+
   return (
     <>
       <Header
         icons={[
-          <TouchableIcon
-            id={"filter"}
-            onPress={() => setShowAdvancedFilters(true)}
-            iconColor={tw.color("black-50")}
-            style={tw`w-5 h-5 md:w-6 md:h-6`}
-          />,
+          <View style={tw`relative`}>
+            <TouchableIcon
+              id={"filter"}
+              onPress={() => setShowAdvancedFilters(true)}
+              iconColor={tw.color("black-50")}
+              style={tw`w-5 h-5 md:w-6 md:h-6`}
+            />
+            {hasFilters && (
+              <View
+                style={tw`absolute w-3 h-3 border-2 border-white rounded-full -right-1.5 -top-1.4 bg-info-main`}
+              />
+            )}
+          </View>,
         ]}
         titleComponent={
           <>
