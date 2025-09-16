@@ -83,5 +83,8 @@
   "offer.summary.youAreBuying69": "vuoi comprare",
   "tradeRequest.reject.popup.title": "rifiuta richiesta di scambio",
   "tradeRequest.reject.popup.text": "Sei sicuro?",
-  "rejectTradeRequest": "rifiuta"  
+  "rejectTradeRequest": "rifiuta",
+  "express.buy.numberOfOffers": "Ci sono $0 offerte di vendita",
+  "express.sell.numberOfOffers": "Ci sono $0 offerte di acquisto",
+  "express.averagePremium": "Premio medio: $0%"
 }

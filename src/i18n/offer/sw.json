@@ -84,5 +84,8 @@
   "offer.summary.youAreBuying69": "unataka kununua",
   "tradeRequest.reject.popup.title": "kata ombi la biashara",
   "tradeRequest.reject.popup.text": "Una uhakika?",
-  "rejectTradeRequest": "kata"
+  "rejectTradeRequest": "kata",
+  "express.buy.numberOfOffers": "Kuna ofa $0 za kuuza",
+  "express.sell.numberOfOffers": "Kuna ofa $0 za kununua",
+  "express.averagePremium": "Kiwango cha wastani cha nyongeza: $0%"
 }

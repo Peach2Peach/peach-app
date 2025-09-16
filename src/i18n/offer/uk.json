@@ -84,5 +84,8 @@
   "offer.summary.youAreBuying69": "ви хочете купити",
   "tradeRequest.reject.popup.title": "відхилити запит на торгівлю",
   "tradeRequest.reject.popup.text": "Ви впевнені?",
-  "rejectTradeRequest": "відхилити"
+  "rejectTradeRequest": "відхилити",
+  "express.buy.numberOfOffers": "Є $0 пропозицій продажу",
+  "express.sell.numberOfOffers": "Є $0 пропозицій купівлі",
+  "express.averagePremium": "Середня премія: $0%"
 }

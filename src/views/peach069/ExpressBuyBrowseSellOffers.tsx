@@ -180,10 +180,10 @@ function OfferStats({
       <PeachText
         style={[tw`h5 text-black-65`, isDarkMode && tw`text-black-25`]}
       >
-        There are {sellOffers.length} sell offers
+        {i18n("express.buy.numberOfOffers", String(sellOffers.length))}
       </PeachText>
       <PeachText style={tw`body-s text-black-25`}>
-        Average premium: {averagePremium}%
+        {i18n("express.averagePremium", String(averagePremium))}
       </PeachText>
     </View>
   );

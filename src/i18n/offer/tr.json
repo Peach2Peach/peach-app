@@ -83,5 +83,8 @@
   "offer.summary.youAreBuying69": "satın almak istiyorsunuz",
   "tradeRequest.reject.popup.title": "ticaret isteğini reddet",
   "tradeRequest.reject.popup.text": "Emin misiniz?",
-  "rejectTradeRequest": "reddet"
+  "rejectTradeRequest": "reddet",
+  "express.buy.numberOfOffers": "$0 satış teklifi var",
+  "express.sell.numberOfOffers": "$0 alış teklifi var",
+   "express.averagePremium": "Ortalama prim: $0%"
 }

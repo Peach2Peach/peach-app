@@ -84,5 +84,8 @@
   "offer.summary.youAreBuying69": "je wilt kopen",
   "tradeRequest.reject.popup.title": "handelsverzoek weigeren",
   "tradeRequest.reject.popup.text": "Weet je het zeker?",
-  "rejectTradeRequest": "weigeren"
+  "rejectTradeRequest": "weigeren",
+  "express.buy.numberOfOffers": "Er zijn $0 verkoopaanbiedingen",
+  "express.sell.numberOfOffers": "Er zijn $0 koopaanbiedingen",
+  "express.averagePremium": "Gemiddelde premie: $0%"
 }

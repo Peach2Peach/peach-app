@@ -83,6 +83,9 @@
   "offer.summary.youAreBuying69": "Sie möchten kaufen",
   "tradeRequest.reject.popup.title": "Handelsanfrage ablehnen",
   "tradeRequest.reject.popup.text": "Sind Sie sicher?",
-  "rejectTradeRequest": "ablehnen"
+  "rejectTradeRequest": "ablehnen",
+  "express.buy.numberOfOffers": "Es gibt $0 Verkaufsangebote",
+  "express.sell.numberOfOffers": "Es gibt $0 Kaufangebote",
+  "express.averagePremium": "Durchschnittlicher Aufschlag: $0%"
 
 }

@@ -83,6 +83,9 @@
   "offer.summary.youAreBuying69": "θέλετε να αγοράσετε",
   "tradeRequest.reject.popup.title": "απόρριψη αιτήματος συναλλαγής",
   "tradeRequest.reject.popup.text": "Είστε σίγουροι;",
-  "rejectTradeRequest": "απόρριψη"
+  "rejectTradeRequest": "απόρριψη",
+  "express.buy.numberOfOffers": "Υπάρχουν $0 προσφορές πώλησης",
+  "express.sell.numberOfOffers": "Υπάρχουν $0 προσφορές αγοράς",
+  "express.averagePremium": "Μέσο ασφάλιστρο: $0%"
 
 }

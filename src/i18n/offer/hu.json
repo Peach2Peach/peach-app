@@ -84,5 +84,8 @@
   "offer.summary.youAreBuying69": "meg szeretnél vásárolni",
   "tradeRequest.reject.popup.title": "kereskedési kérés elutasítása",
   "tradeRequest.reject.popup.text": "Biztos vagy benne?",
-  "rejectTradeRequest": "elutasít"
+  "rejectTradeRequest": "elutasít",
+  "express.buy.numberOfOffers": "$0 eladási ajánlat van",
+  "express.sell.numberOfOffers": "$0 vételi ajánlat van",
+  "express.averagePremium": "Átlagos felár: $0%"
 }

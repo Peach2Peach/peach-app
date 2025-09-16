@@ -83,5 +83,8 @@
   "offer.summary.youAreBuying69": "вы хотите купить",
   "tradeRequest.reject.popup.title": "отклонить запрос на сделку",
   "tradeRequest.reject.popup.text": "Вы уверены?",
-  "rejectTradeRequest": "отклонить"
+  "rejectTradeRequest": "отклонить",
+  "express.buy.numberOfOffers": "Есть $0 предложений на продажу",
+  "express.sell.numberOfOffers": "Есть $0 предложений на покупку",
+   "express.averagePremium": "Средняя премия: $0%"
 }

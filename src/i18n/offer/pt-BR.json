@@ -84,5 +84,8 @@
   "offer.summary.youAreBuying69": "você quer comprar",
   "tradeRequest.reject.popup.title": "rejeitar solicitação de negociação",
   "tradeRequest.reject.popup.text": "Tem certeza?",
-  "rejectTradeRequest": "rejeitar"
+  "rejectTradeRequest": "rejeitar",
+  "express.buy.numberOfOffers": "Existem $0 ofertas de venda",
+  "express.sell.numberOfOffers": "Existem $0 ofertas de compra",
+   "express.averagePremium": "Prêmio médio: $0%"
 }

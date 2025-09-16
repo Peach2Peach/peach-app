@@ -84,5 +84,8 @@
   "yourTrades.unknown" : "unknown",
   "tradeRequest.reject.popup.title":"reject trade request",
   "tradeRequest.reject.popup.text":"Are you sure?",
-  "rejectTradeRequest":"reject"
+  "rejectTradeRequest":"reject",
+  "express.buy.numberOfOffers" : "There are $0 sell offers",
+  "express.sell.numberOfOffers" : "There are $0 buy offers",
+  "express.averagePremium": "Average premium: $0%"
 }
