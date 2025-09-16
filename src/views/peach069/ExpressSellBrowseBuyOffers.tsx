@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { BuyOffer69 } from "../../../peach-api/src/@types/offer";
+import { LogoIcons } from "../../assets/logo";
 import { ExpressSellAdvancedFilters } from "../../components/ExpressSellAdvancedFilters";
 import { ExpressSellCurrenciesDrawer } from "../../components/ExpressSellCurrenciesDrawer";
 import { ExpressSellPaymentMethodsDrawer } from "../../components/ExpressSellPaymentMethodsDrawer";
+import { Header } from "../../components/Header";
 import { horizontalBadgePadding } from "../../components/InfoContainer";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { Screen } from "../../components/Screen";
+import { TouchableIcon } from "../../components/TouchableIcon";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { NewBubble as Bubble } from "../../components/bubble/Bubble";
 import { Badges } from "../../components/matches/components/Badges";
@@ -21,7 +24,6 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { SellBitcoinHeader } from "../offerPreferences/components/SellBitcoinHeader";
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
 export function ExpressSellBrowseBuyOffers() {
@@ -281,17 +283,34 @@ function OfferCard({
 
 function ExploreHeader() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-
+  const { isDarkMode } = useThemeStore();
   return (
     <>
-      <SellBitcoinHeader
+      <Header
         icons={[
-          {
-            id: "filter",
-            color: tw.color("black-50"),
-            onPress: () => setShowAdvancedFilters(true),
-          },
+          <TouchableIcon
+            id={"filter"}
+            onPress={() => setShowAdvancedFilters(true)}
+            iconColor={tw.color("black-50")}
+            style={tw`w-5 h-5 md:w-6 md:h-6`}
+          />,
         ]}
+        titleComponent={
+          <>
+            <PeachText style={tw`h7 md:h6 text-primary-main`}>
+              {i18n("sell")}
+            </PeachText>
+            {isDarkMode ? (
+              <LogoIcons.bitcoinTextDark
+                style={tw`h-14px md:h-16px w-63px md:w-71px`}
+              />
+            ) : (
+              <LogoIcons.bitcoinText
+                style={tw`h-14px md:h-16px w-63px md:w-71px`}
+              />
+            )}
+          </>
+        }
       />
       <ExpressSellAdvancedFilters
         isOpen={showAdvancedFilters}

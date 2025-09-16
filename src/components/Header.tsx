@@ -1,3 +1,4 @@
+import { Fragment, ReactElement } from "react";
 import {
   ColorValue,
   ScrollView,
@@ -36,7 +37,7 @@ export type HeaderIcon = {
 
 type HeaderConfig = {
   subtitle?: JSX.Element;
-  icons?: HeaderIcon[];
+  icons?: (ReactElement | HeaderIcon)[];
   hideGoBackButton?: boolean;
   theme?: "default" | "inverted";
   showPriceStats?: boolean;
@@ -184,23 +185,26 @@ function HeaderNavigation({
       </View>
 
       <View style={tw`flex-row items-center justify-end gap-10px`}>
-        {icons?.map(({ id, accessibilityHint, color, onPress }, i) => (
-          <TouchableOpacity
-            key={`${i}-${id}`}
-            style={tw`p-2px`}
-            {...{ accessibilityHint, onPress }}
-          >
-            <Icon
-              id={id}
-              color={
-                theme !== "dispute"
-                  ? color
-                  : tw.color("primary-background-light-color")
-              }
-              style={iconSize}
-            />
-          </TouchableOpacity>
-        ))}
+        {icons?.map((icon, i) => {
+          if (typeof icon === "object" && "id" in icon && "onPress" in icon) {
+            const { id, accessibilityHint, color, onPress } = icon;
+            return (
+              <TouchableIcon
+                id={id}
+                key={`${i}-${id}`}
+                onPress={onPress}
+                accessibilityHint={accessibilityHint}
+                iconColor={
+                  theme !== "dispute"
+                    ? color
+                    : tw.color("primary-background-light-color")
+                }
+                style={tw`w-5 h-5 md:w-6 md:h-6`}
+              />
+            );
+          }
+          return <Fragment key={i}>{icon}</Fragment>;
+        })}
       </View>
     </View>
   );
