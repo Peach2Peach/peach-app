@@ -363,7 +363,7 @@ function OfferCounter({
       <View style={tw`flex-row items-center gap-6px`}>
         <View
           style={[
-            tw`items-center flex-1 px-2 rounded-1`,
+            tw`items-center px-2 rounded-1 grow`,
             type === "buy"
               ? isDarkMode
                 ? tw`bg-success-mild-2`
@@ -389,7 +389,9 @@ function OfferCounter({
             </PeachText>
           )}
         </View>
-        <PeachText style={tw`text-xs font-medium leading-6 font-baloo`}>
+        <PeachText
+          style={tw`flex-wrap text-xs font-medium leading-6 font-baloo shrink`}
+        >
           {i18n(type === "buy" ? "offer.buyOffers" : "offer.sellOffers")}
         </PeachText>
       </View>
