@@ -270,5 +270,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Mimi ni Bitcoiner",
   "userBitcoinLevel.subtitle": "Unafurahia kiasi gani kutumia Bitcoin?",
   "yourTrades.69BuyOffer": "nunua",
-  "resetAll": "Weka upya yote"
+  "resetAll": "Weka upya yote",
+  "advancedFilters": "Vichujio vya juu",
+  "sortBy": "Panga kwa",
+  "currentMarketValue": "Thamani ya soko ya sasa"
 }

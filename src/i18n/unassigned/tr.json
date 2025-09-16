@@ -262,5 +262,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Ben bir Bitcoiner'ım",
   "userBitcoinLevel.subtitle": "Bitcoin ile ne kadar rahatsınız?",
   "yourTrades.69BuyOffer": "al",
-   "resetAll": "Hepsini sıfırla"
+   "resetAll": "Hepsini sıfırla",
+  "advancedFilters": "Gelişmiş filtreler",
+  "sortBy": "Şuna göre sırala",
+  "currentMarketValue": "Mevcut piyasa değeri"
 }

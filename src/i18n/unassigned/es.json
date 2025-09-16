@@ -272,5 +272,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Soy un Bitcoiner",
   "userBitcoinLevel.subtitle": "¿Qué tan cómodo te sientes con Bitcoin?",
   "yourTrades.69BuyOffer": "comprar",
-  "resetAll": "Restablecer todo"
+  "resetAll": "Restablecer todo",
+   "advancedFilters": "Filtros avanzados",
+   "sortBy": "Ordenar por",
+    "currentMarketValue": "Valor de mercado actual"
 }

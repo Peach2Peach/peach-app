@@ -267,5 +267,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Ik ben een Bitcoiner",
   "userBitcoinLevel.subtitle": "Hoe comfortabel ben je met Bitcoin?",
   "yourTrades.69BuyOffer": "kopen",
-   "resetAll": "Alles resetten"
+   "resetAll": "Alles resetten",
+   "advancedFilters": "Geavanceerde filters",
+  "sortBy": "Sorteren op",
+  "currentMarketValue": "Huidige marktwaarde"
 }

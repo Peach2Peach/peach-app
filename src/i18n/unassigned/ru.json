@@ -267,5 +267,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Я биткоинер",
   "userBitcoinLevel.subtitle": "Насколько вы уверены в обращении с Биткоином?",
   "yourTrades.69BuyOffer": "купить",
-  "resetAll": "Сбросить всё"
+  "resetAll": "Сбросить всё",
+  "advancedFilters": "Расширенные фильтры",
+   "sortBy": "Сортировать по",
+   "currentMarketValue": "Текущая рыночная стоимость"
 }

@@ -55,7 +55,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
   const filterSections = [
     {
       id: "sortBy" as const,
-      label: "Sort By",
+      label: i18n("sortBy"),
       content: <SortByList />,
     },
     {
@@ -64,7 +64,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
         <PeachText
           style={tw`text-base font-extrabold tracking-widest uppercase grow font-baloo`}
         >
-          Payment Methods{" "}
+          {i18n("settings.paymentMethods")}{" "}
           <PeachText
             style={tw`text-base font-normal text-info-main font-baloo`}
           >
@@ -72,7 +72,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
           </PeachText>
         </PeachText>
       ) : (
-        "Payment Methods"
+        i18n("settings.paymentMethods")
       ),
       content: <PaymentMethodsList />,
     },
@@ -82,7 +82,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
         <PeachText
           style={tw`text-base font-extrabold tracking-widest uppercase grow font-baloo`}
         >
-          Currencies{" "}
+          {i18n("currencies")}{" "}
           <PeachText
             style={tw`text-base font-normal text-info-main font-baloo`}
           >
@@ -90,12 +90,16 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
           </PeachText>
         </PeachText>
       ) : (
-        "Currencies"
+        i18n("currencies")
       ),
       content: <CurrenciesList />,
     },
-    { id: "amount" as const, label: "Amount", content: <AmountSelection /> },
-    { id: "price" as const, label: "Price", content: <PriceSection /> },
+    {
+      id: "amount" as const,
+      label: i18n("amount"),
+      content: <AmountSelection />,
+    },
+    { id: "price" as const, label: i18n("price"), content: <PriceSection /> },
   ];
 
   const HEADER_AND_PADDING = 120;
@@ -108,7 +112,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
   return (
-    <Drawer isOpen={isOpen} onClose={onClose} title="Advanced Filters">
+    <Drawer isOpen={isOpen} onClose={onClose} title={i18n("advancedFilters")}>
       <>
         <HorizontalLine />
         <View style={tw`gap-4`}>
@@ -432,7 +436,7 @@ function AmountSelection() {
             </View>
           </View>
           <PeachText style={tw`text-xs font-normal tracking-normal font-baloo`}>
-            Current market value
+            {i18n("currentMarketValue")}
           </PeachText>
           <View style={tw`flex-row items-center justify-between gap-4`}>
             <View
@@ -553,7 +557,7 @@ function PriceSection() {
   };
   return (
     <View style={tw`gap-4 py-4`}>
-      <PeachText>min. premium:</PeachText>
+      <PeachText>{i18n("filter.minPremium")}</PeachText>
       <View style={tw`flex-row items-center gap-2`}>
         <TouchableIcon
           id="minus"

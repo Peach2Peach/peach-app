@@ -267,5 +267,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Я Bitcoiner",
   "userBitcoinLevel.subtitle": "Наскільки вам комфортно з Bitcoin?",
   "yourTrades.69BuyOffer": "купити",
-  "resetAll": "Скинути все"
+  "resetAll": "Скинути все",
+  "advancedFilters": "Розширені фільтри",
+  "sortBy": "Сортувати за",
+  "currentMarketValue": "Поточна ринкова вартість"
 }

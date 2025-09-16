@@ -56,7 +56,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
   const filterSections = [
     {
       id: "sortBy" as const,
-      label: "Sort By",
+      label: i18n("sortBy"),
       content: <SortByList />,
     },
     {
@@ -65,7 +65,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
         <PeachText
           style={tw`text-base font-extrabold tracking-widest uppercase grow font-baloo`}
         >
-          Payment Methods{" "}
+          {i18n("settings.paymentMethods")}{" "}
           <PeachText
             style={tw`text-base font-normal text-info-main font-baloo`}
           >
@@ -73,7 +73,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
           </PeachText>
         </PeachText>
       ) : (
-        "Payment Methods"
+        i18n("settings.paymentMethods")
       ),
       content: <PaymentMethodsList />,
     },
@@ -83,7 +83,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
         <PeachText
           style={tw`text-base font-extrabold tracking-widest uppercase grow font-baloo`}
         >
-          Currencies{" "}
+          {i18n("currencies")}{" "}
           <PeachText
             style={tw`text-base font-normal text-info-main font-baloo`}
           >
@@ -91,12 +91,16 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
           </PeachText>
         </PeachText>
       ) : (
-        "Currencies"
+        i18n("currencies")
       ),
       content: <CurrenciesList />,
     },
-    { id: "amount" as const, label: "Amount", content: <AmountSelection /> },
-    { id: "price" as const, label: "Price", content: <PriceSection /> },
+    {
+      id: "amount" as const,
+      label: i18n("amount"),
+      content: <AmountSelection />,
+    },
+    { id: "price" as const, label: i18n("price"), content: <PriceSection /> },
   ];
 
   const HEADER_AND_PADDING = 120; // Space for padding, header text, etc.
@@ -109,7 +113,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
   return (
-    <Drawer isOpen={isOpen} onClose={onClose} title="Advanced Filters">
+    <Drawer isOpen={isOpen} onClose={onClose} title={i18n("advancedFilters")}>
       <>
         <HorizontalLine />
         <View style={tw`gap-4`}>
@@ -414,7 +418,9 @@ function AmountSelection() {
 
   return (
     <View style={tw`pb-4 gap-10px`}>
-      <PeachText style={tw`subtitle-1`}>Amount to buy</PeachText>
+      <PeachText style={tw`subtitle-1`}>
+        {i18n("offerPreferences.amountToBuy")}
+      </PeachText>
       <View style={tw`gap-6 px-2`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row items-center justify-between gap-4`}>
@@ -435,7 +441,7 @@ function AmountSelection() {
             </View>
           </View>
           <PeachText style={tw`text-xs font-normal tracking-normal font-baloo`}>
-            Current market value
+            {i18n("currentMarketValue")}
           </PeachText>
           <View style={tw`flex-row items-center justify-between gap-4`}>
             <View
@@ -554,7 +560,7 @@ function PriceSection() {
 
   return (
     <View style={tw`gap-4 py-4`}>
-      <PeachText>max. premium:</PeachText>
+      <PeachText>{i18n("filter.maxPremium")}</PeachText>
       <View style={tw`flex-row items-center gap-2`}>
         <TouchableIcon
           id="minus"

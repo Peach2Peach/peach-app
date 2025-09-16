@@ -262,5 +262,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Είμαι Bitcoiner",
   "userBitcoinLevel.subtitle": "Πόσο άνετα είστε με το Bitcoin;",
   "yourTrades.69BuyOffer": "αγορά",
-  "resetAll": "Επαναφορά όλων"
+  "resetAll": "Επαναφορά όλων",
+  "advancedFilters": "Σύνθετα φίλτρα",
+  "sortBy": "Ταξινόμηση κατά",
+  "currentMarketValue": "Τρέχουσα αξία αγοράς"
 }

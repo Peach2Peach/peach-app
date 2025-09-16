@@ -271,5 +271,8 @@
   "yourTrades.tradeCanceled.subtitle" : "trade canceled",
   "yourTrades.waiting" : "waiting",
   "youtube" : "YouTube",
-  "resetAll" : "reset all"
+  "resetAll" : "reset all",
+  "advancedFilters" : "Advanced Filters",
+  "sortBy" : "sort by",
+  "currentMarketValue" : "current market value"
 }

@@ -272,5 +272,8 @@
   "userBitcoinLevel.answer.bitcoiner": "Bitcoin felhasználó vagyok",
   "userBitcoinLevel.subtitle": "Mennyire vagy jártas a Bitcoinban?",
   "yourTrades.69BuyOffer": "vétel",
-  "resetAll": "Összes visszaállítása"
+  "resetAll": "Összes visszaállítása",
+  "advancedFilters": "Speciális szűrők",
+  "sortBy": "Rendezés szerint",
+  "currentMarketValue": "Jelenlegi piaci érték"
 }
