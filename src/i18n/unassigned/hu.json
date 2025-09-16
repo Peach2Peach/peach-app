@@ -271,5 +271,6 @@
   "userBitcoinLevel.answer.firstTimeP2P": "Ez az első alkalom, hogy peer-to-peer kereskedem vele",
   "userBitcoinLevel.answer.bitcoiner": "Bitcoin felhasználó vagyok",
   "userBitcoinLevel.subtitle": "Mennyire vagy jártas a Bitcoinban?",
-  "yourTrades.69BuyOffer": "vétel"
+  "yourTrades.69BuyOffer": "vétel",
+  "resetAll": "Összes visszaállítása"
 }

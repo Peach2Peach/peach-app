@@ -266,5 +266,6 @@
   "userBitcoinLevel.answer.firstTimeP2P": "Это мой первый раз, когда я торгую peer-to-peer",
   "userBitcoinLevel.answer.bitcoiner": "Я биткоинер",
   "userBitcoinLevel.subtitle": "Насколько вы уверены в обращении с Биткоином?",
-  "yourTrades.69BuyOffer": "купить"
+  "yourTrades.69BuyOffer": "купить",
+  "resetAll": "Сбросить всё"
 }

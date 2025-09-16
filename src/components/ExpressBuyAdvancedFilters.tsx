@@ -629,7 +629,7 @@ function ResetAllButton() {
       onPress={resetExpressBuyFilters}
       ghost
     >
-      reset all
+      {i18n("resetAll")}
     </Button>
   );
 }

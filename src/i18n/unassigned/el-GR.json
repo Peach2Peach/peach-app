@@ -261,5 +261,6 @@
   "userBitcoinLevel.answer.firstTimeP2P": "είναι η πρώτη φορά που το συναλλάσσομαι peer to peer",
   "userBitcoinLevel.answer.bitcoiner": "Είμαι Bitcoiner",
   "userBitcoinLevel.subtitle": "Πόσο άνετα είστε με το Bitcoin;",
-  "yourTrades.69BuyOffer": "αγορά"
+  "yourTrades.69BuyOffer": "αγορά",
+  "resetAll": "Επαναφορά όλων"
 }

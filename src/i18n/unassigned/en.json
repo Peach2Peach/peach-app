@@ -270,5 +270,6 @@
   "yourTrades.title" : "your trades",
   "yourTrades.tradeCanceled.subtitle" : "trade canceled",
   "yourTrades.waiting" : "waiting",
-  "youtube" : "YouTube"
+  "youtube" : "YouTube",
+  "resetAll" : "reset all"
 }

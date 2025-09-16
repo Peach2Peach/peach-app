@@ -103,7 +103,7 @@ export function CurrenciesDrawer({
             onPress={onReset}
             ghost
           >
-            reset all
+            {i18n("resetAll")}
           </Button>
         )
       }

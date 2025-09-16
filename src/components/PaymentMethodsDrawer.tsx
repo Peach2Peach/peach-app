@@ -117,7 +117,7 @@ export function PaymentMethodsDrawer({
             onPress={onReset}
             ghost
           >
-            reset all
+            {i18n("resetAll")}
           </Button>
         )
       }

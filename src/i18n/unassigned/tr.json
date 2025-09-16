@@ -261,5 +261,6 @@
   "userBitcoinLevel.answer.firstTimeP2P": "Bitcoin'i peer-to-peer ilk kez işlem yapıyorum",
   "userBitcoinLevel.answer.bitcoiner": "Ben bir Bitcoiner'ım",
   "userBitcoinLevel.subtitle": "Bitcoin ile ne kadar rahatsınız?",
-  "yourTrades.69BuyOffer": "al"
+  "yourTrades.69BuyOffer": "al",
+   "resetAll": "Hepsini sıfırla"
 }

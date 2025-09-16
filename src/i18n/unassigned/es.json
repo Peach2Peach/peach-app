@@ -271,5 +271,6 @@
   "userBitcoinLevel.answer.firstTimeP2P": "es mi primera vez comerciando peer to peer",
   "userBitcoinLevel.answer.bitcoiner": "Soy un Bitcoiner",
   "userBitcoinLevel.subtitle": "¿Qué tan cómodo te sientes con Bitcoin?",
-  "yourTrades.69BuyOffer": "comprar"
+  "yourTrades.69BuyOffer": "comprar",
+  "resetAll": "Restablecer todo"
 }
