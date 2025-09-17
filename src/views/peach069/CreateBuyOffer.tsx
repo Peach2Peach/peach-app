@@ -20,6 +20,7 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { CENT, SATSINBTC } from "../../constants";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -594,13 +595,34 @@ function PublishOfferButton() {
     instantTradeCriteria,
     multi,
   });
+  const showErrorBanner = useShowErrorBanner();
+  const showPublishingError = () => {
+    let errorMessage;
+    let errorArgs: string[] = [];
+    if (!originalPaymentData.length) {
+      errorMessage = "PAYMENT_METHOD_MISSING";
+    } else {
+      errorMessage = "GENERAL_ERROR";
+    }
+    showErrorBanner(errorMessage, errorArgs);
+  };
+
+  const shouldLookDisabled =
+    !formValid || isSyncingWallet || originalPaymentData.length === 0;
+
+  const pressPublish = () => {
+    if (shouldLookDisabled) {
+      showPublishingError();
+    }
+    if (!shouldLookDisabled) {
+      publishOffer();
+    }
+  };
 
   return (
     <CreateBuyOfferButton
-      onPress={() => publishOffer()}
-      disabled={
-        !formValid || isSyncingWallet || originalPaymentData.length === 0
-      }
+      onPress={() => pressPublish()}
+      disabled={shouldLookDisabled}
       loading={isPublishing || isSyncingWallet}
     />
   );
@@ -642,9 +664,8 @@ export function CreateBuyOfferButton({
   if (keyboardIsOpen) return null;
   return (
     <Button
-      style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
+      style={tw`self-center px-5 py-3 ${disabled ? "bg-success-mild-1-color" : "bg-success-main"} min-w-166px`}
       onPress={onPress}
-      disabled={disabled}
       loading={loading}
     >
       {i18n("offer.create.buy")}
