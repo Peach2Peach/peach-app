@@ -1,3 +1,16 @@
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.72381 7.76992L4 12.5398H12.0305L12.8686 10.4611H8.8L11.3448 7.76992L9.86667 5.07878H16.7695L10.4 21H12.7924L20 3H6.07238L8.72381 7.76992Z" fill="#00B9FF"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="logosandtypes_com" data-name="logosandtypes com" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #163300;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M0,0H150V150H0V0Z"/>
+  <polygon class="cls-2" points="46.59 53.25 12.26 93.38 73.58 93.38 80.46 74.46 54.19 74.46 70.24 55.89 70.3 55.4 59.86 37.43 106.82 37.43 70.42 137.61 95.33 137.61 139.3 16.86 25.72 16.86 46.6 53.24 46.59 53.25"/>
 </svg>
