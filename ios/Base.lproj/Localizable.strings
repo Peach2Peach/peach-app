@@ -100,3 +100,7 @@
 
 "notification.title.contract.buyer.sellerCanceledBeforeFunding" = "Seller canceled the Contract";
 "notification.body.contract.buyer.sellerCanceledBeforeFunding" = "The seller decided to cancel the trade.\n\nHis reputation has been negatively affected.";
+
+"notification.title.offer.expressFlowTradeRequestChatMessageReceived" = "Trade Request Chat";
+"notification.body.offer.expressFlowTradeRequestChatMessageReceived" = "You got a chat message on your Trade Request";
+

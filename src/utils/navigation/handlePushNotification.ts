@@ -25,6 +25,13 @@ export const handlePushNotification = async (
   if (shouldGoToContract(data)) {
     const { contractId } = data;
     navigationRef.navigate("contract", { contractId });
+  } else if (data.type === "offer.expressFlowTradeRequestChatMessageReceived") {
+    const { offerId, offerType, requestingUserId } = data;
+    navigationRef.navigate("tradeRequestChat", {
+      offerId: offerId!,
+      offerType: offerType!,
+      requestingUserId: requestingUserId!,
+    });
   } else if (data.type === "offer.expressBuyTradeRequestRejected") {
     navigationRef.navigate("expressBuyBrowseSellOffers");
   } else if (data.type === "offer.expressSellTradeRequestRejected") {

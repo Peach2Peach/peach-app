@@ -95,4 +95,7 @@
 <string name="notification.title.contract.escrowFundingTimeExpiring1hLeft">Sie haben noch 1 Stunde, um das Escrow zu finanzieren.</string>
 <string name="notification.title.contract.buyer.sellerCanceledBeforeFunding">Verkäufer hat den Vertrag abgebrochen</string>
 <string name="notification.body.contract.buyer.sellerCanceledBeforeFunding">Der Verkäufer hat den Handel abgebrochen.\n\nSein Ruf wurde negativ beeinflusst.</string>
+<string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Trade-Anfrage Chat</string>
+<string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">Du hast eine Chat-Nachricht zu deiner Trade-Anfrage erhalten</string>
+
 </resources>

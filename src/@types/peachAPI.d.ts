@@ -382,7 +382,8 @@ type NotificationType =
   | "contract.escrowFundingTimeExpired.buyer"
   | "contract.escrowFundingTimeExpired.seller"
   | "contract.escrowFundingTimeExpiring6hLeft"
-  | "contract.escrowFundingTimeExpiring1hLeft";
+  | "contract.escrowFundingTimeExpiring1hLeft"
+  | "offer.expressFlowTradeRequestChatMessageReceived";
 
 type PNData = {
   type?: NotificationType;
@@ -390,6 +391,8 @@ type PNData = {
   offerId?: string;
   contractId?: string;
   isChat?: string;
+  offerType?: "buy" | "sell";
+  requestingUserId?: string;
 };
 
 type PNNotification = {

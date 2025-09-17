@@ -93,5 +93,7 @@
 <string name="notification.title.contract.escrowFundingTimeExpiring1hLeft">Il vous reste 1h pour financer l’Escrow.</string>
 <string name="notification.title.contract.buyer.sellerCanceledBeforeFunding">Le vendeur a annulé le contrat</string>
 <string name="notification.body.contract.buyer.sellerCanceledBeforeFunding">Le vendeur a annulé l’échange.\n\nSa réputation a été affectée.</string>
+<string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Chat de demande d’échange</string>
+<string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">Vous avez reçu un message de chat concernant votre demande d’échange</string>
 
 </resources>

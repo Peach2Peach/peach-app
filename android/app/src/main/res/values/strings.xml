@@ -105,7 +105,7 @@
 <string name="notification.title.contract.buyer.sellerCanceledBeforeFunding">Seller canceled the Contract</string>
 <string name="notification.body.contract.buyer.sellerCanceledBeforeFunding">The seller decided to cancel the trade.\n\nHis reputation has been negatively affected.</string>
 
- 
-
+ <string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Trade Request Chat</string>
+<string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">You got a chat message on your Trade Request</string>
 
 </resources>
