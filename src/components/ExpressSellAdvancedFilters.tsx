@@ -591,7 +591,6 @@ function ResetAllButton() {
     expressSellFilterByCurrencyList,
     expressSellFilterByPaymentMethodList,
     expressSellFilterMinPremium,
-    expressSellOffersSorter,
     resetExpressSellFilters,
   ] = useOfferPreferences(
     (state) => [
@@ -599,7 +598,6 @@ function ResetAllButton() {
       state.expressSellFilterByCurrencyList,
       state.expressSellFilterByPaymentMethodList,
       state.expressSellFilterMinPremium,
-      state.expressSellOffersSorter,
       state.resetExpressSellFilters,
     ],
     shallow,
@@ -613,14 +611,12 @@ function ResetAllButton() {
       expressSellFilterByCurrencyList.length > 0 ||
       expressSellFilterByPaymentMethodList.length > 0 ||
       expressSellFilterMinPremium !==
-        defaultPreferences.expressSellFilterMinPremium ||
-      expressSellOffersSorter !== defaultPreferences.expressSellOffersSorter,
+        defaultPreferences.expressSellFilterMinPremium,
     [
       expressSellFilterByAmountRange,
       expressSellFilterByCurrencyList,
       expressSellFilterByPaymentMethodList,
       expressSellFilterMinPremium,
-      expressSellOffersSorter,
     ],
   );
 

@@ -594,7 +594,6 @@ function ResetAllButton() {
     expressBuyFilterByCurrencyList,
     expressBuyFilterByPaymentMethodList,
     expressBuyFilterMaxPremium,
-    expressBuyOffersSorter,
     resetExpressBuyFilters,
   ] = useOfferPreferences(
     (state) => [
@@ -602,7 +601,6 @@ function ResetAllButton() {
       state.expressBuyFilterByCurrencyList,
       state.expressBuyFilterByPaymentMethodList,
       state.expressBuyFilterMaxPremium,
-      state.expressBuyOffersSorter,
       state.resetExpressBuyFilters,
     ],
     shallow,
@@ -616,14 +614,12 @@ function ResetAllButton() {
       expressBuyFilterByCurrencyList.length > 0 ||
       expressBuyFilterByPaymentMethodList.length > 0 ||
       expressBuyFilterMaxPremium !==
-        defaultPreferences.expressBuyFilterMaxPremium ||
-      expressBuyOffersSorter !== defaultPreferences.expressBuyOffersSorter,
+        defaultPreferences.expressBuyFilterMaxPremium,
     [
       expressBuyFilterByAmountRange,
       expressBuyFilterByCurrencyList,
       expressBuyFilterByPaymentMethodList,
       expressBuyFilterMaxPremium,
-      expressBuyOffersSorter,
     ],
   );
 

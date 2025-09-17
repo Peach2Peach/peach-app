@@ -314,7 +314,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
             defaultPreferences.expressBuyFilterByPaymentMethodList,
           expressBuyFilterMaxPremium:
             defaultPreferences.expressBuyFilterMaxPremium,
-          expressBuyOffersSorter: defaultPreferences.expressBuyOffersSorter,
         }),
       resetExpressSellFilters: () =>
         set({
@@ -326,7 +325,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
             defaultPreferences.expressSellFilterByPaymentMethodList,
           expressSellFilterMinPremium:
             defaultPreferences.expressSellFilterMinPremium,
-          expressSellOffersSorter: defaultPreferences.expressSellOffersSorter,
         }),
     })),
     {

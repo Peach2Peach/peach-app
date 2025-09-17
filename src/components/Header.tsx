@@ -148,7 +148,7 @@ function HeaderNavigation({
   isDarkMode: boolean;
 }) {
   const { goBack, canGoBack } = useStackNavigation();
-  const { iconSize, fontSize } = getHeaderStyles();
+  const { fontSize } = getHeaderStyles();
   const themes = newThemes(isDarkMode);
   const shouldShowBackButton = !hideGoBackButton && canGoBack();
 

@@ -288,13 +288,11 @@ function ExploreHeader() {
     expressBuyFilterByCurrencyList,
     expressBuyFilterByPaymentMethodList,
     expressBuyFilterMaxPremium,
-    expressBuyOffersSorter,
   ] = useOfferPreferences((state) => [
     state.expressBuyFilterByAmountRange,
     state.expressBuyFilterByCurrencyList,
     state.expressBuyFilterByPaymentMethodList,
     state.expressBuyFilterMaxPremium,
-    state.expressBuyOffersSorter,
   ]);
 
   const hasFilters =
@@ -303,8 +301,7 @@ function ExploreHeader() {
     expressBuyFilterByCurrencyList.length > 0 ||
     expressBuyFilterByPaymentMethodList.length > 0 ||
     expressBuyFilterMaxPremium !==
-      defaultPreferences.expressBuyFilterMaxPremium ||
-    expressBuyOffersSorter !== defaultPreferences.expressBuyOffersSorter;
+      defaultPreferences.expressBuyFilterMaxPremium;
 
   return (
     <>
