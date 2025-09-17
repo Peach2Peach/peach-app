@@ -30,7 +30,6 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 const rejectTradeRequest = async (
   buyOfferId: number,
   userId: string,
-  navigation: StackNavigation,
 ): Promise<void> => {
   await peachAPI.private.peach069.rejectBuyOfferTradeRequestReceivedByIds({
     buyOfferId,

@@ -79,11 +79,7 @@ export const TradeRequestsReceived = ({
                   );
                 }}
                 rejectTradeRequestFunction={async () => {
-                  await rejectTradeRequestFunction(
-                    offer.id,
-                    item.userId,
-                    navigation,
-                  );
+                  await rejectTradeRequestFunction(offer.id, item.userId);
                   refetchTradeRequests();
                 }}
                 goToChatFunction={() => {
