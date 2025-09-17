@@ -98,3 +98,5 @@
 "notification.body.contract.escrowFundingTimeExpiring1hLeft" = "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.";
 "notification.title.contract.escrowFundingTimeExpiring1hLeft" = "You have 1h left to fund the escrow.";
 
+"notification.title.contract.buyer.sellerCanceledBeforeFunding" = "Seller canceled the Contract";
+"notification.body.contract.buyer.sellerCanceledBeforeFunding" = "The seller decided to cancel the trade.\n\nHis reputation has been negatively affected.";

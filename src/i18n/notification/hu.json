@@ -67,5 +67,7 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.text": "Ha nem finanszírozza időben, a tranzakciót törlik és a hírneve jelentősen sérül.",
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "6 órája van az escrow finanszírozására.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Ha nem finanszírozza időben, a tranzakciót törlik és a hírneve jelentősen sérül.",
-  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1 órája van az escrow finanszírozására."
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1 órája van az escrow finanszírozására.",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Az eladó törölte az üzletet.\n\nA hírneve romlott."
+  
 }

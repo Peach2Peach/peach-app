@@ -92,3 +92,5 @@
 "notification.title.contract.escrowFundingTimeExpiring6hLeft" = "Te quedan 6 horas para financiar el escrow.";
 "notification.body.contract.escrowFundingTimeExpiring1hLeft" = "Si no financias a tiempo, la operación se cancelará y tu reputación se verá fuertemente afectada.";
 "notification.title.contract.escrowFundingTimeExpiring1hLeft" = "Te queda 1 hora para financiar el escrow.";
+"notification.title.contract.buyer.sellerCanceledBeforeFunding" = "El vendedor canceló el contrato";
+"notification.body.contract.buyer.sellerCanceledBeforeFunding" = "El vendedor canceló la operación.\n\nSu reputación se ha visto afectada.";

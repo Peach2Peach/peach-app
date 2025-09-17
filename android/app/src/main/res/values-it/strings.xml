@@ -93,4 +93,7 @@
 <string name="notification.title.contract.escrowFundingTimeExpiring6hLeft">Hai 6 ore rimanenti per finanziare l’Escrow.</string>
 <string name="notification.body.contract.escrowFundingTimeExpiring1hLeft">Se non finanzi in tempo, lo scambio verrà annullato e la tua reputazione sarà fortemente compromessa.</string>
 <string name="notification.title.contract.escrowFundingTimeExpiring1hLeft">Hai 1 ora rimanente per finanziare l’Escrow.</string>
+<string name="notification.title.contract.buyer.sellerCanceledBeforeFunding">Il venditore ha annullato il contratto</string>
+<string name="notification.body.contract.buyer.sellerCanceledBeforeFunding">Il venditore ha annullato lo scambio.\n\nLa sua reputazione è stata danneggiata.</string>
+
 </resources>

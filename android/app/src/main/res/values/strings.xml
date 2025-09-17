@@ -102,7 +102,8 @@
 
 
 
-
+<string name="notification.title.contract.buyer.sellerCanceledBeforeFunding">Seller canceled the Contract</string>
+<string name="notification.body.contract.buyer.sellerCanceledBeforeFunding">The seller decided to cancel the trade.\n\nHis reputation has been negatively affected.</string>
 
  
 

@@ -90,3 +90,5 @@
 "notification.title.contract.escrowFundingTimeExpiring6hLeft" = "Il vous reste 6h pour financer l’Escrow.";
 "notification.body.contract.escrowFundingTimeExpiring1hLeft" = "Si vous ne financez pas à temps, la transaction sera annulée et votre réputation sera fortement impactée.";
 "notification.title.contract.escrowFundingTimeExpiring1hLeft" = "Il vous reste 1h pour financer l’Escrow.";
+"notification.title.contract.buyer.sellerCanceledBeforeFunding" = "Le vendeur a annulé le contrat";
+"notification.body.contract.buyer.sellerCanceledBeforeFunding" = "Le vendeur a annulé l’échange.\n\nSa réputation a été affectée.";

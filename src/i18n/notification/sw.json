@@ -67,5 +67,6 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.text": "Kama hutafadhili kwa wakati, biashara itafutwa na sifa yako itapungua sana.",
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Una masaa 6 ya kufadhili escrow.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Kama hutafadhili kwa wakati, biashara itafutwa na sifa yako itapungua sana.",
-  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Una saa 1 ya kufadhili escrow."
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Una saa 1 ya kufadhili escrow.",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Muuzaji alighairi biashara.\n\nSifa yake imeathirika vibaya."
 }

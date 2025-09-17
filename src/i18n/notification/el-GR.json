@@ -67,5 +67,7 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.text": "Εάν δεν χρηματοδοτήσετε εγκαίρως, η συναλλαγή θα ακυρωθεί και η φήμη σας θα επηρεαστεί σημαντικά.",
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Σας απομένουν 6 ώρες για να χρηματοδοτήσετε την εγγύηση.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Εάν δεν χρηματοδοτήσετε εγκαίρως, η συναλλαγή θα ακυρωθεί και η φήμη σας θα επηρεαστεί σημαντικά.",
-  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Σας απομένει 1 ώρα για να χρηματοδοτήσετε την εγγύηση."
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Σας απομένει 1 ώρα για να χρηματοδοτήσετε την εγγύηση.",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Ο πωλητής ακύρωσε τη συναλλαγή.\n\nΗ φήμη του επηρεάστηκε αρνητικά."
+  
 }

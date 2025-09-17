@@ -67,5 +67,7 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.text": "Als je niet op tijd financiert, wordt de transactie geannuleerd en je reputatie sterk beïnvloed.",
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Je hebt nog 6 uur om de escrow te financieren.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Als je niet op tijd financiert, wordt de transactie geannuleerd en je reputatie sterk beïnvloed.",
-  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Je hebt nog 1 uur om de escrow te financieren."
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Je hebt nog 1 uur om de escrow te financieren.",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "De verkoper heeft de trade geannuleerd.\n\nZijn reputatie is negatief beïnvloed."
+  
 }

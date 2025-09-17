@@ -67,5 +67,7 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.text": "Если не профинансируете вовремя, сделка будет отменена, и ваша репутация сильно пострадает.",
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "У вас осталось 6 часов для финансирования эскроу.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Если не профинансируете вовремя, сделка будет отменена, и ваша репутация сильно пострадает.",
-  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "У вас осталось 1 час для финансирования эскроу."
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "У вас осталось 1 час для финансирования эскроу.",
+   "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Продавец отменил сделку.\n\nЕго репутация пострадала."
+ 
 }

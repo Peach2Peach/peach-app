@@ -9,6 +9,7 @@
   "notification.contract.buyer.paymentTimerExtended.text" : "You didn't make the payment on time, but the seller has decided to give you 12 more hours to make the payment.",
   "notification.contract.buyer.paymentTimerHasRunOut.text" : "You didn't indicate you made the payment, and the timer ran out!\n\nThe seller now needs to decide how to proceed - please chat with them to resolve the issue.",
   "notification.contract.buyer.paymentTimerSellerCanceled.text" : "You didn't make the payment on time, and the seller decided to cancel the trade.\n\nYour reputation has been negatively affected.",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text" : "The seller decided to cancel the trade.\n\nHis reputation has been negatively affected.",
   "notification.contract.cancelationRequestAccepted.text" : "The buyer for trade $0 has agreed to cancel.\n\nYou can choose to keep your offer open to look for a new match, or you can be refunded.",
   "notification.contract.cancelationRequestAccepted.title" : "Trade canceled",
   "notification.contract.cancelationRequestRejected.text" : "The buyer for trade $0 has not agreed to cancel.\n\nThe trade will continue as normal.",

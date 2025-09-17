@@ -67,5 +67,6 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.text": "Zamanında fonlamazsanız işlem iptal edilecek ve itibarınız ciddi şekilde etkilenecek.",
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Escrow’u fonlamak için 6 saatiniz kaldı.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Zamanında fonlamazsanız işlem iptal edilecek ve itibarınız ciddi şekilde etkilenecek.",
-  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Escrow’u fonlamak için 1 saatiniz kaldı."
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Escrow’u fonlamak için 1 saatiniz kaldı.",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Satıcı işlemi iptal etti.\n\nİtibarı olumsuz etkilendi."
 }
