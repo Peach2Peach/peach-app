@@ -246,10 +246,8 @@ type GoToChatButtonProps = {
 };
 function GoToChatButton({ optionName, goToChatFunction }: GoToChatButtonProps) {
   const currentOption = options[optionName];
-  const [hasPressed, setHasPressed] = useState(false);
 
   const onPress = () => {
-    setHasPressed(true);
     goToChatFunction();
   };
 
@@ -257,7 +255,7 @@ function GoToChatButton({ optionName, goToChatFunction }: GoToChatButtonProps) {
     <TouchableOpacity
       style={tw`flex-row items-center justify-center py-2 gap-10px`}
       onPress={onPress}
-      disabled={optionName === "offerMatched" || hasPressed}
+      disabled={false}
     >
       <PeachText style={tw`button-large text-primary-background-light-color`}>
         {i18n(currentOption.text)}
