@@ -21,5 +21,7 @@
   "sell.title.highlight" : "verkaufen",
   "warning.incorrectFunding.description" : "Du hast dein Angebot mit $0 Transaktionen finanziert, was wegen übertriebenen Netzwerkgebühren für den Käufer nicht erlaubt ist.\n\nDu bekommst eine Rückerstattung.",
   "warning.incorrectFunding.title" : "Falsche Finanzierung",
+  "warning.incorrectFundingContract.description": "Du hast den Vertrag falsch finanziert. Er muss mit genau 1 Transaktion und dem angegebenen Betrag finanziert werden.\n\nDu wirst zurückerstattet.",
+    "warning.incorrectFundingContract.title": "Falsche Finanzierung",
   "yourTrades.search.sell.subtitle" : "Verkaufsangebot für"
 }

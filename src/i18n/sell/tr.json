@@ -21,5 +21,7 @@
   "sell.title.highlight" : "sat",
   "warning.incorrectFunding.description" : "Teklifini $0 işlemlerle finanse ettin, bu da alıcı için aşırı ağ ücretleri nedeniyle izin verilmiyor.\n\nSana geri ödeme yapılacak.",
   "warning.incorrectFunding.title" : "Hatalı Finansman",
-  "yourTrades.search.sell.subtitle" : "için satış teklif"
+  "yourTrades.search.sell.subtitle" : "için satış teklif",
+  "warning.incorrectFundingContract.description": "Sözleşmeyi yanlış finanse ettiniz. Tam tutarla 1 işlem olmalı.\n\nİade alacaksınız.",
+    "warning.incorrectFundingContract.title": "Hatalı finansman"
 }

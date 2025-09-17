@@ -21,5 +21,7 @@
   "sell.title.highlight" : "sprzedaj",
   "warning.incorrectFunding.description" : "Zfinansowałeś swoją ofertę $0 transakcjami, co nie jest dozwolone ze względu na nadmierne opłaty sieciowe dla kupującego.\n\nBędziesz zwrócony.",
   "warning.incorrectFunding.title" : "Nieprawidłowe finansowanie",
-  "yourTrades.search.sell.subtitle" : "sprzedaj ofertę zą"
+  "yourTrades.search.sell.subtitle" : "sprzedaj ofertę zą",
+   "warning.incorrectFundingContract.description": "Błędnie sfinansowałeś kontrakt. Musi być 1 transakcja z dokładną kwotą.\n\nOtrzymasz zwrot.",
+    "warning.incorrectFundingContract.title": "Nieprawidłowe finansowanie"
 }

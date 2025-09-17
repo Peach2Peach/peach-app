@@ -21,5 +21,7 @@
   "sell.title.highlight" : "πώληση",
   "warning.incorrectFunding.description" : "Χρηματοδότησες την προσφορά σου με $0 συναλλαγές, που δεν επιτρέπεται λόγω υπερβολικών τελών δικτύου για τον αγοραστή.\n\nΘα σου επιστραφούν τα χρήματα.",
   "warning.incorrectFunding.title" : "Εσφαλμένη χρηματοδότηση",
+  "warning.incorrectFundingContract.description": "Χρηματοδότησες λάθος το συμβόλαιο. Πρέπει με 1 συναλλαγή στο ακριβές ποσό.\n\nΘα επιστραφούν τα χρήματα.",
+    "warning.incorrectFundingContract.title": "Λάθος χρηματοδότηση",
   "yourTrades.search.sell.subtitle" : "Πώληση"
 }
