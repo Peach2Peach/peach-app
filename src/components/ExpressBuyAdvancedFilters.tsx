@@ -327,7 +327,7 @@ function CurrenciesList() {
 }
 
 function AmountSelection() {
-  const [expressBuyFilterByAmountRange, setExpressBuyFilterByAmountRange] =
+  const [expressBuyFilterByAmountRangeTemp, setExpressBuyFilterByAmountRange] =
     useOfferPreferences(
       (state) => [
         state.expressBuyFilterByAmountRange,
@@ -335,7 +335,15 @@ function AmountSelection() {
       ],
       shallow,
     );
-  const [minLimit, maxLimit] = useTradingAmountLimits("buy");
+  const [minLimit, maxLimit] = useTradingAmountLimits("sell");
+  const expressBuyFilterByAmountRange = [
+    expressBuyFilterByAmountRangeTemp[0] > minLimit
+      ? expressBuyFilterByAmountRangeTemp[0]
+      : minLimit,
+    expressBuyFilterByAmountRangeTemp[1] < maxLimit
+      ? expressBuyFilterByAmountRangeTemp[1]
+      : maxLimit,
+  ];
 
   // Local state for immediate UI updates during dragging
   const [localRange, setLocalRange] = useState(expressBuyFilterByAmountRange);

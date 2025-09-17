@@ -326,15 +326,26 @@ function CurrenciesList() {
 }
 
 function AmountSelection() {
-  const [expressSellFilterByAmountRange, setExpressSellFilterByAmountRange] =
-    useOfferPreferences(
-      (state) => [
-        state.expressSellFilterByAmountRange,
-        state.setExpressSellFilterByAmountRange,
-      ],
-      shallow,
-    );
+  const [
+    expressSellFilterByAmountRangeTemp,
+    setExpressSellFilterByAmountRange,
+  ] = useOfferPreferences(
+    (state) => [
+      state.expressSellFilterByAmountRange,
+      state.setExpressSellFilterByAmountRange,
+    ],
+    shallow,
+  );
   const [minLimit, maxLimit] = useTradingAmountLimits("buy");
+
+  const expressSellFilterByAmountRange = [
+    expressSellFilterByAmountRangeTemp[0] > minLimit
+      ? expressSellFilterByAmountRangeTemp[0]
+      : minLimit,
+    expressSellFilterByAmountRangeTemp[1] < maxLimit
+      ? expressSellFilterByAmountRangeTemp[1]
+      : maxLimit,
+  ];
 
   // Local state for immediate UI updates during dragging
   const [localRange, setLocalRange] = useState(expressSellFilterByAmountRange);
@@ -415,7 +426,9 @@ function AmountSelection() {
 
   return (
     <View style={tw`pb-4 gap-10px`}>
-      <PeachText style={tw`subtitle-1`}>Amount to sell</PeachText>
+      <PeachText style={tw`subtitle-1`}>
+        {i18n("offerPreferences.amountToSell")}
+      </PeachText>
       <View style={tw`gap-6 px-2`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row items-center justify-between gap-4`}>

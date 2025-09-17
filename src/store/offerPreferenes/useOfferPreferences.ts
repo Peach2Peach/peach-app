@@ -62,8 +62,8 @@ export const defaultPreferences: OfferPreferences = {
   createBuyOfferPremium: 1.5,
 
   buyAmountRange: [20000, 1090000], // TODO: verify this
-  expressBuyFilterByAmountRange: [20000, 1090000],
-  expressSellFilterByAmountRange: [20000, 1090000],
+  expressBuyFilterByAmountRange: [1, 99999999999],
+  expressSellFilterByAmountRange: [1, 99999999999],
   expressBuyFilterByCurrencyList: [],
   expressSellFilterByCurrencyList: [],
   expressBuyFilterByPaymentMethodList: [],
