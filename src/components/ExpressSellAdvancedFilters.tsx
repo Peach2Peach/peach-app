@@ -428,6 +428,7 @@ function AmountSelection() {
     <View style={tw`pb-4 gap-10px`}>
       <PeachText style={tw`subtitle-1`}>
         {i18n("offerPreferences.amountToSell")}
+        {" (sats)"}
       </PeachText>
       <View style={tw`gap-6 px-2`}>
         <View style={tw`gap-2`}>
