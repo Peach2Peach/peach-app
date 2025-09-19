@@ -18,12 +18,16 @@ export function useRaiseDispute(contract: Contract) {
   return useMutation({
     mutationFn: async ({ email, reason, message }: Props) => {
       if (!data) throw new Error("Could not decrypt contract data");
-      const { symmetricKey, paymentData } = data;
-      const [symmetricKeyEncrypted, paymentDataSellerEncrypted] =
-        await Promise.all([
-          OpenPGP.encrypt(symmetricKey, peachPGPPublicKey),
-          OpenPGP.encrypt(JSON.stringify(paymentData), peachPGPPublicKey),
-        ]);
+      const { symmetricKey, paymentData, buyerPaymentData } = data;
+      const [
+        symmetricKeyEncrypted,
+        paymentDataSellerEncrypted,
+        paymentDataBuyerEncrypted,
+      ] = await Promise.all([
+        OpenPGP.encrypt(symmetricKey, peachPGPPublicKey),
+        OpenPGP.encrypt(JSON.stringify(paymentData), peachPGPPublicKey),
+        OpenPGP.encrypt(JSON.stringify(buyerPaymentData), peachPGPPublicKey),
+      ]);
       const { result, error: err } =
         await peachAPI.private.contract.raiseDispute({
           contractId: contract.id,
@@ -32,6 +36,7 @@ export function useRaiseDispute(contract: Contract) {
           message,
           symmetricKeyEncrypted,
           paymentDataSellerEncrypted,
+          paymentDataBuyerEncrypted,
         });
 
       if (!result) throw new Error(err?.message || "Could not raise dispute");
