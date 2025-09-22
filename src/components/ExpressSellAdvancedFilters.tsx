@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
+import { useMeetupEvents } from "../hooks/query/useMeetupEvents";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import {
@@ -11,6 +12,7 @@ import {
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { round } from "../utils/math/round";
+import { isCashTrade } from "../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../utils/peachAPI";
 import { thousands } from "../utils/string/thousands";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
@@ -177,6 +179,7 @@ function SortByList() {
 
 function PaymentMethodsList() {
   const { data: paymentMethods } = usePaymentMethods();
+  const { data: meetupEvents } = useMeetupEvents();
   const selectedPaymentMethods = useOfferPreferences(
     (state) => state.expressSellFilterByPaymentMethodList,
   );
@@ -211,22 +214,32 @@ function PaymentMethodsList() {
   });
 
   const items = useMemo(() => {
-    if (!paymentMethods) return [];
+    if (!paymentMethods || !meetupEvents) return [];
 
     return paymentMethods
       .map((paymentMethod) => {
         const numberOfOffers = buyOfferPaymentMethods?.[paymentMethod.id] || 0;
+        let displayName: string | undefined;
+        if (isCashTrade(paymentMethod.id)) {
+          const meetup = meetupEvents.find(
+            (event) => event.id === paymentMethod.id.split("cash.")[1],
+          );
+          displayName = meetup?.shortName;
+        }
         return {
           paymentMethod,
           numberOfOffers,
+          displayName,
         };
       })
       .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
-      .map(({ paymentMethod, numberOfOffers }) => ({
+      .map(({ paymentMethod, numberOfOffers, displayName }) => ({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
             <PeachText style={tw`input-title shrink`}>
-              {i18n(`paymentMethod.${paymentMethod.id}`)}
+              {displayName
+                ? displayName
+                : i18n(`paymentMethod.${paymentMethod.id}`)}
             </PeachText>
             <PeachText style={tw`body-m text-black-50 shrink`}>
               ({numberOfOffers} offer{numberOfOffers === 1 ? "" : "s"})
@@ -243,6 +256,7 @@ function PaymentMethodsList() {
     buyOfferPaymentMethods,
     selectedPaymentMethods,
     onTogglePaymentMethod,
+    meetupEvents,
   ]);
 
   if (!paymentMethods) return null;

@@ -38,13 +38,13 @@ export function PaymentMethodsDrawer({
         const numberOfOffers =
           paymentMethodOfferAmounts?.[paymentMethod.id] || 0;
         if (isCashTrade(paymentMethod.id)) {
-          const longName = meetupEvents.find(
-            (event) => event.id === paymentMethod.id,
-          )?.longName;
+          const meetup = meetupEvents.find(
+            (event) => event.id === paymentMethod.id.split("cash.")[1],
+          );
           return {
             paymentMethod: {
               ...paymentMethod,
-              longName,
+              shortName: meetup?.shortName,
             },
             numberOfOffers,
           };
@@ -59,8 +59,8 @@ export function PaymentMethodsDrawer({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
             <PeachText style={tw`input-title shrink`}>
-              {"longName" in paymentMethod
-                ? paymentMethod.longName
+              {"shortName" in paymentMethod
+                ? paymentMethod.shortName
                 : `${i18n(`paymentMethod.${paymentMethod.id}`)}`}
             </PeachText>
             <PeachText style={tw`flex-wrap body-m text-black-50 shrink`}>
