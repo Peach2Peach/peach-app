@@ -336,7 +336,7 @@ function AmountSelection() {
       shallow,
     );
   const [minLimit, maxLimit] = useTradingAmountLimits("sell");
-  const expressBuyFilterByAmountRange = [
+  const expressBuyFilterByAmountRange: [number, number] = [
     expressBuyFilterByAmountRangeTemp[0] > minLimit
       ? expressBuyFilterByAmountRangeTemp[0]
       : minLimit,
