@@ -60,11 +60,12 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
     setIsBackingUp(true);
     info("Backing up account");
     const account = useAccountStore.getState().account;
+    const currentTimestamp = Date.now().toString();
     try {
       const destinationFileName =
         NETWORK === "bitcoin"
-          ? `peach-account-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`
-          : `peach-account-${NETWORK}-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`;
+          ? `peach-account-${account.publicKey.substring(0, PEACH_ID_LENGTH)}-${currentTimestamp}.json`
+          : `peach-account-${NETWORK}-${account.publicKey.substring(0, PEACH_ID_LENGTH)}-${currentTimestamp}.json`;
 
       await writeFile(
         `/${destinationFileName}`,
