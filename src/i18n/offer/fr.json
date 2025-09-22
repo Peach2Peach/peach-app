@@ -18,6 +18,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "confirmer le paiement",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "dispute remporté : en attente de paiement",
   "offer.requiredAction.dispute" : "dispute commencée",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "dispute commencée",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transaction en attente",
   "offer.requiredAction.fundEscrow" : "financer le coffre",
   "offer.requiredAction.fundMultipleEscrow" : "financer le coffre",

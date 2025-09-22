@@ -19,6 +19,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "bevestig betaling",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "geschil gewonnen: wachten op uitbetaling",
   "offer.requiredAction.dispute" : "geschil gestart",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "geschil gestart",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transactie in behandeling",
   "offer.requiredAction.fundEscrow" : "betaal borg",
   "offer.requiredAction.fundMultipleEscrow" : "betaal meerdere borgen",

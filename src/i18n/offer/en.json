@@ -28,6 +28,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "confirm payment",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "dispute won: awaiting payout",
   "offer.requiredAction.dispute" : "dispute started",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "dispute started",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transaction pending",
   "offer.requiredAction.fundEscrow" : "fund escrow",
   "offer.requiredAction.fundMultipleEscrow" : "fund multiple escrow",

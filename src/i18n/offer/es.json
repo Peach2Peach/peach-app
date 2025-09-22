@@ -21,6 +21,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "confirmar pago",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "disputa ganada: esperando pago",
   "offer.requiredAction.dispute" : "disputa iniciada",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "disputa iniciada",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transacción pendiente",
   "offer.requiredAction.fundEscrow" : "depositar fondos",
   "offer.requiredAction.fundMultipleEscrow" : "depositar fondos para múltiples ofertas",

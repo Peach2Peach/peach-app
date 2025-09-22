@@ -4,6 +4,7 @@ const prioritaryStatus: TradeStatus[] = [
   "refundAddressRequired",
   "refundTxSignatureRequired",
   "refundOrReviveRequired",
+  "disputeWithoutEscrowFunded",
 ];
 
 export const isPrioritary = (tradeStatus: TradeStatus, type?: Offer["type"]) =>

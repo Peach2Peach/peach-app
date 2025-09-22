@@ -15,6 +15,7 @@ export const statusIcons: Record<TradeStatus | "waiting", IconType> = {
   confirmPaymentRequired: "dollarSign",
   payoutPending: "clock",
   dispute: "alertOctagon",
+  disputeWithoutEscrowFunded: "alertOctagon",
   releaseEscrow: "upload",
   rateUser: "heart",
   confirmCancelation: "xCircle",

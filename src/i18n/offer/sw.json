@@ -19,6 +19,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "thibitisha malipo",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "mzozo umeshindwa: inangojea malipo",
   "offer.requiredAction.dispute" : "mzozo umeanza",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "mzozo umeanza",
   "offer.requiredAction.escrowWaitingForConfirmation" : "miamala inasubiri",
   "offer.requiredAction.fundEscrow" : "fadhili escrow",
   "offer.requiredAction.fundMultipleEscrow" : "fadhili escrow nyingi",

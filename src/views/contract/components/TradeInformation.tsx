@@ -26,6 +26,7 @@ export const isFundingTradeStatus = (tradeStatus: string): boolean => {
     "fundEscrow",
     "waitingForFunding",
     "escrowWaitingForConfirmation",
+    "disputeWithoutEscrowFunded",
   ].includes(tradeStatus);
 };
 

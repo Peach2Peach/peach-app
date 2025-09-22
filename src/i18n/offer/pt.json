@@ -19,6 +19,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "confirmar pagamento",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "disputa vencida: aguardando pagamento",
   "offer.requiredAction.dispute" : "disputa iniciada",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "disputa iniciada",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transação pendente",
   "offer.requiredAction.fundEscrow" : "financiar depósito de caução",
   "offer.requiredAction.fundMultipleEscrow" : "financiar múltiplos depósitos de caução",

@@ -18,6 +18,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "επιβεβαίωση πληρωμής",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "κερδίσατε τη διένεξη: αναμονή για αποζημίωση",
   "offer.requiredAction.dispute" : "ξεκίνησε διένεξη",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "ξεκίνησε διένεξη",
   "offer.requiredAction.escrowWaitingForConfirmation" : "η συναλλαγή εκκρεμεί",
   "offer.requiredAction.fundEscrow" : "χρηματοδότηση εγγύησης",
   "offer.requiredAction.fundMultipleEscrow" : "χρηματοδότηση εγγύησης",

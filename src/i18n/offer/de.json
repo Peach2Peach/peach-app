@@ -18,6 +18,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "Zahlung bestätigen",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "Streitfall gewonnen: Auszahlung ausstehend",
   "offer.requiredAction.dispute" : "Streitfall eröffnet",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "Streitfall eröffnet",
   "offer.requiredAction.escrowWaitingForConfirmation" : "Transaktion ausstehend",
   "offer.requiredAction.fundEscrow" : "Escrow aufladen",
   "offer.requiredAction.fundMultipleEscrow" : "Mehrere Escrow aufladen",

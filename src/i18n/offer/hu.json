@@ -19,6 +19,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "fizetés megerősítése",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "vitát nyert: kifizetésre vár",
   "offer.requiredAction.dispute" : "vitakezdeményezés",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "vitakezdeményezés",
   "offer.requiredAction.escrowWaitingForConfirmation" : "tranzakció függőben",
   "offer.requiredAction.fundEscrow" : "letét finanszírozása",
   "offer.requiredAction.fundMultipleEscrow" : "több letét finanszírozása",

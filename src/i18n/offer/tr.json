@@ -18,6 +18,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "ödemeyi onayla",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "anlaşmazlık kazanıldı: ödeme bekleniyor",
   "offer.requiredAction.dispute" : "anlaşmazlık başlatıldı",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "anlaşmazlık başlatıldı",
   "offer.requiredAction.escrowWaitingForConfirmation" : "işlem bekleniyor",
   "offer.requiredAction.fundEscrow" : "escrow'u finanse et",
   "offer.requiredAction.fundMultipleEscrow" : "Çoklu emanet fonla",

@@ -19,6 +19,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "подтвердить оплату",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "спор выигран: ожидается выплата",
   "offer.requiredAction.dispute" : "спор начался",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "спор начался",
   "offer.requiredAction.escrowWaitingForConfirmation" : "транзакция в обработке",
   "offer.requiredAction.fundEscrow" : "пополнить эксроу-счёт",
   "offer.requiredAction.fundMultipleEscrow" : "пополнить несколько эскроу-счетов",

@@ -18,6 +18,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "conferma pagamento",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "disputa vinta: in attesa di pagamento",
   "offer.requiredAction.dispute" : "disputa avviata",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "disputa avviata",
   "offer.requiredAction.escrowWaitingForConfirmation" : "Transazione in attesa",
   "offer.requiredAction.fundEscrow" : "finanzia deposito",
   "offer.requiredAction.fundMultipleEscrow" : "finanzia deposito multiplo",

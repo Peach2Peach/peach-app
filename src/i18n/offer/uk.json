@@ -19,6 +19,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "підтвердити оплату",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "спір виграно: очікується виплата",
   "offer.requiredAction.dispute" : "спір розпочато",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "спір розпочато",
   "offer.requiredAction.escrowWaitingForConfirmation" : "транзакція очікує на розгляд",
   "offer.requiredAction.fundEscrow" : "депонування коштів",
   "offer.requiredAction.fundMultipleEscrow" : "сплатити декілька депозитів",

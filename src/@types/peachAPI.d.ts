@@ -265,7 +265,8 @@ type TradeStatus =
   | "wrongAmountFundedOnContractRefundWaiting"
   // other 69 Trade Status
   | "waitingForTradeRequest"
-  | "acceptTradeRequest";
+  | "acceptTradeRequest"
+  | "disputeWithoutEscrowFunded";
 
 type OfferPaymentData = Partial<
   Record<

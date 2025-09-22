@@ -19,6 +19,7 @@
   "offer.requiredAction.confirmPaymentRequired" : "potwierdź płatność",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "spór wygrany: oczekiwanie na wypłatę",
   "offer.requiredAction.dispute" : "rozpoczęto spór",
+  "offer.requiredAction.disputeWithoutEscrowFunded" : "rozpoczęto spór",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transakcja oczekujaca",
   "offer.requiredAction.fundEscrow" : "zasil depozyt",
   "offer.requiredAction.fundMultipleEscrow" : "zasil wiele depozytów",

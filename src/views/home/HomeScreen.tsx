@@ -126,6 +126,7 @@ const statusWithRequiredAction: TradeStatus[] = [
   "refundOrReviveRequired",
   // peach v0.69
   "acceptTradeRequest",
+  "disputeWithoutEscrowFunded",
 ];
 
 const hasRequiredAction = ({
