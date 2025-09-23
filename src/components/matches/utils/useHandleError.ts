@@ -6,6 +6,7 @@ import { useSetToast } from "../../toast/Toast";
 const colors: Record<string, "yellow"> = {
   NOT_FOUND: "yellow",
   CANNOT_DOUBLEMATCH: "yellow",
+  TRADING_LIMIT_OF_COUNTERPARTY_REACHED: "yellow",
 };
 
 export const useHandleError = () => {
@@ -16,6 +17,7 @@ export const useHandleError = () => {
       error("Error", err);
       if (err?.error) {
         const msgKey = err?.error === "NOT_FOUND" ? "OFFER_TAKEN" : err?.error;
+        console.log("msgKey", msgKey);
         setToast({
           msgKey:
             msgKey ||

@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "A kért erőforrás nem található.",
   "OFFER_TAKEN.text" : "Egy másik felhasználó az ajánlatot nálad gyorsabban elfogadta. Sok sikert legközelebb!",
   "OFFER_TAKEN.title" : "megegyezés sikertelen",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "A másik felhasználó nem indíthatja el ezt az üzletet. Próbáld meg újra holnap.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Az ellenfél kereskedési limitje elérve",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Ez akkor történik, ha a fiókodat a \"seed\"-ről visszaállítottad, és a vásárló titkos adatait nem tudod visszafejteni.\nKérlek várj egy újabb ajánlat elfogadására.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "a fizetési adatokat nem sikerült titkosítani",
   "PAYMENT_DATA_MISSING.action" : "adatok újbóli megadása",

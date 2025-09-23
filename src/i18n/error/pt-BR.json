@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "O recurso que você solicitou não pôde ser encontrado.",
   "OFFER_TAKEN.text" : "Outro usuário correspondeu à oferta mais rapidamente do que você. Boa sorte na próxima vez!",
   "OFFER_TAKEN.title" : "correspondência falhou",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "O outro usuário não pode iniciar esta negociação. Tente novamente amanhã.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Limite de negociação da contraparte atingido",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Isso provavelmente ocorre quando você restaurou a partir da seed e agora não consegue descriptografar a informação do comprador.\nPor favor, aguarde uma nova correspondência.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "não foi possível criptografar os dados de pagamento",
   "PAYMENT_DATA_MISSING.action" : "reinsira seus detalhes",

@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "Rasilimali uliyoiomba haipatikani.",
   "OFFER_TAKEN.text" : "Mtumiaji mwingine alifanikiwa kufanikisha ofa haraka kuliko wewe. Bahati nzuri wakati ujao!",
   "OFFER_TAKEN.title" : "usawa umeshindwa",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "Mtumiaji mwingine hawezi kuanza biashara hii. Jaribu tena kesho.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Kiwango cha biashara cha upande mwingine kimefikiwa",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Hii inatokea zaidi wakati ulipona kutoka kwa mbegu na sasa huwezi kufichua siri ya mnunuzi.\nTafadhali ngoja usawa mpya.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "haikuweza kuficha data ya malipo",
   "PAYMENT_DATA_MISSING.action" : "ingiza tena taarifa zako",

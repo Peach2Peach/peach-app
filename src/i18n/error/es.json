@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "El recurso que solicitaste no pudo ser encontrado.",
   "OFFER_TAKEN.text" : "Otro usuario igualó la oferta más rápido que tú. ¡Buena suerte la próxima vez!",
   "OFFER_TAKEN.title" : "match fallido",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "El otro usuario no puede iniciar esta operación. Inténtalo de nuevo mañana.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Límite de operaciones del usuario alcanzado",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Esto suele ocurrir cuando has restaurado desde la semilla y ahora no puedes descifrar el secreto del comprador. Por favor, espera un nuevo match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "no se pudo cifrar los datos de pago",
   "PAYMENT_DATA_MISSING.action" : "ingresa tus detalles nuevamente",

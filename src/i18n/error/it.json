@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "La risorsa richiesta non è stata trovata.",
   "OFFER_TAKEN.text" : "Un altro utente ha effettuato il match più velocemente di te. \nRitenta e sarai più fortunato!",
   "OFFER_TAKEN.title" : "match fallito",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "L’altro utente non può avviare questo scambio. Riprova domani.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Limite di trading della controparte raggiunto",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Questo probabilmente accade in caso di ripristino dei dati usando il seed che non permette di decifrare la chiave del compratore. Ti preghiamo di attendere un nuovo match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "impossibile criptare i dati di pagamento",
   "PAYMENT_DATA_MISSING.action" : "inserisci nuovamente i tuoi dati",

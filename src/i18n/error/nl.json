@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "De door jou opgevraagde bron kan niet worden gevonden.",
   "OFFER_TAKEN.text" : "Een andere gebruiker heeft het aanbod sneller gematcht dan jij. Volgende keer beter!",
   "OFFER_TAKEN.title" : "match niet gelukt",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "De andere gebruiker mag deze trade niet starten. Probeer het morgen opnieuw.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Handelslimiet van tegenpartij bereikt",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Dit gebeurt hoogstwaarschijnlijk wanneer je vanuit een seed herstelt en beveiligde data van de koper nu niet kunt ontcijferen. Wacht alstublieft op een nieuwe match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "betaaldata kon niet gedecodeerd worden",
   "PAYMENT_DATA_MISSING.action" : "vul je gegevens opnieuw in",

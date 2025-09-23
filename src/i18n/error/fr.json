@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "La ressource que vous avez demandée est introuvable.",
   "OFFER_TAKEN.text" : "Un autre utilisateur a matché cette offre plus rapidement que vous. Bonne chance pour la prochaine fois !",
   "OFFER_TAKEN.title" : "échec du match",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text":"L’autre utilisateur ne peut pas démarrer cet échange. Réessayez demain.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Limite de trading de la contrepartie atteinte",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Cela se produit généralement lorsque vous avez effectué une restoration de compte à partir de la phrase de récupération et que vous ne pouvez pas déchiffrer le secret de l'acheteur.\nVeuillez attendre une nouveau match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "impossible de crypter les données de paiement",
   "PAYMENT_DATA_MISSING.action" : "saisissez à nouveau vos informations",

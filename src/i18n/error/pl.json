@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "Żądane zasoby nie mogły zostać znalezione.",
   "OFFER_TAKEN.text" : "Inny użytkownik dopasował ofertę szybciej niż Ty. Powodzenia następnym razem!",
   "OFFER_TAKEN.title" : "dopasowanie nieudane",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "Drugi użytkownik nie może rozpocząć tej transakcji. Spróbuj ponownie jutro.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Limit transakcji kontrahenta osiągnięty",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "To najprawdopodobniej dzieje się, gdy przywracasz system z kopii zapasowej i teraz nie możesz odszyfrować danych kupującego. Proszę poczekać na nowe dopasowanie.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "nie udało się zaszyfrować danych płatności",
   "PAYMENT_DATA_MISSING.action" : "ponownie wprowadź swoje dane",
