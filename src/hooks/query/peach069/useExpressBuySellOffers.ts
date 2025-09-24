@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
-import { FIVE_SECONDS } from "../../../constants";
+import { TEN_SECONDS } from "../../../constants";
 import { useOfferPreferences } from "../../../store/offerPreferenes/useOfferPreferences";
 import { peachAPI } from "../../../utils/peachAPI";
 
@@ -47,7 +47,7 @@ export const useExpressBuySellOffers = () => {
       return sellOffers;
     },
     enabled: isFocused,
-    refetchInterval: FIVE_SECONDS,
+    refetchInterval: TEN_SECONDS,
   });
 
   return {

@@ -1,5 +1,5 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { FIVE_SECONDS } from "../../../constants";
+import { TEN_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export function useBuyOfferTradeRequestBySelfUser({
@@ -12,7 +12,7 @@ export function useBuyOfferTradeRequestBySelfUser({
   const queryData = useQuery({
     queryKey: ["useBuyOfferTradeRequestBySelfUser", buyOfferId],
     queryFn: getBuyOfferTradeRequestBySelfUser,
-    refetchInterval: FIVE_SECONDS,
+    refetchInterval: TEN_SECONDS,
     enabled: isEnabled,
     refetchOnMount: true,
     refetchOnWindowFocus: true,

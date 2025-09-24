@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { FIVE_SECONDS } from "../../../constants";
+import { TEN_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export const useSellOfferTradeRequestReceivedByIds = ({
@@ -23,7 +23,7 @@ export const useSellOfferTradeRequestReceivedByIds = ({
     enabled: isFocused && isEnabled,
     refetchOnMount: true,
     refetchOnWindowFocus: true,
-    refetchInterval: FIVE_SECONDS,
+    refetchInterval: TEN_SECONDS,
   });
 
   return { data, isLoading, isFetching, refetch, error };

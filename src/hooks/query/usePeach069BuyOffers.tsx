@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { FIVE_SECONDS } from "../../constants";
+import { TEN_SECONDS } from "../../constants";
 import { peachAPI } from "../../utils/peachAPI";
 
 export const useOwnPeach069BuyOffers = (enabled = true) => {
@@ -7,7 +7,7 @@ export const useOwnPeach069BuyOffers = (enabled = true) => {
     queryKey: ["peach069OwnBuyOffers"],
     queryFn: getOwnPeach069BuyOffersQuery,
     enabled,
-    refetchInterval: FIVE_SECONDS,
+    refetchInterval: TEN_SECONDS,
     refetchOnWindowFocus: true,
   });
 

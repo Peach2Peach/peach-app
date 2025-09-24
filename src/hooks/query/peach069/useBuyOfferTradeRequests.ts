@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { FIVE_SECONDS } from "../../../constants";
+import { TEN_SECONDS } from "../../../constants";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export const useBuyOfferTradeRequestsReceived = (id: string) => {
@@ -9,7 +9,7 @@ export const useBuyOfferTradeRequestsReceived = (id: string) => {
     queryKey: ["peach069buyOfferTradeRequestsReceived", id],
     queryFn: getBuyOfferTradeRequests,
     enabled: isFocused,
-    refetchInterval: FIVE_SECONDS,
+    refetchInterval: TEN_SECONDS,
   });
 
   return { buyOfferTradeRequests: data, isLoading, isFetching, refetch, error };
