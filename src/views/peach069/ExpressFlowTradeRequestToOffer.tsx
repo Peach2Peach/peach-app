@@ -510,7 +510,7 @@ function BuyerPriceInfo({ offer, selectedCurrency }: PriceInfoProps) {
   return (
     <PriceInfo
       amount={amountSats} // TODO: handle match
-      price={price}
+      price={price * ((100 + premium) / 100)}
       currency={selectedCurrency}
       premium={premium}
       miningFeeWarning={<MiningFeeWarning amount={amountSats} />}
