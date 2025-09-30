@@ -54,7 +54,15 @@ export function ExportTradeHistory() {
 }
 
 function createCSVValue(tradeSummaries: (OfferSummary | ContractSummary)[]) {
-  const headers = ["Date", "Trade ID", "Type", "Amount", "Price", "Currency"];
+  const headers = [
+    "Date",
+    "Trade ID",
+    "Type",
+    "Amount",
+    "Price",
+    "Currency",
+    "Premium",
+  ];
   const fields = {
     Date: (d: OfferSummary | ContractSummary) =>
       toShortDateFormat(d.creationDate),
@@ -80,6 +88,9 @@ function createCSVValue(tradeSummaries: (OfferSummary | ContractSummary)[]) {
     },
     Currency: (d: OfferSummary | ContractSummary) =>
       "currency" in d ? d.currency : "",
+
+    Premium: (d: OfferSummary | ContractSummary) =>
+      "premium" in d ? d.premium : "",
   };
 
   return createCSV(tradeSummaries, headers, fields);
