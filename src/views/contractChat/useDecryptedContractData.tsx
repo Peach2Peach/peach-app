@@ -11,10 +11,15 @@ export const useDecryptedContractData = (contract: Contract) =>
     queryFn: async () => {
       const { symmetricKey, paymentData, buyerPaymentData } =
         await decryptContractData(contract);
-      if (!symmetricKey || !paymentData || !buyerPaymentData)
-        throw new Error("Could not decrypt contract data");
+      // if (!symmetricKey || !paymentData || !buyerPaymentData)
+      //   throw new Error("Could not decrypt contract data");
+      if (!symmetricKey) throw new Error("Could not decrypt contract data");
 
-      return { symmetricKey, paymentData, buyerPaymentData };
+      return {
+        symmetricKey,
+        paymentData,
+        buyerPaymentData,
+      };
     },
     retry: false,
   });
@@ -23,28 +28,62 @@ async function decryptContractData(contract: Contract) {
   const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
-    contract.buyer.pgpPublicKeys,
+    [...contract.buyer.pgpPublicKeys, ...contract.seller.pgpPublicKeys],
   );
 
-  const paymentData = await decryptPaymentData(
-    {
-      paymentDataEncrypted: contract.paymentDataEncrypted,
-      paymentDataSignature: contract.paymentDataSignature,
-      user: contract.seller,
-      paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
-    },
-    symmetricKey,
-  );
+  let paymentData;
+  try {
+    paymentData = await decryptPaymentData(
+      {
+        paymentDataEncrypted: contract.paymentDataEncrypted,
+        paymentDataSignature: contract.paymentDataSignature,
+        user: contract.seller,
+        paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
+      },
+      symmetricKey,
+    );
+  } catch (err) {
+    try {
+      paymentData = await decryptPaymentData(
+        {
+          paymentDataEncrypted: contract.paymentDataEncrypted,
+          paymentDataSignature: contract.paymentDataSignature,
+          user: contract.seller,
+          paymentDataEncryptionMethod: "aes256",
+        },
+        symmetricKey,
+      );
+    } catch (err) {
+      console.log("failed to decrypt seller payment data");
+    }
+  }
 
-  const buyerPaymentData = await decryptPaymentData(
-    {
-      paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
-      paymentDataSignature: contract.buyerPaymentDataSignature,
-      user: contract.buyer,
-      paymentDataEncryptionMethod: "aes256",
-    },
-    symmetricKey,
-  );
+  let buyerPaymentData;
+  try {
+    buyerPaymentData = await decryptPaymentData(
+      {
+        paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
+        paymentDataSignature: contract.buyerPaymentDataSignature,
+        user: contract.buyer,
+        paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
+      },
+      symmetricKey,
+    );
+  } catch (err) {
+    try {
+      buyerPaymentData = await decryptPaymentData(
+        {
+          paymentDataEncrypted: contract.buyerPaymentDataEncrypted,
+          paymentDataSignature: contract.buyerPaymentDataSignature,
+          user: contract.buyer,
+          paymentDataEncryptionMethod: "aes256",
+        },
+        symmetricKey,
+      );
+    } catch (err) {
+      console.log("failed to decrypt buyer payment data");
+    }
+  }
 
   return { symmetricKey, paymentData, buyerPaymentData };
 }

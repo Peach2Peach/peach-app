@@ -10,5 +10,7 @@
   "buy.summary.title" : "chapisha ofa ya ununuzi",
   "buy.title" : "nunua Bitcoin",
   "buy.title.highlight" : "nunua",
-  "yourTrades.search.buy.subtitle" : "ofa ya ununuzi kwa"
+  "yourTrades.search.buy.subtitle" : "ofa ya ununuzi kwa",
+   "help.firstTimeBuyer.description": "MUHIMU: USIsogeze «Nimelipa» kabla ya kufanya malipo.\nMalipo lazima yafanyike NJE ya Peach ukitumia njia ya malipo iliyoshirikiwa na muuzaji.",
+  "help.firstTimeBuyer.title": "Sasa uko kwenye biashara!"
 }

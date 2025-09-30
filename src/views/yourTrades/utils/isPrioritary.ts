@@ -4,7 +4,10 @@ const prioritaryStatus: TradeStatus[] = [
   "refundAddressRequired",
   "refundTxSignatureRequired",
   "refundOrReviveRequired",
+  "disputeWithoutEscrowFunded",
 ];
 
-export const isPrioritary = (tradeStatus: TradeStatus) =>
-  prioritaryStatus.includes(tradeStatus);
+export const isPrioritary = (tradeStatus: TradeStatus, type?: Offer["type"]) =>
+  prioritaryStatus.includes(tradeStatus) ||
+  (tradeStatus === "wrongAmountFundedOnContractRefundWaiting" &&
+    type === "ask");

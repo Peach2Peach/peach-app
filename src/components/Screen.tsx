@@ -1,5 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -25,6 +25,7 @@ type Props = {
   showTradingLimit?: boolean;
   gradientBackground?: boolean;
   children: React.ReactNode;
+  actions?: React.ReactNode;
 };
 
 export const Screen = ({
@@ -32,6 +33,7 @@ export const Screen = ({
   header,
   showTradingLimit = false,
   gradientBackground = false,
+  actions,
   style,
 }: Props) => {
   const insets = useSafeAreaInsets();
@@ -77,6 +79,7 @@ export const Screen = ({
             <View style={[tw`flex-1 p-sm`, tw`md:p-md`, style]}>
               {children}
             </View>
+            {actions}
             {showTradingLimit && <DailyTradingLimit />}
           </View>
         </View>

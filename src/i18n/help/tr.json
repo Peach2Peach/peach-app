@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "eşleşmeyi kabul et = alışverişe başla",
   "help.addressSigning.description" : "İsviçre yasaları gereği, işlem ödeneceğiniz adresi doğrulamak için imza atmanız gerekecek.\n\nBu işlemin nasıl çalıştığını bilmiyorsanız, manuel olarak bu adıma geçmeniz gerekmez. Peach cüzdanını kullanmanızı öneririz.",
   "help.addressSigning.title" : "adres onayı",
-  "help.buyingBitcoin.description" : "Peach üzerinden bitcoin satın aldığınızda, önce ne kadarlık bir miktar almak istediğinizi seçeceksiniz.\n\nSeçtikten sonra, bu aralığa uygun tüm satış teklifleri görüntülenir.\n\nPeach ücretleri işlem miktarının %2'sidir.",
-  "help.buyingBitcoin.title" : "bitcoin satın alma",
   "help.checkTrade" : "işlemi kontrol et",
   "help.confirmPayment.description" : "\"Ödeme alındı\" kaydırıcısını kaydırdığınız anda, bitcoin alıcıya gönderilir.\n\nHer şeyin doğru olduğundan emin olun, çünkü bu geri alınamaz!",
   "help.confirmPayment.title" : "ödeme alındı mı?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Her işlem için istediğiniz kadar ödeme yöntemi ekleyebilir ve seçebilirsiniz!",
   "help.paymentMethods.description.2" : "Bu bilgiler telefonunuzda saklanır ve yalnızca ticaret yaptığınız kişi bu bilgileri görebilir (anlaşmazlık durumunu bildirmemeniz durumunda).",
   "help.paymentMethods.description.3" : "Güvenilir ödeme yöntemleri en az üç tamamlanmış işlemi olan ve en az 30 gün önce oluşturulan ödeme yöntemleridir.",
-  "help.premium.description" : "Bir fiyat taşıyıcısı belirleyeceksiniz. Bu, piyasa fiyatına göre bir fiyat ayarı yapmanızı sağlar (çeşitli borsalardan elde edilen ortalama bir fiyat).\n\nSattığınız fiyat son alıcı teklifinizle eşleştiğinde belirlenecektir.",
   "help.premium.title" : "fiyat nispeten",
   "help.referral.description.1" : "Yönlendirmelerinizin Peach'te işlem yapması durumunda, her 10.000 sats için bir yönlendirme puanı alırsınız.",
   "help.referral.description.2" : "Puanlarınızı biriktirip harika ödüller alabilirsiniz!",
@@ -42,5 +39,13 @@
   "help.sellingBitcoin.description" : "Peach'te sats'lerinizi satmak ücretsizdir!\n\nBir satış teklifi yayınlamak için sats'lerinizi bir escrow'a göndermelisiniz, böylece alıcıya satmak istediğiniz sats'lere sahip olduğunuzu kanıtlayabilirsiniz!\n\nEscrow, sahip olduğunuz bir anahtara ve Peach'in başka bir anahtara sahip olduğu Bitcoin çoklu imza cüzdanıdır.",
   "help.sellingBitcoin.title" : "bitcoin satma",
   "help.tradingLimit.description" : "Peach, İsviçre yasalarına uymak için işlem limitlerini uygulamak zorundadır. Üç işlem limiti bulunmaktadır:\n\nGünlük olarak Peach'te 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nNakit veya çevrimdışı hediye kartları (anonim ödeme yöntemleri) ile ayda 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nYıllık olarak 100.000 CHF değerinde bitcoin alıp satabilirsiniz.",
-  "help.tradingLimit.title" : "işlem limitleri"
+  "help.tradingLimit.title" : "işlem limitleri",
+  "help.acceptTradeRequest.description": "Bir teklif için yalnızca bir alıcıyı kabul edebilirsiniz. Bir alıcının ticaret isteğini kabul ettikten sonra, ticaret başlatılır.\n\nBaşladıktan sonra, iptal etmeye karar verirseniz itibarınız zarar görecektir.",
+  "help.acceptTradeRequest.title": "ticaret isteğini kabul et = ticareti başlat",
+  "help.buyingBitcoin.description": "Peach cüzdanı self-custodial’dir; bu, cüzdanınızın anahtarlarının size ait olduğu anlamına gelir.\nAyarlar > seed phrase kısmına gidin ve yazın! #AnahtarSizinDeğilseBitcoinDeğildir",
+  "help.buyingBitcoin.title": "Peach’te bitcoin almak işlem tutarının %2’sini alır",
+  "help.premiumBuy.description": "Piyasa fiyatına göre bir fiyat farkı belirleyeceksiniz (birden fazla borsadan ortalama alınır).\n\nSatış yapacağınız nihai fiyat, bir satıcı teklifinizle ticaret talep ettiğinde belirlenecektir.",
+  "help.premiumBuy.title": "fiyat görecelidir",
+  "help.premium.description": "Piyasa fiyatına göre bir fiyat farkı belirleyeceksiniz (birden fazla borsadan ortalama alınır).\n\nSatış yapacağınız nihai fiyat, bir alıcı teklifinizle ticaret talep ettiğinde belirlenecektir."
+
 }

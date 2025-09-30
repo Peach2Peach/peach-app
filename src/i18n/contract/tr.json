@@ -35,7 +35,6 @@
   "contract.cancel.pending" : "bekleyen iptal",
   "contract.cancel.requestSent" : "istek gönderildi",
   "contract.cancel.requestSent.text" : "Alıcı, ticareti iptal etmek istediğini bildirildi.",
-  "contract.cancel.seller" : "Emin misin? Bir alışverişi iptal etmek, itibarını olumsuz etkiler.\n\nAlıcının da alışverişi iptal etmeyi kabul etmesi gerektiğini unutma, çünkü ödeme yapmış olabilirler.",
   "contract.cancel.seller.text.backOnline" : "Alıcı, bu ticareti iptal etmeyi kabul ederse, satış teklifini eşleşme havuzuna geri koyarız.",
   "contract.cancel.seller.text.refundEscrow" : "Alıcı, bu ticareti iptal etmeyi kabul ederse, emaneti geri ödeyeceğiz.",
   "contract.cancel.sellerWantsToCancel.text" : "Satıcı, $0 karşılığında $1 sats'lik alışverişi iptal etmek istiyor.\n\nÖzellikle de ödeme yaptıysan alışveriş iptalini reddetmekte özgürsün.",
@@ -203,5 +202,15 @@
   "contract.summary.branchCode" : "şube kodu",
   "contract.summary.branchName" : "şube adı",
   "contract.summary.mobileMoneyIdentifier" : "mobil para tanımlayıcısı",
-  "contract.summary.residentialAddress" : "ikamet adresi"
+  "contract.summary.residentialAddress" : "ikamet adresi",
+  "contract.seller.sellerDidntFundEscrowInTime": "Escrow'u zamanında finanse etmediniz. Sözleşme otomatik olarak iptal edildi.",
+  "contract.seller.escrowFundedWithWrongAmount": "Escrow'u yanlış tutarla finanse ettiniz. Bu, üzerinde anlaşılan belirli bir tutar olduğundan, ticaret iptal edildi.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Escrow'u yanlış tutarla finanse ettiniz. Bu, üzerinde anlaşılan belirli bir tutar olduğundan, ticaret iptal edildi. Şimdi geri ödeme alabilirsiniz.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Satıcı escrow'u zamanında finanse etmedi. Sözleşme otomatik olarak iptal edildi.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Satıcı escrow'u yanlış miktarda Bitcoin ile finanse etti. Ticaret iptal edildi.",
+  "contract.cancel.seller": "Emin misiniz? Bir işlemi iptal etmek itibarınızı olumsuz etkiler.",
+  "contract.seller.cancelBeforeFunding": "Escrow’u finanse etmeden işlemi iptal ettiniz.",
+  "contract.buyer.cancelBeforeFunding": "Satıcı, escrow’u finanse etmeden işlemi iptal etti.",
+  "contract.escrowFunded.description": "Alıcının ödemeyi yapıldı olarak bildirmesi için 12 saati var",
+  "contract.escrowFunded.title": "Escrow finanse edildi!"
 }

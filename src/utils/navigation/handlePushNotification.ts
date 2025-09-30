@@ -25,6 +25,37 @@ export const handlePushNotification = async (
   if (shouldGoToContract(data)) {
     const { contractId } = data;
     navigationRef.navigate("contract", { contractId });
+  } else if (data.type === "offer.expressFlowTradeRequestChatMessageReceived") {
+    const { offerId, offerType, requestingUserId } = data;
+    navigationRef.navigate("tradeRequestChat", {
+      offerId: offerId!,
+      offerType: offerType!,
+      requestingUserId: requestingUserId!,
+    });
+  } else if (data.type === "offer.expressBuyTradeRequestRejected") {
+    navigationRef.navigate("expressBuyBrowseSellOffers");
+  } else if (data.type === "offer.expressSellTradeRequestRejected") {
+    navigationRef.navigate("expressSellBrowseBuyOffers");
+  } else if (
+    data.type === "contract.escrowFundingTimeExpired.buyer" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
+  } else if (
+    data.type === "contract.escrowFundingTimeExpired.seller" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
+  } else if (
+    data.type === "contract.escrowFundingTimeExpiring6hLeft" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
+  } else if (
+    data.type === "contract.escrowFundingTimeExpiring1hLeft" &&
+    data.contractId
+  ) {
+    navigationRef.navigate("contract", { contractId: data.contractId });
   } else if (shouldGoToContractChat(data)) {
     const { contractId } = data;
     navigationRef.navigate("contractChat", { contractId });
@@ -36,7 +67,29 @@ export const handlePushNotification = async (
   } else if (shouldGoToYourTradesBuy(data)) {
     navigationRef.navigate("homeScreen", {
       screen: "yourTrades",
-      params: { tab: "yourTrades.buy" },
+      params: { tab: "yourTrades.69BuyOffer" },
+    });
+  } else if (
+    data.type === "offer.expressBuyTradeRequestReceived" &&
+    data.offerId
+  ) {
+    navigationRef.navigate("browseTradeRequestsToMySellOffer", {
+      offerId: data.offerId,
+    });
+  } else if (data.type === "contract.escrowFunded.buyer" && data.contractId) {
+    navigationRef.navigate("contract", {
+      contractId: data.contractId,
+    });
+  } else if (data.type === "contract.escrowFunded" && data.contractId) {
+    navigationRef.navigate("contract", {
+      contractId: data.contractId,
+    });
+  } else if (
+    data.type === "offer.expressSellTradeRequestReceived" &&
+    data.offerId
+  ) {
+    navigationRef.navigate("browseTradeRequestsToMyBuyOffer", {
+      offerId: data.offerId,
     });
   } else if (shouldGoToSell(data)) {
     navigationRef.navigate("homeScreen", { screen: "home" });
@@ -54,7 +107,7 @@ export const handlePushNotification = async (
       if (offer && isBuyOffer(offer)) {
         navigationRef.navigate("explore", { offerId });
       } else {
-        navigationRef.navigate("search", { offerId });
+        navigationRef.navigate("browseTradeRequestsToMySellOffer", { offerId }); // TODO: CHECK IF CORRECT
       }
     } else {
       navigationRef.navigate("offer", { offerId });

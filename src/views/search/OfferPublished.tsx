@@ -27,7 +27,7 @@ export const OfferPublished = ({
           name: "homeScreen",
           params: { screen: "yourTrades", params: { tab: "yourTrades.sell" } },
         },
-        { name: "search", params: { offerId } },
+        { name: "browseTradeRequestsToMySellOffer", params: { offerId } }, // TODO: check if this is correct
       ],
     });
     closeOverlay();

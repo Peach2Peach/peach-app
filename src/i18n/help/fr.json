@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "accepter le match = démarrer l'échange",
   "help.addressSigning.description" : "En raison de la législation suisse, vous devrez signer pour vérifier que vous êtes le propriétaire de l'adresse sur laquelle la transaction sera payée.\n\nSi vous ne savez pas comment cela fonctionne, nous vous recommandons d'utiliser le portefeuille Peach, où vous n'avez pas besoin de passer manuellement par cette étape.",
   "help.addressSigning.title" : "signature d'adresse",
-  "help.buyingBitcoin.description" : "Pour acheter du bitcoin sur Peach, vous sélectionnez d'abord un montant maximum et minimum d'achat. \n\nToutes les offres de vente qui correspondent à cette fourchette vous seront ensuite présentées.\n\nLes frais Peach sont de 2% du montant de la transaction.",
-  "help.buyingBitcoin.title" : "achat de bitcoin",
   "help.checkTrade" : "vérifier la transaction",
   "help.confirmPayment.description" : "Dès que vous cliquez sur le bouton 'paiement reçu', les bitcoins seront envoyés à l'acheteur.\n\nAssurez-vous que tout est correct, car cette transaction est irréversible !",
   "help.confirmPayment.title" : "paiement reçu ?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Vous pouvez ajouter et sélectionner autant de méthodes de paiement que vous le souhaitez pour chaque transaction !",
   "help.paymentMethods.description.2" : "Elles sont stockées sur votre téléphone et seules les personnes avec lesquelles vous effectuez une transaction peuvent voir ces informations (à moins d'ouvrir un litige).",
   "help.paymentMethods.description.3" : "Les méthodes de paiement fiables ont au moins trois transactions terminées et ont plus de 30 jours.",
-  "help.premium.description" : "Vous définirez une marge de prix par rapport au prix du marché (défini par le prix moyen sur plusieurs échanges de trading).\n\nLe prix final auquel vous vendez sera déterminé lorsqu'un acheteur accepte votre offre.",
   "help.premium.title" : "le prix est relatif",
   "help.referral.description.1" : "Pour chaque tranche de 10 000 sats que vos filleuls échangent sur Peach, vous obtenez un point de parrainage.",
   "help.referral.description.2" : "Économisez vos points pour obtenir des récompenses intéressantes !",
@@ -42,5 +39,12 @@
   "help.sellingBitcoin.description" : "Vendre vos sats sur Peach est gratuit !\n\nPour publier une offre de vente, vous devez envoyer vos sats à un compte de séquestre pour prouver à l'acheteur que vous avez les sats que vous souhaitez vendre !\n\nLe séquestre est un portefeuille Bitcoin à signatures multiples où vous possédez une clé et Peach en détient une autre.",
   "help.sellingBitcoin.title" : "vente de bitcoin",
   "help.tradingLimit.description" : "Peach doit respecter des limites de trading pour se conformer à la législation suisse. Il existe trois limites de trading :\n\nVous pouvez acheter ou vendre jusqu'à 1000 CHF de bitcoin sur Peach chaque jour.\n\nVous pouvez acheter ou vendre jusqu'à 1000 CHF de bitcoin en espèces ou en cartes-cadeaux en ligne (méthodes de paiement considérées comme anonymes) chaque mois.\n\nVous pouvez acheter ou vendre jusqu'à  100 000 CHF de bitcoin par an.",
-  "help.tradingLimit.title" : "limites de trading"
+  "help.tradingLimit.title" : "limites de trading",
+  "help.acceptTradeRequest.description": "Vous ne pouvez accepter qu'un acheteur par offre. Une fois que vous avez accepté la demande d'échange d'un acheteur, l'échange est lancé.\n\nUne fois commencé, votre réputation sera affectée si vous décidez d'annuler.",
+  "help.acceptTradeRequest.title": "accepter une demande d'échange = démarrer un échange",
+  "help.buyingBitcoin.description": "Le portefeuille Peach est auto-géré, ce qui signifie que VOUS possédez les clés de votre portefeuille.\nAllez dans Paramètres > phrase de récupération et notez-la ! #PasVosClésPasVotreBitcoin",
+  "help.buyingBitcoin.title": "acheter du bitcoin sur Peach coûte 2 % de la transaction",
+  "help.premiumBuy.description": "Vous définirez un écart de prix par rapport au prix du marché (moyenne de plusieurs exchanges).\n\nLe prix final auquel vous vendez sera déterminé lorsqu'un vendeur demandera un échange avec votre offre.",
+  "help.premiumBuy.title": "le prix est relatif",
+  "help.premium.description": "Vous définirez un écart de prix par rapport au prix du marché (moyenne de plusieurs exchanges).\n\nLe prix final auquel vous vendez sera déterminé lorsqu'un acheteur demandera un échange avec votre offre."
 }

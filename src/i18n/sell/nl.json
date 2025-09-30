@@ -21,5 +21,7 @@
   "sell.title.highlight" : "verkoop",
   "warning.incorrectFunding.description" : "Je hebt je aanbieding gefinancierd met $0 transacties, wat niet is toegestaan vanwege de hoge netwerkkosten voor de koper.\n\nJe krijgt een terugbetaling.",
   "warning.incorrectFunding.title" : "Onjuiste financiering",
-  "yourTrades.search.sell.subtitle" : "koop aanbod voor"
+  "yourTrades.search.sell.subtitle" : "koop aanbod voor",
+   "warning.incorrectFundingContract.description": "Je hebt het contract verkeerd gefinancierd. Dit moet met 1 transactie van het exacte bedrag.\n\nJe krijgt een terugbetaling.",
+    "warning.incorrectFundingContract.title": "Verkeerde financiering"
 }

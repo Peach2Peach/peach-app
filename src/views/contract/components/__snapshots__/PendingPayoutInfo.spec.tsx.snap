@@ -352,7 +352,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
           {
             "busy": undefined,
             "checked": undefined,
-            "disabled": false,
+            "disabled": undefined,
             "expanded": undefined,
             "selected": undefined,
           }

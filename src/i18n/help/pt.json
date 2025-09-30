@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "aceitar correspondência = iniciar negociação",
   "help.addressSigning.description" : "Devido à lei suíça, precisará assinar para verificar que é o proprietário do endereço para o qual a negociação será paga.\n\nSe não sabe como isso funciona, recomendamos usar a carteira Peach, onde não precisa passar manualmente esta etapa.",
   "help.addressSigning.title" : "assinatura de endereço",
-  "help.buyingBitcoin.description" : "Ao comprar bitcoin na Peach, primeiro selecionará um intervalo de quanto deseja comprar.\n\nDepois de selecionar, serão mostradas todas as ofertas de venda que se encaixam nesse intervalo.\n\nAs taxas da Peach são 2% do valor da negociação.",
-  "help.buyingBitcoin.title" : "comprando bitcoin",
   "help.checkTrade" : "verificar negociação",
   "help.confirmPayment.description" : "Assim que deslizar o botão \"pagamento recebido\", o bitcoin será enviado para o comprador.\n\nCertifique-se de que tudo está correto, porque isso não pode ser desfeito!",
   "help.confirmPayment.title" : "pagamento recebido?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Pode adicionar e selecionar quantos métodos de pagamento quiser para cada negociação!",
   "help.paymentMethods.description.2" : "Estes são armazenados no seu telefone e apenas a pessoa com quem está a negociar poderá ver essas informações (a menos que inicie uma disputa).",
   "help.paymentMethods.description.3" : "Métodos de pagamento confiáveis têm de ter pelo menos três negociações concluídas e mais de 30 dias.",
-  "help.premium.description" : "Definirá um desconto relativo ao preço de mercado (média de várias exchanges).\n\nO preço final da sua venda será determinado quando um comprador combinar com a sua oferta.",
   "help.premium.title" : "o preço é relativo",
   "help.referral.description.1" : "A cada 10.000 sats que seus referenciados negociarem na Peach, ganhará um ponto de referência.",
   "help.referral.description.2" : "Economize seus pontos para obter recompensas incríveis!",
@@ -42,5 +39,13 @@
   "help.sellingBitcoin.description" : "A venda de seus sats na Peach é gratuita!\n\nPara publicar uma oferta de venda, deve enviar seus sats para a custódia, comprovando ao comprador que você possui os sats que deseja vender!\n\nA 'custódia' é uma carteira de Bitcoin com várias assinaturas, onde você possui uma chave e a Peach possui a outra.",
   "help.sellingBitcoin.title" : "vendendo bitcoin",
   "help.tradingLimit.description" : "A Peach deve obedecer às leis suíças ao impor limites de negociação. Existem três limites de negociação:\n\nPode comprar ou vender 1.000 CHF em bitcoin na Peach todos os dias.\n\nPode comprar ou vender 1.000 CHF em bitcoin com dinheiro ou cartões-presente online (ou seja, métodos de pagamento anónimos) todos os meses.\n\nPode comprar ou vender 100.000 CHF em bitcoin por ano.",
-  "help.tradingLimit.title" : "limites de negociação"
+  "help.tradingLimit.title" : "limites de negociação",
+  "help.acceptTradeRequest.description": "Só pode aceitar um comprador por oferta. Assim que aceitar o pedido de troca de um comprador, a negociação é iniciada.\n\nUma vez iniciada, a sua reputação será afetada se decidir cancelar.",
+  "help.acceptTradeRequest.title": "aceitar pedido de troca = iniciar negociação",
+  "help.buyingBitcoin.description": "A carteira Peach é self-custodial, o que significa que VOCÊ possui as chaves da sua carteira.\nVá a Definições > seed phrase e anote-a! #SemSuasChavesSemSeuBitcoin",
+  "help.buyingBitcoin.title": "comprar bitcoin no Peach custa 2% da transação",
+  "help.premiumBuy.description": "Você definirá um desvio de preço relativo ao preço de mercado (média de várias exchanges).\n\nO preço final pelo qual você venderá será determinado quando um vendedor solicitar uma negociação com a sua oferta.",
+  "help.premiumBuy.title": "o preço é relativo",
+  "help.premium.description": "Você definirá um desvio de preço relativo ao preço de mercado (média de várias exchanges).\n\nO preço final pelo qual você venderá será determinado quando um comprador solicitar uma negociação com a sua oferta."
+
 }

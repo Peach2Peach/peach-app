@@ -11,14 +11,16 @@ import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 
 export function InfoPopup(
-  props: Pick<PopupComponentProps, "title" | "content">,
+  props: Pick<PopupComponentProps, "title" | "content" | "dontShowHelpButton">,
 ) {
   return (
     <PopupComponent
       {...props}
       actions={
         <>
-          <HelpPopupAction title={props.title} />
+          {props.dontShowHelpButton !== true && (
+            <HelpPopupAction title={props.title} />
+          )}
           <ClosePopupAction reverseOrder />
         </>
       }

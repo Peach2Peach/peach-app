@@ -11,11 +11,16 @@ import { isWaiting } from "./isWaiting";
 export const getOfferColor = (
   trade: OfferSummary | ContractSummary,
 ): keyof typeof statusCardStyles.bg => {
-  const { tradeStatus, type } = trade;
+  const { tradeStatus, tradeStatusNew, type } = trade;
+
+  if (tradeStatusNew !== undefined) {
+    if (tradeStatusNew === "waitingForTradeRequest") return "primary-mild";
+    if (tradeStatusNew === "acceptTradeRequest") return "primary";
+  }
 
   if (!isTradeStatus(trade.tradeStatus)) return "info";
   if (tradeStatus === "paymentTooLate") return "warning";
-  if (isPastOffer(tradeStatus)) {
+  if (isPastOffer(tradeStatus, type)) {
     if (tradeStatus === "tradeCompleted")
       return type === "ask" ? "primary" : "success";
     return "black";
@@ -25,13 +30,15 @@ export const getOfferColor = (
       "confirmCancelation",
       "refundOrReviveRequired",
       "refundTxSignatureRequired",
+      "wrongAmountFundedOnContractRefundWaiting",
     ].includes(tradeStatus)
   )
     return "black";
 
   if (isError(tradeStatus)) return "error";
   if (isPrioritary(tradeStatus)) return "warning";
-  if (isWaiting(type, tradeStatus)) return "primary-mild";
+  if (isWaiting(type, tradeStatus) || isWaiting(type, tradeStatusNew))
+    return "primary-mild";
 
   if (isContractSummary(trade)) {
     if (trade.disputeWinner) return "warning";

@@ -21,5 +21,7 @@
   "settings.batching.youPay" : "Achtung! Sie zahlen für die zusätzlichen Kosten, die Peach entstehen. Diese Kosten sind dynamisch und können bei Gebührenerhöhungen erheblich sein.\nVergewissern Sie sich, dass Sie verstehen, was Sie da tun!",
   "settings.batching.youPay.highlight" : "Achtung!",
   "settings.batching.youSave" : "Sie sparen bis zu 23 % an Netzgebühren",
-  "settings.batching.youSave.highlight" : "bis zu 23% sparen"
+  "settings.batching.youSave.highlight" : "bis zu 23% sparen",
+  "offer.requiredAction.wrongAmountFundedOnContract": "falscher Betrag eingezahlt",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "falscher Betrag eingezahlt"
 }

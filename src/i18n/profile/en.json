@@ -12,6 +12,7 @@
   "profile.myAccount.title" : "my account",
   "profile.canceledTrades" : "canceled trades",
   "profile.numberOfTrades" : "number of trades",
+  "profile.numberOfFreeTrades" : "number of free trades available",
   "profile.publicKey" : "account pubkey",
   "profile.tradingLimits" : "trading limits",
   "profile.tradingLimits.daily" : "daily traded volume",

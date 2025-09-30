@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { MatchFilter } from "../../../peach-api/src/@types/api/offerAPI";
-import { NEW_USER_TRADE_THRESHOLD, TOTAL_SATS } from "../../constants";
+import { NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { dataToMeansOfPayment } from "../../utils/paymentMethod/dataToMeansOfPayment";
 import { createStorage } from "../../utils/storage/createStorage";
 import { isDefined } from "../../utils/validation/isDefined";
@@ -13,6 +13,24 @@ import { getHashedPaymentData, getPreferredMethods } from "./helpers";
 import { CurrencyType } from "./types";
 
 type OfferPreferences = {
+  // peach069
+  createBuyOfferAmount: number;
+  createBuyOfferPremium: number;
+  expressBuyFilterByAmountRange: [number, number];
+  expressSellFilterByAmountRange: [number, number];
+
+  expressBuyFilterByCurrencyList: Currency[];
+  expressSellFilterByCurrencyList: Currency[];
+
+  expressBuyFilterByPaymentMethodList: PaymentMethod[];
+  expressSellFilterByPaymentMethodList: PaymentMethod[];
+
+  expressSellFilterMinPremium: number;
+  expressBuyFilterMaxPremium: number;
+
+  expressSellOffersSorter: ExpressSellOfferSorter;
+  expressBuyOffersSorter: ExpressBuyOfferSorter;
+
   buyAmountRange: [number, number];
   sellAmount: number;
   premium: number;
@@ -22,6 +40,7 @@ type OfferPreferences = {
   originalPaymentData: PaymentData[];
   preferredCurrenyType: CurrencyType;
   multi?: number;
+  buyOfferMulti?: number;
   multiOfferList: string[][];
   sortBy: {
     buyOffer: BuySorter[];
@@ -39,7 +58,20 @@ type OfferPreferences = {
 };
 
 export const defaultPreferences: OfferPreferences = {
-  buyAmountRange: [1, TOTAL_SATS],
+  createBuyOfferAmount: 1,
+  createBuyOfferPremium: 1.5,
+
+  buyAmountRange: [20000, 1070000], // TODO: verify this
+  expressBuyFilterByAmountRange: [1, 9070000],
+  expressSellFilterByAmountRange: [1, 9070000],
+  expressBuyFilterByCurrencyList: [],
+  expressSellFilterByCurrencyList: [],
+  expressBuyFilterByPaymentMethodList: [],
+  expressSellFilterByPaymentMethodList: [],
+  expressSellFilterMinPremium: -21, // TODO: replace hardcoded value with constant
+  expressBuyFilterMaxPremium: 21, // TODO: replace hardcoded value with constant
+  expressSellOffersSorter: "bestReputation",
+  expressBuyOffersSorter: "bestReputation",
   sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},
@@ -47,6 +79,7 @@ export const defaultPreferences: OfferPreferences = {
   preferredPaymentMethods: {},
   originalPaymentData: [],
   multi: undefined,
+  buyOfferMulti: undefined,
   multiOfferList: [],
   preferredCurrenyType: "europe",
   sortBy: {
@@ -71,9 +104,32 @@ export const defaultPreferences: OfferPreferences = {
 };
 
 type OfferPreferencesActions = {
+  setCreateBuyOfferAmount: (createBuyOfferAmount: number) => void;
+  setCreateBuyOfferPremium: (createBuyOfferPremium: number) => void;
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
+  setExpressBuyFilterByAmountRange: (
+    expressBuyFilterByAmountRange: [number, number],
+  ) => void;
+  setExpressSellFilterByAmountRange: (
+    expressSellFilterByAmountRange: [number, number],
+  ) => void;
+  setExpressBuyFilterByCurrencyList: (
+    expressBuyFilterByCurrencyList: Currency[],
+  ) => void;
+  setExpressSellFilterByCurrencyList: (
+    expressSellFilterByCurrencyList: Currency[],
+  ) => void;
+  setExpressBuyFilterByPaymentMethodList: (
+    expressBuyFilterByPaymentMethodList: PaymentMethod[],
+  ) => void;
+  setExpressSellFilterByPaymentMethodList: (
+    expressSellFilterByPaymentMethodList: PaymentMethod[],
+  ) => void;
+  setExpressBuyFilterMaxPremium: (expressBuyFilterMaxPremium: number) => void;
+  setExpressSellFilterMinPremium: (expressSellFilterMinPremium: number) => void;
   setSellAmount: (sellAmount: number) => void;
   setMulti: (number?: number) => void;
+  setBuyOfferMulti: (number?: number) => void;
   addMultiOffers: (offers: string[]) => void;
   removeMultiOffer: (offer: string) => void;
   setPremium: (newPremium: number, isValid?: boolean) => void;
@@ -83,12 +139,16 @@ type OfferPreferencesActions = {
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
   setBuyOfferSorter: (sorter: BuySorter) => void;
   setSellOfferSorter: (sorter: SellSorter) => void;
+  setExpressSellOffersSorter: (sorter: ExpressSellOfferSorter) => void;
+  setExpressBuyOffersSorter: (sorter: ExpressBuyOfferSorter) => void;
   toggleInstantTrade: () => void;
   toggleMinTrades: () => void;
   toggleMinReputation: () => void;
   toggleBadge: (badge: Medal) => void;
   setHasSeenInstantTradePopup: (hasSeenInstantTradePopup: boolean) => void;
   setFundWithPeachWallet: (fundWithPeachWallet: boolean) => void;
+  resetExpressBuyFilters: () => void;
+  resetExpressSellFilters: () => void;
 };
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions;
@@ -100,9 +160,37 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
     immer((set, get) => ({
       ...defaultPreferences,
+      setCreateBuyOfferAmount: (createBuyOfferAmount) =>
+        set({ createBuyOfferAmount }),
+      setCreateBuyOfferPremium: (createBuyOfferPremium) =>
+        set({ createBuyOfferPremium }),
+
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
+      setExpressBuyFilterByAmountRange: (expressBuyFilterByAmountRange) =>
+        set({ expressBuyFilterByAmountRange }),
+      setExpressSellFilterByAmountRange: (expressSellFilterByAmountRange) =>
+        set({ expressSellFilterByAmountRange }),
+
+      setExpressBuyFilterByCurrencyList: (expressBuyFilterByCurrencyList) =>
+        set({ expressBuyFilterByCurrencyList }),
+      setExpressSellFilterByCurrencyList: (expressSellFilterByCurrencyList) =>
+        set({ expressSellFilterByCurrencyList }),
+
+      setExpressBuyFilterByPaymentMethodList: (
+        expressBuyFilterByPaymentMethodList,
+      ) => set({ expressBuyFilterByPaymentMethodList }),
+      setExpressSellFilterByPaymentMethodList: (
+        expressSellFilterByPaymentMethodList,
+      ) => set({ expressSellFilterByPaymentMethodList }),
+
+      setExpressBuyFilterMaxPremium: (expressBuyFilterMaxPremium: number) =>
+        set({ expressBuyFilterMaxPremium }),
+      setExpressSellFilterMinPremium: (expressSellFilterMinPremium: number) =>
+        set({ expressSellFilterMinPremium }),
+
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
+      setBuyOfferMulti: (buyOfferMulti) => set({ buyOfferMulti }),
       addMultiOffers: (offers) => {
         set({
           multiOfferList: [...get().multiOfferList, offers],
@@ -179,6 +267,14 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set((state) => {
           state.sortBy.sellOffer = [sorter];
         }),
+      setExpressSellOffersSorter: (sorter) =>
+        set((state) => {
+          state.expressSellOffersSorter = sorter;
+        }),
+      setExpressBuyOffersSorter: (sorter) =>
+        set((state) => {
+          state.expressBuyOffersSorter = sorter;
+        }),
       toggleInstantTrade: () =>
         set((state) => ({ instantTrade: !state.instantTrade })),
       toggleMinTrades: () =>
@@ -208,6 +304,28 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set({ hasSeenInstantTradePopup }),
       setFundWithPeachWallet: (fundWithPeachWallet) =>
         set({ fundWithPeachWallet }),
+      resetExpressBuyFilters: () =>
+        set({
+          expressBuyFilterByAmountRange:
+            defaultPreferences.expressBuyFilterByAmountRange,
+          expressBuyFilterByCurrencyList:
+            defaultPreferences.expressBuyFilterByCurrencyList,
+          expressBuyFilterByPaymentMethodList:
+            defaultPreferences.expressBuyFilterByPaymentMethodList,
+          expressBuyFilterMaxPremium:
+            defaultPreferences.expressBuyFilterMaxPremium,
+        }),
+      resetExpressSellFilters: () =>
+        set({
+          expressSellFilterByAmountRange:
+            defaultPreferences.expressSellFilterByAmountRange,
+          expressSellFilterByCurrencyList:
+            defaultPreferences.expressSellFilterByCurrencyList,
+          expressSellFilterByPaymentMethodList:
+            defaultPreferences.expressSellFilterByPaymentMethodList,
+          expressSellFilterMinPremium:
+            defaultPreferences.expressSellFilterMinPremium,
+        }),
     })),
     {
       name: "offerPreferences",

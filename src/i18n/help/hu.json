@@ -4,8 +4,6 @@
   "help.acceptMatch.title" : "ajánlat elfogadása = kereskedés elindítása",
   "help.addressSigning.description" : "A svájci jogszabályok miatt, annak igazolásához, hogy a kereskedés során kifizetett cím a tiéd alá kell írnod. Ha nem tudod, ez hogyan működik, javasoljuk, hogy a Peach tárcát használd, ahol ezen a lépésen nem kell manuálisan végig menned.",
   "help.addressSigning.title" : "cím aláírása",
-  "help.buyingBitcoin.description" : "Amikor a Peach platformon bitcoint vásárolsz, először kiválasztod, hogy mennyit szeretnél vásárolni. Miután kiválasztottad, az összes eladási ajánlat megjelenik amelyek ebbe az általad megadott tartományba esnek. A tranzakció összegének 2%-a a Peach jutaléka.",
-  "help.buyingBitcoin.title" : "bitcoint vásárlás",
   "help.checkTrade" : "kereskedés ellenőrzése",
   "help.confirmPayment.description" : "Amint elhúzod a \"fizetés megérkezett\" csúszkát, a bitcoint a vásárlónak elküldik. Győződj meg arról, hogy minden helyes, mert ezt visszavonni nem lehet!",
   "help.confirmPayment.title" : "fizetés megérkezett?",
@@ -34,7 +32,6 @@
   "help.paymentMethods.description.1" : "Minden kereskedéshez annyi fizetési módot adhatsz hozzá és választhatsz ki, amennyit csak szeretnél!",
   "help.paymentMethods.description.2" : "A telefonodon vannak tárolva, és csak az a személy láthatja ezeket az információkat, akivel kereskedsz (kivéve, ha vitát kezdeményezel).",
   "help.paymentMethods.description.3" : "A megbízható fizetési módoknak legalább három befejezett kereskedésük van, és legalább 30 napja regisztráltak.",
-  "help.premium.description" : "A piaci árhoz képest (amelyet több tőzsdéről átlagolnak) egy árkorrekciót fogsz meghatározni. A végső ár (amennyiért eladsz), akkor lesz meghatározva, amikor egy vevő az ajánlatodat elfogadja.",
   "help.premium.title" : "az ár relatív",
   "help.referral.description.1" : "Minden olyan Peach tranzakció után, amelyben az ajánlottjaid 10 000 satoshit kereskednek, egy ajánlási pontot kapsz.",
   "help.referral.description.2" : "Gyűjtsd a pontjaidat, hogy klassz jutalmakat kapj!",
@@ -42,5 +39,13 @@
   "help.sellingBitcoin.description" : "Saját satoshik Peachen eladása ingyenes!\n\nEgy eladási ajánlat közzététele érdekében el kell küldened egy escrow-nak a satoshijaidat, hogy a vásárlónak bebizonyítsd, hogy bírtoklod az adott satoshi mennyiséget, amit el akarsz adni!\n\nAz escrow egy több aláírású Bitcoin pénztárca, ahol te egy kulcsot, és a Peach egy másikat birtokol.",
   "help.sellingBitcoin.title" : "bitcoin eladás",
   "help.tradingLimit.description" : "A Peach-nek a svájci törvényeket be kell tartania, és ezért kereskedelmi korlátozásokat kell bevezetnie. Három kereskedelmi korlátozás van:\n\nMinden nap a Peach-en 1000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz\n\nA Peach-en készpénzzel vagy online ajándékutalványokkal (azaz névtelen fizetési módokkal) havi 1000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz\n\nA Peach-en évente 100 000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz.",
-  "help.tradingLimit.title" : "kereskedelmi korlátozások"
+  "help.tradingLimit.title" : "kereskedelmi korlátozások",
+  "help.acceptTradeRequest.description": "Egy ajánlaton csak egy vevőt fogadhat el. Ha elfogadja egy vevő kereskedési kérését, a kereskedés elindul.\n\nHa elindult, a hírneve csorbulni fog, ha úgy dönt, hogy megszakítja a kereskedést.",
+  "help.acceptTradeRequest.title": "kereskedési kérés elfogadása = kereskedés indítása",
+  "help.buyingBitcoin.description": "A Peach pénztárca önmagát kezeli, ami azt jelenti, hogy ÖN birtokolja a pénztárca kulcsait.\nMenjen a Beállítások > mag kifejezés és írja le! #NemAzÖnKulcsaNemAzÖnBitcoinja",
+  "help.buyingBitcoin.title": "bitcoin vásárlása a Peach-en a tranzakció 2%-ába kerül",
+  "help.premiumBuy.description": "Állít egy árkorrekciót a piaci árhoz képest (több tőzsde átlagolt ára).\n\nA végső ár, amelyen elad, akkor kerül meghatározásra, amikor egy eladó kereskedést kér az ajánlatával.",
+  "help.premiumBuy.title": "az ár relatív",
+  "help.premium.description": "Állít egy árkorrekciót a piaci árhoz képest (több tőzsde átlagolt ára).\n\nA végső ár, amelyen elad, akkor kerül meghatározásra, amikor egy vevő kereskedést kér az ajánlatával."
+
 }

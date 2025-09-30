@@ -21,6 +21,21 @@ export const options = {
     iconId: "checkSquare",
     backgroundColor: tw`bg-primary-main`,
   },
+  acceptTradeRequest: {
+    text: "search.matchButton.acceptTradeRequest",
+    iconId: "checkSquare",
+    backgroundColor: tw`bg-primary-main`,
+  },
+  rejectTradeRequest: {
+    text: "search.matchButton.rejectTradeRequest",
+    iconId: "xCircle",
+    backgroundColor: tw`bg-primary-main`,
+  },
+  goToChat: {
+    text: "search.matchButton.goToChat",
+    iconId: "messageFull",
+    backgroundColor: tw`bg-primary-main`,
+  },
   offerMatched: {
     text: "search.matchButton.offerMatched",
     iconId: "checkSquare",

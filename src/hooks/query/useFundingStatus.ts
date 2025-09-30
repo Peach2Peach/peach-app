@@ -1,6 +1,5 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { MSINASECOND } from "../../constants";
-import { error } from "../../utils/log/error";
 import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./useOfferDetail";
 
@@ -13,6 +12,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     isLoading,
     error: fundingStatusError,
     isPending,
+    refetch,
   } = useQuery({
     queryKey: offerKeys.fundingStatus(id),
     queryFn: getFundingStatusQuery,
@@ -26,6 +26,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     isLoading,
     isPending,
     error: fundingStatusError,
+    refetch,
   };
 };
 
@@ -34,11 +35,11 @@ async function getFundingStatusQuery({
 }: QueryFunctionContext<ReturnType<typeof offerKeys.fundingStatus>>) {
   const offerId = queryKey[2];
 
-  const { result: fundingStatus, error: err } =
+  const { result: fundingStatus, error: _err } =
     await peachAPI.private.offer.getFundingStatus({ offerId });
-  if (!fundingStatus || err) {
-    error("Could not fetch funding status for offer", offerId, err?.error);
-    throw new Error(err?.error);
-  }
+  // if (!fundingStatus || err) {
+  //   error("Could not fetch funding status for offer", offerId, err?.error);
+  //   throw new Error(err?.error);
+  // }
   return fundingStatus;
 }

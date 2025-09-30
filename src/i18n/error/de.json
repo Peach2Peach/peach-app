@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "Die angeforderte Ressource konnte nicht gefunden werden.",
   "OFFER_TAKEN.text" : "Ein anderer Benutzer hat das Angebot schneller angenommen als du. Viel Glück beim nächsten Mal!",
   "OFFER_TAKEN.title" : "Match fehlgeschlagen",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "Der andere Nutzer darf diesen Handel nicht starten. Bitte versuche es morgen erneut.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Handelslimit des Gegenübers erreicht",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Dies tritt höchstwahrscheinlich auf, wenn du eine Wiederherstellung über den Seed vorgenommen hast und die Zahlungsinformationen des Käufers nicht entschlüsseln kannst.\nBitte warte auf ein neues Match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "Zahlungsdaten konnten nicht verschlüsselt werden",
   "PAYMENT_DATA_MISSING.action" : "Gib deine Daten erneut ein",
@@ -78,5 +80,6 @@
   "error.firstBackup.action" : "ein Backup erstellen",
   "error.firstBackup.description" : "Jetzt, wo du die Peach Wallet benutzt hast, solltest du unbedingt ein Backup erstellen, bevor du weitermachst.\n\nWenn du es nicht tust, verlierst du dein Peach-Konto und alle Sats in der Peach Wallet, falls du dein Handy verlierst.",
   "error.firstBackup.title" : "Erstelle ein Backup!",
-  "error.general" : "Etwas ist schiefgelaufen. Bitte versuche es später erneut oder kontaktiere das Peach-Supportteam."
+  "error.general" : "Etwas ist schiefgelaufen. Bitte versuche es später erneut oder kontaktiere das Peach-Supportteam.",
+  "ACCOUNT_BANNED.text": "Ihr Konto wurde gesperrt. Wenn Sie Einspruch einlegen möchten, kontaktieren Sie Peach und geben Sie die eindeutige ID an."
 }

@@ -10,12 +10,14 @@ type Props = {
   onChange: (number: number) => void;
   min?: number;
   max?: number;
+  green?: boolean;
 };
 export const NumberStepper = ({
   value,
   onChange,
   min = -Infinity,
   max = Infinity,
+  green = false,
 }: Props) => {
   const decrease = () => onChange(Math.max(value - 1, min));
   const increase = () => onChange(Math.min(value + 1, max));
@@ -33,7 +35,11 @@ export const NumberStepper = ({
         disabled={!canDecrease}
         style={!canDecrease && tw`opacity-50`}
       >
-        <Icon id="minusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon
+          id="minusCircle"
+          size={24}
+          color={green ? tw.color("success-main") : tw.color("primary-main")}
+        />
       </TouchableOpacity>
       <PeachText
         style={[
@@ -49,7 +55,11 @@ export const NumberStepper = ({
         disabled={!canIncrease}
         style={!canIncrease && tw`opacity-50`}
       >
-        <Icon id="plusCircle" size={24} color={tw.color("primary-main")} />
+        <Icon
+          id="plusCircle"
+          size={24}
+          color={green ? tw.color("success-main") : tw.color("primary-main")}
+        />
       </TouchableOpacity>
     </View>
   );

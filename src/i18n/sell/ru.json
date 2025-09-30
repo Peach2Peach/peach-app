@@ -21,5 +21,7 @@
   "sell.title.highlight" : "продать",
   "warning.incorrectFunding.description" : "Ты финансировал своё предложение $0 транзакциями, что не разрешено из-за излишних сетевых сборов для покупателя.\n\nТебе вернут деньги.",
   "warning.incorrectFunding.title" : "Неправильное финансирование",
-  "yourTrades.search.sell.subtitle" : "предложение о продаже за"
+  "yourTrades.search.sell.subtitle" : "предложение о продаже за",
+  "warning.incorrectFundingContract.description": "Вы неправильно профинансировали контракт. Нужно 1 транзакцией на точную сумму.\n\nВам вернут средства.",
+    "warning.incorrectFundingContract.title": "Неверное финансирование"
 }

@@ -26,12 +26,14 @@ type Props = {
   setIsSliding: (isSliding: boolean) => void;
   range: [number, number];
   setRange: (newRange: [number, number]) => void;
+  isSell?: boolean;
 };
 
 export function AmountSelectorComponent({
   setIsSliding,
   range: [min, max],
   setRange,
+  isSell = false,
 }: Props) {
   const trackWidth = useTrackWidth();
   const minSliderDeltaAsAmount = useMinSliderDeltaAsAmount(trackWidth);
@@ -39,18 +41,22 @@ export function AmountSelectorComponent({
 
   return (
     <Section.Container
-      style={tw`${isDarkMode ? "bg-card" : "bg-success-mild-1-color"}`}
+      style={tw`${isDarkMode ? "bg-card" : isSell ? "bg-primary-background-dark-color" : "bg-success-mild-1-color"}`}
     >
-      <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
+      <Section.Title>
+        {isSell
+          ? i18n("offerPreferences.amountToSell")
+          : i18n("offerPreferences.amountToBuy")}
+      </Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
-        <BuyAmountInput
+        <AmountInput
           type="min"
           minAmountDelta={minSliderDeltaAsAmount}
           range={[min, max]}
           setRange={setRange}
         />
         <PeachText style={tw`subtitle-1`}>-</PeachText>
-        <BuyAmountInput
+        <AmountInput
           type="max"
           minAmountDelta={minSliderDeltaAsAmount}
           range={[min, max]}
@@ -64,10 +70,11 @@ export function AmountSelectorComponent({
             trackWidth={trackWidth}
             range={[min, max]}
             setRange={setRange}
+            isSell={isSell}
           />
         }
         trackWidth={trackWidth}
-        type="buy"
+        type={isSell ? "sell" : "buy"}
       />
     </Section.Container>
   );
@@ -77,12 +84,14 @@ type SliderProps = {
   trackWidth: number;
   range: [number, number];
   setRange: (newRange: [number, number]) => void;
+  isSell?: boolean;
 };
 function AmountSliders({
   setIsSliding,
   trackWidth,
   range: [min, max],
   setRange,
+  isSell = false,
 }: SliderProps) {
   const [, maxLimit] = useTradingAmountLimits("buy");
   const trackMax = trackWidth - sliderWidth;
@@ -123,7 +132,7 @@ function AmountSliders({
           left: trackWidth,
           right: sliderDelta / 2 + sliderWidth,
         }}
-        type="buy"
+        type={isSell ? "sell" : "buy"}
         transform={[{ translateX: minTranslateX }]}
         iconId="chevronsLeft"
       />
@@ -136,7 +145,7 @@ function AmountSliders({
           left: sliderDelta / 2 - sliderWidth,
           right: trackWidth,
         }}
-        type="buy"
+        type={isSell ? "sell" : "buy"}
         transform={[{ translateX: maxTranslateX }]}
         iconId="chevronsRight"
       />
@@ -149,7 +158,7 @@ type AmountInputProps = {
   range: [number, number];
   setRange: (newRange: [number, number]) => void;
 };
-function BuyAmountInput({
+function AmountInput({
   minAmountDelta,
   type,
   range: [min, max],

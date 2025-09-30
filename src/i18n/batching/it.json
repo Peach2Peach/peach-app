@@ -23,5 +23,7 @@
   "settings.batching.youPay" : "Attenzione! L'utente paga per i costi aggiuntivi che Peach sostiene. Questi costi sono dinamici e possono diventare significativi durante i picchi delle tariffe.\nAssicuratevi di capire cosa state facendo!",
   "settings.batching.youPay.highlight" : "Attenzione!",
   "settings.batching.youSave" : "Risparmi fino al 23% di commissioni di rete",
-  "settings.batching.youSave.highlight" : "Risparmi fino al 23%"
+  "settings.batching.youSave.highlight" : "Risparmi fino al 23%",
+  "offer.requiredAction.wrongAmountFundedOnContract": "importo errato depositato",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "importo errato depositato"
 }

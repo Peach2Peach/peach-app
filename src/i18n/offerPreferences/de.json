@@ -28,5 +28,8 @@
   "offerPreferences.premiumOfCompletedTrades" : "Prämie abgeschlossener Trades: $0%",
   "offerPreferences.refundTo" : "Rückerstattung an:",
   "offerPreferences.sellOffers" : "$0 Verkaufsangebote",
-  "offerPreferences.showOffers" : "Angebote anzeigen"
+  "offerPreferences.showOffers" : "Angebote anzeigen",
+   "help.createMultiple.description": "Wenn Sie viel von vielen Verkäufern kaufen möchten, können Sie viele Kaufangebote erstellen!",
+  "help.createMultiple.title": "Mehrere Kaufangebote erstellen",
+   "matchDetails.action.unrequestTrade": "Handelsanfrage entfernen"
 }

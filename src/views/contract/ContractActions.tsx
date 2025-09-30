@@ -32,6 +32,7 @@ import {
   RepublishOfferSlider,
   ResolveCancelRequestSliders,
 } from "./ContractSliders";
+import { isFundingTradeStatus } from "./components/TradeInformation";
 import { useContractContext } from "./context";
 
 export const ContractActions = () => {
@@ -39,14 +40,15 @@ export const ContractActions = () => {
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
-        <EscrowButton {...contract} style={tw`flex-1`} />
+        {contract.escrow && <EscrowButton {...contract} style={tw`flex-1`} />}
         <ChatButton />
       </View>
 
       <ContractStatusInfo />
 
       <ContractButtons />
-      {view === "buyer" ? <BuyerSliders /> : <SellerSliders />}
+      {!isFundingTradeStatus(contract.tradeStatus) &&
+        (view === "buyer" ? <BuyerSliders /> : <SellerSliders />)}
     </View>
   );
 };
@@ -65,9 +67,18 @@ function ContractStatusInfo() {
   if (shouldShowInfo) {
     const requiredAction = getRequiredAction(contract);
 
-    if (requiredAction === "sendPayment" && !isCashTrade(paymentMethod)) {
+    if (
+      requiredAction === "sendPayment" &&
+      contract.tradeStatus !== "paymentTooLate" &&
+      contract.tradeStatus !== "waitingForFunding" &&
+      contract.tradeStatus !== "escrowWaitingForConfirmation" &&
+      !isCashTrade(paymentMethod)
+    ) {
       const paymentExpectedBy = getPaymentExpectedBy(contract);
-      if (Date.now() <= paymentExpectedBy || view === "buyer") {
+      if (
+        (Date.now() <= paymentExpectedBy || view === "buyer") &&
+        contract.tradeStatus !== "fundEscrow"
+      ) {
         return (
           <Timer
             text={i18n(`contract.timer.${requiredAction}.${view}`)}
@@ -168,6 +179,14 @@ function SellerSliders() {
     );
   }
   if (requiredAction === "confirmPayment") return <PaymentReceivedSlider />;
+
+  if (tradeStatus === "wrongAmountFundedOnContractRefundWaiting") {
+    return (
+      <>
+        <RefundEscrowSlider />
+      </>
+    );
+  }
 
   if (tradeStatus === "refundOrReviveRequired") {
     return (

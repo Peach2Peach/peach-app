@@ -17,7 +17,11 @@ type ComponentProps = {
   onLayout?: (event: LayoutChangeEvent) => void;
 };
 
-type TradeTab = "yourTrades.buy" | "yourTrades.sell" | "yourTrades.history";
+type TradeTab =
+  | "yourTrades.buy" // TODO: remove this eventually
+  | "yourTrades.sell"
+  | "yourTrades.history"
+  | "yourTrades.69BuyOffer";
 
 type BitcoinNetwork = "bitcoin" | "testnet" | "regtest";
 

@@ -1,4 +1,5 @@
 {
+  "ACCOUNT_BANNED.text" : "Your Account has been banned. If you wish to appeal, contact Peach and provide the Unique ID.",
   "CANNOT_DOUBLEMATCH.text" : "We couldn't make this match. The buyer probably just retracted their match with you, or another seller was faster.",
   "CANNOT_DOUBLEMATCH.title" : "match failed",
   "CREATE_ESCROW_ERROR.text" : "Oops, something went wrong while creating the escrow for your offer! Please try again later, or contact us if the error persists.",
@@ -39,6 +40,8 @@
   "NOT_FOUND.text" : "The resource you requested could not be found.",
   "OFFER_TAKEN.text" : "Another user matched the offer faster than you did. Better luck next time!",
   "OFFER_TAKEN.title" : "match failed",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text" : "The other user is not allowed to start this trade. Please try again in the following day.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title" : "Trading Limit of Counterparty reached",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "This most likely happens when you restored from seed and now cannot decrypt the buyer's data.\nPlease wait for a new match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "could not encrypt payment data",
   "PAYMENT_DATA_MISSING.action" : "re-enter your details",

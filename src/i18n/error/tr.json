@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "İstediğiniz kaynak bulunamadı.",
   "OFFER_TAKEN.text" : "Başka bir kullanıcı teklifi sizden daha hızlı eşleştirdi. Bir sonraki sefere daha iyi şanslar!",
   "OFFER_TAKEN.title" : "eşleşme başarısız",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "Diğer kullanıcı bu işlemi başlatamaz. Yarın tekrar deneyin.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Karşı tarafın işlem limiti doldu",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Muhtemelen tohumdan geri yükleme yaptınız ve şimdi alıcının gizli bilgisini şifreleyemiyorsunuz.\nYeni bir eşleşme için lütfen bekleyin.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "ödeme verileri şifrelenemedi",
   "PAYMENT_DATA_MISSING.action" : "bilgilerinizi yeniden girin",
@@ -78,5 +80,6 @@
   "error.firstBackup.action" : "bir yedek oluşturun",
   "error.firstBackup.description" : "Peach Cüzdan'ı kullandığınıza göre devam etmeden önce gerçekten bir yedek oluşturmalısınız.\n\nYapmazsanız, telefonunuzu kaybederseniz Peach hesabınızı ve Peach cüzdanında bulunan herhangi bir fonunuzu kaybedersiniz.",
   "error.firstBackup.title" : "bir yedek oluşturun!",
-  "error.general" : "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin veya hata devam ederse bizimle iletişime geçin."
+  "error.general" : "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin veya hata devam ederse bizimle iletişime geçin.",
+  "ACCOUNT_BANNED.text": "Hesabınız yasaklandı. İtiraz etmek isterseniz Peach ile iletişime geçin ve benzersiz ID’yi sağlayın."
 }

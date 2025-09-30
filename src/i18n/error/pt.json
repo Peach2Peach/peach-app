@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "O recurso que solicitou não pode ser encontrado.",
   "OFFER_TAKEN.text" : "Outro utilizador fez correspondência mais rápida do que você. Melhor sorte da próxima vez!",
   "OFFER_TAKEN.title" : "correspondência falhou",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "O outro usuário não pode iniciar esta negociação. Tente novamente amanhã.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Limite de negociação da contraparte atingido",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Isto aconteceu muito provavelmente quando restaurou a partir da seed e agora não consegue desencriptar o segredo do comprador. Aguarde por uma nova correspondência.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "não foi possível criptografar os dados de pagamento",
   "PAYMENT_DATA_MISSING.action" : "insira novamente os seus detalhes",
@@ -78,5 +80,6 @@
   "error.firstBackup.action" : "faça um backup",
   "error.firstBackup.description" : "Agora que usou a Carteira Peach, deve mesmo fazer um backup antes de continuar.\n\nSe não o fizer, perderá a sua conta Peach e quaisquer fundos armazenados na carteira Peach caso perca o seu telefone.",
   "error.firstBackup.title" : "faça um backup!",
-  "error.general" : "Algo deu errado. Por favor, tente novamente mais tarde ou entre em contato com a equipa de suporte da Peach."
+  "error.general" : "Algo deu errado. Por favor, tente novamente mais tarde ou entre em contato com a equipa de suporte da Peach.",
+  "ACCOUNT_BANNED.text": "A sua conta foi banida. Se desejar recorrer, contacte a Peach e forneça o ID único."
 }

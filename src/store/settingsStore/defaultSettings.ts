@@ -28,4 +28,5 @@ export const defaultSettings: Settings = {
   derivationPath: undefined,
 
   isLoggedIn: false,
+  seenFirstTimeBuyerPopup: false,
 };

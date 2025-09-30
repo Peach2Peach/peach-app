@@ -114,7 +114,7 @@ const TradeStatusInfo = memo(({ item, iconId, color }: Props & TradeTheme) => {
 });
 const AmountInfo = memo(({ item }: Props) => {
   const { type, amount, currency, premium, price } = getInfoPropsWithType({
-    amount: item.amount,
+    amount: item.amount ? item.amount : item.amountSats, // TODO: fix this
     currency: "currency" in item ? item.currency : undefined,
     premium:
       "premium" in item && typeof item.premium === "number"
@@ -304,18 +304,22 @@ function getActionLabel(
   tradeSummary: OfferSummary | ContractSummary,
   isWaiting: boolean,
 ) {
-  const { tradeStatus } = tradeSummary;
+  const { tradeStatus, tradeStatusNew, type } = tradeSummary;
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 
-  if (!isTradeStatus(tradeSummary.tradeStatus))
+  if (
+    !isTradeStatus(tradeSummary.tradeStatus) &&
+    !isTradeStatus(tradeSummary.tradeStatusNew)
+  ) {
     return i18n("offer.requiredAction.unknown");
+  }
 
   if (isContractSummary(tradeSummary)) {
     const { unreadMessages, type, disputeWinner } = tradeSummary;
     const counterparty = type === "bid" ? "seller" : "buyer";
     const viewer = type === "bid" ? "buyer" : "seller";
 
-    if (isPastOffer(tradeStatus)) {
+    if (isPastOffer(tradeStatus, type)) {
       return unreadMessages > 0 ? i18n("yourTrades.newMessages") : undefined;
     }
     if (disputeWinner) {
@@ -330,21 +334,29 @@ function getActionLabel(
       return i18n("offer.requiredAction.payoutPending");
     if (tradeStatus === "confirmCancelation")
       return i18n(`offer.requiredAction.confirmCancelation.${viewer}`);
+    if (tradeStatus === "waitingForFunding")
+      return i18n(`offer.requiredAction.waitingForSellerToFund`);
+    if (tradeStatus === "escrowWaitingForConfirmation")
+      return i18n(`offer.requiredAction.escrowWaitingForConfirmation`);
 
     return isWaiting || tradeStatus === "rateUser"
       ? i18n(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
       : i18n(`offer.requiredAction.${translationStatusKey}`);
   }
 
-  if (isPastOffer(tradeStatus)) {
+  if (isPastOffer(tradeStatus, type)) {
     return undefined;
+  }
+
+  if (tradeStatusNew) {
+    return i18n(`offer.requiredAction.${tradeStatusNew}`);
   }
 
   return i18n(`offer.requiredAction.${tradeStatus}`);
 }
 
 function getActionIcon(
-  tradeSummary: Pick<OfferSummary | ContractSummary, "tradeStatus">,
+  tradeSummary: Pick<OfferSummary | ContractSummary, "tradeStatus" | "type">,
   isWaiting: boolean,
 ): IconType | undefined {
   if (isPastOffer(tradeSummary.tradeStatus)) {
@@ -358,7 +370,25 @@ function getActionIcon(
   if (tradeSummary.tradeStatus === "payoutPending")
     return statusIcons.payoutPending;
 
+  if (isTradeStatus(tradeSummary.tradeStatusNew)) {
+    if (tradeSummary.tradeStatusNew === "waitingForTradeRequest") {
+      return tradeSummary.type === "ask" ? statusIcons["waiting"] : "bitcoin";
+    }
+    if (tradeSummary.tradeStatusNew === "acceptTradeRequest") {
+      return "checkCircle";
+    }
+  }
   if (!isTradeStatus(tradeSummary.tradeStatus)) return "refreshCw";
+  if (tradeSummary.tradeStatus === "waitingForFunding") {
+    return statusIcons["waitingForFunding"];
+  }
 
+  if (tradeSummary.tradeStatus === "escrowWaitingForConfirmation") {
+    return "bitcoin";
+  }
+
+  if (isWaiting && tradeSummary.type === "bid") {
+    return "bitcoin";
+  }
   return statusIcons[isWaiting ? "waiting" : tradeSummary.tradeStatus];
 }

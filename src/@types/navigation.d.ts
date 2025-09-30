@@ -4,6 +4,7 @@ type Onboarding = {
   accountCreated: undefined;
   createAccountError: { err: string; referralCode?: string };
   userSource: undefined;
+  userBitcoinLevel: undefined;
   restoreBackup: { tab: "fileBackup" | "seedPhrase" } | undefined;
   restoreReputation: {
     referralCode?: string;
@@ -46,7 +47,11 @@ type SellFlow = {
     offerId: string;
   };
   search: { offerId: string };
-  editPremium: { offerId: string };
+  editPremium: { offerId: string; preferedDisplayCurrency?: Currency };
+  editPremiumOfBuyOffer: {
+    offerId: string;
+    preferedDisplayCurrency?: Currency;
+  };
 };
 
 type ContractFlow = {
@@ -64,6 +69,36 @@ type ContractFlow = {
     reason: DisputeReason;
   };
 };
+
+// peach 069 flows START
+type ExpressBuyFlow = {
+  expressBuyBrowseSellOffers: undefined;
+  expressBuyTradeRequest: { offerId: string };
+};
+
+type ExpressSellFlow = {
+  expressSellBrowseBuyOffers: undefined;
+  expressSellTradeRequest: { offerId: string };
+};
+
+type ExpressBuySellFlowChat = {
+  tradeRequestChat: {
+    offerId: string;
+    requestingUserId: string;
+    offerType: "buy" | "sell";
+  };
+};
+
+type BuyOfferOwnerFlow = {
+  createBuyOffer: undefined;
+  browseTradeRequestsToMyBuyOffer: { offerId: string };
+};
+
+type SellOfferOwnerFlow = {
+  browseTradeRequestsToMySellOffer: { offerId: string };
+};
+
+// peach 069 flows END
 
 type RootStackParamList = Onboarding &
   Home &
@@ -146,4 +181,9 @@ type RootStackParamList = Onboarding &
       | { address: string; addressLabel: string }
       | { contractId: Contract["id"]; address: string; addressLabel: string }
       | { offerId: string; address: string; addressLabel: string };
-  } & TestViews;
+  } & TestViews &
+  ExpressBuyFlow &
+  ExpressSellFlow &
+  BuyOfferOwnerFlow &
+  SellOfferOwnerFlow &
+  ExpressBuySellFlowChat;

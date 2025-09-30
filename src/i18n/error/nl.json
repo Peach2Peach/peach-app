@@ -39,6 +39,8 @@
   "NOT_FOUND.text" : "De door jou opgevraagde bron kan niet worden gevonden.",
   "OFFER_TAKEN.text" : "Een andere gebruiker heeft het aanbod sneller gematcht dan jij. Volgende keer beter!",
   "OFFER_TAKEN.title" : "match niet gelukt",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.text": "De andere gebruiker mag deze trade niet starten. Probeer het morgen opnieuw.",
+  "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "Handelslimiet van tegenpartij bereikt",
   "PAYMENTDATA_ENCRYPTION_FAILED.text" : "Dit gebeurt hoogstwaarschijnlijk wanneer je vanuit een seed herstelt en beveiligde data van de koper nu niet kunt ontcijferen. Wacht alstublieft op een nieuwe match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title" : "betaaldata kon niet gedecodeerd worden",
   "PAYMENT_DATA_MISSING.action" : "vul je gegevens opnieuw in",
@@ -78,5 +80,6 @@
   "error.firstBackup.action" : "maak een back-up",
   "error.firstBackup.description" : "Nu je de Peach Wallet hebt gebruikt, moet je echt een back-up maken voordat je verdergaat. Als je dat niet doet, verlies je jouw Peach-account en al het geld dat in de Peach wallet is opgeslagen als je jouw telefoon verliest.",
   "error.firstBackup.title" : "maak een back-up!",
-  "error.general" : "Er ging iets mis. Probeer het later nog eens, of neem contact op met het Peach support-team."
+  "error.general" : "Er ging iets mis. Probeer het later nog eens, of neem contact op met het Peach support-team.",
+  "ACCOUNT_BANNED.text": "Je account is geblokkeerd. Als je in beroep wilt gaan, neem contact op met Peach en geef de unieke ID op."
 }

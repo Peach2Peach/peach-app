@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "премія завершених угод: $0%",
   "offerPreferences.refundTo" : "повернення коштів на:",
   "offerPreferences.sellOffers" : "$0 відкритих пропозицій на продаж",
-  "offerPreferences.showOffers" : "показати пропозиції"
+  "offerPreferences.showOffers" : "показати пропозиції",
+   "help.createMultiple.description": "Якщо ви хочете купити багато у багатьох продавців, ви можете створити кілька пропозицій купівлі!",
+  "help.createMultiple.title": "створити кілька пропозицій купівлі",
+  "matchDetails.action.unrequestTrade": "видалити запит на торгівлю"
+
 }

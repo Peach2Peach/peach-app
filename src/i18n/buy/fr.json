@@ -10,5 +10,8 @@
   "buy.summary.title" : "résumé de l'offre d'achat",
   "buy.title" : "Acheter du bitcoin",
   "buy.title.highlight" : "Acheter",
-  "yourTrades.search.buy.subtitle" : "offre d'achat pour"
+  "yourTrades.search.buy.subtitle" : "offre d'achat pour",
+  "help.firstTimeBuyer.description": "IMPORTANT : Ne faites PAS glisser « J’ai effectué le paiement » avant d’avoir réellement payé.\nLe paiement doit être effectué EN DEHORS de Peach en utilisant le mode de paiement partagé avec le vendeur.",
+  "help.firstTimeBuyer.title": "Vous êtes maintenant dans un échange !"
+  
 }

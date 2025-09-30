@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
+import { ProgressDonut } from "../../../components/ui/ProgressDonut";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import { PEACH_ID_LENGTH } from "../../../utils/account/PEACH_ID_LENGTH";
@@ -17,6 +18,13 @@ export const AccountInfo = ({ user }: Props) => (
     <AccountCreated {...user} />
     <Disputes {...user.disputes} />
     <Trades trades={user.trades} />
+    {"freeTrades" in user && !!user.freeTrades && !!user.maxFreeTrades && (
+      <ProgressDonut
+        title={i18n("settings.referrals.noPeachFees.freeTrades")}
+        value={user.freeTrades}
+        max={user.maxFreeTrades}
+      />
+    )}
   </View>
 );
 

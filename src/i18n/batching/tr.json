@@ -21,5 +21,8 @@
   "settings.batching.youPay" : "Dikkat! Peach'in maruz kaldığı ek maliyetler için ödeme yaparsınız. Bu maliyet dinamiktir ve ücret artışları sırasında önemli hale gelebilir.\nNe yaptığınızı anladığınızdan emin olun!",
   "settings.batching.youPay.highlight" : "Dikkat!",
   "settings.batching.youSave" : "Ağ ücretlerinde %23'e kadar tasarruf sağlarsınız.",
-  "settings.batching.youSave.highlight" : "%23'e kadar"
+  "settings.batching.youSave.highlight" : "%23'e kadar",
+  "offer.requiredAction.wrongAmountFundedOnContract": "yanlış tutar yatırıldı",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "yanlış tutar yatırıldı"
+  
 }

@@ -54,7 +54,6 @@ import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
 import { WalletSelector } from "./WalletSelector";
 import { CreateMultipleOffers } from "./components/CreateMultipleOffers";
-import { MarketInfo } from "./components/MarketInfo";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
 import { SatsInputComponent, textStyle } from "./components/SatsInputComponent";
@@ -83,7 +82,7 @@ export function SellOfferPreferences() {
       }
       isSliding={isSliding}
     >
-      <SellPreferenceMarketInfo />
+      {/* <SellPreferenceMarketInfo /> */}
       <PreferenceMethods type="sell" />
       <CompetingOfferStats />
       <AmountSelector setIsSliding={setIsSliding} />
@@ -94,17 +93,17 @@ export function SellOfferPreferences() {
   );
 }
 
-function SellPreferenceMarketInfo() {
-  const preferences = useOfferPreferences(
-    (state) => ({
-      meansOfPayment: state.meansOfPayment,
-      maxPremium: state.premium,
-      sellAmount: state.sellAmount,
-    }),
-    shallow,
-  );
-  return <MarketInfo type="buyOffers" {...preferences} />;
-}
+// function SellPreferenceMarketInfo() {
+//   const preferences = useOfferPreferences(
+//     (state) => ({
+//       meansOfPayment: state.meansOfPayment,
+//       maxPremium: state.premium,
+//       sellAmount: state.sellAmount,
+//     }),
+//     shallow,
+//   );
+//   return <MarketInfo type="buyOffers" {...preferences} />;
+// }
 
 function usePastOffersStats({
   meansOfPayment,

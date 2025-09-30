@@ -22,5 +22,7 @@
   "sell.title.highlight" : "sell",
   "warning.incorrectFunding.description" : "You funded your offer with $0 transactions, which is not allowed due to excessive network fees for the buyer.\n\nYou will be refunded.",
   "warning.incorrectFunding.title" : "Incorrect funding",
-  "yourTrades.search.sell.subtitle" : "sell offer for"
+  "yourTrades.search.sell.subtitle" : "sell offer for",
+  "warning.incorrectFundingContract.description": "You funded your contract incorrectly, as it must be funded with exactly 1 transaction with the specified amount.\n\nYou will be refunded.",
+    "warning.incorrectFundingContract.title": "Incorrect funding"
 }

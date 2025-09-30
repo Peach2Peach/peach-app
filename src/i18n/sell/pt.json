@@ -21,5 +21,7 @@
   "sell.title.highlight" : "vender",
   "warning.incorrectFunding.description" : "Financiaste tua oferta com $0 transações, o que não é permitido devido às taxas excessivas de rede para o comprador.\n\nSerás reembolsado.",
   "warning.incorrectFunding.title" : "Financiamento incorreto",
-  "yourTrades.search.sell.subtitle" : "oferta de venda para"
+  "yourTrades.search.sell.subtitle" : "oferta de venda para",
+  "warning.incorrectFundingContract.description": "Financiou o contrato de forma incorreta. Deve ser 1 transação exata com o valor indicado.\n\nSerá reembolsado.",
+    "warning.incorrectFundingContract.title": "Financiamento incorreto"
 }

@@ -10,5 +10,7 @@
   "buy.summary.title" : "δημοσίευση πρότασης αγοράς",
   "buy.title" : "αγορά bitcoin",
   "buy.title.highlight" : "αγορά",
-  "yourTrades.search.buy.subtitle" : "πρόταση αγοράς για"
+  "yourTrades.search.buy.subtitle" : "πρόταση αγοράς για",
+  "help.firstTimeBuyer.description": "ΣΗΜΑΝΤΙΚΟ: ΜΗΝ σύρετε «Έκανα την πληρωμή» πριν πραγματοποιήσετε την πληρωμή.\nΗ πληρωμή πρέπει να γίνει ΕΚΤΟΣ Peach χρησιμοποιώντας τη μέθοδο πληρωμής που μοιράστηκε ο πωλητής.",
+  "help.firstTimeBuyer.title": "Βρίσκεστε τώρα σε συναλλαγή!"
 }

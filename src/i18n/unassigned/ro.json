@@ -1,3 +1,7 @@
 {
-  "backupRestored" : "backup restaurat"
+  "backupRestored" : "backup restaurat",
+  "resetAll": "Resetează tot",
+  "advancedFilters": "Filtre avansate",
+  "sortBy": "Sortează după",
+  "currentMarketValue": "Valoare de piață curentă"
 }

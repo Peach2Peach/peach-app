@@ -9,10 +9,27 @@
   "notification.contract.buyer.paymentTimerExtended.text" : "You didn't make the payment on time, but the seller has decided to give you 12 more hours to make the payment.",
   "notification.contract.buyer.paymentTimerHasRunOut.text" : "You didn't indicate you made the payment, and the timer ran out!\n\nThe seller now needs to decide how to proceed - please chat with them to resolve the issue.",
   "notification.contract.buyer.paymentTimerSellerCanceled.text" : "You didn't make the payment on time, and the seller decided to cancel the trade.\n\nYour reputation has been negatively affected.",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text" : "The seller decided to cancel the trade.\n\nHis reputation has been negatively affected.",
   "notification.contract.cancelationRequestAccepted.text" : "The buyer for trade $0 has agreed to cancel.\n\nYou can choose to keep your offer open to look for a new match, or you can be refunded.",
   "notification.contract.cancelationRequestAccepted.title" : "Trade canceled",
   "notification.contract.cancelationRequestRejected.text" : "The buyer for trade $0 has not agreed to cancel.\n\nThe trade will continue as normal.",
   "notification.contract.cancelationRequestRejected.title" : "Trade not canceled",
+  "notification.contract.contractCreatedFromExpressBuy.buyer.text" :  "Your request got accepted!\n\nYou need to make the payment within twelve hours. The faster you are, the better your Peach score will be.",
+  "notification.contract.contractCreatedFromExpressBuy.buyer.title" : "The Seller accepted your request!",
+  "notification.contract.contractCreatedFromExpressBuy.seller.instantTrade.text" : "It's time for the Buyer to make the payment. Keep an eye on your chosen Payment Method!",
+  "notification.contract.contractCreatedFromExpressBuy.seller.instantTrade.title" : "Your Sell Offer is now a Contract!",
+  "notification.contract.contractCreatedFromExpressSell.seller.text" :  "Your request got accepted!\n\nYou need to fund the escrow within twelve hours. The faster you are, the better your Peach score will be.",
+  "notification.contract.contractCreatedFromExpressSell.seller.title" : "The Buyer accepted your request!",
+  "notification.contract.contractCreatedFromExpressSell.buyer.instantTrade.text" : "It's time for the Seller to fund the escrow. Don't send any payment before the escrow is funded!",
+  "notification.contract.contractCreatedFromExpressSell.buyer.instantTrade.title" : "Your Buy Offer is now a Contract!",
+  "notification.offer.expressBuyTradeRequestReceived.text" : "Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!",
+  "notification.offer.expressBuyTradeRequestReceived.title" : "Your Sell Offer received a Trade Request!",
+  "notification.offer.expressBuyTradeRequestRejected.text" : "The Seller has rejected your Trade Request! Try again with another offer.",
+  "notification.offer.expressBuyTradeRequestRejected.title" : "Your Trade Request was rejected...",
+  "notification.offer.expressSellTradeRequestRejected.text" : "The Buyer has rejected your Trade Request! Try again with another offer.",
+  "notification.offer.expressSellTradeRequestRejected.title" : "Your Trade Request was rejected...",
+  "notification.offer.expressSellTradeRequestReceived.text" : "Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!",
+  "notification.offer.expressSellTradeRequestReceived.title" : "Your Buy Offer received a Trade Request!",
   "notification.contract.contractCreated.text" : "Your match got accepted!\n\nYou need to make the payment within twelve hours. The faster you are, the better your Peach score will be.",
   "notification.contract.contractCreated.title" : "Your match got accepted:",
   "notification.contract.disputeResolved.text" : "The dispute for trade $0 has been resolved. Please check the message from your mediator in the trade chat to see what's next.",
@@ -39,5 +56,28 @@
   "notification.offer.sellOfferExpired.text" : "We've canceled your sell offer, since you haven't matched anyone after $1 days.",
   "notification.offer.sellOfferExpired.title" : "No match",
   "notification.user.badge.unlocked.text" : "Congrats, you unlocked the $0 badge on your profile!",
-  "notification.user.badge.unlocked.title" : "new badge!"
+  "notification.user.badge.unlocked.title" : "new badge!",
+
+  "notification.contract.escrowFunded.buyer.text" : "You need to make the payment within twelve hours. The faster you are, the better your Peach score will be.",
+  "notification.contract.escrowFunded.buyer.title" : "The escrow has been funded!",
+
+  "notification.contract.escrowFunded.text" : "The Buyer has 12h to declare the payment as made",
+  "notification.contract.escrowFunded.title" : "The escrow has been funded!",
+
+  "notification.contract.escrowFundingTimeExpired.buyer.text" : "The Contract was canceled. Please create a new Buy Offer.",
+  "notification.contract.escrowFundingTimeExpired.buyer.title" :  "The escrow wasn't funded in time!",
+
+  "notification.contract.escrowFundingTimeExpired.seller.text" : "The Contract was cancelled and your reputation is strongly impacted.",
+  "notification.contract.escrowFundingTimeExpired.seller.title" : "You haven't funded the escrow in time!",
+  
+
+  "notification.contract.escrowFundingTimeExpiring6hLeft.text" : "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.",
+  "notification.contract.escrowFundingTimeExpiring6hLeft.title" : "You have 6h left to fund the escrow.",
+  
+  "notification.contract.escrowFundingTimeExpiring1hLeft.text" : "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.",
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title" : "You have 1h left to fund the escrow."
+  
+
+
+  
 }

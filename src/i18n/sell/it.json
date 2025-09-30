@@ -21,5 +21,7 @@
   "sell.title.highlight" : "Vendi",
   "warning.incorrectFunding.description" : "Hai finanziato la tua offerta con $0 transazioni, il che non è consentito a causa delle eccessive commissioni di rete per l'acquirente.\n\nSarai rimborsato.",
   "warning.incorrectFunding.title" : "Finanziamento non corretto",
-  "yourTrades.search.sell.subtitle" : "offerta di vendita per"
+  "yourTrades.search.sell.subtitle" : "offerta di vendita per",
+  "warning.incorrectFundingContract.description": "Hai finanziato il contratto in modo errato. Deve essere 1 transazione esatta con l’importo specificato.\n\nRiceverai un rimborso.",
+    "warning.incorrectFundingContract.title": "Finanziamento errato"
 }

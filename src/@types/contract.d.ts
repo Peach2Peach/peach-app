@@ -84,6 +84,11 @@ type Contract = {
   unreadMessages: number;
   isChatActive: boolean;
   paymentDataEncryptionMethod: EncryptionMethod;
+
+  fundingExpectedBy?: number;
+  escrowFundingTimeLimitExpired?: boolean;
+  escrowFundedWithWrongAmount?: boolean;
+  wasCanceledBySellerBeforeFundingTheEscrow?: boolean;
 };
 
 type LocalContract = {

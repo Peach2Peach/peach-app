@@ -10,5 +10,7 @@
   "buy.summary.title" : "publiceerd koop aanbod",
   "buy.title" : "koop bitcoin",
   "buy.title.highlight" : "koop",
-  "yourTrades.search.buy.subtitle" : "koop aanbod voor"
+  "yourTrades.search.buy.subtitle" : "koop aanbod voor",
+  "help.firstTimeBuyer.description": "BELANGRIJK: Schuif «Ik heb betaald» NIET voordat je daadwerkelijk hebt betaald.\nDe betaling moet BUITEN Peach plaatsvinden met de betaalmethode die de verkoper heeft gedeeld.",
+  "help.firstTimeBuyer.title": "Je zit nu in een handel!"
 }

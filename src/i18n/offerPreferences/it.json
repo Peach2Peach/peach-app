@@ -28,5 +28,9 @@
   "offerPreferences.premiumOfCompletedTrades" : "premium delle transazioni completate: $0%",
   "offerPreferences.refundTo" : "rimborso a:",
   "offerPreferences.sellOffers" : "$0 offerte di vendita",
-  "offerPreferences.showOffers" : "mostra offerte"
+  "offerPreferences.showOffers" : "mostra offerte",
+  "help.createMultiple.description": "Se desideri acquistare molto da molti venditori, puoi creare molte offerte di acquisto!",
+  "help.createMultiple.title": "crea più offerte di acquisto",
+  "matchDetails.action.unrequestTrade": "rimuovi richiesta di scambio"
+
 }

@@ -64,3 +64,43 @@
 "notification.title.offer.sellOfferExpired" = "No match";
 "notification.title.offer.wrongFundingAmount" = "Escrow not funded";
 "notification.title.user.badge.unlocked" = "New badge unlocked";
+"notification.body.contract.contractCreatedFromExpressBuy.buyer" =  "Your request got accepted!\n\nYou need to make the payment within twelve hours. The faster you are, the better your Peach score will be.";
+"notification.title.contract.contractCreatedFromExpressBuy.buyer" = "The Seller accepted your request!";
+"notification.body.contract.contractCreatedFromExpressBuy.seller.instantTrade" = "It's time for the Buyer to make the payment. Keep an eye on your chosen Payment Method!";
+"notification.title.contract.contractCreatedFromExpressBuy.seller.instantTrade" = "Your Sell Offer is now a Contract!";
+"notification.body.contract.contractCreatedFromExpressSell.seller" =  "Your request got accepted!\n\nYou need to fund the escrow within twelve hours. The faster you are, the better your Peach score will be.";
+"notification.title.contract.contractCreatedFromExpressSell.seller" = "The Buyer accepted your request!";
+"notification.body.contract.contractCreatedFromExpressSell.buyer.instantTrade" = "It's time for the Seller to fund the escrow. Don't send any payment before the escrow is funded!";
+"notification.title.contract.contractCreatedFromExpressSell.buyer.instantTrade" = "Your Buy Offer is now a Contract!";
+"notification.body.offer.expressBuyTradeRequestReceived" = "Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!";
+"notification.title.offer.expressBuyTradeRequestReceived" = "Your Sell Offer received a Trade Request!";
+"notification.body.offer.expressSellTradeRequestReceived" = "Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!";
+"notification.title.offer.expressSellTradeRequestReceived" = "Your Buy Offer received a Trade Request!";
+"notification.body.offer.expressBuyTradeRequestRejected" = "The Seller has rejected your Trade Request! Try again with another offer.";
+"notification.title.offer.expressBuyTradeRequestRejected" = "Your Trade Request was rejected...";
+"notification.body.offer.expressSellTradeRequestRejected" = "The Buyer has rejected your Trade Request! Try again with another offer.";
+"notification.title.offer.expressSellTradeRequestRejected" = "Your Trade Request was rejected...";    
+    
+"notification.body.contract.escrowFunded.buyer" = "You need to make the payment within twelve hours. The faster you are, the better your Peach score will be.";
+"notification.title.contract.escrowFunded.buyer" = "The escrow has been funded!";
+"notification.body.contract.escrowFunded" = "The Buyer has 12h to declare the payment as made";
+"notification.title.contract.escrowFunded" = "The escrow has been funded!";
+
+"notification.body.contract.escrowFundingTimeExpired.buyer" = "The Contract was canceled. Please create a new Buy Offer.";
+"notification.title.contract.escrowFundingTimeExpired.buyer" = "The escrow wasn't funded in time!";
+
+"notification.body.contract.escrowFundingTimeExpired.seller" = "The Contract was cancelled and your reputation is strongly impacted.";
+"notification.title.contract.escrowFundingTimeExpired.seller" = "The escrow wasn't funded in time!";
+
+"notification.body.contract.escrowFundingTimeExpiring6hLeft" = "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.";
+"notification.title.contract.escrowFundingTimeExpiring6hLeft" = "You have 6h left to fund the escrow.";
+
+"notification.body.contract.escrowFundingTimeExpiring1hLeft" = "If you don't fund in time, the trade will be cancelled and your reputation will be strongly impacted.";
+"notification.title.contract.escrowFundingTimeExpiring1hLeft" = "You have 1h left to fund the escrow.";
+
+"notification.title.contract.buyer.sellerCanceledBeforeFunding" = "Seller canceled the Contract";
+"notification.body.contract.buyer.sellerCanceledBeforeFunding" = "The seller decided to cancel the trade.\n\nHis reputation has been negatively affected.";
+
+"notification.title.offer.expressFlowTradeRequestChatMessageReceived" = "Trade Request Chat";
+"notification.body.offer.expressFlowTradeRequestChatMessageReceived" = "You got a chat message on your Trade Request";
+

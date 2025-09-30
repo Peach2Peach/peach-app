@@ -36,7 +36,6 @@
   "contract.cancel.pending" : "cancelamento pendente",
   "contract.cancel.requestSent" : "solicitação enviada",
   "contract.cancel.requestSent.text" : "O comprador foi notificado de que deseja cancelar a negociação.",
-  "contract.cancel.seller" : "Tem a certeza? Cancelar uma negociação afetará negativamente a sua reputação.\n\nO comprador também precisa concordar com o cancelamento, pois o pagamento poderá já ter sido feito.",
   "contract.cancel.seller.text.backOnline" : "Se o comprador concordar em cancelar esta negociação, publicaremos novamente sua oferta na lista de correspondências.",
   "contract.cancel.seller.text.refundEscrow" : "Se o comprador concordar em cancelar esta negociação, nós reembolsaremos o depósito de caução.",
   "contract.cancel.sellerWantsToCancel.text" : "O vendedor deseja cancelar a negociação de $0 por $1 sats.\n\nTem a liberdade de rejeitar o cancelamento, especialmente se já tiver efetuado o pagamento.",
@@ -216,5 +215,15 @@
   "contract.summary.branchCode" : "código do balcão",
   "contract.summary.branchName" : "nome do balcão",
   "contract.summary.mobileMoneyIdentifier" : "identificador de dinheiro móvel",
-  "contract.summary.residentialAddress" : "morada residencial"
+  "contract.summary.residentialAddress" : "morada residencial",
+  "contract.seller.sellerDidntFundEscrowInTime": "Você não financiou a caução a tempo. O contrato foi automaticamente cancelado.",
+  "contract.seller.escrowFundedWithWrongAmount": "Você financiou a caução com a quantia errada. Como era um valor específico acordado, a negociação foi cancelada.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Você financiou a caução com a quantia errada. Como era um valor específico acordado, a negociação foi cancelada. Pode ser reembolsado agora.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "O vendedor não financiou a caução a tempo. O contrato foi automaticamente cancelado.",
+  "contract.buyer.escrowFundedWithWrongAmount": "O vendedor financiou a caução com a quantia errada de Bitcoin. A negociação foi cancelada.",
+  "contract.cancel.seller": "Tem a certeza? Cancelar uma negociação afetará negativamente a sua reputação.",
+  "contract.seller.cancelBeforeFunding": "Cancelou a negociação antes de financiar a caução.",
+  "contract.buyer.cancelBeforeFunding": "O vendedor cancelou a negociação antes de financiar a caução.",
+  "contract.escrowFunded.description": "O comprador tem 12h para declarar o pagamento como efetuado",
+  "contract.escrowFunded.title": "A caução foi financiada!"
 }

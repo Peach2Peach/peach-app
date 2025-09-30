@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { networks } from "bitcoinjs-lib";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -35,8 +34,6 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { parseError } from "../../utils/parseError";
-import { generateBlock } from "../../utils/regtest/generateBlock";
-import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
@@ -200,12 +197,12 @@ function FundEscrowHeader() {
       },
       { ...headerIcons.help, onPress: showHelp },
     ];
-    if (getNetwork() === networks.regtest) {
-      return [
-        { ...headerIcons.generateBlock, onPress: generateBlock },
-        ...icons,
-      ];
-    }
+    // if (getNetwork() === networks.regtest) {
+    //   return [
+    //     { ...headerIcons.generateBlock, onPress: generateBlock },
+    //     ...icons,
+    //   ];
+    // }
     return icons;
   }, [cancelOffer, showHelp]);
 

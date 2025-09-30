@@ -15,7 +15,7 @@ export const getNavigationDestinationForOffer = ({
     return ["fundEscrow", { offerId }] as const;
   if (shouldGoToSearch(tradeStatus)) {
     if (type === "bid") return ["explore", { offerId }] as const;
-    return ["search", { offerId }] as const;
+    return ["browseTradeRequestsToMySellOffer", { offerId }] as const;
   }
   if (shouldGoToWrongFundingAmount(tradeStatus))
     return ["wrongFundingAmount", { offerId }] as const;

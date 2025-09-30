@@ -23,5 +23,8 @@
   "settings.batching.youPay" : "Attention ! Vous payez pour les coûts supplémentaires encourus par Peach. Ces coûts sont dynamiques et peuvent être importants en cas de hausse des tarifs.\nAssurez-vous de bien comprendre ce que vous faites !",
   "settings.batching.youPay.highlight" : "Attention !",
   "settings.batching.youSave" : "Tu économises jusqu'à 23% de frais de réseau Bitcoin",
-  "settings.batching.youSave.highlight" : "économise jusqu'à 23% "
+  "settings.batching.youSave.highlight" : "économise jusqu'à 23% ",
+  "offer.requiredAction.wrongAmountFundedOnContract": "montant incorrect versé",
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "montant incorrect versé"
+  
 }

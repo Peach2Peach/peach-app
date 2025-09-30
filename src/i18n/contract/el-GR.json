@@ -35,7 +35,6 @@
   "contract.cancel.pending" : "ακύρωση σε αναμονή",
   "contract.cancel.requestSent" : "Αποστολή αιτήματος",
   "contract.cancel.requestSent.text" : "Ο αγοραστής ενημερώθηκε ότι θέλετε να ακυρώσετε τη συναλλαγή.",
-  "contract.cancel.seller" : "Είσατε σίγουροι; Η ακύρωση μιας συναλλαγής θα έχει αρνητικές επιπτώσεις στη φήμη σας.\n\nΟ αγοραστής πρέπει επίσης να συμφωνήσει με την ακύρωση της συναλλαγής, αφού μπορεί να έχει ήδη πραγματοποιήσει την πληρωμή.",
   "contract.cancel.seller.text.backOnline" : "Εάν ο Αγοραστής συμφωνήσει να ακυρώσει αυτήν τη συναλλαγή, θα επαναφέρουμε την προσφορά πώλησης στη λίστα των αντιστοιχιών.",
   "contract.cancel.seller.text.refundEscrow" : "Εάν ο Αγοραστής συμφωνήσει να ακυρώσει αυτήν τη συναλλαγή, θα σας επιστρέψουμε ττην εγγύηση.",
   "contract.cancel.sellerWantsToCancel.text" : "Ο πωλητής θέλει να ακυρώσει τη συναλλαγή $0 για $1 sats.\n\nΕίστε ελεύθεροι να απορρίψετε την ακύρωση, ειδικά αν έχετε ήδη πραγματοποιήσει την πληρωμή.",
@@ -211,5 +210,15 @@
   "contract.summary.branchCode" : "κωδικός υποκαταστήματος",
   "contract.summary.branchName" : "όνομα υποκαταστήματος",
   "contract.summary.mobileMoneyIdentifier" : "αναγνωριστικό κινητού χρήματος",
-  "contract.summary.residentialAddress" : "διεύθυνση κατοικίας"
+  "contract.summary.residentialAddress" : "διεύθυνση κατοικίας",
+  "contract.seller.sellerDidntFundEscrowInTime": "Δεν χρηματοδοτήσατε την εγγύηση εγκαίρως. Το συμβόλαιο ακυρώθηκε αυτόματα.",
+  "contract.seller.escrowFundedWithWrongAmount": "Χρηματοδοτήσατε την εγγύηση με λάθος ποσό. Επειδή ήταν συμφωνημένο συγκεκριμένο ποσό, η συναλλαγή ακυρώθηκε.",
+  "contract.seller.escrowFundedWithWrongAmountRefundWaiting": "Χρηματοδοτήσατε την εγγύηση με λάθος ποσό. Επειδή ήταν συμφωνημένο συγκεκριμένο ποσό, η συναλλαγή ακυρώθηκε. Τώρα μπορείτε να λάβετε επιστροφή χρημάτων.",
+  "contract.buyer.sellerDidntFundEscrowInTime": "Ο πωλητής δεν χρηματοδότησε την εγγύηση εγκαίρως. Το συμβόλαιο ακυρώθηκε αυτόματα.",
+  "contract.buyer.escrowFundedWithWrongAmount": "Ο πωλητής χρηματοδότησε την εγγύηση με λάθος ποσό Bitcoin. Η συναλλαγή ακυρώθηκε.",
+  "contract.cancel.seller": "Είστε σίγουροι; Η ακύρωση μιας συναλλαγής θα επηρεάσει αρνητικά τη φήμη σας.",
+  "contract.seller.cancelBeforeFunding": "Ακυρώσατε τη συναλλαγή πριν χρηματοδοτήσετε την εγγύηση.",
+  "contract.buyer.cancelBeforeFunding": "Ο πωλητής ακύρωσε τη συναλλαγή πριν χρηματοδοτήσει την εγγύηση.",
+  "contract.escrowFunded.description": "Ο αγοραστής έχει 12 ώρες για να δηλώσει ότι η πληρωμή έχει γίνει",
+  "contract.escrowFunded.title": "Η εγγύηση έχει χρηματοδοτηθεί!"
 }

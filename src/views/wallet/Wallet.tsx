@@ -1,12 +1,17 @@
+import { NETWORK } from "@env";
+import { useState } from "react";
 import { RefreshControl, View } from "react-native";
 import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { PeachText } from "../../components/text/PeachText";
 import { WarningFrame } from "../../components/ui/WarningFrame";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { fundAddress } from "../../utils/regtest/fundAddress";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TotalBalance, WalletHeader } from "./components";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
@@ -15,6 +20,7 @@ import { useWalletBalance } from "./hooks/useWalletBalance";
 
 export const Wallet = () => {
   const { balance } = useWalletBalance();
+  const [fundAddressMessage, setFundAddressMessage] = useState("");
   const { refetch, isRefetching, isLoading } = useSyncWallet({ enabled: true });
   if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
@@ -27,6 +33,32 @@ export const Wallet = () => {
           <RefreshControl refreshing={false} onRefresh={() => refetch()} />
         }
       >
+        {NETWORK === "regtest" && (
+          <>
+            <PeachText>{fundAddressMessage}</PeachText>
+            <Button
+              style={tw`self-center`}
+              onPress={async () => {
+                if (!peachWallet) return;
+                setFundAddressMessage("");
+                const [fundAddressResult, fundAddressError] = await fundAddress(
+                  {
+                    address: (await peachWallet.getAddress()).address,
+                    amount: 1000000,
+                  },
+                );
+
+                if (fundAddressError) {
+                  setFundAddressMessage("Funding failed!!");
+                } else if (fundAddressResult) {
+                  setFundAddressMessage("Funding suceeded!! refresh");
+                }
+              }}
+            >
+              Fund Wallet
+            </Button>
+          </>
+        )}
         <WarningFrame text={i18n("wallet.seedPhraseWarning")} />
         <TotalBalance amount={balance} isRefreshing={isRefetching} />
         <BackupReminderIcon />

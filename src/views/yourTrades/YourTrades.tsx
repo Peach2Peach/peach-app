@@ -24,25 +24,29 @@ import { getCategories } from "./utils/getCategories";
 
 const YourTradesTab = createMaterialTopTabNavigator();
 const tabs = [
-  "yourTrades.buy",
+  "yourTrades.69BuyOffer",
   "yourTrades.sell",
   "yourTrades.history",
 ] as const;
 
 export const YourTrades = () => {
-  const { summaries, isLoading, isRefetching, error, refetch } =
-    useTradeSummaries();
+  const {
+    summaries,
+    isLoading,
+    isRefetching: _isRefetching,
+    error,
+    refetch,
+  } = useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
 
   useEffect(() => {
     if (error) showErrorBanner(parseError(error));
   }, [error, showErrorBanner]);
-
   return (
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
-        initialRouteName={params?.tab || "yourTrades.buy"}
+        initialRouteName={params?.tab || "yourTrades.69BuyOffer"}
         screenOptions={fullScreenTabNavigationScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
@@ -65,7 +69,7 @@ export const YourTrades = () => {
                       isLoading && tw`opacity-60`,
                     ]}
                     onRefresh={refetch}
-                    refreshing={isRefetching}
+                    refreshing={false}
                     showsVerticalScrollIndicator={false}
                     sections={getCategories(summaries[tab])}
                     renderSectionHeader={SectionHeader}

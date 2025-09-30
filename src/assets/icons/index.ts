@@ -72,6 +72,7 @@ import maximize from "./maximize.svg";
 import menu from "./menu.svg";
 import messageCircle from "./messageCircle.svg";
 import messageFull from "./messageFull.svg";
+import minus from "./minus.svg";
 import minusCircle from "./minusCircle.svg";
 import minusSquare from "./minusSquare.svg";
 import noNetwork from "./noNetwork.svg";
@@ -81,6 +82,7 @@ import paperclip from "./paperclip.svg";
 import pauseCircle from "./pauseCircle.svg";
 import peachSettings from "./peachSettings.svg";
 import percent from "./percent.svg";
+import plus from "./plus.svg";
 import plusCircle from "./plusCircle.svg";
 import plusSquare from "./plusSquare.svg";
 import prev from "./prev.svg";
@@ -104,6 +106,8 @@ import shuffle from "./shuffle.svg";
 import skipForward from "./skipForward.svg";
 import slash from "./slash.svg";
 import smile from "./smile.svg";
+import sort from "./sort.svg";
+import sortBy from "./sortBy.svg";
 import square from "./square.svg";
 import star from "./star.svg";
 import starCircleInverted from "./starCircleInverted.svg";
@@ -123,6 +127,7 @@ import userX from "./userX.svg";
 import users from "./users.svg";
 import wallet from "./wallet.svg";
 import watch from "./watch.svg";
+import x from "./x.svg";
 import xCircle from "./xCircle.svg";
 import xSquare from "./xSquare.svg";
 import yourTrades from "./yourTrades.svg";
@@ -203,6 +208,7 @@ export const Icons = {
   menu,
   messageCircle,
   messageFull,
+  minus,
   minusCircle,
   minusSquare,
   noNetwork,
@@ -211,6 +217,7 @@ export const Icons = {
   paperclip,
   pauseCircle,
   percent,
+  plus,
   plusCircle,
   plusSquare,
   prev,
@@ -235,6 +242,8 @@ export const Icons = {
   skipForward,
   slash,
   smile,
+  sort,
+  sortBy,
   square,
   star,
   starCircleInverted,
@@ -254,6 +263,7 @@ export const Icons = {
   userX,
   wallet,
   watch,
+  x,
   xCircle,
   xSquare,
   yourTrades,

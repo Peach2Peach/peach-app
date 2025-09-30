@@ -30,14 +30,19 @@ export function ConfirmTradeCancelationPopup({
 
   const { mutate: cancelBuyer } = useCancelContract({
     contractId: contract.id,
-    optimisticContract: { canceled: true, tradeStatus: "tradeCanceled" },
+    optimisticContract: contract,
   });
 
   const cancelAction = () =>
     view === "seller"
       ? cancelSeller(undefined, {
           onSuccess: async ({ psbt }) => {
-            setPopup(<CancelPopup contract={contract} />);
+            setPopup(
+              <GrayPopup
+                title={i18n("contract.cancel.success")}
+                actions={<ClosePopupAction style={tw`justify-center`} />}
+              />,
+            );
             if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
           },
         })
