@@ -90,7 +90,6 @@ const acceptTradeRequest = async (
       userId: tradeRequest.userId,
       paymentDataEncrypted: encryptedPaymentData.encrypted,
       paymentDataSignature: encryptedPaymentData.signature,
-      paymentData: "", // TODO: validate what this is in practice. maybe this only makes sense in Instant Trade
     });
 
   if (error) handleError(error);
