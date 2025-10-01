@@ -588,6 +588,48 @@ function PriceSection() {
   };
   const { isDarkMode } = useThemeStore();
 
+  const [localValue, setLocalValue] = useState(expressSellFilterMinPremium);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const curValue = isDragging ? localValue : expressSellFilterMinPremium;
+
+  const PREMIUM_RANGE = 21 - -21;
+  const THUMB_SIZE = 24;
+  const TRACK_HEIGHT = 10;
+  const TRACK_PADDING = 22;
+
+  const DEFAULT_TRACK_WIDTH = 300;
+  const [trackWidth, setTrackWidth] = useState(DEFAULT_TRACK_WIDTH);
+
+  const getPositionFromValue = (value: number) => {
+    const effectiveTrackWidth = trackWidth - THUMB_SIZE;
+    const percentage = (value - -21) / PREMIUM_RANGE;
+    return percentage * effectiveTrackWidth;
+  };
+
+  const curPosition = getPositionFromValue(curValue);
+
+  const onDrag = () => (event: { nativeEvent: { pageX: number } }) => {
+    const { pageX } = event.nativeEvent;
+    let newPosition = pageX - THUMB_SIZE * 2;
+    newPosition = Math.max(0, Math.min(trackWidth, newPosition));
+    const percentage = newPosition / (trackWidth - THUMB_SIZE);
+    let newValue = Math.round(-21 + percentage * PREMIUM_RANGE);
+    newValue = Math.min(newValue, 21);
+    newValue = Math.max(-21, newValue);
+    setLocalValue(newValue);
+  };
+
+  const onDragStart = () => (event: { nativeEvent: { pageX: number } }) => {
+    setIsDragging(true);
+    onDrag()(event);
+  };
+
+  const onDragEnd = () => {
+    setIsDragging(false);
+    setExpressSellFilterMinPremium(localValue);
+  };
+
   return (
     <View style={tw`gap-4 py-4`}>
       <PeachText>{i18n("filter.minPremium")}</PeachText>
@@ -602,9 +644,7 @@ function PriceSection() {
         <View
           style={tw`flex-1 p-2 border rounded-full  ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
         >
-          <PeachText style={tw`text-center`}>
-            {expressSellFilterMinPremium}%
-          </PeachText>
+          <PeachText style={tw`text-center`}>{localValue}%</PeachText>
         </View>
         <TouchableIcon
           id="plus"
@@ -613,6 +653,38 @@ function PriceSection() {
           iconColor={tw.color("primary-main")}
           onPress={onPlusPress}
         />
+      </View>
+
+      <View
+        style={[
+          tw`relative flex-row items-center bg-primary-background-dark-color rounded-2xl`,
+          {
+            height: TRACK_HEIGHT,
+            paddingHorizontal: TRACK_PADDING,
+          },
+        ]}
+        onLayout={(event) => {
+          const { width } = event.nativeEvent.layout;
+          setTrackWidth(width);
+        }}
+      >
+        <View
+          style={[
+            tw`absolute items-center justify-center border-4 rounded-full border-primary-mild-1`,
+            {
+              left: curPosition,
+            },
+          ]}
+          onStartShouldSetResponder={() => true}
+          onResponderTerminationRequest={() => false}
+          onResponderMove={onDrag()}
+          onTouchStart={onDragStart()}
+          onTouchEnd={onDragEnd}
+        >
+          <View
+            style={tw`w-6 h-6 border-4 rounded-full bg-primary-main border-backgroundLight-light`}
+          />
+        </View>
       </View>
     </View>
   );
