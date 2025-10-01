@@ -1,6 +1,6 @@
 {
-  "match.feeWarning" : "Sie zahlen bis zu $0% an Mining-Gebühren!",
-  "match.tradeRequested" : "Handel angefordert",
-  "match.waitingForSeller" : "Warten auf Verkäufer",
+  "match.feeWarning": "Sie zahlen bis zu $0% an Mining-Gebühren!",
+  "match.tradeRequested": "Handel angefordert",
+  "match.waitingForSeller": "Warten auf Verkäufer",
   "match.waitingForTrader": "Warten auf Händler"
 }

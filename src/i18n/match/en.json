@@ -1,6 +1,6 @@
 {
-  "match.feeWarning" : "You will pay up to $0% in mining fees!",
-  "match.tradeRequested" : "trade requested",
-  "match.waitingForSeller" : "waiting for seller",
-  "match.waitingForTrader" : "waiting for trader"
+  "match.feeWarning": "Mining fees up to $0%",
+  "match.tradeRequested": "trade requested",
+  "match.waitingForSeller": "waiting for seller",
+  "match.waitingForTrader": "waiting for trader"
 }

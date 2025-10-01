@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Ви можете допомогти нам покращити Peach, поділившись з нами деякими своїми даними про використання.",
-  "analytics.request.description2" : "Жодна особиста інформація ніколи не збирається, дивиться також наші",
-  "analytics.request.description3" : "Ці дані будуть поширені через Google Analytics. Ви можете знову вимкнути це в будь-який час у налаштуваннях.",
-  "analytics.request.no" : "ні, дякую",
-  "analytics.request.title" : "поділитися даними про використання?",
-  "analytics.request.yes" : "звісно"
+  "analytics.request.description1": "Допоможіть нам покращити Peach, поділившись деякими даними про використання.",
+  "analytics.request.description2": "Жодна особиста інформація не збирається, див. також наші",
+  "analytics.request.description3": "Ці дані передаються через Google Analytics. Ви можете вимкнути це в будь-який час у налаштуваннях.",
+  "analytics.request.no": "Ні, дякую",
+  "analytics.request.title": "Поділитися даними про використання?",
+  "analytics.request.yes": "Так"
 }

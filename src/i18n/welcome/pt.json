@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "A Peach tem uma carteira integrada, para que possa começar imediatamente. Nenhum aplicativo de terceiros é necessário!",
-  "welcome.aWalletYouControl.title" : "uma carteira sob o SEU controlo",
-  "welcome.letsGetStarted.title" : "vamos começar! É novo aqui?",
-  "welcome.peachOfMind.description" : "Nós garantimos que receba a sua parte do acordo graças ao depósito de caução e ao nosso avançado suporte no aplicativo.",
-  "welcome.peachOfMind.title" : "Paz de Espírito Peach",
-  "welcome.peerToPeer.description" : "Com a Peach, não está a comprar de nós, mas de outras pessoas. É um mercado livre para bitcoin!",
-  "welcome.peerToPeer.title" : "par a par",
-  "welcome.privacyFirst.description" : "Os seus dados são armazenados no seu telemóvel e estão totalmente encriptados... Nem sequer queremos saber quem é.",
-  "welcome.privacyFirst.title" : "privacidade em primeiro lugar",
-  "welcome.welcomeToPeach.title" : "bem-vindo ao Peach!"
+  "welcome.aWalletYouControl.description": "A Peach possui uma carteira integrada, permitindo que comece imediatamente. Nenhum aplicativo externo é necessário!",
+  "welcome.aWalletYouControl.title": "uma carteira sob o SEU controlo",
+  "welcome.letsGetStarted.title": "vamos começar! É novo aqui?",
+  "welcome.peachOfMind.description": "Garantimos que receberá a sua parte do acordo através do depósito de caução e do nosso suporte avançado no aplicativo.",
+  "welcome.peachOfMind.title": "Paz de Espírito Peach",
+  "welcome.peerToPeer.description": "Com a Peach, você não compra de nós, mas de outras pessoas. Um verdadeiro mercado livre de bitcoin!",
+  "welcome.peerToPeer.title": "par a par",
+  "welcome.privacyFirst.description": "Os seus dados ficam armazenados no seu telemóvel e estão totalmente encriptados... Nem sequer queremos saber quem você é.",
+  "welcome.privacyFirst.title": "privacidade em primeiro lugar",
+  "welcome.welcomeToPeach.title": "bem-vindo ao Peach!"
 }

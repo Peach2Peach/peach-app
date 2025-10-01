@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Você pode nos ajudar a melhorar o Peach compartilhando alguns dos seus dados de uso conosco.",
-  "analytics.request.description2" : "Nenhuma informação pessoal identificável é coletada, veja também o nosso ",
-  "analytics.request.description3" : "Esses dados serão compartilhados por meio do Google Analytics. Você pode desativar-lo a qualquer momento nas Configurações.",
-  "analytics.request.no" : "não, obrigado",
-  "analytics.request.title" : "compartilhar dados de uso?",
-  "analytics.request.yes" : "claro"
+  "analytics.request.description1" : "Ajude a melhorar o Peach compartilhando alguns dados de uso conosco.",
+  "analytics.request.description2" : "Nenhuma informação pessoal é coletada. Veja também nossa ",
+  "analytics.request.description3" : "Esses dados são enviados pelo Google Analytics. Você pode desativar a qualquer momento nas Configurações.",
+  "analytics.request.no" : "Não, obrigado",
+  "analytics.request.title" : "Compartilhar dados de uso?",
+  "analytics.request.yes" : "Sim"
 }

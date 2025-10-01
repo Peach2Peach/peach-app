@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Peach'i geliştirmemize yardımcı olmak için kullanıcı verilerinizden bazılarını paylaşarak destek olabilirsiniz.",
-  "analytics.request.description2" : "Kişisel olarak sizi tanımlayacak bilgiler toplanmaz, ayrıca şu bağlantıya da göz atabilirsiniz: ",
-  "analytics.request.description3" : "Bu veriler Google Analytics'e paylaşılacaktır. Dilediğiniz zaman ayarlardan bu özelliği kapatabilirsiniz.",
-  "analytics.request.no" : "hayır, teşekkürler",
-  "analytics.request.title" : "kullanım verilerini paylaşılsın mı?",
-  "analytics.request.yes" : "elbette"
+  "analytics.request.description1": "Peach'i geliştirmemize yardımcı olmak için bazı kullanım verilerinizi paylaşın.",
+  "analytics.request.description2": "Kişisel bilgiler toplanmaz, ayrıca şu bağlantıya göz atabilirsiniz: ",
+  "analytics.request.description3": "Bu veriler Google Analytics üzerinden paylaşılır. Ayarlardan istediğiniz zaman kapatabilirsiniz.",
+  "analytics.request.no": "Hayır, teşekkürler",
+  "analytics.request.title": "Kullanım verilerini paylaşalım mı?",
+  "analytics.request.yes": "Evet"
 }

@@ -1,6 +1,6 @@
 {
-  "match.feeWarning" : "Zapłacisz do $0% w opłatach za wydobycie!",
-  "match.tradeRequested" : "żądanie transakcji",
-  "match.waitingForSeller" : "oczekiwanie na sprzedawcę",
-  "match.waitingForTrader": "oczekiwanie na handlowca"
+  "match.feeWarning": "Opłaty sieciowe mogą wynieść do $0%!",
+  "match.tradeRequested": "Żądanie transakcji",
+  "match.waitingForSeller": "Oczekiwanie na sprzedawcę",
+  "match.waitingForTrader": "Oczekiwanie na handlowca"
 }

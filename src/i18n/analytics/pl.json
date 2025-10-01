@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Możesz pomóc nam poprawić Peach, udostępniając nam część swoich danych dotyczących korzystania z aplikacji.",
-  "analytics.request.description2" : "Nigdy nie zbieramy informacji umożliwiających zidentyfikowanie tożsamości, zobacz także naszą",
-  "analytics.request.description3" : "Te dane zostaną udostępnione za pośrednictwem Google Analytics. Możesz wyłączyć to w każdej chwili w ustawieniach.",
-  "analytics.request.no" : "nie, dziękuję",
-  "analytics.request.title" : "udostępnić dane użytkowania?",
-  "analytics.request.yes" : "oczywiście"
+  "analytics.request.description1": "Pomóż nam poprawić Peach, udostępniając część danych o korzystaniu z aplikacji.",
+  "analytics.request.description2": "Nigdy nie zbieramy danych osobowych, zobacz także naszą",
+  "analytics.request.description3": "Dane te są udostępniane przez Google Analytics. Możesz je wyłączyć w każdej chwili w ustawieniach.",
+  "analytics.request.no": "Nie, dziękuję",
+  "analytics.request.title": "Udostępnić dane użytkowania?",
+  "analytics.request.yes": "Tak"
 }

@@ -1,6 +1,6 @@
 {
-  "match.feeWarning" : "Vous paierez jusqu'à 0 % de frais d'exploitation minière !",
-  "match.tradeRequested" : "commerce demandé",
-  "match.waitingForSeller" : "en attente du vendeur",
-  "match.waitingForTrader": "en attente du trader"
+  "match.feeWarning": "Frais de minage jusqu'à 0 % !",
+  "match.tradeRequested": "Échange demandé",
+  "match.waitingForSeller": "En attente du vendeur",
+  "match.waitingForTrader": "En attente du trader"
 }

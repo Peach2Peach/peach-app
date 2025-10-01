@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "Η Peach διαθέτει ένα ενσωματωμένο πορτοφόλι, έτσι μπορείτε να ξεκινήσετε αμέσως. Δεν απαιτούνται εφαρμογές τρίτων!",
-  "welcome.aWalletYouControl.title" : "ένα πορτοφόλι που ελέγχετε εσείς",
-  "welcome.letsGetStarted.title" : "ας ξεκινήσουμε!\nείστε νέος εδώ;",
-  "welcome.peachOfMind.description" : "Θα σας εγγυηθούμε ότι θα λάβετε μέρος σας από τη συναλλαγή χάρη στην προηγμένη κατάθεση εγγύησης και την υποστήριξη εντός της εφαρμογής.",
-  "welcome.peachOfMind.title" : "Ασφάλεια Peach",
-  "welcome.peerToPeer.description" : "Με την Peach, δεν αγοράζετε από εμάς, αλλά από άλλους ανθρώπους. Είναι σαν μια κεντρική αγορά για Bitcoin!",
-  "welcome.peerToPeer.title" : "από χρήστη-σε-χρήστη (peer to peer)",
-  "welcome.privacyFirst.description" : "Οι πληροφορίες σας αποθηκεύονται στο τηλέφωνό σας και είναι πλήρως κρυπτογραφημένες... Δεν θέλουμε καν να ξέρουμε ποιος είστε.",
-  "welcome.privacyFirst.title" : "προστασία της ιδιωτικότητας",
-  "welcome.welcomeToPeach.title" : "καλώς ήρθατε στην Peach!"
+  "welcome.aWalletYouControl.description": "Η Peach διαθέτει ένα ενσωματωμένο πορτοφόλι, έτσι μπορείτε να ξεκινήσετε αμέσως. Δεν απαιτούνται εφαρμογές τρίτων!",
+  "welcome.aWalletYouControl.title": "ένα πορτοφόλι που ελέγχετε εσείς",
+  "welcome.letsGetStarted.title": "ας ξεκινήσουμε!\nείστε νέος εδώ;",
+  "welcome.peachOfMind.description": "Θα σας εγγυηθούμε ότι θα λάβετε μέρος σας από τη συναλλαγή χάρη στην προηγμένη κατάθεση εγγύησης και την υποστήριξη εντός της εφαρμογής.",
+  "welcome.peachOfMind.title": "Ασφάλεια Peach",
+  "welcome.peerToPeer.description": "Με την Peach, δεν αγοράζετε από εμάς, αλλά από άλλους ανθρώπους. Είναι σαν μια κεντρική αγορά για Bitcoin!",
+  "welcome.peerToPeer.title": "από χρήστη-σε-χρήστη (peer to peer)",
+  "welcome.privacyFirst.description": "Οι πληροφορίες σας αποθηκεύονται στο τηλέφωνό σας και είναι πλήρως κρυπτογραφημένες... Δεν θέλουμε καν να ξέρουμε ποιος είστε.",
+  "welcome.privacyFirst.title": "προστασία της ιδιωτικότητας",
+  "welcome.welcomeToPeach.title": "καλώς ήρθατε στην Peach!"
 }

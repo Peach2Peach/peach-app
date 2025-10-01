@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "Peach dispose d'un portefeuille intégré, vous pouvez donc commencer tout de suite. Aucune application tierce requise !",
-  "welcome.aWalletYouControl.title" : "un portefeuille que vous contrôlez",
-  "welcome.letsGetStarted.title" : "Commençons ! Êtes-vous nouveau ici ?",
-  "welcome.peachOfMind.description" : "Nous vous garantissons la sécurité de votre échange grâce  à notre système de coffre et à notre assistance client intégrée dans l'app. ",
-  "welcome.peachOfMind.title" : "La tranquillité d'esprit avec Peach",
-  "welcome.peerToPeer.description" : "Avec Peach, vous n'achetez pas chez nous, mais auprès d'autres personnes. C'est une place de marché pour le bitcoin !",
-  "welcome.peerToPeer.title" : "pair-à-pair",
-  "welcome.privacyFirst.description" : "Vos données sont stockées sur votre téléphone et sont entièrement chiffrées... Nous ne voulons même pas savoir qui vous êtes.",
-  "welcome.privacyFirst.title" : "La confidentialité avant tout",
-  "welcome.welcomeToPeach.title" : "bienvenue sur Peach !"
+  "welcome.aWalletYouControl.description": "Peach dispose d'un portefeuille intégré, vous pouvez donc commencer tout de suite. Aucune application tierce requise !",
+  "welcome.aWalletYouControl.title": "un portefeuille que vous contrôlez",
+  "welcome.letsGetStarted.title": "Commençons ! Êtes-vous nouveau ici ?",
+  "welcome.peachOfMind.description": "Nous vous garantissons la sécurité de votre échange grâce à notre système de coffre et à notre assistance client intégrée dans l'app.",
+  "welcome.peachOfMind.title": "La tranquillité d'esprit avec Peach",
+  "welcome.peerToPeer.description": "Avec Peach, vous n'achetez pas chez nous, mais auprès d'autres personnes. C'est une place de marché pour le bitcoin !",
+  "welcome.peerToPeer.title": "pair-à-pair",
+  "welcome.privacyFirst.description": "Vos données sont stockées sur votre téléphone et sont entièrement chiffrées... Nous ne voulons même pas savoir qui vous êtes.",
+  "welcome.privacyFirst.title": "La confidentialité avant tout",
+  "welcome.welcomeToPeach.title": "bienvenue sur Peach !"
 }

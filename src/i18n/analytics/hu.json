@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Segíthetsz nekünk abban, hogy javítsuk a Peach alkalmazást, ha megosztasz velünk néhány használati adataidat.",
-  "analytics.request.description2" : "Soha nem gyűjtünk személyazonosító információkat. Lásd még a ",
-  "analytics.request.description3" : "Ezeket az adatokat a Google Analytics segítségével osztjuk meg. Ezt a beállításokban bármikor kikapcsolhatod.",
-  "analytics.request.no" : "nem, köszönöm",
-  "analytics.request.title" : "megosztod a használati adataidat?",
-  "analytics.request.yes" : "természetesen"
+  "analytics.request.description1": "Segítsd a Peach fejlesztését azzal, hogy megosztasz néhány használati adatot.",
+  "analytics.request.description2": "Személyes adatokat soha nem gyűjtünk, lásd még a ",
+  "analytics.request.description3": "Az adatokat a Google Analytics-szel osztjuk meg. A beállításokban bármikor kikapcsolhatod.",
+  "analytics.request.no": "Nem, köszönöm",
+  "analytics.request.title": "Használati adatok megosztása?",
+  "analytics.request.yes": "Igen"
 }
