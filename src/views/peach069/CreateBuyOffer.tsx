@@ -237,12 +237,12 @@ type SellAmountSliderProps = {
 };
 
 function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
-  const [, maxLimit] = useTradingAmountLimits("buy");
+  const [, maxLimit] = useTradingAmountLimits("sell");
 
   const trackMax = trackWidth - sliderWidth;
   const trackDelta = trackMax - trackMin;
 
-  const getAmountInBounds = useAmountInBounds(trackWidth, "buy");
+  const getAmountInBounds = useAmountInBounds(trackWidth, "sell");
 
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.createBuyOfferAmount,
