@@ -7,6 +7,7 @@ import {
   SellOffer69TradeRequest,
 } from "../../../peach-api/src/@types/offer";
 import { GradientBorder } from "../../components/GradientBorder";
+import { Icon } from "../../components/Icon";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { ProfileInfo } from "../../components/ProfileInfo";
 import { NewBubble } from "../../components/bubble/Bubble";
@@ -195,6 +196,12 @@ export function ExpressFlowTradeRequestToOffer({
     return unsubscribe;
   }, [navigation, hasPendingAction]);
 
+  const displayableChatMessages = offerTradeRequestPerformedBySelfUser
+    ? offerTradeRequestPerformedBySelfUser.chatMessages.filter(
+        (x) => x.seen === false && x.sender === "offerOwner",
+      )
+    : [];
+
   return (
     <>
       <View style={tw`justify-center flex-1`}>
@@ -311,7 +318,19 @@ export function ExpressFlowTradeRequestToOffer({
             ]}
             onPress={goToChatFunction}
           >
-            Chat
+            {"Chat"}
+            {displayableChatMessages.length > 0 && (
+              <View style={[tw`items-center justify-center w-7 h-7`]}>
+                <Icon
+                  id={"messageFull"}
+                  size={24}
+                  color={tw.color("primary-background-light-color")}
+                />
+                <PeachText style={tw`absolute text-center font-baloo-bold`}>
+                  {displayableChatMessages.length}
+                </PeachText>
+              </View>
+            )}
           </Button>
           <WaitingForSeller />
         </>
