@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import { useCallback, useState } from "react";
 import {
   BuyOffer69TradeRequest,
+  Offer69TradeRequestChatMessage,
   SellOffer69TradeRequest,
 } from "../../../peach-api/src/@types/offer";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -148,6 +149,7 @@ export const TradeRequestReceived = ({
         <GoToChatButton
           optionName={currentGoToChatOptionName}
           goToChatFunction={goToChatFunction}
+          chatMessages={tradeRequest.chatMessages}
         />
       </View>
     </View>
@@ -243,13 +245,22 @@ function RejectTradeRequestButton({
 type GoToChatButtonProps = {
   optionName: keyof typeof options;
   goToChatFunction: () => void;
+  chatMessages?: Offer69TradeRequestChatMessage[];
 };
-function GoToChatButton({ optionName, goToChatFunction }: GoToChatButtonProps) {
+function GoToChatButton({
+  optionName,
+  goToChatFunction,
+  chatMessages = [],
+}: GoToChatButtonProps) {
   const currentOption = options[optionName];
 
   const onPress = () => {
     goToChatFunction();
   };
+
+  const displayableChatMessages = chatMessages.filter(
+    (x) => x.seen === false && x.sender === "tradeRequester",
+  );
 
   return (
     <TouchableOpacity
@@ -260,11 +271,16 @@ function GoToChatButton({ optionName, goToChatFunction }: GoToChatButtonProps) {
       <PeachText style={tw`button-large text-primary-background-light-color`}>
         {i18n(currentOption.text)}
       </PeachText>
-      <Icon
-        id={currentOption.iconId}
-        color={tw.color("primary-background-light-color")}
-        size={24}
-      />
+      <View style={[tw`items-center justify-center w-7 h-7`]}>
+        <Icon
+          id={currentOption.iconId}
+          size={24}
+          color={tw.color("primary-background-light-color")}
+        />
+        <PeachText style={tw`absolute text-center font-baloo-bold`}>
+          {displayableChatMessages.length ? displayableChatMessages.length : ""}
+        </PeachText>
+      </View>
     </TouchableOpacity>
   );
 }
