@@ -1,10 +1,10 @@
 {
-  "i18n.test" : "Test della variabile: $0 $1 $2",
-  "i18n.test.fallback.1" : "Test di fallback 1 en",
-  "i18n.test.fallback.2" : "Test di fallback 2 en",
-  "i18n.test.fallback.3" : "Test di fallback 3 en",
-  "i18n.test.five" : "cinque parole diventano molto interessanti",
-  "i18n.test.four" : "quattro parole sono belle",
-  "i18n.test.three" : "tre parole interessanti",
-  "i18n.test.two" : "due parole"
+  "i18n.test": "Test variabile: $0 $1 $2",
+  "i18n.test.fallback.1": "Fallback test 1",
+  "i18n.test.fallback.2": "Fallback test 2",
+  "i18n.test.fallback.3": "Fallback test 3",
+  "i18n.test.five": "Cinque parole diventano interessanti",
+  "i18n.test.four": "Quattro parole sono belle",
+  "i18n.test.three": "Tre parole interessanti",
+  "i18n.test.two": "Due parole"
 }

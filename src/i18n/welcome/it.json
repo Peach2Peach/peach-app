@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "Peach ha un wallet integrato, quindi puoi iniziare subito. Non sono necessarie app di terze parti!",
-  "welcome.aWalletYouControl.title" : "un wallet che controlli tu",
-  "welcome.letsGetStarted.title" : "inizia!\nsei nuovo qui?",
-  "welcome.peachOfMind.description" : "Ti garantiamo che otterrai la tua parte dello scambio grazie al nostro avanzato servizio di deposito di garanzia e al supporto in-app.",
-  "welcome.peachOfMind.title" : "Pace mentale con Peach",
-  "welcome.peerToPeer.description" : "Con Peach, non compri da noi, ma da altre persone. È come un mercato per bitcoin!",
-  "welcome.peerToPeer.title" : "peer-to-peer",
-  "welcome.privacyFirst.description" : "I tuoi dati sono archiviati sul tuo telefono e sono completamente crittografati. Non abbiamo bisogno di sapere chi sei.",
-  "welcome.privacyFirst.title" : "Privacy prima di tutto",
-  "welcome.welcomeToPeach.title" : "benvenuto in Peach!"
+  "welcome.aWalletYouControl.description": "Peach include un wallet integrato: inizia subito senza app esterne!",
+  "welcome.aWalletYouControl.title": "un wallet che controlli tu",
+  "welcome.letsGetStarted.title": "inizia!\nnuovo qui?",
+  "welcome.peachOfMind.description": "La tua parte dello scambio è garantita dal nostro servizio di deposito e supporto in-app.",
+  "welcome.peachOfMind.title": "Pace mentale con Peach",
+  "welcome.peerToPeer.description": "Con Peach compri da altre persone, non da noi. Un vero mercato bitcoin!",
+  "welcome.peerToPeer.title": "peer-to-peer",
+  "welcome.privacyFirst.description": "I tuoi dati restano sul telefono, criptati. Non serve sapere chi sei.",
+  "welcome.privacyFirst.title": "Privacy prima di tutto",
+  "welcome.welcomeToPeach.title": "benvenuto in Peach!"
 }

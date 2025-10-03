@@ -1,6 +1,6 @@
 {
-  "match.feeWarning" : "Pagherete fino allo 0% di tasse di estrazione!",
-  "match.tradeRequested" : "commercio richiesto",
-  "match.waitingForSeller" : "in attesa del venditore",
-  "match.waitingForTrader": "in attesa del trader"
+  "match.feeWarning": "Pagherai fino allo 0% di commissioni!",
+  "match.tradeRequested": "Commercio richiesto",
+  "match.waitingForSeller": "In attesa del venditore",
+  "match.waitingForTrader": "In attesa del trader"
 }

@@ -1,17 +1,16 @@
 {
-  "buy.addressSigning.message" : "message",
-  "buy.addressSigning.signature" : "signature",
-  "buy.addressSigning.title" : "signer votre adresse",
-  "buy.addressSigning.yourAddress" : "votre adresse",
-  "buy.meansOfPayment" : "comment souhaitez-vous payer ?",
-  "buy.releaseAddress.title" : "libérer l'adresse",
-  "buy.subtitle" : "Vous achetez entre :",
-  "buy.subtitle.highlight" : "achetez",
-  "buy.summary.title" : "résumé de l'offre d'achat",
-  "buy.title" : "Acheter du bitcoin",
-  "buy.title.highlight" : "Acheter",
-  "yourTrades.search.buy.subtitle" : "offre d'achat pour",
-  "help.firstTimeBuyer.description": "IMPORTANT : Ne faites PAS glisser « J’ai effectué le paiement » avant d’avoir réellement payé.\nLe paiement doit être effectué EN DEHORS de Peach en utilisant le mode de paiement partagé avec le vendeur.",
-  "help.firstTimeBuyer.title": "Vous êtes maintenant dans un échange !"
-  
+  "buy.addressSigning.message": "message",
+  "buy.addressSigning.signature": "signature",
+  "buy.addressSigning.title": "Signer votre adresse",
+  "buy.addressSigning.yourAddress": "Votre adresse",
+  "buy.meansOfPayment": "Mode de paiement",
+  "buy.releaseAddress.title": "Libérer l'adresse",
+  "buy.subtitle": "Vous achetez :",
+  "buy.subtitle.highlight": "Acheter",
+  "buy.summary.title": "Résumé de l'achat",
+  "buy.title": "Acheter du Bitcoin",
+  "buy.title.highlight": "Acheter",
+  "yourTrades.search.buy.subtitle": "Offre d'achat pour",
+  "help.firstTimeBuyer.description": "IMPORTANT : Ne cliquez PAS sur « J’ai payé » avant d’avoir effectué le paiement.\nLe paiement se fait EN DEHORS de Peach selon le mode convenu avec le vendeur.",
+  "help.firstTimeBuyer.title": "Vous êtes dans un échange !"
 }

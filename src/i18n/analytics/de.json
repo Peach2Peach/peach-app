@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Du kannst uns helfen, Peach zu verbessern, indem du uns einige deiner Nutzungsdaten zur Verfügung stellst.",
-  "analytics.request.description2" : "Es werden niemals personenbezogene Daten erfasst, siehe auch unsere ",
-  "analytics.request.description3" : "Diese Daten werden über Google Analytics geteilt. Du kannst dies jederzeit in den Einstellungen wieder ausschalten.",
-  "analytics.request.no" : "Nein, danke",
-  "analytics.request.title" : "Nutzungsdaten teilen?",
-  "analytics.request.yes" : "Ja, gerne"
+  "analytics.request.description1": "Hilf uns, Peach zu verbessern, indem du einige Nutzungsdaten teilst.",
+  "analytics.request.description2": "Es werden keine personenbezogenen Daten erfasst, siehe auch unsere ",
+  "analytics.request.description3": "Diese Daten werden mit Google Analytics geteilt. Du kannst dies jederzeit in den Einstellungen deaktivieren.",
+  "analytics.request.no": "Nein, danke",
+  "analytics.request.title": "Nutzungsdaten teilen?",
+  "analytics.request.yes": "Ja"
 }

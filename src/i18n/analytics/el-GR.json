@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Μπορείτε να μας βοηθήσετε να βελτιώσουμε την Peach μοιραζόμενοι μαζί μας μερικά από τα δεδομένα χρήσης σας.",
-  "analytics.request.description2" : "Δεν συλλέγονται ποτέ προσωπικά στοιχεία αναγνώρισης, δείτε επίσης ",
-  "analytics.request.description3" : "Αυτά τα δεδομένα θα κοινοποιηθούν μέσω του Google Analytics. Μπορείτε να το απενεργοποιήσετε οποιαδήποτε στιγμή από τις Ρυθμίσεις.",
-  "analytics.request.no" : "όχι, ευχαριστώ",
-  "analytics.request.title" : "θέλετε να μοιραστείτε τα δεδομένα χρήσης;",
-  "analytics.request.yes" : "βεβαίως"
+  "analytics.request.description1": "Μπορείτε να μας βοηθήσετε να βελτιώσουμε την Peach μοιράζοντας μερικά δεδομένα χρήσης.",
+  "analytics.request.description2": "Ποτέ δεν συλλέγονται προσωπικά δεδομένα, δείτε επίσης ",
+  "analytics.request.description3": "Αυτά τα δεδομένα κοινοποιούνται μέσω του Google Analytics. Μπορείτε να το απενεργοποιήσετε οποιαδήποτε στιγμή από τις Ρυθμίσεις.",
+  "analytics.request.no": "Όχι, ευχαριστώ",
+  "analytics.request.title": "Μοιραστείτε δεδομένα χρήσης;",
+  "analytics.request.yes": "Ναι, φυσικά"
 }

@@ -1,9 +1,9 @@
 {
   "buy.addressSigning.message" : "mensagem",
   "buy.addressSigning.signature" : "assinatura",
-  "buy.addressSigning.title" : "assine seu endereço",
+  "buy.addressSigning.title" : "assinar endereço",
   "buy.addressSigning.yourAddress" : "seu endereço",
-  "buy.meansOfPayment" : "como você gostaria de pagar?",
+  "buy.meansOfPayment" : "como deseja pagar?",
   "buy.releaseAddress.title" : "liberar endereço",
   "buy.subtitle" : "Você está comprando entre:",
   "buy.subtitle.highlight" : "comprando",
@@ -11,6 +11,6 @@
   "buy.title" : "comprar bitcoin",
   "buy.title.highlight" : "comprar",
   "yourTrades.search.buy.subtitle" : "oferta de compra para",
-  "help.firstTimeBuyer.description": "IMPORTANTE: NÃO deslize «Efetuei o pagamento» antes de realmente pagar.\nO pagamento deve ser feito FORA do Peach usando o método de pagamento compartilhado pelo vendedor.",
-  "help.firstTimeBuyer.title": "Agora você está em uma negociação!"
+  "help.firstTimeBuyer.description": "IMPORTANTE: não deslize «Efetuei o pagamento» antes de pagar de fato.\nO pagamento deve ser feito FORA do Peach, usando o método informado pelo vendedor.",
+  "help.firstTimeBuyer.title": "Você iniciou uma negociação!"
 }

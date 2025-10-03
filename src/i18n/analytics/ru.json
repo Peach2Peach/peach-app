@@ -1,8 +1,8 @@
 {
-  "analytics.request.description1" : "Вы можете помочь нам улучшить Peach, поделившись с нами некоторыми данными об использовании приложения.",
-  "analytics.request.description2" : "Мы не собираем никаких персональных данных чтобы узнать больше, почитайте нашу",
-  "analytics.request.description3" : "Данные будут отправлены через Google Analytics. Вы можете отключить это снова в любой момент в настройках.",
-  "analytics.request.no" : "нет, спасибо",
-  "analytics.request.title" : "поделиться данными об использовании?",
-  "analytics.request.yes" : "конечно"
+  "analytics.request.description1": "Помогите нам улучшить Peach, поделившись некоторыми данными об использовании приложения.",
+  "analytics.request.description2": "Мы не собираем персональные данные, подробнее см. нашу",
+  "analytics.request.description3": "Данные передаются через Google Analytics. Вы можете отключить это в любой момент в настройках.",
+  "analytics.request.no": "Нет, спасибо",
+  "analytics.request.title": "Поделиться данными об использовании?",
+  "analytics.request.yes": "Да"
 }

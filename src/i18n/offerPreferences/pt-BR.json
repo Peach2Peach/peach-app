@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.description" : "Para economizar em taxas de rede, você pode criar várias ofertas de venda com apenas uma transação!",
+  "help.fundMultiple.description" : "Para economizar em taxas, crie várias ofertas de venda em uma única transação!",
   "help.fundMultiple.title" : "financiar várias ofertas de venda",
-  "help.instantTrade.description" : "Permita que um comprador que corresponda à sua oferta de venda entre automaticamente em uma negociação com você!\n\nPara habilitar isso, a Peach receberá seus dados de pagamento selecionados para compartilhá-los instantaneamente com um comprador que atenda a todos os seus critérios.\n\nEsses dados são criptografados e não podem ser lidos por terceiros, exceto a Peach.",
+  "help.instantTrade.description" : "Permita que um comprador compatível entre automaticamente em negociação!\n\nPara isso, a Peach usará seus dados de pagamento selecionados, compartilhando-os instantaneamente com o comprador que atender aos seus critérios.\n\nOs dados são criptografados e não podem ser lidos por terceiros, apenas pela Peach.",
   "help.instantTrade.title" : "negociação instantânea",
   "matchDetails.action.instantTrade" : "negociação instantânea",
   "matchDetails.action.missingSelection" : "selecione o método de pagamento",
@@ -15,22 +15,21 @@
   "offerPreferences.competingSellOffers" : "$0 ofertas de venda concorrentes",
   "offerPreferences.competingSellOffersBelowThisPremium" : "$0 ofertas de venda concorrentes abaixo deste prêmio",
   "offerPreferences.currentPrice" : "atualmente $0",
-  "offerPreferences.feature.instantTrade" : "instantâneo - negociação",
+  "offerPreferences.feature.instantTrade" : "negociação instantânea",
   "offerPreferences.filters" : "filtros",
   "offerPreferences.filters.maxPremium" : "prêmio máximo",
   "offerPreferences.filters.minReputation" : "reputação mínima: $0",
   "offerPreferences.filters.noNewUsers" : "sem novos usuários",
   "offerPreferences.forYourPreferences" : "para suas preferências",
-  "offerPreferences.fundEscrow" : "financiar custódia",
-  "offerPreferences.fundWithPeachWallet" : "financiar com a carteira Peach ($0 sats/vb)",
+  "offerPreferences.fundEscrow" : "financiar depósito",
+  "offerPreferences.fundWithPeachWallet" : "financiar com carteira Peach ($0 sats/vb)",
   "offerPreferences.instantTrade" : "negociação instantânea",
   "offerPreferences.payoutTo" : "pagar para:",
   "offerPreferences.premiumOfCompletedTrades" : "prêmio de negociações concluídas: $0%",
   "offerPreferences.refundTo" : "reembolsar para:",
   "offerPreferences.sellOffers" : "$0 ofertas de venda abertas",
   "offerPreferences.showOffers" : "mostrar ofertas",
-  "help.createMultiple.description": "Se você deseja comprar muito de vários vendedores, pode criar várias ofertas de compra!",
+  "help.createMultiple.description": "Se deseja comprar de vários vendedores, crie várias ofertas de compra!",
   "help.createMultiple.title": "criar múltiplas ofertas de compra",
-   "matchDetails.action.unrequestTrade": "remover solicitação de trade"
-
+  "matchDetails.action.unrequestTrade": "remover solicitação de negociação"
 }

@@ -1,6 +1,6 @@
 {
-  "home.news" : "actualités",
-  "home.averagePremium" : "prime moyenne : $0%",
-  "home.openBuyOffers" : "$0 offres d'achat ouvertes",
-  "home.openSellOffers" : "$0 offres de vente ouvertes"
+  "home.news": "Actualités",
+  "home.averagePremium": "Prime moyenne : $0 %",
+  "home.openBuyOffers": "$0 offres d'achat",
+  "home.openSellOffers": "$0 offres de vente"
 }

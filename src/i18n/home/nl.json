@@ -1,6 +1,6 @@
 {
-  "home.news" : "nieuws",
-  "home.averagePremium" : "gemiddelde premie: $0%",
-  "home.openBuyOffers" : "$0 open koopaanbiedingen",
-  "home.openSellOffers" : "$0 open verkoopaanbiedingen"
+  "home.news": "nieuws",
+  "home.averagePremium": "gemiddelde premie: $0%",
+  "home.openBuyOffers": "$0 koopaanbiedingen open",
+  "home.openSellOffers": "$0 verkoopaanbiedingen open"
 }

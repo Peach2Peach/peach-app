@@ -1,6 +1,6 @@
 {
-  "home.news" : "news",
-  "home.averagePremium" : "average premium: $0%",
-  "home.openBuyOffers" : "$0 open buy offers",
-  "home.openSellOffers" : "$0 open sell offers"
+  "home.news": "news",
+  "home.averagePremium": "avg. premium: $0%",
+  "home.openBuyOffers": "$0 buy offers open",
+  "home.openSellOffers": "$0 sell offers open"
 }

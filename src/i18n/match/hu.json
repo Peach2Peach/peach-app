@@ -1,6 +1,6 @@
 {
-  "match.feeWarning" : "Akár $0% bányászati díjat is fizethetsz!",
-  "match.tradeRequested" : "kereskedés kérve",
-  "match.waitingForSeller" : "eladóra várakozás",
-   "match.waitingForTrader": "kereskedőre várakozás"
+  "match.feeWarning": "Akár $0% bányászati díj!",
+  "match.tradeRequested": "kereskedés kérve",
+  "match.waitingForSeller": "eladóra várakozás",
+  "match.waitingForTrader": "kereskedőre várakozás"
 }
