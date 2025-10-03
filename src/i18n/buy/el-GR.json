@@ -12,5 +12,7 @@
   "buy.title.highlight": "Αγορά",
   "yourTrades.search.buy.subtitle": "Πρόταση αγοράς για",
   "help.firstTimeBuyer.description": "ΣΗΜΑΝΤΙΚΟ: ΜΗΝ πατάτε «Έκανα την πληρωμή» πριν ολοκληρώσετε την πληρωμή.\nΗ πληρωμή γίνεται ΕΚΤΟΣ Peach, με τη μέθοδο που καθορίζει ο πωλητής.",
-  "help.firstTimeBuyer.title": "Βρίσκεστε τώρα σε συναλλαγή!"
+  "help.firstTimeBuyer.title": "Βρίσκεστε τώρα σε συναλλαγή!",
+   "help.firstTimeSeller.description": "ΣΗΜΑΝΤΙΚΟ: ΜΗΝ σύρετε «Έλαβα την Πληρωμή» πριν επιβεβαιώσετε ότι την έχετε λάβει.\nΗ πληρωμή πρέπει να γίνει ΕΚΤΟΣ Peach με τη μέθοδο που συμφωνήθηκε με τον αγοραστή.",
+    "help.firstTimeSeller.title": "Βρίσκεστε τώρα σε συναλλαγή!"
 }

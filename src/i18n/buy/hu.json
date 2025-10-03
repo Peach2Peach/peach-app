@@ -12,5 +12,7 @@
   "buy.title.highlight": "Vásárlás",
   "yourTrades.search.buy.subtitle": "Vásárlási ajánlat",
   "help.firstTimeBuyer.description": "FONTOS: Ne húzd a «Kifizettem» gombot, amíg a fizetés ténylegesen nem történt meg.\nA fizetést a Peach-en KÍVÜL kell teljesíteni az eladó által megadott módon.",
-  "help.firstTimeBuyer.title": "Most kereskedésben vagy!"
+  "help.firstTimeBuyer.title": "Most kereskedésben vagy!",
+  "help.firstTimeSeller.description": "FONTOS: NE húzd el a «Megkaptam a fizetést» gombot, amíg nem ellenőrizted, hogy valóban megkaptad.\nA fizetésnek a Peach-en KÍVÜL kell történnie a vevővel egyeztetett módon.",
+    "help.firstTimeSeller.title": "Most egy üzletben vagy!"
 }

@@ -12,5 +12,7 @@
   "buy.title.highlight": "comprar",
   "yourTrades.search.buy.subtitle": "oferta de compra para",
   "help.firstTimeBuyer.description": "IMPORTANTE: NO pulses «He realizado el pago» antes de pagar.\nEl pago debe hacerse FUERA de Peach usando el método compartido con el vendedor.",
-  "help.firstTimeBuyer.title": "¡Ahora estás en una operación!"
+  "help.firstTimeBuyer.title": "¡Ahora estás en una operación!",
+  "help.firstTimeSeller.description": "IMPORTANTE: No deslices «He recibido el pago» antes de verificar que lo hayas recibido.\nEl pago debe hacerse FUERA de Peach con el método de pago acordado con el comprador.",
+    "help.firstTimeSeller.title": "¡Ahora estás en una operación!"
 }

@@ -12,5 +12,7 @@
   "buy.title.highlight": "kup",
   "yourTrades.search.buy.subtitle": "Oferta kupna dla",
   "help.firstTimeBuyer.description": "WAŻNE: Nie klikaj «Dokonałem płatności» przed zapłatą.\nPłatność wykonaj poza Peach, używając metody sprzedawcy.",
-  "help.firstTimeBuyer.title": "Transakcja rozpoczęta!"
+  "help.firstTimeBuyer.title": "Transakcja rozpoczęta!",
+  "help.firstTimeSeller.description": "WAŻNE: NIE przesuwaj «Otrzymałem płatność», dopóki nie potwierdzisz, że ją otrzymałeś.\nPłatność musi być dokonana POZA Peach przy użyciu metody uzgodnionej z kupującym.",
+  "help.firstTimeSeller.title": "Transakcja rozpoczęta!"
 }

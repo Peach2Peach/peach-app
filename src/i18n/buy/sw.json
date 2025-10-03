@@ -12,5 +12,7 @@
   "buy.title.highlight" : "nunua",
   "yourTrades.search.buy.subtitle" : "ofa ya ununuzi kwa",
    "help.firstTimeBuyer.description": "MUHIMU: USIsogeze «Nimelipa» kabla ya kufanya malipo.\nMalipo lazima yafanyike NJE ya Peach ukitumia njia ya malipo iliyoshirikiwa na muuzaji.",
-  "help.firstTimeBuyer.title": "Sasa uko kwenye biashara!"
+  "help.firstTimeBuyer.title": "Sasa uko kwenye biashara!",
+   "help.firstTimeSeller.description": "MUHIMU: Usisogeze «Nimepokea Malipo» kabla ya kuthibitisha kuwa umepokea.\nMalipo lazima yafanywe NJE ya Peach kwa njia iliyoafikiwa na mnunuzi.",
+    "help.firstTimeSeller.title": "Sasa uko kwenye biashara!"
 }
