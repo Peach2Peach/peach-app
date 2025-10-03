@@ -12,5 +12,7 @@
   "buy.title.highlight" : "comprar",
   "yourTrades.search.buy.subtitle" : "oferta de compra para",
   "help.firstTimeBuyer.description": "IMPORTANTE: não deslize «Efetuei o pagamento» antes de pagar de fato.\nO pagamento deve ser feito FORA do Peach, usando o método informado pelo vendedor.",
-  "help.firstTimeBuyer.title": "Você iniciou uma negociação!"
+  "help.firstTimeBuyer.title": "Você iniciou uma negociação!",
+   "help.firstTimeSeller.description": "IMPORTANTE: NÃO deslize «Recebi o pagamento» antes de confirmar que realmente recebeu.\nO pagamento deve ser feito FORA do Peach com o método combinado com o comprador.",
+    "help.firstTimeSeller.title": "Você iniciou uma negociação!"
 }

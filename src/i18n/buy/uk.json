@@ -12,5 +12,7 @@
   "buy.title.highlight" : "придбати",
   "yourTrades.search.buy.subtitle" : "купити лот за",
    "help.firstTimeBuyer.description": "ВАЖЛИВО: НЕ переміщуйте «Я здійснив платіж» до того, як ви дійсно здійснили оплату.\nПлатіж повинен бути здійснений ПОЗА Peach за допомогою методу оплати, наданого продавцем.",
-  "help.firstTimeBuyer.title": "Тепер ви в угоді!"
+  "help.firstTimeBuyer.title": "Тепер ви в угоді!",
+  "help.firstTimeSeller.description": "ВАЖЛИВО: НЕ проводьте «Я отримав оплату», поки не перевірите, що дійсно її отримали.\nОплата має бути здійснена ПОЗА Peach за узгодженим способом з покупцем.",
+    "help.firstTimeSeller.title": "Тепер ви в угоді!"
 }

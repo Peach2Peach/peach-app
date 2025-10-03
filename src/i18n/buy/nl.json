@@ -12,5 +12,7 @@
   "buy.title.highlight": "koop",
   "yourTrades.search.buy.subtitle": "koopaanbod voor",
   "help.firstTimeBuyer.description": "BELANGRIJK: Schuif «Ik heb betaald» NIET voor je echt hebt betaald.\nDe betaling gebeurt BUITEN Peach met de betaalmethode van de verkoper.",
-  "help.firstTimeBuyer.title": "Je bent nu in een trade!"
+  "help.firstTimeBuyer.title": "Je bent nu in een trade!",
+  "help.firstTimeSeller.description": "BELANGRIJK: Schuif «Betaling ontvangen» NIET voordat je hebt gecontroleerd dat je de betaling hebt ontvangen.\nDe betaling moet BUITEN Peach gebeuren via de afgesproken betaalmethode met de koper.",
+  "help.firstTimeSeller.title":  "Je bent nu in een trade!"
 }

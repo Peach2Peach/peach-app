@@ -1,5 +1,6 @@
 type Settings = {
   seenFirstTimeBuyerPopup: boolean;
+  seenFirstTimeSellerPopup: boolean;
   appVersion: string;
   analyticsPopupSeen: boolean;
   enableAnalytics: boolean;

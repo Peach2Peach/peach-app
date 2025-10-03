@@ -84,17 +84,31 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
     (state) => state.setSeenFirstTimeBuyerPopup,
   );
 
-  if (isLoadingPaymentData) return <LoadingScreen />;
+  const hasSeenFirstTimeSellerPopup = useSettingsStore(
+    (state) => state.seenFirstTimeSellerPopup,
+  );
+  const setSeenFirstTimeSellerPopup = useSettingsStore(
+    (state) => state.setSeenFirstTimeSellerPopup,
+  );
 
+  if (isLoadingPaymentData) return <LoadingScreen />;
   if (
     selfUser &&
-    selfUser.trades === 0 &&
     contract.tradeStatus === "paymentRequired" &&
     !hasSeenFirstTimeBuyerPopup &&
     selfUser.id === contract.buyer.id
   ) {
     setPopup(<HelpPopup id="firstTimeBuyer" />);
     setSeenFirstTimeBuyerPopup();
+  }
+  if (
+    selfUser &&
+    contract.tradeStatus === "confirmPaymentRequired" &&
+    !hasSeenFirstTimeSellerPopup &&
+    selfUser.id === contract.seller.id
+  ) {
+    setPopup(<HelpPopup id="firstTimeSeller" />);
+    setSeenFirstTimeSellerPopup();
   }
   return (
     <ContractContext.Provider
