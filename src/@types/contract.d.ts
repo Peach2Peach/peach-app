@@ -41,7 +41,7 @@ type Contract = {
 
   paymentMade: Date | null;
   paymentConfirmed: Date | null;
-  paymentExpectedBy: Date;
+  paymentExpectedBy?: Date;
   lastReminderSent?: PaymentReminder;
 
   escrow: string;
