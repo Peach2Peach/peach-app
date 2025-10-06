@@ -84,7 +84,7 @@
   "paymentMethod.satispay": "Satispay",
   "paymentMethod.select": "voeg betaalmethode toe",
   "paymentMethod.select.button.cash": "voeg nieuwe cash optie toe",
-  "paymentMethod.select.button.remote": "voeg nieuwe valuta/betaalmethode toe",
+  "paymentMethod.select.button.remote": "voeg nieuwe valuta/\nbetaalmethode toe",
   "paymentMethod.select.title": "voeg $0 toe",
   "paymentMethod.sepa": "SEPA",
   "paymentMethod.sinpe": "SINPE",

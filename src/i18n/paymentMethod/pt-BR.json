@@ -84,7 +84,7 @@
   "paymentMethod.satispay" : "Satispay",
   "paymentMethod.select" : "adicionar método de pagamento",
   "paymentMethod.select.button.cash" : "adicionar dinheiro",
-  "paymentMethod.select.button.remote" : "adicionar nova moeda/método",
+  "paymentMethod.select.button.remote" : "adicionar nova moeda/\nmétodo de pagamento",
   "paymentMethod.select.title" : "adicionar detalhes $0",
   "paymentMethod.sepa" : "SEPA",
   "paymentMethod.sinpe" : "SINPE",

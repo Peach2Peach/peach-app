@@ -84,7 +84,7 @@
   "paymentMethod.satispay": "Satispay",
   "paymentMethod.select": "új fizetési mód hozzáadása",
   "paymentMethod.select.button.cash": "új készpénz opció",
-  "paymentMethod.select.button.remote": "új valuta/fizetési mód",
+  "paymentMethod.select.button.remote": "új valuta/\nfizetési mód",
   "paymentMethod.select.title": "$0 adatok hozzáadása",
   "paymentMethod.sepa": "SEPA",
   "paymentMethod.sinpe": "SINPE",
