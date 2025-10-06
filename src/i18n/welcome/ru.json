@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "У Peach есть встроенный кошелек, поэтому вы можете сразу начать работу. Никаких сторонних приложений не требуется!",
-  "welcome.aWalletYouControl.title" : "кошелек, которым вы управляете",
-  "welcome.letsGetStarted.title" : "давайте начнем! вы здесь впервые?",
-  "welcome.peachOfMind.description" : "Мы гарантируем, что вы получите свою часть сделки благодаря нашему продвинутому механизму эскроу и поддержке в приложении.",
-  "welcome.peachOfMind.title" : "Спокойствие да персики",
-  "welcome.peerToPeer.description" : "С Peach вы покупаете не у нас, а у других людей.  Это как рынок для биткойнов!",
-  "welcome.peerToPeer.title" : "одноранговый",
-  "welcome.privacyFirst.description" : "Ваши данные хранятся на вашем телефоне и полностью зашифрованы... Мы даже не хотим знать, кто вы.",
-  "welcome.privacyFirst.title" : "конфиденциальность прежде всего",
-  "welcome.welcomeToPeach.title" : "добро пожаловать в Peach!"
+  "welcome.aWalletYouControl.description": "У Peach есть встроенный кошелек, поэтому вы можете сразу начать работу. Никаких сторонних приложений не требуется!",
+  "welcome.aWalletYouControl.title": "кошелек, которым вы управляете",
+  "welcome.letsGetStarted.title": "давайте начнем! вы здесь впервые?",
+  "welcome.peachOfMind.description": "Мы гарантируем, что вы получите свою часть сделки благодаря нашему продвинутому механизму эскроу и поддержке в приложении.",
+  "welcome.peachOfMind.title": "Спокойствие да персики",
+  "welcome.peerToPeer.description": "С Peach вы покупаете не у нас, а у других людей.  Это как рынок для биткойнов!",
+  "welcome.peerToPeer.title": "одноранговый",
+  "welcome.privacyFirst.description": "Ваши данные хранятся на вашем телефоне и полностью зашифрованы... Мы даже не хотим знать, кто вы.",
+  "welcome.privacyFirst.title": "конфиденциальность прежде всего",
+  "welcome.welcomeToPeach.title": "добро пожаловать в Peach!"
 }

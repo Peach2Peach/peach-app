@@ -1,6 +1,6 @@
 {
-  "home.averagePremium" : "ortalama prim: $0%",
+  "home.averagePremium": "ortalama prim: $0%",
   "home.news": "haberler",
-  "home.openBuyOffers" : "$0 açık alım teklifleri",
-  "home.openSellOffers" : "$0 açık satış teklifleri"
+  "home.openBuyOffers": "$0 açık alım teklifleri",
+  "home.openSellOffers": "$0 açık satış teklifleri"
 }

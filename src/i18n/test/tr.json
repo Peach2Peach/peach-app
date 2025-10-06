@@ -1,10 +1,10 @@
 {
-  "i18n.test" : "Variable test: $0 $1 $2",
-  "i18n.test.fallback.1" : "Fallback Test 1 en",
-  "i18n.test.fallback.2" : "Fallback Test 2 en",
-  "i18n.test.fallback.3" : "Fallback Test 3 en",
-  "i18n.test.five" : "five words get very interesting",
-  "i18n.test.four" : "four words are nice",
-  "i18n.test.three" : "cool three words",
-  "i18n.test.two" : "two words"
+  "i18n.test": "Değişken testi: $0 $1 $2",
+  "i18n.test.fallback.1": "Yedek Test 1 tr",
+  "i18n.test.fallback.2": "Yedek Test 2 tr",
+  "i18n.test.fallback.3": "Yedek Test 3 tr",
+  "i18n.test.five": "beş kelime oldukça ilginç oluyor",
+  "i18n.test.four": "dört kelime güzel",
+  "i18n.test.three": "harika üç kelime",
+  "i18n.test.two": "iki kelime"
 }

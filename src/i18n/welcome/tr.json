@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "Peach, kendi dahili cüzdanına sahip, böylece hemen başlayabilirsin. Üçüncü taraf uygulamalara gerek yok!",
-  "welcome.aWalletYouControl.title" : "senin kontrolünde bir cüzdan",
-  "welcome.letsGetStarted.title" : "hadi başlayalım!\nburada yeni misin?",
-  "welcome.peachOfMind.description" : "Gelişmiş güvenli ödeme sistemi ve uygulama içi destek sayesinde anlaşmanın tamamını almanızı garanti ediyoruz.",
-  "welcome.peachOfMind.title" : "Güvende olmanın tadı",
-  "welcome.peerToPeer.description" : "Peach ile bize değil, diğer insanlara satın alıyorsun. Bitcoin için bir çevrimiçi pazar gibi!",
-  "welcome.peerToPeer.title" : "eşten eşe",
-  "welcome.privacyFirst.description" : "Verileriniz telefonunuzda saklanır ve tamamen şifrelenir... Hatta kim olduğunuzu bile bilmek istemiyoruz.",
-  "welcome.privacyFirst.title" : "gizlilik öncelikli",
-  "welcome.welcomeToPeach.title" : "Peach'e hoş geldiniz!"
+  "welcome.aWalletYouControl.description": "Peach kendi cüzdanınıza sahip, hemen kullanmaya başlayabilirsiniz. Üçüncü taraf uygulamaya gerek yok!",
+  "welcome.aWalletYouControl.title": "Kontrol Sizde",
+  "welcome.letsGetStarted.title": "Hadi Başlayalım!\nYeni misiniz?",
+  "welcome.peachOfMind.description": "Gelişmiş güvenlik ve uygulama içi destek sayesinde işlemleriniz güvende.",
+  "welcome.peachOfMind.title": "Güvende Hissedin",
+  "welcome.peerToPeer.description": "Peach ile doğrudan diğer kişilerden Bitcoin alırsınız. Tamamen eşten eşe bir deneyim!",
+  "welcome.peerToPeer.title": "Eşten Eşe",
+  "welcome.privacyFirst.description": "Verileriniz cihazınızda saklanır ve şifrelenir. Kim olduğunuzu bilmek istemiyoruz.",
+  "welcome.privacyFirst.title": "Gizlilik Öncelikli",
+  "welcome.welcomeToPeach.title": "Peach’e Hoş Geldiniz!"
 }
