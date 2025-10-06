@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "Peach має вбудований гаманець, тож ви можете розпочати роботу одразу. Не потрібні додатки-посередники!",
-  "welcome.aWalletYouControl.title" : "гаманець, який ви контролюєте",
-  "welcome.letsGetStarted.title" : "Давайте розпочнемо! Ви тільки но приєднались до нас?",
-  "welcome.peachOfMind.description" : "Ми гарантуємо, що ви отримаєте свою частину угоди завдяки нашому розширеному депонуванню та підтримці в програмі.",
-  "welcome.peachOfMind.title" : "ніяких хвилювань з Peach",
-  "welcome.peerToPeer.description" : "З Peach ви купуєте не в нас, а в інших людей. Це як ринок біткойнів!",
-  "welcome.peerToPeer.title" : "peer-to-peer",
-  "welcome.privacyFirst.description" : "Ваші дані зберігаються на вашому телефоні та повністю зашифровані... Ми навіть не хочемо знати, хто ви.",
-  "welcome.privacyFirst.title" : "приватність на першому місці",
-  "welcome.welcomeToPeach.title" : "Ласкаво просимо до Peach!"
+  "welcome.aWalletYouControl.description": "Peach має вбудований гаманець, тож можна розпочати одразу без додатків-посередників!",
+  "welcome.aWalletYouControl.title": "Гаманець під вашим контролем",
+  "welcome.letsGetStarted.title": "Давайте розпочнемо! Ви щойно приєднались?",
+  "welcome.peachOfMind.description": "Ваші угоди захищені розширеним депонуванням і підтримкою в додатку.",
+  "welcome.peachOfMind.title": "Спокій з Peach",
+  "welcome.peerToPeer.description": "З Peach ви купуєте у людей напряму, як на ринку біткойнів!",
+  "welcome.peerToPeer.title": "Peer-to-peer",
+  "welcome.privacyFirst.description": "Ваші дані залишаються на телефоні та повністю зашифровані. Ми навіть не знаємо, хто ви.",
+  "welcome.privacyFirst.title": "Приватність на першому місці",
+  "welcome.welcomeToPeach.title": "Ласкаво просимо до Peach!"
 }
