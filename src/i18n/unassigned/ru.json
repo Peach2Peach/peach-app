@@ -169,19 +169,12 @@
   "search.popups.cancelOffer.text.buy" : "Вы уверены?",
   "search.popups.cancelOffer.text.sell" : "Вы уверены?  Сумма из эскроу будет возвращена в размере $0 сатоши на ваш кошелек $1.",
   "search.popups.cancelOffer.title" : "отменить предложение",
-  "search.popups.matchUndone.text" : "Ваша репутация не пострадала, и вы в любой момент можете сойтись снова. Если вы разойдётесь после того, как истёк таймер, ваша репутация посттрадает.",
-  "search.popups.matchUndone.title" : "отменить совпадение",
   "search.popups.offerTaken.text" : "извините, вас опередили!",
   "search.popups.offerTaken.title" : "предложение уже забрали...",
-  "search.popups.unmatch.confirm" : "да, разойтись",
   "search.popups.unmatch.neverMind" : "неважно",
-  "search.popups.unmatch.text" : "Если вы разойдётесь сейчас, ваша репутация пострадает.",
-  "search.popups.unmatch.title" : "разойтись?",
-  "search.popups.unmatched" : "разошлись!",
   "search.searchingForAPeer" : "Peach ищет вам партнёра",
   "search.sellOffer" : "для продажи",
   "search.undo" : "отмена",
-  "search.unmatch" : "разойтись",
   "search.waitingForSeller" : "ждем продавца",
   "search.weWillNotifyYou" : "мы оповестим вас, когда вам найдётся пара!",
   "search.youGotAMatch" : "у вас есть партнёр!",
@@ -270,5 +263,15 @@
   "resetAll": "Сбросить всё",
   "advancedFilters": "Расширенные фильтры",
    "sortBy": "Сортировать по",
-   "currentMarketValue": "Текущая рыночная стоимость"
+   "currentMarketValue": "Текущая рыночная стоимость",
+
+   "search.unmatch": "отменить запрос на сделку",
+    "search.popups.unmatched": "запрос на сделку отменён!",
+    "search.popups.unmatch.title": "отменить запрос?",
+    "search.popups.unmatch.text": "Отмена негативно повлияет на вашу репутацию.\nВы можете отменить без штрафа через 12 часов.",
+    "search.popups.unmatch.confirm": "да, отменить",
+    "search.popups.matchUndone.title": "запрос отменён",
+    "search.popups.matchUndone.text": "Ваша репутация не пострадала, вы можете повторно отправить запрос.\n\nЕсли отмените после истечения времени, репутация ухудшится."
+ 
+
 }
