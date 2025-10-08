@@ -9,7 +9,6 @@ import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
 import tw from "../../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
-import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../../utils/peachAPI";
 import { getPublicKeyForEscrow } from "../../../utils/wallet/getPublicKeyForEscrow";
 import { getWallet } from "../../../utils/wallet/getWallet";
@@ -20,7 +19,14 @@ import { shouldShowTradeStatusInfo } from "../helpers/shouldShowTradeStatusInfo"
 import { TradeDetails } from "./TradeDetails";
 import { TradeStatusInfo } from "./TradeStatusInfo";
 
-export const isFundingTradeStatus = (tradeStatus: string): boolean => {
+export const isFundingTradeStatus = (
+  tradeStatus: string,
+  tradeIsCanceled: boolean = false,
+): boolean => {
+  if (tradeStatus === "disputeWithoutEscrowFunded" && tradeIsCanceled) {
+    return false;
+  }
+
   return [
     "createEscrow",
     "fundEscrow",
@@ -33,7 +39,12 @@ export const isFundingTradeStatus = (tradeStatus: string): boolean => {
 export const TradeInformation = () => {
   const { contract, view } = useContractContext();
 
-  if (isFundingTradeStatus(contract.tradeStatus)) {
+  if (
+    isFundingTradeStatus(
+      contract.tradeStatus,
+      contract.wasCanceledBySellerBeforeFundingTheEscrow,
+    )
+  ) {
     return <FundEscrow />;
   }
   return shouldShowTradeStatusInfo(contract, view) ? (
@@ -168,7 +179,8 @@ function SellerFundEscrow() {
         <>
           <BitcoinAddress
             address={contract.escrow}
-            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(sellOfferId)}`}
+            offerId={sellOfferId}
+            amount={contract.amount}
           />
           <FundFromPeachWalletButton
             address={contract.escrow}
