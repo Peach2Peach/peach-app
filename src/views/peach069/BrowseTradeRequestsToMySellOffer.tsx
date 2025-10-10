@@ -116,7 +116,7 @@ const acceptTradeRequest = async (
 
 export const BrowseTradeRequestsToMySellOffer = () => {
   const { offerId } = useRoute<"browseTradeRequestsToMySellOffer">().params;
-
+  const navigation = useStackNavigation();
   const { sellOffer, isLoading } = useSellOfferDetail(offerId);
 
   const [displayedCurrency, setDisplayedCurrency] = useState<
@@ -137,7 +137,23 @@ export const BrowseTradeRequestsToMySellOffer = () => {
     sellOfferTradeRequests,
     isLoading: isLoadingTradeRequests,
     refetch: refetchTradeRequests,
+    error: sellOfferTRError,
   } = useSellOfferTradeRequestsReceived(offerId);
+
+  if (sellOfferTRError) {
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: "homeScreen",
+          params: {
+            screen: "home",
+            params: { tab: "home" },
+          },
+        },
+      ],
+    });
+  }
 
   if (
     isLoading ||

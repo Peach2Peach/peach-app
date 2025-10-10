@@ -118,7 +118,7 @@ const acceptTradeRequest = async (
 
 export const BrowseTradeRequestsToMyBuyOffer = () => {
   const { offerId } = useRoute<"browseTradeRequestsToMyBuyOffer">().params;
-
+  const navigation = useStackNavigation();
   const { buyOffer: buyOfferApiResp, isLoading } = useBuyOfferDetail(offerId);
 
   const buyOffer = buyOfferApiResp as unknown as BuyOffer69;
@@ -141,7 +141,23 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
     buyOfferTradeRequests,
     isLoading: isLoadingTradeRequests,
     refetch: refetchTradeRequests,
+    error: buyOfferTRError,
   } = useBuyOfferTradeRequestsReceived(offerId);
+
+  if (buyOfferTRError) {
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: "homeScreen",
+          params: {
+            screen: "home",
+            params: { tab: "home" },
+          },
+        },
+      ],
+    });
+  }
 
   if (
     isLoading ||
