@@ -12,5 +12,7 @@
   "buy.title.highlight": "buy",
   "yourTrades.search.buy.subtitle": "buy offer for",
   "help.firstTimeBuyer.description": "IMPORTANT: Do NOT slide «I made the payment» before having made the payment.\nThe payment must be made OUTSIDE of Peach using the payment method shared with the seller.",
-  "help.firstTimeBuyer.title": "You are now in a Trade!"
+  "help.firstTimeBuyer.title": "You are now in a Trade!",
+  "help.firstTimeSeller.description": "IMPORTANT: Do NOT slide «I Received the Payment» before verifying you have received it.\nThe payment must be made OUTSIDE of Peach using the payment method shared with the buyer.",
+  "help.firstTimeSeller.title": "You are now in a Trade!"
 }

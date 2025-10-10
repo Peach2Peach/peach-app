@@ -12,5 +12,7 @@
   "buy.title.highlight": "Acheter",
   "yourTrades.search.buy.subtitle": "Offre d'achat pour",
   "help.firstTimeBuyer.description": "IMPORTANT : Ne cliquez PAS sur « J’ai payé » avant d’avoir effectué le paiement.\nLe paiement se fait EN DEHORS de Peach selon le mode convenu avec le vendeur.",
-  "help.firstTimeBuyer.title": "Vous êtes dans un échange !"
+  "help.firstTimeBuyer.title": "Vous êtes dans un échange !",
+  "help.firstTimeSeller.description": "IMPORTANT : Ne faites PAS glisser «J’ai reçu le paiement» avant d’avoir vérifié que vous l’avez bien reçu.\nLe paiement doit être effectué EN DEHORS de Peach avec le moyen de paiement convenu avec l’acheteur.",
+    "help.firstTimeSeller.title": "Vous êtes dans un échange !"
 }
