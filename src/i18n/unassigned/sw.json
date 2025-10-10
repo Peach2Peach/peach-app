@@ -170,19 +170,12 @@
   "search.popups.cancelOffer.text.buy" : "Una uhakika?",
   "search.popups.cancelOffer.text.sell" : "Una uhakika?\n\nEscrow itarudishwa kwa $0 kwenye mkoba wako wa $1",
   "search.popups.cancelOffer.title" : "futa ofa",
-  "search.popups.matchUndone.text" : "Sifa yako haijaathirika, na unaweza kulinganisha tena wakati wowote.\n\nUnapokataa kulinganisha baada ya muda wa kushindwa, sifa yako itaathirika vibaya.",
-  "search.popups.matchUndone.title" : "kulinganisha imebatilishwa",
   "search.popups.offerTaken.text" : "Samahani, mtu mwingine alikuwa mwepesi zaidi!",
   "search.popups.offerTaken.title" : "ofa imechukuliwa...",
-  "search.popups.unmatch.confirm" : "ndio, katilisha kulinganisha",
   "search.popups.unmatch.neverMind" : "acha tu",
-  "search.popups.unmatch.text" : "Kukatilisha sasa kutaaathiri sifa yako vibaya.",
-  "search.popups.unmatch.title" : "katilisha?",
-  "search.popups.unmatched" : "kulinganisha imekatilishwa!",
   "search.searchingForAPeer" : "Peach inatafuta rika",
   "search.sellOffer" : "kwa kuuza",
   "search.undo" : "rudisha",
-  "search.unmatch" : "katilisha kulinganisha",
   "search.waitingForSeller" : "inasubiri muuzaji",
   "search.weWillNotifyYou" : "tutakuarifu unapopatikana kulinganisha!",
   "search.youGotAMatch" : "umeipata kulinganisha!",
@@ -273,5 +266,14 @@
   "resetAll": "Weka upya yote",
   "advancedFilters": "Vichujio vya juu",
   "sortBy": "Panga kwa",
-  "currentMarketValue": "Thamani ya soko ya sasa"
+  "currentMarketValue": "Thamani ya soko ya sasa",
+
+  "search.unmatch": "futa ombi la biashara",
+  "search.popups.unmatched": "ombi la biashara limefutwa!",
+  "search.popups.unmatch.title": "futa ombi?",
+  "search.popups.unmatch.text": "Kufuta kutaathiri vibaya sifa yako.\nUnaweza kufuta bila adhabu baada ya saa 12.",
+  "search.popups.unmatch.confirm": "ndiyo, futa",
+  "search.popups.matchUndone.title": "ombi limefutwa",
+  "search.popups.matchUndone.text": "Sifa yako haijaathiriwa, unaweza kuomba tena.\n\nUtakapofuta baada ya muda kuisha, sifa yako itaathiriwa vibaya."
+  
 }

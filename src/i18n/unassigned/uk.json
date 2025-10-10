@@ -169,19 +169,12 @@
   "search.popups.cancelOffer.text.buy" : "Ви впевнені?",
   "search.popups.cancelOffer.text.sell" : "Ти впевнений? Депозитне депонування буде повернено до $0 у вашому гаманці $1",
   "search.popups.cancelOffer.title" : "видалити пропозицію",
-  "search.popups.matchUndone.text" : "Ваша репутація не постраждала, і ви завжди можете повторити матч. Якщо ви скасуєте відповідність після закінчення таймера, це негативно вплине на вашу репутацію.",
-  "search.popups.matchUndone.title" : "збіг скасовано",
   "search.popups.offerTaken.text" : "вибачте, хтось був швидше!",
   "search.popups.offerTaken.title" : "пропозиція прийнята",
-  "search.popups.unmatch.confirm" : "так, невідповідність",
   "search.popups.unmatch.neverMind" : "не важливо",
-  "search.popups.unmatch.text" : "Відмова від збігу негативно відобразиться на вашої репутації. ",
-  "search.popups.unmatch.title" : "відмінити збіг?",
-  "search.popups.unmatched" : "збіг відмінено!",
   "search.searchingForAPeer" : "Peach у пошуці peer",
   "search.sellOffer" : "за для продажу",
   "search.undo" : "скасувати",
-  "search.unmatch" : "скасувати збіг",
   "search.waitingForSeller" : "очікую на продавця",
   "search.weWillNotifyYou" : "ми вам повідомимо, коли буде збіг!",
   "search.youGotAMatch" : "у Вас є збіг!",
@@ -270,5 +263,14 @@
   "resetAll": "Скинути все",
   "advancedFilters": "Розширені фільтри",
   "sortBy": "Сортувати за",
-  "currentMarketValue": "Поточна ринкова вартість"
+  "currentMarketValue": "Поточна ринкова вартість",
+
+  "search.unmatch": "скасувати запит на угоду",
+  "search.popups.unmatched": "запит на угоду скасовано!",
+  "search.popups.unmatch.title": "скасувати запит?",
+  "search.popups.unmatch.text": "Скасування негативно вплине на вашу репутацію.\nПісля 12 годин можна скасувати без штрафу.",
+  "search.popups.unmatch.confirm": "так, скасувати",
+  "search.popups.matchUndone.title": "запит скасовано",
+  "search.popups.matchUndone.text": "Ваша репутація не постраждала, і ви можете надіслати запит знову.\n\nЯкщо скасувати після завершення часу, репутація погіршиться."
+  
 }
