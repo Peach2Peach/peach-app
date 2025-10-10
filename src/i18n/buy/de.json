@@ -12,5 +12,7 @@
   "buy.title.highlight": "kaufen",
   "yourTrades.search.buy.subtitle": "Kaufangebot für",
   "help.firstTimeBuyer.description": "WICHTIG: Klicken Sie «Ich habe bezahlt» NICHT, bevor die Zahlung erfolgt ist.\nDie Zahlung muss AUSSERHALB von Peach über die vom Verkäufer angegebene Methode erfolgen.",
-  "help.firstTimeBuyer.title": "Sie befinden sich in einem Handel!"
+  "help.firstTimeBuyer.title": "Sie befinden sich in einem Handel!",
+  "help.firstTimeSeller.description": "WICHTIG: Klicken Sie «Zahlung erhalten» NICHT, bevor du überprüft hast, dass du die Zahlung wirklich erhalten hast.\nDie Zahlung muss AUSSERHALB von Peach mit der vereinbarten Zahlungsmethode erfolgen.",
+    "help.firstTimeSeller.title": "Sie befinden sich in einem Handel!"
 }

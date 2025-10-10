@@ -12,5 +12,8 @@
   "buy.title.highlight": "купить",
   "yourTrades.search.buy.subtitle": "предложение покупки на",
   "help.firstTimeBuyer.description": "ВАЖНО: не нажимайте «Я оплатил», пока реально не отправили оплату.\nОплата производится ВНЕ Peach через способ, указанный продавцом.",
-  "help.firstTimeBuyer.title": "Вы участвуете в сделке!"
+  "help.firstTimeBuyer.title": "Вы участвуете в сделке!",
+  "help.firstTimeSeller.description": "ВАЖНО: НЕ нажимайте «Я получил оплату», пока не проверите, что деньги действительно пришли.\nОплата должна быть произведена ВНЕ Peach через метод, согласованный с покупателем.",
+  "help.firstTimeSeller.title": "Вы теперь участвуете в сделке!"
+
 }

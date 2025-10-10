@@ -46,6 +46,7 @@ import { peachWallet } from "../../utils/wallet/setWallet";
 const TRADE_REQUEST_DELAY = 5000;
 export function ExpressFlowTradeRequestToOffer({
   offer,
+  onTradeRequestDisappearingFunction,
   originRoute,
   canInstantTradeWithOffer,
   offerTradeRequestPerformedBySelfUser,
@@ -57,6 +58,7 @@ export function ExpressFlowTradeRequestToOffer({
   offerOwnerUser,
 }: {
   offer: BuyOffer69 | SellOffer;
+  onTradeRequestDisappearingFunction: Function;
   originRoute: keyof RootStackParamList;
   canInstantTradeWithOffer: boolean;
   offerTradeRequestPerformedBySelfUser:
@@ -118,6 +120,7 @@ export function ExpressFlowTradeRequestToOffer({
     if (offerTradeRequestPerformedBySelfUser === null && hasHadTradeRequest) {
       setHasHadTradeRequest(false);
       setShowMatchedCard(false);
+      onTradeRequestDisappearingFunction();
     } else if (offerTradeRequestPerformedBySelfUser && !hasHadTradeRequest) {
       setHasHadTradeRequest(true);
     }

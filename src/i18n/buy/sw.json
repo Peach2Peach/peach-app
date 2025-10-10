@@ -1,4 +1,5 @@
 {
+
   "buy.addressSigning.message": "ujumbe",
   "buy.addressSigning.signature": "saini",
   "buy.addressSigning.title": "Saini anwani yako",
@@ -12,5 +13,8 @@
   "buy.title.highlight": "Nunua",
   "yourTrades.search.buy.subtitle": "Ofa ya ununuzi kwa",
   "help.firstTimeBuyer.description": "MUHIMU: USIBADILISHE hali ya «Nimelipa» kabla ya kufanya malipo.\nMalipo yafanyike NJE ya Peach kwa kutumia njia iliyokubaliwa na muuzaji.",
-  "help.firstTimeBuyer.title": "Uko Tayari kwa Biashara!"
+  "help.firstTimeBuyer.title": "Uko Tayari kwa Biashara!",
+   "help.firstTimeSeller.description": "MUHIMU: Usisogeze «Nimepokea Malipo» kabla ya kuthibitisha kuwa umepokea.\nMalipo lazima yafanywe NJE ya Peach kwa njia iliyoafikiwa na mnunuzi.",
+    "help.firstTimeSeller.title": "Sasa uko kwenye biashara!"
+
 }

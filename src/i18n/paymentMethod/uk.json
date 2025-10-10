@@ -84,7 +84,7 @@
   "paymentMethod.satispay": "Satispay",
   "paymentMethod.select": "додати метод оплати",
   "paymentMethod.select.button.cash": "додати нову готівкову операцію",
-  "paymentMethod.select.button.remote": "додати нову валюту/метод оплати",
+  "paymentMethod.select.button.remote": "додати нову валюту/\nметод оплати",
   "paymentMethod.select.title": "додати деталі $0",
   "paymentMethod.sepa": "SEPA",
   "paymentMethod.sinpe": "SINPE",

@@ -29,4 +29,5 @@ export const defaultSettings: Settings = {
 
   isLoggedIn: false,
   seenFirstTimeBuyerPopup: false,
+  seenFirstTimeSellerPopup: false,
 };

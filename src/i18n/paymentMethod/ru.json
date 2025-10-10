@@ -84,7 +84,7 @@
   "paymentMethod.satispay": "Satispay",
   "paymentMethod.select": "добавить способ оплаты",
   "paymentMethod.select.button.cash": "добавить новый вариант оплаты наличными",
-  "paymentMethod.select.button.remote": "добавить новую валюту / способ оплаты",
+  "paymentMethod.select.button.remote": "добавить новую валюту /\nспособ оплаты",
   "paymentMethod.select.title": "Добавьте реквизиты $0",
   "paymentMethod.sepa": "SEPA",
   "paymentMethod.sinpe": "SINPE",

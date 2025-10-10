@@ -222,8 +222,38 @@ const performInstantTrade = async ({
 export function ExpressBuyTradeRequestToSellOffer() {
   const { offerId } = useRoute<"expressBuyTradeRequest">().params;
 
-  const { sellOffer, isLoading, error } = useSellOfferDetail(offerId, false);
+  const {
+    sellOffer,
+    isLoading,
+    error,
+    refetch: refetchSellOffer,
+  } = useSellOfferDetail(offerId, false, false);
   const navigation = useStackNavigation();
+
+  const onTradeRequestDisappearing = async () => {
+    const response =
+      await peachAPI.private.peach069.hasSellOfferTurnedToMyContract({
+        sellOfferId: offerId,
+      });
+
+    if (response.result && response.result.success) {
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: "homeScreen", params: { screen: "yourTrades" } },
+          {
+            name: "contract",
+            params: {
+              contractId: response.result.contract?.id,
+            },
+          },
+        ],
+      });
+      return;
+    }
+
+    refetchSellOffer();
+  };
 
   //TODO: make this work by deactivating the refresh of the useSellOfferDetail
   if (error) {
@@ -318,6 +348,7 @@ export function ExpressBuyTradeRequestToSellOffer() {
     <Screen showTradingLimit header={offerIdToHex(sellOffer.id)}>
       <ExpressFlowTradeRequestToOffer
         offer={sellOffer}
+        onTradeRequestDisappearingFunction={onTradeRequestDisappearing}
         originRoute={originRoute}
         canInstantTradeWithOffer={canInstantTradeWithSellOffer}
         offerTradeRequestPerformedBySelfUser={

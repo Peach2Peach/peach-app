@@ -1,4 +1,5 @@
 {
+
   "buy.addressSigning.message": "Повідомлення",
   "buy.addressSigning.signature": "Підпис",
   "buy.addressSigning.title": "Введіть вашу адресу",
@@ -12,5 +13,8 @@
   "buy.title.highlight": "Придбати",
   "yourTrades.search.buy.subtitle": "Купити лот за",
   "help.firstTimeBuyer.description": "ВАЖЛИВО: не натискайте «Я здійснив платіж», доки оплата не завершена.\nПлатіж слід робити ПОЗА Peach, використовуючи метод продавця.",
-  "help.firstTimeBuyer.title": "Ви в угоді!"
+  "help.firstTimeBuyer.title": "Ви в угоді!",
+  "help.firstTimeSeller.description": "ВАЖЛИВО: НЕ проводьте «Я отримав оплату», поки не перевірите, що дійсно її отримали.\nОплата має бути здійснена ПОЗА Peach за узгодженим способом з покупцем.",
+    "help.firstTimeSeller.title": "Тепер ви в угоді!"
+
 }

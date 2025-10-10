@@ -12,5 +12,7 @@
   "buy.title.highlight": "Satın Al",
   "yourTrades.search.buy.subtitle": "Alım Teklifi Miktarı",
   "help.firstTimeBuyer.description": "ÖNEMLİ: 'Ödemeyi Yaptım' kaydırmasını, ödemeyi gerçekleştirmeden KULLANMAYIN.\nÖdeme, satıcının belirttiği yöntemle Peach dışında yapılmalıdır.",
-  "help.firstTimeBuyer.title": "İlk Ticaret Deneyimin!"
+  "help.firstTimeBuyer.title": "İlk Ticaret Deneyimin!",
+  "help.firstTimeSeller.description": "ÖNEMLİ: «Ödemeyi Aldım» seçeneğini, ödemeyi aldığınızı doğrulamadan kaydırmayın.\nÖdeme, alıcıyla anlaşılan yöntemle Peach DIŞINDA yapılmalıdır.",
+    "help.firstTimeSeller.title": "Şu anda bir ticarette bulunuyorsun!"
 }
