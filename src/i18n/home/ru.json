@@ -1,6 +1,6 @@
 {
-  "home.news" : "новости",
-  "home.averagePremium" : "средняя премия: $0%",
-  "home.openBuyOffers" : "$0 открытых предложений о покупке",
-  "home.openSellOffers" : "$0 открытых предложений о продаже"
+  "home.news": "Новости",
+  "home.averagePremium": "Средняя премия: $0%",
+  "home.openBuyOffers": "$0 открытых предложений на покупку",
+  "home.openSellOffers": "$0 открытых предложений на продажу"
 }

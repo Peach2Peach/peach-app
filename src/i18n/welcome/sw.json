@@ -1,12 +1,12 @@
 {
-  "welcome.aWalletYouControl.description" : "Peach ina mkoba wa kujengwa, hivyo unaweza kuanza mara moja. Hakuna programu za tatu zinazohitajika!",
-  "welcome.aWalletYouControl.title" : "mkoba unaoudhibiti",
-  "welcome.letsGetStarted.title" : "tuanze!\nJe, wewe ni mgeni hapa?",
-  "welcome.peachOfMind.description" : "Tutahakikisha unapata sehemu yako ya makubaliano kwa sababu ya dhamana yetu ya juu na msaada wa programu.",
-  "welcome.peachOfMind.title" : "Amani ya Peach",
-  "welcome.peerToPeer.description" : "Kwa Peach, hauununui kutoka kwetu, bali kutoka kwa watu wengine. Ni kama soko la Bitcoin!",
-  "welcome.peerToPeer.title" : "kutoka kwa mtu hadi mtu",
-  "welcome.privacyFirst.description" : "Data yako inahifadhiwa kwenye simu yako na imefichwa kabisa... Hatutaki hata kujua ni nani wewe.",
-  "welcome.privacyFirst.title" : "faragha kwanza",
-  "welcome.welcomeToPeach.title" : "karibu kwenye Peach!"
+  "welcome.aWalletYouControl.description": "Peach ina mkoba wa kujengwa, hivyo unaweza kuanza mara moja. Hakuna programu za tatu zinazohitajika!",
+  "welcome.aWalletYouControl.title": "mkoba unaoudhibiti",
+  "welcome.letsGetStarted.title": "tuanze!\nJe, wewe ni mgeni hapa?",
+  "welcome.peachOfMind.description": "Tutahakikisha unapata sehemu yako ya makubaliano kwa sababu ya dhamana yetu ya juu na msaada wa programu.",
+  "welcome.peachOfMind.title": "Amani ya Peach",
+  "welcome.peerToPeer.description": "Kwa Peach, hauununui kutoka kwetu, bali kutoka kwa watu wengine. Ni kama soko la Bitcoin!",
+  "welcome.peerToPeer.title": "kutoka kwa mtu hadi mtu",
+  "welcome.privacyFirst.description": "Data yako inahifadhiwa kwenye simu yako na imefichwa kabisa... Hatutaki hata kujua ni nani wewe.",
+  "welcome.privacyFirst.title": "faragha kwanza",
+  "welcome.welcomeToPeach.title": "karibu kwenye Peach!"
 }
