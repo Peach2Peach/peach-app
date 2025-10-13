@@ -1,0 +1,23 @@
+{
+  "privacy": {
+    "tracking": false,
+    "dataCategories": [
+      {
+        "identifier": "deviceID",
+        "description": "Used for app functionality only.",
+        "collected": false
+      },
+      {
+        "identifier": "location",
+        "description": "Not collected.",
+        "collected": false
+      },
+      {
+        "identifier": "contacts",
+        "description": "Not collected.",
+        "collected": false
+      }
+    ],
+    "purposes": []
+  }
+}

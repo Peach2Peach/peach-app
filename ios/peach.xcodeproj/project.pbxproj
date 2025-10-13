@@ -29,6 +29,9 @@
 		4CB974AB2DE610BD0031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
 		4CB974AE2DE611460031D71E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974AD2DE611460031D71E /* GoogleService-Info.plist */; };
 		4CB974AF2DE611780031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
+		4CC1484A2E9D2D4500B8CDF3 /* mainnet-PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CC148492E9D2D4500B8CDF3 /* mainnet-PrivacyInfo.xcprivacy */; };
+		4CC1484E2E9D2D7500B8CDF3 /* regtest-PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CC1484D2E9D2D7500B8CDF3 /* regtest-PrivacyInfo.xcprivacy */; };
+		4CC148502E9D2D8500B8CDF3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CC1484F2E9D2D8400B8CDF3 /* PrivacyInfo.xcprivacy */; };
 		4E2649D5628C1A64799D13F1 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */; };
 		671A562E2850E9AE0058434C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		671A562F2850E9AE0058434C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -87,6 +90,10 @@
 		4C36D5F02DABF75A0098D9BF /* peach regtest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "peach regtest-Info.plist"; path = "/Users/michael/Documents/Coding/Peach2Peach/peach-app/ios/peach regtest-Info.plist"; sourceTree = "<absolute>"; };
 		4CB974A82DE610BD0031D71E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4CB974AD2DE611460031D71E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4CC148492E9D2D4500B8CDF3 /* mainnet-PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mainnet-PrivacyInfo.xcprivacy"; sourceTree = "<group>"; };
+		4CC1484B2E9D2D6300B8CDF3 /* regtest-PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text; path = "regtest-PrivacyInfo.xcprivacy"; sourceTree = "<group>"; };
+		4CC1484D2E9D2D7500B8CDF3 /* regtest-PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text; path = "regtest-PrivacyInfo.xcprivacy"; sourceTree = "<group>"; };
+		4CC1484F2E9D2D8400B8CDF3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		55F4F89D050F9B09DCDEA67A /* Pods-peach-peach testnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach testnet.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet.debug.xcconfig"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
 		6709C1062A669A0D00A5A4F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -281,6 +288,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4CC1484F2E9D2D8400B8CDF3 /* PrivacyInfo.xcprivacy */,
+				4CC1484B2E9D2D6300B8CDF3 /* regtest-PrivacyInfo.xcprivacy */,
+				4CC1484D2E9D2D7500B8CDF3 /* regtest-PrivacyInfo.xcprivacy */,
+				4CC148492E9D2D4500B8CDF3 /* mainnet-PrivacyInfo.xcprivacy */,
 				675514862812BA4E00A17B6C /* assets */,
 				6735D8CA29532CD800AD1C74 /* assets */,
 				675514832812B60700A17B6C /* main.jsbundle */,
@@ -482,6 +493,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC148502E9D2D8500B8CDF3 /* PrivacyInfo.xcprivacy in Resources */,
 				6775E9BD288B0A0400A9A0DB /* Localizable.strings in Resources */,
 				676EA9EF2A052B2D00F18766 /* CourierPrime-Regular.ttf in Resources */,
 				675514872812BA4E00A17B6C /* assets in Resources */,
@@ -501,6 +513,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC1484E2E9D2D7500B8CDF3 /* regtest-PrivacyInfo.xcprivacy in Resources */,
 				4C36D5DC2DABF75A0098D9BF /* Localizable.strings in Resources */,
 				4C36D5DD2DABF75A0098D9BF /* CourierPrime-Regular.ttf in Resources */,
 				4C36D5DE2DABF75A0098D9BF /* assets in Resources */,
@@ -520,6 +533,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC1484A2E9D2D4500B8CDF3 /* mainnet-PrivacyInfo.xcprivacy in Resources */,
 				679FE63929B1F73D0013638A /* Baloo2-Medium.ttf in Resources */,
 				676EA9F02A052B2D00F18766 /* CourierPrime-Regular.ttf in Resources */,
 				679FE63A29B1F73D0013638A /* Baloo2-Regular.ttf in Resources */,
@@ -1335,6 +1349,8 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1400,6 +1416,8 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;

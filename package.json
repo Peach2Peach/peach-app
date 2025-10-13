@@ -8,7 +8,7 @@
     "android": "NODE_ENV=sandbox react-native run-android --port=8081 --mode=QaDebug",
     "android:testnet": "NODE_ENV=development react-native run-android --port=8081 --mode=QaDebug",
     "android:mainnet": "NODE_ENV=production react-native run-android --port=8081 --mode=ProdDebug --appIdSuffix=mainnet",
-    "ios": "NODE_ENV=sandbox react-native run-ios --port=8081 --simulator=\"iPhone 16\" --scheme \"peach regtest\"",
+    "ios": "NODE_ENV=sandbox react-native run-ios --port=8081 --simulator=\"iPhone 17\" --scheme \"peach regtest\"",
     "ios2": "NODE_ENV=sandbox react-native run-ios --port=8081 --simulator=\"iPhone 16 Plus\" --scheme \"peach regtest\"",
     "ios:testnet": "NODE_ENV=development react-native run-ios --port=8081 --simulator=\"iPhone 14\" --variant=QaDebug",
     "ios:mainnet": "NODE_ENV=production react-native run-ios --port=8081 --simulator=\"iPhone 14\" --variant=ProdDebug --appIdSuffix=mainnet",
@@ -74,7 +74,7 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
-    "react-native": "^0.71.15",
+    "react-native": "^0.72.17",
     "react-native-camera": "^4.2.1",
     "react-native-crypto-js": "^1.0.0",
     "react-native-device-info": "^10.12.0",
@@ -123,11 +123,10 @@
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@babel/runtime": "^7.21.0",
-    "@react-native-community/eslint-config": "^3.2.0",
+    "@react-native/eslint-config": "^0.72.2",
+    "@react-native/metro-config": "^0.72.12",
     "@testing-library/react-native": "^12.4.3",
-    "@tsconfig/react-native": "^2.0.2",
     "@types/iban": "^0.0.35",
-    "@types/jest": "^29.5.12",
     "@types/qrcode": "^1.5.1",
     "@types/react": "^18.0.30",
     "@types/react-native": "^0.71.7",
@@ -135,6 +134,7 @@
     "@types/react-test-renderer": "^18.0.7",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
+    "@tsconfig/react-native": "^3.0.0",
     "babel-jest": "^29.7.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -180,5 +180,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "packageManager": "yarn@3.6.4"
 }
