@@ -1,7 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import SplashScreen from "react-native-splash-screen";
 import { LogoIcons } from "../assets/logo";
 import { PeachyGradient } from "../components/PeachyGradient";
 import { useSetPopup } from "../components/popup/GlobalPopup";
@@ -104,7 +103,6 @@ function SplashScreenComponent({
       }
       requestUserPermissions();
       setIsLoading(false);
-      SplashScreen.hide();
     };
     initialize();
   }, [initApp, navigation, setIsLoading, setPopup, setToast]);
