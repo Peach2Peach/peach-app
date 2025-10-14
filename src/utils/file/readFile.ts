@@ -1,4 +1,7 @@
-import RNFS from "react-native-fs";
+import {
+  DocumentDirectoryPath,
+  readFile as readFSFile,
+} from "@dr.pogodin/react-native-fs";
 import { decrypt } from "../crypto/decrypt";
 import { error } from "../log/error";
 import { info } from "../log/info";
@@ -12,7 +15,7 @@ export const readFile = async (
   let content = "";
 
   try {
-    content = await RNFS.readFile(RNFS.DocumentDirectoryPath + path, "utf8");
+    content = await readFSFile(DocumentDirectoryPath + path, "utf8");
   } catch (e) {
     error("File could not be read", e);
     return content;

@@ -1,25 +1,75 @@
-import { Modal, SafeAreaView, TouchableOpacity, View } from "react-native";
-import { BarCodeReadEvent } from "react-native-camera";
+import { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Easing,
+  Modal,
+  SafeAreaView,
+  TouchableOpacity,
+  Vibration,
+  View,
+} from "react-native";
 import Svg, { Defs, Mask, Rect } from "react-native-svg";
+import {
+  Camera,
+  useCameraDevice,
+  useCameraPermission,
+  useCodeScanner,
+} from "react-native-vision-camera";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
-import { QRCodeScanner } from "./QRCodeScanner";
 
 type ScanQRProps = {
-  onRead: (e: BarCodeReadEvent) => void;
+  onRead: (data: string) => void;
   onCancel: () => void;
 };
 
-export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => (
-  <Modal transparent={false} onRequestClose={onCancel}>
-    <QRCodeScanner
-      onRead={onRead}
-      customMarker={<CustomMarker onCancel={onCancel} />}
-    />
-  </Modal>
-);
+export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
+  const [hasReadQRCode, setHasReadQRCode] = useState(false);
+  const fadeInOpacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeInOpacity, {
+      toValue: 1,
+      easing: Easing.inOut(Easing.quad),
+      useNativeDriver: true,
+    }).start();
+  }, [fadeInOpacity]);
+
+  const codeScanner = useCodeScanner({
+    codeTypes: ["qr", "ean-13"],
+    onCodeScanned: (codes) => {
+      Vibration.vibrate();
+      if (!hasReadQRCode && codes.length > 0 && codes[0].value) {
+        setHasReadQRCode(true);
+        onRead(codes[0].value);
+      }
+    },
+  });
+
+  const { hasPermission, requestPermission } = useCameraPermission();
+  const device = useCameraDevice("back");
+
+  if (!device) return null;
+  return (
+    <Modal transparent={false} onRequestClose={onCancel}>
+      <Animated.View
+        style={[tw`w-full h-full bg-black-100`, { opacity: fadeInOpacity }]}
+      >
+        <Camera
+          audio={false}
+          style={tw`bg-transparent`}
+          device={device}
+          isActive={true}
+          codeScanner={codeScanner}
+        >
+          <CustomMarker onCancel={onCancel} />
+        </Camera>
+      </Animated.View>
+    </Modal>
+  );
+};
 
 function CustomMarker({ onCancel }: Pick<ScanQRProps, "onCancel">) {
   return (
