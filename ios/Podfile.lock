@@ -1117,7 +1117,7 @@ PODS:
     - Yoga
   - react-native-restart (0.0.27):
     - React-Core
-  - react-native-safe-area-context (4.9.0):
+  - react-native-safe-area-context (5.6.1):
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
@@ -1432,7 +1432,7 @@ PODS:
     - Yoga
   - RNPermissions (4.1.5):
     - React-Core
-  - RNReanimated (3.8.1):
+  - RNReanimated (3.11.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1819,7 +1819,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-pager-view: 880c1bb546f47322d03b56ff2810aa5e990e582c
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
-  react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
+  react-native-safe-area-context: aac2745e96999c8633d2f6119e4e39b499c2ac8b
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-webview: 06f0b1eaa8f7d7984e46b657d646db5d1f00a5aa
   React-nativeconfig: 3b359be06d9ee8d64c1eacbca4f1040f331573fd
@@ -1853,7 +1853,7 @@ SPEC CHECKSUMS:
   RNFBMessaging: a65862d8eba03cb6c838241bd328166504996894
   RNGestureHandler: 9b113eb9b7a4cbe66e1dbf4d9914281863ee0703
   RNPermissions: 9fa74223844f437bc309e112994859dc47194829
-  RNReanimated: fe4defa06b4fd74169321336788982dbd0674a79
+  RNReanimated: 7ad0f08a845cb60955ee5d461d2156d7b9707118
   RNScreens: 024c5cb8569dea6667b5c73e6c119beb83f686f0
   RNSecureRandom: 07efbdf2cd99efe13497433668e54acd7df49fef
   RNShare: 0fad69ae2d71de9d1f7b9a43acf876886a6cb99c
