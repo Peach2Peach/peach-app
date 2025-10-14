@@ -384,7 +384,9 @@ type NotificationType =
   | "contract.escrowFundingTimeExpired.seller"
   | "contract.escrowFundingTimeExpiring6hLeft"
   | "contract.escrowFundingTimeExpiring1hLeft"
-  | "offer.expressFlowTradeRequestChatMessageReceived";
+  | "offer.expressFlowTradeRequestChatMessageReceived"
+  | "offer.newSellOfferMatchesPreferences"
+  | "offer.newBuyOfferMatchesPreferences";
 
 type PNData = {
   type?: NotificationType;
