@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
+    "module": "node16",
     "jsx": "react-jsx",
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "resolveJsonModule": true,
@@ -12,7 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["dom", "dom.iterable", "es2015", "es2016", "esnext"],
     "allowJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "isolatedModules": true,
     "noEmit": true,
     "paths": {
@@ -20,5 +20,6 @@
     }
   },
   "include": ["src", "@types", "tests", "tailwind.config.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "extends": "@react-native/typescript-config/tsconfig.json"
 }
