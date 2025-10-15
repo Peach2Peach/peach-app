@@ -28,9 +28,9 @@ export function HomeScreen() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        sceneStyle: tw`flex-1`,
       }}
       initialRouteName="home"
-      sceneContainerStyle={tw`flex-1`}
       tabBar={() => <Footer />}
       id="homeNavigator"
     >

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "node16",
+    "module": "nodenext",
     "jsx": "react-jsx",
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "resolveJsonModule": true,
@@ -12,7 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["dom", "dom.iterable", "es2015", "es2016", "esnext"],
     "allowJs": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "isolatedModules": true,
     "noEmit": true,
     "paths": {

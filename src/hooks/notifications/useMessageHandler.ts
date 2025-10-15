@@ -1,7 +1,6 @@
 import messaging, {
   FirebaseMessagingTypes,
 } from "@react-native-firebase/messaging";
-import { useNavigationState } from "@react-navigation/native";
 import { useCallback } from "react";
 import { AppState } from "react-native";
 import { useSetToast } from "../../components/toast/Toast";
@@ -12,19 +11,13 @@ import { useGetPNActionHandler } from "./useGetPNActionHandler";
 
 export const useMessageHandler = () => {
   const setToast = useSetToast();
-  const currentPage = useNavigationState(
-    (state) => state?.routes[state.index].name,
-  );
   const getPNActionHandler = useGetPNActionHandler();
   const overlayEvents = useOverlayEvents();
   const offerPopupEvents = useOfferPopupEvents();
 
   const onMessageHandler = useCallback(
     async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-      info(
-        `A new FCM message arrived! ${JSON.stringify(remoteMessage)}`,
-        `currentPage ${currentPage}`,
-      );
+      info(`A new FCM message arrived! ${JSON.stringify(remoteMessage)}`);
       if (!remoteMessage.data) return;
 
       const data = remoteMessage.data as unknown as PNData;
@@ -51,13 +44,7 @@ export const useMessageHandler = () => {
         }
       }
     },
-    [
-      currentPage,
-      getPNActionHandler,
-      offerPopupEvents,
-      overlayEvents,
-      setToast,
-    ],
+    [getPNActionHandler, offerPopupEvents, overlayEvents, setToast],
   );
   return onMessageHandler;
 };

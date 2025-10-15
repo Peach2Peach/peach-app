@@ -22,12 +22,12 @@ export const RestoreBackup = () => {
     <Screen style={tw`px-0`} header={<OnboardingHeader />} gradientBackground>
       <RestoreBackupTab.Navigator
         initialRouteName={initialRouteName}
-        sceneContainerStyle={[tw`pb-2 px-sm`, tw`md:px-md`]}
         screenOptions={{
           ...fullScreenTabNavigationScreenOptions,
           tabBarIndicatorStyle: tw`bg-primary-background-light-color`,
           tabBarActiveTintColor: tw.color("primary-background-light-color"),
           tabBarInactiveTintColor: tw.color("primary-mild-1"),
+          sceneStyle: tw`pb-2 px-sm md:px-md`,
         }}
       >
         {tabs.map((tab) => (

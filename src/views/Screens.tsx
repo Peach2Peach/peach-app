@@ -25,7 +25,6 @@ export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
   const isLoggedIn = useSettingsStore((state) => state.isLoggedIn);
   const { isDarkMode } = useThemeStore();
-  useGlobalHandlers();
   useWSQueryInvalidation();
 
   const backgroundStyle = isDarkMode
@@ -48,30 +47,40 @@ export function Screens() {
     return <SplashScreenComponent setIsLoading={setIsLoading} />;
   }
   return (
-    <RootStack.Navigator
-      screenOptions={{
-        gestureEnabled: isIOS(),
-        headerShown: false,
-        cardStyle: tw`flex-1 ${backgroundStyle}`,
-      }}
-    >
-      {(isLoggedIn ? views : onboardingViews).map(
-        ({ name, component, animationEnabled }) => (
-          <RootStack.Screen
-            {...{ name, component }}
-            key={name}
-            options={{
-              animationEnabled,
-              transitionSpec: {
-                open: screenTransition,
-                close: screenTransition,
-              },
-            }}
-          />
-        ),
-      )}
-    </RootStack.Navigator>
+    <>
+      <GlobalHandlers />
+      <RootStack.Navigator
+        screenOptions={{
+          gestureEnabled: isIOS(),
+          headerShown: false,
+          cardStyle: tw`flex-1 ${backgroundStyle}`,
+        }}
+      >
+        <>
+          {(isLoggedIn ? views : onboardingViews).map(
+            ({ name, component, animation }) => (
+              <RootStack.Screen
+                {...{ name, component }}
+                key={name}
+                options={{
+                  animation: animation || "default",
+                  transitionSpec: {
+                    open: screenTransition,
+                    close: screenTransition,
+                  },
+                }}
+              />
+            ),
+          )}
+        </>
+      </RootStack.Navigator>
+    </>
   );
+}
+
+function GlobalHandlers() {
+  useGlobalHandlers();
+  return null;
 }
 
 function SplashScreenComponent({

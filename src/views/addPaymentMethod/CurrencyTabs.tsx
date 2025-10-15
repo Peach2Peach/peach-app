@@ -41,11 +41,11 @@ export const CurrencyTabs = (props: Props) => {
           props.setCurrency(defaultCurrencies[currencyType]);
         },
       }}
-      sceneContainerStyle={[tw`pb-2 px-sm`, tw`md:px-md`]}
       screenOptions={{
         ...fullScreenTabNavigationScreenOptions,
         tabBarLabelStyle: tw`capitalize input-title`,
         tabBarScrollEnabled: true,
+        sceneStyle: tw`pb-2 px-sm md:px-md`,
       }}
     >
       <CurrencyTab.Screen

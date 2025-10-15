@@ -47,8 +47,10 @@ export const YourTrades = () => {
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || "yourTrades.69BuyOffer"}
-        screenOptions={fullScreenTabNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          sceneStyle: tx`px-sm md:px-md`,
+        }}
       >
         {tabs.map((tab) => (
           <YourTradesTab.Screen
@@ -144,7 +146,7 @@ export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {
   return data.length !== 0 && title !== "priority" ? (
-    <LinedText style={tw`pb-7 bg-transparent`}>
+    <LinedText style={tw`bg-transparent pb-7`}>
       <PeachText style={tw`text-black-50`}>
         {i18n(`yourTrades.${title}`)}
       </PeachText>
