@@ -7,15 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* peachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* peachTests.m */; };
 		0E46B2A9A7E690927A44FC1C /* libPods-peach-peach regtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE37EC909592AC13A8C4A9E7 /* libPods-peach-peach regtest.a */; };
 		0F65AADB629A41A99AFB90FE /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3437C51D4F624ACE824256C7 /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
 		3566516CDCD9E69975782F49 /* libPods-peach-peach mainnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03126CFC831F657240FE1E3F /* libPods-peach-peach mainnet.a */; };
-		4C36D5D72DABF75A0098D9BF /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		4C36D5D82DABF75A0098D9BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4C36D5DC2DABF75A0098D9BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 672B1300288AF7240089147A /* Localizable.strings */; };
 		4C36D5DD2DABF75A0098D9BF /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EC2A052B2D00F18766 /* CourierPrime-Regular.ttf */; };
 		4C36D5DE2DABF75A0098D9BF /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
@@ -26,13 +21,12 @@
 		4C36D5E52DABF75A0098D9BF /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
 		4C36D5E62DABF75A0098D9BF /* CourierPrime-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EB2A052B2D00F18766 /* CourierPrime-Bold.ttf */; };
 		4C36D5E72DABF75A0098D9BF /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
+		4C79EDAB2E9FC18200E67805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
+		4C79EDAD2E9FC26200E67805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79EDAC2E9FC26200E67805 /* AppDelegate.swift */; };
 		4CB974AB2DE610BD0031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
 		4CB974AE2DE611460031D71E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974AD2DE611460031D71E /* GoogleService-Info.plist */; };
 		4CB974AF2DE611780031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
-		4E2649D5628C1A64799D13F1 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */; };
 		64AB6E1923744175E8776710 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CFCE50BCA604F16D0E14F89F /* PrivacyInfo.xcprivacy */; };
-		671A562E2850E9AE0058434C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		671A562F2850E9AE0058434C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		671A56352850E9AE0058434C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		671A56362850E9AE0058434C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
@@ -61,36 +55,19 @@
 		F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = peach;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* peachTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = peachTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* peachTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = peachTests.m; sourceTree = "<group>"; };
 		03126CFC831F657240FE1E3F /* libPods-peach-peach mainnet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peach mainnet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		053AE86B4FCFEB2126C3B539 /* Pods-peach-peach mainnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach mainnet.release.xcconfig"; path = "Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet.release.xcconfig"; sourceTree = "<group>"; };
-		12FEF51E3BCE1869E3461B0C /* Pods-peach mainnet-peachTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peachTests.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peachTests/Pods-peach mainnet-peachTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Peach Bitcoin Testnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peach Bitcoin Testnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = peach/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.mm; path = peach/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = peach/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = peach/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = peach/main.m; sourceTree = "<group>"; };
-		1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peachTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Regular.ttf"; path = "../assets/fonts/Baloo2-Regular.ttf"; sourceTree = "<group>"; };
 		4C36D5EF2DABF75A0098D9BF /* peach regtest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "peach regtest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C36D5F02DABF75A0098D9BF /* peach regtest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "peach regtest-Info.plist"; path = "/Users/michael/Documents/Coding/Peach2Peach/peach-app/ios/peach regtest-Info.plist"; sourceTree = "<absolute>"; };
+		4C79EDAC2E9FC26200E67805 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CB974A82DE610BD0031D71E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4CB974AD2DE611460031D71E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5329F5BD4D4644F441E5F2A9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		5329F5BD4D4644F441E5F2A9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		55F4F89D050F9B09DCDEA67A /* Pods-peach-peach testnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach testnet.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet.debug.xcconfig"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
 		6709C1062A669A0D00A5A4F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -114,36 +91,26 @@
 		67F84F052A03E9BA00E7B546 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E52FFA7E58BEB2744769222 /* Pods-peach mainnet-peach testnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peach testnet.release.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peach testnet/Pods-peach mainnet-peach testnet.release.xcconfig"; sourceTree = "<group>"; };
 		7478E35D78E4DB8ED51A163F /* Pods-peach mainnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet.release.xcconfig"; path = "Target Support Files/Pods-peach mainnet/Pods-peach mainnet.release.xcconfig"; sourceTree = "<group>"; };
+		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = peach/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = peach/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82EF44C88FF1524E5CCC2D50 /* Pods-peach-peach mainnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach mainnet.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet.debug.xcconfig"; sourceTree = "<group>"; };
-		8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.debug.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.debug.xcconfig"; sourceTree = "<group>"; };
 		95A7125260244CB9A6E45C88 /* RNFileSystem.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFileSystem.xcodeproj; path = "../node_modules/react-native-filesystem/ios/RNFileSystem.xcodeproj"; sourceTree = "<group>"; };
 		A210E620E620220610C91568 /* Pods-peach mainnet-peach testnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peach testnet.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peach testnet/Pods-peach mainnet-peach testnet.debug.xcconfig"; sourceTree = "<group>"; };
-		A439BCF4C0E24CE366353F1D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A439BCF4C0E24CE366353F1D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A93D9400EF3D3C597D1E51F0 /* Pods-peach-peach testnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach testnet.release.xcconfig"; path = "Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet.release.xcconfig"; sourceTree = "<group>"; };
 		AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Bold.ttf"; path = "../assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; };
 		AE37EC909592AC13A8C4A9E7 /* libPods-peach-peach regtest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peach regtest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C460E24DEA50384BDD0DE7 /* Pods-peach-peach regtest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach regtest.release.xcconfig"; path = "Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest.release.xcconfig"; sourceTree = "<group>"; };
 		CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-SemiBold.ttf"; path = "../assets/fonts/Baloo2-SemiBold.ttf"; sourceTree = "<group>"; };
 		CFA29616EE3AE7D17BD4C258 /* Pods-peach-peach regtest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach regtest.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest.debug.xcconfig"; sourceTree = "<group>"; };
-		CFCE50BCA604F16D0E14F89F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		CFCE50BCA604F16D0E14F89F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Medium.ttf"; path = "../assets/fonts/Baloo2-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F88D84630244EBFFA90177D7 /* Pods-peach mainnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet/Pods-peach mainnet.debug.xcconfig"; sourceTree = "<group>"; };
-		F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.release.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.release.xcconfig"; sourceTree = "<group>"; };
-		F954CF1395DA895509F19A18 /* Pods-peach mainnet-peachTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peachTests.release.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peachTests/Pods-peach mainnet-peachTests.release.xcconfig"; sourceTree = "<group>"; };
 		FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peach testnet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E356EB1AD99517003FC87E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4E2649D5628C1A64799D13F1 /* libPods-peach-peachTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -172,35 +139,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* peachTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* peachTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = peachTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* peach */ = {
 			isa = PBXGroup;
 			children = (
 				67D10E1E282BFAD400DA4D19 /* peachDebug.entitlements */,
 				675514812812AA1D00A17B6C /* main.jsbundle */,
 				67094FCB26B447E200F2F356 /* peach.entitlements */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
+				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = peach;
 			sourceTree = "<group>";
@@ -211,7 +159,6 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				03126CFC831F657240FE1E3F /* libPods-peach-peach mainnet.a */,
 				FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */,
-				1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */,
 				AE37EC909592AC13A8C4A9E7 /* libPods-peach-peach regtest.a */,
 			);
 			name = Frameworks;
@@ -287,6 +234,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4C79EDAC2E9FC26200E67805 /* AppDelegate.swift */,
 				675514862812BA4E00A17B6C /* assets */,
 				6735D8CA29532CD800AD1C74 /* assets */,
 				675514832812B60700A17B6C /* main.jsbundle */,
@@ -295,7 +243,6 @@
 				675F67FE2850FE8A009208C5 /* PeachProduction */,
 				13B07FAE1A68108700A75B9A /* peach */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* peachTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C992593F8A6F1DFD47C1D7A7 /* Pods */,
@@ -315,7 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* Peach Bitcoin Testnet.app */,
-				00E356EE1AD99517003FC87E /* peachTests.xctest */,
 				671A56452850E9AE0058434C /* Peach Bitcoin.app */,
 				4C36D5EF2DABF75A0098D9BF /* peach regtest.app */,
 			);
@@ -325,12 +271,8 @@
 		C992593F8A6F1DFD47C1D7A7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */,
-				F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */,
 				F88D84630244EBFFA90177D7 /* Pods-peach mainnet.debug.xcconfig */,
 				7478E35D78E4DB8ED51A163F /* Pods-peach mainnet.release.xcconfig */,
-				12FEF51E3BCE1869E3461B0C /* Pods-peach mainnet-peachTests.debug.xcconfig */,
-				F954CF1395DA895509F19A18 /* Pods-peach mainnet-peachTests.release.xcconfig */,
 				A210E620E620220610C91568 /* Pods-peach mainnet-peach testnet.debug.xcconfig */,
 				6E52FFA7E58BEB2744769222 /* Pods-peach mainnet-peach testnet.release.xcconfig */,
 				82EF44C88FF1524E5CCC2D50 /* Pods-peach-peach mainnet.debug.xcconfig */,
@@ -346,27 +288,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* peachTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "peachTests" */;
-			buildPhases = (
-				35E36C6CAF7DD0FD10989F99 /* [CP] Check Pods Manifest.lock */,
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
-				D151A0AA6C40BD4DC6C931E2 /* [CP] Embed Pods Frameworks */,
-				FAE677760E208E5AEF22E9DC /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00E356F51AD99517003FC87E /* PBXTargetDependency */,
-			);
-			name = peachTests;
-			productName = peachTests;
-			productReference = 00E356EE1AD99517003FC87E /* peachTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		13B07F861A680F5B00A75B9A /* peach testnet */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "peach testnet" */;
@@ -442,10 +363,6 @@
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
 					};
@@ -471,19 +388,11 @@
 				671A562A2850E9AE0058434C /* peach mainnet */,
 				13B07F861A680F5B00A75B9A /* peach testnet */,
 				4C36D5D32DABF75A0098D9BF /* peach regtest */,
-				00E356ED1AD99517003FC87E /* peachTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -613,28 +522,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		35E36C6CAF7DD0FD10989F99 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-peach-peachTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		49BE2BAD338157393814E96B /* [CP] Check Pods Manifest.lock */ = {
@@ -824,23 +711,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D151A0AA6C40BD4DC6C931E2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F9F7CF11B298F414A11F5F9C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -858,40 +728,14 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FAE677760E208E5AEF22E9DC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00E356EA1AD99517003FC87E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00E356F31AD99517003FC87E /* peachTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F871A680F5B00A75B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				4C79EDAD2E9FC26200E67805 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,8 +743,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C36D5D72DABF75A0098D9BF /* AppDelegate.mm in Sources */,
-				4C36D5D82DABF75A0098D9BF /* main.m in Sources */,
+				4C79EDAB2E9FC18200E67805 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,20 +751,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				671A562E2850E9AE0058434C /* AppDelegate.mm in Sources */,
-				671A562F2850E9AE0058434C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* peach testnet */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		672B1300288AF7240089147A /* Localizable.strings */ = {
@@ -939,77 +772,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 6G5FFY3H35;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
-				);
-				INFOPLIST_FILE = peachTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(SDKROOT)/usr/lib/swift",
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/peach.app/peach";
-			};
-			name = Debug;
-		};
-		00E356F71AD99517003FC87E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
-				);
-				INFOPLIST_FILE = peachTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(SDKROOT)/usr/lib/swift",
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/peach.app/peach";
-			};
-			name = Release;
-		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 55F4F89D050F9B09DCDEA67A /* Pods-peach-peach testnet.debug.xcconfig */;
@@ -1377,15 +1139,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "peachTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "peach testnet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
