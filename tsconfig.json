@@ -19,7 +19,14 @@
       "test-utils": ["./tests/unit/helpers/test-utils"]
     }
   },
-  "include": ["src", "@types", "tests", "tailwind.config.js"],
-  "exclude": ["node_modules"],
+  "include": [
+    "src",
+    "@types",
+    "tests",
+    "tailwind.config.js",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["**/node_modules", "**/Pods"],
   "extends": "@react-native/typescript-config"
 }
