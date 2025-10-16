@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "je hebt de transactie geannuleerd en je reputatie is aangetast",
   "contract.buyer.collaborativeCancel.notResolved": "De verkoper wil annuleren. Je kunt weigeren, vooral als je al betaald hebt.",
   "contract.buyer.collaborativeCancel.resolved": "Je stemde in met annulering, de verkoper kreeg een terugbetaling.",
-  "contract.buyer.disputeLost": "Je hebt het geschil verloren! Je reputatie is aangetast en de transactie is gestopt.",
-  "contract.buyer.disputeWon.awaitingPayout": "Je won het geschil! De reputatie van de verkoper is aangetast, hij moet je geld vrijgeven.",
-  "contract.buyer.disputeWon.paidOut": "Je won het geschil! De verkoper gaf het geld aan jou vrij.",
+  
+  "contract.buyer.disputeLost": "Je hebt het geschil verloren!\n\n",
+    "contract.buyer.disputeWon": "Je hebt het geschil gewonnen!\n\n",
+    "contract.buyer.ownReputationImpacted": "Je reputatie is beïnvloed.\n",
+    "contract.buyer.sellerReputationImpacted": "De reputatie van de verkoper is beïnvloed.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "De verkoper is terugbetaald.",
+    "contract.buyer.disputeWon.awaitingPayout": "De verkoper moet de fondsen aan jou vrijgeven.\n\nAls dat niet gebeurt, worden ze binnen 30 dagen automatisch vrijgegeven.",
+    "contract.buyer.disputeWon.paidOut": "De verkoper heeft de fondsen aan jou vrijgegeven.",
+ 
+  
   "contract.buyer.paymentWasTooLate": "Je betaalde te laat, de verkoper annuleerde. Je reputatie is aangetast.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Je betaalde te laat; de verkoper kan annuleren of meer tijd geven. Je reputatie is aangetast.",
   "contract.buyer.sellerCanceledCashTrade": "de verkoper heeft de cashtransactie geannuleerd",
@@ -74,10 +81,17 @@
   "contract.respond": "antwoord",
   "contract.seller.buyerAgreedToCancel": "Koper ging akkoord met annulering. Kies: sats terug of opnieuw publiceren.",
   "contract.seller.buyerCanceledWithoutRequest": "Koper annuleerde. Kies: opnieuw publiceren of borg terug naar $0.",
-  "contract.seller.disputeLost.escrowReleased": "Je verloor! Je reputatie is aangetast en borg is vrijgegeven.",
-  "contract.seller.disputeLost.releaseEscrow": "Je verloor! Je moet borg vrijgeven, reputatie aangetast.",
-  "contract.seller.disputeWon.refund": "Je won! Koper kreeg reputatieschade. Je krijgt je geld terug.",
-  "contract.seller.disputeWon.refundOrRepublish": "Je won! Koper kreeg reputatieschade. Kies: opnieuw publiceren of geld terug.",
+
+  "contract.seller.disputeLost": "Je hebt het geschil verloren!\n\n",
+    "contract.seller.disputeWon": "Je hebt het geschil gewonnen!\n\n",
+    "contract.seller.ownReputationImpacted": "Je reputatie is beïnvloed.\n",
+    "contract.seller.buyerReputationImpacted": "De reputatie van de koper is beïnvloed.\n",
+    "contract.seller.disputeLost.escrowReleased": "Je hebt de escrow vrijgegeven aan de koper.",
+    "contract.seller.disputeLost.releaseEscrow": "Je moet de escrow vrijgeven aan de koper.",
+    "contract.seller.disputeWon.refund": "Je kunt nu een terugbetaling ontvangen.",
+    "contract.seller.disputeWon.refundOrRepublish": "Je kunt het aanbod opnieuw publiceren of een terugbetaling ontvangen.",
+ 
+
   "contract.seller.disputeWon.refunded": "Je koos terugbetaling naar $0.",
   "contract.seller.disputeWon.republished": "Je koos opnieuw publiceren. Zie nieuw aanbod hieronder.",
   "contract.seller.giveMoreTime": "geef meer tijd",

@@ -11,6 +11,7 @@ import i18n from "../../../utils/i18n";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { useContractContext } from "../context";
+import { getBuyerDisputeStatusText } from "../helpers/getBuyerDisputeStatusText";
 import { getSellerDisputeStatusText } from "../helpers/getSellerDisputeStatusText";
 import { tradeInformationGetters } from "../helpers/tradeInformationGetters";
 import { SummaryItem } from "./SummaryItem";
@@ -82,15 +83,8 @@ function getBuyerStatusText(contract: Contract) {
         : "contract.buyer.paymentWasTooLate.waitingForSeller",
     );
   }
-  if (contract.disputeWinner === "seller") {
-    return i18n("contract.buyer.disputeLost");
-  }
-  const isResolved = !!contract.releaseTxId;
-  return i18n(
-    isResolved
-      ? "contract.buyer.disputeWon.paidOut"
-      : "contract.buyer.disputeWon.awaitingPayout",
-  );
+
+  return getBuyerDisputeStatusText(contract);
 }
 
 function SellerStatusText({ contract }: { contract: Contract }) {
