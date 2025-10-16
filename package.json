@@ -46,7 +46,6 @@
     "@react-native-clipboard/clipboard": "^1.16.0",
     "@react-native-community/cli-platform-android": "^15.0.1",
     "@react-native-community/netinfo": "^11.3.3",
-    "@react-native-cookies/cookies": "^6.2.1",
     "@react-native-documents/picker": "^10.1.7",
     "@react-native-firebase/app": "^22.4.0",
     "@react-native-firebase/crashlytics": "^22.4.0",
