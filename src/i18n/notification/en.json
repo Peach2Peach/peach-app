@@ -68,5 +68,12 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.text": "Fund escrow soon or trade will be canceled and your reputation affected.",
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "6h left to fund escrow",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Fund escrow soon or trade will be canceled and your reputation affected.",
-  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1h left to fund escrow"
+  "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1h left to fund escrow",
+
+  "notification.offer.newBuyOfferMatchesPreferences.text":"New Buy Offer!",
+  "notification.offer.newBuyOfferMatchesPreferences.title":"There is a new Offer that matches your Preferences.",
+  "notification.offer.newSellOfferMatchesPreferences.text":"New Sell Offer!",
+  "notification.offer.newSellOfferMatchesPreferences.title":"There is a new Offer that matches your Preferences."
+
 }
+

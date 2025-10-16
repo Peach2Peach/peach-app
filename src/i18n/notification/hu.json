@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "6 óra van az escrow finanszírozására",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Ha nem finanszírozod időben, a tranzakciót törlik és a hírneved csökken.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1 óra van az escrow finanszírozására",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Az eladó törölte az üzletet. Hírneved romlott."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Az eladó törölte az üzletet. Hírneved romlott.",
+  "notification.offer.newBuyOfferMatchesPreferences.text": "Új vételi ajánlat!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "Van egy új ajánlat, ami megfelel a beállításaidnak.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Új eladási ajánlat!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "Van egy új ajánlat, ami megfelel a beállításaidnak."
+ 
 }

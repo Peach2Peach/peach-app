@@ -98,4 +98,9 @@
 <string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Chat de solicitud de intercambio</string>
 <string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">Has recibido un mensaje en el chat de tu solicitud de intercambio</string>
 
+<string name="notification.title.offer.newBuyOfferMatchesPreferences">Hay una nueva oferta que coincide con tus preferencias.</string>
+<string name="notification.body.offer.newBuyOfferMatchesPreferences">¡Nueva oferta de compra!</string>
+
+<string name="notification.title.offer.newSellOfferMatchesPreferences">Hay una nueva oferta que coincide con tus preferencias.</string>
+<string name="notification.body.offer.newSellOfferMatchesPreferences">¡Nueva oferta de venta!</string>
 </resources>

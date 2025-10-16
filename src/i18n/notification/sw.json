@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Masaa 6 kufadhili escrow.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Kama hutafadhili kwa wakati, biashara itafutwa na sifa yako itapungua sana.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Saa 1 kufadhili escrow.",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Muuzaji amefuta biashara.\n\nSifa yake imepungua."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Muuzaji amefuta biashara.\n\nSifa yake imepungua.",
+  "notification.offer.newBuyOfferMatchesPreferences.text": "Ofa mpya ya ununuzi!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Ofa mpya ya mauzo!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako."
+  
 }

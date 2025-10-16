@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "6 ore per finanziare l’escrow",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Se non finanzi l’escrow in tempo, la transazione sarà annullata e la reputazione influenzata negativamente.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1 ora per finanziare l’escrow",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Il venditore ha annullato lo scambio.\n\nLa sua reputazione è stata danneggiata."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Il venditore ha annullato lo scambio.\n\nLa sua reputazione è stata danneggiata.",
+   "notification.offer.newBuyOfferMatchesPreferences.text": "Nuova offerta di acquisto!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "C'è una nuova offerta che corrisponde alle tue preferenze.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Nuova offerta di vendita!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "C'è una nuova offerta che corrisponde alle tue preferenze."
+  
 }

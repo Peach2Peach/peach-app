@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "У вас залишилось 6 годин на фінансування ескроу.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Якщо не профінансуєте вчасно, угода буде скасована, і ваша репутація сильно постраждає.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "У вас залишилась 1 година на фінансування ескроу.",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Продавець скасував угоду.\n\nЙого репутація постраждала."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Продавець скасував угоду.\n\nЙого репутація постраждала.",
+  "notification.offer.newBuyOfferMatchesPreferences.text": "Нова пропозиція купівлі!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "З’явилася нова пропозиція, що відповідає вашим вподобанням.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Нова пропозиція продажу!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "З’явилася нова пропозиція, що відповідає вашим вподобанням."
+  
 }

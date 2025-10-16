@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Осталось 6 часов на финансирование эскроу",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Если не профинансируете, сделка будет отменена и репутация пострадает.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Остался 1 час на финансирование эскроу",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Продавец отменил сделку. Репутация продавца пострадала."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Продавец отменил сделку. Репутация продавца пострадала.",
+   "notification.offer.newBuyOfferMatchesPreferences.text": "Новое предложение на покупку!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Новое предложение на продажу!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям."
+ 
 }

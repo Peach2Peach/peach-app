@@ -97,5 +97,9 @@
 <string name="notification.body.contract.buyer.sellerCanceledBeforeFunding">Der Verkäufer hat den Handel abgebrochen.\n\nSein Ruf wurde negativ beeinflusst.</string>
 <string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Trade-Anfrage Chat</string>
 <string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">Du hast eine Chat-Nachricht zu deiner Trade-Anfrage erhalten</string>
+<string name="notification.title.offer.newBuyOfferMatchesPreferences">Es gibt ein neues Angebot, das deinen Präferenzen entspricht.</string>
+<string name="notification.body.offer.newBuyOfferMatchesPreferences">Neues Kaufangebot!</string>
 
+<string name="notification.title.offer.newSellOfferMatchesPreferences">Es gibt ein neues Angebot, das deinen Präferenzen entspricht.</string>
+<string name="notification.body.offer.newSellOfferMatchesPreferences">Neues Verkaufsangebot!</string>
 </resources>

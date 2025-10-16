@@ -96,3 +96,8 @@
 "notification.body.contract.buyer.sellerCanceledBeforeFunding" = "Der Verkäufer hat den Handel abgebrochen.\n\nSein Ruf wurde negativ beeinflusst.";
 "notification.title.offer.expressFlowTradeRequestChatMessageReceived" = "Trade-Anfrage Chat";
 "notification.body.offer.expressFlowTradeRequestChatMessageReceived" = "Du hast eine Chat-Nachricht zu deiner Trade-Anfrage erhalten";
+
+"notification.title.offer.newBuyOfferMatchesPreferences" = "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.";
+"notification.body.offer.newBuyOfferMatchesPreferences" = "Neues Kaufangebot!";
+"notification.title.offer.newSellOfferMatchesPreferences" = "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.";
+"notification.body.offer.newSellOfferMatchesPreferences" = "Neues Verkaufsangebot!";

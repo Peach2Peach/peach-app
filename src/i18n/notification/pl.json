@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Masz 6h na sfinansowanie escrow",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Jeśli nie sfinansujesz na czas, transakcja zostanie anulowana, a reputacja poważnie ucierpi.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Masz 1h na sfinansowanie escrow",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Sprzedawca anulował transakcję. Jego reputacja została obniżona."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Sprzedawca anulował transakcję. Jego reputacja została obniżona.",
+   "notification.offer.newBuyOfferMatchesPreferences.text": "Nowa oferta kupna!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "Pojawiła się nowa oferta pasująca do Twoich preferencji.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Nowa oferta sprzedaży!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "Pojawiła się nowa oferta pasująca do Twoich preferencji."
+ 
 }
