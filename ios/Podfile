@@ -36,8 +36,6 @@ abstract_target 'peach' do
 
   pod 'react-native-fast-openpgp', :path => '../node_modules/react-native-fast-openpgp'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
-
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
 
   pod 'FirebaseCore', :modular_headers => true
