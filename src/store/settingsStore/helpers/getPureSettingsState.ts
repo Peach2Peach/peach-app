@@ -22,4 +22,6 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   nodeURL: state.nodeURL,
   cloudflareChallenge: state.cloudflareChallenge,
   isLoggedIn: state.isLoggedIn,
+  seenFirstTimeBuyerPopup: state.seenFirstTimeBuyerPopup,
+  seenFirstTimeSellerPopup: state.seenFirstTimeSellerPopup,
 });
