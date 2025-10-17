@@ -1,0 +1,758 @@
+diff --git a/node_modules/bdk-rn/android/build/.transforms/2a9e02a4732b9a8f4e5d45a6ba0b487f/results.bin b/node_modules/bdk-rn/android/build/.transforms/2a9e02a4732b9a8f4e5d45a6ba0b487f/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/.transforms/2a9e02a4732b9a8f4e5d45a6ba0b487f/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/bdk-rn/android/build/.transforms/2a9e02a4732b9a8f4e5d45a6ba0b487f/transformed/classes/classes_dex/classes.dex b/node_modules/bdk-rn/android/build/.transforms/2a9e02a4732b9a8f4e5d45a6ba0b487f/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..47713ed
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/2a9e02a4732b9a8f4e5d45a6ba0b487f/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/results.bin b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkProgress.dex b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkProgress.dex
+new file mode 100644
+index 0000000..88f37e4
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkProgress.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnModule$WhenMappings.dex b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnModule$WhenMappings.dex
+new file mode 100644
+index 0000000..1ae44af
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnModule$WhenMappings.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnModule.dex b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnModule.dex
+new file mode 100644
+index 0000000..cf868ec
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnModule.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnPackage.dex b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnPackage.dex
+new file mode 100644
+index 0000000..a369173
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BdkRnPackage.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BuildConfig.dex b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BuildConfig.dex
+new file mode 100644
+index 0000000..38340e9
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/BuildConfig.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/UtilsKt$WhenMappings.dex b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/UtilsKt$WhenMappings.dex
+new file mode 100644
+index 0000000..d54d7b8
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/UtilsKt$WhenMappings.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/UtilsKt.dex b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/UtilsKt.dex
+new file mode 100644
+index 0000000..392dab3
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/io/ltbl/bdkrn/UtilsKt.dex differ
+diff --git a/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..601f245
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/.transforms/6b8816dd22e806551df5e27667169e35/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/bdk-rn/android/build/generated/source/buildConfig/debug/io/ltbl/bdkrn/BuildConfig.java b/node_modules/bdk-rn/android/build/generated/source/buildConfig/debug/io/ltbl/bdkrn/BuildConfig.java
+new file mode 100644
+index 0000000..50451ba
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/generated/source/buildConfig/debug/io/ltbl/bdkrn/BuildConfig.java
+@@ -0,0 +1,10 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package io.ltbl.bdkrn;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = Boolean.parseBoolean("true");
++  public static final String LIBRARY_PACKAGE_NAME = "io.ltbl.bdkrn";
++  public static final String BUILD_TYPE = "debug";
++}
+diff --git a/node_modules/bdk-rn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml b/node_modules/bdk-rn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..4077915
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="io.ltbl.bdkrn" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json b/node_modules/bdk-rn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+new file mode 100644
+index 0000000..30595fd
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "io.ltbl.bdkrn",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties b/node_modules/bdk-rn/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+new file mode 100644
+index 0000000..1211b1e
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+@@ -0,0 +1,6 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
++coreLibraryDesugaringEnabled=false
+diff --git a/node_modules/bdk-rn/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json b/node_modules/bdk-rn/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar b/node_modules/bdk-rn/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar
+new file mode 100644
+index 0000000..adeab79
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar b/node_modules/bdk-rn/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar
+new file mode 100644
+index 0000000..e733fcf
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt b/node_modules/bdk-rn/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/bdk-rn/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/bdk-rn/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..9f0b3bc
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1 @@
++#Fri Oct 17 12:48:11 CEST 2025
+diff --git a/node_modules/bdk-rn/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/bdk-rn/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..7301fd4
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/build/generated/res/resValues/debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugAssets/merger.xml b/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugAssets/merger.xml
+new file mode 100644
+index 0000000..c324922
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/debug/assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/build/intermediates/shader_assets/debug/compileDebugShaders/out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..450b7ae
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/debug/jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugShaders/merger.xml b/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+new file mode 100644
+index 0000000..95a0964
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/debug/shaders"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/java_res/debug/processDebugJavaRes/out/META-INF/bdk-rn_debug.kotlin_module b/node_modules/bdk-rn/android/build/intermediates/java_res/debug/processDebugJavaRes/out/META-INF/bdk-rn_debug.kotlin_module
+new file mode 100644
+index 0000000..83c5bdc
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/java_res/debug/processDebugJavaRes/out/META-INF/bdk-rn_debug.kotlin_module differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/io/ltbl/bdkrn/BuildConfig.class b/node_modules/bdk-rn/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/io/ltbl/bdkrn/BuildConfig.class
+new file mode 100644
+index 0000000..e914689
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/io/ltbl/bdkrn/BuildConfig.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt b/node_modules/bdk-rn/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+new file mode 100644
+index 0000000..78ac5b8
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+@@ -0,0 +1,2 @@
++R_DEF: Internal format may change without notice
++local
+diff --git a/node_modules/bdk-rn/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt b/node_modules/bdk-rn/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..8e112b6
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,7 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="io.ltbl.bdkrn" >
++4
++5    <uses-sdk android:minSdkVersion="24" />
++6
++7</manifest>
+diff --git a/node_modules/bdk-rn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml b/node_modules/bdk-rn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+new file mode 100644
+index 0000000..4077915
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="io.ltbl.bdkrn" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json b/node_modules/bdk-rn/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt b/node_modules/bdk-rn/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+new file mode 100644
+index 0000000..08f4ebe
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+@@ -0,0 +1 @@
++0 Warning/Error
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/META-INF/bdk-rn_debug.kotlin_module b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/META-INF/bdk-rn_debug.kotlin_module
+new file mode 100644
+index 0000000..83c5bdc
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/META-INF/bdk-rn_debug.kotlin_module differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkProgress.class b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkProgress.class
+new file mode 100644
+index 0000000..4994f71
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkProgress.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnModule$WhenMappings.class b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnModule$WhenMappings.class
+new file mode 100644
+index 0000000..babc5de
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnModule$WhenMappings.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnModule.class b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnModule.class
+new file mode 100644
+index 0000000..b3d0b34
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnModule.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnPackage.class b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnPackage.class
+new file mode 100644
+index 0000000..035a95f
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BdkRnPackage.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BuildConfig.class b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BuildConfig.class
+new file mode 100644
+index 0000000..e914689
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/BuildConfig.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/UtilsKt$WhenMappings.class b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/UtilsKt$WhenMappings.class
+new file mode 100644
+index 0000000..3848cf5
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/UtilsKt$WhenMappings.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/UtilsKt.class b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/UtilsKt.class
+new file mode 100644
+index 0000000..22bcd73
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/io/ltbl/bdkrn/UtilsKt.class differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar
+new file mode 100644
+index 0000000..811208a
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar differ
+diff --git a/node_modules/bdk-rn/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt b/node_modules/bdk-rn/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+new file mode 100644
+index 0000000..6242f35
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+@@ -0,0 +1 @@
++io.ltbl.bdkrn
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab
+new file mode 100644
+index 0000000..eb3d095
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream
+new file mode 100644
+index 0000000..36e3d21
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len
+new file mode 100644
+index 0000000..8e95206
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at
+new file mode 100644
+index 0000000..d2508ed
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i
+new file mode 100644
+index 0000000..20be9db
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab
+new file mode 100644
+index 0000000..721900a
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream
+new file mode 100644
+index 0000000..5c0dac6
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len
+new file mode 100644
+index 0000000..10d6e6e
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at
+new file mode 100644
+index 0000000..fe23964
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i
+new file mode 100644
+index 0000000..160b9b5
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab
+new file mode 100644
+index 0000000..06da705
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream
+new file mode 100644
+index 0000000..5c0dac6
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len
+new file mode 100644
+index 0000000..10d6e6e
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at
+new file mode 100644
+index 0000000..1e26650
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i
+new file mode 100644
+index 0000000..160b9b5
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab
+new file mode 100644
+index 0000000..4e80c39
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream
+new file mode 100644
+index 0000000..89a1c15
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len
+new file mode 100644
+index 0000000..bf327e2
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len
+new file mode 100644
+index 0000000..9e27f73
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at
+new file mode 100644
+index 0000000..a55b7d0
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i
+new file mode 100644
+index 0000000..e9d3f8f
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab
+new file mode 100644
+index 0000000..bdf584a
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream
+new file mode 100644
+index 0000000..9521af6
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream.len
+new file mode 100644
+index 0000000..1a44f27
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.len
+new file mode 100644
+index 0000000..2a17e6e
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.values.at
+new file mode 100644
+index 0000000..46d6744
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i
+new file mode 100644
+index 0000000..f247953
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab
+new file mode 100644
+index 0000000..28d4ac1
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream
+new file mode 100644
+index 0000000..f17a661
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len
+new file mode 100644
+index 0000000..468508e
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len
+new file mode 100644
+index 0000000..ec8f944
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at
+new file mode 100644
+index 0000000..26c77e2
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i
+new file mode 100644
+index 0000000..f28f26a
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab
+new file mode 100644
+index 0000000..0f1f5b4
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream
+new file mode 100644
+index 0000000..36e3d21
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len
+new file mode 100644
+index 0000000..8e95206
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at
+new file mode 100644
+index 0000000..91f48fe
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i
+new file mode 100644
+index 0000000..20be9db
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab
+new file mode 100644
+index 0000000..d6791ff
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream
+new file mode 100644
+index 0000000..781818f
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len
+new file mode 100644
+index 0000000..6309493
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at
+new file mode 100644
+index 0000000..0fa349f
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i
+new file mode 100644
+index 0000000..17cce6b
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab
+new file mode 100644
+index 0000000..ef8c0b4
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream
+new file mode 100644
+index 0000000..cd7880f
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len
+new file mode 100644
+index 0000000..d7f482b
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at
+new file mode 100644
+index 0000000..0c20767
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i
+new file mode 100644
+index 0000000..160b9b5
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab
+new file mode 100644
+index 0000000..c393a51
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab
+@@ -0,0 +1,2 @@
++3
++0
+\ No newline at end of file
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab
+new file mode 100644
+index 0000000..11535ad
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream
+new file mode 100644
+index 0000000..36e3d21
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len
+new file mode 100644
+index 0000000..8e95206
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at
+new file mode 100644
+index 0000000..9f383b5
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i
+new file mode 100644
+index 0000000..20be9db
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab
+new file mode 100644
+index 0000000..b20a4d7
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream
+new file mode 100644
+index 0000000..636f34a
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len
+new file mode 100644
+index 0000000..29ce11c
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len
+new file mode 100644
+index 0000000..a9f80ae
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at
+new file mode 100644
+index 0000000..cc214d8
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i
+new file mode 100644
+index 0000000..e9905b3
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab
+new file mode 100644
+index 0000000..f4c3b3c
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream
+new file mode 100644
+index 0000000..00b0f5b
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len
+new file mode 100644
+index 0000000..a3aeb6b
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len
+new file mode 100644
+index 0000000..3f09f13
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at
+new file mode 100644
+index 0000000..d756ced
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i
+new file mode 100644
+index 0000000..caf389a
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin
+new file mode 100644
+index 0000000..cb0a9c9
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin
+new file mode 100644
+index 0000000..6ea3c12
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin differ
+diff --git a/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/local-state/build-history.bin b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/local-state/build-history.bin
+new file mode 100644
+index 0000000..6bbeab0
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/kotlin/compileDebugKotlin/local-state/build-history.bin differ
+diff --git a/node_modules/bdk-rn/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/bdk-rn/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..9b1f9e5
+--- /dev/null
++++ b/node_modules/bdk-rn/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,17 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml:1:1-105
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml:1:1-105
++	package
++		ADDED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml:1:70-93
++		INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml:1:11-69
++uses-sdk
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/bdk-rn/android/src/main/AndroidManifest.xml
+diff --git a/node_modules/bdk-rn/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/bdk-rn/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+new file mode 100644
+index 0000000..a32963a
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
+diff --git a/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/META-INF/bdk-rn_debug.kotlin_module b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/META-INF/bdk-rn_debug.kotlin_module
+new file mode 100644
+index 0000000..83c5bdc
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/META-INF/bdk-rn_debug.kotlin_module differ
+diff --git a/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkProgress.class b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkProgress.class
+new file mode 100644
+index 0000000..4994f71
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkProgress.class differ
+diff --git a/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnModule$WhenMappings.class b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnModule$WhenMappings.class
+new file mode 100644
+index 0000000..babc5de
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnModule$WhenMappings.class differ
+diff --git a/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnModule.class b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnModule.class
+new file mode 100644
+index 0000000..b3d0b34
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnModule.class differ
+diff --git a/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnPackage.class b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnPackage.class
+new file mode 100644
+index 0000000..035a95f
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/BdkRnPackage.class differ
+diff --git a/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/UtilsKt$WhenMappings.class b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/UtilsKt$WhenMappings.class
+new file mode 100644
+index 0000000..3848cf5
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/UtilsKt$WhenMappings.class differ
+diff --git a/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/UtilsKt.class b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/UtilsKt.class
+new file mode 100644
+index 0000000..22bcd73
+Binary files /dev/null and b/node_modules/bdk-rn/android/build/tmp/kotlin-classes/debug/io/ltbl/bdkrn/UtilsKt.class differ
+diff --git a/node_modules/bdk-rn/android/src/main/java/io/ltbl/bdkrn/BdkRnModule.kt b/node_modules/bdk-rn/android/src/main/java/io/ltbl/bdkrn/BdkRnModule.kt
+index 0bce915..0ac0a06 100644
+--- a/node_modules/bdk-rn/android/src/main/java/io/ltbl/bdkrn/BdkRnModule.kt
++++ b/node_modules/bdk-rn/android/src/main/java/io/ltbl/bdkrn/BdkRnModule.kt
+@@ -412,7 +412,7 @@ class BdkRnModule(reactContext: ReactApplicationContext) :
+                 val randomId = randomId()
+ 
+                 var resolvedIndex: Any = "new"
+-                when (val type = addressIndex.getType()) {
++                when (val type = addressIndex.type) {
+                     ReadableType.String -> {
+                         resolvedIndex = (addressIndex as Dynamic).asString() ?: "new"
+                     }
+@@ -445,7 +445,7 @@ class BdkRnModule(reactContext: ReactApplicationContext) :
+             try {
+                 val randomId = randomId()
+                 var resolvedIndex: Any = "new"
+-                when (val type = addressIndex.getType()) {
++                when (val type = addressIndex.type) {
+                     ReadableType.String -> {
+                         resolvedIndex = (addressIndex as Dynamic).asString() ?: "new"
+                     }
+@@ -686,8 +686,10 @@ class BdkRnModule(reactContext: ReactApplicationContext) :
+     fun addUtxos(id: String, outPoints: ReadableArray, result: Promise) {
+         Thread {
+             val mappedOutPoints: MutableList<OutPoint> = mutableListOf()
+-            for (i in 0 until outPoints.size())
+-                mappedOutPoints.add(createOutPoint(outPoints.getMap(i)))
++            for (i in 0 until outPoints.size()) {
++                val outPointMap = outPoints.getMap(i) ?: continue
++                mappedOutPoints.add(createOutPoint(outPointMap))
++            }
+             _txBuilders[id] = _txBuilders[id]!!.addUtxos(mappedOutPoints)
+             result.resolve(true)
+         }.start()
+@@ -725,8 +727,10 @@ class BdkRnModule(reactContext: ReactApplicationContext) :
+     fun unspendable(id: String, outPoints: ReadableArray, result: Promise) {
+         Thread {
+             val mappedOutPoints: MutableList<OutPoint> = mutableListOf()
+-            for (i in 0 until outPoints.size())
+-                mappedOutPoints.add(createOutPoint(outPoints.getMap(i)))
++            for (i in 0 until outPoints.size()) {
++                val outPointMap = outPoints.getMap(i) ?: continue
++                mappedOutPoints.add(createOutPoint(outPointMap))
++            }
+             _txBuilders[id] = _txBuilders[id]!!.unspendable(mappedOutPoints)
+             result.resolve(true)
+         }.start()
+@@ -803,10 +807,13 @@ class BdkRnModule(reactContext: ReactApplicationContext) :
+         Thread {
+             var scriptAmounts: MutableList<ScriptAmount> = mutableListOf()
+             for (i in 0 until recipients.size()) {
+-                val item = recipients.getMap(i)
++                val item = recipients.getMap(i) ?: continue
++                if (item.isNull("amount")) continue
+                 val amount = item.getInt("amount").toULong()
+-                val scriptId = item.getMap("script")!!.getString("id")
+-                val scriptAmount = ScriptAmount(_scripts[scriptId]!!, amount)
++                val scriptMap = item.getMap("script") ?: continue
++                val scriptId = scriptMap.getString("id") ?: continue
++                val script = _scripts[scriptId] ?: continue
++                val scriptAmount = ScriptAmount(script, amount)
+                 scriptAmounts.add(scriptAmount)
+             }
+             _txBuilders[id] = _txBuilders[id]!!.setRecipients(scriptAmounts)
