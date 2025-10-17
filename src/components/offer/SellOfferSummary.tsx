@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -17,7 +18,7 @@ type Props = {
     amountSats?: number;
   };
   numberOfOffers?: number;
-  walletLabel: JSX.Element;
+  walletLabel: ReactElement;
   type?: "buy" | "sell";
   setDisplayedCurrency: Function;
 };

@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { TouchableOpacity, View, ViewStyle } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -22,7 +23,7 @@ export const themes = (isDarkMode: boolean) => ({
 export type TabbedNavigationItem<T> = {
   id: T;
   display: string;
-  view?: (props: unknown) => JSX.Element;
+  view?: (props: unknown) => ReactElement;
 };
 type TabbedNavigationProps<T extends string> = ComponentProps & {
   items: TabbedNavigationItem<T>[];

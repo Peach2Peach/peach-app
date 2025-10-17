@@ -1,4 +1,5 @@
 import Clipboard from "@react-native-clipboard/clipboard";
+import type { ReactElement } from "react";
 import { fireEvent, render } from "test-utils";
 import { contract } from "../../../../peach-api/src/testData/contract";
 import { validSEPAData } from "../../../../tests/unit/data/paymentData";
@@ -47,7 +48,7 @@ describe("tradeInformationGetters", () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData);
     const element = tradeInformationGetters.paidToMethod(
       contract,
-    ) as JSX.Element;
+    ) as ReactElement;
     expect(render(element).toJSON()).toMatchSnapshot();
   });
   it("should return the correct value for the paidWithMethod field", () => {
@@ -72,7 +73,7 @@ describe("tradeInformationGetters", () => {
     ).toEqual("101 500 000 SAT");
   });
   it("should return the correct value for the via field", () => {
-    const element = tradeInformationGetters.via({ ...contract }) as JSX.Element;
+  const element = tradeInformationGetters.via({ ...contract }) as ReactElement;
     expect(render(element).toJSON()).toMatchSnapshot();
   });
   it("should return the correct value for the method field", () => {

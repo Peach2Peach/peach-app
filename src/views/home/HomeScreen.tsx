@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { memo, useMemo } from "react";
+import { memo, ReactElement, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { setNumber } from "rn-notification-badge";
@@ -47,7 +47,7 @@ export function HomeScreen() {
 type FooterItemBaseProps = {
   id: HomeTabName;
   iconId: IconType;
-  notificationBubble?: JSX.Element;
+  notificationBubble?: ReactElement;
   onPress?: () => void;
   active: boolean;
 };
@@ -159,7 +159,7 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
     ).length;
     if (isIOS()) setNumber(offersWithAction + contractsWithAction);
     return offersWithAction + contractsWithAction;
-  }, [offers, contracts]);
+  }, [offers, buyOffers, contracts]);
 
   const onPress = () => {
     const destinationTab =

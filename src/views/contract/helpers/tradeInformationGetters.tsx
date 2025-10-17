@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { APPLINKS } from "../../../APPLINKS";
@@ -46,11 +47,11 @@ export const tradeInformationGetters: Record<
   | "via"
   | "youPaid"
   | "youWillGet",
-  (contract: Contract) => string | number | JSX.Element | undefined
+  (contract: Contract) => string | number | ReactElement | undefined
 > & {
-  buyer: (contract: Contract) => JSX.Element;
-  seller: (contract: Contract) => JSX.Element;
-  youShouldPay: (contract: Contract) => JSX.Element;
+  buyer: (contract: Contract) => ReactElement;
+  seller: (contract: Contract) => ReactElement;
+  youShouldPay: (contract: Contract) => ReactElement;
 } = {
   price: getPrice,
   soldFor: getPrice,

@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { useRef } from "react";
 import { Animated, TextProps, View } from "react-native";
@@ -10,7 +11,7 @@ import i18n from "../../../utils/i18n";
 
 type Props = {
   label: string;
-  value: JSX.Element;
+  value: ReactElement;
 };
 
 export const SummaryItem = ({ label, value }: Props) => {

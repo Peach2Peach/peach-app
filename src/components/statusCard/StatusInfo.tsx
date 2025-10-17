@@ -1,11 +1,11 @@
-import { memo } from "react";
+import { memo, type ReactElement } from "react";
 import { StyleProp, TextStyle, View } from "react-native";
 import tw from "../../styles/tailwind";
 import { FixedHeightText } from "../text/FixedHeightText";
 
 type Props = {
   title: string;
-  icon?: JSX.Element;
+  icon?: ReactElement;
   subtext: string;
   onPress?: () => void;
   titleStyle?: StyleProp<TextStyle>;

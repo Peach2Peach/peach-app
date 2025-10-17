@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { ScrollView } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import { Drawer } from "./Drawer";
@@ -5,7 +6,7 @@ import { SelectionList } from "./SelectionList";
 import { HorizontalLine } from "./ui/HorizontalLine";
 
 export interface SelectionDrawerItem {
-  text: JSX.Element;
+  text: ReactElement;
   onPress: () => void;
   isSelected?: boolean;
   leftIcon?: string;
@@ -15,10 +16,10 @@ export interface SelectionDrawerItem {
 interface SelectionDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string | JSX.Element;
+  title: string | ReactElement;
   items: SelectionDrawerItem[];
   type?: "radioButton" | "checkbox";
-  resetButton?: JSX.Element;
+  resetButton?: ReactElement;
 }
 
 export function SelectionDrawer({

@@ -36,7 +36,7 @@ export type HeaderIcon = {
 };
 
 type HeaderConfig = {
-  subtitle?: JSX.Element;
+  subtitle?: ReactElement;
   icons?: (ReactElement | HeaderIcon)[];
   hideGoBackButton?: boolean;
   theme?: "default" | "inverted";
@@ -49,7 +49,7 @@ type HeaderConfig = {
     }
   | {
       title?: never;
-      titleComponent: JSX.Element;
+      titleComponent: ReactElement;
     }
 );
 

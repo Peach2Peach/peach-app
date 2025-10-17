@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
@@ -5,7 +6,7 @@ import { PeachText } from "../text/PeachText";
 type Props = ComponentProps & {
   text: string;
   textStyle?: ViewStyle | ViewStyle[];
-  IconComponent?: JSX.Element;
+  IconComponent?: ReactElement;
 };
 export const TradeInfo = ({ text, textStyle, IconComponent, style }: Props) => (
   <View

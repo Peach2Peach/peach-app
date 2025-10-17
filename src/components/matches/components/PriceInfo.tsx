@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { View } from "react-native";
 import { Currency } from "../../../../peach-api/src/@types/global";
 import { SATSINBTC } from "../../../constants";
@@ -13,7 +14,7 @@ type Props = {
   price: number;
   currency: Currency;
   premium: number;
-  miningFeeWarning?: JSX.Element;
+  miningFeeWarning?: ReactElement;
 };
 export function PriceInfo({
   amount,

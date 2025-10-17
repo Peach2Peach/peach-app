@@ -246,10 +246,6 @@ function SearchHeader({
     () => setPopup(<HelpPopup id="acceptTradeRequest" />),
     [setPopup],
   );
-  // const showSortAndFilterPopup = useCallback(
-  //   () => setPopup(<SellSorters />),
-  //   [setPopup],
-  // );
   const cancelOffer = useCallback(
     () => setPopup(<CancelOfferPopup offerId={offerId} />),
     [offerId, setPopup],
@@ -276,16 +272,14 @@ function SearchHeader({
           onPress: showAcceptTradeRequestPopup,
         },
       ];
-    } else {
-      return [{ ...headerIcons.percent, onPress: goToEditPremium }, ...icons];
     }
+    return [{ ...headerIcons.percent, onPress: goToEditPremium }, ...icons];
   }, [
     offer,
     cancelOffer,
     goToEditPremium,
     showAcceptTradeRequestPopup,
     tradeRequests,
-    displayedCurrency,
   ]);
 
   return <Header title={offerIdToHex(offerId)} icons={memoizedHeaderIcons} />;

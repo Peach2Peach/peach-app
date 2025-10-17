@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { View } from "react-native";
 import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
@@ -5,7 +6,7 @@ import { FixedHeightText } from "./text/FixedHeightText";
 
 type InfoContainerProps = {
   text: string;
-  icon: JSX.Element;
+  icon: ReactElement;
   color?: string;
   textColor?: string;
   backgroundColor?: string;

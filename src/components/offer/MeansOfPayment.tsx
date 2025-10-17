@@ -29,7 +29,6 @@ export function MeansOfPayment({
         currencies={currencies}
         selected={selectedCurrency}
         select={(a) => {
-          console.log("bottom", a, setDisplayedCurrency);
           setSelectedCurrency(a);
           if (setDisplayedCurrency !== undefined) {
             setDisplayedCurrency(a);

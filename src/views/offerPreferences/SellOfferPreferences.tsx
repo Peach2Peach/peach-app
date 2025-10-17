@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useRef, useState } from "react";
+import { type ReactElement, useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -191,8 +191,8 @@ function AmountSelectorContainer({
   slider,
   inputs,
 }: {
-  slider?: JSX.Element;
-  inputs?: JSX.Element;
+  slider?: ReactElement;
+  inputs?: ReactElement;
 }) {
   const { isDarkMode } = useThemeStore();
   return (

@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { Settings } from "../settings/Settings";
 import { Wallet } from "../wallet/Wallet";
 import { YourTrades } from "../yourTrades/YourTrades";
@@ -10,7 +11,7 @@ export const homeTabNames = [
   "settings",
 ] as const;
 export type HomeTabName = (typeof homeTabNames)[number];
-export const homeTabs: Record<HomeTabName, () => JSX.Element> = {
+export const homeTabs: Record<HomeTabName, () => ReactElement> = {
   home: Home,
   wallet: Wallet,
   yourTrades: YourTrades,

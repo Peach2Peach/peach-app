@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -6,9 +7,9 @@ import { statusCardStyles } from "./statusCardStyles";
 type Props = {
   onPress: () => void;
   color: keyof typeof statusCardStyles.bg;
-  statusInfo?: JSX.Element;
-  amountInfo?: JSX.Element;
-  label?: JSX.Element;
+  statusInfo?: ReactElement;
+  amountInfo?: ReactElement;
+  label?: ReactElement;
 };
 
 export function StatusCard({

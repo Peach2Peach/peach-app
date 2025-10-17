@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, type ReactElement, useEffect, useRef, useState } from "react";
 import { Animated, Modal, PanResponder, Pressable, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import { useThemeStore } from "../store/theme";
@@ -10,8 +10,8 @@ import { PeachText } from "./text/PeachText";
 interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string | JSX.Element;
-  children: JSX.Element;
+  title: string | ReactElement;
+  children: ReactElement;
   showCloseButton?: boolean;
   enableDragToClose?: boolean;
   customHeight?: number;

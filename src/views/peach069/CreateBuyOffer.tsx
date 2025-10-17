@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -421,8 +421,8 @@ function AmountSelectorContainer({
   inputs,
   type = "sell",
 }: {
-  slider?: JSX.Element;
-  inputs?: JSX.Element;
+  slider?: ReactElement;
+  inputs?: ReactElement;
   type?: "buy" | "sell";
 }) {
   const { isDarkMode } = useThemeStore();
@@ -531,7 +531,7 @@ function PublishOfferButton() {
     setBuyAmountRange(restrictAmount(amount));
   }
   const rangeIsValid = rangeIsWithinLimits;
-  const formValid = rangeIsValid; //&& methodsAreValid;
+  const formValid = rangeIsValid; // && methodsAreValid;
   const payoutToPeachWallet = useSettingsStore(
     (state) => state.payoutToPeachWallet,
   );
@@ -598,7 +598,7 @@ function PublishOfferButton() {
   const showErrorBanner = useShowErrorBanner();
   const showPublishingError = () => {
     let errorMessage;
-    let errorArgs: string[] = [];
+    const errorArgs: string[] = [];
     if (!originalPaymentData.length) {
       errorMessage = "PAYMENT_METHOD_MISSING";
     } else {

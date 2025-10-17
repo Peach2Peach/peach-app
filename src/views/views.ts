@@ -63,9 +63,11 @@ import { Welcome } from "./welcome/Welcome";
 import { WrongFundingAmount } from "./wrongFundingAmount/WrongFundingAmount";
 import { ExportTradeHistory } from "./yourTrades/ExportTradeHistory";
 
+import type { ReactElement } from "react";
+
 type ViewType = {
   name: keyof RootStackParamList;
-  component: () => JSX.Element;
+  component: () => ReactElement;
   animation?: "none";
 };
 

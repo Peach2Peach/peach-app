@@ -1,10 +1,11 @@
+import type { ReactElement } from "react";
 import { Keyboard, Pressable, StyleProp, View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 import { PopupActions } from "./PopupActions";
 
 export type PopupComponentProps = {
-  content?: JSX.Element | string;
+  content?: ReactElement | string;
   actions: React.ReactNode;
   title?: string;
   bgColor?: ViewStyle;
