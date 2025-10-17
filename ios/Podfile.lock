@@ -1887,6 +1887,8 @@ PODS:
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
     - SocketRocket
+  - react-native-cookies (6.2.1):
+    - React-Core
   - react-native-document-picker (10.1.7):
     - boost
     - DoubleConversion
@@ -3200,6 +3202,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - "react-native-cookies (from `../node_modules/@react-native-cookies/cookies`)"
   - "react-native-document-picker (from `../node_modules/@react-native-documents/picker`)"
   - react-native-fast-openpgp (from `../node_modules/react-native-fast-openpgp`)
   - react-native-mmkv-storage (from `../node_modules/react-native-mmkv-storage`)
@@ -3363,6 +3366,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-cookies:
+    :path: "../node_modules/@react-native-cookies/cookies"
   react-native-document-picker:
     :path: "../node_modules/@react-native-documents/picker"
   react-native-fast-openpgp:
@@ -3536,6 +3541,7 @@ SPEC CHECKSUMS:
   React-logger: 30adf849117e87cf86e88dca1824bb0f18f87e10
   React-Mapbuffer: 499069c3dcd4b438a70fcc2a65e8a4185ea9170b
   React-microtasksnativemodule: f0238469cb9894fd18c419137d312665b8fc05b3
+  react-native-cookies: d648ab7025833b977c0b19e142503034f5f29411
   react-native-document-picker: 1734eb0aa3dbd1cd7bf1b105936f9b55031ae616
   react-native-fast-openpgp: 42a99ddfafbd132457cb7964062431fbaf666484
   react-native-mmkv-storage: b7ce5a5eb3d3bfddcf2df127671abba6ef3d76ae

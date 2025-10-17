@@ -1,4 +1,6 @@
 import ecc from "@bitcoinerlab/secp256k1";
+import { API_URL } from "@env";
+import CookieManager from "@react-native-cookies/cookies";
 import { initEccLib } from "bitcoinjs-lib";
 import { useCallback } from "react";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
@@ -18,10 +20,16 @@ initEccLib(ecc);
 export function useInitApp() {
   const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const storedPublicKey = useAccountStore((state) => state.account.publicKey);
+  const cfClearance = useSettingsStore(
+    (state) => state.cloudflareChallenge?.cfClearance,
+  );
   const userUpdate = useUserUpdate();
   const { data: paymentMethods } = usePaymentMethods();
 
   const initApp = useCallback(async () => {
+    if (cfClearance) {
+      await setCookies(cfClearance);
+    }
     const publicKey = storedPublicKey || (await loadAccount());
     try {
       const statusResponse = await getPeachInfo();
@@ -37,9 +45,19 @@ export function useInitApp() {
     } catch (err) {
       return null;
     }
-  }, [paymentMethods, setIsLoggedIn, storedPublicKey, userUpdate]);
+  }, [cfClearance, paymentMethods, setIsLoggedIn, storedPublicKey, userUpdate]);
 
   return initApp;
+}
+
+async function setCookies(cfClearance: string) {
+  await CookieManager.set(API_URL, {
+    name: "cf_clearance",
+    value: cfClearance,
+    secure: true,
+    httpOnly: true,
+    domain: ".peachbitcoin.com",
+  });
 }
 
 async function loadAccount() {
