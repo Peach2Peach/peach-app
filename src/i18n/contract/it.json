@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Hai annullato lo scambio; la tua reputazione ne ha risentito.",
   "contract.buyer.collaborativeCancel.notResolved": "Devi accettare o rifiutare la cancellazione.",
   "contract.buyer.collaborativeCancel.resolved": "Hai accettato la cancellazione; il venditore è stato rimborsato.",
-  "contract.buyer.disputeLost": "Hai perso la disputa! La tua reputazione ne ha risentito e lo scambio è stato interrotto.",
-  "contract.buyer.disputeWon.awaitingPayout": "Hai vinto la disputa! La reputazione del venditore ne ha risentito e dovrà rilasciare i fondi.",
-  "contract.buyer.disputeWon.paidOut": "Hai vinto la disputa! Il venditore ha rilasciato i fondi a tuo favore.",
+  
+  "contract.buyer.disputeLost": "Hai perso la disputa!\n\n",
+    "contract.buyer.disputeWon": "Hai vinto la disputa!\n\n",
+    "contract.buyer.ownReputationImpacted": "La tua reputazione è stata influenzata.\n",
+    "contract.buyer.sellerReputationImpacted": "La reputazione del venditore è stata influenzata.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Il venditore è stato rimborsato.",
+    "contract.buyer.disputeWon.awaitingPayout": "Il venditore deve rilasciarti i fondi.\n\nSe non lo fa, i fondi verranno automaticamente rilasciati entro 30 giorni.",
+    "contract.buyer.disputeWon.paidOut": "Il venditore ti ha rilasciato i fondi.",
+  
+  
   "contract.buyer.paymentWasTooLate": "Hai pagato troppo tardi; il venditore ha annullato lo scambio. La tua reputazione è stata influenzata negativamente.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Pagamento in ritardo; il venditore può concedere più tempo o annullare lo scambio. La tua reputazione è stata influenzata.",
   "contract.buyer.sellerCanceledCashTrade": "Il venditore ha annullato lo scambio in contanti.",
@@ -71,10 +78,17 @@
   "contract.paymentTimerHasRunOut.title": "Pagamento non effettuato in tempo",
   "contract.provideEmail": "Fornisci email",
   "contract.respond": "Rispondi",
-  "contract.seller.disputeLost.escrowReleased": "Hai perso la disputa! Reputazione diminuita; deposito rilasciato al compratore.",
-  "contract.seller.disputeLost.releaseEscrow": "Hai perso la disputa! Reputazione diminuita; devi rilasciare il deposito al compratore.",
-  "contract.seller.disputeWon.refund": "Hai vinto la disputa! Reputazione del compratore diminuita; puoi ottenere il rimborso.",
-  "contract.seller.disputeWon.refundOrRepublish": "Hai vinto la disputa! Reputazione del compratore diminuita; puoi ripubblicare l'offerta o richiedere un rimborso.",
+  
+  "contract.seller.disputeLost": "Hai perso la disputa!\n\n",
+    "contract.seller.disputeWon": "Hai vinto la disputa!\n\n",
+    "contract.seller.ownReputationImpacted": "La tua reputazione è stata influenzata.\n",
+    "contract.seller.buyerReputationImpacted": "La reputazione dell’acquirente è stata influenzata.\n",
+    "contract.seller.disputeLost.escrowReleased": "Hai rilasciato l’escrow all’acquirente.",
+    "contract.seller.disputeLost.releaseEscrow": "Devi rilasciare l’escrow all’acquirente.",
+    "contract.seller.disputeWon.refund": "Ora puoi ottenere un rimborso.",
+    "contract.seller.disputeWon.refundOrRepublish": "Ora puoi ripubblicare l’offerta o ottenere un rimborso.",
+
+  
   "contract.seller.disputeWon.refunded": "Hai rimborsato questo scambio al tuo $0.",
   "contract.seller.disputeWon.republished": "Hai ripubblicato questo scambio. Trovi la nuova offerta qui.",
   "contract.seller.paymentTimerHasRunOut.cancelTrade": "Annulla scambio",

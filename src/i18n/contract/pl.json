@@ -14,9 +14,17 @@
   "contract.buyer.buyerCanceledTrade": "Anulowałeś transakcję, reputacja nadszarpnięta.",
   "contract.buyer.collaborativeCancel.notResolved": "Sprzedawca chce anulować transakcję. Możesz odmówić, jeśli zapłaciłeś.",
   "contract.buyer.collaborativeCancel.resolved": "Zgodziłeś się anulować, środki zwrócone sprzedawcy.",
-  "contract.buyer.disputeLost": "Spór przegrany! Reputacja nadszarpnięta, środki zwrócone sprzedawcy.",
-  "contract.buyer.disputeWon.awaitingPayout": "Spór wygrany! Reputacja sprzedawcy nadszarpnięta. Środki zostaną zwrócone w ciągu 30 dni, jeśli sprzedawca nie zrobi tego sam.",
-  "contract.buyer.disputeWon.paidOut": "Spór wygrany! Reputacja sprzedawcy nadszarpnięta, środki wypłacone na konto.",
+  
+  "contract.buyer.disputeLost": "Przegrałeś spór!\n\n",
+    "contract.buyer.disputeWon": "Wygrałeś spór!\n\n",
+    "contract.buyer.ownReputationImpacted": "Twoja reputacja została naruszona.\n",
+    "contract.buyer.sellerReputationImpacted": "Reputacja sprzedawcy została naruszona.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Sprzedawca otrzymał zwrot środków.",
+    "contract.buyer.disputeWon.awaitingPayout": "Sprzedawca musi przekazać ci środki.\n\nJeśli tego nie zrobi, środki zostaną automatycznie przekazane w ciągu 30 dni.",
+    "contract.buyer.disputeWon.paidOut": "Sprzedawca przekazał ci środki.",
+ 
+  
+  
   "contract.buyer.paymentWasTooLate": "Zapłaciłeś za późno, transakcja anulowana, reputacja nadszarpnięta.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Nie zapłacono na czas. Sprzedawca może dać więcej czasu lub anulować transakcję. Reputacja zostanie zmieniona.",
   "contract.buyer.sellerCanceledCashTrade": "Sprzedawca anulował transakcję gotówkową.",
@@ -74,10 +82,17 @@
   "contract.respond": "Odpowiedz",
   "contract.seller.buyerAgreedToCancel": "Kupujący zgodził się anulować. Wybierz zwrot satsów lub ponowną publikację.",
   "contract.seller.buyerCanceledWithoutRequest": "Kupujący anulował. Wybierz ponowną publikację lub zwrot depozytu $0.",
-  "contract.seller.disputeLost.escrowReleased": "Spór przegrany! Reputacja nadszarpnięta, uwolniono kaucję.",
-  "contract.seller.disputeLost.releaseEscrow": "Spór przegrany! Reputacja nadszarpnięta, uwolnij kaucję.",
-  "contract.seller.disputeWon.refund": "Spór wygrany! Reputacja kupującego nadszarpnięta, środki zwrócone.",
-  "contract.seller.disputeWon.refundOrRepublish": "Spór wygrany! Reputacja kupującego nadszarpnięta. Wybierz ponowną publikację lub zwrot środków.",
+  
+"contract.seller.disputeLost": "Przegrałeś spór!\n\n",
+    "contract.seller.disputeWon": "Wygrałeś spór!\n\n",
+    "contract.seller.ownReputationImpacted": "Twoja reputacja została naruszona.\n",
+    "contract.seller.buyerReputationImpacted": "Reputacja kupującego została naruszona.\n",
+    "contract.seller.disputeLost.escrowReleased": "Zwolniłeś depozyt dla kupującego.",
+    "contract.seller.disputeLost.releaseEscrow": "Musisz zwolnić depozyt dla kupującego.",
+    "contract.seller.disputeWon.refund": "Możesz teraz otrzymać zwrot środków.",
+    "contract.seller.disputeWon.refundOrRepublish": "Możesz teraz ponownie opublikować ofertę lub otrzymać zwrot.",
+
+
   "contract.seller.disputeWon.refunded": "Środki zwrócone na konto $0.",
   "contract.seller.disputeWon.republished": "Transakcja ponownie opublikowana. Nowa oferta poniżej.",
   "contract.seller.giveMoreTime": "Daj więcej czasu",

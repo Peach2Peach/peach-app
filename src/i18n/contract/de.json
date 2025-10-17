@@ -14,9 +14,15 @@
   "contract.buyer.buyerCanceledTrade": "Du hast den Handel abgebrochen, Ruf beeinträchtigt.",
   "contract.buyer.collaborativeCancel.notResolved": "Du musst der Stornierung zustimmen oder sie ablehnen.",
   "contract.buyer.collaborativeCancel.resolved": "Du hast zugestimmt, Verkäufer wurde rückerstattet.",
-  "contract.buyer.disputeLost": "Streit verloren! Ruf beeinträchtigt, Handel beendet.",
-  "contract.buyer.disputeWon.awaitingPayout": "Streit gewonnen! Ruf des Verkäufers beeinträchtigt, Sats ausstehend.",
-  "contract.buyer.disputeWon.paidOut": "Streit gewonnen! Ruf des Verkäufers beeinträchtigt, Sats freigegeben.",
+  
+  "contract.buyer.disputeLost": "Du hast den Streit verloren!\n\n",
+    "contract.buyer.disputeWon": "Du hast den Streit gewonnen!\n\n",
+    "contract.buyer.ownReputationImpacted": "Dein Ruf wurde beeinträchtigt.\n",
+    "contract.buyer.sellerReputationImpacted": "Der Ruf des Verkäufers wurde beeinträchtigt.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Der Verkäufer wurde erstattet.",
+    "contract.buyer.disputeWon.awaitingPayout": "Der Verkäufer muss dir die Gelder freigeben.\n\nFalls nicht, werden sie spätestens nach 30 Tagen automatisch freigegeben.",
+    "contract.buyer.disputeWon.paidOut": "Der Verkäufer hat dir die Gelder freigegeben.",
+ 
   "contract.buyer.paymentWasTooLate": "Zahlung zu spät, Handel abgebrochen, Ruf beeinträchtigt.",
   "contract.buyer.sellerCanceledCashTrade": "Verkäufer hat diesen Barhandel abgebrochen.",
   "contract.cancel.buyer": "Bist du sicher?\n\nStornierung wirkt stark auf deinen Ruf.",
@@ -70,10 +76,18 @@
   "contract.paymentTimerHasRunOut.title": "Nicht rechtzeitig bezahlt",
   "contract.provideEmail": "E-Mail-Adresse angeben",
   "contract.respond": "Antworten",
-  "contract.seller.disputeLost.escrowReleased": "Streit verloren! Ruf beeinträchtigt, Escrow freigegeben.",
-  "contract.seller.disputeLost.releaseEscrow": "Streit verloren! Ruf beeinträchtigt, Escrow an Käufer freigeben.",
-  "contract.seller.disputeWon.refund": "Streit gewonnen! Ruf des Käufers beeinträchtigt, Rückerstattung möglich.",
-  "contract.seller.disputeWon.refundOrRepublish": "Streit gewonnen! Ruf des Käufers beeinträchtigt, Angebot neu veröffentlichen oder Rückerstattung erhalten.",
+  
+  "contract.seller.disputeLost": "Du hast den Streit verloren!\n\n",
+    "contract.seller.disputeWon": "Du hast den Streit gewonnen!\n\n",
+    "contract.seller.ownReputationImpacted": "Dein Ruf wurde beeinträchtigt.\n",
+    "contract.seller.buyerReputationImpacted": "Der Ruf des Käufers wurde beeinträchtigt.\n",
+    "contract.seller.disputeLost.escrowReleased": "Du hast das Treuhandgeld an den Käufer freigegeben.",
+    "contract.seller.disputeLost.releaseEscrow": "Du musst das Treuhandgeld an den Käufer freigeben.",
+    "contract.seller.disputeWon.refund": "Du kannst jetzt eine Rückerstattung erhalten.",
+    "contract.seller.disputeWon.refundOrRepublish": "Du kannst das Angebot erneut veröffentlichen oder eine Rückerstattung erhalten.",
+  
+  
+  
   "contract.seller.disputeWon.refunded": "Handel an deine $0 zurückerstattet.",
   "contract.seller.disputeWon.republished": "Handel neu veröffentlicht. Angebot unten verfügbar.",
   "contract.seller.paymentTimerHasRunOut.cancelTrade": "Handel abbrechen",

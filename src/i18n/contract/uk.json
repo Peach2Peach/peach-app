@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Ви скасували обмін, це вплинуло на вашу репутацію.",
   "contract.buyer.collaborativeCancel.notResolved": "Потрібно погодитися або відхилити скасування.",
   "contract.buyer.collaborativeCancel.resolved": "Ви погодилися скасувати обмін, продавцю повернено кошти.",
-  "contract.buyer.disputeLost": "Ви програли диспут. Репутація постраждала, торгівлю зупинено.",
-  "contract.buyer.disputeWon.awaitingPayout": "Ви виграли диспут! Репутація продавця постраждала, очікуйте повернення коштів.",
-  "contract.buyer.disputeWon.paidOut": "Ви виграли диспут! Репутація продавця постраждала, кошти будуть повернені.",
+  
+   "contract.buyer.disputeLost": "Ви програли спір!\n\n",
+    "contract.buyer.disputeWon": "Ви виграли спір!\n\n",
+    "contract.buyer.ownReputationImpacted": "Ваша репутація була порушена.\n",
+    "contract.buyer.sellerReputationImpacted": "Репутація продавця була порушена.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Продавцю було повернено кошти.",
+    "contract.buyer.disputeWon.awaitingPayout": "Продавець має перерахувати вам кошти.\n\nЯкщо цього не станеться, кошти буде автоматично перераховано протягом 30 днів.",
+    "contract.buyer.disputeWon.paidOut": "Продавець перерахував вам кошти.",
+ 
+  
   "contract.buyer.paymentWasTooLate": "Запізнилися з оплатою, продавець скасував обмін. Репутація постраждала.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Не сплатили вчасно. Продавець може дати більше часу або скасувати угоду. Репутація постраждала.",
   "contract.buyer.sellerCanceledCashTrade": "Продавець скасував продаж готівкою.",
@@ -74,10 +81,17 @@
   "contract.respond": "Відповісти",
   "contract.seller.buyerAgreedToCancel": "Покупець погодився скасувати угоду. Можна повернути кошти або опублікувати повторно.",
   "contract.seller.buyerCanceledWithoutRequest": "Покупець відмовився від торгівлі. Вирішіть: повторна публікація чи відшкодування.",
-  "contract.seller.disputeLost.escrowReleased": "Програли диспут. Репутація постраждала, депозит передано покупцеві.",
-  "contract.seller.disputeLost.releaseEscrow": "Програли диспут. Репутація постраждала, депозит повернено покупцеві.",
-  "contract.seller.disputeWon.refund": "Виграли диспут! Репутація покупця постраждала, можна отримати відшкодування.",
-  "contract.seller.disputeWon.refundOrRepublish": "Виграли диспут! Репутація покупця постраждала. Можна створити нову пропозицію або отримати відшкодування.",
+  
+  "contract.seller.disputeLost": "Ви програли спір!\n\n",
+    "contract.seller.disputeWon": "Ви виграли спір!\n\n",
+    "contract.seller.ownReputationImpacted": "Ваша репутація постраждала.\n",
+    "contract.seller.buyerReputationImpacted": "Репутація покупця постраждала.\n",
+    "contract.seller.disputeLost.escrowReleased": "Ви перевели кошти покупцеві.",
+    "contract.seller.disputeLost.releaseEscrow": "Вам потрібно перевести кошти покупцеві.",
+    "contract.seller.disputeWon.refund": "Тепер ви можете отримати відшкодування.",
+    "contract.seller.disputeWon.refundOrRepublish": "Тепер ви можете повторно опублікувати пропозицію або отримати відшкодування.",
+ 
+
   "contract.seller.disputeWon.refunded": "Ви відшкодували торгівлю на 0$.",
   "contract.seller.disputeWon.republished": "Торгівлю опубліковано повторно. Знайдіть нову пропозицію нижче.",
   "contract.seller.giveMoreTime": "Дати більше часу",

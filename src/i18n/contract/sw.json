@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Umegairi biashara; sifa yako imeathirika.",
   "contract.buyer.collaborativeCancel.notResolved": "Muuzaji anataka kughairi. Unaweza kukataa, hasa ikiwa tayari umefanya malipo.",
   "contract.buyer.collaborativeCancel.resolved": "Ulikubali kughairi; muuzaji amerejeshewa fedha.",
-  "contract.buyer.disputeLost": "Ulipoteza mzozo! Sifa yako imeathirika na muuzaji amerejeshewa fedha.",
-  "contract.buyer.disputeWon.awaitingPayout": "Umeshinda mzozo! Sifa ya muuzaji imeathirika. Fedha zitakutolewa ndani ya siku 30 ikiwa hazitolewi mapema.",
-  "contract.buyer.disputeWon.paidOut": "Umeshinda mzozo! Sifa ya muuzaji imeathirika na fedha zimeachiliwa kwako.",
+  
+  "contract.buyer.disputeLost": "Umechanganya katika mgogoro!\n\n",
+    "contract.buyer.disputeWon": "Umeshinda mgogoro!\n\n",
+    "contract.buyer.ownReputationImpacted": "Sifa yako imeathiriwa.\n",
+    "contract.buyer.sellerReputationImpacted": "Sifa ya muuzaji imeathiriwa.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Muuzaji amerejeshewa fedha.",
+    "contract.buyer.disputeWon.awaitingPayout": "Muuzaji anapaswa kukuachilia fedha.\n\nAsipofanya hivyo, fedha zitaachiliwa kiotomatiki ndani ya siku 30.",
+    "contract.buyer.disputeWon.paidOut": "Muuzaji amekuachilia fedha.",
+
+  
   "contract.buyer.paymentWasTooLate": "Ulichukua muda kulipa; muuzaji amebatilisha biashara. Sifa yako imeathirika.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Hukulipa kwa wakati; muuzaji anaweza kutoa muda zaidi au kufuta biashara. Sifa yako bado imeathirika.",
   "contract.buyer.sellerCanceledCashTrade": "Muuzaji amebatilisha biashara ya pesa taslimu.",
@@ -74,10 +81,17 @@
   "contract.respond": "Jibu",
   "contract.seller.buyerAgreedToCancel": "Mnunuzi amekubali kufuta. Unaweza kurejeshewa escrow au kuchapisha upya ofa.",
   "contract.seller.buyerCanceledWithoutRequest": "Mnunuzi alighairi biashara. Chagua kurudisha escrow au kuchapisha upya ofa.",
-  "contract.seller.disputeLost.escrowReleased": "Ulipoteza mzozo! Sifa yako imeathirika na escrow imeachiliwa kwa mnunuzi.",
-  "contract.seller.disputeLost.releaseEscrow": "Ulipoteza mzozo! Sifa yako imeathirika; unahitaji kuachilia escrow kwa mnunuzi.",
-  "contract.seller.disputeWon.refund": "Umeshinda mzozo! Sifa ya mnunuzi imeathirika; unaweza kupata kurudishiwa.",
-  "contract.seller.disputeWon.refundOrRepublish": "Umeshinda mzozo! Sifa ya mnunuzi imeathirika. Chagua kuchapisha upya ofa au kupata kurudishiwa.",
+  
+  "contract.seller.disputeLost": "Umechanganya katika mgogoro!\n\n",
+    "contract.seller.disputeWon": "Umeshinda mgogoro!\n\n",
+    "contract.seller.ownReputationImpacted": "Sifa yako imeathiriwa.\n",
+    "contract.seller.buyerReputationImpacted": "Sifa ya mnunuzi imeathiriwa.\n",
+    "contract.seller.disputeLost.escrowReleased": "Umetoa amana kwa mnunuzi.",
+    "contract.seller.disputeLost.releaseEscrow": "Unapaswa kutoa amana kwa mnunuzi.",
+    "contract.seller.disputeWon.refund": "Sasa unaweza kurejeshewa fedha.",
+    "contract.seller.disputeWon.refundOrRepublish": "Sasa unaweza kuchapisha tena ofa au kurejeshewa fedha.",
+ 
+
   "contract.seller.disputeWon.refunded": "Umeamua kurudisha biashara hii kwenye pochi yako ya $0.",
   "contract.seller.disputeWon.republished": "Umechagua kuchapisha tena biashara hii. Ofa mpya inapatikana hapa chini.",
   "contract.seller.giveMoreTime": "Toa muda zaidi",

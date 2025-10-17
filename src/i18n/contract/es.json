@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Has cancelado el intercambio; tu reputación se ha visto afectada.",
   "contract.buyer.collaborativeCancel.notResolved": "El vendedor quiere cancelar este intercambio. Si ya pagaste, puedes denegar la cancelación.",
   "contract.buyer.collaborativeCancel.resolved": "Has aceptado cancelar el intercambio; el vendedor ha sido reembolsado.",
-  "contract.buyer.disputeLost": "Has perdido la disputa. Tu reputación se ha visto afectada y el vendedor ha sido reembolsado.",
-  "contract.buyer.disputeWon.awaitingPayout": "¡Has ganado la disputa! La reputación del vendedor se ha visto afectada y debe liberar los fondos para ti. Si no lo hace, se enviarán automáticamente en 30 días.",
-  "contract.buyer.disputeWon.paidOut": "¡Has ganado la disputa! La reputación del vendedor se ha visto afectada; ha liberado los fondos a tu cartera.",
+  
+   "contract.buyer.disputeLost": "¡Perdiste la disputa!\n\n",
+    "contract.buyer.disputeWon": "¡Ganaste la disputa!\n\n",
+    "contract.buyer.ownReputationImpacted": "Tu reputación se ha visto afectada.\n",
+    "contract.buyer.sellerReputationImpacted": "La reputación del vendedor se ha visto afectada.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "El vendedor ha sido reembolsado.",
+    "contract.buyer.disputeWon.awaitingPayout": "El vendedor deberá liberar los fondos para ti.\n\nSi no lo hace, los fondos se liberarán automáticamente en un máximo de 30 días.",
+    "contract.buyer.disputeWon.paidOut": "El vendedor ha liberado los fondos para ti.",
+
+  
   "contract.buyer.paymentWasTooLate": "Pagaste tarde; el vendedor canceló el intercambio. Tu reputación se ha visto afectada.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "No pagaste a tiempo; el vendedor puede darte más tiempo o cancelar el intercambio. Tu reputación se verá afectada de cualquier forma.",
   "contract.buyer.sellerCanceledCashTrade": "El vendedor canceló este intercambio en efectivo.",
@@ -74,10 +81,18 @@
   "contract.respond": "responder",
   "contract.seller.buyerAgreedToCancel": "El comprador aceptó cancelar. Puedes ser reembolsado o republicar la oferta.",
   "contract.seller.buyerCanceledWithoutRequest": "El comprador canceló. Decide si republicar la oferta o reembolsar los fondos a $0.",
-  "contract.seller.disputeLost.escrowReleased": "Has perdido la disputa; tu reputación se afectó y los fondos se liberaron al comprador.",
-  "contract.seller.disputeLost.releaseEscrow": "Has perdido la disputa; tu reputación se afectó y debes liberar los fondos al comprador.",
-  "contract.seller.disputeWon.refund": "¡Has ganado la disputa! La reputación del comprador se afectó; ya puedes ser reembolsado.",
-  "contract.seller.disputeWon.refundOrRepublish": "¡Has ganado la disputa! La reputación del comprador se afectó. Puedes republicar la oferta o ser reembolsado.",
+  
+  "contract.seller.disputeLost": "¡Perdiste la disputa!\n\n",
+    "contract.seller.disputeWon": "¡Ganaste la disputa!\n\n",
+    "contract.seller.ownReputationImpacted": "Tu reputación se ha visto afectada.\n",
+    "contract.seller.buyerReputationImpacted": "La reputación del comprador se ha visto afectada.\n",
+    "contract.seller.disputeLost.escrowReleased": "Has liberado el depósito al comprador.",
+    "contract.seller.disputeLost.releaseEscrow": "Debes liberar el depósito al comprador.",
+    "contract.seller.disputeWon.refund": "Ahora puedes recibir el reembolso.",
+    "contract.seller.disputeWon.refundOrRepublish": "Ahora puedes volver a publicar la oferta o recibir el reembolso.",
+
+  
+  
   "contract.seller.disputeWon.refunded": "Has decidido reembolsar este intercambio a tu $0.",
   "contract.seller.disputeWon.republished": "Has elegido republicar tu oferta. Encuentra los detalles abajo.",
   "contract.seller.giveMoreTime": "dar más tiempo",

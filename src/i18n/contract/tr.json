@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Ticareti iptal ettin, itibarın etkilendi.",
   "contract.buyer.collaborativeCancel.notResolved": "İptali kabul veya reddetmelisin.",
   "contract.buyer.collaborativeCancel.resolved": "Ticareti iptal etmeyi kabul ettin, satıcıya geri ödeme yapıldı.",
-  "contract.buyer.disputeLost": "Anlaşmazlığı kaybettin! İtibarın etkilendi, ticaret sona erdi.",
-  "contract.buyer.disputeWon.awaitingPayout": "Anlaşmazlığı kazandın! Satıcının itibarı etkilendi, ödeme bekleniyor.",
-  "contract.buyer.disputeWon.paidOut": "Anlaşmazlığı kazandın! Satıcının itibarı etkilendi ve ödeme sana bırakıldı.",
+  
+  "contract.buyer.disputeLost": "Uyuşmazlığı kaybettiniz!\n\n",
+    "contract.buyer.disputeWon": "Uyuşmazlığı kazandınız!\n\n",
+    "contract.buyer.ownReputationImpacted": "İtibarınız etkilendi.\n",
+    "contract.buyer.sellerReputationImpacted": "Satıcının itibarı etkilendi.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Satıcıya geri ödeme yapıldı.",
+    "contract.buyer.disputeWon.awaitingPayout": "Satıcının fonları size göndermesi gerekiyor.\n\nGöndermezse, fonlar en geç 30 gün içinde otomatik olarak serbest bırakılır.",
+    "contract.buyer.disputeWon.paidOut": "Satıcı fonları size gönderdi.",
+  
+  
   "contract.buyer.paymentWasTooLate": "Ödemeyi geç yaptın, ticaret iptal edildi. İtibarın etkilendi.",
   "contract.buyer.sellerCanceledCashTrade": "Satıcı bu nakit ticaretini iptal etti.",
   "contract.cancel.buyer": "Emin misin?\nSatıcı seni tekrar eşleştirdi, iptal itibarını büyük etkiler.",
@@ -70,10 +77,17 @@
   "contract.paymentTimerHasRunOut.title": "Zamanında ödenmedi",
   "contract.provideEmail": "E-postanı gir",
   "contract.respond": "Cevapla",
-  "contract.seller.disputeLost.escrowReleased": "Anlaşmazlığı kaybettin! İtibarın etkilendi, emanet alıcıya verildi.",
-  "contract.seller.disputeLost.releaseEscrow": "Anlaşmazlığı kaybettin! İtibarın etkilendi, emanet alıcıya bırakılmalı.",
-  "contract.seller.disputeWon.refund": "Anlaşmazlığı kazandın! Alıcının itibarı etkilendi, geri ödeme alabilirsin.",
-  "contract.seller.disputeWon.refundOrRepublish": "Anlaşmazlığı kazandın! Alıcının itibarı etkilendi, teklifi yeniden yayınlayabilir veya geri ödeme alabilirsin.",
+ 
+  "contract.seller.disputeLost": "Uyuşmazlığı kaybettiniz!\n\n",
+    "contract.seller.disputeWon": "Uyuşmazlığı kazandınız!\n\n",
+    "contract.seller.ownReputationImpacted": "İtibarınız etkilendi.\n",
+    "contract.seller.buyerReputationImpacted": "Alıcının itibarı etkilendi.\n",
+    "contract.seller.disputeLost.escrowReleased": "Emaneti alıcıya serbest bıraktınız.",
+    "contract.seller.disputeLost.releaseEscrow": "Emaneti alıcıya serbest bırakmanız gerekiyor.",
+    "contract.seller.disputeWon.refund": "Artık geri ödeme alabilirsiniz.",
+    "contract.seller.disputeWon.refundOrRepublish": "Artık teklifi yeniden yayınlayabilir veya geri ödeme alabilirsiniz.",
+ 
+
   "contract.seller.disputeWon.refunded": "Ticareti geri ödemeye karar verdin: $0",
   "contract.seller.disputeWon.republished": "Ticareti yeniden yayınlamayı seçtin. Yeni teklif aşağıda.",
   "contract.seller.paymentTimerHasRunOut.cancelTrade": "Ticareti iptal et",
