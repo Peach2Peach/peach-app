@@ -1,7 +1,6 @@
 import {
   NavigationContext,
   NavigationRouteContext,
-  NavigationState,
 } from "@react-navigation/native";
 
 export const navigateMock = jest.fn();
@@ -15,25 +14,23 @@ const isFocusedMock = jest.fn().mockReturnValue(true);
 const unsubscribeMock = jest.fn();
 const addListenerMock = jest.fn(() => unsubscribeMock);
 const setOptionsMock = jest.fn();
-export const getStateMock = jest.fn(
-  (): NavigationState<RootStackParamList> => ({
-    routes: [
-      {
-        key: "homeScreen",
-        name: "homeScreen",
-      },
-      {
-        key: "meetupScreen",
-        name: "meetupScreen",
-      },
-    ],
-    index: 1,
-    key: "key",
-    routeNames: ["homeScreen"],
-    type: "stack",
-    stale: false,
-  }),
-);
+export const getStateMock = jest.fn(() => ({
+  routes: [
+    {
+      key: "homeScreen",
+      name: "homeScreen",
+    },
+    {
+      key: "meetupScreen",
+      name: "meetupScreen",
+    },
+  ],
+  index: 1,
+  key: "key",
+  routeNames: ["homeScreen"],
+  type: "stack",
+  stale: false,
+}));
 const dispatchMock = jest.fn();
 const getIdMock = jest.fn();
 const getParentMock = jest.fn();

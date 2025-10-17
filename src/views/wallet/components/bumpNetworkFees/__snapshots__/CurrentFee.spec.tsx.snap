@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`CurrentFee renders correctly 1`] = `
-<FeeInfo
-  fee={1}
-  label="current transaction fee"
-/>
-`;

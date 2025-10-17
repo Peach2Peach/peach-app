@@ -49,7 +49,7 @@ export const YourTrades = () => {
         initialRouteName={params?.tab || "yourTrades.69BuyOffer"}
         screenOptions={{
           ...fullScreenTabNavigationScreenOptions,
-          sceneStyle: tx`px-sm md:px-md`,
+          sceneStyle: tw`px-sm md:px-md`,
         }}
       >
         {tabs.map((tab) => (
