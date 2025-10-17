@@ -267,8 +267,9 @@
   "search.unmatch": "takip talebini geri al",
   "search.popups.unmatched": "takas talebi geri alındı!",
   "search.popups.unmatch.title": "talebi geri almak istiyor musun?",
-  "search.popups.unmatch.text": "Geri almak itibar puanını olumsuz etkiler.\n12 saat sonra cezasız geri alabilirsin.",
-  "search.popups.unmatch.confirm": "evet, geri al",
+  "search.popups.unmatch.text": "Geri almak itibar puanınızı olumsuz etkiler.\n$0 saat sonra cezasız geri alabilirsiniz.",
+    "search.popups.unmatchNoPenalty.text": "Geri almak itibar puanınızı olumsuz etkiler.\nŞimdi cezasız geri alabilirsiniz!",
+   "search.popups.unmatch.confirm": "evet, geri al",
   "search.popups.matchUndone.title": "takas talebi geri alındı",
   "search.popups.matchUndone.text": "İtibarın etkilenmedi, tekrar talep gönderebilirsin.\n\nZamanlayıcı dolduktan sonra geri alırsan, itibarın düşer."
 }

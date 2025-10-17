@@ -272,7 +272,8 @@
   "search.unmatch": "cofnij prośbę o wymianę",
     "search.popups.unmatched": "prośba o wymianę cofnięta!",
     "search.popups.unmatch.title": "cofnąć prośbę?",
-    "search.popups.unmatch.text": "Cofnięcie wpłynie negatywnie na twoją reputację.\nPo 12 godzinach możesz cofnąć bez kary.",
+    "search.popups.unmatch.text": "Cofnięcie tego wpłynie negatywnie na Twój wynik reputacji.\nMożesz cofnąć to bez kary po $0 godzinach.",
+    "search.popups.unmatchNoPenalty.text": "Cofnięcie tego wpłynie negatywnie na Twój wynik reputacji.\nMożesz cofnąć to teraz bez kary!",
     "search.popups.unmatch.confirm": "tak, cofnij",
     "search.popups.matchUndone.title": "prośba cofnięta",
     "search.popups.matchUndone.text": "Twoja reputacja nie została naruszona, możesz ponowić prośbę.\n\nPo upływie czasu cofnięcie wpłynie negatywnie na reputację."

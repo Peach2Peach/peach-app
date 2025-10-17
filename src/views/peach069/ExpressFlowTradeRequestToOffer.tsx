@@ -259,7 +259,7 @@ export function ExpressFlowTradeRequestToOffer({
                 }
               />
             </View>
-            {isMatched && (
+            {offerTradeRequestPerformedBySelfUser && (
               <>
                 <View
                   style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}
@@ -582,18 +582,34 @@ export const UnmatchButton = ({
   undoInTimeCallback: () => void;
   onTimerSuccess: () => Promise<void>;
   unmatchCallback: () => Promise<void>;
-  match: any;
+  match: BuyOffer69TradeRequest | SellOffer69TradeRequest;
 }) => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
 
   const [showUnmatch, setShowUnmatch] = useState(Boolean(match));
 
+  const hoursPassedSinceTradeRequestPerformed = Math.floor(
+    (Date.now() - match.creationDate.getTime()) / (1000 * 60 * 60),
+  );
+
+  const hoursNeededUntilTradeReqIsPenaltyFree = Math.max(
+    12 - hoursPassedSinceTradeRequestPerformed,
+    0,
+  );
+
   const showUnmatchPopup = useCallback(() => {
     setPopup(
       <WarningPopup
         title={i18n("search.popups.unmatch.title")}
-        content={i18n("search.popups.unmatch.text")}
+        content={
+          hoursNeededUntilTradeReqIsPenaltyFree > 0
+            ? i18n(
+                "search.popups.unmatch.text",
+                String(hoursNeededUntilTradeReqIsPenaltyFree),
+              )
+            : i18n("search.popups.unmatchNoPenalty.text")
+        }
         actions={
           <>
             <PopupAction
