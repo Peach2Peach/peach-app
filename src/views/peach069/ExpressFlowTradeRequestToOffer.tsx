@@ -259,7 +259,7 @@ export function ExpressFlowTradeRequestToOffer({
                 }
               />
             </View>
-            {offerTradeRequestPerformedBySelfUser && (
+            {isMatched && (
               <>
                 <View
                   style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}
@@ -582,16 +582,16 @@ export const UnmatchButton = ({
   undoInTimeCallback: () => void;
   onTimerSuccess: () => Promise<void>;
   unmatchCallback: () => Promise<void>;
-  match: BuyOffer69TradeRequest | SellOffer69TradeRequest;
+  match: BuyOffer69TradeRequest | SellOffer69TradeRequest | undefined;
 }) => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
 
   const [showUnmatch, setShowUnmatch] = useState(Boolean(match));
 
-  const hoursPassedSinceTradeRequestPerformed = Math.floor(
-    (Date.now() - match.creationDate.getTime()) / (1000 * 60 * 60),
-  );
+  const hoursPassedSinceTradeRequestPerformed = match
+    ? Math.floor((Date.now() - match.creationDate.getTime()) / (1000 * 60 * 60))
+    : 0;
 
   const hoursNeededUntilTradeReqIsPenaltyFree = Math.max(
     12 - hoursPassedSinceTradeRequestPerformed,
