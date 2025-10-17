@@ -107,9 +107,9 @@
 
  <string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Trade Request Chat</string>
 <string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">You got a chat message on your Trade Request</string>
-<string name="notification.title.offer.newBuyOfferMatchesPreferences">There is a new Offer that matches your Preferences.</string>
-<string name="notification.body.offer.newBuyOfferMatchesPreferences">New Buy Offer!</string>
+<string name="notification.body.offer.newBuyOfferMatchesPreferences">There is a new Offer that matches your Preferences.</string>
+<string name="notification.title.offer.newBuyOfferMatchesPreferences">New Buy Offer!</string>
 
-<string name="notification.title.offer.newSellOfferMatchesPreferences">There is a new Offer that matches your Preferences.</string>
-<string name="notification.body.offer.newSellOfferMatchesPreferences">New Sell Offer!</string>
+<string name="notification.body.offer.newSellOfferMatchesPreferences">There is a new Offer that matches your Preferences.</string>
+<string name="notification.title.offer.newSellOfferMatchesPreferences">New Sell Offer!</string>
 </resources>

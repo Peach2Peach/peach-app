@@ -97,7 +97,7 @@
 "notification.title.offer.expressFlowTradeRequestChatMessageReceived" = "Trade-Anfrage Chat";
 "notification.body.offer.expressFlowTradeRequestChatMessageReceived" = "Du hast eine Chat-Nachricht zu deiner Trade-Anfrage erhalten";
 
-"notification.title.offer.newBuyOfferMatchesPreferences" = "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.";
-"notification.body.offer.newBuyOfferMatchesPreferences" = "Neues Kaufangebot!";
-"notification.title.offer.newSellOfferMatchesPreferences" = "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.";
-"notification.body.offer.newSellOfferMatchesPreferences" = "Neues Verkaufsangebot!";
+"notification.body.offer.newBuyOfferMatchesPreferences" = "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.";
+"notification.title.offer.newBuyOfferMatchesPreferences" = "Neues Kaufangebot!";
+"notification.body.offer.newSellOfferMatchesPreferences" = "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.";
+"notification.title.offer.newSellOfferMatchesPreferences" = "Neues Verkaufsangebot!";

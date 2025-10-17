@@ -96,9 +96,9 @@
 <string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Chat de demande d’échange</string>
 <string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">Vous avez reçu un message de chat concernant votre demande d’échange</string>
 
-<string name="notification.title.offer.newBuyOfferMatchesPreferences">Une nouvelle offre correspond à vos préférences.</string>
-<string name="notification.body.offer.newBuyOfferMatchesPreferences">Nouvelle offre d'achat !</string>
+<string name="notification.body.offer.newBuyOfferMatchesPreferences">Une nouvelle offre correspond à vos préférences.</string>
+<string name="notification.title.offer.newBuyOfferMatchesPreferences">Nouvelle offre d'achat !</string>
 
-<string name="notification.title.offer.newSellOfferMatchesPreferences">Une nouvelle offre correspond à vos préférences.</string>
-<string name="notification.body.offer.newSellOfferMatchesPreferences">Nouvelle offre de vente !</string>
+<string name="notification.body.offer.newSellOfferMatchesPreferences">Une nouvelle offre correspond à vos préférences.</string>
+<string name="notification.title.offer.newSellOfferMatchesPreferences">Nouvelle offre de vente !</string>
 </resources>

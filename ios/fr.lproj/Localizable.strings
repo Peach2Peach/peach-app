@@ -95,7 +95,7 @@
 "notification.title.offer.expressFlowTradeRequestChatMessageReceived" = "Chat de demande d’échange";
 "notification.body.offer.expressFlowTradeRequestChatMessageReceived" = "Vous avez reçu un message de chat concernant votre demande d’échange";
 
-"notification.title.offer.newBuyOfferMatchesPreferences" = "Une nouvelle offre correspond à vos préférences.";
-"notification.body.offer.newBuyOfferMatchesPreferences" = "Nouvelle offre d'achat !";
-"notification.title.offer.newSellOfferMatchesPreferences" = "Une nouvelle offre correspond à vos préférences.";
-"notification.body.offer.newSellOfferMatchesPreferences" = "Nouvelle offre de vente !";
+"notification.body.offer.newBuyOfferMatchesPreferences" = "Une nouvelle offre correspond à vos préférences.";
+"notification.title.offer.newBuyOfferMatchesPreferences" = "Nouvelle offre d'achat !";
+"notification.body.offer.newSellOfferMatchesPreferences" = "Une nouvelle offre correspond à vos préférences.";
+"notification.title.offer.newSellOfferMatchesPreferences" = "Nouvelle offre de vente !";
