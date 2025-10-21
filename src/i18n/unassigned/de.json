@@ -269,8 +269,9 @@
   "search.unmatch": "Trade-Anfrage rückgängig machen",
   "search.popups.unmatched": "Trade-Anfrage rückgängig gemacht!",
   "search.popups.unmatch.title": "Trade-Anfrage rückgängig machen?",
-  "search.popups.unmatch.text": "Das Rückgängigmachen wirkt sich negativ auf deinen Ruf aus.\nNach 12 Stunden kannst du sie ohne Strafe rückgängig machen.",
-  "search.popups.unmatch.confirm": "Ja, rückgängig machen",
+  "search.popups.unmatch.text": "Das Rückgängig machen wirkt sich negativ auf deinen Ruf aus.\nDu kannst es nach $0 Stunden ohne Strafe rückgängig machen.",
+    "search.popups.unmatchNoPenalty.text": "Das Rückgängig machen wirkt sich negativ auf deinen Ruf aus.\nDu kannst es jetzt ohne Strafe rückgängig machen!",
+"search.popups.unmatch.confirm": "Ja, rückgängig machen",
   "search.popups.matchUndone.title": "Trade-Anfrage rückgängig gemacht",
   "search.popups.matchUndone.text": "Dein Ruf wurde nicht beeinträchtigt, du kannst jederzeit erneut anfragen.\n\nWenn du nach Ablauf des Timers rückgängig machst, wird dein Ruf negativ beeinflusst."
 }

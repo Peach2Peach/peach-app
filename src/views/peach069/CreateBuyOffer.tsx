@@ -591,7 +591,6 @@ function PublishOfferButton() {
     meansOfPayment,
     paymentData: paymentDataToPublish,
     premium,
-    minReputation,
     instantTradeCriteria,
     multi,
   });

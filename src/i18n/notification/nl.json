@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "Nog 6 uur om escrow te financieren",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Financier escrow op tijd om annulering en reputatieschade te voorkomen.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Nog 1 uur om escrow te financieren",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "De verkoper heeft de trade geannuleerd. Zijn reputatie is negatief beïnvloed."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "De verkoper heeft de trade geannuleerd. Zijn reputatie is negatief beïnvloed.",
+  "notification.offer.newBuyOfferMatchesPreferences.text": "Nieuw koopaanbod!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "Er is een nieuw aanbod dat overeenkomt met je voorkeuren.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Nieuw verkoopaanbod!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "Er is een nieuw aanbod dat overeenkomt met je voorkeuren."
+  
 }

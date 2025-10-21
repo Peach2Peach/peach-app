@@ -14,9 +14,17 @@
   "contract.buyer.buyerCanceledTrade": "Вы отменили сделку, репутация пострадала.",
   "contract.buyer.collaborativeCancel.notResolved": "Продавец хочет отменить сделку. Вы можете отказать, особенно если уже оплатили.",
   "contract.buyer.collaborativeCancel.resolved": "Вы согласились отменить сделку, деньги вернулись продавцу.",
-  "contract.buyer.disputeLost": "Вы проиграли спор! Репутация пострадала, деньги вернулись продавцу.",
-  "contract.buyer.disputeWon.awaitingPayout": "Вы выиграли спор! Репутация продавца пострадала, он должен вернуть средства. Если нет — они поступят автоматически не позднее 30 дней.",
-  "contract.buyer.disputeWon.paidOut": "Вы выиграли спор! Репутация продавца пострадала, сатоши переведены вам.",
+  
+   "contract.buyer.disputeLost": "Вы проиграли спор!\n\n",
+    "contract.buyer.disputeWon": "Вы выиграли спор!\n\n",
+    "contract.buyer.ownReputationImpacted": "Ваша репутация пострадала.\n",
+    "contract.buyer.sellerReputationImpacted": "Репутация продавца пострадала.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Продавцу возвращены средства.",
+    "contract.buyer.disputeWon.awaitingPayout": "Продавец должен освободить средства для вас.\n\nЕсли этого не произойдет, средства будут автоматически освобождены в течение 30 дней.",
+    "contract.buyer.disputeWon.paidOut": "Продавец перевел вам средства.",
+ 
+  
+  
   "contract.buyer.paymentWasTooLate": "Вы не оплатили вовремя, продавец отменил сделку. Репутация пострадала.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Вы просрочили оплату; продавец может дать время или отменить. Репутация пострадает.",
   "contract.buyer.sellerCanceledCashTrade": "Продавец отменил сделку за наличные.",
@@ -74,10 +82,17 @@
   "contract.respond": "ответить",
   "contract.seller.buyerAgreedToCancel": "Покупатель согласился отменить сделку. Выберите возврат или публикацию заново.",
   "contract.seller.buyerCanceledWithoutRequest": "Покупатель отменил сделку. Выберите: опубликовать снова или вернуть $0 сатоши из эскроу.",
-  "contract.seller.disputeLost.escrowReleased": "Вы проиграли спор! Репутация пострадала, сатоши из эскроу переведены покупателю.",
-  "contract.seller.disputeLost.releaseEscrow": "Вы проиграли спор! Репутация пострадала, отпустите сатоши из эскроу.",
-  "contract.seller.disputeWon.refund": "Вы выиграли спор! Репутация покупателя пострадала, теперь можно получить возврат.",
-  "contract.seller.disputeWon.refundOrRepublish": "Вы выиграли спор! Репутация покупателя пострадала. Опубликуйте снова или получите возврат.",
+  
+  "contract.seller.disputeLost": "Вы проиграли спор!\n\n",
+    "contract.seller.disputeWon": "Вы выиграли спор!\n\n",
+    "contract.seller.ownReputationImpacted": "Ваша репутация пострадала.\n",
+    "contract.seller.buyerReputationImpacted": "Репутация покупателя пострадала.\n",
+    "contract.seller.disputeLost.escrowReleased": "Вы перевели средства покупателю.",
+    "contract.seller.disputeLost.releaseEscrow": "Вам нужно перевести средства покупателю.",
+    "contract.seller.disputeWon.refund": "Теперь вы можете получить возврат средств.",
+    "contract.seller.disputeWon.refundOrRepublish": "Теперь вы можете заново опубликовать предложение или получить возврат.",
+
+
   "contract.seller.disputeWon.refunded": "Вы вернули средства за сделку $0",
   "contract.seller.disputeWon.republished": "Вы снова опубликовали сделку. Новое предложение ниже.",
   "contract.seller.giveMoreTime": "дать больше времени",

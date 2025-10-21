@@ -96,3 +96,8 @@
 "notification.body.contract.buyer.sellerCanceledBeforeFunding" = "Il venditore ha annullato lo scambio.\n\nLa sua reputazione è stata danneggiata.";
 "notification.title.offer.expressFlowTradeRequestChatMessageReceived" = "Chat richiesta di scambio";
 "notification.body.offer.expressFlowTradeRequestChatMessageReceived" = "Hai ricevuto un messaggio in chat sulla tua richiesta di scambio";
+
+"notification.body.offer.newBuyOfferMatchesPreferences" = "C'è una nuova offerta che corrisponde alle tue preferenze.";
+"notification.title.offer.newBuyOfferMatchesPreferences" = "Nuova offerta di acquisto!";
+"notification.body.offer.newSellOfferMatchesPreferences" = "C'è una nuova offerta che corrisponde alle tue preferenze.";
+"notification.title.offer.newSellOfferMatchesPreferences" = "Nuova offerta di vendita!";

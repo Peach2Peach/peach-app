@@ -582,18 +582,34 @@ export const UnmatchButton = ({
   undoInTimeCallback: () => void;
   onTimerSuccess: () => Promise<void>;
   unmatchCallback: () => Promise<void>;
-  match: any;
+  match: BuyOffer69TradeRequest | SellOffer69TradeRequest | undefined;
 }) => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
 
   const [showUnmatch, setShowUnmatch] = useState(Boolean(match));
 
+  const hoursPassedSinceTradeRequestPerformed = match
+    ? Math.floor((Date.now() - match.creationDate.getTime()) / (1000 * 60 * 60))
+    : 0;
+
+  const hoursNeededUntilTradeReqIsPenaltyFree = Math.max(
+    12 - hoursPassedSinceTradeRequestPerformed,
+    0,
+  );
+
   const showUnmatchPopup = useCallback(() => {
     setPopup(
       <WarningPopup
         title={i18n("search.popups.unmatch.title")}
-        content={i18n("search.popups.unmatch.text")}
+        content={
+          hoursNeededUntilTradeReqIsPenaltyFree > 0
+            ? i18n(
+                "search.popups.unmatch.text",
+                String(hoursNeededUntilTradeReqIsPenaltyFree),
+              )
+            : i18n("search.popups.unmatchNoPenalty.text")
+        }
         actions={
           <>
             <PopupAction

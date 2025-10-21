@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Ακυρώσατε τη συναλλαγή. Η φήμη σας επηρεάστηκε.",
   "contract.buyer.collaborativeCancel.notResolved": "Πρέπει να συμφωνήσετε ή να απορρίψετε την ακύρωση.",
   "contract.buyer.collaborativeCancel.resolved": "Συμφωνήσατε στην ακύρωση. Ο πωλητής αναχρηματοδοτήθηκε.",
-  "contract.buyer.disputeLost": "Χάσατε τη διένεξη! Η φήμη σας επηρεάστηκε. Η συναλλαγή τερματίστηκε.",
-  "contract.buyer.disputeWon.awaitingPayout": "Κερδίσατε τη διένεξη! Η φήμη του πωλητή επηρεάστηκε. Περιμένετε την αποδέσμευση των χρημάτων.",
-  "contract.buyer.disputeWon.paidOut": "Κερδίσατε τη διένεξη! Η φήμη του πωλητή επηρεάστηκε. Τα χρήματα θα αποδεσμευτούν σε εσάς.",
+  
+  "contract.buyer.disputeLost": "Χάσατε τη διαμάχη!\n\n",
+    "contract.buyer.disputeWon": "Κερδίσατε τη διαμάχη!\n\n",
+    "contract.buyer.ownReputationImpacted": "Η φήμη σας έχει επηρεαστεί.\n",
+    "contract.buyer.sellerReputationImpacted": "Η φήμη του πωλητή έχει επηρεαστεί.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Ο πωλητής έχει επιστραφεί.",
+    "contract.buyer.disputeWon.awaitingPayout": "Ο πωλητής πρέπει να σας αποδεσμεύσει τα χρήματα.\n\nΑν δεν το κάνει, τα χρήματα θα αποδεσμευτούν αυτόματα μέσα σε 30 ημέρες.",
+    "contract.buyer.disputeWon.paidOut": "Ο πωλητής σας έχει αποδεσμεύσει τα χρήματα.",
+ 
+  
   "contract.buyer.paymentWasTooLate": "Η πληρωμή καθυστέρησε. Ο πωλητής ακύρωσε τη συναλλαγή. Η φήμη σας επηρεάστηκε.",
   "contract.buyer.sellerCanceledCashTrade": "Ο πωλητής ακύρωσε τη συναλλαγή με μετρητά.",
   "contract.cancel.buyer": "Είστε σίγουροι;\nΗ ακύρωση τώρα θα επηρεάσει αρνητικά τη φήμη σας.",
@@ -70,10 +77,17 @@
   "contract.paymentTimerHasRunOut.title": "Δεν πληρώθηκε εγκαίρως",
   "contract.provideEmail": "Δώστε email",
   "contract.respond": "Απάντηση",
-  "contract.seller.disputeLost.escrowReleased": "Χάσατε τη διένεξη! Η φήμη σας επηρεάστηκε. Απελευθερώσατε την εγγύηση στον αγοραστή.",
-  "contract.seller.disputeLost.releaseEscrow": "Χάσατε τη διένεξη! Απελευθερώστε την εγγύηση στον αγοραστή.",
-  "contract.seller.disputeWon.refund": "Κερδίσατε τη διένεξη! Η φήμη του αγοραστή επηρεάστηκε. Μπορείτε να λάβετε επιστροφή χρημάτων.",
-  "contract.seller.disputeWon.refundOrRepublish": "Κερδίσατε τη διένεξη! Η φήμη του αγοραστή επηρεάστηκε. Αναδημοσιεύστε ή λάβετε επιστροφή χρημάτων.",
+  
+  "contract.seller.disputeLost": "Χάσατε τη διαμάχη!\n\n",
+    "contract.seller.disputeWon": "Κερδίσατε τη διαμάχη!\n\n",
+    "contract.seller.ownReputationImpacted": "Η φήμη σας έχει επηρεαστεί.\n",
+    "contract.seller.buyerReputationImpacted": "Η φήμη του αγοραστή έχει επηρεαστεί.\n",
+    "contract.seller.disputeLost.escrowReleased": "Αποδεσμεύσατε την εγγύηση στον αγοραστή.",
+    "contract.seller.disputeLost.releaseEscrow": "Πρέπει να αποδεσμεύσετε την εγγύηση στον αγοραστή.",
+    "contract.seller.disputeWon.refund": "Μπορείτε τώρα να λάβετε επιστροφή χρημάτων.",
+    "contract.seller.disputeWon.refundOrRepublish": "Μπορείτε τώρα να επαναδημοσιεύσετε την προσφορά ή να λάβετε επιστροφή χρημάτων.",
+
+
   "contract.seller.disputeWon.refunded": "Η συναλλαγή επιστράφηκε στο πορτοφόλι σας $0.",
   "contract.seller.disputeWon.republished": "Αναδημοσιεύσατε τη συναλλαγή. Η νέα προσφορά είναι παρακάτω.",
   "contract.seller.paymentTimerHasRunOut.cancelTrade": "Ακύρωση συναλλαγής",

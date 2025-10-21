@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Vous avez annulé l'échange, votre réputation a été affectée.",
   "contract.buyer.collaborativeCancel.notResolved": "Vous devez accepter ou refuser l'annulation.",
   "contract.buyer.collaborativeCancel.resolved": "Vous avez accepté l'annulation, le vendeur a été remboursé.",
-  "contract.buyer.disputeLost": "Vous avez perdu la dispute! Réputation affectée, échange annulé.",
-  "contract.buyer.disputeWon.awaitingPayout": "Vous avez gagné la dispute! La réputation du vendeur est affectée, fonds en attente.",
-  "contract.buyer.disputeWon.paidOut": "Vous avez gagné la dispute! La réputation du vendeur est affectée, fonds versés.",
+  
+  "contract.buyer.disputeLost": "Vous avez perdu le litige !\n\n",
+    "contract.buyer.disputeWon": "Vous avez gagné le litige !\n\n",
+    "contract.buyer.ownReputationImpacted": "Votre réputation a été affectée.\n",
+    "contract.buyer.sellerReputationImpacted": "La réputation du vendeur a été affectée.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Le vendeur a été remboursé.",
+    "contract.buyer.disputeWon.awaitingPayout": "Le vendeur doit vous libérer les fonds.\n\nS’il ne le fait pas, les fonds seront automatiquement libérés dans un délai maximal de 30 jours.",
+    "contract.buyer.disputeWon.paidOut": "Le vendeur vous a libéré les fonds.",
+ 
+  
   "contract.buyer.paymentWasTooLate": "Paiement trop tardif, échange annulé, réputation affectée.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Paiement tardif; le vendeur peut accorder du temps ou annuler l'échange. Réputation affectée.",
   "contract.buyer.sellerCanceledCashTrade": "Le vendeur a annulé l'échange en espèces.",
@@ -74,10 +81,18 @@
   "contract.respond": "Répondre",
   "contract.seller.buyerAgreedToCancel": "Acheteur a accepté l'annulation. Vous pouvez rembourser ou republier.",
   "contract.seller.buyerCanceledWithoutRequest": "Acheteur a annulé. Vous pouvez republier ou récupérer vos sats sur $0.",
-  "contract.seller.disputeLost.escrowReleased": "Dispute perdue! Réputation impactée, sats envoyés à l'acheteur.",
-  "contract.seller.disputeLost.releaseEscrow": "Dispute perdue! Réputation impactée, envoyez les sats à l'acheteur.",
-  "contract.seller.disputeWon.refund": "Dispute remportée! Réputation de l'acheteur affectée, vous pouvez demander un remboursement.",
-  "contract.seller.disputeWon.refundOrRepublish": "Dispute remportée! Réputation de l'acheteur affectée. Republier ou demander un remboursement.",
+  
+   "contract.seller.disputeLost": "Vous avez perdu le litige !\n\n",
+    "contract.seller.disputeWon": "Vous avez gagné le litige !\n\n",
+    "contract.seller.ownReputationImpacted": "Votre réputation a été affectée.\n",
+    "contract.seller.buyerReputationImpacted": "La réputation de l'acheteur a été affectée.\n",
+    "contract.seller.disputeLost.escrowReleased": "Vous avez libéré l'entiercement à l'acheteur.",
+    "contract.seller.disputeLost.releaseEscrow": "Vous devez libérer l'entiercement à l'acheteur.",
+    "contract.seller.disputeWon.refund": "Vous pouvez maintenant être remboursé.",
+    "contract.seller.disputeWon.refundOrRepublish": "Vous pouvez republier l'offre ou être remboursé.",
+
+  
+  
   "contract.seller.disputeWon.refunded": "Vous avez remboursé cet échange à $0.",
   "contract.seller.disputeWon.republished": "Vous avez republié cet échange. Nouvelle offre ci-dessous.",
   "contract.seller.giveMoreTime": "Donner plus de temps",

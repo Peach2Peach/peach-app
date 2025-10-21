@@ -25,6 +25,22 @@ export const handlePushNotification = async (
   if (shouldGoToContract(data)) {
     const { contractId } = data;
     navigationRef.navigate("contract", { contractId });
+  } else if (
+    data.type === "offer.newSellOfferMatchesPreferences" &&
+    data.offerId
+  ) {
+    const { offerId } = data;
+    navigationRef.navigate("expressBuyTradeRequest", {
+      offerId: offerId,
+    });
+  } else if (
+    data.type === "offer.newBuyOfferMatchesPreferences" &&
+    data.offerId
+  ) {
+    const { offerId } = data;
+    navigationRef.navigate("expressSellTradeRequest", {
+      offerId: offerId,
+    });
   } else if (data.type === "offer.expressFlowTradeRequestChatMessageReceived") {
     const { offerId, offerType, requestingUserId } = data;
     navigationRef.navigate("tradeRequestChat", {

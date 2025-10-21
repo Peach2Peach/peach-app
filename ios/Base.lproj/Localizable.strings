@@ -104,3 +104,7 @@
 "notification.title.offer.expressFlowTradeRequestChatMessageReceived" = "Trade Request Chat";
 "notification.body.offer.expressFlowTradeRequestChatMessageReceived" = "You got a chat message on your Trade Request";
 
+"notification.body.offer.newBuyOfferMatchesPreferences" = "There is a new Offer that matches your Preferences.";
+"notification.title.offer.newBuyOfferMatchesPreferences" = "New Buy Offer!";
+"notification.body.offer.newSellOfferMatchesPreferences" = "There is a new Offer that matches your Preferences.";
+"notification.title.offer.newSellOfferMatchesPreferences" = "New Sell Offer!";

@@ -97,4 +97,11 @@
 <string name="notification.body.contract.buyer.sellerCanceledBeforeFunding">Il venditore ha annullato lo scambio.\n\nLa sua reputazione è stata danneggiata.</string>
 <string name="notification.title.offer.expressFlowTradeRequestChatMessageReceived">Chat richiesta di scambio</string>
 <string name="notification.body.offer.expressFlowTradeRequestChatMessageReceived">Hai ricevuto un messaggio in chat sulla tua richiesta di scambio</string>
+
+<string name="notification.body.offer.newBuyOfferMatchesPreferences">C’è una nuova offerta che corrisponde alle tue preferenze.</string>
+<string name="notification.title.offer.newBuyOfferMatchesPreferences">Nuova offerta di acquisto!</string>
+
+<string name="notification.body.offer.newSellOfferMatchesPreferences">C’è una nuova offerta che corrisponde alle tue preferenze.</string>
+<string name="notification.title.offer.newSellOfferMatchesPreferences">Nuova offerta di vendita!</string>
+
 </resources>

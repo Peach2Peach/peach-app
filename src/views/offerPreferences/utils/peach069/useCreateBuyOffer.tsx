@@ -25,7 +25,6 @@ export function useCreateBuyOffer({
   meansOfPayment,
   paymentData,
   premium,
-  minReputation,
   instantTradeCriteria,
   multi,
 }: Pick<
@@ -34,7 +33,6 @@ export function useCreateBuyOffer({
   | "meansOfPayment"
   | "paymentData"
   | "premium"
-  | "minReputation"
   | "instantTradeCriteria"
 > & { multi?: number }) {
   const queryClient = useQueryClient();
@@ -105,7 +103,6 @@ export function useCreateBuyOffer({
         meansOfPayment,
         paymentData,
         premium,
-        minReputation: minReputation ? minReputation : undefined, // TODO fix this
         releaseAddresses,
         releaseAddressMessageSignatures,
         instantTradeCriteria,

@@ -68,5 +68,10 @@
   "notification.contract.escrowFundingTimeExpiring6hLeft.title": "6h para financiar o escrow",
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Se não financiar em 1h, a transação será cancelada. A reputação dele será afetada.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1h para financiar o escrow",
-  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "O vendedor cancelou a negociação. A reputação dele foi afetada."
+  "notification.contract.buyer.sellerCanceledBeforeFunding.text": "O vendedor cancelou a negociação. A reputação dele foi afetada.",
+  "notification.offer.newBuyOfferMatchesPreferences.text": "Nova oferta de compra!",
+    "notification.offer.newBuyOfferMatchesPreferences.title": "Há uma nova oferta que corresponde às suas preferências.",
+    "notification.offer.newSellOfferMatchesPreferences.text": "Nova oferta de venda!",
+    "notification.offer.newSellOfferMatchesPreferences.title": "Há uma nova oferta que corresponde às suas preferências."
+  
 }

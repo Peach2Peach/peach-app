@@ -14,9 +14,16 @@
   "contract.buyer.buyerCanceledTrade": "Lemondtad a kereskedést, hírneved csorbult.",
   "contract.buyer.collaborativeCancel.notResolved": "Az eladó törölni szeretné a kereskedést. Dönthetsz, elfogadod-e, különösen ha fizettél már.",
   "contract.buyer.collaborativeCancel.resolved": "Elfogadtad a lemondást, az összeget visszautalták az eladónak.",
-  "contract.buyer.disputeLost": "Vitát elvesztetted! Hírneved csorbult, az összeget visszautalták az eladónak.",
-  "contract.buyer.disputeWon.awaitingPayout": "Vitát nyertél! Az eladó hírneve sérült, a pénzt ki kell fizetnie. Ha nem, max. 30 napon belül automatikusan felszabadul.",
-  "contract.buyer.disputeWon.paidOut": "Vitát nyertél! Az eladó hírneve sérült, az összeget kifizette.",
+  
+   "contract.buyer.disputeLost": "Elvesztetted a vitát!\n\n",
+    "contract.buyer.disputeWon": "Megnyerted a vitát!\n\n",
+    "contract.buyer.ownReputationImpacted": "A hírneved csökkent.\n",
+    "contract.buyer.sellerReputationImpacted": "Az eladó hírneve csökkent.\n",
+    "contract.buyer.disputeLost.sellerRefunded": "Az eladónak visszafizették az összeget.",
+    "contract.buyer.disputeWon.awaitingPayout": "Az eladónak el kell engednie az összeget számodra.\n\nHa nem teszi meg, az összeget legfeljebb 30 napon belül automatikusan felszabadítják.",
+    "contract.buyer.disputeWon.paidOut": "Az eladó felszabadította az összeget számodra.",
+ 
+  
   "contract.buyer.paymentWasTooLate": "Későn fizettél, az eladó törölte a kereskedést, hírneved csorbult.",
   "contract.buyer.paymentWasTooLate.waitingForSeller": "Nem fizettél időben; az eladó dönthet a folytatásról vagy lemondásról, mindkettő befolyásolja a hírneved.",
   "contract.buyer.sellerCanceledCashTrade": "Az eladó törölte a készpénzes kereskedést.",
@@ -74,10 +81,17 @@
   "contract.respond": "Válasz",
   "contract.seller.buyerAgreedToCancel": "A vevő elfogadta a lemondást. Dönthetsz: visszatérítés vagy újra közzététel.",
   "contract.seller.buyerCanceledWithoutRequest": "A vevő elállt. Újra közzéteszed az ajánlatot, vagy a letétet visszatérítjük $0-ra?",
-  "contract.seller.disputeLost.escrowReleased": "Vitát elvesztettél! Hírneved sérült, letét felszabadítva a vevőnek.",
-  "contract.seller.disputeLost.releaseEscrow": "Vitát elvesztettél! Hírneved sérült, letétet felszabadítod a vevőnek.",
-  "contract.seller.disputeWon.refund": "Vitát nyertél! Vásárló hírneve sérült, összeget visszakapod.",
-  "contract.seller.disputeWon.refundOrRepublish": "Vitát nyertél! Vásárló hírneve sérült. Ajánlatot újra közzéteheted vagy visszatérítjük az összeget.",
+
+  "contract.seller.disputeLost": "Elvesztetted a vitát!\n\n",
+    "contract.seller.disputeWon": "Megnyerted a vitát!\n\n",
+    "contract.seller.ownReputationImpacted": "A hírneved csökkent.\n",
+    "contract.seller.buyerReputationImpacted": "A vevő hírneve csökkent.\n",
+    "contract.seller.disputeLost.escrowReleased": "Felszabadítottad az escrow-t a vevőnek.",
+    "contract.seller.disputeLost.releaseEscrow": "Fel kell szabadítanod az escrow-t a vevőnek.",
+    "contract.seller.disputeWon.refund": "Most visszatérítést kaphatsz.",
+    "contract.seller.disputeWon.refundOrRepublish": "Most újra közzéteheted az ajánlatot vagy visszatérítést kaphatsz.",
+ 
+
   "contract.seller.disputeWon.refunded": "Úgy döntöttél, a kereskedést $0 pénztárcádba visszatérítjük.",
   "contract.seller.disputeWon.republished": "Újra közzétetted a kereskedést. Az új ajánlat alább.",
   "contract.seller.giveMoreTime": "Adj több időt",
