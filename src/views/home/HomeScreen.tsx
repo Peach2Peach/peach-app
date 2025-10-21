@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { memo, ReactElement, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { setNumber } from "rn-notification-badge";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { IconType } from "../../assets/icons";
@@ -18,7 +17,6 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { isIOS } from "../../utils/system/isIOS";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
 
 const Tab = createBottomTabNavigator();
@@ -157,7 +155,8 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length;
-    if (isIOS()) setNumber(offersWithAction + contractsWithAction);
+    // ! TODO
+    // if (isIOS()) setNumber(offersWithAction + contractsWithAction);
     return offersWithAction + contractsWithAction;
   }, [offers, buyOffers, contracts]);
 
