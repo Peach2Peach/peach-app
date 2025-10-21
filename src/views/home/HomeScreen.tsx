@@ -1,3 +1,4 @@
+import Notifee from "@notifee/react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { memo, ReactElement, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -17,6 +18,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { isIOS } from "../../utils/system/isIOS";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
 
 const Tab = createBottomTabNavigator();
@@ -155,8 +157,7 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length;
-    // ! TODO
-    // if (isIOS()) setNumber(offersWithAction + contractsWithAction);
+    if (isIOS()) Notifee.setBadgeCount(offersWithAction + contractsWithAction);
     return offersWithAction + contractsWithAction;
   }, [offers, buyOffers, contracts]);
 

@@ -1,3 +1,4 @@
+import Notifee from "@notifee/react-native";
 import messaging from "@react-native-firebase/messaging";
 import { AppRegistry, LogBox } from "react-native";
 import "./shim.js";
@@ -11,11 +12,10 @@ import { isProduction } from "./src/utils/system/isProduction";
 LogBox.ignoreAllLogs(isProduction());
 
 try {
-  // eslint-disable-next-line require-await
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     info("Message handled in the background!", remoteMessage);
-    // TODO!
-    // if (isIOS()) increment();
+    if (isIOS())
+      await Notifee.setBadgeCount((await Notifee.getBadgeCount()) + 1);
   });
 } catch (e) {
   error(
