@@ -1,18 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Easing,
-  Modal,
-  SafeAreaView,
-  TouchableOpacity,
-  Vibration,
-  View,
-} from "react-native";
-import Svg, { Defs, Mask, Rect } from "react-native-svg";
+import { useState } from "react";
+import { Modal, TouchableOpacity, Vibration, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   Camera,
   useCameraDevice,
-  useCameraPermission,
   useCodeScanner,
 } from "react-native-vision-camera";
 import tw from "../../styles/tailwind";
@@ -27,15 +18,6 @@ type ScanQRProps = {
 
 export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
   const [hasReadQRCode, setHasReadQRCode] = useState(false);
-  const fadeInOpacity = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeInOpacity, {
-      toValue: 1,
-      easing: Easing.inOut(Easing.quad),
-      useNativeDriver: true,
-    }).start();
-  }, [fadeInOpacity]);
 
   const codeScanner = useCodeScanner({
     codeTypes: ["qr", "ean-13"],
@@ -48,36 +30,21 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
     },
   });
 
-  const { hasPermission, requestPermission } = useCameraPermission();
   const device = useCameraDevice("back");
-
+  const insets = useSafeAreaInsets();
   if (!device) return null;
   return (
-    <Modal transparent={false} onRequestClose={onCancel}>
-      <Animated.View
-        style={[tw`w-full h-full bg-black-100`, { opacity: fadeInOpacity }]}
-      >
-        <Camera
-          audio={false}
-          style={tw`bg-transparent`}
-          device={device}
-          isActive={true}
-          codeScanner={codeScanner}
-        >
-          <CustomMarker onCancel={onCancel} />
-        </Camera>
-      </Animated.View>
-    </Modal>
-  );
-};
-
-function CustomMarker({ onCancel }: Pick<ScanQRProps, "onCancel">) {
-  return (
-    <View style={tw`w-full h-full`}>
-      <CircleMask />
-      <SafeAreaView style={tw`py-2`}>
+    <Modal animationType="none" onRequestClose={onCancel}>
+      <Camera
+        audio={false}
+        style={tw`absolute w-full h-full rounded-2xl`}
+        device={device}
+        isActive
+        codeScanner={codeScanner}
+      />
+      <View style={tw`py-2`}>
         <TouchableOpacity
-          style={tw`flex-row items-center ml-3`}
+          style={[tw`flex-row items-center ml-3`, { paddingTop: insets.top }]}
           onPress={onCancel}
         >
           <Icon
@@ -92,34 +59,7 @@ function CustomMarker({ onCancel }: Pick<ScanQRProps, "onCancel">) {
             {i18n("scanBTCAddress")}
           </PeachText>
         </TouchableOpacity>
-      </SafeAreaView>
-    </View>
+      </View>
+    </Modal>
   );
-}
-
-function CircleMask() {
-  return (
-    <Svg style={tw`absolute top-0 left-0 w-full h-full`}>
-      <Defs>
-        <Mask id="mask" x="0" y="0" height="100%" width="100%">
-          <Rect height="100%" width="100%" fill="#fff" />
-          <Rect
-            x={"10%"}
-            y={"30%"}
-            rx={20}
-            width={"80%"}
-            height={"40%"}
-            fill={"black"}
-          />
-        </Mask>
-      </Defs>
-      <Rect
-        height="100%"
-        width="100%"
-        fill="rgba(0, 0, 0, 0.6)"
-        mask="url(#mask)"
-        fill-opacity="0"
-      />
-    </Svg>
-  );
-}
+};
