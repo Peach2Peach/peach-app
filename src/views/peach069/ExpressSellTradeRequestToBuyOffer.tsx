@@ -207,7 +207,7 @@ const performInstantTrade = async ({
       handleError(instantTradeResp.error);
     } else {
       if (instantTradeResp.result?.id) {
-        createEscrowFn(instantTradeResp.result.id.split("-")[0]);
+        await createEscrowFn(instantTradeResp.result.id.split("-")[0]);
         navigation.reset({
           index: 1,
           routes: [
