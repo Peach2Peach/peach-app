@@ -1,5 +1,6 @@
 import Notifee from "@notifee/react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigationState } from "@react-navigation/native";
 import { memo, ReactElement, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -13,7 +14,6 @@ import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
 import { useOwnPeach069BuyOffers } from "../../hooks/query/usePeach069BuyOffers";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
-import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -32,7 +32,6 @@ export function HomeScreen() {
       }}
       initialRouteName="home"
       tabBar={() => <Footer />}
-      id="homeNavigator"
     >
       {homeTabNames.map((name) => (
         <Tab.Screen
@@ -208,7 +207,9 @@ const FOOTER_ITEMS = {
 function Footer() {
   const { bottom } = useSafeAreaInsets();
   const { isDarkMode } = useThemeStore();
-  const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
+  const currentPage = useNavigationState(
+    (state) => state.routeNames[state.index],
+  );
   return (
     <View
       style={[

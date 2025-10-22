@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2019",
-    "module": "nodenext",
+    "module": "es2020",
     "jsx": "react-jsx",
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "resolveJsonModule": true,
@@ -10,9 +10,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-  "lib": ["dom", "dom.iterable", "es2019", "esnext"],
+    "lib": ["dom", "dom.iterable", "es2019", "esnext"],
     "allowJs": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "noEmit": true,
     "paths": {
