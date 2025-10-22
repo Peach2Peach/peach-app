@@ -644,7 +644,7 @@ function PriceSection() {
         <View
           style={tw`flex-1 p-2 border rounded-full  ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
         >
-          <PeachText style={tw`text-center`}>{localValue}%</PeachText>
+          <PeachText style={tw`text-center`}>{curValue}%</PeachText>
         </View>
         <TouchableIcon
           id="plus"
