@@ -11,10 +11,10 @@
 		0F65AADB629A41A99AFB90FE /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
 		3437C51D4F624ACE824256C7 /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
 		3566516CDCD9E69975782F49 /* libPods-peach-peach mainnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03126CFC831F657240FE1E3F /* libPods-peach-peach mainnet.a */; };
+		4B7486D9B7034F9DBF5EC955 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF3BEC74782745D1A877AA4F /* BootSplash.storyboard */; };
 		4C36D5DC2DABF75A0098D9BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 672B1300288AF7240089147A /* Localizable.strings */; };
 		4C36D5DD2DABF75A0098D9BF /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EC2A052B2D00F18766 /* CourierPrime-Regular.ttf */; };
 		4C36D5DE2DABF75A0098D9BF /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
-		4C36D5DF2DABF75A0098D9BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		4C36D5E22DABF75A0098D9BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		4C36D5E32DABF75A0098D9BF /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 		4C36D5E42DABF75A0098D9BF /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
@@ -26,8 +26,9 @@
 		4CB974AB2DE610BD0031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
 		4CB974AE2DE611460031D71E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974AD2DE611460031D71E /* GoogleService-Info.plist */; };
 		4CB974AF2DE611780031D71E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB974A82DE610BD0031D71E /* Images.xcassets */; };
+		4CFA21B52EA8573E00D5099F /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF3BEC74782745D1A877AA4F /* BootSplash.storyboard */; };
+		4CFA21B62EA8574700D5099F /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF3BEC74782745D1A877AA4F /* BootSplash.storyboard */; };
 		64AB6E1923744175E8776710 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CFCE50BCA604F16D0E14F89F /* PrivacyInfo.xcprivacy */; };
-		671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		671A56352850E9AE0058434C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		671A56362850E9AE0058434C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
 		671A56392850E9AE0058434C /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
@@ -47,9 +48,9 @@
 		67A9CC6729E4309100F514FA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		67AC8BE529E431110014F1AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67AC8BE429E431100014F1AF /* Images.xcassets */; };
 		7CC2629E48F44EFC87CEBE24 /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		82AD6D088659667160419C82 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A439BCF4C0E24CE366353F1D /* PrivacyInfo.xcprivacy */; };
 		959CDDDDE2CAB1D9FFE0C664 /* libPods-peach-peach testnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */; };
+		B76C0E222B034C75A6D0BBEB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22086F581C7460FAEA123DF /* Colors.xcassets */; };
 		D1EFEE8B3AF4BE2F5A87ACCF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5329F5BD4D4644F441E5F2A9 /* PrivacyInfo.xcprivacy */; };
 		DD4E5446C1267A9F531423D1 /* libPods-peach-peach testnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */; };
 		F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
@@ -92,7 +93,6 @@
 		6E52FFA7E58BEB2744769222 /* Pods-peach mainnet-peach testnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peach testnet.release.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peach testnet/Pods-peach mainnet-peach testnet.release.xcconfig"; sourceTree = "<group>"; };
 		7478E35D78E4DB8ED51A163F /* Pods-peach mainnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet.release.xcconfig"; path = "Target Support Files/Pods-peach mainnet/Pods-peach mainnet.release.xcconfig"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = peach/AppDelegate.swift; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = peach/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82EF44C88FF1524E5CCC2D50 /* Pods-peach-peach mainnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach mainnet.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet.debug.xcconfig"; sourceTree = "<group>"; };
 		95A7125260244CB9A6E45C88 /* RNFileSystem.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFileSystem.xcodeproj; path = "../node_modules/react-native-filesystem/ios/RNFileSystem.xcodeproj"; sourceTree = "<group>"; };
 		A210E620E620220610C91568 /* Pods-peach mainnet-peach testnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peach testnet.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peach testnet/Pods-peach mainnet-peach testnet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,9 +101,11 @@
 		AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Bold.ttf"; path = "../assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; };
 		AE37EC909592AC13A8C4A9E7 /* libPods-peach-peach regtest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peach regtest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C460E24DEA50384BDD0DE7 /* Pods-peach-peach regtest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach regtest.release.xcconfig"; path = "Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest.release.xcconfig"; sourceTree = "<group>"; };
+		C22086F581C7460FAEA123DF /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = peach/Colors.xcassets; sourceTree = "<group>"; };
 		CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-SemiBold.ttf"; path = "../assets/fonts/Baloo2-SemiBold.ttf"; sourceTree = "<group>"; };
 		CFA29616EE3AE7D17BD4C258 /* Pods-peach-peach regtest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach regtest.debug.xcconfig"; path = "Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest.debug.xcconfig"; sourceTree = "<group>"; };
 		CFCE50BCA604F16D0E14F89F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		DF3BEC74782745D1A877AA4F /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = peach/BootSplash.storyboard; sourceTree = "<group>"; };
 		E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Medium.ttf"; path = "../assets/fonts/Baloo2-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F88D84630244EBFFA90177D7 /* Pods-peach mainnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet/Pods-peach mainnet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -148,7 +150,8 @@
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				DF3BEC74782745D1A877AA4F /* BootSplash.storyboard */,
+				C22086F581C7460FAEA123DF /* Colors.xcassets */,
 			);
 			name = peach;
 			sourceTree = "<group>";
@@ -397,10 +400,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFA21B52EA8573E00D5099F /* BootSplash.storyboard in Resources */,
 				6775E9BD288B0A0400A9A0DB /* Localizable.strings in Resources */,
 				676EA9EF2A052B2D00F18766 /* CourierPrime-Regular.ttf in Resources */,
 				675514872812BA4E00A17B6C /* assets in Resources */,
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */,
 				67A9CC6629E4306400F514FA /* Images.xcassets in Resources */,
 				67A9CC6729E4309100F514FA /* Images.xcassets in Resources */,
@@ -417,10 +420,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFA21B62EA8574700D5099F /* BootSplash.storyboard in Resources */,
 				4C36D5DC2DABF75A0098D9BF /* Localizable.strings in Resources */,
 				4C36D5DD2DABF75A0098D9BF /* CourierPrime-Regular.ttf in Resources */,
 				4C36D5DE2DABF75A0098D9BF /* assets in Resources */,
-				4C36D5DF2DABF75A0098D9BF /* LaunchScreen.storyboard in Resources */,
 				4CB974AF2DE611780031D71E /* Images.xcassets in Resources */,
 				4CB974AE2DE611460031D71E /* GoogleService-Info.plist in Resources */,
 				4C36D5E22DABF75A0098D9BF /* Images.xcassets in Resources */,
@@ -445,12 +448,13 @@
 				671A56352850E9AE0058434C /* Images.xcassets in Resources */,
 				67AC8BE529E431110014F1AF /* Images.xcassets in Resources */,
 				671A56362850E9AE0058434C /* assets in Resources */,
-				671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */,
 				675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */,
 				4CB974AB2DE610BD0031D71E /* Images.xcassets in Resources */,
 				676EA9EE2A052B2D00F18766 /* CourierPrime-Bold.ttf in Resources */,
 				671A56392850E9AE0058434C /* Baloo2-Bold.ttf in Resources */,
 				D1EFEE8B3AF4BE2F5A87ACCF /* PrivacyInfo.xcprivacy in Resources */,
+				4B7486D9B7034F9DBF5EC955 /* BootSplash.storyboard in Resources */,
+				B76C0E222B034C75A6D0BBEB /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,9 +485,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -498,9 +506,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -515,9 +527,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -589,9 +605,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -642,9 +662,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -719,9 +743,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
