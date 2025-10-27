@@ -52,22 +52,6 @@ export const TradeRequestReceived = ({
 
   const { user } = useUser(userId);
 
-  // const tradingLimitReached = isLimitReached(
-  //   unavailable.exceedsLimit || [],
-  //   selectedPaymentMethod,
-  // );
-
-  // const currentOptionName = useMemo(
-  //   () =>
-  //     matched
-  //       ? "offerMatched"
-  //       : tradingLimitReached
-  //         ? "tradingLimitReached"
-  //         : !selectedPaymentMethod
-  //           ? "missingSelection"
-  //           : "acceptMatch",
-  //   [matched, selectedPaymentMethod, tradingLimitReached],
-  // );
   const currentOptionName = "acceptTradeRequest";
   const currentRejectOptionName = "rejectTradeRequest";
   const currentGoToChatOptionName = "goToChat";

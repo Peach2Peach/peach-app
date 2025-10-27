@@ -1,9 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
-import SplashScreen from "react-native-splash-screen";
-import { LogoIcons } from "../assets/logo";
-import { PeachyGradient } from "../components/PeachyGradient";
+import BootSplash from "react-native-bootsplash";
 import { useSetPopup } from "../components/popup/GlobalPopup";
 import { useSetToast } from "../components/toast/Toast";
 import { useStackNavigation } from "../hooks/useStackNavigation";
@@ -26,7 +23,6 @@ export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
   const isLoggedIn = useSettingsStore((state) => state.isLoggedIn);
   const { isDarkMode } = useThemeStore();
-  useGlobalHandlers();
   useWSQueryInvalidation();
 
   const backgroundStyle = isDarkMode
@@ -44,42 +40,8 @@ export function Screens() {
 
     return unsubFinishHydration;
   }, []);
+  useGlobalHandlers();
 
-  if (isLoading || !hasHydrated) {
-    return <SplashScreenComponent setIsLoading={setIsLoading} />;
-  }
-  return (
-    <RootStack.Navigator
-      screenOptions={{
-        gestureEnabled: isIOS(),
-        headerShown: false,
-        cardStyle: tw`flex-1 ${backgroundStyle}`,
-      }}
-    >
-      {(isLoggedIn ? views : onboardingViews).map(
-        ({ name, component, animationEnabled }) => (
-          <RootStack.Screen
-            {...{ name, component }}
-            key={name}
-            options={{
-              animationEnabled,
-              transitionSpec: {
-                open: screenTransition,
-                close: screenTransition,
-              },
-            }}
-          />
-        ),
-      )}
-    </RootStack.Navigator>
-  );
-}
-
-function SplashScreenComponent({
-  setIsLoading,
-}: {
-  setIsLoading: (isLoading: boolean) => void;
-}) {
   const setToast = useSetToast();
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
@@ -104,17 +66,44 @@ function SplashScreenComponent({
       }
       requestUserPermissions();
       setIsLoading(false);
-      SplashScreen.hide();
+      await BootSplash.hide({ fade: true });
     };
-    initialize();
-  }, [initApp, navigation, setIsLoading, setPopup, setToast]);
+    if (isLoading || !hasHydrated) initialize();
+  }, [
+    hasHydrated,
+    initApp,
+    isLoading,
+    navigation,
+    setIsLoading,
+    setPopup,
+    setToast,
+  ]);
 
   return (
-    <View>
-      <PeachyGradient />
-      <View style={tw`absolute items-center justify-center w-full h-full`}>
-        <LogoIcons.fullLogo />
-      </View>
-    </View>
+    <RootStack.Navigator
+      screenOptions={{
+        gestureEnabled: isIOS(),
+        headerShown: false,
+        cardStyle: tw`flex-1 ${backgroundStyle}`,
+      }}
+    >
+      <>
+        {(isLoggedIn ? views : onboardingViews).map(
+          ({ name, component, animation }) => (
+            <RootStack.Screen
+              {...{ name, component }}
+              key={name}
+              options={{
+                animation: animation || "default",
+                transitionSpec: {
+                  open: screenTransition,
+                  close: screenTransition,
+                },
+              }}
+            />
+          ),
+        )}
+      </>
+    </RootStack.Navigator>
   );
 }

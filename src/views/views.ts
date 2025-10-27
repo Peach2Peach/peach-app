@@ -63,40 +63,42 @@ import { Welcome } from "./welcome/Welcome";
 import { WrongFundingAmount } from "./wrongFundingAmount/WrongFundingAmount";
 import { ExportTradeHistory } from "./yourTrades/ExportTradeHistory";
 
+import type { ReactElement } from "react";
+
 type ViewType = {
   name: keyof RootStackParamList;
-  component: () => JSX.Element;
-  animationEnabled?: boolean;
+  component: () => ReactElement;
+  animation?: "none";
 };
 
 const onboarding: ViewType[] = [
-  { name: "welcome", component: Welcome, animationEnabled: false },
+  { name: "welcome", component: Welcome, animation: "none" },
   {
     name: "userExistsForDevice",
     component: UserExistsForDevice,
-    animationEnabled: false,
+    animation: "none",
   },
   {
     name: "accountCreated",
     component: AccountCreated,
-    animationEnabled: false,
+    animation: "none",
   },
   {
     name: "createAccountError",
     component: CreateAccountError,
-    animationEnabled: false,
+    animation: "none",
   },
-  { name: "userSource", component: UserSource, animationEnabled: false },
+  { name: "userSource", component: UserSource, animation: "none" },
   {
     name: "userBitcoinLevel",
     component: UserBitcoinLevel,
-    animationEnabled: false,
+    animation: "none",
   },
-  { name: "restoreBackup", component: RestoreBackup, animationEnabled: false },
+  { name: "restoreBackup", component: RestoreBackup, animation: "none" },
   {
     name: "restoreReputation",
     component: RestoreReputation,
-    animationEnabled: false,
+    animation: "none",
   },
 ];
 

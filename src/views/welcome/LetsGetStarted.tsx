@@ -1,8 +1,8 @@
-import { Linking, View } from "react-native";
+import { View } from "react-native";
 import tw from "../../styles/tailwind";
 
 import { useMutation } from "@tanstack/react-query";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Loading } from "../../components/Loading";
 import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
@@ -33,28 +33,6 @@ export const LetsGetStarted = () => {
   const [referralCode, setReferralCode, referralCodeIsValid] =
     useValidatedState<string>("", referralCodeRules);
   const [willUseReferralCode, setWillUseReferralCode] = useState(false);
-
-  const handleRefCode = useCallback(
-    ({ url }: { url: string | null }) => {
-      if (!url) return;
-      const link = new URL(url).searchParams.get("link");
-      if (!link) return;
-      const code = new URL(link).searchParams.get("code");
-      if (!code) return;
-      setReferralCode(code);
-      setWillUseReferralCode(true);
-    },
-    [setReferralCode],
-  );
-
-  useEffect(() => {
-    const listener = Linking.addEventListener("url", handleRefCode);
-    return () => listener.remove();
-  }, [handleRefCode, setReferralCode]);
-
-  useEffect(() => {
-    Linking.getInitialURL().then((url) => handleRefCode({ url }));
-  }, [handleRefCode]);
 
   const updateReferralCode = (code: string) => {
     if (referralCode !== code) setWillUseReferralCode(false);

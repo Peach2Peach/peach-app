@@ -1,6 +1,6 @@
+import { DocumentDirectoryPath, exists } from "@dr.pogodin/react-native-fs";
 import messaging from "@react-native-firebase/messaging";
 import { isAirplaneModeSync } from "react-native-device-info";
-import RNFS from "react-native-fs";
 import { openCrashReportPrompt } from "../utils/analytics/openCrashReportPrompt";
 import { deleteFile } from "../utils/file/deleteFile";
 import { readFile } from "../utils/file/readFile";
@@ -27,7 +27,7 @@ export const requestUserPermissions = async () => {
 
   if (
     !isAirplaneModeSync() &&
-    (await RNFS.exists(`${RNFS.DocumentDirectoryPath}/error.log`))
+    (await exists(`${DocumentDirectoryPath}/error.log`))
   ) {
     const errorQueue = await readFile("/error.log");
     openCrashReportPrompt(

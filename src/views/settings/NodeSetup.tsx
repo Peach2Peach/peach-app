@@ -6,7 +6,6 @@ import { Icon } from "../../components/Icon";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { ScanQR } from "../../components/camera/ScanQR";
 import { Toggle } from "../../components/inputs/Toggle";
 import { URLInput } from "../../components/inputs/URLInput";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
@@ -71,7 +70,6 @@ export const NodeSetup = () => {
     if (!peachWallet) return;
     peachWallet.setBlockchain(node);
   }, [node]);
-  const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false);
 
   return (
     <Screen header={<NodeSetupHeader />}>
@@ -130,12 +128,6 @@ export const NodeSetup = () => {
         >
           {i18n("wallet.settings.node.checkConnection")}
         </Button>
-      )}
-      {showQRScanner && (
-        <ScanQR
-          onRead={({ data }) => setURL(data)}
-          onCancel={toggleShowQRScanner}
-        />
       )}
     </Screen>
   );

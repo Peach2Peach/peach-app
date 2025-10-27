@@ -1,8 +1,9 @@
+import type { ReactElement } from "react";
 import { View } from "react-native";
 import tw from "../../../styles/tailwind";
 
 type Props = {
-  slider?: JSX.Element;
+  slider?: ReactElement;
   trackWidth: number;
   type: "sell" | "buy";
 };

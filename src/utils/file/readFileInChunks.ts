@@ -1,4 +1,4 @@
-import RNFS from "react-native-fs";
+import { read } from "@dr.pogodin/react-native-fs";
 
 const CHUNKSIZE = 1048576;
 
@@ -12,7 +12,7 @@ export const readFileInChunks = async (uri: string) => {
 
   do {
     // eslint-disable-next-line no-await-in-loop
-    chunk = await RNFS.read(uri, CHUNKSIZE, index * CHUNKSIZE, "utf8");
+    chunk = await read(uri, CHUNKSIZE, index * CHUNKSIZE, "utf8");
     content += chunk;
     index++;
   } while (chunk.length);

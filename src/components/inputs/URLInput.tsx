@@ -16,19 +16,20 @@ export const URLInput = (props: InputProps) => {
     onSuccess,
   });
 
-  return !showQRScanner ? (
-    <Input
-      label={i18n("wallet.settings.node.address")}
-      placeholder={i18n("wallet.settings.node.address.placeholder")}
-      {...props}
-      icons={
-        props.icons ?? [
-          ["clipboard", pasteAddress],
-          ["camera", showQR],
-        ]
-      }
-    />
-  ) : (
-    <ScanQR onRead={onRead} onCancel={closeQR} />
+  return (
+    <>
+      <Input
+        label={i18n("wallet.settings.node.address")}
+        placeholder={i18n("wallet.settings.node.address.placeholder")}
+        {...props}
+        icons={
+          props.icons ?? [
+            ["clipboard", pasteAddress],
+            ["camera", showQR],
+          ]
+        }
+      />
+      {showQRScanner && <ScanQR onRead={onRead} onCancel={closeQR} />}
+    </>
   );
 };

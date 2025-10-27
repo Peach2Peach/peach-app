@@ -1,0 +1,571 @@
+diff --git a/node_modules/react-native-securerandom/android/build.gradle b/node_modules/react-native-securerandom/android/build.gradle
+index 4e725c3..b92e86a 100644
+--- a/node_modules/react-native-securerandom/android/build.gradle
++++ b/node_modules/react-native-securerandom/android/build.gradle
+@@ -6,7 +6,6 @@ buildscript {
+         repositories {
+             google()
+             mavenCentral()
+-            jcenter()
+         }
+ 
+         dependencies {
+@@ -56,7 +55,6 @@ repositories {
+                 excludeGroup "com.facebook.react"
+             }
+         }
+-    jcenter()
+ }
+ 
+ dependencies {
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex
+new file mode 100644
+index 0000000..ad1a248
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex
+new file mode 100644
+index 0000000..056db8f
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex
+new file mode 100644
+index 0000000..99ae250
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex
+new file mode 100644
+index 0000000..394d301
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex
+new file mode 100644
+index 0000000..92fc3b5
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex
+new file mode 100644
+index 0000000..640b68d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..d25846e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0abf569c020d861303331d730c550e28/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex
+new file mode 100644
+index 0000000..0a19d82
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex
+new file mode 100644
+index 0000000..8dcf018
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex
+new file mode 100644
+index 0000000..7e724a9
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex
+new file mode 100644
+index 0000000..52fe45d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex
+new file mode 100644
+index 0000000..64787a0
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex
+new file mode 100644
+index 0000000..5a8c866
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..d25846e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/0aee04e29e9bba73a5caa0b6df2d24ac/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/1626d215548405efa871e169d5734e6b/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/1626d215548405efa871e169d5734e6b/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/1626d215548405efa871e169d5734e6b/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/1626d215548405efa871e169d5734e6b/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-securerandom/android/build/.transforms/1626d215548405efa871e169d5734e6b/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..ae016c9
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/1626d215548405efa871e169d5734e6b/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex
+new file mode 100644
+index 0000000..58d1477
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex
+new file mode 100644
+index 0000000..512af82
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex
+new file mode 100644
+index 0000000..feb3481
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex
+new file mode 100644
+index 0000000..3d7c867
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex
+new file mode 100644
+index 0000000..9615a5b
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex
+new file mode 100644
+index 0000000..2dfb6d8
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..d25846e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/31ce8b01dc08c06c1e46fe0ee8cdc087/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/478bfe7a67eb495d316000e7e12d8611/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/478bfe7a67eb495d316000e7e12d8611/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/478bfe7a67eb495d316000e7e12d8611/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/478bfe7a67eb495d316000e7e12d8611/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-securerandom/android/build/.transforms/478bfe7a67eb495d316000e7e12d8611/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..0b3c19f
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/478bfe7a67eb495d316000e7e12d8611/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/55b8a73ab9d94c25fca6a000cab948ae/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/55b8a73ab9d94c25fca6a000cab948ae/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/55b8a73ab9d94c25fca6a000cab948ae/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/55b8a73ab9d94c25fca6a000cab948ae/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-securerandom/android/build/.transforms/55b8a73ab9d94c25fca6a000cab948ae/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..4a82a7d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/55b8a73ab9d94c25fca6a000cab948ae/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex
+new file mode 100644
+index 0000000..42dace3
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex
+new file mode 100644
+index 0000000..29971e9
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex
+new file mode 100644
+index 0000000..4c965f0
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex
+new file mode 100644
+index 0000000..c6805cf
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex
+new file mode 100644
+index 0000000..d44717f
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex
+new file mode 100644
+index 0000000..c86fa9b
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..d25846e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/68b9da360867790b5014c1e759d505f8/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/6a5f3445fc3d422609065d250d5aa813/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/6a5f3445fc3d422609065d250d5aa813/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/6a5f3445fc3d422609065d250d5aa813/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/6a5f3445fc3d422609065d250d5aa813/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-securerandom/android/build/.transforms/6a5f3445fc3d422609065d250d5aa813/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..5614681
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/6a5f3445fc3d422609065d250d5aa813/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/aa4df8dd9ce7b9326118d380af384689/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/aa4df8dd9ce7b9326118d380af384689/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/aa4df8dd9ce7b9326118d380af384689/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/aa4df8dd9ce7b9326118d380af384689/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-securerandom/android/build/.transforms/aa4df8dd9ce7b9326118d380af384689/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..6e49349
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/aa4df8dd9ce7b9326118d380af384689/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex
+new file mode 100644
+index 0000000..15174a0
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex
+new file mode 100644
+index 0000000..c915ea1
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex
+new file mode 100644
+index 0000000..40ecf49
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex
+new file mode 100644
+index 0000000..fd746ba
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex
+new file mode 100644
+index 0000000..818e9af
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex
+new file mode 100644
+index 0000000..334d1d0
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..d25846e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b0048fd0e1f0bc2cea8f1131fd9def54/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b428eb34276ab479069b10bf5bc21450/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/b428eb34276ab479069b10bf5bc21450/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/b428eb34276ab479069b10bf5bc21450/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/b428eb34276ab479069b10bf5bc21450/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-securerandom/android/build/.transforms/b428eb34276ab479069b10bf5bc21450/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..a2dc9ba
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/b428eb34276ab479069b10bf5bc21450/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/results.bin b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex
+new file mode 100644
+index 0000000..84e73b2
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/BuildConfig.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex
+new file mode 100644
+index 0000000..2b1b42d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex
+new file mode 100644
+index 0000000..22e02f5
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex
+new file mode 100644
+index 0000000..ba4bb33
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/PRNGFixes.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex
+new file mode 100644
+index 0000000..d3eb0d6
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomModule.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex
+new file mode 100644
+index 0000000..b0f50fc
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/net/rhogan/rnsecurerandom/RNSecureRandomPackage.dex differ
+diff --git a/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..d25846e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/.transforms/edb8ad9f1f9a898f37c2915a6fa26724/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-securerandom/android/build/generated/source/buildConfig/debug/net/rhogan/rnsecurerandom/BuildConfig.java b/node_modules/react-native-securerandom/android/build/generated/source/buildConfig/debug/net/rhogan/rnsecurerandom/BuildConfig.java
+new file mode 100644
+index 0000000..3209382
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/generated/source/buildConfig/debug/net/rhogan/rnsecurerandom/BuildConfig.java
+@@ -0,0 +1,10 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package net.rhogan.rnsecurerandom;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = Boolean.parseBoolean("true");
++  public static final String LIBRARY_PACKAGE_NAME = "net.rhogan.rnsecurerandom";
++  public static final String BUILD_TYPE = "debug";
++}
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml b/node_modules/react-native-securerandom/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..9248eb8
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="net.rhogan.rnsecurerandom" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json b/node_modules/react-native-securerandom/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+new file mode 100644
+index 0000000..53ef8a4
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "net.rhogan.rnsecurerandom",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties b/node_modules/react-native-securerandom/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+new file mode 100644
+index 0000000..1211b1e
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+@@ -0,0 +1,6 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
++coreLibraryDesugaringEnabled=false
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json b/node_modules/react-native-securerandom/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar b/node_modules/react-native-securerandom/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar
+new file mode 100644
+index 0000000..17cf186
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar b/node_modules/react-native-securerandom/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar
+new file mode 100644
+index 0000000..35b87fe
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt b/node_modules/react-native-securerandom/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-securerandom/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..e02d5bb
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1 @@
++#Thu Oct 16 18:22:26 CEST 2025
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/react-native-securerandom/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..0151b86
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/build/generated/res/resValues/debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugAssets/merger.xml b/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugAssets/merger.xml
+new file mode 100644
+index 0000000..13dc8b7
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/debug/assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/build/intermediates/shader_assets/debug/compileDebugShaders/out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..6c62b72
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/debug/jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugShaders/merger.xml b/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+new file mode 100644
+index 0000000..f7be1b5
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/debug/shaders"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/incremental/packageDebugAssets/merger.xml b/node_modules/react-native-securerandom/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+new file mode 100644
+index 0000000..13dc8b7
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/debug/assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/build/intermediates/shader_assets/debug/compileDebugShaders/out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/BuildConfig.class b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/BuildConfig.class
+new file mode 100644
+index 0000000..65ab31d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/BuildConfig.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.class b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.class
+new file mode 100644
+index 0000000..3613a5e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.class b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.class
+new file mode 100644
+index 0000000..66c59f5
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes.class b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes.class
+new file mode 100644
+index 0000000..020b799
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/PRNGFixes.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/RNSecureRandomModule.class b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/RNSecureRandomModule.class
+new file mode 100644
+index 0000000..f5ef20d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/RNSecureRandomModule.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/RNSecureRandomPackage.class b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/RNSecureRandomPackage.class
+new file mode 100644
+index 0000000..df6c9a7
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/net/rhogan/rnsecurerandom/RNSecureRandomPackage.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt b/node_modules/react-native-securerandom/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+new file mode 100644
+index 0000000..78ac5b8
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+@@ -0,0 +1,2 @@
++R_DEF: Internal format may change without notice
++local
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt b/node_modules/react-native-securerandom/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..fb59578
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,7 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="net.rhogan.rnsecurerandom" >
++4
++5    <uses-sdk android:minSdkVersion="24" />
++6
++7</manifest>
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml b/node_modules/react-native-securerandom/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+new file mode 100644
+index 0000000..9248eb8
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="net.rhogan.rnsecurerandom" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json b/node_modules/react-native-securerandom/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt b/node_modules/react-native-securerandom/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+new file mode 100644
+index 0000000..08f4ebe
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+@@ -0,0 +1 @@
++0 Warning/Error
+\ No newline at end of file
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/BuildConfig.class b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/BuildConfig.class
+new file mode 100644
+index 0000000..65ab31d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/BuildConfig.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.class b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.class
+new file mode 100644
+index 0000000..3613a5e
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandom.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.class b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.class
+new file mode 100644
+index 0000000..66c59f5
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes$LinuxPRNGSecureRandomProvider.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes.class b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes.class
+new file mode 100644
+index 0000000..020b799
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/PRNGFixes.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/RNSecureRandomModule.class b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/RNSecureRandomModule.class
+new file mode 100644
+index 0000000..f5ef20d
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/RNSecureRandomModule.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/RNSecureRandomPackage.class b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/RNSecureRandomPackage.class
+new file mode 100644
+index 0000000..df6c9a7
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/net/rhogan/rnsecurerandom/RNSecureRandomPackage.class differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar
+new file mode 100644
+index 0000000..4e192e4
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar differ
+diff --git a/node_modules/react-native-securerandom/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt b/node_modules/react-native-securerandom/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+new file mode 100644
+index 0000000..3861349
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+@@ -0,0 +1 @@
++net.rhogan.rnsecurerandom
+diff --git a/node_modules/react-native-securerandom/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/react-native-securerandom/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..f640cbe
+--- /dev/null
++++ b/node_modules/react-native-securerandom/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,17 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml:1:1-4:12
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml:1:1-4:12
++	package
++		ADDED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml:2:11-46
++		INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml:1:11-69
++uses-sdk
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml
++INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/michael/Documents/Coding/Peach2Peach/peach-app/node_modules/react-native-securerandom/android/src/main/AndroidManifest.xml
+diff --git a/node_modules/react-native-securerandom/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-securerandom/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+new file mode 100644
+index 0000000..72598b6
+Binary files /dev/null and b/node_modules/react-native-securerandom/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ

@@ -131,7 +131,7 @@ export function OfferData({
     return (
       <Tab.Navigator
         style={{ height: tabsHeight }}
-        sceneContainerStyle={tw`pt-4`}
+        screenOptions={{ sceneStyle: tw`pt-4` }}
         initialRouteName={getOfferDataId(offerData[0])}
         tabBar={TabBar}
       >

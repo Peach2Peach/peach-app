@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
+    "target": "es2019",
+    "module": "es2020",
     "jsx": "react-jsx",
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "resolveJsonModule": true,
@@ -10,15 +10,23 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["dom", "dom.iterable", "es2015", "es2016", "esnext"],
+    "lib": ["dom", "dom.iterable", "es2019", "esnext"],
     "allowJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "noEmit": true,
     "paths": {
       "test-utils": ["./tests/unit/helpers/test-utils"]
     }
   },
-  "include": ["src", "@types", "tests", "tailwind.config.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src",
+    "@types",
+    "tests",
+    "tailwind.config.js",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["**/node_modules", "**/Pods"],
+  "extends": "@react-native/typescript-config"
 }

@@ -1,8 +1,9 @@
+import Notifee from "@notifee/react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { memo, useMemo } from "react";
+import { useNavigationState } from "@react-navigation/native";
+import { memo, ReactElement, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { setNumber } from "rn-notification-badge";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { IconType } from "../../assets/icons";
@@ -13,7 +14,6 @@ import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
 import { useOwnPeach069BuyOffers } from "../../hooks/query/usePeach069BuyOffers";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
-import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -28,11 +28,10 @@ export function HomeScreen() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        sceneStyle: tw`flex-1`,
       }}
       initialRouteName="home"
-      sceneContainerStyle={tw`flex-1`}
       tabBar={() => <Footer />}
-      id="homeNavigator"
     >
       {homeTabNames.map((name) => (
         <Tab.Screen
@@ -47,7 +46,7 @@ export function HomeScreen() {
 type FooterItemBaseProps = {
   id: HomeTabName;
   iconId: IconType;
-  notificationBubble?: JSX.Element;
+  notificationBubble?: ReactElement;
   onPress?: () => void;
   active: boolean;
 };
@@ -157,9 +156,9 @@ const YourTradesFooterItem = memo(({ active }: { active: boolean }) => {
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length;
-    if (isIOS()) setNumber(offersWithAction + contractsWithAction);
+    if (isIOS()) Notifee.setBadgeCount(offersWithAction + contractsWithAction);
     return offersWithAction + contractsWithAction;
-  }, [offers, contracts]);
+  }, [offers, buyOffers, contracts]);
 
   const onPress = () => {
     const destinationTab =
@@ -208,7 +207,9 @@ const FOOTER_ITEMS = {
 function Footer() {
   const { bottom } = useSafeAreaInsets();
   const { isDarkMode } = useThemeStore();
-  const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
+  const currentPage = useNavigationState(
+    (state) => state.routeNames[state.index],
+  );
   return (
     <View
       style={[

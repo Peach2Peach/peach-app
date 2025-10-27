@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Linking } from "react-native";
-import { BarCodeReadEvent } from "react-native-camera";
 import {
   PERMISSIONS,
   RESULTS,
@@ -35,7 +34,7 @@ export const useQRScanner = ({ onSuccess }: Props) => {
     }
   };
   const closeQR = () => setShowQRScanner(false);
-  const onRead = ({ data }: BarCodeReadEvent) => {
+  const onRead = (data: string) => {
     onSuccess(data);
     closeQR();
   };

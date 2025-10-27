@@ -30,30 +30,32 @@ export const BitcoinAddressInput = ({
     onSuccess,
   });
 
-  return !showQRScanner ? (
-    <Input
-      placeholder={i18n("form.address.btc.placeholder")}
-      placeholderTextColor={tw.color(
-        isDarkMode ? "backgroundLight-light" : "black-10",
-      )}
-      icons={[
-        ["clipboard", pasteAddress],
-        ["camera", showQR],
-      ]}
-      iconColor={tw.color("primary-main")}
-      onChangeText={onChangeText}
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
-      value={isFocused ? value : cutOffAddress(value)}
-      style={[
-        tw`px-4 py-2 border-2 rounded-lg`,
-        isDarkMode
-          ? tw`bg-transparent border-2 border-black-50 text-backgroundLight-light`
-          : tw`bg-white text-black-100`,
-      ]}
-      {...props}
-    />
-  ) : (
-    <ScanQR onRead={onRead} onCancel={closeQR} />
+  return (
+    <>
+      <Input
+        placeholder={i18n("form.address.btc.placeholder")}
+        placeholderTextColor={tw.color(
+          isDarkMode ? "backgroundLight-light" : "black-10",
+        )}
+        icons={[
+          ["clipboard", pasteAddress],
+          ["camera", showQR],
+        ]}
+        iconColor={tw.color("primary-main")}
+        onChangeText={onChangeText}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        value={isFocused ? value : cutOffAddress(value)}
+        style={[
+          tw`px-4 py-2 border-2 rounded-lg`,
+          isDarkMode
+            ? tw`bg-transparent border-2 border-black-50 text-backgroundLight-light`
+            : tw`bg-white text-black-100`,
+        ]}
+        {...props}
+      />
+
+      {showQRScanner && <ScanQR onRead={onRead} onCancel={closeQR} />}
+    </>
   );
 };

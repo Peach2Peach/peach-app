@@ -72,8 +72,10 @@ export const PaymentMethods = () => {
       }
     >
       <PaymentMethodsTab.Navigator
-        screenOptions={fullScreenTabNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          sceneStyle: tw`px-sm md:px-md`,
+        }}
       >
         {tabs.map((tab) => (
           <PaymentMethodsTab.Screen

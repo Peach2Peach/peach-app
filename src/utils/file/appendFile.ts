@@ -1,4 +1,8 @@
-import RNFS from "react-native-fs";
+import {
+  DocumentDirectoryPath,
+  appendFile as appendFSFile,
+  exists,
+} from "@dr.pogodin/react-native-fs";
 import { error } from "../log/error";
 import { writeFile } from "./writeFile";
 
@@ -9,14 +13,14 @@ export const appendFile = async (
 ): Promise<boolean> => {
   let newFile;
 
-  if (!(await RNFS.exists(RNFS.DocumentDirectoryPath + path))) {
+  if (!(await exists(DocumentDirectoryPath + path))) {
     newFile = true;
     await writeFile(path, "");
   }
 
   try {
-    await RNFS.appendFile(
-      RNFS.DocumentDirectoryPath + path,
+    await appendFSFile(
+      DocumentDirectoryPath + path,
       (!newFile && newline ? "\n" : "") + content,
       "utf8",
     );

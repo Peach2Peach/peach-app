@@ -287,12 +287,8 @@ function SearchHeader({
           onPress: showAcceptTradeRequestPopup,
         },
       ];
-    } else {
-      return [
-        { ...headerIcons.percentBuy, onPress: goToEditPremium },
-        ...icons,
-      ];
     }
+    return [{ ...headerIcons.percentBuy, onPress: goToEditPremium }, ...icons];
   }, [
     offerId,
     cancelOffer,
