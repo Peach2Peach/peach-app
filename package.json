@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.5",
-    "@dr.pogodin/react-native-fs": "2.36.0",
+    "@dr.pogodin/react-native-fs": "2.36.1",
     "@notifee/react-native": "^9.1.8",
     "@react-native-clipboard/clipboard": "^1.16.0",
     "@react-native-community/cli-platform-android": "^15.0.1",
