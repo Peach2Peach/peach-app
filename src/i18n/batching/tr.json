@@ -7,7 +7,7 @@
   "grouphug.goToSettings": "ayarlar",
   "help.payoutPending.description": "Ödemeler gruplar halinde yapılır. Kümeler dolana veya maksimum bekleme süresine ulaşana kadar beklemeniz gerekir. İşlem kümeleri ile %23'e kadar tasarruf sağlayabilirsiniz.",
   "help.payoutPending.title": "ödeme bekliyor",
-  "help.transactionBatching.description": "Temel olarak fonlar, yarım saatlik aralıklarla toplu olarak ödenir. Devre dışı bırakabilirsiniz ancak riskleri anlayın!\nPeach ek konsolidasyon maliyetleriyle karşılaşır, bunlar kullanıcıya yansıtılır. Hesaplama 30 dakikalık ücretin 41 ile çarpılmasıyla yapılır. Ücret dinamik olduğu için maliyetler de değişkendir ve işlem tutarının önemli bir kısmı olabilir.",
+  "help.transactionBatching.description": "Temel olarak fonlar, yarım saatlik aralıklarla toplu olarak ödenir. Devre dışı bırakabilirsiniz ancak riskleri anlayın!\nPeach ek konsolidasyon maliyetleriyle karşılaşır, bunlar kullanıcıya yansıtılır. Hesaplama 30 dakikalık ücretin 68 ile çarpılmasıyla yapılır. Ücret dinamik olduğu için maliyetler de değişkendir ve işlem tutarının önemli bir kısmı olabilir.",
   "help.transactionBatching.title": "ödeme ücretleri",
   "offer.requiredAction.payoutPending": "ödeme bekliyor",
   "settings.batching.delayedPayouts": "Fon ödemeleri gecikir. Ücretsiz işlemler anında ödenir.\nMadencilik ücretlerinde %10'u aşan ödemelerde uyarı alırsınız.",

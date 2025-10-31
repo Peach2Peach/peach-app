@@ -9,7 +9,7 @@
   "grouphug.goToSettings": "Vai alle impostazioni",
   "help.payoutPending.description": "I pagamenti avvengono a gruppi. Bisogna aspettare che il gruppo sia completo o che scada il tempo massimo.\nRisparmi fino al 23% sulle commissioni.",
   "help.payoutPending.title": "Pagamento in attesa",
-  "help.transactionBatching.description": "Gli escrow vengono pagati in transazioni aggregate con una commissione di mezz'ora per impostazione predefinita. Puoi rinunciare, ma conosci i rischi.\nPeach ha costi aggiuntivi di consolidamento che l'utente copre. Calcolati come tariffa 30 minuti × 41. Essendo dinamici, i costi possono essere significativi rispetto all'importo della transazione.",
+  "help.transactionBatching.description": "Gli escrow vengono pagati in transazioni aggregate con una commissione di mezz'ora per impostazione predefinita. Puoi rinunciare, ma conosci i rischi.\nPeach ha costi aggiuntivi di consolidamento che l'utente copre. Calcolati come tariffa 30 minuti × 68. Essendo dinamici, i costi possono essere significativi rispetto all'importo della transazione.",
   "help.transactionBatching.title": "Commissioni di pagamento",
   "offer.requiredAction.payoutPending": "Pagamento in attesa",
   "settings.batching.delayedPayouts": "I pagamenti in deposito sono ritardati. I Free Trade vengono pagati immediatamente.\nAvviso se le tasse di estrazione superano il 10%.",

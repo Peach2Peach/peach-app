@@ -9,7 +9,7 @@
   "grouphug.goToSettings": "Ir a ajustes",
   "help.payoutPending.description": "Los pagos se realizan en lotes. Esto implica esperar hasta que el lote esté completo o se agote el tiempo.\n\nAhorra hasta un 23% en comisiones.",
   "help.payoutPending.title": "Pago pendiente",
-  "help.transactionBatching.description": "Las garantías se pagan en lotes con una comisión de media hora por defecto. Puedes optar por no participar, pero entiende los riesgos.\nPeach incurre en costes adicionales de consolidación que el usuario cubre. Se calculan multiplicando la tarifa de 30 minutos por 41. Al ser dinámica, la comisión puede ser significativa respecto al importe de la operación.",
+  "help.transactionBatching.description": "Las garantías se pagan en lotes con una comisión de media hora por defecto. Puedes optar por no participar, pero entiende los riesgos.\nPeach incurre en costes adicionales de consolidación que el usuario cubre. Se calculan multiplicando la tarifa de 30 minutos por 68. Al ser dinámica, la comisión puede ser significativa respecto al importe de la operación.",
   "help.transactionBatching.title": "Comisiones de pago",
   "offer.requiredAction.payoutPending": "Pago pendiente",
   "settings.batching.delayedPayouts": "Los pagos en custodia se retrasan. Las operaciones gratuitas se pagan al instante.\nSe avisará si las tasas de minería superan el 10%.",

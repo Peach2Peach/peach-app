@@ -7,7 +7,7 @@
   "grouphug.announcement.text": "Mit GroupHug bündeln wir Treuhandfreigaben, um Transaktionsgebühren zu senken.\n\nMelden Sie sich an, warten Sie kurz, sparen Sie mehr.\n\nSie behalten die Kontrolle und können jederzeit wechseln.",
   "grouphug.announcement.title": "Zeit für einen GroupHug!",
   "grouphug.goToSettings": "Zu den Einstellungen",
-  "help.transactionBatching.description": "Treuhandgelder werden standardmäßig in gebündelten Transaktionen mit einer halbstündigen Gebühr ausgezahlt. Sie können dies deaktivieren, sollten aber die Risiken kennen.\nDa Peach zusätzliche Konsolidierungskosten trägt, bitten wir den Nutzer, diese zu übernehmen. Die Gebühr wird berechnet, indem die 30-Minuten-Gebühr mit 41 multipliziert wird. Da sie dynamisch ist, können die Kosten einen erheblichen Teil des Handelsbetrags ausmachen.",
+  "help.transactionBatching.description": "Treuhandgelder werden standardmäßig in gebündelten Transaktionen mit einer halbstündigen Gebühr ausgezahlt. Sie können dies deaktivieren, sollten aber die Risiken kennen.\nDa Peach zusätzliche Konsolidierungskosten trägt, bitten wir den Nutzer, diese zu übernehmen. Die Gebühr wird berechnet, indem die 30-Minuten-Gebühr mit 68 multipliziert wird. Da sie dynamisch ist, können die Kosten einen erheblichen Teil des Handelsbetrags ausmachen.",
   "help.transactionBatching.title": "Auszahlungsgebühren",
   "offer.requiredAction.payoutPending": "Zahlung ausstehend",
   "settings.batching.delayedPayouts": "Treuhand-Auszahlungen werden verzögert. Kostenlose Trades werden sofort ausgezahlt.\nSie werden gewarnt, wenn Mining-Gebühren 10 % übersteigen.",

@@ -9,7 +9,7 @@
   "grouphug.goToSettings": "Menj a beállításokhoz",
   "help.payoutPending.description": "A tranzakciók csoportosítva fizetődnek. Várni kell, amíg a csoport megtelik vagy a maximális idő eltelik.\n\nAkár 23%-ot spórolhatsz a díjakon.",
   "help.payoutPending.title": "Kifizetés függőben",
-  "help.transactionBatching.description": "A letéti kifizetések alapértelmezés szerint félórás díjjal kötegelt tranzakciókban történnek. Kikapcsolható, de ismerd a kockázatokat!\nA Peach további konszolidációs költségeket visel, amelyeket a felhasználó fedez. A 30 perces díj × 41. Dinamikus díj, így a költség jelentős lehet a tranzakció összegéhez képest.",
+  "help.transactionBatching.description": "A letéti kifizetések alapértelmezés szerint félórás díjjal kötegelt tranzakciókban történnek. Kikapcsolható, de ismerd a kockázatokat!\nA Peach további konszolidációs költségeket visel, amelyeket a felhasználó fedez. A 30 perces díj × 68. Dinamikus díj, így a költség jelentős lehet a tranzakció összegéhez képest.",
   "help.transactionBatching.title": "Kifizetési díjak",
   "offer.requiredAction.payoutPending": "Kifizetés függőben",
   "settings.batching.delayedPayouts": "A letéti kifizetések késnek. Az ingyenes kereskedések azonnal kifizetésre kerülnek.\nFigyelmeztetés, ha 10%-nál többet fizetsz bányászati díjként.",

@@ -9,7 +9,7 @@
   "grouphug.goToSettings": "Przejdź do ustawień",
   "help.payoutPending.description": "Wypłaty są grupowe. Trzeba poczekać, aż grupa się zapełni lub minie maksymalny czas.\nOszczędzasz nawet do 23% na opłatach.",
   "help.payoutPending.title": "Oczekująca wypłata",
-  "help.transactionBatching.description": "Escrows wypłacane są w transakcjach grupowych z opłatą półgodzinną. Możesz zrezygnować, ale znasz ryzyka.\nPeach ponosi dodatkowe koszty konsolidacji, które pokrywa użytkownik. Liczone jako 30 min × 41. Koszty są dynamiczne i mogą stanowić znaczną część kwoty transakcji.",
+  "help.transactionBatching.description": "Escrows wypłacane są w transakcjach grupowych z opłatą półgodzinną. Możesz zrezygnować, ale znasz ryzyka.\nPeach ponosi dodatkowe koszty konsolidacji, które pokrywa użytkownik. Liczone jako 30 min × 68. Koszty są dynamiczne i mogą stanowić znaczną część kwoty transakcji.",
   "help.transactionBatching.title": "Opłaty za wypłatę",
   "offer.requiredAction.payoutPending": "Oczekująca wypłata",
   "settings.batching.delayedPayouts": "Wypłaty Escrow są opóźnione. Darmowe transakcje płatne od razu.\nOstrzeżenie przy opłatach >10%.",

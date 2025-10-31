@@ -9,7 +9,7 @@
   "grouphug.goToSettings" : "ir para configurações",
   "help.payoutPending.description" : "Os pagamentos são feitos em lotes, o que pode gerar um tempo de espera até que o lote esteja completo ou o tempo limite seja atingido.\n\nIsso reduz em até 23% as taxas de rede.",
   "help.payoutPending.title" : "pagamento pendente",
-  "help.transactionBatching.description" : "Os Depósitos são pagos em lotes, com uma taxa padrão de 30 minutos. Você pode optar por não usar, mas entenda os riscos!\nComo a Peach assume custos extras de consolidação, pedimos que você os cubra. Eles são calculados multiplicando a taxa de 30 minutos por 41. Como essa taxa é dinâmica, os custos também variam e podem se tornar significativos no valor da transação.",
+  "help.transactionBatching.description" : "Os Depósitos são pagos em lotes, com uma taxa padrão de 30 minutos. Você pode optar por não usar, mas entenda os riscos!\nComo a Peach assume custos extras de consolidação, pedimos que você os cubra. Eles são calculados multiplicando a taxa de 30 minutos por 68. Como essa taxa é dinâmica, os custos também variam e podem se tornar significativos no valor da transação.",
   "help.transactionBatching.title" : "taxas de pagamento",
   "offer.requiredAction.payoutPending" : "pagamento pendente",
   "settings.batching.delayedPayouts" : "Pagamentos de Depósito podem atrasar. Transações gratuitas são pagas instantaneamente.\nVocê será avisado se pagar mais de 10% em taxas de mineração.",

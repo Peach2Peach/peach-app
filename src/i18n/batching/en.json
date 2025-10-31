@@ -9,7 +9,7 @@
   "grouphug.goToSettings": "Go to settings",
   "help.payoutPending.description": "Transactions are paid in batches. This means waiting until the batch fills or max wait time is reached.\n\nSaves up to 23% in fees.",
   "help.payoutPending.title": "Payout pending",
-  "help.transactionBatching.description": "Escrows are paid in batched transactions with a half-hour fee by default. You can opt out, but understand the risks.\nPeach incurs additional consolidation costs, which the user covers. Calculated as 30-minute fee × 41. Since fees are dynamic, costs can become a significant part of the trade.",
+  "help.transactionBatching.description": "Escrows are paid in batched transactions with a half-hour fee by default. You can opt out, but understand the risks.\nPeach incurs additional consolidation costs, which the user covers. Calculated as 30-minute fee × 68. Since fees are dynamic, costs can become a significant part of the trade.",
   "help.transactionBatching.title": "Payout fees",
   "offer.requiredAction.payoutPending": "Payout pending",
   "offer.requiredAction.wrongAmountFundedOnContract": "Wrong amount funded",

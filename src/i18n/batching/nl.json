@@ -9,7 +9,7 @@
   "grouphug.goToSettings": "Ga naar instellingen",
   "help.payoutPending.description": "Transacties worden in batches uitbetaald. Wachten tot de batch vol is of de maximale tijd is bereikt.\nBespaar tot 23% op transactiekosten.",
   "help.payoutPending.title": "Uitbetaling in behandeling",
-  "help.transactionBatching.description": "Escrows worden standaard in batches uitbetaald met een halfuurtarief. U kunt dit uitschakelen, maar begrijp de risico’s.\nPeach maakt extra consolidatiekosten die de gebruiker dekt. Berekening: 30 minuten × 41. Kosten zijn dynamisch en kunnen een groot deel van het handelsbedrag zijn.",
+  "help.transactionBatching.description": "Escrows worden standaard in batches uitbetaald met een halfuurtarief. U kunt dit uitschakelen, maar begrijp de risico’s.\nPeach maakt extra consolidatiekosten die de gebruiker dekt. Berekening: 30 minuten × 68. Kosten zijn dynamisch en kunnen een groot deel van het handelsbedrag zijn.",
   "help.transactionBatching.title": "Uitbetalingsvergoedingen",
   "offer.requiredAction.payoutPending": "Uitbetaling in behandeling",
   "settings.batching.delayedPayouts": "Escrow-uitbetalingen zijn vertraagd. Gratis transacties worden direct betaald.\nWaarschuwing bij meer dan 10% aan mijnbouwkosten.",
