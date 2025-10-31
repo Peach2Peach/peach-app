@@ -15,3 +15,7 @@
 # Package: bdk-rn
 -keep class com.sun.jna.** { *; }
 -keep class org.bitcoindevkit.** { *; }
+
+# JNA has optional AWT support that doesn't exist on Android
+-dontwarn java.awt.**
+-dontnote java.awt.**
