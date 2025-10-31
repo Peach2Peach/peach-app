@@ -21,7 +21,12 @@ import i18n from "../../utils/i18n";
 import { isIOS } from "../../utils/system/isIOS";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<
+  {
+    [key in HomeTabName]: undefined;
+  },
+  "homeNavigator"
+>();
 
 export function HomeScreen() {
   return (
@@ -32,6 +37,7 @@ export function HomeScreen() {
       }}
       initialRouteName="home"
       tabBar={() => <Footer />}
+      id="homeNavigator"
     >
       {homeTabNames.map((name) => (
         <Tab.Screen
