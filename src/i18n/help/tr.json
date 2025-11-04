@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Peach'te sats satmak ÜCRETSİZDİR!\n\nGünde 1000 CHF'ten fazla satmak mı istiyorsunuz? Bize hello@peachbitcoin.com adresinden e-posta atın",
+  "help.expressSellHelp.title": "Bitcoin satmak",
+  "help.expressBuyHelp.description": "Peach'ten sats satın almak, işlem tutarının %2'sine mal olur.",
+  "help.expressBuyHelp.title": "Bitcoin satın almak",
   "help": "yardım",
   "help.acceptMatch.description": "Bir teklif için yalnızca bir alıcı eşleşebilir. Bir eşleşmeyi kabul ettikten sonra işlem başlatılır.\n\nBaşladıktan sonra, alıcı ile işbirliği yaparak işlemi iptal edebilirsiniz ve itibarınız zarar görebilir.",
   "help.acceptMatch.title": "eşleşmeyi kabul et = alışverişe başla",

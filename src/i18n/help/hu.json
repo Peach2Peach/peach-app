@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "A sats eladása a Peach-en INGYENES!\n\nSzeretnél naponta több mint 1000 CHF-et eladni? Írj nekünk a hello@peachbitcoin.com címre",
+  "help.expressSellHelp.title": "Bitcoin eladás",
+  "help.expressBuyHelp.description": "A sats vásárlása a Peach-en a tranzakció 2%-ába kerül.",
+  "help.expressBuyHelp.title": "Bitcoin vásárlás",
   "help": "segítség",
   "help.acceptMatch.description": "Egy ajánlattal csak egy vásárlót lehet összepárosítani. Az ajánlat elfogadása után a kereskedés elindul.\n\nHa már elindult, a vásárlóval csak együttműködve lehet visszavonni, különben a hírneved csorbul.",
   "help.acceptMatch.title": "ajánlat elfogadása = kereskedés indítása",

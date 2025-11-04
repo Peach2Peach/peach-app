@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Je sats verkopen op Peach is GRATIS!\n\nWil je meer dan 1000 CHF per dag verkopen? Mail ons op hello@peachbitcoin.com",
+  "help.expressSellHelp.title": "Bitcoin verkopen",
+  "help.expressBuyHelp.description": "Sats kopen op Peach kost 2% van je transactie.",
+  "help.expressBuyHelp.title": "Bitcoin kopen",
   "help": "hulp",
   "help.acceptMatch.description": "Je kunt slechts één koper per aanbod matchen. Zodra je accepteert, start de transactie. Annuleren na start kan alleen in overleg met de koper en schaadt je reputatie.",
   "help.acceptMatch.title": "match accepteren = transactie starten",

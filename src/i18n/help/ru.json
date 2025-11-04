@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Продажа ваших сатоши на Peach БЕСПЛАТНА!\n\nХотите продавать более 1000 CHF в день? Напишите нам на hello@peachbitcoin.com",
+  "help.expressSellHelp.title": "Продажа Биткоина",
+  "help.expressBuyHelp.description": "Покупка сатоши на Peach стоит 2% от суммы транзакции.",
+  "help.expressBuyHelp.title": "Покупка Биткоина",
   "help": "Помощь",
   "help.acceptMatch.description": "Можно торговать только с одним покупателем на предложение. После принятия предложение запускает сделку. Отменить её можно только вместе с покупателем, иначе репутация пострадает.",
   "help.acceptMatch.title": "Принять предложение = начать сделку",

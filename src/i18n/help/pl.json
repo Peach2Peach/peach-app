@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Sprzedaż swoich sats na Peach jest BEZPŁATNA!\n\nChcesz sprzedać więcej niż 1000 CHF dziennie? Napisz do nas na hello@peachbitcoin.com",
+  "help.expressSellHelp.title": "Sprzedaż Bitcoin",
+  "help.expressBuyHelp.description": "Kupowanie sats na Peach kosztuje 2% wartości transakcji.",
+  "help.expressBuyHelp.title": "Kupno Bitcoin",
   "help": "Pomoc",
   "help.acceptMatch.description": "Możesz dopasować tylko jednego kupującego do jednej oferty. Po zaakceptowaniu dopasowania, handel się rozpoczyna. Po rozpoczęciu możesz tylko wspólnie z kupującym anulować transakcję; w przeciwnym razie Twoja reputacja ucierpi.",
   "help.acceptMatch.title": "Zaakceptuj dopasowanie = rozpocznij transakcję",
