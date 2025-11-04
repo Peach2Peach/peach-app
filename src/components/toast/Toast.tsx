@@ -81,8 +81,8 @@ export const Toast = () => {
   const insets = useSafeAreaInsets();
   const panResponder = useRef(
     PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: (_, { dy }) => Math.abs(dy) > 5,
+      onMoveShouldSetPanResponder: (_, { dy }) => Math.abs(dy) > 5,
       onPanResponderMove: (e, { dy }) => {
         if (dy < 0) top.setValue(dy);
       },
