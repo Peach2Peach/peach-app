@@ -1,5 +1,7 @@
 {
   "help": "Hilfe",
+  "help.grouphugContractHelp.description": "Transaktionsbündelung, oder Group Hug, bedeutet, dass deine Auszahlung mit anderen Transaktionen gebündelt wird, um Gebühren zu senken. Derzeit gibt es nur einen GH pro Tag, daher kann deine Auszahlung etwas länger dauern (bis zu 24 Stunden).",
+  "help.grouphugContractHelp.title": "Wie Group Hug funktioniert",
   "help.acceptMatch.description": "Du kannst nur einen Käufer pro Angebot matchen. Sobald du ein Match annimmst, wird der Handel gestartet.\n\nNach dem Start kannst du nur noch gemeinsam mit dem Käufer stornieren, und dein Ruf wird beeinträchtigt.",
   "help.acceptMatch.title": "Match annehmen = Handel starten",
   "help.addressSigning.description": "Aufgrund schweizer Gesetze musst du eine Signatur abgeben, um zu bestätigen, dass du im Besitz der Adresse bist, an die der Handel ausgezahlt wird.\n\nWenn du nicht weißt, wie das funktioniert, empfehlen wir dir das Peach Wallet zu verwenden. Dann musst du diesen Schritt nicht manuell durchführen.",

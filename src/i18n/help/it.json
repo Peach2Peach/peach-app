@@ -1,5 +1,7 @@
 {
   "help": "Aiuto",
+  "help.grouphugContractHelp.description": "Il batching delle transazioni, o Group Hug, significa che il tuo pagamento sarà unito ad altre transazioni, riducendo le commissioni. Attualmente c'è solo un GH al giorno, quindi il pagamento potrebbe richiedere un po' più di tempo (fino a 24 ore).",
+  "help.grouphugContractHelp.title": "Come funziona Group Hug",
   "help.acceptMatch.description": "Puoi accettare solo un compratore per offerta. Una volta accettato, lo scambio si avvia.\n\nDopo l'avvio, puoi annullare solo con l'accordo del compratore; la tua reputazione ne risentirà.",
   "help.acceptMatch.title": "Accetta = avvia scambio",
   "help.addressSigning.description": "Per legge svizzera, devi firmare per confermare di possedere l'indirizzo di pagamento.\n\nSe non sai come fare, usa il wallet Peach, dove la firma manuale non è necessaria.",

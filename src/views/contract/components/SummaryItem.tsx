@@ -1,31 +1,51 @@
-import type { ReactElement } from "react";
 import Clipboard from "@react-native-clipboard/clipboard";
-import { useRef } from "react";
+import type { ReactElement } from "react";
+import { useCallback, useRef } from "react";
 import { Animated, TextProps, View } from "react-native";
 import { TouchableIcon } from "../../../components/TouchableIcon";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PeachText } from "../../../components/text/PeachText";
 import { useIsMediumScreen } from "../../../hooks/useIsMediumScreen";
+import { HelpPopup } from "../../../popups/HelpPopup";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
+import { headerIcons } from "../../../utils/layout/headerIcons";
 
 type Props = {
   label: string;
   value: ReactElement;
+  infoName?: string;
 };
 
-export const SummaryItem = ({ label, value }: Props) => {
+export const SummaryItem = ({ label, value, infoName }: Props) => {
+  const setPopup = useSetPopup();
+  const showExpressBuyHelp = infoName
+    ? useCallback(() => setPopup(<HelpPopup id={infoName} />), [setPopup])
+    : () => {};
+
   const { isDarkMode } = useThemeStore();
   return (
     <View style={tw`flex-row items-center justify-between gap-3`}>
-      <PeachText
-        style={[
-          tw`md:body-l`,
-          isDarkMode ? tw`text-black-50` : tw`text-black-65`,
-        ]}
-      >
-        {label}
-      </PeachText>
+      <View style={tw`flex-row gap-3`}>
+        <PeachText
+          style={[
+            tw`md:body-l`,
+            isDarkMode ? tw`text-black-50` : tw`text-black-65`,
+          ]}
+        >
+          {label}
+        </PeachText>
+        {infoName && (
+          <TouchableIcon
+            id={headerIcons.help.id}
+            key={`help`}
+            onPress={showExpressBuyHelp}
+            iconColor={headerIcons.help.color}
+            style={tw`w-5 h-5 md:w-6 md:h-6`}
+          />
+        )}
+      </View>
       {value}
     </View>
   );

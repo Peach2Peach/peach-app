@@ -1,5 +1,7 @@
 {
   "help": "ajuda",
+  "help.grouphugContractHelp.description": "O agrupamento de transações, ou Group Hug, significa que o seu pagamento será combinado com outras transações, reduzindo as taxas. Atualmente há apenas um GH por dia, o que pode fazer com que o pagamento demore um pouco mais (até 24h).",
+  "help.grouphugContractHelp.title": "Como funciona o Group Hug",
   "help.acceptMatch.description": "Só pode corresponder com um comprador por oferta. Depois de aceitar uma correspondência, a negociação é iniciada.\n\nDepois de iniciada, só pode fazer um cancelamento colaborativo com o seu comprador, ou a sua reputação será prejudicada.",
   "help.acceptMatch.title": "aceitar correspondência = iniciar negociação",
   "help.addressSigning.description": "Devido à lei suíça, precisará assinar para verificar que é o proprietário do endereço para o qual a negociação será paga.\n\nSe não sabe como isso funciona, recomendamos usar a carteira Peach, onde não precisa passar manualmente esta etapa.",
