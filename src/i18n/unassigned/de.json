@@ -101,6 +101,7 @@
   "peachBadges.fastTrader": "Schneller Händler",
   "peachBadges.fastTrader.description": "Ein schneller Händler ist so schnell wie das Lightning-Netzwerk. Sie akzeptieren Matches und tätigen oder bestätigen Zahlungen nahezu sofort.",
   "peachBadges.repeatTrader": "Wiederverkäufer",
+  "peachBadges.repeatTrader.description": "Die Anzahl der Male, die du in der Vergangenheit mit diesem Nutzer gehandelt hast.",
   "peachBadges.superTrader": "Supertrader",
   "peachBadges.superTrader.description": "Ein Supertrader ist ein sehr aktiver Peach-Benutzer. Sie haben mindestens 20 Trades durchgeführt.",
   "privacyPolicy": "Datenschutzrichtlinie",

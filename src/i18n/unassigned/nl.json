@@ -103,6 +103,8 @@
   "peachBadges.fastTrader.description": "Een snelle handelaar is zo snel als het lightning netwerk. Ze accepteren matches en maken/bevestigen betalingen vrijwel direct.",
   "peachBadges.superTrader": "superhandelaar",
   "peachBadges.superTrader.description": "Een superhandelaar is een erg actieve Peach gebruiker. Deze heeft op zijn minst 20 transacties gedaan.",
+  "peachBadges.repeatTrader.description": "Het aantal keren dat je in het verleden met deze gebruiker hebt gehandeld.",
+  "peachBadges.repeatTrader": "commerciante abituale",
   "privacyPolicy": "privacybeleid",
   "rate.rateAndFinish": "beoordelen & afronden",
   "rate.subtitle": "Ben je tevreden over jouw tegenpartij van deze transactie?",

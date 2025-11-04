@@ -101,6 +101,7 @@
   "payout.wallet.select.setWallet": "set custom wallet",
   "payout.wallet.select.title": "select payout wallet",
   "peachBadges": "Peach badges",
+  "peachBadges.repeatTrader.description": "The number of times you have traded with this user in the past.",
   "peachBadges.ambassador": "early adopter",
   "peachBadges.ambassador.description": "These fine people have been with us from the very beginning!",
   "peachBadges.fastTrader": "fast trader",

@@ -93,6 +93,8 @@
   "payout.wallet.select.setWallet": "καθορισμός προσαρμοσμένου πορτοφολιού",
   "payout.wallet.select.title": "επιλέξτε πορτοφόλι πληρωμής",
   "peachBadges": "Κονκάρδα Peach",
+  "peachBadges.repeatTrader.description": "Ο αριθμός φορών που έχετε κάνει συναλλαγές με αυτόν τον χρήστη στο παρελθόν.",
+  "peachBadges.repeatTrader": "επαναλαμβανόμενος έμπορος",
   "peachBadges.ambassador": "πρωτοπόρος χρήστης",
   "peachBadges.ambassador.description": "Αυτοί οι εξαιρετικοί άνθρωποι είναι μαζί μας από την αρχή!",
   "peachBadges.fastTrader": "γρήγορος πωλητής",

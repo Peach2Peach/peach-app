@@ -104,6 +104,7 @@
   "peachBadges.fastTrader": "trader rápido",
   "peachBadges.fastTrader.description": "Acepta matches y pagos casi instantáneos por Lightning",
   "peachBadges.repeatTrader": "vendedor conocido",
+  "peachBadges.repeatTrader.description": "La cantidad de veces que has comerciado con este usuario en el pasado.",
   "peachBadges.superTrader": "súper trader",
   "peachBadges.superTrader.description": "Usuario muy activo con al menos 20 intercambios",
   "privacyPolicy": "política de privacidad",

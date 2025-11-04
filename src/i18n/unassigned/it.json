@@ -102,6 +102,8 @@
   "peachBadges.fastTrader.description": "Accetta match e conferma pagamenti quasi istantaneamente.",
   "peachBadges.superTrader": "Super negoziatore",
   "peachBadges.superTrader.description": "Utente molto attivo, con almeno 20 scambi completati.",
+  "peachBadges.repeatTrader.description": "Il numero di volte che hai fatto scambi con questo utente in passato.",
+  "peachBadges.repeatTrader": "commerciante abituale",
   "privacyPolicy": "Informativa Privacy",
   "rate.rateAndFinish": "Valuta e termina",
   "rate.subtitle": "Come valuteresti la controparte per questo scambio?",

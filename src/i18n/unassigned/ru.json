@@ -103,6 +103,8 @@
   "peachBadges.fastTrader.description": "Шустрый торговец настолько же быстр, насколько быстра Lightning Network. Они принимают сделки и производят платежи практически мгновенно.",
   "peachBadges.superTrader": "супертрейдер",
   "peachBadges.superTrader.description": "Супертрейдеры — активные пользователи Peach. Они совершили как минимум 20 сделок.",
+  "peachBadges.repeatTrader.description": "Количество раз, когда вы торговали с этим пользователем ранее.",
+  "peachBadges.repeatTrader": "постоянный трейдер",
   "privacyPolicy": "политика конфиденциальности",
   "rate.rateAndFinish": "оценить и закончить",
   "rate.subtitle": "Как бы вы оценили своего партнёра по сделке?",
