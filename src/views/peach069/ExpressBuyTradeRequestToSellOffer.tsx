@@ -205,7 +205,10 @@ const performInstantTrade = async ({
         routes: [
           {
             name: "homeScreen",
-            params: { screen: "yourTrades", params: { tab: "yourTrades.buy" } },
+            params: {
+              screen: "yourTrades",
+              params: { tab: "yourTrades.69BuyOffer" },
+            },
           },
           {
             name: "contract",
