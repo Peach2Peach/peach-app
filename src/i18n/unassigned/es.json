@@ -273,7 +273,7 @@
   "search.popups.unmatched": "¡Solicitud de intercambio cancelada!",
   "search.popups.unmatch.title": "¿Cancelar la solicitud?",
   "search.popups.unmatch.text": "Deshacerlo afectará negativamente tu reputación.\nPodrás deshacerlo sin penalización después de $0 horas.",
-    "search.popups.unmatchNoPenalty.text": "Deshacerlo afectará negativamente tu reputación.\n¡Puedes deshacerlo ahora sin penalización!",
+    "search.popups.unmatchNoPenalty.text": "¡Puedes deshacerlo ahora sin penalización!",
  "search.popups.unmatch.confirm": "sí, cancelar",
   "search.popups.matchUndone.title": "solicitud cancelada",
   "search.popups.matchUndone.text": "Tu reputación no se ha visto afectada y puedes volver a solicitar.\n\nSi cancelas después del tiempo límite, tu reputación se verá afectada negativamente."

@@ -184,7 +184,7 @@
   "search.popups.unmatch.confirm": "yes, undo",
   "search.popups.unmatch.neverMind": "never mind",
   "search.popups.unmatch.text": "Undoing it will negatively affect your reputation score.\nYou can undo it without a penalty after $0 hours.",
-  "search.popups.unmatchNoPenalty.text": "Undoing it will negatively affect your reputation score.\nYou can undo it now without penalty!",
+  "search.popups.unmatchNoPenalty.text": "You can undo it now without penalty!",
   "search.popups.unmatch.title": "undo the trade request?",
   "search.popups.unmatched": "trade request undone!",
   "search.searchingForAPeer": "Peach is searching for a peer",

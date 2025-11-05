@@ -272,8 +272,8 @@
   "search.unmatch": "cancelar  solicitação de negociação",
   "search.popups.unmatched": " solicitação de negociação cancelada!",
   "search.popups.unmatch.title": "cancelar a solicitação?",
-  "search.popups.unmatch.text": "Desfazer isto afetará negativamente sua reputação.\nVocê pode desfazer sem penalidade após $0 horas.",
-    "search.popups.unmatchNoPenalty.text": "Desfazer isto afetará negativamente sua reputação.\nVocê pode desfazer agora sem penalidade!",
+  "search.popups.unmatch.text": "Desfazer isto afetará negativamente sua reputação.\nVocê pode desfazer sem penalização após $0 horas.",
+    "search.popups.unmatchNoPenalty.text": "Você pode desfazer agora sem penalidade!",
  "search.popups.unmatch.confirm": "sim, cancelar",
   "search.popups.matchUndone.title": "solicitação cancelada",
   "search.popups.matchUndone.text": "A sua reputação não foi afetada e pode reenviar a solicitação.\n\nSe cancelar após o tempo limite, a reputação será afetada negativamente."

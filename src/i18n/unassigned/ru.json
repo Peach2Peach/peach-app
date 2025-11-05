@@ -269,7 +269,7 @@
   "search.popups.unmatched": "запрос на сделку отменён!",
   "search.popups.unmatch.title": "отменить запрос?",
   "search.popups.unmatch.text": "Отмена повлияет негативно на вашу репутацию.\nВы сможете отменить без штрафа через $0 часов.",
-    "search.popups.unmatchNoPenalty.text": "Отмена повлияет негативно на вашу репутацию.\nВы можете отменить сейчас без штрафа!",
+    "search.popups.unmatchNoPenalty.text": "Вы можете отменить сейчас без штрафа!",
   "search.popups.unmatch.confirm": "да, отменить",
   "search.popups.matchUndone.title": "запрос отменён",
   "search.popups.matchUndone.text": "Ваша репутация не пострадала, вы можете повторно отправить запрос.\n\nЕсли отмените после истечения времени, репутация ухудшится."

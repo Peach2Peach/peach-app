@@ -263,7 +263,7 @@
     "search.popups.unmatched": "το αίτημα συναλλαγής αναιρέθηκε!",
     "search.popups.unmatch.title": "αναίρεση αιτήματος;",
     "search.popups.unmatch.text": "Η αναίρεση θα επηρεάσει αρνητικά τη φήμη σας.\nΜπορείτε να την αναιρέσετε χωρίς ποινή μετά από $0 ώρες.",
-    "search.popups.unmatchNoPenalty.text": "Η αναίρεση θα επηρεάσει αρνητικά τη φήμη σας.\nΜπορείτε να την αναιρέσετε τώρα χωρίς ποινή!",
+    "search.popups.unmatchNoPenalty.text": "Μπορείτε να την αναιρέσετε τώρα χωρίς ποινή!",
     "search.popups.unmatch.confirm": "ναι, ανάκληση",
     "search.popups.matchUndone.title": "αίτημα συναλλαγής αναιρέθηκε",
     "search.popups.matchUndone.text": "Η φήμη σου δεν επηρεάστηκε και μπορείς να ξαναστείλεις αίτημα.\n\nΑν το αναιρέσεις μετά τη λήξη του χρόνου, η φήμη σου θα επηρεαστεί αρνητικά."

@@ -268,7 +268,7 @@
     "search.popups.unmatched": "tradeverzoek ongedaan gemaakt!",
     "search.popups.unmatch.title": "tradeverzoek ongedaan maken?",
     "search.popups.unmatch.text": "Het ongedaan maken beïnvloedt je reputatie negatief.\nJe kunt het na $0 uur zonder straf ongedaan maken.",
-    "search.popups.unmatchNoPenalty.text": "Het ongedaan maken beïnvloedt je reputatie negatief.\nJe kunt het nu zonder straf ongedaan maken!",
+    "search.popups.unmatchNoPenalty.text": "Je kunt het nu zonder straf ongedaan maken!",
      "search.popups.unmatch.confirm": "ja, ongedaan maken",
     "search.popups.matchUndone.title": "tradeverzoek ongedaan gemaakt",
     "search.popups.matchUndone.text": "Je reputatie is niet aangetast, en je kunt opnieuw verzoeken.\n\nNa de timer heeft ongedaan maken een negatief effect."
