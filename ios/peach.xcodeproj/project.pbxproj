@@ -53,6 +53,7 @@
 		B76C0E222B034C75A6D0BBEB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22086F581C7460FAEA123DF /* Colors.xcassets */; };
 		D1EFEE8B3AF4BE2F5A87ACCF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5329F5BD4D4644F441E5F2A9 /* PrivacyInfo.xcprivacy */; };
 		DD4E5446C1267A9F531423D1 /* libPods-peach-peach testnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */; };
+		EB7583742EB8B0740010064C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 /* End PBXBuildFile section */
 
@@ -485,9 +486,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -502,9 +507,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -519,9 +528,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -593,9 +606,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach regtest/Pods-peach-peach regtest-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -636,7 +653,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
 		671A563E2850E9AE0058434C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -646,9 +663,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -723,9 +744,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-peach-peach testnet/Pods-peach-peach testnet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -755,6 +780,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB7583742EB8B0740010064C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
