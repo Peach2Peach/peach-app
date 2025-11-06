@@ -4,7 +4,7 @@ import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { THOUSANDS_GROUP } from "../../constants";
+import { SATSINBTC, THOUSANDS_GROUP } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { writeCSV } from "../../hooks/writeCSV";
 import { useThemeStore } from "../../store/theme";
@@ -14,6 +14,7 @@ import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
 import { createCSV } from "../../utils/file/createCSV";
 import i18n from "../../utils/i18n";
+import { round } from "../../utils/math/round";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { groupChars } from "../../utils/string/groupChars";
 import { priceFormat } from "../../utils/string/priceFormat";
@@ -60,6 +61,7 @@ function createCSVValue(tradeSummaries: (OfferSummary | ContractSummary)[]) {
     "Type",
     "Amount",
     "Price",
+    "Bitcoin Price",
     "Currency",
     "Premium",
   ];
@@ -85,6 +87,11 @@ function createCSVValue(tradeSummaries: (OfferSummary | ContractSummary)[]) {
           : "";
       const price = "price" in d ? `${tradePrice}` : "";
       return price;
+    },
+    "Bitcoin Price": (d: OfferSummary | ContractSummary) => {
+      if (!("price" in d)) return "";
+      const bitcoinPrice = round((d.price / d.amount) * SATSINBTC, 2);
+      return bitcoinPrice;
     },
     Currency: (d: OfferSummary | ContractSummary) =>
       "currency" in d ? d.currency : "",
