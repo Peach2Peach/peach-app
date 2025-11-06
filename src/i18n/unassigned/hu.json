@@ -104,6 +104,7 @@
   "peachBadges.fastTrader": "gyors kereskedő",
   "peachBadges.fastTrader.description": "A gyors kereskedő olyan gyors, mint a Lightning hálózat. Az ajánlatokat elfogadja és a fizetéseket majdnem azonnal végrehajtja vagy megerősíti.",
   "peachBadges.repeatTrader": "rendszeres kereskedő",
+  "peachBadges.repeatTrader.description": "Hányszor kereskedtél korábban ezzel a felhasználóval.",
   "peachBadges.superTrader": "szuperkereskedő",
   "peachBadges.superTrader.description": "A szuperkereskedő egy nagyon aktív Peach felhasználó. Legalább 20 kereskedést végzett.",
   "privacyPolicy": "adatvédelmi irányelvek",

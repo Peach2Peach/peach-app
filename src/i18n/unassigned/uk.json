@@ -103,6 +103,8 @@
   "peachBadges.fastTrader.description": "Приймають збіги та підтверджують платежі майже миттєво.",
   "peachBadges.superTrader": "Супертрейдер",
   "peachBadges.superTrader.description": "Активний користувач, здійснив щонайменше 20 угод.",
+  "peachBadges.repeatTrader.description": "Кількість разів, коли ви торгували з цим користувачем раніше.",
+  "peachBadges.repeatTrader": "постійний трейдер",
   "privacyPolicy": "Політика конфіденційності",
   "rate.rateAndFinish": "Оцінити & завершити",
   "rate.subtitle": "Як оцінюєте опонента у цій угоді?",

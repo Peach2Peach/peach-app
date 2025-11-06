@@ -104,6 +104,7 @@
   "peachBadges.fastTrader": "szybki trader",
   "peachBadges.fastTrader.description": "Aktywny trader, szybko akceptuje oferty i potwierdza płatności",
   "peachBadges.repeatTrader": "regularny trader",
+  "peachBadges.repeatTrader.description": "Liczba razy, kiedy handlowałeś z tym użytkownikiem w przeszłości.",
   "peachBadges.superTrader": "super trader",
   "peachBadges.superTrader.description": "Bardzo aktywny użytkownik Peach, co najmniej 20 transakcji",
   "privacyPolicy": "polityka prywatności",

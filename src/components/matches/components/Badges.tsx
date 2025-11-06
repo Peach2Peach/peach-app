@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { TouchableOpacity, View } from "react-native";
+import { IconType } from "../../../assets/icons";
 import { InfoPopup } from "../../../popups/InfoPopup";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
@@ -37,12 +38,14 @@ export function Badges({
 }
 
 function MyBadgesPopup() {
+  const repeatTraderBadge: [IconType, string] = ["shuffle", "repeatTrader"];
+
   return (
     <InfoPopup
       title={i18n("peachBadges")}
       content={
         <>
-          {badges.map(([icon, value], index) => (
+          {[...badges, repeatTraderBadge].map(([icon, value], index) => (
             <Fragment key={`peachBadges.popup-${index}`}>
               <View style={tw`flex-row items-center mt-3`}>
                 <View

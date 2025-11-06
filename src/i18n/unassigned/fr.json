@@ -104,6 +104,7 @@
   "peachBadges.fastTrader": "trader rapide",
   "peachBadges.fastTrader.description": "un trader rapide est aussi rapide que le réseau lightning. ils acceptent les matchs et confirment les paiements presque instantanément",
   "peachBadges.repeatTrader": "vendeur connu",
+  "peachBadges.repeatTrader.description": "Le nombre de fois que vous avez échangé avec cet utilisateur par le passé.",
   "peachBadges.superTrader": "super trader",
   "peachBadges.superTrader.description": "un super trader est un utilisateur Peach très actif. ils ont réalisé au moins 20 transactions",
   "privacyPolicy": "politique de confidentialité",

@@ -103,6 +103,8 @@
   "peachBadges.fastTrader.description": "Hızlı alıcı, Lightning ağı kadar hızlıdır. Eşleşmeleri kabul eder ve ödemeleri neredeyse anında yapar veya onaylar.",
   "peachBadges.superTrader": "süper kullanıcı",
   "peachBadges.superTrader.description": "Süper alıcı, çok aktif bir Peach kullanıcısıdır. 20 ve üstü işlem gerçekleştirmiştir.",
+  "peachBadges.repeatTrader.description": "Geçmişte bu kullanıcıyla kaç kez ticaret yaptığınız.",
+  "peachBadges.repeatTrader": "tekrarlayan tacir",
   "privacyPolicy": "gizlilik politikası",
   "rate.rateAndFinish": "değerlendir & tamamla",
   "rate.subtitle": "Bu işlem için karşı tarafınızı nasıl değerlendirirsiniz?",

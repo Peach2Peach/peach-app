@@ -104,6 +104,7 @@
   "peachBadges.fastTrader": "negociador rápido",
   "peachBadges.fastTrader.description": "Um negociador rápido é tão veloz quanto a Lightning Network. Confirma correspondências e pagamentos quase instantaneamente.",
   "peachBadges.repeatTrader": "trader recorrente",
+  "peachBadges.repeatTrader.description": "Número de vezes que já negociou com este utilizador no passado.",
   "peachBadges.superTrader": "super negociador",
   "peachBadges.superTrader.description": "Um super negociador é um utilizador Peach muito ativo, com pelo menos 20 negociações realizadas.",
   "privacyPolicy": "política de privacidade",
