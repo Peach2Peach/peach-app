@@ -1,6 +1,6 @@
-import DocumentPicker from "@react-native-documents/picker";
 import { useState } from "react";
 import { Platform } from "react-native";
+import DocumentPicker from "react-native-document-picker";
 import { readFileInChunks } from "../../utils/file/readFileInChunks";
 import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
