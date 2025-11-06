@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Η πώληση των sats σας στο Peach είναι ΔΩΡΕΑΝ!\n\nΘέλετε να πουλήσετε πάνω από 1000 CHF/ημέρα; Στείλτε μας email στο hello@peachbitcoin.com",
+  "help.expressSellHelp.title": "Πώληση Bitcoin",
+  "help.expressBuyHelp.description": "Η αγορά sats στο Peach κοστίζει 2% της συναλλαγής σας.",
+  "help.expressBuyHelp.title": "Αγορά Bitcoin",
   "help": "Βοήθεια",
   "help.acceptMatch.description": "Μπορείτε να αντιστοιχίσετε μόνο έναν αγοραστή ανά προσφορά. Μόλις αποδεχθείτε μια αντιστοίχιση, ξεκινά η συναλλαγή.\n\nΑφού ξεκινήσει, μπορείτε να ακυρώσετε μόνο σε συνεννόηση με τον αγοραστή σας και η φήμη σας θα υποστεί ζημιά.",
   "help.acceptMatch.title": "Αποδοχή αντιστοίχισης = έναρξη συναλλαγής",

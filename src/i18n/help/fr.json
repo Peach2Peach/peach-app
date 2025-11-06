@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Vendre vos sats sur Peach est GRATUIT !\n\nVous voulez vendre plus de 1000 CHF/jour ? Écrivez-nous à hello@peachbitcoin.com",
+  "help.expressSellHelp.title": "Vendre du Bitcoin",
+  "help.expressBuyHelp.description": "Acheter des sats sur Peach coûte 2 % de votre transaction.",
+  "help.expressBuyHelp.title": "Acheter du Bitcoin",
   "help": "aide",
   "help.acceptMatch.description": "Vous ne pouvez accepter qu'un seul acheteur par offre. Une fois l'offre acceptée, l'échange démarre.\n\nPour annuler un échange en cours, vous devez collaborer avec l'acheteur, et votre réputation sera affectée.",
   "help.acceptMatch.title": "Accepter le match = démarrer l'échange",

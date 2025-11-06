@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
+import { JSX } from "react/jsx-runtime";
 import { BuyOffer69 } from "../../../peach-api/src/@types/offer";
 import { LogoIcons } from "../../assets/logo";
 import { ExpressSellAdvancedFilters } from "../../components/ExpressSellAdvancedFilters";
@@ -13,22 +14,26 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { NewBubble as Bubble } from "../../components/bubble/Bubble";
 import { Badges } from "../../components/matches/components/Badges";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressSellBuyOffers } from "../../hooks/query/peach069/useExpressSellBuyOffers";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { defaultPreferences } from "../../store/offerPreferenes/useOfferPreferences";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { headerIcons } from "../../utils/layout/headerIcons";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
 export function ExpressSellBrowseBuyOffers() {
   const { buyOffers, isLoading, refetch } = useExpressSellBuyOffers();
+
   return (
     <Screen header={<ExploreHeader />} style={tw`gap-10px`}>
       <View style={tw`flex-row self-stretch justify-between pt-1 gap-13px`}>
@@ -284,6 +289,11 @@ function OfferCard({
 
 function ExploreHeader() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const setPopup = useSetPopup();
+  const showExpressSellHelp = useCallback(
+    () => setPopup(<HelpPopup id="expressSellHelp" />),
+    [setPopup],
+  );
   const { isDarkMode } = useThemeStore();
   const [
     expressSellFilterByAmountRange,
@@ -322,6 +332,13 @@ function ExploreHeader() {
               />
             )}
           </View>,
+          <TouchableIcon
+            id={headerIcons.help.id}
+            key={`help`}
+            onPress={showExpressSellHelp}
+            iconColor={headerIcons.help.color}
+            style={tw`w-5 h-5 md:w-6 md:h-6`}
+          />,
         ]}
         titleComponent={
           <>
@@ -346,4 +363,7 @@ function ExploreHeader() {
       />
     </>
   );
+}
+function setPopup(arg0: JSX.Element): any {
+  throw new Error("Function not implemented.");
 }

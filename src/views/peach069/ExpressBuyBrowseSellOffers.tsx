@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { ExpressBuyAdvancedFilters } from "../../components/ExpressBuyAdvancedFilters";
 import { ExpressBuyCurrenciesDrawer } from "../../components/ExpressBuyCurrenciesDrawer";
@@ -10,12 +10,14 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { NewBubble as Bubble } from "../../components/bubble/Bubble";
 import { Badges } from "../../components/matches/components/Badges";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressBuySellOffers } from "../../hooks/query/peach069/useExpressBuySellOffers";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import {
   defaultPreferences,
   useOfferPreferences,
@@ -23,6 +25,7 @@ import {
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { headerIcons } from "../../utils/layout/headerIcons";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
 import { Rating } from "../settings/profile/profileOverview/Rating";
@@ -283,6 +286,12 @@ function OfferCard({
 function ExploreHeader() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
+  const setPopup = useSetPopup();
+  const showExpressBuyHelp = useCallback(
+    () => setPopup(<HelpPopup id="expressBuyHelp" />),
+    [setPopup],
+  );
+
   const [
     expressBuyFilterByAmountRange,
     expressBuyFilterByCurrencyList,
@@ -320,6 +329,13 @@ function ExploreHeader() {
               />
             )}
           </View>,
+          <TouchableIcon
+            id={headerIcons.help.id}
+            key={`help`}
+            onPress={showExpressBuyHelp}
+            iconColor={headerIcons.help.color}
+            style={tw`w-5 h-5 md:w-6 md:h-6`}
+          />,
         ]}
       />
       <ExpressBuyAdvancedFilters

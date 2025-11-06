@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Kuuza sats zako kwenye Peach ni BURE!\n\nUnataka kuuza zaidi ya CHF 1000 kwa siku? Tutumie barua pepe kwa hello@peachbitcoin.com",
+  "help.expressSellHelp.title": "Kuuza Bitcoin",
+  "help.expressBuyHelp.description": "Kununua sats kwenye Peach kunagharimu 2% ya muamala wako.",
+  "help.expressBuyHelp.title": "Kununua Bitcoin",
   "help": "msaada",
   "help.acceptMatch.description": "Unaweza kulinganisha mnunuzi mmoja pekee kwa kila ofa. Ukikubali kulinganisha, biashara inaanza.\n\nBaada ya kuanza, unaweza kufuta tu kwa makubaliano na mnunuzi wako, na sifa yako itaathirika vibaya.",
   "help.acceptMatch.title": "kubali kulinganisha = anzisha biashara",

@@ -1,4 +1,8 @@
 {
+  "help.expressSellHelp.description": "Der Verkauf deiner Sats auf Peach ist KOSTENLOS!\n\nMöchtest du mehr als 1000 CHF/Tag verkaufen? Schreib uns an hello@peachbitcoin.com",
+  "help.expressSellHelp.title": "Bitcoin verkaufen",
+  "help.expressBuyHelp.description": "Der Kauf von Sats auf Peach kostet 2% deiner Transaktion.",
+  "help.expressBuyHelp.title": "Bitcoin kaufen",
   "help": "Hilfe",
   "help.acceptMatch.description": "Du kannst nur einen Käufer pro Angebot matchen. Sobald du ein Match annimmst, wird der Handel gestartet.\n\nNach dem Start kannst du nur noch gemeinsam mit dem Käufer stornieren, und dein Ruf wird beeinträchtigt.",
   "help.acceptMatch.title": "Match annehmen = Handel starten",
