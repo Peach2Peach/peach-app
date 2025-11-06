@@ -271,7 +271,7 @@
   "search.popups.unmatched": "ombi la biashara limefutwa!",
   "search.popups.unmatch.title": "futa ombi?",
   "search.popups.unmatch.text": "Kurekebisha itakuathiri vibaya sifa yako.\nUnaweza kurekebisha bila adhabu baada ya $0 saa.",
-    "search.popups.unmatchNoPenalty.text": "Kurekebisha itakuathiri vibaya sifa yako.\nUnaweza kurekebisha sasa bila adhabu!",
+    "search.popups.unmatchNoPenalty.text": "Unaweza kurekebisha sasa bila adhabu!",
   "search.popups.unmatch.confirm": "ndiyo, futa",
   "search.popups.matchUndone.title": "ombi limefutwa",
   "search.popups.matchUndone.text": "Sifa yako haijaathiriwa, unaweza kuomba tena.\n\nUtakapofuta baada ya muda kuisha, sifa yako itaathiriwa vibaya."

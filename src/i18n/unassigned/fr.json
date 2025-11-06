@@ -273,7 +273,7 @@
     "search.popups.unmatched": "demande d’échange annulée !",
     "search.popups.unmatch.title": "annuler la demande ?",
     "search.popups.unmatch.text": "Annuler cela affectera négativement votre réputation.\nVous pouvez l'annuler sans pénalité après $0 heures.",
-    "search.popups.unmatchNoPenalty.text": "Annuler cela affectera négativement votre réputation.\nVous pouvez l'annuler maintenant sans pénalité !",
+    "search.popups.unmatchNoPenalty.text": "Vous pouvez l'annuler maintenant sans pénalité !",
    "search.popups.unmatch.confirm": "oui, annuler",
     "search.popups.matchUndone.title": "demande d’échange annulée",
     "search.popups.matchUndone.text": "Votre réputation n’a pas été affectée et vous pouvez refaire une demande.\n\nSi vous annulez après la fin du délai, votre réputation sera impactée négativement."

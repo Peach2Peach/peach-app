@@ -268,7 +268,7 @@
   "search.popups.unmatched": "запит на угоду скасовано!",
   "search.popups.unmatch.title": "скасувати запит?",
   "search.popups.unmatch.text": "Скасування негативно вплине на вашу репутацію.\nВи зможете скасувати без штрафу через $0 годин.",
-    "search.popups.unmatchNoPenalty.text": "Скасування негативно вплине на вашу репутацію.\nВи можете скасувати зараз без штрафу!",
+    "search.popups.unmatchNoPenalty.text": "Ви можете скасувати зараз без штрафу!",
   "search.popups.unmatch.confirm": "так, скасувати",
   "search.popups.matchUndone.title": "запит скасовано",
   "search.popups.matchUndone.text": "Ваша репутація не постраждала, і ви можете надіслати запит знову.\n\nЯкщо скасувати після завершення часу, репутація погіршиться."

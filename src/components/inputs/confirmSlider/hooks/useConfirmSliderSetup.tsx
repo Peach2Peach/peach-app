@@ -27,8 +27,19 @@ export const useConfirmSliderSetup = ({ enabled, onConfirm }: Props) => {
   const panResponder = useMemo(
     () =>
       PanResponder.create({
-        onMoveShouldSetPanResponder: () => enabled,
-        onPanResponderMove: (e, gestureState) => {
+        onMoveShouldSetPanResponder: (_, gestureState) => {
+          if (!enabled) return false;
+          const { dx, dy } = gestureState;
+          // start gesture only if horizontal motion dominates
+          return Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 4;
+        },
+
+        onPanResponderGrant: () => {
+          // gesture officially started
+          pan.stopAnimation?.();
+        },
+
+        onPanResponderMove: (_, gestureState) => {
           if (!enabled) return;
           const x = gestureState.dx;
           pan.setValue(getNormalized(x, widthToSlide));
@@ -43,6 +54,8 @@ export const useConfirmSliderSetup = ({ enabled, onConfirm }: Props) => {
             useNativeDriver: false,
           }).start();
         },
+
+        onPanResponderTerminationRequest: () => false,
         onShouldBlockNativeResponder: () => true,
       }),
     [enabled, onConfirm, pan, widthToSlide],

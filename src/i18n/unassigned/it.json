@@ -266,7 +266,7 @@
     "search.popups.unmatched": "richiesta di scambio annullata!",
     "search.popups.unmatch.title": "annullare la richiesta?",
     "search.popups.unmatch.text": "Annullarlo influenzerà negativamente la tua reputazione.\nPuoi annullarlo senza penalità dopo $0 ore.",
-    "search.popups.unmatchNoPenalty.text": "Annullarlo influenzerà negativamente la tua reputazione.\nPuoi annullarlo ora senza penalità!",
+    "search.popups.unmatchNoPenalty.text": "Puoi annullarlo ora senza penalità!",
     "search.popups.unmatch.confirm": "sì, annulla",
     "search.popups.matchUndone.title": "richiesta annullata",
     "search.popups.matchUndone.text": "La tua reputazione non è stata influenzata e puoi sempre riprovare.\n\nSe annulli dopo la scadenza, la tua reputazione sarà penalizzata."
