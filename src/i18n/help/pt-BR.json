@@ -1,6 +1,6 @@
 {
   "help": "Ajuda",
-  "help.grouphugContractHelp.description": "O agrupamento de transações, ou Group Hug, significa que seu pagamento será combinado com outras transações, reduzindo as taxas. Atualmente há apenas um GH por dia, então o pagamento pode demorar um pouco mais (até 24h).",
+  "help.grouphugContractHelp.description": "O agrupamento de transações, ou Group Hug, significa que seu pagamento será agrupado com outras transações, reduzindo as taxas. Atualmente há apenas um GH por dia, então seu pagamento pode demorar um pouco mais (até 24 h).\nVocê pode alterar isso na página de Configurações.",
   "help.grouphugContractHelp.title": "Como funciona o Group Hug",
   "help.acceptMatch.description": "Você só pode dar match com um comprador por oferta. Após aceitar um match, a negociação será iniciada.\n\nUma vez iniciada, só é possível cancelar de forma colaborativa com o comprador; caso contrário, sua reputação será afetada.",
   "help.acceptMatch.title": "Aceitar match = iniciar negociação",

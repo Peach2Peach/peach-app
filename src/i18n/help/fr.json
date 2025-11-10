@@ -1,6 +1,6 @@
 {
   "help": "aide",
-  "help.grouphugContractHelp.description": "Le regroupement de transactions, ou Group Hug, signifie que votre paiement est combiné avec d'autres transactions, ce qui réduit les frais. Actuellement, il n’y a qu’un seul GH par jour, donc votre paiement peut prendre un peu plus de temps (jusqu’à 24 h).",
+  "help.grouphugContractHelp.description": "Le regroupement de transactions, ou Group Hug, signifie que votre paiement sera regroupé avec d'autres transactions afin de réduire les frais. Actuellement, il n’y a qu’un GH par jour, ce qui peut retarder votre paiement (jusqu’à 24 h).\nVous pouvez modifier cela dans les Paramètres.",
   "help.grouphugContractHelp.title": "Comment fonctionne Group Hug",
   "help.acceptMatch.description": "Vous ne pouvez accepter qu'un seul acheteur par offre. Une fois l'offre acceptée, l'échange démarre.\n\nPour annuler un échange en cours, vous devez collaborer avec l'acheteur, et votre réputation sera affectée.",
   "help.acceptMatch.title": "Accepter le match = démarrer l'échange",

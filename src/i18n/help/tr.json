@@ -1,6 +1,6 @@
 {
   "help": "yardım",
-  "help.grouphugContractHelp.description": "İşlem gruplama, yani Group Hug, ödemeni diğer işlemlerle birleştirerek işlem ücretlerini azaltır. Şu anda günde yalnızca bir GH vardır, bu nedenle ödemen biraz daha uzun sürebilir (24 saate kadar).",
+  "help.grouphugContractHelp.description": "İşlem toplama (Group Hug), ödemenizin diğer işlemlerle birleştirilmesi anlamına gelir ve bu da işlem ücretlerini azaltır. Şu anda günde yalnızca bir GH vardır, bu nedenle ödemeniz biraz daha uzun sürebilir (24 saate kadar).\nBunu Ayarlar sayfasından değiştirebilirsiniz.",
   "help.grouphugContractHelp.title": "Group Hug nasıl çalışır",
   "help.acceptMatch.description": "Bir teklif için yalnızca bir alıcı eşleşebilir. Bir eşleşmeyi kabul ettikten sonra işlem başlatılır.\n\nBaşladıktan sonra, alıcı ile işbirliği yaparak işlemi iptal edebilirsiniz ve itibarınız zarar görebilir.",
   "help.acceptMatch.title": "eşleşmeyi kabul et = alışverişe başla",

@@ -1,6 +1,6 @@
 {
   "help": "Pomoc",
-  "help.grouphugContractHelp.description": "Batchowanie transakcji, czyli Group Hug, oznacza, że twoja wypłata zostanie połączona z innymi transakcjami, co pozwala zmniejszyć opłaty. Obecnie jest tylko jeden GH dziennie, więc wypłata może potrwać dłużej (do 24 godzin).",
+  "help.grouphugContractHelp.description": "Grupowanie transakcji („Group Hug”) oznacza, że Twoja wypłata zostanie połączona z innymi, co pozwala zmniejszyć opłaty. Obecnie odbywa się tylko jedno GH dziennie, więc wypłata może potrwać nieco dłużej (do 24 h).\nMożesz to zmienić na stronie Ustawienia.",
   "help.grouphugContractHelp.title": "Jak działa Group Hug",
   "help.acceptMatch.description": "Możesz dopasować tylko jednego kupującego do jednej oferty. Po zaakceptowaniu dopasowania, handel się rozpoczyna. Po rozpoczęciu możesz tylko wspólnie z kupującym anulować transakcję; w przeciwnym razie Twoja reputacja ucierpi.",
   "help.acceptMatch.title": "Zaakceptuj dopasowanie = rozpocznij transakcję",
