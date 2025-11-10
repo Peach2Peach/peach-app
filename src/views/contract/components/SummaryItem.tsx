@@ -20,7 +20,7 @@ type Props = {
 
 export const SummaryItem = ({ label, value, infoName }: Props) => {
   const setPopup = useSetPopup();
-  const showExpressBuyHelp = infoName
+  const showPopupIfAvailable = infoName
     ? useCallback(() => setPopup(<HelpPopup id={infoName} />), [setPopup])
     : () => {};
 
@@ -40,7 +40,7 @@ export const SummaryItem = ({ label, value, infoName }: Props) => {
           <TouchableIcon
             id={headerIcons.help.id}
             key={`help`}
-            onPress={showExpressBuyHelp}
+            onPress={showPopupIfAvailable}
             iconColor={headerIcons.help.color}
             style={tw`w-5 h-5 md:w-6 md:h-6`}
           />
