@@ -1,8 +1,10 @@
 import {
+  CachesDirectoryPath,
   DocumentDirectoryPath,
   appendFile as appendFSFile,
   exists,
 } from "@dr.pogodin/react-native-fs";
+import { Platform } from "react-native";
 import { error } from "../log/error";
 import { writeFile } from "./writeFile";
 
@@ -13,14 +15,17 @@ export const appendFile = async (
 ): Promise<boolean> => {
   let newFile;
 
-  if (!(await exists(DocumentDirectoryPath + path))) {
+  const dir =
+    Platform.OS === "android" ? CachesDirectoryPath : DocumentDirectoryPath;
+
+  if (!(await exists(dir + path))) {
     newFile = true;
     await writeFile(path, "");
   }
 
   try {
     await appendFSFile(
-      DocumentDirectoryPath + path,
+      dir + path,
       (!newFile && newline ? "\n" : "") + content,
       "utf8",
     );

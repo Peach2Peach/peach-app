@@ -1,7 +1,10 @@
-import { DocumentDirectoryPath } from "@dr.pogodin/react-native-fs";
+import {
+  CachesDirectoryPath,
+  DocumentDirectoryPath,
+} from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import { useMemo, useRef, useState } from "react";
-import { Keyboard, TextInput, View } from "react-native";
+import { Keyboard, Platform, TextInput, View } from "react-native";
 import Share from "react-native-share";
 import { useSetGlobalOverlay } from "../../../../Overlay";
 import { PeachScrollView } from "../../../../components/PeachScrollView";
@@ -81,9 +84,14 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
         password,
       );
 
+      const filePath =
+        Platform.OS === "android"
+          ? `${CachesDirectoryPath}/${destinationFileName}`
+          : `${DocumentDirectoryPath}/${destinationFileName}`;
+
       Share.open({
         title: destinationFileName,
-        url: `file://${DocumentDirectoryPath}/${destinationFileName}`,
+        url: `file://${filePath}`,
         subject: destinationFileName,
       })
         .then(({ message, success, dismissedAction }) => {
