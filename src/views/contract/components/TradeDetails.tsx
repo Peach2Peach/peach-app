@@ -81,17 +81,17 @@ function ToggleGroupHug() {
   const { user } = useSelfUser();
   const isBatchingEnabled = !!user?.isBatchingEnabled;
 
-  const onPressGroupHug = async () => {
-    throw new Error("not implemented yet");
-  };
-
   return (
     <>
       {user && !contract.paymentMade && (
         <SummaryItem
           label={i18n("group hug")}
           value={
-            <Toggle enabled={isBatchingEnabled} onPress={onPressGroupHug} />
+            <Toggle
+              enabled={isBatchingEnabled}
+              disabled={true}
+              onPress={() => {}}
+            />
           }
           infoName="grouphugContractHelp"
         />
