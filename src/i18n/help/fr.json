@@ -4,6 +4,8 @@
   "help.expressBuyHelp.description": "Acheter des sats sur Peach coûte 2 % de votre transaction.",
   "help.expressBuyHelp.title": "Acheter du Bitcoin",
   "help": "aide",
+  "help.grouphugContractHelp.description": "Le regroupement de transactions, ou Group Hug, signifie que votre paiement sera regroupé avec d'autres transactions afin de réduire les frais. Actuellement, il n’y a qu’un GH par jour, ce qui peut retarder votre paiement (jusqu’à 24 h).\nVous pouvez modifier cela dans les Paramètres.",
+  "help.grouphugContractHelp.title": "Comment fonctionne Group Hug",
   "help.acceptMatch.description": "Vous ne pouvez accepter qu'un seul acheteur par offre. Une fois l'offre acceptée, l'échange démarre.\n\nPour annuler un échange en cours, vous devez collaborer avec l'acheteur, et votre réputation sera affectée.",
   "help.acceptMatch.title": "Accepter le match = démarrer l'échange",
   "help.addressSigning.description": "Pour respecter la législation suisse, vous devez signer pour prouver que vous êtes le propriétaire de l'adresse de paiement.\n\nSi vous ne savez pas comment faire, utilisez le portefeuille Peach, qui automatise cette étape.",

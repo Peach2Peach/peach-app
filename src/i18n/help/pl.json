@@ -4,6 +4,8 @@
   "help.expressBuyHelp.description": "Kupowanie sats na Peach kosztuje 2% wartości transakcji.",
   "help.expressBuyHelp.title": "Kupno Bitcoin",
   "help": "Pomoc",
+  "help.grouphugContractHelp.description": "Grupowanie transakcji („Group Hug”) oznacza, że Twoja wypłata zostanie połączona z innymi, co pozwala zmniejszyć opłaty. Obecnie odbywa się tylko jedno GH dziennie, więc wypłata może potrwać nieco dłużej (do 24 h).\nMożesz to zmienić na stronie Ustawienia.",
+  "help.grouphugContractHelp.title": "Jak działa Group Hug",
   "help.acceptMatch.description": "Możesz dopasować tylko jednego kupującego do jednej oferty. Po zaakceptowaniu dopasowania, handel się rozpoczyna. Po rozpoczęciu możesz tylko wspólnie z kupującym anulować transakcję; w przeciwnym razie Twoja reputacja ucierpi.",
   "help.acceptMatch.title": "Zaakceptuj dopasowanie = rozpocznij transakcję",
   "help.addressSigning.description": "Szwajcarskie prawo wymaga podpisu potwierdzającego, że jesteś właścicielem adresu, na który zostanie przelana transakcja. Jeśli nie wiesz jak to zrobić, użyj portfela Peach, który automatycznie to wykonuje.",

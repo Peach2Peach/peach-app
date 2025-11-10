@@ -4,6 +4,8 @@
   "help.expressBuyHelp.description": "A sats vásárlása a Peach-en a tranzakció 2%-ába kerül.",
   "help.expressBuyHelp.title": "Bitcoin vásárlás",
   "help": "segítség",
+  "help.grouphugContractHelp.description": "A tranzakciók csoportosítása (Group Hug) azt jelenti, hogy a kifizetésed más tranzakciókkal együtt lesz kezelve a díjak csökkentése érdekében. Jelenleg naponta csak egy GH van, ezért a kifizetés akár 24 órát is igénybe vehet.\nEzt a Beállítások oldalon módosíthatod.",
+  "help.grouphugContractHelp.title": "Hogyan működik a Group Hug",
   "help.acceptMatch.description": "Egy ajánlattal csak egy vásárlót lehet összepárosítani. Az ajánlat elfogadása után a kereskedés elindul.\n\nHa már elindult, a vásárlóval csak együttműködve lehet visszavonni, különben a hírneved csorbul.",
   "help.acceptMatch.title": "ajánlat elfogadása = kereskedés indítása",
   "help.addressSigning.description": "A svájci jogszabályok miatt a kereskedéshez a címet alá kell írnod. Ha nem tudod, hogyan működik, használj Peach tárcát, ahol ez automatikus.",

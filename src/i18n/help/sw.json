@@ -4,6 +4,8 @@
   "help.expressBuyHelp.description": "Kununua sats kwenye Peach kunagharimu 2% ya muamala wako.",
   "help.expressBuyHelp.title": "Kununua Bitcoin",
   "help": "msaada",
+  "help.grouphugContractHelp.description": "Batching ya miamala, au Group Hug, inamaanisha malipo yako yataunganishwa na miamala mingine ili kupunguza ada. Kwa sasa kuna GH moja tu kwa siku, kwa hivyo malipo yako yanaweza kuchelewa kidogo (hadi saa 24).\nUnaweza kubadilisha hili kwenye ukurasa wa Mipangilio.",
+  "help.grouphugContractHelp.title": "Jinsi Group Hug inavyofanya kazi",
   "help.acceptMatch.description": "Unaweza kulinganisha mnunuzi mmoja pekee kwa kila ofa. Ukikubali kulinganisha, biashara inaanza.\n\nBaada ya kuanza, unaweza kufuta tu kwa makubaliano na mnunuzi wako, na sifa yako itaathirika vibaya.",
   "help.acceptMatch.title": "kubali kulinganisha = anzisha biashara",
   "help.addressSigning.description": "Kwa mujibu wa sheria za Uswisi, lazima usaini kuthibitisha umiliki wa anwani itakayopokea malipo.\n\nUsipojua jinsi inavyofanya kazi, tunapendekeza utumie mkoba wa Peach ambapo hatua hii hufanyika kiotomatiki.",

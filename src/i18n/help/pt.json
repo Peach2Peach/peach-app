@@ -4,6 +4,8 @@
   "help.expressBuyHelp.description": "Comprar sats na Peach custa 2% da sua transação.",
   "help.expressBuyHelp.title": "Comprar Bitcoin",
   "help": "ajuda",
+  "help.grouphugContractHelp.description": "A agregação de transações, ou Group Hug, significa que o teu pagamento será agrupado com outras transações, reduzindo as taxas. Atualmente há apenas um GH por dia, pelo que o teu pagamento pode demorar um pouco mais (até 24 h).\nPodes alterar isto na página Definições.",
+  "help.grouphugContractHelp.title": "Como funciona o Group Hug",
   "help.acceptMatch.description": "Só pode corresponder com um comprador por oferta. Depois de aceitar uma correspondência, a negociação é iniciada.\n\nDepois de iniciada, só pode fazer um cancelamento colaborativo com o seu comprador, ou a sua reputação será prejudicada.",
   "help.acceptMatch.title": "aceitar correspondência = iniciar negociação",
   "help.addressSigning.description": "Devido à lei suíça, precisará assinar para verificar que é o proprietário do endereço para o qual a negociação será paga.\n\nSe não sabe como isso funciona, recomendamos usar a carteira Peach, onde não precisa passar manualmente esta etapa.",

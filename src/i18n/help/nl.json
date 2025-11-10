@@ -4,6 +4,8 @@
   "help.expressBuyHelp.description": "Sats kopen op Peach kost 2% van je transactie.",
   "help.expressBuyHelp.title": "Bitcoin kopen",
   "help": "hulp",
+  "help.grouphugContractHelp.description": "Transactiebatching, of Group Hug, betekent dat je uitbetaling wordt gebundeld met andere transacties om kosten te verlagen. Er is momenteel slechts één GH per dag, dus je uitbetaling kan iets langer duren (tot 24 u).\nJe kunt dit wijzigen op de instellingenpagina.",
+  "help.grouphugContractHelp.title": "Hoe Group Hug werkt",
   "help.acceptMatch.description": "Je kunt slechts één koper per aanbod matchen. Zodra je accepteert, start de transactie. Annuleren na start kan alleen in overleg met de koper en schaadt je reputatie.",
   "help.acceptMatch.title": "match accepteren = transactie starten",
   "help.addressSigning.description": "Volgens Zwitserse wet moet je tekenen om te bewijzen dat je eigenaar bent van het uitbetalingsadres. Gebruik Peach wallet om deze stap automatisch te doorlopen.",

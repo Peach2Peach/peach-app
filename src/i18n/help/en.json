@@ -1,5 +1,7 @@
 {
   "help": "help",
+  "help.grouphugContractHelp.description": "Transaction batching, or Group Hug, means your payout will be batched with other transactions, which allows to reduce transaction fees. Currently there is only one GH per day, which means your payout might take a little longer (up to 24h).\nYou can change this on the Settings page.",
+  "help.grouphugContractHelp.title": "How Group Hug works",
   "help.acceptMatch.description": "You can match only one buyer per offer. Once you accept a match, the trade starts.\n\nAfter it starts, you can only cancel collaboratively with your buyer, or your reputation will drop.",
   "help.acceptMatch.title": "accept match = start trade",
   "help.acceptTradeRequest.description": "You can accept only one buyer per offer. Accepting a buyer's trade request starts the trade.\n\nCancelling after that will harm your reputation.",
