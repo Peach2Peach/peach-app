@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { View } from "react-native";
 import { Currency } from "../../peach-api/src/@types/global";
 import tw from "../styles/tailwind";
@@ -25,6 +25,7 @@ export function CurrenciesDrawer({
   currencyOfferAmounts,
   onReset,
 }: CurrenciesDrawerProps) {
+  const [searchQuery, setSearchQuery] = useState("");
   const { data: paymentMethods } = usePaymentMethods();
 
   const allCurrencies = useMemo(
@@ -47,6 +48,10 @@ export function CurrenciesDrawer({
         };
       })
       .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .filter(({ currency }) => {
+        const currencyName = `${i18n(`currency.${currency}`)} (${currency})`;
+        return currencyName.toLowerCase().includes(searchQuery.toLowerCase());
+      })
       .map(({ currency, numberOfOffers }) => ({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
@@ -66,6 +71,7 @@ export function CurrenciesDrawer({
     currencyOfferAmounts,
     selectedCurrencies,
     onToggleCurrency,
+    searchQuery,
   ]);
 
   if (!allCurrencies) return null;
@@ -92,6 +98,9 @@ export function CurrenciesDrawer({
       }
       items={items}
       type="checkbox"
+      showSearch
+      searchQuery={searchQuery}
+      onSearchChange={setSearchQuery}
       resetButton={
         onReset && (
           <Button

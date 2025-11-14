@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { ReactNode, useCallback, useMemo, useState } from "react";
-import { View } from "react-native";
+import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import { ScrollView, TextInput, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { useMeetupEvents } from "../hooks/query/useMeetupEvents";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
@@ -40,6 +40,7 @@ export type FilterSection =
   | "price";
 
 export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
+  const scrollViewRef = useRef<ScrollView>(null);
   const [expandedSection, setExpandedSection] = useState<FilterSection | null>(
     null,
   );
@@ -77,7 +78,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
       ) : (
         i18n("settings.paymentMethods")
       ),
-      content: <PaymentMethodsList />,
+      content: <PaymentMethodsList scrollViewRef={scrollViewRef} />,
     },
     {
       id: "currencies" as const,
@@ -95,7 +96,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
       ) : (
         i18n("currencies")
       ),
-      content: <CurrenciesList />,
+      content: <CurrenciesList scrollViewRef={scrollViewRef} />,
     },
     {
       id: "amount" as const,
@@ -120,6 +121,7 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
         <HorizontalLine />
         <View style={tw`gap-4`}>
           <PeachScrollView
+            ref={scrollViewRef}
             style={{ height: SCROLL_HEIGHT }}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={tw`grow`}
@@ -178,7 +180,12 @@ function SortByList() {
   return <SelectionList type="radioButton" items={items} />;
 }
 
-function PaymentMethodsList() {
+function PaymentMethodsList({
+  scrollViewRef,
+}: {
+  scrollViewRef: React.RefObject<ScrollView | null>;
+}) {
+  const [searchQuery, setSearchQuery] = useState("");
   const { data: paymentMethods } = usePaymentMethods();
   const { data: meetupEvents } = useMeetupEvents();
   const selectedPaymentMethods = useOfferPreferences(
@@ -234,6 +241,14 @@ function PaymentMethodsList() {
         };
       })
       .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .filter(({ paymentMethod, displayName }) => {
+        const paymentMethodName = displayName
+          ? displayName
+          : i18n(`paymentMethod.${paymentMethod.id}`);
+        return paymentMethodName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+      })
       .map(({ paymentMethod, numberOfOffers, displayName }) => ({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
@@ -258,13 +273,62 @@ function PaymentMethodsList() {
     selectedPaymentMethods,
     onTogglePaymentMethod,
     meetupEvents,
+    searchQuery,
   ]);
 
+  const textInputRef = useRef<TextInput>(null);
+  const searchContainerRef = useRef<View>(null);
+
   if (!paymentMethods) return null;
-  return <SelectionList type="checkbox" items={items} />;
+  return (
+    <>
+      <View ref={searchContainerRef} style={tw`pt-4 pb-2`}>
+        <View
+          style={tw`flex-row items-center px-4 py-1 border rounded-full border-black-10 bg-backgroundLight-light`}
+        >
+          <TextInput
+            ref={textInputRef}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            onFocus={() => {
+              const KEYBOARD_DELAY = 300;
+              setTimeout(() => {
+                searchContainerRef.current?.measureLayout(
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  scrollViewRef.current as any,
+                  (_x, y) => {
+                    scrollViewRef.current?.scrollTo({ y, animated: true });
+                  },
+                  // eslint-disable-next-line @typescript-eslint/no-empty-function
+                  () => {},
+                );
+              }, KEYBOARD_DELAY);
+            }}
+            placeholder="Search"
+            style={tw`flex-1 px-2 input-text text-black-100`}
+            placeholderTextColor={tw.color("black-25")}
+          />
+          <TouchableIcon
+            id="search"
+            iconColor={tw.color("black-100")}
+            iconSize={20}
+            onPress={() => {
+              textInputRef.current?.focus();
+            }}
+          />
+        </View>
+      </View>
+      <SelectionList type="checkbox" items={items} />
+    </>
+  );
 }
 
-function CurrenciesList() {
+function CurrenciesList({
+  scrollViewRef,
+}: {
+  scrollViewRef: React.RefObject<ScrollView | null>;
+}) {
+  const [searchQuery, setSearchQuery] = useState("");
   const selectedCurrencies = useOfferPreferences(
     (state) => state.expressBuyFilterByCurrencyList,
   );
@@ -315,6 +379,10 @@ function CurrenciesList() {
         };
       })
       .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .filter(({ currency }) => {
+        const currencyName = `${i18n(`currency.${currency}`)} (${currency})`;
+        return currencyName.toLowerCase().includes(searchQuery.toLowerCase());
+      })
       .map(({ currency, numberOfOffers }) => ({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
@@ -334,10 +402,54 @@ function CurrenciesList() {
     selectedCurrencies,
     handleToggleCurrency,
     sellOfferCurrencies,
+    searchQuery,
   ]);
 
+  const textInputRef = useRef<TextInput>(null);
+  const searchContainerRef = useRef<View>(null);
+
   if (!allCurrencies) return null;
-  return <SelectionList type="checkbox" items={items} />;
+  return (
+    <>
+      <View ref={searchContainerRef} style={tw`pt-4 pb-2`}>
+        <View
+          style={tw`flex-row items-center px-4 py-1 border rounded-full border-black-10 bg-backgroundLight-light`}
+        >
+          <TextInput
+            ref={textInputRef}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            onFocus={() => {
+              const KEYBOARD_DELAY = 300;
+              setTimeout(() => {
+                searchContainerRef.current?.measureLayout(
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  scrollViewRef.current as any,
+                  (_x, y) => {
+                    scrollViewRef.current?.scrollTo({ y, animated: true });
+                  },
+                  // eslint-disable-next-line @typescript-eslint/no-empty-function
+                  () => {},
+                );
+              }, KEYBOARD_DELAY);
+            }}
+            placeholder="Search"
+            style={tw`flex-1 px-2 input-text text-black-100`}
+            placeholderTextColor={tw.color("black-25")}
+          />
+          <TouchableIcon
+            id="search"
+            iconColor={tw.color("black-100")}
+            iconSize={20}
+            onPress={() => {
+              textInputRef.current?.focus();
+            }}
+          />
+        </View>
+      </View>
+      <SelectionList type="checkbox" items={items} />
+    </>
+  );
 }
 
 function AmountSelection() {

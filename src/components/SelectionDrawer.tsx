@@ -1,8 +1,10 @@
-import type { ReactElement } from "react";
-import { ScrollView } from "react-native";
+import { useRef, type ReactElement } from "react";
+import { ScrollView, TextInput, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
+import tw from "../styles/tailwind";
 import { Drawer } from "./Drawer";
 import { SelectionList } from "./SelectionList";
+import { TouchableIcon } from "./TouchableIcon";
 import { HorizontalLine } from "./ui/HorizontalLine";
 
 export interface SelectionDrawerItem {
@@ -20,6 +22,9 @@ interface SelectionDrawerProps {
   items: SelectionDrawerItem[];
   type?: "radioButton" | "checkbox";
   resetButton?: ReactElement;
+  showSearch?: boolean;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
 }
 
 export function SelectionDrawer({
@@ -29,6 +34,9 @@ export function SelectionDrawer({
   items,
   type = "radioButton",
   resetButton,
+  showSearch = false,
+  searchQuery = "",
+  onSearchChange,
 }: SelectionDrawerProps) {
   const HEADER_AND_PADDING = 120; // Space for padding, header text, etc.
   const DRAWER_HEIGHT_LARGE = 600;
@@ -39,6 +47,8 @@ export function SelectionDrawer({
     : DRAWER_HEIGHT_SMALL;
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
+  const textInputRef = useRef<TextInput>(null);
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -48,7 +58,31 @@ export function SelectionDrawer({
     >
       <>
         <HorizontalLine />
-        <ScrollView style={{ maxHeight: SCROLL_HEIGHT }}>
+        {showSearch && onSearchChange && (
+          <View style={tw`pt-4 pb-2`}>
+            <View
+              style={tw`flex-row items-center px-4 py-1 border rounded-full border-black-10 bg-backgroundLight-light`}
+            >
+              <TextInput
+                ref={textInputRef}
+                value={searchQuery}
+                onChangeText={onSearchChange}
+                placeholder="Search"
+                style={tw`flex-1 px-2 input-text text-black-100`}
+                placeholderTextColor={tw.color("black-25")}
+              />
+              <TouchableIcon
+                id="search"
+                iconColor={tw.color("black-100")}
+                iconSize={20}
+                onPress={() => {
+                  textInputRef.current?.focus();
+                }}
+              />
+            </View>
+          </View>
+        )}
+        <ScrollView style={{ height: SCROLL_HEIGHT }}>
           <SelectionList items={items} type={type} />
         </ScrollView>
         {resetButton}
