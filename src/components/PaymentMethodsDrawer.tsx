@@ -61,8 +61,8 @@ export function PaymentMethodsDrawer({
           "shortName" in paymentMethod
             ? paymentMethod.shortName
             : i18n(`paymentMethod.${paymentMethod.id}`);
-        return paymentMethodName
-          ?.toLowerCase()
+        return (paymentMethodName ?? "")
+          .toLowerCase()
           .includes(searchQuery.toLowerCase());
       })
       .map(({ paymentMethod, numberOfOffers }) => ({
