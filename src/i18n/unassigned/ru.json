@@ -274,5 +274,8 @@
     "search.popups.unmatchNoPenalty.text": "Вы можете отменить сейчас без штрафа!",
   "search.popups.unmatch.confirm": "да, отменить",
   "search.popups.matchUndone.title": "запрос отменён",
-  "search.popups.matchUndone.text": "Ваша репутация не пострадала, вы можете повторно отправить запрос.\n\nЕсли отмените после истечения времени, репутация ухудшится."
+  "search.popups.matchUndone.text": "Ваша репутация не пострадала, вы можете повторно отправить запрос.\n\nЕсли отмените после истечения времени, репутация ухудшится.",
+  "enterPin": "Введите PIN",
+    "wrongPinTryAgain": "Неверный PIN, попробуйте снова",
+    "unlock": "Разблокировать"
 }

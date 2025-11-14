@@ -277,6 +277,9 @@
     "search.popups.unmatchNoPenalty.text": "Você pode desfazer agora sem penalidade!",
     "search.popups.unmatch.confirm": "sim, cancelar",
     "search.popups.matchUndone.title": "solicitação cancelada",
-    "search.popups.matchUndone.text": "A sua reputação não foi afetada e pode reenviar a solicitação.\n\nSe cancelar após o tempo limite, a reputação será afetada negativamente."
+    "search.popups.matchUndone.text": "A sua reputação não foi afetada e pode reenviar a solicitação.\n\nSe cancelar após o tempo limite, a reputação será afetada negativamente.",
+    "enterPin": "Digite seu PIN",
+    "wrongPinTryAgain": "PIN incorreto, tente novamente",
+    "unlock": "Desbloquear"
   
 }

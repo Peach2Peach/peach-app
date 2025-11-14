@@ -274,5 +274,8 @@
     "search.popups.unmatchNoPenalty.text": "Du kannst es jetzt ohne Strafe rückgängig machen!",
 "search.popups.unmatch.confirm": "Ja, rückgängig machen",
   "search.popups.matchUndone.title": "Trade-Anfrage rückgängig gemacht",
-  "search.popups.matchUndone.text": "Dein Ruf wurde nicht beeinträchtigt, du kannst jederzeit erneut anfragen.\n\nWenn du nach Ablauf des Timers rückgängig machst, wird dein Ruf negativ beeinflusst."
+  "search.popups.matchUndone.text": "Dein Ruf wurde nicht beeinträchtigt, du kannst jederzeit erneut anfragen.\n\nWenn du nach Ablauf des Timers rückgängig machst, wird dein Ruf negativ beeinflusst.",
+  "enterPin": "Geben Sie Ihren PIN ein",
+    "wrongPinTryAgain": "Falscher PIN, erneut versuchen",
+    "unlock": "Entsperren"
 }

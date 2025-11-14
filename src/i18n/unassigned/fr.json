@@ -277,6 +277,9 @@
     "search.popups.unmatchNoPenalty.text": "Vous pouvez l'annuler maintenant sans pénalité !",
    "search.popups.unmatch.confirm": "oui, annuler",
     "search.popups.matchUndone.title": "demande d’échange annulée",
-    "search.popups.matchUndone.text": "Votre réputation n’a pas été affectée et vous pouvez refaire une demande.\n\nSi vous annulez après la fin du délai, votre réputation sera impactée négativement."
+    "search.popups.matchUndone.text": "Votre réputation n’a pas été affectée et vous pouvez refaire une demande.\n\nSi vous annulez après la fin du délai, votre réputation sera impactée négativement.",
+    "enterPin": "Entrez votre code PIN",
+    "wrongPinTryAgain": "PIN incorrect, réessayez",
+    "unlock": "Déverrouiller"
   
 }

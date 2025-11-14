@@ -273,5 +273,8 @@
     "search.popups.unmatchNoPenalty.text": "Şimdi cezasız geri alabilirsiniz!",
    "search.popups.unmatch.confirm": "evet, geri al",
   "search.popups.matchUndone.title": "takas talebi geri alındı",
-  "search.popups.matchUndone.text": "İtibarın etkilenmedi, tekrar talep gönderebilirsin.\n\nZamanlayıcı dolduktan sonra geri alırsan, itibarın düşer."
+  "search.popups.matchUndone.text": "İtibarın etkilenmedi, tekrar talep gönderebilirsin.\n\nZamanlayıcı dolduktan sonra geri alırsan, itibarın düşer.",
+  "enterPin": "PIN kodunu girin",
+    "wrongPinTryAgain": "Yanlış PIN, tekrar deneyin",
+    "unlock": "Kilidi aç"
 }

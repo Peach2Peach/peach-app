@@ -273,6 +273,9 @@
     "search.popups.unmatchNoPenalty.text": "Je kunt het nu zonder straf ongedaan maken!",
      "search.popups.unmatch.confirm": "ja, ongedaan maken",
     "search.popups.matchUndone.title": "tradeverzoek ongedaan gemaakt",
-    "search.popups.matchUndone.text": "Je reputatie is niet aangetast, en je kunt opnieuw verzoeken.\n\nNa de timer heeft ongedaan maken een negatief effect."
+    "search.popups.matchUndone.text": "Je reputatie is niet aangetast, en je kunt opnieuw verzoeken.\n\nNa de timer heeft ongedaan maken een negatief effect.",
+    "enterPin": "Voer uw PIN in",
+    "wrongPinTryAgain": "Foute PIN, probeer opnieuw",
+    "unlock": "Ontgrendelen"
  
 }

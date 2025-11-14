@@ -277,5 +277,8 @@
     "search.popups.unmatchNoPenalty.text": "Most visszavonhatod büntetés nélkül!",
 "search.popups.unmatch.confirm": "igen, visszavonom",
     "search.popups.matchUndone.title": "kérelem visszavonva",
-    "search.popups.matchUndone.text": "A hírneved nem sérült, és újra kérhetsz.\n\nHa a határidő után vonod vissza, a hírneved romlik."
+    "search.popups.matchUndone.text": "A hírneved nem sérült, és újra kérhetsz.\n\nHa a határidő után vonod vissza, a hírneved romlik.",
+    "enterPin": "Adja meg a PIN-kódot",
+    "wrongPinTryAgain": "Hibás PIN, próbálja újra",
+    "unlock": "Feloldás"
 }

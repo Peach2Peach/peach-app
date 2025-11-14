@@ -273,5 +273,8 @@
     "search.popups.unmatchNoPenalty.text": "Ви можете скасувати зараз без штрафу!",
   "search.popups.unmatch.confirm": "так, скасувати",
   "search.popups.matchUndone.title": "запит скасовано",
-  "search.popups.matchUndone.text": "Ваша репутація не постраждала, і ви можете надіслати запит знову.\n\nЯкщо скасувати після завершення часу, репутація погіршиться."
+  "search.popups.matchUndone.text": "Ваша репутація не постраждала, і ви можете надіслати запит знову.\n\nЯкщо скасувати після завершення часу, репутація погіршиться.",
+  "enterPin": "Введіть PIN",
+    "wrongPinTryAgain": "Неправильний PIN, спробуйте ще раз",
+    "unlock": "Розблокувати"
 }

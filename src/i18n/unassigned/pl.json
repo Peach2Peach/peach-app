@@ -277,6 +277,9 @@
     "search.popups.unmatchNoPenalty.text": "Możesz cofnąć to teraz bez kary!",
     "search.popups.unmatch.confirm": "tak, cofnij",
     "search.popups.matchUndone.title": "prośba cofnięta",
-    "search.popups.matchUndone.text": "Twoja reputacja nie została naruszona, możesz ponowić prośbę.\n\nPo upływie czasu cofnięcie wpłynie negatywnie na reputację."
+    "search.popups.matchUndone.text": "Twoja reputacja nie została naruszona, możesz ponowić prośbę.\n\nPo upływie czasu cofnięcie wpłynie negatywnie na reputację.",
+    "enterPin": "Voer uw PIN in",
+    "wrongPinTryAgain": "Foute PIN, probeer opnieuw",
+    "unlock": "Ontgrendelen"
  
 }
