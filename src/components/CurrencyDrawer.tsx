@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
@@ -13,6 +13,7 @@ interface CurrencyDrawerProps {
 }
 
 export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
+  const [searchQuery, setSearchQuery] = useState("");
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
     shallow,
@@ -34,6 +35,10 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
       .sort((a, b) =>
         i18n(`currency.${a}`).localeCompare(i18n(`currency.${b}`)),
       )
+      .filter((currency) => {
+        const currencyName = `${i18n(`currency.${currency}`)} (${currency})`;
+        return currencyName.toLowerCase().includes(searchQuery.toLowerCase());
+      })
       .map((currency) => ({
         text: (
           <PeachText
@@ -43,7 +48,7 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
         onPress: () => setDisplayCurrency(currency),
         isSelected: currency === displayCurrency,
       }));
-  }, [allCurrencies, displayCurrency, setDisplayCurrency]);
+  }, [allCurrencies, displayCurrency, setDisplayCurrency, searchQuery]);
 
   if (!allCurrencies) return null;
 
@@ -53,6 +58,9 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
       onClose={onClose}
       title={i18n("currencies")}
       items={items}
+      showSearch
+      searchQuery={searchQuery}
+      onSearchChange={setSearchQuery}
     />
   );
 }

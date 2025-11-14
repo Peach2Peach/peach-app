@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { View } from "react-native";
 import { PaymentMethod } from "../../peach-api/src/@types/payment";
 import { useMeetupEvents } from "../hooks/query/useMeetupEvents";
@@ -27,6 +27,7 @@ export function PaymentMethodsDrawer({
   paymentMethodOfferAmounts,
   onReset,
 }: PaymentMethodsDrawerProps) {
+  const [searchQuery, setSearchQuery] = useState("");
   const { data: paymentMethods } = usePaymentMethods();
   const { data: meetupEvents } = useMeetupEvents();
 
@@ -55,6 +56,15 @@ export function PaymentMethodsDrawer({
         };
       })
       .sort((a, b) => b.numberOfOffers - a.numberOfOffers) // Sort by offer count descending
+      .filter(({ paymentMethod }) => {
+        const paymentMethodName =
+          "shortName" in paymentMethod
+            ? paymentMethod.shortName
+            : i18n(`paymentMethod.${paymentMethod.id}`);
+        return (paymentMethodName ?? "")
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+      })
       .map(({ paymentMethod, numberOfOffers }) => ({
         text: (
           <View style={tw`flex-row items-center gap-6px shrink`}>
@@ -80,6 +90,7 @@ export function PaymentMethodsDrawer({
     paymentMethodOfferAmounts,
     selectedPaymentMethods,
     onTogglePaymentMethod,
+    searchQuery,
   ]);
 
   if (!paymentMethods) return null;
@@ -88,6 +99,9 @@ export function PaymentMethodsDrawer({
     <SelectionDrawer
       isOpen={isOpen}
       onClose={onClose}
+      showSearch
+      searchQuery={searchQuery}
+      onSearchChange={setSearchQuery}
       title={
         selectedPaymentMethods.length > 0 ? (
           <PeachText
