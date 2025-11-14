@@ -304,7 +304,7 @@ function PaymentMethodsList({
                 );
               }, KEYBOARD_DELAY);
             }}
-            placeholder="Search"
+            placeholder={i18n("search")}
             style={tw`flex-1 px-2 input-text text-black-100`}
             placeholderTextColor={tw.color("black-25")}
           />
@@ -433,7 +433,7 @@ function CurrenciesList({
                 );
               }, KEYBOARD_DELAY);
             }}
-            placeholder="Search"
+            placeholder={i18n("search")}
             style={tw`flex-1 px-2 input-text text-black-100`}
             placeholderTextColor={tw.color("black-25")}
           />

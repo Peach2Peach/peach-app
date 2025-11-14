@@ -2,6 +2,7 @@ import { useRef, type ReactElement } from "react";
 import { ScrollView, TextInput, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import tw from "../styles/tailwind";
+import i18n from "../utils/i18n";
 import { Drawer } from "./Drawer";
 import { SelectionList } from "./SelectionList";
 import { TouchableIcon } from "./TouchableIcon";
@@ -67,7 +68,7 @@ export function SelectionDrawer({
                 ref={textInputRef}
                 value={searchQuery}
                 onChangeText={onSearchChange}
-                placeholder="Search"
+                placeholder={i18n("search")}
                 style={tw`flex-1 px-2 input-text text-black-100`}
                 placeholderTextColor={tw.color("black-25")}
               />
