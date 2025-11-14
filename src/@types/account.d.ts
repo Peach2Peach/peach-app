@@ -25,6 +25,7 @@ type Settings = {
     userAgent: string;
   };
   isLoggedIn: boolean;
+  appPinCode?: string;
 };
 
 type PGPKeychain = {

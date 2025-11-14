@@ -5,6 +5,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { useDeviceContext } from "twrnc";
 import { GlobalOverlay } from "./Overlay";
+import { PinProtectionOverlay } from "./PinProtectionOverlay";
+import { useAppPinProtection } from "./appPinProtectionListener";
 import { Drawer } from "./components/drawer/Drawer";
 import { GlobalPopup } from "./components/popup/GlobalPopup";
 import { Toast } from "./components/toast/Toast";
@@ -23,6 +25,7 @@ import { Screens } from "./views/Screens";
 enableScreens();
 
 export const App = () => {
+  useAppPinProtection();
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket());
   useWebSocket(updatePeachWS);
 
@@ -45,6 +48,7 @@ export const App = () => {
             <GlobalPopup />
             <GlobalOverlay />
             <Toast />
+            <PinProtectionOverlay />
           </NavigationContainer>
         </SafeAreaProvider>
       </PeachWSContext.Provider>

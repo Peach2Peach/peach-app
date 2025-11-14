@@ -32,6 +32,7 @@ export type SettingsStore = Settings & {
     cloudflareChallenge: Settings["cloudflareChallenge"],
   ) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setAppPinCode: (newPinCode?: string) => void;
 };
 
 const storage = createPersistStorage<SettingsStore>(settingsStorage);
@@ -92,6 +93,7 @@ export const useSettingsStore = create(
       setSeenFirstTimeBuyerPopup: () => set({ seenFirstTimeBuyerPopup: true }),
       setSeenFirstTimeSellerPopup: () =>
         set({ seenFirstTimeSellerPopup: true }),
+      setAppPinCode: (newPinCode) => set({ appPinCode: newPinCode }),
     }),
     {
       name: "settings",

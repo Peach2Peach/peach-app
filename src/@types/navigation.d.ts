@@ -106,6 +106,10 @@ type RootStackParamList = Onboarding &
   SellFlow &
   ContractFlow & {
     nodeSetup: undefined;
+    pinCodeSetup: undefined;
+    changePin: undefined;
+    deletePin: undefined;
+    createPin: undefined;
     sendBitcoin: undefined;
     receiveBitcoin: undefined;
     addressChecker: undefined;

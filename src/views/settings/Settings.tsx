@@ -9,6 +9,7 @@ import { Screen } from "../../components/Screen";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -31,14 +32,17 @@ export const Settings = () => {
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
 
+  const navigation = useStackNavigation();
+
   const { isDarkMode, toggleTheme } = useThemeStore();
 
-  const [enableAnalytics, toggleAnalytics, showBackupReminder] =
+  const [enableAnalytics, toggleAnalytics, showBackupReminder, appPinCode] =
     useSettingsStore(
       (state) => [
         state.enableAnalytics,
         state.toggleAnalytics,
         state.showBackupReminder,
+        state.appPinCode,
       ],
       shallow,
     );
@@ -129,6 +133,14 @@ export const Settings = () => {
     toggleColorScheme();
   }, [toggleColorScheme, toggleTheme]);
 
+  const pinCodeSetupOnClick = () => {
+    if (appPinCode === undefined || appPinCode === "") {
+      navigation.navigate("createPin");
+    } else {
+      navigation.navigate("pinCodeSetup");
+    }
+  };
+
   const appSettings = useMemo(
     () =>
       (
@@ -139,6 +151,7 @@ export const Settings = () => {
             iconId: enableAnalytics ? "toggleRight" : "toggleLeft",
             enabled: enableAnalytics,
           },
+          { title: "pinCodeSetup", onPress: pinCodeSetupOnClick },
           {
             title: "notifications",
             onPress: notificationClick,

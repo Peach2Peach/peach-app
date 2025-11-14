@@ -104,9 +104,17 @@ android {
         applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 291
+        versionCode 304
         versionName "0.69.0"
         multiDexEnabled true
+    }
+    splits {
+        abi {
+        reset()
+        enable true
+        universalApk true  
+        include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+    }
     }
     signingConfigs {
         debug {
@@ -161,5 +169,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
 
     // For animated GIF support
-    implementation 'com.facebook.fresco:animated-gif:2.6.0'
+    implementation 'com.facebook.fresco:animated-gif:3.6.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        // Force all JNA versions to 5.16.0
+        force 'net.java.dev.jna:jna:5.16.0'
+        force 'net.java.dev.jna:jna-platform:5.16.0'
+    }
 }

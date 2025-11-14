@@ -276,5 +276,8 @@
   "resetAll": "reset all",
   "advancedFilters": "Advanced Filters",
   "sortBy": "sort by",
-  "currentMarketValue": "current market value"
+  "currentMarketValue": "current market value",
+  "enterPin":"Enter your PIN code",
+  "wrongPinTryAgain":"Wrong PIN, try again",
+  "unlock":"Unlock"
 }

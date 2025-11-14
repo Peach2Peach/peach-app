@@ -37,10 +37,14 @@ import { RestoreReputation } from "./restoreReputation/RestoreReputation";
 import { EditPremium } from "./search/EditPremium";
 import { EditPremiumOfBuyOffer } from "./search/EditPremiumOfBuyOffer";
 import { Backups } from "./settings/Backups";
+import { ChangePin } from "./settings/ChangePin";
+import { CreatePin } from "./settings/CreatePin";
 import { Currency } from "./settings/Currency";
+import { DeletePin } from "./settings/DeletePin";
 import { Language } from "./settings/Language";
 import { NodeSetup } from "./settings/NodeSetup";
 import { PayoutAddress } from "./settings/PayoutAddress";
+import { PinCodeSetup } from "./settings/PinCodeSetup";
 import { RefundAddress } from "./settings/RefundAddress";
 import { TransactionBatching } from "./settings/TransactionBatching";
 import { AboutPeach } from "./settings/aboutPeach/AboutPeach";
@@ -159,6 +163,10 @@ const settings: ViewType[] = [
   { name: "referrals", component: Referrals },
   { name: "backups", component: Backups },
   { name: "nodeSetup", component: NodeSetup },
+  { name: "pinCodeSetup", component: PinCodeSetup },
+  { name: "deletePin", component: DeletePin },
+  { name: "createPin", component: CreatePin },
+  { name: "changePin", component: ChangePin },
   { name: "refundAddress", component: RefundAddress },
   { name: "payoutAddress", component: PayoutAddress },
   { name: "paymentMethods", component: PaymentMethods },
