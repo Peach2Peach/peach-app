@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { FilterSection } from "./ExpressBuyAdvancedFilters";
@@ -22,7 +22,7 @@ export function Section({
   const { isDarkMode } = useThemeStore();
   return (
     <>
-      <TouchableOpacity
+      <Pressable
         style={[
           tw`flex-row items-center justify-between px-4 rounded-full py-6px`,
           isExpanded &&
@@ -45,7 +45,7 @@ export function Section({
             isDarkMode ? "primary-background-light-color" : "black-100",
           )}
         />
-      </TouchableOpacity>
+      </Pressable>
 
       {isExpanded && children}
     </>
