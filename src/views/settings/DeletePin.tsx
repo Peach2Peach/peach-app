@@ -67,7 +67,11 @@ export const DeletePin = () => {
               {i18n("settings.deletePin.wrongPin")}
             </PeachText>
           )}
-          <Button onPress={onConfirm} style={tw`self-center`}>
+          <Button
+            onPress={onConfirm}
+            disabled={curPin.length < 4}
+            style={tw`self-center`}
+          >
             {i18n("confirm")}
           </Button>
         </View>

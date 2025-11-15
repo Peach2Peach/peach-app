@@ -68,9 +68,11 @@ export function PinProtectionOverlayComponent() {
             style={tw`bg-white w-40 p-2 rounded mb-2`}
             onSubmitEditing={unlock}
           />
-          <Button onPress={unlock}>{i18n("unlock")}</Button>
+          <Button disabled={input.length < 4} onPress={unlock}>
+            {i18n("unlock")}
+          </Button>
           {showErrorMessage && (
-            <PeachText style={tw`text-white text-lg mb-4`}>
+            <PeachText style={tw`text-white text-lg mb-4 mt-4`}>
               {i18n("wrongPinTryAgain")}
             </PeachText>
           )}

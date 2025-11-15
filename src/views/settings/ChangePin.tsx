@@ -130,7 +130,11 @@ export const ChangePin = () => {
             <PeachText style={[tw`text-error-main`]}>{errorMessage}</PeachText>
           )}
 
-          <Button onPress={onConfirm} style={tw`self-center`}>
+          <Button
+            onPress={onConfirm}
+            disabled={curPin.length < 4}
+            style={tw`self-center`}
+          >
             {i18n("confirm")}
           </Button>
         </View>

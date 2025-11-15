@@ -100,7 +100,11 @@ export const CreatePin = () => {
             onSubmitEditing={onConfirm}
           />
 
-          <Button onPress={onConfirm} style={tw`self-center`}>
+          <Button
+            disabled={curPin.length < 4}
+            onPress={onConfirm}
+            style={tw`self-center`}
+          >
             {i18n("confirm")}
           </Button>
           {showErrorMessage && (
