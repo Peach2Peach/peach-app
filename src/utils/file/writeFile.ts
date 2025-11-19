@@ -24,7 +24,7 @@ export const writeFile = async (
   try {
     await RNFS.writeFile(
       (Platform.OS === "ios"
-        ? RNFS.DownloadDirectoryPath
+        ? RNFS.DocumentDirectoryPath
         : RNFS.CachesDirectoryPath) + path,
       encrypted,
       "utf8",
