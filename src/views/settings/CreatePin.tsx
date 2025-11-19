@@ -3,14 +3,13 @@ import { useState } from "react";
 import { View } from "react-native";
 import { appPinProtectionLockAtom } from "../../PinProtectionLockAtom";
 import { Header } from "../../components/Header";
-import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { Input } from "../../components/inputs/Input";
+import { PinCodeDisplay } from "../../components/pin/PinCodeDisplay";
+import { PinCodeInput } from "../../components/pin/PinCodeInput";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../components/text/PeachText";
-import { PIN_CODE_MAX_SIZE } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { SuccessPopup } from "../../popups/SuccessPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -75,43 +74,42 @@ export const CreatePin = () => {
 
   return (
     <Screen header={<CreatePinHeader />}>
-      <PeachScrollView
-        contentContainerStyle={tw`grow`}
-        contentStyle={tw`justify-center gap-3 grow`}
+      <View
+        style={tw`flex-1 flex-col justify-between items-start pb-4 self-stretch`}
       >
-        <View>
-          <PeachText>
-            {!firstPin
-              ? i18n("settings.createPin.insertYourPin")
-              : i18n("settings.createPin.confirmYourPin")}
-          </PeachText>
-          <Input
-            value={curPin}
-            maxLength={PIN_CODE_MAX_SIZE}
-            onChangeText={onChangeText}
-            keyboardType="numeric"
-            secureTextEntry
-            style={[
-              tw`px-4 py-2 border-2 rounded-lg`,
-              isDarkMode
-                ? tw`bg-transparent border-2 border-black-50 text-backgroundLight-light`
-                : tw`bg-white text-black-100`,
-            ]}
-            onSubmitEditing={onConfirm}
+        <View style={[tw`flex-col items-start self-stretch`, { gap: 16 }]}>
+          <View style={[tw`flex-col items-start self-stretch`, { gap: 8 }]}>
+            <PeachText style={[tw`body-l`, { fontWeight: "bold" }]}>
+              {!firstPin
+                ? i18n("settings.createPin.insertYourPin")
+                : i18n("settings.createPin.confirmYourPin")}
+            </PeachText>
+            <PeachText style={tw`text-black-50`}>
+              {!firstPin
+                ? i18n("settings.createPin.insertYourPin")
+                : i18n("settings.createPin.confirmYourPin")}
+            </PeachText>
+          </View>
+          <PinCodeDisplay currentPin={curPin} />
+          <PinCodeInput
+            onDigitPress={(digitString: string) =>
+              setCurPin(curPin + digitString)
+            }
+            onDelete={() => setCurPin(curPin.slice(0, -1))}
           />
-
-          <Button
-            disabled={curPin.length < 4}
-            onPress={onConfirm}
-            style={tw`self-center`}
-          >
-            {i18n("confirm")}
-          </Button>
           {showErrorMessage && (
             <PeachText>{i18n("settings.createPin.pinsDontMatch")}</PeachText>
           )}
         </View>
-      </PeachScrollView>
+
+        <Button
+          disabled={curPin.length < 4}
+          onPress={onConfirm}
+          style={tw`self-center self-stretch`}
+        >
+          {i18n("confirm")}
+        </Button>
+      </View>
     </Screen>
   );
 };
