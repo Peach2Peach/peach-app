@@ -138,8 +138,8 @@
     "settings.deletePin.success.text": "Τώρα δεν χρειάζεστε PIN για πρόσβαση στην εφαρμογή Peach. Δεν θεωρείται ασφαλές, χρησιμοποιήστε με δική σας ευθύνη!",
     "settings.createPin.success.title": "Ο PIN σας δημιουργήθηκε",
     "settings.createPin.success.text": "Η εφαρμογή Peach είναι ασφαλής! Κάθε φορά που ανοίγετε την εφαρμογή, θα σας ζητείται να εισάγετε τον PIN. Μπορείτε να τον τροποποιήσετε ή να τον διαγράψετε στη σελίδα Ρυθμίσεων.",
-    "settings.createPin.insertYourPin": "Εισάγετε τον επιθυμητό PIN (μόνο αριθμούς)",
-    "settings.createPin.confirmYourPin": "Εισάγετε ξανά τον PIN",
+    "settings.createPin.insertYourPin": "Δημιουργήστε το PIN σας",
+"settings.createPin.confirmYourPin": "Εισαγάγετε ξανά το PIN",
     "settings.createPin.pinsDontMatch": "Σφάλμα: οι PIN δεν ταιριάζουν. Δοκιμάστε ξανά",
     "settings.changePin.success.title": "Ο PIN σας άλλαξε",
     "settings.changePin.success.text": "Έχετε τροποποιήσει τον PIN σας. Φροντίστε να μην τον ξεχάσετε!",
@@ -147,5 +147,6 @@
     "settings.changePin.insertNewPin": "Ο PIN ήταν σωστός. Εισάγετε τον νέο PIN",
     "settings.changePin.pinsDontMatch": "Σφάλμα: οι PIN δεν ταιριάζουν. Δοκιμάστε ξανά",
     "settings.changePin.wrongPin": "Σφάλμα: λάθος PIN. Δοκιμάστε ξανά",
-    "settings.changePin.confirmNewPin": "Εισάγετε ξανά τον PIN"
+    "settings.changePin.confirmNewPin": "Εισάγετε ξανά τον PIN",
+    "settings.createPin": "δημιουργία PIN"
 }

@@ -137,8 +137,8 @@
     "settings.deletePin.success.text": "Sasa huhitaji PIN kuingia kwenye Peach App. Hii haizingatiwi kuwa salama, tumia kwa hatari yako mwenyewe!",
     "settings.createPin.success.title": "PIN yako imeundwa",
     "settings.createPin.success.text": "Peach App ni salama! Kila wakati unapofungua app, utaombwa kuingiza PIN. Unaweza kubadilisha au kufuta PIN kwenye ukurasa wa Mipangilio.",
-    "settings.createPin.insertYourPin": "Ingiza PIN unayotaka (nambari tu)",
-    "settings.createPin.confirmYourPin": "Ingiza PIN tena",
+   "settings.createPin.insertYourPin": "Unda PIN yako",
+"settings.createPin.confirmYourPin": "Ingiza PIN tena",
     "settings.createPin.pinsDontMatch": "Hitilafu: PIN hazilingani. Jaribu tena",
     "settings.changePin.success.title": "PIN yako imebadilishwa",
     "settings.changePin.success.text": "Umebadilisha PIN yako. Hakikisha huuisahau!",
@@ -146,5 +146,6 @@
     "settings.changePin.insertNewPin": "PIN ilikuwa sahihi. Weka PIN mpya",
     "settings.changePin.pinsDontMatch": "Hitilafu: PIN hazilingani. Jaribu tena",
     "settings.changePin.wrongPin": "Hitilafu: PIN si sahihi. Jaribu tena",
-    "settings.changePin.confirmNewPin": "Ingiza PIN tena"
+    "settings.changePin.confirmNewPin": "Ingiza PIN tena",
+    "settings.createPin": "unda PIN"
 }

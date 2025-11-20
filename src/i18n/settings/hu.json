@@ -138,8 +138,8 @@
     "settings.deletePin.success.text": "Mostantól nem szükséges PIN a Peach App használatához. Ez nem tekinthető biztonságosnak, saját felelősségre használd!",
     "settings.createPin.success.title": "A PIN-ed létrehozva",
     "settings.createPin.success.text": "A Peach App biztonságos! Minden alkalommal, amikor megnyitod az alkalmazást, a PIN megadása kötelező. A PIN módosítható vagy törölhető a Beállítások oldalon.",
-    "settings.createPin.insertYourPin": "Add meg a kívánt PIN-t (csak számok)",
-    "settings.createPin.confirmYourPin": "Add meg újra a PIN-t",
+    "settings.createPin.insertYourPin": "Hozza létre PIN-kódját",
+"settings.createPin.confirmYourPin": "Adja meg újra a PIN-t",
     "settings.createPin.pinsDontMatch": "Hiba: a PIN-ek nem egyeznek. Próbáld újra",
     "settings.changePin.success.title": "A PIN-ed megváltozott",
     "settings.changePin.success.text": "Módosítottad a PIN-kódodat. Ügyelj rá, hogy ne felejtsd el!",
@@ -147,5 +147,6 @@
     "settings.changePin.insertNewPin": "A PIN helyes volt. Add meg az új PIN-t",
     "settings.changePin.pinsDontMatch": "Hiba: a PIN-ek nem egyeznek. Próbáld újra",
     "settings.changePin.wrongPin": "Hiba: hibás PIN. Próbáld újra",
-    "settings.changePin.confirmNewPin": "Add meg újra a PIN-t"
+    "settings.changePin.confirmNewPin": "Add meg újra a PIN-t",
+    "settings.createPin": "PIN létrehozása"
 }
