@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { Modal, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "./components/buttons/Button";
-import { Input } from "./components/inputs/Input";
 import { PeachyBackground } from "./components/PeachyBackground";
+import { PinCodeDisplay } from "./components/pin/PinCodeDisplay";
+import { PinCodeInput } from "./components/pin/PinCodeInput";
 import { PeachText } from "./components/text/PeachText";
-import { PIN_CODE_MAX_SIZE } from "./constants";
 import { appPinProtectionLockAtom } from "./PinProtectionLockAtom";
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
 import tw from "./styles/tailwind";
@@ -55,7 +55,57 @@ export function PinProtectionOverlayComponent() {
           flex: 1,
         }}
       >
-        <View style={[tw`flex-1 p-sm md:p-md items-center justify-center`]}>
+        <View style={[tw`flex-col items-start self-stretch`, { gap: 16 }]}>
+          <View style={tw`self-center mt-30`}>
+            <PeachText
+              style={[
+                { textAlign: "center", color: tw.color("text-primary-mild-1") },
+                tw`h5`,
+              ]}
+            >
+              {"Your Peach App is PIN protected"}
+            </PeachText>
+            {
+              <PeachText
+                style={[
+                  {
+                    textAlign: "center",
+                    color: tw.color("text-primary-mild-1"),
+                  },
+                  tw`text-lg`,
+                ]}
+              >
+                {showErrorMessage ? i18n("wrongPinTryAgain") : ""}
+              </PeachText>
+            }
+          </View>
+          <PinCodeDisplay currentPin={input} isOverlay={true} />
+          <PinCodeInput
+            currentPin={input}
+            isOverlay={true}
+            onDigitPress={(s: string) => {
+              setShowErrorMessage(false);
+              setInput(input + s);
+            }}
+            onDelete={() => {
+              setInput(input.slice(0, -1));
+            }}
+          />
+
+          <Button
+            disabled={input.length < 4}
+            onPress={unlock}
+            style={[
+              { backgroundColor: tw.color("text-primary-mild-1") },
+              tw`self-center m-4`,
+            ]}
+          >
+            <PeachText style={[{ color: tw.color("primary-main") }]}>
+              {i18n("unlock")}
+            </PeachText>
+          </Button>
+        </View>
+        {/* <View style={[tw`flex-1 p-sm md:p-md items-center justify-center`]}>
           <PeachText style={tw`text-white text-lg mb-4`}>
             {i18n("enterPin")}
           </PeachText>
@@ -76,7 +126,7 @@ export function PinProtectionOverlayComponent() {
               {i18n("wrongPinTryAgain")}
             </PeachText>
           )}
-        </View>
+        </View> */}
       </View>
     </Modal>
   );

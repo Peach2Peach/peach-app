@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Nu je de Peach Wallet hebt gebruikt, moet je een back-up maken voordat je verdergaat. Anders verlies je je account en al het geld als je je telefoon verliest.",
   "error.firstBackup.title": "maak een back-up!",
   "error.general": "Er ging iets mis. Probeer later opnieuw of neem contact op met Peach support.",
-  "ACCOUNT_BANNED.text": "Je account is geblokkeerd. Wil je in beroep gaan, neem contact op met Peach en vermeld je unieke ID."
+  "ACCOUNT_BANNED.text": "Je account is geblokkeerd. Wil je in beroep gaan, neem contact op met Peach en vermeld je unieke ID.",
+  "PINS_DONT_MATCH.text": "De laatste ingevoerde PIN komt niet overeen met de eerste. Probeer opnieuw",
+"PINS_DONT_MATCH.title": "PIN-codes komen niet overeen",
+"INCORRECT_PIN.text": "De ingevoerde PIN is onjuist. Probeer opnieuw",
+"INCORRECT_PIN.title": "De PIN is onjuist"
+
 }

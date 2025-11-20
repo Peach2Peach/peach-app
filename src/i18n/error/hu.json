@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Most, hogy a Peach Wallet-et használod, érdemes mentést készítened.\nHa nem teszed meg és elveszíted a telefont, elveszíted a Peach fiókodat és a Peach tárcádban tárolt összegeket is.",
   "error.firstBackup.title": "Készíts egy mentést!",
   "error.general": "Valami hiba történt. Kérlek próbáld újra később, vagy lépj kapcsolatba a Peach támogatással.",
-  "ACCOUNT_BANNED.text": "A fiókodat letiltották. Ha fellebbezni szeretnél, lépj kapcsolatba a Peach-sel és add meg az egyedi azonosítót."
+  "ACCOUNT_BANNED.text": "A fiókodat letiltották. Ha fellebbezni szeretnél, lépj kapcsolatba a Peach-sel és add meg az egyedi azonosítót.",
+  "PINS_DONT_MATCH.text": "A legutóbb megadott PIN nem egyezik az elsővel. Próbálja újra",
+"PINS_DONT_MATCH.title": "A PIN-kódok nem egyeznek",
+"INCORRECT_PIN.text": "A megadott PIN nem helyes. Próbálja újra",
+"INCORRECT_PIN.title": "A PIN helytelen"
+
 }

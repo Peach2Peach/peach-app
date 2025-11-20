@@ -81,5 +81,9 @@
   "error.firstBackup.description": "Debes guardar una copia de seguridad antes de continuar.\nDe lo contrario, podrías perder tu cuenta y fondos si pierdes tu teléfono.",
   "error.firstBackup.title": "¡Haz una copia de seguridad!",
   "error.general": "Algo salió mal. Inténtalo de nuevo más tarde o contacta al soporte de Peach.",
-  "ACCOUNT_BANNED.text": "Tu cuenta ha sido bloqueada. Para apelar, contacta a Peach y proporciona tu ID único."
+  "ACCOUNT_BANNED.text": "Tu cuenta ha sido bloqueada. Para apelar, contacta a Peach y proporciona tu ID único.",
+  "PINS_DONT_MATCH.text": "El último PIN ingresado no coincide con el primero. Inténtalo de nuevo",
+"PINS_DONT_MATCH.title": "Los PIN no coinciden",
+"INCORRECT_PIN.text": "El PIN ingresado no es correcto. Inténtalo de nuevo",
+"INCORRECT_PIN.title": "El PIN es incorrecto"
 }

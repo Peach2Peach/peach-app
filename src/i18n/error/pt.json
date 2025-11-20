@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Agora que usou a Carteira Peach, faça um backup antes de continuar. Caso contrário, poderá perder a conta e fundos se perder o telefone.",
   "error.firstBackup.title": "Faça um backup!",
   "error.general": "Algo deu errado. Tente novamente ou contacte o suporte da Peach.",
-  "ACCOUNT_BANNED.text": "A sua conta foi banida. Para recorrer, contacte a Peach e forneça o ID único."
+  "ACCOUNT_BANNED.text": "A sua conta foi banida. Para recorrer, contacte a Peach e forneça o ID único.",
+  "PINS_DONT_MATCH.text": "O último PIN inserido não corresponde ao primeiro. Tenta novamente",
+"PINS_DONT_MATCH.title": "Os PINs não correspondem",
+"INCORRECT_PIN.text": "O PIN inserido está incorreto. Tenta novamente",
+"INCORRECT_PIN.title": "O PIN está incorreto"
+
 }

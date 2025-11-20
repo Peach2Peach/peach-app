@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Peach Cüzdan'ı kullanıyorsanız, devam etmeden önce yedek oluşturun. Yapmazsanız fonlarınızı kaybedebilirsiniz.",
   "error.firstBackup.title": "Bir yedek oluşturun!",
   "error.general": "Bir hata oluştu. Daha sonra tekrar deneyin veya destek ile iletişime geçin.",
-  "ACCOUNT_BANNED.text": "Hesabınız yasaklandı. İtiraz için Peach ile iletişime geçin ve benzersiz ID sağlayın."
+  "ACCOUNT_BANNED.text": "Hesabınız yasaklandı. İtiraz için Peach ile iletişime geçin ve benzersiz ID sağlayın.",
+  "PINS_DONT_MATCH.text": "Girdiğiniz son PIN ilk PIN ile eşleşmiyor. Tekrar deneyin",
+"PINS_DONT_MATCH.title": "PIN'ler eşleşmedi",
+"INCORRECT_PIN.text": "Girdiğiniz PIN doğru değil. Tekrar deneyin",
+"INCORRECT_PIN.title": "PIN yanlış"
+
 }

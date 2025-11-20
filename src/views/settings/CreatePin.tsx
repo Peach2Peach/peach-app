@@ -1,30 +1,30 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { View } from "react-native";
 import { appPinProtectionLockAtom } from "../../PinProtectionLockAtom";
 import { Header } from "../../components/Header";
-import { Screen } from "../../components/Screen";
-import { Button } from "../../components/buttons/Button";
-import { PinCodeDisplay } from "../../components/pin/PinCodeDisplay";
-import { PinCodeInput } from "../../components/pin/PinCodeInput";
+import { PinCodeSettingsScreen } from "../../components/pin/PinCodeSettingsScreen";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
-import { PeachText } from "../../components/text/PeachText";
+import { useSetToast } from "../../components/toast/Toast";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { SuccessPopup } from "../../popups/SuccessPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { useThemeStore } from "../../store/theme";
-import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
 export const CreatePin = () => {
   const [_appIsPinCodeLocked, setAppIsPinCodeLocked] = useAtom(
     appPinProtectionLockAtom,
   );
-  const { isDarkMode } = useThemeStore();
+  const setToast = useSetToast();
+
+  const castPinsNotMatchingError = () =>
+    setToast({
+      msgKey: "PINS_DONT_MATCH",
+      color: "red",
+    });
+
   const navigation = useStackNavigation();
   const { appPinCode, setAppPinCode } = useSettingsStore();
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [firstPin, setFirstPin] = useState("");
 
   const [curPin, setCurPin] = useState("");
@@ -44,10 +44,6 @@ export const CreatePin = () => {
     });
   }
 
-  const onChangeText = (text: string) => {
-    setCurPin(text.replace(/[^0-9]/g, ""));
-  };
-
   const onConfirm = () => {
     if (curPin === "") {
       return;
@@ -56,12 +52,11 @@ export const CreatePin = () => {
     if (firstPin === "") {
       setFirstPin(curPin);
       setCurPin("");
-      setShowErrorMessage(false);
       return;
     }
 
     if (curPin !== firstPin) {
-      setShowErrorMessage(true);
+      castPinsNotMatchingError();
       setFirstPin("");
       setCurPin("");
       return;
@@ -72,45 +67,24 @@ export const CreatePin = () => {
     navigation.goBack();
   };
 
-  return (
-    <Screen header={<CreatePinHeader />}>
-      <View
-        style={tw`flex-1 flex-col justify-between items-start pb-4 self-stretch`}
-      >
-        <View style={[tw`flex-col items-start self-stretch`, { gap: 16 }]}>
-          <View style={[tw`flex-col items-start self-stretch`, { gap: 8 }]}>
-            <PeachText style={[tw`body-l`, { fontWeight: "bold" }]}>
-              {!firstPin
-                ? i18n("settings.createPin.insertYourPin")
-                : i18n("settings.createPin.confirmYourPin")}
-            </PeachText>
-            <PeachText style={tw`text-black-50`}>
-              {!firstPin
-                ? i18n("settings.createPin.insertYourPin")
-                : i18n("settings.createPin.confirmYourPin")}
-            </PeachText>
-          </View>
-          <PinCodeDisplay currentPin={curPin} />
-          <PinCodeInput
-            onDigitPress={(digitString: string) =>
-              setCurPin(curPin + digitString)
-            }
-            onDelete={() => setCurPin(curPin.slice(0, -1))}
-          />
-          {showErrorMessage && (
-            <PeachText>{i18n("settings.createPin.pinsDontMatch")}</PeachText>
-          )}
-        </View>
+  const mainText = !firstPin
+    ? i18n("settings.createPin.insertYourPin")
+    : i18n("settings.createPin.confirmYourPin");
 
-        <Button
-          disabled={curPin.length < 4}
-          onPress={onConfirm}
-          style={tw`self-center self-stretch`}
-        >
-          {i18n("confirm")}
-        </Button>
-      </View>
-    </Screen>
+  const subText = !firstPin
+    ? i18n("settings.createPin.insertYourPin")
+    : i18n("settings.createPin.confirmYourPin");
+
+  return (
+    <PinCodeSettingsScreen
+      headerComponent={<CreatePinHeader />}
+      mainText={mainText}
+      subText={subText}
+      currentPin={curPin}
+      onDigitPress={(digitString: string) => setCurPin(curPin + digitString)}
+      onDigitDelete={() => setCurPin(curPin.slice(0, -1))}
+      onPinConfirm={onConfirm}
+    />
   );
 };
 

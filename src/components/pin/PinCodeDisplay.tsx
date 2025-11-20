@@ -4,8 +4,24 @@ import Svg, { Circle } from "react-native-svg";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 
-const PinCodeBall = ({ isActive = false }: { isActive?: boolean }) => {
-  const circleColor = isActive ? "#F56522" : tw.color("text-primary-mild-1");
+const PinCodeBall = ({
+  isActive = false,
+  isOverlay = false,
+}: {
+  isActive?: boolean;
+  isOverlay?: boolean;
+}) => {
+  const { isDarkMode } = useThemeStore();
+
+  const circleColor = isOverlay
+    ? isActive
+      ? "#FFFCFA"
+      : "#FF9664"
+    : isActive
+      ? "#F56522"
+      : isDarkMode
+        ? tw.color("black-90")
+        : tw.color("text-primary-mild-1");
 
   return (
     <Svg
@@ -19,14 +35,24 @@ const PinCodeBall = ({ isActive = false }: { isActive?: boolean }) => {
   );
 };
 
-export const PinCodeDisplay = ({ currentPin }: { currentPin: string }) => {
+export const PinCodeDisplay = ({
+  currentPin,
+  isOverlay = false,
+}: {
+  currentPin: string;
+  isOverlay?: boolean;
+}) => {
   if (currentPin.length > 8) {
     throw new Error("Pin is bigger than 8");
   }
 
   const { isDarkMode } = useThemeStore();
 
-  const outerBoxBackgroundColor = isDarkMode ? "#F4EEEB0D" : "#FEEDE5";
+  const outerBoxBackgroundColor = isOverlay
+    ? undefined
+    : isDarkMode
+      ? "#F4EEEB0D"
+      : "#FEEDE5";
 
   const numberOfActiveBalls = currentPin.length;
   const numberOfInactiveBalls = 8 - currentPin.length;
@@ -40,10 +66,18 @@ export const PinCodeDisplay = ({ currentPin }: { currentPin: string }) => {
     >
       <View style={tw`flex-row items-center gap-[18px]`}>
         {Array.from({ length: numberOfActiveBalls }).map((_, i) => (
-          <PinCodeBall isActive={true} />
+          <PinCodeBall
+            isOverlay={isOverlay}
+            isActive={true}
+            key={`active${i}`}
+          />
         ))}
         {Array.from({ length: numberOfInactiveBalls }).map((_, i) => (
-          <PinCodeBall isActive={false} />
+          <PinCodeBall
+            isOverlay={isOverlay}
+            isActive={false}
+            key={`inactive${i}`}
+          />
         ))}
       </View>
     </View>
