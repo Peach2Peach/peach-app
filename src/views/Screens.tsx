@@ -57,7 +57,10 @@ export function Screens() {
             msgKey: statusResponse?.error || "NETWORK_ERROR",
             color: "red",
             action: {
-              onPress: () => navigation.navigate("contact"),
+              onPress: () =>
+                navigation.navigate("contact", {
+                  errorMessage: statusResponse?.error,
+                }),
               label: i18n("contactUs"),
               iconId: "mail",
             },

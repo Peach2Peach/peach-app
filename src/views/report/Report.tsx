@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { TextInput } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { Checkbox } from "../../components/inputs/Checkbox";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { Input } from "../../components/inputs/Input";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
@@ -21,10 +22,14 @@ const required = { required: true };
 
 export const Report = () => {
   const route = useRoute<"report">();
+  const { errorMessage } = route.params;
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const [email, setEmail, isEmailValid, emailErrors] =
     useValidatedState<string>("", emailRules);
+
+  const [sendErrorLogs, setSendErrorLogs] = useState(true);
+
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(
     route.params.topic || "",
     required,
@@ -48,6 +53,7 @@ export const Report = () => {
         reason: i18n(`contact.reason.${reason}`),
         topic,
         message,
+        errorLogs: sendErrorLogs ? errorMessage : undefined,
       },
       {
         onError: (err) => showError(err.message),
@@ -93,6 +99,15 @@ export const Report = () => {
           placeholder={i18n("form.message.placeholder")}
           errorMessage={messageErrors}
         />
+        {errorMessage && (
+          <Checkbox
+            checked={sendErrorLogs}
+            style={tw`self-stretch`}
+            onPress={() => setSendErrorLogs(!sendErrorLogs)}
+          >
+            {i18n("settings.report.sendErrorLogs")}
+          </Checkbox>
+        )}
       </PeachScrollView>
       <Button
         style={tw`self-center`}

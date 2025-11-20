@@ -66,7 +66,7 @@ function OnboardingHeader() {
     {
       id: "mail",
       color: tw.color("primary-background-light-color"),
-      onPress: () => navigation.navigate("contact"),
+      onPress: () => navigation.navigate("contact", {}),
     },
     {
       id: "globe",
