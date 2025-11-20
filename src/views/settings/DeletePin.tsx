@@ -41,7 +41,9 @@ export const DeletePin = () => {
       mainText={i18n("settings.deletePin.insertYourPin")}
       subText={i18n("settings.deletePin.insertYourPin")}
       currentPin={curPin}
-      onDigitPress={(digitString: string) => setCurPin(curPin + digitString)}
+      onDigitPress={(digitString: string) => {
+        if (curPin.length < 8) setCurPin(curPin + digitString);
+      }}
       onDigitDelete={() => setCurPin(curPin.slice(0, -1))}
       onPinConfirm={onConfirm}
     />

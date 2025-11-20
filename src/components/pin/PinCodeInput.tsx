@@ -20,7 +20,7 @@ export function DeleteButton({
     <TouchableOpacity
       onPress={onPress}
       style={{
-        width: 113,
+        width: 100,
         height: 89,
         paddingVertical: 8,
         paddingHorizontal: 16,
@@ -65,7 +65,7 @@ function Digit({
       onPress={() => value && onPress(value)}
       style={[
         {
-          width: 113,
+          width: 100,
           height: 89,
           paddingVertical: 8,
           paddingHorizontal: 16,
@@ -102,7 +102,7 @@ export function PinCodeInput({
   return (
     <View
       style={[
-        tw`self-stretch flex-row flex-wrap items-center`,
+        tw`self-stretch flex-column flex-wrap items-center`,
         {
           justifyContent: "center",
           alignContent: "center",
@@ -110,24 +110,35 @@ export function PinCodeInput({
         },
       ]}
     >
-      {rows.flat().map((digit, index) => {
-        // Last row: after "0", render DeleteButton
-        const isLastRow = index >= 9;
-        if (isLastRow && digit === "delete" && currentPin.length > 0) {
-          return (
-            <View key={index} style={{ margin: 1 }}>
-              <DeleteButton onPress={onDelete} isOverlay={isOverlay} />
-            </View>
-          );
-        }
-
+      {rows.map((row, _index) => {
         return (
-          <View key={index} style={{ margin: 1 }}>
-            <Digit
-              value={digit === "delete" ? "" : digit}
-              onPress={onDigitPress}
-              isOverlay={isOverlay}
-            />
+          <View
+            style={[
+              {
+                flexDirection: "row",
+                justifyContent: "space-between",
+              },
+            ]}
+          >
+            {row.map((digit, index) => {
+              if (digit === "delete" && currentPin.length > 0) {
+                return (
+                  <View key={index} style={{ margin: 1 }}>
+                    <DeleteButton onPress={onDelete} isOverlay={isOverlay} />
+                  </View>
+                );
+              }
+
+              return (
+                <View key={index} style={{ margin: 1 }}>
+                  <Digit
+                    value={digit === "delete" ? "" : digit}
+                    onPress={onDigitPress}
+                    isOverlay={isOverlay}
+                  />
+                </View>
+              );
+            })}
           </View>
         );
       })}

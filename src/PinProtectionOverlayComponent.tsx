@@ -85,7 +85,9 @@ export function PinProtectionOverlayComponent() {
             isOverlay={true}
             onDigitPress={(s: string) => {
               setShowErrorMessage(false);
-              setInput(input + s);
+              if (input.length < 8) {
+                setInput(input + s);
+              }
             }}
             onDelete={() => {
               setInput(input.slice(0, -1));
