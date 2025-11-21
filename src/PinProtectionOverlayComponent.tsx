@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { Modal, View } from "react-native";
+import { Modal, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "./components/buttons/Button";
 import { PeachyBackground } from "./components/PeachyBackground";
@@ -43,6 +43,9 @@ export function PinProtectionOverlayComponent() {
 
   const insets = useSafeAreaInsets();
 
+  const { height } = useWindowDimensions();
+  const isSmallScreen = height < 650;
+
   if (!visible) return null;
 
   return (
@@ -56,29 +59,34 @@ export function PinProtectionOverlayComponent() {
         }}
       >
         <View style={[tw`flex-col items-start self-stretch`, { gap: 16 }]}>
-          <View style={tw`self-center mt-30`}>
-            <PeachText
-              style={[
-                { textAlign: "center", color: tw.color("text-primary-mild-1") },
-                tw`h5`,
-              ]}
-            >
-              {"Your Peach App is PIN protected"}
-            </PeachText>
-            {
+          {!isSmallScreen && (
+            <View style={tw`self-center mt-30`}>
               <PeachText
                 style={[
                   {
                     textAlign: "center",
                     color: tw.color("text-primary-mild-1"),
                   },
-                  tw`text-lg`,
+                  tw`h5`,
                 ]}
               >
-                {showErrorMessage ? i18n("wrongPinTryAgain") : ""}
+                {i18n("yourAppIsPinProtected")}
               </PeachText>
-            }
-          </View>
+              {
+                <PeachText
+                  style={[
+                    {
+                      textAlign: "center",
+                      color: tw.color("text-primary-mild-1"),
+                    },
+                    tw`text-lg`,
+                  ]}
+                >
+                  {showErrorMessage ? i18n("wrongPinTryAgain") : ""}
+                </PeachText>
+              }
+            </View>
+          )}
           <PinCodeDisplay currentPin={input} isOverlay={true} />
           <PinCodeInput
             currentPin={input}
@@ -107,28 +115,6 @@ export function PinProtectionOverlayComponent() {
             </PeachText>
           </Button>
         </View>
-        {/* <View style={[tw`flex-1 p-sm md:p-md items-center justify-center`]}>
-          <PeachText style={tw`text-white text-lg mb-4`}>
-            {i18n("enterPin")}
-          </PeachText>
-          <Input
-            value={input}
-            onChangeText={setInput}
-            maxLength={PIN_CODE_MAX_SIZE}
-            keyboardType="numeric"
-            secureTextEntry
-            style={tw`bg-white w-40 p-2 rounded mb-2`}
-            onSubmitEditing={unlock}
-          />
-          <Button disabled={input.length < 4} onPress={unlock}>
-            {i18n("unlock")}
-          </Button>
-          {showErrorMessage && (
-            <PeachText style={tw`text-white text-lg mb-4 mt-4`}>
-              {i18n("wrongPinTryAgain")}
-            </PeachText>
-          )}
-        </View> */}
       </View>
     </Modal>
   );
