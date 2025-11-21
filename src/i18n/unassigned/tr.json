@@ -276,5 +276,7 @@
   "search.popups.matchUndone.text": "İtibarın etkilenmedi, tekrar talep gönderebilirsin.\n\nZamanlayıcı dolduktan sonra geri alırsan, itibarın düşer.",
   "enterPin": "PIN kodunu girin",
     "wrongPinTryAgain": "Yanlış PIN, tekrar deneyin",
-    "unlock": "Kilidi aç"
+    "unlock": "Kilidi aç",
+    "yourAppIsPinProtected": "Peach uygulamanız PIN ile korunuyor"
+
 }

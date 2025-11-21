@@ -17,8 +17,8 @@
   "settings.deletePin.success.text":"Now you don't need a PIN code to access the Peach App. We do not consider this secure, use at your own risk!",
   "settings.createPin.success.title" : "your PIN was created",
   "settings.createPin.success.text":"The Peach App is secure! Everytime you open the App you will be prompted to enter the PIN. You can modify or delete the PIN on the Settings page.",
-  "settings.createPin.insertYourPin" : "insert your desired PIN code (digits only)",
-  "settings.createPin.confirmYourPin" : "insert the PIN again",
+  "settings.createPin.insertYourPin" : "Create your pin",
+  "settings.createPin.confirmYourPin" : "Insert the pin again",
   "settings.createPin.pinsDontMatch" : "Error: The PINs didn't match. Try again",
   "settings.changePin.success.title" : "your PIN was changed",
   "settings.changePin.success.text":"You have modified your PIN code. Make sure you don't forget it!",
@@ -148,5 +148,6 @@
   "settings.title": "settings",
   "settings.transactionBatching": "transaction batching",
   "settings.website": "website",
-  "settings.dark mode": "Dark Mode"
+  "settings.dark mode": "Dark Mode",
+  "settings.createPin": "create pin"
 }

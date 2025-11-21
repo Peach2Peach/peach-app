@@ -134,8 +134,8 @@
     "settings.deletePin.success.text": "Тепер для доступу до Peach App PIN не потрібен. Це не вважається безпечним, використовуйте на свій ризик!",
     "settings.createPin.success.title": "Ваш PIN створено",
     "settings.createPin.success.text": "Програма Peach безпечна! Кожного разу при відкритті додатка вам буде запропоновано ввести PIN. Ви можете змінити або видалити PIN на сторінці Налаштувань.",
-    "settings.createPin.insertYourPin": "Введіть бажаний PIN (тільки цифри)",
-    "settings.createPin.confirmYourPin": "Введіть PIN ще раз",
+   "settings.createPin.insertYourPin": "Створіть свій PIN",
+"settings.createPin.confirmYourPin": "Введіть PIN ще раз",
     "settings.createPin.pinsDontMatch": "Помилка: PIN не співпадають. Спробуйте ще раз",
     "settings.changePin.success.title": "Ваш PIN змінено",
     "settings.changePin.success.text": "Ви змінили свій PIN. Не забудьте його!",
@@ -143,5 +143,6 @@
     "settings.changePin.insertNewPin": "PIN правильний. Введіть новий PIN",
     "settings.changePin.pinsDontMatch": "Помилка: PIN не співпадають. Спробуйте ще раз",
     "settings.changePin.wrongPin": "Помилка: неправильний PIN. Спробуйте ще раз",
-    "settings.changePin.confirmNewPin": "Введіть PIN ще раз"
+    "settings.changePin.confirmNewPin": "Введіть PIN ще раз",
+    "settings.createPin": "створити PIN"
 }

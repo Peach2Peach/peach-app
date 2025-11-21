@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Faites une sauvegarde maintenant pour protéger votre compte et vos fonds Peach en cas de perte du téléphone.",
   "error.firstBackup.title": "Faites une sauvegarde !",
   "error.general": "Quelque chose s'est mal passé. Réessayez ou contactez l'assistance Peach.",
-  "ACCOUNT_BANNED.text": "Votre compte a été banni. Pour faire appel, contactez Peach avec votre ID unique."
+  "ACCOUNT_BANNED.text": "Votre compte a été banni. Pour faire appel, contactez Peach avec votre ID unique.",
+  "PINS_DONT_MATCH.text": "Le dernier code PIN saisi ne correspond pas au premier. Réessayez",
+"PINS_DONT_MATCH.title": "Les PIN ne correspondent pas",
+"INCORRECT_PIN.text": "Le code PIN saisi est incorrect. Réessayez",
+"INCORRECT_PIN.title": "Le PIN est incorrect"
+
 }

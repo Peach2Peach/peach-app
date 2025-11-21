@@ -81,5 +81,10 @@
   "error.firstBackup.description": "È importante fare il backup ora. Altrimenti, in caso di perdita del telefono, perderai account e fondi.",
   "error.firstBackup.title": "Fai un backup!",
   "error.general": "Oops! Qualcosa è andato storto. Riprova più tardi o contatta il supporto.",
-  "ACCOUNT_BANNED.text": "Il tuo account è bloccato. Per fare appello, contatta Peach fornendo l'ID univoco."
+  "ACCOUNT_BANNED.text": "Il tuo account è bloccato. Per fare appello, contatta Peach fornendo l'ID univoco.",
+  "PINS_DONT_MATCH.text": "L’ultimo PIN inserito non corrisponde al primo. Riprova",
+"PINS_DONT_MATCH.title": "I PIN non corrispondono",
+"INCORRECT_PIN.text": "Il PIN inserito non è corretto. Riprova",
+"INCORRECT_PIN.title": "Il PIN è errato"
+
 }

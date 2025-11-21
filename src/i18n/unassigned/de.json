@@ -277,5 +277,6 @@
   "search.popups.matchUndone.text": "Dein Ruf wurde nicht beeinträchtigt, du kannst jederzeit erneut anfragen.\n\nWenn du nach Ablauf des Timers rückgängig machst, wird dein Ruf negativ beeinflusst.",
   "enterPin": "Geben Sie Ihren PIN ein",
     "wrongPinTryAgain": "Falscher PIN, erneut versuchen",
-    "unlock": "Entsperren"
+    "unlock": "Entsperren",
+    "yourAppIsPinProtected": "Deine Peach App ist durch einen PIN geschützt"
 }

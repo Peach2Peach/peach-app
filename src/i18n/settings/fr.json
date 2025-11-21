@@ -138,8 +138,8 @@
     "settings.deletePin.success.text": "Vous n'avez plus besoin d'un code PIN pour accéder à l'application Peach. Ce n'est pas considéré comme sécurisé, utilisez à vos risques et périls !",
     "settings.createPin.success.title": "Votre PIN a été créé",
     "settings.createPin.success.text": "L'application Peach est sécurisée ! Chaque fois que vous ouvrez l'application, il vous sera demandé d'entrer le PIN. Vous pouvez le modifier ou le supprimer dans les Paramètres.",
-    "settings.createPin.insertYourPin": "Entrez le PIN souhaité (chiffres uniquement)",
-    "settings.createPin.confirmYourPin": "Entrez à nouveau le PIN",
+    "settings.createPin.insertYourPin": "Créez votre PIN",
+"settings.createPin.confirmYourPin": "Saisissez à nouveau le PIN",
     "settings.createPin.pinsDontMatch": "Erreur : les PIN ne correspondent pas. Réessayez",
     "settings.changePin.success.title": "Votre PIN a été modifié",
     "settings.changePin.success.text": "Vous avez modifié votre PIN. Assurez-vous de ne pas l'oublier !",
@@ -147,5 +147,6 @@
     "settings.changePin.insertNewPin": "Le PIN est correct. Entrez le nouveau PIN",
     "settings.changePin.pinsDontMatch": "Erreur : les PIN ne correspondent pas. Réessayez",
     "settings.changePin.wrongPin": "Erreur : PIN incorrect. Réessayez",
-    "settings.changePin.confirmNewPin": "Entrez à nouveau le PIN"
+    "settings.changePin.confirmNewPin": "Entrez à nouveau le PIN",
+    "settings.createPin": "crear PIN"
 }

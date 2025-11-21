@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Agora que você usou a Peach Wallet, é essencial fazer backup antes de continuar. Sem backup, você poderá perder sua conta e fundos se perder o telefone.",
   "error.firstBackup.title": "Faça um backup!",
   "error.general": "Algo deu errado. Tente novamente mais tarde ou contate o suporte da Peach.",
-  "ACCOUNT_BANNED.text": "Sua conta foi banida. Para recorrer, contate a Peach e forneça seu ID único."
+  "ACCOUNT_BANNED.text": "Sua conta foi banida. Para recorrer, contate a Peach e forneça seu ID único.",
+  "PINS_DONT_MATCH.text": "O último PIN inserido não corresponde ao primeiro. Tente novamente",
+"PINS_DONT_MATCH.title": "Os PINs não coincidem",
+"INCORRECT_PIN.text": "O PIN inserido está incorreto. Tente novamente",
+"INCORRECT_PIN.title": "O PIN está incorreto"
+
 }

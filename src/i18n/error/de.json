@@ -81,5 +81,9 @@
   "error.firstBackup.description": "Erstelle ein Backup, um Peach-Konto und Sats zu sichern.",
   "error.firstBackup.title": "Backup erstellen!",
   "error.general": "Etwas ist schiefgelaufen. Später erneut versuchen oder Support kontaktieren.",
-  "ACCOUNT_BANNED.text": "Konto gesperrt. Für Einspruch Peach kontaktieren und eindeutige ID angeben."
+  "ACCOUNT_BANNED.text": "Konto gesperrt. Für Einspruch Peach kontaktieren und eindeutige ID angeben.",
+  "PINS_DONT_MATCH.text": "Der zuletzt eingegebene PIN stimmt nicht mit dem ersten überein. Versuche es erneut",
+  "PINS_DONT_MATCH.title": "PINs stimmen nicht überein",
+  "INCORRECT_PIN.text": "Der eingegebene PIN ist nicht korrekt. Versuche es erneut",
+  "INCORRECT_PIN.title": "Der PIN ist falsch"
 }

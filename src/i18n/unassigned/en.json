@@ -279,5 +279,6 @@
   "currentMarketValue": "current market value",
   "enterPin":"Enter your PIN code",
   "wrongPinTryAgain":"Wrong PIN, try again",
-  "unlock":"Unlock"
+  "unlock":"Unlock",
+  "yourAppIsPinProtected":"Your Peach App is PIN protected"
 }

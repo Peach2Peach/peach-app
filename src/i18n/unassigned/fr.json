@@ -280,6 +280,6 @@
     "search.popups.matchUndone.text": "Votre réputation n’a pas été affectée et vous pouvez refaire une demande.\n\nSi vous annulez après la fin du délai, votre réputation sera impactée négativement.",
     "enterPin": "Entrez votre code PIN",
     "wrongPinTryAgain": "PIN incorrect, réessayez",
-    "unlock": "Déverrouiller"
-  
+    "unlock": "Déverrouiller",
+    "yourAppIsPinProtected": "Votre application Peach est protégée par un PIN"  
 }

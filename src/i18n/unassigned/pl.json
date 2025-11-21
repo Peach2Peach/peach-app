@@ -280,6 +280,6 @@
     "search.popups.matchUndone.text": "Twoja reputacja nie została naruszona, możesz ponowić prośbę.\n\nPo upływie czasu cofnięcie wpłynie negatywnie na reputację.",
     "enterPin": "Voer uw PIN in",
     "wrongPinTryAgain": "Foute PIN, probeer opnieuw",
-    "unlock": "Ontgrendelen"
- 
+    "unlock": "Ontgrendelen",
+    "yourAppIsPinProtected": "Twoja aplikacja Peach jest chroniona kodem PIN" 
 }
