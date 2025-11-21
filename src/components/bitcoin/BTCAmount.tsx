@@ -10,11 +10,12 @@ import { PeachText } from "../text/PeachText";
 
 export type BTCAmountProps = {
   amount: number;
-  size: "large" | "medium" | "small";
+  size: "large" | "medium" | "mediumNoContainer" | "small";
   showAmount?: boolean;
   white?: boolean;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  includeSatsUnit?: boolean;
 };
 
 const styles = {
@@ -34,6 +35,14 @@ const styles = {
     amount: tw`-my-[13px] subtitle-1`,
     ellipseSize: 6,
   },
+  mediumNoContainer: {
+    amount: tw`font-baloo-semibold`,
+    ellipseSize: 6,
+    iconSize: 20,
+    iconContainer: tw``,
+    container: tw``,
+    textContainer: tw``,
+  },
   large: {
     container: tw`w-196px h-18px`,
     iconContainer: tw`p-1`,
@@ -52,6 +61,7 @@ export const BTCAmount = memo(
     showAmount = true,
     style,
     textStyle,
+    includeSatsUnit = true,
   }: BTCAmountProps) => {
     const [greyText, blackText] = useMemo(
       () => getDisplayAmount(amount),
@@ -97,7 +107,7 @@ export const BTCAmount = memo(
               ))}
             </View>
           ) : (
-            <View style={tw`flex-row items-center justify-end flex-1`}>
+            <View style={[tw`flex-row items-center justify-end flex-1`]}>
               <PeachText style={[tw`text-right opacity-20`, defaultTextStyle]}>
                 {greyText}
               </PeachText>
@@ -106,9 +116,12 @@ export const BTCAmount = memo(
               </PeachText>
             </View>
           )}
-          <PeachText style={defaultTextStyle}>
-            {i18n("currency.SATS")}
-          </PeachText>
+
+          {includeSatsUnit && (
+            <PeachText style={[defaultTextStyle]}>
+              {i18n("currency.SATS")}
+            </PeachText>
+          )}
         </View>
       </View>
     );
