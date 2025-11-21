@@ -23,6 +23,7 @@ import { PeachScrollView } from "./PeachScrollView";
 import { Section } from "./Section";
 import { SelectionList } from "./SelectionList";
 import { TouchableIcon } from "./TouchableIcon";
+import { BTCAmount } from "./bitcoin/BTCAmount";
 import { Button } from "./buttons/Button";
 import { PeachText } from "./text/PeachText";
 import { HorizontalLine } from "./ui/HorizontalLine";
@@ -562,17 +563,23 @@ function AmountSelection() {
             <View
               style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
-              <PeachText style={tw`text-center`}>
-                {thousands(Math.round(minAmount))}
-              </PeachText>
+              <BTCAmount
+                amount={minAmount}
+                size="mediumNoContainer"
+                textStyle={tw`text-black-100`}
+                includeSatsUnit={false}
+              />
             </View>
             <View style={tw`w-2 h-px bg-black-65`} />
             <View
               style={tw`flex-1 px-2 py-2 border rounded-full ${isDarkMode ? "border-white" : "border-black-10 bg-backgroundLight-light"}`}
             >
-              <PeachText style={tw`text-center`}>
-                {thousands(Math.round(maxAmount))}
-              </PeachText>
+              <BTCAmount
+                amount={maxAmount}
+                size="mediumNoContainer"
+                textStyle={tw`text-black-100`}
+                includeSatsUnit={false}
+              />
             </View>
           </View>
           <PeachText style={tw`text-xs font-normal tracking-normal font-baloo`}>
