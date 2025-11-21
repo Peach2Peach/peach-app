@@ -147,5 +147,7 @@
     "settings.changePin.insertNewPin": "Ο PIN ήταν σωστός. Εισάγετε τον νέο PIN",
     "settings.changePin.pinsDontMatch": "Σφάλμα: οι PIN δεν ταιριάζουν. Δοκιμάστε ξανά",
     "settings.changePin.wrongPin": "Σφάλμα: λάθος PIN. Δοκιμάστε ξανά",
-    "settings.changePin.confirmNewPin": "Εισάγετε ξανά τον PIN"
+    "settings.changePin.confirmNewPin": "Εισάγετε ξανά τον PIN",
+    "settings.report.shareAppLogs": "μοιραστείτε τεχνικές πληροφορίες της εφαρμογής"
+
 }

@@ -105,7 +105,7 @@ export const Report = () => {
             style={tw`self-stretch`}
             onPress={() => setSendErrorLogs(!sendErrorLogs)}
           >
-            {i18n("settings.report.sendErrorLogs")}
+            {i18n("settings.report.shareAppLogs")}
           </Checkbox>
         )}
       </PeachScrollView>

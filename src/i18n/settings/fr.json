@@ -147,5 +147,7 @@
     "settings.changePin.insertNewPin": "Le PIN est correct. Entrez le nouveau PIN",
     "settings.changePin.pinsDontMatch": "Erreur : les PIN ne correspondent pas. Réessayez",
     "settings.changePin.wrongPin": "Erreur : PIN incorrect. Réessayez",
-    "settings.changePin.confirmNewPin": "Entrez à nouveau le PIN"
+    "settings.changePin.confirmNewPin": "Entrez à nouveau le PIN",
+    "settings.report.shareAppLogs": "partager les informations techniques de l’app"
+
 }

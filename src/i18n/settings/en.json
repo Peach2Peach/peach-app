@@ -148,5 +148,5 @@
   "settings.title": "settings",
   "settings.transactionBatching": "transaction batching",
   "settings.website": "website",
-  "settings.report.sendErrorLogs" : "send error logs"
+  "settings.report.shareAppLogs" : "share app logs"
 }

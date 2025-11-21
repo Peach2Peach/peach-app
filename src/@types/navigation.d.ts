@@ -150,7 +150,7 @@ type RootStackParamList = Onboarding &
       reason: ContactReason;
       topic?: string;
       message?: string;
-      errorMessage?: string;
+      errorMessage?: Error | string;
     };
     language: undefined;
     currency: undefined;

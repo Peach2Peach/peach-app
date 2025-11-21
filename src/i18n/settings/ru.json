@@ -147,5 +147,7 @@
     "settings.changePin.insertNewPin": "PIN верный. Введите новый PIN",
     "settings.changePin.pinsDontMatch": "Ошибка: PIN не совпадают. Попробуйте снова",
     "settings.changePin.wrongPin": "Ошибка: неверный PIN. Попробуйте снова",
-    "settings.changePin.confirmNewPin": "Введите PIN снова"
+    "settings.changePin.confirmNewPin": "Введите PIN снова",
+    "settings.report.shareAppLogs": "поделиться технической информацией приложения"
+
 }

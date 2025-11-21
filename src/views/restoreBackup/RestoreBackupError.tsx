@@ -12,7 +12,8 @@ type Props = {
 
 export const RestoreBackupError = ({ err }: Props) => {
   const navigation = useStackNavigation();
-  const goToContact = () => navigation.navigate("contact", {});
+  const goToContact = () =>
+    navigation.navigate("contact", { errorMessage: err });
 
   return (
     <View style={tw`justify-between grow`}>

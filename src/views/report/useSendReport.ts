@@ -11,7 +11,7 @@ type Params = {
   reason: string;
   topic: string;
   message: string;
-  errorLogs?: string;
+  errorLogs?: Error | string;
 };
 export function useSendReport() {
   const { data } = useAppVersion();
@@ -40,7 +40,13 @@ async function sendReport(
 
   messageToSend += `\n\nUser shared app logs, please check crashlytics\nSession ID: ${SESSION_ID}`;
 
-  messageToSend += `\n\nLocal Error logs: ${errorLogs}`;
+  if (errorLogs) {
+    if (errorLogs instanceof Error) {
+      messageToSend += `\n\nLocal Error logs: Name: ${errorLogs.name} // Message: ${errorLogs.message} // Stack: ${errorLogs.stack}`;
+    } else {
+      messageToSend += `\n\nLocal Error logs: ${errorLogs}`;
+    }
+  }
 
   sendErrors([new Error(`user shared app logs: ${topic} - ${messageToSend}`)]);
 

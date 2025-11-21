@@ -44,7 +44,7 @@ export const Contact = () => {
     navigation.navigate("report", {
       reason,
       topic: i18n(`contact.reason.${reason}`),
-      errorMessage: errorMessage ? String(errorMessage) : undefined,
+      errorMessage: errorMessage ? errorMessage : undefined,
     });
   };
   const publicKey = useAccountStore((state) => state.account.publicKey);

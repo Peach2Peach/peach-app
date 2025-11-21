@@ -147,5 +147,7 @@
     "settings.changePin.insertNewPin": "A PIN helyes volt. Add meg az új PIN-t",
     "settings.changePin.pinsDontMatch": "Hiba: a PIN-ek nem egyeznek. Próbáld újra",
     "settings.changePin.wrongPin": "Hiba: hibás PIN. Próbáld újra",
-    "settings.changePin.confirmNewPin": "Add meg újra a PIN-t"
+    "settings.changePin.confirmNewPin": "Add meg újra a PIN-t",
+    "settings.report.shareAppLogs": "alkalmazás technikai adatait megosztani"
+
 }
