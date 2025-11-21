@@ -11,6 +11,7 @@ type Params = {
   reason: string;
   topic: string;
   message: string;
+  errorLogs?: Error | string;
 };
 export function useSendReport() {
   const { data } = useAppVersion();
@@ -26,7 +27,7 @@ async function sendReport(
   minAppVersion: string | undefined,
   publicKey?: string,
 ) {
-  const { email, reason, topic, message } = params;
+  const { email, reason, topic, message, errorLogs } = params;
   let messageToSend = `${message}\n\nUser ID: ${publicKey || "No public key available"}`;
   messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`;
   messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`;
@@ -38,6 +39,15 @@ async function sendReport(
   }
 
   messageToSend += `\n\nUser shared app logs, please check crashlytics\nSession ID: ${SESSION_ID}`;
+
+  if (errorLogs) {
+    if (errorLogs instanceof Error) {
+      messageToSend += `\n\nLocal Error logs: Name: ${errorLogs.name} // Message: ${errorLogs.message} // Stack: ${errorLogs.stack}`;
+    } else {
+      messageToSend += `\n\nLocal Error logs: ${errorLogs}`;
+    }
+  }
+
   sendErrors([new Error(`user shared app logs: ${topic} - ${messageToSend}`)]);
 
   const { result, error } = await peachAPI.public.contact.sendReport({

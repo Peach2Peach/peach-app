@@ -144,5 +144,6 @@
     "settings.changePin.pinsDontMatch": "Помилка: PIN не співпадають. Спробуйте ще раз",
     "settings.changePin.wrongPin": "Помилка: неправильний PIN. Спробуйте ще раз",
     "settings.changePin.confirmNewPin": "Введіть PIN ще раз",
+    "settings.report.shareAppLogs": "поділитися технічною інформацією застосунку",
     "settings.createPin": "створити PIN"
 }

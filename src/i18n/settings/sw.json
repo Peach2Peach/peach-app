@@ -147,5 +147,6 @@
     "settings.changePin.pinsDontMatch": "Hitilafu: PIN hazilingani. Jaribu tena",
     "settings.changePin.wrongPin": "Hitilafu: PIN si sahihi. Jaribu tena",
     "settings.changePin.confirmNewPin": "Ingiza PIN tena",
+    "settings.report.shareAppLogs": "shirikisha taarifa za kiufundi za app",
     "settings.createPin": "unda PIN"
 }

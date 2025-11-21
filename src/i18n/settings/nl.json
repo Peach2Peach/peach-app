@@ -144,5 +144,6 @@
     "settings.changePin.pinsDontMatch": "Fout: de PIN's komen niet overeen. Probeer opnieuw",
     "settings.changePin.wrongPin": "Fout: verkeerde PIN. Probeer opnieuw",
     "settings.changePin.confirmNewPin": "Voer de PIN opnieuw in",
+    "settings.report.shareAppLogs": "technische app-informatie delen",
     "settings.createPin": "PIN aanmaken"
 }

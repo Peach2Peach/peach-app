@@ -12,7 +12,8 @@ import i18n from "../../utils/i18n";
 export function CreateAccountError() {
   const { err } = useRoute<"createAccountError">().params;
   const navigation = useStackNavigation();
-  const goToContact = () => navigation.navigate("contact");
+  const goToContact = () =>
+    navigation.navigate("contact", { errorMessage: err });
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
 
   return (

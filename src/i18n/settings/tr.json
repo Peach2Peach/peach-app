@@ -144,5 +144,6 @@
     "settings.changePin.pinsDontMatch": "Hata: PIN’ler eşleşmiyor. Tekrar deneyin",
     "settings.changePin.wrongPin": "Hata: yanlış PIN. Tekrar deneyin",
     "settings.changePin.confirmNewPin": "PIN’i tekrar girin",
+    "settings.report.shareAppLogs": "uygulamanın teknik bilgilerini paylaş",
     "settings.createPin": "PIN oluştur"
 }

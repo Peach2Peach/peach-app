@@ -1,3 +1,4 @@
+import { DEV } from "@env";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
@@ -68,7 +69,9 @@ export function Home() {
                 style={tw`items-center justify-center py-px px-10px md:py-2`}
               />
             </View>
-            <BTCPriceInfo onPress={() => setIsDrawerOpen(!isDrawerOpen)} />
+            {DEV === "false" && (
+              <BTCPriceInfo onPress={() => setIsDrawerOpen(!isDrawerOpen)} />
+            )}
           </View>
           <View style={tw`self-stretch gap-2 md:gap-4`}>
             <News />

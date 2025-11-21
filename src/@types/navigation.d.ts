@@ -145,11 +145,12 @@ type RootStackParamList = Onboarding &
       offerId: string;
     };
     settings: undefined;
-    contact: undefined;
+    contact: { errorMessage?: Error | string | null };
     report: {
       reason: ContactReason;
       topic?: string;
       message?: string;
+      errorMessage?: Error | string;
     };
     language: undefined;
     currency: undefined;

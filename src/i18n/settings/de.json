@@ -148,6 +148,7 @@
     "settings.changePin.pinsDontMatch": "Fehler: Die PINs stimmen nicht überein. Versuche es erneut",
     "settings.changePin.wrongPin": "Fehler: falscher PIN. Versuche es erneut",
     "settings.changePin.confirmNewPin": "Gib den PIN erneut ein",
+    "settings.report.shareAppLogs": "technische App-Informationen teilen",
     "settings.createPin": "PIN erstellen"
     
 }

@@ -7,6 +7,7 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { LinedText } from "../../components/ui/LinedText";
 import { DISCORD, TELEGRAM } from "../../constants";
+import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
@@ -32,6 +33,8 @@ const openTelegram = () => openURL(TELEGRAM);
 const openDiscord = () => openURL(DISCORD);
 
 export const Contact = () => {
+  const { errorMessage } = useRoute<"contact">().params;
+
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const showHelp = () =>
@@ -41,6 +44,7 @@ export const Contact = () => {
     navigation.navigate("report", {
       reason,
       topic: i18n(`contact.reason.${reason}`),
+      errorMessage: errorMessage ? errorMessage : undefined,
     });
   };
   const publicKey = useAccountStore((state) => state.account.publicKey);
