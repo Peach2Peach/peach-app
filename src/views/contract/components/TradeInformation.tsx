@@ -4,6 +4,7 @@ import txInMempool from "../../../assets/escrow/tx-in-mempool.png";
 import { BitcoinAddress } from "../../../components/bitcoin/BitcoinAddress";
 import { PeachText } from "../../../components/text/PeachText";
 import { SimpleTimer, Timer } from "../../../components/text/Timer";
+import { SATSINBTC } from "../../../constants";
 import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
 import tw from "../../../styles/tailwind";
@@ -180,7 +181,7 @@ function SellerFundEscrow() {
           <BitcoinAddress
             address={contract.escrow}
             offerId={sellOfferId}
-            amount={contract.amount}
+            amount={contract.amount / SATSINBTC}
           />
           <FundFromPeachWalletButton
             address={contract.escrow}
