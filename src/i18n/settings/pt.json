@@ -138,8 +138,8 @@
     "settings.deletePin.success.text": "Agora não precisa de um PIN para aceder à app Peach. Não é considerado seguro, use por sua conta e risco!",
     "settings.createPin.success.title": "O seu PIN foi criado",
     "settings.createPin.success.text": "A app Peach é segura! Cada vez que abrir a app, será solicitado o PIN. Pode modificar ou eliminar o PIN na página de Definições.",
-    "settings.createPin.insertYourPin": "Introduza o PIN desejado (apenas dígitos)",
-    "settings.createPin.confirmYourPin": "Introduza novamente o PIN",
+    "settings.createPin.insertYourPin": "Introduza o PIN desejado",
+    "settings.createPin.confirmYourPin": "Introduza o PIN novamente",
     "settings.createPin.pinsDontMatch": "Erro: os PIN não correspondem. Tente novamente",
     "settings.changePin.success.title": "O seu PIN foi alterado",
     "settings.changePin.success.text": "Alterou o seu PIN. Certifique-se de não se esquecer dele!",
@@ -148,6 +148,6 @@
     "settings.changePin.pinsDontMatch": "Erro: os PIN não correspondem. Tente novamente",
     "settings.changePin.wrongPin": "Erro: PIN incorreto. Tente novamente",
     "settings.changePin.confirmNewPin": "Introduza novamente o PIN",
-    "settings.report.shareAppLogs": "partilhar informações técnicas da aplicação"
-
+    "settings.report.shareAppLogs": "partilhar informações técnicas da aplicação",
+    "settings.createPin": "criar PIN"
 }

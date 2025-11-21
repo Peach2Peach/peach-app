@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Zrób kopię zapasową portfela Peach, inaczej utracisz konto i środki w razie utraty telefonu.",
   "error.firstBackup.title": "Zrób kopię zapasową!",
   "error.general": "Coś poszło nie tak. Spróbuj ponownie lub skontaktuj się z supportem.",
-  "ACCOUNT_BANNED.text": "Twoje konto zostało zablokowane. Skontaktuj się z Peach i podaj unikalny identyfikator."
+  "ACCOUNT_BANNED.text": "Twoje konto zostało zablokowane. Skontaktuj się z Peach i podaj unikalny identyfikator.",
+  "PINS_DONT_MATCH.text": "Ostatni wprowadzony PIN nie zgadza się z pierwszym. Spróbuj ponownie",
+"PINS_DONT_MATCH.title": "PIN-y się nie zgadzają",
+"INCORRECT_PIN.text": "Wprowadzony PIN jest nieprawidłowy. Spróbuj ponownie",
+"INCORRECT_PIN.title": "PIN jest nieprawidłowy"
+
 }

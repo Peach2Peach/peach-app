@@ -1,82 +1,52 @@
 import { useState } from "react";
-import { View } from "react-native";
 import { Header } from "../../components/Header";
-import { PeachScrollView } from "../../components/PeachScrollView";
-import { Screen } from "../../components/Screen";
-import { Button } from "../../components/buttons/Button";
-import { Input } from "../../components/inputs/Input";
+import { PinCodeSettingsScreen } from "../../components/pin/PinCodeSettingsScreen";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
-import { PeachText } from "../../components/text/PeachText";
-import { PIN_CODE_MAX_SIZE } from "../../constants";
+import { useSetToast } from "../../components/toast/Toast";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { SuccessPopup } from "../../popups/SuccessPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { useThemeStore } from "../../store/theme";
-import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
 export const DeletePin = () => {
-  const { isDarkMode } = useThemeStore();
   const navigation = useStackNavigation();
   const { appPinCode, setAppPinCode } = useSettingsStore();
 
   const [curPin, setCurPin] = useState("");
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const setPopup = useSetPopup();
 
-  const onChangeText = (text: string) => {
-    setCurPin(text.replace(/[^0-9]/g, ""));
-  };
+  const setToast = useSetToast();
+
+  const castIncorrectPinError = () =>
+    setToast({
+      msgKey: "INCORRECT_PIN",
+      color: "red",
+    });
 
   const onConfirm = () => {
-    if (curPin === appPinCode || curPin === "1234") {
+    if (curPin === appPinCode) {
       setAppPinCode(undefined);
       setPopup(<PinDeletedSuccessPopup />);
       navigation.pop(2);
     } else {
-      setShowErrorMessage(true);
+      setCurPin("");
+      castIncorrectPinError();
     }
   };
 
   return (
-    <Screen header={<DeletePinHeader />}>
-      <PeachScrollView
-        contentContainerStyle={tw`grow`}
-        contentStyle={tw`justify-center gap-3 grow`}
-      >
-        <View>
-          <PeachText>{i18n("settings.deletePin.insertYourPin")}</PeachText>
-          <Input
-            value={curPin}
-            maxLength={PIN_CODE_MAX_SIZE}
-            onChangeText={onChangeText}
-            keyboardType="numeric"
-            secureTextEntry
-            style={[
-              tw`px-4 py-2 border-2 rounded-lg`,
-              isDarkMode
-                ? tw`bg-transparent border-2 border-black-50 text-backgroundLight-light`
-                : tw`bg-white text-black-100`,
-            ]}
-            onSubmitEditing={onConfirm}
-          />
-
-          {showErrorMessage && (
-            <PeachText style={[tw`text-error-main`]}>
-              {i18n("settings.deletePin.wrongPin")}
-            </PeachText>
-          )}
-          <Button
-            onPress={onConfirm}
-            disabled={curPin.length < 4}
-            style={tw`self-center`}
-          >
-            {i18n("confirm")}
-          </Button>
-        </View>
-      </PeachScrollView>
-    </Screen>
+    <PinCodeSettingsScreen
+      headerComponent={<DeletePinHeader />}
+      mainText={i18n("settings.deletePin.insertYourPin")}
+      subText={i18n("settings.deletePin.insertYourPin")}
+      currentPin={curPin}
+      onDigitPress={(digitString: string) => {
+        if (curPin.length < 8) setCurPin(curPin + digitString);
+      }}
+      onDigitDelete={() => setCurPin(curPin.slice(0, -1))}
+      onPinConfirm={onConfirm}
+    />
   );
 };
 

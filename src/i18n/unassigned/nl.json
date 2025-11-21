@@ -276,6 +276,7 @@
     "search.popups.matchUndone.text": "Je reputatie is niet aangetast, en je kunt opnieuw verzoeken.\n\nNa de timer heeft ongedaan maken een negatief effect.",
     "enterPin": "Voer uw PIN in",
     "wrongPinTryAgain": "Foute PIN, probeer opnieuw",
-    "unlock": "Ontgrendelen"
+    "unlock": "Ontgrendelen",
+"yourAppIsPinProtected": "Je Peach-app is met een PIN beschermd"
  
 }

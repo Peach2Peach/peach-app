@@ -280,5 +280,7 @@
     "search.popups.matchUndone.text": "A hírneved nem sérült, és újra kérhetsz.\n\nHa a határidő után vonod vissza, a hírneved romlik.",
     "enterPin": "Adja meg a PIN-kódot",
     "wrongPinTryAgain": "Hibás PIN, próbálja újra",
-    "unlock": "Feloldás"
+    "unlock": "Feloldás",
+    "yourAppIsPinProtected": "A Peach alkalmazás PIN-nel védett"
+
 }

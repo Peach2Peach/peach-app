@@ -81,5 +81,10 @@
   "error.firstBackup.description": "Tumia Peach Wallet kwa usalama, hakikisha unafanya nakala rudufu sasa.\n\nHukufanya hivyo, unaweza kupoteza akaunti yako ya Peach na pesa zilizoko kwenye mkoba ikiwa simu yako itapotea.",
   "error.firstBackup.title": "Fanya nakala rudufu!",
   "error.general": "Kitu kimetokea. Jaribu tena baadaye au wasiliana na usaidizi wa Peach.",
-  "ACCOUNT_BANNED.text": "Akaunti yako imezuiliwa. Wasiliana na Peach na toa ID yako ya kipekee ili kufanya rufaa."
+  "ACCOUNT_BANNED.text": "Akaunti yako imezuiliwa. Wasiliana na Peach na toa ID yako ya kipekee ili kufanya rufaa.",
+  "PINS_DONT_MATCH.text": "PIN ya mwisho uliyoweka haifanani na ya kwanza. Jaribu tena",
+"PINS_DONT_MATCH.title": "PIN hazifanani",
+"INCORRECT_PIN.text": "PIN uliyoweka si sahihi. Jaribu tena",
+"INCORRECT_PIN.title": "PIN si sahihi"
+
 }

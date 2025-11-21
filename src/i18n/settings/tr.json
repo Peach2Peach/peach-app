@@ -134,8 +134,8 @@
     "settings.deletePin.success.text": "Artık Peach App’e erişmek için PIN gerekmez. Bu güvenli kabul edilmez, kendi riskinizle kullanın!",
     "settings.createPin.success.title": "PIN’iniz oluşturuldu",
     "settings.createPin.success.text": "Peach App güvenlidir! Her açışınızda PIN girmeniz istenir. PIN’i Ayarlar sayfasında değiştirebilir veya silebilirsiniz.",
-    "settings.createPin.insertYourPin": "İstediğiniz PIN’i girin (sadece rakam)",
-    "settings.createPin.confirmYourPin": "PIN’i tekrar girin",
+    "settings.createPin.insertYourPin": "PIN'inizi oluşturun",
+"settings.createPin.confirmYourPin": "PIN'i tekrar girin",
     "settings.createPin.pinsDontMatch": "Hata: PIN’ler eşleşmiyor. Tekrar deneyin",
     "settings.changePin.success.title": "PIN’iniz değiştirildi",
     "settings.changePin.success.text": "PIN’inizi değiştirdiniz. Lütfen unutmayın!",
@@ -144,6 +144,6 @@
     "settings.changePin.pinsDontMatch": "Hata: PIN’ler eşleşmiyor. Tekrar deneyin",
     "settings.changePin.wrongPin": "Hata: yanlış PIN. Tekrar deneyin",
     "settings.changePin.confirmNewPin": "PIN’i tekrar girin",
-    "settings.report.shareAppLogs": "uygulamanın teknik bilgilerini paylaş"
-
+    "settings.report.shareAppLogs": "uygulamanın teknik bilgilerini paylaş",
+    "settings.createPin": "PIN oluştur"
 }

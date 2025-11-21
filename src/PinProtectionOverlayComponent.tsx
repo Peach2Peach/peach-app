@@ -1,12 +1,12 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { Modal, View } from "react-native";
+import { Modal, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "./components/buttons/Button";
-import { Input } from "./components/inputs/Input";
 import { PeachyBackground } from "./components/PeachyBackground";
+import { PinCodeDisplay } from "./components/pin/PinCodeDisplay";
+import { PinCodeInput } from "./components/pin/PinCodeInput";
 import { PeachText } from "./components/text/PeachText";
-import { PIN_CODE_MAX_SIZE } from "./constants";
 import { appPinProtectionLockAtom } from "./PinProtectionLockAtom";
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
 import tw from "./styles/tailwind";
@@ -43,6 +43,9 @@ export function PinProtectionOverlayComponent() {
 
   const insets = useSafeAreaInsets();
 
+  const { height } = useWindowDimensions();
+  const isSmallScreen = height < 650;
+
   if (!visible) return null;
 
   return (
@@ -55,27 +58,62 @@ export function PinProtectionOverlayComponent() {
           flex: 1,
         }}
       >
-        <View style={[tw`flex-1 p-sm md:p-md items-center justify-center`]}>
-          <PeachText style={tw`text-white text-lg mb-4`}>
-            {i18n("enterPin")}
-          </PeachText>
-          <Input
-            value={input}
-            onChangeText={setInput}
-            maxLength={PIN_CODE_MAX_SIZE}
-            keyboardType="numeric"
-            secureTextEntry
-            style={tw`bg-white w-40 p-2 rounded mb-2`}
-            onSubmitEditing={unlock}
-          />
-          <Button disabled={input.length < 4} onPress={unlock}>
-            {i18n("unlock")}
-          </Button>
-          {showErrorMessage && (
-            <PeachText style={tw`text-white text-lg mb-4 mt-4`}>
-              {i18n("wrongPinTryAgain")}
-            </PeachText>
+        <View style={[tw`flex-col items-start self-stretch`, { gap: 16 }]}>
+          {!isSmallScreen && (
+            <View style={tw`self-center mt-30`}>
+              <PeachText
+                style={[
+                  {
+                    textAlign: "center",
+                    color: tw.color("text-primary-mild-1"),
+                  },
+                  tw`h5`,
+                ]}
+              >
+                {i18n("yourAppIsPinProtected")}
+              </PeachText>
+              {
+                <PeachText
+                  style={[
+                    {
+                      textAlign: "center",
+                      color: tw.color("text-primary-mild-1"),
+                    },
+                    tw`text-lg`,
+                  ]}
+                >
+                  {showErrorMessage ? i18n("wrongPinTryAgain") : ""}
+                </PeachText>
+              }
+            </View>
           )}
+          <PinCodeDisplay currentPin={input} isOverlay={true} />
+          <PinCodeInput
+            currentPin={input}
+            isOverlay={true}
+            onDigitPress={(s: string) => {
+              setShowErrorMessage(false);
+              if (input.length < 8) {
+                setInput(input + s);
+              }
+            }}
+            onDelete={() => {
+              setInput(input.slice(0, -1));
+            }}
+          />
+
+          <Button
+            disabled={input.length < 4}
+            onPress={unlock}
+            style={[
+              { backgroundColor: tw.color("text-primary-mild-1") },
+              tw`self-center m-4`,
+            ]}
+          >
+            <PeachText style={[{ color: tw.color("primary-main") }]}>
+              {i18n("unlock")}
+            </PeachText>
+          </Button>
         </View>
       </View>
     </Modal>

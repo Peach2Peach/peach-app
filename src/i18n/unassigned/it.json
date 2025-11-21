@@ -274,6 +274,7 @@
     "search.popups.matchUndone.text": "La tua reputazione non è stata influenzata e puoi sempre riprovare.\n\nSe annulli dopo la scadenza, la tua reputazione sarà penalizzata.",
     "enterPin": "Inserisci il PIN",
     "wrongPinTryAgain": "PIN errato, riprova",
-    "unlock": "Sblocca"
-  
+    "unlock": "Sblocca",
+    "yourAppIsPinProtected": "La tua app Peach è protetta da PIN"
+
 }

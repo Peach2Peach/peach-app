@@ -5,5 +5,10 @@
   "INVALID_AMOUNT_RANGE.text" : "Suma trebuie să fie între $0 și $1 sats",
   "PAYMENT_METHOD_MISSING.text" : "Vă rugăm să adăugați o metodă de plată",
   "VALID_PAYMENT_DATA_MISSING.text" : "Vă rugăm să adăugați o metodă de plată validă",
-  "WALLET_SYNC_ERROR.text" : "Oho! Ceva nu a mers bine în timpul sincronizării portofelului tău Bitcoin. Se pare că există o problemă de conexiune. Te rog să încerci din nou mai târziu."
+  "WALLET_SYNC_ERROR.text" : "Oho! Ceva nu a mers bine în timpul sincronizării portofelului tău Bitcoin. Se pare că există o problemă de conexiune. Te rog să încerci din nou mai târziu.",
+  "PINS_DONT_MATCH.text": "Ultimul PIN introdus nu se potrivește cu primul. Încercați din nou",
+"PINS_DONT_MATCH.title": "PIN-urile nu se potrivesc",
+"INCORRECT_PIN.text": "PIN-ul introdus nu este corect. Încercați din nou",
+"INCORRECT_PIN.title": "PIN-ul este incorect"
+
 }
