@@ -1,5 +1,5 @@
-import { useRef, type ReactElement } from "react";
-import { ScrollView, TextInput, View } from "react-native";
+import { useEffect, useRef, type ReactElement } from "react";
+import { Animated, Keyboard, Platform, TextInput, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
@@ -49,6 +49,44 @@ export function SelectionDrawer({
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
   const textInputRef = useRef<TextInput>(null);
+  const animatedHeight = useRef(new Animated.Value(SCROLL_HEIGHT)).current;
+
+  useEffect(() => {
+    if (Platform.OS !== "android") return undefined;
+
+    const MIN_SCROLL_HEIGHT = 100;
+    const INSTANT_DURATION = 0;
+
+    const keyboardShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      (e) => {
+        const targetHeight = Math.max(
+          MIN_SCROLL_HEIGHT,
+          SCROLL_HEIGHT - e.endCoordinates.height,
+        );
+        Animated.timing(animatedHeight, {
+          toValue: targetHeight,
+          duration: INSTANT_DURATION,
+          useNativeDriver: false,
+        }).start();
+      },
+    );
+    const keyboardHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        Animated.timing(animatedHeight, {
+          toValue: SCROLL_HEIGHT,
+          duration: INSTANT_DURATION,
+          useNativeDriver: false,
+        }).start();
+      },
+    );
+
+    return () => {
+      keyboardShowListener.remove();
+      keyboardHideListener.remove();
+    };
+  }, [animatedHeight, SCROLL_HEIGHT]);
 
   return (
     <Drawer
@@ -83,9 +121,9 @@ export function SelectionDrawer({
             </View>
           </View>
         )}
-        <ScrollView style={{ height: SCROLL_HEIGHT }}>
+        <Animated.ScrollView style={{ height: animatedHeight }}>
           <SelectionList items={items} type={type} />
-        </ScrollView>
+        </Animated.ScrollView>
         {resetButton}
       </>
     </Drawer>
