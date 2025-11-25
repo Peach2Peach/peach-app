@@ -41,6 +41,7 @@ const PaymentMethods = ({
       meansOfPayment={meansOfPayment}
       style={tw`self-stretch`}
       setDisplayedCurrency={setDisplayedCurrency}
+      setCurrency={() => {}}
     />
   </SummaryCard.Section>
 );

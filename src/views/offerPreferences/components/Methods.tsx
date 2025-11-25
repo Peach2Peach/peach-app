@@ -13,9 +13,11 @@ import { Section } from "./Section";
 export function Methods({
   type,
   meansOfPayment,
+  setCurrency,
 }: {
   type: "buy" | "sell";
   meansOfPayment: MeansOfPayment;
+  setCurrency: (c: Currency) => void;
 }) {
   const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("paymentMethods");
@@ -36,7 +38,11 @@ export function Methods({
         <Section.Container
           style={[tw`flex-row items-start`, { backgroundColor }]}
         >
-          <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`flex-1`} />
+          <MeansOfPayment
+            meansOfPayment={meansOfPayment}
+            setCurrency={setCurrency}
+            style={tw`flex-1`}
+          />
           <TouchableIcon
             id="plusCircle"
             iconSize={24}

@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -13,15 +14,35 @@ type Props = {
   meansOfPayment: MeansOfPayment;
   style?: StyleProp<ViewStyle>;
   setDisplayedCurrency?: Function;
+  setCurrency: (c: Currency) => void;
 };
 
 export function MeansOfPayment({
   meansOfPayment,
   style,
   setDisplayedCurrency,
+  setCurrency,
 }: Props) {
   const currencies = getCurrencies(meansOfPayment);
-  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
+  const stateDisplayCurrency = useSettingsStore(
+    (state) => state.displayCurrency,
+  );
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    currencies.includes(stateDisplayCurrency)
+      ? stateDisplayCurrency
+      : currencies[0],
+  );
+
+  useEffect(() => {
+    if (currencies && !currencies.includes(selectedCurrency)) {
+      setSelectedCurrency(currencies[0]);
+    }
+  }, [meansOfPayment]);
+
+  useEffect(() => {
+    setCurrency(selectedCurrency);
+  }, [selectedCurrency]);
+  setCurrency(selectedCurrency);
 
   return (
     <View style={style}>

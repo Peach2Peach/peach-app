@@ -67,6 +67,8 @@ export function CreateBuyOffer() {
     (state) => state.setBuyOfferMulti,
   );
 
+  const [currency, setCurrency] = useState<Currency | undefined>();
+
   setBuyOfferMulti(undefined);
 
   return (
@@ -75,8 +77,8 @@ export function CreateBuyOffer() {
       header={<PreferenceHeader />}
       button={<PublishOfferButton />}
     >
-      <PreferenceMethods type="buy" />
-      <AmountSelector setIsSliding={setIsSliding} />
+      <PreferenceMethods type="buy" setCurrency={setCurrency} />
+      <AmountSelector setIsSliding={setIsSliding} currency={currency} />
       <CreateMultipleOffersContainer />
       <InstantTrade />
       <PreferenceWalletSelector />
@@ -225,10 +227,14 @@ function PreferenceHeader() {
 
 function AmountSelector({
   setIsSliding,
+  currency,
 }: {
   setIsSliding: (isSliding: boolean) => void;
+  currency?: Currency;
 }) {
-  return <AmountSelectorComponent setIsSliding={setIsSliding} />;
+  return (
+    <AmountSelectorComponent setIsSliding={setIsSliding} currency={currency} />
+  );
 }
 
 type SellAmountSliderProps = {
@@ -306,14 +312,17 @@ function SatsInput() {
   );
 }
 
-function FiatInput() {
+function FiatInput({ currency }: { currency?: Currency }) {
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.createBuyOfferAmount,
     state.setCreateBuyOfferAmount,
   ]);
   const inputRef = useRef<TextInput>(null);
 
-  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(amount);
+  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(
+    amount,
+    currency,
+  );
   const [inputValue, setInputValue] = useState(fiatPrice.toString());
 
   const restrictAmount = useRestrictSatsAmount("buy");
@@ -386,8 +395,10 @@ function FiatInput() {
 
 function AmountSelectorComponent({
   setIsSliding,
+  currency,
 }: {
   setIsSliding: (isSliding: boolean) => void;
+  currency?: Currency;
 }) {
   const trackWidth = useTrackWidth();
 
@@ -409,7 +420,7 @@ function AmountSelectorComponent({
       inputs={
         <>
           <SatsInput />
-          <FiatInput />
+          <FiatInput currency={currency} />
         </>
       }
     />

@@ -71,6 +71,7 @@ import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 export function SellOfferPreferences() {
   const [isSliding, setIsSliding] = useState(false);
+  const [currency, setCurrency] = useState<Currency | undefined>();
   return (
     <PreferenceScreen
       header={<SellHeader />}
@@ -83,9 +84,9 @@ export function SellOfferPreferences() {
       isSliding={isSliding}
     >
       {/* <SellPreferenceMarketInfo /> */}
-      <PreferenceMethods type="sell" />
+      <PreferenceMethods type="sell" setCurrency={setCurrency} />
       <CompetingOfferStats />
-      <AmountSelector setIsSliding={setIsSliding} />
+      <AmountSelector currency={currency} setIsSliding={setIsSliding} />
       <CreateMultipleOffersContainer />
       <InstantTrade />
       <RefundWalletSelector />
@@ -158,8 +159,10 @@ function CompetingOfferStats() {
 
 function AmountSelector({
   setIsSliding,
+  currency,
 }: {
   setIsSliding: (isSliding: boolean) => void;
+  currency?: Currency;
 }) {
   const trackWidth = useTrackWidth();
 
@@ -180,7 +183,7 @@ function AmountSelector({
       inputs={
         <>
           <SatsInput />
-          <FiatInput />
+          <FiatInput currency={currency} />
         </>
       }
     />
@@ -349,14 +352,17 @@ function SatsInput() {
   );
 }
 
-function FiatInput() {
+function FiatInput({ currency }: { currency?: Currency }) {
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.sellAmount,
     state.setSellAmount,
   ]);
   const inputRef = useRef<TextInput>(null);
 
-  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(amount);
+  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(
+    amount,
+    currency,
+  );
   const [inputValue, setInputValue] = useState(fiatPrice.toString());
 
   const restrictAmount = useRestrictSatsAmount("sell");
