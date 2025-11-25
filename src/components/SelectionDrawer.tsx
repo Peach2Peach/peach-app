@@ -1,6 +1,7 @@
-import { useEffect, useRef, type ReactElement } from "react";
-import { Animated, Keyboard, Platform, TextInput, View } from "react-native";
+import { useRef, type ReactElement } from "react";
+import { Animated, TextInput, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
+import { useKeyboardAwareHeight } from "../hooks/useKeyboardAwareHeight";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { Drawer } from "./Drawer";
@@ -49,44 +50,9 @@ export function SelectionDrawer({
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
   const textInputRef = useRef<TextInput>(null);
-  const animatedHeight = useRef(new Animated.Value(SCROLL_HEIGHT)).current;
-
-  useEffect(() => {
-    if (Platform.OS !== "android") return undefined;
-
-    const MIN_SCROLL_HEIGHT = 100;
-    const INSTANT_DURATION = 0;
-
-    const keyboardShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      (e) => {
-        const targetHeight = Math.max(
-          MIN_SCROLL_HEIGHT,
-          SCROLL_HEIGHT - e.endCoordinates.height,
-        );
-        Animated.timing(animatedHeight, {
-          toValue: targetHeight,
-          duration: INSTANT_DURATION,
-          useNativeDriver: false,
-        }).start();
-      },
-    );
-    const keyboardHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        Animated.timing(animatedHeight, {
-          toValue: SCROLL_HEIGHT,
-          duration: INSTANT_DURATION,
-          useNativeDriver: false,
-        }).start();
-      },
-    );
-
-    return () => {
-      keyboardShowListener.remove();
-      keyboardHideListener.remove();
-    };
-  }, [animatedHeight, SCROLL_HEIGHT]);
+  const animatedHeight = useKeyboardAwareHeight({
+    initialHeight: SCROLL_HEIGHT,
+  });
 
   return (
     <Drawer

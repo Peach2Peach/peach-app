@@ -2,23 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import {
   ReactNode,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import {
-  Animated,
-  Keyboard,
-  Platform,
-  ScrollView,
-  TextInput,
-  View,
-} from "react-native";
+import { Animated, ScrollView, TextInput, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { useMeetupEvents } from "../hooks/query/useMeetupEvents";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
+import { useKeyboardAwareHeight } from "../hooks/useKeyboardAwareHeight";
 import {
   defaultPreferences,
   useOfferPreferences,
@@ -128,45 +121,9 @@ export function ExpressBuyAdvancedFilters({ isOpen, onClose }: Props) {
     : DRAWER_HEIGHT_SMALL;
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
-  const MIN_SCROLL_HEIGHT = 100;
-  const INSTANT_DURATION = 0;
-  const animatedHeight = useRef(new Animated.Value(SCROLL_HEIGHT)).current;
-
-  useEffect(() => {
-    if (Platform.OS !== "android") return undefined;
-
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      (e) => {
-        const keyboardHeight = e.endCoordinates.height;
-        const newHeight = Math.max(
-          SCROLL_HEIGHT - keyboardHeight,
-          MIN_SCROLL_HEIGHT,
-        );
-        Animated.timing(animatedHeight, {
-          toValue: newHeight,
-          duration: INSTANT_DURATION,
-          useNativeDriver: false,
-        }).start();
-      },
-    );
-
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        Animated.timing(animatedHeight, {
-          toValue: SCROLL_HEIGHT,
-          duration: INSTANT_DURATION,
-          useNativeDriver: false,
-        }).start();
-      },
-    );
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, [SCROLL_HEIGHT, animatedHeight]);
+  const animatedHeight = useKeyboardAwareHeight({
+    initialHeight: SCROLL_HEIGHT,
+  });
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} title={i18n("advancedFilters")}>
