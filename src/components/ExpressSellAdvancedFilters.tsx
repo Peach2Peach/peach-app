@@ -1,11 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  ReactNode,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import { Animated, ScrollView, TextInput, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { useMeetupEvents } from "../hooks/query/useMeetupEvents";
