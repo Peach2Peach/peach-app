@@ -70,7 +70,7 @@ export function getBestCurrency(
     shallow,
   );
 
-  const [preferredPaymentMethods, toggle] = useOfferPreferences(
+  const [preferredPaymentMethods, _toggle] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.togglePaymentMethod],
     shallow,
   );
@@ -98,7 +98,9 @@ export function getBestCurrency(
 
   const finalCurrencyCounted = filterCurrencyCounted(
     currencyCounted,
-    interestingCurrencies,
+    interestingCurrencies.length > 0
+      ? interestingCurrencies
+      : selectedCurrencies,
   );
 
   const bestCurrency = Object.keys(offer.meansOfPayment).includes(
