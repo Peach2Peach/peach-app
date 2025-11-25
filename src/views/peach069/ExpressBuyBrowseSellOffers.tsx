@@ -24,6 +24,12 @@ import {
 } from "../../store/offerPreferenes/useOfferPreferences";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
+
+import {
+  countOffersByCurrency,
+  CountsByCurrency,
+  getBestCurrency,
+} from "../../utils/currency/countOffersByCurrency";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -140,6 +146,9 @@ function SellOfferList({
   refetch: Function;
 }) {
   if (isLoading || sellOffers === undefined) return <LoadingScreen />;
+
+  const currencyCounted = countOffersByCurrency(sellOffers);
+
   return (
     <>
       {sellOffers.length > 0 ? (
@@ -150,7 +159,9 @@ function SellOfferList({
             onRefresh={() => refetch()}
             refreshing={false}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <OfferCard offer={item} />}
+            renderItem={({ item }) => (
+              <OfferCard offer={item} currencyCounted={currencyCounted} />
+            )}
             contentContainerStyle={tw`gap-10px`}
             initialNumToRender={10}
             maxToRenderPerBatch={10}
@@ -197,8 +208,10 @@ function OfferStats({
 }
 
 function OfferCard({
+  currencyCounted,
   offer,
 }: {
+  currencyCounted: CountsByCurrency;
   offer: SellOffer & {
     allowedToInstantTrade: boolean;
     hasPerformedTradeRequest: boolean;
@@ -211,7 +224,19 @@ function OfferCard({
     amount,
     premium,
   } = offer;
-  const { fiatPrice, displayCurrency } = useBitcoinPrices(offer.amount);
+  const selectedCurrencies = useOfferPreferences(
+    (state) => state.expressBuyFilterByCurrencyList,
+  );
+  const bestCurrency = getBestCurrency(
+    currencyCounted,
+    offer,
+    selectedCurrencies,
+  );
+
+  const { fiatPrice, displayCurrency } = useBitcoinPrices(
+    offer.amount,
+    bestCurrency,
+  );
 
   const navigation = useStackNavigation();
   const onPress = () => {

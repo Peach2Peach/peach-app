@@ -26,6 +26,12 @@ import { useOfferPreferences } from "../../store/offerPreferenes";
 import { defaultPreferences } from "../../store/offerPreferenes/useOfferPreferences";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
+
+import {
+  countOffersByCurrency,
+  CountsByCurrency,
+  getBestCurrency,
+} from "../../utils/currency/countOffersByCurrency";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -143,6 +149,9 @@ function BuyOfferList({
   refetch: Function;
 }) {
   if (isLoading || buyOffers === undefined) return <LoadingScreen />;
+
+  const currencyCounted = countOffersByCurrency(buyOffers);
+
   return (
     <>
       {buyOffers.length > 0 ? (
@@ -153,7 +162,9 @@ function BuyOfferList({
             onRefresh={() => refetch()}
             refreshing={false}
             keyExtractor={(item) => String(item.id)}
-            renderItem={({ item }) => <OfferCard offer={item} />}
+            renderItem={({ item }) => (
+              <OfferCard offer={item} currencyCounted={currencyCounted} />
+            )}
             contentContainerStyle={tw`gap-10px`}
             initialNumToRender={10}
             maxToRenderPerBatch={10}
@@ -200,8 +211,10 @@ function OfferStats({
 }
 
 function OfferCard({
+  currencyCounted,
   offer,
 }: {
+  currencyCounted: CountsByCurrency;
   offer: BuyOffer69 & {
     user: User;
     allowedToInstantTrade: boolean;
@@ -216,7 +229,19 @@ function OfferCard({
     premium,
   } = offer;
 
-  const { fiatPrice, displayCurrency } = useBitcoinPrices(offer.amountSats);
+  const selectedCurrencies = useOfferPreferences(
+    (state) => state.expressSellFilterByCurrencyList,
+  );
+  const bestCurrency = getBestCurrency(
+    currencyCounted,
+    offer,
+    selectedCurrencies,
+  );
+
+  const { fiatPrice, displayCurrency } = useBitcoinPrices(
+    offer.amountSats,
+    bestCurrency,
+  );
   const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("expressSellTradeRequest", {
