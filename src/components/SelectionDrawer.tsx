@@ -1,6 +1,7 @@
 import { useRef, type ReactElement } from "react";
-import { ScrollView, TextInput, View } from "react-native";
+import { Animated, TextInput, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
+import { useKeyboardAwareHeight } from "../hooks/useKeyboardAwareHeight";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { Drawer } from "./Drawer";
@@ -49,6 +50,9 @@ export function SelectionDrawer({
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
   const textInputRef = useRef<TextInput>(null);
+  const animatedHeight = useKeyboardAwareHeight({
+    initialHeight: SCROLL_HEIGHT,
+  });
 
   return (
     <Drawer
@@ -83,9 +87,9 @@ export function SelectionDrawer({
             </View>
           </View>
         )}
-        <ScrollView style={{ height: SCROLL_HEIGHT }}>
+        <Animated.ScrollView style={{ height: animatedHeight }}>
           <SelectionList items={items} type={type} />
-        </ScrollView>
+        </Animated.ScrollView>
         {resetButton}
       </>
     </Drawer>

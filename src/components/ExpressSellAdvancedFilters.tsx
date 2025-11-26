@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
-import { ScrollView, TextInput, View } from "react-native";
+import { Animated, ScrollView, TextInput, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { useMeetupEvents } from "../hooks/query/useMeetupEvents";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
+import { useKeyboardAwareHeight } from "../hooks/useKeyboardAwareHeight";
 import {
   defaultPreferences,
   useOfferPreferences,
@@ -19,7 +20,6 @@ import { thousands } from "../utils/string/thousands";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { useTradingAmountLimits } from "../views/offerPreferences/utils/useTradingAmountLimits";
 import { Drawer } from "./Drawer";
-import { PeachScrollView } from "./PeachScrollView";
 import { Section } from "./Section";
 import { SelectionList } from "./SelectionList";
 import { TouchableIcon } from "./TouchableIcon";
@@ -116,17 +116,20 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
     : DRAWER_HEIGHT_SMALL;
   const SCROLL_HEIGHT = DRAWER_HEIGHT - HEADER_AND_PADDING;
 
+  const animatedHeight = useKeyboardAwareHeight({
+    initialHeight: SCROLL_HEIGHT,
+  });
+
   return (
     <Drawer isOpen={isOpen} onClose={onClose} title={i18n("advancedFilters")}>
       <>
         <HorizontalLine />
         <View style={tw`gap-4`}>
-          <PeachScrollView
+          <Animated.ScrollView
             ref={scrollViewRef}
-            style={{ height: SCROLL_HEIGHT }}
+            style={{ height: animatedHeight }}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={tw`grow`}
-            contentStyle={tw`grow`}
           >
             <View style={tw`gap-4 pt-4 grow`}>
               {filterSections.map(
@@ -146,7 +149,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
                 ),
               )}
             </View>
-          </PeachScrollView>
+          </Animated.ScrollView>
           <ResetAllButton />
         </View>
       </>
