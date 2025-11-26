@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "./components/buttons/Button";
@@ -43,8 +43,26 @@ export function PinProtectionOverlayComponent() {
 
   const insets = useSafeAreaInsets();
 
-  const { height } = useWindowDimensions();
-  const isSmallScreen = height < 650;
+  const windowHeight = useWindowDimensions().height;
+  const contentRef = useRef(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    if (!visible) return;
+    if (isSmallScreen) return;
+
+    setTimeout(() => {
+      contentRef.current?.measure((_x, _y, _width, height, _pageX, pageY) => {
+        const bottom = pageY + height;
+
+        if (bottom > windowHeight) {
+          setIsSmallScreen(true);
+        } else {
+          setIsSmallScreen(false);
+        }
+      });
+    }, 0);
+  }, [visible, input]);
 
   if (!visible) return null;
 
@@ -58,7 +76,11 @@ export function PinProtectionOverlayComponent() {
           flex: 1,
         }}
       >
-        <View style={[tw`flex-col items-start self-stretch`, { gap: 16 }]}>
+        <View
+          ref={contentRef}
+          onLayout={() => {}} // ensures layout events fire
+          style={[tw`flex-col items-start self-stretch`, { gap: 16 }]}
+        >
           {!isSmallScreen && (
             <View style={tw`self-center mt-30`}>
               <PeachText
