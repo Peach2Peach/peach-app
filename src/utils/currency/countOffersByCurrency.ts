@@ -90,12 +90,19 @@ export function getBestCurrency(
     }
   }
 
+  // we get the currencies that are on the payment methods of the user of the App
+  // those are currencies the user is likely interested in
   const interestingCurrenciesTemp = Array.from(set);
 
+  // we check if the user has any Currency filters
+  // if yes, we consider the intersection of those 2 groups as the only interesting currencies for the user
   const interestingCurrencies = selectedCurrencies
     ? interestingCurrenciesTemp.filter((x) => selectedCurrencies.includes(x))
     : interestingCurrenciesTemp;
 
+  // we have the list of most popular currencies (key pair: Currency-numberOfOffers)
+  // we remove the currencies from the list of popularity if they are not interesting to the user
+  // in case the interesting list is empty, we dont modify the popularity list
   const finalCurrencyCounted = filterCurrencyCounted(
     currencyCounted,
     interestingCurrencies.length > 0
@@ -103,14 +110,18 @@ export function getBestCurrency(
       : selectedCurrencies,
   );
 
-  const bestCurrency = Object.keys(offer.meansOfPayment).includes(
-    defaultCurrency,
-  )
-    ? defaultCurrency
-    : getMostRelevantCurrency(
-        finalCurrencyCounted,
-        Object.keys(offer.meansOfPayment) as Currency[],
-      );
+  // in case the Default Currency of the user (defined in the Settings page) is present
+  // in the popularity list AND the specific offer list, we chose it
+  // else, we chose the most popular
+
+  const bestCurrency =
+    Object.keys(finalCurrencyCounted).includes(defaultCurrency) &&
+    Object.keys(offer.meansOfPayment).includes(defaultCurrency)
+      ? defaultCurrency
+      : getMostRelevantCurrency(
+          finalCurrencyCounted,
+          Object.keys(offer.meansOfPayment) as Currency[],
+        );
 
   return bestCurrency;
 }
