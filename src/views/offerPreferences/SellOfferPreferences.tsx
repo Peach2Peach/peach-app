@@ -71,6 +71,7 @@ import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 export function SellOfferPreferences() {
   const [isSliding, setIsSliding] = useState(false);
+  const [currency, setCurrency] = useState<Currency | undefined>();
   return (
     <PreferenceScreen
       header={<SellHeader />}
@@ -83,9 +84,9 @@ export function SellOfferPreferences() {
       isSliding={isSliding}
     >
       {/* <SellPreferenceMarketInfo /> */}
-      <PreferenceMethods type="sell" />
+      <PreferenceMethods type="sell" setCurrency={setCurrency} />
       <CompetingOfferStats />
-      <AmountSelector setIsSliding={setIsSliding} />
+      <AmountSelector currency={currency} setIsSliding={setIsSliding} />
       <CreateMultipleOffersContainer />
       <InstantTrade />
       <RefundWalletSelector />
@@ -158,13 +159,16 @@ function CompetingOfferStats() {
 
 function AmountSelector({
   setIsSliding,
+  currency,
 }: {
   setIsSliding: (isSliding: boolean) => void;
+  currency?: Currency;
 }) {
   const trackWidth = useTrackWidth();
 
   return (
     <AmountSelectorContainer
+      currency={currency}
       slider={
         <SliderTrack
           slider={
@@ -180,7 +184,7 @@ function AmountSelector({
       inputs={
         <>
           <SatsInput />
-          <FiatInput />
+          <FiatInput currency={currency} />
         </>
       }
     />
@@ -190,9 +194,11 @@ function AmountSelector({
 function AmountSelectorContainer({
   slider,
   inputs,
+  currency,
 }: {
   slider?: ReactElement;
   inputs?: ReactElement;
+  currency?: Currency;
 }) {
   const { isDarkMode } = useThemeStore();
   return (
@@ -205,7 +211,7 @@ function AmountSelectorContainer({
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
           {slider}
         </View>
-        <Premium />
+        <Premium currency={currency} />
       </View>
     </Section.Container>
   );
@@ -214,7 +220,7 @@ function AmountSelectorContainer({
 const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, ".");
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, "");
 const MIN_PREMIUM_INCREMENT = 0.01;
-function Premium() {
+function Premium({ currency }: { currency?: Currency }) {
   const preferences = useOfferPreferences(
     (state) => ({
       maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
@@ -226,7 +232,7 @@ function Premium() {
   return (
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent />
-      <CurrentPrice />
+      <CurrentPrice currency={currency} />
       <PeachText style={tw`text-center text-primary-main subtitle-2`}>
         {i18n(
           "offerPreferences.competingSellOffersBelowThisPremium",
@@ -247,13 +253,13 @@ function PremiumInputComponent() {
   );
 }
 
-function CurrentPrice() {
+function CurrentPrice({ currency }: { currency?: Currency }) {
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const [amount, premium] = useOfferPreferences(
     (state) => [state.sellAmount, state.premium],
     shallow,
   );
-  const { fiatPrice } = useBitcoinPrices(amount);
+  const { fiatPrice } = useBitcoinPrices(amount, currency);
   const priceWithPremium = useMemo(
     () => round(fiatPrice * (1 + premium / CENT), 2),
     [fiatPrice, premium],
@@ -263,7 +269,7 @@ function CurrentPrice() {
     <PeachText style={tw`text-center body-s`}>
       {
         (i18n("offerPreferences.currentPrice"),
-        `${priceWithPremium} ${displayCurrency}`)
+        `${priceWithPremium} ${currency ? currency : displayCurrency}`)
       }
     </PeachText>
   );
@@ -349,14 +355,17 @@ function SatsInput() {
   );
 }
 
-function FiatInput() {
+function FiatInput({ currency }: { currency?: Currency }) {
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.sellAmount,
     state.setSellAmount,
   ]);
   const inputRef = useRef<TextInput>(null);
 
-  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(amount);
+  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(
+    amount,
+    currency,
+  );
   const [inputValue, setInputValue] = useState(fiatPrice.toString());
 
   const restrictAmount = useRestrictSatsAmount("sell");

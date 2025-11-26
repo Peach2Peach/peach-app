@@ -67,6 +67,8 @@ export function CreateBuyOffer() {
     (state) => state.setBuyOfferMulti,
   );
 
+  const [currency, setCurrency] = useState<Currency | undefined>();
+
   setBuyOfferMulti(undefined);
 
   return (
@@ -75,8 +77,8 @@ export function CreateBuyOffer() {
       header={<PreferenceHeader />}
       button={<PublishOfferButton />}
     >
-      <PreferenceMethods type="buy" />
-      <AmountSelector setIsSliding={setIsSliding} />
+      <PreferenceMethods type="buy" setCurrency={setCurrency} />
+      <AmountSelector setIsSliding={setIsSliding} currency={currency} />
       <CreateMultipleOffersContainer />
       <InstantTrade />
       <PreferenceWalletSelector />
@@ -225,10 +227,14 @@ function PreferenceHeader() {
 
 function AmountSelector({
   setIsSliding,
+  currency,
 }: {
   setIsSliding: (isSliding: boolean) => void;
+  currency?: Currency;
 }) {
-  return <AmountSelectorComponent setIsSliding={setIsSliding} />;
+  return (
+    <AmountSelectorComponent setIsSliding={setIsSliding} currency={currency} />
+  );
 }
 
 type SellAmountSliderProps = {
@@ -306,14 +312,17 @@ function SatsInput() {
   );
 }
 
-function FiatInput() {
+function FiatInput({ currency }: { currency?: Currency }) {
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.createBuyOfferAmount,
     state.setCreateBuyOfferAmount,
   ]);
   const inputRef = useRef<TextInput>(null);
 
-  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(amount);
+  const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(
+    amount,
+    currency,
+  );
   const [inputValue, setInputValue] = useState(fiatPrice.toString());
 
   const restrictAmount = useRestrictSatsAmount("buy");
@@ -386,13 +395,16 @@ function FiatInput() {
 
 function AmountSelectorComponent({
   setIsSliding,
+  currency,
 }: {
   setIsSliding: (isSliding: boolean) => void;
+  currency?: Currency;
 }) {
   const trackWidth = useTrackWidth();
 
   return (
     <AmountSelectorContainer
+      currency={currency}
       type="buy"
       slider={
         <SliderTrack
@@ -409,7 +421,7 @@ function AmountSelectorComponent({
       inputs={
         <>
           <SatsInput />
-          <FiatInput />
+          <FiatInput currency={currency} />
         </>
       }
     />
@@ -420,10 +432,12 @@ function AmountSelectorContainer({
   slider,
   inputs,
   type = "sell",
+  currency,
 }: {
   slider?: ReactElement;
   inputs?: ReactElement;
   type?: "buy" | "sell";
+  currency?: Currency;
 }) {
   const { isDarkMode } = useThemeStore();
   const backgroundColor = isDarkMode
@@ -438,17 +452,23 @@ function AmountSelectorContainer({
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
           {slider}
         </View>
-        <Premium type={type} />
+        <Premium type={type} currency={currency} />
       </View>
     </Section.Container>
   );
 }
 
-function Premium({ type = "sell" }: { type?: "buy" | "sell" }) {
+function Premium({
+  type = "sell",
+  currency,
+}: {
+  type?: "buy" | "sell";
+  currency?: Currency;
+}) {
   return (
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent type={type} />
-      <CurrentPrice />
+      <CurrentPrice currency={currency} />
     </View>
   );
 }
@@ -468,13 +488,13 @@ function PremiumInputComponent({ type = "sell" }: { type?: "buy" | "sell" }) {
   );
 }
 
-function CurrentPrice() {
+function CurrentPrice({ currency }: { currency?: Currency }) {
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const [amount, premium] = useOfferPreferences(
     (state) => [state.createBuyOfferAmount, state.createBuyOfferPremium],
     shallow,
   );
-  const { fiatPrice } = useBitcoinPrices(amount);
+  const { fiatPrice } = useBitcoinPrices(amount, currency);
   const priceWithPremium = useMemo(
     () => round(fiatPrice * (1 + premium / CENT), 2),
     [fiatPrice, premium],
@@ -484,7 +504,7 @@ function CurrentPrice() {
     <PeachText style={tw`text-center body-s`}>
       {
         (i18n("offerPreferences.currentPrice"),
-        `${priceWithPremium} ${displayCurrency}`)
+        `${priceWithPremium} ${currency ? currency : displayCurrency}`)
       }
     </PeachText>
   );
