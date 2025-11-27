@@ -39,6 +39,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
     updateDrawer({
       title: i18n("meetup.select"),
       options: eventsByCountry[selected]
+        .filter((v) => v.live)
         .sort((a, b) => sortAlphabetically(a.city, b.city))
         .sort((a, b) => Number(b.featured) - Number(a.featured))
         .map(mapEventToDrawerOption(goToEventDetails)),

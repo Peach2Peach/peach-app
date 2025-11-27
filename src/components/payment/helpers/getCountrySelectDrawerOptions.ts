@@ -10,10 +10,9 @@ export const getCountrySelectDrawerOptions = (
   goToEventDetails: (eventID: MeetupEvent["id"]) => void,
   selectCountry: (eventsByCountry: CountryEventsMap, selected: Country) => void,
 ) => {
-  const eventsByCountry = meetupEvents.reduce(
-    structureEventsByCountry,
-    {} as CountryEventsMap,
-  );
+  const eventsByCountry = meetupEvents
+    .filter((e) => e.live)
+    .reduce(structureEventsByCountry, {} as CountryEventsMap);
   const featuredEvents = meetupEvents
     .filter((event) => event.featured)
     .map(mapEventToDrawerOption(goToEventDetails));
