@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -104,7 +104,7 @@ export const SendBitcoin = () => {
               value={amount.toString()}
               onChangeText={onAmountChange}
               size="medium"
-              textStyle={tw`absolute w-full py-0 opacity-0 grow h-38px input-text`}
+              textStyle={tw`absolute w-full py-0 grow h-38px input-text ${Platform.OS === "android" ? "opacity-0" : ""}`}
               containerStyle={[
                 tw`self-stretch justify-center px-2 py-3 overflow-hidden h-38px rounded-xl`,
                 tw`border border-black-65`,

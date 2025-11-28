@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import {
+  Platform,
   StyleProp,
   TextInput,
   TextInputProps,
@@ -35,14 +36,16 @@ export const BTCAmountInput = forwardRef<TextInput, Props>(
         <TextInput
           {...props}
           ref={ref}
+          caretHidden={true}
           style={[
             textStyle,
-            {
-              backgroundColor: isDarkMode
-                ? "rgba(0, 0, 0, 0.8)"
-                : "rgba(255, 255, 255, 0.8)",
-              color: isDarkMode ? "white" : "black",
-            },
+            Platform.OS === "android" ? {} : { color: "rgba(0,0,0,0)" },
+            // {
+            //   backgroundColor: isDarkMode
+            //     ? "rgba(0, 0, 0, 0.8)"
+            //     : "rgba(255, 255, 255, 0.8)",
+            //   color: isDarkMode ? "white" : "black",
+            // },
           ]}
           keyboardType="number-pad"
         />

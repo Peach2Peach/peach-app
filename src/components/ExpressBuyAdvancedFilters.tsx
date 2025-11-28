@@ -569,7 +569,6 @@ function AmountSelection() {
               <BTCAmount
                 amount={minAmount}
                 size="mediumNoContainer"
-                textStyle={tw`text-black-100`}
                 includeSatsUnit={false}
               />
             </View>
@@ -580,7 +579,6 @@ function AmountSelection() {
               <BTCAmount
                 amount={maxAmount}
                 size="mediumNoContainer"
-                textStyle={tw`text-black-100`}
                 includeSatsUnit={false}
               />
             </View>
