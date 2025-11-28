@@ -85,6 +85,8 @@
   "PINS_DONT_MATCH.text": "Ostatni wprowadzony PIN nie zgadza się z pierwszym. Spróbuj ponownie",
 "PINS_DONT_MATCH.title": "PIN-y się nie zgadzają",
 "INCORRECT_PIN.text": "Wprowadzony PIN jest nieprawidłowy. Spróbuj ponownie",
-"INCORRECT_PIN.title": "PIN jest nieprawidłowy"
+"INCORRECT_PIN.title": "PIN jest nieprawidłowy",
+"TRADE_REQUEST_PERFORMED.text": "Twoje zgłoszenie czeka teraz na zatwierdzenie. Jeśli masz kilka otwartych próśb o transakcję, wszystkie pozostałe zostaną usunięte, gdy jedna zostanie zatwierdzona.",
+  "TRADE_REQUEST_PERFORMED.title": "Prośba o transakcję wysłana!"
 
 }

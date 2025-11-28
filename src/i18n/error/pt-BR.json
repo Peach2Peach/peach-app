@@ -85,6 +85,8 @@
   "PINS_DONT_MATCH.text": "O último PIN inserido não corresponde ao primeiro. Tente novamente",
 "PINS_DONT_MATCH.title": "Os PINs não coincidem",
 "INCORRECT_PIN.text": "O PIN inserido está incorreto. Tente novamente",
-"INCORRECT_PIN.title": "O PIN está incorreto"
+"INCORRECT_PIN.title": "O PIN está incorreto",
+"TRADE_REQUEST_PERFORMED.text": "Sua solicitação agora está aguardando aprovação. Se você tiver várias solicitações de troca abertas, todas as outras serão removidas quando uma for aprovada.",
+  "TRADE_REQUEST_PERFORMED.title": "Solicitação de troca enviada!"
 
 }

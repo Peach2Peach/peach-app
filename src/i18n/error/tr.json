@@ -85,6 +85,8 @@
   "PINS_DONT_MATCH.text": "Girdiğiniz son PIN ilk PIN ile eşleşmiyor. Tekrar deneyin",
 "PINS_DONT_MATCH.title": "PIN'ler eşleşmedi",
 "INCORRECT_PIN.text": "Girdiğiniz PIN doğru değil. Tekrar deneyin",
-"INCORRECT_PIN.title": "PIN yanlış"
+"INCORRECT_PIN.title": "PIN yanlış",
+"TRADE_REQUEST_PERFORMED.text": "Talebiniz şimdi onay bekliyor. Birden fazla işlem talebiniz açıksa, biri onaylandığında diğerlerinin tümü kaldırılacaktır.",
+  "TRADE_REQUEST_PERFORMED.title": "Ticaret Talebi gönderildi!"
 
 }

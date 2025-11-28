@@ -85,6 +85,8 @@
   "PINS_DONT_MATCH.text": "PIN ya mwisho uliyoweka haifanani na ya kwanza. Jaribu tena",
 "PINS_DONT_MATCH.title": "PIN hazifanani",
 "INCORRECT_PIN.text": "PIN uliyoweka si sahihi. Jaribu tena",
-"INCORRECT_PIN.title": "PIN si sahihi"
+"INCORRECT_PIN.title": "PIN si sahihi",
+"TRADE_REQUEST_PERFORMED.text": "Ombi lako linangojea idhini. Ukiwa na maombi mengi ya biashara wazi, mengine yote yataondolewa pindi moja inapokubaliwa.",
+  "TRADE_REQUEST_PERFORMED.title": "Ombi la Biashara limewasilishwa!"
 
 }

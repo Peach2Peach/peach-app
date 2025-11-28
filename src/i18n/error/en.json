@@ -22,6 +22,8 @@
   "PINS_DONT_MATCH.title": "PINs didn't match",
   "INCORRECT_PIN.text": "The inserted PIN code is not the correct one. Try again",
   "INCORRECT_PIN.title": "the PIN is incorrect",
+  "TRADE_REQUEST_PERFORMED.text": "Your request is now pending approval. If you have multiple trade requests open, all remaining ones will be removed once one is approved.",
+  "TRADE_REQUEST_PERFORMED.title": "Trade Request performed!",
   "HUMAN_VERIFICATION_REQUIRED.start": "verify",
   "HUMAN_VERIFICATION_REQUIRED.text": "Our security systems would like to make sure you're human. Before you continue, please complete a quick verification test.",
   "HUMAN_VERIFICATION_REQUIRED.title": "Please verify you are human",

@@ -85,5 +85,7 @@
   "PINS_DONT_MATCH.text": "Der zuletzt eingegebene PIN stimmt nicht mit dem ersten überein. Versuche es erneut",
   "PINS_DONT_MATCH.title": "PINs stimmen nicht überein",
   "INCORRECT_PIN.text": "Der eingegebene PIN ist nicht korrekt. Versuche es erneut",
-  "INCORRECT_PIN.title": "Der PIN ist falsch"
+  "INCORRECT_PIN.title": "Der PIN ist falsch",
+  "TRADE_REQUEST_PERFORMED.text": "Ihre Anfrage wartet nun auf Genehmigung. Wenn Sie mehrere Handelsanfragen offen haben, werden alle übrigen entfernt, sobald eine genehmigt wurde.",
+  "TRADE_REQUEST_PERFORMED.title": "Handelsanfrage gesendet!"
 }

@@ -85,6 +85,8 @@
   "PINS_DONT_MATCH.text": "Последний введённый PIN не совпадает с первым. Попробуйте ещё раз",
 "PINS_DONT_MATCH.title": "PIN-коды не совпадают",
 "INCORRECT_PIN.text": "Введённый PIN неверен. Попробуйте ещё раз",
-"INCORRECT_PIN.title": "Неверный PIN"
+"INCORRECT_PIN.title": "Неверный PIN",
+"TRADE_REQUEST_PERFORMED.text": "Ваш запрос теперь ожидает одобрения. Если у вас открыто несколько запросов на сделку, все остальные будут удалены, как только один из них будет одобрен.",
+  "TRADE_REQUEST_PERFORMED.title": "Запрос на сделку отправлен!"
 
 }

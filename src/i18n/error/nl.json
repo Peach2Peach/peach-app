@@ -85,6 +85,8 @@
   "PINS_DONT_MATCH.text": "De laatste ingevoerde PIN komt niet overeen met de eerste. Probeer opnieuw",
 "PINS_DONT_MATCH.title": "PIN-codes komen niet overeen",
 "INCORRECT_PIN.text": "De ingevoerde PIN is onjuist. Probeer opnieuw",
-"INCORRECT_PIN.title": "De PIN is onjuist"
+"INCORRECT_PIN.title": "De PIN is onjuist",
+"TRADE_REQUEST_PERFORMED.text": "Je verzoek wacht nu op goedkeuring. Als je meerdere handelsverzoeken open hebt staan, worden de overige verwijderd zodra één ervan wordt goedgekeurd.",
+  "TRADE_REQUEST_PERFORMED.title": "Handelsverzoek verzonden!"
 
 }

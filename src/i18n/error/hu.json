@@ -85,5 +85,7 @@
   "PINS_DONT_MATCH.text": "A legutóbb megadott PIN nem egyezik az elsővel. Próbálja újra",
   "PINS_DONT_MATCH.title": "A PIN-kódok nem egyeznek",
   "INCORRECT_PIN.text": "A megadott PIN nem helyes. Próbálja újra",
-  "INCORRECT_PIN.title": "A PIN helytelen"
+  "INCORRECT_PIN.title": "A PIN helytelen",
+  "TRADE_REQUEST_PERFORMED.text": "A kérelmed jóváhagyásra vár. Ha több csereigényed is nyitva van, minden másik törlődik, amint az egyik jóváhagyást kap.",
+  "TRADE_REQUEST_PERFORMED.title": "Csereigény elküldve!"
 }

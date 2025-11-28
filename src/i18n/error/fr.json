@@ -85,6 +85,8 @@
   "PINS_DONT_MATCH.text": "Le dernier code PIN saisi ne correspond pas au premier. Réessayez",
 "PINS_DONT_MATCH.title": "Les PIN ne correspondent pas",
 "INCORRECT_PIN.text": "Le code PIN saisi est incorrect. Réessayez",
-"INCORRECT_PIN.title": "Le PIN est incorrect"
+"INCORRECT_PIN.title": "Le PIN est incorrect",
+"TRADE_REQUEST_PERFORMED.text": "Votre demande est en attente d’approbation. Si vous avez plusieurs demandes ouvertes, toutes les autres seront supprimées dès qu’une sera approuvée.",
+  "TRADE_REQUEST_PERFORMED.title": "Demande d’échange envoyée!"
 
 }

@@ -25,6 +25,7 @@ import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../components/text/PeachText";
+import { useSetToast } from "../../components/toast/Toast";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
@@ -93,6 +94,7 @@ export function ExpressFlowTradeRequestToOffer({
   offerOwnerUser: PublicUser;
 }) {
   const handleError = useHandleError();
+  const setToast = useSetToast();
   const [selectedCurrency, setSelectedCurrency] = useState(
     keys(offer.meansOfPayment)[0],
   );
@@ -163,6 +165,8 @@ export function ExpressFlowTradeRequestToOffer({
       });
       if (!success) {
         setShowMatchedCard(false);
+      } else {
+        setToast({ msgKey: "TRADE_REQUEST_PERFORMED", color: "yellow" });
       }
     } catch (err) {
       console.log("error: ", err);
@@ -290,7 +294,6 @@ export function ExpressFlowTradeRequestToOffer({
         !canInstantTradeWithOffer &&
         !isMatched && (
           <PerformTradeRequestButton
-            maxMiningFeeRate={maxMiningFeeRate}
             selectedPaymentData={selectedPaymentData}
             selectedCurrency={selectedCurrency}
             selfUser={selfUser}
@@ -416,7 +419,6 @@ function SelectedMethodInfo({
 
 function PerformTradeRequestButton({
   selectedPaymentData,
-  maxMiningFeeRate,
   selectedCurrency,
   selfUser,
   offerOwnerUser,
