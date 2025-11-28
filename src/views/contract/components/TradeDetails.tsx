@@ -79,11 +79,13 @@ export const TradeDetails = () => {
 function ToggleGroupHug() {
   const { contract } = useContractContext();
   const { user } = useSelfUser();
-  const isBatchingEnabled = !!user?.isBatchingEnabled;
+  const isBatchingEnabled = contract.paymentConfirmed
+    ? Boolean(contract.batchId)
+    : !!user?.isBatchingEnabled;
 
   return (
     <>
-      {user && !contract.paymentMade && (
+      {user && (
         <SummaryItem
           label={i18n("group hug")}
           value={
