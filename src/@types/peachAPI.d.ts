@@ -213,6 +213,7 @@ type MeetupEvent = {
   frequency?: string;
   logo?: string;
   featured: boolean;
+  live?: boolean;
 };
 type CountryEventsMap = Record<Country, MeetupEvent[]>;
 
