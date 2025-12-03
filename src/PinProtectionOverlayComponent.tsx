@@ -109,13 +109,17 @@ export function PinProtectionOverlayComponent() {
               }
             </View>
           )}
-          <PinCodeDisplay currentPin={input} isOverlay={true} />
+          <PinCodeDisplay
+            currentPin={input}
+            isOverlay={true}
+            inputSize={appPinCode?.length}
+          />
           <PinCodeInput
             currentPin={input}
             isOverlay={true}
             onDigitPress={(s: string) => {
               setShowErrorMessage(false);
-              if (input.length < 8) {
+              if (appPinCode && input.length < appPinCode.length) {
                 setInput(input + s);
               }
             }}
@@ -125,7 +129,7 @@ export function PinProtectionOverlayComponent() {
           />
 
           <Button
-            disabled={input.length < 4}
+            disabled={!appPinCode || input.length < appPinCode?.length}
             onPress={unlock}
             style={[
               { backgroundColor: tw.color("text-primary-mild-1") },
