@@ -7,11 +7,13 @@ import {
 } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { PeachText } from "../../components/text/PeachText";
 import { Timer } from "../../components/text/Timer";
+import { useFundingStatus } from "../../hooks/query/useFundingStatus";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
 import { getPaymentExpectedBy } from "../../utils/contract/getPaymentExpectedBy";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
@@ -37,11 +39,24 @@ import { useContractContext } from "./context";
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
+  const shouldHideChat = isFundingTradeStatus(
+    contract.tradeStatus,
+    contract.wasCanceledBySellerBeforeFundingTheEscrow,
+  );
+  const { fundingStatus } = useFundingStatus(
+    getSellOfferIdFromContract(contract),
+  );
+
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
-        {contract.escrow && <EscrowButton {...contract} style={tw`flex-1`} />}
-        <ChatButton />
+        {contract.escrow &&
+          (!shouldHideChat ||
+            fundingStatus?.status == "MEMPOOL" ||
+            view === "buyer") && (
+            <EscrowButton {...contract} style={tw`flex-1`} />
+          )}
+        {!shouldHideChat && <ChatButton />}
       </View>
 
       <ContractStatusInfo />
