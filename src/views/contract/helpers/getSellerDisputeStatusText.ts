@@ -4,7 +4,11 @@ export const getSellerDisputeStatusText = ({
   disputeWinner,
   disputeOutcome,
   tradeStatus,
-}: Pick<Contract, "disputeWinner" | "disputeOutcome" | "tradeStatus">) => {
+  releaseTransaction,
+}: Pick<
+  Contract,
+  "disputeWinner" | "disputeOutcome" | "tradeStatus" | "releaseTransaction"
+>) => {
   let finalText = "";
 
   if (disputeWinner === "buyer") {
@@ -29,5 +33,10 @@ export const getSellerDisputeStatusText = ({
   if (isRepublishAvailable) {
     return finalText + i18n("contract.seller.disputeWon.refundOrRepublish");
   }
+
+  if (releaseTransaction) {
+    return finalText;
+  }
+
   return finalText + i18n("contract.seller.disputeWon.refund");
 };
