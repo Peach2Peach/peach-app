@@ -38,12 +38,19 @@ const PinCodeBall = ({
 export const PinCodeDisplay = ({
   currentPin,
   isOverlay = false,
+  inputSize,
 }: {
   currentPin: string;
   isOverlay?: boolean;
+  inputSize?: number;
 }) => {
   if (currentPin.length > 8) {
     throw new Error("Pin is bigger than 8");
+  }
+  if (inputSize) {
+    if (currentPin.length > inputSize) {
+      throw new Error("Pin is bigger than custom input size");
+    }
   }
 
   const { isDarkMode } = useThemeStore();
@@ -55,7 +62,7 @@ export const PinCodeDisplay = ({
       : "#FEEDE5";
 
   const numberOfActiveBalls = currentPin.length;
-  const numberOfInactiveBalls = 8 - currentPin.length;
+  const numberOfInactiveBalls = (inputSize ? inputSize : 8) - currentPin.length;
 
   return (
     <View
