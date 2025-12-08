@@ -6,6 +6,7 @@
   "sell.escrow.returnAddress.subtitle": "(en caso de necesitar un reembolso)",
   "sell.escrow.returnAddress.title": "¿Cuál es tu dirección de devolución?",
   "sell.escrow.sendSats": "enviar",
+  "sell.escrow.createEscrow": "crear escrow",
   "sell.escrow.title": "depositar fondos",
   "sell.funding.mempool.description": "¡Tu transacción espera confirmación de la red! Una vez confirmada, se publicará tu oferta.",
   "sell.funding.mempool.title": "transacción en la Mempool",
