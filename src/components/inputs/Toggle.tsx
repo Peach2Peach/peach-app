@@ -9,6 +9,7 @@ type Props = ComponentProps & {
   onPress: () => void;
   textStyle?: TextStyle;
   red?: boolean;
+  textOnRight?: boolean;
 };
 export const Toggle = ({
   enabled,
@@ -18,13 +19,14 @@ export const Toggle = ({
   style,
   textStyle,
   red = true,
+  textOnRight = false,
 }: Props) => (
   <TouchableOpacity
     style={[tw`flex-row items-center gap-4`, disabled && tw`opacity-33`, style]}
     onPress={onPress}
     disabled={disabled}
   >
-    {!!children && (
+    {!!children && !textOnRight && (
       <PeachText style={[tw`settings`, textStyle]}>{children}</PeachText>
     )}
     {enabled ? (
@@ -35,6 +37,9 @@ export const Toggle = ({
       />
     ) : (
       <Icon id="toggleLeft" size={32} color={tw.color("black-50")} />
+    )}
+    {!!children && textOnRight && (
+      <PeachText style={[tw`settings`, textStyle]}>{children}</PeachText>
     )}
   </TouchableOpacity>
 );

@@ -150,5 +150,7 @@
   "settings.website": "website",
   "settings.report.shareAppLogs" : "share app logs",
   "settings.dark mode": "Dark Mode",
-  "settings.createPin": "create pin"
+  "settings.createPin": "create pin",
+  "settings.filterAlerts" : "Filter alerts",
+  "settings.filterAlerts.description":"toggle this and you will receive push notifications when new offers matching your preferences are published"
 }
