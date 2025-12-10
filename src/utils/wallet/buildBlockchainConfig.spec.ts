@@ -1,4 +1,4 @@
-import { BlockChainNames } from "bdk-rn/lib/lib/enums";
+import { BlockChainNames } from "bdk-rn";
 import { buildBlockchainConfig } from "./buildBlockchainConfig";
 
 describe("buildBlockchainConfig", () => {

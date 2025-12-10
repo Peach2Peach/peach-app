@@ -1,5 +1,4 @@
-import { TxBuilder } from "bdk-rn";
-import { LocalUtxo } from "bdk-rn/lib/classes/Bindings";
+import { LocalUtxo, TxBuilder } from "bdk-rn";
 import { getScriptPubKeyFromAddress } from "./getScriptPubKeyFromAddress";
 
 export type BuildTxParams = {
@@ -45,10 +44,10 @@ export const buildTransaction = async (args: BuildTxParams) => {
 };
 
 async function buildTransactionBase(feeRate?: number) {
-  const txBuilder = await new TxBuilder().create();
+  const txBuilder = new TxBuilder();
 
-  if (feeRate) await txBuilder.feeRate(feeRate);
-  await txBuilder.enableRbf();
+  if (feeRate) txBuilder.feeRate(feeRate);
+  // await txBuilder.enableRbf(); // TODO: check if necessary
 
   return txBuilder;
 }

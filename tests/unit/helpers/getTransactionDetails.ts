@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { PartiallySignedTransaction } from "bdk-rn";
+import { Psbt } from "bdk-rn";
 import { BlockTime, TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 
 export const getTransactionDetails = (
@@ -7,7 +7,7 @@ export const getTransactionDetails = (
   feeRate = 1,
   txId = "txId",
 ) => {
-  const psbt = new PartiallySignedTransaction("base64");
+  const psbt = new Psbt("base64");
   const feeAmount = feeRate * 110;
   psbt.feeRate = () => Promise.resolve(feeRate);
   psbt.feeAmount = () => Promise.resolve(feeAmount);

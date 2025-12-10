@@ -1,5 +1,8 @@
-import { BlockTime, TransactionDetails } from "bdk-rn/lib/classes/Bindings";
-import { Transaction as BDKTransaction } from "bdk-rn/lib/classes/Transaction";
+import {
+  Transaction as BDKTransaction,
+  BlockTime,
+  TransactionDetails,
+} from "bdk-rn";
 import { Transaction as BitcoinJSTransaction } from "bitcoinjs-lib";
 
 type Props = {

@@ -1,4 +1,4 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { TransactionDetails } from "bdk-rn";
 import { MSINASECOND } from "../../../constants";
 import { txIsConfirmed } from "../../../utils/transaction/txIsConfirmed";
 

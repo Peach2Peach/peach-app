@@ -1,15 +1,18 @@
 import { DocumentDirectoryPath } from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import {
+  AddressIndex,
+  AddressInfo,
+  BlockChainNames,
   Blockchain,
   BumpFeeTxBuilder,
   DatabaseConfig,
-  PartiallySignedTransaction,
+  Network,
+  Psbt,
+  TransactionDetails,
   TxBuilder,
   Wallet,
 } from "bdk-rn";
-import { AddressInfo, TransactionDetails } from "bdk-rn/lib/classes/Bindings";
-import { AddressIndex, BlockChainNames, Network } from "bdk-rn/lib/lib/enums";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
 import { Platform } from "react-native";
@@ -19,6 +22,7 @@ import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { getOfferSummariesQuery } from "../../hooks/query/useOfferSummaries";
 import { queryClient } from "../../queryClient";
 import { waitForHydration } from "../../store/waitForHydration";
+import { convertBitcoinNetworkToBDKNetwork } from "../bitcoin/convertBitcoinNetworkToBDKNetwork";
 import { error } from "../log/error";
 import { info } from "../log/info";
 import { parseError } from "../parseError";
@@ -79,19 +83,22 @@ export class PeachWallet {
           const { externalDescriptor, internalDescriptor } =
             await getDescriptorsBySeedphrase({
               seedphrase,
-              network: NETWORK as Network,
+              network: convertBitcoinNetworkToBDKNetwork(NETWORK),
             });
 
           this.setBlockchain(useNodeConfigState.getState());
 
-          const dbConfig = await getDBConfig(NETWORK as Network, this.nodeType);
+          const dbConfig = await getDBConfig(
+            convertBitcoinNetworkToBDKNetwork(NETWORK),
+            this.nodeType,
+          );
 
           info("PeachWallet - initWallet - createWallet");
 
-          this.wallet = await new Wallet().create(
+          this.wallet = new Wallet(
             externalDescriptor,
             internalDescriptor,
-            NETWORK as Network,
+            convertBitcoinNetworkToBDKNetwork(NETWORK),
             dbConfig,
           );
 
@@ -217,9 +224,9 @@ export class PeachWallet {
   async getAddressUTXO(address: string) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
-    const utxo = await this.wallet.listUnspent();
+    const utxo = this.wallet.listUnspent();
     const utxoAddresses = await Promise.all(
-      utxo.map(getUTXOAddress(NETWORK as Network)),
+      utxo.map(getUTXOAddress(convertBitcoinNetworkToBDKNetwork(NETWORK))),
     );
     return utxo.filter((utx, i) => utxoAddresses[i] === address);
   }
@@ -241,20 +248,22 @@ export class PeachWallet {
     if (!this.wallet || !this.blockchain) throw Error("WALLET_NOT_READY");
     info("PeachWallet - finishTransaction - start");
     try {
-      return await transaction.finish(this.wallet);
+      return transaction.finish(this.wallet);
     } catch (e) {
       throw handleTransactionError(parseError(e));
     }
   }
 
-  async signAndBroadcastPSBT(psbt: PartiallySignedTransaction) {
+  async signAndBroadcastPSBT(psbt: Psbt) {
     if (!this.wallet || !this.blockchain) throw Error("WALLET_NOT_READY");
     info("PeachWallet - signAndBroadcastPSBT - start");
     try {
-      const signedPSBT = await this.wallet.sign(psbt);
+      const wasFinalized = this.wallet.sign(psbt);
+      if (!wasFinalized) throw Error("Signed Transaction was not finalized");
+
       info("PeachWallet - signAndBroadcastPSBT - signed");
 
-      this.blockchain.broadcast(await signedPSBT.extractTx());
+      const zzz = this.blockchain.broadcast(psbt.extractTx());
       info("PeachWallet - signAndBroadcastPSBT - broadcasted");
 
       this.syncWallet().catch((e) => {

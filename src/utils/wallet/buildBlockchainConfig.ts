@@ -5,7 +5,7 @@ import {
   BlockchainEsploraConfig,
   BlockchainRpcConfig,
   Network,
-} from "bdk-rn/lib/lib/enums";
+} from "bdk-rn";
 import { addProtocol } from "../web/addProtocol";
 import { NodeConfig } from "./nodeConfigStore";
 

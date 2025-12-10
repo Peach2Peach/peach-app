@@ -1,4 +1,4 @@
-import { TxOut } from "bdk-rn/lib/classes/Bindings";
+import { TxOut } from "bdk-rn";
 import { Fragment, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
@@ -107,15 +107,15 @@ type UTXOItemProps = {
 };
 
 function UTXOItem({
-  txout: { value: amount, script },
+  txout: { value: amount, scriptPubkey },
   isSelected,
   toggleSelection,
 }: UTXOItemProps) {
   return (
     <View style={tw`flex-row gap-3 px-2`}>
       <View style={tw`flex-1 gap-1`}>
-        <BTCAmount size="medium" amount={amount} />
-        <UTXOAddress script={script} />
+        <BTCAmount size="medium" amount={Number(amount.toSat())} />
+        <UTXOAddress script={scriptPubkey} />
       </View>
       <Checkbox
         testID="checkbox"

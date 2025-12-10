@@ -1,5 +1,4 @@
-import { Descriptor } from "bdk-rn";
-import { KeychainKind, Network } from "bdk-rn/lib/lib/enums";
+import { Descriptor, KeychainKind, Network } from "bdk-rn";
 import { getDescriptorSecretKey } from "./getDescriptorSecretKey";
 
 type Props = {
@@ -12,16 +11,8 @@ export const getDescriptorsBySeedphrase = async ({
 }: Props) => {
   const descriptorSecretKey = await getDescriptorSecretKey(network, seedphrase);
   const [externalDescriptor, internalDescriptor] = await Promise.all([
-    new Descriptor().newBip84(
-      descriptorSecretKey,
-      KeychainKind.External,
-      network,
-    ),
-    new Descriptor().newBip84(
-      descriptorSecretKey,
-      KeychainKind.Internal,
-      network,
-    ),
+    Descriptor.newBip84(descriptorSecretKey, KeychainKind.External, network),
+    Descriptor.newBip84(descriptorSecretKey, KeychainKind.Internal, network),
   ]);
 
   return { externalDescriptor, internalDescriptor };

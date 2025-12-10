@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { TransactionDetails } from "bdk-rn";
 import { Transaction } from "bitcoinjs-lib";
 import { walletKeys } from "./useUTXOs";
 

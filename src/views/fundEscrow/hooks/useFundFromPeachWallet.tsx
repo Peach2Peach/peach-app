@@ -1,11 +1,11 @@
 import { NETWORK } from "@env";
-import { Address, PartiallySignedTransaction } from "bdk-rn";
 import {
+  Address,
+  Psbt,
   ScriptAmount,
   TransactionDetails,
   TxBuilderResult,
-} from "bdk-rn/lib/classes/Bindings";
-import { Network } from "bdk-rn/lib/lib/enums";
+} from "bdk-rn";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -19,6 +19,7 @@ import { useFeeRate } from "../../../hooks/useFeeRate";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
+import { convertBitcoinNetworkToBDKNetwork } from "../../../utils/bitcoin/convertBitcoinNetworkToBDKNetwork";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
 import { isDefined } from "../../../utils/validation/isDefined";
@@ -33,27 +34,25 @@ import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
 import { ConfirmTxPopup } from "./ConfirmTxPopup";
 import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
 
-const getPropsFromFinishedTransaction = async (
-  psbt: PartiallySignedTransaction,
-) => {
-  const tx = await psbt.extractTx();
-  const outputs = await tx.output();
-  const outputDetails = (
-    await Promise.all(
-      outputs.map(async (output) => ({
-        address: (await peachWallet?.wallet?.isMine(output.script))
-          ? undefined
-          : await (
-              await new Address().fromScript(output.script, NETWORK as Network)
-            ).asString(),
-        amount: output.value,
-      })),
-    )
-  ).filter((output): output is { address: string; amount: number } =>
-    isDefined(output.address),
-  );
+const getPropsFromFinishedTransaction = async (psbt: Psbt) => {
+  const tx = psbt.extractTx();
+  const outputs = tx.output();
+  const outputDetails = outputs
+    .map((output) => ({
+      address: peachWallet?.wallet?.isMine(output.scriptPubkey)
+        ? undefined
+        : Address.fromScript(
+            output.scriptPubkey,
+            convertBitcoinNetworkToBDKNetwork(NETWORK),
+          ).toQrUri(),
+      amount: Number(output.value.toSat()),
+    }))
 
-  const fee = await psbt.feeAmount();
+    .filter((output): output is { address: string; amount: number } =>
+      isDefined(output.address),
+    );
+
+  const fee = Number(psbt.fee()); // TODO: make sure this is Sats (probably is)
 
   const amountToConfirm =
     outputDetails.reduce((sum, { amount }) => sum + amount, 0) + fee;
@@ -131,8 +130,10 @@ export const useFundFromPeachWallet = () => {
           const recipients = await Promise.all(
             addresses.map(getScriptPubKeyFromAddress),
           );
-          await transaction.setRecipients(
-            recipients.map((script) => new ScriptAmount(script, splitAmount)),
+          transaction.setRecipients(
+            recipients.map((script) =>
+              ScriptAmount.create(script, splitAmount),
+            ),
           );
         }
 

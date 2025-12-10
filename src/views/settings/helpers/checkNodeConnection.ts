@@ -1,9 +1,9 @@
-import { Blockchain } from "bdk-rn";
 import {
   BlockChainNames,
+  Blockchain,
   BlockchainElectrumConfig,
   BlockchainEsploraConfig,
-} from "bdk-rn/lib/lib/enums";
+} from "bdk-rn";
 import { info } from "../../../utils/log/info";
 import { parseError } from "../../../utils/parseError";
 import { addProtocol } from "../../../utils/web/addProtocol";

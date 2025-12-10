@@ -1,6 +1,6 @@
-import { Address } from "bdk-rn";
-import { LocalUtxo } from "bdk-rn/lib/classes/Bindings";
-import { Network } from "bdk-rn/lib/lib/enums";
+import { Address, LocalUtxo, Network } from "bdk-rn";
 
-export const getUTXOAddress = (network: Network) => async (utxo: LocalUtxo) =>
-  (await new Address().fromScript(utxo.txout.script, network)).asString();
+export const getUTXOAddress = (network: Network) => async (utxo: LocalUtxo) => {
+  const address = Address.fromScript(utxo.txout.script, network);
+  return address.toQrUri();
+};

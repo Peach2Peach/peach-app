@@ -1,8 +1,6 @@
 import { NETWORK } from "@env";
 import { useQuery } from "@tanstack/react-query";
-import { Address } from "bdk-rn";
-import { Script } from "bdk-rn/lib/classes/Script";
-import { Network } from "bdk-rn/lib/lib/enums";
+import { Address, Network, Script } from "bdk-rn";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
 import { peachWallet } from "../../../utils/wallet/setWallet";
