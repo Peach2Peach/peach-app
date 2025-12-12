@@ -106,6 +106,9 @@ function useLogoutUser() {
   const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   return useMutation({
     mutationFn: () => peachAPI.private.user.logoutUser(),
-    onSuccess: () => setIsLoggedIn(false),
+    onSuccess: () => {
+      peachAPI.deleteAuthToken();
+      setIsLoggedIn(false);
+    },
   });
 }
