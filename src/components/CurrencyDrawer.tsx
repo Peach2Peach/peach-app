@@ -61,6 +61,7 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
       showSearch
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
+      includeFilterAlertToggle={false}
     />
   );
 }

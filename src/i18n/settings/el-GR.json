@@ -149,5 +149,8 @@
     "settings.changePin.wrongPin": "Σφάλμα: λάθος PIN. Δοκιμάστε ξανά",
     "settings.changePin.confirmNewPin": "Εισάγετε ξανά τον PIN",
     "settings.report.shareAppLogs": "μοιραστείτε τεχνικές πληροφορίες της εφαρμογής",
-    "settings.createPin": "δημιουργία PIN"
+    "settings.createPin": "δημιουργία PIN",
+    "settings.filterAlerts": "Φιλτράρισμα ειδοποιήσεων",
+  "settings.filterAlerts.description": "Ενεργοποιήστε το για να λαμβάνετε push ειδοποιήσεις όταν δημοσιεύονται νέες προσφορές που ταιριάζουν στις προτιμήσεις σας"
+
 }
