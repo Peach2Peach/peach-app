@@ -280,6 +280,8 @@
   "enterPin": "Weka nambari ya PIN",
     "wrongPinTryAgain": "PIN si sahihi, jaribu tena",
     "unlock": "Fungua",
-    "yourAppIsPinProtected": "App ya Peach imelindwa kwa PIN"
+    "yourAppIsPinProtected": "App ya Peach imelindwa kwa PIN",
+    "isTestApp.title": "TOLEO LA MAJARIBIO: SIO BITCOIN HALISI",
+  "isTestApp.text": "Hii ni toleo la majaribio la Peach. Hakuna Bitcoin yeyote unayouzwa hapa wenye thamani, hivyo usitumie pesa zako za fiat kufanya miamala hapa.\nKipengele cha migogoro kimezimwa.\n\nIkiwa unataka kufanya biashara ya Bitcoin halisi kwa kutumia Peach, pakua programu rasmi."
 
 }

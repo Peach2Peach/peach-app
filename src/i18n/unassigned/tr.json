@@ -277,6 +277,8 @@
   "enterPin": "PIN kodunu girin",
     "wrongPinTryAgain": "Yanlış PIN, tekrar deneyin",
     "unlock": "Kilidi aç",
-    "yourAppIsPinProtected": "Peach uygulamanız PIN ile korunuyor"
+    "yourAppIsPinProtected": "Peach uygulamanız PIN ile korunuyor",
+     "isTestApp.title": "TEST SÜRÜMÜ: GERÇEK BITCOIN DEĞİL",
+  "isTestApp.text": "Bu, Peach uygulamasının test sürümüdür. Burada alınıp satılan Bitcoinlerin hiçbirinin değeri yoktur; burada yapılan işlemler için fiat paranızı harcamayın.\nUyuşmazlık özelliği devre dışıdır.\n\nGerçek Bitcoin’i Peach ile takas etmek istiyorsanız, resmi uygulamayı indirin."
 
 }
