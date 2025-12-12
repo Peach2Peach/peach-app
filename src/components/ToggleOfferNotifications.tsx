@@ -36,10 +36,10 @@ export const ToggleOfferNotifications = () => {
         style={[
           tw`text-black-65`,
           {
-            fontSize: "12px",
-            fontWeight: 600,
-            lineHeight: "100%" /* 12px */,
-            letterSpacing: "0.12px",
+            fontSize: 14,
+            fontWeight: "600",
+            lineHeight: 20,
+            letterSpacing: 0.12,
           },
         ]}
       >
