@@ -149,6 +149,8 @@
     "settings.changePin.wrongPin": "Fehler: falscher PIN. Versuche es erneut",
     "settings.changePin.confirmNewPin": "Gib den PIN erneut ein",
     "settings.report.shareAppLogs": "technische App-Informationen teilen",
-    "settings.createPin": "PIN erstellen"
+    "settings.createPin": "PIN erstellen",
+    "settings.filterAlerts": "Benachrichtigungen filtern",
+  "settings.filterAlerts.description": "Aktiviere dies, um Push-Benachrichtigungen zu erhalten, wenn neue Angebote veröffentlicht werden, die deinen Präferenzen entsprechen"
     
 }

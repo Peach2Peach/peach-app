@@ -145,5 +145,8 @@
     "settings.changePin.wrongPin": "Hata: yanlış PIN. Tekrar deneyin",
     "settings.changePin.confirmNewPin": "PIN’i tekrar girin",
     "settings.report.shareAppLogs": "uygulamanın teknik bilgilerini paylaş",
-    "settings.createPin": "PIN oluştur"
+    "settings.createPin": "PIN oluştur",
+    "settings.filterAlerts": "Uyarıları filtrele",
+  "settings.filterAlerts.description": "Bunu açarak tercihlerine uyan yeni teklifler yayınlandığında push bildirimleri alırsın"
+
 }
