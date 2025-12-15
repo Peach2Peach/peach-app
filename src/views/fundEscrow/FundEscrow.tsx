@@ -38,6 +38,7 @@ import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
+import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
 import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
@@ -109,6 +110,11 @@ export const FundEscrow = () => {
     <Screen header={<FundEscrowHeader />}>
       <PeachScrollView contentStyle={tw`items-center gap-4`}>
         <View style={tw`items-center self-stretch justify-center`}>
+          <PreferenceMethods
+            meansOfPayment={offer?.meansOfPayment}
+            type="sell"
+            setCurrency={() => {}}
+          ></PreferenceMethods>
           <View style={tw`flex-row items-center justify-center gap-1`}>
             <PeachText style={tw`settings`}>
               {i18n("sell.escrow.sendSats")}
