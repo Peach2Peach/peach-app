@@ -145,5 +145,8 @@
     "settings.changePin.wrongPin": "Fout: verkeerde PIN. Probeer opnieuw",
     "settings.changePin.confirmNewPin": "Voer de PIN opnieuw in",
     "settings.report.shareAppLogs": "technische app-informatie delen",
-    "settings.createPin": "PIN aanmaken"
+    "settings.createPin": "PIN aanmaken",
+    "settings.filterAlerts": "Meldingen filteren",
+  "settings.filterAlerts.description": "Schakel dit in om pushmeldingen te ontvangen wanneer er nieuwe aanbiedingen worden geplaatst die overeenkomen met jouw voorkeuren"
+
 }

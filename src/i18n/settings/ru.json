@@ -149,5 +149,8 @@
     "settings.changePin.wrongPin": "Ошибка: неверный PIN. Попробуйте снова",
     "settings.changePin.confirmNewPin": "Введите PIN снова",
     "settings.report.shareAppLogs": "поделиться технической информацией приложения",
-    "settings.createPin": "создать PIN"
+    "settings.createPin": "создать PIN",
+    "settings.filterAlerts": "Фильтр уведомлений",
+  "settings.filterAlerts.description": "Включите это, чтобы получать push-уведомления, когда появляются новые предложения, соответствующие вашим предпочтениям"
+
 }

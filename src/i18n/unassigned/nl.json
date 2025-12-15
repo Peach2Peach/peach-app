@@ -277,6 +277,9 @@
     "enterPin": "Voer uw PIN in",
     "wrongPinTryAgain": "Foute PIN, probeer opnieuw",
     "unlock": "Ontgrendelen",
-"yourAppIsPinProtected": "Je Peach-app is met een PIN beschermd"
+"yourAppIsPinProtected": "Je Peach-app is met een PIN beschermd",
+"isTestApp.title": "TESTVERSIE: GEEN ECHTE BITCOIN",
+  "isTestApp.text": "Dit is de testversie van Peach. Geen van de Bitcoins die hier worden verhandeld heeft waarde, geef dus geen fiatgeld uit aan trades hier.\nDe geschillenfunctie is uitgeschakeld.\n\nAls je echte Bitcoin met Peach wilt verhandelen, download dan de officiële app."
+
  
 }

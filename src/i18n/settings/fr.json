@@ -149,5 +149,8 @@
     "settings.changePin.wrongPin": "Erreur : PIN incorrect. Réessayez",
     "settings.changePin.confirmNewPin": "Entrez à nouveau le PIN",
     "settings.report.shareAppLogs": "partager les informations techniques de l’app",
-    "settings.createPin": "crear PIN"
+    "settings.createPin": "crear PIN",
+    "settings.filterAlerts": "Filtrer les alertes",
+  "settings.filterAlerts.description": "Activez ceci pour recevoir des notifications push lorsque de nouvelles offres correspondant à vos préférences sont publiées"
+
 }

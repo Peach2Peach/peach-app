@@ -23,6 +23,10 @@ export const appPopups = {
     title: i18n("report.success.title"),
     content: ReportSuccess,
   },
+  isTestApp: {
+    title: i18n("isTestApp.title"),
+    content: i18n("isTestApp.text"),
+  },
 };
 
 export type AppPopupId = keyof typeof appPopups;

@@ -6,6 +6,7 @@ import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { Drawer } from "./Drawer";
 import { SelectionList } from "./SelectionList";
+import { ToggleOfferNotifications } from "./ToggleOfferNotifications";
 import { TouchableIcon } from "./TouchableIcon";
 import { HorizontalLine } from "./ui/HorizontalLine";
 
@@ -27,6 +28,7 @@ interface SelectionDrawerProps {
   showSearch?: boolean;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
+  includeFilterAlertToggle?: boolean;
 }
 
 export function SelectionDrawer({
@@ -39,6 +41,7 @@ export function SelectionDrawer({
   showSearch = false,
   searchQuery = "",
   onSearchChange,
+  includeFilterAlertToggle = true,
 }: SelectionDrawerProps) {
   const HEADER_AND_PADDING = 120; // Space for padding, header text, etc.
   const DRAWER_HEIGHT_LARGE = 600;
@@ -90,7 +93,15 @@ export function SelectionDrawer({
         <Animated.ScrollView style={{ height: animatedHeight }}>
           <SelectionList items={items} type={type} />
         </Animated.ScrollView>
-        {resetButton}
+        <View
+          style={{
+            gap: 24,
+            alignSelf: "stretch",
+          }}
+        >
+          {includeFilterAlertToggle && <ToggleOfferNotifications />}
+          {resetButton}
+        </View>
       </>
     </Drawer>
   );

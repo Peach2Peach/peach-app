@@ -22,6 +22,7 @@ import { useTradingAmountLimits } from "../views/offerPreferences/utils/useTradi
 import { Drawer } from "./Drawer";
 import { Section } from "./Section";
 import { SelectionList } from "./SelectionList";
+import { ToggleOfferNotifications } from "./ToggleOfferNotifications";
 import { TouchableIcon } from "./TouchableIcon";
 import { BTCAmount } from "./bitcoin/BTCAmount";
 import { Button } from "./buttons/Button";
@@ -150,6 +151,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
               )}
             </View>
           </Animated.ScrollView>
+          <ToggleOfferNotifications />
           <ResetAllButton />
         </View>
       </>
