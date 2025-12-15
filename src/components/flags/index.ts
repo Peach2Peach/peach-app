@@ -1,5 +1,6 @@
 import AD from "./ad.svg";
 import AT from "./at.svg";
+import BA from "./ba.svg";
 import BE from "./be.svg";
 import BG from "./bg.svg";
 import BR from "./br.svg";
@@ -22,11 +23,13 @@ import GR from "./gr.svg";
 import HR from "./hr.svg";
 import IE from "./ie.svg";
 import IT from "./it.svg";
+import JO from "./jo.svg";
 import KE from "./ke.svg";
 import LT from "./lt.svg";
 import LU from "./lu.svg";
 import LV from "./lv.svg";
 import ME from "./me.svg";
+import MK from "./mk.svg";
 import MT from "./mt.svg";
 import NG from "./ng.svg";
 import NL from "./nl.svg";
@@ -84,6 +87,9 @@ export const Flags = {
   TR,
   US,
   ZA,
+  BA,
+  JO,
+  MK,
 };
 
 export type FlagType = keyof typeof Flags;
