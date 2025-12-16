@@ -189,5 +189,9 @@
   "currency.VEF": "bolívar venezuelano",
   "currency.VES": "bolívar soberano venezuelano",
   "currency.VND": "dong vietnamita",
-  "currency.ZAR": "rand sul-africano"
+  "currency.ZAR": "rand sul-africano",
+  "country.JO": "Jordânia",
+  "currency.JOD": "Dinar jordaniano",
+  "country.MK": "Macedónia do Norte",
+  "country.BA": "Bósnia e Herzegovina"
 }

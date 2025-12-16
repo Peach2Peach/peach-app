@@ -188,5 +188,9 @@
   "asia": "Azië",
   "northAmerica": "Noord-Amerika",
   "middleEast": "Midden-Oosten",
-  "oceania": "Oceanië"
+  "oceania": "Oceanië",
+  "country.JO": "Jordanië",
+  "currency.JOD": "Jordaanse dinar",
+  "country.MK": "Noord-Macedonië",
+  "country.BA": "Bosnië en Herzegovina"
 }
