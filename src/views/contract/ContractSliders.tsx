@@ -1,7 +1,11 @@
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
+import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
+import { PopupAction } from "../../components/popup/PopupAction";
 import { MSINANHOUR } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
+import { ErrorPopup } from "../../popups/ErrorPopup";
 import { patchSellOfferWithRefundTx } from "../../popups/tradeCancelation/patchSellOfferWithRefundTx";
 import { useCancelContract } from "../../popups/tradeCancelation/useCancelContract";
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
@@ -74,6 +78,8 @@ export function PaymentMadeSlider() {
 }
 
 export function PaymentReceivedSlider() {
+  const setPopup = useSetPopup();
+  const closePopup = useClosePopup();
   const { contract } = useContractContext();
   const { isPending, mutate } = useConfirmPaymentSeller({
     contract,
@@ -83,10 +89,33 @@ export function PaymentReceivedSlider() {
     },
   });
 
+  const showLastConfirmationPopup = () => {
+    setPopup(
+      <ErrorPopup
+        title={i18n(`contract.seller.confirmPaymentReceivedLastChance.title`)}
+        content={i18n(`contract.seller.confirmPaymentReceivedLastChance.text`)}
+        actions={
+          <>
+            <PopupAction
+              label={i18n("Yes, proceed")}
+              iconId="thumbsUp"
+              onPress={() => {
+                closePopup();
+                mutate();
+              }}
+            />
+
+            <ClosePopupAction reverseOrder />
+          </>
+        }
+      />,
+    );
+  };
+
   return (
     <ConfirmSlider
       enabled={!isPending}
-      onConfirm={() => mutate()}
+      onConfirm={showLastConfirmationPopup}
       label1={i18n("contract.payment.confirm")}
       label2={i18n("contract.payment.received")}
     />
