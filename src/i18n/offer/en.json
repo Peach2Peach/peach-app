@@ -1,6 +1,7 @@
 {
   "offer.seller.refunded": "You refunded this offer to your $0.",
-  "offer.sellerSuccessfullyFunded": "Seller funded the Escrow. Wait for block confirmation.",
+  "offer.sellerSuccessfullyFunded": "The Seller has funded the Escrow. Wait for block confirmation.",
+  "offer.sellerSuccessfullyFunded2": "Do NOT send the Fiat Payment yet!",
   "offer.create.buy": "create buy offer",
   "offer.create.sell": "create sell offer",
   "offer.buyOffers": "buy offers",
@@ -46,7 +47,8 @@
   "offer.requiredAction.refundOrReviveRequired.dispute": "dispute won: resolve now",
   "offer.requiredAction.refundTxSignatureRequired": "refund escrow",
   "offer.requiredAction.refundTxSignatureRequired.dispute": "dispute won: resolve now",
-  "offer.requiredAction.sellerHasntFunded": "Seller hasn't funded escrow yet",
+  "offer.requiredAction.sellerHasntFunded": "The Seller hasn't funded escrow yet.",
+  "offer.requiredAction.sellerHasntFunded2":"At this stage you should NOT send the Fiat Payment, under any circumstance.",
   "offer.requiredAction.sellerShouldFundIn": "seller should fund escrow in",
   "offer.requiredAction.releaseEscrow": "release escrow",
   "offer.requiredAction.releaseEscrow.dispute": "dispute lost: release escrow",
