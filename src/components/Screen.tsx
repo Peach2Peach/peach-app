@@ -14,6 +14,7 @@ import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { peachyGradient } from "../utils/layout/peachyGradient";
 import { isAndroid } from "../utils/system/isAndroid";
+import { isIOS } from "../utils/system/isIOS";
 import { DailyTradingLimit } from "../views/settings/profile/DailyTradingLimit";
 import { Header } from "./Header";
 import { PeachyBackground } from "./PeachyBackground";
@@ -62,8 +63,7 @@ export const Screen = ({
   return (
     <KeyboardAvoidingView
       style={tw`flex-1`}
-      behavior={"padding"}
-      keyboardVerticalOffset={0}
+      behavior={isIOS() ? "padding" : undefined}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={tw`flex-1`}>
