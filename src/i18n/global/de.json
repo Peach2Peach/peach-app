@@ -186,5 +186,9 @@
   "asia": "Asien",
   "northAmerica": "Nordamerika",
   "middleEast": "Naher Osten",
-  "oceania": "Ozeanien"
+  "oceania": "Ozeanien",
+  "country.JO": "Jordanien",
+  "currency.JOD": "Jordanischer Dinar",
+  "country.MK": "Nordmazedonien",
+  "country.BA": "Bosnien und Herzegowina"
 }
