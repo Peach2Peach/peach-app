@@ -12,6 +12,7 @@
   "profile.myAccount.title": "mi cuenta",
   "profile.canceledTrades": "operaciones canceladas",
   "profile.numberOfTrades": "número de intercambios",
+  "profile.numberOfFreeTrades": "número de intercambios gratis",
   "profile.publicKey": "clave pública",
   "profile.tradingLimits": "límites de intercambio",
   "profile.tradingLimits.daily": "límite diario",
