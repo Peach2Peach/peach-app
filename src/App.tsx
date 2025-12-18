@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useReducer } from "react";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { useDeviceContext } from "twrnc";
@@ -37,21 +38,23 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <PeachWSContext.Provider value={peachWS}>
-        <SafeAreaProvider>
-          <NavigationContainer
-            theme={isDarkMode ? DarkTheme : LightTheme}
-            navigationInChildEnabled
-          >
-            <Screens />
-            <Drawer />
-            <GlobalPopup />
-            <GlobalOverlay />
-            <Toast />
-            <PinProtectionOverlay />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </PeachWSContext.Provider>
+      <KeyboardProvider>
+        <PeachWSContext.Provider value={peachWS}>
+          <SafeAreaProvider>
+            <NavigationContainer
+              theme={isDarkMode ? DarkTheme : LightTheme}
+              navigationInChildEnabled
+            >
+              <Screens />
+              <Drawer />
+              <GlobalPopup />
+              <GlobalOverlay />
+              <Toast />
+              <PinProtectionOverlay />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </PeachWSContext.Provider>
+      </KeyboardProvider>
     </QueryClientProvider>
   );
 };
