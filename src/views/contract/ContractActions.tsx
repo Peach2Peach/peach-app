@@ -39,7 +39,7 @@ import { useContractContext } from "./context";
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
-  const shouldHideChat = isFundingTradeStatus(
+  const shouldHideEscrow = isFundingTradeStatus(
     contract.tradeStatus,
     contract.wasCanceledBySellerBeforeFundingTheEscrow,
   );
@@ -51,12 +51,12 @@ export const ContractActions = () => {
     <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
         {contract.escrow &&
-          (!shouldHideChat ||
+          (!shouldHideEscrow ||
             fundingStatus?.status == "MEMPOOL" ||
             view === "buyer") && (
             <EscrowButton {...contract} style={tw`flex-1`} />
           )}
-        {!shouldHideChat && <ChatButton />}
+        <ChatButton />
       </View>
 
       <ContractStatusInfo />
