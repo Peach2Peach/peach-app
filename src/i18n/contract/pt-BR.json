@@ -239,5 +239,9 @@
   "contract.seller.cancelBeforeFunding": "Você cancelou a negociação antes de financiar o depósito.",
   "contract.buyer.cancelBeforeFunding": "O vendedor cancelou a negociação antes de financiar o depósito.",
   "contract.escrowFunded.description": "O comprador tem 12h para confirmar o pagamento",
-  "contract.escrowFunded.title": "Depósito financiado!"
+  "contract.escrowFunded.title": "Depósito financiado!",
+
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Você realmente recebeu o dinheiro fiat?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Verifique com atenção se você recebeu o dinheiro.\n\nAo confirmar, os Bitcoin serão enviados de forma irreversível para o comprador."
+
 }

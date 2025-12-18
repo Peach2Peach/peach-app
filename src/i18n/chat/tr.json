@@ -29,5 +29,9 @@
   "chat.systemMessage.provideMoreInformation": "Anlaşmazlıkla ilgili daha fazla bilgi sağlayabilirsiniz. Ekran görüntüleri veya belgeleri dispute@peachbitcoin.com adresine gönderin.\nKonu satırına [Anlaşmazlık $0] yazın.",
   "chat.tradePartner": "Ticaret ortağı",
   "chat.you": "Sen",
-  "chat.yourMessage": "Mesajın"
+  "chat.yourMessage": "Mesajın",
+  "chat.tradingRules.title": "Ticaret Kuralları",
+  "chat.tradingRules.text": "Satıcı için:\n- alıcı ne söylerse söylesin, para hesabına geçmeden escrow’u serbest bırakma\n\nAlıcı için:\n- “Ödemeyi yaptım” seçeneğini yalnızca gerçekten ödeme yaptıktan sonra onayla\n- escrow fonlandıktan sonra satıcıya yalnızca sözleşme ekranında belirtilen bilgilere ödeme yap\n\nHerkes için:\n- kullanılan ödeme bilgileri birebir aynı olmalıdır",
+  "chat.tradingRules.disputeText": "- karşı taraf şüpheli davranış sergilerse, bu ekranın sağ üst köşesindeki simgeye basarak anlaşmazlık başlat"
+
 }

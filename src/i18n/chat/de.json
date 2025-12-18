@@ -29,5 +29,9 @@
   "chat.systemMessage.provideMoreInformation": "Du kannst weitere Informationen zum Streitfall bereitstellen. Sende Screenshots oder Dokumente an dispute@peachbitcoin.com.\nBitte [Dispute $0] im Betreff angeben.",
   "chat.tradePartner": "Handelspartner",
   "chat.you": "du",
-  "chat.yourMessage": "deine Nachricht"
+  "chat.yourMessage": "deine Nachricht",
+  "chat.tradingRules.title": "Handelsregeln",
+  "chat.tradingRules.text": "Für den Verkäufer:\n- Gib das Escrow niemals frei, bevor das Geld auf deinem Konto eingegangen ist, egal was der Käufer sagt\n\nFür den Käufer:\n- Bestätige „Ich habe bezahlt“ erst, nachdem du wirklich bezahlt hast\n- Zahle den Verkäufer nur an die im Vertragsbildschirm angegebenen Daten, nachdem das Escrow finanziert wurde\n\nFür alle:\n- Die verwendeten Zahlungsdaten müssen exakt übereinstimmen",
+  "chat.tradingRules.disputeText": "- Wenn die Gegenpartei verdächtiges Verhalten zeigt, starte einen Streitfall über das Symbol oben rechts auf diesem Bildschirm"
+
 }

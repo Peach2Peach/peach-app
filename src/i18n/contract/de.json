@@ -225,5 +225,8 @@
   "contract.buyer.escrowFundedWithWrongAmount": "Treuhandkonto vom Verkäufer mit falschem Bitcoin-Betrag finanziert, Handel storniert.",
   "contract.cancel.seller": "Sind Sie sicher? Abbruch wirkt negativ auf den Ruf.",
   "contract.seller.cancelBeforeFunding": "Handel abgebrochen, bevor Treuhandkonto finanziert wurde.",
-  "contract.buyer.cancelBeforeFunding": "Verkäufer hat Handel abgebrochen, bevor Treuhandkonto finanziert wurde."
+  "contract.buyer.cancelBeforeFunding": "Verkäufer hat Handel abgebrochen, bevor Treuhandkonto finanziert wurde.",
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Hast du das Fiat-Geld wirklich erhalten?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Bitte überprüfe nochmals, ob du das Geld erhalten hast.\n\nDie Bestätigung sendet die Bitcoin unwiderruflich an den Käufer."
+
 }

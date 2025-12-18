@@ -231,5 +231,8 @@
   "contract.seller.cancelBeforeFunding": "Hai annullato prima di finanziare l'escrow.",
   "contract.buyer.cancelBeforeFunding": "Il venditore ha annullato prima di finanziare l'escrow.",
   "contract.escrowFunded.description": "L’acquirente ha 12 ore per dichiarare il pagamento effettuato",
-  "contract.escrowFunded.title": "Escrow finanziato!"
+  "contract.escrowFunded.title": "Escrow finanziato!",
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Hai davvero ricevuto il denaro fiat?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Controlla attentamente di aver ricevuto il denaro.\n\nLa conferma invierà i Bitcoin in modo irreversibile all’acquirente."
+
 }

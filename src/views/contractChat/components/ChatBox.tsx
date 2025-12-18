@@ -3,6 +3,7 @@ import { FlatList, Keyboard, View, ViewToken } from "react-native";
 import { PAGE_SIZE } from "../../../hooks/query/useChatMessages";
 import tw from "../../../styles/tailwind";
 import { getChat } from "../../../utils/chat/getChat";
+import { ChatBoxTopMessage } from "./ChatBoxTopMessage";
 import { ChatMessage } from "./ChatMessage";
 
 type Props = {
@@ -84,6 +85,7 @@ export const ChatBox = ({
       onRefresh={fetchNextPage}
       refreshing={isLoading}
       scrollEventThrottle={50}
+      ListHeaderComponent={<ChatBoxTopMessage isContract={true} />}
     />
   );
 };

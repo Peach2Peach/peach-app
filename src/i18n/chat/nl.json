@@ -29,5 +29,9 @@
   "chat.systemMessage.provideMoreInformation": "Je kunt intussen meer info toevoegen over het geschil. Voor screenshots of documenten, mail naar dispute@peachbitcoin.com met onderwerp [Geschil $0].\n",
   "chat.tradePartner": "handelspartner",
   "chat.you": "jij",
-  "chat.yourMessage": "jouw bericht"
+  "chat.yourMessage": "jouw bericht",
+  "chat.tradingRules.title": "Regole di scambio",
+  "chat.tradingRules.text": "Per il Venditore:\n- non rilasciare l’escrow prima di aver ricevuto il denaro sul tuo conto, indipendentemente da ciò che dice l’acquirente\n\nPer l’Acquirente:\n- conferma “Ho effettuato il pagamento” solo dopo averlo fatto\n- paga il venditore solo utilizzando i dati mostrati nella schermata del contratto, dopo che l’escrow è stato finanziato\n\nPer tutti:\n- i dati di pagamento devono corrispondere esattamente",
+  "chat.tradingRules.disputeText": "- se la controparte mostra un comportamento sospetto, avvia una disputa premendo l’icona in alto a destra di questa schermata"
+
 }

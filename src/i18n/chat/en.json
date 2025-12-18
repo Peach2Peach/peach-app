@@ -29,5 +29,8 @@
   "chat.systemMessage.provideMoreInformation": "In the meantime, feel free to provide more information about the dispute. If you have screenshots or documents to provide, send them to dispute@peachbitcoin.com.\n\nPlease put [Dispute $0] in the subject line.",
   "chat.tradePartner": "trade partner",
   "chat.you": "you",
-  "chat.yourMessage": "your message"
+  "chat.yourMessage": "your message",
+  "chat.tradingRules.title": "Trading Rules",
+  "chat.tradingRules.text": "For the Seller:\n- do not release the escrow before receiving the money in your account, no matter what the buyer says\n\nFor the Buyer:\n- confirm  “I made the payment” only after having done so\n- only pay the Seller to the details provided in the Contract Screen, after the escrow has been funded\n\nFor all:\n- the payment details used must match exactly",
+  "chat.tradingRules.disputeText": "- if counterpart displays suspect behavior, start a dispute by pressing the top right icon on this screen"
 }

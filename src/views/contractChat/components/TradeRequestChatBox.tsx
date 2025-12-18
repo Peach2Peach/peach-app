@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { FlatList, Keyboard, View } from "react-native";
 import { Offer69TradeRequestChatMessage } from "../../../../peach-api/src/@types/offer";
 import tw from "../../../styles/tailwind";
+import { ChatBoxTopMessage } from "./ChatBoxTopMessage";
 import { TradeRequestChatMessage } from "./TradeRequestChatMessage";
 
 type Props = {
@@ -60,6 +61,7 @@ export const TradeRequestChatBox = ({
       //   onRefresh={fetchNextPage}
       //   refreshing={isLoading}
       scrollEventThrottle={50}
+      ListHeaderComponent={<ChatBoxTopMessage isContract={false} />}
     />
   );
 };
