@@ -72,6 +72,9 @@
   "notification.offer.newBuyOfferMatchesPreferences.text": "Új vételi ajánlat!",
     "notification.offer.newBuyOfferMatchesPreferences.title": "Van egy új ajánlat, ami megfelel a beállításaidnak.",
     "notification.offer.newSellOfferMatchesPreferences.text": "Új eladási ajánlat!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Van egy új ajánlat, ami megfelel a beállításaidnak."
+    "notification.offer.newSellOfferMatchesPreferences.title": "Van egy új ajánlat, ami megfelel a beállításaidnak.",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Kereskedési kérés chat",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Új chatüzenetet kaptál a kereskedési kéréseddel kapcsolatban"
+
  
 }
