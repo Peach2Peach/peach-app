@@ -143,7 +143,7 @@ function DisputeRaisedPopup({
   );
 }
 
-export function ChatButton() {
+export function ChatButton({ expand = true }: { expand?: boolean }) {
   const {
     contract: { unreadMessages, id },
   } = useContractContext();
@@ -178,7 +178,7 @@ export function ChatButton() {
   };
   return (
     <Button
-      style={tw`flex-1`}
+      style={expand && tw`flex-1`}
       iconId={unreadMessages === 0 ? "messageCircle" : "messageFull"}
       onPress={goToChat}
     >

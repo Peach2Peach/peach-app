@@ -47,16 +47,19 @@ export const ContractActions = () => {
     getSellOfferIdFromContract(contract),
   );
 
+  const showEscrowButton = Boolean(
+    contract.escrow &&
+      (!shouldHideEscrow ||
+        fundingStatus?.status == "MEMPOOL" ||
+        view === "buyer"),
+  );
+
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
-      <View style={tw`flex-row items-center justify-center gap-6`}>
-        {contract.escrow &&
-          (!shouldHideEscrow ||
-            fundingStatus?.status == "MEMPOOL" ||
-            view === "buyer") && (
-            <EscrowButton {...contract} style={tw`flex-1`} />
-          )}
-        <ChatButton />
+      <View style={tw`flex-row items-center justify-center gap-6 mt-1`}>
+        {showEscrowButton && <EscrowButton {...contract} style={tw`flex-1`} />}
+
+        <ChatButton expand={showEscrowButton} />
       </View>
 
       <ContractStatusInfo />
