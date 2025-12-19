@@ -72,6 +72,9 @@
    "notification.offer.newBuyOfferMatchesPreferences.text": "Новое предложение на покупку!",
     "notification.offer.newBuyOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
     "notification.offer.newSellOfferMatchesPreferences.text": "Новое предложение на продажу!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям."
+    "notification.offer.newSellOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Чат запроса на сделку",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Вы получили сообщение в чате по вашему запросу на сделку"
+
  
 }

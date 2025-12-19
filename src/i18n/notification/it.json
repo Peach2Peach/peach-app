@@ -72,6 +72,9 @@
    "notification.offer.newBuyOfferMatchesPreferences.text": "Nuova offerta di acquisto!",
     "notification.offer.newBuyOfferMatchesPreferences.title": "C'è una nuova offerta che corrisponde alle tue preferenze.",
     "notification.offer.newSellOfferMatchesPreferences.text": "Nuova offerta di vendita!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "C'è una nuova offerta che corrisponde alle tue preferenze."
+    "notification.offer.newSellOfferMatchesPreferences.title": "C'è una nuova offerta che corrisponde alle tue preferenze.",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Chat richiesta di scambio",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Hai ricevuto un messaggio in chat sulla tua richiesta di scambio"
+
   
 }

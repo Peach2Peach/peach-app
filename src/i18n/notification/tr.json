@@ -72,6 +72,9 @@
   "notification.offer.newBuyOfferMatchesPreferences.text": "Yeni Alış Teklifi!",
     "notification.offer.newBuyOfferMatchesPreferences.title": "Tercihlerine uygun yeni bir teklif var.",
     "notification.offer.newSellOfferMatchesPreferences.text": "Yeni Satış Teklifi!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Tercihlerine uygun yeni bir teklif var."
+    "notification.offer.newSellOfferMatchesPreferences.title": "Tercihlerine uygun yeni bir teklif var.",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Ticaret Talebi Sohbeti",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Ticaret talebin için bir sohbet mesajı aldın"
+
   
 }
