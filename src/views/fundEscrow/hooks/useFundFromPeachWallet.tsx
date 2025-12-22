@@ -3,8 +3,8 @@ import {
   Address,
   Psbt,
   ScriptAmount,
-  TransactionDetails,
   TxBuilderResult,
+  TxDetails,
 } from "bdk-rn";
 import { useCallback } from "react";
 import { View } from "react-native";
@@ -42,9 +42,9 @@ const getPropsFromFinishedTransaction = async (psbt: Psbt) => {
       address: peachWallet?.wallet?.isMine(output.scriptPubkey)
         ? undefined
         : Address.fromScript(
-            output.scriptPubkey,
-            convertBitcoinNetworkToBDKNetwork(NETWORK),
-          ).toQrUri(),
+          output.scriptPubkey,
+          convertBitcoinNetworkToBDKNetwork(NETWORK),
+        ).toQrUri(),
       amount: Number(output.value.toSat()),
     }))
 
@@ -73,7 +73,7 @@ type FundFromWalletParams = {
 };
 
 type OnSuccessParams = {
-  txDetails: TransactionDetails;
+  txDetails: TxDetails;
   offerId: string;
   address: string;
   addresses: string[];

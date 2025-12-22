@@ -1,30 +1,17 @@
 import {
-  BlockChainNames,
-  Blockchain,
-  BlockchainElectrumConfig,
-  BlockchainEsploraConfig,
+  ElectrumClient,
+  EsploraClient
 } from "bdk-rn";
 import { info } from "../../../utils/log/info";
 import { parseError } from "../../../utils/parseError";
 import { addProtocol } from "../../../utils/web/addProtocol";
 
 const checkElectrumConnection = async (address: string, ssl: boolean) => {
-  const config: BlockchainElectrumConfig = {
-    url: addProtocol(address, ssl ? "ssl" : "tcp"),
-    sock5: null,
-    retry: 1,
-    timeout: 5,
-    stopGap: 1,
-    validateDomain: false,
-  };
-
   try {
     info("Checking electrum connection...");
-    const blockchain = await new Blockchain().create(
-      config,
-      BlockChainNames.Electrum,
-    );
-    await blockchain.getBlockHash();
+
+    const blockchain = new ElectrumClient(addProtocol(address, ssl ? "ssl" : "tcp"))
+    blockchain.estimateFee(BigInt(1)) //TODO: test if .ping() also raises
     return { result: BlockChainNames.Electrum };
   } catch (e) {
     info("electrum connection failed");
@@ -32,21 +19,13 @@ const checkElectrumConnection = async (address: string, ssl: boolean) => {
   }
 };
 const checkEsploraConnection = async (address: string, ssl: boolean) => {
-  const config: BlockchainEsploraConfig = {
-    baseUrl: addProtocol(address, ssl ? "https" : "http"),
-    proxy: null,
-    concurrency: 1,
-    timeout: 5,
-    stopGap: 1,
-  };
-
   try {
     info("Checking esplora connection...");
-    const blockchain = await new Blockchain().create(
-      config,
-      BlockChainNames.Esplora,
-    );
-    await blockchain.getBlockHash();
+
+    const blockchain = new EsploraClient(addProtocol(address, ssl ? "https" : "http"))
+    const currentHeight = blockchain.getHeight()
+    blockchain.getBlockHash(currentHeight)
+
     return { result: BlockChainNames.Esplora };
   } catch (e) {
     info("esplora connection failed");

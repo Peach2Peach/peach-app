@@ -1,4 +1,4 @@
-import { PartiallySignedTransaction } from "bdk-rn";
+import { Psbt } from "bdk-rn";
 import { type ReactElement, useCallback } from "react";
 import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
@@ -11,7 +11,7 @@ import { peachWallet } from "../../../utils/wallet/setWallet";
 type Props = {
   title: string;
   content: ReactElement;
-  psbt: PartiallySignedTransaction;
+  psbt: Psbt;
   onSuccess: () => void;
 };
 

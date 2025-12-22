@@ -1,4 +1,4 @@
-import { TxOut } from "bdk-rn";
+import { Script, TxOut } from "bdk-rn";
 import { Fragment, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
@@ -18,6 +18,7 @@ import { getUTXOId } from "../../utils/wallet/getUTXOId";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { UTXOAddress } from "./components";
+import { bytesToHex } from "./helpers/txIdToString";
 import { useUTXOs } from "./hooks/useUTXOs";
 
 export const CoinSelection = () => {
@@ -83,7 +84,7 @@ function UTXOList({ selectedUTXOs, toggleSelection }: UTXOListProps) {
     >
       {utxos &&
         utxos?.map((utxo, index) => (
-          <Fragment key={utxo.txout.script.id}>
+          <Fragment key={bytesToHex(utxo.txout.scriptPubkey.toBytes())}>
             <UTXOItem
               txout={utxo.txout}
               toggleSelection={() => toggleSelection(getUTXOId(utxo))}
@@ -107,15 +108,18 @@ type UTXOItemProps = {
 };
 
 function UTXOItem({
-  txout: { value: amount, scriptPubkey },
+  txout,
   isSelected,
   toggleSelection,
 }: UTXOItemProps) {
+
+  const outScript = new Script(txout.scriptPubkey.toBytes())
+
   return (
     <View style={tw`flex-row gap-3 px-2`}>
       <View style={tw`flex-1 gap-1`}>
-        <BTCAmount size="medium" amount={Number(amount.toSat())} />
-        <UTXOAddress script={scriptPubkey} />
+        <BTCAmount size="medium" amount={Number(txout.value.toSat())} />
+        <UTXOAddress script={outScript} />
       </View>
       <Checkbox
         testID="checkbox"

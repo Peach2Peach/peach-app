@@ -1,4 +1,4 @@
-import { PartiallySignedTransaction } from "bdk-rn";
+import { Psbt } from "bdk-rn";
 import { Transaction } from "bitcoinjs-lib";
 import { useCallback } from "react";
 import { View } from "react-native";
@@ -15,13 +15,14 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { round } from "../../../utils/math/round";
 import { peachWallet } from "../../../utils/wallet/setWallet";
+import { txIdToString } from "../helpers/txIdToString";
 
 type Props = {
   currentFeeRate: number;
   newFeeRate: number;
   transaction: Transaction;
   sendingAmount: number;
-  finishedTransaction: PartiallySignedTransaction;
+  finishedTransaction: Psbt;
   onSuccess: (txId: string) => void;
 };
 
@@ -40,7 +41,7 @@ export function ConfirmRbfPopup({
     try {
       if (!peachWallet) throw new Error("PeachWallet not set");
       const [txId] = await Promise.all([
-        finishedTransaction.txid(),
+        txIdToString(finishedTransaction.extractTx()),
         peachWallet.signAndBroadcastPSBT(finishedTransaction),
       ]);
 

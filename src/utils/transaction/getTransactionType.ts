@@ -1,10 +1,13 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { TxDetails } from "bdk-rn";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
 
 export const getTransactionType = (
-  { received, sent }: Pick<TransactionDetails, "received" | "sent">,
+  txDetails: Pick<TxDetails, "received" | "sent">,
   offer?: Pick<OfferSummary, "type">,
 ): TransactionType => {
+  const received = Number(txDetails.received.toSat())
+  const sent = Number(txDetails.sent.toSat())
+
   if (offer) {
     if (received > 0 && sent === 0)
       return offer.type === "ask" ? "REFUND" : "TRADE";

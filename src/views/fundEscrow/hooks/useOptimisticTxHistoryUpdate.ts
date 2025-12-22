@@ -1,8 +1,9 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { TxDetails } from "bdk-rn";
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
 import { labelAddressByTransaction } from "../../../utils/wallet/labelAddressByTransaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
+import { txIdToString } from "../../wallet/helpers/txIdToString";
 
 // can be removed after sync issue have been resolved
 export const useOptimisticTxHistoryUpdate = () => {
@@ -11,9 +12,9 @@ export const useOptimisticTxHistoryUpdate = () => {
     shallow,
   );
   const optimisticTxHistoryUpdate = useCallback(
-    (txDetails: TransactionDetails, offerIds: string[]) => {
+    (txDetails: TxDetails, offerIds: string[]) => {
       addTransaction(txDetails);
-      updateTxOfferMap(txDetails.txid, offerIds);
+      updateTxOfferMap(txIdToString(txDetails.tx), offerIds);
       labelAddressByTransaction(txDetails);
     },
     [addTransaction, updateTxOfferMap],

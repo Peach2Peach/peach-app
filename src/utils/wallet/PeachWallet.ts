@@ -3,15 +3,15 @@ import { NETWORK } from "@env";
 import {
   AddressIndex,
   AddressInfo,
-  BlockChainNames,
-  Blockchain,
   BumpFeeTxBuilder,
-  DatabaseConfig,
+  ElectrumClient,
+  EsploraClient,
   Network,
+  Persister,
   Psbt,
-  TransactionDetails,
   TxBuilder,
-  Wallet,
+  TxDetails,
+  Wallet
 } from "bdk-rn";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
@@ -26,8 +26,8 @@ import { convertBitcoinNetworkToBDKNetwork } from "../bitcoin/convertBitcoinNetw
 import { error } from "../log/error";
 import { info } from "../log/info";
 import { parseError } from "../parseError";
+import { addProtocol } from "../web/addProtocol";
 import { callWhenInternet } from "../web/callWhenInternet";
-import { buildBlockchainConfig } from "./buildBlockchainConfig";
 import { handleTransactionError } from "./error/handleTransactionError";
 import { getDescriptorsBySeedphrase } from "./getDescriptorsBySeedphrase";
 import { getUTXOAddress } from "./getUTXOAddress";
@@ -47,7 +47,7 @@ export class PeachWallet {
 
   balance: number;
 
-  transactions: TransactionDetails[];
+  transactions: TxDetails[];
 
   wallet: Wallet | undefined;
 
@@ -55,7 +55,9 @@ export class PeachWallet {
     address: string;
   };
 
-  blockchain: Blockchain | undefined;
+  blockchain: EsploraClient | ElectrumClient | undefined;
+  esploraClient: EsploraClient | undefined;
+  electrumClient: ElectrumClient | undefined;
 
   nodeType?: BlockChainNames;
 
@@ -128,12 +130,28 @@ export class PeachWallet {
 
   async setBlockchain(nodeConfig: NodeConfig) {
     info("PeachWallet - setBlockchain - start");
-    const blockchainConfig = buildBlockchainConfig(nodeConfig);
-    this.blockchain = await new Blockchain().create(
-      blockchainConfig.config,
-      blockchainConfig.type,
-    );
-    this.nodeType = blockchainConfig.type;
+
+
+    if (nodeConfig.type === undefined) { throw Error("No blockchain type") }
+    if (nodeConfig.url === undefined) { throw Error("No blockchain url") }
+
+
+    if (
+      nodeConfig.type === BlockChainNames.Esplora) {
+      const newEsploraClient = new EsploraClient(addProtocol(nodeConfig.url, nodeConfig.ssl ? "https" : "http"))
+      this.blockchain = newEsploraClient
+      this.esploraClient = newEsploraClient
+      this.nodeType = BlockChainNames.Esplora
+    }
+    else if (nodeConfig.type === BlockChainNames.Electrum) {
+
+      const newElectrumClient = new ElectrumClient(addProtocol(nodeConfig.url, nodeConfig.ssl ? "ssl" : "tcp"))
+      this.blockchain = newElectrumClient
+      this.electrumClient = newElectrumClient
+      this.nodeType = BlockChainNames.Electrum
+    }
+
+
   }
 
   syncWallet() {
@@ -262,8 +280,13 @@ export class PeachWallet {
       if (!wasFinalized) throw Error("Signed Transaction was not finalized");
 
       info("PeachWallet - signAndBroadcastPSBT - signed");
+      if (this.esploraClient) {
+        this.esploraClient.broadcast(psbt.extractTx())
+      }
+      else if (this.electrumClient) {
+        this.electrumClient.transactionBroadcast(psbt.extractTx())
+      }
 
-      const zzz = this.blockchain.broadcast(psbt.extractTx());
       info("PeachWallet - signAndBroadcastPSBT - broadcasted");
 
       this.syncWallet().catch((e) => {
@@ -295,9 +318,10 @@ function getDBConfig(
   if (
     Platform.OS === "ios" &&
     parseInt(Platform.Version, 10) < MIN_VERSION_FOR_SQLITE
-  )
-    return new DatabaseConfig().memory();
+  ) {
+    return Persister.newInMemory()
+  }
   const dbName = `peach-${network}${nodeType}`;
   const directory = `${DocumentDirectoryPath}/${dbName}`;
-  return new DatabaseConfig().sqlite(directory);
+  return Persister.newSqlite(directory)
 }

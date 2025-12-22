@@ -1,4 +1,5 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { ChainPosition_Tags, TxDetails } from "bdk-rn";
 
-export const txIsConfirmed = (tx: TransactionDetails) =>
-  !!tx.confirmationTime?.height;
+export const txIsConfirmed = (tx: TxDetails) => {
+  return tx.chainPosition.tag === ChainPosition_Tags.Confirmed
+}

@@ -1,8 +1,9 @@
 import { NETWORK } from "@env";
 import { useQuery } from "@tanstack/react-query";
-import { Address, Network, Script } from "bdk-rn";
+import { Address, Script } from "bdk-rn";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
+import { convertBitcoinNetworkToBDKNetwork } from "../../../utils/bitcoin/convertBitcoinNetworkToBDKNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { walletKeys } from "../hooks/useUTXOs";
@@ -13,15 +14,15 @@ type Props = {
 
 const useUTXOAddress = (script: Script) =>
   useQuery({
-    queryKey: walletKeys.utxoAddress(script.id),
+    queryKey: walletKeys.utxoAddress(script.toString()),
     queryFn: async () => {
       try {
         if (!peachWallet) throw new Error("Peach wallet not defined");
-        const address = await new Address().fromScript(
+        const address = Address.fromScript(
           script,
-          NETWORK as Network,
+          convertBitcoinNetworkToBDKNetwork(NETWORK)
         );
-        return await address.asString();
+        return address.toQrUri();
       } catch (e) {
         throw new Error("Error getting address");
       }

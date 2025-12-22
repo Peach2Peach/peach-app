@@ -1,9 +1,11 @@
-import { TransactionDetails } from "bdk-rn";
+import { TxDetails } from "bdk-rn";
 import { ceil } from "../math/ceil";
 
-export async function getTransactionFeeRate(transaction: TransactionDetails) {
-  const vSize = await transaction.transaction?.vsize();
-  if (!vSize) return 1;
-  return Math.max(1, ceil((transaction.fee || 0) / vSize, 2));
-} 
- 
+export async function getTransactionFeeRate(transaction: TxDetails) {
+  const feeRate = transaction.feeRate;
+  if (!feeRate || feeRate < 1) return 1;
+
+
+
+  return ceil((feeRate), 2);
+}
