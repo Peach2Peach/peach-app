@@ -243,6 +243,7 @@
   "contract.escrowFunded.title": "Эскроу профинансирован!",
 
   "contract.seller.confirmPaymentReceivedLastChance.title": "Вы действительно получили фиатные деньги?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Пожалуйста, еще раз убедитесь, что вы получили деньги.\n\nПодтверждение приведет к необратимой отправке биткоинов покупателю."
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Пожалуйста, еще раз убедитесь, что вы получили деньги.\n\nПодтверждение приведет к необратимой отправке биткоинов покупателю.",
+  "contract.payment.disputeIsActive": "Спор активен"
 
 }

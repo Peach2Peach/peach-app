@@ -242,6 +242,7 @@
   "contract.escrowFunded.title": "Escrow imefadhiliwa!",
 
   "contract.seller.confirmPaymentReceivedLastChance.title": "Je, umepokea pesa za fiat kweli?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Tafadhali hakikisha tena kuwa umepokea pesa.\n\nUkithibitisha, Bitcoin zitatumwa kwa mnunuzi bila uwezekano wa kurejeshwa."
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Tafadhali hakikisha tena kuwa umepokea pesa.\n\nUkithibitisha, Bitcoin zitatumwa kwa mnunuzi bila uwezekano wa kurejeshwa.",
+  "contract.payment.disputeIsActive": "Mgogoro hai"
 
 }

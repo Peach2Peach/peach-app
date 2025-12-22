@@ -229,6 +229,7 @@
   "contract.escrowFunded.title": "Escrow finanse edildi!",
 
   "contract.seller.confirmPaymentReceivedLastChance.title": "Ai primit cu adevărat banii fiat?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Te rugăm să verifici din nou dacă ai primit banii.\n\nConfirmarea va trimite Bitcoin-ul în mod ireversibil către cumpărător."
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Te rugăm să verifici din nou dacă ai primit banii.\n\nConfirmarea va trimite Bitcoin-ul în mod ireversibil către cumpărător.",
+  "contract.payment.disputeIsActive": "Uyuşmazlık aktif"
 
 }

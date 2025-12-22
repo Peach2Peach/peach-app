@@ -72,6 +72,7 @@
   "contract.goToNewTrade": "go to new trade",
   "contract.payment.buyer.confirm": "I made the payment",
   "contract.payment.confirm": "I received the payment",
+  "contract.payment.disputeIsActive":"Dispute is Active",
   "contract.payment.made": "payment made",
   "contract.payment.notYetSent": "payment not yet sent",
   "contract.payment.received": "payment received",

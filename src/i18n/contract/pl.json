@@ -242,6 +242,7 @@
   "contract.escrowFunded.description": "Kupujący ma 12 godzin na oznaczenie płatności jako dokonanej.",
   "contract.escrowFunded.title": "Escrow sfinansowany!",
   "contract.seller.confirmPaymentReceivedLastChance.title": "Czy na pewno otrzymałeś środki fiat?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Prosimy dokładnie sprawdzić, czy otrzymałeś pieniądze.\n\nPotwierdzenie spowoduje nieodwracalne wysłanie Bitcoinów do kupującego."
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Prosimy dokładnie sprawdzić, czy otrzymałeś pieniądze.\n\nPotwierdzenie spowoduje nieodwracalne wysłanie Bitcoinów do kupującego.",
+  "contract.payment.disputeIsActive": "Spór aktywny"
 
 }

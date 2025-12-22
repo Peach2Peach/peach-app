@@ -242,6 +242,7 @@
   "contract.escrowFunded.description": "El comprador tiene 12 horas para declarar el pago como realizado",
   "contract.escrowFunded.title": "¡El depósito en garantía ha sido financiado!",
   "contract.seller.confirmPaymentReceivedLastChance.title": "¿Realmente recibiste el dinero fiat?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Por favor, verifica nuevamente que hayas recibido el dinero.\n\nAl confirmar, los Bitcoin se enviarán de forma irreversible al comprador."
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Por favor, verifica nuevamente que hayas recibido el dinero.\n\nAl confirmar, los Bitcoin se enviarán de forma irreversible al comprador.",
+   "contract.payment.disputeIsActive": "Disputa activa"
 
 }

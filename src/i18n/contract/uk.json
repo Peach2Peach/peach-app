@@ -240,6 +240,6 @@
   "contract.escrowFunded.description": "Покупець має 12 годин, щоб підтвердити платіж",
   "contract.escrowFunded.title": "Ескроу профінансовано!",
   "contract.seller.confirmPaymentReceivedLastChance.title": "Ви справді отримали фіатні кошти?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Будь ласка, ще раз перевірте, що ви отримали кошти.\n\nПідтвердження призведе до незворотного надсилання біткоїнів покупцеві."
-
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Будь ласка, ще раз перевірте, що ви отримали кошти.\n\nПідтвердження призведе до незворотного надсилання біткоїнів покупцеві.",
+  "contract.payment.disputeIsActive": "Спір активний"
 }

@@ -236,5 +236,6 @@
   "contract.escrowFunded.description": "Ο αγοραστής έχει 12 ώρες για να δηλώσει την πληρωμή.",
   "contract.escrowFunded.title": "Η εγγύηση χρηματοδοτήθηκε!",
   "contract.seller.confirmPaymentReceivedLastChance.title": "Έλαβες πραγματικά τα χρήματα fiat;",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Παρακαλώ έλεγξε ξανά ότι έχεις λάβει τα χρήματα.\n\nΗ επιβεβαίωση θα στείλει τα Bitcoin στον αγοραστή με μη αναστρέψιμο τρόπο."
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Παρακαλώ έλεγξε ξανά ότι έχεις λάβει τα χρήματα.\n\nΗ επιβεβαίωση θα στείλει τα Bitcoin στον αγοραστή με μη αναστρέψιμο τρόπο.",
+  "contract.payment.disputeIsActive": "Διαμάχη ενεργή"
 }

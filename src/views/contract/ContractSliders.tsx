@@ -112,11 +112,15 @@ export function PaymentReceivedSlider() {
     );
   };
 
+  const label1 = contract.disputeActive
+    ? "contract.payment.disputeIsActive"
+    : "contract.payment.confirm";
+
   return (
     <ConfirmSlider
-      enabled={!isPending}
+      enabled={!isPending && !contract.disputeActive}
       onConfirm={showLastConfirmationPopup}
-      label1={i18n("contract.payment.confirm")}
+      label1={i18n(label1)}
       label2={i18n("contract.payment.received")}
     />
   );

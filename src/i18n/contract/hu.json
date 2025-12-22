@@ -241,6 +241,7 @@
   "contract.escrowFunded.description": "A vevőnek 12 órája van, hogy a fizetést teljesítettként jelezze",
   "contract.escrowFunded.title": "Az escrow finanszírozva lett!",
   "contract.seller.confirmPaymentReceivedLastChance.title": "Valóban megkaptad a fiat pénzt?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Kérjük, ellenőrizd még egyszer, hogy megkaptad-e a pénzt.\n\nA megerősítés visszavonhatatlanul elküldi a Bitcoint a vevőnek."
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Kérjük, ellenőrizd még egyszer, hogy megkaptad-e a pénzt.\n\nA megerősítés visszavonhatatlanul elküldi a Bitcoint a vevőnek.",
+  "contract.payment.disputeIsActive": "Vita aktív"
 
 }
