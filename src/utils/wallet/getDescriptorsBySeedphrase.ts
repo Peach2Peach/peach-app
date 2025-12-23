@@ -10,10 +10,9 @@ export const getDescriptorsBySeedphrase = async ({
   network,
 }: Props) => {
   const descriptorSecretKey = await getDescriptorSecretKey(network, seedphrase);
-  const [externalDescriptor, internalDescriptor] = await Promise.all([
-    Descriptor.newBip84(descriptorSecretKey, KeychainKind.External, network),
-    Descriptor.newBip84(descriptorSecretKey, KeychainKind.Internal, network),
-  ]);
+
+  const externalDescriptor = Descriptor.newBip84(descriptorSecretKey, KeychainKind.External, network)
+  const internalDescriptor = Descriptor.newBip84(descriptorSecretKey, KeychainKind.Internal, network)
 
   return { externalDescriptor, internalDescriptor };
 };

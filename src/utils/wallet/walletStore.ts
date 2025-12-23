@@ -1,13 +1,14 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { TxDetails } from "bdk-rn";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createPersistStorage } from "../../store/createPersistStorage";
+import { bytesToHex } from "../../views/wallet/helpers/txIdToString";
 import { createStorage } from "../storage/createStorage";
 import { migrateWalletStore } from "./migration/migrateWalletStore";
 
 export type WalletState = {
   balance: number;
-  transactions: TransactionDetails[];
+  transactions: TxDetails[];
   fundedFromPeachWallet: string[];
   txOfferMap: { [offerId: string]: string[] | undefined };
   addressLabelMap: { [address: string]: string | undefined };
@@ -23,10 +24,10 @@ export type FundMultipleInfo = {
 export type WalletStore = WalletState & {
   reset: () => void;
   setBalance: (balance: number) => void;
-  setTransactions: (txs: TransactionDetails[]) => void;
-  addTransaction: (transaction: TransactionDetails) => void;
+  setTransactions: (txs: TxDetails[]) => void;
+  addTransaction: (transaction: TxDetails) => void;
   removeTransaction: (txId: string) => void;
-  getTransaction: (txId: string) => TransactionDetails | undefined;
+  getTransaction: (txId: string) => TxDetails | undefined;
   isFundedFromPeachWallet: (address: string) => boolean;
   setFundedFromPeachWallet: (address: string) => void;
   labelAddress: (address: string, label: string) => void;
@@ -58,10 +59,10 @@ export const useWalletState = create<WalletStore>()(
         set({ transactions: [...get().transactions, transaction] }),
       removeTransaction: (txId) =>
         set({
-          transactions: get().transactions.filter((tx) => tx.txid !== txId),
+          transactions: get().transactions.filter((tx) => bytesToHex(tx.txid.serialize()) !== txId),
         }),
       getTransaction: (txId) =>
-        get().transactions.find((tx) => tx.txid === txId),
+        get().transactions.find((tx) => bytesToHex(tx.txid.serialize()) === txId),
       isFundedFromPeachWallet: (address) =>
         get().fundedFromPeachWallet.includes(address),
       setFundedFromPeachWallet: (address) =>

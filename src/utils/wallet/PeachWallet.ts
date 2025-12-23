@@ -1,16 +1,17 @@
 import { DocumentDirectoryPath } from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import {
-  AddressIndex,
   AddressInfo,
   BumpFeeTxBuilder,
   ElectrumClient,
   EsploraClient,
+  KeychainKind,
   Network,
   Persister,
   Psbt,
   TxBuilder,
   TxDetails,
+  UpdateInterface,
   Wallet
 } from "bdk-rn";
 import { BIP32Interface } from "bip32";
@@ -63,6 +64,8 @@ export class PeachWallet {
 
   jsWallet: BIP32Interface;
 
+  hasEverBeenFullySynced?: boolean
+
   constructor({ wallet }: { wallet: BIP32Interface }) {
     this.jsWallet = wallet;
     this.balance = 0;
@@ -70,6 +73,7 @@ export class PeachWallet {
     this.initialized = false;
     this.syncInProgress = undefined;
     this.seedphrase = undefined;
+    this.hasEverBeenFullySynced = false
   }
 
   async initWallet(seedphrase = this.seedphrase): Promise<void> {
@@ -90,7 +94,7 @@ export class PeachWallet {
 
           this.setBlockchain(useNodeConfigState.getState());
 
-          const dbConfig = await getDBConfig(
+          const dbConfig = getDBConfig(
             convertBitcoinNetworkToBDKNetwork(NETWORK),
             this.nodeType,
           );
@@ -165,36 +169,60 @@ export class PeachWallet {
         info("PeachWallet - syncWallet - start");
 
         try {
-          const success = await this.wallet.sync(this.blockchain);
-          if (success) {
-            const balance = await this.wallet.getBalance();
-            this.balance = Number(balance.total);
-            useWalletState.getState().setBalance(this.balance);
-
-            this.transactions = await this.wallet.listTransactions(true);
-            useWalletState.getState().setTransactions(this.transactions);
-            const offers = await queryClient.fetchQuery({
-              queryKey: offerKeys.summaries(),
-              queryFn: getOfferSummariesQuery,
-            });
-            const contracts = await queryClient.fetchQuery({
-              queryKey: contractKeys.summaries(),
-              queryFn: getContractSummariesQuery,
-            });
-            this.transactions
-              .filter((tx) => !transactionHasBeenMappedToOffers(tx))
-              .forEach(mapTransactionToOffer({ offers, contracts }));
-            this.transactions
-              .filter(transactionHasBeenMappedToOffers)
-              .forEach(labelAddressByTransaction);
-
-            this.lastUnusedAddress = undefined;
-            info("PeachWallet - syncWallet - synced");
+          let walletUpdate: UpdateInterface
+          if (this.hasEverBeenFullySynced) {
+            const syncBuilder = this.wallet.startSyncWithRevealedSpks()
+            walletUpdate = this.blockchain.sync(syncBuilder, BigInt(100), false)
           }
+          else {
+            const fullScanBuilder = this.wallet.startFullScan()
+            walletUpdate = this.blockchain.fullScan(fullScanBuilder, BigInt(100), BigInt(10), false)
+
+
+          }
+
+
+          this.wallet.applyUpdate(walletUpdate)
+
+          this.hasEverBeenFullySynced = true
+
+          const balance = this.wallet.balance()
+          this.balance = Number(balance.total.toSat());
+          useWalletState.getState().setBalance(this.balance);
+
+          const walletTransactions = this.wallet.transactions().map(x => {
+            const details = this.wallet?.txDetails(x.transaction);
+            if (details === undefined) {
+              throw new Error("txDetails returned undefined");
+            }
+            return details;
+          });
+
+          this.transactions = walletTransactions
+          useWalletState.getState().setTransactions(this.transactions);
+          const offers = await queryClient.fetchQuery({
+            queryKey: offerKeys.summaries(),
+            queryFn: getOfferSummariesQuery,
+          });
+          const contracts = await queryClient.fetchQuery({
+            queryKey: contractKeys.summaries(),
+            queryFn: getContractSummariesQuery,
+          });
+          this.transactions
+            .filter((tx) => !transactionHasBeenMappedToOffers(tx))
+            .forEach(mapTransactionToOffer({ offers, contracts }));
+          this.transactions
+            .filter(transactionHasBeenMappedToOffers)
+            .forEach(labelAddressByTransaction);
+
+          this.lastUnusedAddress = undefined;
+          info("PeachWallet - syncWallet - synced");
+
 
           this.syncInProgress = undefined;
           return resolve();
         } catch (e) {
+          this.syncInProgress = undefined
           error(parseError(e));
           return reject(new Error(parseError(e)));
         }
@@ -203,39 +231,71 @@ export class PeachWallet {
     return this.syncInProgress;
   }
 
-  async getAddress(index: AddressIndex | number = AddressIndex.New) {
+  async getAddress(index: number = 0) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
+
     info("Getting address at index ", index);
-    const addressInfo = await this.wallet.getAddress(index);
+
+    let addressInfo: AddressInfo
+    if (index === 0) {
+      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal)
+    }
+    else {
+      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index)
+
+
+    }
+
     return {
       ...addressInfo,
-      address: await addressInfo.address.asString(),
+      address: addressInfo.address.toQrUri(),
     };
   }
 
   async getAddressByIndex(index: number) {
+    if (!this.wallet) throw Error("WALLET_NOT_READY");
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress();
-    const address = await this.getAddress(index);
+    const address = this.wallet?.peekAddress(KeychainKind.Internal, index);
     return {
       index,
       used: index < lastUnusedIndex,
-      address: address.address,
+      address: address.address.toQrUri(),
     };
   }
 
   async getLastUnusedAddress() {
+    if (!this.wallet) throw Error("WALLET_NOT_READY");
+
+
     if (!this.lastUnusedAddress) {
-      this.lastUnusedAddress = await this.getAddress(AddressIndex.LastUnused);
+
+      const unusedAddresses = this.wallet?.listUnusedAddresses(KeychainKind.Internal)
+
+      const lastUnusedAddress = unusedAddresses.length === 0 ? this.wallet.revealNextAddress(KeychainKind.Internal) : unusedAddresses[unusedAddresses.length - 1]
+
+      this.lastUnusedAddress = {
+        ...lastUnusedAddress,
+        address: lastUnusedAddress.address.toQrUri(),
+      };
+
     }
     return this.lastUnusedAddress;
   }
 
-  async getInternalAddress(index: AddressIndex | number = AddressIndex.New) {
+  async getInternalAddress(index: number = 0) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
-    const addressInfo = await this.wallet.getInternalAddress(index);
+
+    let addressInfo: AddressInfo
+    if (index === 0) {
+      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal)
+    }
+    else {
+      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index)
+    }
+
     return {
       ...addressInfo,
-      address: await addressInfo.address.asString(),
+      address: addressInfo.address.toQrUri(),
     };
   }
 
@@ -243,9 +303,8 @@ export class PeachWallet {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
     const utxo = this.wallet.listUnspent();
-    const utxoAddresses = await Promise.all(
-      utxo.map(getUTXOAddress(convertBitcoinNetworkToBDKNetwork(NETWORK))),
-    );
+    const utxoAddresses = utxo.map(getUTXOAddress(convertBitcoinNetworkToBDKNetwork(NETWORK)))
+
     return utxo.filter((utx, i) => utxoAddresses[i] === address);
   }
 

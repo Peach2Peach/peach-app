@@ -15,6 +15,7 @@ import { TransactionHeader } from "./components/transactionDetails/TransactionHe
 import { TransactionDetailsInfo } from "./components/transcactionDetails/TransactionDetailsInfo";
 import { getOfferData } from "./helpers/getOfferData";
 import { getTxSummary } from "./helpers/getTxSummary";
+import { bytesToHex } from "./helpers/txIdToString";
 import { useMappedTransactionDetails } from "./hooks/useMappedTransactionDetails";
 import { useSyncWallet } from "./hooks/useSyncWallet";
 
@@ -32,6 +33,7 @@ export const TransactionDetails = () => {
     const type = getTransactionType(localTx, offers.filter(isDefined)[0]);
     return {
       ...partialSummary,
+      id: bytesToHex(partialSummary.id.serialize()),
       type,
       offerData: getOfferData(offers.filter(isDefined), contracts, type),
     };
