@@ -1,4 +1,4 @@
-export declare enum BlockChainNames {
-    Electrum = "Electrum",
-    Esplora = "Esplora"
+export enum BlockChainNames {
+  Electrum = "Electrum",
+  Esplora = "Esplora",
 }

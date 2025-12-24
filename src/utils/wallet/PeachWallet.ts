@@ -12,7 +12,8 @@ import {
   TxBuilder,
   TxDetails,
   UpdateInterface,
-  Wallet
+  Wallet,
+  WalletInterface,
 } from "bdk-rn";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
@@ -29,6 +30,7 @@ import { info } from "../log/info";
 import { parseError } from "../parseError";
 import { addProtocol } from "../web/addProtocol";
 import { callWhenInternet } from "../web/callWhenInternet";
+import { BlockChainNames } from "./BlockChainNames";
 import { handleTransactionError } from "./error/handleTransactionError";
 import { getDescriptorsBySeedphrase } from "./getDescriptorsBySeedphrase";
 import { getUTXOAddress } from "./getUTXOAddress";
@@ -50,7 +52,7 @@ export class PeachWallet {
 
   transactions: TxDetails[];
 
-  wallet: Wallet | undefined;
+  wallet: WalletInterface | undefined;
 
   lastUnusedAddress?: Omit<AddressInfo, "address"> & {
     address: string;
@@ -64,7 +66,7 @@ export class PeachWallet {
 
   jsWallet: BIP32Interface;
 
-  hasEverBeenFullySynced?: boolean
+  hasEverBeenFullySynced?: boolean;
 
   constructor({ wallet }: { wallet: BIP32Interface }) {
     this.jsWallet = wallet;
@@ -73,7 +75,7 @@ export class PeachWallet {
     this.initialized = false;
     this.syncInProgress = undefined;
     this.seedphrase = undefined;
-    this.hasEverBeenFullySynced = false
+    this.hasEverBeenFullySynced = false;
   }
 
   async initWallet(seedphrase = this.seedphrase): Promise<void> {
@@ -91,27 +93,33 @@ export class PeachWallet {
               seedphrase,
               network: convertBitcoinNetworkToBDKNetwork(NETWORK),
             });
-
           this.setBlockchain(useNodeConfigState.getState());
+
+          console.log("TODO: FIX THIS, REMOVE THIS");
+          this.nodeType = BlockChainNames.Esplora;
 
           const dbConfig = getDBConfig(
             convertBitcoinNetworkToBDKNetwork(NETWORK),
             this.nodeType,
           );
-
           info("PeachWallet - initWallet - createWallet");
 
-          this.wallet = new Wallet(
+          //TODO: MAKE THIS FLEXIBLE
+          console.log("WARNING!!! ONLY LOADING");
+          this.wallet = Wallet.load(
             externalDescriptor,
             internalDescriptor,
-            convertBitcoinNetworkToBDKNetwork(NETWORK),
             dbConfig,
           );
-
+          // this.wallet = new Wallet(
+          //   externalDescriptor,
+          //   internalDescriptor,
+          //   convertBitcoinNetworkToBDKNetwork(NETWORK),
+          //   dbConfig,
+          // );
           info("PeachWallet - initWallet - createdWallet");
 
           this.initialized = true;
-
           info("PeachWallet - initWallet - loaded");
           return resolve();
         } catch (e) {
@@ -134,28 +142,36 @@ export class PeachWallet {
 
   async setBlockchain(nodeConfig: NodeConfig) {
     info("PeachWallet - setBlockchain - start");
+    console.log("Node config", nodeConfig);
 
+    //TODO:!!!! DELETE THIS AND FIX THE BUG
+    console.log("DELETE THIS AFTER FIX");
+    nodeConfig.type = BlockChainNames.Esplora;
+    nodeConfig.url = "http://localhost:5500";
 
-    if (nodeConfig.type === undefined) { throw Error("No blockchain type") }
-    if (nodeConfig.url === undefined) { throw Error("No blockchain url") }
-
-
-    if (
-      nodeConfig.type === BlockChainNames.Esplora) {
-      const newEsploraClient = new EsploraClient(addProtocol(nodeConfig.url, nodeConfig.ssl ? "https" : "http"))
-      this.blockchain = newEsploraClient
-      this.esploraClient = newEsploraClient
-      this.nodeType = BlockChainNames.Esplora
+    if (nodeConfig.type === undefined) {
+      throw Error("No blockchain type");
     }
-    else if (nodeConfig.type === BlockChainNames.Electrum) {
-
-      const newElectrumClient = new ElectrumClient(addProtocol(nodeConfig.url, nodeConfig.ssl ? "ssl" : "tcp"))
-      this.blockchain = newElectrumClient
-      this.electrumClient = newElectrumClient
-      this.nodeType = BlockChainNames.Electrum
+    if (nodeConfig.url === undefined) {
+      throw Error("No blockchain url");
     }
 
+    if (nodeConfig.type === BlockChainNames.Esplora) {
+      const newEsploraClient = new EsploraClient(
+        addProtocol(nodeConfig.url, nodeConfig.ssl ? "https" : "http"),
+      );
 
+      this.blockchain = newEsploraClient;
+      this.esploraClient = newEsploraClient;
+      this.nodeType = BlockChainNames.Esplora;
+    } else if (nodeConfig.type === BlockChainNames.Electrum) {
+      const newElectrumClient = new ElectrumClient(
+        addProtocol(nodeConfig.url, nodeConfig.ssl ? "ssl" : "tcp"),
+      );
+      this.blockchain = newElectrumClient;
+      this.electrumClient = newElectrumClient;
+      this.nodeType = BlockChainNames.Electrum;
+    }
   }
 
   syncWallet() {
@@ -169,28 +185,37 @@ export class PeachWallet {
         info("PeachWallet - syncWallet - start");
 
         try {
-          let walletUpdate: UpdateInterface
+          let walletUpdate: UpdateInterface;
+
           if (this.hasEverBeenFullySynced) {
-            const syncBuilder = this.wallet.startSyncWithRevealedSpks()
-            walletUpdate = this.blockchain.sync(syncBuilder, BigInt(100), false)
+            const syncBuilder = this.wallet.startSyncWithRevealedSpks();
+            const syncRequest = syncBuilder.build();
+            walletUpdate = this.blockchain.sync(
+              syncRequest,
+              BigInt(100),
+              false,
+            );
+          } else {
+            const fullScanBuilder = this.wallet.startFullScan();
+            const fullScanRequest = fullScanBuilder.build();
+
+            walletUpdate = this.blockchain.fullScan(
+              fullScanRequest,
+              BigInt(100),
+              BigInt(10),
+              true,
+            );
           }
-          else {
-            const fullScanBuilder = this.wallet.startFullScan()
-            walletUpdate = this.blockchain.fullScan(fullScanBuilder, BigInt(100), BigInt(10), false)
 
+          this.wallet.applyUpdate(walletUpdate);
 
-          }
+          this.hasEverBeenFullySynced = true;
 
-
-          this.wallet.applyUpdate(walletUpdate)
-
-          this.hasEverBeenFullySynced = true
-
-          const balance = this.wallet.balance()
+          const balance = this.wallet.balance();
           this.balance = Number(balance.total.toSat());
           useWalletState.getState().setBalance(this.balance);
 
-          const walletTransactions = this.wallet.transactions().map(x => {
+          const walletTransactions = this.wallet.transactions().map((x) => {
             const details = this.wallet?.txDetails(x.transaction);
             if (details === undefined) {
               throw new Error("txDetails returned undefined");
@@ -198,7 +223,7 @@ export class PeachWallet {
             return details;
           });
 
-          this.transactions = walletTransactions
+          this.transactions = walletTransactions;
           useWalletState.getState().setTransactions(this.transactions);
           const offers = await queryClient.fetchQuery({
             queryKey: offerKeys.summaries(),
@@ -218,11 +243,10 @@ export class PeachWallet {
           this.lastUnusedAddress = undefined;
           info("PeachWallet - syncWallet - synced");
 
-
           this.syncInProgress = undefined;
           return resolve();
         } catch (e) {
-          this.syncInProgress = undefined
+          this.syncInProgress = undefined;
           error(parseError(e));
           return reject(new Error(parseError(e)));
         }
@@ -236,14 +260,11 @@ export class PeachWallet {
 
     info("Getting address at index ", index);
 
-    let addressInfo: AddressInfo
+    let addressInfo: AddressInfo;
     if (index === 0) {
-      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal)
-    }
-    else {
-      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index)
-
-
+      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal);
+    } else {
+      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index);
     }
 
     return {
@@ -266,18 +287,20 @@ export class PeachWallet {
   async getLastUnusedAddress() {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
-
     if (!this.lastUnusedAddress) {
+      const unusedAddresses = this.wallet?.listUnusedAddresses(
+        KeychainKind.Internal,
+      );
 
-      const unusedAddresses = this.wallet?.listUnusedAddresses(KeychainKind.Internal)
-
-      const lastUnusedAddress = unusedAddresses.length === 0 ? this.wallet.revealNextAddress(KeychainKind.Internal) : unusedAddresses[unusedAddresses.length - 1]
+      const lastUnusedAddress =
+        unusedAddresses.length === 0
+          ? this.wallet.revealNextAddress(KeychainKind.Internal)
+          : unusedAddresses[unusedAddresses.length - 1];
 
       this.lastUnusedAddress = {
         ...lastUnusedAddress,
         address: lastUnusedAddress.address.toQrUri(),
       };
-
     }
     return this.lastUnusedAddress;
   }
@@ -285,12 +308,11 @@ export class PeachWallet {
   async getInternalAddress(index: number = 0) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
-    let addressInfo: AddressInfo
+    let addressInfo: AddressInfo;
     if (index === 0) {
-      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal)
-    }
-    else {
-      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index)
+      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal);
+    } else {
+      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index);
     }
 
     return {
@@ -303,7 +325,9 @@ export class PeachWallet {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
     const utxo = this.wallet.listUnspent();
-    const utxoAddresses = utxo.map(getUTXOAddress(convertBitcoinNetworkToBDKNetwork(NETWORK)))
+    const utxoAddresses = utxo.map(
+      getUTXOAddress(convertBitcoinNetworkToBDKNetwork(NETWORK)),
+    );
 
     return utxo.filter((utx, i) => utxoAddresses[i] === address);
   }
@@ -340,10 +364,9 @@ export class PeachWallet {
 
       info("PeachWallet - signAndBroadcastPSBT - signed");
       if (this.esploraClient) {
-        this.esploraClient.broadcast(psbt.extractTx())
-      }
-      else if (this.electrumClient) {
-        this.electrumClient.transactionBroadcast(psbt.extractTx())
+        this.esploraClient.broadcast(psbt.extractTx());
+      } else if (this.electrumClient) {
+        this.electrumClient.transactionBroadcast(psbt.extractTx());
       }
 
       info("PeachWallet - signAndBroadcastPSBT - broadcasted");
@@ -378,9 +401,9 @@ function getDBConfig(
     Platform.OS === "ios" &&
     parseInt(Platform.Version, 10) < MIN_VERSION_FOR_SQLITE
   ) {
-    return Persister.newInMemory()
+    return Persister.newInMemory();
   }
   const dbName = `peach-${network}${nodeType}`;
-  const directory = `${DocumentDirectoryPath}/${dbName}`;
-  return Persister.newSqlite(directory)
+  const directory = `${DocumentDirectoryPath}/${dbName}_new.sqlite3`;
+  return Persister.newSqlite(directory);
 }

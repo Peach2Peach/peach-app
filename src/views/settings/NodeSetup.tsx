@@ -22,6 +22,7 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { BlockChainNames } from "../../utils/wallet/BlockChainNames";
 import { useNodeConfigState } from "../../utils/wallet/nodeConfigStore";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { checkNodeConnection } from "./helpers/checkNodeConnection";
