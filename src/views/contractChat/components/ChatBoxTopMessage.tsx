@@ -13,13 +13,13 @@ export const ChatBoxTopMessage = ({ isContract }: { isContract: boolean }) => {
         padding: 20,
       }}
     >
-      <PeachText style={tw`text-center subtitle-0`}>
+      <PeachText style={tw`text-center subtitle-0 text-black-100`}>
         {i18n("chat.tradingRules.title")}
       </PeachText>
 
       <PeachText />
 
-      <PeachText style={tw``}>
+      <PeachText style={tw`text-black-100`}>
         {i18n("chat.tradingRules.text")}
         {isContract && "\n" + i18n("chat.tradingRules.disputeText")}
       </PeachText>
