@@ -2,7 +2,6 @@ import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import { Modal, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button } from "./components/buttons/Button";
 import { PeachyBackground } from "./components/PeachyBackground";
 import { PinCodeDisplay } from "./components/pin/PinCodeDisplay";
 import { PinCodeInput } from "./components/pin/PinCodeInput";
@@ -30,8 +29,9 @@ export function PinProtectionOverlayComponent() {
     }
   }, [appIsPinCodeLocked, appPinCode]);
 
-  const unlock = () => {
-    if (input === appPinCode) {
+  const unlock = (inputText?: string) => {
+    const consideredInput = inputText === undefined ? input : inputText;
+    if (consideredInput === appPinCode) {
       setInput("");
       setAppIsPinCodeLocked(false);
       setShowErrorMessage(false);
@@ -83,7 +83,7 @@ export function PinProtectionOverlayComponent() {
         >
           {!isSmallScreen && (
             <View style={tw`self-center mt-30`}>
-              <PeachText
+              {/* <PeachText
                 style={[
                   {
                     textAlign: "center",
@@ -93,7 +93,7 @@ export function PinProtectionOverlayComponent() {
                 ]}
               >
                 {i18n("yourAppIsPinProtected")}
-              </PeachText>
+              </PeachText> */}
               {
                 <PeachText
                   style={[
@@ -121,6 +121,10 @@ export function PinProtectionOverlayComponent() {
               setShowErrorMessage(false);
               if (appPinCode && input.length < appPinCode.length) {
                 setInput(input + s);
+
+                if (input.length + 1 === appPinCode.length) {
+                  unlock(input + s);
+                }
               }
             }}
             onDelete={() => {
@@ -128,7 +132,7 @@ export function PinProtectionOverlayComponent() {
             }}
           />
 
-          <Button
+          {/* <Button
             disabled={!appPinCode || input.length < appPinCode?.length}
             onPress={unlock}
             style={[
@@ -139,7 +143,7 @@ export function PinProtectionOverlayComponent() {
             <PeachText style={[{ color: tw.color("primary-main") }]}>
               {i18n("unlock")}
             </PeachText>
-          </Button>
+          </Button> */}
         </View>
       </View>
     </Modal>
