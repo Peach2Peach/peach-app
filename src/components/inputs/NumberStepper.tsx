@@ -1,7 +1,7 @@
 import { TouchableOpacity, View } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
@@ -19,6 +19,7 @@ export const NumberStepper = ({
   max = Infinity,
   green = false,
 }: Props) => {
+  useI18n();
   const decrease = () => onChange(Math.max(value - 1, min));
   const increase = () => onChange(Math.min(value + 1, max));
 

@@ -9,9 +9,10 @@ import { PeachText } from "./components/text/PeachText";
 import { appPinProtectionLockAtom } from "./PinProtectionLockAtom";
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
 import tw from "./styles/tailwind";
-import i18n from "./utils/i18n";
+import i18n, { useI18n } from "./utils/i18n";
 
 export function PinProtectionOverlayComponent() {
+  useI18n();
   const { appPinCode } = useSettingsStore();
   const [appIsPinCodeLocked, setAppIsPinCodeLocked] = useAtom(
     appPinProtectionLockAtom,

@@ -1,10 +1,11 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { useQRScanner } from "../../hooks/useQRScanner";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { ScanQR } from "../camera/ScanQR";
 import { Input, InputProps } from "./Input";
 
 export const URLInput = (props: InputProps) => {
+  useI18n();
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString();
     if (props.onChangeText) props.onChangeText(clipboard);

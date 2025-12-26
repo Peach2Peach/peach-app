@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Animated, View } from "react-native";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import i18n, { useI18n } from "../../../utils/i18n";
 import { getTranslateX } from "../../../utils/layout/getTranslateX";
 import { round } from "../../../utils/math/round";
 import { Icon } from "../../Icon";
@@ -25,6 +25,7 @@ export const PremiumSlider = ({
   setPremium,
   green = false,
 }: Props) => {
+  useI18n();
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
     usePremiumSliderSetup(premium, setPremium);
   const { isDarkMode } = useThemeStore();

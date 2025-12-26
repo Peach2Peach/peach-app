@@ -15,7 +15,7 @@ import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
 import { isProduction } from "../../utils/system/isProduction";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
@@ -28,6 +28,7 @@ const contactUs = isProduction()
   : (["testView", "contact", "aboutPeach"] as const);
 
 export const Settings = () => {
+  useI18n();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);

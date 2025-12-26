@@ -4,7 +4,7 @@ import Carousel from "react-native-reanimated-carousel";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import {
   PAGESIZE,
   useOfferMatches,
@@ -18,6 +18,7 @@ const MEDIUM_SCREEN_OFFSET = 48;
 const SMALL_SCREEN_OFFSET = 40;
 
 export const Matches = ({ offer }: { offer: SellOffer }) => {
+  useI18n();
   const { width } = useWindowDimensions();
   const isMediumScreen = useIsMediumScreen();
   const { offerId } = useRoute<"search">().params;

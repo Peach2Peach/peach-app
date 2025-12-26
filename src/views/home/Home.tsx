@@ -23,7 +23,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
 import { groupChars } from "../../utils/string/groupChars";
@@ -33,12 +33,13 @@ import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
+  useI18n();
   const navigation = useStackNavigation();
   const goToProfile = () => navigation.navigate("myProfile");
   const isMediumScreen = useIsMediumScreen();
   const { isDarkMode } = useThemeStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  //here!
+
   const setPopup = useSetPopup();
   useFocusEffect(() => {
     if (DEV === "false" && NETWORK !== "bitcoin") {

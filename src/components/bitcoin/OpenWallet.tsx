@@ -2,7 +2,7 @@ import { TouchableOpacity } from "react-native";
 import "react-native-url-polyfill/auto";
 import tw from "../../styles/tailwind";
 import { openInWallet } from "../../utils/bitcoin/openInWallet";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
@@ -11,6 +11,7 @@ type OpenWalletProps = ComponentProps & {
 };
 
 export const OpenWallet = ({ address, style }: OpenWalletProps) => {
+  useI18n();
   const openWalletApp = () => openInWallet(`bitcoin:${address ?? ""}`);
 
   return (

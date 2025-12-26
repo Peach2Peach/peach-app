@@ -7,7 +7,7 @@ import {
   useCodeScanner,
 } from "react-native-vision-camera";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
@@ -17,6 +17,7 @@ type ScanQRProps = {
 };
 
 export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
+  useI18n();
   const [hasReadQRCode, setHasReadQRCode] = useState(false);
 
   const codeScanner = useCodeScanner({

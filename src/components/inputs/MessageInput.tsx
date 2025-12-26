@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { Icon } from "../Icon";
 
 type Props = {
@@ -24,6 +24,7 @@ export const MessageInput = ({
   onChangeText,
   onSubmit,
 }: Props) => {
+  useI18n();
   const onEndEditing = (
     e: NativeSyntheticEvent<TextInputEndEditingEventData>,
   ) => onChangeText(e.nativeEvent.text?.trim());

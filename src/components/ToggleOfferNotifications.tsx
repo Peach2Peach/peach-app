@@ -5,12 +5,13 @@ import {
   useUser69Details,
 } from "../hooks/query/peach069/useUser69";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { peachAPI } from "../utils/peachAPI";
 import { Toggle } from "./inputs/Toggle";
 import { PeachText } from "./text/PeachText";
 
 export const ToggleOfferNotifications = () => {
+  useI18n();
   const { user: user69 } = useUser69Details();
   const queryClient = useQueryClient();
   if (!user69) return <></>;

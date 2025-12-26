@@ -3,7 +3,7 @@ import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { SATSINBTC } from "../../constants";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { groupChars } from "../../utils/string/groupChars";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
@@ -63,6 +63,7 @@ export const BTCAmount = memo(
     textStyle,
     includeSatsUnit = true,
   }: BTCAmountProps) => {
+    useI18n();
     const [greyText, blackText] = useMemo(
       () => getDisplayAmount(amount),
       [amount],
