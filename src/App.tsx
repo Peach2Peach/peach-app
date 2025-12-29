@@ -6,7 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { useDeviceContext } from "twrnc";
 import { GlobalOverlay } from "./Overlay";
-import { PinProtectionOverlay } from "./PinProtectionOverlay";
+import { PinProtectionOverlayComponent } from "./PinProtectionOverlayComponent";
 import { useAppPinProtection } from "./appPinProtectionListener";
 import { Drawer } from "./components/drawer/Drawer";
 import { GlobalPopup } from "./components/popup/GlobalPopup";
@@ -50,7 +50,7 @@ export const App = () => {
               <GlobalPopup />
               <GlobalOverlay />
               <Toast />
-              <PinProtectionOverlay />
+              <PinProtectionOverlayComponent />
             </NavigationContainer>
           </SafeAreaProvider>
         </PeachWSContext.Provider>
