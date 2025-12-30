@@ -68,7 +68,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
       { reason, email, message },
       {
         onSuccess: () => {
-          navigation.navigate("contractChat", { contractId });
+          navigation.popTo("contractChat", { contractId });
           setPopup(
             <DisputeRaisedSuccess
               view={getContractViewer(contract.seller.id, publicKey)}
