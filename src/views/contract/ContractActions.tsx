@@ -39,27 +39,25 @@ import { useContractContext } from "./context";
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
-  const shouldHideEscrow = isFundingTradeStatus(
-    contract.tradeStatus,
-    contract.wasCanceledBySellerBeforeFundingTheEscrow,
-  );
   const { fundingStatus } = useFundingStatus(
     getSellOfferIdFromContract(contract),
   );
 
-  const showEscrowButton = Boolean(
-    contract.escrow &&
-      (!shouldHideEscrow ||
-        fundingStatus?.status == "MEMPOOL" ||
-        view === "buyer"),
+  const shouldHideChat = isFundingTradeStatus(
+    contract.tradeStatus,
+    contract.wasCanceledBySellerBeforeFundingTheEscrow,
   );
 
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
-      <View style={tw`flex-row items-center justify-center gap-6 mt-1`}>
-        {showEscrowButton && <EscrowButton {...contract} style={tw`flex-1`} />}
-
-        <ChatButton expand={showEscrowButton} />
+      <View style={tw`flex-row items-center justify-center gap-6`}>
+        {contract.escrow &&
+          (!shouldHideChat ||
+            fundingStatus?.status == "MEMPOOL" ||
+            view === "buyer") && (
+            <EscrowButton {...contract} style={tw`flex-1`} />
+          )}
+        {!shouldHideChat && <ChatButton />}
       </View>
 
       <ContractStatusInfo />
