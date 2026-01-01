@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "річний торгівельний ліміт",
   "profile.tradingLimits.yearly.short": "річний ліміт:",
   "profile.unblockUser": "розблокувати цього користувача",
-  "profile.user.title": "публічна анкета"
+  "profile.user.title": "публічна анкета",
+  "profile.user.currentOffers": "поточні пропозиції",
+  "profile.offersofuser.title": "поточні пропозиції",
+  "profile.offersofuser.empty": "поки немає!"
 }

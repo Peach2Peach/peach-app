@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "jährliches Handelslimit",
   "profile.tradingLimits.yearly.short": "jährliches Limit",
   "profile.unblockUser": "Diesen Benutzer entsperren",
-  "profile.user.title": "Öffentliches Profil"
+  "profile.user.title": "Öffentliches Profil",
+    "profile.user.currentOffers": "current offers",
+  "profile.offersofuser.title":"current offers",
+  "profile.offersofuser.empty":"none yet!"
 }

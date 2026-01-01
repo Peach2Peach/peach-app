@@ -277,6 +277,7 @@
     "unlock": "Sblocca",
     "yourAppIsPinProtected": "La tua app Peach è protetta da PIN",
     "isTestApp.title": "VERSIONE DI TEST: BITCOIN NON REALE",
-  "isTestApp.text": "Questa è la versione di test di Peach. Nessuno dei Bitcoin scambiati qui ha valore, non spendere i tuoi soldi fiat per scambi qui.\nLa funzione di dispute è disabilitata.\n\nSe vuoi scambiare Bitcoin reale con Peach, scarica l’app ufficiale."
+  "isTestApp.text": "Questa è la versione di test di Peach. Nessuno dei Bitcoin scambiati qui ha valore, non spendere i tuoi soldi fiat per scambi qui.\nLa funzione di dispute è disabilitata.\n\nSe vuoi scambiare Bitcoin reale con Peach, scarica l’app ufficiale.",
+  "viewAll": "vedi tutte"
 
 }

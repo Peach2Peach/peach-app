@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "éves limit",
   "profile.tradingLimits.yearly.short": "éves limit",
   "profile.unblockUser": "felhasználó tiltásának feloldása",
-  "profile.user.title": "nyilvános profil"
+  "profile.user.title": "nyilvános profil",
+  "profile.user.currentOffers": "aktuális ajánlatok",
+  "profile.offersofuser.title": "aktuális ajánlatok",
+  "profile.offersofuser.empty": "még nincs!"
 }

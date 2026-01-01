@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "годовой торговый лимит:",
   "profile.tradingLimits.yearly.short": "годовой лимит:",
   "profile.unblockUser": "разблокировать этого пользователя",
-  "profile.user.title": "открытый профиль"
+  "profile.user.title": "открытый профиль",
+  "profile.user.currentOffers": "текущие предложения",
+  "profile.offersofuser.title": "текущие предложения",
+  "profile.offersofuser.empty": "пока нет!"
 }
