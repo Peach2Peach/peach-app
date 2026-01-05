@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "yıllık ticaret limiti:",
   "profile.tradingLimits.yearly.short": "yıllık limit:",
   "profile.unblockUser": "Bu kullanıcıyı engellemeyi kaldır",
-  "profile.user.title": "genel profil"
+  "profile.user.title": "genel profil",
+  "profile.user.currentOffers": "mevcut teklifler",
+  "profile.offersofuser.title": "mevcut teklifler",
+  "profile.offersofuser.empty": "henüz yok!"
 }

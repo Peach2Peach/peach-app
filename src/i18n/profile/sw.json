@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "kikomo cha biashara cha kila mwaka:",
   "profile.tradingLimits.yearly.short": "kikomo cha kila mwaka:",
   "profile.unblockUser": "fungua mtumiaji huyu",
-  "profile.user.title": "wasifu wa umma"
+  "profile.user.title": "wasifu wa umma",
+  "profile.user.currentOffers": "oferta za sasa",
+  "profile.offersofuser.title": "oferta za sasa",
+  "profile.offersofuser.empty": "bado hakuna!"
 }

@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "jaarlijkse handelslimiet:",
   "profile.tradingLimits.yearly.short": "jaarlijkse limiet:",
   "profile.unblockUser": "deblokkeer deze gebruiker",
-  "profile.user.title": "openbaar profiel"
+  "profile.user.title": "openbaar profiel",
+  "profile.user.currentOffers": "huidige aanbiedingen",
+  "profile.offersofuser.title": "huidige aanbiedingen",
+  "profile.offersofuser.empty": "nog geen!"
 }

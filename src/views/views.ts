@@ -21,6 +21,7 @@ import { AccountCreated } from "./newUser/AccountCreated";
 import { CreateAccountError } from "./newUser/CreateAccountError";
 import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
 import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
+import { OffersOfUser } from "./otherUser/OffersOfUser";
 import { BrowseTradeRequestsToMyBuyOffer } from "./peach069/BrowseTradeRequestsToMyBuyOffer";
 import { BrowseTradeRequestsToMySellOffer } from "./peach069/BrowseTradeRequestsToMySellOffer";
 import { CreateBuyOffer } from "./peach069/CreateBuyOffer";
@@ -222,6 +223,13 @@ const tradeRequestChat: ViewType[] = [
   },
 ];
 
+const otherUserViews: ViewType[] = [
+  {
+    name: "offersOfUser",
+    component: OffersOfUser,
+  },
+];
+
 export const views = [
   ...home,
   ...sellFlow,
@@ -237,6 +245,7 @@ export const views = [
   ...buyOfferOwnerFlow,
   ...sellOfferOwnerFlow,
   ...tradeRequestChat,
+  ...otherUserViews,
 ];
 
 export const onboardingViews = [...onboarding, ...contact];
