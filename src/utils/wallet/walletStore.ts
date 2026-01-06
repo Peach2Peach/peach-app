@@ -4,10 +4,11 @@ import { persist } from "zustand/middleware";
 import { createPersistStorage } from "../../store/createPersistStorage";
 import { createStorage } from "../storage/createStorage";
 import { migrateWalletStore } from "./migration/migrateWalletStore";
+import { WalletTransaction } from "./WalletTransaction";
 
 export type WalletState = {
   balance: number;
-  transactions: TransactionDetails[];
+  transactions: WalletTransaction[];
   fundedFromPeachWallet: string[];
   txOfferMap: { [offerId: string]: string[] | undefined };
   addressLabelMap: { [address: string]: string | undefined };
@@ -26,7 +27,7 @@ export type WalletStore = WalletState & {
   setTransactions: (txs: TransactionDetails[]) => void;
   addTransaction: (transaction: TransactionDetails) => void;
   removeTransaction: (txId: string) => void;
-  getTransaction: (txId: string) => TransactionDetails | undefined;
+  getTransaction: (txId: string) => WalletTransaction | undefined;
   isFundedFromPeachWallet: (address: string) => boolean;
   setFundedFromPeachWallet: (address: string) => void;
   labelAddress: (address: string, label: string) => void;

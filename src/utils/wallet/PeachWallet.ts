@@ -70,6 +70,7 @@ export class PeachWallet {
     await waitForHydration(useWalletState);
     this.transactions = useWalletState.getState().transactions;
     this.balance = useWalletState.getState().balance;
+    console.log("TRANSACTIONS", this.transactions);
 
     return new Promise((resolve, reject) =>
       callWhenInternet(async () => {

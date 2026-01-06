@@ -38,7 +38,7 @@ export const BumpNetworkFees = () => {
   const { data: currentFeeRate } = useTxFeeRate({ transaction: localTx });
   const [feeRate, setNewFeeRate] = useState<string>();
   const newFeeRate =
-    feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(2);
+    feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(0); //TODO: allow decimal fee rate
 
   const newFeeRateErrors = useMemo(() => {
     const errs = getErrorsInField(newFeeRate, newFeeRateRules);
