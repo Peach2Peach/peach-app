@@ -241,8 +241,8 @@
   "contract.escrowFunded.description": "O comprador tem 12h para declarar o pagamento como efetuado",
   "contract.escrowFunded.title": "O depósito foi financiado!",
 
-  "contract.seller.confirmPaymentReceivedLastChance.title": "Czy na pewno otrzymałeś środki fiat?",
-  "contract.seller.confirmPaymentReceivedLastChance.text": "Prosimy dokładnie sprawdzić, czy otrzymałeś pieniądze.\n\nPotwierdzenie spowoduje nieodwracalne wysłanie Bitcoinów do kupującego.",
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Recebeu mesmo o dinheiro?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Verifique com atenção se você recebeu o dinheiro.\n\nAo confirmar, os Bitcoin serão enviados de forma irreversível para o comprador.",
   "contract.payment.disputeIsActive": "Disputa ativa"
 
 }

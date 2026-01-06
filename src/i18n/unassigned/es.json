@@ -283,6 +283,7 @@
   "yourAppIsPinProtected": "Tu aplicación Peach está protegida con PIN",
   "isTestApp.title": "TESTVERSION: KEIN ECHTES BITCOIN",
   "isTestApp.text": "Dies ist die Testversion von Peach. Keiner der hier gehandelten Bitcoin hat einen Wert, gib also kein Fiat-Geld für Trades hier aus.\nDie Streitfall-Funktion ist deaktiviert.\n\nWenn du echtes Bitcoin mit Peach handeln möchtest, lade die offizielle App herunter.",
-  "viewAll": "ver todas"
+  "viewAll": "ver todas",
+  "yesProceed": "Sí, continuar"
 
 }

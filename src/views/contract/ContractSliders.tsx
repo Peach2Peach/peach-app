@@ -97,7 +97,7 @@ export function PaymentReceivedSlider() {
         actions={
           <>
             <PopupAction
-              label={i18n("Yes, proceed")}
+              label={i18n("yesProceed")}
               iconId="thumbsUp"
               onPress={() => {
                 closePopup();
