@@ -72,6 +72,9 @@
    "notification.offer.newBuyOfferMatchesPreferences.text": "Νέα προσφορά αγοράς!",
     "notification.offer.newBuyOfferMatchesPreferences.title": "Υπάρχει νέα προσφορά που ταιριάζει με τις προτιμήσεις σας.",
     "notification.offer.newSellOfferMatchesPreferences.text": "Νέα προσφορά πώλησης!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Υπάρχει νέα προσφορά που ταιριάζει με τις προτιμήσεις σας."
+    "notification.offer.newSellOfferMatchesPreferences.title": "Υπάρχει νέα προσφορά που ταιριάζει με τις προτιμήσεις σας.",
+    "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Συνομιλία αιτήματος συναλλαγής",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Λάβατε μήνυμα συνομιλίας για το αίτημα συναλλαγής σας"
+
   
 }

@@ -5,6 +5,7 @@ import { TouchableRedText } from "../../components/text/TouchableRedText";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { useUserOffers } from "../otherUser/useUserOffers";
 import { AccountInfo } from "../settings/profile/AccountInfo";
 import { useBlockUser } from "./useBlockUser";
 import { useUnblockUser } from "./useUnblockUser";
@@ -14,13 +15,15 @@ import { useUserStatus } from "./useUserStatus";
 export const PublicProfile = () => {
   const { userId } = useRoute<"publicProfile">().params;
   const { user, isLoading } = useUser(userId);
+  const { offers } = useUserOffers(userId);
+
   if (isLoading || !user) return <></>;
 
   return (
     <Screen header={i18n("profile.user.title")}>
       <View style={tw`gap-12 grow`}>
         <ProfileInfo user={user} />
-        <AccountInfo user={user} />
+        <AccountInfo user={user} offers={offers} />
       </View>
       <BlockUser style={tw`self-center`} />
     </Screen>

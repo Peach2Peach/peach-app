@@ -2,7 +2,7 @@ import { pick } from "@react-native-documents/picker";
 import { useState } from "react";
 import { Platform } from "react-native";
 import { readFileInChunks } from "../../utils/file/readFileInChunks";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { error } from "../../utils/log/error";
 import { Input } from "./Input";
 
@@ -17,6 +17,7 @@ type Props = {
 };
 
 export const FileInput = ({ fileName, onChange }: Props) => {
+  useI18n();
   const [loading, setLoading] = useState(false);
   const selectFile = async () => {
     setLoading(true);

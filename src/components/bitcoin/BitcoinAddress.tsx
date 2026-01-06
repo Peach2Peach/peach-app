@@ -15,7 +15,7 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
 import { openInWallet } from "../../utils/bitcoin/openInWallet";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { Icon } from "../Icon";
 import { TouchableIcon } from "../TouchableIcon";
@@ -36,6 +36,7 @@ export const BitcoinAddress = ({
   amount,
   offerId,
 }: BitcoinAddressProps) => {
+  useI18n();
   const windowDimensions = useWindowDimensions();
   const width = windowDimensions.width - PADDING;
 

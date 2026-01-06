@@ -29,5 +29,9 @@
   "chat.systemMessage.provideMoreInformation" : "Enquanto isso, fique à vontade para fornecer mais informações sobre a disputa. Se tiver capturas de tela ou documentos, envie para dispute@peachbitcoin.com.\n\nPor favor, coloque [Dispute $0] no assunto do e-mail.",
   "chat.tradePartner" : "parceiro de negociação",
   "chat.you" : "você",
-  "chat.yourMessage" : "sua mensagem"
+  "chat.yourMessage" : "sua mensagem",
+  "chat.tradingRules.title": "Regras de negociação",
+  "chat.tradingRules.text": "Para o Vendedor:\n- não libere o escrow antes de receber o dinheiro na sua conta, independentemente do que o comprador diga\n\nPara o Comprador:\n- confirme “Efetuei o pagamento” somente após realizá-lo\n- pague o vendedor apenas usando os dados exibidos na tela do contrato, após o escrow ser financiado\n\nPara todos:\n- os dados de pagamento devem corresponder exatamente",
+  "chat.tradingRules.disputeText": "- se a contraparte apresentar comportamento suspeito, inicie uma disputa tocando no ícone no canto superior direito desta tela"
+
 }

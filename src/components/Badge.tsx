@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { badgeIconMap } from "../constants";
 import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { useUserStatus } from "../views/publicProfile/useUserStatus";
 import { Icon } from "./Icon";
 import { InfoContainer } from "./InfoContainer";
@@ -16,6 +16,7 @@ type Props = {
 const BADGE_SIZE = 12;
 
 export function Badge({ badgeName, isUnlocked }: Props) {
+  useI18n();
   const { isDarkMode } = useThemeStore();
   const colorStyle = isUnlocked
     ? "text-primary-main"

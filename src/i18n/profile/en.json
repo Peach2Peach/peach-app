@@ -20,5 +20,8 @@
   "profile.tradingLimits.yearly": "yearly traded volume:",
   "profile.tradingLimits.yearly.short": "yearly limit:",
   "profile.unblockUser": "unblock this user",
-  "profile.user.title": "public profile"
+  "profile.user.title": "public profile",
+  "profile.user.currentOffers": "current offers",
+  "profile.offersofuser.title":"current offers",
+  "profile.offersofuser.empty":"none yet!"
 }

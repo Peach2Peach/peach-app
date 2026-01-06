@@ -148,7 +148,7 @@ function ContractHeader() {
     premium,
   } = contract;
   const sellOfferId = getSellOfferIdFromContract(contract);
-  const { fundingStatus } = useFundingStatus(sellOfferId);
+  const { fundingStatus } = useFundingStatus(sellOfferId, view === "seller");
   const requiredAction = getRequiredAction(contract);
   const setPopup = useSetPopup();
   const showConfirmPopup = useCallback(

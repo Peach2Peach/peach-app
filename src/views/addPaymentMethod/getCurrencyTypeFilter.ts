@@ -50,7 +50,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "VES",
   ],
   middleEast: ["ILS", "AED", "EGP", "SAR"],
-  northAmerica: ["CAD"],
+  northAmerica: ["USD", "CAD", "USDT"],
   oceania: ["NZD", "AUD"],
   global: ["USDT", "SAT", "USD"],
 };

@@ -14,21 +14,27 @@ export function Methods({
   type,
   meansOfPayment,
   setCurrency,
+  showSetPaymentMethodsButton = true,
+  noBackground = false,
 }: {
   type: "buy" | "sell";
   meansOfPayment: MeansOfPayment;
   setCurrency: (c: Currency) => void;
+  showSetPaymentMethodsButton?: boolean;
+  noBackground?: boolean;
 }) {
   const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("paymentMethods");
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
   const { isDarkMode } = useThemeStore();
 
-  const backgroundColor = isDarkMode
-    ? tw.color("card")
-    : type === "buy"
-      ? tw.color("success-mild-1-color")
-      : tw.color("primary-background-dark-color");
+  const backgroundColor = noBackground
+    ? ""
+    : isDarkMode
+      ? tw.color("card")
+      : type === "buy"
+        ? tw.color("success-mild-1-color")
+        : tw.color("primary-background-dark-color");
 
   const color = isDarkMode ? tw.color("primary-main") : tw.color("black-100");
 
@@ -43,13 +49,15 @@ export function Methods({
             setCurrency={setCurrency}
             style={tw`flex-1`}
           />
-          <TouchableIcon
-            id="plusCircle"
-            iconSize={24}
-            onPress={onPress}
-            iconColor={color}
-            style={tw`pt-1`}
-          />
+          {showSetPaymentMethodsButton && (
+            <TouchableIcon
+              id="plusCircle"
+              iconSize={24}
+              onPress={onPress}
+              iconColor={color}
+              style={tw`pt-1`}
+            />
+          )}
         </Section.Container>
       ) : (
         <Section.Container style={{ backgroundColor }}>

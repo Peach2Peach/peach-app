@@ -18,7 +18,7 @@ import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
 import { uniqueArray } from "../utils/array/uniqueArray";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { getHeaderStyles } from "../utils/layout/getHeaderStyles";
 import { thousands } from "../utils/string/thousands";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
@@ -114,6 +114,7 @@ export type HeaderProps = Omit<HeaderConfig, "theme" | "style"> & {
 };
 
 export const Header = ({ showPriceStats, subtitle, ...props }: HeaderProps) => {
+  useI18n();
   const { top } = useSafeAreaInsets();
   const { isDarkMode } = useThemeStore();
   const themes = newThemes(isDarkMode);

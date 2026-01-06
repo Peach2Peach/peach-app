@@ -239,5 +239,9 @@
   "contract.seller.cancelBeforeFunding": "Törölte a kereskedést, mielőtt finanszírozta az escrow-t.",
   "contract.buyer.cancelBeforeFunding": "Az eladó törölte a kereskedést, mielőtt finanszírozta az escrow-t.",
   "contract.escrowFunded.description": "A vevőnek 12 órája van, hogy a fizetést teljesítettként jelezze",
-  "contract.escrowFunded.title": "Az escrow finanszírozva lett!"
+  "contract.escrowFunded.title": "Az escrow finanszírozva lett!",
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Valóban megkaptad a fiat pénzt?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Kérjük, ellenőrizd még egyszer, hogy megkaptad-e a pénzt.\n\nA megerősítés visszavonhatatlanul elküldi a Bitcoint a vevőnek.",
+  "contract.payment.disputeIsActive": "Vita aktív"
+
 }

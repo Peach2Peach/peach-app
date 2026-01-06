@@ -81,6 +81,10 @@ function BuyerFundEscrow() {
       <View style={tw`items-center justify-center gap-8 grow`}>
         <PeachText style={tw`text-center body-l`}>
           {i18n("offer.sellerSuccessfullyFunded")}
+          {""}
+        </PeachText>
+        <PeachText style={tw`text-center body-l text-error-main`}>
+          {i18n("offer.sellerSuccessfullyFunded2")}
         </PeachText>
         <Image
           source={txInMempool}
@@ -92,8 +96,12 @@ function BuyerFundEscrow() {
   }
   return (
     <View style={tw`items-center justify-center gap-8 grow`}>
-      <PeachText style={tw`body-l`}>
+      <PeachText style={tw`body-l text-center`}>
         {i18n("offer.requiredAction.sellerHasntFunded")}
+        {""}
+      </PeachText>
+      <PeachText style={tw`body-l text-center text-error-main`}>
+        {i18n("offer.requiredAction.sellerHasntFunded2")}
       </PeachText>
       <Image
         source={txInMempool}

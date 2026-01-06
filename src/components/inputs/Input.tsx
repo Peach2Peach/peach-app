@@ -10,7 +10,7 @@ import {
 import { IconType } from "../../assets/icons";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { TouchableIcon } from "../TouchableIcon";
 import { PeachText } from "../text/PeachText";
 
@@ -72,6 +72,7 @@ export const Input = ({
   reference,
   ...inputProps
 }: InputProps) => {
+  useI18n();
   const { isDarkMode } = useThemeStore();
 
   const selectedTheme = useMemo(

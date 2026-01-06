@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
+import i18n, { useI18n } from "../../../../utils/i18n";
 import { usePaymentMethodInfo } from "../../../../views/addPaymentMethod/usePaymentMethodInfo";
 import { PeachText } from "../../../text/PeachText";
 import { CurrencyItem } from "../../CurrencyItem";
@@ -17,6 +17,7 @@ export const CurrencySelection = ({
   onToggle,
   style,
 }: Props) => {
+  useI18n();
   const { data: paymentMethodInfo } = usePaymentMethodInfo(paymentMethod);
   return (
     <View style={style}>

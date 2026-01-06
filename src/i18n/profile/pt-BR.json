@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "Limite anual",
   "profile.tradingLimits.yearly.short": "Limite anual",
   "profile.unblockUser": "Desbloquear usuário",
-  "profile.user.title": "Perfil público"
+  "profile.user.title": "Perfil público",
+  "profile.user.currentOffers": "ofertas atuais",
+  "profile.offersofuser.title": "ofertas atuais",
+  "profile.offersofuser.empty": "ainda nenhuma!"
 }

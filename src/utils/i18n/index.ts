@@ -1,4 +1,5 @@
 import { NETWORK } from "@env";
+import { useSyncExternalStore } from "react";
 import de from "../../i18n/de";
 import elGR from "../../i18n/el-GR";
 import en from "../../i18n/en";
@@ -46,6 +47,21 @@ if (NETWORK !== "bitcoin") {
 }
 const locales = keys(localeMapping);
 
+//for sync
+
+const listeners = new Set<() => void>();
+
+const subscribe = (listener: () => void) => {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+};
+
+const getSnapshot = () => languageState.locale;
+
+export const useI18n = () => useSyncExternalStore(subscribe, getSnapshot);
+
+// end of sync code
+
 const i18n = (id: string, ...args: string[]) => {
   const locale = languageState.locale.replace("_", "-");
   if (locale === "raw") return id;
@@ -77,7 +93,11 @@ i18n.getLocales = () => locales;
 
 i18n.setLocale = (newLocale: string) => {
   if (!localeMapping[newLocale]) newLocale = "en";
-  languageState.locale = newLocale;
+
+  if (languageState.locale !== newLocale) {
+    languageState.locale = newLocale;
+    listeners.forEach((l) => l());
+  }
 };
 
 export default i18n;

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { View } from "react-native";
 import { Currency } from "../../peach-api/src/@types/global";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
 import { Button } from "./buttons/Button";
@@ -25,6 +25,7 @@ export function CurrenciesDrawer({
   currencyOfferAmounts,
   onReset,
 }: CurrenciesDrawerProps) {
+  useI18n();
   const [searchQuery, setSearchQuery] = useState("");
   const { data: paymentMethods } = usePaymentMethods();
 

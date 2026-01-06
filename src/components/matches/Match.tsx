@@ -14,7 +14,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { error } from "../../utils/log/error";
 import { isLimitReached } from "../../utils/match/isLimitReached";
 import { saveOffer } from "../../utils/offer/saveOffer";
@@ -49,6 +49,7 @@ export const Match = ({
   offer: SellOffer;
   currentPage: number;
 }) => {
+  useI18n();
   const {
     selectedPaymentMethod,
     matched,

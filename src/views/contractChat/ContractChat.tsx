@@ -1,6 +1,7 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { View } from "react-native";
+import { Keyboard, View } from "react-native";
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { Contract } from "../../../peach-api/src/@types/contract";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
@@ -236,45 +237,73 @@ function ChatScreen({ contract }: { contract: Contract }) {
     if (messages) setAndSaveChat(contractId, { messages });
   }, [contractId, messages, setAndSaveChat]);
 
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useEffect(() => {
+    const showSub = Keyboard.addListener("keyboardDidShow", () =>
+      setKeyboardVisible(true),
+    );
+    const hideSub = Keyboard.addListener("keyboardDidHide", () =>
+      setKeyboardVisible(false),
+    );
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
+
   return (
     <Screen
       style={tw`p-0`}
       header={
-        <ContractChatHeader
-          contract={contract}
-          symmetricKey={decryptedData?.symmetricKey}
-        />
-      }
-    >
-      <View
-        style={[tw`flex-1`, !decryptedData?.symmetricKey && tw`opacity-50`]}
-      >
-        <ChatBox
-          tradingPartner={tradingPartner?.id || ""}
-          online={connected}
-          chat={chat}
-          setAndSaveChat={setAndSaveChat}
-          page={page}
-          fetchNextPage={fetchNextPage}
-          isLoading={isFetching}
-          resendMessage={resendMessage}
-        />
-      </View>
-      {contract.isChatActive ? (
-        <View style={tw`w-full`}>
-          <MessageInput
-            onChangeText={setNewMessage}
-            onSubmit={submit}
-            disabled={!decryptedData?.symmetricKey}
-            disableSubmit={disableSend}
-            value={newMessage}
+        <View onLayout={(e) => setHeaderHeight(e.nativeEvent.layout.height)}>
+          <ContractChatHeader
+            contract={contract}
+            symmetricKey={decryptedData?.symmetricKey}
           />
         </View>
-      ) : (
-        <PeachText style={tw`p-4 text-center text-black-50`}>
-          {i18n("chat.disabled")}
-        </PeachText>
-      )}
+      }
+    >
+      <KeyboardAvoidingView
+        style={tw`flex-1`}
+        behavior="padding"
+        keyboardVerticalOffset={headerHeight}
+      >
+        <View
+          style={[
+            tw`flex-1`,
+            !decryptedData?.symmetricKey && tw`opacity-50`,
+            !keyboardVisible && { paddingBottom: 0 },
+          ]}
+        >
+          <ChatBox
+            tradingPartner={tradingPartner?.id || ""}
+            online={connected}
+            chat={chat}
+            setAndSaveChat={setAndSaveChat}
+            page={page}
+            fetchNextPage={fetchNextPage}
+            isLoading={isFetching}
+            resendMessage={resendMessage}
+          />
+        </View>
+        {contract.isChatActive ? (
+          <View style={tw`w-full`}>
+            <MessageInput
+              onChangeText={setNewMessage}
+              onSubmit={submit}
+              disabled={!decryptedData?.symmetricKey}
+              disableSubmit={disableSend}
+              value={newMessage}
+            />
+          </View>
+        ) : (
+          <PeachText style={tw`p-4 text-center text-black-50`}>
+            {i18n("chat.disabled")}
+          </PeachText>
+        )}
+      </KeyboardAvoidingView>
     </Screen>
   );
 }

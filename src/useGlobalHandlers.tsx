@@ -12,13 +12,14 @@ import { useInitialNavigation } from "./init/useInitialNavigation";
 import { AnalyticsPopup } from "./popups/AnalyticsPopup";
 import { VerifyYouAreAHumanPopup } from "./popups/warning/VerifyYouAreAHumanPopup";
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
-import i18n from "./utils/i18n";
+import i18n, { useI18n } from "./utils/i18n";
 import { error } from "./utils/log/error";
 import { parseError } from "./utils/parseError";
 import { useUpdateUser } from "./utils/peachAPI/useUpdateUser";
 import { isNetworkError } from "./utils/system/isNetworkError";
 
 export const useGlobalHandlers = () => {
+  useI18n();
   const messageHandler = useMessageHandler();
   const analyticsPopupSeen = useSettingsStore(
     (state) => state.analyticsPopupSeen,

@@ -276,7 +276,10 @@ export function ExpressFlowTradeRequestToOffer({
                   pointerEvents="box-none"
                 >
                   <UnmatchButton
-                    undoInTimeCallback={() => setShowMatchedCard(false)}
+                    undoInTimeCallback={() => {
+                      setHasPendingAction(false);
+                      setShowMatchedCard(false);
+                    }}
                     onTimerSuccess={performThisTradeRequestFunctionArgsDefined}
                     match={offerTradeRequestPerformedBySelfUser}
                     unmatchCallback={async () => {

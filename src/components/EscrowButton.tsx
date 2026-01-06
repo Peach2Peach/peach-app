@@ -3,7 +3,7 @@ import { StyleProp, ViewStyle } from "react-native";
 import tw from "../styles/tailwind";
 import { showAddress } from "../utils/bitcoin/showAddress";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { Button } from "./buttons/Button";
 
 type Props = {
@@ -13,6 +13,7 @@ type Props = {
 };
 
 export function EscrowButton({ releaseTxId, escrow, style }: Props) {
+  useI18n();
   const openEscrow = () =>
     releaseTxId
       ? showTransaction(releaseTxId, NETWORK)

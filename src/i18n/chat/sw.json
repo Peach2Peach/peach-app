@@ -29,5 +29,9 @@
   "chat.systemMessage.provideMoreInformation": "Tuma habari zaidi kuhusu mzozo. Ikiwa una skrini au nyaraka, tuma kwa dispute@peachbitcoin.com.\nTafadhali weka [Mzozo $0] kwenye mstari wa mada.",
   "chat.tradePartner": "Mwenzi wa biashara",
   "chat.you": "Wewe",
-  "chat.yourMessage": "Ujumbe wako"
+  "chat.yourMessage": "Ujumbe wako",
+   "chat.tradingRules.title": "Sheria za Biashara",
+  "chat.tradingRules.text": "Kwa Muuzaji:\n- usiachilie escrow kabla ya kupokea pesa kwenye akaunti yako, haijalishi mnunuzi anasema nini\n\nKwa Mnunuzi:\n- thibitisha “Nimelipa” tu baada ya kufanya malipo\n- mlipie muuzaji tu kwa maelezo yaliyoonyeshwa kwenye skrini ya mkataba, baada ya escrow kufadhiliwa\n\nKwa wote:\n- maelezo ya malipo lazima yalingane kikamilifu",
+  "chat.tradingRules.disputeText": "- ikiwa upande mwingine unaonyesha tabia ya kutiliwa shaka, anzisha mgogoro kwa kubonyeza ikoni iliyo juu kulia ya skrini hii"
+
 }

@@ -14,6 +14,8 @@ export type ButtonProps = {
   children: ReactNode;
   loading?: boolean;
   numberOfLines?: number;
+  fullSpace?: boolean;
+  noBorder?: boolean;
 } & TouchableOpacityProps;
 
 const MEDIUM_ICON_SIZE = 18;
@@ -26,6 +28,8 @@ export const Button = ({
   children,
   loading,
   numberOfLines,
+  fullSpace = true,
+  noBorder = false,
   ...touchableOpacityProps
 }: ButtonProps) => {
   const isMediumScreen = useIsMediumScreen();
@@ -35,12 +39,14 @@ export const Button = ({
       {...touchableOpacityProps}
       disabled={touchableOpacityProps.disabled || loading}
       style={[
-        tw`bg-primary-main min-w-26`,
-        tw`md:min-w-32`,
-        tw`flex-row items-center justify-center gap-2 px-6 rounded-full py-3px`,
-        tw`md:py-2 md:px-8`,
+        tw`bg-primary-main`,
+        fullSpace && tw`min-w-26 `,
+        fullSpace && tw`md:min-w-32`,
+        tw`flex-row items-center justify-center gap-2  rounded-full py-3px`,
+        fullSpace && tw`px-6 md:py-2 md:px-8`,
         touchableOpacityProps.disabled && tw`opacity-33`,
-        ghost && tw`bg-transparent border-2`,
+        ghost && tw`bg-transparent`,
+        ghost && !noBorder && tw`border-2`,
         { borderColor: ghost ? textColor : undefined },
         touchableOpacityProps.style,
       ]}

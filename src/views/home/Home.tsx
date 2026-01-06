@@ -1,4 +1,5 @@
-import { DEV } from "@env";
+import { DEV, NETWORK } from "@env";
+import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
@@ -11,6 +12,7 @@ import { RadialGradientBorder } from "../../components/RadialGradientBorder";
 import { Screen } from "../../components/Screen";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { MSINAMINUTE } from "../../constants";
@@ -18,9 +20,10 @@ import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { AppPopup } from "../../popups/AppPopup";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
 import { groupChars } from "../../utils/string/groupChars";
@@ -30,11 +33,19 @@ import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
+  useI18n();
   const navigation = useStackNavigation();
   const goToProfile = () => navigation.navigate("myProfile");
   const isMediumScreen = useIsMediumScreen();
   const { isDarkMode } = useThemeStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const setPopup = useSetPopup();
+  useFocusEffect(() => {
+    if (DEV === "false" && NETWORK !== "bitcoin") {
+      setPopup(<AppPopup id="isTestApp" />);
+    }
+  });
 
   return (
     <>

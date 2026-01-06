@@ -1,6 +1,6 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Keyboard, View } from "react-native";
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { Offer69TradeRequestChatMessage } from "../../../peach-api/src/@types/offer";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
@@ -16,10 +16,8 @@ import { useSellOfferTradeRequestReceivedByIds } from "../../hooks/query/peach06
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
-import { useAccountStore } from "../../utils/account/account";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
-import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
 import { TradeRequestChatBox } from "../contractChat/components/TradeRequestChatBox";
@@ -233,66 +231,23 @@ function ChatScreen({
   }) => Promise<void>;
   refetchFunction: Function;
 }) {
-  const queryClient = useQueryClient();
-
-  const { connected, send, off, on } = useWebsocketContext();
-
-  const publicKey = useAccountStore((state) => state.account.publicKey);
-
   const [newMessage, setNewMessage] = useState("");
   const [disableSend, setDisableSend] = useState(false);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
-  //   const sendMessage = useCallback(
-  //     async (message: string) => {
-  //       if (!tradingPartner || !decryptedData?.symmetricKey || !message) return;
-
-  //       const encryptedResult = await signAndEncryptSymmetric(
-  //         message,
-  //         decryptedData.symmetricKey,
-  //       );
-  //       const messageObject: Message = {
-  //         roomId: `contract-${contractId}`,
-  //         from: publicKey,
-  //         date: new Date(),
-  //         readBy: [],
-  //         message,
-  //         signature: encryptedResult.signature,
-  //       };
-  //       if (connected) {
-  //         send(
-  //           JSON.stringify({
-  //             path: "/v1/contract/chat",
-  //             contractId,
-  //             message: encryptedResult.encrypted,
-  //             signature: encryptedResult.signature,
-  //           }),
-  //         );
-  //       }
-
-  //       setAndSaveChat(
-  //         contractId,
-  //         {
-  //           messages: [messageObject],
-  //           lastSeen: new Date(),
-  //         },
-  //         false,
-  //       );
-  //     },
-  //     [
-  //       tradingPartner,
-  //       decryptedData?.symmetricKey,
-  //       contractId,
-  //       publicKey,
-  //       connected,
-  //       setAndSaveChat,
-  //       send,
-  //     ],
-  //   );
-  //   const resendMessage = (message: Message) => {
-  //     if (!connected) return;
-  //     deleteMessage(contractId, message);
-  //     sendMessage(message.message);
-  //   };
+  useEffect(() => {
+    const showSub = Keyboard.addListener("keyboardDidShow", () =>
+      setKeyboardVisible(true),
+    );
+    const hideSub = Keyboard.addListener("keyboardDidHide", () =>
+      setKeyboardVisible(false),
+    );
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
   const submit = async () => {
     if (!newMessage) return;
@@ -318,24 +273,37 @@ function ChatScreen({
   };
 
   return (
-    <Screen style={tw`p-0`} header={<TradeRequestChatHeader />}>
-      <View style={[tw`flex-1`]}>
-        <TradeRequestChatBox
-          messages={messages}
-          whoAmI={whoAmI}
-          symmetricKey={symmetricKey}
-        />
-      </View>
+    <Screen
+      style={tw`p-0`}
+      header={
+        <View onLayout={(e) => setHeaderHeight(e.nativeEvent.layout.height)}>
+          <TradeRequestChatHeader />
+        </View>
+      }
+    >
+      <KeyboardAvoidingView
+        style={tw`flex-1`}
+        behavior="padding"
+        keyboardVerticalOffset={headerHeight}
+      >
+        <View style={[tw`flex-1`, !keyboardVisible && { paddingBottom: 0 }]}>
+          <TradeRequestChatBox
+            messages={messages}
+            whoAmI={whoAmI}
+            symmetricKey={symmetricKey}
+          />
+        </View>
 
-      <View style={tw`w-full`}>
-        <MessageInput
-          onChangeText={setNewMessage}
-          onSubmit={submit}
-          disabled={!symmetricKey}
-          disableSubmit={disableSend}
-          value={newMessage}
-        />
-      </View>
+        <View style={tw`w-full`}>
+          <MessageInput
+            onChangeText={setNewMessage}
+            onSubmit={submit}
+            disabled={!symmetricKey}
+            disableSubmit={disableSend}
+            value={newMessage}
+          />
+        </View>
+      </KeyboardAvoidingView>
     </Screen>
   );
 }

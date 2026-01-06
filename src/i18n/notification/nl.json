@@ -72,6 +72,9 @@
   "notification.offer.newBuyOfferMatchesPreferences.text": "Nieuw koopaanbod!",
     "notification.offer.newBuyOfferMatchesPreferences.title": "Er is een nieuw aanbod dat overeenkomt met je voorkeuren.",
     "notification.offer.newSellOfferMatchesPreferences.text": "Nieuw verkoopaanbod!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Er is een nieuw aanbod dat overeenkomt met je voorkeuren."
+    "notification.offer.newSellOfferMatchesPreferences.title": "Er is een nieuw aanbod dat overeenkomt met je voorkeuren.",
+    "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Handelsverzoek-chat",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Je hebt een chatbericht ontvangen over je handelsverzoek"
+
   
 }

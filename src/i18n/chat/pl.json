@@ -29,5 +29,9 @@
   "chat.systemMessage.provideMoreInformation": "Możesz dodać więcej informacji do sporu. Zrzuty ekranu lub dokumenty wyślij na dispute@peachbitcoin.com.\nW temacie wpisz [Spór $0].",
   "chat.tradePartner": "Partner transakcyjny",
   "chat.you": "Ty",
-  "chat.yourMessage": "Twoja wiadomość"
+  "chat.yourMessage": "Twoja wiadomość",
+  "chat.tradingRules.title": "Handelsregels",
+  "chat.tradingRules.text": "Voor de Verkoper:\n- geef de escrow niet vrij voordat het geld op je rekening staat, ongeacht wat de koper zegt\n\nVoor de Koper:\n- bevestig “Ik heb betaald” alleen nadat je dit daadwerkelijk hebt gedaan\n- betaal de verkoper alleen via de gegevens op het contractscher m, nadat de escrow is gefinancierd\n\nVoor iedereen:\n- de gebruikte betaalgegevens moeten exact overeenkomen",
+  "chat.tradingRules.disputeText": "- vertoont de tegenpartij verdacht gedrag, start dan een geschil via het pictogram rechtsboven op dit scherm"
+
 }

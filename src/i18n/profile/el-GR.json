@@ -19,5 +19,8 @@
   "profile.tradingLimits.yearly": "ετήσιο όριο συναλλαγών:",
   "profile.tradingLimits.yearly.short": "ετήσιο όριο:",
   "profile.unblockUser": "Ξεκλείδωσε αυτόν τον χρήστη",
-  "profile.user.title": "δημόσιο προφίλ"
+  "profile.user.title": "δημόσιο προφίλ",
+  "profile.user.currentOffers": "τρέχουσες προσφορές",
+  "profile.offersofuser.title": "τρέχουσες προσφορές",
+  "profile.offersofuser.empty": "καμία ακόμα!"
 }

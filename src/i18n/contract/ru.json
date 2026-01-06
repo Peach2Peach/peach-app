@@ -240,5 +240,10 @@
   "contract.seller.cancelBeforeFunding": "Вы отменили сделку до внесения средств в эскроу.",
   "contract.buyer.cancelBeforeFunding": "Продавец отменил сделку до внесения средств в эскроу.",
   "contract.escrowFunded.description": "У покупателя 12 часов, чтобы подтвердить оплату",
-  "contract.escrowFunded.title": "Эскроу профинансирован!"
+  "contract.escrowFunded.title": "Эскроу профинансирован!",
+
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Вы действительно получили фиатные деньги?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Пожалуйста, еще раз убедитесь, что вы получили деньги.\n\nПодтверждение приведет к необратимой отправке биткоинов покупателю.",
+  "contract.payment.disputeIsActive": "Спор активен"
+
 }

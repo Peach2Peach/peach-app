@@ -66,6 +66,8 @@
   "yourTrades.unknown": "onbekend",
   "offer.seller.refunded": "Je hebt dit aanbod terugbetaald aan $0.",
   "offer.sellerSuccessfullyFunded": "De verkoper heeft de escrow gefinancierd. Wacht op blokbevestiging.",
+  "offer.sellerSuccessfullyFunded2": "Stuur het fiatbedrag NOG NIET!",
+  "offer.requiredAction.sellerHasntFunded2": "In deze fase mag je onder geen enkele omstandigheid fiatgeld versturen.",
   "offer.create.buy": "koopaanbod maken",
   "offer.create.sell": "verkoopaanbod maken",
   "offer.buy.filter": "koopaanbiedingen filteren",

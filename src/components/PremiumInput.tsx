@@ -1,6 +1,6 @@
 import { TouchableOpacity, View } from "react-native";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { round } from "../utils/math/round";
 import { Icon } from "./Icon";
 import { PremiumTextInput } from "./PremiumTextInput";
@@ -24,6 +24,7 @@ export const PremiumInput = ({
   incrementType = "offerCreation",
   type = "sell",
 }: Props) => {
+  useI18n();
   const onMinusPress = () => {
     const newPremium = round(
       Math.max(premium - incrementBy, premiumBounds.min),

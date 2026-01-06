@@ -239,5 +239,10 @@
   "contract.seller.cancelBeforeFunding": "Umefuta biashara kabla ya kufadhili escrow.",
   "contract.buyer.cancelBeforeFunding": "Muuzaji amefuta biashara kabla ya kufadhili escrow.",
   "contract.escrowFunded.description": "Mnunuzi ana saa 12 kutangaza malipo kama yametolewa",
-  "contract.escrowFunded.title": "Escrow imefadhiliwa!"
+  "contract.escrowFunded.title": "Escrow imefadhiliwa!",
+
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Je, umepokea pesa za fiat kweli?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Tafadhali hakikisha tena kuwa umepokea pesa.\n\nUkithibitisha, Bitcoin zitatumwa kwa mnunuzi bila uwezekano wa kurejeshwa.",
+  "contract.payment.disputeIsActive": "Mgogoro hai"
+
 }

@@ -239,5 +239,9 @@
   "contract.seller.cancelBeforeFunding": "Je annuleerde voordat escrow gefinancierd werd.",
   "contract.buyer.cancelBeforeFunding": "Verkoper annuleerde voordat escrow gefinancierd werd.",
   "contract.escrowFunded.description": "Koper heeft 12 uur om betaling te bevestigen.",
-  "contract.escrowFunded.title": "De escrow is gefinancierd!"
+  "contract.escrowFunded.title": "De escrow is gefinancierd!",
+   "contract.seller.confirmPaymentReceivedLastChance.title": "Heb je het fiatgeld echt ontvangen?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Controleer nogmaals of je het geld hebt ontvangen.\n\nDoor te bevestigen worden de Bitcoin onomkeerbaar naar de koper gestuurd.",
+  "contract.payment.disputeIsActive": "Geschil actief"
+
 }

@@ -7,6 +7,7 @@ export const userKeys = {
   all: ["user"] as const,
   user: (id: string) => [...userKeys.all, id] as const,
   userStatus: (id: string) => [...userKeys.user(id), "status"] as const,
+  userOffers: (id: string) => [...userKeys.user(id), "offers"] as const,
   self: () => [...userKeys.all, "self"] as const,
   tradingLimits: () => [...userKeys.self(), "tradingLimits"] as const,
 };

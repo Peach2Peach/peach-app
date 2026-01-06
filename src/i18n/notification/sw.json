@@ -72,6 +72,9 @@
   "notification.offer.newBuyOfferMatchesPreferences.text": "Ofa mpya ya ununuzi!",
     "notification.offer.newBuyOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
     "notification.offer.newSellOfferMatchesPreferences.text": "Ofa mpya ya mauzo!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako."
+    "notification.offer.newSellOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Gumzo la Ombi la Biashara",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Umepokea ujumbe wa gumzo kuhusu ombi lako la biashara"
+
   
 }

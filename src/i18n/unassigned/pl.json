@@ -281,5 +281,10 @@
     "enterPin": "Voer uw PIN in",
     "wrongPinTryAgain": "Foute PIN, probeer opnieuw",
     "unlock": "Ontgrendelen",
-    "yourAppIsPinProtected": "Twoja aplikacja Peach jest chroniona kodem PIN" 
+    "yourAppIsPinProtected": "Twoja aplikacja Peach jest chroniona kodem PIN" ,
+    "isTestApp.title": "WERSJA TESTOWA: TO NIE JEST PRAWDZIWY BITCOIN",
+  "isTestApp.text": "To jest wersja testowa aplikacji Peach. Żaden z Bitcoinów handlowanych tutaj nie ma wartości, nie wydawaj więc pieniędzy fiat na transakcje w tej wersji.\nFunkcja sporów jest wyłączona.\n\nJeśli chcesz handlować prawdziwym Bitcoinem w Peach, pobierz oficjalną aplikację.",
+  "viewAll": "zobacz wszystkie",
+  "yesProceed": "Tak, kontynuuj"
+
 }

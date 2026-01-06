@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
 import { PeachText } from "./text/PeachText";
@@ -13,6 +13,7 @@ interface CurrencyDrawerProps {
 }
 
 export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
+  useI18n();
   const [searchQuery, setSearchQuery] = useState("");
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
@@ -61,6 +62,7 @@ export function CurrencyDrawer({ isOpen, onClose }: CurrencyDrawerProps) {
       showSearch
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
+      includeFilterAlertToggle={false}
     />
   );
 }

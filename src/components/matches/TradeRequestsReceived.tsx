@@ -9,7 +9,7 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { BTCAmount } from "../bitcoin/BTCAmount";
 import { PeachText } from "../text/PeachText";
 import { TradeRequestReceived } from "./TradeRequestReceived";
@@ -36,6 +36,7 @@ export const TradeRequestsReceived = ({
   goToChat: Function;
   type: "sell" | "buy";
 }) => {
+  useI18n();
   const handleError = useHandleError();
   const { width } = useWindowDimensions();
   const isMediumScreen = useIsMediumScreen();
@@ -123,7 +124,7 @@ function TradeRequestsInformation({
           amount={
             type === "sell"
               ? (offer as SellOffer).amount
-              : (offer as BuyOffer69).amountSats ?? 0
+              : ((offer as BuyOffer69).amountSats ?? 0)
           }
           size="medium"
         />

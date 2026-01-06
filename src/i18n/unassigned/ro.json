@@ -10,6 +10,6 @@
     "search.popups.unmatch.text": "Anularea va afecta negativ reputația ta.\nPoți anula fără penalizare după 12 ore.",
     "search.popups.unmatch.confirm": "da, anulează",
     "search.popups.matchUndone.title": "cerere anulată",
-    "search.popups.matchUndone.text": "Reputația ta nu a fost afectată și poți trimite din nou o cerere.\n\nDacă anulezi după expirarea timpului, reputația va fi afectată negativ."
- 
+    "search.popups.matchUndone.text": "Reputația ta nu a fost afectată și poți trimite din nou o cerere.\n\nDacă anulezi după expirarea timpului, reputația va fi afectată negativ.",
+ "yesProceed": "Da, continuă" 
 }

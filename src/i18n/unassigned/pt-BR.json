@@ -281,6 +281,10 @@
     "enterPin": "Digite seu PIN",
     "wrongPinTryAgain": "PIN incorreto, tente novamente",
     "unlock": "Desbloquear",
-    "yourAppIsPinProtected": "Seu app Peach está protegido por PIN"
-  
+    "yourAppIsPinProtected": "Seu app Peach está protegido por PIN",
+    "isTestApp.title": "VERSÃO DE TESTE: NÃO É BITCOIN REAL",
+  "isTestApp.text": "Esta é a versão de teste do Peach. Nenhum dos Bitcoins negociados aqui tem valor, então não gaste seu dinheiro fiat fazendo trocas aqui.\nO recurso de disputas está desativado.\n\nSe você quiser negociar Bitcoin real com o Peach, baixe o aplicativo oficial.",
+  "viewAll": "ver todas",
+  "yesProceed": "Sim, continuar"
+
 }

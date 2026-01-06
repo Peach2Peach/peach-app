@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { PaymentMethod } from "../../peach-api/src/@types/payment";
 import { useMeetupEvents } from "../hooks/query/useMeetupEvents";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { isCashTrade } from "../utils/paymentMethod/isCashTrade";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { SelectionDrawer } from "./SelectionDrawer";
@@ -27,6 +27,7 @@ export function PaymentMethodsDrawer({
   paymentMethodOfferAmounts,
   onReset,
 }: PaymentMethodsDrawerProps) {
+  useI18n();
   const [searchQuery, setSearchQuery] = useState("");
   const { data: paymentMethods } = usePaymentMethods();
   const { data: meetupEvents } = useMeetupEvents();

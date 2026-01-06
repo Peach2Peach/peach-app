@@ -4,7 +4,7 @@ import { useQRScanner } from "../../hooks/useQRScanner";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { parseBitcoinRequest } from "../../utils/bitcoin/parseBitcoinRequest";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { cutOffAddress } from "../../utils/string/cutOffAddress";
 import { ScanQR } from "../camera/ScanQR";
 import { Input, InputProps } from "./Input";
@@ -14,6 +14,7 @@ export const BitcoinAddressInput = ({
   onChangeText,
   ...props
 }: InputProps & { value: string }) => {
+  useI18n();
   const [isFocused, setFocused] = useState(false);
   const { isDarkMode } = useThemeStore();
 

@@ -3,9 +3,10 @@ import { Animated, TextInput, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import { useKeyboardAwareHeight } from "../hooks/useKeyboardAwareHeight";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { Drawer } from "./Drawer";
 import { SelectionList } from "./SelectionList";
+import { ToggleOfferNotifications } from "./ToggleOfferNotifications";
 import { TouchableIcon } from "./TouchableIcon";
 import { HorizontalLine } from "./ui/HorizontalLine";
 
@@ -27,6 +28,7 @@ interface SelectionDrawerProps {
   showSearch?: boolean;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
+  includeFilterAlertToggle?: boolean;
 }
 
 export function SelectionDrawer({
@@ -39,7 +41,9 @@ export function SelectionDrawer({
   showSearch = false,
   searchQuery = "",
   onSearchChange,
+  includeFilterAlertToggle = true,
 }: SelectionDrawerProps) {
+  useI18n();
   const HEADER_AND_PADDING = 120; // Space for padding, header text, etc.
   const DRAWER_HEIGHT_LARGE = 600;
   const DRAWER_HEIGHT_SMALL = 450;
@@ -90,7 +94,15 @@ export function SelectionDrawer({
         <Animated.ScrollView style={{ height: animatedHeight }}>
           <SelectionList items={items} type={type} />
         </Animated.ScrollView>
-        {resetButton}
+        <View
+          style={{
+            gap: 24,
+            alignSelf: "stretch",
+          }}
+        >
+          {includeFilterAlertToggle && <ToggleOfferNotifications />}
+          {resetButton}
+        </View>
       </>
     </Drawer>
   );

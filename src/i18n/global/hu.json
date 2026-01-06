@@ -189,5 +189,9 @@
   "asia": "Ázsia",
   "northAmerica": "Észak-Amerika",
   "middleEast": "Közel-Kelet",
-  "oceania": "Óceánia"
+  "oceania": "Óceánia",
+  "country.JO": "Jordánia",
+  "currency.JOD": "Jordán dinár",
+  "country.MK": "Észak-Macedónia",
+  "country.BA": "Bosznia-Hercegovina"
 }

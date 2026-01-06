@@ -1,7 +1,10 @@
 import { View } from "react-native";
+import { BuyOffer69 } from "../../../../peach-api/src/@types/offer";
+import { Button } from "../../../components/buttons/Button";
 import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
 import { ProgressDonut } from "../../../components/ui/ProgressDonut";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import { PEACH_ID_LENGTH } from "../../../utils/account/PEACH_ID_LENGTH";
@@ -10,14 +13,16 @@ import i18n from "../../../utils/i18n";
 
 type Props = {
   user: User | PublicUser;
+  offers?: { buyOffers: BuyOffer69[]; sellOffers: SellOffer[] };
 };
 
-export const AccountInfo = ({ user }: Props) => (
+export const AccountInfo = ({ user, offers }: Props) => (
   <View style={tw`gap-4 pl-1`}>
     <PublicKey publicKey={user.id} />
     <AccountCreated {...user} />
     <Disputes {...user.disputes} />
     <Trades trades={user.trades} />
+    {offers && <OffersAvailable offers={offers} userId={user.id} />}
     {"freeTrades" in user && !!user.freeTrades && !!user.maxFreeTrades && (
       <ProgressDonut
         title={i18n("settings.referrals.noPeachFees.freeTrades")}
@@ -135,6 +140,64 @@ function Trades({ trades }: { trades: number }) {
       >
         {trades}
       </PeachText>
+    </View>
+  );
+}
+
+function OffersAvailable({
+  offers,
+  userId,
+}: {
+  offers: {
+    buyOffers: BuyOffer69[];
+    sellOffers: SellOffer[];
+  };
+  userId: string;
+}) {
+  const navigation = useStackNavigation();
+  const { isDarkMode } = useThemeStore();
+  const sumOfOffers = offers.buyOffers.length + offers.sellOffers.length;
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <View>
+        <PeachText
+          style={tw.style(
+            `lowercase`,
+            isDarkMode ? "text-backgroundLight-light" : "text-black-50",
+          )}
+        >
+          {i18n("profile.user.currentOffers")}:
+        </PeachText>
+        <PeachText
+          style={tw.style(
+            `subtitle-1`,
+            isDarkMode ? "text-primary-mild-1" : "text-black-100",
+          )}
+        >
+          {sumOfOffers}
+        </PeachText>
+      </View>
+      <View>
+        <Button
+          iconId="chevronRight"
+          noBorder
+          textColor={!isDarkMode ? tw.color("primary-main") : undefined}
+          ghost={true}
+          onPress={() => {
+            navigation.navigate("offersOfUser", { userId });
+          }}
+          disabled={sumOfOffers === 0}
+          fullSpace={false}
+        >
+          {i18n("viewAll")}
+        </Button>
+      </View>
     </View>
   );
 }

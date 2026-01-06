@@ -10,7 +10,7 @@ import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { RejectTradeRequestPopup } from "../../popups/RejectTradeRequestPopup";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { useUser } from "../../views/publicProfile/useUser";
 import { Icon } from "../Icon";
@@ -39,6 +39,7 @@ export const TradeRequestReceived = ({
   goToChatFunction: () => void;
   type: "sell" | "buy";
 }) => {
+  useI18n();
   const {
     paymentMethod,
     userId,

@@ -188,5 +188,9 @@
   "asia": "Asia",
   "northAmerica": "Amerika Kaskazini",
   "middleEast": "Mashariki ya Kati",
-  "oceania": "Oceania"
+  "oceania": "Oceania",
+  "country.JO": "Yordani",
+  "currency.JOD": "Dinari ya Jordan",
+  "country.MK": "Masedonia ya Kaskazini",
+  "country.BA": "Bosnia na Herzegovina"
 }

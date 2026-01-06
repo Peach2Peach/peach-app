@@ -17,7 +17,7 @@ import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import i18n, { useI18n } from "../../utils/i18n";
 import { isIOS } from "../../utils/system/isIOS";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
 
@@ -65,6 +65,7 @@ const FooterItemBase = memo(
     onPress,
     active,
   }: FooterItemBaseProps) => {
+    useI18n();
     const navigation = useStackNavigation();
     const { isDarkMode } = useThemeStore();
     const onItemPress = () => {

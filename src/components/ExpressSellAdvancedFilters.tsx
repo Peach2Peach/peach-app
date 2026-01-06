@@ -12,7 +12,7 @@ import {
 } from "../store/offerPreferenes/useOfferPreferences";
 import { useThemeStore } from "../store/theme";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import i18n, { useI18n } from "../utils/i18n";
 import { round } from "../utils/math/round";
 import { isCashTrade } from "../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../utils/peachAPI";
@@ -22,6 +22,7 @@ import { useTradingAmountLimits } from "../views/offerPreferences/utils/useTradi
 import { Drawer } from "./Drawer";
 import { Section } from "./Section";
 import { SelectionList } from "./SelectionList";
+import { ToggleOfferNotifications } from "./ToggleOfferNotifications";
 import { TouchableIcon } from "./TouchableIcon";
 import { BTCAmount } from "./bitcoin/BTCAmount";
 import { Button } from "./buttons/Button";
@@ -41,6 +42,7 @@ type FilterSection =
   | "price";
 
 export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
+  useI18n();
   const scrollViewRef = useRef<ScrollView>(null);
   const [expandedSection, setExpandedSection] = useState<FilterSection | null>(
     null,
@@ -150,6 +152,7 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
               )}
             </View>
           </Animated.ScrollView>
+          <ToggleOfferNotifications />
           <ResetAllButton />
         </View>
       </>

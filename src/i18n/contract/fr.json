@@ -240,5 +240,9 @@
   "contract.seller.cancelBeforeFunding": "Transaction annulée avant financement de l’entiercement.",
   "contract.buyer.cancelBeforeFunding": "Le vendeur a annulé avant financement de l’entiercement.",
   "contract.escrowFunded.description": "Acheteur a 12h pour déclarer le paiement.",
-  "contract.escrowFunded.title": "Entiercement financé !"
+  "contract.escrowFunded.title": "Entiercement financé !",
+  "contract.seller.confirmPaymentReceivedLastChance.title": "Avez-vous vraiment reçu l’argent fiat ?",
+  "contract.seller.confirmPaymentReceivedLastChance.text": "Veuillez vérifier une dernière fois que vous avez bien reçu l’argent.\n\nLa confirmation enverra les Bitcoin de manière irréversible à l’acheteur.",
+  "contract.payment.disputeIsActive": "Litige actif"
+
 }

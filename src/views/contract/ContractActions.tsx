@@ -39,12 +39,13 @@ import { useContractContext } from "./context";
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
+  const { fundingStatus } = useFundingStatus(
+    getSellOfferIdFromContract(contract),
+  );
+
   const shouldHideChat = isFundingTradeStatus(
     contract.tradeStatus,
     contract.wasCanceledBySellerBeforeFundingTheEscrow,
-  );
-  const { fundingStatus } = useFundingStatus(
-    getSellOfferIdFromContract(contract),
   );
 
   return (
