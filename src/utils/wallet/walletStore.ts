@@ -55,16 +55,7 @@ export const useWalletState = create<WalletStore>()(
       reset: () => set(() => defaultWalletState),
       setBalance: (balance) => set({ balance }),
       setTransactions: (transactions) => {
-        const fixedTxs = transactions.map((tx) => {
-          return {
-            ...tx,
-            balanceDelta: Number(tx.balanceDelta),
-            received: Number(tx.received.toSat()),
-            sent: Number(tx.sent.toSat()),
-            fee: tx.fee ? Number(tx.fee.toSat()) : undefined,
-          };
-        });
-        set({ transactions: fixedTxs });
+        set({ transactions });
       },
       addTransaction: (transaction) =>
         set({ transactions: [...get().transactions, transaction] }),
