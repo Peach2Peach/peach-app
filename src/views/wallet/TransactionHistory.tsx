@@ -14,6 +14,7 @@ import { useSyncWallet } from "./hooks/useSyncWallet";
 
 export const TransactionHistory = () => {
   const transactionSummaries = useTxSummaries();
+  console.log("transactionSummaries", transactionSummaries);
   const { isDarkMode } = useThemeStore();
 
   const transactions = useMemo(

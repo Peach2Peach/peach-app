@@ -20,9 +20,13 @@ const useUTXOAddress = (script: Script) =>
         if (!peachWallet) throw new Error("Peach wallet not defined");
         const address = Address.fromScript(
           script,
-          convertBitcoinNetworkToBDKNetwork(NETWORK)
+          convertBitcoinNetworkToBDKNetwork(NETWORK),
         );
-        return address.toQrUri();
+        const addressString = address
+          .toQrUri()
+          .replace("bitcoin:", "")
+          .toLowerCase();
+        return addressString;
       } catch (e) {
         throw new Error("Error getting address");
       }

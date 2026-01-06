@@ -9,7 +9,7 @@ import {
   LoadWithPersistError,
   Network,
   Persister,
-  Psbt,
+  PsbtInterface,
   TxBuilder,
   TxDetails,
   UpdateInterface,
@@ -305,9 +305,11 @@ export class PeachWallet {
       addressInfo = addressesRevealed[addressesRevealed.length - 1]
     }
 
+    const addressString = addressInfo.address.toQrUri().replace("bitcoin:","").toLowerCase()
+
     return {
       ...addressInfo,
-      address: addressInfo.address.toQrUri(),
+      address: addressString,
     };
   }
 
@@ -315,10 +317,12 @@ export class PeachWallet {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress();
     const address = this.wallet?.peekAddress(KeychainKind.External, index);
+
+    const addressString = address.address.toQrUri().replace("bitcoin:","").toLowerCase()
     return {
       index,
       used: index < lastUnusedIndex,
-      address: address.address.toQrUri(),
+      address: addressString,
     };
   }
 
@@ -335,9 +339,10 @@ export class PeachWallet {
           ? this.wallet.revealNextAddress(KeychainKind.External)
           : unusedAddresses[unusedAddresses.length - 1];
 
+      const addressString = lastUnusedAddress.address.toQrUri().replace("bitcoin:","").toLowerCase()
       this.lastUnusedAddress = {
         ...lastUnusedAddress,
-        address: lastUnusedAddress.address.toQrUri(),
+        address: addressString,
       };
     }
     return this.lastUnusedAddress;
@@ -352,10 +357,10 @@ export class PeachWallet {
     } else {
       addressInfo = this.wallet.peekAddress(KeychainKind.External, index);
     }
-
+    const addressString = addressInfo.address.toQrUri().replace("bitcoin:","").toLowerCase()
     return {
       ...addressInfo,
-      address: addressInfo.address.toQrUri(),
+      address: addressString,
     };
   }
 
@@ -400,7 +405,7 @@ export class PeachWallet {
     }
   }
 
-  async signAndBroadcastPSBT(psbt: Psbt) {
+  async signAndBroadcastPSBT(psbt: PsbtInterface) {
     if (!this.wallet || !this.blockchain) throw Error("WALLET_NOT_READY");
     info("PeachWallet - signAndBroadcastPSBT - start");
     try {
@@ -411,10 +416,14 @@ export class PeachWallet {
       info("PeachWallet - signAndBroadcastPSBT - signed");
       if (this.esploraClient) {
         console.log("Esplora broadcast")
+        console.log("in1...")
         this.esploraClient.broadcast(psbt.extractTx());
+        console.log("out1...")
       } else if (this.electrumClient) {
         console.log("Electrum broadcast")
+        console.log("in2...")
         this.electrumClient.transactionBroadcast(psbt.extractTx());
+        console.log("out2...")
       }
 
       info("PeachWallet - signAndBroadcastPSBT - broadcasted");

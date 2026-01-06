@@ -1,7 +1,6 @@
 import { NETWORK } from "@env";
 import { Address, Amount, FeeRate, LocalOutput, TxBuilder } from "bdk-rn";
 import { convertBitcoinNetworkToBDKNetwork } from "../../bitcoin/convertBitcoinNetworkToBDKNetwork";
-import { getScriptPubKeyFromAddress } from "./getScriptPubKeyFromAddress";
 
 export type BuildTxParams = {
   address?: string;
@@ -31,15 +30,18 @@ export const buildTransaction = async (args: BuildTxParams) => {
     console.log("4...");
   }
 
-  if (!args.address) return txBuilder;
+  if (!args.address) {
+    console.log("0000")
+    return txBuilder};
 
   console.log("5...");
 
-  const recipient = await getScriptPubKeyFromAddress(args.address);
-  console.log("6...", recipient);
-  const recipientSanitized = recipient.replace("bitcoin:", "");
+  console.log("args.address",args.address)
+  // const recipient = await getScriptPubKeyFromAddress(args.address);
+  // console.log("6...", recipient);
+  // const recipientSanitized = recipient.replace("bitcoin:", "");
   const recipientAddress = new Address(
-    recipientSanitized,
+    args.address,
     convertBitcoinNetworkToBDKNetwork(NETWORK),
   );
   console.log("7...");
@@ -59,7 +61,7 @@ export const buildTransaction = async (args: BuildTxParams) => {
 
   // console.log("10...");
 
-  // return txBuilder;
+  return txBuilder;
 };
 
 function buildTransactionBase(feeRate?: number) {

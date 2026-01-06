@@ -7,5 +7,6 @@ export const getScriptPubKeyFromAddress = async (address: string) => {
     address,
     convertBitcoinNetworkToBDKNetwork(NETWORK),
   );
-  return recipientAddress.toQrUri();
+
+  return recipientAddress.scriptPubkey();
 };
