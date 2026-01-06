@@ -6,6 +6,7 @@ import {
   ElectrumClient,
   EsploraClient,
   KeychainKind,
+  LoadWithPersistError,
   Network,
   Persister,
   Psbt,
@@ -13,7 +14,7 @@ import {
   TxDetails,
   UpdateInterface,
   Wallet,
-  WalletInterface,
+  WalletInterface
 } from "bdk-rn";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
@@ -106,17 +107,28 @@ export class PeachWallet {
 
           //TODO: MAKE THIS FLEXIBLE
           console.log("WARNING!!! ONLY LOADING");
-          this.wallet = Wallet.load(
+          
+          try {
+            this.wallet = Wallet.load(
+              externalDescriptor,
+              internalDescriptor,
+              dbConfig,
+            );
+          } catch (e) {
+            if ( LoadWithPersistError.instanceOf(e)){
+                this.wallet = new Wallet(
             externalDescriptor,
             internalDescriptor,
+            convertBitcoinNetworkToBDKNetwork(NETWORK),
             dbConfig,
           );
-          // this.wallet = new Wallet(
-          //   externalDescriptor,
-          //   internalDescriptor,
-          //   convertBitcoinNetworkToBDKNetwork(NETWORK),
-          //   dbConfig,
-          // );
+            }
+            else{
+              throw e;  
+            }
+
+          }
+
           info("PeachWallet - initWallet - createdWallet");
 
           this.initialized = true;
@@ -147,7 +159,7 @@ export class PeachWallet {
     //TODO:!!!! DELETE THIS AND FIX THE BUG
     console.log("DELETE THIS AFTER FIX");
     nodeConfig.type = BlockChainNames.Esplora;
-    nodeConfig.url = "http://localhost:5500";
+    nodeConfig.url = "http://localhost:30000";
 
     if (nodeConfig.type === undefined) {
       throw Error("No blockchain type");
@@ -161,6 +173,9 @@ export class PeachWallet {
         addProtocol(nodeConfig.url, nodeConfig.ssl ? "https" : "http"),
       );
 
+      const hhh = newEsploraClient.getHeight()
+      console.log("CUR HEIGHT: ", hhh)
+
       this.blockchain = newEsploraClient;
       this.esploraClient = newEsploraClient;
       this.nodeType = BlockChainNames.Esplora;
@@ -168,6 +183,7 @@ export class PeachWallet {
       const newElectrumClient = new ElectrumClient(
         addProtocol(nodeConfig.url, nodeConfig.ssl ? "ssl" : "tcp"),
       );
+      newElectrumClient.ping()
       this.blockchain = newElectrumClient;
       this.electrumClient = newElectrumClient;
       this.nodeType = BlockChainNames.Electrum;
@@ -187,9 +203,12 @@ export class PeachWallet {
         try {
           let walletUpdate: UpdateInterface;
 
+          console.log("....")
+
           if (this.hasEverBeenFullySynced) {
             const syncBuilder = this.wallet.startSyncWithRevealedSpks();
             const syncRequest = syncBuilder.build();
+            console.log("1111....")
             walletUpdate = this.blockchain.sync(
               syncRequest,
               BigInt(100),
@@ -198,48 +217,66 @@ export class PeachWallet {
           } else {
             const fullScanBuilder = this.wallet.startFullScan();
             const fullScanRequest = fullScanBuilder.build();
-
+            console.log("2222....")
+            
             walletUpdate = this.blockchain.fullScan(
               fullScanRequest,
               BigInt(100),
               BigInt(10),
               true,
             );
+            
+            console.log("3333....")
           }
-
+          console.log("here....")
           this.wallet.applyUpdate(walletUpdate);
-
+          console.log("othger side!!!....")
           this.hasEverBeenFullySynced = true;
 
           const balance = this.wallet.balance();
-          this.balance = Number(balance.total.toSat());
-          useWalletState.getState().setBalance(this.balance);
+          console.log("MAZZZ 1....")
+          const balanceNumber = Number(balance.total.toSat());
+          this.balance = balanceNumber
+          console.log("MAZZZ 2....",balanceNumber)
+          useWalletState.getState().setBalance(balanceNumber);
+
+          console.log("MAZZZ 3....")
 
           const walletTransactions = this.wallet.transactions().map((x) => {
-            const details = this.wallet?.txDetails(x.transaction);
+            const details = this.wallet?.txDetails(x.transaction.computeTxid());
+            console.log("coool")
             if (details === undefined) {
               throw new Error("txDetails returned undefined");
             }
             return details;
           });
 
+          console.log("MAZZZ 4....")
+
           this.transactions = walletTransactions;
-          useWalletState.getState().setTransactions(this.transactions);
+          console.log("MAZZZ 5....")
+
+          // useWalletState.getState().setTransactions(this.transactions);
+          console.log("MAZZZ 6....")
           const offers = await queryClient.fetchQuery({
             queryKey: offerKeys.summaries(),
             queryFn: getOfferSummariesQuery,
           });
+          console.log("MAZZZ 7....")
           const contracts = await queryClient.fetchQuery({
             queryKey: contractKeys.summaries(),
             queryFn: getContractSummariesQuery,
           });
+          console.log("MAZZZ 8....")
           this.transactions
             .filter((tx) => !transactionHasBeenMappedToOffers(tx))
             .forEach(mapTransactionToOffer({ offers, contracts }));
+          console.log("MAZZZ 9....")
           this.transactions
             .filter(transactionHasBeenMappedToOffers)
             .forEach(labelAddressByTransaction);
-
+          
+          console.log("MAZZZ 10....")
           this.lastUnusedAddress = undefined;
           info("PeachWallet - syncWallet - synced");
 
@@ -262,9 +299,10 @@ export class PeachWallet {
 
     let addressInfo: AddressInfo;
     if (index === 0) {
-      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal);
+      addressInfo = this.wallet.revealNextAddress(KeychainKind.External);
     } else {
-      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index);
+      const addressesRevealed = this.wallet.revealAddressesTo(KeychainKind.External, index);
+      addressInfo = addressesRevealed[addressesRevealed.length - 1]
     }
 
     return {
@@ -276,7 +314,7 @@ export class PeachWallet {
   async getAddressByIndex(index: number) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress();
-    const address = this.wallet?.peekAddress(KeychainKind.Internal, index);
+    const address = this.wallet?.peekAddress(KeychainKind.External, index);
     return {
       index,
       used: index < lastUnusedIndex,
@@ -289,12 +327,12 @@ export class PeachWallet {
 
     if (!this.lastUnusedAddress) {
       const unusedAddresses = this.wallet?.listUnusedAddresses(
-        KeychainKind.Internal,
+        KeychainKind.External,
       );
 
       const lastUnusedAddress =
         unusedAddresses.length === 0
-          ? this.wallet.revealNextAddress(KeychainKind.Internal)
+          ? this.wallet.revealNextAddress(KeychainKind.External)
           : unusedAddresses[unusedAddresses.length - 1];
 
       this.lastUnusedAddress = {
@@ -310,9 +348,9 @@ export class PeachWallet {
 
     let addressInfo: AddressInfo;
     if (index === 0) {
-      addressInfo = this.wallet.nextUnusedAddress(KeychainKind.Internal);
+      addressInfo = this.wallet.revealNextAddress(KeychainKind.External);
     } else {
-      addressInfo = this.wallet.peekAddress(KeychainKind.Internal, index);
+      addressInfo = this.wallet.peekAddress(KeychainKind.External, index);
     }
 
     return {
@@ -337,8 +375,11 @@ export class PeachWallet {
     info("PeachWallet - buildFinishedTransaction - start");
 
     const transaction = await buildTransaction(buildParams);
+    
+    console.log("11...")
+    const result =  await this.finishTransaction(transaction);
 
-    return this.finishTransaction(transaction);
+    return result
   }
 
   async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder>(
@@ -349,8 +390,12 @@ export class PeachWallet {
     if (!this.wallet || !this.blockchain) throw Error("WALLET_NOT_READY");
     info("PeachWallet - finishTransaction - start");
     try {
-      return transaction.finish(this.wallet);
+      
+      const result =  transaction.finish(this.wallet);
+      console.log("12...")
+      return result
     } catch (e) {
+      console.log("xxxxxx...")
       throw handleTransactionError(parseError(e));
     }
   }
@@ -359,13 +404,16 @@ export class PeachWallet {
     if (!this.wallet || !this.blockchain) throw Error("WALLET_NOT_READY");
     info("PeachWallet - signAndBroadcastPSBT - start");
     try {
-      const wasFinalized = this.wallet.sign(psbt);
+      console.log("psbt",psbt)
+      const wasFinalized = this.wallet.sign(psbt,undefined); 
       if (!wasFinalized) throw Error("Signed Transaction was not finalized");
 
       info("PeachWallet - signAndBroadcastPSBT - signed");
       if (this.esploraClient) {
+        console.log("Esplora broadcast")
         this.esploraClient.broadcast(psbt.extractTx());
       } else if (this.electrumClient) {
+        console.log("Electrum broadcast")
         this.electrumClient.transactionBroadcast(psbt.extractTx());
       }
 
@@ -379,6 +427,7 @@ export class PeachWallet {
 
       return psbt;
     } catch (e) {
+      console.log("ERRRRRORRRR", e)
       throw handleTransactionError(parseError(e));
     }
   }
@@ -404,6 +453,6 @@ function getDBConfig(
     return Persister.newInMemory();
   }
   const dbName = `peach-${network}${nodeType}`;
-  const directory = `${DocumentDirectoryPath}/${dbName}_new.sqlite3`;
+  const directory = `${DocumentDirectoryPath}/${dbName}_v2_x_x.sqlite3`;
   return Persister.newSqlite(directory);
 }

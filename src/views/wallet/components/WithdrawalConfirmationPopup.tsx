@@ -1,4 +1,4 @@
-import { PartiallySignedTransaction } from "bdk-rn";
+import { PsbtInterface } from "bdk-rn";
 import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
@@ -12,7 +12,7 @@ import { ConfirmTxPopup } from "../../fundEscrow/hooks/ConfirmTxPopup";
 type Props = {
   amount: number;
   address: string;
-  psbt: PartiallySignedTransaction;
+  psbt: PsbtInterface;
   fee: number;
   feeRate: number;
 };

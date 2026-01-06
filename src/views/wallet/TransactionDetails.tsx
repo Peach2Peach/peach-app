@@ -1,3 +1,4 @@
+import { Txid } from "bdk-rn";
 import { useMemo } from "react";
 import { RefreshControl } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -9,6 +10,7 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { getTransactionType } from "../../utils/transaction/getTransactionType";
 import { isDefined } from "../../utils/validation/isDefined";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TransactionHeader } from "./components/transactionDetails/TransactionHeader";
@@ -21,7 +23,13 @@ import { useSyncWallet } from "./hooks/useSyncWallet";
 
 export const TransactionDetails = () => {
   const { txId } = useRoute<"transactionDetails">().params;
-  const localTx = useWalletState((state) => state.getTransaction(txId));
+
+  if (!peachWallet || !peachWallet.wallet) throw Error("Peach Wallet not defined");
+
+  const localTx = peachWallet.wallet.txDetails(Txid.fromString(txId)) ;
+  if (!localTx) throw Error("Wrong TX id");
+    
+    // const localTx = useWalletState((state) => state.getTransaction(txId));
   const { data: transactionDetails } = useMappedTransactionDetails({ localTx });
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
   const { offers } = useMultipleOfferDetails(offerIds || []);

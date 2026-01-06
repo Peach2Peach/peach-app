@@ -1,3 +1,4 @@
+import { Txid } from "bdk-rn";
 import { Transaction } from "bitcoinjs-lib";
 import { useMemo, useState } from "react";
 import { Divider } from "../../components/Divider";
@@ -14,7 +15,7 @@ import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { getErrorsInField } from "../../utils/validation/getErrorsInField";
 import { getMessages } from "../../utils/validation/getMessages";
-import { useWalletState } from "../../utils/wallet/walletStore";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { CurrentFee } from "./components/bumpNetworkFees/CurrentFee";
 import { FeeEstimates } from "./components/bumpNetworkFees/FeeEstimates";
@@ -22,7 +23,6 @@ import { NewFee } from "./components/bumpNetworkFees/NewFee";
 import { useBumpFees } from "./hooks/useBumpFees";
 import { useMappedTransactionDetails } from "./hooks/useMappedTransactionDetails";
 import { useTxFeeRate } from "./hooks/useTxFeeRate";
-
 const newFeeRateRules = {
   required: true,
   feeRate: true,
@@ -32,10 +32,15 @@ const MIN_EXTRA_FEE_RATE = 1.01;
 export const BumpNetworkFees = () => {
   const { txId } = useRoute<"bumpNetworkFees">().params;
 
-  const localTx = useWalletState((state) => state.getTransaction(txId));
-  const { data: transaction } = useMappedTransactionDetails({ localTx });
+  if (!peachWallet || !peachWallet.wallet) throw Error("Peach Wallet not defined")
+
+  const localTx = peachWallet.wallet.txDetails(Txid.fromString(txId))
+  if (!localTx) throw Error("Wrong TX id")
+  
+  // const localTx = useWalletState((state) => state.getTransaction(txId));
+  const { data: transaction } = useMappedTransactionDetails({ localTx});
   const { estimatedFees } = useFeeEstimate();
-  const { data: currentFeeRate } = useTxFeeRate({ transaction: localTx });
+  const { data: currentFeeRate } = useTxFeeRate({ transaction: localTx }); 
   const [feeRate, setNewFeeRate] = useState<string>();
   const newFeeRate =
     feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(2);
@@ -50,7 +55,7 @@ export const BumpNetworkFees = () => {
 
   const newFeeRateIsValid = newFeeRate && newFeeRateErrors.length === 0;
   const overpayingBy = Number(newFeeRate) / estimatedFees.fastestFee - 1;
-  const sendingAmount = localTx ? localTx.sent - localTx.received : 0;
+  const sendingAmount = localTx ? Number(localTx.balanceDelta) : 0;
 
   if (!transaction) return <BitcoinLoading />;
 

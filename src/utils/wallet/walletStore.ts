@@ -54,15 +54,30 @@ export const useWalletState = create<WalletStore>()(
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
       setBalance: (balance) => set({ balance }),
-      setTransactions: (transactions) => set({ transactions }),
+      setTransactions: (transactions) => {
+        const fixedTxs = transactions.map((tx) => {
+          return {
+            ...tx,
+            balanceDelta: Number(tx.balanceDelta),
+            received: Number(tx.received.toSat()),
+            sent: Number(tx.sent.toSat()),
+            fee: tx.fee ? Number(tx.fee.toSat()) : undefined,
+          };
+        });
+        set({ transactions: fixedTxs });
+      },
       addTransaction: (transaction) =>
         set({ transactions: [...get().transactions, transaction] }),
       removeTransaction: (txId) =>
         set({
-          transactions: get().transactions.filter((tx) => bytesToHex(tx.txid.serialize()) !== txId),
+          transactions: get().transactions.filter(
+            (tx) => bytesToHex(tx.txid.serialize()) !== txId,
+          ),
         }),
       getTransaction: (txId) =>
-        get().transactions.find((tx) => bytesToHex(tx.txid.serialize()) === txId),
+        get().transactions.find(
+          (tx) => bytesToHex(tx.txid.serialize()) === txId,
+        ),
       isFundedFromPeachWallet: (address) =>
         get().fundedFromPeachWallet.includes(address),
       setFundedFromPeachWallet: (address) =>

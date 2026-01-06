@@ -3,7 +3,7 @@ import { TextInput, View } from "react-native";
 import { PeachText } from "../../../../components/text/PeachText";
 import { useThemeStore } from "../../../../store/theme";
 import tw from "../../../../styles/tailwind";
-import { enforceDecimalsFormat } from "../../../../utils/format/enforceDecimalsFormat";
+import { enforcePositiveIntegerFormat } from "../../../../utils/format/enforcePositiveIntegerFormat";
 import i18n from "../../../../utils/i18n";
 
 type Props = {
@@ -35,13 +35,13 @@ export const CustomFeeItem = ({
         <TextInput
           value={customFeeRate}
           onChangeText={(text) =>
-            setCustomFeeRate(enforceDecimalsFormat(text, 2))
+            setCustomFeeRate(enforcePositiveIntegerFormat(text))
           }
           style={tw.style(
             "h-8 py-0 text-center grow input-text",
             isDarkMode ? "text-backgroundLight-light" : "text-black-65",
           )}
-          keyboardType={"decimal-pad"}
+          keyboardType={"number-pad"}
           editable={!disabled}
           testID="input-custom-fees"
         />

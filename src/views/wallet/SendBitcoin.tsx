@@ -56,18 +56,19 @@ export const SendBitcoin = () => {
   const sendTrasaction = async () => {
     if (!feeRate || !peachWallet) return;
     try {
-      const { psbt } = await peachWallet.buildFinishedTransaction({
+      const result = await peachWallet.buildFinishedTransaction({
         address,
         amount,
         feeRate,
         shouldDrainWallet,
         utxos: selectedUTXOs,
       });
-      const fee = await psbt.feeAmount();
+
+      const fee = Number(result.fee());
 
       setPopup(
         <WithdrawalConfirmationPopup
-          {...{ address, amount, psbt, fee, feeRate }}
+          {...{ address, amount, psbt: result, fee, feeRate }}
         />,
       );
     } catch (e) {

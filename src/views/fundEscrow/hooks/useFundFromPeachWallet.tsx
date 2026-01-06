@@ -42,9 +42,9 @@ const getPropsFromFinishedTransaction = async (psbt: Psbt) => {
       address: peachWallet?.wallet?.isMine(output.scriptPubkey)
         ? undefined
         : Address.fromScript(
-          output.scriptPubkey,
-          convertBitcoinNetworkToBDKNetwork(NETWORK),
-        ).toQrUri(),
+            output.scriptPubkey,
+            convertBitcoinNetworkToBDKNetwork(NETWORK),
+          ).toQrUri(),
       amount: Number(output.value.toSat()),
     }))
 
@@ -52,7 +52,7 @@ const getPropsFromFinishedTransaction = async (psbt: Psbt) => {
       isDefined(output.address),
     );
 
-  const fee = Number(psbt.fee()); // TODO: make sure this is Sats (probably is)
+  const fee = Number(psbt.fee());
 
   const amountToConfirm =
     outputDetails.reduce((sum, { amount }) => sum + amount, 0) + fee;
