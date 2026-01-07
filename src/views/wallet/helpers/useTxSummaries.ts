@@ -7,7 +7,6 @@ import { useWalletState } from "../../../utils/wallet/walletStore";
 import { walletKeys } from "../hooks/useUTXOs";
 import { getOfferData } from "./getOfferData";
 import { getTxSummary } from "./getTxSummary";
-import { bytesToHex } from "./txIdToString";
 
 export function useTxSummaries() {
   const txs = useWalletState((state) => state.transactions);
@@ -15,9 +14,9 @@ export function useTxSummaries() {
   const { contracts } = useContractSummaries();
   return useQueries({
     queries: txs.map((tx) => ({
-      queryKey: walletKeys.transactionSummary(bytesToHex(tx.txid.serialize())),
+      queryKey: walletKeys.transactionSummary(tx.txid),
       queryFn: async () => {
-        const offerIds = txOfferMap[bytesToHex(tx.txid.serialize())] || [];
+        const offerIds = txOfferMap[tx.txid] || [];
         const offers = await Promise.all(offerIds.map(getOffer));
         const partialSummary = getTxSummary(tx);
         const type = getTransactionType(tx, offers.filter(isNotNull)[0]);

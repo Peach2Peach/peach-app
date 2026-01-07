@@ -1,14 +1,15 @@
-import { TxDetails } from "bdk-rn";
+import { ChainPosition_Tags, TxDetails } from "bdk-rn";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createPersistStorage } from "../../store/createPersistStorage";
 import { bytesToHex } from "../../views/wallet/helpers/txIdToString";
 import { createStorage } from "../storage/createStorage";
 import { migrateWalletStore } from "./migration/migrateWalletStore";
+import { WalletTransaction } from "./WalletTransaction";
 
 export type WalletState = {
   balance: number;
-  transactions: TxDetails[];
+  transactions: WalletTransaction[];
   fundedFromPeachWallet: string[];
   txOfferMap: { [offerId: string]: string[] | undefined };
   addressLabelMap: { [address: string]: string | undefined };
@@ -27,7 +28,7 @@ export type WalletStore = WalletState & {
   setTransactions: (txs: TxDetails[]) => void;
   addTransaction: (transaction: TxDetails) => void;
   removeTransaction: (txId: string) => void;
-  getTransaction: (txId: string) => TxDetails | undefined;
+  getTransaction: (txId: string) => WalletTransaction | undefined;
   isFundedFromPeachWallet: (address: string) => boolean;
   setFundedFromPeachWallet: (address: string) => void;
   labelAddress: (address: string, label: string) => void;
@@ -48,6 +49,39 @@ export const defaultWalletState: WalletState = {
 export const walletStorage = createStorage("wallet");
 const storage = createPersistStorage(walletStorage);
 
+export const txDetailsToWalletTransaction = (
+  item: TxDetails,
+): WalletTransaction => {
+  console.log("FOOOOUND", item);
+  const result = {
+    txid: bytesToHex(item.txid.serialize()),
+    received: Number(item.received.toSat()),
+    sent: Number(item.sent.toSat()),
+    fee: item.fee ? Number(item.fee?.toSat()) : undefined,
+    confirmationTime:
+      item.chainPosition.tag === ChainPosition_Tags.Confirmed
+        ? {
+            timestamp:
+              "confirmationBlockTime" in item.chainPosition.inner
+                ? Number(
+                    item.chainPosition.inner.confirmationBlockTime
+                      .confirmationTime,
+                  )
+                : undefined,
+
+            height:
+              "confirmationBlockTime" in item.chainPosition.inner
+                ? Number(
+                    item.chainPosition.inner.confirmationBlockTime.blockId
+                      .height,
+                  )
+                : undefined,
+          }
+        : undefined,
+  };
+  return result;
+};
+
 export const useWalletState = create<WalletStore>()(
   persist(
     (set, get) => ({
@@ -55,20 +89,25 @@ export const useWalletState = create<WalletStore>()(
       reset: () => set(() => defaultWalletState),
       setBalance: (balance) => set({ balance }),
       setTransactions: (transactions) => {
-        set({ transactions });
+        set({
+          transactions: transactions.map((item) => {
+            return txDetailsToWalletTransaction(item);
+          }),
+        });
       },
       addTransaction: (transaction) =>
-        set({ transactions: [...get().transactions, transaction] }),
+        set({
+          transactions: [
+            ...get().transactions,
+            txDetailsToWalletTransaction(transaction),
+          ],
+        }),
       removeTransaction: (txId) =>
         set({
-          transactions: get().transactions.filter(
-            (tx) => bytesToHex(tx.txid.serialize()) !== txId,
-          ),
+          transactions: get().transactions.filter((tx) => tx.txid !== txId),
         }),
       getTransaction: (txId) =>
-        get().transactions.find(
-          (tx) => bytesToHex(tx.txid.serialize()) === txId,
-        ),
+        get().transactions.find((tx) => tx.txid === txId),
       isFundedFromPeachWallet: (address) =>
         get().fundedFromPeachWallet.includes(address),
       setFundedFromPeachWallet: (address) =>

@@ -72,8 +72,8 @@ const useAddressPrefetch = () => {
   const { data } = useLastUnusedAddress();
   const displayIndex = data?.index ?? 0;
   useWalletAddress(displayIndex);
-  useWalletAddress(displayIndex + 1);
-  useWalletAddress(displayIndex - 1);
+  // useWalletAddress(displayIndex + 1);
+  // useWalletAddress(displayIndex - 1);
 };
 function WalletButtons() {
   const navigation = useStackNavigation();

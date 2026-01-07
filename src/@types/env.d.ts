@@ -2,7 +2,7 @@
 enum BlockChainNames {
   Electrum = "Electrum",
   Esplora = "Esplora",
-  Rpc = "Rpc",
+  // Rpc = "Rpc",
 }
 module "@env" {
   export const DEV: string;

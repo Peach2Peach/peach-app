@@ -32,18 +32,23 @@ const MIN_EXTRA_FEE_RATE = 1.01;
 export const BumpNetworkFees = () => {
   const { txId } = useRoute<"bumpNetworkFees">().params;
 
-  if (!peachWallet || !peachWallet.wallet) throw Error("Peach Wallet not defined")
+  if (!peachWallet || !peachWallet.wallet)
+    throw Error("Peach Wallet not defined");
 
-  const localTx = peachWallet.wallet.txDetails(Txid.fromString(txId))
-  if (!localTx) throw Error("Wrong TX id")
-  
+  const localTx = peachWallet.wallet.txDetails(Txid.fromString(txId));
+  if (!localTx) throw Error("Wrong TX id");
+
   // const localTx = useWalletState((state) => state.getTransaction(txId));
-  const { data: transaction } = useMappedTransactionDetails({ localTx});
+  const { data: transaction } = useMappedTransactionDetails({ localTx });
   const { estimatedFees } = useFeeEstimate();
-  const { data: currentFeeRate } = useTxFeeRate({ transaction: localTx }); 
+  console.log("LOCAL TX", localTx);
+  const { data: currentFeeRate } = useTxFeeRate({ transaction: localTx });
+
+  console.log("CUR FEEEEE RATE ", currentFeeRate);
+
   const [feeRate, setNewFeeRate] = useState<string>();
   const newFeeRate =
-    feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(2);
+    feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(0); //TODO BDK: allow decimal fee rate
 
   const newFeeRateErrors = useMemo(() => {
     const errs = getErrorsInField(newFeeRate, newFeeRateRules);

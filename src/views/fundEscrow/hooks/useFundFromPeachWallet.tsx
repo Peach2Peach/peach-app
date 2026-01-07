@@ -4,7 +4,7 @@ import {
   Amount,
   Psbt,
   PsbtInterface,
-  TransactionInterface
+  TransactionInterface,
 } from "bdk-rn";
 import { useCallback } from "react";
 import { View } from "react-native";
@@ -35,9 +35,9 @@ import { ConfirmTxPopup } from "./ConfirmTxPopup";
 import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
 
 const getPropsFromFinishedTransaction = async (psbt: Psbt) => {
-  console.log("in...")
+  console.log("in...");
   const tx = psbt.extractTx();
-  console.log("out...")
+  console.log("out...");
   const outputs = tx.output();
   const outputDetails = outputs
     .map((output) => ({
@@ -136,11 +136,9 @@ export const useFundFromPeachWallet = () => {
           const recipients = await Promise.all(
             addresses.map(getScriptPubKeyFromAddress),
           );
-          
 
           for (let i = 0; i < recipients.length; i++) {
-            
-            transaction= transaction.addRecipient(
+            transaction = transaction.addRecipient(
               recipients[i],
               Amount.fromSat(BigInt(splitAmount)),
             );
@@ -156,7 +154,7 @@ export const useFundFromPeachWallet = () => {
         console.log("a4..");
 
         finishedTransaction = await peachWallet.finishTransaction(transaction);
-        console.log("finishedTransaction",finishedTransaction)
+        console.log("finishedTransaction", finishedTransaction);
       } catch (e) {
         const transactionError = parseError(Array.isArray(e) ? e[0] : e);
         if (transactionError !== "INSUFFICIENT_FUNDS")
@@ -176,18 +174,27 @@ export const useFundFromPeachWallet = () => {
           finishedTransaction =
             await peachWallet.finishTransaction(transaction);
 
-          const potentialTx = finishedTransaction.extractTx()
-          const outputs = potentialTx.output().map( (x) => { 
-            if (peachWallet?.wallet?.isMine(x.scriptPubkey)) return undefined;
-            return {amount: Number(x.value.toSat()), 
-                        address: Address.fromScript(x.scriptPubkey,convertBitcoinNetworkToBDKNetwork(NETWORK)).toQrUri() 
-                      
-                      }} ).filter(item => !!item)
-          const fee = Number(finishedTransaction.fee())
-          
-          const amountToConfirm = potentialTx.output().reduce( (sum,item) => sum + Number(item.value.toSat()),0 )
+          const potentialTx = finishedTransaction.extractTx();
+          const outputs = potentialTx
+            .output()
+            .map((x) => {
+              if (peachWallet?.wallet?.isMine(x.scriptPubkey)) return undefined;
+              return {
+                amount: Number(x.value.toSat()),
+                address: Address.fromScript(
+                  x.scriptPubkey,
+                  convertBitcoinNetworkToBDKNetwork(NETWORK),
+                ).toQrUri(),
+              };
+            })
+            .filter((item) => !!item);
+          const fee = Number(finishedTransaction.fee());
+
+          const amountToConfirm = potentialTx
+            .output()
+            .reduce((sum, item) => sum + Number(item.value.toSat()), 0);
           // const { txDetails, psbt } = finishedTransaction;
-          console.log("zizi")
+          console.log("zizi");
           // const { amountToConfirm, fee, outputs } =
           //   await getPropsFromFinishedTransaction(psbt);
           return setPopup(
@@ -207,7 +214,12 @@ export const useFundFromPeachWallet = () => {
               }
               psbt={finishedTransaction}
               onSuccess={() =>
-                onSuccess({ txDetails:potentialTx, offerId, address, addresses })
+                onSuccess({
+                  txDetails: potentialTx,
+                  offerId,
+                  address,
+                  addresses,
+                })
               }
             />,
           );
@@ -216,20 +228,27 @@ export const useFundFromPeachWallet = () => {
         }
       }
 
+      console.log("SADFDJK");
 
-      
-      console.log("SADFDJK")
+      const potentialTx = finishedTransaction.extractTx();
+      const outputs = potentialTx
+        .output()
+        .map((x) => {
+          if (peachWallet?.wallet?.isMine(x.scriptPubkey)) return undefined;
+          return {
+            amount: Number(x.value.toSat()),
+            address: Address.fromScript(
+              x.scriptPubkey,
+              convertBitcoinNetworkToBDKNetwork(NETWORK),
+            ).toQrUri(),
+          };
+        })
+        .filter((item) => !!item);
+      const fee = Number(finishedTransaction.fee());
 
-      const potentialTx = finishedTransaction.extractTx()
-      const outputs = potentialTx.output().map( (x) => { 
-        if (peachWallet?.wallet?.isMine(x.scriptPubkey)) return undefined;
-        return {amount: Number(x.value.toSat()), 
-                    address: Address.fromScript(x.scriptPubkey,convertBitcoinNetworkToBDKNetwork(NETWORK)).toQrUri() 
-                  
-                  }} ).filter(item => !!item)
-      const fee = Number(finishedTransaction.fee())
-      
-      const amountToConfirm = potentialTx.output().reduce( (sum,item) => sum + Number(item.value.toSat()),0 )
+      const amountToConfirm = potentialTx
+        .output()
+        .reduce((sum, item) => sum + Number(item.value.toSat()), 0);
 
       return setPopup(
         <ConfirmTransactionPopup
@@ -243,7 +262,7 @@ export const useFundFromPeachWallet = () => {
           }
           psbt={finishedTransaction}
           onSuccess={() =>
-            onSuccess({ txDetails:potentialTx, offerId, address, addresses })
+            onSuccess({ txDetails: potentialTx, offerId, address, addresses })
           }
         />,
       );

@@ -1,7 +1,8 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { getBuyOfferIdFromContract } from "../contract/getBuyOfferIdFromContract";
 import { useWalletState } from "./walletStore";
+import { WalletTransaction } from "./WalletTransaction";
 
+//TODO: BDK validate this
 export const mapTransactionToOffer =
   ({
     offers,
@@ -10,7 +11,7 @@ export const mapTransactionToOffer =
     offers: { id: string; fundingTxId?: string; txId?: string }[];
     contracts: { id: string; releaseTxId?: string }[];
   }) =>
-  ({ txid }: TransactionDetails) => {
+  ({ txid }: WalletTransaction) => {
     const sellOffers = offers.filter(
       (offer) => offer.txId === txid || offer.fundingTxId === txid,
     );

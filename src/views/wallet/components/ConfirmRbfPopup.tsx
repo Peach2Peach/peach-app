@@ -1,4 +1,4 @@
-import { Psbt } from "bdk-rn";
+import { PsbtInterface } from "bdk-rn";
 import { Transaction } from "bitcoinjs-lib";
 import { useCallback } from "react";
 import { View } from "react-native";
@@ -22,7 +22,7 @@ type Props = {
   newFeeRate: number;
   transaction: Transaction;
   sendingAmount: number;
-  finishedTransaction: Psbt;
+  finishedTransaction: PsbtInterface;
   onSuccess: (txId: string) => void;
 };
 

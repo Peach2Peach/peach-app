@@ -17,7 +17,6 @@ import { TransactionHeader } from "./components/transactionDetails/TransactionHe
 import { TransactionDetailsInfo } from "./components/transcactionDetails/TransactionDetailsInfo";
 import { getOfferData } from "./helpers/getOfferData";
 import { getTxSummary } from "./helpers/getTxSummary";
-import { bytesToHex } from "./helpers/txIdToString";
 import { useMappedTransactionDetails } from "./hooks/useMappedTransactionDetails";
 import { useSyncWallet } from "./hooks/useSyncWallet";
 
@@ -25,6 +24,9 @@ export const TransactionDetails = () => {
   const { txId } = useRoute<"transactionDetails">().params;
 
   if (!peachWallet || !peachWallet.wallet) throw Error("Peach Wallet not defined");
+  const getTxFromStorage = useWalletState((state) => state.getTransaction);
+  const txFromLocalStorage = getTxFromStorage(txId)
+  if (!txFromLocalStorage) throw Error("TX not found on Local Storage");
 
   const localTx = peachWallet.wallet.txDetails(Txid.fromString(txId)) ;
   if (!localTx) throw Error("Wrong TX id");
@@ -37,11 +39,12 @@ export const TransactionDetails = () => {
 
   const transactionSummary = useMemo(() => {
     if (!localTx) return undefined;
-    const partialSummary = getTxSummary(localTx);
-    const type = getTransactionType(localTx, offers.filter(isDefined)[0]);
+    const partialSummary = getTxSummary(txFromLocalStorage);
+    const type = getTransactionType(txFromLocalStorage, offers.filter(isDefined)[0]);
+    console.log("partialSummary",partialSummary)
     return {
       ...partialSummary,
-      id: bytesToHex(partialSummary.id.serialize()),
+      id: partialSummary.id,
       type,
       offerData: getOfferData(offers.filter(isDefined), contracts, type),
     };

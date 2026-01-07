@@ -29,7 +29,7 @@ export const NewFee = ({
         <NumberInput
           style={tw`w-24 h-9`}
           value={newFeeRate}
-          decimals={2}
+          // decimals={2}
           placeholder=""
           onChangeText={setNewFeeRate}
           required={true}

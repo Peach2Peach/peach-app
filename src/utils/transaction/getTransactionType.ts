@@ -1,12 +1,12 @@
-import { TxDetails } from "bdk-rn";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
+import { WalletTransaction } from "../wallet/WalletTransaction";
 
 export const getTransactionType = (
-  txDetails: Pick<TxDetails, "received" | "sent">,
+  txDetails: Pick<WalletTransaction, "received" | "sent">,
   offer?: Pick<OfferSummary, "type">,
 ): TransactionType => {
-  const received = Number(txDetails.received.toSat())
-  const sent = Number(txDetails.sent.toSat())
+  const received = Number(txDetails.received);
+  const sent = Number(txDetails.sent);
 
   if (offer) {
     if (received > 0 && sent === 0)

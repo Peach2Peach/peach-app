@@ -31,12 +31,13 @@ export const buildTransaction = async (args: BuildTxParams) => {
   }
 
   if (!args.address) {
-    console.log("0000")
-    return txBuilder};
+    console.log("0000");
+    return txBuilder;
+  }
 
   console.log("5...");
 
-  console.log("args.address",args.address)
+  console.log("args.address", args.address);
   // const recipient = await getScriptPubKeyFromAddress(args.address);
   // console.log("6...", recipient);
   // const recipientSanitized = recipient.replace("bitcoin:", "");
@@ -48,9 +49,10 @@ export const buildTransaction = async (args: BuildTxParams) => {
   if (args.shouldDrainWallet) {
     console.log("8...");
     if (args?.utxos?.length) {
-      txBuilder.manuallySelectedOnly();
+      throw Error("HERE!!!");
+      txBuilder.manuallySelectedOnly(); //TODO BDK check if this is inplace or not
     } else {
-      txBuilder.drainWallet();
+      txBuilder.drainWallet(); //TODO BDK check if this is inplace or not
     }
     return txBuilder.drainTo(recipientAddress.scriptPubkey()); //TODO: CHECK WHY THIS IS NOT IN-PLACE
   } else if (args.address) {

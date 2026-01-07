@@ -1,24 +1,23 @@
-import { TxDetails } from "bdk-rn";
 import { MSINASECOND } from "../../../constants";
-import { txIsConfirmed } from "../../../utils/transaction/txIsConfirmed";
+import { WalletTransaction } from "../../../utils/wallet/WalletTransaction";
 
-export function getTxSummary(tx: TxDetails) {
-  const isConfirmed = txIsConfirmed(tx);
+export function getTxSummary(tx: WalletTransaction) {
+  const isConfirmed = Boolean(tx.confirmationTime);
 
-  let blockConfirmationTimestamp: undefined | number;
-  let blockConfirmationHeight: undefined | number;
+  const blockConfirmationTimestamp = tx.confirmationTime && tx.confirmationTime.timestamp
+  const blockConfirmationHeight= tx.confirmationTime && tx.confirmationTime.height
 
-  const inner = tx.chainPosition.inner;
-  if ("confirmationBlockTime" in inner) {
-    blockConfirmationTimestamp = Number(
-      inner.confirmationBlockTime.confirmationTime,
-    );
-    blockConfirmationHeight = inner.confirmationBlockTime.blockId.height;
-  }
+  // const inner = tx.chainPosition.inner;
+  // if ("confirmationBlockTime" in inner) {
+  //   blockConfirmationTimestamp = Number(
+  //     inner.confirmationBlockTime.confirmationTime,
+  //   );
+  //   blockConfirmationHeight = inner.confirmationBlockTime.blockId.height;
+  // }
 
   return {
     id: tx.txid,
-    amount: Math.abs(Number(tx.balanceDelta)),
+    amount: Math.abs(Number(tx.sent - tx.received)),
     date:
       isConfirmed && blockConfirmationTimestamp
         ? new Date((blockConfirmationTimestamp || Date.now()) * MSINASECOND)

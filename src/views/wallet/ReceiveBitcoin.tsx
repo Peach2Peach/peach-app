@@ -18,6 +18,7 @@ export const ReceiveBitcoin = () => {
   const { data: lastUnusedAddress } = useLastUnusedAddress();
   const [index, setIndex] = useState<number>();
   const displayIndex = index ?? lastUnusedAddress?.index ?? 0;
+  console.log("DISPLAY INDEX", displayIndex);
   const { isLoading } = useWalletAddress(displayIndex);
 
   if (isLoading) return <BitcoinLoading />;

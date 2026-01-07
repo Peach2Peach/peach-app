@@ -1,17 +1,17 @@
-import { BumpFeeTxBuilder } from "bdk-rn";
+import { BumpFeeTxBuilder, FeeRate, Txid } from "bdk-rn";
 
 export const buildBumpFeeTransaction = async (
   txId: string,
   newFeeRate: number,
   shrinkForAddress?: string,
 ) => {
-  const bumpFeeTxBuilder = await new BumpFeeTxBuilder().create(
-    txId,
-    newFeeRate,
+  const bumpFeeTxBuilder = new BumpFeeTxBuilder(
+    Txid.fromString(txId),
+    FeeRate.fromSatPerVb(BigInt(newFeeRate)),
   );
-  await bumpFeeTxBuilder.enableRbf();
 
-  if (shrinkForAddress) await bumpFeeTxBuilder.allowShrinking(shrinkForAddress);
+  // TODO BDK: bdk team said this was bug prone so they removed it
+  // if (shrinkForAddress)  bumpFeeTxBuilder.allowShrinking(shrinkForAddress);
 
   return bumpFeeTxBuilder;
 };
