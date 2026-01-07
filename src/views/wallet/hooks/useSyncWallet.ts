@@ -15,7 +15,10 @@ export const useSyncWallet = ({
     queryKey: walletKeys.synced(),
     queryFn: async () => {
       if (!peachWallet) throw new Error("Peach wallet not defined");
-      if (!peachWallet.initialized) await peachWallet.initWallet();
+      if (!peachWallet.initialized) {
+        await peachWallet.initWallet();
+      }
+      await new Promise((r) => setTimeout(r, 0));
       await peachWallet.syncWallet();
       return true;
     },

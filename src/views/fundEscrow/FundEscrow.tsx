@@ -39,7 +39,6 @@ import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
-import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
@@ -49,7 +48,7 @@ export const FundEscrow = () => {
   const { offerId } = useRoute<"fundEscrow">().params;
   const showErrorBanner = useShowErrorBanner();
 
-  useSyncWallet({ enabled: true });
+  // useSyncWallet({ enabled: true });
   const { offer, isLoading: offerIsLoading } = useOfferDetail(offerId);
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined;
   const canFetchFundingStatus =

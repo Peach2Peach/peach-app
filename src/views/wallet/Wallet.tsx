@@ -16,12 +16,21 @@ import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TotalBalance, WalletHeader } from "./components";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
 import { useSyncWallet } from "./hooks/useSyncWallet";
-import { useWalletBalance } from "./hooks/useWalletBalance";
 
 export const Wallet = () => {
-  const { balance } = useWalletBalance();
+  // const { isInitializing, initialized } = useInitWallet();
+  const { refetch, isRefetching, isLoading } = useSyncWallet({
+    enabled: true,
+  });
+
+  // useEffect(() => {
+  //   if (initialized) {
+  //     refetch();
+  //   }
+  // }, [initialized, refetch]);
+
   const [fundAddressMessage, setFundAddressMessage] = useState("");
-  const { refetch, isRefetching, isLoading } = useSyncWallet({ enabled: true });
+
   if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (
@@ -60,7 +69,7 @@ export const Wallet = () => {
           </>
         )}
         <WarningFrame text={i18n("wallet.seedPhraseWarning")} />
-        <TotalBalance amount={balance} isRefreshing={isRefetching} />
+        <TotalBalance isRefreshing={isRefetching} />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
@@ -69,6 +78,7 @@ export const Wallet = () => {
 };
 
 const useAddressPrefetch = () => {
+  console.log("mumumuza");
   const { data } = useLastUnusedAddress();
   const displayIndex = data?.index ?? 0;
   useWalletAddress(displayIndex);
@@ -77,6 +87,7 @@ const useAddressPrefetch = () => {
 };
 function WalletButtons() {
   const navigation = useStackNavigation();
+  console.log("HEREEEEEE");
   useAddressPrefetch();
   useUTXOs();
 

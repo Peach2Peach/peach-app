@@ -91,6 +91,7 @@ export class PeachWallet {
   }
 
   async initWallet(seedphrase = this.seedphrase): Promise<void> {
+    console.log("async initWallet()");
     await waitForHydration(useWalletState);
     this.transactions = useWalletState.getState().transactions;
     this.balance = useWalletState.getState().balance;
@@ -108,9 +109,6 @@ export class PeachWallet {
             });
           this.setBlockchain(useNodeConfigState.getState());
 
-          console.log("TODO: FIX THIS, REMOVE THIS");
-          // this.nodeType = BlockChainNames.Esplora;
-
           const {
             persister: dbConfig,
             latestDerivationIndex: latestDerivationIndexOfOldDB,
@@ -119,9 +117,6 @@ export class PeachWallet {
             this.nodeType,
           );
           info("PeachWallet - initWallet - createWallet");
-
-          //TODO: MAKE THIS FLEXIBLE
-          console.log("WARNING!!! ONLY LOADING");
 
           try {
             this.wallet = Wallet.load(
@@ -157,6 +152,7 @@ export class PeachWallet {
   }
 
   async loadWallet(seedphrase?: string) {
+    console.log("async loadWallet()");
     this.seedphrase = seedphrase;
     info("PeachWallet - loadWallet - start");
     await waitForHydration(useNodeConfigState);
@@ -167,6 +163,7 @@ export class PeachWallet {
   }
 
   async setBlockchain(nodeConfig: NodeConfig) {
+    console.log("async setBlockchain()");
     info("PeachWallet - setBlockchain - start");
 
     const blockchainConfig = buildBlockchainConfig(nodeConfig);
@@ -193,9 +190,10 @@ export class PeachWallet {
         ),
       );
 
-      newEsploraClient.getHeight();
+      // newEsploraClient.getHeight();
 
       this.blockchain = newEsploraClient;
+
       this.esploraClient = newEsploraClient;
       this.nodeType = BlockChainNames.Esplora;
     } else if (blockchainConfig.type === BlockChainNames.Electrum) {
@@ -207,7 +205,7 @@ export class PeachWallet {
           nodeConfig.ssl ? "ssl" : "tcp",
         ),
       );
-      newElectrumClient.ping();
+      // newElectrumClient.ping();
       this.blockchain = newElectrumClient;
       this.electrumClient = newElectrumClient;
       this.nodeType = BlockChainNames.Electrum;
@@ -215,6 +213,7 @@ export class PeachWallet {
   }
 
   async syncWallet() {
+    console.log("async syncWallet()");
     if (this.syncInProgress) return this.syncInProgress;
 
     this.syncInProgress = new Promise((resolve, reject) =>
@@ -320,6 +319,7 @@ export class PeachWallet {
   }
 
   async getAddress(index: number = 0) {
+    console.log("async getAddress()");
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
     info("Getting address at index ", index);
@@ -347,6 +347,7 @@ export class PeachWallet {
   }
 
   async getAddressByIndex(index: number) {
+    console.log("async getAddressByIndex()");
     if (!this.wallet) throw Error("WALLET_NOT_READY");
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress();
     // const { index: lastUnusedIndex } = await this.getLastUnusedAddress();
@@ -388,6 +389,7 @@ export class PeachWallet {
   }
 
   async getLastUnusedAddress() {
+    console.log("async getLastUnusedAddress()");
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
     if (!this.lastUnusedAddress) {
@@ -426,6 +428,7 @@ export class PeachWallet {
   }
 
   async getInternalAddress(index: number = 0) {
+    console.log("async getInternalAddress()");
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
     let addressInfo: AddressInfo;
@@ -445,6 +448,7 @@ export class PeachWallet {
   }
 
   async getAddressUTXO(address: string) {
+    console.log("async getAddressUTXO()");
     if (!this.wallet) throw Error("WALLET_NOT_READY");
 
     const utxo = this.wallet.listUnspent();
@@ -456,6 +460,7 @@ export class PeachWallet {
   }
 
   async buildFinishedTransaction(buildParams: BuildTxParams) {
+    console.log("async buildFinishedTransaction()");
     if (!this.wallet || !this.blockchain) throw Error("WALLET_NOT_READY");
     info("PeachWallet - buildFinishedTransaction - start");
 

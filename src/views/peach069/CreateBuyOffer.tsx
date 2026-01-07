@@ -35,6 +35,7 @@ import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
 import { CreateMultipleBuyOffers } from "../offerPreferences/components/createMultipleBuyOffers";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
@@ -59,7 +60,6 @@ import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
 } from "../settings/profile/profileOverview/Rating";
-import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 
 export function CreateBuyOffer() {
   const [isSliding, setIsSliding] = useState(false);
@@ -555,9 +555,11 @@ function PublishOfferButton() {
   const payoutToPeachWallet = useSettingsStore(
     (state) => state.payoutToPeachWallet,
   );
-  const { isLoading: isSyncingWallet } = useSyncWallet({
-    enabled: payoutToPeachWallet,
-  });
+
+  // TODO BDK: re-enable this when it's not a blocker
+  // const { isLoading: isSyncingWallet } = useSyncWallet({
+  //   enabled: payoutToPeachWallet,
+  // });
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
 
@@ -627,7 +629,7 @@ function PublishOfferButton() {
   };
 
   const shouldLookDisabled =
-    !formValid || isSyncingWallet || originalPaymentData.length === 0;
+    !formValid || !peachWallet?.initialized || originalPaymentData.length === 0;
 
   const pressPublish = () => {
     if (shouldLookDisabled) {
@@ -642,7 +644,7 @@ function PublishOfferButton() {
     <CreateBuyOfferButton
       onPress={() => pressPublish()}
       disabled={shouldLookDisabled}
-      loading={isPublishing || isSyncingWallet}
+      loading={isPublishing || !peachWallet?.initialized}
     />
   );
 }

@@ -34,7 +34,7 @@ export const BumpNetworkFees = () => {
 
   if (!peachWallet || !peachWallet.wallet)
     throw Error("Peach Wallet not defined");
-
+  console.log("iiiiiiiii2");
   const localTx = peachWallet.wallet.txDetails(Txid.fromString(txId));
   if (!localTx) throw Error("Wrong TX id");
 

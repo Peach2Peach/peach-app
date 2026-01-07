@@ -39,6 +39,7 @@ export function Home() {
   const isMediumScreen = useIsMediumScreen();
   const { isDarkMode } = useThemeStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  // useInitWallet();
 
   const setPopup = useSetPopup();
   useFocusEffect(() => {

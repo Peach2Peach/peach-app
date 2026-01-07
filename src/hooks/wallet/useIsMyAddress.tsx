@@ -9,6 +9,7 @@ const buildQuery = (address: string) => ({
   queryFn: async () => {
     if (!peachWallet?.wallet) throw new Error("Wallet not initialized");
     const script = await getScriptPubKeyFromAddress(address);
+    console.log("iiiiiiiii1");
     return peachWallet.wallet.isMine(script);
   },
   enabled: !!address && !!peachWallet?.wallet && rules.bitcoinAddress(address),

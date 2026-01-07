@@ -9,12 +9,13 @@ import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { useWalletState } from "../../../utils/wallet/walletStore";
+import { useWalletBalance } from "../hooks/useWalletBalance";
 
 type Props = {
-  amount: number;
   isRefreshing?: boolean;
 };
-export const TotalBalance = ({ amount, isRefreshing }: Props) => {
+export const TotalBalance = ({ isRefreshing }: Props) => {
+  const { balance: amount } = useWalletBalance();
   const [showBalance, toggleShowBalance] = useWalletState(
     (state) => [state.showBalance, state.toggleShowBalance],
     shallow,
