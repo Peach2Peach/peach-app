@@ -18,7 +18,6 @@ const possibleSources = [
   "friend",
   "telegram",
   "linkedin",
-  "other",
 ] as const;
 
 export function UserSource() {
