@@ -55,6 +55,27 @@ export const useGetPNActionHandler = () => {
             onPress: () => navigation.navigate("explore", { offerId }),
           };
         }
+        // peach 69
+        if (type === "offer.expressSellTradeRequestReceived") {
+          return {
+            label: i18n("goToOffer"),
+            iconId: "arrowLeftCircle",
+            onPress: () =>
+              navigation.navigate("browseTradeRequestsToMyBuyOffer", {
+                offerId,
+              }),
+          };
+        }
+        if (type === "offer.expressBuyTradeRequestReceived") {
+          return {
+            label: i18n("goToOffer"),
+            iconId: "arrowLeftCircle",
+            onPress: () =>
+              navigation.navigate("browseTradeRequestsToMySellOffer", {
+                offerId,
+              }),
+          };
+        }
       }
       return undefined;
     },
