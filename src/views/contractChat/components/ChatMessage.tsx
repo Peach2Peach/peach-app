@@ -1,4 +1,11 @@
-import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
+import Clipboard from "@react-native-clipboard/clipboard";
+import {
+  Alert,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
@@ -150,7 +157,15 @@ export const ChatMessage = ({
             {meta.name}
           </PeachText>
         )}
-        <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
+        <TouchableOpacity
+          style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}
+          onPress={() => {
+            if (message.message) {
+              Clipboard.setString(message.message);
+              Alert.alert(i18n("messageCopied"));
+            }
+          }}
+        >
           <PeachText style={tw`shrink-0 text-black-100`} selectable>
             {message.message || i18n("chat.decyptionFailed")}
           </PeachText>
@@ -168,7 +183,7 @@ export const ChatMessage = ({
               </View>
             )}
           </PeachText>
-        </View>
+        </TouchableOpacity>
         {message.failedToSend && (
           <TouchableOpacity
             onPress={() => resendMessage(message)}

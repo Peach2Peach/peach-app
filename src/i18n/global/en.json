@@ -193,5 +193,6 @@
   "country.JO" : "Jordan",
   "currency.JOD" : "Jordanian Dinar",
   "country.MK": "North Macedonia",
-  "country.BA": "Bosnia and Herzegovina"
+  "country.BA": "Bosnia and Herzegovina",
+  "messageCopied": "Message copied"
 }

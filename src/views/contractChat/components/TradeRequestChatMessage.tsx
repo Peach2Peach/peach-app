@@ -1,5 +1,12 @@
+import Clipboard from "@react-native-clipboard/clipboard";
 import { useEffect, useState } from "react";
-import { TextStyle, View, ViewStyle } from "react-native";
+import {
+  Alert,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import { Offer69TradeRequestChatMessage } from "../../../../peach-api/src/@types/offer";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
@@ -147,7 +154,15 @@ export const TradeRequestChatMessage = ({
           chatMessage.sender === whoAmI && tw`self-end`,
         ]}
       >
-        <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
+        <TouchableOpacity
+          style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}
+          onPress={() => {
+            if (decryptedMessage) {
+              Clipboard.setString(decryptedMessage);
+              Alert.alert(i18n("messageCopied"));
+            }
+          }}
+        >
           <PeachText style={tw`shrink-0 text-black-100`} selectable>
             {decryptedMessage ||
               (failedDecrypting ? i18n("chat.decyptionFailed") : "")}
@@ -166,7 +181,7 @@ export const TradeRequestChatMessage = ({
               </View>
             )}
           </PeachText>
-        </View>
+        </TouchableOpacity>
         {/* {message.failedToSend && (
           <TouchableOpacity
             onPress={() => resendMessage(message)}
