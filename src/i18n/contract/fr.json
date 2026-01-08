@@ -89,6 +89,7 @@
     "contract.seller.disputeLost.escrowReleased": "Vous avez libéré l'entiercement à l'acheteur.",
     "contract.seller.disputeLost.releaseEscrow": "Vous devez libérer l'entiercement à l'acheteur.",
     "contract.seller.disputeWon.refund": "Vous pouvez maintenant être remboursé.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Vous ne pouvez pas être remboursé car l’escrow a déjà été libéré.",
     "contract.seller.disputeWon.refundOrRepublish": "Vous pouvez republier l'offre ou être remboursé.",
 
   

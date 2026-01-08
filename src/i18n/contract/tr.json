@@ -85,6 +85,8 @@
     "contract.seller.disputeLost.escrowReleased": "Emaneti alıcıya serbest bıraktınız.",
     "contract.seller.disputeLost.releaseEscrow": "Emaneti alıcıya serbest bırakmanız gerekiyor.",
     "contract.seller.disputeWon.refund": "Artık geri ödeme alabilirsiniz.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Escrow zaten serbest bırakıldığı için geri ödeme yapılamaz.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Artık teklifi yeniden yayınlayabilir veya geri ödeme alabilirsiniz.",
  
 

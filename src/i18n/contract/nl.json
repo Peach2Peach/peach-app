@@ -89,6 +89,8 @@
     "contract.seller.disputeLost.escrowReleased": "Je hebt de escrow vrijgegeven aan de koper.",
     "contract.seller.disputeLost.releaseEscrow": "Je moet de escrow vrijgeven aan de koper.",
     "contract.seller.disputeWon.refund": "Je kunt nu een terugbetaling ontvangen.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Je kunt geen terugbetaling krijgen omdat de escrow al is vrijgegeven.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Je kunt het aanbod opnieuw publiceren of een terugbetaling ontvangen.",
  
 

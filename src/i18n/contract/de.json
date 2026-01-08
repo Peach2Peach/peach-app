@@ -84,6 +84,8 @@
     "contract.seller.disputeLost.escrowReleased": "Du hast das Treuhandgeld an den Käufer freigegeben.",
     "contract.seller.disputeLost.releaseEscrow": "Du musst das Treuhandgeld an den Käufer freigeben.",
     "contract.seller.disputeWon.refund": "Du kannst jetzt eine Rückerstattung erhalten.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Eine Rückerstattung ist nicht möglich, da das Escrow bereits freigegeben wurde.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Du kannst das Angebot erneut veröffentlichen oder eine Rückerstattung erhalten.",
   
   

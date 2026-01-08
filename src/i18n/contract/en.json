@@ -95,6 +95,7 @@
   "contract.seller.disputeLost.escrowReleased": "You've released the escrow to the buyer.",
   "contract.seller.disputeLost.releaseEscrow": "You need to release the escrow to the buyer.",
   "contract.seller.disputeWon.refund": "You can now get refunded.",
+  "contract.seller.disputeWon.escrowReleasedNoRefund":"You cannot be refunded since the escrow was already released.",
   "contract.seller.disputeWon.refundOrRepublish": "You can now either re-publish the offer or get refunded.",
   
   "contract.seller.disputeWon.refunded": "You've decided to refund this trade to your $0.",

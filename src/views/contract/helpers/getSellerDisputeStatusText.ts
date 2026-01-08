@@ -35,6 +35,8 @@ export const getSellerDisputeStatusText = ({
   }
 
   if (releaseTransaction) {
+    finalText =
+      finalText + i18n("contract.seller.disputeWon.escrowReleasedNoRefund");
     return finalText;
   }
 

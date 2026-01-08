@@ -90,6 +90,8 @@
     "contract.seller.disputeLost.escrowReleased": "Zwolniłeś depozyt dla kupującego.",
     "contract.seller.disputeLost.releaseEscrow": "Musisz zwolnić depozyt dla kupującego.",
     "contract.seller.disputeWon.refund": "Możesz teraz otrzymać zwrot środków.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Nie możesz otrzymać zwrotu, ponieważ depozyt escrow został już zwolniony.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Możesz teraz ponownie opublikować ofertę lub otrzymać zwrot.",
 
 

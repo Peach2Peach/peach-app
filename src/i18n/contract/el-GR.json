@@ -85,6 +85,8 @@
     "contract.seller.disputeLost.escrowReleased": "Αποδεσμεύσατε την εγγύηση στον αγοραστή.",
     "contract.seller.disputeLost.releaseEscrow": "Πρέπει να αποδεσμεύσετε την εγγύηση στον αγοραστή.",
     "contract.seller.disputeWon.refund": "Μπορείτε τώρα να λάβετε επιστροφή χρημάτων.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Δεν είναι δυνατή η επιστροφή χρημάτων, καθώς το escrow έχει ήδη αποδεσμευτεί.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Μπορείτε τώρα να επαναδημοσιεύσετε την προσφορά ή να λάβετε επιστροφή χρημάτων.",
 
 

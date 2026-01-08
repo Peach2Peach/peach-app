@@ -86,6 +86,8 @@
     "contract.seller.disputeLost.escrowReleased": "Hai rilasciato l’escrow all’acquirente.",
     "contract.seller.disputeLost.releaseEscrow": "Devi rilasciare l’escrow all’acquirente.",
     "contract.seller.disputeWon.refund": "Ora puoi ottenere un rimborso.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Non puoi ricevere un rimborso perché l’escrow è già stato rilasciato.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Ora puoi ripubblicare l’offerta o ottenere un rimborso.",
 
   

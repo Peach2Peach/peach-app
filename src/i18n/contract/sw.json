@@ -89,6 +89,8 @@
     "contract.seller.disputeLost.escrowReleased": "Umetoa amana kwa mnunuzi.",
     "contract.seller.disputeLost.releaseEscrow": "Unapaswa kutoa amana kwa mnunuzi.",
     "contract.seller.disputeWon.refund": "Sasa unaweza kurejeshewa fedha.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Huwezi kurejeshewa pesa kwa sababu escrow tayari imeachiliwa.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Sasa unaweza kuchapisha tena ofa au kurejeshewa fedha.",
  
 

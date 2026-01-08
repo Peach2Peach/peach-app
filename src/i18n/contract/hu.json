@@ -89,6 +89,8 @@
     "contract.seller.disputeLost.escrowReleased": "Felszabadítottad az escrow-t a vevőnek.",
     "contract.seller.disputeLost.releaseEscrow": "Fel kell szabadítanod az escrow-t a vevőnek.",
     "contract.seller.disputeWon.refund": "Most visszatérítést kaphatsz.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Nem kaphatsz visszatérítést, mivel az escrow már fel lett oldva.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Most újra közzéteheted az ajánlatot vagy visszatérítést kaphatsz.",
  
 

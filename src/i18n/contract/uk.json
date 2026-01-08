@@ -89,6 +89,8 @@
     "contract.seller.disputeLost.escrowReleased": "Ви перевели кошти покупцеві.",
     "contract.seller.disputeLost.releaseEscrow": "Вам потрібно перевести кошти покупцеві.",
     "contract.seller.disputeWon.refund": "Тепер ви можете отримати відшкодування.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Повернення коштів неможливе, оскільки ескроу вже було звільнено.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Тепер ви можете повторно опублікувати пропозицію або отримати відшкодування.",
  
 

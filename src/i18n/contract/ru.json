@@ -90,6 +90,8 @@
     "contract.seller.disputeLost.escrowReleased": "Вы перевели средства покупателю.",
     "contract.seller.disputeLost.releaseEscrow": "Вам нужно перевести средства покупателю.",
     "contract.seller.disputeWon.refund": "Теперь вы можете получить возврат средств.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "Возврат невозможен, так как эскроу уже был освобождён.",
+
     "contract.seller.disputeWon.refundOrRepublish": "Теперь вы можете заново опубликовать предложение или получить возврат.",
 
 

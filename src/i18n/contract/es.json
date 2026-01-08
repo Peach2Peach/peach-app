@@ -89,6 +89,7 @@
     "contract.seller.disputeLost.escrowReleased": "Has liberado el depósito al comprador.",
     "contract.seller.disputeLost.releaseEscrow": "Debes liberar el depósito al comprador.",
     "contract.seller.disputeWon.refund": "Ahora puedes recibir el reembolso.",
+    "contract.seller.disputeWon.escrowReleasedNoRefund": "No puedes recibir un reembolso porque el depósito ya fue liberado.",
     "contract.seller.disputeWon.refundOrRepublish": "Ahora puedes volver a publicar la oferta o recibir el reembolso.",
 
   
