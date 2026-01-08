@@ -1,10 +1,9 @@
-import { Transaction, address } from "bitcoinjs-lib";
+import { Transaction } from "bitcoinjs-lib";
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { buildBumpFeeTransaction } from "../../../utils/wallet/transaction/buildBumpFeeTransaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
@@ -63,9 +62,6 @@ export const useBumpFees = ({
       const bumpFeeTransaction = await buildBumpFeeTransaction(
         transaction.getId(),
         Number(newFeeRate),
-        transaction.outs.length === 1
-          ? address.fromOutputScript(transaction.outs[0].script, getNetwork())
-          : undefined,
       );
       const finishedTransaction =
         await peachWallet.finishTransaction(bumpFeeTransaction);

@@ -22,7 +22,7 @@ describe("buildBumpFeeTransaction", () => {
     const feeRate = 10;
     const address = "address";
 
-    await buildBumpFeeTransaction(txId, feeRate, address);
+    await buildBumpFeeTransaction(txId, feeRate);
     expect(bumpFeeTxBuilderAllowShrinkingMock).toHaveBeenCalledWith(address);
   });
 });
