@@ -30,8 +30,8 @@
   "chat.tradePartner": "Partenaire d'échange",
   "chat.you": "Vous",
   "chat.yourMessage": "Votre message",
-  "chat.tradingRules.title": "Reglas de intercambio",
-  "chat.tradingRules.text": "Para el Vendedor:\n- no liberes el escrow antes de recibir el dinero en tu cuenta, sin importar lo que diga el comprador\n\nPara el Comprador:\n- confirma “He realizado el pago” solo después de haberlo hecho\n- paga al vendedor únicamente usando los datos mostrados en la pantalla del contrato, después de que el escrow esté financiado\n\nPara todos:\n- los datos de pago deben coincidir exactamente",
-  "chat.tradingRules.disputeText": "- si la contraparte muestra un comportamiento sospechoso, inicia una disputa pulsando el icono superior derecho de esta pantalla"
+  "chat.tradingRules.title": "Règles d’échange",
+  "chat.tradingRules.text": "Pour le Vendeur:\n- ne libérez jamais l’escrow avant d’avoir reçu l’argent sur votre compte, quoi que dise l’acheteur\n\nPour l’Acheteur:\n- confirmez « J’ai effectué le paiement » uniquement après l’avoir fait\n- payez le vendeur uniquement avec les coordonnées affichées sur l’écran du contrat, après le financement de l’escrow\n\nPour tous:\n- les informations de paiement doivent correspondre exactement",
+  "chat.tradingRules.disputeText": "- si la contrepartie adopte un comportement suspect, démarrez un litige via l’icône en haut à droite de cet écran"
 
 }
