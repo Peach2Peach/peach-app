@@ -23,7 +23,7 @@ const initWebSocket =
     updatePeachWS(ws);
 
     const onMessageHandler = (message: unknown) => {
-      info("MESSAGE", JSON.stringify(message));
+      // info("MESSAGE", JSON.stringify(message));
       if (
         message &&
         typeof message === "object" &&
@@ -81,7 +81,7 @@ export const useWebSocket = (updatePeachWS: React.Dispatch<PeachWS>) => {
     updatePeachWS(ws);
 
     const onMessageHandler = (message: unknown) => {
-      info("MESSAGE", JSON.stringify(message));
+      // info("MESSAGE", JSON.stringify(message));
       if (
         message &&
         typeof message === "object" &&
