@@ -6,8 +6,6 @@ import bitcoinTransparent from "./bitcoinTransparent.svg";
 import fullLogo from "./fullLogo.svg";
 import homeLogo from "./homeLogo.svg";
 import homeLogoSmall from "./homeLogoSmall.svg";
-import homeLogoTestnet from "./homeLogoTestnet.svg";
-import homeLogoTestnetSmall from "./homeLogoTestnetSmall.svg";
 import newBitcoinLogo from "./newBitcoinLogo.svg";
 import peachBorder from "./peachBorder.svg";
 import peachLogo from "./peachLogo.svg";
@@ -19,8 +17,8 @@ export const LogoIcons = {
   bitcoinTextDark,
   bitcoinTransparent,
   fullLogo,
-  homeLogo: NETWORK === "bitcoin" ? homeLogo : homeLogoTestnet,
-  homeLogoSmall: NETWORK === "bitcoin" ? homeLogoSmall : homeLogoTestnetSmall,
+  homeLogo: NETWORK === "bitcoin" ? homeLogo : homeLogo,
+  homeLogoSmall: NETWORK === "bitcoin" ? homeLogoSmall : homeLogoSmall,
   newBitcoinLogo,
   peachBorder,
   peachLogo,
