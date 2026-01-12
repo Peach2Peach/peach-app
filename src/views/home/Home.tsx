@@ -371,9 +371,19 @@ function OfferCounter({
   averagePremium?: number;
   type: "buy" | "sell";
 }) {
+  const navigation = useStackNavigation();
   const { isDarkMode } = useThemeStore();
   return (
-    <View style={tw`flex-1`}>
+    <TouchableOpacity
+      style={tw`flex-1`}
+      onPress={() => {
+        if (type === "buy") {
+          navigation.navigate("expressSellBrowseBuyOffers");
+        } else if (type === "sell") {
+          navigation.navigate("expressBuyBrowseSellOffers");
+        }
+      }}
+    >
       <View style={tw`flex-row items-center gap-6px`}>
         <View
           style={[
@@ -428,6 +438,6 @@ function OfferCounter({
             : "-"}
         </PeachText>
       </PeachText>
-    </View>
+    </TouchableOpacity>
   );
 }
