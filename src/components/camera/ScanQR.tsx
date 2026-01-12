@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, TouchableOpacity, Vibration, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -30,6 +30,15 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
       }
     },
   });
+
+  const [hasPermission, setHasPermission] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const status = await Camera.requestCameraPermission();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
   const device = useCameraDevice("back");
   const insets = useSafeAreaInsets();
