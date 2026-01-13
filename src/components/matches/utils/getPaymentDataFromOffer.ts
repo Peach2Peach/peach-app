@@ -14,9 +14,7 @@ export async function getPaymentDataFromOffer(
 ) {
   const hashes = offer.paymentData[paymentMethod]?.hashes;
   if (!hashes) return { error: "MISSING_HASHED_PAYMENT_DATA" } as const;
-  console.log("1...");
   const paymentData = await buildPaymentDataFromHashes(hashes, paymentMethod);
-  console.log("2...");
   if (!paymentData) return { error: "MISSING_PAYMENTDATA" } as const;
   return { paymentData } as const;
 }
@@ -25,9 +23,7 @@ async function buildPaymentDataFromHashes(
   hashes: string[],
   selectedPaymentMethod: PaymentMethod,
 ) {
-  console.log("rehidrating...");
   await usePaymentDataStore.persist.rehydrate();
-  console.log("REHYDRATED!");
   const paymentDataArray = Object.values(
     usePaymentDataStore.getState().paymentData,
   );
