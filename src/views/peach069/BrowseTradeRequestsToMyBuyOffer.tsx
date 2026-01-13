@@ -64,7 +64,7 @@ const acceptTradeRequest = async (
   if (!pgpPubKeysOfRequestingUser)
     throw Error("missing requesting user pgp keys");
 
-  const { paymentData } = getPaymentDataFromOffer(
+  const { paymentData } = await getPaymentDataFromOffer(
     buyOffer as unknown as BuyOffer,
     tradeRequest.paymentMethod as PaymentMethod,
   );

@@ -8,22 +8,26 @@ import { omit } from "../../../utils/object/omit";
 import { cleanPaymentData } from "../../../utils/paymentMethod/cleanPaymentData";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 
-export function getPaymentDataFromOffer(
+export async function getPaymentDataFromOffer(
   offer: BuyOffer | SellOffer,
   paymentMethod: PaymentMethod,
 ) {
   const hashes = offer.paymentData[paymentMethod]?.hashes;
   if (!hashes) return { error: "MISSING_HASHED_PAYMENT_DATA" } as const;
-
-  const paymentData = buildPaymentDataFromHashes(hashes, paymentMethod);
+  console.log("1...");
+  const paymentData = await buildPaymentDataFromHashes(hashes, paymentMethod);
+  console.log("2...");
   if (!paymentData) return { error: "MISSING_PAYMENTDATA" } as const;
   return { paymentData } as const;
 }
 
-function buildPaymentDataFromHashes(
+async function buildPaymentDataFromHashes(
   hashes: string[],
   selectedPaymentMethod: PaymentMethod,
 ) {
+  console.log("rehidrating...");
+  await usePaymentDataStore.persist.rehydrate();
+  console.log("REHYDRATED!");
   const paymentDataArray = Object.values(
     usePaymentDataStore.getState().paymentData,
   );
