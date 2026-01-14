@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Handelslimit erreicht.",
   "UNAUTHORIZED.text": "Keine Berechtigung, diesen Inhalt zu sehen.",
   "UNAUTHORIZED.title": "Zugriff verweigert",
+  "TOO_MANY_USERS_CREATED.text": "Du hast kürzlich einen neuen Benutzer erstellt und darfst keinen weiteren erstellen. Bitte versuche es später erneut.",
+  "TOO_MANY_USERS_CREATED.title": "Zu viele Benutzer wurden kürzlich erstellt",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Nicht verfügbar in deinem Land. Wallet und offene Trades weiterhin zugänglich.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "Nicht verfügbar",
   "UNKNOWN_ERROR.text": "Etwas ist schiefgelaufen. Später erneut versuchen oder Support kontaktieren.",

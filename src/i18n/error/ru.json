@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Достигнут лимит на сделки.",
   "UNAUTHORIZED.text": "Нет разрешения на просмотр.",
   "UNAUTHORIZED.title": "нет доступа",
+  "TOO_MANY_USERS_CREATED.text": "Вы недавно создали другого пользователя и не можете создавать больше. Попробуйте позже.",
+  "TOO_MANY_USERS_CREATED.title": "Слишком много созданных пользователей недавно",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Из-за законов доступ ограничен. Кошельком пользоваться можно, а незавершённые сделки завершить.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "недоступно",
   "UNKNOWN_ERROR.text": "Ошибка. Перезапустите приложение или обратитесь в поддержку.",

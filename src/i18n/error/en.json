@@ -68,6 +68,8 @@
   "TRADING_LIMIT_REACHED": "Your trading limit has been reached.",
   "UNAUTHORIZED.text": "You don't have permission to view this content.",
   "UNAUTHORIZED.title": "authorization denied",
+  "TOO_MANY_USERS_CREATED.text": "You have created another new user recently, and you are not allowed to create more. Please try again later.",
+  "TOO_MANY_USERS_CREATED.title": "too many users created recently",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Due to regulatory reasons, we're not available in your country.\n\nYou can still access the wallet and finish up any trades you have open.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "not available",
   "UNKNOWN_ERROR.text": "Something went wrong. Please try again later or contact the Peach support team.",

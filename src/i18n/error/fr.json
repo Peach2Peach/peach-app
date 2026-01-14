@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Vous avez atteint votre limite de trading.",
   "UNAUTHORIZED.text": "Vous n'êtes pas autorisé à afficher ce contenu.",
   "UNAUTHORIZED.title": "Accès refusé",
+  "TOO_MANY_USERS_CREATED.text": "Vous avez récemment créé un autre utilisateur et vous ne pouvez pas en créer davantage. Veuillez réessayer plus tard.",
+  "TOO_MANY_USERS_CREATED.title": "Trop d’utilisateurs créés récemment",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Pour des raisons légales, Peach n'est pas disponible dans votre pays.\nVous pouvez toujours accéder à votre portefeuille et terminer vos transactions en cours.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "Non disponible",
   "UNKNOWN_ERROR.text": "Quelque chose s'est mal passé. Réessayez ou contactez l'assistance Peach.",

@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Ticaret limitinize ulaşıldı.",
   "UNAUTHORIZED.text": "Bu içeriği görüntüleme izniniz yok.",
   "UNAUTHORIZED.title": "Yetkisiz",
+  "TOO_MANY_USERS_CREATED.text": "Son zamanlarda başka bir kullanıcı oluşturdunuz ve daha fazla oluşturamazsınız. Lütfen daha sonra tekrar deneyin.",
+  "TOO_MANY_USERS_CREATED.title": "Son zamanlarda çok fazla kullanıcı oluşturuldu",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Düzenleyici nedenlerden dolayı ülkenizde kullanılamıyoruz. Açık işlemleri tamamlayabilirsiniz.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "Kullanılamaz",
   "UNKNOWN_ERROR.text": "Bir hata oluştu. Tekrar deneyin veya destek ile iletişime geçin.",

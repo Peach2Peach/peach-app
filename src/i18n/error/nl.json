@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Je handelslimiet is bereikt.",
   "UNAUTHORIZED.text": "Je hebt geen rechten om deze content te bekijken.",
   "UNAUTHORIZED.title": "toegang geweigerd",
+  "TOO_MANY_USERS_CREATED.text": "Je hebt onlangs een nieuwe gebruiker aangemaakt en mag er geen meer aanmaken. Probeer het later opnieuw.",
+  "TOO_MANY_USERS_CREATED.title": "Te veel gebruikers onlangs aangemaakt",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Vanwege regelgeving is Peach niet beschikbaar in jouw land. Je kunt wel je wallet en lopende transacties gebruiken.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "niet beschikbaar",
   "UNKNOWN_ERROR.text": "Er ging iets mis. Probeer later opnieuw of neem contact op met Peach support.",

@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Osiągnięto Twój limit transakcyjny.",
   "UNAUTHORIZED.text": "Brak uprawnień do przeglądania tej zawartości.",
   "UNAUTHORIZED.title": "Odmowa autoryzacji",
+  "TOO_MANY_USERS_CREATED.text": "Ostatnio utworzyłeś innego użytkownika i nie możesz tworzyć więcej. Spróbuj ponownie później.",
+  "TOO_MANY_USERS_CREATED.title": "Za dużo użytkowników utworzonych ostatnio",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Z powodu regulacji nie jesteśmy dostępni w Twoim kraju. Możesz zakończyć otwarte transakcje i korzystać z portfela.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "Niedostępny",
   "UNKNOWN_ERROR.text": "Coś poszło nie tak. Spróbuj ponownie lub skontaktuj się z supportem.",

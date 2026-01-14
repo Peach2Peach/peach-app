@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Você atingiu o limite de negociação.",
   "UNAUTHORIZED.text": "Você não tem permissão para acessar este conteúdo.",
   "UNAUTHORIZED.title": "Autorização negada",
+  "TOO_MANY_USERS_CREATED.text": "Você criou outro usuário recentemente e não pode criar mais. Por favor, tente novamente mais tarde.",
+  "TOO_MANY_USERS_CREATED.title": "Muitos usuários criados recentemente",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Devido a razões regulatórias, não estamos disponíveis em seu país. Ainda pode acessar sua carteira e concluir negociações abertas.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "Não disponível",
   "UNKNOWN_ERROR.text": "Algo deu errado. Tente novamente mais tarde ou contate o suporte da Peach.",

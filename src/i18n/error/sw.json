@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Umefikia kikomo cha biashara chako.",
   "UNAUTHORIZED.text": "Huna idhini ya kuona yaliyomo haya.",
   "UNAUTHORIZED.title": "Idhini imekataliwa",
+  "TOO_MANY_USERS_CREATED.text": "Umewaunda watumiaji wengine hivi karibuni, na hujaruhusiwa kuunda zaidi. Tafadhali jaribu tena baadaye.",
+  "TOO_MANY_USERS_CREATED.title": "Watumiaji wengi wameundwa hivi karibuni",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Kutokana na sababu za kisheria, huduma haipatikani katika nchi yako.\n\nUnaweza bado kupata mkoba na kukamilisha biashara zako zilizopo.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "Haipatikani",
   "UNKNOWN_ERROR.text": "Kitu kimetokea. Jaribu tena baadaye au wasiliana na usaidizi wa Peach.",

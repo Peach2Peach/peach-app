@@ -61,6 +61,8 @@
   "TRADING_LIMIT_REACHED": "Hai raggiunto il limite di trading.",
   "UNAUTHORIZED.text": "Non hai il permesso di accedere a questo contenuto.",
   "UNAUTHORIZED.title": "Attenzione",
+  "TOO_MANY_USERS_CREATED.text": "Hai creato un altro utente di recente e non puoi crearne altri. Riprova più tardi.",
+  "TOO_MANY_USERS_CREATED.title": "Troppi utenti creati di recente",
   "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Per regolamenti, non disponibile nel tuo paese.\nPuoi comunque usare il wallet e completare transazioni aperte.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "Non disponibile",
   "UNKNOWN_ERROR.text": "Oops! Qualcosa è andato storto. Riprova o contatta il supporto.",
