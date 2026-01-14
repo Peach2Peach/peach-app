@@ -30,8 +30,8 @@
   "chat.tradePartner": "handelspartner",
   "chat.you": "jij",
   "chat.yourMessage": "jouw bericht",
-  "chat.tradingRules.title": "Regole di scambio",
-  "chat.tradingRules.text": "Per il Venditore:\n- non rilasciare l’escrow prima di aver ricevuto il denaro sul tuo conto, indipendentemente da ciò che dice l’acquirente\n\nPer l’Acquirente:\n- conferma “Ho effettuato il pagamento” solo dopo averlo fatto\n- paga il venditore solo utilizzando i dati mostrati nella schermata del contratto, dopo che l’escrow è stato finanziato\n\nPer tutti:\n- i dati di pagamento devono corrispondere esattamente",
-  "chat.tradingRules.disputeText": "- se la controparte mostra un comportamento sospetto, avvia una disputa premendo l’icona in alto a destra di questa schermata"
+  "chat.tradingRules.title": "Handelsregels",
+  "chat.tradingRules.text": "Voor de Verkoper:\n- geef de escrow niet vrij voordat het geld op je rekening staat, ongeacht wat de koper zegt\n\nVoor de Koper:\n- bevestig “Ik heb betaald” alleen nadat je dit daadwerkelijk hebt gedaan\n- betaal de verkoper alleen via de gegevens op het contractscher m, nadat de escrow is gefinancierd\n\nVoor iedereen:\n- de gebruikte betaalgegevens moeten exact overeenkomen",
+  "chat.tradingRules.disputeText": "- vertoont de tegenpartij verdacht gedrag, start dan een geschil via het pictogram rechtsboven op dit scherm"
 
 }
