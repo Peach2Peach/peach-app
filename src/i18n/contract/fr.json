@@ -244,6 +244,9 @@
   "contract.escrowFunded.title": "Entiercement financé !",
   "contract.seller.confirmPaymentReceivedLastChance.title": "Avez-vous vraiment reçu l’argent fiat ?",
   "contract.seller.confirmPaymentReceivedLastChance.text": "Veuillez vérifier une dernière fois que vous avez bien reçu l’argent.\n\nLa confirmation enverra les Bitcoin de manière irréversible à l’acheteur.",
-  "contract.payment.disputeIsActive": "Litige actif"
+  "contract.payment.disputeIsActive": "Litige actif",
+  "contract.seller.revolutWarning1.text": "Utilisateurs Revolut : ",
+  "contract.seller.revolutWarning2.text": "assurez-vous que l’acheteur a payé via Revtag et NON par carte de crédit/débit ou Apple Pay."
+
 
 }

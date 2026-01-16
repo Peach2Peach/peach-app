@@ -2,6 +2,7 @@ import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlid
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
+import { PeachText } from "../../components/text/PeachText";
 import { MSINANHOUR } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
@@ -9,6 +10,7 @@ import { ErrorPopup } from "../../popups/ErrorPopup";
 import { patchSellOfferWithRefundTx } from "../../popups/tradeCancelation/patchSellOfferWithRefundTx";
 import { useCancelContract } from "../../popups/tradeCancelation/useCancelContract";
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
+import tw from "../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
@@ -89,11 +91,32 @@ export function PaymentReceivedSlider() {
     },
   });
 
+  const revolutPopupContent = (
+    <>
+      <PeachText>
+        <PeachText style={tw`text-black-100 font-bold`}>
+          {i18n(`contract.seller.revolutWarning1.text`)}
+        </PeachText>
+        <PeachText style={tw`text-black-100`}>
+          {i18n("contract.seller.revolutWarning2.text")}
+        </PeachText>
+      </PeachText>
+
+      <PeachText style={tw`text-black-100`}>
+        {i18n(`contract.seller.confirmPaymentReceivedLastChance.text`)}
+      </PeachText>
+    </>
+  );
+
   const showLastConfirmationPopup = () => {
     setPopup(
       <ErrorPopup
         title={i18n(`contract.seller.confirmPaymentReceivedLastChance.title`)}
-        content={i18n(`contract.seller.confirmPaymentReceivedLastChance.text`)}
+        content={
+          contract.paymentMethod === "revolut"
+            ? revolutPopupContent
+            : i18n(`contract.seller.confirmPaymentReceivedLastChance.text`)
+        }
         actions={
           <>
             <PopupAction

@@ -245,6 +245,9 @@
 
   "contract.seller.confirmPaymentReceivedLastChance.title": "Je, umepokea pesa za fiat kweli?",
   "contract.seller.confirmPaymentReceivedLastChance.text": "Tafadhali hakikisha tena kuwa umepokea pesa.\n\nUkithibitisha, Bitcoin zitatumwa kwa mnunuzi bila uwezekano wa kurejeshwa.",
-  "contract.payment.disputeIsActive": "Mgogoro hai"
+  "contract.payment.disputeIsActive": "Mgogoro hai",
+   "contract.seller.revolutWarning1.text": "Watumiaji wa Revolut : ",
+  "contract.seller.revolutWarning2.text": "hakikisha mnunuzi amelipa kupitia Revtag, na SIO kwa kadi ya mkopo/debit au Apple Pay."
+
 
 }

@@ -232,6 +232,9 @@
 
   "contract.seller.confirmPaymentReceivedLastChance.title": "Ai primit cu adevărat banii fiat?",
   "contract.seller.confirmPaymentReceivedLastChance.text": "Te rugăm să verifici din nou dacă ai primit banii.\n\nConfirmarea va trimite Bitcoin-ul în mod ireversibil către cumpărător.",
-  "contract.payment.disputeIsActive": "Uyuşmazlık aktif"
+  "contract.payment.disputeIsActive": "Uyuşmazlık aktif",
+   "contract.seller.revolutWarning1.text": "Revolut kullanıcıları : ",
+  "contract.seller.revolutWarning2.text": "alıcının Revtag üzerinden ödeme yaptığından emin olun, kredi/banka kartı veya Apple Pay ile DEĞİL."
+
 
 }

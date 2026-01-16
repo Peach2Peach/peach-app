@@ -244,6 +244,9 @@
   "contract.escrowFunded.title": "Az escrow finanszírozva lett!",
   "contract.seller.confirmPaymentReceivedLastChance.title": "Valóban megkaptad a fiat pénzt?",
   "contract.seller.confirmPaymentReceivedLastChance.text": "Kérjük, ellenőrizd még egyszer, hogy megkaptad-e a pénzt.\n\nA megerősítés visszavonhatatlanul elküldi a Bitcoint a vevőnek.",
-  "contract.payment.disputeIsActive": "Vita aktív"
+  "contract.payment.disputeIsActive": "Vita aktív",
+  "contract.seller.revolutWarning1.text": "Revolut-felhasználók : ",
+  "contract.seller.revolutWarning2.text": "győződj meg róla, hogy a vevő Revtagon keresztül fizetett, és NEM bankkártyával vagy Apple Pay-jel."
+
 
 }

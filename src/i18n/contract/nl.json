@@ -244,6 +244,9 @@
   "contract.escrowFunded.title": "De escrow is gefinancierd!",
    "contract.seller.confirmPaymentReceivedLastChance.title": "Heb je het fiatgeld echt ontvangen?",
   "contract.seller.confirmPaymentReceivedLastChance.text": "Controleer nogmaals of je het geld hebt ontvangen.\n\nDoor te bevestigen worden de Bitcoin onomkeerbaar naar de koper gestuurd.",
-  "contract.payment.disputeIsActive": "Geschil actief"
+  "contract.payment.disputeIsActive": "Geschil actief",
+  "contract.seller.revolutWarning1.text": "Revolut-gebruikers : ",
+  "contract.seller.revolutWarning2.text": "zorg ervoor dat de koper via Revtag heeft betaald en NIET via credit-/debitkaart of Apple Pay."
+
 
 }

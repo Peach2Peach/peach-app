@@ -230,5 +230,8 @@
   "contract.buyer.cancelBeforeFunding": "Verkäufer hat Handel abgebrochen, bevor Treuhandkonto finanziert wurde.",
   "contract.seller.confirmPaymentReceivedLastChance.title": "Hast du das Fiat-Geld wirklich erhalten?",
   "contract.seller.confirmPaymentReceivedLastChance.text": "Bitte überprüfe nochmals, ob du das Geld erhalten hast.\n\nDie Bestätigung sendet die Bitcoin unwiderruflich an den Käufer.",
-  "contract.payment.disputeIsActive": "Streit aktiv"
+  "contract.payment.disputeIsActive": "Streit aktiv",
+  "contract.seller.revolutWarning1.text": "Revolut-Nutzer : ",
+  "contract.seller.revolutWarning2.text": "Stelle sicher, dass der Käufer über Revtag bezahlt hat und NICHT per Kredit-/Debitkarte oder Apple Pay."
+
 }
