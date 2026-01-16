@@ -32,6 +32,7 @@
   "chat.yourMessage": "Mesajın",
   "chat.tradingRules.title": "Ticaret Kuralları",
   "chat.tradingRules.text": "Satıcı için:\n- alıcı ne söylerse söylesin, para hesabına geçmeden escrow’u serbest bırakma\n\nAlıcı için:\n- “Ödemeyi yaptım” seçeneğini yalnızca gerçekten ödeme yaptıktan sonra onayla\n- escrow fonlandıktan sonra satıcıya yalnızca sözleşme ekranında belirtilen bilgilere ödeme yap\n\nHerkes için:\n- kullanılan ödeme bilgileri birebir aynı olmalıdır",
-  "chat.tradingRules.disputeText": "- karşı taraf şüpheli davranış sergilerse, bu ekranın sağ üst köşesindeki simgeye basarak anlaşmazlık başlat"
-
+  "chat.tradingRules.disputeText": "- karşı taraf şüpheli davranış sergilerse, bu ekranın sağ üst köşesindeki simgeye basarak anlaşmazlık başlat",
+  "chat.revolutWarning.title": "Güvenlik Uyarısı",
+  "chat.revolutWarning.text": "Revtag kullanan satıcılar: ödemenin SADECE belirtilen Revolut etiketi üzerinden alındığından emin olun, kredi kartı, Apple Pay veya ters ibraz yapılabilen yöntemlerle DEĞİL."
 }

@@ -32,6 +32,7 @@
   "chat.yourMessage": "Twoja wiadomość",
   "chat.tradingRules.title": "Zasady handlu",
   "chat.tradingRules.text": "Dla Sprzedającego:\n- nie zwalniaj escrow przed otrzymaniem pieniędzy na swoje konto, bez względu na to, co mówi kupujący\n\nDla Kupującego:\n- potwierdź „Dokonałem płatności” dopiero po jej wykonaniu\n- płać sprzedającemu wyłącznie na dane podane na ekranie umowy, po zasileniu escrow\n\nDla wszystkich:\n- użyte dane płatności muszą dokładnie się zgadzać",
-  "chat.tradingRules.disputeText": "- jeśli druga strona wykazuje podejrzane zachowanie, rozpocznij spór, naciskając ikonę w prawym górnym rogu ekranu"
-
+  "chat.tradingRules.disputeText": "- jeśli druga strona wykazuje podejrzane zachowanie, rozpocznij spór, naciskając ikonę w prawym górnym rogu ekranu",
+  "chat.revolutWarning.title": "Ostrzeżenie bezpieczeństwa",
+  "chat.revolutWarning.text": "Sprzedawcy korzystający z Revtag: upewnij się, że płatność została otrzymana WYŁĄCZNIE przez wskazany tag Revolut, a NIE kartą kredytową, Apple Pay ani metodą umożliwiającą obciążenie zwrotne."
 }

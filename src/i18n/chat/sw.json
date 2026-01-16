@@ -32,6 +32,7 @@
   "chat.yourMessage": "Ujumbe wako",
    "chat.tradingRules.title": "Sheria za Biashara",
   "chat.tradingRules.text": "Kwa Muuzaji:\n- usiachilie escrow kabla ya kupokea pesa kwenye akaunti yako, haijalishi mnunuzi anasema nini\n\nKwa Mnunuzi:\n- thibitisha “Nimelipa” tu baada ya kufanya malipo\n- mlipie muuzaji tu kwa maelezo yaliyoonyeshwa kwenye skrini ya mkataba, baada ya escrow kufadhiliwa\n\nKwa wote:\n- maelezo ya malipo lazima yalingane kikamilifu",
-  "chat.tradingRules.disputeText": "- ikiwa upande mwingine unaonyesha tabia ya kutiliwa shaka, anzisha mgogoro kwa kubonyeza ikoni iliyo juu kulia ya skrini hii"
-
+  "chat.tradingRules.disputeText": "- ikiwa upande mwingine unaonyesha tabia ya kutiliwa shaka, anzisha mgogoro kwa kubonyeza ikoni iliyo juu kulia ya skrini hii",
+  "chat.revolutWarning.title": "Tahadhari ya Usalama",
+  "chat.revolutWarning.text": "Wauzaji wanaotumia Revtag: hakikisha malipo yamepokelewa KUPITIA tag ya Revolut iliyotangazwa PEKEE, na SIO kwa kadi ya mkopo, Apple Pay au njia zinazowezesha kurejesha malipo."
 }

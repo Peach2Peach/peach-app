@@ -32,6 +32,9 @@
   "chat.yourMessage": "Votre message",
   "chat.tradingRules.title": "Règles d’échange",
   "chat.tradingRules.text": "Pour le Vendeur:\n- ne libérez jamais l’escrow avant d’avoir reçu l’argent sur votre compte, quoi que dise l’acheteur\n\nPour l’Acheteur:\n- confirmez « J’ai effectué le paiement » uniquement après l’avoir fait\n- payez le vendeur uniquement avec les coordonnées affichées sur l’écran du contrat, après le financement de l’escrow\n\nPour tous:\n- les informations de paiement doivent correspondre exactement",
-  "chat.tradingRules.disputeText": "- si la contrepartie adopte un comportement suspect, démarrez un litige via l’icône en haut à droite de cet écran"
+  "chat.tradingRules.disputeText": "- si la contrepartie adopte un comportement suspect, démarrez un litige via l’icône en haut à droite de cet écran",
+  "chat.revolutWarning.title": "Avis de sécurité",
+  "chat.revolutWarning.text": "Vendeurs utilisant Revtag : assurez-vous que le paiement a été reçu UNIQUEMENT via le tag Revolut annoncé, et NON par carte bancaire, Apple Pay ou toute méthode permettant une rétrofacturation."
+
 
 }

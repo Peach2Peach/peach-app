@@ -15,6 +15,7 @@ type Props = {
   fetchNextPage: () => void;
   isLoading: boolean;
   online: boolean;
+  paymentMethod?: PaymentMethod;
 };
 
 export const ChatBox = ({
@@ -23,6 +24,7 @@ export const ChatBox = ({
   page,
   fetchNextPage,
   isLoading,
+  paymentMethod,
   ...chatMessageProps
 }: Props) => {
   const scroll = useRef<FlatList<Message>>(null);
@@ -85,7 +87,9 @@ export const ChatBox = ({
       onRefresh={fetchNextPage}
       refreshing={isLoading}
       scrollEventThrottle={50}
-      ListHeaderComponent={<ChatBoxTopMessage isContract={true} />}
+      ListHeaderComponent={
+        <ChatBoxTopMessage isContract={true} paymentMethod={paymentMethod} />
+      }
     />
   );
 };

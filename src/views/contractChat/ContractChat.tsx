@@ -286,6 +286,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
             fetchNextPage={fetchNextPage}
             isLoading={isFetching}
             resendMessage={resendMessage}
+            paymentMethod={contract.paymentMethod}
           />
         </View>
         {contract.isChatActive ? (

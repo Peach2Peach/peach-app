@@ -32,6 +32,7 @@
   "chat.yourMessage" : "sua mensagem",
   "chat.tradingRules.title": "Regras de negociação",
   "chat.tradingRules.text": "Para o Vendedor:\n- não libere o escrow antes de receber o dinheiro na sua conta, independentemente do que o comprador diga\n\nPara o Comprador:\n- confirme “Efetuei o pagamento” somente após realizá-lo\n- pague o vendedor apenas usando os dados exibidos na tela do contrato, após o escrow ser financiado\n\nPara todos:\n- os dados de pagamento devem corresponder exatamente",
-  "chat.tradingRules.disputeText": "- se a contraparte apresentar comportamento suspeito, inicie uma disputa tocando no ícone no canto superior direito desta tela"
-
+  "chat.tradingRules.disputeText": "- se a contraparte apresentar comportamento suspeito, inicie uma disputa tocando no ícone no canto superior direito desta tela",
+  "chat.revolutWarning.title": "Aviso de segurança",
+  "chat.revolutWarning.text": "Vendedores que usam Revtag: certifique-se de que o pagamento foi recebido SOMENTE pelo tag Revolut informado, e NÃO por cartão de crédito, Apple Pay ou métodos que permitem estorno."
 }
