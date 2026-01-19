@@ -15,5 +15,6 @@
   "languageName.sw" : "Kiswahili",
   "languageName.tr" : "Türkçe",
   "languageName.uk" : "Українська",
-  "search": "Caută"
+  "search": "Caută",
+  "showContract": "Afișează contractul"
 }

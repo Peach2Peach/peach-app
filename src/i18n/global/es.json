@@ -194,5 +194,6 @@
   "currency.JOD": "Dinar jordano",
   "country.MK": "Macedonia del Norte",
   "country.BA": "Bosnia y Herzegovina",
-  "messageCopied": "Mensaje copiado"
+  "messageCopied": "Mensaje copiado",
+   "showContract": "Mostrar contrato" 
 }

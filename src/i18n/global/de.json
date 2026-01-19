@@ -191,5 +191,6 @@
   "currency.JOD": "Jordanischer Dinar",
   "country.MK": "Nordmazedonien",
   "country.BA": "Bosnien und Herzegowina",
-  "messageCopied": "Nachricht kopiert"
+  "messageCopied": "Nachricht kopiert",
+  "showContract": "Vertrag anzeigen"
 }

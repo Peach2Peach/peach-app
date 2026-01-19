@@ -194,5 +194,6 @@
   "currency.JOD": "Jordán dinár",
   "country.MK": "Észak-Macedónia",
   "country.BA": "Bosznia-Hercegovina",
-  "messageCopied": "Üzenet másolva" 
+  "messageCopied": "Üzenet másolva" ,
+  "showContract": "Szerződés megjelenítése"
 }

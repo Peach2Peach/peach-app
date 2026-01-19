@@ -193,5 +193,6 @@
   "currency.JOD": "Dinari ya Jordan",
   "country.MK": "Masedonia ya Kaskazini",
   "country.BA": "Bosnia na Herzegovina",
-   "messageCopied": "Ujumbe umenakiliwa" 
+   "messageCopied": "Ujumbe umenakiliwa" ,
+   "showContract": "Onyesha mkataba" 
 }
