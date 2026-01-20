@@ -67,16 +67,16 @@ const performTradeRequestFunction = async ({
   buyOfferTradeRequestPerformedBySelfUserRefetch: Function;
   handleError: Function;
 }): Promise<boolean> => {
-  if (!peachWallet) throw Error("Peach Wallet not ready");
+  // if (!peachWallet) throw Error("Peach Wallet not ready");
   if (
     !selectedPaymentData ||
     !selectedCurrency ||
-    !peachWallet ||
+    // !peachWallet ||
     !selfUser ||
     !offerOwnerUser
   )
     throw Error("values not ready");
-  const { address: returnAddress } = await peachWallet.getAddress();
+  // const { address: returnAddress } = await peachWallet.getAddress();
 
   const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
   const { encrypted, signature } = await signAndEncrypt(
@@ -111,7 +111,7 @@ const performTradeRequestFunction = async ({
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
       maxMiningFeeRate: maxMiningFeeRate,
-      returnAddress,
+      // returnAddress,
     },
   );
 
@@ -127,9 +127,16 @@ const performTradeRequestFunction = async ({
 const createEscrowFn = async (offerId: string) => {
   const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
 
+  if (!peachWallet) {
+    throw Error("Peach Wallet not Ready");
+  }
+
+  const { address: returnAddress } = await peachWallet?.getAddress();
+
   const { result, error: err } = await peachAPI.private.offer.createEscrow({
     offerId,
     publicKey,
+    returnAddress,
   });
 
   if (err) throw new Error(err.error);
@@ -156,16 +163,16 @@ const performInstantTrade = async ({
   handleError: Function;
 }): Promise<void> => {
   {
-    if (!peachWallet) throw Error("Peach Wallet not ready");
+    // if (!peachWallet) throw Error("Peach Wallet not ready");
     if (
       !selectedPaymentData ||
       !selectedCurrency ||
-      !peachWallet ||
+      // !peachWallet ||
       !selfUser ||
       !offerOwnerUser
     )
       throw Error("values not ready");
-    const { address: returnAddress, index } = await peachWallet.getAddress();
+    // const { address: returnAddress, index } = await peachWallet.getAddress();
 
     const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
     const { encrypted, signature } = await signAndEncrypt(
@@ -200,7 +207,7 @@ const performInstantTrade = async ({
         symmetricKeyEncrypted: encrypted,
         symmetricKeySignature: signature,
         maxMiningFeeRate: maxMiningFeeRate,
-        returnAddress,
+        // returnAddress,
       });
 
     if (instantTradeResp.error) {

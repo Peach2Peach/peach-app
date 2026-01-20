@@ -4,6 +4,7 @@ import { parseError } from "../../../utils/parseError";
 import { peachAPI } from "../../../utils/peachAPI";
 import { getPublicKeyForEscrow } from "../../../utils/wallet/getPublicKeyForEscrow";
 import { getWallet } from "../../../utils/wallet/getWallet";
+import { peachWallet } from "../../../utils/wallet/setWallet";
 
 export const useCreateEscrow = () => {
   const showErrorBanner = useShowErrorBanner();
@@ -18,9 +19,16 @@ export const useCreateEscrow = () => {
 async function createEscrowFn(offerId: string) {
   const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
 
+  if (!peachWallet) {
+    throw Error("Peach Wallet not Ready");
+  }
+
+  const { address: returnAddress } = await peachWallet?.getAddress();
+
   const { result, error: err } = await peachAPI.private.offer.createEscrow({
     offerId,
     publicKey,
+    returnAddress,
   });
 
   if (err) throw new Error(err.error);

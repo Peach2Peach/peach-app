@@ -13,6 +13,7 @@ import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { getPublicKeyForEscrow } from "../../../utils/wallet/getPublicKeyForEscrow";
 import { getWallet } from "../../../utils/wallet/getWallet";
+import { peachWallet } from "../../../utils/wallet/setWallet";
 import { FundFromPeachWalletButton } from "../../fundEscrow/FundFromPeachWalletButton";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
 import { useContractContext } from "../context";
@@ -130,9 +131,16 @@ function SellerFundEscrow() {
     const setupEscrow = async () => {
       const publicKey = getPublicKeyForEscrow(getWallet(), sellOfferId);
 
+      if (!peachWallet) {
+        throw Error("Peach Wallet not Ready");
+      }
+
+      const { address: returnAddress } = await peachWallet?.getAddress();
+
       await peachAPI.private.offer.createEscrow({
         offerId: sellOfferId,
         publicKey,
+        returnAddress,
       });
 
       await refetch();
