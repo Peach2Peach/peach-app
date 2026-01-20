@@ -5,17 +5,20 @@ import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINANHOUR } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { ErrorPopup } from "../../popups/ErrorPopup";
 import { patchSellOfferWithRefundTx } from "../../popups/tradeCancelation/patchSellOfferWithRefundTx";
 import { useCancelContract } from "../../popups/tradeCancelation/useCancelContract";
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
 import tw from "../../styles/tailwind";
+import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { useContractContext } from "./context";
 import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
 import { useContractMutation } from "./hooks/useContractMutation";
@@ -53,6 +56,7 @@ export function RefundEscrowSlider() {
 export function PaymentMadeSlider() {
   const { contractId } = useRoute<"contract">().params;
   const { contract } = useContractContext();
+  const { user: selfUser } = useSelfUser();
 
   const { isPending, mutate } = useContractMutation(
     {
@@ -62,9 +66,40 @@ export function PaymentMadeSlider() {
     },
     {
       mutationFn: async () => {
-        const { error: err } =
-          await peachAPI.private.contract.confirmPaymentBuyer({ contractId });
-        if (err) throw new Error(err.error);
+        if (contract.releaseAddress) {
+          const { error: err } =
+            await peachAPI.private.contract.confirmPaymentBuyer({
+              contractId,
+            });
+          if (err) throw new Error(err.error);
+
+          return;
+        } else {
+          if (!peachWallet) {
+            throw Error("Wallet is not defined");
+          }
+          if (!selfUser) {
+            throw Error("Self User is not defined");
+          }
+          const { address: releaseAddress, index } =
+            await peachWallet.getAddress();
+          const message = getMessageToSignForAddress(
+            selfUser.id,
+            releaseAddress,
+          );
+
+          const releaseAddressMessageSignature = peachWallet.signMessage(
+            message,
+            index,
+          );
+          const { error: err } =
+            await peachAPI.private.contract.confirmPaymentBuyer({
+              contractId,
+              releaseAddress,
+              releaseAddressMessageSignature,
+            });
+          if (err) throw new Error(err.error);
+        }
       },
     },
   );

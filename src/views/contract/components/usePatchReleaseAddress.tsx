@@ -24,7 +24,10 @@ export const usePatchReleaseAddress = (
       queryClient.setQueryData(
         offerKeys.detail(offerId),
         (oldQueryData: BuyOffer | SellOffer | undefined) =>
-          oldQueryData && { ...oldQueryData, releaseAddress },
+          oldQueryData && {
+            ...oldQueryData,
+            releaseAddress: releaseAddress === "reset" ? "" : releaseAddress,
+          },
       );
       if (!contractId) return { previousOfferData };
 
@@ -36,7 +39,7 @@ export const usePatchReleaseAddress = (
         (oldQueryData: Contract | undefined) =>
           oldQueryData && {
             ...oldQueryData,
-            releaseAddress,
+            releaseAddress: releaseAddress === "reset" ? "" : releaseAddress,
           },
       );
 
@@ -44,7 +47,7 @@ export const usePatchReleaseAddress = (
     },
     mutationFn: async (newData: {
       releaseAddress: string;
-      messageSignature: string;
+      messageSignature?: string;
     }) => {
       const { error } = await peachAPI.private.offer.patchOffer({
         offerId,

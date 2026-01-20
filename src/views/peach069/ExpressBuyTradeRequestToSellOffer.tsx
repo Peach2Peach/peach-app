@@ -66,23 +66,23 @@ const performTradeRequestFunction = async ({
   sellOfferTradeRequestPerformedBySelfUserRefetch: Function;
   handleError: Function;
 }): Promise<boolean> => {
-  if (!peachWallet) throw Error("Peach Wallet not ready");
+  // if (!peachWallet) throw Error("Peach Wallet not ready");
   if (
     !selectedPaymentData ||
     !selectedCurrency ||
-    !peachWallet ||
+    // !peachWallet ||
     !selfUser ||
     !offerOwnerUser
   )
     throw Error("values not ready");
-  const { address: releaseAddress, index } = await peachWallet.getAddress();
+  // const { address: releaseAddress, index } = await peachWallet.getAddress();
 
-  const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
+  // const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
 
-  const releaseAddressMessageSignature = peachWallet.signMessage(
-    message,
-    index,
-  );
+  // const releaseAddressMessageSignature = peachWallet.signMessage(
+  //   message,
+  //   index,
+  // );
 
   const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
   const { encrypted, signature } = await signAndEncrypt(
@@ -117,8 +117,8 @@ const performTradeRequestFunction = async ({
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
       maxMiningFeeRate: maxMiningFeeRate,
-      releaseAddress,
-      releaseAddressMessageSignature,
+      // releaseAddress,
+      // releaseAddressMessageSignature,
     });
   if (error) {
     handleError(error);

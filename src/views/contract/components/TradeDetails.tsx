@@ -18,7 +18,6 @@ import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { cutOffAddress } from "../../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
-import { peachWallet } from "../../../utils/wallet/setWallet";
 import { usePaymentMethodInfo } from "../../addPaymentMethod/usePaymentMethodInfo";
 import { useContractContext } from "../context";
 import { tradeFields } from "../helpers/tradeInfoFields";
@@ -104,7 +103,9 @@ function ToggleGroupHug() {
 
 function ChangePayoutWallet() {
   const { contract } = useContractContext();
-  const paidToPeachWallet = useIsMyAddress(contract.releaseAddress);
+  const isMyAddress = useIsMyAddress(contract.releaseAddress);
+  const paidToPeachWallet = !contract.releaseAddress ? true : isMyAddress;
+
   const offerId = getOfferIdFromContract(contract);
 
   const [payoutAddress, payoutAddressLabel, payoutAddressSignature] =
@@ -124,13 +125,13 @@ function ChangePayoutWallet() {
 
   const onPress = async () => {
     if (paidToPeachWallet === false) {
-      if (!peachWallet) throw new Error("PeachWallet not set");
-      const { address: releaseAddress, index } = await peachWallet.getAddress();
+      // if (!peachWallet) throw new Error("PeachWallet not set");
+      // const { address: releaseAddress, index } = await peachWallet.getAddress();
 
-      const message = getMessageToSignForAddress(publicKey, releaseAddress);
-      const messageSignature = peachWallet.signMessage(message, index);
+      // const message = getMessageToSignForAddress(publicKey, releaseAddress);
+      // const messageSignature = peachWallet.signMessage(message, index);
 
-      mutate({ releaseAddress, messageSignature });
+      mutate({ releaseAddress: "reset", messageSignature: undefined });
     } else {
       if (!payoutAddress || !payoutAddressLabel) {
         navigation.navigate("patchPayoutAddress", { contractId: contract.id });
@@ -177,7 +178,8 @@ function ChangePayoutWallet() {
           value={<Toggle enabled={!!paidToPeachWallet} onPress={onPress} />}
         />
       )}
-      {(!paidToPeachWallet || contract.paymentMade) && (
+      {(!paidToPeachWallet ||
+        (contract.paymentMade && contract.releaseAddress)) && (
         <SummaryItem
           label={i18n("payout.wallet")}
           value={
