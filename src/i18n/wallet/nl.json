@@ -98,5 +98,6 @@
   "wallet.withdraw.help.title": "Tegoeden worden verstuurd",
   "wallet.withdrawAll": "Alles versturen",
   "wallet.withdrawTo": "Sturen naar",
-  "wallet.withdrawal": "Verstuurd"
+  "wallet.withdrawal": "Verstuurd",
+   "wallet.twelveWords.dontShare": "Deel dit nooit met iemand, ook niet met \"Peach support\""
 }

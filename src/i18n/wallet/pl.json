@@ -98,5 +98,6 @@
   "wallet.withdraw.help.title": "Wysyłanie środków",
   "wallet.withdrawAll": "Wyślij wszystko",
   "wallet.withdrawTo": "Wyślij do",
-  "wallet.withdrawal": "Wysłane"
+  "wallet.withdrawal": "Wysłane",
+  "wallet.twelveWords.dontShare": "Nigdy nie udostępniaj tego nikomu, nawet \"wsparciu Peach\""
 }

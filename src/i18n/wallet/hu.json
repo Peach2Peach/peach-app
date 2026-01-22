@@ -98,5 +98,6 @@
   "wallet.withdraw.help.title": "összeg küldése",
   "wallet.withdrawAll": "mind elküldése",
   "wallet.withdrawTo": "címzett",
-  "wallet.withdrawal": "küldve"
+  "wallet.withdrawal": "küldve",
+  "wallet.twelveWords.dontShare": "Soha ne oszd meg ezt senkivel, még a \"Peach ügyfélszolgálattal\" sem"
 }

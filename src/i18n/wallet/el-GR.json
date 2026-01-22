@@ -98,5 +98,7 @@
   "wallet.withdraw.help.title": "αποστολή χρημάτων",
   "wallet.withdrawAll": "αποστολή όλων",
   "wallet.withdrawTo": "αποστολή σε",
-  "wallet.withdrawal": "στάλθηκαν"
+  "wallet.withdrawal": "στάλθηκαν",
+  "wallet.twelveWords.dontShare": "Μην το μοιραστείς ποτέ με κανέναν, ούτε καν με την \"υποστήριξη Peach\"" 
+
 }
