@@ -1,6 +1,6 @@
 {
-  "offer.create.buy": "crear oferta de compra",
-  "offer.create.sell": "crear oferta de venta",
+  "offer.create.buy": "crea oferta compra",
+  "offer.create.sell": "crea oferta venta",
   "offer.buyOffers": "ofertas de compra",
   "offer.sellOffers": "ofertas de venta",
   "offer.openOffers": "ofertas activas",
