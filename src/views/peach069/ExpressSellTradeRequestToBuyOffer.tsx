@@ -125,13 +125,15 @@ const performTradeRequestFunction = async ({
 };
 
 const createEscrowFn = async (offerId: string) => {
+  // this function is not being called now
   const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
 
   if (!peachWallet) {
     throw Error("Peach Wallet not Ready");
   }
 
-  const { address: returnAddress } = await peachWallet?.getAddress();
+  const { address: returnAddress } =
+    await peachWallet?.getLastUnusedAddressInternal();
 
   const { result, error: err } = await peachAPI.private.offer.createEscrow({
     offerId,
@@ -214,7 +216,7 @@ const performInstantTrade = async ({
       handleError(instantTradeResp.error);
     } else {
       if (instantTradeResp.result?.id) {
-        await createEscrowFn(instantTradeResp.result.id.split("-")[0]);
+        // await createEscrowFn(instantTradeResp.result.id.split("-")[0]);
         navigation.reset({
           index: 1,
           routes: [

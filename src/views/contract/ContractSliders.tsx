@@ -1,9 +1,11 @@
+import { AddressIndex } from "bdk-rn/lib/lib/enums";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINANHOUR } from "../../constants";
+import { useUser69Details } from "../../hooks/query/peach069/useUser69";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -57,6 +59,7 @@ export function PaymentMadeSlider() {
   const { contractId } = useRoute<"contract">().params;
   const { contract } = useContractContext();
   const { user: selfUser } = useSelfUser();
+  const { user: selfUser69 } = useUser69Details();
 
   const { isPending, mutate } = useContractMutation(
     {
@@ -81,8 +84,42 @@ export function PaymentMadeSlider() {
           if (!selfUser) {
             throw Error("Self User is not defined");
           }
-          const { address: releaseAddress, index } =
-            await peachWallet.getAddress();
+          if (!selfUser69) {
+            throw Error("Self User69 is not defined");
+          }
+
+          let releaseAddress: string;
+          let index: number;
+
+          if (selfUser69.lastAddressUsedIndex === undefined) {
+            const getAddressResult = await peachWallet.getAddress(
+              AddressIndex.New,
+            );
+            releaseAddress = getAddressResult.address;
+            index = getAddressResult.index;
+          } else {
+            const getAddressResult = await peachWallet.getAddress(
+              AddressIndex.LastUnused,
+            );
+            if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
+              releaseAddress = getAddressResult.address;
+              index = getAddressResult.index;
+            } else {
+              while (true) {
+                const getNewAddressResult = await peachWallet.getAddress(
+                  AddressIndex.New,
+                );
+                if (
+                  getNewAddressResult.index > selfUser69.lastAddressUsedIndex
+                ) {
+                  releaseAddress = getNewAddressResult.address;
+                  index = getNewAddressResult.index;
+                  break;
+                }
+              }
+            }
+          }
+
           const message = getMessageToSignForAddress(
             selfUser.id,
             releaseAddress,
@@ -99,6 +136,10 @@ export function PaymentMadeSlider() {
               releaseAddressMessageSignature,
             });
           if (err) throw new Error(err.error);
+
+          peachAPI.private.peach069.setLastAddressUsedIndexOnSelfUser69({
+            index,
+          });
         }
       },
     },

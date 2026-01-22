@@ -50,6 +50,9 @@ export class PeachWallet {
   lastUnusedAddress?: Omit<AddressInfo, "address"> & {
     address: string;
   };
+  lastUnusedAddressInternal?: Omit<AddressInfo, "address"> & {
+    address: string;
+  };
 
   blockchain: Blockchain | undefined;
 
@@ -163,7 +166,9 @@ export class PeachWallet {
               .filter(transactionHasBeenMappedToOffers)
               .forEach(labelAddressByTransaction);
 
+            console.log("SET LAST UNUSED AS UNDEFINED");
             this.lastUnusedAddress = undefined;
+            this.lastUnusedAddressInternal = undefined;
             info("PeachWallet - syncWallet - synced");
           }
 
@@ -178,10 +183,19 @@ export class PeachWallet {
     return this.syncInProgress;
   }
 
-  async getAddress(index: AddressIndex | number = AddressIndex.New) {
+  async getAddress(
+    index: AddressIndex | number = AddressIndex.New,
+    keychain: "internal" | "external" = "external",
+  ) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
     info("Getting address at index ", index);
-    const addressInfo = await this.wallet.getAddress(index);
+    console.log("GETTING ADDRESS", index, keychain);
+
+    const addressInfo =
+      keychain === "external"
+        ? await this.wallet.getAddress(index)
+        : await this.wallet.getInternalAddress(index);
+    console.log("GOT ADDR INDEX IS:", addressInfo.index);
     return {
       ...addressInfo,
       address: await addressInfo.address.asString(),
@@ -190,7 +204,9 @@ export class PeachWallet {
 
   async getAddressByIndex(index: number) {
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress();
+    console.log("GETTING ADDRESS", index);
     const address = await this.getAddress(index);
+
     return {
       index,
       used: index < lastUnusedIndex,
@@ -198,10 +214,26 @@ export class PeachWallet {
     };
   }
 
+  async getLastUnusedAddressInternal() {
+    if (!this.lastUnusedAddressInternal) {
+      console.log("GETTING ADDRESS Internal", "LAST UNUSED");
+      this.lastUnusedAddressInternal = await this.getInternalAddress(
+        AddressIndex.LastUnused,
+      );
+    }
+    console.log(
+      "LAST UNUSED INTERNAL INDEX IS:",
+      this.lastUnusedAddressInternal.index,
+    );
+    return this.lastUnusedAddressInternal;
+  }
+
   async getLastUnusedAddress() {
     if (!this.lastUnusedAddress) {
+      console.log("GETTING ADDRESS", "LAST UNUSED");
       this.lastUnusedAddress = await this.getAddress(AddressIndex.LastUnused);
     }
+    console.log("LAST UNUSED INDEX IS:", this.lastUnusedAddress.index);
     return this.lastUnusedAddress;
   }
 

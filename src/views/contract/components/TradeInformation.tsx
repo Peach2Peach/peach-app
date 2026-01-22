@@ -1,3 +1,4 @@
+import { AddressIndex } from "bdk-rn/lib/lib/enums";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import txInMempool from "../../../assets/escrow/tx-in-mempool.png";
@@ -5,8 +6,8 @@ import { BitcoinAddress } from "../../../components/bitcoin/BitcoinAddress";
 import { PeachText } from "../../../components/text/PeachText";
 import { SimpleTimer, Timer } from "../../../components/text/Timer";
 import { SATSINBTC } from "../../../constants";
+import { useContractDetail } from "../../../hooks/query/useContractDetail";
 import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
-import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
 import tw from "../../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
@@ -122,10 +123,9 @@ function SellerFundEscrow() {
   if (!contract.fundingExpectedBy)
     throw Error("expected contract.fundingExpectedBy");
   const sellOfferId = getSellOfferIdFromContract(contract);
+  const { refetch: refetchContract } = useContractDetail(contract.id);
   const { fundingStatus, isLoading, refetch } = useFundingStatus(sellOfferId);
   const [fundedEscrow, setFundedEscrow] = useState(false);
-
-  const [showPopup, toggle] = useToggleBoolean(true);
 
   useEffect(() => {
     const setupEscrow = async () => {
@@ -135,7 +135,10 @@ function SellerFundEscrow() {
         throw Error("Peach Wallet not Ready");
       }
 
-      const { address: returnAddress } = await peachWallet?.getAddress();
+      const { address: returnAddress } = await peachWallet.getAddress(
+        AddressIndex.LastUnused,
+        "internal",
+      );
 
       await peachAPI.private.offer.createEscrow({
         offerId: sellOfferId,
@@ -144,9 +147,10 @@ function SellerFundEscrow() {
       });
 
       await refetch();
+      await refetchContract();
     };
 
-    if (contract && !contract.escrow && !fundedEscrow) {
+    if (contract && !contract.escrow && !fundedEscrow && !isLoading) {
       setupEscrow();
       setFundedEscrow(true);
     }

@@ -11,3 +11,13 @@ export const useLastUnusedAddress = () =>
     },
     enabled: peachWallet?.initialized,
   });
+
+export const useLastUnusedAddressInternal = () =>
+  useQuery({
+    queryKey: walletKeys.lastUnusedAddressInternal(),
+    queryFn: () => {
+      if (!peachWallet) throw new Error("Peach wallet not defined");
+      return peachWallet.getLastUnusedAddressInternal();
+    },
+    enabled: peachWallet?.initialized,
+  });
