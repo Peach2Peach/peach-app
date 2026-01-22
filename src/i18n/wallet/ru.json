@@ -98,5 +98,6 @@
   "wallet.withdraw.help.title": "отправка средств",
   "wallet.withdrawAll": "Отправить всё",
   "wallet.withdrawTo": "куда",
-  "wallet.withdrawal": "отправка"
+  "wallet.withdrawal": "отправка",
+  "wallet.twelveWords.dontShare": "Никогда не делитесь этим ни с кем, включая \"службу поддержки Peach\"" 
 }

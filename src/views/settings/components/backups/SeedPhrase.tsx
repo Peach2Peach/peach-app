@@ -59,7 +59,9 @@ export const SeedPhrase = () => {
 
   return (
     <View style={tw`flex-1`}>
-      <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
+      <PeachScrollView
+        contentContainerStyle={tw`${currentScreenIndex !== 2 ? "justify-center" : "mt-2"} grow`}
+      >
         <CurrentView goBackToStart={goBackToStart} />
       </PeachScrollView>
       <View>

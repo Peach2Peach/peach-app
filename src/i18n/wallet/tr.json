@@ -97,5 +97,7 @@
   "wallet.withdraw.help.title": "Parayı Gönderme",
   "wallet.withdrawAll": "Hepsini Gönder",
   "wallet.withdrawTo": "Alıcı",
-  "wallet.withdrawal": "Gönderildi"
+  "wallet.withdrawal": "Gönderildi",
+  "wallet.twelveWords.dontShare": "Bunu \"Peach destek\" dahil kimseyle ASLA paylaşma" 
+
 }

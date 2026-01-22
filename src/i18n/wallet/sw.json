@@ -98,5 +98,7 @@
   "wallet.withdraw.help.title": "kutuma fedha",
   "wallet.withdrawAll": "tuma zote",
   "wallet.withdrawTo": "tuma kwa",
-  "wallet.withdrawal": "imetumwa"
+  "wallet.withdrawal": "imetumwa",
+  "wallet.twelveWords.dontShare": "Usiwahi kushiriki hili na mtu yeyote, hata \"msaada wa Peach\""
+
 }
