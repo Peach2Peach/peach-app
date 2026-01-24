@@ -1,6 +1,7 @@
 import { groupChars } from "./groupChars";
 
 export const thousands = (number: number, delimiter = " "): string => {
+  if (!number) return "";
   const [integer, decimal] = number.toString().split(".");
   const groupSize = 3;
   if (decimal === undefined) return groupChars(integer, groupSize, delimiter);
