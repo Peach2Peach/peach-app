@@ -679,7 +679,7 @@ function FundEscrowButton() {
   };
 
   const queryClient = useQueryClient();
-  const { mutate: createEscrow } = useCreateEscrow({ isSellOffer: true });
+  const { mutate: createEscrow } = useCreateEscrow();
   const navigation = useStackNavigation();
   const fundFromPeachWallet = useFundFromPeachWallet();
   const addMultiOffers = useOfferPreferences((state) => state.addMultiOffers);

@@ -160,7 +160,7 @@ export const FundEscrow = () => {
 };
 
 function CreateEscrowScreen({ offerIds }: { offerIds: string[] }) {
-  const { mutate, isPending } = useCreateEscrow({ isSellOffer: true });
+  const { mutate, isPending } = useCreateEscrow();
   const queryClient = useQueryClient();
 
   const createEscrow = () => {

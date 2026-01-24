@@ -15,7 +15,7 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
   const navigation = useStackNavigation();
   const showStartRefundPopup = useStartRefundPopup();
   const queryClient = useQueryClient();
-  // const { mutateAsync } = useCreateEscrow({ isSellOffer: false });
+  // const { mutateAsync } = useCreateEscrow();
 
   const navigateToOfferOrContract = useCallback(async () => {
     const destination = isContractSummary(item)
