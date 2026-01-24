@@ -14,9 +14,6 @@ import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
-import { getPublicKeyForEscrow } from "../../utils/wallet/getPublicKeyForEscrow";
-import { getWallet } from "../../utils/wallet/getWallet";
-import { peachWallet } from "../../utils/wallet/setWallet";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ExpressFlowTradeRequestToOffer } from "./ExpressFlowTradeRequestToOffer";
@@ -124,26 +121,26 @@ const performTradeRequestFunction = async ({
   }
 };
 
-const createEscrowFn = async (offerId: string) => {
-  // this function is not being called now
-  const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
+// const createEscrowFn = async (offerId: string) => {
+//   // this function is not being called now
+//   const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
 
-  if (!peachWallet) {
-    throw Error("Peach Wallet not Ready");
-  }
+//   if (!peachWallet) {
+//     throw Error("Peach Wallet not Ready");
+//   }
 
-  const { address: returnAddress } =
-    await peachWallet?.getLastUnusedAddressInternal();
+//   const { address: returnAddress } =
+//     await peachWallet?.getLastUnusedAddressInternal();
 
-  const { result, error: err } = await peachAPI.private.offer.createEscrow({
-    offerId,
-    publicKey,
-    returnAddress,
-  });
+//   const { result, error: err } = await peachAPI.private.offer.createEscrow({
+//     offerId,
+//     publicKey,
+//     returnAddress,
+//   });
 
-  if (err) throw new Error(err.error);
-  return result;
-};
+//   if (err) throw new Error(err.error);
+//   return result;
+// };
 
 const performInstantTrade = async ({
   selectedPaymentData,
