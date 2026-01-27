@@ -1,3 +1,4 @@
+import { Appearance } from "react-native";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createStorage } from "../utils/storage/createStorage";
@@ -13,10 +14,18 @@ const storage = createPersistStorage(themeStorage);
 
 export const useThemeStore = create<ThemeState>()(
   persist(
-    (set, get) => ({
-      isDarkMode: false,
-      toggleTheme: () => set({ isDarkMode: !get().isDarkMode }),
-    }),
+    (set, get) => {
+      const initialIsDark = Appearance.getColorScheme() === "dark";
+      
+      const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+        set({ isDarkMode: colorScheme === "dark" });
+      });
+      
+      return {
+        isDarkMode: initialIsDark,
+        toggleTheme: () => set({ isDarkMode: !get().isDarkMode }),
+      };
+    },
     {
       name: "theme",
       version: 0,
