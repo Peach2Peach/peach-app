@@ -52,7 +52,6 @@ import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
 import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
-import { useLastUnusedAddressInternal } from "../wallet/hooks/useLastUnusedAddress";
 import { WalletSelector } from "./WalletSelector";
 import { CreateMultipleOffers } from "./components/CreateMultipleOffers";
 import { PreferenceMethods } from "./components/PreferenceMethods";
@@ -684,19 +683,16 @@ function FundEscrowButton() {
   const fundFromPeachWallet = useFundFromPeachWallet();
   const addMultiOffers = useOfferPreferences((state) => state.addMultiOffers);
 
-  const { data: lastUnusedAddress } = useLastUnusedAddressInternal();
-
   const onPress = async () => {
     if (isPublishing) return;
     if (!peachWallet) throw new Error("Peach wallet not defined");
-    if (!lastUnusedAddress) throw new Error("Peach wallet not ready");
     if (!formValid) {
       showPublishingError();
       return;
     }
     setIsPublishing(true);
     const address = refundToPeachWallet
-      ? lastUnusedAddress.address
+      ? (await peachWallet.getLastUnusedAddressInternal()).address
       : refundAddress;
     if (!address) {
       setIsPublishing(false);
