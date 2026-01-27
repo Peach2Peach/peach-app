@@ -50,6 +50,9 @@ export class PeachWallet {
   lastUnusedAddress?: Omit<AddressInfo, "address"> & {
     address: string;
   };
+  lastUnusedAddressInternal?: Omit<AddressInfo, "address"> & {
+    address: string;
+  };
 
   blockchain: Blockchain | undefined;
 
@@ -164,6 +167,7 @@ export class PeachWallet {
               .forEach(labelAddressByTransaction);
 
             this.lastUnusedAddress = undefined;
+            this.lastUnusedAddressInternal = undefined;
             info("PeachWallet - syncWallet - synced");
           }
 
@@ -178,10 +182,17 @@ export class PeachWallet {
     return this.syncInProgress;
   }
 
-  async getAddress(index: AddressIndex | number = AddressIndex.New) {
+  async getAddress(
+    index: AddressIndex | number = AddressIndex.New,
+    keychain: "internal" | "external" = "external",
+  ) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
     info("Getting address at index ", index);
-    const addressInfo = await this.wallet.getAddress(index);
+
+    const addressInfo =
+      keychain === "external"
+        ? await this.wallet.getAddress(index)
+        : await this.wallet.getInternalAddress(index);
     return {
       ...addressInfo,
       address: await addressInfo.address.asString(),
@@ -191,11 +202,21 @@ export class PeachWallet {
   async getAddressByIndex(index: number) {
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress();
     const address = await this.getAddress(index);
+
     return {
       index,
       used: index < lastUnusedIndex,
       address: address.address,
     };
+  }
+
+  async getLastUnusedAddressInternal() {
+    if (!this.lastUnusedAddressInternal) {
+      this.lastUnusedAddressInternal = await this.getInternalAddress(
+        AddressIndex.LastUnused,
+      );
+    }
+    return this.lastUnusedAddressInternal;
   }
 
   async getLastUnusedAddress() {

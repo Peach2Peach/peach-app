@@ -57,13 +57,14 @@ export function useCreateBuyOffer({
   const getSignedAddress = async (signWithPeachWallet: boolean) => {
     if (!peachWallet) throw new Error("Peach wallet not defined");
     if (signWithPeachWallet) {
-      const { address, index } = await peachWallet.getAddress();
-      const message = getMessageToSignForAddress(publicKey, address);
-      return {
-        address,
-        message,
-        signature: peachWallet.signMessage(message, index),
-      };
+      // const { address, index } = await peachWallet.getAddress();
+      // const message = getMessageToSignForAddress(publicKey, address);
+      // return {
+      //   address,
+      //   message,
+      //   signature: peachWallet.signMessage(message, index),
+      // };
+      throw Error("Tried to get Address");
     }
     if (!payoutAddress) throw new Error("MISSING_RELEASE_ADDRESS");
     const message = getMessageToSignForAddress(publicKey, payoutAddress);
@@ -79,23 +80,25 @@ export function useCreateBuyOffer({
       let releaseAddresses: string[] = [];
       let releaseAddressMessageSignatures: string[] = [];
       const howManyOffers = multi ? multi : 1;
-      for (let i = 0; i < howManyOffers; i++) {
-        const { message, signature, address } =
-          await getSignedAddress(payoutToPeachWallet);
+      if (!payoutToPeachWallet) {
+        for (let i = 0; i < howManyOffers; i++) {
+          const { message, signature, address } =
+            await getSignedAddress(payoutToPeachWallet);
 
-        if (
-          !signature ||
-          !isValidBitcoinSignature({
-            message,
-            address,
-            signature,
-            network: getNetwork(),
-          })
-        ) {
-          throw new Error("INVALID_SIGNATURE");
+          if (
+            !signature ||
+            !isValidBitcoinSignature({
+              message,
+              address,
+              signature,
+              network: getNetwork(),
+            })
+          ) {
+            throw new Error("INVALID_SIGNATURE");
+          }
+          releaseAddresses.push(address);
+          releaseAddressMessageSignatures.push(signature);
         }
-        releaseAddresses.push(address);
-        releaseAddressMessageSignatures.push(signature);
       }
 
       const finalizedOfferDraft = {
@@ -103,8 +106,10 @@ export function useCreateBuyOffer({
         meansOfPayment,
         paymentData,
         premium,
-        releaseAddresses,
-        releaseAddressMessageSignatures,
+        releaseAddresses: releaseAddresses ? releaseAddresses : undefined,
+        releaseAddressMessageSignatures: releaseAddressMessageSignatures
+          ? releaseAddressMessageSignatures
+          : undefined,
         instantTradeCriteria,
         multi,
       };

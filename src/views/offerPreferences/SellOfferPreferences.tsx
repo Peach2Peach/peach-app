@@ -692,7 +692,7 @@ function FundEscrowButton() {
     }
     setIsPublishing(true);
     const address = refundToPeachWallet
-      ? (await peachWallet.getAddress()).address
+      ? (await peachWallet.getLastUnusedAddressInternal()).address
       : refundAddress;
     if (!address) {
       setIsPublishing(false);

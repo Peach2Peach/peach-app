@@ -14,9 +14,6 @@ import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
-import { getPublicKeyForEscrow } from "../../utils/wallet/getPublicKeyForEscrow";
-import { getWallet } from "../../utils/wallet/getWallet";
-import { peachWallet } from "../../utils/wallet/setWallet";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ExpressFlowTradeRequestToOffer } from "./ExpressFlowTradeRequestToOffer";
@@ -67,16 +64,16 @@ const performTradeRequestFunction = async ({
   buyOfferTradeRequestPerformedBySelfUserRefetch: Function;
   handleError: Function;
 }): Promise<boolean> => {
-  if (!peachWallet) throw Error("Peach Wallet not ready");
+  // if (!peachWallet) throw Error("Peach Wallet not ready");
   if (
     !selectedPaymentData ||
     !selectedCurrency ||
-    !peachWallet ||
+    // !peachWallet ||
     !selfUser ||
     !offerOwnerUser
   )
     throw Error("values not ready");
-  const { address: returnAddress } = await peachWallet.getAddress();
+  // const { address: returnAddress } = await peachWallet.getAddress();
 
   const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
   const { encrypted, signature } = await signAndEncrypt(
@@ -111,7 +108,7 @@ const performTradeRequestFunction = async ({
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
       maxMiningFeeRate: maxMiningFeeRate,
-      returnAddress,
+      // returnAddress,
     },
   );
 
@@ -124,17 +121,26 @@ const performTradeRequestFunction = async ({
   }
 };
 
-const createEscrowFn = async (offerId: string) => {
-  const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
+// const createEscrowFn = async (offerId: string) => {
+//   // this function is not being called now
+//   const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
 
-  const { result, error: err } = await peachAPI.private.offer.createEscrow({
-    offerId,
-    publicKey,
-  });
+//   if (!peachWallet) {
+//     throw Error("Peach Wallet not Ready");
+//   }
 
-  if (err) throw new Error(err.error);
-  return result;
-};
+//   const { address: returnAddress } =
+//     await peachWallet?.getLastUnusedAddressInternal();
+
+//   const { result, error: err } = await peachAPI.private.offer.createEscrow({
+//     offerId,
+//     publicKey,
+//     returnAddress,
+//   });
+
+//   if (err) throw new Error(err.error);
+//   return result;
+// };
 
 const performInstantTrade = async ({
   selectedPaymentData,
@@ -156,16 +162,16 @@ const performInstantTrade = async ({
   handleError: Function;
 }): Promise<void> => {
   {
-    if (!peachWallet) throw Error("Peach Wallet not ready");
+    // if (!peachWallet) throw Error("Peach Wallet not ready");
     if (
       !selectedPaymentData ||
       !selectedCurrency ||
-      !peachWallet ||
+      // !peachWallet ||
       !selfUser ||
       !offerOwnerUser
     )
       throw Error("values not ready");
-    const { address: returnAddress, index } = await peachWallet.getAddress();
+    // const { address: returnAddress, index } = await peachWallet.getAddress();
 
     const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
     const { encrypted, signature } = await signAndEncrypt(
@@ -200,14 +206,14 @@ const performInstantTrade = async ({
         symmetricKeyEncrypted: encrypted,
         symmetricKeySignature: signature,
         maxMiningFeeRate: maxMiningFeeRate,
-        returnAddress,
+        // returnAddress,
       });
 
     if (instantTradeResp.error) {
       handleError(instantTradeResp.error);
     } else {
       if (instantTradeResp.result?.id) {
-        await createEscrowFn(instantTradeResp.result.id.split("-")[0]);
+        // await createEscrowFn(instantTradeResp.result.id.split("-")[0]);
         navigation.reset({
           index: 1,
           routes: [

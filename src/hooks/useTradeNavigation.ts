@@ -5,7 +5,6 @@ import { OfferSummary } from "../../peach-api/src/@types/offer";
 import { useStartRefundPopup } from "../popups/useStartRefundPopup";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { peachAPI } from "../utils/peachAPI";
-import { useCreateEscrow } from "../views/fundEscrow/hooks/useCreateEscrow";
 import { isContractSummary } from "../views/yourTrades/utils/isContractSummary";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
 import { getNavigationDestinationForPeach069BuyOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForPeach069BuyOffer";
@@ -16,7 +15,7 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
   const navigation = useStackNavigation();
   const showStartRefundPopup = useStartRefundPopup();
   const queryClient = useQueryClient();
-  const { mutateAsync } = useCreateEscrow();
+  // const { mutateAsync } = useCreateEscrow();
 
   const navigateToOfferOrContract = useCallback(async () => {
     const destination = isContractSummary(item)
@@ -35,10 +34,14 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
       }
     }
 
-    // this is for contracts that need funding
-    if (item.tradeStatus === "createEscrow" && "offerId" in item) {
-      await mutateAsync([item.offerId]);
-    }
+    // // this is for contracts that need funding
+    // if (item.tradeStatus === "createEscrow" && "offerId" in item) {
+    //   await mutateAsync([item.offerId]);
+    // }
+    // the code above has been commented because we are relying on the
+    // contract screen to perform the escrow creation.
+    // we had some bugs where the escrow was not funded fast enough, and the contract
+    // showed up without an escrow. therefore this is now done only at that screen
 
     navigation.navigate(...destination);
   }, [item, navigation, queryClient, showStartRefundPopup]);

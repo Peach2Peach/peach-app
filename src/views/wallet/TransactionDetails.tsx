@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { RefreshControl } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -20,6 +20,7 @@ import { useSyncWallet } from "./hooks/useSyncWallet";
 
 export const TransactionDetails = () => {
   const { txId } = useRoute<"transactionDetails">().params;
+  const didRetrySync = useRef(false);
   const localTx = useWalletState((state) => state.getTransaction(txId));
   const { data: transactionDetails } = useMappedTransactionDetails({ localTx });
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
@@ -36,8 +37,14 @@ export const TransactionDetails = () => {
       offerData: getOfferData(offers.filter(isDefined), contracts, type),
     };
   }, [localTx, offers, contracts]);
-
   const { refetch: refresh, isRefetching } = useSyncWallet();
+
+  useEffect(() => {
+    if (!localTx && !didRetrySync.current) {
+      didRetrySync.current = true;
+      refresh();
+    }
+  }, [localTx, refresh]);
 
   if (!localTx || !transactionDetails || !transactionSummary)
     return <BitcoinLoading />;

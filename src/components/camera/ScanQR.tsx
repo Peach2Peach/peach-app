@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Modal, TouchableOpacity, Vibration, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -40,16 +41,24 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
     })();
   }, []);
 
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      setHasReadQRCode(false);
+    }
+  }, [isFocused]);
+
   const device = useCameraDevice("back");
   const insets = useSafeAreaInsets();
-  if (!device) return null;
+  if (!device || !hasPermission) return null;
   return (
     <Modal animationType="none" onRequestClose={onCancel}>
       <Camera
         audio={false}
         style={tw`absolute w-full h-full rounded-2xl`}
         device={device}
-        isActive
+        isActive={hasPermission && isFocused}
         codeScanner={codeScanner}
       />
       <View style={tw`py-2`}>

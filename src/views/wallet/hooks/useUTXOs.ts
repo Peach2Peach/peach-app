@@ -14,6 +14,8 @@ export const walletKeys = {
   addressByIndex: (index: number) =>
     [...walletKeys.addresses(), index] as const,
   lastUnusedAddress: () => [...walletKeys.addresses(), "lastUnused"] as const,
+  lastUnusedAddressInternal: () =>
+    [...walletKeys.addresses(), "lastUnusedInternal"] as const,
   transactions: () => [...walletKeys.wallet, "transactions"] as const,
   transaction: (id: string | null) =>
     [...walletKeys.transactions(), id] as const,
