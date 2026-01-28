@@ -43,6 +43,7 @@
   "paymentMethod.keksPay": "KEKS Pay",
   "paymentMethod.klasha": "Klasha",
   "paymentMethod.liquid": "Liquid",
+  "paymentMethod.dollaronchain": "Dollar on Chain",
   "paymentMethod.lnurl": "LNURL BTC swap",
   "paymentMethod.lydia": "Lydia",
   "paymentMethod.m-pesa": "M-Pesa",
@@ -159,5 +160,12 @@
   "paymentMethods.edit.title": "fizetési módok szerkesztése",
   "paymentMethods.title": "fizetési módok",
   "paymentSection.meetups": "találkozók",
-  "paymentSection.remote": "távoli"
+  "paymentSection.remote": "távoli",
+  "paymentMethod.rootstockusdt": "Rootstock USDT",
+  "paymentMethod.ethereumusdt": "Ethereum USDT",
+  "paymentMethod.arbitrumusdt": "Arbitrum USDT",
+  "paymentMethod.baseusdt": "Base USDT",
+  "paymentMethod.solanausdt": "Solana USDT",
+  "paymentMethod.bnbusdt": "BNB USDT",
+  "paymentMethod.tronusdt": "TRON USDT"
 }

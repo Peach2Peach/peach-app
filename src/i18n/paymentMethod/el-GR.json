@@ -41,6 +41,7 @@
   "paymentMethod.iris": "Iris",
   "paymentMethod.keksPay": "KEKS Pay",
   "paymentMethod.liquid": "Liquid",
+  "paymentMethod.dollaronchain": "Dollar on Chain",
   "paymentMethod.lnurl": "LNURL BTC swap",
   "paymentMethod.lydia": "Lydia",
   "paymentMethod.m-pesa": "M-Pesa",
@@ -154,5 +155,12 @@
   "paymentMethods.edit.title": "επεξεργασία μεθόδων πληρωμής",
   "paymentMethods.title": "μέθοδοι πληρωμής",
   "paymentSection.meetups": "συναντήσεις",
-  "paymentSection.remote": "απομακρυσμένα"
+  "paymentSection.remote": "απομακρυσμένα",
+  "paymentMethod.rootstockusdt": "Rootstock USDT",
+  "paymentMethod.ethereumusdt": "Ethereum USDT",
+  "paymentMethod.arbitrumusdt": "Arbitrum USDT",
+  "paymentMethod.baseusdt": "Base USDT",
+  "paymentMethod.solanausdt": "Solana USDT",
+  "paymentMethod.bnbusdt": "BNB USDT",
+  "paymentMethod.tronusdt": "TRON USDT"
 }

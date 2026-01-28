@@ -13,12 +13,16 @@ import nationalTransferTR from "../../flags/tr.svg";
 import advcash from "./advcash.svg";
 import airtelMoney from "./airtelMoney.svg";
 import amazon from "./amazon.svg";
+import arbitrum from "./arbitrum.svg";
 import bancolombia from "./bancolombia.svg";
+import base from "./base.svg";
 import bitcoin from "./bitcoin.svg";
 import bitcoinAmsterdam from "./bitcoinAmsterdam.svg";
 import bizum from "./bizum.svg";
 import blik from "./blik.svg";
+import bnb from "./bnb.svg";
 import chippercash from "./chippercash.svg";
+import ethereum from "./ethereum.svg";
 import eversend from "./eversend.svg";
 import fasterPayments from "./fasterPayments.svg";
 import friends24 from "./friends24.svg";
@@ -40,12 +44,15 @@ import paypal from "./paypal.svg";
 import paysera from "./paysera.svg";
 import placeholder from "./placeholder.svg";
 import revolut from "./revolut.svg";
+import rootstock from "./rootstock.svg";
 import satispay from "./satispay.svg";
 import sepa from "./sepa.svg";
 import sinpeMovil from "./sinpeMovil.svg";
 import skrill from "./skrill.svg";
+import solana from "./solana.svg";
 import strike from "./strike.svg";
 import swish from "./swish.svg";
+import tron from "./tron.svg";
 import twint from "./twint.svg";
 import vipps from "./vipps.svg";
 import wave from "./wave.svg";
@@ -111,6 +118,7 @@ export const PaymentLogos = {
   rappipay: placeholder,
   rebellion: placeholder,
   revolut,
+  rootstock,
   satispay,
   sepa,
   sinpe: placeholder,
@@ -124,6 +132,12 @@ export const PaymentLogos = {
   wave,
   wirepay: placeholder,
   wise,
+  arbitrum,
+  ethereum,
+  bnb,
+  tron,
+  base,
+  solana,
 };
 
 export type PaymentLogoType = keyof typeof PaymentLogos;

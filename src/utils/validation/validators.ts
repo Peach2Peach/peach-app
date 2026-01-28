@@ -1,3 +1,5 @@
+import bs58 from "bs58";
+import { isAddress as isEthereumAddress } from "ethers";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
 import i18n from "../i18n";
 import { getMessages } from "./getMessages";
@@ -20,6 +22,35 @@ const referenceValidator = (value: string) =>
 const advcashWalletValidator = (value: string) =>
   isAdvcashWallet(value) || getMessages().advcashWallet;
 const emailValidator = (value: string) => isEmail(value) || getMessages().email;
+const ethereumAddressValidator = (value: string) => {
+  return (
+    isEthereumAddress(value.toLowerCase()) ||
+    getMessages().ethereumAddressValidator
+  );
+};
+
+const isSolanaPubKey = (address: string) => {
+  try {
+    return bs58.decode(address).length === 32;
+  } catch {
+    return false;
+  }
+};
+
+const solanaAddressValidator = (value: string) =>
+  isSolanaPubKey(value) || getMessages().ethereumAddressValidator;
+
+function isTronAddress(address: string) {
+  try {
+    const decoded = bs58.decode(address);
+    return decoded.length === 25 && address.startsWith("T");
+  } catch {
+    return false;
+  }
+}
+const tronAddressValidator = (value: string) =>
+  isTronAddress(value) || getMessages().ethereumAddressValidator;
+
 const phoneValidator = (value: string) => isPhone(value) || getMessages().phone;
 const ukBankAccountValidator = (value: string) =>
   isUKBankAccount(value) || getMessages().ukBankAccount;
@@ -75,6 +106,16 @@ const validators: Record<PaymentMethodField, NewRule> = {
   },
   lnurlAddress: {
     lnurlAddress: emailValidator,
+  },
+  receiveAddressEthereum: {
+    receiveAddressEthereum: ethereumAddressValidator,
+  },
+  receiveAddressTron: {
+    receiveAddressTron: tronAddressValidator,
+  },
+
+  receiveAddressSolana: {
+    receiveAddressSolana: solanaAddressValidator,
   },
   bankAccountNumber: {},
   bankBranch: {},

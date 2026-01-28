@@ -50,9 +50,9 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "VES",
   ],
   middleEast: ["ILS", "AED", "EGP", "SAR"],
-  northAmerica: ["USD", "CAD", "USDT"],
+  northAmerica: ["USD", "CAD", "USDT", "DOC"],
   oceania: ["NZD", "AUD"],
-  global: ["USDT", "SAT", "USD"],
+  global: ["USDT", "DOC", "SAT", "USD"],
 };
 
 export const getCurrencyTypeFilter =

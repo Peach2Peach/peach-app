@@ -139,7 +139,18 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     "wero",
   ],
   cash: [],
-  global: ["liquid", "lnurl"],
+  global: [
+    "liquid",
+    "lnurl",
+    "dollaronchain",
+    "ethereumusdt",
+    "tronusdt",
+    "rootstockusdt",
+    "arbitrumusdt",
+    "baseusdt",
+    "bnbusdt",
+    "solanausdt",
+  ],
 };
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
