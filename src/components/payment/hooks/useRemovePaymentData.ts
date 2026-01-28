@@ -28,9 +28,10 @@ export function useRemovePaymentData() {
           hashes,
         });
 
-      if (!result && err?.error !== "UNAUTHORIZED") {
-        throw new Error("NETWORK_ERROR");
-      }
+      // if (!result && err?.error !== "UNAUTHORIZED") {
+
+      //   throw new Error("NETWORK_ERROR");
+      // }
 
       removePaymentDataFromStore(id);
 
