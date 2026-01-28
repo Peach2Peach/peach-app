@@ -4,6 +4,7 @@ import { getOfferQuery } from "./getOfferQuery";
 
 export const offerKeys = {
   all: ["offers"] as const,
+  summariesForWallet: () => [...offerKeys.all, "summariesForWallet"] as const,
   summaries: () => [...offerKeys.all, "summaries"] as const,
   summary: (id: string) => [...offerKeys.summaries(), id] as const,
   details: () => [...offerKeys.all, "details"] as const,
