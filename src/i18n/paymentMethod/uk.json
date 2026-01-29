@@ -43,6 +43,7 @@
   "paymentMethod.keksPay": "KEKS Pay",
   "paymentMethod.klasha": "Klasha",
   "paymentMethod.liquid": "Liquid",
+  "paymentMethod.dollaronchain": "Dollar on Chain",
   "paymentMethod.lnurl": "LNURL BTC обмін",
   "paymentMethod.lydia": "Лідія",
   "paymentMethod.m-pesa": "M-Pesa",
@@ -159,5 +160,12 @@
   "paymentMethods.edit.title": "редагувати методи оплати",
   "paymentMethods.title": "методи оплати",
   "paymentSection.meetups": "зустрічі",
-  "paymentSection.remote": "дистанційний"
+  "paymentSection.remote": "дистанційний",
+  "paymentMethod.rootstockusdt": "Rootstock USDT",
+  "paymentMethod.ethereumusdt": "Ethereum USDT",
+  "paymentMethod.arbitrumusdt": "Arbitrum USDT",
+  "paymentMethod.baseusdt": "Base USDT",
+  "paymentMethod.solanausdt": "Solana USDT",
+  "paymentMethod.bnbusdt": "BNB USDT",
+  "paymentMethod.tronusdt": "TRON USDT"
 }

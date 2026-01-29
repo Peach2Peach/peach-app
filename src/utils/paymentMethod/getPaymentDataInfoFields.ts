@@ -6,8 +6,10 @@ type Item = { field: PaymentDataField; value: string };
 const isItemDefined = (item?: ItemWithUnknownValue): item is Item =>
   !!item && isDefined(item.field) && isDefined(item.value);
 
-export const getPaymentDataInfoFields = (paymentData: PaymentData) =>
-  PaymentDataInfoFields.map((field) => ({
+export const getPaymentDataInfoFields = (paymentData: PaymentData) => {
+  const result = PaymentDataInfoFields.map((field) => ({
     field,
     value: paymentData[field],
   })).filter(isItemDefined);
+  return result;
+};

@@ -43,6 +43,7 @@
   "paymentMethod.keksPay": "KEKS Pay",
   "paymentMethod.klasha": "Klasha",
   "paymentMethod.liquid": "Liquid",
+  "paymentMethod.dollaronchain": "Dollar on Chain",
   "paymentMethod.lnurl": "LNURL BTC swap",
   "paymentMethod.lydia": "Lydia",
   "paymentMethod.m-pesa": "M-Pesa",
@@ -159,5 +160,12 @@
   "paymentMethods.edit.title": "modifier méthodes de paiement",
   "paymentMethods.title": "méthodes de paiement",
   "paymentSection.meetups": "rencontres",
-  "paymentSection.remote": "en ligne"
+  "paymentSection.remote": "en ligne",
+  "paymentMethod.rootstockusdt": "Rootstock USDT",
+  "paymentMethod.ethereumusdt": "Ethereum USDT",
+  "paymentMethod.arbitrumusdt": "Arbitrum USDT",
+  "paymentMethod.baseusdt": "Base USDT",
+  "paymentMethod.solanausdt": "Solana USDT",
+  "paymentMethod.bnbusdt": "BNB USDT",
+  "paymentMethod.tronusdt": "TRON USDT"
 }

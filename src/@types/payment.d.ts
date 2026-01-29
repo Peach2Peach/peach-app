@@ -19,6 +19,7 @@ type PaymentMethod =
   | "dana"
   | "daviPlata"
   | "djamo"
+  | "dollaronchain"
   | "easypaisa"
   | "eversend"
   | "fasterPayments"
@@ -124,4 +125,12 @@ type PaymentMethod =
   | "wirepay"
   | "wise"
   | "ziraat"
-  | `cash.${string}`;
+  | `cash.${string}`
+  | "ziraat"
+  | "ethereumusdt"
+  | "tronusdt"
+  | "rootstockusdt"
+  | "arbitrumusdt"
+  | "baseusdt"
+  | "bnbusdt"
+  | "solanausdt";
