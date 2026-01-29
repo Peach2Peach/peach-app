@@ -63,6 +63,7 @@
   "UNAUTHORIZED.title": "acceso denegado",
   "TOO_MANY_USERS_CREATED.text": "Has creado otro usuario recientemente y no puedes crear más. Por favor, inténtalo de nuevo más tarde.",
   "TOO_MANY_USERS_CREATED.title": "Demasiados usuarios creados recientemente",
+  "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Debido a razones legales, nosotros no estamos disponibles en tu país.\n\nPuedes seguir accediendo a la billetera y finalizar cualquier comercio previo.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "no disponible",
   "UNKNOWN_ERROR.text": "Algo salió mal. Inténtalo de nuevo más tarde o contacta al soporte de Peach.",
   "UPDATE_AVAILABLE.text": "¡Peach sigue mejorando! Actualiza a la nueva versión de la app.",
@@ -84,9 +85,9 @@
   "error.general": "Algo salió mal. Inténtalo de nuevo más tarde o contacta al soporte de Peach.",
   "ACCOUNT_BANNED.text": "Tu cuenta ha sido bloqueada. Para apelar, contacta a Peach y proporciona tu ID único.",
   "PINS_DONT_MATCH.text": "El último PIN ingresado no coincide con el primero. Inténtalo de nuevo",
-"PINS_DONT_MATCH.title": "Los PIN no coinciden",
-"INCORRECT_PIN.text": "El PIN ingresado no es correcto. Inténtalo de nuevo",
-"INCORRECT_PIN.title": "El PIN es incorrecto",
-"TRADE_REQUEST_PERFORMED.text": "Tu solicitud está pendiente de aprobación. Si tienes varias solicitudes abiertas, todas las demás se eliminarán cuando una sea aprobada.",
+  "PINS_DONT_MATCH.title": "Los PIN no coinciden",
+  "INCORRECT_PIN.text": "El PIN ingresado no es correcto. Inténtalo de nuevo",
+  "INCORRECT_PIN.title": "El PIN es incorrecto",
+  "TRADE_REQUEST_PERFORMED.text": "Tu solicitud está pendiente de aprobación. Si tienes varias solicitudes abiertas, todas las demás se eliminarán cuando una sea aprobada.",
   "TRADE_REQUEST_PERFORMED.title": "¡Solicitud de intercambio enviada!"
 }

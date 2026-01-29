@@ -13,7 +13,7 @@
   "notification.contract.cancelationRequestAccepted.title": "Intercambio cancelado",
   "notification.contract.cancelationRequestRejected.text": "El comprador del intercambio $0 no aceptó la cancelación.\n\nEl intercambio continuará normalmente.",
   "notification.contract.cancelationRequestRejected.title": "Intercambio no cancelado",
-  "notification.contract.contractCreated.text": "¡Tu match fue aceptado!\n\nDebes realizar el pago dentro de doce horas. Mientras más rápido, mejor será tu puntaje en Peach.",
+  "notification.contract.contractCreated.text": "¡Tu match fue aceptado!\n\nDebes realizar el pago dentro de doce horas. Mientras más rápido, mejor será tu puntuación en Peach.",
   "notification.contract.contractCreated.title": "Tu match fue aceptado:",
   "notification.contract.disputeResolved.text": "La disputa por el intercambio $0 ha sido resuelta. Revisa el mensaje de tu mediador en el chat del intercambio para los siguientes pasos.",
   "notification.contract.paymentMade.text": "El comprador del intercambio $0 realizó el pago.\n\nConfirma que lo recibiste y marca el pago como recibido cuanto antes.",
@@ -27,7 +27,7 @@
   "notification.contract.tradeCompleted.text": "¡Felicidades! Los sats del intercambio $0 están en tu cartera \uD83C\uDF89",
   "notification.contract.tradeCompleted.title": "¡Intercambio completado!",
   "notification.offer.buyOfferExpired.text": "Tu oferta de compra $0 no recibió match después de $1 días y fue eliminada.",
-  "notification.offer.buyOfferExpired.title": "La oferta no recibió match en $0 días.",
+  "notification.offer.buyOfferExpired.title": "Oferta de compra eliminada.",
   "notification.offer.matchBuyer.text": "Tienes nuevos matches, ¡no los dejes esperando!",
   "notification.offer.matchBuyer.title": "Matches esperando por ti.",
   "notification.offer.matchSeller.text": "Tienes nuevos matches, ¡no los dejes esperando!",
@@ -70,10 +70,9 @@
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Te queda 1h para financiar el escrow.",
   "notification.contract.buyer.sellerCanceledBeforeFunding.text": "El vendedor canceló la operación.\n\nSu reputación se ha visto afectada.",
   "notification.offer.newBuyOfferMatchesPreferences.text": "¡Nueva oferta de compra!",
-    "notification.offer.newBuyOfferMatchesPreferences.title": "Hay una nueva oferta que coincide con tus preferencias.",
-    "notification.offer.newSellOfferMatchesPreferences.text": "¡Nueva oferta de venta!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Hay una nueva oferta que coincide con tus preferencias.",
+  "notification.offer.newBuyOfferMatchesPreferences.title": "Hay una nueva oferta que coincide con tus preferencias.",
+  "notification.offer.newSellOfferMatchesPreferences.text": "¡Nueva oferta de venta!",
+  "notification.offer.newSellOfferMatchesPreferences.title": "Hay una nueva oferta que coincide con tus preferencias.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Chat de solicitud de intercambio",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Has recibido un mensaje en el chat de tu solicitud de intercambio"
-
 }

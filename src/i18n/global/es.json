@@ -150,8 +150,8 @@
   "search": "Buscar",
   "selectCurrency.title": "seleccionar moneda",
   "skip": "omitir",
-  "time": "tiempo",
-  "to": "a",
+  "time": "fecha",
+  "to": "destino",
   "today": "hoy",
   "yes": "sí",
   "yesterday": "ayer",
@@ -195,5 +195,5 @@
   "country.MK": "Macedonia del Norte",
   "country.BA": "Bosnia y Herzegovina",
   "messageCopied": "Mensaje copiado",
-   "showContract": "Mostrar contrato" 
+  "showContract": "Mostrar contrato"
 }

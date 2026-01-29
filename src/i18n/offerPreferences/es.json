@@ -15,7 +15,7 @@
   "offerPreferences.competingSellOffers": "$0 ofertas de venta competidoras",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 ofertas de venta competidoras por debajo de este margen",
   "offerPreferences.currentPrice": "actualmente $0",
-  "offerPreferences.feature.instantTrade": "instantáneo - comercio",
+  "offerPreferences.feature.instantTrade": "comercio instantáneo",
   "offerPreferences.filters": "filtros",
   "offerPreferences.filters.maxPremium": "prima máxima",
   "offerPreferences.filters.minReputation": "reputación mínima: $0",
