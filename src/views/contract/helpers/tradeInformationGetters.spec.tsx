@@ -73,7 +73,9 @@ describe("tradeInformationGetters", () => {
     ).toEqual("101 500 000 SAT");
   });
   it("should return the correct value for the via field", () => {
-  const element = tradeInformationGetters.via({ ...contract }) as ReactElement;
+    const element = tradeInformationGetters.via({
+      ...contract,
+    }) as ReactElement;
     expect(render(element).toJSON()).toMatchSnapshot();
   });
   it("should return the correct value for the method field", () => {
