@@ -9,7 +9,7 @@ type Props = ComponentProps & {
   text?: string;
   style?: StyleProp<ViewStyle>;
 } & (
-  | { align?: "left"; icon?: ReactElement; iconAlign?: "left" | "right" }
+    | { align?: "left"; icon?: ReactElement; iconAlign?: "left" | "right" }
     | { align?: "center"; icon?: undefined; iconAlign?: undefined }
   );
 

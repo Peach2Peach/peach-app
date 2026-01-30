@@ -40,7 +40,7 @@ export const EditPremium = () => {
   const displayCurrency =
     preferedDisplayCurrency !== undefined
       ? preferedDisplayCurrency
-      : (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR";
+      : ((Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? "EUR");
   const currentPrice =
     offer && isSuccess
       ? getOfferPrice({

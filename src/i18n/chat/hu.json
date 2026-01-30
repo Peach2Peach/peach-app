@@ -31,7 +31,7 @@
   "chat.you": "Te",
   "chat.yourMessage": "Üzeneted",
   "chat.tradingRules.title": "Kereskedési szabályok",
-  "chat.tradingRules.text": "Az Eladó számára:\n- ne engedd fel az escrow-t, amíg a pénz meg nem érkezik a számládra, függetlenül attól, mit mond a vevő\n\nA Vevő számára:\n- az „Elvégeztem a fizetést” opciót csak a fizetés után erősítsd meg\n- a fizetést csak a szerződés képernyőjén megadott adatokra teljesítsd, az escrow finanszírozása után\n\nMindenki számára:\n- a használt fizetési adatoknak pontosan egyezniük kell",
+  "chat.tradingRules.text": "Az Eladó számára:\n- ne engedd fel az escrow-t, amíg a pénz meg nem érkezik a számládra, függetlenül attól, mit mond a vevő\n\nA Vevő számára:\n- az „Elvégeztem a fizetést” opciót csak a fizetés után erősítsd meg\n- a fizetést csak a szerződés képernyőjén megadott adatokra teljesítsd, az escrow finanszírozása után\n\nMindenki számára:\n- a használt fizetési adatoknak pontosan egyezniük kell\n- a két fél közötti kommunikáció kizárólag ebben a csevegésben történhet.",
   "chat.tradingRules.disputeText": "- ha a másik fél gyanús viselkedést tanúsít, indíts vitát a képernyő jobb felső sarkában lévő ikon megnyomásával",
   "chat.revolutWarning.title": "Biztonsági figyelmeztetés",
   "chat.revolutWarning.text": "Revtag-et használó eladók: győződj meg róla, hogy a fizetés CSAK a megadott Revolut tag-en keresztül érkezett, és NEM bankkártyával, Apple Pay-jel vagy visszaterhelést engedő módszerrel."

@@ -1,4 +1,10 @@
-import { ReactNode, type ReactElement, useEffect, useRef, useState } from "react";
+import {
+  ReactNode,
+  type ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Animated, Modal, PanResponder, Pressable, View } from "react-native";
 import { useIsMediumScreen } from "../hooks/useIsMediumScreen";
 import { useThemeStore } from "../store/theme";
