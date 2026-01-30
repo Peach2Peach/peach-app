@@ -149,6 +149,7 @@
   "settings.transactionBatching": "transaction batching",
   "settings.website": "website",
   "settings.report.shareAppLogs" : "share app logs",
+  "settings.use system settings": "use system settings",
   "settings.dark mode": "Dark Mode",
   "settings.createPin": "create pin",
   "settings.filterAlerts" : "Filter alerts",
