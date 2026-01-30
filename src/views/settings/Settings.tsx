@@ -35,7 +35,7 @@ export const Settings = () => {
 
   const navigation = useStackNavigation();
 
-  const { isDarkMode, toggleTheme } = useThemeStore();
+  const { isDarkMode, autoMode, toggleTheme, toggleAutoMode } = useThemeStore();
 
   const [enableAnalytics, toggleAnalytics, showBackupReminder, appPinCode] =
     useSettingsStore(
@@ -142,6 +142,13 @@ export const Settings = () => {
     }
   };
 
+  const toggleAutoModeHandler = useCallback(() => {
+    toggleAutoMode();
+    if (!autoMode) {
+      toggleColorScheme();
+    }
+  }, [autoMode, toggleAutoMode, toggleColorScheme]);
+
   const appSettings = useMemo(
     () =>
       (
@@ -163,10 +170,17 @@ export const Settings = () => {
           "currency",
           "language",
           {
+            title: "use system settings",
+            onPress: toggleAutoModeHandler,
+            iconId: autoMode ? "toggleRight" : "toggleLeft",
+            enabled: autoMode,
+          },
+          {
             title: "dark mode",
             onPress: toggleDarkMode,
             iconId: isDarkMode ? "toggleRight" : "toggleLeft",
             enabled: isDarkMode,
+            disabled: autoMode,
           },
         ] as const
       ).filter(isDefined),
@@ -174,6 +188,8 @@ export const Settings = () => {
       onAnalyticsPress,
       enableAnalytics,
       notificationClick,
+      toggleAutoModeHandler,
+      autoMode,
       toggleDarkMode,
       isDarkMode,
     ],
