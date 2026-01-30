@@ -13,10 +13,8 @@ import { AddressIndex, BlockChainNames, Network } from "bdk-rn/lib/lib/enums";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
 import { Platform } from "react-native";
-import { contractKeys } from "../../hooks/query/useContractDetail";
-import { getContractSummariesQuery } from "../../hooks/query/useContractSummaries";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
-import { getOfferSummariesQuery } from "../../hooks/query/useOfferSummaries";
+import { getSummariesForWalletQuery } from "../../hooks/query/useOfferSummaries";
 import { queryClient } from "../../queryClient";
 import { waitForHydration } from "../../store/waitForHydration";
 import { error } from "../log/error";
@@ -151,13 +149,9 @@ export class PeachWallet {
 
             this.transactions = await this.wallet.listTransactions(true);
             useWalletState.getState().setTransactions(this.transactions);
-            const offers = await queryClient.fetchQuery({
-              queryKey: offerKeys.summaries(),
-              queryFn: getOfferSummariesQuery,
-            });
-            const contracts = await queryClient.fetchQuery({
-              queryKey: contractKeys.summaries(),
-              queryFn: getContractSummariesQuery,
+            const { offers, contracts } = await queryClient.fetchQuery({
+              queryKey: offerKeys.summariesForWallet(),
+              queryFn: getSummariesForWalletQuery,
             });
             this.transactions
               .filter((tx) => !transactionHasBeenMappedToOffers(tx))

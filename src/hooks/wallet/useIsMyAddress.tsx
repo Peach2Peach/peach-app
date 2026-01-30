@@ -14,10 +14,13 @@ const buildQuery = (address: string) => ({
   enabled: !!address && !!peachWallet?.wallet && rules.bitcoinAddress(address),
 });
 
-export const useIsMyAddress = (address: string) => {
-  const { data: isMine } = useQuery(buildQuery(address));
+export const useIsMyAddress = (address?: string) => {
+  const { data: isMine } = useQuery({
+    ...buildQuery(address ?? ""),
+    enabled: !!address,
+  });
 
-  return isMine;
+  return isMine ?? false;
 };
 
 export const useAreMyAddresses = (address: string[]) => {

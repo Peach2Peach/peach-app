@@ -17,7 +17,9 @@ export const useWalletLabel = ({ address, isPayoutWallet = false }: Props) => {
         : [state.refundAddress, state.refundAddressLabel],
     shallow,
   );
-  const belongsToPeachWallet = !address ? true : useIsMyAddress(address);
+  const isAddressMine = useIsMyAddress(address ?? "");
+
+  const belongsToPeachWallet = !address || isAddressMine;
 
   const walletLabel = useMemo(() => {
     if (belongsToPeachWallet) return i18n("peachWallet");

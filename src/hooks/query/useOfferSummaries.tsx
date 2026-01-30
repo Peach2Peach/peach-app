@@ -33,3 +33,12 @@ export async function getOfferSummariesQuery() {
     lastModified: new Date(offer.lastModified),
   }));
 }
+
+export async function getSummariesForWalletQuery() {
+  const { result: offers, error } =
+    await peachAPI.private.offer.getSummariesForWallet();
+
+  if (error?.error || !offers)
+    throw new Error(error?.error || "Unable to fetch summeries for wallet");
+  return offers;
+}
