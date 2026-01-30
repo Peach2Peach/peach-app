@@ -31,7 +31,7 @@
   "chat.you": "jij",
   "chat.yourMessage": "jouw bericht",
   "chat.tradingRules.title": "Handelsregels",
-  "chat.tradingRules.text": "Voor de Verkoper:\n- geef de escrow niet vrij voordat het geld op je rekening staat, ongeacht wat de koper zegt\n\nVoor de Koper:\n- bevestig “Ik heb betaald” alleen nadat je dit daadwerkelijk hebt gedaan\n- betaal de verkoper alleen via de gegevens op het contractscher m, nadat de escrow is gefinancierd\n\nVoor iedereen:\n- de gebruikte betaalgegevens moeten exact overeenkomen",
+  "chat.tradingRules.text": "Voor de Verkoper:\n- geef de escrow niet vrij voordat het geld op je rekening staat, ongeacht wat de koper zegt\n\nVoor de Koper:\n- bevestig “Ik heb betaald” alleen nadat je dit daadwerkelijk hebt gedaan\n- betaal de verkoper alleen via de gegevens op het contractscherm, nadat de escrow is gefinancierd\n\nVoor iedereen:\n- de gebruikte betaalgegevens moeten exact overeenkomen\n- communicatie tussen de twee partijen moet uitsluitend plaatsvinden in deze chat.",
   "chat.tradingRules.disputeText": "- vertoont de tegenpartij verdacht gedrag, start dan een geschil via het pictogram rechtsboven op dit scherm",
   "chat.revolutWarning.title": "Beveiligingsmelding",
   "chat.revolutWarning.text": "Verkopers die Revtag gebruiken: zorg ervoor dat de betaling ALLEEN via de opgegeven Revolut-tag is ontvangen en NIET via creditcard, Apple Pay of een methode met terugboekingen."
