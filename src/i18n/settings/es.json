@@ -152,6 +152,8 @@
   "settings.dark mode": "Modo oscuro",
   "settings.createPin": "crear PIN",
   "settings.filterAlerts": "Filtrar alertas",
-  "settings.filterAlerts.description": "Activa esto y recibirás notificaciones push cuando se publiquen nuevas ofertas que coincidan con tus preferencias"
+  "settings.filterAlerts.description": "Activa esto y recibirás notificaciones push cuando se publiquen nuevas ofertas que coincidan con tus preferencias",
+  "offerCard.youSend": "envías",
+  "offerCard.youReceive": "recibes"
 
 }

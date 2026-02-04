@@ -151,6 +151,8 @@
     "settings.report.shareAppLogs": "partilhar informações técnicas da aplicação",
     "settings.createPin": "criar PIN",
     "settings.filterAlerts": "Filtrar alertas",
-  "settings.filterAlerts.description": "Ativa e receberás notificações quando forem publicadas novas ofertas que correspondam às tuas preferências"
+  "settings.filterAlerts.description": "Ativa e receberás notificações quando forem publicadas novas ofertas que correspondam às tuas preferências",
+  "offerCard.youSend": "envia",
+  "offerCard.youReceive": "recebe"
 
 }

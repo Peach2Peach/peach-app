@@ -147,6 +147,8 @@
     "settings.report.shareAppLogs": "uygulamanın teknik bilgilerini paylaş",
     "settings.createPin": "PIN oluştur",
     "settings.filterAlerts": "Uyarıları filtrele",
-  "settings.filterAlerts.description": "Bunu açarak tercihlerine uyan yeni teklifler yayınlandığında push bildirimleri alırsın"
+  "settings.filterAlerts.description": "Bunu açarak tercihlerine uyan yeni teklifler yayınlandığında push bildirimleri alırsın",
+  "offerCard.youSend": "gönderirsin",
+  "offerCard.youReceive": "alırsın"
 
 }

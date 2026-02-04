@@ -150,6 +150,8 @@
     "settings.report.shareAppLogs": "shirikisha taarifa za kiufundi za app",
     "settings.createPin": "unda PIN",
     "settings.filterAlerts": "Chuja arifa",
-  "settings.filterAlerts.description": "Washa hii ili upokee arifa za kusukuma pindi ofa mpya zinazoendana na mapendeleo yako zitakapotumwa"
+  "settings.filterAlerts.description": "Washa hii ili upokee arifa za kusukuma pindi ofa mpya zinazoendana na mapendeleo yako zitakapotumwa",
+  "offerCard.youSend": "unakutuma",
+  "offerCard.youReceive": "unakupokea"
 
 }

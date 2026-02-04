@@ -147,6 +147,8 @@
     "settings.report.shareAppLogs": "technische app-informatie delen",
     "settings.createPin": "PIN aanmaken",
     "settings.filterAlerts": "Meldingen filteren",
-  "settings.filterAlerts.description": "Schakel dit in om pushmeldingen te ontvangen wanneer er nieuwe aanbiedingen worden geplaatst die overeenkomen met jouw voorkeuren"
+  "settings.filterAlerts.description": "Schakel dit in om pushmeldingen te ontvangen wanneer er nieuwe aanbiedingen worden geplaatst die overeenkomen met jouw voorkeuren",
+  "offerCard.youSend": "jij stuurt",
+  "offerCard.youReceive": "jij ontvangt"
 
 }

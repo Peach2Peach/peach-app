@@ -147,6 +147,8 @@
     "settings.report.shareAppLogs": "поділитися технічною інформацією застосунку",
     "settings.createPin": "створити PIN",
     "settings.filterAlerts": "Фільтрувати сповіщення",
-  "settings.filterAlerts.description": "Увімкніть це, щоб отримувати push-сповіщення, коли публікуються нові пропозиції, що відповідають вашим вподобанням"
+  "settings.filterAlerts.description": "Увімкніть це, щоб отримувати push-сповіщення, коли публікуються нові пропозиції, що відповідають вашим вподобанням",
+  "offerCard.youSend": "ви надсилаєте",
+  "offerCard.youReceive": "ви отримуєте"
 
 }

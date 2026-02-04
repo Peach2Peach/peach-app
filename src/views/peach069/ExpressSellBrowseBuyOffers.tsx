@@ -7,7 +7,6 @@ import { ExpressSellAdvancedFilters } from "../../components/ExpressSellAdvanced
 import { ExpressSellCurrenciesDrawer } from "../../components/ExpressSellCurrenciesDrawer";
 import { ExpressSellPaymentMethodsDrawer } from "../../components/ExpressSellPaymentMethodsDrawer";
 import { Header } from "../../components/Header";
-import { horizontalBadgePadding } from "../../components/InfoContainer";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { Screen } from "../../components/Screen";
 import { TouchableIcon } from "../../components/TouchableIcon";
@@ -273,39 +272,55 @@ function OfferCard({
           </PeachText>
         </View>
       )}
-      <View style={tw`justify-center py-2 px-9px`}>
-        <View
-          style={[
-            tw`flex-row items-center justify-between`,
-            { paddingLeft: horizontalBadgePadding },
-          ]}
-        >
+      <View style={tw`flex-row justify-between py-2 px-9px`}>
+        {/* LEFT SIDE */}
+
+        <View style={[tw`justify-between`]}>
           <Rating rating={user.rating} isNewUser={isNewUser} />
-          <BTCAmount amount={amountSats} size="small" />
-        </View>
-        <View
-          style={[
-            tw`flex-row items-center justify-between`,
-            isNewUser && tw`justify-end`,
-          ]}
-        >
           {!isNewUser && <Badges id={user.id} unlockedBadges={user.medals} />}
-          <PeachText style={tw`text-center`}>
-            <PriceFormat
-              style={tw`tooltip`}
-              currency={displayCurrency}
-              amount={fiatPrice * (1 + premium / CENT)}
-            />
+        </View>
+
+        <View style={[tw`items-end justify-between gap-2`]}>
+          <View style={[tw`items-end gap-0.4`]}>
             <PeachText
-              style={tw.style(
-                isDarkMode ? "text-primary-mild-2" : "text-black-65",
-              )}
+              style={[
+                { fontSize: 11, lineHeight: 13 },
+                tw.style(isDarkMode ? "text-primary-mild-2" : "text-black-65"),
+              ]}
             >
-              {" "}
-              ({premium >= 0 ? "+" : ""}
-              {premium}%)
+              {i18n("offerCard.youSend")}
             </PeachText>
-          </PeachText>
+            <BTCAmount amount={amountSats} size="small" />
+          </View>
+
+          <View style={[tw`items-end gap-0.4`]}>
+            <PeachText
+              style={[
+                { fontSize: 11, lineHeight: 13 },
+                tw.style(isDarkMode ? "text-primary-mild-2" : "text-black-65"),
+                ,
+              ]}
+            >
+              {i18n("offerCard.youReceive")}
+            </PeachText>
+            <PeachText style={[tw`text-right`]}>
+              <PriceFormat
+                style={tw`tooltip`}
+                currency={displayCurrency}
+                amount={fiatPrice * (1 + premium / CENT)}
+              />
+              <PeachText
+                style={tw.style(
+                  isDarkMode ? "text-primary-mild-2" : "text-black-65",
+                  tw`leading-none`,
+                )}
+              >
+                {" "}
+                ({premium >= 0 ? "+" : ""}
+                {premium}%)
+              </PeachText>
+            </PeachText>
+          </View>
         </View>
       </View>
     </TouchableOpacity>

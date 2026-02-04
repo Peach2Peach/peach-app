@@ -152,5 +152,9 @@
   "settings.dark mode": "Dark Mode",
   "settings.createPin": "create pin",
   "settings.filterAlerts" : "Filter alerts",
-  "settings.filterAlerts.description":"toggle this and you will receive push notifications when new offers matching your preferences are published"
+  "settings.filterAlerts.description":"toggle this and you will receive push notifications when new offers matching your preferences are published",
+  "settings.deleteAccount.instructions.title" :"Do you want to Delete your Account?",
+  "settings.deleteAccount.instructions.text" :"In Peach, you cannot delete your account, but don't worry: we do not keep any personal information because we never had it.\n\nIf you want to use Peach with another account, please uninstall the app and install it again. A new account will be created for you.",
+  "offerCard.youSend": "you send",
+  "offerCard.youReceive": "you receive"
 }

@@ -151,6 +151,8 @@
     "settings.report.shareAppLogs": "μοιραστείτε τεχνικές πληροφορίες της εφαρμογής",
     "settings.createPin": "δημιουργία PIN",
     "settings.filterAlerts": "Φιλτράρισμα ειδοποιήσεων",
-  "settings.filterAlerts.description": "Ενεργοποιήστε το για να λαμβάνετε push ειδοποιήσεις όταν δημοσιεύονται νέες προσφορές που ταιριάζουν στις προτιμήσεις σας"
+  "settings.filterAlerts.description": "Ενεργοποιήστε το για να λαμβάνετε push ειδοποιήσεις όταν δημοσιεύονται νέες προσφορές που ταιριάζουν στις προτιμήσεις σας",
+  "offerCard.youSend": "στέλνεις",
+  "offerCard.youReceive": "λαμβάνεις"
 
 }

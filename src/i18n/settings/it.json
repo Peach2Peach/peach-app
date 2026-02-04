@@ -147,6 +147,8 @@
     "settings.report.shareAppLogs": "condividi informazioni tecniche dell’app",
     "settings.createPin": "crea PIN",
     "settings.filterAlerts": "Filtra avvisi",
-  "settings.filterAlerts.description": "Attiva questa opzione per ricevere notifiche push quando vengono pubblicate nuove offerte che corrispondono alle tue preferenze"
+  "settings.filterAlerts.description": "Attiva questa opzione per ricevere notifiche push quando vengono pubblicate nuove offerte che corrispondono alle tue preferenze",
+  "offerCard.youSend": "invi",
+  "offerCard.youReceive": "ricevi"
 
 }

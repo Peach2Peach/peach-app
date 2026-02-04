@@ -151,6 +151,8 @@
     "settings.report.shareAppLogs": "udostępnij dane techniczne aplikacji",
     "settings.createPin": "utwórz PIN",
     "settings.filterAlerts": "Filtruj alerty",
-  "settings.filterAlerts.description": "Włącz to, aby otrzymywać powiadomienia push, gdy pojawią się nowe oferty pasujące do twoich preferencji"
+  "settings.filterAlerts.description": "Włącz to, aby otrzymywać powiadomienia push, gdy pojawią się nowe oferty pasujące do twoich preferencji",
+  "offerCard.youSend": "wysyłasz",
+  "offerCard.youReceive": "otrzymujesz"
 
 }

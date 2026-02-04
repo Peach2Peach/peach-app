@@ -151,6 +151,8 @@
     "settings.report.shareAppLogs": "alkalmazás technikai adatait megosztani",
     "settings.createPin": "PIN létrehozása",
     "settings.filterAlerts": "Értesítések szűrése",
-  "settings.filterAlerts.description": "Kapcsold be, hogy push értesítéseket kapj, amikor új, a beállított preferenciáidnak megfelelő ajánlatok jelennek meg"
+  "settings.filterAlerts.description": "Kapcsold be, hogy push értesítéseket kapj, amikor új, a beállított preferenciáidnak megfelelő ajánlatok jelennek meg",
+  "offerCard.youSend": "elküldöd",
+  "offerCard.youReceive": "megkapod"
 
 }
