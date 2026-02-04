@@ -306,7 +306,7 @@ function ExpressSellButton() {
     navigation.navigate("expressSellBrowseBuyOffers");
   return (
     <Button style={[buttonStyle]} onPress={goToExpressSell}>
-      {i18n("sell")}
+      {i18n("sell") + " BTC"}
     </Button>
   );
 }
@@ -316,7 +316,7 @@ function ExpressBuyButton() {
     navigation.navigate("expressBuyBrowseSellOffers");
   return (
     <Button style={[buttonStyle, tw`bg-success-main`]} onPress={goToExpressBuy}>
-      {i18n("buy")}
+      {i18n("buy") + " BTC"}
     </Button>
   );
 }
