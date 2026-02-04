@@ -6,7 +6,6 @@ import { PeachScrollView } from "../../../components/PeachScrollView";
 import { ProfileInfo } from "../../../components/ProfileInfo";
 import { Screen } from "../../../components/Screen";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
-import { PopupAction } from "../../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../../components/popup/actions/ClosePopupAction";
 import { TouchableRedText } from "../../../components/text/TouchableRedText";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
@@ -14,7 +13,6 @@ import { ErrorPopup } from "../../../popups/ErrorPopup";
 import { HelpPopup } from "../../../popups/HelpPopup";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import tw from "../../../styles/tailwind";
-import { deleteAccount } from "../../../utils/account/deleteAccount";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -47,7 +45,7 @@ export const MyProfile = () => {
           </View>
           <AccountInfo user={user} />
         </View>
-        <DeleteAccountButton style={tw`self-center`} />
+        {/* <DeleteAccountButton style={tw`self-center`} /> */}
       </PeachScrollView>
     </Screen>
   );
@@ -57,43 +55,57 @@ function DeleteAccountButton({ style }: ComponentProps) {
   const setPopup = useSetPopup();
   const { mutate: logoutUser } = useLogoutUser();
 
-  const showPopup = useCallback(
-    (popupChain = ["popup", "forRealsies", "success"]) => {
-      const title = popupChain[0];
-      const isSuccess = popupChain.length === 1;
-      if (isSuccess) {
-        deleteAccount();
-        logoutUser();
-      }
+  const showPopup = useCallback(() => {
+    setPopup(
+      <ErrorPopup
+        title={i18n(`settings.deleteAccount.instructions.title`)}
+        content={i18n(`settings.deleteAccount.instructions.text`)}
+        actions={
+          <>
+            <ClosePopupAction reverseOrder style={tw`justify-center`} />
+          </>
+        }
+      />,
+    );
+  }, []);
 
-      const onPress = () => showPopup(popupChain.slice(1));
+  // const showPopup = useCallback(
+  //   (popupChain = ["popup", "forRealsies", "success"]) => {
+  //     const title = popupChain[0];
+  //     const isSuccess = popupChain.length === 1;
+  //     if (isSuccess) {
+  //       deleteAccount();
+  //       logoutUser();
+  //     }
 
-      setPopup(
-        <ErrorPopup
-          title={i18n(
-            `settings.deleteAccount.${isSuccess ? "success" : "popup"}.title`,
-          )}
-          content={i18n(`settings.deleteAccount.${title}`)}
-          actions={
-            <>
-              {!isSuccess && (
-                <PopupAction
-                  label={i18n("settings.deleteAccount")}
-                  iconId="trash"
-                  onPress={onPress}
-                />
-              )}
-              <ClosePopupAction
-                reverseOrder
-                style={isSuccess && tw`justify-center`}
-              />
-            </>
-          }
-        />,
-      );
-    },
-    [logoutUser, setPopup],
-  );
+  //     const onPress = () => showPopup(popupChain.slice(1));
+
+  //     setPopup(
+  //       <ErrorPopup
+  //         title={i18n(
+  //           `settings.deleteAccount.${isSuccess ? "success" : "popup"}.title`,
+  //         )}
+  //         content={i18n(`settings.deleteAccount.${title}`)}
+  //         actions={
+  //           <>
+  //             {!isSuccess && (
+  //               <PopupAction
+  //                 label={i18n("settings.deleteAccount")}
+  //                 iconId="trash"
+  //                 onPress={onPress}
+  //               />
+  //             )}
+  //             <ClosePopupAction
+  //               reverseOrder
+  //               style={isSuccess && tw`justify-center`}
+  //             />
+  //           </>
+  //         }
+  //       />,
+  //     );
+  //   },
+  //   [logoutUser, setPopup],
+  // );
 
   return (
     <TouchableRedText onPress={() => showPopup()} style={style} iconId="trash">
