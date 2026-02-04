@@ -277,7 +277,13 @@ function OfferCard({
 
         <View style={[tw`justify-between`]}>
           <Rating rating={user.rating} isNewUser={isNewUser} />
-          {!isNewUser && <Badges id={user.id} unlockedBadges={user.medals} />}
+          {!isNewUser && (
+            <Badges
+              id={user.id}
+              unlockedBadges={user.medals}
+              hideLocked={true}
+            />
+          )}
         </View>
 
         <View style={[tw`items-end justify-between gap-2`]}>

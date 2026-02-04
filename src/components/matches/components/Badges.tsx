@@ -13,9 +13,11 @@ import { PeachText } from "../../text/PeachText";
 export function Badges({
   unlockedBadges,
   id,
+  hideLocked = false,
 }: {
   unlockedBadges: User["medals"];
   id: User["id"];
+  hideLocked?: boolean;
 }) {
   const setPopup = useSetPopup();
   const openPeachBadgesPopup = () => setPopup(<MyBadgesPopup />);
@@ -25,13 +27,15 @@ export function Badges({
       style={tw`flex-row flex-wrap gap-1 max-w-46`}
       onPress={openPeachBadgesPopup}
     >
-      {badges.map(([iconId, badgeName]) => (
-        <Badge
-          key={`profileOverviewIcon-${iconId}`}
-          isUnlocked={unlockedBadges.includes(badgeName)}
-          badgeName={badgeName}
-        />
-      ))}
+      {badges
+        .filter((x) => (hideLocked ? unlockedBadges.includes(x[1]) : true))
+        .map(([iconId, badgeName]) => (
+          <Badge
+            key={`profileOverviewIcon-${iconId}`}
+            isUnlocked={unlockedBadges.includes(badgeName)}
+            badgeName={badgeName}
+          />
+        ))}
       <RepeatTraderBadge id={id} />
     </TouchableOpacity>
   );
