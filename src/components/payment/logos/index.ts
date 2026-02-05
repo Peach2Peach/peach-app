@@ -4,7 +4,6 @@ import nationalTransferCZ from "../../flags/cz.svg";
 import nationalTransferDK from "../../flags/dk.svg";
 import nationalTransferHU from "../../flags/hu.svg";
 import nationalTransferIS from "../../flags/is.svg";
-import nationalTransferNG from "../../flags/ng.svg";
 import nationalTransferNO from "../../flags/no.svg";
 import nationalTransferPL from "../../flags/pl.svg";
 import nationalTransferRO from "../../flags/ro.svg";
@@ -98,7 +97,6 @@ export const PaymentLogos = {
   nationalTransferDK,
   nationalTransferHU,
   nationalTransferIS,
-  nationalTransferNG,
   nationalTransferNO,
   nationalTransferPL,
   nationalTransferRO,
