@@ -32,6 +32,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "TRY",
   ],
   latinAmerica: [
+    "DOC",
     "BRL",
     "COP",
     "HNL",
