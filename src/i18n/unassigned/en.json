@@ -284,5 +284,7 @@
   "isTestApp.title":"TEST VERSION: NOT REAL BITCOIN",
   "isTestApp.text":"this is the Test version of Peach. None of the Bitcoin traded here are valuable, don't spend your Fiat money with trades here.\nThe disputes feature is disabled.\n\nIf you wan't to trade real Bitcoin with Peach, download the official app.",
   "viewAll":"view all",
-  "yesProceed":"Yes, proceed"
+  "yesProceed":"Yes, proceed",
+  "express.sell.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first buyer who accepts your request.",
+  "express.buy.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first seller who accepts your request."
 }

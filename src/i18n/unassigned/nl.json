@@ -281,7 +281,10 @@
 "isTestApp.title": "TESTVERSIE: GEEN ECHTE BITCOIN",
   "isTestApp.text": "Dit is de testversie van Peach. Geen van de Bitcoins die hier worden verhandeld heeft waarde, geef dus geen fiatgeld uit aan trades hier.\nDe geschillenfunctie is uitgeschakeld.\n\nAls je echte Bitcoin met Peach wilt verhandelen, download dan de officiële app.",
   "viewAll": "alles bekijken",
-  "yesProceed": "Ja, doorgaan"
+  "yesProceed": "Ja, doorgaan",
+   "express.sell.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste koper die je verzoek accepteert.",
+  "express.buy.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste verkoper die je verzoek accepteert."
+
 
  
 }

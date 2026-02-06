@@ -279,6 +279,9 @@
     "isTestApp.title": "VERSIONE DI TEST: BITCOIN NON REALE",
   "isTestApp.text": "Questa è la versione di test di Peach. Nessuno dei Bitcoin scambiati qui ha valore, non spendere i tuoi soldi fiat per scambi qui.\nLa funzione di dispute è disabilitata.\n\nSe vuoi scambiare Bitcoin reale con Peach, scarica l’app ufficiale.",
   "viewAll": "vedi tutte",
-   "yesProceed": "Sì, procedi"
+   "yesProceed": "Sì, procedi",
+   "express.sell.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo acquirente che accetterà la tua richiesta.",
+  "express.buy.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo venditore che accetterà la tua richiesta."
+
 
 }

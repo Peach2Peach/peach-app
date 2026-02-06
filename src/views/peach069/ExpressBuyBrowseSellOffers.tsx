@@ -24,6 +24,7 @@ import {
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 
+import { InfoFrame } from "../../components/ui/InfoFrame";
 import {
   countOffersByCurrency,
   CountsByCurrency,
@@ -165,6 +166,13 @@ function SellOfferList({
             initialNumToRender={10}
             maxToRenderPerBatch={10}
             windowSize={10}
+            ListHeaderComponent={
+              <View style={tw`items-center justify-center gap-16 grow`}>
+                <InfoFrame
+                  text={i18n("express.buy.tradeRequestBehaviourInfo")}
+                />
+              </View>
+            }
           />
         </>
       ) : (

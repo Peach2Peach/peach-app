@@ -284,6 +284,9 @@
   "isTestApp.title": "TESTVERSION: KEIN ECHTES BITCOIN",
   "isTestApp.text": "Dies ist die Testversion von Peach. Keiner der hier gehandelten Bitcoin hat einen Wert, gib also kein Fiat-Geld für Trades hier aus.\nDie Streitfall-Funktion ist deaktiviert.\n\nWenn du echtes Bitcoin mit Peach handeln möchtest, lade die offizielle App herunter.",
   "viewAll": "ver todas",
-  "yesProceed": "Sí, continuar"
+  "yesProceed": "Sí, continuar",
+  "express.sell.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer comprador que acepte tu solicitud.",
+  "express.buy.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer vendedor que acepte tu solicitud."
+
 
 }

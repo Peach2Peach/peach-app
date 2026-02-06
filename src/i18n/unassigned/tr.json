@@ -281,6 +281,9 @@
      "isTestApp.title": "TEST SÜRÜMÜ: GERÇEK BITCOIN DEĞİL",
   "isTestApp.text": "Bu, Peach uygulamasının test sürümüdür. Burada alınıp satılan Bitcoinlerin hiçbirinin değeri yoktur; burada yapılan işlemler için fiat paranızı harcamayın.\nUyuşmazlık özelliği devre dışıdır.\n\nGerçek Bitcoin’i Peach ile takas etmek istiyorsanız, resmi uygulamayı indirin.",
   "viewAll": "tümünü gör",
-  "yesProceed": "Evet, devam et" 
+  "yesProceed": "Evet, devam et",
+  "express.sell.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk alıcıyla işleme girersin.",
+  "express.buy.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk satıcıyla işleme girersin."
+
 
 }

@@ -285,6 +285,9 @@
     "isTestApp.title": "TESZT VERZIÓ: NEM VALÓDI BITCOIN",
   "isTestApp.text": "Ez a Peach tesztverziója. Az itt kereskedett Bitcoinoknak nincs valódi értéke, ezért ne költs fiat pénzt itt végrehajtott tranzakciókra.\nA vitakezelési funkció le van tiltva.\n\nHa valódi Bitcoinnal szeretnél kereskedni a Peach-en, töltsd le a hivatalos alkalmazást.",
   "viewAll": "összes megtekintése",
-  "yesProceed": "Ndiyo, endelea"
+  "yesProceed": "Ndiyo, endelea",
+  "express.sell.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első vevővel lépsz kereskedésbe, aki elfogadja a kérésed.",
+  "express.buy.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első eladóval lépsz kereskedésbe, aki elfogadja a kérésed."
+
 
 }
