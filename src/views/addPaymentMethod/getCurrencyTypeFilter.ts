@@ -2,7 +2,7 @@ import { Currency } from "../../../peach-api/src/@types/global";
 import { CurrencyType } from "../../store/offerPreferenes/types";
 
 const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
-  africa: ["XOF", "CDF", "NGN", "ZAR", "MAD", "KES", "TZS"],
+  africa: ["XOF", "CDF", "ZAR", "KES", "TZS"],
   asia: [
     "KZT",
     "INR",
@@ -10,11 +10,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "TRY",
     "PHP",
     "JPY",
-    "IDR",
     "MYR",
-    "CNY",
-    "PKR",
-    "VND",
   ],
   europe: [
     "EUR",
@@ -32,10 +28,10 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "TRY",
   ],
   latinAmerica: [
+    "DOC",
     "BRL",
     "COP",
     "HNL",
-    "BOB",
     "PYG",
     "GTQ",
     "MXN",
@@ -49,7 +45,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "VEF",
     "VES",
   ],
-  middleEast: ["ILS", "AED", "EGP", "SAR"],
+  middleEast: ["ILS", "AED", "SAR"],
   northAmerica: ["USD", "CAD", "USDT", "DOC"],
   oceania: ["NZD", "AUD"],
   global: ["USDT", "DOC", "SAT", "USD"],
