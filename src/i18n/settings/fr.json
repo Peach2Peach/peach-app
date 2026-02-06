@@ -48,6 +48,8 @@
   "settings.bitcoinProducts.proSecurity.description2": "Code PEACH = remise 5%.",
   "settings.contact": "contact",
   "settings.currency": "devise",
+  "settings.use system settings": "utiliser les réglages système",
+  "settings.dark mode": "mode sombre",
   "settings.deleteAccount": "supprimer le compte",
   "settings.deleteAccount.deleted.title": "données effacées",
   "settings.deleteAccount.forRealsies": "Sans sauvegarde ou mot de passe = données perdues !",
