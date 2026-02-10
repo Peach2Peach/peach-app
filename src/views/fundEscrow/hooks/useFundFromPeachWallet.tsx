@@ -21,6 +21,7 @@ import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
+import { peachAPI } from "../../../utils/peachAPI";
 import { isDefined } from "../../../utils/validation/isDefined";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
@@ -78,6 +79,7 @@ type OnSuccessParams = {
   offerId: string;
   address: string;
   addresses: string[];
+  markOfferAsFundedByPeachWallet?: boolean;
 };
 
 export const useFundFromPeachWallet = () => {
@@ -95,10 +97,22 @@ export const useFundFromPeachWallet = () => {
   const setPopup = useSetPopup();
 
   const onSuccess = useCallback(
-    ({ txDetails, offerId, address, addresses }: OnSuccessParams) => {
+    ({
+      txDetails,
+      offerId,
+      address,
+      addresses,
+      markOfferAsFundedByPeachWallet,
+    }: OnSuccessParams) => {
       optimisticTxHistoryUpdate(txDetails, [offerId]);
       setFundedFromPeachWallet(address);
       addresses.forEach(setFundedFromPeachWallet);
+      if (
+        markOfferAsFundedByPeachWallet &&
+        (!addresses || addresses.length === 1)
+      ) {
+        peachAPI.private.offer.setEscrowAsFundedByPeachWallet({ offerId });
+      }
     },
     [optimisticTxHistoryUpdate, setFundedFromPeachWallet],
   );
@@ -147,6 +161,8 @@ export const useFundFromPeachWallet = () => {
           return showErrorBanner("INSUFFICIENT_FUNDS", [amount, available]);
         }
 
+        // this is the case of funding a single escrow by draining the wallet
+
         try {
           const transaction = await buildTransaction({
             address,
@@ -175,7 +191,13 @@ export const useFundFromPeachWallet = () => {
               }
               psbt={psbt}
               onSuccess={() =>
-                onSuccess({ txDetails, offerId, address, addresses })
+                onSuccess({
+                  txDetails,
+                  offerId,
+                  address,
+                  addresses,
+                  markOfferAsFundedByPeachWallet: true,
+                })
               }
             />,
           );
