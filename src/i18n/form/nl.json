@@ -43,6 +43,7 @@
   "form.file.placeholder": "selecteer bestand",
   "form.iban": "IBAN",
   "form.iban.error": "ongeldig IBAN",
+  "form.beneficiary.error": "Vul je volledige naam in zoals bij je bankgegevens",
   "form.iban.long": "bankrekening",
   "form.iban.nonEUError": "alleen EU-accounts worden ondersteund",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",

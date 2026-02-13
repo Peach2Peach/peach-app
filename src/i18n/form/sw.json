@@ -43,6 +43,7 @@
   "form.file.placeholder": "chagua faili...",
   "form.iban": "IBAN",
   "form.iban.error": "IBAN sio sahihi",
+  "form.beneficiary.error": "Jaza jina lako kamili kulingana na taarifa zako za benki",
   "form.iban.long": "nambari ya akaunti ya benki",
   "form.iban.nonEUError": "tunaunga mkono akaunti za EU pekee",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",

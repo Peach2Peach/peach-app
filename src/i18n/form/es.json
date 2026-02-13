@@ -43,6 +43,7 @@
   "form.file.placeholder": "seleccionar archivo...",
   "form.iban": "IBAN",
   "form.iban.error": "este IBAN no es válido",
+  "form.beneficiary.error": "Escribe tu nombre completo tal como aparece en los datos bancarios",
   "form.iban.long": "número de cuenta bancaria",
   "form.iban.nonEUError": "solo admitimos cuentas con sede en la UE",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",

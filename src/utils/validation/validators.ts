@@ -15,6 +15,10 @@ import { isUsername } from "./isUsername";
 import { isValidDigitLength } from "./isValidDigitLength";
 import { isValidPaymentReference } from "./isValidPaymentReference";
 
+const beneficiaryValidator = (value: string) => {
+  const words = value.trim().split(/\s+/);
+  return words.length >= 2 || getMessages().beneficiary;
+};
 const ibanValidator = (value: string) => isIBAN(value) || getMessages().iban;
 const bicValidator = (value: string) => isBIC(value) || getMessages().bic;
 const referenceValidator = (value: string) =>
@@ -69,7 +73,9 @@ type NewRule = {
   [key: string]: (value: string) => true | string;
 };
 const validators: Record<PaymentMethodField, NewRule> = {
-  beneficiary: {},
+  beneficiary: {
+    beneficiary: beneficiaryValidator,
+  },
   iban: {
     iban: ibanValidator,
   },
