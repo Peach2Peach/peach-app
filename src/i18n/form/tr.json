@@ -43,6 +43,7 @@
   "form.file.placeholder": "Dosya seç...",
   "form.iban": "IBAN",
   "form.iban.error": "Geçerli bir IBAN değil",
+  "form.beneficiary.error": "iki kelime olmalı",
   "form.iban.long": "banka hesap numarası",
   "form.iban.nonEUError": "Sadece AB hesapları desteklenir",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",

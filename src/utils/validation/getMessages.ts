@@ -11,6 +11,7 @@ export const getMessages = () => ({
   email: i18n("form.email.error"),
   feeRate: i18n("form.feeRate.error"),
   iban: i18n("form.iban.error"),
+  beneficiary: i18n("form.beneficiary.error"),
   isBancolombiaAccountNumber: i18n("form.account.errors"),
   isCBU: i18n("form.invalid.error"),
   isCVU: i18n("form.invalid.error"),
