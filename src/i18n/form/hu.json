@@ -43,7 +43,7 @@
   "form.file.placeholder": "válassz fájlt...",
   "form.iban": "IBAN",
   "form.iban.error": "érvénytelen IBAN",
-  "form.beneficiary.error": "két szóból kell állnia",
+  "form.beneficiary.error": "Add meg a teljes neved a bankszámla adataid szerint",
   "form.iban.long": "bankszámla",
   "form.iban.nonEUError": "csak EU-s számlákat támogatunk",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",

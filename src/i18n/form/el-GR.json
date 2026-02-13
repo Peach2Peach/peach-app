@@ -43,7 +43,7 @@
   "form.file.placeholder": "Επιλογή αρχείου...",
   "form.iban": "IBAN",
   "form.iban.error": "Αυτό δεν είναι έγκυρο IBAN",
-  "form.beneficiary.error": "πρέπει να περιέχει δύο λέξεις",
+  "form.beneficiary.error": "Συμπλήρωσε το πλήρες όνομά σου σύμφωνα με τα τραπεζικά σου στοιχεία",
   "form.iban.long": "Αριθμός τραπεζικού λογαριασμού",
   "form.iban.nonEUError": "Υποστηρίζουμε λογαριασμούς μόνο εντός της ΕΕ",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",

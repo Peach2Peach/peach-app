@@ -43,7 +43,7 @@
   "form.file.placeholder": "выберите файл...",
   "form.iban": "IBAN",
   "form.iban.error": "неверный IBAN",
-  "form.beneficiary.error": "должно содержать два слова",
+  "form.beneficiary.error": "Введите своё полное имя, как указано в банковских реквизитах",
   "form.iban.long": "номер банковского счёта",
   "form.iban.nonEUError": "Поддерживаются только счета ЕС",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",
