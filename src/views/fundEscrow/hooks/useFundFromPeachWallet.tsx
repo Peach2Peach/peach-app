@@ -21,6 +21,7 @@ import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
+import { peachAPI } from "../../../utils/peachAPI";
 import { isDefined } from "../../../utils/validation/isDefined";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
@@ -66,7 +67,8 @@ const getPropsFromFinishedTransaction = async (
 };
 
 type FundFromWalletParams = {
-  offerId: string;
+  offerId?: string;
+  contractId?: string;
   amount: number;
   fundingStatus?: FundingStatus["status"];
   address?: string;
@@ -75,9 +77,11 @@ type FundFromWalletParams = {
 
 type OnSuccessParams = {
   txDetails: TransactionDetails;
-  offerId: string;
+  offerId?: string;
+  contractId?: string;
   address: string;
   addresses: string[];
+  markOfferAsFundedByPeachWallet?: boolean;
 };
 
 export const useFundFromPeachWallet = () => {
@@ -95,10 +99,27 @@ export const useFundFromPeachWallet = () => {
   const setPopup = useSetPopup();
 
   const onSuccess = useCallback(
-    ({ txDetails, offerId, address, addresses }: OnSuccessParams) => {
-      optimisticTxHistoryUpdate(txDetails, [offerId]);
+    ({
+      txDetails,
+      offerId,
+      contractId,
+      address,
+      addresses,
+      markOfferAsFundedByPeachWallet,
+    }: OnSuccessParams) => {
+      if (offerId) optimisticTxHistoryUpdate(txDetails, [offerId]);
+
+      // else if (contractId) TODO: add this to txHistoryUpdate
+
       setFundedFromPeachWallet(address);
       addresses.forEach(setFundedFromPeachWallet);
+      if (
+        markOfferAsFundedByPeachWallet &&
+        (!addresses || addresses.length === 1) &&
+        offerId
+      ) {
+        peachAPI.private.offer.setEscrowAsFundedByPeachWallet({ offerId });
+      }
     },
     [optimisticTxHistoryUpdate, setFundedFromPeachWallet],
   );
@@ -106,6 +127,7 @@ export const useFundFromPeachWallet = () => {
   const fundFromPeachWallet = useCallback(
     async ({
       offerId,
+      contractId,
       amount,
       fundingStatus = "NULL",
       address,
@@ -142,10 +164,12 @@ export const useFundFromPeachWallet = () => {
         if (transactionError !== "INSUFFICIENT_FUNDS")
           return showErrorBanner(transactionError);
 
-        if (addresses.length > 1) {
+        if (addresses.length > 1 || !offerId) {
           const { available } = Array.isArray(e) ? e[1] : { available: 0 };
           return showErrorBanner("INSUFFICIENT_FUNDS", [amount, available]);
         }
+
+        // this is the case of funding a single escrow by draining the wallet
 
         try {
           const transaction = await buildTransaction({
@@ -175,7 +199,14 @@ export const useFundFromPeachWallet = () => {
               }
               psbt={psbt}
               onSuccess={() =>
-                onSuccess({ txDetails, offerId, address, addresses })
+                onSuccess({
+                  txDetails,
+                  offerId,
+                  contractId,
+                  address,
+                  addresses,
+                  markOfferAsFundedByPeachWallet: true,
+                })
               }
             />,
           );
@@ -200,7 +231,7 @@ export const useFundFromPeachWallet = () => {
           }
           psbt={psbt}
           onSuccess={() =>
-            onSuccess({ txDetails, offerId, address, addresses })
+            onSuccess({ txDetails, offerId, contractId, address, addresses })
           }
         />,
       );

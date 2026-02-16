@@ -138,6 +138,10 @@ function GoToWalletAction({ txId }: { txId: string }) {
   const goToWallet = () => {
     closePopup();
     if (shouldShowBackupOverlay) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "homeScreen", params: { screen: "wallet" } }],
+      });
       setOverlay(
         <BackupTime
           navigationParams={[{ name: "transactionDetails", params: { txId } }]}
@@ -145,6 +149,16 @@ function GoToWalletAction({ txId }: { txId: string }) {
       );
     } else {
       navigation.navigate("transactionDetails", { txId });
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: "homeScreen", params: { screen: "wallet" } },
+          {
+            name: "transactionDetails",
+            params: { txId },
+          },
+        ],
+      });
     }
   };
 

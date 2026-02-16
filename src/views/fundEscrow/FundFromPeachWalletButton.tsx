@@ -7,7 +7,6 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
-
 type Props = {
   address: string;
   addresses: string[];
@@ -16,7 +15,7 @@ type Props = {
 };
 
 export const FundFromPeachWalletButton = (props: Props) => {
-  const { offerId } = useRoute<"fundEscrow">().params;
+  const { contractId } = useRoute<"contract">().params;
   const fundFromPeachWallet = useFundFromPeachWallet();
   const fundedFromPeachWallet = useWalletState((state) =>
     state.isFundedFromPeachWallet(props.address),
@@ -26,7 +25,7 @@ export const FundFromPeachWalletButton = (props: Props) => {
   const onButtonPress = () => {
     setIsFunding(true);
     fundFromPeachWallet({
-      offerId,
+      contractId,
       amount: props.amount,
       fundingStatus: props.fundingStatus.status,
       address: props.address,
