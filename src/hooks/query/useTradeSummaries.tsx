@@ -46,7 +46,9 @@ export const useTradeSummaries = (enabled = true) => {
       [
         ...contracts.filter(
           ({ type, tradeStatus }) =>
-            type === "bid" && !isPastOffer(tradeStatus),
+            type === "bid" &&
+            !isPastOffer(tradeStatus) &&
+            !(tradeStatus === "wrongAmountFundedOnContractRefundWaiting"),
         ),
         ...buyOffers,
       ]
