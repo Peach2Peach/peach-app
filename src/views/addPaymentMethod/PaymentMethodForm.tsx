@@ -57,6 +57,10 @@ export const PaymentMethodForm = () => {
 
   const onValid = (data: FormType) => {
     const { paymentMethodName, ...rest } = data;
+
+    if (rest.iban) {
+      rest.iban = rest.iban.replace(/\s+/g, "");
+    }
     const finalData = {
       ...rest,
       id: id || `${paymentMethod}-${Date.now()}`,
