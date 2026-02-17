@@ -11,7 +11,14 @@ const doNotHash: PaymentDataField[] = [
 const fieldCanBeHashed = (field: PaymentDataField) =>
   !doNotHash.includes(field);
 
-const hashData = (data: string) => sha256(data.toLowerCase());
+const hashData = (data: string, field: PaymentDataField) => {
+  let finalData = data;
+  if (field === "iban") {
+    // finalData = finalData.replace(/\s+/g, "");
+  }
+
+  return sha256(finalData.toLowerCase());
+};
 
 export type PaymentDataHashInfo = {
   field: PaymentDataField;
@@ -25,4 +32,8 @@ export const hashPaymentData = (
   getPaymentDataInfoFields(paymentData)
     .filter(({ field }) => fieldCanBeHashed(field))
     .filter(({ value }) => !!value)
-    .map(({ field, value }) => ({ field, value, hash: hashData(value) }));
+    .map(({ field, value }) => ({
+      field,
+      value,
+      hash: hashData(value, field),
+    }));
