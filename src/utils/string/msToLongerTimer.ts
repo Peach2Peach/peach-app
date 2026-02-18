@@ -52,42 +52,6 @@ type ExpiryStrings = {
   minuteOnly: string;
 };
 
-const sellOfferStrings: ExpiryStrings = {
-  // Days + Hours
-  daysAndHours: i18n("sellOffer.expiry.daysAndHours"),
-  dayAndHours: i18n("sellOffer.expiry.dayAndHours"),
-  daysAndHour: i18n("sellOffer.expiry.daysAndHour"),
-  dayAndHour: i18n("sellOffer.expiry.dayAndHour"),
-
-  // Hours + Minutes
-  hoursAndMinutes: i18n("sellOffer.expiry.hoursAndMinutes"),
-  hourAndMinutes: i18n("sellOffer.expiry.hourAndMinutes"),
-  hoursAndMinute: i18n("sellOffer.expiry.hoursAndMinute"),
-  hourAndMinute: i18n("sellOffer.expiry.hourAndMinute"),
-
-  // Minutes only
-  minutesOnly: i18n("sellOffer.expiry.minutes"),
-  minuteOnly: i18n("sellOffer.expiry.minute"),
-};
-
-const buyOfferStrings: ExpiryStrings = {
-  // Days + Hours
-  daysAndHours: i18n("buyOffer.expiry.daysAndHours"),
-  dayAndHours: i18n("buyOffer.expiry.dayAndHours"),
-  daysAndHour: i18n("buyOffer.expiry.daysAndHour"),
-  dayAndHour: i18n("buyOffer.expiry.dayAndHour"),
-
-  // Hours + Minutes
-  hoursAndMinutes: i18n("buyOffer.expiry.hoursAndMinutes"),
-  hourAndMinutes: i18n("buyOffer.expiry.hourAndMinutes"),
-  hoursAndMinute: i18n("buyOffer.expiry.hoursAndMinute"),
-  hourAndMinute: i18n("buyOffer.expiry.hourAndMinute"),
-
-  // Minutes only
-  minutesOnly: i18n("buyOffer.expiry.minutes"),
-  minuteOnly: i18n("buyOffer.expiry.minute"),
-};
-
 function format(template: string, ...values: (string | number)[]) {
   return template.replace(/{(\d+)}/g, (_, i) =>
     values[i] !== undefined ? String(values[i]) : "",
@@ -98,6 +62,42 @@ export function getExpiryString(
   expiryTimestamp: number | undefined,
   type: "buy" | "sell",
 ): string | undefined {
+  const sellOfferStrings: ExpiryStrings = {
+    // Days + Hours
+    daysAndHours: i18n("sellOffer.expiry.daysAndHours"),
+    dayAndHours: i18n("sellOffer.expiry.dayAndHours"),
+    daysAndHour: i18n("sellOffer.expiry.daysAndHour"),
+    dayAndHour: i18n("sellOffer.expiry.dayAndHour"),
+
+    // Hours + Minutes
+    hoursAndMinutes: i18n("sellOffer.expiry.hoursAndMinutes"),
+    hourAndMinutes: i18n("sellOffer.expiry.hourAndMinutes"),
+    hoursAndMinute: i18n("sellOffer.expiry.hoursAndMinute"),
+    hourAndMinute: i18n("sellOffer.expiry.hourAndMinute"),
+
+    // Minutes only
+    minutesOnly: i18n("sellOffer.expiry.minutes"),
+    minuteOnly: i18n("sellOffer.expiry.minute"),
+  };
+
+  const buyOfferStrings: ExpiryStrings = {
+    // Days + Hours
+    daysAndHours: i18n("buyOffer.expiry.daysAndHours"),
+    dayAndHours: i18n("buyOffer.expiry.dayAndHours"),
+    daysAndHour: i18n("buyOffer.expiry.daysAndHour"),
+    dayAndHour: i18n("buyOffer.expiry.dayAndHour"),
+
+    // Hours + Minutes
+    hoursAndMinutes: i18n("buyOffer.expiry.hoursAndMinutes"),
+    hourAndMinutes: i18n("buyOffer.expiry.hourAndMinutes"),
+    hoursAndMinute: i18n("buyOffer.expiry.hoursAndMinute"),
+    hourAndMinute: i18n("buyOffer.expiry.hourAndMinute"),
+
+    // Minutes only
+    minutesOnly: i18n("buyOffer.expiry.minutes"),
+    minuteOnly: i18n("buyOffer.expiry.minute"),
+  };
+
   if (
     typeof expiryTimestamp !== "number" ||
     !Number.isFinite(expiryTimestamp)
