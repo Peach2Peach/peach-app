@@ -90,5 +90,27 @@
   "rejectTradeRequest": "kataa",
   "express.buy.numberOfOffers": "Kuna ofa $0 za kuuza",
   "express.sell.numberOfOffers": "Kuna ofa $0 za kununua",
-  "express.averagePremium": "Kiwango cha wastani cha nyongeza: $0%"
+  "express.averagePremium": "Kiwango cha wastani cha nyongeza: $0%",
+
+  "sellOffer.expiry.daysAndHours":"Oferi yako ya kuuza inaisha baada ya siku {0}, saa {1}...",
+  "sellOffer.expiry.dayAndHours":"Oferi yako ya kuuza inaisha baada ya siku {0}, saa {1}...",
+  "sellOffer.expiry.daysAndHour":"Oferi yako ya kuuza inaisha baada ya siku {0}, saa {1}...",
+  "sellOffer.expiry.dayAndHour":"Oferi yako ya kuuza inaisha baada ya siku {0}, saa {1}...",
+  "sellOffer.expiry.hoursAndMinutes":"Oferi yako ya kuuza inaisha baada ya saa {0}, dakika {1}...",
+  "sellOffer.expiry.hourAndMinutes":"Oferi yako ya kuuza inaisha baada ya saa {0}, dakika {1}...",
+  "sellOffer.expiry.hoursAndMinute":"Oferi yako ya kuuza inaisha baada ya saa {0}, dakika {1}...",
+  "sellOffer.expiry.hourAndMinute":"Oferi yako ya kuuza inaisha baada ya saa {0}, dakika {1}...",
+  "sellOffer.expiry.minutes":"Oferi yako ya kuuza inaisha baada ya dakika {0}...",
+  "sellOffer.expiry.minute":"Oferi yako ya kuuza inaisha baada ya dakika {0}...",
+
+  "buyOffer.expiry.daysAndHours":"Oferi yako ya kununua inaisha baada ya siku {0}, saa {1}...",
+  "buyOffer.expiry.dayAndHours":"Oferi yako ya kununua inaisha baada ya siku {0}, saa {1}...",
+  "buyOffer.expiry.daysAndHour":"Oferi yako ya kununua inaisha baada ya siku {0}, saa {1}...",
+  "buyOffer.expiry.dayAndHour":"Oferi yako ya kununua inaisha baada ya siku {0}, saa {1}...",
+  "buyOffer.expiry.hoursAndMinutes":"Oferi yako ya kununua inaisha baada ya saa {0}, dakika {1}...",
+  "buyOffer.expiry.hourAndMinutes":"Oferi yako ya kununua inaisha baada ya saa {0}, dakika {1}...",
+  "buyOffer.expiry.hoursAndMinute":"Oferi yako ya kununua inaisha baada ya saa {0}, dakika {1}...",
+  "buyOffer.expiry.hourAndMinute":"Oferi yako ya kununua inaisha baada ya saa {0}, dakika {1}...",
+  "buyOffer.expiry.minutes":"Oferi yako ya kununua inaisha baada ya dakika {0}...",
+  "buyOffer.expiry.minute":"Oferi yako ya kununua inaisha baada ya dakika {0}..."
 }

@@ -90,5 +90,26 @@
   "rejectTradeRequest": "Odrzuć",
   "express.buy.numberOfOffers": "Dostępnych $0 ofert sprzedaży",
   "express.sell.numberOfOffers": "Dostępnych $0 ofert kupna",
-  "express.averagePremium": "Średnia premia: $0%"
+  "express.averagePremium": "Średnia premia: $0%",
+  "sellOffer.expiry.daysAndHours":"Twoja oferta sprzedaży wygasa za {0} dni, {1} godzin...",
+  "sellOffer.expiry.dayAndHours":"Twoja oferta sprzedaży wygasa za {0} dzień, {1} godzin...",
+  "sellOffer.expiry.daysAndHour":"Twoja oferta sprzedaży wygasa za {0} dni, {1} godzinę...",
+  "sellOffer.expiry.dayAndHour":"Twoja oferta sprzedaży wygasa za {0} dzień, {1} godzinę...",
+  "sellOffer.expiry.hoursAndMinutes":"Twoja oferta sprzedaży wygasa za {0} godzin, {1} minut...",
+  "sellOffer.expiry.hourAndMinutes":"Twoja oferta sprzedaży wygasa za {0} godzinę, {1} minut...",
+  "sellOffer.expiry.hoursAndMinute":"Twoja oferta sprzedaży wygasa za {0} godzin, {1} minutę...",
+  "sellOffer.expiry.hourAndMinute":"Twoja oferta sprzedaży wygasa za {0} godzinę, {1} minutę...",
+  "sellOffer.expiry.minutes":"Twoja oferta sprzedaży wygasa za {0} minut...",
+  "sellOffer.expiry.minute":"Twoja oferta sprzedaży wygasa za {0} minutę...",
+
+  "buyOffer.expiry.daysAndHours":"Twoja oferta kupna wygasa za {0} dni, {1} godzin...",
+  "buyOffer.expiry.dayAndHours":"Twoja oferta kupna wygasa za {0} dzień, {1} godzin...",
+  "buyOffer.expiry.daysAndHour":"Twoja oferta kupna wygasa za {0} dni, {1} godzinę...",
+  "buyOffer.expiry.dayAndHour":"Twoja oferta kupna wygasa za {0} dzień, {1} godzinę...",
+  "buyOffer.expiry.hoursAndMinutes":"Twoja oferta kupna wygasa za {0} godzin, {1} minut...",
+  "buyOffer.expiry.hourAndMinutes":"Twoja oferta kupna wygasa za {0} godzinę, {1} minut...",
+  "buyOffer.expiry.hoursAndMinute":"Twoja oferta kupna wygasa za {0} godzin, {1} minutę...",
+  "buyOffer.expiry.hourAndMinute":"Twoja oferta kupna wygasa za {0} godzinę, {1} minutę...",
+  "buyOffer.expiry.minutes":"Twoja oferta kupna wygasa za {0} minut...",
+  "buyOffer.expiry.minute":"Twoja oferta kupna wygasa za {0} minutę..."
 }

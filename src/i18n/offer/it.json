@@ -88,5 +88,26 @@
   "rejectTradeRequest": "Rifiuta",
   "express.buy.numberOfOffers": "Ci sono $0 offerte di vendita",
   "express.sell.numberOfOffers": "Ci sono $0 offerte di acquisto",
-  "express.averagePremium": "Premio medio: $0%"
+  "express.averagePremium": "Premio medio: $0%",
+   "sellOffer.expiry.daysAndHours":"La tua offerta di vendita scade tra {0} giorni, {1} ore...",
+  "sellOffer.expiry.dayAndHours":"La tua offerta di vendita scade tra {0} giorno, {1} ore...",
+  "sellOffer.expiry.daysAndHour":"La tua offerta di vendita scade tra {0} giorni, {1} ora...",
+  "sellOffer.expiry.dayAndHour":"La tua offerta di vendita scade tra {0} giorno, {1} ora...",
+  "sellOffer.expiry.hoursAndMinutes":"La tua offerta di vendita scade tra {0} ore, {1} minuti...",
+  "sellOffer.expiry.hourAndMinutes":"La tua offerta di vendita scade tra {0} ora, {1} minuti...",
+  "sellOffer.expiry.hoursAndMinute":"La tua offerta di vendita scade tra {0} ore, {1} minuto...",
+  "sellOffer.expiry.hourAndMinute":"La tua offerta di vendita scade tra {0} ora, {1} minuto...",
+  "sellOffer.expiry.minutes":"La tua offerta di vendita scade tra {0} minuti...",
+  "sellOffer.expiry.minute":"La tua offerta di vendita scade tra {0} minuto...",
+
+  "buyOffer.expiry.daysAndHours":"La tua offerta di acquisto scade tra {0} giorni, {1} ore...",
+  "buyOffer.expiry.dayAndHours":"La tua offerta di acquisto scade tra {0} giorno, {1} ore...",
+  "buyOffer.expiry.daysAndHour":"La tua offerta di acquisto scade tra {0} giorni, {1} ora...",
+  "buyOffer.expiry.dayAndHour":"La tua offerta di acquisto scade tra {0} giorno, {1} ora...",
+  "buyOffer.expiry.hoursAndMinutes":"La tua offerta di acquisto scade tra {0} ore, {1} minuti...",
+  "buyOffer.expiry.hourAndMinutes":"La tua offerta di acquisto scade tra {0} ora, {1} minuti...",
+  "buyOffer.expiry.hoursAndMinute":"La tua offerta di acquisto scade tra {0} ore, {1} minuto...",
+  "buyOffer.expiry.hourAndMinute":"La tua offerta di acquisto scade tra {0} ora, {1} minuto...",
+  "buyOffer.expiry.minutes":"La tua offerta di acquisto scade tra {0} minuti...",
+  "buyOffer.expiry.minute":"La tua offerta di acquisto scade tra {0} minuto..."
 }

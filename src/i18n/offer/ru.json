@@ -89,5 +89,27 @@
   "rejectTradeRequest": "Отклонить",
   "express.buy.numberOfOffers": "Есть $0 предложений на продажу",
   "express.sell.numberOfOffers": "Есть $0 предложений на покупку",
-  "express.averagePremium": "Средняя премия: $0%"
+  "express.averagePremium": "Средняя премия: $0%",
+
+  "sellOffer.expiry.daysAndHours":"Η προσφορά πώλησής σας λήγει σε {0} ημέρες, {1} ώρες...",
+  "sellOffer.expiry.dayAndHours":"Η προσφορά πώλησής σας λήγει σε {0} ημέρα, {1} ώρες...",
+  "sellOffer.expiry.daysAndHour":"Η προσφορά πώλησής σας λήγει σε {0} ημέρες, {1} ώρα...",
+  "sellOffer.expiry.dayAndHour":"Η προσφορά πώλησής σας λήγει σε {0} ημέρα, {1} ώρα...",
+  "sellOffer.expiry.hoursAndMinutes":"Η προσφορά πώλησής σας λήγει σε {0} ώρες, {1} λεπτά...",
+  "sellOffer.expiry.hourAndMinutes":"Η προσφορά πώλησής σας λήγει σε {0} ώρα, {1} λεπτά...",
+  "sellOffer.expiry.hoursAndMinute":"Η προσφορά πώλησής σας λήγει σε {0} ώρες, {1} λεπτό...",
+  "sellOffer.expiry.hourAndMinute":"Η προσφορά πώλησής σας λήγει σε {0} ώρα, {1} λεπτό...",
+  "sellOffer.expiry.minutes":"Η προσφορά πώλησής σας λήγει σε {0} λεπτά...",
+  "sellOffer.expiry.minute":"Η προσφορά πώλησής σας λήγει σε {0} λεπτό...",
+
+  "buyOffer.expiry.daysAndHours":"Η προσφορά αγοράς σας λήγει σε {0} ημέρες, {1} ώρες...",
+  "buyOffer.expiry.dayAndHours":"Η προσφορά αγοράς σας λήγει σε {0} ημέρα, {1} ώρες...",
+  "buyOffer.expiry.daysAndHour":"Η προσφορά αγοράς σας λήγει σε {0} ημέρες, {1} ώρα...",
+  "buyOffer.expiry.dayAndHour":"Η προσφορά αγοράς σας λήγει σε {0} ημέρα, {1} ώρα...",
+  "buyOffer.expiry.hoursAndMinutes":"Η προσφορά αγοράς σας λήγει σε {0} ώρες, {1} λεπτά...",
+  "buyOffer.expiry.hourAndMinutes":"Η προσφορά αγοράς σας λήγει σε {0} ώρα, {1} λεπτά...",
+  "buyOffer.expiry.hoursAndMinute":"Η προσφορά αγοράς σας λήγει σε {0} ώρες, {1} λεπτό...",
+  "buyOffer.expiry.hourAndMinute":"Η προσφορά αγοράς σας λήγει σε {0} ώρα, {1} λεπτό...",
+  "buyOffer.expiry.minutes":"Η προσφορά αγοράς σας λήγει σε {0} λεπτά...",
+  "buyOffer.expiry.minute":"Η προσφορά αγοράς σας λήγει σε {0} λεπτό..."
 }

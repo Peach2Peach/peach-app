@@ -24,6 +24,7 @@ import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
+import { getExpiryString } from "../../utils/string/msToLongerTimer";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
@@ -121,7 +122,7 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
   const navigation = useStackNavigation();
   const { buyOffer: buyOfferApiResp, isLoading } = useBuyOfferDetail(offerId);
 
-  const buyOffer = buyOfferApiResp as unknown as BuyOffer69;
+  const buyOffer = buyOfferApiResp;
 
   const [displayedCurrency, setDisplayedCurrency] = useState<
     Currency | undefined
@@ -158,6 +159,8 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
       ],
     });
   }
+
+  const expiryString = getExpiryString(buyOffer?.expiryDate, "buy");
 
   if (
     isLoading ||
@@ -200,6 +203,11 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
           />
         )}
       </PeachScrollView>
+      <PeachText
+        style={tw`text-center text-xs text-gray-400 leading-tight mb-1`}
+      >
+        {expiryString}
+      </PeachText>
     </Screen>
   );
 };

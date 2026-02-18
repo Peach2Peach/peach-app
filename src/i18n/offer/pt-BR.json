@@ -90,5 +90,26 @@
   "rejectTradeRequest": "rejeitar",
   "express.buy.numberOfOffers": "Existem $0 ofertas de venda",
   "express.sell.numberOfOffers": "Existem $0 ofertas de compra",
-  "express.averagePremium": "Prêmio médio: $0%"
+  "express.averagePremium": "Prêmio médio: $0%",
+  "sellOffer.expiry.daysAndHours":"A sua oferta de venda expira em {0} dias, {1} horas...",
+  "sellOffer.expiry.dayAndHours":"A sua oferta de venda expira em {0} dia, {1} horas...",
+  "sellOffer.expiry.daysAndHour":"A sua oferta de venda expira em {0} dias, {1} hora...",
+  "sellOffer.expiry.dayAndHour":"A sua oferta de venda expira em {0} dia, {1} hora...",
+  "sellOffer.expiry.hoursAndMinutes":"A sua oferta de venda expira em {0} horas, {1} minutos...",
+  "sellOffer.expiry.hourAndMinutes":"A sua oferta de venda expira em {0} hora, {1} minutos...",
+  "sellOffer.expiry.hoursAndMinute":"A sua oferta de venda expira em {0} horas, {1} minuto...",
+  "sellOffer.expiry.hourAndMinute":"A sua oferta de venda expira em {0} hora, {1} minuto...",
+  "sellOffer.expiry.minutes":"A sua oferta de venda expira em {0} minutos...",
+  "sellOffer.expiry.minute":"A sua oferta de venda expira em {0} minuto...",
+
+  "buyOffer.expiry.daysAndHours":"A sua oferta de compra expira em {0} dias, {1} horas...",
+  "buyOffer.expiry.dayAndHours":"A sua oferta de compra expira em {0} dia, {1} horas...",
+  "buyOffer.expiry.daysAndHour":"A sua oferta de compra expira em {0} dias, {1} hora...",
+  "buyOffer.expiry.dayAndHour":"A sua oferta de compra expira em {0} dia, {1} hora...",
+  "buyOffer.expiry.hoursAndMinutes":"A sua oferta de compra expira em {0} horas, {1} minutos...",
+  "buyOffer.expiry.hourAndMinutes":"A sua oferta de compra expira em {0} hora, {1} minutos...",
+  "buyOffer.expiry.hoursAndMinute":"A sua oferta de compra expira em {0} horas, {1} minuto...",
+  "buyOffer.expiry.hourAndMinute":"A sua oferta de compra expira em {0} hora, {1} minuto...",
+  "buyOffer.expiry.minutes":"A sua oferta de compra expira em {0} minutos...",
+  "buyOffer.expiry.minute":"A sua oferta de compra expira em {0} minuto..."
 }

@@ -90,5 +90,26 @@
   "rejectTradeRequest": "rechazar",
   "express.buy.numberOfOffers": "Hay $0 ofertas de venta",
   "express.sell.numberOfOffers": "Hay $0 ofertas de compra",
-  "express.averagePremium": "Prima media: $0%"
+  "express.averagePremium": "Prima media: $0%",
+   "sellOffer.expiry.daysAndHours":"Tu oferta de venta expira en {0} días, {1} horas...",
+  "sellOffer.expiry.dayAndHours":"Tu oferta de venta expira en {0} día, {1} horas...",
+  "sellOffer.expiry.daysAndHour":"Tu oferta de venta expira en {0} días, {1} hora...",
+  "sellOffer.expiry.dayAndHour":"Tu oferta de venta expira en {0} día, {1} hora...",
+  "sellOffer.expiry.hoursAndMinutes":"Tu oferta de venta expira en {0} horas, {1} minutos...",
+  "sellOffer.expiry.hourAndMinutes":"Tu oferta de venta expira en {0} hora, {1} minutos...",
+  "sellOffer.expiry.hoursAndMinute":"Tu oferta de venta expira en {0} horas, {1} minuto...",
+  "sellOffer.expiry.hourAndMinute":"Tu oferta de venta expira en {0} hora, {1} minuto...",
+  "sellOffer.expiry.minutes":"Tu oferta de venta expira en {0} minutos...",
+  "sellOffer.expiry.minute":"Tu oferta de venta expira en {0} minuto...",
+
+  "buyOffer.expiry.daysAndHours":"Tu oferta de compra expira en {0} días, {1} horas...",
+  "buyOffer.expiry.dayAndHours":"Tu oferta de compra expira en {0} día, {1} horas...",
+  "buyOffer.expiry.daysAndHour":"Tu oferta de compra expira en {0} días, {1} hora...",
+  "buyOffer.expiry.dayAndHour":"Tu oferta de compra expira en {0} día, {1} hora...",
+  "buyOffer.expiry.hoursAndMinutes":"Tu oferta de compra expira en {0} horas, {1} minutos...",
+  "buyOffer.expiry.hourAndMinutes":"Tu oferta de compra expira en {0} hora, {1} minutos...",
+  "buyOffer.expiry.hoursAndMinute":"Tu oferta de compra expira en {0} horas, {1} minuto...",
+  "buyOffer.expiry.hourAndMinute":"Tu oferta de compra expira en {0} hora, {1} minuto...",
+  "buyOffer.expiry.minutes":"Tu oferta de compra expira en {0} minutos...",
+  "buyOffer.expiry.minute":"Tu oferta de compra expira en {0} minuto..."
 }

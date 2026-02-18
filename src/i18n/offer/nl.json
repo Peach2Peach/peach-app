@@ -90,5 +90,27 @@
   "rejectTradeRequest": "weigeren",
   "express.buy.numberOfOffers": "Er zijn $0 verkoopaanbiedingen",
   "express.sell.numberOfOffers": "Er zijn $0 koopaanbiedingen",
-  "express.averagePremium": "gem. premie: $0%"
+  "express.averagePremium": "gem. premie: $0%",
+
+  "sellOffer.expiry.daysAndHours":"Je verkoopaanbieding verloopt over {0} dagen, {1} uur...",
+  "sellOffer.expiry.dayAndHours":"Je verkoopaanbieding verloopt over {0} dag, {1} uur...",
+  "sellOffer.expiry.daysAndHour":"Je verkoopaanbieding verloopt over {0} dagen, {1} uur...",
+  "sellOffer.expiry.dayAndHour":"Je verkoopaanbieding verloopt over {0} dag, {1} uur...",
+  "sellOffer.expiry.hoursAndMinutes":"Je verkoopaanbieding verloopt over {0} uur, {1} minuten...",
+  "sellOffer.expiry.hourAndMinutes":"Je verkoopaanbieding verloopt over {0} uur, {1} minuten...",
+  "sellOffer.expiry.hoursAndMinute":"Je verkoopaanbieding verloopt over {0} uur, {1} minuut...",
+  "sellOffer.expiry.hourAndMinute":"Je verkoopaanbieding verloopt over {0} uur, {1} minuut...",
+  "sellOffer.expiry.minutes":"Je verkoopaanbieding verloopt over {0} minuten...",
+  "sellOffer.expiry.minute":"Je verkoopaanbieding verloopt over {0} minuut...",
+
+  "buyOffer.expiry.daysAndHours":"Je koopaanbieding verloopt over {0} dagen, {1} uur...",
+  "buyOffer.expiry.dayAndHours":"Je koopaanbieding verloopt over {0} dag, {1} uur...",
+  "buyOffer.expiry.daysAndHour":"Je koopaanbieding verloopt over {0} dagen, {1} uur...",
+  "buyOffer.expiry.dayAndHour":"Je koopaanbieding verloopt over {0} dag, {1} uur...",
+  "buyOffer.expiry.hoursAndMinutes":"Je koopaanbieding verloopt over {0} uur, {1} minuten...",
+  "buyOffer.expiry.hourAndMinutes":"Je koopaanbieding verloopt over {0} uur, {1} minuten...",
+  "buyOffer.expiry.hoursAndMinute":"Je koopaanbieding verloopt over {0} uur, {1} minuut...",
+  "buyOffer.expiry.hourAndMinute":"Je koopaanbieding verloopt over {0} uur, {1} minuut...",
+  "buyOffer.expiry.minutes":"Je koopaanbieding verloopt over {0} minuten...",
+  "buyOffer.expiry.minute":"Je koopaanbieding verloopt over {0} minuut..."
 }

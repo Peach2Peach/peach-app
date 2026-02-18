@@ -24,6 +24,7 @@ import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
+import { getExpiryString } from "../../utils/string/msToLongerTimer";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
@@ -156,6 +157,8 @@ export const BrowseTradeRequestsToMySellOffer = () => {
     });
   }
 
+  const expiryString = getExpiryString(sellOffer?.expiryDate, "sell");
+
   if (
     isLoading ||
     isLoadingTradeRequests ||
@@ -197,6 +200,11 @@ export const BrowseTradeRequestsToMySellOffer = () => {
           />
         )}
       </PeachScrollView>
+      <PeachText
+        style={tw`text-center text-xs text-gray-400 leading-tight mb-1`}
+      >
+        {expiryString}
+      </PeachText>
     </Screen>
   );
 };

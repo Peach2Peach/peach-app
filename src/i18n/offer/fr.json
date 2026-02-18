@@ -89,5 +89,29 @@
   "rejectTradeRequest": "rejeter",
   "express.buy.numberOfOffers": "Il y a $0 offres de vente",
   "express.sell.numberOfOffers": "Il y a $0 offres d'achat",
-  "express.averagePremium": "prime moyenne : $0%"
+  "express.averagePremium": "prime moyenne : $0%",
+  
+  "sellOffer.expiry.daysAndHours":"Votre offre de vente expire dans {0} jours, {1} heures...",
+  "sellOffer.expiry.dayAndHours":"Votre offre de vente expire dans {0} jour, {1} heures...",
+  "sellOffer.expiry.daysAndHour":"Votre offre de vente expire dans {0} jours, {1} heure...",
+  "sellOffer.expiry.dayAndHour":"Votre offre de vente expire dans {0} jour, {1} heure...",
+  "sellOffer.expiry.hoursAndMinutes":"Votre offre de vente expire dans {0} heures, {1} minutes...",
+  "sellOffer.expiry.hourAndMinutes":"Votre offre de vente expire dans {0} heure, {1} minutes...",
+  "sellOffer.expiry.hoursAndMinute":"Votre offre de vente expire dans {0} heures, {1} minute...",
+  "sellOffer.expiry.hourAndMinute":"Votre offre de vente expire dans {0} heure, {1} minute...",
+  "sellOffer.expiry.minutes":"Votre offre de vente expire dans {0} minutes...",
+  "sellOffer.expiry.minute":"Votre offre de vente expire dans {0} minute...",
+
+  "buyOffer.expiry.daysAndHours":"Votre offre d'achat expire dans {0} jours, {1} heures...",
+  "buyOffer.expiry.dayAndHours":"Votre offre d'achat expire dans {0} jour, {1} heures...",
+  "buyOffer.expiry.daysAndHour":"Votre offre d'achat expire dans {0} jours, {1} heure...",
+  "buyOffer.expiry.dayAndHour":"Votre offre d'achat expire dans {0} jour, {1} heure...",
+  "buyOffer.expiry.hoursAndMinutes":"Votre offre d'achat expire dans {0} heures, {1} minutes...",
+  "buyOffer.expiry.hourAndMinutes":"Votre offre d'achat expire dans {0} heure, {1} minutes...",
+  "buyOffer.expiry.hoursAndMinute":"Votre offre d'achat expire dans {0} heures, {1} minute...",
+  "buyOffer.expiry.hourAndMinute":"Votre offre d'achat expire dans {0} heure, {1} minute...",
+  "buyOffer.expiry.minutes":"Votre offre d'achat expire dans {0} minutes...",
+  "buyOffer.expiry.minute":"Votre offre d'achat expire dans {0} minute..."
+
+
 }

@@ -89,5 +89,28 @@
   "rejectTradeRequest": "reddet",
   "express.buy.numberOfOffers": "$0 satış teklifi var",
   "express.sell.numberOfOffers": "$0 alış teklifi var",
-  "express.averagePremium": "Ortalama prim: $0%"
+  "express.averagePremium": "Ortalama prim: $0%",
+
+  "sellOffer.expiry.daysAndHours":"Ваша продажа истекает через {0} дней, {1} часов...",
+  "sellOffer.expiry.dayAndHours":"Ваша продажа истекает через {0} день, {1} часов...",
+  "sellOffer.expiry.daysAndHour":"Ваша продажа истекает через {0} дней, {1} час...",
+  "sellOffer.expiry.dayAndHour":"Ваша продажа истекает через {0} день, {1} час...",
+  "sellOffer.expiry.hoursAndMinutes":"Ваша продажа истекает через {0} часов, {1} минут...",
+  "sellOffer.expiry.hourAndMinutes":"Ваша продажа истекает через {0} час, {1} минут...",
+  "sellOffer.expiry.hoursAndMinute":"Ваша продажа истекает через {0} часов, {1} минуту...",
+  "sellOffer.expiry.hourAndMinute":"Ваша продажа истекает через {0} час, {1} минуту...",
+  "sellOffer.expiry.minutes":"Ваша продажа истекает через {0} минут...",
+  "sellOffer.expiry.minute":"Ваша продажа истекает через {0} минуту...",
+
+  "buyOffer.expiry.daysAndHours":"Ваша покупка истекает через {0} дней, {1} часов...",
+  "buyOffer.expiry.dayAndHours":"Ваша покупка истекает через {0} день, {1} часов...",
+  "buyOffer.expiry.daysAndHour":"Ваша покупка истекает через {0} дней, {1} час...",
+  "buyOffer.expiry.dayAndHour":"Ваша покупка истекает через {0} день, {1} час...",
+  "buyOffer.expiry.hoursAndMinutes":"Ваша покупка истекает через {0} часов, {1} минут...",
+  "buyOffer.expiry.hourAndMinutes":"Ваша покупка истекает через {0} час, {1} минут...",
+  "buyOffer.expiry.hoursAndMinute":"Ваша покупка истекает через {0} часов, {1} минуту...",
+  "buyOffer.expiry.hourAndMinute":"Ваша покупка истекает через {0} час, {1} минуту...",
+  "buyOffer.expiry.minutes":"Ваша покупка истекает через {0} минут...",
+  "buyOffer.expiry.minute":"Ваша покупка истекает через {0} минуту..."
+
 }

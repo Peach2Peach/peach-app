@@ -90,5 +90,27 @@
   "rejectTradeRequest": "elutasít",
   "express.buy.numberOfOffers": "$0 eladási ajánlat",
   "express.sell.numberOfOffers": "$0 vételi ajánlat",
-  "express.averagePremium": "Átlagos felár: $0%"
+  "express.averagePremium": "Átlagos felár: $0%",
+
+  "sellOffer.expiry.daysAndHours":"Az eladási ajánlatod {0} nap, {1} óra múlva lejár...",
+  "sellOffer.expiry.dayAndHours":"Az eladási ajánlatod {0} nap, {1} óra múlva lejár...",
+  "sellOffer.expiry.daysAndHour":"Az eladási ajánlatod {0} nap, {1} óra múlva lejár...",
+  "sellOffer.expiry.dayAndHour":"Az eladási ajánlatod {0} nap, {1} óra múlva lejár...",
+  "sellOffer.expiry.hoursAndMinutes":"Az eladási ajánlatod {0} óra, {1} perc múlva lejár...",
+  "sellOffer.expiry.hourAndMinutes":"Az eladási ajánlatod {0} óra, {1} perc múlva lejár...",
+  "sellOffer.expiry.hoursAndMinute":"Az eladási ajánlatod {0} óra, {1} perc múlva lejár...",
+  "sellOffer.expiry.hourAndMinute":"Az eladási ajánlatod {0} óra, {1} perc múlva lejár...",
+  "sellOffer.expiry.minutes":"Az eladási ajánlatod {0} perc múlva lejár...",
+  "sellOffer.expiry.minute":"Az eladási ajánlatod {0} perc múlva lejár...",
+
+  "buyOffer.expiry.daysAndHours":"A vételi ajánlatod {0} nap, {1} óra múlva lejár...",
+  "buyOffer.expiry.dayAndHours":"A vételi ajánlatod {0} nap, {1} óra múlva lejár...",
+  "buyOffer.expiry.daysAndHour":"A vételi ajánlatod {0} nap, {1} óra múlva lejár...",
+  "buyOffer.expiry.dayAndHour":"A vételi ajánlatod {0} nap, {1} óra múlva lejár...",
+  "buyOffer.expiry.hoursAndMinutes":"A vételi ajánlatod {0} óra, {1} perc múlva lejár...",
+  "buyOffer.expiry.hourAndMinutes":"A vételi ajánlatod {0} óra, {1} perc múlva lejár...",
+  "buyOffer.expiry.hoursAndMinute":"A vételi ajánlatod {0} óra, {1} perc múlva lejár...",
+  "buyOffer.expiry.hourAndMinute":"A vételi ajánlatod {0} óra, {1} perc múlva lejár...",
+  "buyOffer.expiry.minutes":"A vételi ajánlatod {0} perc múlva lejár...",
+  "buyOffer.expiry.minute":"A vételi ajánlatod {0} perc múlva lejár..."
 }
