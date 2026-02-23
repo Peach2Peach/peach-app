@@ -38,6 +38,9 @@ export const PaymentDataInfoFields: PaymentDataField[] = [
   "userId",
   "userName",
   "wallet",
+  "mpesa_name",
+  "mpesa_phone",
+  "mpesa_finalCurrency",
 ];
 
 export type PaymentDetailInfo = Partial<

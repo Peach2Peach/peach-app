@@ -23,5 +23,8 @@
   "warning.incorrectFunding.title": "Onjuiste financiering",
   "yourTrades.search.sell.subtitle": "koopaanbod voor",
   "warning.incorrectFundingContract.description": "Je hebt het contract verkeerd gefinancierd. Dit moet met één transactie van het exacte bedrag.\n\nJe ontvangt een terugbetaling.",
-  "warning.incorrectFundingContract.title": "Verkeerde financiering"
+  "warning.incorrectFundingContract.title": "Verkeerde financiering",
+  "help.mpesaConversionSeller.title": "De koper heeft de betaling via $0 naar M-Pesa gestuurd",
+  "help.mpesaConversionSeller.description": "Het bedrag dat je ontvangt in je lokale valuta $0 kan lager zijn dan verwacht vanwege de kosten van $1."
+
 }

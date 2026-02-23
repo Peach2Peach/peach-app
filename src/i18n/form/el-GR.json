@@ -10,7 +10,7 @@
   "form.address": "Διεύθυνση",
   "form.address.btc": "Διεύθυνση Bitcoin",
   "form.address.btc.error": "Η διεύθυνση Bitcoin δεν είναι έγκυρη",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "Ετικέτα διεύθυνσης",
   "form.address.lnurl": "Διεύθυνση LNURL",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -157,5 +157,11 @@
   "form.alias": "Alias",
   "form.alias.placeholder": "Alias",
   "number.decrease": "Μειώστε τον αριθμό",
-  "number.increase": "Αυξήστε τον αριθμό"
+  "number.increase": "Αυξήστε τον αριθμό",
+  "form.finalCurrency": "Ποιο νόμισμα δέχεται το M-Pesa σας;",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "πλήρες όνομα",
+  "form.mpesa_phone": "πλήρες τηλέφωνο",
+  "form.mpesa_phone.placeholder": "τηλέφωνο",
+  "form.mpesa_name.placeholder": "πλήρες όνομα"
 }

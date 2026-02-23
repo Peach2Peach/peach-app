@@ -14,5 +14,15 @@
   "help.firstTimeBuyer.description": "BELANGRIJK: Schuif «Ik heb betaald» NIET voor je echt hebt betaald.\nDe betaling gebeurt BUITEN Peach met de betaalmethode van de verkoper.",
   "help.firstTimeBuyer.title": "Je bent nu in een trade!",
   "help.firstTimeSeller.description": "BELANGRIJK: Schuif «Betaling ontvangen» NIET voordat je hebt gecontroleerd dat je de betaling hebt ontvangen.\nDe betaling moet BUITEN Peach gebeuren via de afgesproken betaalmethode met de koper.",
-  "help.firstTimeSeller.title":  "Je bent nu in een trade!"
+  "help.firstTimeSeller.title":  "Je bent nu in een trade!",
+  "help.revolutMpesaBuyer.description": "Om de betaling uit te voeren, open je je Revolut-app en volg je deze stappen:\n\n1 - ga naar Betaling\n2 - klik op Nieuwe betaling (+ icoon)\n3 - selecteer Internationaal -> Land van de weergegeven valuta -> M-Pesa\n4 - vul de gegevens van de Verkoper in zoals op het scherm weergegeven en voer de betaling uit.",
+  "help.revolutMpesaBuyer.title": "De Verkoper verwacht een Mpesa-betaling",
+  "help.wiseMpesaBuyer.description": "Om de betaling uit te voeren, open je je Wise-app en volg je deze stappen:\n\n1 - druk op Verzenden\n2 - voeg Nieuwe ontvanger toe\n3 - selecteer $0 valuta\n4 - klik op M-PESA -> iemand anders\n5 - vul de gegevens van de Verkoper in zoals op het scherm weergegeven\n6 - voer de betaling uit.",
+  "help.wiseMpesaBuyer.title": "De Verkoper verwacht een Mpesa-betaling",
+  "help.addedPMwithMpesaCategory.title":"Je hebt $0 met M-Pesa-gegevens geselecteerd.",
+  "help.addedPMwithMpesaCategory.description":"Dit betekent dat andere Peach-gebruikers met je kunnen handelen met elke valuta die door $0 wordt ondersteund.\n\nAls je een Aanbod maakt, bevat dit meerdere valuta's, maar je Handelspartner ontvangt instructies om Revolut correct te gebruiken zodat jij de betaling ontvangt in de valuta die je hebt geselecteerd.",
+  "help.sellerWithMpesa.title": "Ben je een verkoper? Revolut en Wise kunnen naar M-Pesa sturen!",
+  "help.sellerWithMpesa.description": "Als je je BTC wilt verkopen en fiat via M-Pesa wilt ontvangen, kun je een Revolut- of Wise-betaalmethode aanmaken en je M-Pesa-gegevens invoeren.\n\nOp deze manier kun je veel meer kopers bereiken!"
+
+
 }

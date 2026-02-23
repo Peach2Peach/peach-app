@@ -8,6 +8,7 @@ import { FormInput } from "./FormInput";
 import { FormType } from "./PaymentMethodForm";
 
 type Props = {
+  setActiveMandatoryField: (n: PaymentMethodField) => void;
   row: PaymentMethodField[][];
   control: Control<FormType>;
   paymentData: Partial<PaymentData> & {
@@ -29,12 +30,17 @@ export function TabbedFormNavigation({
   paymentData,
   getFieldState,
   getValues,
+  setActiveMandatoryField,
 }: Props) {
   const [selected, setSelected] = useState(0);
-  const tabbedNavigationItems = row.map((column) => ({
-    id: column[0],
-    display: i18n(`form.${column[0]}`),
-  }));
+
+  const tabbedNavigationItems = row.map((column) => {
+    const display = column[0] === "mpesa_name" ? "mpesa" : column[0];
+    return {
+      id: column[0],
+      display: i18n(`form.${display}`),
+    };
+  });
 
   const errorTabs = useMemo(() => {
     const fields: PaymentMethodField[] = [];
@@ -58,6 +64,7 @@ export function TabbedFormNavigation({
         selected={tabbedNavigationItems[selected]}
         select={(item) => {
           setSelected(tabbedNavigationItems.indexOf(item));
+          setActiveMandatoryField(item.id);
         }}
         tabHasError={errorTabs}
         style={tw`pb-2`}

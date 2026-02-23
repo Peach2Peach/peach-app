@@ -10,7 +10,7 @@
   "form.address": "adres",
   "form.address.btc": "bitcoinadres",
   "form.address.btc.error": "ongeldig bitcoinadres",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "adreslabel",
   "form.address.lnurl": "LNURL-adres",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -159,5 +159,11 @@
   "form.residentialAddress": "woonadres",
   "form.residentialAddress.placeholder": "Straat 123, Stad",
   "number.decrease": "verlaag getal",
-  "number.increase": "verhoog getal"
+  "number.increase": "verhoog getal",
+  "form.finalCurrency": "Welke valuta accepteert jouw M-Pesa?",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "volledige naam",
+  "form.mpesa_phone": "volledig telefoonnummer",
+  "form.mpesa_phone.placeholder": "telefoon",
+  "form.mpesa_name.placeholder": "volledige naam"
 }

@@ -10,7 +10,7 @@
   "form.address": "Endereço",
   "form.address.btc": "Endereço Bitcoin",
   "form.address.btc.error": "Endereço Bitcoin inválido",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "Etiqueta de endereço",
   "form.address.lnurl": "Endereço LNURL",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -159,5 +159,11 @@
   "form.residentialAddress": "Endereço residencial",
   "form.residentialAddress.placeholder": "123 Rua, Cidade",
   "number.decrease": "Diminuir número",
-  "number.increase": "Aumentar número"
+  "number.increase": "Aumentar número",
+  "form.finalCurrency": "Qual moeda o seu M-Pesa aceita?",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "nome completo",
+  "form.mpesa_phone": "telefone completo",
+  "form.mpesa_phone.placeholder": "telefone",
+  "form.mpesa_name.placeholder": "nome completo"
 }

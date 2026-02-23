@@ -14,5 +14,15 @@
   "help.firstTimeBuyer.description": "WAŻNE: Nie klikaj «Dokonałem płatności» przed zapłatą.\nPłatność wykonaj poza Peach, używając metody sprzedawcy.",
   "help.firstTimeBuyer.title": "Transakcja rozpoczęta!",
   "help.firstTimeSeller.description": "WAŻNE: NIE przesuwaj «Otrzymałem płatność», dopóki nie potwierdzisz, że ją otrzymałeś.\nPłatność musi być dokonana POZA Peach przy użyciu metody uzgodnionej z kupującym.",
-  "help.firstTimeSeller.title": "Transakcja rozpoczęta!"
+  "help.firstTimeSeller.title": "Transakcja rozpoczęta!",
+  "help.revolutMpesaBuyer.description": "Aby wykonać płatność, otwórz aplikację Revolut i wykonaj następujące kroki:\n\n1 - przejdź do Płatności\n2 - kliknij Nowa płatność (ikona +)\n3 - wybierz Międzynarodowa -> Kraj wyświetlanej waluty -> M-Pesa\n4 - wprowadź dane Sprzedawcy zgodnie z informacjami wyświetlonymi na ekranie i wykonaj płatność.",
+  "help.revolutMpesaBuyer.title": "Sprzedawca oczekuje płatności Mpesa",
+  "help.wiseMpesaBuyer.description": "Aby wykonać płatność, otwórz aplikację Wise i wykonaj następujące kroki:\n\n1 - naciśnij Wyślij\n2 - dodaj Nowego odbiorcę\n3 - wybierz walutę $0\n4 - kliknij M-PESA -> inna osoba\n5 - wprowadź dane Sprzedawcy zgodnie z informacjami wyświetlonymi na ekranie\n6 - wykonaj płatność.",
+  "help.wiseMpesaBuyer.title": "Sprzedawca oczekuje płatności Mpesa",
+  "help.addedPMwithMpesaCategory.title":"Wybrałeś $0 z danymi M-Pesa.",
+  "help.addedPMwithMpesaCategory.description":"Oznacza to, że inni użytkownicy Peach mogą handlować z Tobą, używając dowolnej waluty obsługiwanej przez $0.\n\nJeśli utworzysz Ofertę, będzie ona obejmować wiele walut, ale Twój Partner Handlowy otrzyma instrukcje dotyczące prawidłowego korzystania z Revolut, abyś mógł otrzymać płatność w wybranej walucie.",
+  "help.sellerWithMpesa.title": "Jesteś sprzedawcą? Revolut i Wise mogą wysyłać na M-Pesa!",
+  "help.sellerWithMpesa.description": "Jeśli chcesz sprzedać swoje BTC i otrzymać fiat na M-Pesa, możesz utworzyć metodę płatności Revolut lub Wise i wprowadzić dane M-Pesa.\n\nDzięki temu dotrzesz do wielu więcej kupujących!"
+
+
 }

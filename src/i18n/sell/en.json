@@ -24,5 +24,8 @@
   "warning.incorrectFunding.title": "Incorrect funding",
   "yourTrades.search.sell.subtitle": "sell offer for",
   "warning.incorrectFundingContract.description": "You funded your contract incorrectly, as it must be funded with exactly 1 transaction with the specified amount. You will be refunded.",
-  "warning.incorrectFundingContract.title": "Incorrect funding"
+  "warning.incorrectFundingContract.title": "Incorrect funding",
+  "help.mpesaConversionSeller.title":"The Buyer sent the Payment to M-Pesa through $0",
+  "help.mpesaConversionSeller.description":"The amount that you will receive in your local Currency $0 might be smaller than you expect due to the commisions of $1."
+
 }

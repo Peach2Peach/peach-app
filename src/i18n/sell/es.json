@@ -24,5 +24,8 @@
   "warning.incorrectFunding.title": "Financiación incorrecta",
   "yourTrades.search.sell.subtitle": "oferta de venta para",
   "warning.incorrectFundingContract.description": "Has financiado el contrato de forma incorrecta. Debe hacerse con 1 transacción exacta y el monto indicado.\n\nSe te reembolsará.",
-  "warning.incorrectFundingContract.title": "Financiación incorrecta"
+  "warning.incorrectFundingContract.title": "Financiación incorrecta",
+  "help.mpesaConversionSeller.title": "Der Käufer hat die Zahlung über $0 an M-Pesa gesendet",
+  "help.mpesaConversionSeller.description": "Der Betrag, den du in deiner lokalen Währung $0 erhältst, kann aufgrund der Gebühren von $1 niedriger sein als erwartet."
+
 }

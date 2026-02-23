@@ -23,5 +23,8 @@
   "warning.incorrectFunding.title": "Hatalı Finansman",
   "yourTrades.search.sell.subtitle": "için satış teklif",
   "warning.incorrectFundingContract.description": "Sözleşmeyi yanlış finanse ettiniz. Tam tutarla 1 işlem olmalı.\n\nİade alacaksınız.",
-  "warning.incorrectFundingContract.title": "Hatalı finansman"
+  "warning.incorrectFundingContract.title": "Hatalı finansman",
+  "help.mpesaConversionSeller.title": "Alıcı ödemeyi $0 üzerinden M-Pesa’ya gönderdi",
+  "help.mpesaConversionSeller.description": "Yerel para biriminiz $0 cinsinden alacağınız tutar, $1 komisyonları nedeniyle beklediğinizden daha düşük olabilir."
+
 }

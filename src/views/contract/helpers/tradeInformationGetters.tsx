@@ -142,6 +142,9 @@ const allPossibleFields = [
   "youPaid",
   "youShouldPay",
   "youWillGet",
+  "mpesa_name",
+  "mpesa_phone",
+  "mpesa_finalCurrency",
 ] as const;
 export type TradeInfoField = (typeof allPossibleFields)[number];
 export const isTradeInformationGetter = (
@@ -181,11 +184,19 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
       )?.label
     : undefined;
 
+  const isMpesaVariant =
+    paymentMethod &&
+    paymentData &&
+    ["revolut", "wise"].includes(paymentMethod) &&
+    paymentData.mpesa_name;
+
   return (
     <View style={tw`items-end gap-1`}>
       {paymentMethodLabel || !isCashTrade(paymentMethod) ? (
         <Bubble color={"gray"}>
-          {paymentMethodLabel ?? i18n(`paymentMethod.${paymentMethod}`)}
+          {paymentMethodLabel ??
+            i18n(`paymentMethod.${paymentMethod}`) +
+              (isMpesaVariant ? " -> MPesa" : "")}
         </Bubble>
       ) : (
         <EventNameBubble paymentMethod={paymentMethod} />

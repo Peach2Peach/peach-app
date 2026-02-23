@@ -23,5 +23,8 @@
   "warning.incorrectFunding.title": "Hibás finanszírozás",
   "yourTrades.search.sell.subtitle": "eladási ajánlat",
   "warning.incorrectFundingContract.description": "Hibásan finanszíroztad a szerződést. Pontosan 1 tranzakcióval kell az adott összeggel.\n\nVisszatérítést kapsz.",
-  "warning.incorrectFundingContract.title": "Helytelen finanszírozás"
+  "warning.incorrectFundingContract.title": "Helytelen finanszírozás",
+  "help.mpesaConversionSeller.title": "A vevő $0 segítségével küldte el a fizetést M-Pesa-ra",
+  "help.mpesaConversionSeller.description": "Az az összeg, amelyet a helyi pénznemedben $0 megkapsz, a $1 jutalékai miatt alacsonyabb lehet a vártnál."
+
 }

@@ -10,7 +10,7 @@
   "form.address": "adres",
   "form.address.btc": "bitcoin adresi",
   "form.address.btc.error": "Geçersiz bitcoin adresi",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "adres etiketi",
   "form.address.lnurl": "LNURL adresi",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -159,5 +159,11 @@
   "form.residentialAddress": "ikamet adresi",
   "form.residentialAddress.placeholder": "123 Sokak, Şehir",
   "number.decrease": "sayıyı azalt",
-  "number.increase": "sayıyı artır"
+  "number.increase": "sayıyı artır",
+  "form.finalCurrency": "M-Pesa’nız hangi para birimini kabul ediyor?",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "tam ad",
+  "form.mpesa_phone": "tam telefon numarası",
+  "form.mpesa_phone.placeholder": "telefon",
+  "form.mpesa_name.placeholder": "tam ad"
 }

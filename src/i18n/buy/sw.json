@@ -15,6 +15,16 @@
   "help.firstTimeBuyer.description": "MUHIMU: USIBADILISHE hali ya «Nimelipa» kabla ya kufanya malipo.\nMalipo yafanyike NJE ya Peach kwa kutumia njia iliyokubaliwa na muuzaji.",
   "help.firstTimeBuyer.title": "Uko Tayari kwa Biashara!",
    "help.firstTimeSeller.description": "MUHIMU: Usisogeze «Nimepokea Malipo» kabla ya kuthibitisha kuwa umepokea.\nMalipo lazima yafanywe NJE ya Peach kwa njia iliyoafikiwa na mnunuzi.",
-    "help.firstTimeSeller.title": "Sasa uko kwenye biashara!"
+    "help.firstTimeSeller.title": "Sasa uko kwenye biashara!",
+    "help.revolutMpesaBuyer.description": "Ili kufanya malipo, fungua programu yako ya Revolut na fuata hatua hizi:\n\n1 - nenda kwenye Malipo\n2 - bonyeza Malipo mapya (alama +)\n3 - chagua Kimataifa -> Nchi ya sarafu iliyoonyeshwa -> M-Pesa\n4 - weka maelezo ya Muuzaji kama yalivyoonyeshwa kwenye skrini na fanya malipo.",
+  "help.revolutMpesaBuyer.title": "Muuzaji anatarajia malipo ya Mpesa",
+  "help.wiseMpesaBuyer.description": "Ili kufanya malipo, fungua programu yako ya Wise na fuata hatua hizi:\n\n1 - bonyeza Tuma\n2 - ongeza Mpokeaji mpya\n3 - chagua sarafu ya $0\n4 - bonyeza M-PESA -> mtu mwingine\n5 - weka maelezo ya Muuzaji kama yalivyoonyeshwa kwenye skrini\n6 - fanya malipo.",
+  "help.wiseMpesaBuyer.title": "Muuzaji anatarajia malipo ya Mpesa",
+  "help.addedPMwithMpesaCategory.title":"Umechagua $0 pamoja na maelezo ya M-Pesa.",
+  "help.addedPMwithMpesaCategory.description":"Hii ina maana watumiaji wengine wa Peach wanaweza kufanya biashara nawe kwa kutumia sarafu yoyote inayoungwa mkono na $0.\n\nUkunda Ofa, itajumuisha sarafu nyingi, lakini Mshirika wako wa Biashara atapokea maelekezo ya kutumia Revolut kwa usahihi ili uweze kupokea malipo katika sarafu uliyochagua.",
+  "help.sellerWithMpesa.title": "Je, wewe ni Muuzaji? Revolut na Wise zinaweza kutuma kwenye M-Pesa!",
+  "help.sellerWithMpesa.description": "Ikiwa unataka kuuza BTC yako na kupokea fiat kwenye M-Pesa, unaweza kuunda njia ya malipo ya Revolut au Wise na kuingiza maelezo yako ya M-Pesa.\n\nKwa njia hii utaweza kufikia Wanunuzi wengi zaidi!"
+
+
 
 }

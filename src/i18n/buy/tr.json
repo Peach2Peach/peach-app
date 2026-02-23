@@ -14,5 +14,15 @@
   "help.firstTimeBuyer.description": "ÖNEMLİ: 'Ödemeyi Yaptım' kaydırmasını, ödemeyi gerçekleştirmeden KULLANMAYIN.\nÖdeme, satıcının belirttiği yöntemle Peach dışında yapılmalıdır.",
   "help.firstTimeBuyer.title": "İlk Ticaret Deneyimin!",
   "help.firstTimeSeller.description": "ÖNEMLİ: «Ödemeyi Aldım» seçeneğini, ödemeyi aldığınızı doğrulamadan kaydırmayın.\nÖdeme, alıcıyla anlaşılan yöntemle Peach DIŞINDA yapılmalıdır.",
-    "help.firstTimeSeller.title": "Şu anda bir ticarette bulunuyorsun!"
+    "help.firstTimeSeller.title": "Şu anda bir ticarette bulunuyorsun!",
+    "help.revolutMpesaBuyer.description": "Ödemeyi gerçekleştirmek için Revolut uygulamanızı açın ve şu adımları izleyin:\n\n1 - Ödemeler bölümüne gidin\n2 - Yeni ödeme (+ simgesi) seçeneğine tıklayın\n3 - Uluslararası -> Gösterilen para biriminin ülkesi -> M-Pesa seçin\n4 - Ekranda gösterildiği gibi Satıcının bilgilerini girin ve ödemeyi gerçekleştirin.",
+  "help.revolutMpesaBuyer.title": "Satıcı Mpesa ödemesi bekliyor",
+  "help.wiseMpesaBuyer.description": "Ödemeyi gerçekleştirmek için Wise uygulamanızı açın ve şu adımları izleyin:\n\n1 - Gönder'e basın\n2 - Yeni Alıcı ekleyin\n3 - $0 para birimini seçin\n4 - M-PESA -> başka biri seçeneğine tıklayın\n5 - Ekranda gösterildiği gibi Satıcının bilgilerini girin\n6 - Ödemeyi gerçekleştirin.",
+  "help.wiseMpesaBuyer.title": "Satıcı Mpesa ödemesi bekliyor",
+  "help.addedPMwithMpesaCategory.title":"$0 ile M-Pesa bilgilerini seçtiniz.",
+  "help.addedPMwithMpesaCategory.description":"Bu, diğer Peach kullanıcılarının $0 tarafından desteklenen herhangi bir para birimiyle sizinle işlem yapabileceği anlamına gelir.\n\nBir Teklif oluşturursanız, birçok para birimi dahil edilir, ancak İşlem Ortağınız ödemenin seçtiğiniz para biriminde size ulaşması için Revolut'u doğru şekilde kullanma talimatlarını alacaktır.",
+  "help.sellerWithMpesa.title": "Satıcı mısınız? Revolut ve Wise M-Pesa’ya gönderebilir!",
+  "help.sellerWithMpesa.description": "BTC’nizi satmak ve M-Pesa üzerinden fiat almak istiyorsanız, Revolut veya Wise ödeme yöntemi oluşturabilir ve M-Pesa bilgilerinizi girebilirsiniz.\n\nBöylece çok daha fazla alıcıya ulaşabilirsiniz!"
+
+
 }

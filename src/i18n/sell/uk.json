@@ -23,5 +23,8 @@
   "warning.incorrectFunding.title": "Неправильне фінансування",
   "yourTrades.search.sell.subtitle": "продати лот за",
   "warning.incorrectFundingContract.description": "Ви неправильно профінансували контракт. Потрібна 1 транзакція на точну суму.\n\nВам повернуть кошти.",
-  "warning.incorrectFundingContract.title": "Неправильне фінансування"
+  "warning.incorrectFundingContract.title": "Неправильне фінансування",
+  "help.mpesaConversionSeller.title": "Покупець надіслав платіж у M-Pesa через $0",
+  "help.mpesaConversionSeller.description": "Сума, яку ви отримаєте у вашій локальній валюті $0, може бути меншою, ніж очікувалося, через комісії $1."
+
 }

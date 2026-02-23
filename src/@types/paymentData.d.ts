@@ -37,7 +37,10 @@ type PaymentDataField =
   | "ukSortCode"
   | "userId"
   | "userName"
-  | "wallet";
+  | "wallet"
+  | "mpesa_name"
+  | "mpesa_phone"
+  | "mpesa_finalCurrency";
 
 type PaymentDataInfo = Partial<Record<PaymentDataField, string>>;
 

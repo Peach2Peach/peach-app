@@ -14,5 +14,15 @@
   "help.firstTimeBuyer.description": "IMPORTANTE: NÃO deslize «Efetuei o pagamento» antes de realmente pagar.\nO pagamento deve ser feito FORA do Peach, usando o método indicado pelo vendedor.",
   "help.firstTimeBuyer.title": "Agora está numa negociação!",
   "help.firstTimeSeller.description": "IMPORTANTE: NÃO deslize «Recebi o pagamento» antes de confirmar que realmente recebeu.\nO pagamento deve ser feito FORA do Peach com o método combinado com o comprador.",
-    "help.firstTimeSeller.title": "Agora está numa negociação!"
+    "help.firstTimeSeller.title": "Agora está numa negociação!",
+    "help.revolutMpesaBuyer.description": "Para efetuar o pagamento, abra a aplicação Revolut e siga estes passos:\n\n1 - vá a Pagamentos\n2 - clique em Novo pagamento (+ ícone)\n3 - selecione Internacional -> País da moeda apresentada -> M-Pesa\n4 - introduza os dados do Vendedor conforme apresentados no ecrã e efetue o pagamento.",
+  "help.revolutMpesaBuyer.title": "O Vendedor espera pagamento por Mpesa",
+  "help.wiseMpesaBuyer.description": "Para efetuar o pagamento, abra a aplicação Wise e siga estes passos:\n\n1 - pressione Enviar\n2 - adicione Novo destinatário\n3 - selecione moeda $0\n4 - clique em M-PESA -> outra pessoa\n5 - introduza os dados do Vendedor conforme apresentados no ecrã\n6 - efetue o pagamento.",
+  "help.wiseMpesaBuyer.title": "O Vendedor espera pagamento por Mpesa",
+  "help.addedPMwithMpesaCategory.title":"Selecionou $0 com dados M-Pesa.",
+  "help.addedPMwithMpesaCategory.description":"Isto significa que outros utilizadores Peach podem negociar consigo usando qualquer moeda suportada por $0.\n\nSe criar uma Oferta, esta incluirá várias moedas, mas o seu Parceiro de Negociação receberá instruções para usar corretamente o Revolut para que possa receber o pagamento na moeda que selecionou.",
+  "help.sellerWithMpesa.title": "É um vendedor? Revolut e Wise podem enviar para M-Pesa!",
+  "help.sellerWithMpesa.description": "Se quiser vender os seus BTC e receber fiat no M-Pesa, pode criar um método de pagamento Revolut ou Wise e inserir os seus dados M-Pesa.\n\nDesta forma, poderá alcançar muito mais compradores!"
+
+
 }

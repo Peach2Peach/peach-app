@@ -14,5 +14,15 @@
   "help.firstTimeBuyer.description": "WICHTIG: Klicken Sie «Ich habe bezahlt» NICHT, bevor die Zahlung erfolgt ist.\nDie Zahlung muss AUSSERHALB von Peach über die vom Verkäufer angegebene Methode erfolgen.",
   "help.firstTimeBuyer.title": "Sie befinden sich in einem Handel!",
   "help.firstTimeSeller.description": "WICHTIG: Klicken Sie «Zahlung erhalten» NICHT, bevor du überprüft hast, dass du die Zahlung wirklich erhalten hast.\nDie Zahlung muss AUSSERHALB von Peach mit der vereinbarten Zahlungsmethode erfolgen.",
-    "help.firstTimeSeller.title": "Sie befinden sich in einem Handel!"
+    "help.firstTimeSeller.title": "Sie befinden sich in einem Handel!",
+    "help.revolutMpesaBuyer.description": "Um die Zahlung durchzuführen, öffne deine Revolut-App und folge diesen Schritten:\n\n1 - gehe zu Zahlungen\n2 - klicke auf Neue Zahlung (+ Symbol)\n3 - wähle International -> Land der angezeigten Währung -> M-Pesa\n4 - gib die Daten des Verkäufers wie auf dem Bildschirm angezeigt ein und führe die Zahlung aus.",
+  "help.revolutMpesaBuyer.title": "Der Verkäufer erwartet eine Mpesa-Zahlung",
+  "help.wiseMpesaBuyer.description": "Um die Zahlung durchzuführen, öffne deine Wise-App und folge diesen Schritten:\n\n1 - drücke Senden\n2 - füge Neuer Empfänger hinzu\n3 - wähle $0 Währung\n4 - klicke auf M-PESA -> jemand anderes\n5 - gib die Daten des Verkäufers wie auf dem Bildschirm angezeigt ein\n6 - führe die Zahlung aus.",
+  "help.wiseMpesaBuyer.title": "Der Verkäufer erwartet eine Mpesa-Zahlung",
+  "help.addedPMwithMpesaCategory.title":"Du hast $0 mit M-Pesa-Details ausgewählt.",
+  "help.addedPMwithMpesaCategory.description":"Das bedeutet, dass andere Peach-Nutzer mit dir mit jeder von $0 unterstützten Währung handeln können.\n\nWenn du ein Angebot erstellst, enthält es mehrere Währungen, aber dein Handelspartner erhält Anweisungen, Revolut korrekt zu verwenden, damit du die Zahlung in der von dir gewählten Währung erhältst.",
+  "help.sellerWithMpesa.title": "Bist du ein Verkäufer? Revolut und Wise können an M-Pesa senden!",
+  "help.sellerWithMpesa.description": "Wenn du deine BTC verkaufen und Fiat auf M-Pesa empfangen möchtest, kannst du eine Revolut- oder Wise-Zahlungsmethode erstellen und deine M-Pesa-Daten eingeben.\n\nSo kannst du viel mehr Käufer erreichen!"
+
+
 }

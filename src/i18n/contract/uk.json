@@ -248,6 +248,9 @@
   "contract.seller.confirmPaymentReceivedLastChance.text": "Будь ласка, ще раз перевірте, що ви отримали кошти.\n\nПідтвердження призведе до незворотного надсилання біткоїнів покупцеві.",
   "contract.payment.disputeIsActive": "Спір активний",
   "contract.seller.revolutWarning1.text": "Користувачі Revolut : ",
-  "contract.seller.revolutWarning2.text": "переконайтеся, що покупець оплатив через Revtag, а НЕ кредитною/дебетовою карткою або Apple Pay."
+  "contract.seller.revolutWarning2.text": "переконайтеся, що покупець оплатив через Revtag, а НЕ кредитною/дебетовою карткою або Apple Pay.",
+  "contract.summary.mpesa_name": "Імʼя",
+  "contract.summary.mpesa_finalCurrency": "валюта m-pesa",
+  "contract.summary.mpesa_phone": "Телефон"
 
 }

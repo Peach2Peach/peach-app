@@ -10,7 +10,7 @@
   "form.address": "cím",
   "form.address.btc": "bitcoin-cím",
   "form.address.btc.error": "érvénytelen bitcoin-cím",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "címke",
   "form.address.lnurl": "LNURL-cím",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -159,5 +159,11 @@
   "form.residentialAddress": "lakóhely címe",
   "form.residentialAddress.placeholder": "123 Utca, Város",
   "number.decrease": "csökkentés",
-  "number.increase": "növelés"
+  "number.increase": "növelés",
+  "form.finalCurrency": "Melyik pénznemet fogadja az M-Pesa fiókja?",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "teljes név",
+  "form.mpesa_phone": "teljes telefonszám",
+  "form.mpesa_phone.placeholder": "telefon",
+  "form.mpesa_name.placeholder": "teljes név"
 }

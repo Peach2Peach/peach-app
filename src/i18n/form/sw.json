@@ -10,7 +10,7 @@
   "form.address": "anwani",
   "form.address.btc": "anwani ya Bitcoin",
   "form.address.btc.error": "anwani ya Bitcoin sio sahihi",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "lebo ya anwani",
   "form.address.lnurl": "anwani ya LNURL",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -159,5 +159,11 @@
   "form.residentialAddress": "anwani ya makazi",
   "form.residentialAddress.placeholder": "123 Barabara, Jiji",
   "number.decrease": "punguza nambari",
-  "number.increase": "ongeza nambari"
+  "number.increase": "ongeza nambari",
+  "form.finalCurrency": "Ni sarafu gani M-Pesa yako inapokea?",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "jina kamili",
+  "form.mpesa_phone": "nambari kamili ya simu",
+  "form.mpesa_phone.placeholder": "simu",
+  "form.mpesa_name.placeholder": "jina kamili"
 }

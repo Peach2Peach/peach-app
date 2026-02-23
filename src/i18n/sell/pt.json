@@ -23,5 +23,8 @@
   "warning.incorrectFunding.title": "Financiamento incorreto",
   "yourTrades.search.sell.subtitle": "oferta de venda para",
   "warning.incorrectFundingContract.description": "Financiou o contrato incorretamente. Deve ser 1 transação com o valor exato.\n\nSerá reembolsado.",
-  "warning.incorrectFundingContract.title": "Financiamento incorreto"
+  "warning.incorrectFundingContract.title": "Financiamento incorreto",
+  "help.mpesaConversionSeller.title": "O comprador enviou o pagamento para o M-Pesa através de $0",
+  "help.mpesaConversionSeller.description": "O valor que irá receber na sua moeda local $0 pode ser menor do que o esperado devido às comissões de $1."
+
 }

@@ -9,6 +9,9 @@ type Props = ComponentProps & {
   paymentMethod: PaymentMethod;
   selectedCurrencies: Currency[];
   onToggle: (currencies: Currency) => void;
+  disabled?: boolean;
+  allSelected?: boolean;
+  singleCase?: boolean;
 };
 
 export const CurrencySelection = ({
@@ -16,6 +19,9 @@ export const CurrencySelection = ({
   selectedCurrencies,
   onToggle,
   style,
+  disabled,
+  allSelected,
+  singleCase,
 }: Props) => {
   useI18n();
   const { data: paymentMethodInfo } = usePaymentMethodInfo(paymentMethod);
@@ -23,18 +29,23 @@ export const CurrencySelection = ({
     <View style={style}>
       <View style={tw`flex-row items-center`}>
         <PeachText style={tw`input-label`}>
-          {i18n("form.additionalCurrencies")}
+          {i18n(
+            singleCase ? "form.finalCurrency" : "form.additionalCurrencies",
+          )}
         </PeachText>
       </View>
-      <View style={tw`flex-row flex-wrap gap-2 mt-1`}>
+      <View
+        style={tw`flex-row flex-wrap gap-2 mt-1 ${singleCase ? "mb-4" : ""}`}
+      >
         {paymentMethodInfo?.currencies.map((currency) => (
           <CurrencyItem
             key={currency}
             label={currency}
-            isSelected={selectedCurrencies.includes(currency)}
+            isSelected={allSelected || selectedCurrencies.includes(currency)}
             onPress={() =>
-              !selectedCurrencies.includes(currency) ||
-              selectedCurrencies.length > 1
+              !disabled &&
+              (!selectedCurrencies.includes(currency) ||
+                selectedCurrencies.length > 1)
                 ? onToggle(currency)
                 : null
             }

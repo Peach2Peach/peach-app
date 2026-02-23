@@ -10,7 +10,7 @@
   "form.address": "адреса",
   "form.address.btc": "адреса біткоїн",
   "form.address.btc.error": "недійсна біткоїн адреса",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "адресна мітка",
   "form.address.lnurl": "LNURL адреса",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -159,5 +159,11 @@
   "form.alias": "alias",
   "form.alias.placeholder": "alias",
   "number.decrease": "зменшити кількість",
-  "number.increase": "збільшити кількість"
+  "number.increase": "збільшити кількість",
+  "form.finalCurrency": "Яку валюту приймає ваш M-Pesa?",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "повне ім’я",
+  "form.mpesa_phone": "повний номер телефону",
+  "form.mpesa_phone.placeholder": "телефон",
+  "form.mpesa_name.placeholder": "повне ім’я"
 }

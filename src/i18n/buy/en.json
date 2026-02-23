@@ -14,5 +14,15 @@
   "help.firstTimeBuyer.description": "IMPORTANT: Do NOT slide «I made the payment» before having made the payment.\nThe payment must be made OUTSIDE of Peach using the payment method shared with the seller.",
   "help.firstTimeBuyer.title": "You are now in a Trade!",
   "help.firstTimeSeller.description": "IMPORTANT: Do NOT slide «I Received the Payment» before verifying you have received it.\nThe payment must be made OUTSIDE of Peach using the payment method shared with the buyer.",
-  "help.firstTimeSeller.title": "You are now in a Trade!"
+  "help.firstTimeSeller.title": "You are now in a Trade!",
+  "help.revolutMpesaBuyer.description": "In order to perform payment, you need to open your Revolut app and do the following steps:\n\n1 - go to Payment\n2 - click New payment (+ icon)\n3 - select International -> Country of the Currency displayed -> M-pesa\n4 - provide the Seller's details as shown on the screen and perform the payment.",
+  "help.revolutMpesaBuyer.title": "The Seller expects Mpesa payment",
+  "help.wiseMpesaBuyer.description": "In order to perform payment, you need to open your Wise app and do the following steps:\n\n1 - press Send\n2 - add New Recipient\n3 - select $0 currency\n4 - click on M-PESA -> someone else\n5 - enter the Seller's details as shown on the screen\n6 - perform the payment.",
+  "help.wiseMpesaBuyer.title": "The Seller expects Mpesa payment",
+  "help.addedPMwithMpesaCategory.title":"You selected $0 with M-Pesa details.",
+  "help.addedPMwithMpesaCategory.description":"This means other Peach users can trade with you using any Currency supported by $0.\n\nIf you create an Offer, it will include many Currencies, but your Trading Partner will received instructions to use Revolut correctly for you to receive the payment in the Currency you selected.",
+  "help.sellerWithMpesa.title":"Are you a Seller? Revolut and Wise can send to M-Pesa!",
+  "help.sellerWithMpesa.description":"If you want to Sell your BTC and receive fiat on M-Pesa, you can create a Revolut or Wise payment method and insert your M-Pesa details.\n\nThis way you will be able to reach many more Buyers!"
+
+
 }

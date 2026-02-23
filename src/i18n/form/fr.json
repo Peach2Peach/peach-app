@@ -10,7 +10,7 @@
   "form.address": "Adresse",
   "form.address.btc": "Adresse Bitcoin",
   "form.address.btc.error": "Adresse Bitcoin invalide",
-  "form.address.btc.placeholder": "lq1 ...",
+  "form.address.btc.placeholder": "bc1q ...",
   "form.address.label.placeholder": "Libellé de l'adresse",
   "form.address.lnurl": "LNURL address",
   "form.address.lnurl.placeholder": "satoshi@lightning.gmx.com",
@@ -159,5 +159,11 @@
   "form.alias": "Alias",
   "form.alias.placeholder": "Alias",
   "number.decrease": "Diminuer le nombre",
-  "number.increase": "Augmenter le nombre"
+  "number.increase": "Augmenter le nombre",
+  "form.finalCurrency": "Quelle devise votre M-Pesa accepte-t-il ?",
+  "form.mpesa": "m-pesa",
+  "form.mpesa_name": "nom complet",
+  "form.mpesa_phone": "numéro de téléphone complet",
+  "form.mpesa_phone.placeholder": "téléphone",
+  "form.mpesa_name.placeholder": "nom complet"
 }

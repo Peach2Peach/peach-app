@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Control, useController } from "react-hook-form";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
 import { Input, InputProps } from "../../components/inputs/Input";
+import { CurrencySelection } from "../../components/inputs/paymentForms/components";
 import i18n from "../../utils/i18n";
 import { Formatter, formatters } from "../../utils/validation/formatters";
 import { getMessages } from "../../utils/validation/getMessages";
@@ -39,6 +40,19 @@ export function FormInput({
     const result = Formatter.safeParse(name);
     return result.success ? formatters[result.data] : (val: string) => val;
   }, [name]);
+
+  if (field.name === "mpesa_finalCurrency") {
+    return (
+      <CurrencySelection
+        paymentMethod={"m-pesa"}
+        selectedCurrencies={[field.value as Currency]}
+        onToggle={(c: Currency) => {
+          field.onChange(c);
+        }}
+        singleCase={true}
+      />
+    );
+  }
 
   return (
     <Input

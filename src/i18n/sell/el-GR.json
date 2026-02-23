@@ -23,5 +23,8 @@
   "warning.incorrectFunding.title": "Εσφαλμένη χρηματοδότηση",
   "warning.incorrectFundingContract.description": "Χρηματοδότησες λάθος το συμβόλαιο. Πρέπει με 1 συναλλαγή στο ακριβές ποσό.\n\nΘα επιστραφούν τα χρήματα.",
   "warning.incorrectFundingContract.title": "Λάθος χρηματοδότηση",
-  "yourTrades.search.sell.subtitle": "Πώληση"
+  "yourTrades.search.sell.subtitle": "Πώληση",
+  "help.mpesaConversionSeller.title": "Ο αγοραστής έστειλε την πληρωμή στο M-Pesa μέσω $0",
+  "help.mpesaConversionSeller.description": "Το ποσό που θα λάβετε στο τοπικό σας νόμισμα $0 ενδέχεται να είναι μικρότερο από το αναμενόμενο λόγω των προμηθειών του $1."
+
 }

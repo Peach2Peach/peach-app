@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { TouchableOpacity, View, ViewStyle } from "react-native";
+import { ScrollView, TouchableOpacity, View, ViewStyle } from "react-native";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { PulsingText } from "../matches/components/PulsingText";
@@ -47,7 +47,11 @@ export const TabbedNavigation = <T extends string>({
   const colors = themes(isDarkMode)[theme];
 
   return (
-    <View style={[tw`flex-row justify-center`, style]}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={[tw`flex-row items-center`, style]}
+    >
       {items.map((item) => (
         <TouchableOpacity
           style={[
@@ -87,6 +91,6 @@ export const TabbedNavigation = <T extends string>({
           )}
         </TouchableOpacity>
       ))}
-    </View>
+    </ScrollView>
   );
 };

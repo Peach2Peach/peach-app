@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Control, useController, useForm } from "react-hook-form";
 import { View } from "react-native";
 import { Currency } from "../../../peach-api/src/@types/global";
@@ -23,6 +23,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
+import capitalize from "../../utils/string/capitalize";
 import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
 import { TabbedFormNavigation } from "./TabbedFormNavigation";
@@ -39,12 +40,19 @@ export const PaymentMethodForm = () => {
   const selectPaymentMethod = useOfferPreferences(
     (state) => state.selectPaymentMethod,
   );
+  const setPopup = useSetPopup();
   const addPaymentData = usePaymentDataStore((state) => state.addPaymentData);
 
   const { type: paymentMethod, id, country, label } = paymentData;
 
   const queryResult = usePaymentMethodInfo(paymentMethod);
+  const allCurrenciesAvailableForThisPaymentMethod =
+    queryResult.data?.currencies;
   const fields = queryResult.data?.fields;
+
+  const [activeMandatoryField, setActiveMandatoryField] = useState(
+    fields && fields.mandatory[0][0][0],
+  );
 
   const {
     control,
@@ -69,6 +77,12 @@ export const PaymentMethodForm = () => {
       country,
     } satisfies PaymentData;
 
+    const isMpesaDetails =
+      activeMandatoryField && ["mpesa_name"].includes(activeMandatoryField);
+    if (isMpesaDetails && allCurrenciesAvailableForThisPaymentMethod) {
+      finalData.currencies = allCurrenciesAvailableForThisPaymentMethod;
+    }
+
     const dataIsValid =
       isCashTrade(finalData.type) ||
       (queryResult.data?.currencies?.some((c) =>
@@ -79,6 +93,22 @@ export const PaymentMethodForm = () => {
     if (dataIsValid) {
       addPaymentData(finalData);
       selectPaymentMethod(finalData.id);
+
+      if (isMpesaDetails) {
+        setPopup(
+          <InfoPopup
+            title={i18n(`help.addedPMwithMpesaCategory.title`, finalData.type)}
+            content={i18n(
+              `help.addedPMwithMpesaCategory.description`,
+              capitalize(finalData.type),
+            )}
+            dontShowHelpButton={true}
+          />,
+        );
+      } else if (paymentMethod === "m-pesa") {
+        setPopup(<HelpPopup id={"sellerWithMpesa"} />);
+      }
+
       goBackTo(origin);
     }
   };
@@ -87,58 +117,64 @@ export const PaymentMethodForm = () => {
     <Screen header={<PaymentMethodFormHeader />}>
       {!!fields && (
         <PeachScrollView
-          contentContainerStyle={tw`grow`}
+          contentContainerStyle={[tw`grow`, { flexGrow: 1 }]}
           contentStyle={tw`gap-4 grow`}
         >
-          <View style={tw`justify-center grow`}>
-            <LabelInput
-              name="paymentMethodName"
-              control={control}
-              id={id}
-              defaultValue={label}
-            />
-
-            {fields.mandatory.map((row) => {
-              if (row.length === 1) {
-                const column = row[0];
-                return column.map((field) => (
-                  <FormInput
-                    key={`formInput-${field}`}
-                    name={field}
-                    control={control}
-                    defaultValue={paymentData[field]}
-                  />
-                ));
-              }
-              return (
-                <TabbedFormNavigation
-                  key={`tabbedFormNavigation-${row}`}
-                  {...{ row, control, paymentData, getFieldState, getValues }}
-                />
-              );
-            })}
-
-            {fields.optional.map((field) => (
-              <FormInput
-                key={`formInput-${field}`}
-                name={field}
+          <View style={{ flex: 1, justifyContent: "space-between" }}>
+            <View style={tw``}>
+              <LabelInput
+                name="paymentMethodName"
                 control={control}
-                defaultValue={paymentData[field]}
-                optional
+                id={id}
+                defaultValue={label}
               />
-            ))}
 
-            <CurrencySelectionController
-              {...{ paymentData, setValue, control }}
-            />
+              {fields.mandatory.map((row) => {
+                if (row.length === 1) {
+                  const column = row[0];
+                  return column.map((field) => (
+                    <FormInput
+                      key={`formInput-${field}`}
+                      name={field}
+                      control={control}
+                      defaultValue={paymentData[field]}
+                    />
+                  ));
+                }
+                return (
+                  <TabbedFormNavigation
+                    key={`tabbedFormNavigation-${row}`}
+                    setActiveMandatoryField={setActiveMandatoryField}
+                    {...{ row, control, paymentData, getFieldState, getValues }}
+                  />
+                );
+              })}
+
+              {fields.optional.map((field) => (
+                <FormInput
+                  key={`formInput-${field}`}
+                  name={field}
+                  control={control}
+                  defaultValue={paymentData[field]}
+                  optional
+                />
+              ))}
+
+              {activeMandatoryField !== "mpesa_name" && (
+                <CurrencySelectionController
+                  {...{ paymentData, setValue, control, activeMandatoryField }}
+                />
+              )}
+            </View>
+
+            <Button
+              style={tw`self-center mt-4`}
+              disabled={!isValid}
+              onPress={handleSubmit(onValid)}
+            >
+              {i18n("confirm")}
+            </Button>
           </View>
-          <Button
-            style={tw`self-center`}
-            disabled={!isValid}
-            onPress={handleSubmit(onValid)}
-          >
-            {i18n("confirm")}
-          </Button>
         </PeachScrollView>
       )}
     </Screen>
@@ -149,7 +185,9 @@ function CurrencySelectionController({
   paymentData: { type, currencies },
   control,
   setValue,
+  activeMandatoryField,
 }: {
+  activeMandatoryField?: PaymentMethodField;
   paymentData: {
     type: PaymentMethod;
     currencies: Currency[];
@@ -186,6 +224,8 @@ function CurrencySelectionController({
       paymentMethod={type}
       onToggle={onCurrencyToggle}
       selectedCurrencies={field.value}
+      disabled={activeMandatoryField === "mpesa_name"}
+      allSelected={activeMandatoryField === "mpesa_name"}
     />
   );
 }

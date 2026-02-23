@@ -241,7 +241,10 @@
   "contract.seller.confirmPaymentReceivedLastChance.text": "Controlla attentamente di aver ricevuto il denaro.\n\nLa conferma invierà i Bitcoin in modo irreversibile all’acquirente.",
   "contract.payment.disputeIsActive": "Controversia attiva",
   "contract.seller.revolutWarning1.text": "Utenti Revolut : ",
-  "contract.seller.revolutWarning2.text": "assicurati che l’acquirente abbia pagato tramite Revtag e NON con carta di credito/debito o Apple Pay."
+  "contract.seller.revolutWarning2.text": "assicurati che l’acquirente abbia pagato tramite Revtag e NON con carta di credito/debito o Apple Pay.",
+  "contract.summary.mpesa_name": "Nome",
+  "contract.summary.mpesa_finalCurrency": "valuta m-pesa",
+  "contract.summary.mpesa_phone": "Telefono #"
 
 
 }

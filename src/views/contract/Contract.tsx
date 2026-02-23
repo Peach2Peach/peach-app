@@ -1,7 +1,7 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { OverlayComponent } from "../../OverlayComponent";
 import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -13,6 +13,7 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
+import { InfoPopup } from "../../popups/InfoPopup";
 import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/ConfirmTradeCancelationPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../utils/account/account";
@@ -23,6 +24,7 @@ import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdF
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import capitalize from "../../utils/string/capitalize";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
@@ -91,6 +93,8 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
     (state) => state.setSeenFirstTimeSellerPopup,
   );
 
+  const [hasSeenMpesaPopup, setHasSeenMpesaPopup] = useState(false);
+
   if (isLoadingPaymentData) return <LoadingScreen />;
   if (
     selfUser &&
@@ -110,6 +114,59 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
     setPopup(<HelpPopup id="firstTimeSeller" />);
     setSeenFirstTimeSellerPopup();
   }
+
+  const requiredAction = getRequiredAction(contract);
+  const { disputeWinner } = contract;
+
+  if (
+    !disputeWinner &&
+    ["revolut", "wise"].includes(contract.paymentMethod) &&
+    data &&
+    data.paymentData &&
+    data.paymentData.mpesa_name &&
+    data.paymentData.mpesa_finalCurrency &&
+    selfUser &&
+    !hasSeenMpesaPopup
+  ) {
+    if (requiredAction === "sendPayment" && contract.buyer.id === selfUser.id) {
+      if (contract.paymentMethod === "wise") {
+        setPopup(
+          <InfoPopup
+            title={i18n(`help.wiseMpesaBuyer.title`)}
+            content={i18n(
+              `help.wiseMpesaBuyer.description`,
+              data.paymentData.mpesa_finalCurrency,
+            )}
+            dontShowHelpButton={false}
+          />,
+        );
+        setHasSeenMpesaPopup(true);
+      } else if (contract.paymentMethod === "revolut") {
+        setPopup(<HelpPopup id="revolutMpesaBuyer" />);
+        setHasSeenMpesaPopup(true);
+      }
+    } else if (
+      requiredAction === "confirmPayment" &&
+      contract.seller.id === selfUser.id
+    ) {
+      setPopup(
+        <InfoPopup
+          title={i18n(
+            `help.mpesaConversionSeller.title`,
+            capitalize(contract.paymentMethod),
+          )}
+          content={i18n(
+            `help.mpesaConversionSeller.description`,
+            data.paymentData.mpesa_finalCurrency,
+            capitalize(contract.paymentMethod),
+          )}
+          dontShowHelpButton={false}
+        />,
+      );
+      setHasSeenMpesaPopup(true);
+    }
+  }
+
   return (
     <ContractContext.Provider
       value={{

@@ -76,6 +76,13 @@ const validators: Record<PaymentMethodField, NewRule> = {
   beneficiary: {
     beneficiary: beneficiaryValidator,
   },
+  mpesa_name: {
+    mpesa_name: beneficiaryValidator,
+  },
+  mpesa_phone: {
+    mpesa_phone: phoneValidator,
+  },
+  mpesa_finalCurrency: {},
   iban: {
     iban: ibanValidator,
   },
