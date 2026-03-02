@@ -59,6 +59,10 @@ export const TransactionDetailsInfo = ({
       )}
       <Divider />
 
+      <CopyableSummaryItem title={"tx id"} text={transactionSummary.id} />
+
+      <Divider />
+
       <AmountSummaryItem amount={transactionSummary.amount} />
       <AddressSummaryItem address={receivingAddress} title={i18n("to")} />
 
