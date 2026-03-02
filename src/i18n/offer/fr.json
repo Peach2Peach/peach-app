@@ -111,7 +111,8 @@
   "buyOffer.expiry.hoursAndMinute":"Votre offre d'achat expire dans {0} heures, {1} minute...",
   "buyOffer.expiry.hourAndMinute":"Votre offre d'achat expire dans {0} heure, {1} minute...",
   "buyOffer.expiry.minutes":"Votre offre d'achat expire dans {0} minutes...",
-  "buyOffer.expiry.minute":"Votre offre d'achat expire dans {0} minute..."
+  "buyOffer.expiry.minute":"Votre offre d'achat expire dans {0} minute...",
+"offer.userExpectsMpesaAlternative": "le paiement doit être effectué via $0 -> Options nationales -> M-Pesa"
 
 
 }

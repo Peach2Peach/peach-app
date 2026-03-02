@@ -9,6 +9,7 @@ export const getHashedPaymentData = (
       [data.type]: {
         hashes: hashPaymentData(data).map((item) => item.hash),
         country: data.country,
+        isMpesa: data.isMpesa,
       },
     }),
     {},

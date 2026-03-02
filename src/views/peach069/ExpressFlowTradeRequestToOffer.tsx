@@ -241,7 +241,9 @@ export function ExpressFlowTradeRequestToOffer({
               />
 
               <PaymentMethodSelector
+                isSellOffer={"escrow" in offer}
                 origin={originRoute}
+                paymentDataOfOffer={offer.paymentData}
                 meansOfPayment={offer.meansOfPayment}
                 disabled={currentOptionName === "tradingLimitReached"}
                 selectedCurrency={selectedCurrency}

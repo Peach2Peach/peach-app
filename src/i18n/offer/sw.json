@@ -112,5 +112,8 @@
   "buyOffer.expiry.hoursAndMinute":"Oferi yako ya kununua inaisha baada ya saa {0}, dakika {1}...",
   "buyOffer.expiry.hourAndMinute":"Oferi yako ya kununua inaisha baada ya saa {0}, dakika {1}...",
   "buyOffer.expiry.minutes":"Oferi yako ya kununua inaisha baada ya dakika {0}...",
-  "buyOffer.expiry.minute":"Oferi yako ya kununua inaisha baada ya dakika {0}..."
+  "buyOffer.expiry.minute":"Oferi yako ya kununua inaisha baada ya dakika {0}...",
+
+  "offer.userExpectsMpesaAlternative": "malipo lazima yafanywe kupitia $0 -> Chaguo za Kitaifa -> M-Pesa"
+
 }

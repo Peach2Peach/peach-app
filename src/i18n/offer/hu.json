@@ -112,5 +112,8 @@
   "buyOffer.expiry.hoursAndMinute":"A vételi ajánlatod {0} óra, {1} perc múlva lejár...",
   "buyOffer.expiry.hourAndMinute":"A vételi ajánlatod {0} óra, {1} perc múlva lejár...",
   "buyOffer.expiry.minutes":"A vételi ajánlatod {0} perc múlva lejár...",
-  "buyOffer.expiry.minute":"A vételi ajánlatod {0} perc múlva lejár..."
+  "buyOffer.expiry.minute":"A vételi ajánlatod {0} perc múlva lejár...",
+
+  "offer.userExpectsMpesaAlternative": "a fizetést a következőn keresztül kell végrehajtani: $0 -> Nemzeti lehetőségek -> M-Pesa"
+
 }

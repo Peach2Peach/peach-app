@@ -271,6 +271,7 @@ type OfferPaymentData = Partial<
       country?: PaymentMethodCountry;
       encrypted?: string;
       signature?: string;
+      isMpesa?: boolean;
     }
   >
 >;

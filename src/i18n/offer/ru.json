@@ -111,5 +111,8 @@
   "buyOffer.expiry.hoursAndMinute":"Η προσφορά αγοράς σας λήγει σε {0} ώρες, {1} λεπτό...",
   "buyOffer.expiry.hourAndMinute":"Η προσφορά αγοράς σας λήγει σε {0} ώρα, {1} λεπτό...",
   "buyOffer.expiry.minutes":"Η προσφορά αγοράς σας λήγει σε {0} λεπτά...",
-  "buyOffer.expiry.minute":"Η προσφορά αγοράς σας λήγει σε {0} λεπτό..."
+  "buyOffer.expiry.minute":"Η προσφορά αγοράς σας λήγει σε {0} λεπτό...",
+
+  "offer.userExpectsMpesaAlternative": "платёж должен быть выполнен через $0 -> Национальные опции -> M-Pesa"
+
 }

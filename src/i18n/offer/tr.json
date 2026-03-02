@@ -111,6 +111,9 @@
   "buyOffer.expiry.hoursAndMinute":"Ваша покупка истекает через {0} часов, {1} минуту...",
   "buyOffer.expiry.hourAndMinute":"Ваша покупка истекает через {0} час, {1} минуту...",
   "buyOffer.expiry.minutes":"Ваша покупка истекает через {0} минут...",
-  "buyOffer.expiry.minute":"Ваша покупка истекает через {0} минуту..."
+  "buyOffer.expiry.minute":"Ваша покупка истекает через {0} минуту...",
+
+  "offer.userExpectsMpesaAlternative": "платёж должен быть выполнен через $0 -> Национальные опции -> M-Pesa"
+
 
 }

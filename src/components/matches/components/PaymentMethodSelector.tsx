@@ -9,6 +9,7 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { keys } from "../../../utils/object/keys";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
+import capitalize from "../../../utils/string/capitalize";
 import { NewBubble as Bubble } from "../../bubble/Bubble";
 import { useDrawerState } from "../../drawer/useDrawerState";
 import { CurrencySelection } from "../../navigation/CurrencySelection";
@@ -24,9 +25,12 @@ type Props = {
   showPaymentMethodPulse: boolean;
   selectedMethodInfo: ReactNode;
   origin?: keyof RootStackParamList;
+  paymentDataOfOffer: OfferPaymentData;
+  isSellOffer?: boolean;
 };
 
 export function PaymentMethodSelector({
+  isSellOffer,
   disabled,
   selectedCurrency,
   setSelectedCurrency,
@@ -36,6 +40,7 @@ export function PaymentMethodSelector({
   selectedMethodInfo,
   meansOfPayment,
   origin = "matchDetails",
+  paymentDataOfOffer,
 }: Props) {
   const availableCurrencies = keys(meansOfPayment);
   const allPaymentMethods = meansOfPayment[selectedCurrency];
@@ -52,7 +57,14 @@ export function PaymentMethodSelector({
   const items = allPaymentMethods?.map((p) => ({
     value: p,
     display: getPaymentMethodName(p),
+    isMpesa: Boolean(paymentDataOfOffer[p]?.isMpesa),
   }));
+
+  const selectedItem = items?.find(
+    (x) => x.value === selectedPaymentData?.type,
+  );
+
+  const mpesaOptionSelected = !!selectedItem?.isMpesa;
 
   const accountPaymentData = usePaymentDataStore(
     (state) => Object.values(state.paymentData),
@@ -94,6 +106,17 @@ export function PaymentMethodSelector({
               items={items}
               origin={origin}
             />
+            {isSellOffer && mpesaOptionSelected && selectedPaymentData && (
+              <PulsingText
+                style={tw`self-center text-center`}
+                showPulse={false}
+              >
+                {i18n(
+                  "offer.userExpectsMpesaAlternative",
+                  capitalize(selectedPaymentData?.type),
+                )}
+              </PulsingText>
+            )}
           </>
         )}
       </View>

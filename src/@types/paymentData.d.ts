@@ -52,4 +52,5 @@ type PaymentData = PaymentDataInfo & {
   country?: PaymentMethodCountry;
   hidden?: boolean;
   reference?: string;
+  isMpesa?: boolean;
 };

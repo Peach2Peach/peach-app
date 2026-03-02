@@ -12,6 +12,7 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n, { useI18n } from "../../utils/i18n";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
+import capitalize from "../../utils/string/capitalize";
 import { useUser } from "../../views/publicProfile/useUser";
 import { Icon } from "../Icon";
 import { ProfileInfo } from "../ProfileInfo";
@@ -73,6 +74,9 @@ export const TradeRequestReceived = ({
     [setPopup, closePopup],
   );
 
+  const isTradeRequestMpesa =
+    tradeRequest.paymentDataHashed[selectedPaymentMethod].isMpesa;
+
   return (
     <View style={tw`justify-center flex-1`}>
       <View
@@ -120,6 +124,14 @@ export const TradeRequestReceived = ({
                   />
                 )}
               </>
+            )}
+            {!("escrow" in offer) && isTradeRequestMpesa && (
+              <PeachText style={tw`text-black-50 text-center`}>
+                {i18n(
+                  "offer.userExpectsMpesaAlternative",
+                  capitalize(selectedPaymentMethod),
+                )}
+              </PeachText>
             )}
           </View>
         </View>

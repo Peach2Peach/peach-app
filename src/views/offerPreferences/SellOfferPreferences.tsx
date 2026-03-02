@@ -626,6 +626,14 @@ function FundEscrowButton() {
 
   const getPaymentData = async () => {
     const { paymentData, originalPaymentData } = sellPreferences;
+
+    // backwards compatibility for original PMs
+    originalPaymentData.forEach((payment) => {
+      if (payment.mpesa_name && paymentData[payment.type]) {
+        paymentData[payment.type]!.isMpesa = true;
+      }
+    });
+
     if (instantTrade) {
       const selectedMethods = keys(paymentData);
       const cleanedData = selectedMethods.map((method) => {

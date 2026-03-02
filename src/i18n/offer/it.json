@@ -109,5 +109,8 @@
   "buyOffer.expiry.hoursAndMinute":"La tua offerta di acquisto scade tra {0} ore, {1} minuto...",
   "buyOffer.expiry.hourAndMinute":"La tua offerta di acquisto scade tra {0} ora, {1} minuto...",
   "buyOffer.expiry.minutes":"La tua offerta di acquisto scade tra {0} minuti...",
-  "buyOffer.expiry.minute":"La tua offerta di acquisto scade tra {0} minuto..."
+  "buyOffer.expiry.minute":"La tua offerta di acquisto scade tra {0} minuto...",
+
+  "offer.userExpectsMpesaAlternative": "il pagamento deve essere effettuato tramite $0 -> Opzioni nazionali -> M-Pesa"
+
 }

@@ -112,5 +112,7 @@
   "buyOffer.expiry.hoursAndMinute":"Je koopaanbieding verloopt over {0} uur, {1} minuut...",
   "buyOffer.expiry.hourAndMinute":"Je koopaanbieding verloopt over {0} uur, {1} minuut...",
   "buyOffer.expiry.minutes":"Je koopaanbieding verloopt over {0} minuten...",
-  "buyOffer.expiry.minute":"Je koopaanbieding verloopt over {0} minuut..."
+  "buyOffer.expiry.minute":"Je koopaanbieding verloopt over {0} minuut...",
+  "offer.userExpectsMpesaAlternative": "Die Zahlung muss über $0 -> Nationale Optionen -> M-Pesa erfolgen"
+
 }

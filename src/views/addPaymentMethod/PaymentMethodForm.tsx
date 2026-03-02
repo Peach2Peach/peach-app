@@ -80,6 +80,7 @@ export const PaymentMethodForm = () => {
       label: paymentMethodName,
       type: paymentMethod,
       country,
+      isMpesa: Boolean(rest.mpesa_name),
     } satisfies PaymentData;
 
     const isMpesaDetails =
