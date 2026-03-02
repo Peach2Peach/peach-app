@@ -1,9 +1,10 @@
 import { NETWORK } from "@env";
 import { BIP32Interface } from "bip32";
-import OpenPGP from "react-native-fast-openpgp";
+import pgp from "micro-key-producer/pgp.js";
 import { info } from "../log/info";
 import { defaultAccount } from "./account";
 import { getMainAccount } from "./getMainAccount";
+import { getPgpAccount } from "./getPgpAccount";
 
 export const createAccount = async ({
   wallet,
@@ -14,7 +15,12 @@ export const createAccount = async ({
 }) => {
   info("Create account");
   const publicKey = getMainAccount(wallet, NETWORK).publicKey.toString("hex");
-  const recipient = await OpenPGP.generate({});
+
+  const pgpKey = getPgpAccount(wallet, NETWORK);
+
+  if (!pgpKey.privateKey) throw Error("empty deterministic pgp private key");
+
+  const finalKey = pgp(pgpKey.privateKey, "");
 
   return {
     ...defaultAccount,
@@ -22,8 +28,8 @@ export const createAccount = async ({
     mnemonic,
     base58: wallet.toBase58(),
     pgp: {
-      privateKey: recipient.privateKey,
-      publicKey: recipient.publicKey,
+      privateKey: finalKey.privateKey,
+      publicKey: finalKey.publicKey,
     },
   };
 };
