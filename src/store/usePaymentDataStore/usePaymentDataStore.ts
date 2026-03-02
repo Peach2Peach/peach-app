@@ -19,6 +19,7 @@ type PaymentDataState = {
 export type PaymentMethodsStore = PaymentDataState & {
   reset: () => void;
   addPaymentData: (data: PaymentData) => void;
+  getPaymentData: () => Record<string, PaymentData>;
   setPaymentDataHidden: (id: string, hidden: boolean) => void;
   removePaymentData: (id: string) => void;
 };
@@ -46,6 +47,9 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
               newPamentDetailInfo,
             ),
           }));
+        },
+        getPaymentData: () => {
+          return get().paymentData;
         },
         setPaymentDataHidden: (id, hidden) => {
           const data = get().paymentData[id];

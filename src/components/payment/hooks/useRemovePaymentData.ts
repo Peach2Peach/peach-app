@@ -2,8 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
+import { useAccountStore } from "../../../utils/account/account";
 import { hashPaymentData } from "../../../utils/paymentMethod/hashPaymentData";
 import { peachAPI } from "../../../utils/peachAPI";
+import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
 import { isDefined } from "../../../utils/validation/isDefined";
 
 export function useRemovePaymentData() {
@@ -16,6 +18,9 @@ export function useRemovePaymentData() {
     (state) => [state.preferredPaymentMethods, state.setPaymentMethods],
     shallow,
   );
+
+  const getPaymentData = usePaymentDataStore((state) => state.getPaymentData);
+  const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
 
   return useMutation({
     mutationFn: async (id: PaymentData["id"]) => {
@@ -47,6 +52,23 @@ export function useRemovePaymentData() {
           newPaymentMethods[dataToBeRemoved.type] = nextInLine.id;
         }
         setPaymentMethods(Object.values(newPaymentMethods).filter(isDefined));
+
+        // const getPaymentData = usePaymentDataStore((state) => state.getPaymentData);
+        // const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
+        const newPaymentData = getPaymentData();
+
+        signAndEncrypt(JSON.stringify(newPaymentData), myPgpPubKey).then(
+          async ({ signature, encrypted }) => {
+            try {
+              peachAPI.private.peach069.setEncryptedPaymentDataOnSelfUser69({
+                encryptedPaymentData: encrypted,
+                encryptedPaymentDataSignature: signature,
+              });
+            } catch (err) {
+              console.error("Failed to send encrypted payment data:", err);
+            }
+          },
+        );
       } else {
         setPaymentMethods(
           Object.values(preferredPaymentMethods).filter(isDefined),

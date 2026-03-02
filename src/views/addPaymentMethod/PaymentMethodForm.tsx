@@ -18,11 +18,14 @@ import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
+import { peachAPI } from "../../utils/peachAPI";
+import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import capitalize from "../../utils/string/capitalize";
 import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
@@ -42,6 +45,8 @@ export const PaymentMethodForm = () => {
   );
   const setPopup = useSetPopup();
   const addPaymentData = usePaymentDataStore((state) => state.addPaymentData);
+  const getPaymentData = usePaymentDataStore((state) => state.getPaymentData);
+  const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
 
   const { type: paymentMethod, id, country, label } = paymentData;
 
@@ -93,6 +98,21 @@ export const PaymentMethodForm = () => {
     if (dataIsValid) {
       addPaymentData(finalData);
       selectPaymentMethod(finalData.id);
+
+      const newPaymentData = getPaymentData();
+
+      signAndEncrypt(JSON.stringify(newPaymentData), myPgpPubKey).then(
+        async ({ signature, encrypted }) => {
+          try {
+            peachAPI.private.peach069.setEncryptedPaymentDataOnSelfUser69({
+              encryptedPaymentData: encrypted,
+              encryptedPaymentDataSignature: signature,
+            });
+          } catch (err) {
+            console.error("Failed to send encrypted payment data:", err);
+          }
+        },
+      );
 
       if (isMpesaDetails) {
         setPopup(
