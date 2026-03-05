@@ -112,6 +112,7 @@ export const FundEscrow = () => {
         <View style={tw`items-center self-stretch justify-center`}>
           <PreferenceMethods
             meansOfPayment={offer?.meansOfPayment}
+            paymentData={offer?.paymentData}
             type="sell"
             setCurrency={() => {}}
           ></PreferenceMethods>

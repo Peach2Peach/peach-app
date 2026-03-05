@@ -31,5 +31,8 @@
   "offerPreferences.showOffers": "mostrar ofertas",
   "help.createMultiple.description": "Se quer comprar muito de vários vendedores, crie várias ofertas de compra!",
   "help.createMultiple.title": "criar múltiplas ofertas de compra",
-  "matchDetails.action.unrequestTrade": "remover solicitação de negociação"
+  "matchDetails.action.unrequestTrade": "remover solicitação de negociação",
+  "offerPreferences.feature.experienceLevel": "nível de experiência",
+  "offerPreferences.filters.experiencedUsersOnly": "apenas users experientes",
+  "offerPreferences.filters.newUsersOnly": "apenas novos users"
 }

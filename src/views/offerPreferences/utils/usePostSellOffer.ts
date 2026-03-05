@@ -34,6 +34,7 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
     returnAddress: offerDraft.returnAddress,
     multi: offerDraft.multi,
     instantTradeCriteria,
+    experienceLevelCriteria: offerDraft.experienceLevelCriteria,
   };
 
   const { result, error: err } =

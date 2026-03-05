@@ -74,7 +74,16 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Új eladási ajánlat!",
     "notification.offer.newSellOfferMatchesPreferences.title": "Van egy új ajánlat, ami megfelel a beállításaidnak.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Kereskedési kérés chat",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Új chatüzenetet kaptál a kereskedési kéréseddel kapcsolatban"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Új chatüzenetet kaptál a kereskedési kéréseddel kapcsolatban",
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "A kereskedési kérésedet nem választották ki. Próbálj másik eladási ajánlatot.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "Az eladó másik vevőt választott",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "A kereskedési kérésedet nem választották ki. Próbálj másik vételi ajánlatot.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "A vevő másik eladót választott",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Próbálj másik eladási ajánlattal kereskedni.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "A kért ajánlatot eltávolították",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Próbálj másik vételi ajánlattal kereskedni.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "A kért ajánlatot eltávolították"
+
 
  
 }

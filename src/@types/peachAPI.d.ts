@@ -350,6 +350,10 @@ type NotificationType =
   | "offer.expressSellTradeRequestReceived" // PN-69-???? TODO mark this
   | "offer.expressBuyTradeRequestRejected" // PN-69-???? TODO mark this
   | "offer.expressSellTradeRequestRejected" // PN-69-???? TODO mark this
+  | "offer.expressBuyTradeRequestNotChosen" // PN-69-???? TODO mark this
+  | "offer.expressSellTradeRequestNotChosen" // PN-69-???? TODO mark this
+  | "offer.expressBuyTradeRequestRemovedAlongsideOffer" // PN-69-???? TODO mark this
+  | "offer.expressSellTradeRequestRemovedAlongsideOffer" // PN-69-???? TODO mark this
   | "contract.buyer.paymentReminderSixHours" // PN-B04
   | "contract.buyer.paymentReminderOneHour" // PN-B05
   | "contract.buyer.paymentTimerHasRunOut" // PN-B12

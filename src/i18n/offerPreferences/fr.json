@@ -31,5 +31,8 @@
   "offerPreferences.showOffers": "voir les offres",
   "help.createMultiple.description": "Si vous voulez acheter beaucoup auprès de plusieurs vendeurs, créez plusieurs offres d'achat !",
   "help.createMultiple.title": "créer plusieurs achats",
-  "matchDetails.action.unrequestTrade": "annuler la demande"
+  "matchDetails.action.unrequestTrade": "annuler la demande",
+  "offerPreferences.feature.experienceLevel": "niveau d'expérience",
+  "offerPreferences.filters.experiencedUsersOnly": "utilisateurs expérimentés",
+  "offerPreferences.filters.newUsersOnly": "nouveaux utilisateurs"
 }

@@ -114,6 +114,14 @@
   "buyOffer.expiry.minutes":"A vételi ajánlatod {0} perc múlva lejár...",
   "buyOffer.expiry.minute":"A vételi ajánlatod {0} perc múlva lejár...",
 
-  "offer.userExpectsMpesaAlternative": "a fizetést a következőn keresztül kell végrehajtani: $0 -> Nemzeti lehetőségek -> M-Pesa"
+  "offer.userExpectsMpesaAlternative": "a fizetést a következőn keresztül kell végrehajtani: $0 -> Nemzeti lehetőségek -> M-Pesa",
+
+  "offer.summary.availableTo": "elérhető",
+  "offer.summary.availableTo.everyone": "mindenki számára",
+  "offer.summary.availableTo.newUsersOnly": "csak új felhasználóknak",
+  "offer.summary.availableTo.experiencedUsersOnly": "csak tapasztalt felhasználóknak",
+  "offer.summary.availableTo.newUsersLikeYou": "új felhasználóknak, mint te",
+  "offer.summary.availableTo.experiencedUsersLikeYou": "tapasztalt felhasználóknak, mint te"
+
 
 }

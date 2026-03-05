@@ -74,7 +74,16 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Νέα προσφορά πώλησης!",
     "notification.offer.newSellOfferMatchesPreferences.title": "Υπάρχει νέα προσφορά που ταιριάζει με τις προτιμήσεις σας.",
     "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Συνομιλία αιτήματος συναλλαγής",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Λάβατε μήνυμα συνομιλίας για το αίτημα συναλλαγής σας"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Λάβατε μήνυμα συνομιλίας για το αίτημα συναλλαγής σας",
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Το αίτημα συναλλαγής σας δεν επιλέχθηκε. Δοκιμάστε άλλη προσφορά πώλησης.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "Ο πωλητής επέλεξε άλλον αγοραστή",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Το αίτημα συναλλαγής σας δεν επιλέχθηκε. Δοκιμάστε άλλη προσφορά αγοράς.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "Ο αγοραστής επέλεξε άλλον πωλητή",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Δοκιμάστε να κάνετε συναλλαγή με άλλη προσφορά πώλησης.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Η προσφορά που ζητήσατε αφαιρέθηκε",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Δοκιμάστε να κάνετε συναλλαγή με άλλη προσφορά αγοράς.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Η προσφορά που ζητήσατε αφαιρέθηκε"
+
 
   
 }

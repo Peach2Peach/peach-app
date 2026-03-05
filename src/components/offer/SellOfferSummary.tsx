@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { keys } from "../../utils/object/keys";
 import { BTCAmount } from "../bitcoin/BTCAmount";
 import { EscrowLink } from "../matches/components/EscrowLink";
 import { getPremiumColor } from "../matches/utils/getPremiumColor";
@@ -12,7 +13,13 @@ import { SummaryCard } from "./SummaryCard";
 type Props = {
   offer: Pick<
     SellOffer | SellOfferDraft,
-    "amount" | "tradeStatus" | "premium" | "meansOfPayment"
+    | "amount"
+    | "tradeStatus"
+    | "premium"
+    | "meansOfPayment"
+    | "experienceLevelCriteria"
+    | "instantTradeCriteria"
+    | "paymentData"
   > & {
     escrow?: string;
     amountSats?: number;
@@ -40,7 +47,21 @@ export const SellOrBuyOfferSummary = ({
   setDisplayedCurrency,
   type = "sell",
 }: Props) => {
-  const { tradeStatus, amount, premium, meansOfPayment, amountSats } = offer;
+  const {
+    tradeStatus,
+    amount,
+    premium,
+    meansOfPayment,
+    amountSats,
+    paymentData,
+  } = offer;
+
+  const isInstantTrade = Boolean(
+    "escrow" in offer
+      ? offer.paymentData[keys(offer.paymentData)[0]]?.encrypted
+      : Boolean(offer.instantTradeCriteria),
+  );
+
   return (
     <SummaryCard>
       <SummaryCard.Section>
@@ -86,6 +107,14 @@ export const SellOrBuyOfferSummary = ({
       <SummaryCard.PaymentMethods
         meansOfPayment={meansOfPayment}
         setDisplayedCurrency={setDisplayedCurrency}
+        offerPaymentData={paymentData}
+      />
+
+      <HorizontalLine />
+
+      <SummaryCard.ExperienceLevelAndInstantTrade
+        experienceLevelCriteria={offer.experienceLevelCriteria}
+        isInstantTrade={isInstantTrade}
       />
 
       <HorizontalLine />

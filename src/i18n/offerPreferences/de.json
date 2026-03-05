@@ -31,5 +31,8 @@
   "offerPreferences.sellOffers": "$0 Verkaufsangebote",
   "offerPreferences.showOffers": "Angebote anzeigen",
   "help.createMultiple.description": "Wenn Sie viel von vielen Verkäufern kaufen möchten, können Sie viele Kaufangebote erstellen!",
-  "help.createMultiple.title": "Mehrere Kaufangebote erstellen"
+  "help.createMultiple.title": "Mehrere Kaufangebote erstellen",
+  "offerPreferences.feature.experienceLevel": "Erfahrungsstufe",
+  "offerPreferences.filters.experiencedUsersOnly": "nur erfahrene Nutzer",
+  "offerPreferences.filters.newUsersOnly": "nur neue Nutzer"
 }

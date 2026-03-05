@@ -74,7 +74,17 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Nowa oferta sprzedaży!",
     "notification.offer.newSellOfferMatchesPreferences.title": "Pojawiła się nowa oferta pasująca do Twoich preferencji.",
     "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Czat prośby o handel",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Otrzymałeś wiadomość na czacie dotyczącej twojej prośby o handel"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Otrzymałeś wiadomość na czacie dotyczącej twojej prośby o handel",
+
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Twoja prośba o handel nie została wybrana. Spróbuj innej oferty sprzedaży.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "Sprzedawca wybrał innego kupującego",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Twoja prośba o handel nie została wybrana. Spróbuj innej oferty kupna.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "Kupujący wybrał innego sprzedawcę",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Spróbuj handlować z inną ofertą sprzedaży.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Oferta, o którą prosiłeś, została usunięta",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Spróbuj handlować z inną ofertą kupna.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Oferta, o którą prosiłeś, została usunięta"
+
 
  
 }

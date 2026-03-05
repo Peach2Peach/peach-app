@@ -89,5 +89,7 @@
   "INCORRECT_PIN.text": "Der eingegebene PIN ist nicht korrekt. Versuche es erneut",
   "INCORRECT_PIN.title": "Der PIN ist falsch",
   "TRADE_REQUEST_PERFORMED.text": "Ihre Anfrage wartet nun auf Genehmigung. Wenn Sie mehrere Handelsanfragen offen haben, werden alle übrigen entfernt, sobald eine genehmigt wurde.",
-  "TRADE_REQUEST_PERFORMED.title": "Handelsanfrage gesendet!"
+  "TRADE_REQUEST_PERFORMED.title": "Handelsanfrage gesendet!",
+  "INVALID_TIME.text": "Peach hatte ein Problem bei der Überprüfung deiner generierten Zugangsdaten, möglicherweise aufgrund einer langsamen Internetverbindung. Bitte versuche es erneut."
+
 }

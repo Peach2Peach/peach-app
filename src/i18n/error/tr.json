@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "Girdiğiniz PIN doğru değil. Tekrar deneyin",
 "INCORRECT_PIN.title": "PIN yanlış",
 "TRADE_REQUEST_PERFORMED.text": "Talebiniz şimdi onay bekliyor. Birden fazla işlem talebiniz açıksa, biri onaylandığında diğerlerinin tümü kaldırılacaktır.",
-  "TRADE_REQUEST_PERFORMED.title": "Ticaret Talebi gönderildi!"
+  "TRADE_REQUEST_PERFORMED.title": "Ticaret Talebi gönderildi!",
+  "INVALID_TIME.text": "Peach, oluşturduğunuz kimlik bilgilerini doğrulamada bir sorun yaşadı, muhtemelen yavaş bir internet bağlantısı nedeniyle. Lütfen tekrar deneyin."
+
 
 }

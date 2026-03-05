@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "Le code PIN saisi est incorrect. Réessayez",
 "INCORRECT_PIN.title": "Le PIN est incorrect",
 "TRADE_REQUEST_PERFORMED.text": "Votre demande est en attente d’approbation. Si vous avez plusieurs demandes ouvertes, toutes les autres seront supprimées dès qu’une sera approuvée.",
-  "TRADE_REQUEST_PERFORMED.title": "Demande d’échange envoyée!"
+  "TRADE_REQUEST_PERFORMED.title": "Demande d’échange envoyée!",
+  "INVALID_TIME.text": "Peach hatte ein Problem bei der Überprüfung deiner generierten Zugangsdaten, möglicherweise aufgrund einer langsamen Internetverbindung. Bitte versuche es erneut."
+
 
 }

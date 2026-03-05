@@ -75,7 +75,17 @@
     "notification.offer.newSellOfferMatchesPreferences.title": "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.",
   
     "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Trade-Anfrage Chat",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Du hast eine Chat-Nachricht zu deiner Trade-Anfrage erhalten"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Du hast eine Chat-Nachricht zu deiner Trade-Anfrage erhalten",
+
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Your Trade Request was not chosen. Try another Sell Offer.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "The Seller chose another Buyer",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Your Trade Request was not chosen. Try another Buy Offer.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "The Buyer chose another Seller",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Try trading with another Sell Offer.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "The Offer you requested has been removed",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Try trading with another Buy Offer.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "The Offer you requested has been removed"
+
 
 
 }

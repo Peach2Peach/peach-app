@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "Ο PIN που εισαγάγατε δεν είναι σωστός. Προσπαθήστε ξανά",
 "INCORRECT_PIN.title": "Ο PIN είναι λάθος",
  "TRADE_REQUEST_PERFORMED.text": "Το αίτημά σας είναι πλέον σε αναμονή για έγκριση. Αν έχετε πολλαπλά αιτήματα ανταλλαγής ανοιχτά, όλα τα υπόλοιπα θα αφαιρεθούν μόλις εγκριθεί ένα.",
-  "TRADE_REQUEST_PERFORMED.title": "Το αίτημα ανταλλαγής στάλθηκε!"
+  "TRADE_REQUEST_PERFORMED.title": "Το αίτημα ανταλλαγής στάλθηκε!",
+  "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie."
+
 
 }

@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "Il PIN inserito non è corretto. Riprova",
 "INCORRECT_PIN.title": "Il PIN è errato",
 "TRADE_REQUEST_PERFORMED.text": "La tua richiesta è ora in attesa di approvazione. Se hai più richieste aperte, tutte le altre saranno rimosse quando una verrà approvata.",
-  "TRADE_REQUEST_PERFORMED.title": "Richiesta di scambio inviata!"
+  "TRADE_REQUEST_PERFORMED.title": "Richiesta di scambio inviata!",
+  "INVALID_TIME.text": "Peach ha avuto un problema nella convalida delle credenziali generate, forse a causa di una connessione Internet lenta. Per favore, riprova."
+
 
 }

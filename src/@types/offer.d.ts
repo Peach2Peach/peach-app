@@ -29,6 +29,8 @@ type InstantTradeCriteria = {
   minTrades: number;
 };
 
+type ExperienceLevel = "newUsersOnly" | "experiencedUsersOnly";
+
 type SellOfferDraft = OfferDraft & {
   type: "ask";
   amount: number;
@@ -37,6 +39,7 @@ type SellOfferDraft = OfferDraft & {
   funding: FundingStatus;
   multi?: number;
   instantTradeCriteria?: InstantTradeCriteria;
+  experienceLevelCriteria?: ExperienceLevel;
 };
 type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
   escrow?: string;
@@ -71,6 +74,7 @@ type BuyOffer69Draft = OfferDraft & {
   premium: number;
   minReputation: number | null;
   instantTradeCriteria?: InstantTradeCriteria;
+  experienceLevelCriteria?: ExperienceLevel;
 };
 
 type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {

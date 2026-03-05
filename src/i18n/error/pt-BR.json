@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "O PIN inserido está incorreto. Tente novamente",
 "INCORRECT_PIN.title": "O PIN está incorreto",
 "TRADE_REQUEST_PERFORMED.text": "Sua solicitação agora está aguardando aprovação. Se você tiver várias solicitações de troca abertas, todas as outras serão removidas quando uma for aprovada.",
-  "TRADE_REQUEST_PERFORMED.title": "Solicitação de troca enviada!"
+  "TRADE_REQUEST_PERFORMED.title": "Solicitação de troca enviada!",
+  "INVALID_TIME.text": "Peach teve um problema ao validar suas credenciais geradas, possivelmente devido a uma conexão lenta de Internet. Por favor, tente novamente."
+
 
 }

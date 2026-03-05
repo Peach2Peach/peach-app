@@ -114,6 +114,15 @@
   "buyOffer.expiry.minutes":"Oferi yako ya kununua inaisha baada ya dakika {0}...",
   "buyOffer.expiry.minute":"Oferi yako ya kununua inaisha baada ya dakika {0}...",
 
-  "offer.userExpectsMpesaAlternative": "malipo lazima yafanywe kupitia $0 -> Chaguo za Kitaifa -> M-Pesa"
+  "offer.userExpectsMpesaAlternative": "malipo lazima yafanywe kupitia $0 -> Chaguo za Kitaifa -> M-Pesa",
+
+
+  "offer.summary.availableTo": "inapatikana kwa",
+  "offer.summary.availableTo.everyone": "kila mtu",
+  "offer.summary.availableTo.newUsersOnly": "watumiaji wapya tu",
+  "offer.summary.availableTo.experiencedUsersOnly": "watumiaji wenye uzoefu tu",
+  "offer.summary.availableTo.newUsersLikeYou": "kwa watumiaji wapya kama wewe",
+  "offer.summary.availableTo.experiencedUsersLikeYou": "kwa watumiaji wenye uzoefu kama wewe"
+
 
 }

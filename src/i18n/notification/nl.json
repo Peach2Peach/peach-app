@@ -74,7 +74,17 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Nieuw verkoopaanbod!",
     "notification.offer.newSellOfferMatchesPreferences.title": "Er is een nieuw aanbod dat overeenkomt met je voorkeuren.",
     "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Handelsverzoek-chat",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Je hebt een chatbericht ontvangen over je handelsverzoek"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Je hebt een chatbericht ontvangen over je handelsverzoek",
+
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Je handelsverzoek is niet gekozen. Probeer een andere verkoopaanbieding.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "De verkoper koos een andere koper",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Je handelsverzoek is niet gekozen. Probeer een andere koopaanbieding.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "De koper koos een andere verkoper",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Probeer te handelen met een andere verkoopaanbieding.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "De gevraagde aanbieding is verwijderd",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Probeer te handelen met een andere koopaanbieding.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "De gevraagde aanbieding is verwijderd"
+
 
   
 }

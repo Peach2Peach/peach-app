@@ -12,6 +12,7 @@ import { PeachText } from "../text/PeachText";
 
 type Props = {
   meansOfPayment: MeansOfPayment;
+  offerPaymentData?: OfferPaymentData;
   style?: StyleProp<ViewStyle>;
   setDisplayedCurrency?: Function;
   setCurrency: (c: Currency) => void;
@@ -19,10 +20,12 @@ type Props = {
 
 export function MeansOfPayment({
   meansOfPayment,
+  offerPaymentData,
   style,
   setDisplayedCurrency,
   setCurrency,
 }: Props) {
+  console.log("HEEEY ", offerPaymentData);
   const currencies = getCurrencies(meansOfPayment);
   const stateDisplayCurrency = useSettingsStore(
     (state) => state.displayCurrency,
@@ -62,6 +65,7 @@ export function MeansOfPayment({
             key={`buyOfferMethod-${p}`}
             paymentMethod={p}
             style={tw`m-2`}
+            offerPaymentData={offerPaymentData}
           />
         ))}
       </View>
@@ -72,15 +76,28 @@ export function MeansOfPayment({
 type PaymentMethodProps = {
   paymentMethod: PaymentMethod;
   style: StyleProp<ViewStyle>;
+  offerPaymentData?: OfferPaymentData;
 };
 
-function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
+function PaymentMethod({
+  paymentMethod,
+  style,
+  offerPaymentData,
+}: PaymentMethodProps) {
   const { isDarkMode } = useThemeStore();
   const name = useMemo(
     () =>
       paymentMethod ? i18n(`paymentMethod.${paymentMethod}`) : paymentMethod,
     [paymentMethod],
   );
+
+  const countryName =
+    ["sepa", "instantSepa"].includes(paymentMethod) &&
+    offerPaymentData &&
+    offerPaymentData[paymentMethod] &&
+    offerPaymentData[paymentMethod].country;
+
+  const finalName = countryName ? name + ` (${countryName})` : name;
   return (
     <View
       style={[
@@ -98,7 +115,7 @@ function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
             isDarkMode ? "text-primary-main" : "text-black-100",
           )}
         >
-          {name}
+          {finalName}
         </PeachText>
       )}
     </View>

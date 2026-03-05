@@ -83,6 +83,28 @@
     <string name="notification.body.offer.expressSellTradeRequestReceived">Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!</string>
     <string name="notification.title.offer.expressSellTradeRequestReceived">Your Buy Offer received a Trade Request!</string>
 
+    <string name="notification.body.offer.expressBuyTradeRequestReceived">Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!</string>
+    <string name="notification.title.offer.expressBuyTradeRequestReceived">Your Sell Offer received a Trade Request!</string>
+    <string name="notification.body.offer.expressBuyTradeRequestRejected">The Seller has rejected your Trade Request! Try again with another offer.</string>
+    <string name="notification.title.offer.expressBuyTradeRequestRejected">Your Trade Request was rejected...</string>
+    <string name="notification.body.offer.expressSellTradeRequestRejected">The Buyer has rejected your Trade Request! Try again with another offer.</string>
+    <string name="notification.title.offer.expressSellTradeRequestRejected">Your Trade Request was rejected...</string>    
+    <string name="notification.body.offer.expressSellTradeRequestReceived">Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!</string>
+    <string name="notification.title.offer.expressSellTradeRequestReceived">Your Buy Offer received a Trade Request!</string>
+
+
+    <string name="notification.body.offer.expressBuyTradeRequestNotChosen"></string>Your Trade Request was not chosen. Try another Sell Offer.</string>
+    <string name="notification.title.offer.expressBuyTradeRequestNotChosen">The Seller chose another Buyer</string>
+    <string name="notification.body.offer.expressSellTradeRequestNotChosen">Your Trade Request was not chosen. Try another Buy Offer.</string>
+    <string name="notification.title.offer.expressSellTradeRequestNotChosen">The Buyer chose another Seller</string>
+    <string name="notification.body.offer.expressBuyTradeRequestRemovedAlongsideOffer">Try trading with another Sell Offer.</string>
+    <string name="notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer">The Offer you requested has been removed</string>
+    <string name="notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer">Try trading with another Buy Offer.</string>
+    <string name="notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer">The Offer you requested has been removed</string>
+
+
+
+
     <string name="notification.body.contract.escrowFunded.buyer">You need to make the payment within twelve hours. The faster you are, the better your Peach score will be.</string>
     <string name="notification.title.contract.escrowFunded.buyer">The escrow has been funded!</string>
     <string name="notification.body.contract.escrowFunded">The Buyer has 12h to declare the payment as made.</string>

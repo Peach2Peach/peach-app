@@ -31,5 +31,8 @@
   "offerPreferences.showOffers": "toon aanbiedingen",
   "help.createMultiple.description": "Wil je van meerdere verkopers kopen? Maak dan meerdere koopaanbiedingen tegelijk!",
   "help.createMultiple.title": "maak meerdere koopaanbiedingen",
-  "matchDetails.action.unrequestTrade": "handelsverzoek verwijderen"
+  "matchDetails.action.unrequestTrade": "handelsverzoek verwijderen",
+  "offerPreferences.feature.experienceLevel": "ervaringsniveau",
+  "offerPreferences.filters.experiencedUsersOnly": "alleen ervaren gebruikers",
+  "offerPreferences.filters.newUsersOnly": "alleen nieuwe gebruikers"
 }

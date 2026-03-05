@@ -113,6 +113,14 @@
   "buyOffer.expiry.minutes":"Η προσφορά αγοράς σας λήγει σε {0} λεπτά...",
   "buyOffer.expiry.minute":"Η προσφορά αγοράς σας λήγει σε {0} λεπτό...",
 
-  "offer.userExpectsMpesaAlternative": "η πληρωμή πρέπει να γίνει μέσω $0 -> Εθνικές επιλογές -> M-Pesa"
+  "offer.userExpectsMpesaAlternative": "η πληρωμή πρέπει να γίνει μέσω $0 -> Εθνικές επιλογές -> M-Pesa",
+
+  "offer.summary.availableTo": "διαθέσιμο για",
+  "offer.summary.availableTo.everyone": "όλους",
+  "offer.summary.availableTo.newUsersOnly": "μόνο νέους χρήστες",
+  "offer.summary.availableTo.experiencedUsersOnly": "μόνο έμπειρους χρήστες",
+  "offer.summary.availableTo.newUsersLikeYou": "για νέους χρήστες σαν εσένα",
+  "offer.summary.availableTo.experiencedUsersLikeYou": "για έμπειρους χρήστες σαν εσένα"
+
 
 }

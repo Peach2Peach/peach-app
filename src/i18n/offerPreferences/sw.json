@@ -31,5 +31,8 @@
   "offerPreferences.sellOffers": "$0 ofa za mauzo zilizo wazi",
   "offerPreferences.showOffers": "onyesha ofa",
   "help.createMultiple.description": "Ikiwa unataka kununua kiasi kikubwa kutoka kwa wauzaji wengi, unaweza kuunda ofa nyingi za kununua!",
-  "help.createMultiple.title": "unda ofa nyingi za kununua"
+  "help.createMultiple.title": "unda ofa nyingi za kununua",
+  "offerPreferences.feature.experienceLevel": "kiwango cha uzoefu",
+  "offerPreferences.filters.experiencedUsersOnly": "watumiaji wenye uzoefu tu",
+  "offerPreferences.filters.newUsersOnly": "watumiaji wapya tu"
 }

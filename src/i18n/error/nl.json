@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "De ingevoerde PIN is onjuist. Probeer opnieuw",
 "INCORRECT_PIN.title": "De PIN is onjuist",
 "TRADE_REQUEST_PERFORMED.text": "Je verzoek wacht nu op goedkeuring. Als je meerdere handelsverzoeken open hebt staan, worden de overige verwijderd zodra één ervan wordt goedgekeurd.",
-  "TRADE_REQUEST_PERFORMED.title": "Handelsverzoek verzonden!"
+  "TRADE_REQUEST_PERFORMED.title": "Handelsverzoek verzonden!",
+  "INVALID_TIME.text": "Peach had een probleem bij het valideren van je gegenereerde gegevens, mogelijk door een trage internetverbinding. Probeer het opnieuw."
+
 
 }

@@ -110,6 +110,13 @@
   "buyOffer.expiry.hourAndMinute":"Your Buy Offer expires in {0} hour, {1} minute...",
   "buyOffer.expiry.minutes":"Your Buy Offer expires in {0} minutes...",
   "buyOffer.expiry.minute":"Your Buy Offer expires in {0} minute...",
-  "offer.userExpectsMpesaAlternative": "Die Zahlung muss über $0 -> Nationale Optionen -> M-Pesa erfolgen"
+  "offer.userExpectsMpesaAlternative": "Die Zahlung muss über $0 -> Nationale Optionen -> M-Pesa erfolgen",
+  "offer.summary.availableTo": "verfügbar für",
+  "offer.summary.availableTo.everyone": "alle",
+  "offer.summary.availableTo.newUsersOnly": "nur neue Nutzer",
+  "offer.summary.availableTo.experiencedUsersOnly": "nur erfahrene Nutzer",
+  "offer.summary.availableTo.newUsersLikeYou": "für neue Nutzer wie dich",
+  "offer.summary.availableTo.experiencedUsersLikeYou": "für erfahrene Nutzer wie dich"
+
 
 }

@@ -74,7 +74,17 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Yeni Satış Teklifi!",
     "notification.offer.newSellOfferMatchesPreferences.title": "Tercihlerine uygun yeni bir teklif var.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Ticaret Talebi Sohbeti",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Ticaret talebin için bir sohbet mesajı aldın"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Ticaret talebin için bir sohbet mesajı aldın",
+
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Ticaret isteğiniz seçilmedi. Başka bir satış teklifini deneyin.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "Satıcı başka bir alıcı seçti",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Ticaret isteğiniz seçilmedi. Başka bir alış teklifini deneyin.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "Alıcı başka bir satıcı seçti",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Başka bir satış teklifiyle işlem yapmayı deneyin.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "İstediğiniz teklif kaldırıldı",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Başka bir alış teklifiyle işlem yapmayı deneyin.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "İstediğiniz teklif kaldırıldı"
+
 
   
 }

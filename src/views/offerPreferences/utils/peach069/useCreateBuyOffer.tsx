@@ -27,6 +27,7 @@ export function useCreateBuyOffer({
   premium,
   instantTradeCriteria,
   multi,
+  experienceLevelCriteria,
 }: Pick<
   BuyOffer69Draft,
   | "amount"
@@ -34,6 +35,7 @@ export function useCreateBuyOffer({
   | "paymentData"
   | "premium"
   | "instantTradeCriteria"
+  | "experienceLevelCriteria"
 > & { multi?: number }) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
@@ -111,6 +113,7 @@ export function useCreateBuyOffer({
           ? releaseAddressMessageSignatures
           : undefined,
         instantTradeCriteria,
+        experienceLevelCriteria,
         multi,
       };
 

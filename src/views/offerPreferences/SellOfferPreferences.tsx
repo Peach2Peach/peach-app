@@ -89,6 +89,7 @@ export function SellOfferPreferences() {
       <AmountSelector currency={currency} setIsSliding={setIsSliding} />
       <CreateMultipleOffersContainer />
       <InstantTrade />
+      <ExperienceLevel />
       <RefundWalletSelector />
     </PreferenceScreen>
   );
@@ -544,6 +545,80 @@ function InstantTrade() {
   );
 }
 
+function ExperienceLevel() {
+  const [enableExperienceLevel, toggle, criteria, selectExperienceLevel] =
+    useOfferPreferences(
+      (state) => [
+        state.experienceLevel,
+        state.toggleExperienceLevel,
+        state.experienceLevelCriteria,
+        state.selectExperienceLevelCriteria,
+      ],
+      shallow,
+    );
+  const [hasSeenPopup, setHasSeenPopup] = useOfferPreferences(
+    (state) => [
+      state.hasSeenExperienceLevelPopup,
+      state.setHasSeenExperienceLevelPopup,
+    ],
+    shallow,
+  );
+  const setPopup = useSetPopup();
+  const onHelpIconPress = () => {
+    setPopup(<HelpPopup id="experienceLevel" />);
+    setHasSeenPopup(true);
+  };
+
+  const onToggle = () => {
+    if (!hasSeenPopup) {
+      onHelpIconPress();
+    }
+    toggle();
+  };
+
+  const { isDarkMode } = useThemeStore();
+
+  return (
+    <Section.Container
+      style={tw`${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+    >
+      <View style={tw`flex-row items-center self-stretch justify-between`}>
+        <Toggle onPress={onToggle} enabled={!!enableExperienceLevel} />
+        <Section.Title>
+          {i18n("offerPreferences.feature.experienceLevel")}
+        </Section.Title>
+        <TouchableIcon
+          id="helpCircle"
+          iconColor={tw.color("info-light")}
+          onPress={onHelpIconPress}
+        />
+      </View>
+      {enableExperienceLevel && (
+        <>
+          <Checkbox
+            checked={criteria === "experiencedUsersOnly"}
+            style={tw`self-stretch`}
+            onPress={() => {
+              selectExperienceLevel("experiencedUsersOnly");
+            }}
+          >
+            {i18n("offerPreferences.filters.experiencedUsersOnly")}
+          </Checkbox>
+          <Checkbox
+            checked={criteria === "newUsersOnly"}
+            style={tw`self-stretch`}
+            onPress={() => {
+              selectExperienceLevel("newUsersOnly");
+            }}
+          >
+            {i18n("offerPreferences.filters.newUsersOnly")}
+          </Checkbox>
+        </>
+      )}
+    </Section.Container>
+  );
+}
+
 function FundWithPeachWallet() {
   const [fundWithPeachWallet, setFundWithPeachWallet] = useOfferPreferences(
     (state) => [state.fundWithPeachWallet, state.setFundWithPeachWallet],
@@ -607,6 +682,9 @@ function FundEscrowButton() {
       instantTradeCriteria: state.instantTrade
         ? state.instantTradeCriteria
         : undefined,
+      experienceLevelCriteria: state.experienceLevel
+        ? state.experienceLevelCriteria
+        : undefined,
     }),
     shallow,
   );
@@ -631,6 +709,12 @@ function FundEscrowButton() {
     originalPaymentData.forEach((payment) => {
       if (payment.mpesa_name && paymentData[payment.type]) {
         paymentData[payment.type]!.isMpesa = true;
+      }
+      if (payment.iban) {
+        paymentData[payment.type]!.country = payment.iban.slice(
+          0,
+          2,
+        ) as PaymentMethodCountry;
       }
     });
 

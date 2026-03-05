@@ -89,5 +89,6 @@
   "error.firstBackup.action": "make a backup",
   "error.firstBackup.description": "Now that you've used the Peach Wallet, you should really make a backup before continuing.\n\nIf you don't, you'll lose your Peach account and any funds stored in the Peach wallet if you lose your phone.",
   "error.firstBackup.title": "make a backup!",
-  "error.general": "Something went wrong. Please try again later or contact the Peach support team."
+  "error.general": "Something went wrong. Please try again later or contact the Peach support team.",
+  "INVALID_TIME.text": "Peach had a problem validating your generated credentials possibly due to a slow Internet connection. Please try again."
 }

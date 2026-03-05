@@ -113,6 +113,14 @@
   "buyOffer.expiry.minutes":"Twoja oferta kupna wygasa za {0} minut...",
   "buyOffer.expiry.minute":"Twoja oferta kupna wygasa za {0} minutę...",
 
-  "offer.userExpectsMpesaAlternative": "płatność musi zostać wykonana przez $0 -> Opcje krajowe -> M-Pesa"
+  "offer.userExpectsMpesaAlternative": "płatność musi zostać wykonana przez $0 -> Opcje krajowe -> M-Pesa",
+
+  "offer.summary.availableTo": "dostępne dla",
+  "offer.summary.availableTo.everyone": "wszyscy",
+  "offer.summary.availableTo.newUsersOnly": "tylko nowi użytkownicy",
+  "offer.summary.availableTo.experiencedUsersOnly": "tylko doświadczeni użytkownicy",
+  "offer.summary.availableTo.newUsersLikeYou": "dla nowych użytkowników takich jak ty",
+  "offer.summary.availableTo.experiencedUsersLikeYou": "dla doświadczonych użytkowników takich jak ty"
+
 
 }

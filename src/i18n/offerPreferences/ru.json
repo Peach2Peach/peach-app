@@ -31,5 +31,8 @@
   "offerPreferences.sellOffers": "$0 открытых предложений на продажу",
   "offerPreferences.showOffers": "Показать предложения",
   "help.createMultiple.description": "Если хотите купить у нескольких продавцов, создайте несколько предложений на покупку!",
-  "help.createMultiple.title": "Создать несколько предложений на покупку"
+  "help.createMultiple.title": "Создать несколько предложений на покупку",
+  "offerPreferences.feature.experienceLevel": "уровень опыта",
+  "offerPreferences.filters.experiencedUsersOnly": "только опытные пользователи",
+  "offerPreferences.filters.newUsersOnly": "только новые пользователи"
 }

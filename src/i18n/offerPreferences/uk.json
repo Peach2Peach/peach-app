@@ -31,5 +31,8 @@
   "offerPreferences.showOffers": "показати пропозиції",
   "help.createMultiple.description": "Якщо ви хочете купити багато у багатьох продавців, ви можете створити кілька пропозицій купівлі!",
   "help.createMultiple.title": "створити кілька пропозицій купівлі",
-  "matchDetails.action.unrequestTrade": "видалити запит на торгівлю"
+  "matchDetails.action.unrequestTrade": "видалити запит на торгівлю",
+  "offerPreferences.feature.experienceLevel": "рівень досвіду",
+  "offerPreferences.filters.experiencedUsersOnly": "лише досвідчені користувачі",
+  "offerPreferences.filters.newUsersOnly": "лише нові користувачі"
 }

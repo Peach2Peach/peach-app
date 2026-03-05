@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "Wprowadzony PIN jest nieprawidłowy. Spróbuj ponownie",
 "INCORRECT_PIN.title": "PIN jest nieprawidłowy",
 "TRADE_REQUEST_PERFORMED.text": "Twoje zgłoszenie czeka teraz na zatwierdzenie. Jeśli masz kilka otwartych próśb o transakcję, wszystkie pozostałe zostaną usunięte, gdy jedna zostanie zatwierdzona.",
-  "TRADE_REQUEST_PERFORMED.title": "Prośba o transakcję wysłana!"
+  "TRADE_REQUEST_PERFORMED.title": "Prośba o transakcję wysłana!",
+  "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie."
+
 
 }

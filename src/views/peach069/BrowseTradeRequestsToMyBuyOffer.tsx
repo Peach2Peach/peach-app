@@ -161,7 +161,7 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
   }
 
   const expiryString = getExpiryString(buyOffer?.expiryDate, "buy");
-
+  console.log("offeroffer", buyOffer);
   if (
     isLoading ||
     isLoadingTradeRequests ||

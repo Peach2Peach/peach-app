@@ -74,7 +74,17 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Ofa mpya ya mauzo!",
     "notification.offer.newSellOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Gumzo la Ombi la Biashara",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Umepokea ujumbe wa gumzo kuhusu ombi lako la biashara"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Umepokea ujumbe wa gumzo kuhusu ombi lako la biashara",
+
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Ombi lako la biashara halikuchaguliwa. Jaribu ofa nyingine ya kuuza.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "Muuzaji alichagua mnunuzi mwingine",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Ombi lako la biashara halikuchaguliwa. Jaribu ofa nyingine ya kununua.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "Mnunuzi alichagua muuzaji mwingine",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Jaribu kufanya biashara na ofa nyingine ya kuuza.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Ofa uliyoomba imeondolewa",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Jaribu kufanya biashara na ofa nyingine ya kununua.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Ofa uliyoomba imeondolewa"
+
 
   
 }

@@ -31,5 +31,8 @@
   "offerPreferences.sellOffers": "$0 προσφορές πώλησης",
   "offerPreferences.showOffers": "εμφάνιση προσφορών",
   "help.createMultiple.description": "Αν θέλετε να αγοράσετε πολλά από πολλούς πωλητές, μπορείτε να δημιουργήσετε πολλές προσφορές αγοράς!",
-  "help.createMultiple.title": "δημιουργία πολλαπλών προσφορών αγοράς"
+  "help.createMultiple.title": "δημιουργία πολλαπλών προσφορών αγοράς",
+  "offerPreferences.feature.experienceLevel": "επίπεδο εμπειρίας",
+  "offerPreferences.filters.experiencedUsersOnly": "μόνο έμπειροι χρήστες",
+  "offerPreferences.filters.newUsersOnly": "μόνο νέοι χρήστες"
 }

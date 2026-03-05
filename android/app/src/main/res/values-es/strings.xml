@@ -103,4 +103,23 @@
 
 <string name="notification.body.offer.newSellOfferMatchesPreferences">Hay una nueva oferta que coincide con tus preferencias.</string>
 <string name="notification.title.offer.newSellOfferMatchesPreferences">¡Nueva oferta de venta!</string>
+
+<string name="notification.body.offer.expressBuyTradeRequestReceived">Alguien está interesado en comprar tus Bitcoin. ¡Abre la app para chatear con esa persona y comerciar!</string>
+<string name="notification.title.offer.expressBuyTradeRequestReceived">¡Tu oferta de venta recibió una solicitud de intercambio!</string>
+<string name="notification.body.offer.expressBuyTradeRequestRejected">¡El vendedor ha rechazado tu solicitud de intercambio! Intenta con otra oferta.</string>
+<string name="notification.title.offer.expressBuyTradeRequestRejected">Tu solicitud de intercambio fue rechazada...</string>
+<string name="notification.body.offer.expressSellTradeRequestRejected">¡El comprador ha rechazado tu solicitud de intercambio! Intenta con otra oferta.</string>
+<string name="notification.title.offer.expressSellTradeRequestRejected">Tu solicitud de intercambio fue rechazada...</string>
+<string name="notification.body.offer.expressSellTradeRequestReceived">Alguien está interesado en venderte sus Bitcoin. ¡Abre la app para chatear con esa persona y comerciar!</string>
+<string name="notification.title.offer.expressSellTradeRequestReceived">¡Tu oferta de compra recibió una solicitud de intercambio!</string>
+
+<string name="notification.body.offer.expressBuyTradeRequestNotChosen">Tu solicitud de intercambio no fue elegida. Prueba otra oferta de venta.</string>
+<string name="notification.title.offer.expressBuyTradeRequestNotChosen">El vendedor eligió a otro comprador</string>
+<string name="notification.body.offer.expressSellTradeRequestNotChosen">Tu solicitud de intercambio no fue elegida. Prueba otra oferta de compra.</string>
+<string name="notification.title.offer.expressSellTradeRequestNotChosen">El comprador eligió a otro vendedor</string>
+<string name="notification.body.offer.expressBuyTradeRequestRemovedAlongsideOffer">Prueba a negociar con otra oferta de venta.</string>
+<string name="notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer">La oferta que solicitaste ha sido eliminada</string>
+<string name="notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer">Prueba a negociar con otra oferta de compra.</string>
+<string name="notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer">La oferta que solicitaste ha sido eliminada</string>
+
 </resources>

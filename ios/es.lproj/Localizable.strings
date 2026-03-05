@@ -101,3 +101,13 @@
 "notification.title.offer.newBuyOfferMatchesPreferences" = "¡Nueva oferta de compra!";
 "notification.body.offer.newSellOfferMatchesPreferences" = "Hay una nueva oferta que coincide con tus preferencias.";
 "notification.title.offer.newSellOfferMatchesPreferences" = "¡Nueva oferta de venta!";
+
+"notification.body.offer.expressBuyTradeRequestNotChosen" = "Tu solicitud de intercambio no fue elegida. Prueba con otra oferta de venta.";
+"notification.title.offer.expressBuyTradeRequestNotChosen" = "El vendedor eligió a otro comprador";
+"notification.body.offer.expressSellTradeRequestNotChosen" = "Tu solicitud de intercambio no fue elegida. Prueba con otra oferta de compra.";
+"notification.title.offer.expressSellTradeRequestNotChosen" = "El comprador eligió a otro vendedor";
+
+"notification.body.offer.expressBuyTradeRequestRemovedAlongsideOffer" = "Prueba a negociar con otra oferta de venta.";
+"notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer" = "La oferta que solicitaste ha sido eliminada";
+"notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer" = "Prueba a negociar con otra oferta de compra.";
+"notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer" = "La oferta que solicitaste ha sido eliminada";

@@ -113,7 +113,15 @@
   "buyOffer.expiry.minutes":"Ваша покупка истекает через {0} минут...",
   "buyOffer.expiry.minute":"Ваша покупка истекает через {0} минуту...",
 
-  "offer.userExpectsMpesaAlternative": "платёж должен быть выполнен через $0 -> Национальные опции -> M-Pesa"
+  "offer.userExpectsMpesaAlternative": "платёж должен быть выполнен через $0 -> Национальные опции -> M-Pesa",
+
+  "offer.summary.availableTo": "şunlar için mevcut",
+  "offer.summary.availableTo.everyone": "herkes",
+  "offer.summary.availableTo.newUsersOnly": "sadece yeni kullanıcılar",
+  "offer.summary.availableTo.experiencedUsersOnly": "sadece deneyimli kullanıcılar",
+  "offer.summary.availableTo.newUsersLikeYou": "sizin gibi yeni kullanıcılar için",
+  "offer.summary.availableTo.experiencedUsersLikeYou": "sizin gibi deneyimli kullanıcılar için"
+
 
 
 }

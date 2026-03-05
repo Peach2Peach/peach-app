@@ -89,6 +89,8 @@
 "INCORRECT_PIN.text": "PIN uliyoweka si sahihi. Jaribu tena",
 "INCORRECT_PIN.title": "PIN si sahihi",
 "TRADE_REQUEST_PERFORMED.text": "Ombi lako linangojea idhini. Ukiwa na maombi mengi ya biashara wazi, mengine yote yataondolewa pindi moja inapokubaliwa.",
-  "TRADE_REQUEST_PERFORMED.title": "Ombi la Biashara limewasilishwa!"
+  "TRADE_REQUEST_PERFORMED.title": "Ombi la Biashara limewasilishwa!",
+  "INVALID_TIME.text": "Peach ilipata tatizo kuthibitisha vyeti ulivyotengeneza, labda kutokana na muunganisho wa Internet wa polepole. Tafadhali jaribu tena."
+
 
 }

@@ -83,6 +83,11 @@ export const PaymentMethodForm = () => {
       isMpesa: Boolean(rest.mpesa_name),
     } satisfies PaymentData;
 
+    if (finalData.iban) {
+      //set country to be iban
+      finalData.country = finalData.iban.slice(0, 2) as PaymentMethodCountry;
+    }
+
     const isMpesaDetails =
       activeMandatoryField && ["mpesa_name"].includes(activeMandatoryField);
     if (isMpesaDetails && allCurrenciesAvailableForThisPaymentMethod) {

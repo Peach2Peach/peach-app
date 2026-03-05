@@ -31,5 +31,8 @@
   "offerPreferences.showOffers": "Mostra offerte",
   "help.createMultiple.description": "Se desideri acquistare molto da molti venditori, puoi creare molte offerte di acquisto!",
   "help.createMultiple.title": "Crea più offerte di acquisto",
-  "matchDetails.action.unrequestTrade": "Rimuovi richiesta di scambio"
+  "matchDetails.action.unrequestTrade": "Rimuovi richiesta di scambio",
+  "offerPreferences.feature.experienceLevel": "livello di esperienza",
+  "offerPreferences.filters.experiencedUsersOnly": "solo utenti esperti",
+  "offerPreferences.filters.newUsersOnly": "solo nuovi utenti"
 }

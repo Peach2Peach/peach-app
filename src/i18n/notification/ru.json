@@ -74,7 +74,17 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Новое предложение на продажу!",
     "notification.offer.newSellOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Чат запроса на сделку",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Вы получили сообщение в чате по вашему запросу на сделку"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Вы получили сообщение в чате по вашему запросу на сделку",
+
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Ваш запрос на сделку не был выбран. Попробуйте другое предложение продажи.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "Продавец выбрал другого покупателя",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Ваш запрос на сделку не был выбран. Попробуйте другое предложение покупки.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "Покупатель выбрал другого продавца",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Попробуйте торговать с другим предложением продажи.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Предложение, которое вы запросили, было удалено",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Попробуйте торговать с другим предложением покупки.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Предложение, которое вы запросили, было удалено"
+
 
  
 }

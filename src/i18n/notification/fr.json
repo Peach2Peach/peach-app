@@ -74,7 +74,17 @@
     "notification.offer.newSellOfferMatchesPreferences.text": "Nouvelle offre de vente !",
     "notification.offer.newSellOfferMatchesPreferences.title": "Une nouvelle offre correspond à vos préférences.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Chat de demande d’échange",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Vous avez reçu un message de chat concernant votre demande d’échange"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Vous avez reçu un message de chat concernant votre demande d’échange",
+
+  "notification.offer.expressBuyTradeRequestNotChosen.text": "Votre demande d’échange n’a pas été choisie. Essayez une autre offre de vente.",
+  "notification.offer.expressBuyTradeRequestNotChosen.title": "Le vendeur a choisi un autre acheteur",
+  "notification.offer.expressSellTradeRequestNotChosen.text": "Votre demande d’échange n’a pas été choisie. Essayez une autre offre d’achat.",
+  "notification.offer.expressSellTradeRequestNotChosen.title": "L’acheteur a choisi un autre vendeur",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Essayez de trader avec une autre offre de vente.",
+  "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "L’offre demandée a été supprimée",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Essayez de trader avec une autre offre d’achat.",
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "L’offre demandée a été supprimée"
+
 
  
 }

@@ -13,12 +13,14 @@ import { Section } from "./Section";
 export function Methods({
   type,
   meansOfPayment,
+  paymentData,
   setCurrency,
   showSetPaymentMethodsButton = true,
   noBackground = false,
 }: {
   type: "buy" | "sell";
   meansOfPayment: MeansOfPayment;
+  paymentData: OfferPaymentData;
   setCurrency: (c: Currency) => void;
   showSetPaymentMethodsButton?: boolean;
   noBackground?: boolean;
@@ -46,6 +48,7 @@ export function Methods({
         >
           <MeansOfPayment
             meansOfPayment={meansOfPayment}
+            offerPaymentData={paymentData}
             setCurrency={setCurrency}
             style={tw`flex-1`}
           />

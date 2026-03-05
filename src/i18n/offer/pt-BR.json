@@ -113,6 +113,14 @@
   "buyOffer.expiry.minutes":"A sua oferta de compra expira em {0} minutos...",
   "buyOffer.expiry.minute":"A sua oferta de compra expira em {0} minuto...",
 
-  "offer.userExpectsMpesaAlternative": "o pagamento deve ser realizado via $0 -> Opções nacionais -> M-Pesa"
+  "offer.userExpectsMpesaAlternative": "o pagamento deve ser realizado via $0 -> Opções nacionais -> M-Pesa",
+
+  "offer.summary.availableTo": "disponível para",
+  "offer.summary.availableTo.everyone": "todos",
+  "offer.summary.availableTo.newUsersOnly": "apenas novos usuários",
+  "offer.summary.availableTo.experiencedUsersOnly": "apenas usuários experientes",
+  "offer.summary.availableTo.newUsersLikeYou": "para novos usuários como você",
+  "offer.summary.availableTo.experiencedUsersLikeYou": "para usuários experientes como você"
+
 
 }

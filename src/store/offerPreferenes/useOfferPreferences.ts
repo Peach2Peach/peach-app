@@ -55,6 +55,10 @@ type OfferPreferences = {
   instantTradeCriteria: InstantTradeCriteria;
   hasSeenInstantTradePopup: boolean;
   fundWithPeachWallet: boolean;
+
+  experienceLevel?: boolean;
+  experienceLevelCriteria?: ExperienceLevel;
+  hasSeenExperienceLevelPopup?: boolean;
 };
 
 export const defaultPreferences: OfferPreferences = {
@@ -101,6 +105,9 @@ export const defaultPreferences: OfferPreferences = {
   },
   hasSeenInstantTradePopup: false,
   fundWithPeachWallet: false,
+  experienceLevel: false,
+  experienceLevelCriteria: "experiencedUsersOnly",
+  hasSeenExperienceLevelPopup: false,
 };
 
 type OfferPreferencesActions = {
@@ -149,6 +156,13 @@ type OfferPreferencesActions = {
   setFundWithPeachWallet: (fundWithPeachWallet: boolean) => void;
   resetExpressBuyFilters: () => void;
   resetExpressSellFilters: () => void;
+  toggleExperienceLevel: () => void;
+  selectExperienceLevelCriteria: (
+    experienceLevel: ExperienceLevelCriteria,
+  ) => void;
+  setHasSeenExperienceLevelPopup: (
+    hasSeenExperienceLevelPopup: boolean,
+  ) => void;
 };
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions;
@@ -326,6 +340,12 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           expressSellFilterMinPremium:
             defaultPreferences.expressSellFilterMinPremium,
         }),
+      selectExperienceLevelCriteria: (experienceLevelCriteria) =>
+        set({ experienceLevelCriteria }),
+      toggleExperienceLevel: () =>
+        set((state) => ({ experienceLevel: !state.experienceLevel })),
+      setHasSeenExperienceLevelPopup: (hasSeenExperienceLevelPopup) =>
+        set({ hasSeenExperienceLevelPopup }),
     })),
     {
       name: "offerPreferences",

@@ -81,8 +81,91 @@ export function CreateBuyOffer() {
       <AmountSelector setIsSliding={setIsSliding} currency={currency} />
       <CreateMultipleOffersContainer />
       <InstantTrade />
+      <ExperienceLevel />
       <PreferenceWalletSelector />
     </PreferenceScreen>
+  );
+}
+
+function ExperienceLevel() {
+  const [enableExperienceLevel, toggle, criteria, selectExperienceLevel] =
+    useOfferPreferences(
+      (state) => [
+        state.experienceLevel,
+        state.toggleExperienceLevel,
+        state.experienceLevelCriteria,
+        state.selectExperienceLevelCriteria,
+      ],
+      shallow,
+    );
+  const [hasSeenPopup, setHasSeenPopup] = useOfferPreferences(
+    (state) => [
+      state.hasSeenExperienceLevelPopup,
+      state.setHasSeenExperienceLevelPopup,
+    ],
+    shallow,
+  );
+  const setPopup = useSetPopup();
+  const onHelpIconPress = () => {
+    setPopup(<HelpPopup id="experienceLevel" />);
+    setHasSeenPopup(true);
+  };
+
+  const onToggle = () => {
+    if (!hasSeenPopup) {
+      onHelpIconPress();
+    }
+    toggle();
+  };
+
+  const { isDarkMode } = useThemeStore();
+
+  const backgroundColor = isDarkMode
+    ? tw.color("card")
+    : tw.color("success-mild-1-color");
+
+  return (
+    <Section.Container style={{ backgroundColor }}>
+      <View style={tw`flex-row items-center self-stretch justify-between`}>
+        <Toggle
+          onPress={onToggle}
+          enabled={!!enableExperienceLevel}
+          red={false}
+        />
+        <Section.Title>
+          {i18n("offerPreferences.feature.experienceLevel")}
+        </Section.Title>
+        <TouchableIcon
+          id="helpCircle"
+          iconColor={tw.color("info-light")}
+          onPress={onHelpIconPress}
+        />
+      </View>
+      {enableExperienceLevel && (
+        <>
+          <Checkbox
+            checked={criteria === "experiencedUsersOnly"}
+            style={tw`self-stretch`}
+            onPress={() => {
+              selectExperienceLevel("experiencedUsersOnly");
+            }}
+            green
+          >
+            {i18n("offerPreferences.filters.experiencedUsersOnly")}
+          </Checkbox>
+          <Checkbox
+            checked={criteria === "newUsersOnly"}
+            style={tw`self-stretch`}
+            onPress={() => {
+              selectExperienceLevel("newUsersOnly");
+            }}
+            green
+          >
+            {i18n("offerPreferences.filters.newUsersOnly")}
+          </Checkbox>
+        </>
+      )}
+    </Section.Container>
   );
 }
 
@@ -528,10 +611,13 @@ function PublishOfferButton() {
       shallow,
     );
 
-  const { instantTradeCriteria } = useOfferPreferences(
+  const { instantTradeCriteria, experienceLevelCriteria } = useOfferPreferences(
     (state) => ({
       instantTradeCriteria: state.instantTrade
         ? state.instantTradeCriteria
+        : undefined,
+      experienceLevelCriteria: state.experienceLevel
+        ? state.experienceLevelCriteria
         : undefined,
     }),
     shallow,
@@ -613,6 +699,7 @@ function PublishOfferButton() {
     premium,
     instantTradeCriteria,
     multi,
+    experienceLevelCriteria,
   });
   const showErrorBanner = useShowErrorBanner();
   const showPublishingError = () => {

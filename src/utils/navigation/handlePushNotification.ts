@@ -52,6 +52,18 @@ export const handlePushNotification = async (
     navigationRef.navigate("expressBuyBrowseSellOffers");
   } else if (data.type === "offer.expressSellTradeRequestRejected") {
     navigationRef.navigate("expressSellBrowseBuyOffers");
+  } else if (data.type === "offer.expressBuyTradeRequestNotChosen") {
+    navigationRef.navigate("expressBuyBrowseSellOffers");
+  } else if (data.type === "offer.expressSellTradeRequestNotChosen") {
+    navigationRef.navigate("expressSellBrowseBuyOffers");
+  } else if (
+    data.type === "offer.expressBuyTradeRequestRemovedAlongsideOffer"
+  ) {
+    navigationRef.navigate("expressBuyBrowseSellOffers");
+  } else if (
+    data.type === "offer.expressSellTradeRequestRemovedAlongsideOffer"
+  ) {
+    navigationRef.navigate("expressSellBrowseBuyOffers");
   } else if (
     data.type === "contract.escrowFundingTimeExpired.buyer" &&
     data.contractId

@@ -24,6 +24,7 @@ import {
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import {
   countOffersByCurrency,
   CountsByCurrency,
@@ -31,6 +32,7 @@ import {
 } from "../../utils/currency/countOffersByCurrency";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import separateOffersByExperienceLevel from "../../utils/offer/separateOffersByExperienceLevel";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
 import { Rating } from "../settings/profile/profileOverview/Rating";
@@ -144,7 +146,16 @@ function SellOfferList({
   isLoading: boolean;
   refetch: Function;
 }) {
-  if (isLoading || sellOffers === undefined) return <LoadingScreen />;
+  const { user: selfUser } = useSelfUser();
+  if (isLoading || sellOffers === undefined || selfUser === undefined)
+    return <LoadingScreen />;
+
+  const isNewUser = selfUser.trades <= 3;
+
+  const orderedSellOffers = separateOffersByExperienceLevel({
+    offers: sellOffers,
+    isNewUser,
+  });
 
   const currencyCounted = countOffersByCurrency(sellOffers);
 
@@ -154,7 +165,7 @@ function SellOfferList({
         <>
           <OfferStats sellOffers={sellOffers} />
           <FlatList
-            data={sellOffers}
+            data={orderedSellOffers}
             onRefresh={() => refetch()}
             refreshing={false}
             keyExtractor={(item) => item.id}
@@ -227,6 +238,7 @@ function OfferCard({
     user,
     amount,
     premium,
+    experienceLevelCriteria,
   } = offer;
   const selectedCurrencies = useOfferPreferences(
     (state) => state.expressBuyFilterByCurrencyList,
@@ -251,6 +263,26 @@ function OfferCard({
 
   const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD;
   const { isDarkMode } = useThemeStore();
+
+  const experienceLevelCriteriaBackgroundColor = !isDarkMode
+    ? "bg-error-background"
+    : "bg-error-dark";
+
+  const experienceLevelCriteriaTextColor = !isDarkMode
+    ? "text-primary-main"
+    : "text-white";
+
+  const { user: selfUser } = useSelfUser();
+
+  const experienceLevelNewUserText =
+    selfUser && selfUser.trades < 4
+      ? i18n("offer.summary.availableTo.newUsersLikeYou")
+      : i18n("offer.summary.availableTo.newUsersOnly");
+
+  const experienceLevelExperiencedUserText =
+    selfUser && selfUser.trades >= 4
+      ? i18n("offer.summary.availableTo.experiencedUsersLikeYou")
+      : i18n("offer.summary.availableTo.experiencedUsersOnly");
 
   return (
     <TouchableOpacity
@@ -328,6 +360,24 @@ function OfferCard({
           </View>
         </View>
       </View>
+      {experienceLevelCriteria && (
+        <View
+          style={[
+            tw`overflow-hidden rounded-md`,
+            {
+              backgroundColor: tw.color(experienceLevelCriteriaBackgroundColor),
+            },
+          ]}
+        >
+          <PeachText
+            style={tw`text-center py-2px subtitle-2 ${experienceLevelCriteriaTextColor}`}
+          >
+            {experienceLevelCriteria === "newUsersOnly"
+              ? experienceLevelNewUserText
+              : experienceLevelExperiencedUserText}
+          </PeachText>
+        </View>
+      )}
     </TouchableOpacity>
   );
 }

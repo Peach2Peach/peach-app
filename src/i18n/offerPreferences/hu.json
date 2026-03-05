@@ -31,5 +31,8 @@
   "offerPreferences.showOffers": "ajánlatok megjelenítése",
   "help.createMultiple.description": "Ha sokat szeretnél vásárolni sok eladótól, hozz létre több vételi ajánlatot!",
   "help.createMultiple.title": "több vételi ajánlat létrehozása",
-  "matchDetails.action.unrequestTrade": "kereskedési kérés eltávolítása"
+  "matchDetails.action.unrequestTrade": "kereskedési kérés eltávolítása",
+  "offerPreferences.feature.experienceLevel": "tapasztalati szint",
+  "offerPreferences.filters.experiencedUsersOnly": "csak tapasztalt felhasználók",
+  "offerPreferences.filters.newUsersOnly": "csak új felhasználók"
 }

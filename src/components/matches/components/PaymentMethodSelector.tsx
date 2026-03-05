@@ -58,6 +58,7 @@ export function PaymentMethodSelector({
     value: p,
     display: getPaymentMethodName(p),
     isMpesa: Boolean(paymentDataOfOffer[p]?.isMpesa),
+    country: paymentDataOfOffer[p]?.country,
   }));
 
   const selectedItem = items?.find(
@@ -125,7 +126,9 @@ export function PaymentMethodSelector({
 }
 
 type SelectorProps = {
-  items: { value: PaymentMethod; display: React.ReactNode }[] | undefined;
+  items:
+    | { value: PaymentMethod; display: React.ReactNode; country?: string }[]
+    | undefined;
   selectedPaymentData?: PaymentData;
   selectedCurrency: Currency;
   onPress?: (value: PaymentData) => void;
@@ -141,7 +144,7 @@ function CustomSelector({
 }: SelectorProps) {
   return (
     <View style={tw`flex-row flex-wrap justify-center gap-1`}>
-      {items?.map(({ value, display }, i) => (
+      {items?.map(({ value, display, country }, i) => (
         <PayementMethodBubble
           key={`selector-item-${value}-${i}`}
           paymentMethod={value}
@@ -151,6 +154,7 @@ function CustomSelector({
           origin={origin}
         >
           {display}
+          {country && " (" + country + ")"}
         </PayementMethodBubble>
       ))}
     </View>
