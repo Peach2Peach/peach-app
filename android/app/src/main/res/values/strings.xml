@@ -83,17 +83,9 @@
     <string name="notification.body.offer.expressSellTradeRequestReceived">Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!</string>
     <string name="notification.title.offer.expressSellTradeRequestReceived">Your Buy Offer received a Trade Request!</string>
 
-    <string name="notification.body.offer.expressBuyTradeRequestReceived">Someone is interested in buying your Bitcoin. Open the app to chat with that person and trade!</string>
-    <string name="notification.title.offer.expressBuyTradeRequestReceived">Your Sell Offer received a Trade Request!</string>
-    <string name="notification.body.offer.expressBuyTradeRequestRejected">The Seller has rejected your Trade Request! Try again with another offer.</string>
-    <string name="notification.title.offer.expressBuyTradeRequestRejected">Your Trade Request was rejected...</string>
-    <string name="notification.body.offer.expressSellTradeRequestRejected">The Buyer has rejected your Trade Request! Try again with another offer.</string>
-    <string name="notification.title.offer.expressSellTradeRequestRejected">Your Trade Request was rejected...</string>    
-    <string name="notification.body.offer.expressSellTradeRequestReceived">Someone is interested in selling you their Bitcoin. Open the app to chat with that person and trade!</string>
-    <string name="notification.title.offer.expressSellTradeRequestReceived">Your Buy Offer received a Trade Request!</string>
 
 
-    <string name="notification.body.offer.expressBuyTradeRequestNotChosen"></string>Your Trade Request was not chosen. Try another Sell Offer.</string>
+    <string name="notification.body.offer.expressBuyTradeRequestNotChosen">Your Trade Request was not chosen. Try another Sell Offer.</string>
     <string name="notification.title.offer.expressBuyTradeRequestNotChosen">The Seller chose another Buyer</string>
     <string name="notification.body.offer.expressSellTradeRequestNotChosen">Your Trade Request was not chosen. Try another Buy Offer.</string>
     <string name="notification.title.offer.expressSellTradeRequestNotChosen">The Buyer chose another Seller</string>

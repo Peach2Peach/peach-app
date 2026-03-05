@@ -102,14 +102,6 @@
 <string name="notification.body.offer.newSellOfferMatchesPreferences">Une nouvelle offre correspond à vos préférences.</string>
 <string name="notification.title.offer.newSellOfferMatchesPreferences">Nouvelle offre de vente !</string>
 
-<string name="notification.body.offer.expressBuyTradeRequestReceived">Quelqu’un est intéressé par l’achat de tes Bitcoin. Ouvre l’app pour discuter avec cette personne et échanger !</string>
-<string name="notification.title.offer.expressBuyTradeRequestReceived">Ton offre de vente a reçu une demande de transaction !</string>
-<string name="notification.body.offer.expressBuyTradeRequestRejected">Le vendeur a rejeté ta demande de transaction ! Essaie avec une autre offre.</string>
-<string name="notification.title.offer.expressBuyTradeRequestRejected">Ta demande de transaction a été rejetée…</string>
-<string name="notification.body.offer.expressSellTradeRequestRejected">L’acheteur a rejeté ta demande de transaction ! Essaie avec une autre offre.</string>
-<string name="notification.title.offer.expressSellTradeRequestRejected">Ta demande de transaction a été rejetée…</string>
-<string name="notification.body.offer.expressSellTradeRequestReceived">Quelqu’un est intéressé à te vendre ses Bitcoin. Ouvre l’app pour discuter avec cette personne et échanger !</string>
-<string name="notification.title.offer.expressSellTradeRequestReceived">Ton offre d’achat a reçu une demande de transaction !</string>
 
 <string name="notification.body.offer.expressBuyTradeRequestNotChosen">Ta demande de transaction n’a pas été choisie. Essaie une autre offre de vente.</string>
 <string name="notification.title.offer.expressBuyTradeRequestNotChosen">Le vendeur a choisi un autre acheteur</string>

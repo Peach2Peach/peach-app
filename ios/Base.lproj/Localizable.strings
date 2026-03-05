@@ -83,15 +83,15 @@
     
 
 
-"notification.body.offer.expressBuyTradeRequestNotChosen": "Your Trade Request was not chosen. Try another Sell Offer.";
-"notification.title.offer.expressBuyTradeRequestNotChosen": "The Seller chose another Buyer";
-"notification.body.offer.expressSellTradeRequestNotChosen": "Your Trade Request was not chosen. Try another Buy Offer.";
-"notification.title.offer.expressSellTradeRequestNotChosen": "The Buyer chose another Seller";
+"notification.body.offer.expressBuyTradeRequestNotChosen"= "Your Trade Request was not chosen. Try another Sell Offer.";
+"notification.title.offer.expressBuyTradeRequestNotChosen"= "The Seller chose another Buyer";
+"notification.body.offer.expressSellTradeRequestNotChosen"= "Your Trade Request was not chosen. Try another Buy Offer.";
+"notification.title.offer.expressSellTradeRequestNotChosen"= "The Buyer chose another Seller";
 
-"notification.body.offer.expressBuyTradeRequestRemovedAlongsideOffer": "Try trading with another Sell Offer.";
-"notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer": "The Offer you requested has been removed";
-"notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer": "Try trading with another Buy Offer.";
-"notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer": "The Offer you requested has been removed";
+"notification.body.offer.expressBuyTradeRequestRemovedAlongsideOffer"= "Try trading with another Sell Offer.";
+"notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer"= "The Offer you requested has been removed";
+"notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer"= "Try trading with another Buy Offer.";
+"notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer"= "The Offer you requested has been removed";
 
 
 "notification.body.contract.escrowFunded.buyer" = "You need to make the payment within twelve hours. The faster you are, the better your Peach score will be.";

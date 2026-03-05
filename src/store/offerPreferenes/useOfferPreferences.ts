@@ -157,9 +157,7 @@ type OfferPreferencesActions = {
   resetExpressBuyFilters: () => void;
   resetExpressSellFilters: () => void;
   toggleExperienceLevel: () => void;
-  selectExperienceLevelCriteria: (
-    experienceLevel: ExperienceLevelCriteria,
-  ) => void;
+  selectExperienceLevelCriteria: (experienceLevel: ExperienceLevel) => void;
   setHasSeenExperienceLevelPopup: (
     hasSeenExperienceLevelPopup: boolean,
   ) => void;
@@ -297,6 +295,16 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
             state.instantTradeCriteria.minTrades === 0
               ? NEW_USER_TRADE_THRESHOLD
               : 0;
+
+          if (
+            state.instantTradeCriteria.minTrades > 0 &&
+            state.experienceLevelCriteria === "newUsersOnly"
+          ) {
+            state.experienceLevelCriteria = "experiencedUsersOnly";
+            if (state.experienceLevel) {
+              state.experienceLevel = false;
+            }
+          }
         }),
       toggleMinReputation: () =>
         set((state) => {
@@ -304,6 +312,16 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
             state.instantTradeCriteria.minReputation === 0
               ? MIN_REPUTATION_FILTER
               : 0;
+
+          if (
+            state.instantTradeCriteria.minReputation > 0 &&
+            state.experienceLevelCriteria === "newUsersOnly"
+          ) {
+            state.experienceLevelCriteria = "experiencedUsersOnly";
+            if (state.experienceLevel) {
+              state.experienceLevel = false;
+            }
+          }
         }),
       toggleBadge: (badge) =>
         set((state) => {
@@ -340,10 +358,52 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           expressSellFilterMinPremium:
             defaultPreferences.expressSellFilterMinPremium,
         }),
-      selectExperienceLevelCriteria: (experienceLevelCriteria) =>
-        set({ experienceLevelCriteria }),
-      toggleExperienceLevel: () =>
-        set((state) => ({ experienceLevel: !state.experienceLevel })),
+
+      selectExperienceLevelCriteria: (experienceLevelCriteria) => {
+        set((state) => {
+          state.experienceLevelCriteria = experienceLevelCriteria;
+
+          if (experienceLevelCriteria === "newUsersOnly") {
+            const { instantTradeCriteria, instantTrade } = state;
+
+            if (
+              instantTradeCriteria.minReputation > 0 ||
+              instantTradeCriteria.minTrades > 0
+            ) {
+              instantTradeCriteria.minReputation = 0;
+              instantTradeCriteria.minTrades = 0;
+
+              if (instantTrade) {
+                state.instantTrade = false;
+              }
+            }
+          }
+        });
+      },
+
+      toggleExperienceLevel: () => {
+        set((state) => {
+          state.experienceLevel = !state.experienceLevel;
+
+          if (!state.experienceLevel) return;
+
+          if (state.experienceLevelCriteria === "newUsersOnly") {
+            const { instantTradeCriteria } = state;
+
+            if (
+              instantTradeCriteria.minReputation > 0 ||
+              instantTradeCriteria.minTrades > 0
+            ) {
+              instantTradeCriteria.minReputation = 0;
+              instantTradeCriteria.minTrades = 0;
+
+              if (state.instantTrade) {
+                state.instantTrade = false;
+              }
+            }
+          }
+        });
+      },
       setHasSeenExperienceLevelPopup: (hasSeenExperienceLevelPopup) =>
         set({ hasSeenExperienceLevelPopup }),
     })),
