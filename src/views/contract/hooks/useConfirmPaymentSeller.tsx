@@ -1,5 +1,4 @@
 import { Psbt } from "bitcoinjs-lib";
-import { signAndFinalizePSBT } from "../../../utils/bitcoin/signAndFinalizePSBT";
 import { txIdPartOfPSBT } from "../../../utils/bitcoin/txIdPartOfPSBT";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -31,9 +30,6 @@ export function useConfirmPaymentSeller({
 
         const psbt = Psbt.fromBase64(releasePsbt, { network: getNetwork() });
         verifyReleasePSBT(psbt, txIds, releaseAddress);
-        const releaseTransaction = signAndFinalizePSBT(psbt, wallet)
-          .extractTransaction()
-          .toHex();
 
         const batchPsbt = batchReleasePsbt
           ? Psbt.fromBase64(batchReleasePsbt, { network: getNetwork() })
@@ -43,11 +39,23 @@ export function useConfirmPaymentSeller({
           verifyReleasePSBT(batchPsbt, txIds, releaseAddress);
           signPSBT(batchPsbt, wallet);
         }
+        signPSBT(psbt, wallet);
+        const numberOfSignatures = psbt.data.inputs[0].partialSig?.length;
+        if (!numberOfSignatures) {
+          throw Error("signatures missing");
+        }
+        const signature =
+          psbt.data.inputs[0].partialSig?.[
+            numberOfSignatures - 1
+          ].signature.toString("hex");
+        if (!signature) {
+          throw Error("signature missing");
+        }
 
         const { error: err } =
           await peachAPI.private.contract.confirmPaymentSeller({
             contractId: id,
-            releaseTransaction,
+            releaseTransactionSignature: signature,
             batchReleasePsbt: batchPsbt?.toBase64(),
           });
         if (err) throw new Error(err.error);
