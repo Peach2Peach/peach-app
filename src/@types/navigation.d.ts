@@ -17,6 +17,10 @@ type TestViews = {
   testViewPNs: undefined;
 };
 
+type DesktopConnection = {
+  connectToDesktop: undefined;
+};
+
 type HomeTabParamList = {
   home: undefined;
   wallet: undefined;
@@ -198,4 +202,5 @@ type RootStackParamList = Onboarding &
   BuyOfferOwnerFlow &
   SellOfferOwnerFlow &
   ExpressBuySellFlowChat &
-  OffersOfUser;
+  OffersOfUser &
+  DesktopConnection;

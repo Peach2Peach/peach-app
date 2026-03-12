@@ -21,7 +21,8 @@ type SettingsTitle =
   | "language"
   | "contact"
   | "aboutPeach"
-  | "testView";
+  | "testView"
+  | "connectToDesktop";
 
 export type SettingsItemProps = (
   | {

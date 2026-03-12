@@ -15,10 +15,11 @@ import { isIOS } from "../utils/system/isIOS";
 
 type Props = {
   onSuccess: (data: string) => void;
+  initialState?: boolean;
 };
-export const useQRScanner = ({ onSuccess }: Props) => {
+export const useQRScanner = ({ onSuccess, initialState = false }: Props) => {
   const setPopup = useSetPopup();
-  const [showQRScanner, setShowQRScanner] = useState(false);
+  const [showQRScanner, setShowQRScanner] = useState(initialState);
 
   const showQR = () => {
     if (isIOS()) {

@@ -13,6 +13,7 @@ import { Contract } from "./contract/Contract";
 import { PatchPayoutAddress } from "./contract/PatchPayoutAddress";
 import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
+import { ConnectToDesktop } from "./desktopConnection/ConnectToDesktop";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
@@ -230,6 +231,13 @@ const otherUserViews: ViewType[] = [
   },
 ];
 
+const desktopConnection: ViewType[] = [
+  {
+    name: "connectToDesktop",
+    component: ConnectToDesktop,
+  },
+];
+
 export const views = [
   ...home,
   ...sellFlow,
@@ -246,6 +254,7 @@ export const views = [
   ...sellOfferOwnerFlow,
   ...tradeRequestChat,
   ...otherUserViews,
+  ...desktopConnection,
 ];
 
 export const onboardingViews = [...onboarding, ...contact];

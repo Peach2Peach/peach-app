@@ -1,3 +1,4 @@
+import { NETWORK } from "@env";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useMemo, useState } from "react";
 import { AppState, View } from "react-native";
@@ -24,8 +25,10 @@ import { SettingsItem } from "./components/SettingsItem";
 import { VersionInfo } from "./components/VersionInfo";
 
 const contactUs = isProduction()
-  ? (["contact", "aboutPeach"] as const)
-  : (["testView", "contact", "aboutPeach"] as const);
+  ? NETWORK === "regtest"
+    ? (["connectToDesktop", "contact", "aboutPeach"] as const)
+    : (["contact", "aboutPeach"] as const)
+  : (["connectToDesktop", "testView", "contact", "aboutPeach"] as const);
 
 export const Settings = () => {
   useI18n();
