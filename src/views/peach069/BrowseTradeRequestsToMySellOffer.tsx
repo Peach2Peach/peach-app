@@ -64,12 +64,11 @@ const acceptTradeRequest = async (
 
   if (!pgpPubKeysOfRequestingUser)
     throw Error("missing requesting user pgp keys");
-  console.log("building payment data");
+
   const { paymentData } = await getPaymentDataFromOffer(
     sellOffer as unknown as SellOffer,
     tradeRequest.paymentMethod as PaymentMethod,
   );
-  console.log("BUILT payment data");
 
   if (!paymentData) throw Error("did not find matching payment data");
 

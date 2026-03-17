@@ -127,6 +127,10 @@ export default {
           light: "#FFFCFA",
           trans: "rgba(255, 252, 250, 0.95)",
         },
+
+        brown: {
+          500: "#5C4033",
+        },
       },
       fontSize: {
         "6xl": "96px",

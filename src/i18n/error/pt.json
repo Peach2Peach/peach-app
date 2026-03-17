@@ -90,7 +90,10 @@
 "INCORRECT_PIN.title": "O PIN está incorreto",
 "TRADE_REQUEST_PERFORMED.text": "O seu pedido está agora a aguardar aprovação. Se tiver vários pedidos de troca abertos, todos os restantes serão removidos assim que um for aprovado.",
   "TRADE_REQUEST_PERFORMED.title": "Pedido de troca enviado!",
-   "INVALID_TIME.text": "A Peach teve um problema ao validar as credenciais geradas, possivelmente devido a uma ligação à Internet lenta. Por favor, tente novamente."
+   "INVALID_TIME.text": "A Peach teve um problema ao validar as credenciais geradas, possivelmente devido a uma ligação à Internet lenta. Por favor, tente novamente.",
+   "WALLET_NOT_READY.title": "A Peach Wallet não está pronta!",
+  "WALLET_NOT_READY.text": "Aguarda mais um pouco e tenta novamente. Se continuar, fecha a app e reinicia-a."
+
 
 
 }

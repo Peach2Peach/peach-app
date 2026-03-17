@@ -1,4 +1,8 @@
 import { TouchableOpacity, View } from "react-native";
+import {
+  MAXIMUM_CHF_AMOUNT_OF_OFFER,
+  MINIMUM_CHF_AMOUNT_OF_OFFER,
+} from "../constants";
 import tw from "../styles/tailwind";
 import i18n, { useI18n } from "../utils/i18n";
 import { round } from "../utils/math/round";
@@ -12,6 +16,8 @@ type Props = {
   incrementBy?: number;
   incrementType?: "offerCreation" | "maxPremium" | "minPremium";
   type?: "buy" | "sell";
+  currentAmount: number;
+  currentCHFPrice: number;
 };
 
 const defaultIncrement = 0.1;
@@ -23,11 +29,30 @@ export const PremiumInput = ({
   incrementBy = defaultIncrement,
   incrementType = "offerCreation",
   type = "sell",
+  currentAmount,
+  currentCHFPrice,
 }: Props) => {
+  const baseCHF = (currentAmount / 100_000_000) * currentCHFPrice;
+
+  const minimumPremiumAllowed = Math.ceil(
+    (MINIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100,
+  );
+
+  const maximumPremiumAllowed = Math.floor(
+    (MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100,
+  );
+
+  if (premium > maximumPremiumAllowed) {
+    setPremium(maximumPremiumAllowed);
+  }
+  if (premium < minimumPremiumAllowed) {
+    setPremium(minimumPremiumAllowed);
+  }
+
   useI18n();
   const onMinusPress = () => {
     const newPremium = round(
-      Math.max(premium - incrementBy, premiumBounds.min),
+      Math.max(premium - incrementBy, minimumPremiumAllowed),
       2,
     );
     setPremium(newPremium);
@@ -35,7 +60,7 @@ export const PremiumInput = ({
 
   const onPlusPress = () => {
     const newPremium = round(
-      Math.min(premium + incrementBy, premiumBounds.max),
+      Math.min(premium + incrementBy, maximumPremiumAllowed),
       2,
     );
     setPremium(newPremium);
@@ -53,13 +78,13 @@ export const PremiumInput = ({
       <TouchableOpacity
         onPress={onMinusPress}
         accessibilityHint={i18n("number.decrease")}
-        disabled={premium === premiumBounds.min}
+        disabled={premium === minimumPremiumAllowed}
       >
         <Icon
           id="minusCircle"
           size={24}
           color={
-            premium === premiumBounds.min
+            premium === minimumPremiumAllowed
               ? tw.color("gray-400")
               : type === "sell"
                 ? tw.color("primary-main")
@@ -76,18 +101,23 @@ export const PremiumInput = ({
               : i18n("filter.minPremium")}
           :
         </PeachText>
-        <PremiumTextInput premium={premium} setPremium={setPremium} />
+        <PremiumTextInput
+          premium={premium}
+          setPremium={setPremium}
+          minimumPremiumAllowed={minimumPremiumAllowed}
+          maximumPremiumAllowed={maximumPremiumAllowed}
+        />
       </View>
       <TouchableOpacity
         onPress={onPlusPress}
         accessibilityHint={i18n("number.increase")}
-        disabled={premium === premiumBounds.max}
+        disabled={premium === maximumPremiumAllowed}
       >
         <Icon
           id="plusCircle"
           size={24}
           color={
-            premium === premiumBounds.max
+            premium === maximumPremiumAllowed
               ? tw.color("gray-400")
               : type === "sell"
                 ? tw.color("primary-main")

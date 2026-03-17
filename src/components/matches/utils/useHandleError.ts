@@ -17,7 +17,7 @@ export const useHandleError = () => {
       error("Error", err);
       if (err?.error) {
         const msgKey = err?.error === "NOT_FOUND" ? "OFFER_TAKEN" : err?.error;
-        console.log("msgKey", msgKey);
+
         setToast({
           msgKey:
             msgKey ||

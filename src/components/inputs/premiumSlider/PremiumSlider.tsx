@@ -16,6 +16,8 @@ type Props = {
   premium: number;
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void;
   green?: boolean;
+  currentCHFPrice: number;
+  currentAmount: number;
 } & ComponentProps;
 
 const LABEL_AMOUNT = 5;
@@ -24,10 +26,12 @@ export const PremiumSlider = ({
   premium,
   setPremium,
   green = false,
+  currentCHFPrice,
+  currentAmount,
 }: Props) => {
   useI18n();
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
-    usePremiumSliderSetup(premium, setPremium);
+    usePremiumSliderSetup(premium, setPremium, currentCHFPrice, currentAmount);
   const { isDarkMode } = useThemeStore();
 
   const labelPosition = useMemo(

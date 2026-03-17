@@ -90,7 +90,10 @@
 "INCORRECT_PIN.title": "PIN jest nieprawidłowy",
 "TRADE_REQUEST_PERFORMED.text": "Twoje zgłoszenie czeka teraz na zatwierdzenie. Jeśli masz kilka otwartych próśb o transakcję, wszystkie pozostałe zostaną usunięte, gdy jedna zostanie zatwierdzona.",
   "TRADE_REQUEST_PERFORMED.title": "Prośba o transakcję wysłana!",
-  "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie."
+  "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie.",
+  "WALLET_NOT_READY.title": "Portfel Peach nie jest jeszcze gotowy!",
+  "WALLET_NOT_READY.text": "Poczekaj chwilę dłużej i spróbuj ponownie. Jeśli problem nadal występuje, zamknij aplikację i uruchom ją ponownie."
+
 
 
 }

@@ -557,16 +557,22 @@ function Premium({
 }
 
 function PremiumInputComponent({ type = "sell" }: { type?: "buy" | "sell" }) {
-  const [premium, setPremium] = useOfferPreferences((state) => [
+  const [amount, premium, setPremium] = useOfferPreferences((state) => [
+    state.createBuyOfferAmount,
     state.createBuyOfferPremium,
     state.setCreateBuyOfferPremium,
   ]);
+
+  const { bitcoinPrice } = useBitcoinPrices(amount, "CHF");
+
   return (
     <PremiumInput
       premium={premium}
       setPremium={setPremium}
       incrementBy={1}
       type={type}
+      currentAmount={amount}
+      currentCHFPrice={bitcoinPrice}
     />
   );
 }

@@ -10,6 +10,7 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -114,6 +115,8 @@ type PremiumProps = {
 };
 
 function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
+  const { bitcoinPrice } = useBitcoinPrices(amount, "CHF");
+
   return (
     <View style={tw`items-center justify-center grow gap-7`}>
       <View style={tw`items-center`}>
@@ -128,7 +131,13 @@ function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
         </View>
       </View>
       <View style={tw`items-center gap-1`}>
-        <PremiumInput premium={premium} setPremium={setPremium} type={"buy"} />
+        <PremiumInput
+          premium={premium}
+          setPremium={setPremium}
+          type={"buy"}
+          currentAmount={amount}
+          currentCHFPrice={bitcoinPrice}
+        />
         {offerPrice}
       </View>
       <PremiumSlider
@@ -136,6 +145,8 @@ function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
         premium={premium}
         setPremium={setPremium}
         green
+        currentAmount={amount}
+        currentCHFPrice={bitcoinPrice}
       />
     </View>
   );

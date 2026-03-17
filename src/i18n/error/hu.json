@@ -90,6 +90,9 @@
   "INCORRECT_PIN.title": "A PIN helytelen",
   "TRADE_REQUEST_PERFORMED.text": "A kérelmed jóváhagyásra vár. Ha több csereigényed is nyitva van, minden másik törlődik, amint az egyik jóváhagyást kap.",
   "TRADE_REQUEST_PERFORMED.title": "Csereigény elküldve!",
-  "INVALID_TIME.text": "A Peach problémába ütközött a generált hitelesítő adatok ellenőrzése során, valószínűleg lassú internetkapcsolat miatt. Kérjük, próbáld újra."
+  "INVALID_TIME.text": "A Peach problémába ütközött a generált hitelesítő adatok ellenőrzése során, valószínűleg lassú internetkapcsolat miatt. Kérjük, próbáld újra.",
+  "WALLET_NOT_READY.title": "A Peach Wallet még nem áll készen!",
+  "WALLET_NOT_READY.text": "Kérlek várj még egy kicsit, majd próbáld újra. Ha továbbra is fennáll, zárd be az alkalmazást és indítsd újra."
+
 
 }
