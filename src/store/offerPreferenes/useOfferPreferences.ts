@@ -72,8 +72,8 @@ export const defaultPreferences: OfferPreferences = {
   expressSellFilterByCurrencyList: [],
   expressBuyFilterByPaymentMethodList: [],
   expressSellFilterByPaymentMethodList: [],
-  expressSellFilterMinPremium: -21, // TODO: replace hardcoded value with constant
-  expressBuyFilterMaxPremium: 21, // TODO: replace hardcoded value with constant
+  expressSellFilterMinPremium: -100, // TODO: replace hardcoded value with constant
+  expressBuyFilterMaxPremium: 9999, // TODO: replace hardcoded value with constant
   expressSellOffersSorter: "bestReputation",
   expressBuyOffersSorter: "bestReputation",
   sellAmount: 1,
