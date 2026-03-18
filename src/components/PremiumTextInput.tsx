@@ -67,13 +67,17 @@ function enforcePremiumFormat(
   if (premium === "") return "";
   if (premium === "0") return "0";
 
+  if (premium.endsWith(".") || premium === "-" || premium === ".") {
+    return premium;
+  }
+
   const effectiveMinPremium =
     minimumPremiumAllowed === undefined
       ? premiumBounds.min
       : minimumPremiumAllowed;
   const effectiveMaxPremium =
     maximumPremiumAllowed === undefined
-      ? premiumBounds.min
+      ? premiumBounds.max
       : maximumPremiumAllowed;
 
   const number = Number(premium);
