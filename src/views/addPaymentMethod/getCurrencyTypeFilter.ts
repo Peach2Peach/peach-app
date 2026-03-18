@@ -3,15 +3,7 @@ import { CurrencyType } from "../../store/offerPreferenes/types";
 
 const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
   africa: ["XOF", "CDF", "ZAR", "KES", "TZS"],
-  asia: [
-    "KZT",
-    "INR",
-    "SGD",
-    "TRY",
-    "PHP",
-    "JPY",
-    "MYR",
-  ],
+  asia: ["KZT", "INR", "SGD", "TRY", "PHP", "JPY", "MYR"],
   europe: [
     "EUR",
     "CHF",
