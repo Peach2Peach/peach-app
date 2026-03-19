@@ -34,6 +34,11 @@ export const ConnectToDesktop = () => {
     .neutered()
     .toBase58();
 
+  const multisigXpub = wallet
+    .derivePath(`m/84'/${NETWORK === "bitcoin" ? "0" : "1"}'/0'/55'`)
+    .neutered()
+    .toBase58();
+
   const onSuccess = async (data: string) => {
     const desktopConnectionData = parseDesktopConnectionQRCode(data);
 
@@ -43,6 +48,7 @@ export const ConnectToDesktop = () => {
         peachPGPPublicKey,
         account.pgp.privateKey,
         xpub,
+        multisigXpub,
       );
 
       setSuccess(true);

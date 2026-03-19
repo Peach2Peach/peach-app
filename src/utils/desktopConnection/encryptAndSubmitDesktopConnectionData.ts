@@ -8,15 +8,15 @@ export async function encryptAndSubmitDesktopConnectionData(
   peachPGPPublicKey: string,
   myPgpPrivateKey: string,
   myXpub: string,
+  myMultisigXpub: string,
 ): Promise<void> {
   const validationPassword = uuidv4();
-
-  // get the data
 
   const dataToSendToDesktop = {
     validationPassword,
     pgpPrivateKey: myPgpPrivateKey,
     xpub: myXpub,
+    multisigXpub: myMultisigXpub,
   };
 
   const dataToSendToDesktopString = JSON.stringify(dataToSendToDesktop);
