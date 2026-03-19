@@ -25,7 +25,6 @@ export function MeansOfPayment({
   setDisplayedCurrency,
   setCurrency,
 }: Props) {
-  console.log("HEEEY ", offerPaymentData);
   const currencies = getCurrencies(meansOfPayment);
   const stateDisplayCurrency = useSettingsStore(
     (state) => state.displayCurrency,

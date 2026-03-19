@@ -270,13 +270,24 @@ function OfferCard({
 
   const experienceLevelCriteriaBackgroundColor = !isDarkMode
     ? "bg-error-background"
-    : "bg-error-dark";
+    : "brown-500";
+
+  // for now it's the same, but styling might change
+  const experienceLevelCriteriaNotForUserBackgroundColor = !isDarkMode
+    ? "bg-error-background"
+    : "brown-500";
 
   const experienceLevelCriteriaTextColor = !isDarkMode
     ? "text-primary-main"
     : "text-white";
 
   const { user: selfUser } = useSelfUser();
+
+  const isOfferForUserExperienceLevel =
+    selfUser &&
+    ((selfUser.trades < 4 && experienceLevelCriteria === "newUsersOnly") ||
+      (selfUser.trades >= 4 &&
+        experienceLevelCriteria === "experiencedUsersOnly"));
 
   const experienceLevelNewUserText =
     selfUser && selfUser.trades < 4
@@ -371,7 +382,9 @@ function OfferCard({
           style={[
             tw`overflow-hidden rounded-md`,
             {
-              backgroundColor: tw.color(experienceLevelCriteriaBackgroundColor),
+              backgroundColor: isOfferForUserExperienceLevel
+                ? tw.color(experienceLevelCriteriaBackgroundColor)
+                : tw.color(experienceLevelCriteriaNotForUserBackgroundColor),
             },
           ]}
         >

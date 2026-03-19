@@ -123,7 +123,10 @@ export const PaymentMethodForm = () => {
       if (isMpesaDetails) {
         setPopup(
           <InfoPopup
-            title={i18n(`help.addedPMwithMpesaCategory.title`, finalData.type)}
+            title={i18n(
+              `help.addedPMwithMpesaCategory.title`,
+              capitalize(finalData.type),
+            )}
             content={i18n(
               `help.addedPMwithMpesaCategory.description`,
               capitalize(finalData.type),

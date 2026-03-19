@@ -677,7 +677,7 @@ function AmountSelection() {
 }
 
 function PriceSection() {
-  const [expressBuyFilterMaxPremium, setExpressBuyFilterMaxPremium] =
+  const [realExpressBuyFilterMaxPremium, setExpressBuyFilterMaxPremium] =
     useOfferPreferences(
       (state) => [
         state.expressBuyFilterMaxPremium,
@@ -686,8 +686,15 @@ function PriceSection() {
       shallow,
     );
 
+  const MAX_PREMIUM = 50;
+  const MIN_PREMIUM = -50;
+
+  const expressBuyFilterMaxPremium =
+    realExpressBuyFilterMaxPremium === 9999
+      ? MAX_PREMIUM
+      : realExpressBuyFilterMaxPremium;
+
   const PREMIUM_STEP = 0.1;
-  const MAX_PREMIUM = 21;
 
   const onMinusPress = () => {
     setExpressBuyFilterMaxPremium(
@@ -709,7 +716,7 @@ function PriceSection() {
 
   const curValue = isDragging ? localValue : expressBuyFilterMaxPremium;
 
-  const PREMIUM_RANGE = 21 - -21;
+  const PREMIUM_RANGE = MAX_PREMIUM - MIN_PREMIUM;
   const THUMB_SIZE = 24;
   const TRACK_HEIGHT = 10;
   const TRACK_PADDING = 22;
@@ -719,7 +726,7 @@ function PriceSection() {
 
   const getPositionFromValue = (value: number) => {
     const effectiveTrackWidth = trackWidth - THUMB_SIZE;
-    const percentage = (value - -21) / PREMIUM_RANGE;
+    const percentage = (value - MIN_PREMIUM) / PREMIUM_RANGE;
     return percentage * effectiveTrackWidth;
   };
 
@@ -730,9 +737,9 @@ function PriceSection() {
     let newPosition = pageX - THUMB_SIZE * 2;
     newPosition = Math.max(0, Math.min(trackWidth, newPosition));
     const percentage = newPosition / (trackWidth - THUMB_SIZE);
-    let newValue = Math.round(-21 + percentage * PREMIUM_RANGE);
-    newValue = Math.min(newValue, 21);
-    newValue = Math.max(-21, newValue);
+    let newValue = Math.round(MIN_PREMIUM + percentage * PREMIUM_RANGE);
+    newValue = Math.min(newValue, MAX_PREMIUM);
+    newValue = Math.max(MIN_PREMIUM, newValue);
     setLocalValue(newValue);
   };
 

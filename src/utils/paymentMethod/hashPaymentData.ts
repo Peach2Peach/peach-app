@@ -7,6 +7,9 @@ const doNotHash: PaymentDataField[] = [
   "name",
   "reference",
   "ukSortCode",
+  "mpesa_name",
+  "residentialAddress",
+  "mpesa_finalCurrency",
 ];
 const fieldCanBeHashed = (field: PaymentDataField) =>
   !doNotHash.includes(field);

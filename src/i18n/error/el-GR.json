@@ -90,7 +90,10 @@
 "INCORRECT_PIN.title": "Ο PIN είναι λάθος",
  "TRADE_REQUEST_PERFORMED.text": "Το αίτημά σας είναι πλέον σε αναμονή για έγκριση. Αν έχετε πολλαπλά αιτήματα ανταλλαγής ανοιχτά, όλα τα υπόλοιπα θα αφαιρεθούν μόλις εγκριθεί ένα.",
   "TRADE_REQUEST_PERFORMED.title": "Το αίτημα ανταλλαγής στάλθηκε!",
-  "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie."
+  "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie.",
+  "WALLET_NOT_READY.title": "Το Peach Wallet δεν είναι έτοιμο!",
+  "WALLET_NOT_READY.text": "Παρακαλώ περίμενε λίγο ακόμη και δοκίμασε ξανά. Αν συνεχιστεί, κλείσε την εφαρμογή και άνοιξέ την ξανά."
+
 
 
 }
