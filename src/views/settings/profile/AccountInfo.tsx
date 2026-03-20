@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { BuyOffer69 } from "../../../../peach-api/src/@types/offer";
+import { User69 } from "../../../../peach-api/src/@types/user69";
 import { Button } from "../../../components/buttons/Button";
 import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
@@ -10,18 +11,27 @@ import tw from "../../../styles/tailwind";
 import { PEACH_ID_LENGTH } from "../../../utils/account/PEACH_ID_LENGTH";
 import { getDateToDisplay } from "../../../utils/date/getDateToDisplay";
 import i18n from "../../../utils/i18n";
+import { NumberOfBlockedUsers } from "./NumberOfBlockedUsers";
 
 type Props = {
   user: User | PublicUser;
   offers?: { buyOffers: BuyOffer69[]; sellOffers: SellOffer[] };
+  ownUser?: User69 & { blockedUserIds?: string[] };
 };
 
-export const AccountInfo = ({ user, offers }: Props) => (
+export const AccountInfo = ({ user, offers, ownUser }: Props) => (
   <View style={tw`gap-4 pl-1`}>
     <PublicKey publicKey={user.id} />
     <AccountCreated {...user} />
     <Disputes {...user.disputes} />
     <Trades trades={user.trades} />
+    {ownUser && (
+      <NumberOfBlockedUsers
+        numberOfBlocked={
+          ownUser.blockedUserIds ? ownUser.blockedUserIds.length : 0
+        }
+      />
+    )}
     {offers && <OffersAvailable offers={offers} userId={user.id} />}
     {"freeTrades" in user && !!user.freeTrades && !!user.maxFreeTrades && (
       <ProgressDonut

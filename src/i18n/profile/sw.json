@@ -22,5 +22,8 @@
   "profile.user.title": "wasifu wa umma",
   "profile.user.currentOffers": "oferta za sasa",
   "profile.offersofuser.title": "oferta za sasa",
-  "profile.offersofuser.empty": "bado hakuna!"
+  "profile.offersofuser.empty": "bado hakuna!",
+  "profile.user.blockedUsers": "Watumiaji waliokatazwa",
+  "profile.blockedUsers.empty": "Haujakataza watumiaji wowote kwa sasa"
+  
 }

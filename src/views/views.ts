@@ -53,6 +53,7 @@ import { BitcoinProducts } from "./settings/aboutPeach/BitcoinProducts";
 import { PeachFees } from "./settings/aboutPeach/PeachFees";
 import { Socials } from "./settings/aboutPeach/Socials";
 import { NetworkFees } from "./settings/networkFees/NetworkFees";
+import { BlockedUsers } from "./settings/profile/BlockedUsers";
 import { MyProfile } from "./settings/profile/MyProfile";
 import { UserBitcoinLevel } from "./userBitcoinLevel/UserBitcoinLevel";
 import { UserSource } from "./userSource/UserSource";
@@ -230,6 +231,13 @@ const otherUserViews: ViewType[] = [
   },
 ];
 
+const blockedUsers: ViewType[] = [
+  {
+    name: "blockedUsers",
+    component: BlockedUsers,
+  },
+];
+
 export const views = [
   ...home,
   ...sellFlow,
@@ -246,6 +254,7 @@ export const views = [
   ...sellOfferOwnerFlow,
   ...tradeRequestChat,
   ...otherUserViews,
+  ...blockedUsers,
 ];
 
 export const onboardingViews = [...onboarding, ...contact];

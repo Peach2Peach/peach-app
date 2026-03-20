@@ -8,6 +8,7 @@ import { Screen } from "../../../components/Screen";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { ClosePopupAction } from "../../../components/popup/actions/ClosePopupAction";
 import { TouchableRedText } from "../../../components/text/TouchableRedText";
+import { useUser69Details } from "../../../hooks/query/peach069/useUser69";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { ErrorPopup } from "../../../popups/ErrorPopup";
 import { HelpPopup } from "../../../popups/HelpPopup";
@@ -21,9 +22,10 @@ import { TradingLimits } from "./TradingLimits";
 
 export const MyProfile = () => {
   const { user, isLoading } = useSelfUser();
+  const { user: user69, isLoading: isLoading69 } = useUser69Details();
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<HelpPopup id="tradingLimit" />);
-  if (isLoading || !user) return <></>;
+  if (isLoading || isLoading69 || !user69 || !user) return <></>;
 
   return (
     <Screen
@@ -43,7 +45,8 @@ export const MyProfile = () => {
             <ProfileInfo user={user} />
             <TradingLimits />
           </View>
-          <AccountInfo user={user} />
+
+          <AccountInfo user={user} ownUser={user69} />
         </View>
         {/* <DeleteAccountButton style={tw`self-center`} /> */}
       </PeachScrollView>

@@ -22,5 +22,8 @@
   "profile.user.title": "openbaar profiel",
   "profile.user.currentOffers": "huidige aanbiedingen",
   "profile.offersofuser.title": "huidige aanbiedingen",
-  "profile.offersofuser.empty": "nog geen!"
+  "profile.offersofuser.empty": "nog geen!",
+  "profile.user.blockedUsers": "Geblokkeerde gebruikers",
+  "profile.blockedUsers.empty": "Je blokkeert momenteel geen gebruikers"
+  
 }
