@@ -287,7 +287,8 @@
   "viewAll": "ver todas",
   "yesProceed": "Sim, continuar",
   "express.sell.tradeRequestBehaviourInfo": "Faz tantos pedidos de trade quanto possível. Entrarás numa trade com o primeiro comprador que aceitar o teu pedido.",
-  "express.buy.tradeRequestBehaviourInfo": "Faz tantos pedidos de trade quanto possível. Entrarás numa trade com o primeiro vendedor que aceitar o teu pedido."
+  "express.buy.tradeRequestBehaviourInfo": "Faz tantos pedidos de trade quanto possível. Entrarás numa trade com o primeiro vendedor que aceitar o teu pedido.",
+  "wrongPasswordError": "A senha inserida está incorreta.\nPor favor, tente novamente."
 
 
 }

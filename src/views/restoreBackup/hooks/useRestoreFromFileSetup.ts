@@ -27,6 +27,7 @@ export const useRestoreFromFileSetup = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [restored, setRestored] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
 
   const updateFileBackupDate = useSettingsStore(
     (state) => state.updateFileBackupDate,
@@ -35,6 +36,7 @@ export const useRestoreFromFileSetup = () => {
 
   const onError = (errorMsg = "UNKNOWN_ERROR") => {
     if (errorMsg !== "WRONG_PASSWORD") setError(errorMsg);
+    setWrongPassword(true);
     deleteAccount();
   };
 
@@ -111,5 +113,6 @@ export const useRestoreFromFileSetup = () => {
     setPassword,
     passwordError,
     submit,
+    wrongPassword,
   };
 };

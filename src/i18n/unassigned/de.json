@@ -284,7 +284,8 @@
   "viewAll": "alle anzeigen",
   "yesProceed": "Ja, fortfahren",
   "express.sell.tradeRequestBehaviourInfo": "Stelle so viele Handelsanfragen wie möglich. Du trittst in einen Handel mit dem ersten Käufer ein, der deine Anfrage annimmt.",
-  "express.buy.tradeRequestBehaviourInfo": "Stelle so viele Handelsanfragen wie möglich. Du trittst in einen Handel mit dem ersten Verkäufer ein, der deine Anfrage annimmt."
+  "express.buy.tradeRequestBehaviourInfo": "Stelle so viele Handelsanfragen wie möglich. Du trittst in einen Handel mit dem ersten Verkäufer ein, der deine Anfrage annimmt.",
+  "wrongPasswordError": "Das eingegebene Passwort war falsch.\nBitte versuche es erneut."
 
 
 }
