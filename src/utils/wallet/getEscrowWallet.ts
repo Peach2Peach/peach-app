@@ -7,11 +7,11 @@ import { BIP32Interface } from "bip32";
 export const getEscrowWallet = (
   wallet: BIP32Interface,
   offerId: string,
-  version?: number,
+  derivationPathVersion?: number,
 ) => {
-  if (version === 2) {
+  if (derivationPathVersion === 2) {
     return wallet.derivePath(
-      `m/84'/${NETWORK === "bitcoin" ? "0" : "1"}'/55'/3/${offerId}`,
+      `m/84'/${NETWORK === "bitcoin" ? "0" : "1"}'/0'/55'/3/${offerId}`,
     );
   }
 
