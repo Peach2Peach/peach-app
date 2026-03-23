@@ -35,6 +35,7 @@ import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
+import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
@@ -711,6 +712,7 @@ function FundEscrowButton() {
   const { mutate: postSellOffer } = usePostSellOffer();
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
 
   const getPaymentData = async () => {
     const { paymentData, originalPaymentData } = sellPreferences;
@@ -720,13 +722,15 @@ function FundEscrowButton() {
       if (payment.mpesa_name && paymentData[payment.type]) {
         paymentData[payment.type]!.isMpesa = true;
       }
-      if (payment.iban) {
+      if (payment.iban && paymentData[payment.type]) {
         paymentData[payment.type]!.country = payment.iban.slice(
           0,
           2,
         ) as PaymentMethodCountry;
       }
     });
+
+    let finalPaymentData = { ...paymentData };
 
     if (instantTrade) {
       const selectedMethods = keys(paymentData);
@@ -741,26 +745,50 @@ function FundEscrowButton() {
         ),
       );
 
-      const finalPaymentData = encryptedData.reduce(
-        (acc, encryptedDatum, index) => {
-          if (!encryptedDatum) return acc;
-          const { encrypted, signature } = encryptedDatum;
-          const method = selectedMethods[index];
-          return {
-            ...acc,
-            [method]: {
-              ...paymentData[method],
-              encrypted,
-              signature,
-            },
-          };
-        },
-        {},
-      );
-
-      return finalPaymentData;
+      finalPaymentData = encryptedData.reduce((acc, encryptedDatum, index) => {
+        if (!encryptedDatum) return acc;
+        const { encrypted, signature } = encryptedDatum;
+        const method = selectedMethods[index];
+        return {
+          ...acc,
+          [method]: {
+            ...paymentData[method],
+            encrypted,
+            signature,
+          },
+        };
+      }, finalPaymentData);
     }
-    return paymentData;
+
+    const selfEncryptedData = await Promise.all(
+      keys(paymentData).map(async (method) => {
+        const originalData = originalPaymentData.find((e) => e.type === method);
+        const cleaned = originalData
+          ? cleanPaymentData(originalData)
+          : paymentData[method];
+
+        const { encrypted } = await signAndEncrypt(
+          JSON.stringify(cleaned),
+          myPgpPubKey,
+        );
+
+        return encrypted;
+      }),
+    );
+
+    finalPaymentData = keys(paymentData).reduce((acc, method, index) => {
+      return {
+        ...acc,
+        [method]: {
+          ...acc[method],
+          selfEncrypted: selfEncryptedData[index],
+        },
+      };
+    }, finalPaymentData);
+
+    console.log("finalPaymentData", finalPaymentData);
+
+    return finalPaymentData;
   };
 
   const showPublishingError = () => {

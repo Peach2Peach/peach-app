@@ -24,6 +24,7 @@ import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
+import { decrypt } from "../../utils/pgp/decrypt";
 import { getExpiryString } from "../../utils/string/msToLongerTimer";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -65,10 +66,29 @@ const acceptTradeRequest = async (
   if (!pgpPubKeysOfRequestingUser)
     throw Error("missing requesting user pgp keys");
 
-  const { paymentData } = await getPaymentDataFromOffer(
+  const selfEncryptedPaymentData =
+    buyOffer.paymentData[tradeRequest.paymentMethod as PaymentMethod]
+      ?.selfEncrypted;
+
+  let paymentData: PaymentData | undefined = undefined;
+
+  const { paymentData: paymentDataMatched } = await getPaymentDataFromOffer(
     buyOffer as unknown as BuyOffer,
     tradeRequest.paymentMethod as PaymentMethod,
   );
+
+  paymentData = paymentDataMatched;
+
+  if (!paymentData && selfEncryptedPaymentData) {
+    // TODO: when more confident, remove this try/catch logic
+    try {
+      paymentData = JSON.parse(
+        await decrypt(selfEncryptedPaymentData),
+      ) as PaymentData;
+    } catch (err) {
+      console.log("error decrypting selfEncrypted payment details");
+    }
+  }
 
   if (!paymentData) throw Error("did not find matching payment data");
 
