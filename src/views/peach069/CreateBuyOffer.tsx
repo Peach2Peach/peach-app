@@ -687,7 +687,7 @@ function PublishOfferButton() {
       }, finalPaymentData);
     }
 
-    // Always add selfEncrypted regardless of instantTradeCriteria
+    // Always add selfEncrypted + selfEncryptedSignature
     const selfEncryptedData = await Promise.all(
       keys(paymentData).map(async (method) => {
         const originalData = originalPaymentData.find((e) => e.type === method);
@@ -695,21 +695,24 @@ function PublishOfferButton() {
           ? cleanPaymentData(originalData)
           : paymentData[method];
 
-        const { encrypted } = await signAndEncrypt(
+        const { encrypted, signature } = await signAndEncrypt(
           JSON.stringify(cleaned),
           myPgpPubKey,
         );
 
-        return encrypted;
+        return { encrypted, signature };
       }),
     );
 
     finalPaymentData = keys(paymentData).reduce((acc, method, index) => {
+      const selfData = selfEncryptedData[index];
+
       return {
         ...acc,
         [method]: {
           ...acc[method],
-          selfEncrypted: selfEncryptedData[index],
+          selfEncrypted: selfData.encrypted,
+          selfEncryptedSignature: selfData.signature,
         },
       };
     }, finalPaymentData);

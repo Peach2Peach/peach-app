@@ -27,6 +27,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { getExpiryString } from "../../utils/string/msToLongerTimer";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
+import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 const rejectTradeRequest = async (
@@ -57,6 +58,7 @@ const acceptTradeRequest = async (
   selfUser: User,
   navigation: StackNavigation,
   handleError: Function,
+  myPgpPubKey: string,
 ): Promise<void> => {
   const ress = await peachAPI.public.user.getUser({
     userId: tradeRequest.userId,
@@ -70,6 +72,10 @@ const acceptTradeRequest = async (
     sellOffer.paymentData[tradeRequest.paymentMethod as PaymentMethod]
       ?.selfEncrypted;
 
+  const selfEncryptedPaymentDataSignature =
+    sellOffer.paymentData[tradeRequest.paymentMethod as PaymentMethod]
+      ?.selfEncryptedSignature;
+
   let paymentData: PaymentData | undefined = undefined;
 
   const { paymentData: paymentDataMatched } = await getPaymentDataFromOffer(
@@ -79,12 +85,24 @@ const acceptTradeRequest = async (
 
   paymentData = paymentDataMatched;
 
-  if (!paymentData && selfEncryptedPaymentData) {
+  if (
+    !paymentData &&
+    selfEncryptedPaymentData &&
+    selfEncryptedPaymentDataSignature
+  ) {
     // TODO: when more confident, remove this try/catch logic
     try {
-      paymentData = JSON.parse(
-        await decrypt(selfEncryptedPaymentData),
-      ) as PaymentData;
+      const paymentDataRaw = await decrypt(selfEncryptedPaymentData);
+
+      const validSignature = await hasValidSignature({
+        signature: selfEncryptedPaymentDataSignature,
+        message: paymentDataRaw,
+        publicKeys: [{ publicKey: myPgpPubKey }],
+      });
+
+      if (validSignature) {
+        paymentData = JSON.parse(paymentDataRaw) as PaymentData;
+      }
     } catch (err) {
       console.log("error decrypting selfEncrypted payment details");
     }

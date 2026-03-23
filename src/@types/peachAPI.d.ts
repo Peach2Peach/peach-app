@@ -273,6 +273,7 @@ type OfferPaymentData = Partial<
       signature?: string;
       isMpesa?: boolean;
       selfEncrypted?: string;
+      selfEncryptedSignature?: string;
     }
   >
 >;

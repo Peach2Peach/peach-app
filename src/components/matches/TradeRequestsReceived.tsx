@@ -9,6 +9,7 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
+import { useAccountStore } from "../../utils/account/account";
 import i18n, { useI18n } from "../../utils/i18n";
 import { BTCAmount } from "../bitcoin/BTCAmount";
 import { PeachText } from "../text/PeachText";
@@ -43,6 +44,7 @@ export const TradeRequestsReceived = ({
 
   const { user: selfUser } = useSelfUser();
   const navigation = useStackNavigation();
+  const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
 
   return (
     <View style={tw`h-full`}>
@@ -77,6 +79,7 @@ export const TradeRequestsReceived = ({
                     selfUser,
                     navigation,
                     handleError,
+                    myPgpPubKey,
                   );
                 }}
                 rejectTradeRequestFunction={async () => {
