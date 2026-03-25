@@ -99,6 +99,10 @@ type OffersOfUser = {
   };
 };
 
+type BlockedUsers = {
+  blockedUsers: undefined;
+};
+
 type BuyOfferOwnerFlow = {
   createBuyOffer: undefined;
   browseTradeRequestsToMyBuyOffer: { offerId: string };
@@ -203,4 +207,5 @@ type RootStackParamList = Onboarding &
   SellOfferOwnerFlow &
   ExpressBuySellFlowChat &
   OffersOfUser &
-  DesktopConnection;
+  DesktopConnection &
+  BlockedUsers;

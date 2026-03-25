@@ -23,5 +23,8 @@
   "profile.user.title": "public profile",
   "profile.user.currentOffers": "current offers",
   "profile.offersofuser.title":"current offers",
-  "profile.offersofuser.empty":"none yet!"
+  "profile.offersofuser.empty":"none yet!",
+  "profile.user.blockedUsers":"blocked users",
+  "profile.blockedUsers.empty":"you are not blocking any users at the moment"
+  
 }

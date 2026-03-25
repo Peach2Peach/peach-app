@@ -79,7 +79,7 @@ const ExperienceLevelAndInstantTrade = ({
             <PeachText
               style={tw`subtitle-1 text-${isInstantTrade ? "success" : "back"}-main`}
             >
-              {isInstantTrade ? "yes" : "no"}
+              {isInstantTrade ? i18n("yes") : i18n("no")}
             </PeachText>
             {isInstantTrade && (
               <Icon

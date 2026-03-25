@@ -286,5 +286,6 @@
   "viewAll":"view all",
   "yesProceed":"Yes, proceed",
   "express.sell.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first buyer who accepts your request.",
-  "express.buy.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first seller who accepts your request."
+  "express.buy.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first seller who accepts your request.",
+  "wrongPasswordError": "the inserted password was incorrect.\nplease try again."
 }

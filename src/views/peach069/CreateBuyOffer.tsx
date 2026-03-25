@@ -28,6 +28,7 @@ import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
+import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
@@ -638,6 +639,7 @@ function PublishOfferButton() {
   const setBuyAmountRange = useOfferPreferences(
     (state) => state.setCreateBuyOfferAmount,
   );
+  const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
   const rangeIsWithinLimits = amount >= minAmount && amount <= maxAmount;
   if (!rangeIsWithinLimits) {
     setBuyAmountRange(restrictAmount(amount));
@@ -654,6 +656,9 @@ function PublishOfferButton() {
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
 
   const getPaymentData = async () => {
+    let finalPaymentData = { ...paymentData };
+
+    // Only perform the "encrypted" transform if instantTradeCriteria is defined
     if (instantTradeCriteria !== undefined) {
       const selectedMethods = keys(paymentData);
       const cleanedData = selectedMethods.map((method) => {
@@ -667,26 +672,52 @@ function PublishOfferButton() {
         ),
       );
 
-      const finalPaymentData = encryptedData.reduce(
-        (acc, encryptedDatum, index) => {
-          if (!encryptedDatum) return acc;
-          const { encrypted, signature } = encryptedDatum;
-          const method = selectedMethods[index];
-          return {
-            ...acc,
-            [method]: {
-              ...paymentData[method],
-              encrypted,
-              signature,
-            },
-          };
-        },
-        {},
-      );
-
-      return finalPaymentData;
+      finalPaymentData = encryptedData.reduce((acc, encryptedDatum, index) => {
+        if (!encryptedDatum) return acc;
+        const { encrypted, signature } = encryptedDatum;
+        const method = selectedMethods[index];
+        return {
+          ...acc,
+          [method]: {
+            ...paymentData[method],
+            encrypted,
+            signature,
+          },
+        };
+      }, finalPaymentData);
     }
-    return paymentData;
+
+    // Always add selfEncrypted + selfEncryptedSignature
+    const selfEncryptedData = await Promise.all(
+      keys(paymentData).map(async (method) => {
+        const originalData = originalPaymentData.find((e) => e.type === method);
+        const cleaned = originalData
+          ? cleanPaymentData(originalData)
+          : paymentData[method];
+
+        const { encrypted, signature } = await signAndEncrypt(
+          JSON.stringify(cleaned),
+          myPgpPubKey,
+        );
+
+        return { encrypted, signature };
+      }),
+    );
+
+    finalPaymentData = keys(paymentData).reduce((acc, method, index) => {
+      const selfData = selfEncryptedData[index];
+
+      return {
+        ...acc,
+        [method]: {
+          ...acc[method],
+          selfEncrypted: selfData.encrypted,
+          selfEncryptedSignature: selfData.signature,
+        },
+      };
+    }, finalPaymentData);
+
+    return finalPaymentData;
   };
 
   const [paymentDataToPublish, setPaymentDataToPublish] = useState(paymentData);

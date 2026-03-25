@@ -286,7 +286,8 @@
   "viewAll": "ver todas",
   "yesProceed": "Sí, continuar",
   "express.sell.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer comprador que acepte tu solicitud.",
-  "express.buy.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer vendedor que acepte tu solicitud."
+  "express.buy.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer vendedor que acepte tu solicitud.",
+  "wrongPasswordError": "La contraseña ingresada es incorrecta.\nPor favor, inténtalo de nuevo."
 
 
 }

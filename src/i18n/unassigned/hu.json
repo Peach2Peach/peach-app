@@ -287,7 +287,8 @@
   "viewAll": "összes megtekintése",
   "yesProceed": "Ndiyo, endelea",
   "express.sell.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első vevővel lépsz kereskedésbe, aki elfogadja a kérésed.",
-  "express.buy.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első eladóval lépsz kereskedésbe, aki elfogadja a kérésed."
+  "express.buy.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első eladóval lépsz kereskedésbe, aki elfogadja a kérésed.",
+  "wrongPasswordError": "A megadott jelszó helytelen.\nKérlek, próbáld újra."
 
 
 }

@@ -22,5 +22,7 @@
   "profile.user.title": "nyilvános profil",
   "profile.user.currentOffers": "aktuális ajánlatok",
   "profile.offersofuser.title": "aktuális ajánlatok",
-  "profile.offersofuser.empty": "még nincs!"
+  "profile.offersofuser.empty": "még nincs!",
+  "profile.user.blockedUsers": "Letiltott felhasználók",
+  "profile.blockedUsers.empty": "Jelenleg nem tiltottál le senkit"
 }

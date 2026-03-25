@@ -283,7 +283,8 @@
   "viewAll": "alles bekijken",
   "yesProceed": "Ja, doorgaan",
    "express.sell.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste koper die je verzoek accepteert.",
-  "express.buy.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste verkoper die je verzoek accepteert."
+  "express.buy.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste verkoper die je verzoek accepteert.",
+  "wrongPasswordError": "Het ingevoerde wachtwoord is onjuist.\nProbeer het opnieuw."
 
 
  

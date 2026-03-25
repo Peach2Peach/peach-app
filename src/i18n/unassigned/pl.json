@@ -287,7 +287,8 @@
   "viewAll": "zobacz wszystkie",
   "yesProceed": "Tak, kontynuuj",
   "express.sell.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym kupującym, który zaakceptuje Twoją prośbę.",
-  "express.buy.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym sprzedawcą, który zaakceptuje Twoją prośbę."
+  "express.buy.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym sprzedawcą, który zaakceptuje Twoją prośbę.",
+  "wrongPasswordError": "Wprowadzone hasło jest niepoprawne.\nSpróbuj ponownie."
 
 
 }

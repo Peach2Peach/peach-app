@@ -20,7 +20,10 @@
   "profile.tradingLimits.yearly.short": "jährliches Limit",
   "profile.unblockUser": "Diesen Benutzer entsperren",
   "profile.user.title": "Öffentliches Profil",
-    "profile.user.currentOffers": "current offers",
+  "profile.user.currentOffers": "current offers",
   "profile.offersofuser.title":"current offers",
-  "profile.offersofuser.empty":"none yet!"
+  "profile.offersofuser.empty":"none yet!",
+  "profile.user.blockedUsers": "Blockierte Nutzer",
+  "profile.blockedUsers.empty": "Du blockierst momentan keine Nutzer"
+  
 }

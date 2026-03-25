@@ -283,7 +283,8 @@
   "viewAll": "tümünü gör",
   "yesProceed": "Evet, devam et",
   "express.sell.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk alıcıyla işleme girersin.",
-  "express.buy.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk satıcıyla işleme girersin."
+  "express.buy.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk satıcıyla işleme girersin.",
+  "wrongPasswordError": "Girilen şifre yanlış.\nLütfen tekrar deneyin."
 
 
 }

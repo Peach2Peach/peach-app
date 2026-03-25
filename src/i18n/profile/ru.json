@@ -22,5 +22,7 @@
   "profile.user.title": "открытый профиль",
   "profile.user.currentOffers": "текущие предложения",
   "profile.offersofuser.title": "текущие предложения",
-  "profile.offersofuser.empty": "пока нет!"
+  "profile.offersofuser.empty": "пока нет!",
+  "profile.user.blockedUsers": "Заблокированные пользователи",
+  "profile.blockedUsers.empty": "В данный момент вы никого не блокируете"
 }

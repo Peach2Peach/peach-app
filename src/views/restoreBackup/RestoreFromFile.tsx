@@ -21,6 +21,7 @@ export const RestoreFromFile = () => {
     setPassword,
     passwordError,
     submit,
+    wrongPassword,
   } = useRestoreFromFileSetup();
 
   if (loading) return <RestoreBackupLoading />;
@@ -30,11 +31,19 @@ export const RestoreFromFile = () => {
   return (
     <View style={tw`justify-between shrink`}>
       <View style={tw`justify-center h-full shrink`}>
+        {wrongPassword && (
+          <PeachText
+            style={tw`pb-2 text-center subtitle-1 text-primary-background-light-color`}
+          >
+            {i18n("wrongPasswordError")}
+          </PeachText>
+        )}
         <PeachText
           style={tw`pb-2 text-center subtitle-1 text-primary-background-light-color`}
         >
           {i18n("restoreBackup.manual.description.1")}
         </PeachText>
+
         <View style={tw`w-full px-2`}>
           <FileInput fileName={file.name} onChange={setFile} />
         </View>

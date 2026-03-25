@@ -281,7 +281,8 @@
   "viewAll": "vedi tutte",
    "yesProceed": "Sì, procedi",
    "express.sell.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo acquirente che accetterà la tua richiesta.",
-  "express.buy.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo venditore che accetterà la tua richiesta."
+  "express.buy.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo venditore che accetterà la tua richiesta.",
+  "wrongPasswordError": "La password inserita non è corretta.\nPer favore riprova."
 
 
 }

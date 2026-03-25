@@ -22,5 +22,8 @@
   "profile.user.title": "Perfil público",
   "profile.user.currentOffers": "ofertas atuais",
   "profile.offersofuser.title": "ofertas atuais",
-  "profile.offersofuser.empty": "ainda nenhuma!"
+  "profile.offersofuser.empty": "ainda nenhuma!",
+  "profile.user.blockedUsers": "Usuários bloqueados",
+  "profile.blockedUsers.empty": "Você não está bloqueando nenhum usuário no momento"
+  
 }
