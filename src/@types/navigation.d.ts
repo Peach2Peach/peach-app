@@ -19,6 +19,10 @@ type TestViews = {
 
 type DesktopConnection = {
   connectToDesktop: undefined;
+  mobilePendingActions: undefined;
+  mobilePendingActionRefund: { id: string };
+  mobilePendingActionRevealAddress: { id: string };
+  mobilePendingActionSignMultisig: { id: string };
 };
 
 type HomeTabParamList = {

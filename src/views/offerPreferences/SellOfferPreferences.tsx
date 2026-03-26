@@ -252,6 +252,8 @@ function PremiumInputComponent() {
     state.setPremium,
   ]);
 
+  console.log("PREMIUM ", premium);
+
   const { bitcoinPrice } = useBitcoinPrices(amount, "CHF");
 
   return (

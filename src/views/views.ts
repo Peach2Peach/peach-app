@@ -14,6 +14,10 @@ import { PatchPayoutAddress } from "./contract/PatchPayoutAddress";
 import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { ConnectToDesktop } from "./desktopConnection/ConnectToDesktop";
+import { MobilePendingActionRefund } from "./desktopConnection/MobilePendingActionRefund";
+import { MobilePendingActionRevealAddress } from "./desktopConnection/MobilePendingActionRevealAddress";
+import { MobilePendingActionSignMultisig } from "./desktopConnection/MobilePendingActionSignMultisig";
+import { MobilePendingActions } from "./desktopConnection/MobilePendingActions";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
@@ -236,6 +240,22 @@ const desktopConnection: ViewType[] = [
   {
     name: "connectToDesktop",
     component: ConnectToDesktop,
+  },
+  {
+    name: "mobilePendingActions",
+    component: MobilePendingActions,
+  },
+  {
+    name: "mobilePendingActionRevealAddress",
+    component: MobilePendingActionRevealAddress,
+  },
+  {
+    name: "mobilePendingActionSignMultisig",
+    component: MobilePendingActionSignMultisig,
+  },
+  {
+    name: "mobilePendingActionRefund",
+    component: MobilePendingActionRefund,
   },
 ];
 
