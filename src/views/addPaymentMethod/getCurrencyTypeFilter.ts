@@ -18,6 +18,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "ISK",
     "RON",
     "TRY",
+    "UAH",
   ],
   latinAmerica: [
     "DOC",
