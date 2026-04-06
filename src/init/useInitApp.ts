@@ -37,7 +37,7 @@ export function useInitApp() {
         setIsLoggedIn(true);
         userUpdate();
         if (paymentMethods) {
-          checkSupportedPaymentMethods(paymentMethods);
+          await checkSupportedPaymentMethods(paymentMethods);
         }
       }
 
