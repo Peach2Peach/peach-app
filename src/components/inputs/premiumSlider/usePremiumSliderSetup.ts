@@ -9,6 +9,8 @@ import { round } from "../../../utils/math/round";
 export const KNOBWIDTH = 32;
 export const DEFAULT_WIDTH = 260;
 
+const SLIDER_BOUND = 21;
+
 export const usePremiumSliderSetup = (
   premium: number,
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void,
@@ -27,73 +29,80 @@ export const usePremiumSliderSetup = (
 
   const MIN = minimumPremiumAllowed;
   const MAX = maximumPremiumAllowed;
+  const sliderMin = Math.max(minimumPremiumAllowed, -SLIDER_BOUND);
+  const sliderMax = Math.min(maximumPremiumAllowed, SLIDER_BOUND);
 
-  const [isSliding, setIsSliding] = useState(false);
   const [trackWidth, setTrackWidth] = useState(DEFAULT_WIDTH);
+
+  // Refs so PanResponder callbacks always read fresh values without stale closures
+  const isSlidingRef = useRef(false);
+  const trackWidthRef = useRef(trackWidth);
+  const sliderMinRef = useRef(sliderMin);
+  const sliderMaxRef = useRef(sliderMax);
+  trackWidthRef.current = trackWidth;
+  sliderMinRef.current = sliderMin;
+  sliderMaxRef.current = sliderMax;
 
   /**
    * Convert premium → slider X position
    */
   const premiumToX = (value: number) => {
+    const clamped = Math.max(sliderMin, Math.min(sliderMax, value));
     const half = trackWidth / 2;
 
-    if (value <= 0) {
-      return ((value - MIN) / (0 - MIN)) * half;
+    if (clamped <= 0) {
+      return ((clamped - sliderMin) / (0 - sliderMin)) * half;
     }
 
-    return half + (value / MAX) * half;
-  };
-
-  /**
-   * Convert slider X position → premium
-   */
-  const xToPremium = (x: number) => {
-    const half = trackWidth / 2;
-
-    if (x <= half) {
-      const ratio = x / half;
-      return round(MIN + ratio * (0 - MIN));
-    }
-
-    const ratio = (x - half) / half;
-    return round(ratio * MAX);
+    return half + (clamped / sliderMax) * half;
   };
 
   const pan = useRef(new Animated.Value(premiumToX(premium))).current;
 
   const panResponder = useRef(
     PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
-        setIsSliding(true);
+        isSlidingRef.current = true;
+        // Must be called synchronously here — doing it in a useEffect causes
+        // a render-cycle delay that makes the knob jump on Android.
+        pan.extractOffset();
+        pan.addListener(({ value }) => {
+          const tw = trackWidthRef.current;
+          const sMin = sliderMinRef.current;
+          const sMax = sliderMaxRef.current;
+          const boundedX = Math.max(0, Math.min(value, tw));
+          const half = tw / 2;
+          const val =
+            boundedX <= half
+              ? round(sMin + (boundedX / half) * -sMin)
+              : round(((boundedX - half) / half) * sMax);
+          setPremium(val);
+        });
       },
       onPanResponderMove: Animated.event([null, { dx: pan }], {
         useNativeDriver: false,
       }),
       onPanResponderRelease: () => {
-        setIsSliding(false);
+        isSlidingRef.current = false;
+        pan.removeAllListeners();
+        pan.flattenOffset();
+      },
+      onPanResponderTerminate: () => {
+        isSlidingRef.current = false;
+        pan.removeAllListeners();
         pan.flattenOffset();
       },
       onShouldBlockNativeResponder: () => true,
     }),
   ).current;
 
+  // Sync knob position when premium changes externally (e.g. +/- buttons)
   useEffect(() => {
-    if (!isSliding) return undefined;
-    pan.extractOffset();
-    pan.addListener((props) => {
-      const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth);
-      const val = xToPremium(boundedX);
-      setPremium(val);
-    });
-
-    return () => pan.removeAllListeners();
-  }, [isSliding, pan, setPremium, trackWidth]);
-
-  useEffect(() => {
-    if (isSliding) return;
+    if (isSlidingRef.current) return;
     pan.setValue(premiumToX(premium));
-  }, [isSliding, pan, trackWidth, premium]);
+  }, [premium, trackWidth, sliderMin, sliderMax]);
 
   const onLayout = (event: LayoutChangeEvent) => {
     if (!event.nativeEvent.layout.width) return;
@@ -110,5 +119,7 @@ export const usePremiumSliderSetup = (
     knobWidth: KNOBWIDTH,
     min: MIN,
     max: MAX,
+    sliderMin,
+    sliderMax,
   };
 };

@@ -13,6 +13,7 @@
   "sell.premium": "prime",
   "sell.premium.currently": "actuellement : $0",
   "sell.premium.marketPrice": "prix\ndu marché",
+  "sell.premium.slider.useButtons": "Utilisez + / - pour des valeurs au-delà de ±21%",
   "sell.premium.title": "définir votre prime / réduction",
   "sell.subtitle": "vous vendez :",
   "sell.subtitle.highlight": "vendez",
