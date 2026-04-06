@@ -22,6 +22,7 @@ type DesktopConnection = {
   mobilePendingActions: undefined;
   mobilePendingActionRefund: { id: string };
   mobilePendingActionRevealAddress: { id: string };
+  mobilePendingActionRevealAddressSuccess: undefined;
   mobilePendingActionSignMultisig: { id: string };
 };
 

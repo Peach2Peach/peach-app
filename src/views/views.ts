@@ -16,6 +16,7 @@ import { ContractChat } from "./contractChat/ContractChat";
 import { ConnectToDesktop } from "./desktopConnection/ConnectToDesktop";
 import { MobilePendingActionRefund } from "./desktopConnection/MobilePendingActionRefund";
 import { MobilePendingActionRevealAddress } from "./desktopConnection/MobilePendingActionRevealAddress";
+import { MobilePendingActionRevealAddressSuccess } from "./desktopConnection/MobilePendingActionRevealAddressSuccess";
 import { MobilePendingActionSignMultisig } from "./desktopConnection/MobilePendingActionSignMultisig";
 import { MobilePendingActions } from "./desktopConnection/MobilePendingActions";
 import { DisputeForm } from "./dispute/DisputeForm";
@@ -248,6 +249,10 @@ const desktopConnection: ViewType[] = [
   {
     name: "mobilePendingActionRevealAddress",
     component: MobilePendingActionRevealAddress,
+  },
+  {
+    name: "mobilePendingActionRevealAddressSuccess",
+    component: MobilePendingActionRevealAddressSuccess,
   },
   {
     name: "mobilePendingActionSignMultisig",

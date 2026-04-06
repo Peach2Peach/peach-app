@@ -1,9 +1,9 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { AddressIndex } from "bdk-rn/lib/lib/enums";
 import { useCallback } from "react";
-import { View } from "react-native";
-import { Button } from "../../components/buttons/Button";
+import { Image, useWindowDimensions, View } from "react-native";
 import { Header } from "../../components/Header";
+import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { useMobilePendingActionPaymentMade } from "../../hooks/query/peach069/useMobilePendingActionPaymentMade";
@@ -17,14 +17,32 @@ import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { peachWallet } from "../../utils/wallet/setWallet";
 
+import peachOfMind from "../../assets/onboarding/peach-of-mind.png";
+import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
+import privacyFirst from "../../assets/onboarding/privacy-first.png";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+
+const images = { peachOfMind, peerToPeer, privacyFirst };
+const ASPECT_RATIO = 0.7;
 export const MobilePendingActionRevealAddress = () => {
   const { id } = useRoute<"mobilePendingActionRevealAddress">().params;
-
+  const { width } = useWindowDimensions();
   const { user: selfUser } = useSelfUser();
   const { user: selfUser69 } = useUser69Details();
 
   const { mobilePendingAction, isLoading, refetch } =
     useMobilePendingActionPaymentMade(id);
+
+  const navigation = useStackNavigation();
+  const navigateToSuccess = () => {
+    navigation.reset({
+      index: 1,
+      routes: [
+        { name: "homeScreen", params: { screen: "home" } },
+        { name: "mobilePendingActionRevealAddressSuccess" },
+      ],
+    });
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -33,6 +51,9 @@ export const MobilePendingActionRevealAddress = () => {
   );
 
   if (isLoading || !mobilePendingAction) return <></>;
+
+  const { needsAddress, fiatAmount, satsAmount, currency, paymentMethod } =
+    JSON.parse(mobilePendingAction.payload);
 
   const confirmFunction = async () => {
     if (!peachWallet) {
@@ -48,12 +69,6 @@ export const MobilePendingActionRevealAddress = () => {
     let releaseAddress: string | undefined = undefined;
     let releaseAddressMessageSignature: string | undefined = undefined;
     let index: number | undefined = undefined;
-
-    console.log("mobilePendingAction.payload", mobilePendingAction.payload);
-
-    const needsAddress: boolean = JSON.parse(
-      mobilePendingAction.payload,
-    ).needsAddress;
 
     if (needsAddress) {
       if (selfUser69.lastAddressUsedIndex === undefined) {
@@ -97,27 +112,66 @@ export const MobilePendingActionRevealAddress = () => {
       await peachAPI.private.peach069.setLastAddressUsedIndexOnSelfUser69({
         index,
       });
+
+    navigateToSuccess();
   };
 
   return (
     <Screen
       header={<Header title={i18n("connectToDesktop.mobilePendingActions")} />}
     >
-      <View style={tw`grow`}>
-        <PeachText>{"Reveal an address"}</PeachText>
+      <View style={tw`grow flex-1 justify-between px-4`}>
+        {/* Center Content */}
+        <View style={[tw`flex-1 items-center justify-center`]}>
+          <PeachText
+            style={tw`text-xl font-semibold text-center tracking-wide`}
+          >
+            {i18n("Have you made the payment?")}
+          </PeachText>
+          <PeachText
+            style={tw`text-base text-center font-medium text-gray-500`}
+          >
+            {"After you make the payment to the Seller, slide to confirm."}
+          </PeachText>
 
-        <PeachText>
-          {"Contract ID: " + contractIdToHex(mobilePendingAction.contractId)}
-        </PeachText>
+          <Image
+            source={images.peerToPeer}
+            style={{ width, height: width * ASPECT_RATIO }}
+            resizeMode="contain"
+          />
 
-        <Button
-          disabled={mobilePendingAction.status !== "pending"}
-          onPress={() => {
-            confirmFunction().finally(refetch);
-          }}
-        >
-          {"Confirm"}
-        </Button>
+          <View style={tw`mt-6 items-center`}>
+            <PeachText style={tw`text-base font-medium text-gray-500`}>
+              {"Details"}
+            </PeachText>
+
+            <PeachText style={tw`text-sm text-center mt-1`}>
+              {"Contract ID: " +
+                contractIdToHex(mobilePendingAction.contractId)}
+            </PeachText>
+            <PeachText style={tw`text-sm text-center mt-1`}>
+              {"You must pay: " + fiatAmount + " " + currency}
+            </PeachText>
+            <PeachText style={tw`text-sm text-center mt-1`}>
+              {"Payment Method: " + paymentMethod}
+            </PeachText>
+            <PeachText style={tw`text-sm text-center mt-1`}>
+              {"You will receive: " + satsAmount + " sats"}
+            </PeachText>
+          </View>
+        </View>
+
+        {/* Bottom Slider */}
+        <View style={tw`pb-4`}>
+          <ConfirmSlider
+            enabled={mobilePendingAction.status === "pending"}
+            onConfirm={() => {
+              confirmFunction();
+            }}
+            label1={i18n("contract.payment.buyer.confirm")}
+            label2={i18n("contract.payment.made")}
+          />
+        </View>
       </View>
     </Screen>
   );
