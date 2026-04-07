@@ -24,6 +24,8 @@ type DesktopConnection = {
   mobilePendingActionRevealAddress: { id: string };
   mobilePendingActionRevealAddressSuccess: undefined;
   mobilePendingActionSignMultisig: { id: string };
+  mobilePendingActionFundEscrow: { id: string };
+  mobilePendingActionFundEscrowSuccess: undefined;
 };
 
 type HomeTabParamList = {

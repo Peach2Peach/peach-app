@@ -14,6 +14,8 @@ import { PatchPayoutAddress } from "./contract/PatchPayoutAddress";
 import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { ConnectToDesktop } from "./desktopConnection/ConnectToDesktop";
+import { MobilePendingActionFundEscrow } from "./desktopConnection/MobilePendingActionFundEscrow";
+import { MobilePendingActionFundEscrowSuccess } from "./desktopConnection/MobilePendingActionFundEscrowSuccess";
 import { MobilePendingActionRefund } from "./desktopConnection/MobilePendingActionRefund";
 import { MobilePendingActionRevealAddress } from "./desktopConnection/MobilePendingActionRevealAddress";
 import { MobilePendingActionRevealAddressSuccess } from "./desktopConnection/MobilePendingActionRevealAddressSuccess";
@@ -261,6 +263,14 @@ const desktopConnection: ViewType[] = [
   {
     name: "mobilePendingActionRefund",
     component: MobilePendingActionRefund,
+  },
+  {
+    name: "mobilePendingActionFundEscrow",
+    component: MobilePendingActionFundEscrow,
+  },
+  {
+    name: "mobilePendingActionFundEscrowSuccess",
+    component: MobilePendingActionFundEscrowSuccess,
   },
 ];
 

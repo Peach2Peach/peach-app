@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { SectionList, TouchableOpacity, View } from "react-native";
 import {
   MobilePendingActionContract,
+  MobilePendingActionFundEscrow,
   MobilePendingActionRefund,
 } from "../../../peach-api/src/@types/mobilePendingAction";
 import { Header } from "../../components/Header";
@@ -17,7 +18,7 @@ import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import i18n from "../../utils/i18n";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 
-type SectionType = "paymentConfirmed" | "paymentMade" | "refund";
+type SectionType = "paymentConfirmed" | "paymentMade" | "refund" | "fundEscrow";
 
 type PendingActionSection = {
   title: string;
@@ -25,7 +26,10 @@ type PendingActionSection = {
   data: PendingAction[];
 };
 
-type PendingAction = MobilePendingActionContract | MobilePendingActionRefund;
+type PendingAction =
+  | MobilePendingActionContract
+  | MobilePendingActionRefund
+  | MobilePendingActionFundEscrow;
 
 export const MobilePendingActions = () => {
   const { mobilePendingActions, isLoading, refetch } =
@@ -61,6 +65,13 @@ export const MobilePendingActions = () => {
             (x) => x.status === "pending",
           ),
           type: "refund",
+        },
+        {
+          title: i18n("connectToDesktop.mobilePendingActions.fundEscrow"),
+          data: (mobilePendingActions.fundEscrowPendingActions ?? []).filter(
+            (x) => x.status === "pending",
+          ),
+          type: "fundEscrow",
         },
       ].filter((section) => section.data.length > 0)
     : [];
@@ -126,12 +137,17 @@ const MobilePendingActionItem = ({
       navigation.navigate("mobilePendingActionRefund", {
         id: String(item.id),
       });
+    } else if (type === "fundEscrow") {
+      navigation.navigate("mobilePendingActionFundEscrow", {
+        id: String(item.id),
+      });
     }
   };
 
-  const description = item.contractId
-    ? "Contract: " + contractIdToHex(item.contractId)
-    : "Offer: " + offerIdToHex(item.offerId);
+  const description =
+    "contractId" in item && item.contractId
+      ? "Contract: " + contractIdToHex(item.contractId)
+      : "Offer: " + offerIdToHex((item as { offerId: number }).offerId);
 
   return (
     <TouchableOpacity
