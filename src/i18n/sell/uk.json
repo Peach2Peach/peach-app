@@ -13,6 +13,7 @@
   "sell.premium": "преміум",
   "sell.premium.currently": "наразі $0",
   "sell.premium.marketPrice": "ринкова вартість",
+  "sell.premium.slider.useButtons": "Використовуй + / - для значень за межами ±21%",
   "sell.premium.title": "налаштуйте свою премію / знижку",
   "sell.subtitle": "Ви продаєте:",
   "sell.subtitle.highlight": "продаж",

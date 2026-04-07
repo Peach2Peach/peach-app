@@ -6,6 +6,7 @@ import i18n, { useI18n } from "../../../utils/i18n";
 import { getTranslateX } from "../../../utils/layout/getTranslateX";
 import { round } from "../../../utils/math/round";
 import { Icon } from "../../Icon";
+import { PeachText } from "../../text/PeachText";
 import { SliderLabel } from "./SliderLabel";
 import { SliderMarkers } from "./SliderMarkers";
 import { usePremiumSliderSetup } from "./usePremiumSliderSetup";
@@ -30,8 +31,17 @@ export const PremiumSlider = ({
   currentAmount,
 }: Props) => {
   useI18n();
-  const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
-    usePremiumSliderSetup(premium, setPremium, currentCHFPrice, currentAmount);
+  const {
+    pan,
+    panResponder,
+    onLayout,
+    trackWidth,
+    knobWidth,
+    min,
+    max,
+    sliderMin,
+    sliderMax,
+  } = usePremiumSliderSetup(premium, setPremium, currentCHFPrice, currentAmount);
   const { isDarkMode } = useThemeStore();
 
   const labelPosition = useMemo(
@@ -79,18 +89,29 @@ export const PremiumSlider = ({
         </View>
       </View>
       <View style={tw`w-full h-10 mt-1`}>
-        <SliderLabel position={labelPosition[0]}>{min}%</SliderLabel>
+        <SliderLabel position={labelPosition[0]}>{sliderMin}%</SliderLabel>
         <SliderLabel position={labelPosition[1]}>
-          {round(min / 2, -1)}%
+          {round(sliderMin / 2, -1)}%
         </SliderLabel>
         <SliderLabel position={labelPosition[2]}>
           {i18n("sell.premium.marketPrice")}
         </SliderLabel>
         <SliderLabel position={labelPosition[3]}>
-          +{round(max / 2, -1)}%
+          +{round(sliderMax / 2, -1)}%
         </SliderLabel>
-        <SliderLabel position={labelPosition[4]}>+{max}%</SliderLabel>
+        <SliderLabel position={labelPosition[4]}>+{sliderMax}%</SliderLabel>
       </View>
+      <PeachText
+        style={[
+          tw`text-center text-black-50 body-s mt-1`,
+          (premium <= sliderMin && min < sliderMin) ||
+          (premium >= sliderMax && max > sliderMax)
+            ? tw`opacity-100`
+            : tw`opacity-0`,
+        ]}
+      >
+        {i18n("sell.premium.slider.useButtons")}
+      </PeachText>
     </View>
   );
 };

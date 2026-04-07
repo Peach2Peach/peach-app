@@ -13,6 +13,7 @@
   "sell.premium": "наценка",
   "sell.premium.currently": "сейчас $0",
   "sell.premium.marketPrice": "рыночная цена",
+  "sell.premium.slider.useButtons": "Используй + / - для значений за пределами ±21%",
   "sell.premium.title": "установите свою наценку/скидку",
   "sell.subtitle": "Вы продаете:",
   "sell.subtitle.highlight": "продаёте",

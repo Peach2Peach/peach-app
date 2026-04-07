@@ -14,6 +14,7 @@
   "sell.premium": "premium",
   "sell.premium.currently": "currently $0",
   "sell.premium.marketPrice": "market price",
+  "sell.premium.slider.useButtons": "use + / - buttons to set values beyond ±21%",
   "sell.premium.title": "set your premium / discount",
   "sell.subtitle": "You're selling:",
   "sell.subtitle.highlight": "selling",

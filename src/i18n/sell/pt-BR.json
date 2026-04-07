@@ -13,6 +13,7 @@
   "sell.premium" : "prêmio",
   "sell.premium.currently" : "atualmente $0",
   "sell.premium.marketPrice" : "preço de mercado",
+  "sell.premium.slider.useButtons" : "Use + / - para valores além de ±21%",
   "sell.premium.title" : "defina prêmio/desconto",
   "sell.subtitle" : "Você está vendendo:",
   "sell.subtitle.highlight" : "vendendo",

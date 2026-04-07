@@ -14,6 +14,7 @@
   "sell.premium": "prima",
   "sell.premium.currently": "actualmente $0",
   "sell.premium.marketPrice": "precio de mercado",
+  "sell.premium.slider.useButtons": "Usa + / - para valores fuera de ±21%",
   "sell.premium.title": "establecer prima/descuento",
   "sell.subtitle": "¿Cuánto quieres vender?",
   "sell.subtitle.highlight": "vender",

@@ -62,7 +62,7 @@ type OfferPreferences = {
 };
 
 export const defaultPreferences: OfferPreferences = {
-  createBuyOfferAmount: 1,
+  createBuyOfferAmount: 22000,
   createBuyOfferPremium: 1.5,
 
   buyAmountRange: [20000, 1070000], // TODO: verify this
@@ -76,7 +76,7 @@ export const defaultPreferences: OfferPreferences = {
   expressBuyFilterMaxPremium: 9999, // TODO: replace hardcoded value with constant
   expressSellOffersSorter: "bestReputation",
   expressBuyOffersSorter: "bestReputation",
-  sellAmount: 1,
+  sellAmount: 22000,
   premium: 1.5,
   meansOfPayment: {},
   paymentData: {},
