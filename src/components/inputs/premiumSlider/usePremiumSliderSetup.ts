@@ -9,7 +9,7 @@ import { round } from "../../../utils/math/round";
 export const KNOBWIDTH = 32;
 export const DEFAULT_WIDTH = 260;
 
-const SLIDER_BOUND = 21;
+const SLIDER_BOUND = 50;
 
 export const usePremiumSliderSetup = (
   premium: number,
