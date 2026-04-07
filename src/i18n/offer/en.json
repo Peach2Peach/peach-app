@@ -7,7 +7,7 @@
   "offer.buyOffers": "buy offers",
   "offer.sellOffers": "sell offers",
   "offer.openOffers": "open offers",
-  "offer.averagePremium": "avg. premium:",
+  "offer.averagePremium": "average premium of completed trades:",
   "offer.cancel.popup.description": "Are you sure? If you already sent bitcoin to escrow, you'll be refunded minus network fees.",
   "offer.cancel.popup.title": "cancel offer",
   "offer.canceled": "canceled",

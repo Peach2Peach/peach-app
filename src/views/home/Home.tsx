@@ -426,17 +426,9 @@ function OfferCounter({
         ]}
       >
         {i18n("offer.averagePremium")}{" "}
-        <PeachText
-          style={tw`font-semibold font-baloo text-3xs ${
-            averagePremium !== undefined && averagePremium >= 0
-              ? "text-success-main"
-              : "text-error-main"
-          }`}
-        >
-          {averagePremium !== undefined
-            ? `${averagePremium >= 0 ? "+" : ""}${averagePremium}%`
-            : "-"}
-        </PeachText>
+        {averagePremium !== undefined
+          ? `${averagePremium >= 0 ? "+" : ""}${averagePremium}%`
+          : "-"}
       </PeachText>
     </TouchableOpacity>
   );
