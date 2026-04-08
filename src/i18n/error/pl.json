@@ -92,7 +92,9 @@
   "TRADE_REQUEST_PERFORMED.title": "Prośba o transakcję wysłana!",
   "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie.",
   "WALLET_NOT_READY.title": "Portfel Peach nie jest jeszcze gotowy!",
-  "WALLET_NOT_READY.text": "Poczekaj chwilę dłużej i spróbuj ponownie. Jeśli problem nadal występuje, zamknij aplikację i uruchom ją ponownie."
+  "WALLET_NOT_READY.text": "Poczekaj chwilę dłużej i spróbuj ponownie. Jeśli problem nadal występuje, zamknij aplikację i uruchom ją ponownie.",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nie wszystkie waluty zostały uwzględnione",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Co najmniej jedna z Twoich metod płatności jest nieaktualna i zawiera co najmniej jedną walutę, która nie jest już dostępna. Ta waluta została odfiltrowana. Zaktualizuj swoje metody płatności wkrótce."
 
 
 

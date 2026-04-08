@@ -9,6 +9,8 @@
   "PINS_DONT_MATCH.text": "Ultimul PIN introdus nu se potrivește cu primul. Încercați din nou",
 "PINS_DONT_MATCH.title": "PIN-urile nu se potrivesc",
 "INCORRECT_PIN.text": "PIN-ul introdus nu este corect. Încercați din nou",
-"INCORRECT_PIN.title": "PIN-ul este incorect"
+"INCORRECT_PIN.title": "PIN-ul este incorect",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nu toate monedele au fost incluse",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Cel puțin una dintre metodele tale de plată este învechită și include cel puțin o monedă care nu mai este disponibilă. Acea monedă a fost filtrată. Te rugăm să îți actualizezi metodele de plată în curând."
 
 }

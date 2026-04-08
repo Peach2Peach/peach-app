@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../../../components/popup/GlobalPopup";
+import { useSetToast } from "../../../../components/toast/Toast";
 import { offerKeys } from "../../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../../hooks/useStackNavigation";
@@ -9,7 +10,9 @@ import { useSettingsStore } from "../../../../store/settingsStore/useSettingsSto
 import { useAccountStore } from "../../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../../utils/account/getMessageToSignForAddress";
 import i18n from "../../../../utils/i18n";
+import { filterUnavailableCurrencies } from "../../../../utils/paymentMethod/filterUnavailableCurrencies";
 import { peachAPI } from "../../../../utils/peachAPI";
+import { usePaymentMethods } from "../../../addPaymentMethod/usePaymentMethodInfo";
 import { isValidBitcoinSignature } from "../../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../../utils/wallet/setWallet";
@@ -40,6 +43,7 @@ export function useCreateBuyOffer({
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
+  const setToast = useSetToast();
   const setPopup = useSetPopup();
   const showHelp = () =>
     setPopup(
@@ -55,6 +59,7 @@ export function useCreateBuyOffer({
       ],
       shallow,
     );
+  const { data: paymentMethods } = usePaymentMethods();
 
   const getSignedAddress = async (signWithPeachWallet: boolean) => {
     if (!peachWallet) throw new Error("Peach wallet not defined");
@@ -103,9 +108,12 @@ export function useCreateBuyOffer({
         }
       }
 
+      const { meansOfPayment: filteredMeansOfPayment, didFilter } =
+        filterUnavailableCurrencies(meansOfPayment, paymentData, paymentMethods);
+
       const finalizedOfferDraft = {
         amount,
-        meansOfPayment,
+        meansOfPayment: filteredMeansOfPayment,
         paymentData,
         premium,
         releaseAddresses: releaseAddresses ? releaseAddresses : undefined,
@@ -120,7 +128,15 @@ export function useCreateBuyOffer({
       const { result, error: err } =
         await peachAPI.private.peach069.createBuyOffer(finalizedOfferDraft);
 
-      if (result) return result.id;
+      if (result) {
+        if (didFilter) {
+          setToast({
+            msgKey: "PAYMENT_METHOD_CURRENCY_FILTERED",
+            color: "yellow",
+          });
+        }
+        return result.id;
+      }
       throw new Error(err?.error || "POST_OFFER_ERROR", {
         cause: err?.details,
       });

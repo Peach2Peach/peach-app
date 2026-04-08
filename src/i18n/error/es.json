@@ -92,6 +92,8 @@
   "TRADE_REQUEST_PERFORMED.title": "¡Solicitud de intercambio enviada!",
   "INVALID_TIME.text": "Peach tuvo un problema validando tus credenciales generadas, posiblemente debido a una conexión a Internet lenta. Por favor, inténtalo de nuevo.",
     "WALLET_NOT_READY.title": "Peach Wallet is not ready!",
-  "WALLET_NOT_READY.text":"Please wait a little longer and try again. If it continues, stop the app and restart it."
+  "WALLET_NOT_READY.text":"Please wait a little longer and try again. If it continues, stop the app and restart it.",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "No se incluyeron todas las monedas",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Al menos uno de tus métodos de pago está desactualizado e incluye al menos una moneda que ya no está disponible. Esa moneda fue filtrada. Por favor, actualiza tus métodos de pago pronto."
 
 }

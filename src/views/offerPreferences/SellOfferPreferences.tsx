@@ -20,6 +20,7 @@ import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
+import { useSetToast } from "../../components/toast/Toast";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
@@ -43,6 +44,7 @@ import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
 import { saveOffer } from "../../utils/offer/saveOffer";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
+import { filterUnavailableCurrencies } from "../../utils/paymentMethod/filterUnavailableCurrencies";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
@@ -708,6 +710,7 @@ function FundEscrowButton() {
     paymentMethodsAreValid &&
     !!sellPreferences.originalPaymentData.length;
   const showErrorBanner = useShowErrorBanner();
+  const setToast = useSetToast();
 
   const { mutate: postSellOffer } = usePostSellOffer();
 
@@ -832,9 +835,24 @@ function FundEscrowButton() {
     }
     const paymentData = await getPaymentData();
 
+    let filterResult;
+    try {
+      filterResult = filterUnavailableCurrencies(
+        sellPreferences.meansOfPayment,
+        paymentData,
+        paymentMethods,
+      );
+    } catch (e) {
+      showErrorBanner((e as Error).message);
+      setIsPublishing(false);
+      return;
+    }
+    const { meansOfPayment: filteredMeansOfPayment, didFilter } = filterResult;
+
     postSellOffer(
       {
         ...sellPreferences,
+        meansOfPayment: filteredMeansOfPayment,
         paymentData,
         type: "ask",
         funding: defaultFundingStatus,
@@ -846,6 +864,12 @@ function FundEscrowButton() {
           setIsPublishing(false);
         },
         onSuccess: (result, offerDraft) => {
+          if (didFilter) {
+            setToast({
+              msgKey: "PAYMENT_METHOD_CURRENCY_FILTERED",
+              color: "yellow",
+            });
+          }
           const offerIds = Array.isArray(result)
             ? result.map((r) => r.id)
             : [result.id];
