@@ -19,6 +19,7 @@ import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
+import { useRegisterPGP } from "../../hooks/useRegisterPGP";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import { useThemeStore } from "../../store/theme";
@@ -39,6 +40,7 @@ export function Home() {
   const isMediumScreen = useIsMediumScreen();
   const { isDarkMode } = useThemeStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  useRegisterPGP();
 
   const setPopup = useSetPopup();
   useFocusEffect(() => {
