@@ -94,7 +94,9 @@
   "WALLET_NOT_READY.title": "Portfel Peach nie jest jeszcze gotowy!",
   "WALLET_NOT_READY.text": "Poczekaj chwilę dłużej i spróbuj ponownie. Jeśli problem nadal występuje, zamknij aplikację i uruchom ją ponownie.",
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nie wszystkie waluty zostały uwzględnione",
-  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Co najmniej jedna z Twoich metod płatności jest nieaktualna i zawiera co najmniej jedną walutę, która nie jest już dostępna. Ta waluta została odfiltrowana. Zaktualizuj swoje metody płatności wkrótce."
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Co najmniej jedna z Twoich metod płatności jest nieaktualna i zawiera co najmniej jedną walutę, która nie jest już dostępna. Ta waluta została odfiltrowana. Zaktualizuj swoje metody płatności wkrótce.",
+  "SEED_NOT_USED_IN_PEACH.text": "Wprowadziłeś prawidłowy Seed, ale nie ma powiązanego z nim konta Peach. Wróć i utwórz nowe konto.",
+  "SEED_NOT_USED_IN_PEACH.title": "Ten Seed nigdy nie był używany w Peach"
 
 
 

@@ -11,6 +11,8 @@
 "INCORRECT_PIN.text": "PIN-ul introdus nu este corect. Încercați din nou",
 "INCORRECT_PIN.title": "PIN-ul este incorect",
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nu toate monedele au fost incluse",
-  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Cel puțin una dintre metodele tale de plată este învechită și include cel puțin o monedă care nu mai este disponibilă. Acea monedă a fost filtrată. Te rugăm să îți actualizezi metodele de plată în curând."
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Cel puțin una dintre metodele tale de plată este învechită și include cel puțin o monedă care nu mai este disponibilă. Acea monedă a fost filtrată. Te rugăm să îți actualizezi metodele de plată în curând.",
+  "SEED_NOT_USED_IN_PEACH.text": "Ai introdus un Seed valid, dar nu există un cont Peach asociat cu acesta. Întoarce-te și creează un cont nou.",
+  "SEED_NOT_USED_IN_PEACH.title": "Acest Seed nu a fost niciodată folosit în Peach"
 
 }

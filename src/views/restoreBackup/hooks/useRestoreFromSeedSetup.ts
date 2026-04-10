@@ -7,7 +7,6 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import { createAccount } from "../../../utils/account/createAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
-import { updateAccount } from "../../../utils/account/updateAccount";
 import { useRecoverAccount } from "../../../utils/account/useRecoverAccount";
 import { createWalletFromSeedPhrase } from "../../../utils/wallet/createWalletFromSeedPhrase";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
@@ -54,7 +53,10 @@ export const useRestoreFromSeedSetup = () => {
   const onError = useCallback(
     (errorMsg = "UNKNOWN_ERROR") => {
       setError(errorMsg);
-      if (errorMsg !== "REGISTRATION_DENIED") {
+      if (
+        errorMsg !== "REGISTRATION_DENIED" &&
+        errorMsg !== "SEED_NOT_USED_IN_PEACH"
+      ) {
         setToast({ msgKey: errorMsg, color: "red" });
       }
       deleteAccount();
@@ -97,9 +99,9 @@ export const useRestoreFromSeedSetup = () => {
 
     if (!authToken) {
       try {
-        await registerUser(recoveredAccount);
-        await updateAccount(recoveredAccount, true);
-        await userUpdate();
+        onError("SEED_NOT_USED_IN_PEACH");
+        setLoading(false);
+        return;
       } catch (e) {
         onError(e instanceof Error ? e.message : "UNKNOWN_ERROR");
         setLoading(false);

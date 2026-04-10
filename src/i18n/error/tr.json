@@ -94,7 +94,9 @@
   "WALLET_NOT_READY.title": "Peach Wallet henüz hazır değil!",
   "WALLET_NOT_READY.text": "Lütfen biraz daha bekleyin ve tekrar deneyin. Sorun devam ederse uygulamayı kapatıp yeniden başlatın.",
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Tüm para birimleri dahil edilmedi",
-  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Ödeme yöntemlerinizden en az biri güncel değil ve artık mevcut olmayan en az bir para birimi içeriyor. Bu para birimi filtrelendi. Lütfen Ödeme Yöntemlerinizi yakında güncelleyin."
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Ödeme yöntemlerinizden en az biri güncel değil ve artık mevcut olmayan en az bir para birimi içeriyor. Bu para birimi filtrelendi. Lütfen Ödeme Yöntemlerinizi yakında güncelleyin.",
+  "SEED_NOT_USED_IN_PEACH.text": "Geçerli bir Seed girdiniz, ancak buna bağlı bir Peach hesabı bulunmuyor. Geri dönün ve yeni bir hesap oluşturun.",
+  "SEED_NOT_USED_IN_PEACH.title": "Bu Seed Peach'te hiç kullanılmadı"
 
 
 
