@@ -2,7 +2,7 @@
   "offer.buyOffers": "vételi ajánlatok",
   "offer.sellOffers": "eladási ajánlatok",
   "offer.openOffers": "nyitott ajánlatok",
-  "offer.averagePremium": "átl. felár:",
+  "offer.averagePremium": "befejezett ügyletek átlagos felárkülönbözete:",
   "offer.cancel.popup.description": "Biztos vagy benne?\n\nHa már elküldted a bitcoinod, csak a díjak levonása után kapod vissza.",
   "offer.cancel.popup.title": "ajánlat törlése",
   "offer.canceled": "törölve",

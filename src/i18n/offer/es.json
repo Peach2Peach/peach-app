@@ -4,7 +4,7 @@
   "offer.buyOffers": "ofertas de compra",
   "offer.sellOffers": "ofertas de venta",
   "offer.openOffers": "ofertas activas",
-  "offer.averagePremium": "prima media:",
+  "offer.averagePremium": "prima media de operaciones completadas:",
   "offer.cancel.popup.description": "¿Estás seguro? Si ya enviaste bitcoin al escrow, se te reembolsará menos las comisiones de red.",
   "offer.cancel.popup.title": "cancelar oferta",
   "offer.canceled": "cancelada",

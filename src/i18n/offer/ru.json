@@ -2,7 +2,7 @@
   "offer.buyOffers": "Предложения покупки",
   "offer.sellOffers": "Предложения продажи",
   "offer.openOffers": "Открытые предложения",
-  "offer.averagePremium": "Ср. наценка:",
+  "offer.averagePremium": "Средняя наценка завершённых сделок:",
   "offer.cancel.popup.description": "Вы уверены? Если биткойн уже отправлен на эскроу, средства вернутся за вычетом комиссии сети.",
   "offer.cancel.popup.title": "Отменить предложение",
   "offer.canceled": "Отменено",
