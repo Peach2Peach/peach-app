@@ -3,6 +3,7 @@ import { API_URL } from "@env";
 import CookieManager from "@react-native-cookies/cookies";
 import { initEccLib } from "bitcoinjs-lib";
 import { useCallback } from "react";
+import { initUniqueId } from "../constants";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { defaultAccount, useAccountStore } from "../utils/account/account";
 import { accountStorage } from "../utils/account/accountStorage";
@@ -27,6 +28,7 @@ export function useInitApp() {
   const { data: paymentMethods } = usePaymentMethods();
 
   const initApp = useCallback(async () => {
+    await initUniqueId();
     if (cfClearance) {
       await setCookies(cfClearance);
     }

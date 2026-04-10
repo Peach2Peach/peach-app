@@ -1,8 +1,11 @@
-import {
+import { NETWORK } from "@env";
+import { Platform } from "react-native";
+import DeviceInfo, {
   getBuildNumber,
   getUniqueIdSync,
   getVersion,
 } from "react-native-device-info";
+import { getGenericPassword, setGenericPassword } from "react-native-keychain";
 import { IconType } from "./assets/icons";
 import tw from "./styles/tailwind";
 import { sha256 } from "./utils/crypto/sha256";
@@ -43,10 +46,40 @@ export const setClientServerTimeDifference = (diff: number) =>
   (CLIENTSERVERTIMEDIFFERENCE = diff);
 
 export const SESSION_ID = sha256(Math.random().toString());
-export const UNIQUEID = sha256(getUniqueIdSync());
+
+export let UNIQUEID: string | undefined;
+
+const SHARED_UNIQUE_ID_KEY =
+  NETWORK === "bitcoin"
+    ? "com.peachbitcoin.uniquePeachDeviceId"
+    : "com.peachbitcoin.uniquePeachDeviceId-regtest";
+const SHARED_KEYCHAIN_ACCESS_GROUP = "6G5FFY3H35.com.peachbitcoin.peach-shared";
+
+export async function initUniqueId() {
+  const freshUniqueId = sha256(getUniqueIdSync());
+  if (Platform.OS !== "ios") {
+    UNIQUEID = freshUniqueId;
+    return;
+  }
+  const existing = await getGenericPassword({
+    service: SHARED_UNIQUE_ID_KEY,
+    accessGroup: SHARED_KEYCHAIN_ACCESS_GROUP,
+  });
+  if (existing) {
+    UNIQUEID = existing.password;
+    return;
+  }
+
+  await setGenericPassword(SHARED_UNIQUE_ID_KEY, freshUniqueId, {
+    service: SHARED_UNIQUE_ID_KEY,
+    accessGroup: SHARED_KEYCHAIN_ACCESS_GROUP,
+  });
+  UNIQUEID = freshUniqueId;
+}
+export const BUNDLEID = DeviceInfo.getBundleId();
 export const TWITTER = "https://twitter.com/peachbitcoin";
 export const INSTAGRAM = "https://www.instagram.com/peachbitcoin";
-export const TELEGRAM = "https://t.me/peachtopeach";
+export const TELEGRAM = "https://t.me/+vhBVLv6zoLgyYjlk";
 export const DISCORD = "https://discord.gg/ypeHz3SW54";
 export const TWITCH = "https://www.twitch.tv/peachbitcoin";
 export const NOSTR =
