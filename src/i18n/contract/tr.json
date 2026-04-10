@@ -240,7 +240,8 @@
   "contract.seller.revolutWarning2.text": "alıcının Revtag üzerinden ödeme yaptığından emin olun, kredi/banka kartı veya Apple Pay ile DEĞİL.",
   "contract.summary.mpesa_name": "Ad",
   "contract.summary.mpesa_finalCurrency": "m-pesa para birimi",
-  "contract.summary.mpesa_phone": "Telefon #"
+  "contract.summary.mpesa_phone": "Telefon #",
+  "contract.chatAvailableOnceEscrowFunded": "Escrow finanse edildikten sonra Sohbet kullanılabilir olacak"
 
 
 }

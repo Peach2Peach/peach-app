@@ -252,7 +252,8 @@
   "contract.seller.revolutWarning2.text": "győződj meg róla, hogy a vevő Revtagon keresztül fizetett, és NEM bankkártyával vagy Apple Pay-jel.",
   "contract.summary.mpesa_name": "Név",
   "contract.summary.mpesa_finalCurrency": "m-pesa pénznem",
-  "contract.summary.mpesa_phone": "Telefonszám"
+  "contract.summary.mpesa_phone": "Telefonszám",
+  "contract.chatAvailableOnceEscrowFunded": "a Chat elérhető lesz, amint az escrow finanszírozva lesz"
 
 
 }
