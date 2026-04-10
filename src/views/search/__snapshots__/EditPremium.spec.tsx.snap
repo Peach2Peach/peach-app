@@ -718,7 +718,7 @@ exports[`EditPremium should render correctly 1`] = `
                   <TextInput
                     keyboardType="decimal-pad"
                     onChangeText={[Function]}
-                    placeholder="20.00"
+                    placeholder="0.00"
                     placeholderTextColor="#EAE3DF"
                     style={
                       [
