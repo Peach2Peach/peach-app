@@ -111,5 +111,6 @@
 <string name="notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer">L’offre que tu as demandée a été supprimée</string>
 <string name="notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer">Essaie de trader avec une autre offre d’achat.</string>
 <string name="notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer">L’offre que tu as demandée a été supprimée</string>
-
+<string name="notification.body.user.badge.unlocked">Cliquez ici pour le découvrir \uD83D\uDE0E</string>
+<string name="notification.title.user.badge.unlocked">Nouveau badge débloqué</string>
 </resources>
