@@ -19,6 +19,7 @@ import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
+import { useRegisterPGP } from "../../hooks/useRegisterPGP";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import { useThemeStore } from "../../store/theme";
@@ -39,6 +40,7 @@ export function Home() {
   const isMediumScreen = useIsMediumScreen();
   const { isDarkMode } = useThemeStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  useRegisterPGP();
 
   const setPopup = useSetPopup();
   useFocusEffect(() => {
@@ -426,17 +428,9 @@ function OfferCounter({
         ]}
       >
         {i18n("offer.averagePremium")}{" "}
-        <PeachText
-          style={tw`font-semibold font-baloo text-3xs ${
-            averagePremium !== undefined && averagePremium >= 0
-              ? "text-success-main"
-              : "text-error-main"
-          }`}
-        >
-          {averagePremium !== undefined
-            ? `${averagePremium >= 0 ? "+" : ""}${averagePremium}%`
-            : "-"}
-        </PeachText>
+        {averagePremium !== undefined
+          ? `${averagePremium >= 0 ? "+" : ""}${averagePremium}%`
+          : "-"}
       </PeachText>
     </TouchableOpacity>
   );

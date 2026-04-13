@@ -252,7 +252,8 @@
   "contract.seller.revolutWarning2.text": "certifique-se de que o comprador pagou via Revtag e NÃO por cartão de crédito/débito ou Apple Pay.",
   "contract.summary.mpesa_name": "Nome",
   "contract.summary.mpesa_finalCurrency": "moeda m-pesa",
-  "contract.summary.mpesa_phone": "Telefone"
+  "contract.summary.mpesa_phone": "Telefone",
+  "contract.chatAvailableOnceEscrowFunded": "o Chat estará disponível assim que o depósito for financiado"
 
 
 }

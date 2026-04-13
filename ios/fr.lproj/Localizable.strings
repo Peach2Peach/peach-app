@@ -62,6 +62,7 @@
 "notification.title.offer.sellOfferExpired" = "Pas de correspondance";
 "notification.title.offer.wrongFundingAmount" = "Dépôt non effectué";
 "notification.title.user.badge.unlocked" = "Nouveau badge débloqué";
+"notification.body.user.badge.unlocked" = "Cliquez ici pour le découvrir 😎";
 "notification.body.contract.contractCreatedFromExpressBuy.buyer" = "Votre demande a été acceptée !\n\nVous devez effectuer le paiement dans les douze heures. Plus vous êtes rapide, meilleur sera votre score Peach.";
 "notification.title.contract.contractCreatedFromExpressBuy.buyer" = "Le vendeur a accepté votre demande !";
 "notification.body.contract.contractCreatedFromExpressBuy.seller.instantTrade" = "C’est au tour de l’acheteur de réaliser le paiement. Surveillez votre méthode de paiement choisie !";

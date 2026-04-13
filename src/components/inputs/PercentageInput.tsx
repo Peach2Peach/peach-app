@@ -31,7 +31,7 @@ export const PercentageInput = forwardRef(
             isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
           ]}
           keyboardType={"decimal-pad"}
-          placeholder={"20.00"}
+          placeholder={"0.00"}
           placeholderTextColor={tw.color(
             isDarkMode ? "primary-mild-1" : "black-10",
           )}

@@ -55,6 +55,10 @@
   "PAYMENT_DATA_MISSING.title": "missing payment data",
   "PAYMENT_HASH_INVALID.text": "This payment data is used in another Peach account. As we have a strict policy of one account per user to respect the trading limit, you will not be able to publish an offer.",
   "PAYMENT_METHOD_MISSING.text": "Please add a payment method",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Not all currencies were included",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "At least one of your Payment Methods is outdated and includes at least one currency that is no longer available. That currency was filtered. Please update your Payment Methods soon.",
+  "PLEASE_UPDATE_PAYMENT_METHOD.title": "Please update your payment method",
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "One of your selected payment methods no longer supports any of your offered currencies. Please update it before publishing.",
   "POST_OFFER_ERROR.text": "Oops, something went wrong while posting your offer! Please try again later, or contact us if the error persists.",
   "POST_OFFER_ERROR.title": "offer not published",
   "RETURN_ADDRESS_MISMATCH.text": "The output of your transaction is invalid. Please contact Peach support.",
@@ -92,5 +96,7 @@
   "error.general": "Something went wrong. Please try again later or contact the Peach support team.",
   "INVALID_TIME.text": "Peach had a problem validating your generated credentials possibly due to a slow Internet connection. Please try again.",
   "WALLET_NOT_READY.title": "Peach Wallet is not ready!",
-  "WALLET_NOT_READY.text":"Please wait a little longer and try again. If it continues, stop the app and restart it."
+  "WALLET_NOT_READY.text":"Please wait a little longer and try again. If it continues, stop the app and restart it.",
+  "SEED_NOT_USED_IN_PEACH.text": "You have introduced a valid Seed, but there isn't a Peach account associated to it. Go back and create a new account.",
+  "SEED_NOT_USED_IN_PEACH.title": "This Seed was never used in Peach"
 }

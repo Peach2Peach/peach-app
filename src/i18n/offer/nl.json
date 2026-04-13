@@ -2,7 +2,7 @@
   "offer.buyOffers": "koopaanbiedingen",
   "offer.sellOffers": "verkoopaanbiedingen",
   "offer.openOffers": "open aanbiedingen",
-  "offer.averagePremium": "gem. toeslag:",
+  "offer.averagePremium": "gemiddelde toeslag van voltooide transacties:",
   "offer.cancel.popup.description": "Weet je het zeker? Als je bitcoin al als borg hebt gestuurd, krijg je deze terug minus netwerkkosten.",
   "offer.cancel.popup.title": "aanbod annuleren",
   "offer.canceled": "geannuleerd",

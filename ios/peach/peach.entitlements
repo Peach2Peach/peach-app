@@ -10,5 +10,9 @@
 	</array>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array/>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.peachbitcoin.peach-shared</string>
+	</array>
 </dict>
 </plist>

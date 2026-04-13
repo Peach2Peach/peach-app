@@ -9,5 +9,12 @@ export async function setupPeachAccount(
   const peachAccount = createPeachAccount(wallet);
   peachAPI.setPeachAccount(peachAccount);
 
-  return (await peachAPI.authenticate())?.error?.error;
+  const { accessToken, error } = await peachAPI.fetchAccessToken();
+
+  if (error) {
+    if (error.error === "NOT_FOUND") return undefined;
+    throw new Error(error.error);
+  }
+
+  return accessToken;
 }

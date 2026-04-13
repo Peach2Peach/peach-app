@@ -2,7 +2,7 @@
   "offer.buyOffers": "offres d'achat",
   "offer.sellOffers": "offres de vente",
   "offer.openOffers": "offres ouvertes",
-  "offer.averagePremium": "prime moy.:",
+  "offer.averagePremium": "prime moyenne des transactions conclues :",
   "offer.cancel.popup.description": "Êtes-vous sûr ?\n\nSi vos bitcoins sont déjà envoyés dans le coffre, vous serez remboursé moins les frais réseau.",
   "offer.cancel.popup.title": "annuler l'offre",
   "offer.canceled": "annulé",

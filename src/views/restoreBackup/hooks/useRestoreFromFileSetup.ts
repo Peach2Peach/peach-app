@@ -77,22 +77,16 @@ export const useRestoreFromFileSetup = () => {
       }, LOGIN_DELAY);
     };
 
-    const authErr = await setupPeachAccount({ ...recoveredAccount, mnemonic });
-    if (authErr === "NOT_FOUND") {
-      register(
-        { ...recoveredAccount, mnemonic },
-        {
-          onError: ({ message }) => handleError(message),
-          onSuccess: () => onSuccess(),
-        },
-      );
-    } else {
-      if (authErr) {
-        onError(authErr);
-        return;
-      }
-      await onSuccess();
+    const authToken = await setupPeachAccount({
+      ...recoveredAccount,
+      mnemonic,
+    });
+    if (!authToken) {
+      onError();
+      return;
     }
+
+    await onSuccess();
   };
 
   const submit = () => {

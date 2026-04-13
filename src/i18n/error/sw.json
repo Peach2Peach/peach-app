@@ -92,7 +92,11 @@
   "TRADE_REQUEST_PERFORMED.title": "Ombi la Biashara limewasilishwa!",
   "INVALID_TIME.text": "Peach ilipata tatizo kuthibitisha vyeti ulivyotengeneza, labda kutokana na muunganisho wa Internet wa polepole. Tafadhali jaribu tena.",
   "WALLET_NOT_READY.title": "Peach Wallet haiko tayari bado!",
-  "WALLET_NOT_READY.text": "Tafadhali subiri kidogo zaidi kisha jaribu tena. Ikiendelea, funga programu na uianzishe tena."
+  "WALLET_NOT_READY.text": "Tafadhali subiri kidogo zaidi kisha jaribu tena. Ikiendelea, funga programu na uianzishe tena.",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Si sarafu zote zilijumuishwa",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Angalau mojawapo ya Mbinu zako za Malipo imepitwa na wakati na ina angalau sarafu moja ambayo haipatikani tena. Sarafu hiyo ilichujwa. Tafadhali sasisha Mbinu zako za Malipo hivi karibuni.",
+  "SEED_NOT_USED_IN_PEACH.text": "Umeweka Seed halali, lakini hakuna akaunti ya Peach inayohusiana nayo. Rudi nyuma na ufungue akaunti mpya.",
+  "SEED_NOT_USED_IN_PEACH.title": "Seed hii haijawahi kutumika katika Peach"
 
 
 

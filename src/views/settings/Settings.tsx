@@ -10,6 +10,7 @@ import { Screen } from "../../components/Screen";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
+import { BUNDLEID, UNIQUEID } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
@@ -225,6 +226,12 @@ export const Settings = () => {
           </View>
         ))}
         <VersionInfo style={tw`mb-10 text-center mt-9`} />
+        {NETWORK !== "bitcoin" && (
+          <PeachText>{"UNIQUE ID: " + UNIQUEID}</PeachText>
+        )}
+        {NETWORK !== "bitcoin" && (
+          <PeachText>{"BUNDLE ID: " + BUNDLEID}</PeachText>
+        )}
       </PeachScrollView>
     </Screen>
   );

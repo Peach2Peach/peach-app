@@ -252,7 +252,8 @@
   "contract.seller.revolutWarning2.text": "zorg ervoor dat de koper via Revtag heeft betaald en NIET via credit-/debitkaart of Apple Pay.",
   "contract.summary.mpesa_name": "naam",
   "contract.summary.mpesa_finalCurrency": "m-pesa valuta",
-  "contract.summary.mpesa_phone": "telefoon #"
+  "contract.summary.mpesa_phone": "telefoon #",
+  "contract.chatAvailableOnceEscrowFunded": "de Chat is beschikbaar zodra de escrow is gefinancierd"
 
 
 }

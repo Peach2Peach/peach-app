@@ -2,7 +2,7 @@
   "offer.buyOffers":"oferta de compra",
   "offer.sellOffers":"oferta de venda",
   "offer.openOffers":"ofertas abertas",
-  "offer.averagePremium":"prêmio médio:",
+  "offer.averagePremium":"prêmio médio das negociações concluídas:",
   "offer.cancel.popup.description" : "Tem certeza?\n\nSe você já enviou os bitcoins ao depósito, será reembolsado, descontadas as taxas da rede.",
   "offer.cancel.popup.title" : "cancelar oferta",
   "offer.canceled" : "cancelado",

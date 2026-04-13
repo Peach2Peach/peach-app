@@ -88,11 +88,15 @@ function BuyerFundEscrow() {
         <PeachText style={tw`text-center body-l text-error-main`}>
           {i18n("offer.sellerSuccessfullyFunded2")}
         </PeachText>
+
         <Image
           source={txInMempool}
           style={{ width: 311, height: 224 }}
           resizeMode="contain"
         />
+        <PeachText style={tw`body-s text-center`}>
+          {i18n("contract.chatAvailableOnceEscrowFunded")}
+        </PeachText>
       </View>
     );
   }
@@ -104,6 +108,9 @@ function BuyerFundEscrow() {
       </PeachText>
       <PeachText style={tw`body-l text-center text-error-main`}>
         {i18n("offer.requiredAction.sellerHasntFunded2")}
+      </PeachText>
+      <PeachText style={tw`body-s text-center`}>
+        {i18n("contract.chatAvailableOnceEscrowFunded")}
       </PeachText>
       <Image
         source={txInMempool}
@@ -181,6 +188,9 @@ function SellerFundEscrow() {
           style={{ width: 311, height: 224 }}
           resizeMode="contain"
         />
+        <PeachText style={tw`body-s text-center`}>
+          {i18n("contract.chatAvailableOnceEscrowFunded")}
+        </PeachText>
       </View>
     );
   }
@@ -203,6 +213,9 @@ function SellerFundEscrow() {
             offerId={sellOfferId}
             amount={contract.amount / SATSINBTC}
           />
+          <PeachText style={tw`body-s text-center`}>
+            {i18n("contract.chatAvailableOnceEscrowFunded")}
+          </PeachText>
           <FundFromPeachWalletButton
             address={contract.escrow}
             addresses={[contract.escrow]}

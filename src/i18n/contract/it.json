@@ -244,7 +244,8 @@
   "contract.seller.revolutWarning2.text": "assicurati che l’acquirente abbia pagato tramite Revtag e NON con carta di credito/debito o Apple Pay.",
   "contract.summary.mpesa_name": "Nome",
   "contract.summary.mpesa_finalCurrency": "valuta m-pesa",
-  "contract.summary.mpesa_phone": "Telefono #"
+  "contract.summary.mpesa_phone": "Telefono #",
+  "contract.chatAvailableOnceEscrowFunded": "la Chat sarà disponibile una volta che l'Escrow sarà finanziato"
 
 
 }

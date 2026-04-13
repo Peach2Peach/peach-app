@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAccountStore } from "../../utils/account/account";
 import { peachAPI } from "../../utils/peachAPI";
-import { useUpdateUser } from "../../utils/peachAPI/useUpdateUser";
 
 export const userKeys = {
   all: ["user"] as const,
@@ -13,22 +11,9 @@ export const userKeys = {
 };
 
 export const useSelfUser = () => {
-  const pgp = useAccountStore((state) => state.account.pgp);
-  const { mutate: updateUser } = useUpdateUser();
   const { data, isLoading } = useQuery({
     queryKey: userKeys.self(),
-    queryFn: async () => {
-      const user = await getUserQuery();
-      if (!user) return undefined;
-      if (
-        pgp.publicKey &&
-        (pgp.publicKey !== user.pgpPublicKey ||
-          !user.pgpPublicKeys.find((key) => key.publicKey === pgp.publicKey))
-      ) {
-        updateUser({ pgp });
-      }
-      return user;
-    },
+    queryFn: getUserQuery,
   });
   return { user: data, isLoading };
 };

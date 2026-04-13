@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Keyboard } from "react-native";
 import { useSetToast } from "../../../components/toast/Toast";
 import { useValidatedState } from "../../../hooks/useValidatedState";
+import { useUserUpdate } from "../../../init/useUserUpdate";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { createAccount } from "../../../utils/account/createAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
@@ -9,6 +10,7 @@ import { storeAccount } from "../../../utils/account/storeAccount";
 import { useRecoverAccount } from "../../../utils/account/useRecoverAccount";
 import { createWalletFromSeedPhrase } from "../../../utils/wallet/createWalletFromSeedPhrase";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
+import { useRegisterUser } from "../../newUser/useRegisterUser";
 import { LOGIN_DELAY } from "../../restoreReputation/LOGIN_DELAY";
 import { NUMBER_OF_WORDS } from "../../settings/components/backups/NUMBER_OF_WORDS";
 import { setupPeachAccount } from "./setupPeachAccount";
@@ -51,7 +53,10 @@ export const useRestoreFromSeedSetup = () => {
   const onError = useCallback(
     (errorMsg = "UNKNOWN_ERROR") => {
       setError(errorMsg);
-      if (errorMsg !== "REGISTRATION_DENIED") {
+      if (
+        errorMsg !== "REGISTRATION_DENIED" &&
+        errorMsg !== "SEED_NOT_USED_IN_PEACH"
+      ) {
         setToast({ msgKey: errorMsg, color: "red" });
       }
       deleteAccount();
@@ -60,19 +65,12 @@ export const useRestoreFromSeedSetup = () => {
   );
 
   const recoverAccount = useRecoverAccount();
+  const { mutateAsync: registerUser } = useRegisterUser();
+  const userUpdate = useUserUpdate();
 
-  const createAndRecover = async () => {
-    const recoveredAccount = await createAccount(
-      createWalletFromSeedPhrase(mnemonic, getNetwork()),
-    );
-
-    const authError = await setupPeachAccount(recoveredAccount);
-
-    if (authError) {
-      onError(authError);
-      setLoading(false);
-      return;
-    }
+  const finishLogin = async (
+    recoveredAccount: Account & { mnemonic: string },
+  ) => {
     const updatedAccount = await recoverAccount(recoveredAccount);
 
     await storeAccount(updatedAccount);
@@ -83,6 +81,35 @@ export const useRestoreFromSeedSetup = () => {
     setTimeout(() => {
       setIsLoggedIn(true);
     }, LOGIN_DELAY);
+  };
+
+  const createAndRecover = async () => {
+    const recoveredAccount = await createAccount(
+      createWalletFromSeedPhrase(mnemonic, getNetwork()),
+    );
+
+    let authToken: { accessToken: string; expiry: number } | undefined;
+    try {
+      authToken = await setupPeachAccount(recoveredAccount);
+    } catch (e) {
+      onError(e instanceof Error ? e.message : "UNKNOWN_ERROR");
+      setLoading(false);
+      return;
+    }
+
+    if (!authToken) {
+      try {
+        onError("SEED_NOT_USED_IN_PEACH");
+        setLoading(false);
+        return;
+      } catch (e) {
+        onError(e instanceof Error ? e.message : "UNKNOWN_ERROR");
+        setLoading(false);
+        return;
+      }
+    }
+
+    await finishLogin(recoveredAccount);
   };
 
   const submit = () => {

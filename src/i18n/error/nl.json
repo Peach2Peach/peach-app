@@ -92,7 +92,11 @@
   "TRADE_REQUEST_PERFORMED.title": "Handelsverzoek verzonden!",
   "INVALID_TIME.text": "Peach had een probleem bij het valideren van je gegenereerde gegevens, mogelijk door een trage internetverbinding. Probeer het opnieuw.",
   "WALLET_NOT_READY.title": "Peach Wallet is nog niet klaar!",
-  "WALLET_NOT_READY.text": "Wacht nog even en probeer het opnieuw. Als het probleem blijft, sluit de app en start deze opnieuw."
+  "WALLET_NOT_READY.text": "Wacht nog even en probeer het opnieuw. Als het probleem blijft, sluit de app en start deze opnieuw.",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Niet alle valuta's zijn opgenomen",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Minstens één van je betaalmethoden is verouderd en bevat ten minste één valuta die niet meer beschikbaar is. Die valuta is gefilterd. Werk je betaalmethoden binnenkort bij.",
+  "SEED_NOT_USED_IN_PEACH.text": "Je hebt een geldige Seed ingevoerd, maar er is geen Peach-account aan gekoppeld. Ga terug en maak een nieuw account aan.",
+  "SEED_NOT_USED_IN_PEACH.title": "Deze Seed is nooit gebruikt in Peach"
 
 
 }

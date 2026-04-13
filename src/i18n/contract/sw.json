@@ -253,7 +253,8 @@
   "contract.seller.revolutWarning2.text": "hakikisha mnunuzi amelipa kupitia Revtag, na SIO kwa kadi ya mkopo/debit au Apple Pay.",
   "contract.summary.mpesa_name": "Jina",
   "contract.summary.mpesa_finalCurrency": "sarafu ya m-pesa",
-  "contract.summary.mpesa_phone": "Nambari ya simu"
+  "contract.summary.mpesa_phone": "Nambari ya simu",
+  "contract.chatAvailableOnceEscrowFunded": "Gumzo litapatikana escrow itakapofadhiliwa"
 
 
 }

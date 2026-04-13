@@ -92,7 +92,11 @@
   "TRADE_REQUEST_PERFORMED.title": "Solicitação de troca enviada!",
   "INVALID_TIME.text": "Peach teve um problema ao validar suas credenciais geradas, possivelmente devido a uma conexão lenta de Internet. Por favor, tente novamente.",
   "WALLET_NOT_READY.title": "A Peach Wallet não está pronta!",
-  "WALLET_NOT_READY.text": "Por favor aguarde um pouco mais e tente novamente. Se continuar acontecendo, feche o app e reinicie-o."
+  "WALLET_NOT_READY.text": "Por favor aguarde um pouco mais e tente novamente. Se continuar acontecendo, feche o app e reinicie-o.",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nem todas as moedas foram incluídas",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Pelo menos um dos seus métodos de pagamento está desatualizado e inclui pelo menos uma moeda que não está mais disponível. Essa moeda foi filtrada. Atualize seus métodos de pagamento em breve.",
+  "SEED_NOT_USED_IN_PEACH.text": "Você inseriu um Seed válido, mas não há uma conta Peach associada a ele. Volte e crie uma nova conta.",
+  "SEED_NOT_USED_IN_PEACH.title": "Este Seed nunca foi usado no Peach"
 
 
 

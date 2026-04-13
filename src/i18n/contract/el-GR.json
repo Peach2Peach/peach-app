@@ -247,5 +247,6 @@
   "contract.seller.revolutWarning2.text": "βεβαιωθείτε ότι ο αγοραστής πλήρωσε μέσω Revtag και ΟΧΙ με πιστωτική/χρεωστική κάρτα ή Apple Pay.",
   "contract.summary.mpesa_name": "Όνομα",
   "contract.summary.mpesa_finalCurrency": "νόμισμα m-pesa",
-  "contract.summary.mpesa_phone": "Τηλέφωνο #"
+  "contract.summary.mpesa_phone": "Τηλέφωνο #",
+  "contract.chatAvailableOnceEscrowFunded": "η Συνομιλία θα είναι διαθέσιμη μόλις η εγγύηση χρηματοδοτηθεί"
 }

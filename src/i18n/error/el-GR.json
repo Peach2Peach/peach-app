@@ -92,7 +92,11 @@
   "TRADE_REQUEST_PERFORMED.title": "Το αίτημα ανταλλαγής στάλθηκε!",
   "INVALID_TIME.text": "Peach napotkał problem podczas weryfikacji wygenerowanych danych, prawdopodobnie z powodu wolnego połączenia internetowego. Spróbuj ponownie.",
   "WALLET_NOT_READY.title": "Το Peach Wallet δεν είναι έτοιμο!",
-  "WALLET_NOT_READY.text": "Παρακαλώ περίμενε λίγο ακόμη και δοκίμασε ξανά. Αν συνεχιστεί, κλείσε την εφαρμογή και άνοιξέ την ξανά."
+  "WALLET_NOT_READY.text": "Παρακαλώ περίμενε λίγο ακόμη και δοκίμασε ξανά. Αν συνεχιστεί, κλείσε την εφαρμογή και άνοιξέ την ξανά.",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Δεν συμπεριλήφθηκαν όλα τα νομίσματα",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Τουλάχιστον μία από τις μεθόδους πληρωμής σας είναι παρωχημένη και περιλαμβάνει τουλάχιστον ένα νόμισμα που δεν είναι πλέον διαθέσιμο. Αυτό το νόμισμα φιλτραρίστηκε. Παρακαλώ ενημερώστε τις μεθόδους πληρωμής σας σύντομα.",
+  "SEED_NOT_USED_IN_PEACH.text": "Εισαγάγατε ένα έγκυρο Seed, αλλά δεν υπάρχει λογαριασμός Peach συνδεδεμένος με αυτό. Επιστρέψτε και δημιουργήστε νέο λογαριασμό.",
+  "SEED_NOT_USED_IN_PEACH.title": "Αυτό το Seed δεν χρησιμοποιήθηκε ποτέ στο Peach"
 
 
 

@@ -92,7 +92,11 @@
   "TRADE_REQUEST_PERFORMED.title": "Csereigény elküldve!",
   "INVALID_TIME.text": "A Peach problémába ütközött a generált hitelesítő adatok ellenőrzése során, valószínűleg lassú internetkapcsolat miatt. Kérjük, próbáld újra.",
   "WALLET_NOT_READY.title": "A Peach Wallet még nem áll készen!",
-  "WALLET_NOT_READY.text": "Kérlek várj még egy kicsit, majd próbáld újra. Ha továbbra is fennáll, zárd be az alkalmazást és indítsd újra."
+  "WALLET_NOT_READY.text": "Kérlek várj még egy kicsit, majd próbáld újra. Ha továbbra is fennáll, zárd be az alkalmazást és indítsd újra.",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nem minden pénznem került be",
+  "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Legalább egy fizetési módod elavult, és tartalmaz legalább egy olyan pénznemet, amely már nem érhető el. Ez a pénznem ki lett szűrve. Kérjük, frissítsd a fizetési módjaidat hamarosan.",
+  "SEED_NOT_USED_IN_PEACH.text": "Érvényes Seed-et adtál meg, de nincs hozzá társított Peach fiók. Menj vissza és hozz létre egy új fiókot.",
+  "SEED_NOT_USED_IN_PEACH.title": "Ez a Seed soha nem volt használva a Peach-ben"
 
 
 }

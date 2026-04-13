@@ -254,7 +254,8 @@
   "contract.seller.revolutWarning2.text": "убедитесь, что покупатель оплатил через Revtag, а НЕ с помощью кредитной/дебетовой карты или Apple Pay.",
   "contract.summary.mpesa_name": "имя",
   "contract.summary.mpesa_finalCurrency": "валюта m-pesa",
-  "contract.summary.mpesa_phone": "телефон"
+  "contract.summary.mpesa_phone": "телефон",
+  "contract.chatAvailableOnceEscrowFunded": "Чат будет доступен после финансирования эскроу"
 
 
 }

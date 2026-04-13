@@ -249,6 +249,7 @@
   "contract.seller.confirmPaymentReceivedLastChance.title": "Did you really receive the Fiat?",
   "contract.seller.confirmPaymentReceivedLastChance.text": "Please double-check that you have received the money.\n\nConfirming will irreversibly send the Bitcoin to the Buyer.",
   "contract.seller.revolutWarning1.text": "Revolut users : ",
-  "contract.seller.revolutWarning2.text": "make sure the buyer has paid through Revtag, and NOT through credit/debit card or Apple pay."
-  
+  "contract.seller.revolutWarning2.text": "make sure the buyer has paid through Revtag, and NOT through credit/debit card or Apple pay.",
+  "contract.chatAvailableOnceEscrowFunded": "the Chat will be available once the Escrow is funded"
+
 }
