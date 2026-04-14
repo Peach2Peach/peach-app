@@ -21,11 +21,17 @@ type DesktopConnection = {
   connectToDesktop: undefined;
   mobilePendingActions: undefined;
   mobilePendingActionRefund: { id: string };
+  mobilePendingActionRefundSuccess: undefined;
   mobilePendingActionRevealAddress: { id: string };
   mobilePendingActionRevealAddressSuccess: undefined;
   mobilePendingActionSignMultisig: { id: string };
+  mobilePendingActionSignMultisigSuccess: undefined;
   mobilePendingActionFundEscrow: { id: string };
   mobilePendingActionFundEscrowSuccess: undefined;
+  mobilePendingActionFundContractEscrow: { contractId: string };
+  mobilePendingActionFundContractEscrowSuccess: undefined;
+  mobilePendingActionRefundContractEscrow: { contractId: string };
+  mobilePendingActionRefundContractEscrowSuccess: undefined;
 };
 
 type HomeTabParamList = {

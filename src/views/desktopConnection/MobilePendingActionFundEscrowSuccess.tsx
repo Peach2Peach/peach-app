@@ -39,7 +39,7 @@ export const MobilePendingActionFundEscrowSuccess = () => {
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions")} />}
+      header={<Header title={i18n("connectToDesktop.mobilePendingActions.fundEscrow")} />}
     >
       <View style={tw`flex-1 justify-between px-4`}>
         <View style={tw`flex-1 items-center justify-center`}>

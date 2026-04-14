@@ -11,7 +11,7 @@ import i18n from "../../utils/i18n";
 
 import successAnimation from "../../assets/animation/successAnimation.json";
 
-export const MobilePendingActionRevealAddressSuccess = () => {
+export const MobilePendingActionFundContractEscrowSuccess = () => {
   const navigation = useStackNavigation();
   const navigateHome = () => {
     navigation.reset({
@@ -21,19 +21,14 @@ export const MobilePendingActionRevealAddressSuccess = () => {
   };
 
   const animationRef = useRef<LottieView>(null);
-
   const [showAnimation, setShowAnimation] = useState(false);
-
-  // Animated opacity for content
   const contentOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Start animation after short delay
     const timer = setTimeout(() => setShowAnimation(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
-  // Called when Lottie animation finishes
   const handleAnimationFinish = () => {
     Animated.timing(contentOpacity, {
       toValue: 1,
@@ -44,10 +39,9 @@ export const MobilePendingActionRevealAddressSuccess = () => {
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions.paymentMade")} />}
+      header={<Header title={i18n("connectToDesktop.mobilePendingActions.fundEscrowContract")} />}
     >
       <View style={tw`flex-1 justify-between px-4`}>
-        {/* Center Content */}
         <View style={tw`flex-1 items-center justify-center`}>
           {showAnimation && (
             <LottieView
@@ -60,7 +54,6 @@ export const MobilePendingActionRevealAddressSuccess = () => {
             />
           )}
 
-          {/* Animated content (always occupying space) */}
           <Animated.View
             style={{
               opacity: contentOpacity,
@@ -71,20 +64,19 @@ export const MobilePendingActionRevealAddressSuccess = () => {
             <PeachText
               style={tw`text-xl font-semibold text-center tracking-wide mt-4`}
             >
-              {i18n("You have declared the Payment as Made!")}
+              {"Escrow Funded!"}
             </PeachText>
 
             <PeachText
               style={tw`text-base text-center font-medium text-gray-500 mt-2`}
             >
               {
-                "It's the Seller's turn to confirm he received the payment, and send you the Bitcoin!"
+                "The funds have been sent to the escrow address. Wait for the next block and then Buyers will interact with you!"
               }
             </PeachText>
           </Animated.View>
         </View>
 
-        {/* Animated button (occupies space, fades in) */}
         <Animated.View
           style={{
             opacity: contentOpacity,

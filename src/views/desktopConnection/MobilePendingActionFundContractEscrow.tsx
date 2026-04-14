@@ -5,32 +5,31 @@ import { Header } from "../../components/Header";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
-import { useMobilePendingActionFundEscrow } from "../../hooks/query/peach069/useMobilePendingActionFundEscrow";
+import { useMobilePendingActionFundContractEscrow } from "../../hooks/query/peach069/useMobilePendingActionFundContractEscrow";
 import { useFeeRate } from "../../hooks/useFeeRate";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
+import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import i18n from "../../utils/i18n";
-import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { buildTransaction } from "../../utils/wallet/transaction";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 
-import peachOfMind from "../../assets/onboarding/peach-of-mind.png";
 import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
-import privacyFirst from "../../assets/onboarding/privacy-first.png";
 
-const images = { peachOfMind, peerToPeer, privacyFirst };
 const ASPECT_RATIO = 0.7;
-export const MobilePendingActionFundEscrow = () => {
-  const { id } = useRoute<"mobilePendingActionFundEscrow">().params;
+export const MobilePendingActionFundContractEscrow = () => {
+  const { contractId } =
+    useRoute<"mobilePendingActionFundContractEscrow">().params;
   const { width } = useWindowDimensions();
   const navigation = useStackNavigation();
   const [isConfirming, setIsConfirming] = useState(false);
+
   const { mobilePendingAction, isLoading, refetch } =
-    useMobilePendingActionFundEscrow(id);
+    useMobilePendingActionFundContractEscrow(contractId);
 
   useSyncWallet({ enabled: true });
   const balance = useWalletState((state) => state.balance);
@@ -69,8 +68,8 @@ export const MobilePendingActionFundEscrow = () => {
       await peachWallet.signAndBroadcastPSBT(psbt);
 
       const { error: err } =
-        await peachAPI.private.peach069.postMobilePendingActionFundEscrow({
-          id,
+        await peachAPI.private.peach069.postMobilePendingActionFundContractEscrow({
+          contractId,
         });
       if (err) throw new Error(err.error);
 
@@ -78,7 +77,7 @@ export const MobilePendingActionFundEscrow = () => {
         index: 1,
         routes: [
           { name: "homeScreen", params: { screen: "home" } },
-          { name: "mobilePendingActionFundEscrowSuccess" },
+          { name: "mobilePendingActionFundContractEscrowSuccess" },
         ],
       });
     } catch (err) {
@@ -90,12 +89,12 @@ export const MobilePendingActionFundEscrow = () => {
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions.fundEscrow")} />}
+      header={<Header title={i18n("connectToDesktop.mobilePendingActions.fundEscrowContract")} />}
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         <View style={tw`flex-1 items-center justify-center`}>
           <Image
-            source={images.peerToPeer}
+            source={peerToPeer}
             style={{ width, height: width * ASPECT_RATIO }}
             resizeMode="contain"
           />
@@ -116,7 +115,8 @@ export const MobilePendingActionFundEscrow = () => {
               {"Details"}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Offer ID: " + offerIdToHex(String(mobilePendingAction.offerId))}
+              {"Contract ID: " +
+                contractIdToHex(mobilePendingAction.contractId)}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
               {"Escrow Address: " + address}

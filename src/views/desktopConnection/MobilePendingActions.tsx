@@ -1,6 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
-import { SectionList, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import {
   MobilePendingActionContract,
   MobilePendingActionFundEscrow,
@@ -18,18 +18,23 @@ import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import i18n from "../../utils/i18n";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 
-type SectionType = "paymentConfirmed" | "paymentMade" | "refund" | "fundEscrow";
-
-type PendingActionSection = {
-  title: string;
-  type: SectionType;
-  data: PendingAction[];
-};
+type ActionType =
+  | "paymentConfirmed"
+  | "paymentMade"
+  | "refund"
+  | "fundEscrow"
+  | "fundEscrowContract"
+  | "refundEscrowContract";
 
 type PendingAction =
   | MobilePendingActionContract
   | MobilePendingActionRefund
   | MobilePendingActionFundEscrow;
+
+type FlatPendingAction = {
+  item: PendingAction;
+  type: ActionType;
+};
 
 export const MobilePendingActions = () => {
   const { mobilePendingActions, isLoading, refetch } =
@@ -43,37 +48,36 @@ export const MobilePendingActions = () => {
 
   if (isLoading) return <></>;
 
-  const sections: PendingActionSection[] = mobilePendingActions
+  const flatActions: FlatPendingAction[] = mobilePendingActions
     ? [
-        {
-          title: i18n("connectToDesktop.mobilePendingActions.paymentConfirmed"),
-          data: mobilePendingActions.paymentConfirmedPendingActions.filter(
-            (x) => x.status === "pending",
-          ),
-          type: "paymentConfirmed",
-        },
-        {
-          title: i18n("connectToDesktop.mobilePendingActions.paymentMade"),
-          data: mobilePendingActions.paymentMadePendingActions.filter(
-            (x) => x.status === "pending",
-          ),
-          type: "paymentMade",
-        },
-        {
-          title: i18n("connectToDesktop.mobilePendingActions.refund"),
-          data: mobilePendingActions.refundPendingActions.filter(
-            (x) => x.status === "pending",
-          ),
-          type: "refund",
-        },
-        {
-          title: i18n("connectToDesktop.mobilePendingActions.fundEscrow"),
-          data: (mobilePendingActions.fundEscrowPendingActions ?? []).filter(
-            (x) => x.status === "pending",
-          ),
-          type: "fundEscrow",
-        },
-      ].filter((section) => section.data.length > 0)
+        ...mobilePendingActions.paymentConfirmedPendingActions.map((item) => ({
+          item,
+          type: "paymentConfirmed" as const,
+        })),
+        ...mobilePendingActions.paymentMadePendingActions.map((item) => ({
+          item,
+          type: "paymentMade" as const,
+        })),
+        ...mobilePendingActions.refundPendingActions.map((item) => ({
+          item,
+          type: "refund" as const,
+        })),
+        ...(mobilePendingActions.fundEscrowPendingActions ?? []).map(
+          (item) => ({ item, type: "fundEscrow" as const }),
+        ),
+        ...(mobilePendingActions.fundEscrowContractPendingActions ?? []).map(
+          (item) => ({ item, type: "fundEscrowContract" as const }),
+        ),
+        ...(mobilePendingActions.refundEscrowContractPendingActions ?? []).map(
+          (item) => ({ item, type: "refundEscrowContract" as const }),
+        ),
+      ]
+        .filter(({ item }) => item.status === "pending")
+        .sort(
+          (a, b) =>
+            new Date(a.item.creationDate).getTime() -
+            new Date(b.item.creationDate).getTime(),
+        )
     : [];
 
   return (
@@ -81,26 +85,18 @@ export const MobilePendingActions = () => {
       header={<Header title={i18n("connectToDesktop.mobilePendingActions")} />}
     >
       <View style={tw`grow`}>
-        {sections.length > 0 ? (
-          <SectionList
+        {flatActions.length > 0 ? (
+          <FlatList
             contentContainerStyle={[
-              tw`bg-transparent py-7`,
+              tw`bg-transparent py-7 px-4`,
               isLoading && tw`opacity-60`,
             ]}
-            sections={sections}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item, section }) => (
-              <MobilePendingActionItem item={item} type={section.type} />
+            data={flatActions}
+            keyExtractor={({ item, type }) => `${type}-${item.id}`}
+            renderItem={({ item }) => (
+              <MobilePendingActionItem item={item.item} type={item.type} />
             )}
-            renderSectionHeader={({ section }) => (
-              <PeachText style={tw`px-4 pb-2 font-bold`}>
-                {section.title}
-              </PeachText>
-            )}
-            ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
-            SectionSeparatorComponent={() => (
-              <View style={tw`h-px bg-gray-300 my-6`} />
-            )}
+            ItemSeparatorComponent={() => <View style={tw`h-3`} />}
             showsVerticalScrollIndicator={false}
             onRefresh={refetch}
             refreshing={false}
@@ -118,7 +114,7 @@ const MobilePendingActionItem = ({
   type,
 }: {
   item: PendingAction;
-  type: SectionType;
+  type: ActionType;
 }) => {
   const navigation = useStackNavigation();
   const { isDarkMode } = useThemeStore();
@@ -133,7 +129,6 @@ const MobilePendingActionItem = ({
         id: String(item.id),
       });
     else if (type === "refund") {
-      console.log("item.id", item.id);
       navigation.navigate("mobilePendingActionRefund", {
         id: String(item.id),
       });
@@ -141,32 +136,53 @@ const MobilePendingActionItem = ({
       navigation.navigate("mobilePendingActionFundEscrow", {
         id: String(item.id),
       });
+    } else if (type === "fundEscrowContract") {
+      navigation.navigate("mobilePendingActionFundContractEscrow", {
+        contractId: String(item.id),
+      });
+    } else if (type === "refundEscrowContract") {
+      navigation.navigate("mobilePendingActionRefundContractEscrow", {
+        contractId: String(item.id),
+      });
     }
   };
 
-  const description =
+  const title =
     "contractId" in item && item.contractId
-      ? "Contract: " + contractIdToHex(item.contractId)
-      : "Offer: " + offerIdToHex((item as { offerId: number }).offerId);
+      ? contractIdToHex(item.contractId)
+      : offerIdToHex(String((item as { offerId: number }).offerId));
+
+  const typeLabel = i18n(`connectToDesktop.mobilePendingActions.${type}`);
 
   return (
     <TouchableOpacity
       style={[
         tw`overflow-hidden border rounded-xl`,
         isDarkMode ? tw`bg-card` : tw`bg-primary-background-light-color`,
-        tw.style(statusCardStyles.border["primary"]),
+        tw.style(statusCardStyles.border.primary),
       ]}
       onPress={navigateToSpecificPage}
     >
-      <View style={tw`flex-row items-center justify-between px-4 py-3`}>
-        <PeachText style={tw`text-center mt-1`}>
-          <PeachText
-            style={tw.style(
-              isDarkMode ? "text-primary-mild-2" : "text-black-100",
-            )}
-          >
-            {description}
-          </PeachText>
+      <View style={tw`items-center px-4 py-3`}>
+        <PeachText
+          style={tw.style(
+            "subtitle-1",
+            isDarkMode ? "text-primary-mild-2" : "text-black-100",
+          )}
+        >
+          {title}
+        </PeachText>
+      </View>
+      <View
+        style={[
+          tw`items-center justify-center px-4 py-6px`,
+          statusCardStyles.bg.primary,
+        ]}
+      >
+        <PeachText
+          style={[tw`subtitle-1`, tw.style(statusCardStyles.text.primary)]}
+        >
+          {typeLabel}
         </PeachText>
       </View>
     </TouchableOpacity>

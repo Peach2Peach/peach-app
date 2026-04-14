@@ -1,6 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { AddressIndex } from "bdk-rn/lib/lib/enums";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Image, useWindowDimensions, View } from "react-native";
 import { Header } from "../../components/Header";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
@@ -30,6 +30,8 @@ export const MobilePendingActionRevealAddress = () => {
   const { user: selfUser } = useSelfUser();
   const { user: selfUser69 } = useUser69Details();
 
+  const [isConfirming, setIsConfirming] = useState(false);
+
   const { mobilePendingAction, isLoading, refetch } =
     useMobilePendingActionPaymentMade(id);
 
@@ -50,75 +52,93 @@ export const MobilePendingActionRevealAddress = () => {
     }, [refetch]),
   );
 
-  if (isLoading || !mobilePendingAction) return <></>;
+  if (isLoading) return <></>;
+  if (!mobilePendingAction) {
+    navigation.goBack();
+    return <></>;
+  }
 
   const { needsAddress, fiatAmount, satsAmount, currency, paymentMethod } =
     JSON.parse(mobilePendingAction.payload);
 
   const confirmFunction = async () => {
-    if (!peachWallet) {
-      throw Error("Wallet is not defined");
-    }
-    if (!selfUser) {
-      throw Error("Self User is not defined");
-    }
-    if (!selfUser69) {
-      throw Error("Self User69 is not defined");
-    }
+    setIsConfirming(true);
+    try {
+      if (!peachWallet) {
+        throw Error("Wallet is not defined");
+      }
+      if (!selfUser) {
+        throw Error("Self User is not defined");
+      }
+      if (!selfUser69) {
+        throw Error("Self User69 is not defined");
+      }
 
-    let releaseAddress: string | undefined = undefined;
-    let releaseAddressMessageSignature: string | undefined = undefined;
-    let index: number | undefined = undefined;
+      let releaseAddress: string | undefined = undefined;
+      let releaseAddressMessageSignature: string | undefined = undefined;
+      let index: number | undefined = undefined;
 
-    if (needsAddress) {
-      if (selfUser69.lastAddressUsedIndex === undefined) {
-        const getAddressResult = await peachWallet.getAddress(AddressIndex.New);
-        releaseAddress = getAddressResult.address;
-        index = getAddressResult.index;
-      } else {
-        const getAddressResult = await peachWallet.getAddress(
-          AddressIndex.LastUnused,
-        );
-        if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
+      if (needsAddress) {
+        if (selfUser69.lastAddressUsedIndex === undefined) {
+          const getAddressResult = await peachWallet.getAddress(
+            AddressIndex.New,
+          );
           releaseAddress = getAddressResult.address;
           index = getAddressResult.index;
         } else {
-          while (true) {
-            const getNewAddressResult = await peachWallet.getAddress(
-              AddressIndex.New,
-            );
-            if (getNewAddressResult.index > selfUser69.lastAddressUsedIndex) {
-              releaseAddress = getNewAddressResult.address;
-              index = getNewAddressResult.index;
-              break;
+          const getAddressResult = await peachWallet.getAddress(
+            AddressIndex.LastUnused,
+          );
+          if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
+            releaseAddress = getAddressResult.address;
+            index = getAddressResult.index;
+          } else {
+            while (true) {
+              const getNewAddressResult = await peachWallet.getAddress(
+                AddressIndex.New,
+              );
+              if (
+                getNewAddressResult.index > selfUser69.lastAddressUsedIndex
+              ) {
+                releaseAddress = getNewAddressResult.address;
+                index = getNewAddressResult.index;
+                break;
+              }
             }
           }
         }
+
+        const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
+
+        releaseAddressMessageSignature = peachWallet.signMessage(
+          message,
+          index,
+        );
       }
+      const { error: err } =
+        await peachAPI.private.peach069.postMobilePendingActionPaymentMade({
+          id,
+          releaseAddress,
+          releaseAddressMessageSignature,
+        });
+      if (err) throw new Error(err.error);
 
-      const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
+      if (index)
+        await peachAPI.private.peach069.setLastAddressUsedIndexOnSelfUser69({
+          index,
+        });
 
-      releaseAddressMessageSignature = peachWallet.signMessage(message, index);
+      navigateToSuccess();
+    } catch (err) {
+      refetch();
+      setIsConfirming(false);
+      throw err;
     }
-    const { error: err } =
-      await peachAPI.private.peach069.postMobilePendingActionPaymentMade({
-        id,
-        releaseAddress,
-        releaseAddressMessageSignature,
-      });
-    if (err) throw new Error(err.error);
-
-    if (index)
-      await peachAPI.private.peach069.setLastAddressUsedIndexOnSelfUser69({
-        index,
-      });
-
-    navigateToSuccess();
   };
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions")} />}
+      header={<Header title={i18n("connectToDesktop.mobilePendingActions.paymentMade")} />}
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         {/* Center Content */}
@@ -165,9 +185,8 @@ export const MobilePendingActionRevealAddress = () => {
         <View style={tw`pb-4`}>
           <ConfirmSlider
             enabled={mobilePendingAction.status === "pending"}
-            onConfirm={() => {
-              confirmFunction();
-            }}
+            onConfirm={confirmFunction}
+            isCallbackRunning={isConfirming}
             label1={i18n("contract.payment.buyer.confirm")}
             label2={i18n("contract.payment.made")}
           />

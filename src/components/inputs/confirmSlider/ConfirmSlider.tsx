@@ -15,7 +15,7 @@ type Props = ComponentProps & {
   iconId?: IconType;
   onConfirm: () => void;
   enabled?: boolean;
-  confirmed?: boolean;
+  isCallbackRunning?: boolean;
 };
 
 export const ConfirmSlider = ({
@@ -24,11 +24,14 @@ export const ConfirmSlider = ({
   iconId = "checkCircle",
   onConfirm,
   enabled = true,
+  isCallbackRunning,
   style,
 }: Props) => {
+  console.log("ixxxxsCallbackRunning", isCallbackRunning);
   const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({
     onConfirm,
     enabled,
+    isCallbackRunning,
   });
 
   return (

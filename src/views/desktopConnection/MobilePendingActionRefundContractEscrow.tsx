@@ -5,14 +5,14 @@ import { Header } from "../../components/Header";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
-import { useMobilePendingActionRefund } from "../../hooks/query/peach069/useMobilePendingActionPaymentRefund";
+import { useMobilePendingActionRefundContractEscrow } from "../../hooks/query/peach069/useMobilePendingActionRefundContractEscrow";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import { checkRefundPSBT } from "../../utils/bitcoin/checkRefundPSBT";
+import { contractIdToHex } from "../../utils/contract/contractIdToHex";
+import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import i18n from "../../utils/i18n";
-import { getOffer } from "../../utils/offer/getOffer";
-import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { signPSBT } from "../../utils/wallet/signPSBT";
@@ -20,14 +20,15 @@ import { signPSBT } from "../../utils/wallet/signPSBT";
 import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
 
 const ASPECT_RATIO = 0.7;
-export const MobilePendingActionRefund = () => {
-  const { id } = useRoute<"mobilePendingActionRefund">().params;
+export const MobilePendingActionRefundContractEscrow = () => {
+  const { contractId } =
+    useRoute<"mobilePendingActionRefundContractEscrow">().params;
   const { width } = useWindowDimensions();
   const navigation = useStackNavigation();
   const [isConfirming, setIsConfirming] = useState(false);
 
   const { mobilePendingAction, isLoading, refetch } =
-    useMobilePendingActionRefund(id);
+    useMobilePendingActionRefundContractEscrow(contractId);
 
   useFocusEffect(
     useCallback(() => {
@@ -46,9 +47,12 @@ export const MobilePendingActionRefund = () => {
   const confirmFunction = async () => {
     setIsConfirming(true);
     try {
-      const sellOffer = (await getOffer(
-        String(mobilePendingAction.offerId),
-      )) as SellOffer;
+      const sellOffer = await getSellOfferFromContract({
+        id: mobilePendingAction.contractId,
+      });
+
+      if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
+
       const { psbt, err } = checkRefundPSBT(refundPSBT, sellOffer);
       if (!psbt || err) {
         throw new Error(err || "Invalid PSBT");
@@ -69,8 +73,8 @@ export const MobilePendingActionRefund = () => {
       }
 
       const { error: err2 } =
-        await peachAPI.private.peach069.postMobilePendingActionRefund({
-          id,
+        await peachAPI.private.peach069.postMobilePendingActionRefundContractEscrow({
+          contractId,
           signature,
         });
       if (err2) throw new Error(err2.error);
@@ -79,7 +83,7 @@ export const MobilePendingActionRefund = () => {
         index: 1,
         routes: [
           { name: "homeScreen", params: { screen: "home" } },
-          { name: "mobilePendingActionRefundSuccess" },
+          { name: "mobilePendingActionRefundContractEscrowSuccess" },
         ],
       });
     } catch (err) {
@@ -91,7 +95,7 @@ export const MobilePendingActionRefund = () => {
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions.refund")} />}
+      header={<Header title={i18n("connectToDesktop.mobilePendingActions.refundEscrowContract")} />}
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         <View style={tw`flex-1 items-center justify-center`}>
@@ -117,8 +121,8 @@ export const MobilePendingActionRefund = () => {
               {"Details"}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Offer ID: " +
-                offerIdToHex(String(mobilePendingAction.offerId))}
+              {"Contract ID: " +
+                contractIdToHex(mobilePendingAction.contractId)}
             </PeachText>
           </View>
         </View>
