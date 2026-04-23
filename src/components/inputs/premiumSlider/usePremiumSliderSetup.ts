@@ -5,6 +5,7 @@ import {
   MINIMUM_CHF_AMOUNT_OF_OFFER,
 } from "../../../constants";
 import { round } from "../../../utils/math/round";
+import { premiumBounds } from "../../PremiumInput";
 
 export const KNOBWIDTH = 32;
 export const DEFAULT_WIDTH = 260;
@@ -18,14 +19,15 @@ export const usePremiumSliderSetup = (
   currentAmount: number,
 ) => {
   const baseCHF = (currentAmount / 100_000_000) * currentCHFPrice;
+  const boundsAreComputable = baseCHF > 0;
 
-  const minimumPremiumAllowed = Math.ceil(
-    (MINIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100,
-  );
+  const minimumPremiumAllowed = boundsAreComputable
+    ? Math.ceil((MINIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
+    : premiumBounds.min;
 
-  const maximumPremiumAllowed = Math.floor(
-    (MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100,
-  );
+  const maximumPremiumAllowed = boundsAreComputable
+    ? Math.floor((MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
+    : premiumBounds.max;
 
   const MIN = minimumPremiumAllowed;
   const MAX = maximumPremiumAllowed;

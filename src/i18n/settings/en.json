@@ -66,6 +66,7 @@
   "settings.bitcoinProducts.proSecurity.description1": "We use open-source bitbox to secure our Peach funds, and recommend it to you too!",
   "settings.bitcoinProducts.proSecurity.description2": "Use code PEACH for a 5% discount.",
   "settings.connectToDesktop": "connect to desktop",
+  "settings.pasteDesktopConnection": "paste desktop connection",
   "settings.contact": "contact Peach",
   "settings.currency": "currency",
   "settings.deleteAccount": "delete account",

@@ -82,7 +82,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Próbálj másik eladási ajánlattal kereskedni.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "A kért ajánlatot eltávolították",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Próbálj másik vételi ajánlattal kereskedni.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "A kért ajánlatot eltávolították"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "A kért ajánlatot eltávolították",
+
+  "notification.body.contract.canceled": "A(z) $0 kereskedés vásárlója megszakította a kereskedést. Nyithatod az ajánlatot új partner kereséséhez, vagy visszakérheted a pénzed.",
+  "notification.title.contract.canceled": "Kereskedés megszakítása"
 
 
  

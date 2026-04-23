@@ -29,6 +29,7 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -73,6 +74,7 @@ import { useTrackWidth } from "./utils/useTrackWidth";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 export function SellOfferPreferences() {
+  useRefreshPaymentDataFromServerOnMount();
   const [isSliding, setIsSliding] = useState(false);
   const [currency, setCurrency] = useState<Currency | undefined>();
   return (

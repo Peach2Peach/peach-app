@@ -1,11 +1,12 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { AddressIndex } from "bdk-rn/lib/lib/enums";
 import { useCallback, useState } from "react";
-import { Image, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import { Header } from "../../components/Header";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
+import { ActionImageWithLoader } from "./ActionImageWithLoader";
 import { useMobilePendingActionPaymentMade } from "../../hooks/query/peach069/useMobilePendingActionPaymentMade";
 import { useUser69Details } from "../../hooks/query/peach069/useUser69";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
@@ -154,10 +155,11 @@ export const MobilePendingActionRevealAddress = () => {
             {"After you make the payment to the Seller, slide to confirm."}
           </PeachText>
 
-          <Image
+          <ActionImageWithLoader
             source={images.peerToPeer}
-            style={{ width, height: width * ASPECT_RATIO }}
-            resizeMode="contain"
+            width={width}
+            height={width * ASPECT_RATIO}
+            isLoading={isConfirming}
           />
 
           <View style={tw`mt-6 items-center`}>

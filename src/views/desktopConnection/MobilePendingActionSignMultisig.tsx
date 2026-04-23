@@ -1,8 +1,7 @@
-import { NETWORK } from "@env";
 import { useFocusEffect } from "@react-navigation/native";
-import { crypto, Psbt } from "bitcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 import { useCallback, useState } from "react";
-import { Image, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import { Header } from "../../components/Header";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { Screen } from "../../components/Screen";
@@ -11,15 +10,14 @@ import { useMobilePendingActionPaymentConfirmed } from "../../hooks/query/peach0
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import { getMainAccount } from "../../utils/account/getMainAccount";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { getNetwork } from "../../utils/wallet/getNetwork";
-import { getWallet } from "../../utils/wallet/getWallet";
 import { signPSBT } from "../../utils/wallet/signPSBT";
+import { ActionImageWithLoader } from "./ActionImageWithLoader";
 
 import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
 
@@ -32,7 +30,7 @@ export const MobilePendingActionSignMultisig = () => {
 
   const { mobilePendingAction, isLoading, refetch } =
     useMobilePendingActionPaymentConfirmed(id);
-
+  console.log("mobilePendingAction", mobilePendingAction);
   useFocusEffect(
     useCallback(() => {
       refetch();
@@ -56,7 +54,7 @@ export const MobilePendingActionSignMultisig = () => {
 
       const wallet = getEscrowWalletForOffer(sellOffer);
 
-      const { batchReleasePsbt, releasePsbt, buyerId } = JSON.parse(
+      const { batchReleasePsbt, releasePsbt } = JSON.parse(
         mobilePendingAction.payload,
       );
 
@@ -82,20 +80,14 @@ export const MobilePendingActionSignMultisig = () => {
         throw Error("signature missing");
       }
 
-      const keyPair =
-        peachAPI.apiOptions.peachAccount || getMainAccount(getWallet(), NETWORK);
-
-      const ratingSignature = keyPair
-        .sign(crypto.sha256(Buffer.from(buyerId)))
-        .toString("hex");
-
       const { error: err } =
-        await peachAPI.private.peach069.postMobilePendingActionPaymentConfirmed({
-          id,
-          releaseTransactionSignature: signature,
-          batchReleasePsbt: batchPsbt?.toBase64(),
-          ratingSignature,
-        });
+        await peachAPI.private.peach069.postMobilePendingActionPaymentConfirmed(
+          {
+            id,
+            releaseTransactionSignature: signature,
+            batchReleasePsbt: batchPsbt?.toBase64(),
+          },
+        );
       if (err) throw new Error(err.error);
 
       navigation.reset({
@@ -114,14 +106,19 @@ export const MobilePendingActionSignMultisig = () => {
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions.paymentConfirmed")} />}
+      header={
+        <Header
+          title={i18n("connectToDesktop.mobilePendingActions.paymentConfirmed")}
+        />
+      }
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         <View style={tw`flex-1 items-center justify-center`}>
-          <Image
+          <ActionImageWithLoader
             source={peerToPeer}
-            style={{ width, height: width * ASPECT_RATIO }}
-            resizeMode="contain"
+            width={width}
+            height={width * ASPECT_RATIO}
+            isLoading={isConfirming}
           />
 
           <PeachText

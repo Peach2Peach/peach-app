@@ -5,6 +5,7 @@ import { useSetPopup } from "./components/popup/GlobalPopup";
 import { useSetToast } from "./components/toast/Toast";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
+import { useSyncPaymentDataFromServer } from "./hooks/query/peach069/useSyncPaymentDataFromServer";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useStackNavigation } from "./hooks/useStackNavigation";
@@ -29,6 +30,7 @@ export const useGlobalHandlers = () => {
   useInitialNavigation();
   useShowUpdateAvailable();
   useHandleNotifications(messageHandler);
+  useSyncPaymentDataFromServer();
 
   const setPopup = useSetPopup();
   const setAnalyticsPopupSeen = useSettingsStore(

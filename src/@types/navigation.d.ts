@@ -19,6 +19,7 @@ type TestViews = {
 
 type DesktopConnection = {
   connectToDesktop: undefined;
+  pasteDesktopConnection: undefined;
   mobilePendingActions: undefined;
   mobilePendingActionRefund: { id: string };
   mobilePendingActionRefundSuccess: undefined;

@@ -82,7 +82,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Tente negociar com outra oferta de venda.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "A oferta solicitada foi removida",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Tente negociar com outra oferta de compra.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "A oferta solicitada foi removida"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "A oferta solicitada foi removida",
+
+  "notification.body.contract.canceled": "O comprador da negociação $0 cancelou. Você pode manter sua oferta aberta para procurar uma nova correspondência, ou pode ser reembolsado.",
+  "notification.title.contract.canceled": "Cancelamento da negociação"
 
 
   

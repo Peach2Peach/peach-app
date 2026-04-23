@@ -29,6 +29,7 @@ const contactUs = isProduction()
   ? NETWORK === "regtest"
     ? ([
         "connectToDesktop",
+        "pasteDesktopConnection",
         "mobilePendingActions",
         "contact",
         "aboutPeach",
@@ -36,6 +37,7 @@ const contactUs = isProduction()
     : (["contact", "aboutPeach"] as const)
   : ([
       "connectToDesktop",
+      "pasteDesktopConnection",
       "mobilePendingActions",
       "testView",
       "contact",

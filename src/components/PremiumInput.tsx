@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
 import {
   MAXIMUM_CHF_AMOUNT_OF_OFFER,
@@ -33,21 +34,27 @@ export const PremiumInput = ({
   currentCHFPrice,
 }: Props) => {
   const baseCHF = (currentAmount / 100_000_000) * currentCHFPrice;
+  const boundsAreComputable = baseCHF > 0;
 
-  const minimumPremiumAllowed = Math.ceil(
-    (MINIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100,
-  );
+  const minimumPremiumAllowed = boundsAreComputable
+    ? Math.ceil((MINIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
+    : premiumBounds.min;
 
-  const maximumPremiumAllowed = Math.floor(
-    (MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100,
-  );
+  const maximumPremiumAllowed = boundsAreComputable
+    ? Math.floor((MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
+    : premiumBounds.max;
 
-  if (premium > maximumPremiumAllowed) {
-    setPremium(maximumPremiumAllowed);
-  }
-  if (premium < minimumPremiumAllowed) {
-    setPremium(minimumPremiumAllowed);
-  }
+  useEffect(() => {
+    if (!boundsAreComputable) return;
+    if (premium > maximumPremiumAllowed) setPremium(maximumPremiumAllowed);
+    else if (premium < minimumPremiumAllowed) setPremium(minimumPremiumAllowed);
+  }, [
+    boundsAreComputable,
+    premium,
+    minimumPremiumAllowed,
+    maximumPremiumAllowed,
+    setPremium,
+  ]);
 
   useI18n();
   const onMinusPress = () => {

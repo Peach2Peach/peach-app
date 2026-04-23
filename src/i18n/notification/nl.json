@@ -83,7 +83,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Probeer te handelen met een andere verkoopaanbieding.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "De gevraagde aanbieding is verwijderd",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Probeer te handelen met een andere koopaanbieding.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "De gevraagde aanbieding is verwijderd"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "De gevraagde aanbieding is verwijderd",
+
+  "notification.body.contract.canceled": "De koper heeft transactie $0 geannuleerd. Je kunt het aanbod open houden om een nieuwe match te zoeken, of je geld terugkrijgen.",
+  "notification.title.contract.canceled": "Annulering transactie"
 
 
   

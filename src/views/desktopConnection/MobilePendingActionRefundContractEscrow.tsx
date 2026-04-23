@@ -1,10 +1,11 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { Image, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import { Header } from "../../components/Header";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
+import { ActionImageWithLoader } from "./ActionImageWithLoader";
 import { useMobilePendingActionRefundContractEscrow } from "../../hooks/query/peach069/useMobilePendingActionRefundContractEscrow";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -99,10 +100,11 @@ export const MobilePendingActionRefundContractEscrow = () => {
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         <View style={tw`flex-1 items-center justify-center`}>
-          <Image
+          <ActionImageWithLoader
             source={peerToPeer}
-            style={{ width, height: width * ASPECT_RATIO }}
-            resizeMode="contain"
+            width={width}
+            height={width * ASPECT_RATIO}
+            isLoading={isConfirming}
           />
 
           <PeachText

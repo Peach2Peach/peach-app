@@ -83,7 +83,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Спробуйте торгувати з іншою пропозицією продажу.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Запитувану пропозицію було видалено",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Спробуйте торгувати з іншою пропозицією купівлі.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Запитувану пропозицію було видалено"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Запитувану пропозицію було видалено",
+
+  "notification.body.contract.canceled": "Покупець для торгів $0 скасував. Ви можете залишити свою пропозицію відкритою для пошуку нового збігу або отримати відшкодування.",
+  "notification.title.contract.canceled": "Відміна торгів"
 
 
   

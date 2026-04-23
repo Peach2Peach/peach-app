@@ -21,6 +21,7 @@ import { CENT, SATSINBTC } from "../../constants";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -63,6 +64,7 @@ import {
 import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 
 export function CreateBuyOffer() {
+  useRefreshPaymentDataFromServerOnMount();
   const [isSliding, setIsSliding] = useState(false);
   const setBuyOfferMulti = useOfferPreferences(
     (state) => state.setBuyOfferMulti,
@@ -649,7 +651,7 @@ function PublishOfferButton() {
   const payoutToPeachWallet = useSettingsStore(
     (state) => state.payoutToPeachWallet,
   );
-  const { isLoading: isSyncingWallet } = useSyncWallet({
+  useSyncWallet({
     enabled: payoutToPeachWallet,
   });
 
@@ -750,8 +752,7 @@ function PublishOfferButton() {
     showErrorBanner(errorMessage, errorArgs);
   };
 
-  const shouldLookDisabled =
-    !formValid || isSyncingWallet || originalPaymentData.length === 0;
+  const shouldLookDisabled = !formValid || originalPaymentData.length === 0;
 
   const pressPublish = () => {
     if (shouldLookDisabled) {
@@ -766,7 +767,7 @@ function PublishOfferButton() {
     <CreateBuyOfferButton
       onPress={() => pressPublish()}
       disabled={shouldLookDisabled}
-      loading={isPublishing || isSyncingWallet}
+      loading={isPublishing}
     />
   );
 }

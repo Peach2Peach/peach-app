@@ -11,6 +11,8 @@ import { CurrencySelection } from "../../components/inputs/paymentForms/componen
 import { DeletePaymentMethodPopup } from "../../components/payment/components/DeletePaymentMethodPopup";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
+import { useUploadPaymentDataToServer } from "../../hooks/query/peach069/useUploadPaymentDataToServer";
 import { useGoToOrigin } from "../../hooks/useGoToOrigin";
 import { useRoute } from "../../hooks/useRoute";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -18,14 +20,11 @@ import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { keys } from "../../utils/object/keys";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
-import { peachAPI } from "../../utils/peachAPI";
-import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import capitalize from "../../utils/string/capitalize";
 import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
@@ -38,6 +37,7 @@ export type FormType = Record<PaymentMethodField, string> & {
 };
 
 export const PaymentMethodForm = () => {
+  useRefreshPaymentDataFromServerOnMount();
   const { paymentData, origin } = useRoute<"paymentMethodForm">().params;
   const goBackTo = useGoToOrigin();
   const selectPaymentMethod = useOfferPreferences(
@@ -45,8 +45,7 @@ export const PaymentMethodForm = () => {
   );
   const setPopup = useSetPopup();
   const addPaymentData = usePaymentDataStore((state) => state.addPaymentData);
-  const getPaymentData = usePaymentDataStore((state) => state.getPaymentData);
-  const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
+  const uploadPaymentDataToServer = useUploadPaymentDataToServer();
 
   const { type: paymentMethod, id, country, label } = paymentData;
 
@@ -105,20 +104,7 @@ export const PaymentMethodForm = () => {
       addPaymentData(finalData);
       selectPaymentMethod(finalData.id);
 
-      const newPaymentData = getPaymentData();
-
-      signAndEncrypt(JSON.stringify(newPaymentData), myPgpPubKey).then(
-        async ({ signature, encrypted }) => {
-          try {
-            peachAPI.private.peach069.setEncryptedPaymentDataOnSelfUser69({
-              encryptedPaymentData: encrypted,
-              encryptedPaymentDataSignature: signature,
-            });
-          } catch (err) {
-            console.error("Failed to send encrypted payment data:", err);
-          }
-        },
-      );
+      uploadPaymentDataToServer();
 
       if (isMpesaDetails) {
         setPopup(

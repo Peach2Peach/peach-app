@@ -84,6 +84,9 @@
   "notification.offer.newSellOfferMatchesPreferences.title":"There is a new Offer that matches your Preferences.",
 
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title":"Trade Request Chat",
-  "notification.offer.expressFlowTradeRequestChatMessageReceived.text":"You got a chat message on your Trade Request"
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.text":"You got a chat message on your Trade Request",
+
+  "notification.body.contract.canceled": "The buyer for trade $0 has canceled. You can choose to keep your offer open to look for a new match, or you can be refunded.",
+  "notification.title.contract.canceled": "Trade cancelation"
 }
 

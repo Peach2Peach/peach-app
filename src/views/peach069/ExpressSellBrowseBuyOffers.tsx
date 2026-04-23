@@ -18,6 +18,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressSellBuyOffers } from "../../hooks/query/peach069/useExpressSellBuyOffers";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -39,6 +40,7 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
 export function ExpressSellBrowseBuyOffers() {
+  useRefreshPaymentDataFromServerOnMount();
   const { buyOffers, isLoading, refetch } = useExpressSellBuyOffers();
 
   return (

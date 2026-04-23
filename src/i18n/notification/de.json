@@ -84,7 +84,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Try trading with another Sell Offer.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "The Offer you requested has been removed",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Try trading with another Buy Offer.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "The Offer you requested has been removed"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "The Offer you requested has been removed",
+
+  "notification.body.contract.canceled": "Der Käufer des Trades $0 hat abgebrochen. Du kannst dein Angebot weiterhin offen lassen, um einen neuen Käufer zu finden, oder eine Rückerstattung beantragen.",
+  "notification.title.contract.canceled": "Handel abgebrochen"
 
 
 
