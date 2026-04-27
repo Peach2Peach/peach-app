@@ -67,11 +67,15 @@ export const MobilePendingActionFundEscrow = () => {
         feeRate,
       });
       const { psbt } = await peachWallet.finishTransaction(transaction);
-      await peachWallet.signAndBroadcastPSBT(psbt);
+      if (!peachWallet.wallet) throw new Error("Wallet not ready");
+      const signedPSBT = await peachWallet.wallet.sign(psbt);
+      const tx = await signedPSBT.extractTx();
+      const txHex = Buffer.from(await tx.serialize()).toString("hex");
 
       const { error: err } =
         await peachAPI.private.peach069.postMobilePendingActionFundEscrow({
           id,
+          txHex,
         });
       if (err) throw new Error(err.error);
 
