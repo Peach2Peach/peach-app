@@ -21,7 +21,10 @@ export function CancelBuyOffer68Popup({
     setIsLoading(true);
 
     await cancelFunction();
-    navigation.navigate("homeScreen", { screen: "home" });
+    navigation.navigate("homeScreen", {
+      screen: "yourTrades",
+      params: { tab: "yourTrades.69BuyOffer" },
+    });
   };
 
   return (
