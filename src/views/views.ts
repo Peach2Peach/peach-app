@@ -19,6 +19,8 @@ import { MobilePendingActionFundContractEscrow } from "./desktopConnection/Mobil
 import { MobilePendingActionFundContractEscrowSuccess } from "./desktopConnection/MobilePendingActionFundContractEscrowSuccess";
 import { MobilePendingActionFundEscrow } from "./desktopConnection/MobilePendingActionFundEscrow";
 import { MobilePendingActionFundEscrowSuccess } from "./desktopConnection/MobilePendingActionFundEscrowSuccess";
+import { MobilePendingActionFundMultipleEscrow } from "./desktopConnection/MobilePendingActionFundMultipleEscrow";
+import { MobilePendingActionFundMultipleEscrowSuccess } from "./desktopConnection/MobilePendingActionFundMultipleEscrowSuccess";
 import { MobilePendingActionRefund } from "./desktopConnection/MobilePendingActionRefund";
 import { MobilePendingActionRefundContractEscrow } from "./desktopConnection/MobilePendingActionRefundContractEscrow";
 import { MobilePendingActionRefundContractEscrowSuccess } from "./desktopConnection/MobilePendingActionRefundContractEscrowSuccess";
@@ -290,6 +292,14 @@ const desktopConnection: ViewType[] = [
   {
     name: "mobilePendingActionFundEscrowSuccess",
     component: MobilePendingActionFundEscrowSuccess,
+  },
+  {
+    name: "mobilePendingActionFundMultipleEscrow",
+    component: MobilePendingActionFundMultipleEscrow,
+  },
+  {
+    name: "mobilePendingActionFundMultipleEscrowSuccess",
+    component: MobilePendingActionFundMultipleEscrowSuccess,
   },
   {
     name: "mobilePendingActionFundContractEscrow",

@@ -4,6 +4,7 @@ import { FlatList, TouchableOpacity, View } from "react-native";
 import {
   MobilePendingActionContract,
   MobilePendingActionFundEscrow,
+  MobilePendingActionFundMultipleEscrow,
   MobilePendingActionRefund,
 } from "../../../peach-api/src/@types/mobilePendingAction";
 import { Header } from "../../components/Header";
@@ -23,13 +24,15 @@ type ActionType =
   | "paymentMade"
   | "refund"
   | "fundEscrow"
+  | "fundMultipleEscrow"
   | "fundEscrowContract"
   | "refundEscrowContract";
 
 type PendingAction =
   | MobilePendingActionContract
   | MobilePendingActionRefund
-  | MobilePendingActionFundEscrow;
+  | MobilePendingActionFundEscrow
+  | MobilePendingActionFundMultipleEscrow;
 
 type FlatPendingAction = {
   item: PendingAction;
@@ -64,6 +67,9 @@ export const MobilePendingActions = () => {
         })),
         ...(mobilePendingActions.fundEscrowPendingActions ?? []).map(
           (item) => ({ item, type: "fundEscrow" as const }),
+        ),
+        ...(mobilePendingActions.fundMultipleEscrowPendingActions ?? []).map(
+          (item) => ({ item, type: "fundMultipleEscrow" as const }),
         ),
         ...(mobilePendingActions.fundEscrowContractPendingActions ?? []).map(
           (item) => ({ item, type: "fundEscrowContract" as const }),
@@ -136,6 +142,10 @@ const MobilePendingActionItem = ({
       navigation.navigate("mobilePendingActionFundEscrow", {
         id: String(item.id),
       });
+    } else if (type === "fundMultipleEscrow") {
+      navigation.navigate("mobilePendingActionFundMultipleEscrow", {
+        id: String(item.id),
+      });
     } else if (type === "fundEscrowContract") {
       navigation.navigate("mobilePendingActionFundContractEscrow", {
         contractId: String(item.id),
@@ -148,9 +158,14 @@ const MobilePendingActionItem = ({
   };
 
   const title =
-    "contractId" in item && item.contractId
-      ? contractIdToHex(item.contractId)
-      : offerIdToHex(String((item as { offerId: number }).offerId));
+    type === "fundMultipleEscrow"
+      ? `Number of Offers: ${
+          (JSON.parse(item.payload) as { address: string; amount: number }[])
+            .length
+        }`
+      : "contractId" in item && item.contractId
+        ? contractIdToHex(item.contractId)
+        : offerIdToHex(String((item as { offerId: number }).offerId));
 
   const typeLabel = i18n(`connectToDesktop.mobilePendingActions.${type}`);
 

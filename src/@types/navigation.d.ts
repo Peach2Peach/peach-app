@@ -29,6 +29,8 @@ type DesktopConnection = {
   mobilePendingActionSignMultisigSuccess: undefined;
   mobilePendingActionFundEscrow: { id: string };
   mobilePendingActionFundEscrowSuccess: undefined;
+  mobilePendingActionFundMultipleEscrow: { id: string };
+  mobilePendingActionFundMultipleEscrowSuccess: undefined;
   mobilePendingActionFundContractEscrow: { contractId: string };
   mobilePendingActionFundContractEscrowSuccess: undefined;
   mobilePendingActionRefundContractEscrow: { contractId: string };
