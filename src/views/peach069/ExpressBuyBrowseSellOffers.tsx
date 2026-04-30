@@ -3,6 +3,7 @@ import { FlatList, TouchableOpacity, View } from "react-native";
 import { ExpressBuyAdvancedFilters } from "../../components/ExpressBuyAdvancedFilters";
 import { ExpressBuyCurrenciesDrawer } from "../../components/ExpressBuyCurrenciesDrawer";
 import { ExpressBuyPaymentMethodsDrawer } from "../../components/ExpressBuyPaymentMethodsDrawer";
+import { ExpressBuyPremiumDrawer } from "../../components/ExpressBuyPremiumDrawer";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { Screen } from "../../components/Screen";
 import { TouchableIcon } from "../../components/TouchableIcon";
@@ -47,6 +48,7 @@ export function ExpressBuyBrowseSellOffers() {
       <View style={tw`flex-row self-stretch justify-between pt-1 gap-13px`}>
         <PaymentMethodsBubble />
         <CurrenciesBubble />
+        <PremiumBubble />
       </View>
       <SellOfferList
         sellOffers={sellOffers}
@@ -92,6 +94,43 @@ function PaymentMethodsBubble() {
       <ExpressBuyPaymentMethodsDrawer
         isOpen={isPaymentMethodDrawerOpen}
         onClose={() => setIsPaymentMethodDrawerOpen(false)}
+      />
+    </>
+  );
+}
+
+function PremiumBubble() {
+  const [isPremiumDrawerOpen, setIsPremiumDrawerOpen] = useState(false);
+
+  const expressBuyFilterMaxPremium = useOfferPreferences(
+    (state) => state.expressBuyFilterMaxPremium,
+  );
+
+  const isFiltered =
+    expressBuyFilterMaxPremium !==
+    defaultPreferences.expressBuyFilterMaxPremium;
+
+  return (
+    <>
+      <View style={tw`relative self-stretch`}>
+        <Bubble
+          color="gray"
+          iconId="chevronDown"
+          ghost
+          style={tw`self-stretch`}
+          onPress={() => setIsPremiumDrawerOpen(true)}
+        >
+          %
+        </Bubble>
+        {isFiltered && (
+          <View
+            style={tw`absolute items-center justify-center w-5 h-5 border-2 border-white rounded-full -top-2.5 -right-0 bg-info-main`}
+          />
+        )}
+      </View>
+      <ExpressBuyPremiumDrawer
+        isOpen={isPremiumDrawerOpen}
+        onClose={() => setIsPremiumDrawerOpen(false)}
       />
     </>
   );

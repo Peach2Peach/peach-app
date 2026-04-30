@@ -6,6 +6,7 @@ import { LogoIcons } from "../../assets/logo";
 import { ExpressSellAdvancedFilters } from "../../components/ExpressSellAdvancedFilters";
 import { ExpressSellCurrenciesDrawer } from "../../components/ExpressSellCurrenciesDrawer";
 import { ExpressSellPaymentMethodsDrawer } from "../../components/ExpressSellPaymentMethodsDrawer";
+import { ExpressSellPremiumDrawer } from "../../components/ExpressSellPremiumDrawer";
 import { Header } from "../../components/Header";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { Screen } from "../../components/Screen";
@@ -48,6 +49,7 @@ export function ExpressSellBrowseBuyOffers() {
       <View style={tw`flex-row self-stretch justify-between pt-1 gap-13px`}>
         <PaymentMethodsBubble />
         <CurrenciesBubble />
+        <PremiumBubble />
       </View>
       <BuyOfferList
         buyOffers={buyOffers}
@@ -93,6 +95,43 @@ function PaymentMethodsBubble() {
       <ExpressSellPaymentMethodsDrawer
         isOpen={isPaymentMethodDrawerOpen}
         onClose={() => setIsPaymentMethodDrawerOpen(false)}
+      />
+    </>
+  );
+}
+
+function PremiumBubble() {
+  const [isPremiumDrawerOpen, setIsPremiumDrawerOpen] = useState(false);
+
+  const expressSellFilterMinPremium = useOfferPreferences(
+    (state) => state.expressSellFilterMinPremium,
+  );
+
+  const isFiltered =
+    expressSellFilterMinPremium !==
+    defaultPreferences.expressSellFilterMinPremium;
+
+  return (
+    <>
+      <View style={tw`relative self-stretch`}>
+        <Bubble
+          color="gray"
+          iconId="chevronDown"
+          ghost
+          style={tw`self-stretch`}
+          onPress={() => setIsPremiumDrawerOpen(true)}
+        >
+          %
+        </Bubble>
+        {isFiltered && (
+          <View
+            style={tw`absolute items-center justify-center w-5 h-5 border-2 border-white rounded-full -top-2.5 -right-0 bg-info-main`}
+          />
+        )}
+      </View>
+      <ExpressSellPremiumDrawer
+        isOpen={isPremiumDrawerOpen}
+        onClose={() => setIsPremiumDrawerOpen(false)}
       />
     </>
   );

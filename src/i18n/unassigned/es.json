@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "prima / descuento",
   "accessibility.bulletPoint": "punto de lista",
   "address.changingLocations": "cambiando de ubicación - contacta organizadores",
   "backupRestored": "copia de seguridad restaurada",
@@ -16,6 +17,7 @@
   "checkTrade": "ver intercambio",
   "connectToDesktop.mobilePendingActions": "Acciones pendientes del móvil",
   "connectToDesktop.mobilePendingActions.fundEscrow": "financiar escrow de oferta",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "financiar múltiples escrows",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "financiar escrow de contrato",
   "connectToDesktop.mobilePendingActions.paymentMade": "declarar pago realizado",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "declarar pago confirmado",

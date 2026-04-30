@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "премия / скидка",
   "accessibility.bulletPoint": "пункт в списке",
   "address.changingLocations": "смена локации - свяжитесь с организаторами",
   "backupRestored": "резервная копия восстановлена",
@@ -16,6 +17,7 @@
   "checkTrade": "проверка сделки",
   "connectToDesktop.mobilePendingActions": "Ожидающие мобильные действия",
   "connectToDesktop.mobilePendingActions.fundEscrow": "пополнить эскроу предложения",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "пополнить несколько эскроу",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "пополнить эскроу контракта",
   "connectToDesktop.mobilePendingActions.paymentMade": "сообщить о совершении платежа",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "сообщить о подтверждении платежа",

@@ -22,7 +22,10 @@ type Props = {
 };
 
 const defaultIncrement = 0.1;
-export const premiumBounds = { min: -21, max: 21 };
+export const premiumBounds = { min: -35, max: 35 };
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.max(min, Math.min(max, value));
 
 export const PremiumInput = ({
   premium,
@@ -36,30 +39,31 @@ export const PremiumInput = ({
   const baseCHF = (currentAmount / 100_000_000) * currentCHFPrice;
   const boundsAreComputable = baseCHF > 0;
 
-  const minimumPremiumAllowed = boundsAreComputable
-    ? Math.ceil((MINIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
-    : premiumBounds.min;
+  const minimumPremiumAllowed = clamp(
+    boundsAreComputable
+      ? Math.ceil((MINIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
+      : premiumBounds.min,
+    premiumBounds.min,
+    premiumBounds.max,
+  );
 
-  const maximumPremiumAllowed = boundsAreComputable
-    ? Math.floor((MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
-    : premiumBounds.max;
+  const maximumPremiumAllowed = clamp(
+    boundsAreComputable
+      ? Math.floor((MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
+      : premiumBounds.max,
+    premiumBounds.min,
+    premiumBounds.max,
+  );
 
   useEffect(() => {
-    if (!boundsAreComputable) return;
     if (premium > maximumPremiumAllowed) setPremium(maximumPremiumAllowed);
     else if (premium < minimumPremiumAllowed) setPremium(minimumPremiumAllowed);
-  }, [
-    boundsAreComputable,
-    premium,
-    minimumPremiumAllowed,
-    maximumPremiumAllowed,
-    setPremium,
-  ]);
+  }, [premium, minimumPremiumAllowed, maximumPremiumAllowed, setPremium]);
 
   useI18n();
   const onMinusPress = () => {
     const newPremium = round(
-      Math.max(premium - incrementBy, minimumPremiumAllowed),
+      clamp(premium - incrementBy, minimumPremiumAllowed, maximumPremiumAllowed),
       2,
     );
     setPremium(newPremium);
@@ -67,7 +71,7 @@ export const PremiumInput = ({
 
   const onPlusPress = () => {
     const newPremium = round(
-      Math.min(premium + incrementBy, maximumPremiumAllowed),
+      clamp(premium + incrementBy, minimumPremiumAllowed, maximumPremiumAllowed),
       2,
     );
     setPremium(newPremium);

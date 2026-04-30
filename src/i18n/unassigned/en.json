@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "premium / discount",
   "filter.maxPremium": "max premium",
   "filter.minPremium": "min premium",
   "accessibility.bulletPoint": "bullet point",
@@ -18,6 +19,7 @@
   "checkTrade": "checkTrade",
   "connectToDesktop.mobilePendingActions": "Mobile Pending Actions",
   "connectToDesktop.mobilePendingActions.fundEscrow": "fund offer escrow",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "fund multiple escrows",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "fund contract escrow",
   "connectToDesktop.mobilePendingActions.paymentMade": "declare payment made",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "declare payment confirmed",
@@ -294,5 +296,7 @@
   "yesProceed":"Yes, proceed",
   "express.sell.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first buyer who accepts your request.",
   "express.buy.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first seller who accepts your request.",
+  "offer.create.buy.expertOnly.title": "expert users only",
+  "offer.create.buy.expertOnly.text": "creating buy offers is only available for expert users with 3 or more completed trades.",
   "wrongPasswordError": "the inserted password was incorrect.\nplease try again."
 }

@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "premio / sconto",
   "accessibility.bulletPoint": "Elenco puntato",
   "address.changingLocations": "Cambio location - Contatta organizzatori",
   "backupRestored": "Backup ripristinato",
@@ -16,6 +17,7 @@
   "checkTrade": "Controlla scambio",
   "connectToDesktop.mobilePendingActions": "Azioni mobili in sospeso",
   "connectToDesktop.mobilePendingActions.fundEscrow": "finanzia deposito dell'offerta",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "finanzia più depositi",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "finanzia deposito del contratto",
   "connectToDesktop.mobilePendingActions.paymentMade": "dichiara pagamento effettuato",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "dichiara pagamento confermato",

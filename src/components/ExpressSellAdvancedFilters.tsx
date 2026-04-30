@@ -106,7 +106,11 @@ export function ExpressSellAdvancedFilters({ isOpen, onClose }: Props) {
       label: i18n("amount"),
       content: <AmountSelection />,
     },
-    { id: "price" as const, label: i18n("price"), content: <PriceSection /> },
+    {
+      id: "price" as const,
+      label: i18n("premiumslashdiscount"),
+      content: <PriceSection />,
+    },
   ];
 
   const HEADER_AND_PADDING = 120;
@@ -679,7 +683,7 @@ function AmountSelection() {
   );
 }
 
-function PriceSection() {
+export function PriceSection() {
   const [realExpressSellFilterMinPremium, setExpressSellFilterMinPremium] =
     useOfferPreferences(
       (state) => [
@@ -689,7 +693,7 @@ function PriceSection() {
       shallow,
     );
 
-  const MIN_PREMIUM = -50;
+  const MIN_PREMIUM = -35;
 
   const expressSellFilterMinPremium =
     realExpressSellFilterMinPremium === -100
@@ -698,7 +702,7 @@ function PriceSection() {
 
   const PREMIUM_STEP = 0.1;
 
-  const MAX_PREMIUM = 50;
+  const MAX_PREMIUM = 35;
 
   const onMinusPress = () => {
     setExpressSellFilterMinPremium(

@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "felár / kedvezmény",
   "accessibility.bulletPoint": "felsorolási pont",
   "address.changingLocations": "helyszínváltás – vedd fel a kapcsolatot a szervezőkkel",
   "backupRestored": "biztonsági mentés visszaállítva",
@@ -16,6 +17,7 @@
   "checkTrade": "kereskedés ellenőrzése",
   "connectToDesktop.mobilePendingActions": "Függőben lévő mobilműveletek",
   "connectToDesktop.mobilePendingActions.fundEscrow": "ajánlat letétjének feltöltése",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "több letét feltöltése",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "szerződés letétjének feltöltése",
   "connectToDesktop.mobilePendingActions.paymentMade": "fizetés teljesítésének bejelentése",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "fizetés megerősítésének bejelentése",

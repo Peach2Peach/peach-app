@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "Aufschlag / Rabatt",
   "accessibility.bulletPoint": "Spiegelstrich",
   "address.changingLocations": "Standortwechsel – kontaktiere die Organisatoren",
   "backupRestored": "Backup wiederhergestellt",
@@ -16,6 +17,7 @@
   "checkTrade": "Trade überprüfen",
   "connectToDesktop.mobilePendingActions": "Ausstehende mobile Aktionen",
   "connectToDesktop.mobilePendingActions.fundEscrow": "Angebots-Escrow aufladen",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "mehrere Escrows aufladen",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "Vertrags-Escrow aufladen",
   "connectToDesktop.mobilePendingActions.paymentMade": "Zahlung getätigt melden",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "Zahlung bestätigt melden",

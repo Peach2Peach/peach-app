@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "премія / знижка",
   "accessibility.bulletPoint": "пункт",
   "address.changingLocations": "Зміна локації — звʼяжіться з організаторами.",
   "backupRestored": "Резервну копію відновлено",
@@ -16,6 +17,7 @@
   "checkTrade": "Перевірити угоду",
   "connectToDesktop.mobilePendingActions": "Очікувані мобільні дії",
   "connectToDesktop.mobilePendingActions.fundEscrow": "поповнити депозит пропозиції",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "поповнити кілька депозитів",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "поповнити депозит контракту",
   "connectToDesktop.mobilePendingActions.paymentMade": "повідомити про здійснення оплати",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "повідомити про підтвердження оплати",

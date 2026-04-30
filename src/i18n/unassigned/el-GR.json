@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "πριμ / έκπτωση",
   "accessibility.bulletPoint": "σημείο αναφοράς",
   "address.changingLocations": "αλλαγή τοποθεσιών - επικοινωνήστε με τους διοργανωτές",
   "backupRestored": "ανακτήθηκε το αντίγραφο ασφαλείας",
@@ -16,6 +17,7 @@
   "checkTrade": "έλεγχος συναλλαγής",
   "connectToDesktop.mobilePendingActions": "Εκκρεμείς ενέργειες κινητού",
   "connectToDesktop.mobilePendingActions.fundEscrow": "χρηματοδότηση εγγύησης προσφοράς",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "χρηματοδότηση πολλαπλών εγγυήσεων",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "χρηματοδότηση εγγύησης σύμβασης",
   "connectToDesktop.mobilePendingActions.paymentMade": "δήλωση ολοκλήρωσης πληρωμής",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "δήλωση επιβεβαίωσης πληρωμής",

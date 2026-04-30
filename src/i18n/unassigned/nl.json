@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "premie / korting",
   "accessibility.bulletPoint": "bulletpoint",
   "address.changingLocations": "locatie wijzigen - neem contact op met de host",
   "backupRestored": "back-up hersteld",
@@ -16,6 +17,7 @@
   "checkTrade": "controleer transactie",
   "connectToDesktop.mobilePendingActions": "Openstaande mobiele acties",
   "connectToDesktop.mobilePendingActions.fundEscrow": "borg van aanbod betalen",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "meerdere borgen betalen",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "borg van contract betalen",
   "connectToDesktop.mobilePendingActions.paymentMade": "betaling gedaan melden",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "betaling bevestigd melden",

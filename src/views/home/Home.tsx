@@ -1,7 +1,7 @@
 import { DEV, NETWORK } from "@env";
 import { useFocusEffect } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import Share from "react-native-share";
 import { LogoIcons } from "../../assets/logo";
@@ -22,6 +22,9 @@ import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRegisterPGP } from "../../hooks/useRegisterPGP";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
+import { InfoPopup } from "../../popups/InfoPopup";
+import { NEW_USER_TRADE_THRESHOLD } from "../../constants";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n, { useI18n } from "../../utils/i18n";
@@ -43,11 +46,13 @@ export function Home() {
   useRegisterPGP();
 
   const setPopup = useSetPopup();
-  useFocusEffect(() => {
-    if (DEV === "false" && NETWORK !== "bitcoin") {
-      setPopup(<AppPopup id="isTestApp" />);
-    }
-  });
+  useFocusEffect(
+    useCallback(() => {
+      if (DEV === "false" && NETWORK !== "bitcoin") {
+        setPopup(<AppPopup id="isTestApp" />);
+      }
+    }, [setPopup]),
+  );
 
   return (
     <>
@@ -325,17 +330,36 @@ function ExpressBuyButton() {
 
 function BuyButton() {
   const navigation = useStackNavigation();
-  const goToBuyOfferPreferences = () => navigation.navigate("createBuyOffer");
   const { isDarkMode } = useThemeStore();
+  const setPopup = useSetPopup();
+  const { user: selfUser } = useSelfUser();
+  const isExpertUser =
+    (selfUser?.trades ?? 0) >= NEW_USER_TRADE_THRESHOLD;
+
+  const onPress = () => {
+    if (!isExpertUser) {
+      setPopup(
+        <InfoPopup
+          title={i18n("offer.create.buy.expertOnly.title")}
+          content={i18n("offer.create.buy.expertOnly.text")}
+          dontShowHelpButton
+        />,
+      );
+      return;
+    }
+    navigation.navigate("createBuyOffer");
+  };
+
   return (
     <Button
       style={[
         buttonStyle,
         tw`border`,
         isDarkMode && tw`bg-backgroundMain-dark`,
+        !isExpertUser && tw`opacity-50`,
       ]}
       textColor={tw.color("success-main")}
-      onPress={goToBuyOfferPreferences}
+      onPress={onPress}
       ghost
     >
       {i18n("offer.create.buy")}

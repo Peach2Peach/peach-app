@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "primă / reducere",
   "backupRestored" : "backup restaurat",
   "resetAll": "Resetează tot",
   "advancedFilters": "Filtre avansate",
@@ -14,6 +15,7 @@
  "yesProceed": "Da, continuă",
   "connectToDesktop.mobilePendingActions": "Acțiuni mobile în așteptare",
   "connectToDesktop.mobilePendingActions.fundEscrow": "finanțează escrow-ul ofertei",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "finanțează mai multe escrow-uri",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "finanțează escrow-ul contractului",
   "connectToDesktop.mobilePendingActions.paymentMade": "declară plata efectuată",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "declară plata confirmată",

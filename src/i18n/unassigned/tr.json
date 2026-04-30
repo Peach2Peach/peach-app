@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "prim / indirim",
   "accessibility.bulletPoint": "madde işareti",
   "address.changingLocations": "Konum değiştiriliyor - organizatörlerle iletişime geçin",
   "backupRestored": "yedekleme tekrardan yüklendi",
@@ -16,6 +17,7 @@
   "checkTrade": "işlemi kontrol et",
   "connectToDesktop.mobilePendingActions": "Bekleyen mobil işlemler",
   "connectToDesktop.mobilePendingActions.fundEscrow": "teklif emanetini fonla",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "birden fazla emaneti fonla",
   "connectToDesktop.mobilePendingActions.fundEscrowContract": "sözleşme emanetini fonla",
   "connectToDesktop.mobilePendingActions.paymentMade": "ödemenin yapıldığını bildir",
   "connectToDesktop.mobilePendingActions.paymentConfirmed": "ödemenin onaylandığını bildir",
