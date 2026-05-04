@@ -38,5 +38,6 @@
   "matchDetails.action.unrequestTrade": "kereskedési kérés eltávolítása",
   "offerPreferences.feature.experienceLevel": "tapasztalati szint",
   "offerPreferences.filters.experiencedUsersOnly": "csak tapasztalt felhasználók",
-  "offerPreferences.filters.newUsersOnly": "csak új felhasználók"
+  "offerPreferences.filters.newUsersOnly": "csak új felhasználók",
+  "offerPreferences.advancedOptions": "speciális beállítások"
 }

@@ -297,6 +297,8 @@
   "yesProceed": "Ndiyo, endelea",
   "express.sell.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első vevővel lépsz kereskedésbe, aki elfogadja a kérésed.",
   "express.buy.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első eladóval lépsz kereskedésbe, aki elfogadja a kérésed.",
+  "offer.create.buy.expertOnly.title": "csak tapasztalt felhasználók",
+  "offer.create.buy.expertOnly.text": "vételi ajánlatok létrehozása csak tapasztalt felhasználók számára érhető el, akik 3 vagy több befejezett trade-del rendelkeznek. nyomd meg lent a vásárlás gombot, hogy trade-et kérj egy meglévő eladási ajánlattal",
   "wrongPasswordError": "A megadott jelszó helytelen.\nKérlek, próbáld újra."
 
 

@@ -297,6 +297,8 @@
   "yesProceed": "Oui, continuer",
   "express.sell.tradeRequestBehaviourInfo": "Envoie autant de demandes que possible. Tu entreras en trade avec le premier acheteur qui acceptera ta demande.",
   "express.buy.tradeRequestBehaviourInfo": "Envoie autant de demandes que possible. Tu entreras en trade avec le premier vendeur qui acceptera ta demande.",
+  "offer.create.buy.expertOnly.title": "utilisateurs expérimentés seulement",
+  "offer.create.buy.expertOnly.text": "la création d'offres d'achat n'est disponible que pour les utilisateurs expérimentés avec 3 trades complétées ou plus. appuie sur le bouton acheter en bas pour demander une trade avec une offre de vente existante",
   "wrongPasswordError": "Le mot de passe saisi est incorrect.\nVeuillez réessayer."
 
 }

@@ -38,5 +38,6 @@
   "help.createMultiple.title": "unda ofa nyingi za kununua",
   "offerPreferences.feature.experienceLevel": "kiwango cha uzoefu",
   "offerPreferences.filters.experiencedUsersOnly": "watumiaji wenye uzoefu tu",
-  "offerPreferences.filters.newUsersOnly": "watumiaji wapya tu"
+  "offerPreferences.filters.newUsersOnly": "watumiaji wapya tu",
+  "offerPreferences.advancedOptions": "chaguzi za hali ya juu"
 }

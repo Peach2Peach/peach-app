@@ -291,6 +291,8 @@
    "yesProceed": "Sì, procedi",
    "express.sell.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo acquirente che accetterà la tua richiesta.",
   "express.buy.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo venditore che accetterà la tua richiesta.",
+  "offer.create.buy.expertOnly.title": "solo utenti esperti",
+  "offer.create.buy.expertOnly.text": "la creazione di offerte di acquisto è disponibile solo per utenti esperti con 3 o più trade completate. premi il pulsante acquista in basso per richiedere una trade con un'offerta di vendita esistente",
   "wrongPasswordError": "La password inserita non è corretta.\nPer favore riprova."
 
 

@@ -296,7 +296,7 @@
   "yesProceed":"Yes, proceed",
   "express.sell.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first buyer who accepts your request.",
   "express.buy.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first seller who accepts your request.",
-  "offer.create.buy.expertOnly.title": "expert users only",
-  "offer.create.buy.expertOnly.text": "creating buy offers is only available for expert users with 3 or more completed trades.",
+  "offer.create.buy.expertOnly.title": "experienced users only",
+  "offer.create.buy.expertOnly.text": "creating Buy Offers is only available for experienced users with 3 or more completed trades. press the Buy button in the bottom to request a trade with an existing Sell Offer",
   "wrongPasswordError": "the inserted password was incorrect.\nplease try again."
 }

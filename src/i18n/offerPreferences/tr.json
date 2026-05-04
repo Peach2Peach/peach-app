@@ -38,5 +38,6 @@
   "matchDetails.action.unrequestTrade": "ticaret isteğini kaldır",
   "offerPreferences.feature.experienceLevel": "deneyim seviyesi",
   "offerPreferences.filters.experiencedUsersOnly": "sadece deneyimli kullanıcılar",
-  "offerPreferences.filters.newUsersOnly": "sadece yeni kullanıcılar"
+  "offerPreferences.filters.newUsersOnly": "sadece yeni kullanıcılar",
+  "offerPreferences.advancedOptions": "gelişmiş seçenekler"
 }

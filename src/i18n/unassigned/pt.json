@@ -297,6 +297,8 @@
   "yesProceed": "Sim, continuar",
   "express.sell.tradeRequestBehaviourInfo": "Faz tantos pedidos de trade quanto possível. Entrarás numa trade com o primeiro comprador que aceitar o teu pedido.",
   "express.buy.tradeRequestBehaviourInfo": "Faz tantos pedidos de trade quanto possível. Entrarás numa trade com o primeiro vendedor que aceitar o teu pedido.",
+  "offer.create.buy.expertOnly.title": "apenas users experientes",
+  "offer.create.buy.expertOnly.text": "criar ofertas de compra só está disponível para users experientes com 3 ou mais trades completas. pressiona o botão comprar em baixo para pedir uma trade com uma oferta de venda existente",
   "wrongPasswordError": "A senha inserida está incorreta.\nPor favor, tente novamente."
 
 

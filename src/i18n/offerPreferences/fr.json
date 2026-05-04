@@ -38,5 +38,6 @@
   "matchDetails.action.unrequestTrade": "annuler la demande",
   "offerPreferences.feature.experienceLevel": "niveau d'expérience",
   "offerPreferences.filters.experiencedUsersOnly": "utilisateurs expérimentés",
-  "offerPreferences.filters.newUsersOnly": "nouveaux utilisateurs"
+  "offerPreferences.filters.newUsersOnly": "nouveaux utilisateurs",
+  "offerPreferences.advancedOptions": "options avancées"
 }

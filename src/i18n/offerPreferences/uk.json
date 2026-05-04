@@ -38,5 +38,6 @@
   "matchDetails.action.unrequestTrade": "видалити запит на торгівлю",
   "offerPreferences.feature.experienceLevel": "рівень досвіду",
   "offerPreferences.filters.experiencedUsersOnly": "лише досвідчені користувачі",
-  "offerPreferences.filters.newUsersOnly": "лише нові користувачі"
+  "offerPreferences.filters.newUsersOnly": "лише нові користувачі",
+  "offerPreferences.advancedOptions": "розширені параметри"
 }

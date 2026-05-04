@@ -38,5 +38,6 @@
   "help.createMultiple.title": "δημιουργία πολλαπλών προσφορών αγοράς",
   "offerPreferences.feature.experienceLevel": "επίπεδο εμπειρίας",
   "offerPreferences.filters.experiencedUsersOnly": "μόνο έμπειροι χρήστες",
-  "offerPreferences.filters.newUsersOnly": "μόνο νέοι χρήστες"
+  "offerPreferences.filters.newUsersOnly": "μόνο νέοι χρήστες",
+  "offerPreferences.advancedOptions": "προηγμένες επιλογές"
 }

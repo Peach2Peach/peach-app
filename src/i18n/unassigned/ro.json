@@ -22,5 +22,7 @@
   "connectToDesktop.mobilePendingActions.refund": "rambursează escrow-ul ofertei",
   "connectToDesktop.mobilePendingActions.refundEscrowContract": "rambursează escrow-ul contractului",
   "settings.connectToDesktop": "conectare la desktop",
-  "settings.mobilePendingActions": "acțiuni mobile în așteptare"
+  "settings.mobilePendingActions": "acțiuni mobile în așteptare",
+  "offer.create.buy.expertOnly.title": "doar utilizatori experimentați",
+  "offer.create.buy.expertOnly.text": "crearea de oferte de cumpărare este disponibilă doar pentru utilizatorii experimentați cu 3 sau mai multe trade-uri finalizate. apasă butonul cumpără de jos pentru a cere un trade cu o ofertă de vânzare existentă"
 }

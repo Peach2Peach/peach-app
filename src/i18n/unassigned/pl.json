@@ -297,6 +297,8 @@
   "yesProceed": "Tak, kontynuuj",
   "express.sell.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym kupującym, który zaakceptuje Twoją prośbę.",
   "express.buy.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym sprzedawcą, który zaakceptuje Twoją prośbę.",
+  "offer.create.buy.expertOnly.title": "tylko doświadczeni użytkownicy",
+  "offer.create.buy.expertOnly.text": "tworzenie ofert kupna jest dostępne tylko dla doświadczonych użytkowników z 3 lub więcej zakończonymi trade. naciśnij przycisk kup na dole, aby poprosić o trade z istniejącą ofertą sprzedaży",
   "wrongPasswordError": "Wprowadzone hasło jest niepoprawne.\nSpróbuj ponownie."
 
 
