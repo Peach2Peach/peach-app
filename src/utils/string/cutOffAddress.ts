@@ -1,7 +1,8 @@
 const longAddressThreshold = 15;
 const endOfFirstPart = 8;
 const startOfSecondPart = -6;
-export const cutOffAddress = (address: string) => {
+export const cutOffAddress = (address: string | undefined) => {
+  if (!address) return "";
   if (address.length < longAddressThreshold) {
     return address;
   }
