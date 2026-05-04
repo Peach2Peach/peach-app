@@ -38,5 +38,6 @@
   "help.createMultiple.title": "Создать несколько предложений на покупку",
   "offerPreferences.feature.experienceLevel": "уровень опыта",
   "offerPreferences.filters.experiencedUsersOnly": "только опытные пользователи",
-  "offerPreferences.filters.newUsersOnly": "только новые пользователи"
+  "offerPreferences.filters.newUsersOnly": "только новые пользователи",
+  "offerPreferences.advancedOptions": "расширенные параметры"
 }

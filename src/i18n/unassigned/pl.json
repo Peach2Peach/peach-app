@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "premia / rabat",
   "accessibility.bulletPoint": "punkt",
   "address.changingLocations": "zmiana lokalizacji – skontaktuj się z organizatorami",
   "backupRestored": "Kopia zapasowa przywrócona",
@@ -14,6 +15,14 @@
   "cancelOffer": "anuluj ofertę",
   "chat.disputeDisclaimer.2": "Jeśli kontrahent proponuje handel poza Peach, pamiętaj, że",
   "checkTrade": "sprawdź transakcję",
+  "connectToDesktop.mobilePendingActions": "Oczekujące akcje mobilne",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "zasil depozyt oferty",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "zasil wiele depozytów",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "zasil depozyt kontraktu",
+  "connectToDesktop.mobilePendingActions.paymentMade": "zgłoś dokonanie płatności",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "zgłoś potwierdzenie płatności",
+  "connectToDesktop.mobilePendingActions.refund": "zwróć depozyt oferty",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "zwróć depozyt kontraktu",
   "contactUs": "skontaktuj się z nami",
   "continueTrade": "kontynuuj handel",
   "createAccount": "utwórz konto",
@@ -288,6 +297,8 @@
   "yesProceed": "Tak, kontynuuj",
   "express.sell.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym kupującym, który zaakceptuje Twoją prośbę.",
   "express.buy.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym sprzedawcą, który zaakceptuje Twoją prośbę.",
+  "offer.create.buy.expertOnly.title": "tylko doświadczeni użytkownicy",
+  "offer.create.buy.expertOnly.text": "tworzenie ofert kupna jest dostępne tylko dla doświadczonych użytkowników z 3 lub więcej zakończonymi trade. naciśnij przycisk kup na dole, aby poprosić o trade z istniejącą ofertą sprzedaży",
   "wrongPasswordError": "Wprowadzone hasło jest niepoprawne.\nSpróbuj ponownie."
 
 

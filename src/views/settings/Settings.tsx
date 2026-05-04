@@ -26,8 +26,23 @@ import { SettingsItem } from "./components/SettingsItem";
 import { VersionInfo } from "./components/VersionInfo";
 
 const contactUs = isProduction()
-  ? (["contact", "aboutPeach"] as const)
-  : (["testView", "contact", "aboutPeach"] as const);
+  ? NETWORK === "regtest"
+    ? ([
+        "connectToDesktop",
+        "pasteDesktopConnection",
+        "mobilePendingActions",
+        "contact",
+        "aboutPeach",
+      ] as const)
+    : (["contact", "aboutPeach"] as const)
+  : ([
+      "connectToDesktop",
+      "pasteDesktopConnection",
+      "mobilePendingActions",
+      "testView",
+      "contact",
+      "aboutPeach",
+    ] as const);
 
 export const Settings = () => {
   useI18n();

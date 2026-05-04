@@ -83,7 +83,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Jaribu kufanya biashara na ofa nyingine ya kuuza.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Ofa uliyoomba imeondolewa",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Jaribu kufanya biashara na ofa nyingine ya kununua.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Ofa uliyoomba imeondolewa"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Ofa uliyoomba imeondolewa",
+
+  "notification.body.contract.canceled": "Mnunuzi wa biashara $0 amefuta. Unaweza kuchagua kuendelea kutafuta kulingana mpya au kuomba marejesho.",
+  "notification.title.contract.canceled": "Biashara Imefutwa"
 
 
   

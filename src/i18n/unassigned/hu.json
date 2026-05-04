@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "felár / kedvezmény",
   "accessibility.bulletPoint": "felsorolási pont",
   "address.changingLocations": "helyszínváltás – vedd fel a kapcsolatot a szervezőkkel",
   "backupRestored": "biztonsági mentés visszaállítva",
@@ -14,6 +15,14 @@
   "cancelOffer": "ajánlat visszavonása",
   "chat.disputeDisclaimer.2": "Ha a másik fél a Peach-en kívüli kereskedést javasolja, tartsd szem előtt, hogy",
   "checkTrade": "kereskedés ellenőrzése",
+  "connectToDesktop.mobilePendingActions": "Függőben lévő mobilműveletek",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "ajánlat letétjének feltöltése",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "több letét feltöltése",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "szerződés letétjének feltöltése",
+  "connectToDesktop.mobilePendingActions.paymentMade": "fizetés teljesítésének bejelentése",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "fizetés megerősítésének bejelentése",
+  "connectToDesktop.mobilePendingActions.refund": "ajánlat letétjének visszatérítése",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "szerződés letétjének visszatérítése",
   "contactUs": "kapcsolatfelvétel",
   "continueTrade": "kereskedés folytatása",
   "createAccount": "Fiók létrehozása",
@@ -288,6 +297,8 @@
   "yesProceed": "Ndiyo, endelea",
   "express.sell.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első vevővel lépsz kereskedésbe, aki elfogadja a kérésed.",
   "express.buy.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első eladóval lépsz kereskedésbe, aki elfogadja a kérésed.",
+  "offer.create.buy.expertOnly.title": "csak tapasztalt felhasználók",
+  "offer.create.buy.expertOnly.text": "vételi ajánlatok létrehozása csak tapasztalt felhasználók számára érhető el, akik 3 vagy több befejezett trade-del rendelkeznek. nyomd meg lent a vásárlás gombot, hogy trade-et kérj egy meglévő eladási ajánlattal",
   "wrongPasswordError": "A megadott jelszó helytelen.\nKérlek, próbáld újra."
 
 

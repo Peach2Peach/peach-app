@@ -11,6 +11,8 @@ describe("usePaymentDataStore", () => {
       addPaymentData: expect.any(Function),
       setPaymentDataHidden: expect.any(Function),
       removePaymentData: expect.any(Function),
+      getPaymentData: expect.any(Function),
+      replaceAllPaymentData: expect.any(Function),
       paymentData: {},
       paymentDetailInfo: {},
       reset: expect.any(Function),

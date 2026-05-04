@@ -12,4 +12,8 @@ describe("cutOffAddress", () => {
   it("should handle empty string", () => {
     expect(cutOffAddress("")).toBe("");
   });
+
+  it("should handle undefined", () => {
+    expect(cutOffAddress(undefined)).toBe("");
+  });
 });

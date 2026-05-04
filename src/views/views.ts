@@ -13,6 +13,23 @@ import { Contract } from "./contract/Contract";
 import { PatchPayoutAddress } from "./contract/PatchPayoutAddress";
 import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
+import { ConnectToDesktop } from "./desktopConnection/ConnectToDesktop";
+import { PasteDesktopConnection } from "./desktopConnection/PasteDesktopConnection";
+import { MobilePendingActionFundContractEscrow } from "./desktopConnection/MobilePendingActionFundContractEscrow";
+import { MobilePendingActionFundContractEscrowSuccess } from "./desktopConnection/MobilePendingActionFundContractEscrowSuccess";
+import { MobilePendingActionFundEscrow } from "./desktopConnection/MobilePendingActionFundEscrow";
+import { MobilePendingActionFundEscrowSuccess } from "./desktopConnection/MobilePendingActionFundEscrowSuccess";
+import { MobilePendingActionFundMultipleEscrow } from "./desktopConnection/MobilePendingActionFundMultipleEscrow";
+import { MobilePendingActionFundMultipleEscrowSuccess } from "./desktopConnection/MobilePendingActionFundMultipleEscrowSuccess";
+import { MobilePendingActionRefund } from "./desktopConnection/MobilePendingActionRefund";
+import { MobilePendingActionRefundContractEscrow } from "./desktopConnection/MobilePendingActionRefundContractEscrow";
+import { MobilePendingActionRefundContractEscrowSuccess } from "./desktopConnection/MobilePendingActionRefundContractEscrowSuccess";
+import { MobilePendingActionRefundSuccess } from "./desktopConnection/MobilePendingActionRefundSuccess";
+import { MobilePendingActionRevealAddress } from "./desktopConnection/MobilePendingActionRevealAddress";
+import { MobilePendingActionRevealAddressSuccess } from "./desktopConnection/MobilePendingActionRevealAddressSuccess";
+import { MobilePendingActionSignMultisig } from "./desktopConnection/MobilePendingActionSignMultisig";
+import { MobilePendingActionSignMultisigSuccess } from "./desktopConnection/MobilePendingActionSignMultisigSuccess";
+import { MobilePendingActions } from "./desktopConnection/MobilePendingActions";
 import { DisputeForm } from "./dispute/DisputeForm";
 import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
@@ -231,6 +248,77 @@ const otherUserViews: ViewType[] = [
   },
 ];
 
+const desktopConnection: ViewType[] = [
+  {
+    name: "connectToDesktop",
+    component: ConnectToDesktop,
+  },
+  {
+    name: "pasteDesktopConnection",
+    component: PasteDesktopConnection,
+  },
+  {
+    name: "mobilePendingActions",
+    component: MobilePendingActions,
+  },
+  {
+    name: "mobilePendingActionRevealAddress",
+    component: MobilePendingActionRevealAddress,
+  },
+  {
+    name: "mobilePendingActionRevealAddressSuccess",
+    component: MobilePendingActionRevealAddressSuccess,
+  },
+  {
+    name: "mobilePendingActionSignMultisig",
+    component: MobilePendingActionSignMultisig,
+  },
+  {
+    name: "mobilePendingActionSignMultisigSuccess",
+    component: MobilePendingActionSignMultisigSuccess,
+  },
+  {
+    name: "mobilePendingActionRefund",
+    component: MobilePendingActionRefund,
+  },
+  {
+    name: "mobilePendingActionRefundSuccess",
+    component: MobilePendingActionRefundSuccess,
+  },
+  {
+    name: "mobilePendingActionFundEscrow",
+    component: MobilePendingActionFundEscrow,
+  },
+  {
+    name: "mobilePendingActionFundEscrowSuccess",
+    component: MobilePendingActionFundEscrowSuccess,
+  },
+  {
+    name: "mobilePendingActionFundMultipleEscrow",
+    component: MobilePendingActionFundMultipleEscrow,
+  },
+  {
+    name: "mobilePendingActionFundMultipleEscrowSuccess",
+    component: MobilePendingActionFundMultipleEscrowSuccess,
+  },
+  {
+    name: "mobilePendingActionFundContractEscrow",
+    component: MobilePendingActionFundContractEscrow,
+  },
+  {
+    name: "mobilePendingActionFundContractEscrowSuccess",
+    component: MobilePendingActionFundContractEscrowSuccess,
+  },
+  {
+    name: "mobilePendingActionRefundContractEscrow",
+    component: MobilePendingActionRefundContractEscrow,
+  },
+  {
+    name: "mobilePendingActionRefundContractEscrowSuccess",
+    component: MobilePendingActionRefundContractEscrowSuccess,
+  },
+];
+
 const blockedUsers: ViewType[] = [
   {
     name: "blockedUsers",
@@ -254,6 +342,7 @@ export const views = [
   ...sellOfferOwnerFlow,
   ...tradeRequestChat,
   ...otherUserViews,
+  ...desktopConnection,
   ...blockedUsers,
 ];
 

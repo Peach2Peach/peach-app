@@ -1,5 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal, TouchableOpacity, Vibration, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -32,14 +32,17 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
     },
   });
 
-  const [hasPermission, setHasPermission] = useState(false);
+  const onCancelRef = useRef(onCancel);
+  onCancelRef.current = onCancel;
+
+  const [hasPermission] = useState(
+    () => Camera.getCameraPermissionStatus() === "granted",
+  );
 
   useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+    if (hasPermission) return;
+    onCancelRef.current();
+  }, [hasPermission]);
 
   const isFocused = useIsFocused();
 
@@ -60,6 +63,7 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => {
         device={device}
         isActive={hasPermission && isFocused}
         codeScanner={codeScanner}
+        onError={() => onCancelRef.current()}
       />
       <View style={tw`py-2`}>
         <TouchableOpacity

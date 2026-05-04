@@ -1,6 +1,10 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
+import { decryptAndApplyPaymentData } from "../../hooks/query/peach069/useSyncPaymentDataFromServer";
+import { user69DetailsKeys } from "../../hooks/query/peach069/useUser69";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { InfoPopup } from "../../popups/InfoPopup";
@@ -26,6 +30,8 @@ const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
   const navigation = useStackNavigation();
+  const queryClient = useQueryClient();
+  useRefreshPaymentDataFromServerOnMount();
   const [preferredPaymentMethods, toggle] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.togglePaymentMethod],
     shallow,
@@ -34,16 +40,30 @@ export const PaymentMethods = () => {
     isDefined,
   );
 
-  const editItem = (data: PaymentData) => {
-    if (isCashTrade(data.type)) {
+  const editItem = async (data: PaymentData) => {
+    try {
+      await queryClient.refetchQueries({
+        queryKey: user69DetailsKeys.details(),
+      });
+      const user = queryClient.getQueryData<{
+        encryptedPaymentData?: string | null;
+      }>(user69DetailsKeys.details());
+      if (user?.encryptedPaymentData) {
+        await decryptAndApplyPaymentData(user.encryptedPaymentData);
+      }
+    } catch {
+      // fall through and navigate with whatever we have locally
+    }
+    const fresh = usePaymentDataStore.getState().paymentData[data.id] ?? data;
+    if (isCashTrade(fresh.type)) {
       navigation.navigate("meetupScreen", {
-        eventId: data.id.replace("cash.", ""),
+        eventId: fresh.id.replace("cash.", ""),
         deletable: true,
         origin: "paymentMethods",
       });
     } else {
       navigation.navigate("paymentMethodForm", {
-        paymentData: data,
+        paymentData: fresh,
         origin: "paymentMethods",
       });
     }

@@ -83,7 +83,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Spróbuj handlować z inną ofertą sprzedaży.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Oferta, o którą prosiłeś, została usunięta",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Spróbuj handlować z inną ofertą kupna.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Oferta, o którą prosiłeś, została usunięta"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Oferta, o którą prosiłeś, została usunięta",
+
+  "notification.body.contract.canceled": "Kupujący w transakcji $0 anulował ją. Możesz zachować ofertę otwartą, aby znaleźć nowe dopasowanie, lub otrzymać zwrot środków.",
+  "notification.title.contract.canceled": "Anulowanie transakcji"
 
 
  

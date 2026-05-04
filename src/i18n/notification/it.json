@@ -82,7 +82,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Prova a fare trading con un’altra offerta di vendita.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "L’offerta richiesta è stata rimossa",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Prova a fare trading con un’altra offerta di acquisto.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "L’offerta richiesta è stata rimossa"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "L’offerta richiesta è stata rimossa",
+
+  "notification.body.contract.canceled": "L'acquirente ha annullato lo scambio $0. Puoi lasciare aperta la tua offerta per trovare un nuovo acquirente o richiedere un rimborso.",
+  "notification.title.contract.canceled": "Scambio annullato"
 
 
   

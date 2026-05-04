@@ -17,6 +17,26 @@ type TestViews = {
   testViewPNs: undefined;
 };
 
+type DesktopConnection = {
+  connectToDesktop: undefined;
+  pasteDesktopConnection: undefined;
+  mobilePendingActions: undefined;
+  mobilePendingActionRefund: { id: string };
+  mobilePendingActionRefundSuccess: undefined;
+  mobilePendingActionRevealAddress: { id: string };
+  mobilePendingActionRevealAddressSuccess: undefined;
+  mobilePendingActionSignMultisig: { id: string };
+  mobilePendingActionSignMultisigSuccess: undefined;
+  mobilePendingActionFundEscrow: { id: string };
+  mobilePendingActionFundEscrowSuccess: undefined;
+  mobilePendingActionFundMultipleEscrow: { id: string };
+  mobilePendingActionFundMultipleEscrowSuccess: undefined;
+  mobilePendingActionFundContractEscrow: { contractId: string };
+  mobilePendingActionFundContractEscrowSuccess: undefined;
+  mobilePendingActionRefundContractEscrow: { contractId: string };
+  mobilePendingActionRefundContractEscrowSuccess: undefined;
+};
+
 type HomeTabParamList = {
   home: undefined;
   wallet: undefined;
@@ -203,4 +223,5 @@ type RootStackParamList = Onboarding &
   SellOfferOwnerFlow &
   ExpressBuySellFlowChat &
   OffersOfUser &
+  DesktopConnection &
   BlockedUsers;

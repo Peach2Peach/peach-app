@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "premie / korting",
   "accessibility.bulletPoint": "bulletpoint",
   "address.changingLocations": "locatie wijzigen - neem contact op met de host",
   "backupRestored": "back-up hersteld",
@@ -14,6 +15,14 @@
   "cancelOffer": "aanbod annuleren",
   "chat.disputeDisclaimer.2": "Als de andere partij voorstelt om buiten Peach om te handelen, neem dan in overweging dat dit niet onder de borgstelling van Peach valt.\n\nAls je de gang van zaken verdacht vindt, kun je een geschil openen in de rechter bovenhoek",
   "checkTrade": "controleer transactie",
+  "connectToDesktop.mobilePendingActions": "Openstaande mobiele acties",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "borg van aanbod betalen",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "meerdere borgen betalen",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "borg van contract betalen",
+  "connectToDesktop.mobilePendingActions.paymentMade": "betaling gedaan melden",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "betaling bevestigd melden",
+  "connectToDesktop.mobilePendingActions.refund": "borg van aanbod terugbetalen",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "borg van contract terugbetalen",
   "contactUs": "neem contact met ons op",
   "continueTrade": "transactie voortzetten",
   "createAccount": "account aanmaken",
@@ -284,6 +293,8 @@
   "yesProceed": "Ja, doorgaan",
    "express.sell.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste koper die je verzoek accepteert.",
   "express.buy.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste verkoper die je verzoek accepteert.",
+  "offer.create.buy.expertOnly.title": "alleen ervaren gebruikers",
+  "offer.create.buy.expertOnly.text": "koopaanbiedingen aanmaken is alleen beschikbaar voor ervaren gebruikers met 3 of meer voltooide trades. druk onderaan op de kopen knop om een trade aan te vragen met een bestaande verkoopaanbieding",
   "wrongPasswordError": "Het ingevoerde wachtwoord is onjuist.\nProbeer het opnieuw."
 
 

@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "prim / indirim",
   "accessibility.bulletPoint": "madde işareti",
   "address.changingLocations": "Konum değiştiriliyor - organizatörlerle iletişime geçin",
   "backupRestored": "yedekleme tekrardan yüklendi",
@@ -14,6 +15,14 @@
   "cancelOffer": "teklifi iptal et",
   "chat.disputeDisclaimer.2": "Karşı taraf, işlemi Peach dışında gerçekleştirmeyi öneriyorsa, unutmayın ki bunun sonucunda",
   "checkTrade": "işlemi kontrol et",
+  "connectToDesktop.mobilePendingActions": "Bekleyen mobil işlemler",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "teklif emanetini fonla",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "birden fazla emaneti fonla",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "sözleşme emanetini fonla",
+  "connectToDesktop.mobilePendingActions.paymentMade": "ödemenin yapıldığını bildir",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "ödemenin onaylandığını bildir",
+  "connectToDesktop.mobilePendingActions.refund": "teklif emanetini iade et",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "sözleşme emanetini iade et",
   "contactUs": "bizimle iletişime geçin",
   "continueTrade": "alışverişe devam et",
   "createAccount": "hesap oluştur",
@@ -284,6 +293,8 @@
   "yesProceed": "Evet, devam et",
   "express.sell.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk alıcıyla işleme girersin.",
   "express.buy.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk satıcıyla işleme girersin.",
+  "offer.create.buy.expertOnly.title": "yalnızca deneyimli kullanıcılar",
+  "offer.create.buy.expertOnly.text": "satın alma teklifleri oluşturma, yalnızca 3 veya daha fazla tamamlanmış işleme sahip deneyimli kullanıcılar için kullanılabilir. mevcut bir satış teklifi ile işlem talep etmek için aşağıdaki satın al düğmesine bas",
   "wrongPasswordError": "Girilen şifre yanlış.\nLütfen tekrar deneyin."
 
 

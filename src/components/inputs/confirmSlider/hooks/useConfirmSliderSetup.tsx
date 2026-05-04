@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, LayoutChangeEvent, PanResponder } from "react-native";
 import { useIsMediumScreen } from "../../../../hooks/useIsMediumScreen";
 import { getNormalized } from "../../../../utils/math/getNormalized";
@@ -6,13 +6,19 @@ import { getNormalized } from "../../../../utils/math/getNormalized";
 type Props = ComponentProps & {
   onConfirm: () => void;
   enabled: boolean;
+  isCallbackRunning?: boolean;
 };
 
 export const defaultWidth = 260;
 const MEDIUM_KNOB_WIDTH = 56;
 const SMALL_KNOB_WIDTH = 46;
 
-export const useConfirmSliderSetup = ({ enabled, onConfirm }: Props) => {
+export const useConfirmSliderSetup = ({
+  enabled,
+  onConfirm,
+  isCallbackRunning,
+}: Props) => {
+  console.log("isCallbackRunning", isCallbackRunning);
   const isMediumScreen = useIsMediumScreen();
   const knobWidth = isMediumScreen ? MEDIUM_KNOB_WIDTH : SMALL_KNOB_WIDTH;
   const [widthToSlide, setWidthToSlide] = useState(defaultWidth - knobWidth);
@@ -24,41 +30,69 @@ export const useConfirmSliderSetup = ({ enabled, onConfirm }: Props) => {
   };
 
   const pan = useRef(new Animated.Value(0)).current;
+  const wasCallbackRunning = useRef(false);
+
+  useEffect(() => {
+    console.log("wasCallbackRunning", wasCallbackRunning);
+    if (isCallbackRunning) {
+      wasCallbackRunning.current = true;
+      Animated.timing(pan, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: false,
+      }).start();
+    } else if (wasCallbackRunning.current) {
+      console.log("KJSDFNJKSDGFKJN");
+      wasCallbackRunning.current = false;
+      Animated.timing(pan, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: false,
+      }).start();
+    }
+  }, [isCallbackRunning, pan]);
+
   const panResponder = useMemo(
     () =>
       PanResponder.create({
         onMoveShouldSetPanResponder: (_, gestureState) => {
-          if (!enabled) return false;
+          if (!enabled || isCallbackRunning) return false;
           const { dx, dy } = gestureState;
           // start gesture only if horizontal motion dominates
           return Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 4;
         },
 
         onPanResponderGrant: () => {
+          if (isCallbackRunning) return;
           // gesture officially started
           pan.stopAnimation?.();
         },
 
         onPanResponderMove: (_, gestureState) => {
-          if (!enabled) return;
+          if (!enabled || isCallbackRunning) return;
           const x = gestureState.dx;
           pan.setValue(getNormalized(x, widthToSlide));
         },
         onPanResponderRelease: (_e, { dx }) => {
           const normalizedVal = getNormalized(dx, widthToSlide);
-          if (normalizedVal >= 1 && enabled) onConfirm();
-          Animated.timing(pan, {
-            toValue: 0,
-            duration: 100,
-            delay: 10,
-            useNativeDriver: false,
-          }).start();
+          const isConfirmed = normalizedVal >= 1 && enabled;
+          if (isConfirmed) onConfirm();
+          const shouldHoldAtEnd =
+            isConfirmed && isCallbackRunning !== undefined;
+          if (!shouldHoldAtEnd) {
+            Animated.timing(pan, {
+              toValue: 0,
+              duration: 100,
+              delay: 10,
+              useNativeDriver: false,
+            }).start();
+          }
         },
 
         onPanResponderTerminationRequest: () => false,
         onShouldBlockNativeResponder: () => true,
       }),
-    [enabled, onConfirm, pan, widthToSlide],
+    [enabled, isCallbackRunning, onConfirm, pan, widthToSlide],
   );
 
   return { panResponder, pan, widthToSlide, onLayout };

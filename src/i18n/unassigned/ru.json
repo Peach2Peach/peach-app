@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "премия / скидка",
   "accessibility.bulletPoint": "пункт в списке",
   "address.changingLocations": "смена локации - свяжитесь с организаторами",
   "backupRestored": "резервная копия восстановлена",
@@ -14,6 +15,14 @@
   "cancelOffer": "отменить предложение",
   "chat.disputeDisclaimer.2": "Если ваш контрагент предлагает торговать за пределами Peach, примите во внимание, что вы",
   "checkTrade": "проверка сделки",
+  "connectToDesktop.mobilePendingActions": "Ожидающие мобильные действия",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "пополнить эскроу предложения",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "пополнить несколько эскроу",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "пополнить эскроу контракта",
+  "connectToDesktop.mobilePendingActions.paymentMade": "сообщить о совершении платежа",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "сообщить о подтверждении платежа",
+  "connectToDesktop.mobilePendingActions.refund": "вернуть эскроу предложения",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "вернуть эскроу контракта",
   "contactUs": "связаться с нами",
   "continueTrade": "продолжить торговлю",
   "createAccount": "зарегистрироваться",
@@ -285,6 +294,8 @@
   "yesProceed": "Да, продолжить",
   "express.sell.tradeRequestBehaviourInfo": "Отправляйте как можно больше запросов на сделку. Вы начнёте сделку с первым покупателем, который примет ваш запрос.",
   "express.buy.tradeRequestBehaviourInfo": "Отправляйте как можно больше запросов на сделку. Вы начнёте сделку с первым продавцом, который примет ваш запрос.",
+  "offer.create.buy.expertOnly.title": "только опытные пользователи",
+  "offer.create.buy.expertOnly.text": "создание предложений покупки доступно только опытным пользователям с 3 или более завершёнными сделками. нажмите кнопку купить внизу, чтобы запросить сделку с существующим предложением продажи",
   "wrongPasswordError": "Введённый пароль неверен.\nПожалуйста, попробуйте снова."
 
 

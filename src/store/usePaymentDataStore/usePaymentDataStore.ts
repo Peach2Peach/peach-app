@@ -22,6 +22,7 @@ export type PaymentMethodsStore = PaymentDataState & {
   getPaymentData: () => Record<string, PaymentData>;
   setPaymentDataHidden: (id: string, hidden: boolean) => void;
   removePaymentData: (id: string) => void;
+  replaceAllPaymentData: (data: Record<string, PaymentData>) => void;
 };
 const storeId = "paymentDataStore";
 const paymentDataStorage = createStorage(storeId);
@@ -72,6 +73,13 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
               data,
             ),
           }));
+        },
+        replaceAllPaymentData: (data) => {
+          const paymentDetailInfo = Object.values(data).reduce(
+            (acc, item) => deepMerge(acc, buildPaymentDetailInfo(item)),
+            {} as PaymentDetailInfo,
+          );
+          set({ paymentData: data, paymentDetailInfo });
         },
       }),
       {

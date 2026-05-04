@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "prima / descuento",
   "accessibility.bulletPoint": "punto de lista",
   "address.changingLocations": "cambiando de ubicación - contacta organizadores",
   "backupRestored": "copia de seguridad restaurada",
@@ -14,6 +15,14 @@
   "cancelOffer": "cancelar oferta",
   "chat.disputeDisclaimer.2": "Si tu contraparte propone un intercambio fuera de Peach, ya no estarás protegido",
   "checkTrade": "ver intercambio",
+  "connectToDesktop.mobilePendingActions": "Acciones pendientes del móvil",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "financiar escrow de oferta",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "financiar múltiples escrows",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "financiar escrow de contrato",
+  "connectToDesktop.mobilePendingActions.paymentMade": "declarar pago realizado",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "declarar pago confirmado",
+  "connectToDesktop.mobilePendingActions.refund": "reembolsar escrow de oferta",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "reembolsar escrow de contrato",
   "contactUs": "contactarnos",
   "continueTrade": "continuar intercambio",
   "createAccount": "crear cuenta",
@@ -287,6 +296,8 @@
   "yesProceed": "Sí, continuar",
   "express.sell.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer comprador que acepte tu solicitud.",
   "express.buy.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer vendedor que acepte tu solicitud.",
+  "offer.create.buy.expertOnly.title": "solo usuarios experimentados",
+  "offer.create.buy.expertOnly.text": "crear ofertas de compra solo está disponible para usuarios experimentados con 3 o más trades completadas. presiona el botón comprar abajo para solicitar una trade con una oferta de venta existente",
   "wrongPasswordError": "La contraseña ingresada es incorrecta.\nPor favor, inténtalo de nuevo."
 
 

@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "premia / punguzo",
   "accessibility.bulletPoint": "alama ya risasi",
   "address.changingLocations": "kubadilisha maeneo - wasiliana na waandaaji",
   "backupRestored": "chelezo imerejeshwa",
@@ -14,6 +15,14 @@
   "cancelOffer": "ghairi ombi",
   "chat.disputeDisclaimer.2": "Ikiwa mshirika wako anapendekeza biashara nje ya Peach, kumbuka kuwa utaendelea",
   "checkTrade": "angalia biashara",
+  "connectToDesktop.mobilePendingActions": "Vitendo vya simu vinavyosubiri",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "fadhili escrow ya ombi",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "fadhili escrow nyingi",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "fadhili escrow ya mkataba",
+  "connectToDesktop.mobilePendingActions.paymentMade": "tangaza malipo yamefanyika",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "tangaza malipo yamethibitishwa",
+  "connectToDesktop.mobilePendingActions.refund": "rudisha escrow ya ombi",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "rudisha escrow ya mkataba",
   "contactUs": "wasiliana nasi",
   "continueTrade": "endelea na biashara",
   "createAccount": "unda akaunti",
@@ -287,6 +296,8 @@
   "yesProceed": "Ndiyo, endelea",
   "express.sell.tradeRequestBehaviourInfo": "Tuma maombi mengi ya biashara kadri uwezavyo. Utaingia kwenye biashara na mnunuzi wa kwanza anayekubali ombi lako.",
   "express.buy.tradeRequestBehaviourInfo": "Tuma maombi mengi ya biashara kadri uwezavyo. Utaingia kwenye biashara na muuzaji wa kwanza anayekubali ombi lako.",
+  "offer.create.buy.expertOnly.title": "watumiaji wenye uzoefu pekee",
+  "offer.create.buy.expertOnly.text": "kuunda ofa za ununuzi kunapatikana tu kwa watumiaji wenye uzoefu walio na biashara 3 au zaidi zilizokamilika. bonyeza kitufe cha nunua chini kuomba biashara na ofa ya uuzaji iliyopo",
   "wrongPasswordError": "Nenosiri uliyoingiza si sahihi.\nTafadhali jaribu tena."
 
 }

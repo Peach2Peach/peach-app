@@ -38,5 +38,6 @@
   "matchDetails.action.unrequestTrade": "handelsverzoek verwijderen",
   "offerPreferences.feature.experienceLevel": "ervaringsniveau",
   "offerPreferences.filters.experiencedUsersOnly": "alleen ervaren gebruikers",
-  "offerPreferences.filters.newUsersOnly": "alleen nieuwe gebruikers"
+  "offerPreferences.filters.newUsersOnly": "alleen nieuwe gebruikers",
+  "offerPreferences.advancedOptions": "geavanceerde opties"
 }

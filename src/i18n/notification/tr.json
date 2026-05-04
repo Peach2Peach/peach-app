@@ -83,7 +83,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Başka bir satış teklifiyle işlem yapmayı deneyin.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "İstediğiniz teklif kaldırıldı",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Başka bir alış teklifiyle işlem yapmayı deneyin.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "İstediğiniz teklif kaldırıldı"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "İstediğiniz teklif kaldırıldı",
+
+  "notification.body.contract.canceled": "Ticaret $0 için alıcı iptal etti. Teklifinizi yeni bir eşleşme için açık tutmayı seçebilir veya geri ödeme alabilirsiniz.",
+  "notification.title.contract.canceled": "Ticaret iptali"
 
 
   

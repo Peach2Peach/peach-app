@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "πριμ / έκπτωση",
   "accessibility.bulletPoint": "σημείο αναφοράς",
   "address.changingLocations": "αλλαγή τοποθεσιών - επικοινωνήστε με τους διοργανωτές",
   "backupRestored": "ανακτήθηκε το αντίγραφο ασφαλείας",
@@ -14,6 +15,14 @@
   "cancelOffer": "ακύρωση προσφοράς",
   "chat.disputeDisclaimer.2": "Εάν ο αντισυμβαλλόμενος προτείνει να συναλλαχθείτε εκτός της Peach, θυμηθείτε ότι ",
   "checkTrade": "έλεγχος συναλλαγής",
+  "connectToDesktop.mobilePendingActions": "Εκκρεμείς ενέργειες κινητού",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "χρηματοδότηση εγγύησης προσφοράς",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "χρηματοδότηση πολλαπλών εγγυήσεων",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "χρηματοδότηση εγγύησης σύμβασης",
+  "connectToDesktop.mobilePendingActions.paymentMade": "δήλωση ολοκλήρωσης πληρωμής",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "δήλωση επιβεβαίωσης πληρωμής",
+  "connectToDesktop.mobilePendingActions.refund": "επιστροφή εγγύησης προσφοράς",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "επιστροφή εγγύησης σύμβασης",
   "contactUs": "επικοινωνήστε μαζί μας",
   "continueTrade": "συνέχιση συναλλαγής",
   "createAccount": "δημιουργία λογαριασμού",
@@ -279,6 +288,8 @@
   "yesProceed": "Ναι, συνέχεια",
   "express.sell.tradeRequestBehaviourInfo": "Στείλε όσο το δυνατόν περισσότερα αιτήματα συναλλαγής. Θα ξεκινήσεις συναλλαγή με τον πρώτο αγοραστή που θα αποδεχτεί το αίτημά σου.",
   "express.buy.tradeRequestBehaviourInfo": "Στείλε όσο το δυνατόν περισσότερα αιτήματα συναλλαγής. Θα ξεκινήσεις συναλλαγή με τον πρώτο πωλητή που θα αποδεχτεί το αίτημά σου.",
+  "offer.create.buy.expertOnly.title": "μόνο έμπειροι χρήστες",
+  "offer.create.buy.expertOnly.text": "η δημιουργία προσφορών αγοράς είναι διαθέσιμη μόνο για έμπειρους χρήστες με 3 ή περισσότερες ολοκληρωμένες συναλλαγές. πάτησε το κουμπί αγορά κάτω για να ζητήσεις μια συναλλαγή με μια υπάρχουσα προσφορά πώλησης",
   "wrongPasswordError": "Ο κωδικός που εισαγάγατε είναι λανθασμένος.\nΠαρακαλώ δοκιμάστε ξανά."
 
 }

@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "prime / remise",
   "accessibility.bulletPoint": "puce",
   "address.changingLocations": "changement de lieu – contactez les organisateurs",
   "backupRestored": "sauvegarde restaurée",
@@ -14,6 +15,14 @@
   "cancelOffer": "annuler l'offre",
   "chat.disputeDisclaimer.2": "si votre contrepartie propose de trader en dehors de Peach, gardez à l'esprit que vous ",
   "checkTrade": "vérifier l'échange",
+  "connectToDesktop.mobilePendingActions": "Actions mobiles en attente",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "financer le coffre de l'offre",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "financer plusieurs coffres",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "financer le coffre du contrat",
+  "connectToDesktop.mobilePendingActions.paymentMade": "déclarer paiement envoyé",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "déclarer paiement confirmé",
+  "connectToDesktop.mobilePendingActions.refund": "rembourser le coffre de l'offre",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "rembourser le coffre du contrat",
   "contactUs": "nous contacter",
   "continueTrade": "continuer l'échange",
   "createAccount": "créer un compte",
@@ -288,6 +297,8 @@
   "yesProceed": "Oui, continuer",
   "express.sell.tradeRequestBehaviourInfo": "Envoie autant de demandes que possible. Tu entreras en trade avec le premier acheteur qui acceptera ta demande.",
   "express.buy.tradeRequestBehaviourInfo": "Envoie autant de demandes que possible. Tu entreras en trade avec le premier vendeur qui acceptera ta demande.",
+  "offer.create.buy.expertOnly.title": "utilisateurs expérimentés seulement",
+  "offer.create.buy.expertOnly.text": "la création d'offres d'achat n'est disponible que pour les utilisateurs expérimentés avec 3 trades complétées ou plus. appuie sur le bouton acheter en bas pour demander une trade avec une offre de vente existante",
   "wrongPasswordError": "Le mot de passe saisi est incorrect.\nVeuillez réessayer."
 
 }

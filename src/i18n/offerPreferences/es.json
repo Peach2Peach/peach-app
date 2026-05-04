@@ -38,5 +38,6 @@
   "matchDetails.action.unrequestTrade": "eliminar solicitud de intercambio",
   "offerPreferences.feature.experienceLevel": "nivel de experiencia",
   "offerPreferences.filters.experiencedUsersOnly": "solo usuarios experimentados",
-  "offerPreferences.filters.newUsersOnly": "solo usuarios nuevos"
+  "offerPreferences.filters.newUsersOnly": "solo usuarios nuevos",
+  "offerPreferences.advancedOptions": "opciones avanzadas"
 }

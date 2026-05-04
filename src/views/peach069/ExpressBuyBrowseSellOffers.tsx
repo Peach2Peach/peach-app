@@ -3,6 +3,7 @@ import { FlatList, TouchableOpacity, View } from "react-native";
 import { ExpressBuyAdvancedFilters } from "../../components/ExpressBuyAdvancedFilters";
 import { ExpressBuyCurrenciesDrawer } from "../../components/ExpressBuyCurrenciesDrawer";
 import { ExpressBuyPaymentMethodsDrawer } from "../../components/ExpressBuyPaymentMethodsDrawer";
+import { ExpressBuyPremiumDrawer } from "../../components/ExpressBuyPremiumDrawer";
 import { PeachyBackground } from "../../components/PeachyBackground";
 import { Screen } from "../../components/Screen";
 import { TouchableIcon } from "../../components/TouchableIcon";
@@ -14,6 +15,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useExpressBuySellOffers } from "../../hooks/query/peach069/useExpressBuySellOffers";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -38,6 +40,7 @@ import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeade
 import { Rating } from "../settings/profile/profileOverview/Rating";
 
 export function ExpressBuyBrowseSellOffers() {
+  useRefreshPaymentDataFromServerOnMount();
   const { sellOffers, isLoading, refetch } = useExpressBuySellOffers();
 
   return (
@@ -45,6 +48,7 @@ export function ExpressBuyBrowseSellOffers() {
       <View style={tw`flex-row self-stretch justify-between pt-1 gap-13px`}>
         <PaymentMethodsBubble />
         <CurrenciesBubble />
+        <PremiumBubble />
       </View>
       <SellOfferList
         sellOffers={sellOffers}
@@ -90,6 +94,43 @@ function PaymentMethodsBubble() {
       <ExpressBuyPaymentMethodsDrawer
         isOpen={isPaymentMethodDrawerOpen}
         onClose={() => setIsPaymentMethodDrawerOpen(false)}
+      />
+    </>
+  );
+}
+
+function PremiumBubble() {
+  const [isPremiumDrawerOpen, setIsPremiumDrawerOpen] = useState(false);
+
+  const expressBuyFilterMaxPremium = useOfferPreferences(
+    (state) => state.expressBuyFilterMaxPremium,
+  );
+
+  const isFiltered =
+    expressBuyFilterMaxPremium !==
+    defaultPreferences.expressBuyFilterMaxPremium;
+
+  return (
+    <>
+      <View style={tw`relative self-stretch`}>
+        <Bubble
+          color="gray"
+          iconId="chevronDown"
+          ghost
+          style={tw`self-stretch`}
+          onPress={() => setIsPremiumDrawerOpen(true)}
+        >
+          %
+        </Bubble>
+        {isFiltered && (
+          <View
+            style={tw`absolute items-center justify-center w-5 h-5 border-2 border-white rounded-full -top-2.5 -right-0 bg-info-main`}
+          />
+        )}
+      </View>
+      <ExpressBuyPremiumDrawer
+        isOpen={isPremiumDrawerOpen}
+        onClose={() => setIsPremiumDrawerOpen(false)}
       />
     </>
   );

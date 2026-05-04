@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "премія / знижка",
   "accessibility.bulletPoint": "пункт",
   "address.changingLocations": "Зміна локації — звʼяжіться з організаторами.",
   "backupRestored": "Резервну копію відновлено",
@@ -14,6 +15,14 @@
   "cancelOffer": "Скасувати",
   "chat.disputeDisclaimer.2": "Якщо опонент пропонує торгівлю поза Peach, пам’ятайте, що ви",
   "checkTrade": "Перевірити угоду",
+  "connectToDesktop.mobilePendingActions": "Очікувані мобільні дії",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "поповнити депозит пропозиції",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "поповнити кілька депозитів",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "поповнити депозит контракту",
+  "connectToDesktop.mobilePendingActions.paymentMade": "повідомити про здійснення оплати",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "повідомити про підтвердження оплати",
+  "connectToDesktop.mobilePendingActions.refund": "повернути депозит пропозиції",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "повернути депозит контракту",
   "contactUs": "Звʼяжіться з нами",
   "continueTrade": "Продовжити торгівлю",
   "createAccount": "Створити акаунт",
@@ -284,6 +293,8 @@
   "yesProceed": "Ndiyo, endelea",
   "express.sell.tradeRequestBehaviourInfo": "Надсилайте якомога більше запитів на угоду. Ви почнете угоду з першим покупцем, який прийме ваш запит.",
   "express.buy.tradeRequestBehaviourInfo": "Надсилайте якомога більше запитів на угоду. Ви почнете угоду з першим продавцем, який прийме ваш запит.",
+  "offer.create.buy.expertOnly.title": "лише досвідчені користувачі",
+  "offer.create.buy.expertOnly.text": "створення пропозицій покупки доступне лише досвідченим користувачам з 3 або більше завершеними угодами. натисніть кнопку купити внизу, щоб запросити угоду з існуючою пропозицією продажу",
   "wrongPasswordError": "Введений пароль неправильний.\nБудь ласка, спробуйте ще раз."
 
 

@@ -85,7 +85,11 @@ export const SendBitcoin = () => {
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
           <Section title={i18n("wallet.sendBitcoin.to")}>
-            <BitcoinAddressInput value={address} onChangeText={setAddress} />
+            <BitcoinAddressInput
+              value={address}
+              onChangeText={setAddress}
+              onAmountScanned={(sats) => setAmount(sats)}
+            />
           </Section>
 
           <HorizontalLine />

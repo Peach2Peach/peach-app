@@ -38,5 +38,6 @@
   "offerPreferences.showOffers": "show offers",
   "offerPreferences.feature.experienceLevel": "experience level",
   "offerPreferences.filters.experiencedUsersOnly": "experienced users only",
-  "offerPreferences.filters.newUsersOnly": "new users only"
+  "offerPreferences.filters.newUsersOnly": "new users only",
+  "offerPreferences.advancedOptions": "advanced options"
 }

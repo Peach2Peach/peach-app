@@ -274,7 +274,10 @@ function GoToChatButton({
           size={24}
           color={tw.color("primary-background-light-color")}
         />
-        <PeachText style={tw`absolute text-center font-baloo-bold`}>
+        <PeachText
+          style={tw`absolute text-center font-baloo-bold`}
+          ignoreDarkMode
+        >
           {displayableChatMessages.length ? displayableChatMessages.length : ""}
         </PeachText>
       </View>

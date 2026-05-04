@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "prêmio / desconto",
   "accessibility.bulletPoint": "marcador",
   "address.changingLocations": "mudar localização - contate os organizadores",
   "backupRestored": "backup restaurado",
@@ -14,6 +15,14 @@
   "cancelOffer": "cancelar oferta",
   "chat.disputeDisclaimer.2": "Se a outra parte sugerir negociar fora da Peach, tenha em mente que você irá",
   "checkTrade": "verificar negociação",
+  "connectToDesktop.mobilePendingActions": "Ações móveis pendentes",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "financiar depósito da oferta",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "financiar múltiplos depósitos",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "financiar depósito do contrato",
+  "connectToDesktop.mobilePendingActions.paymentMade": "declarar pagamento efetuado",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "declarar pagamento confirmado",
+  "connectToDesktop.mobilePendingActions.refund": "reembolsar depósito da oferta",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "reembolsar depósito do contrato",
   "contactUs": "contate-nos",
   "continueTrade": "continuar negociação",
   "createAccount": "criar conta",
@@ -288,6 +297,8 @@
   "yesProceed": "Sim, continuar",
   "express.sell.tradeRequestBehaviourInfo": "Solicite quantas trades puder. Você entrará em uma trade com o primeiro comprador que aceitar sua solicitação.",
   "express.buy.tradeRequestBehaviourInfo": "Solicite quantas trades puder. Você entrará em uma trade com o primeiro vendedor que aceitar sua solicitação.",
+  "offer.create.buy.expertOnly.title": "apenas usuários experientes",
+  "offer.create.buy.expertOnly.text": "criar ofertas de compra só está disponível para usuários experientes com 3 ou mais trades completas. pressione o botão comprar embaixo para solicitar uma trade com uma oferta de venda existente",
   "wrongPasswordError": "A senha inserida está incorreta.\nPor favor, tente novamente."
 
 

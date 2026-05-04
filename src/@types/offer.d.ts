@@ -56,6 +56,7 @@ type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
   oldOfferId?: string;
   newOfferId?: string;
   prices?: Pricebook;
+  derivationPathVersion?: number;
 };
 
 type BuyOfferDraft = OfferDraft & {

@@ -13,6 +13,7 @@ import { MeansOfPayment } from "../../../peach-api/src/@types/payment";
 import { LogoIcons } from "../../assets/logo";
 import { Badge } from "../../components/Badge";
 import { Header } from "../../components/Header";
+import { Icon } from "../../components/Icon";
 import { PremiumInput } from "../../components/PremiumInput";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
@@ -29,6 +30,7 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -73,6 +75,7 @@ import { useTrackWidth } from "./utils/useTrackWidth";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 export function SellOfferPreferences() {
+  useRefreshPaymentDataFromServerOnMount();
   const [isSliding, setIsSliding] = useState(false);
   const [currency, setCurrency] = useState<Currency | undefined>();
   return (
@@ -90,10 +93,7 @@ export function SellOfferPreferences() {
       <PreferenceMethods type="sell" setCurrency={setCurrency} />
       <CompetingOfferStats />
       <AmountSelector currency={currency} setIsSliding={setIsSliding} />
-      <CreateMultipleOffersContainer />
-      <InstantTrade />
-      <ExperienceLevel />
-      <RefundWalletSelector />
+      <AdvancedOptions />
     </PreferenceScreen>
   );
 }
@@ -253,6 +253,8 @@ function PremiumInputComponent() {
     state.premium,
     state.setPremium,
   ]);
+
+  console.log("PREMIUM ", premium);
 
   const { bitcoinPrice } = useBitcoinPrices(amount, "CHF");
 
@@ -444,6 +446,59 @@ function FiatInput({ currency }: { currency?: Currency }) {
         {" "}
         {i18n(displayCurrency)}
       </PeachText>
+    </View>
+  );
+}
+
+function AdvancedOptions() {
+  const [instantTrade, experienceLevel, multi] = useOfferPreferences(
+    (state) => [state.instantTrade, state.experienceLevel, state.multi],
+    shallow,
+  );
+  const refundToPeachWallet = useSettingsStore(
+    (state) => state.refundToPeachWallet,
+  );
+  const hasAnyOption =
+    !!instantTrade ||
+    !!experienceLevel ||
+    multi !== undefined ||
+    !refundToPeachWallet;
+
+  const [isExpanded, setIsExpanded] = useState(hasAnyOption);
+  const { isDarkMode } = useThemeStore();
+
+  return (
+    <View style={tw`w-full gap-10px`}>
+      <TouchableOpacity
+        onPress={() => setIsExpanded((prev) => !prev)}
+        style={tw`flex-row items-center self-stretch justify-between px-3 py-3 rounded-2xl ${isDarkMode ? "bg-card" : "bg-primary-background-dark-color"}`}
+      >
+        <View style={tw`flex-row items-center gap-2`}>
+          <Section.Title>
+            {i18n("offerPreferences.advancedOptions")}
+          </Section.Title>
+          {hasAnyOption && (
+            <Icon
+              id="checkCircle"
+              size={20}
+              color={tw.color("success-main")}
+            />
+          )}
+        </View>
+        <Icon
+          id={isExpanded ? "chevronUp" : "chevronDown"}
+          size={24}
+          color={tw.color(isDarkMode ? "backgroundLight-light" : "black-100")}
+        />
+      </TouchableOpacity>
+      {isExpanded && (
+        <>
+          <CreateMultipleOffersContainer />
+          <InstantTrade />
+          <ExperienceLevel />
+          <RefundWalletSelector />
+        </>
+      )}
     </View>
   );
 }

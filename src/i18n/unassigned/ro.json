@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "primă / reducere",
   "backupRestored" : "backup restaurat",
   "resetAll": "Resetează tot",
   "advancedFilters": "Filtre avansate",
@@ -11,5 +12,17 @@
     "search.popups.unmatch.confirm": "da, anulează",
     "search.popups.matchUndone.title": "cerere anulată",
     "search.popups.matchUndone.text": "Reputația ta nu a fost afectată și poți trimite din nou o cerere.\n\nDacă anulezi după expirarea timpului, reputația va fi afectată negativ.",
- "yesProceed": "Da, continuă" 
+ "yesProceed": "Da, continuă",
+  "connectToDesktop.mobilePendingActions": "Acțiuni mobile în așteptare",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "finanțează escrow-ul ofertei",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "finanțează mai multe escrow-uri",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "finanțează escrow-ul contractului",
+  "connectToDesktop.mobilePendingActions.paymentMade": "declară plata efectuată",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "declară plata confirmată",
+  "connectToDesktop.mobilePendingActions.refund": "rambursează escrow-ul ofertei",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "rambursează escrow-ul contractului",
+  "settings.connectToDesktop": "conectare la desktop",
+  "settings.mobilePendingActions": "acțiuni mobile în așteptare",
+  "offer.create.buy.expertOnly.title": "doar utilizatori experimentați",
+  "offer.create.buy.expertOnly.text": "crearea de oferte de cumpărare este disponibilă doar pentru utilizatorii experimentați cu 3 sau mai multe trade-uri finalizate. apasă butonul cumpără de jos pentru a cere un trade cu o ofertă de vânzare existentă"
 }

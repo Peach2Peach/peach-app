@@ -1,4 +1,5 @@
 {
+  "premiumslashdiscount": "premium / discount",
   "filter.maxPremium": "max premium",
   "filter.minPremium": "min premium",
   "accessibility.bulletPoint": "bullet point",
@@ -16,6 +17,14 @@
   "cancelOffer": "cancel offer",
   "chat.disputeDisclaimer.2": "If your counterparty suggests trading outside of Peach, keep in mind that you will ",
   "checkTrade": "checkTrade",
+  "connectToDesktop.mobilePendingActions": "Mobile Pending Actions",
+  "connectToDesktop.mobilePendingActions.fundEscrow": "fund offer escrow",
+  "connectToDesktop.mobilePendingActions.fundMultipleEscrow": "fund multiple escrows",
+  "connectToDesktop.mobilePendingActions.fundEscrowContract": "fund contract escrow",
+  "connectToDesktop.mobilePendingActions.paymentMade": "declare payment made",
+  "connectToDesktop.mobilePendingActions.paymentConfirmed": "declare payment confirmed",
+  "connectToDesktop.mobilePendingActions.refund": "refund offer escrow",
+  "connectToDesktop.mobilePendingActions.refundEscrowContract": "refund contract escrow",
   "contactUs": "contact us",
   "continueTrade": "continue trade",
   "createAccount": "create account",
@@ -287,5 +296,7 @@
   "yesProceed":"Yes, proceed",
   "express.sell.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first buyer who accepts your request.",
   "express.buy.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first seller who accepts your request.",
+  "offer.create.buy.expertOnly.title": "experienced users only",
+  "offer.create.buy.expertOnly.text": "creating Buy Offers is only available for experienced users with 3 or more completed trades. press the Buy button in the bottom to request a trade with an existing Sell Offer",
   "wrongPasswordError": "the inserted password was incorrect.\nplease try again."
 }

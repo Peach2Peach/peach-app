@@ -38,5 +38,6 @@
   "matchDetails.action.unrequestTrade": "remover solicitação de negociação",
   "offerPreferences.feature.experienceLevel": "nível de experiência",
   "offerPreferences.filters.experiencedUsersOnly": "apenas users experientes",
-  "offerPreferences.filters.newUsersOnly": "apenas novos users"
+  "offerPreferences.filters.newUsersOnly": "apenas novos users",
+  "offerPreferences.advancedOptions": "opções avançadas"
 }

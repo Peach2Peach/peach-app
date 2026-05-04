@@ -83,7 +83,10 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.text": "Essayez de trader avec une autre offre de vente.",
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "L’offre demandée a été supprimée",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Essayez de trader avec une autre offre d’achat.",
-  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "L’offre demandée a été supprimée"
+  "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "L’offre demandée a été supprimée",
+
+  "notification.body.contract.canceled": "L'acheteur de l'échange $0 a annulé. Vous pouvez choisir de maintenir votre offre ouverte pour trouver un nouvel acheteur ou demander un remboursement.",
+  "notification.title.contract.canceled": "Annulation de l'échange"
 
 
  

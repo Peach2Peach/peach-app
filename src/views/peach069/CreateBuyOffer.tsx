@@ -11,6 +11,7 @@ import { interpolate } from "react-native-reanimated";
 import { shallow } from "zustand/shallow";
 import { Badge } from "../../components/Badge";
 import { Button } from "../../components/buttons/Button";
+import { Icon } from "../../components/Icon";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
@@ -18,6 +19,7 @@ import { PremiumInput } from "../../components/PremiumInput";
 import { PeachText } from "../../components/text/PeachText";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { CENT, SATSINBTC } from "../../constants";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
@@ -63,6 +65,7 @@ import {
 import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 
 export function CreateBuyOffer() {
+  useRefreshPaymentDataFromServerOnMount();
   const [isSliding, setIsSliding] = useState(false);
   const setBuyOfferMulti = useOfferPreferences(
     (state) => state.setBuyOfferMulti,
@@ -80,11 +83,67 @@ export function CreateBuyOffer() {
     >
       <PreferenceMethods type="buy" setCurrency={setCurrency} />
       <AmountSelector setIsSliding={setIsSliding} currency={currency} />
-      <CreateMultipleOffersContainer />
-      <InstantTrade />
-      <ExperienceLevel />
-      <PreferenceWalletSelector />
+      <AdvancedOptions />
     </PreferenceScreen>
+  );
+}
+
+function AdvancedOptions() {
+  const [instantTrade, experienceLevel, buyOfferMulti] = useOfferPreferences(
+    (state) => [state.instantTrade, state.experienceLevel, state.buyOfferMulti],
+    shallow,
+  );
+  const payoutToPeachWallet = useSettingsStore(
+    (state) => state.payoutToPeachWallet,
+  );
+  const hasAnyOption =
+    !!instantTrade ||
+    !!experienceLevel ||
+    buyOfferMulti !== undefined ||
+    !payoutToPeachWallet;
+
+  const [isExpanded, setIsExpanded] = useState(hasAnyOption);
+  const { isDarkMode } = useThemeStore();
+  const backgroundColor = isDarkMode
+    ? tw.color("card")
+    : tw.color("success-mild-1-color");
+
+  return (
+    <View style={tw`w-full gap-10px`}>
+      <TouchableOpacity
+        onPress={() => setIsExpanded((prev) => !prev)}
+        style={[
+          tw`flex-row items-center self-stretch justify-between px-3 py-3 rounded-2xl`,
+          { backgroundColor },
+        ]}
+      >
+        <View style={tw`flex-row items-center gap-2`}>
+          <Section.Title>
+            {i18n("offerPreferences.advancedOptions")}
+          </Section.Title>
+          {hasAnyOption && (
+            <Icon
+              id="checkCircle"
+              size={20}
+              color={tw.color("success-main")}
+            />
+          )}
+        </View>
+        <Icon
+          id={isExpanded ? "chevronUp" : "chevronDown"}
+          size={24}
+          color={tw.color(isDarkMode ? "backgroundLight-light" : "black-100")}
+        />
+      </TouchableOpacity>
+      {isExpanded && (
+        <>
+          <CreateMultipleOffersContainer />
+          <InstantTrade />
+          <ExperienceLevel />
+          <PreferenceWalletSelector />
+        </>
+      )}
+    </View>
   );
 }
 
@@ -649,7 +708,7 @@ function PublishOfferButton() {
   const payoutToPeachWallet = useSettingsStore(
     (state) => state.payoutToPeachWallet,
   );
-  const { isLoading: isSyncingWallet } = useSyncWallet({
+  useSyncWallet({
     enabled: payoutToPeachWallet,
   });
 
@@ -750,8 +809,7 @@ function PublishOfferButton() {
     showErrorBanner(errorMessage, errorArgs);
   };
 
-  const shouldLookDisabled =
-    !formValid || isSyncingWallet || originalPaymentData.length === 0;
+  const shouldLookDisabled = !formValid || originalPaymentData.length === 0;
 
   const pressPublish = () => {
     if (shouldLookDisabled) {
@@ -766,7 +824,7 @@ function PublishOfferButton() {
     <CreateBuyOfferButton
       onPress={() => pressPublish()}
       disabled={shouldLookDisabled}
-      loading={isPublishing || isSyncingWallet}
+      loading={isPublishing}
     />
   );
 }
@@ -807,7 +865,7 @@ export function CreateBuyOfferButton({
   if (keyboardIsOpen) return null;
   return (
     <Button
-      style={tw`self-center px-5 py-3 ${disabled ? "bg-success-mild-1-color" : "bg-success-main"} min-w-166px`}
+      style={tw`self-center mt-3 px-5 py-3 ${disabled ? "bg-success-mild-1-color" : "bg-success-main"} min-w-166px`}
       onPress={onPress}
       loading={loading}
     >
