@@ -808,7 +808,7 @@ export function CreateBuyOfferButton({
   if (keyboardIsOpen) return null;
   return (
     <Button
-      style={tw`self-center px-5 py-3 ${disabled ? "bg-success-mild-1-color" : "bg-success-main"} min-w-166px`}
+      style={tw`self-center mt-3 px-5 py-3 ${disabled ? "bg-success-mild-1-color" : "bg-success-main"} min-w-166px`}
       onPress={onPress}
       loading={loading}
     >
