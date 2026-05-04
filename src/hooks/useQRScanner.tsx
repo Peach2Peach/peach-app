@@ -22,17 +22,16 @@ export const useQRScanner = ({ onSuccess, initialState = false }: Props) => {
   const [showQRScanner, setShowQRScanner] = useState(initialState);
 
   const showQR = () => {
-    if (isIOS()) {
-      requestPermission(PERMISSIONS.IOS.CAMERA).then((cameraStatus) => {
-        if (cameraStatus === RESULTS.GRANTED) {
-          setShowQRScanner(true);
-        } else {
-          setPopup(<MissingPermissionsPopup />);
-        }
-      });
-    } else {
-      setShowQRScanner(true);
-    }
+    const permission = isIOS()
+      ? PERMISSIONS.IOS.CAMERA
+      : PERMISSIONS.ANDROID.CAMERA;
+    requestPermission(permission).then((cameraStatus) => {
+      if (cameraStatus === RESULTS.GRANTED) {
+        setShowQRScanner(true);
+      } else {
+        setPopup(<MissingPermissionsPopup />);
+      }
+    });
   };
   const closeQR = () => setShowQRScanner(false);
   const onRead = (data: string) => {

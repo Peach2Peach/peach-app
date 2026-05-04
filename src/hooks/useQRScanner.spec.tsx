@@ -30,12 +30,15 @@ describe("useQRScanner", () => {
     });
     expect(permissions.request).toHaveBeenCalledWith("ios.permission.CAMERA");
   });
-  it("does not request permissions on android and shows qr scanner", () => {
+  it("requests permissions on android", async () => {
     isIOSMock.mockReturnValueOnce(false);
     const { result } = renderHook(useQRScanner, { initialProps });
-    act(() => result.current.showQR());
-    expect(permissions.request).not.toHaveBeenCalled();
-    expect(result.current.showQRScanner).toBeTruthy();
+    await act(async () => {
+      await result.current.showQR();
+    });
+    expect(permissions.request).toHaveBeenCalledWith(
+      "android.permission.CAMERA",
+    );
   });
   it("doesn't show the QR scanner when permissions haven't been granted", () => {
     requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.DENIED));
