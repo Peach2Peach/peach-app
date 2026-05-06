@@ -293,7 +293,10 @@
   "express.buy.tradeRequestBehaviourInfo": "Invia quante più richieste possibile. Entrerai in una trade con il primo venditore che accetterà la tua richiesta.",
   "offer.create.buy.expertOnly.title": "solo utenti esperti",
   "offer.create.buy.expertOnly.text": "la creazione di offerte di acquisto è disponibile solo per utenti esperti con 3 o più trade completate. premi il pulsante acquista in basso per richiedere una trade con un'offerta di vendita esistente",
-  "wrongPasswordError": "La password inserita non è corretta.\nPer favore riprova."
+  "wrongPasswordError": "La password inserita non è corretta.\nPer favore riprova.",
+  "invalidServerSignature.title": "verifica dei dati fallita",
+  "invalidServerSignature.paymentData": "i dati di pagamento cifrati sul server hanno una firma non valida e non sono stati caricati. ciò potrebbe indicare una manomissione. per favore contatta il supporto.",
+  "invalidServerSignature.refundAddress": "l'indirizzo di rimborso cifrato sul server ha una firma non valida e non è stato caricato. ciò potrebbe indicare una manomissione. per favore contatta il supporto."
 
 
 }

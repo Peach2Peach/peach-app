@@ -47,9 +47,13 @@ export const PaymentMethods = () => {
       });
       const user = queryClient.getQueryData<{
         encryptedPaymentData?: string | null;
+        encryptedPaymentDataSignature?: string | null;
       }>(user69DetailsKeys.details());
-      if (user?.encryptedPaymentData) {
-        await decryptAndApplyPaymentData(user.encryptedPaymentData);
+      if (user?.encryptedPaymentData && user?.encryptedPaymentDataSignature) {
+        await decryptAndApplyPaymentData(
+          user.encryptedPaymentData,
+          user.encryptedPaymentDataSignature,
+        );
       }
     } catch {
       // fall through and navigate with whatever we have locally

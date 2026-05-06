@@ -299,6 +299,9 @@
   "express.buy.tradeRequestBehaviourInfo": "Envoie autant de demandes que possible. Tu entreras en trade avec le premier vendeur qui acceptera ta demande.",
   "offer.create.buy.expertOnly.title": "utilisateurs expérimentés seulement",
   "offer.create.buy.expertOnly.text": "la création d'offres d'achat n'est disponible que pour les utilisateurs expérimentés avec 3 trades complétées ou plus. appuie sur le bouton acheter en bas pour demander une trade avec une offre de vente existante",
-  "wrongPasswordError": "Le mot de passe saisi est incorrect.\nVeuillez réessayer."
+  "wrongPasswordError": "Le mot de passe saisi est incorrect.\nVeuillez réessayer.",
+  "invalidServerSignature.title": "vérification des données échouée",
+  "invalidServerSignature.paymentData": "les données de paiement chiffrées sur le serveur ont une signature invalide et n'ont pas été chargées. cela pourrait indiquer une manipulation. veuillez contacter le support.",
+  "invalidServerSignature.refundAddress": "l'adresse de remboursement chiffrée sur le serveur a une signature invalide et n'a pas été chargée. cela pourrait indiquer une manipulation. veuillez contacter le support."
 
 }

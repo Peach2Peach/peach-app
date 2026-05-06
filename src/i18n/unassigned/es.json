@@ -298,7 +298,10 @@
   "express.buy.tradeRequestBehaviourInfo": "Solicita tantos intercambios como puedas. Entrarás en un trade con el primer vendedor que acepte tu solicitud.",
   "offer.create.buy.expertOnly.title": "solo usuarios experimentados",
   "offer.create.buy.expertOnly.text": "crear ofertas de compra solo está disponible para usuarios experimentados con 3 o más trades completadas. presiona el botón comprar abajo para solicitar una trade con una oferta de venta existente",
-  "wrongPasswordError": "La contraseña ingresada es incorrecta.\nPor favor, inténtalo de nuevo."
+  "wrongPasswordError": "La contraseña ingresada es incorrecta.\nPor favor, inténtalo de nuevo.",
+  "invalidServerSignature.title": "verificación de datos fallida",
+  "invalidServerSignature.paymentData": "los datos de pago cifrados en el servidor tienen una firma inválida y no se cargaron. esto podría indicar manipulación. por favor contacta con soporte.",
+  "invalidServerSignature.refundAddress": "la dirección de reembolso cifrada en el servidor tiene una firma inválida y no se cargó. esto podría indicar manipulación. por favor contacta con soporte."
 
 
 }

@@ -298,6 +298,9 @@
   "express.buy.tradeRequestBehaviourInfo": "Tuma maombi mengi ya biashara kadri uwezavyo. Utaingia kwenye biashara na muuzaji wa kwanza anayekubali ombi lako.",
   "offer.create.buy.expertOnly.title": "watumiaji wenye uzoefu pekee",
   "offer.create.buy.expertOnly.text": "kuunda ofa za ununuzi kunapatikana tu kwa watumiaji wenye uzoefu walio na biashara 3 au zaidi zilizokamilika. bonyeza kitufe cha nunua chini kuomba biashara na ofa ya uuzaji iliyopo",
-  "wrongPasswordError": "Nenosiri uliyoingiza si sahihi.\nTafadhali jaribu tena."
+  "wrongPasswordError": "Nenosiri uliyoingiza si sahihi.\nTafadhali jaribu tena.",
+  "invalidServerSignature.title": "uthibitishaji wa data umeshindwa",
+  "invalidServerSignature.paymentData": "data ya malipo iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada.",
+  "invalidServerSignature.refundAddress": "anwani ya marejesho iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada."
 
 }

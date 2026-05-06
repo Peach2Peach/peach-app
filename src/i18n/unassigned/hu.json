@@ -299,7 +299,10 @@
   "express.buy.tradeRequestBehaviourInfo": "Küldj annyi kereskedési kérelmet, amennyit csak tudsz. Az első eladóval lépsz kereskedésbe, aki elfogadja a kérésed.",
   "offer.create.buy.expertOnly.title": "csak tapasztalt felhasználók",
   "offer.create.buy.expertOnly.text": "vételi ajánlatok létrehozása csak tapasztalt felhasználók számára érhető el, akik 3 vagy több befejezett trade-del rendelkeznek. nyomd meg lent a vásárlás gombot, hogy trade-et kérj egy meglévő eladási ajánlattal",
-  "wrongPasswordError": "A megadott jelszó helytelen.\nKérlek, próbáld újra."
+  "wrongPasswordError": "A megadott jelszó helytelen.\nKérlek, próbáld újra.",
+  "invalidServerSignature.title": "adatellenőrzés sikertelen",
+  "invalidServerSignature.paymentData": "a szerveren lévő titkosított fizetési adatok aláírása érvénytelen, és nem lettek betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal.",
+  "invalidServerSignature.refundAddress": "a szerveren lévő titkosított visszatérítési cím aláírása érvénytelen, és nem lett betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal."
 
 
 }

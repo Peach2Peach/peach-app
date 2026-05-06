@@ -24,5 +24,8 @@
   "settings.connectToDesktop": "conectare la desktop",
   "settings.mobilePendingActions": "acțiuni mobile în așteptare",
   "offer.create.buy.expertOnly.title": "doar utilizatori experimentați",
-  "offer.create.buy.expertOnly.text": "crearea de oferte de cumpărare este disponibilă doar pentru utilizatorii experimentați cu 3 sau mai multe trade-uri finalizate. apasă butonul cumpără de jos pentru a cere un trade cu o ofertă de vânzare existentă"
+  "offer.create.buy.expertOnly.text": "crearea de oferte de cumpărare este disponibilă doar pentru utilizatorii experimentați cu 3 sau mai multe trade-uri finalizate. apasă butonul cumpără de jos pentru a cere un trade cu o ofertă de vânzare existentă",
+  "invalidServerSignature.title": "verificarea datelor a eșuat",
+  "invalidServerSignature.paymentData": "datele de plată criptate de pe server au o semnătură invalidă și nu au fost încărcate. acest lucru poate indica o manipulare. te rugăm să contactezi suportul.",
+  "invalidServerSignature.refundAddress": "adresa de rambursare criptată de pe server are o semnătură invalidă și nu a fost încărcată. acest lucru poate indica o manipulare. te rugăm să contactezi suportul."
 }

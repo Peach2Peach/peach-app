@@ -298,5 +298,8 @@
   "express.buy.tradeRequestBehaviourInfo":"Request as many trades as you can. You’ll enter a trade with the first seller who accepts your request.",
   "offer.create.buy.expertOnly.title": "experienced users only",
   "offer.create.buy.expertOnly.text": "creating Buy Offers is only available for experienced users with 3 or more completed trades. press the Buy button in the bottom to request a trade with an existing Sell Offer",
-  "wrongPasswordError": "the inserted password was incorrect.\nplease try again."
+  "wrongPasswordError": "the inserted password was incorrect.\nplease try again.",
+  "invalidServerSignature.title": "data verification failed",
+  "invalidServerSignature.paymentData": "the encrypted payment data on the server has an invalid signature and was not loaded. this could indicate tampering. please contact support.",
+  "invalidServerSignature.refundAddress": "the encrypted refund address on the server has an invalid signature and was not loaded. this could indicate tampering. please contact support."
 }

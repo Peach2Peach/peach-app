@@ -295,7 +295,10 @@
   "express.buy.tradeRequestBehaviourInfo": "Stuur zoveel handelsverzoeken als je kunt. Je start een trade met de eerste verkoper die je verzoek accepteert.",
   "offer.create.buy.expertOnly.title": "alleen ervaren gebruikers",
   "offer.create.buy.expertOnly.text": "koopaanbiedingen aanmaken is alleen beschikbaar voor ervaren gebruikers met 3 of meer voltooide trades. druk onderaan op de kopen knop om een trade aan te vragen met een bestaande verkoopaanbieding",
-  "wrongPasswordError": "Het ingevoerde wachtwoord is onjuist.\nProbeer het opnieuw."
+  "wrongPasswordError": "Het ingevoerde wachtwoord is onjuist.\nProbeer het opnieuw.",
+  "invalidServerSignature.title": "gegevensverificatie mislukt",
+  "invalidServerSignature.paymentData": "de versleutelde betaalgegevens op de server hebben een ongeldige handtekening en zijn niet geladen. dit kan duiden op manipulatie. neem contact op met de ondersteuning.",
+  "invalidServerSignature.refundAddress": "het versleutelde terugbetalingsadres op de server heeft een ongeldige handtekening en is niet geladen. dit kan duiden op manipulatie. neem contact op met de ondersteuning."
 
 
  

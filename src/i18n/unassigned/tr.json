@@ -295,7 +295,10 @@
   "express.buy.tradeRequestBehaviourInfo": "Mümkün olduğunca çok işlem isteği gönder. İsteğini kabul eden ilk satıcıyla işleme girersin.",
   "offer.create.buy.expertOnly.title": "yalnızca deneyimli kullanıcılar",
   "offer.create.buy.expertOnly.text": "satın alma teklifleri oluşturma, yalnızca 3 veya daha fazla tamamlanmış işleme sahip deneyimli kullanıcılar için kullanılabilir. mevcut bir satış teklifi ile işlem talep etmek için aşağıdaki satın al düğmesine bas",
-  "wrongPasswordError": "Girilen şifre yanlış.\nLütfen tekrar deneyin."
+  "wrongPasswordError": "Girilen şifre yanlış.\nLütfen tekrar deneyin.",
+  "invalidServerSignature.title": "veri doğrulama başarısız",
+  "invalidServerSignature.paymentData": "sunucudaki şifreli ödeme verisinin imzası geçersiz ve yüklenmedi. bu, kurcalama olabileceğini gösterir. lütfen destek ile iletişime geç.",
+  "invalidServerSignature.refundAddress": "sunucudaki şifreli iade adresinin imzası geçersiz ve yüklenmedi. bu, kurcalama olabileceğini gösterir. lütfen destek ile iletişime geç."
 
 
 }

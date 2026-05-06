@@ -299,7 +299,10 @@
   "express.buy.tradeRequestBehaviourInfo": "Wysyłaj jak najwięcej próśb o handel. Wejdziesz w transakcję z pierwszym sprzedawcą, który zaakceptuje Twoją prośbę.",
   "offer.create.buy.expertOnly.title": "tylko doświadczeni użytkownicy",
   "offer.create.buy.expertOnly.text": "tworzenie ofert kupna jest dostępne tylko dla doświadczonych użytkowników z 3 lub więcej zakończonymi trade. naciśnij przycisk kup na dole, aby poprosić o trade z istniejącą ofertą sprzedaży",
-  "wrongPasswordError": "Wprowadzone hasło jest niepoprawne.\nSpróbuj ponownie."
+  "wrongPasswordError": "Wprowadzone hasło jest niepoprawne.\nSpróbuj ponownie.",
+  "invalidServerSignature.title": "weryfikacja danych nie powiodła się",
+  "invalidServerSignature.paymentData": "zaszyfrowane dane płatności na serwerze mają nieprawidłowy podpis i nie zostały załadowane. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną.",
+  "invalidServerSignature.refundAddress": "zaszyfrowany adres zwrotu na serwerze ma nieprawidłowy podpis i nie został załadowany. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną."
 
 
 }

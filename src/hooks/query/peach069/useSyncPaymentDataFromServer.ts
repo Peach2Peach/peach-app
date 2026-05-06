@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { createElement, useEffect } from "react";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { MSINAMINUTE } from "../../../constants";
+import { InvalidServerSignaturePopup } from "../../../popups/warning/InvalidServerSignaturePopup";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { useAccountStore } from "../../../utils/account/account";
@@ -8,15 +10,20 @@ import { error } from "../../../utils/log/error";
 import { info } from "../../../utils/log/info";
 import { peachAPI } from "../../../utils/peachAPI";
 import { decrypt } from "../../../utils/pgp/decrypt";
+import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
+import { hasValidSignature } from "../../../views/contract/helpers/hasValidSignature";
 import { user69DetailsKeys } from "./useUser69";
 
 const REFRESH_INTERVAL = MSINAMINUTE * 1.5;
 
 let lastAppliedCipher: string | null = null;
+let lastWarnedCipher: string | null = null;
 
 export const useSyncPaymentDataFromServer = () => {
   const isLoggedIn = useSettingsStore((state) => state.isLoggedIn);
   const publicKey = useAccountStore((state) => state.account.publicKey);
+  const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
+  const setPopup = useSetPopup();
 
   const { data } = useQuery({
     queryKey: user69DetailsKeys.details(),
@@ -27,14 +34,41 @@ export const useSyncPaymentDataFromServer = () => {
   });
 
   const encryptedPaymentData = data?.encryptedPaymentData ?? null;
+  const encryptedPaymentDataSignature =
+    data?.encryptedPaymentDataSignature ?? null;
 
   useEffect(() => {
-    if (!encryptedPaymentData || encryptedPaymentData === lastAppliedCipher)
+    if (
+      !encryptedPaymentData ||
+      !encryptedPaymentDataSignature ||
+      encryptedPaymentData === lastAppliedCipher
+    )
       return;
     let cancelled = false;
     (async () => {
       try {
-        await decryptAndApplyPaymentData(encryptedPaymentData);
+        const result = await decryptAndApplyPaymentData(
+          encryptedPaymentData,
+          encryptedPaymentDataSignature,
+        );
+        if (
+          !cancelled &&
+          result === null &&
+          encryptedPaymentData !== lastWarnedCipher
+        ) {
+          lastWarnedCipher = encryptedPaymentData;
+          setPopup(
+            createElement(InvalidServerSignaturePopup, {
+              source: "paymentData",
+            }),
+          );
+          wipePaymentDataOnServer(myPgpPubKey).catch((e) =>
+            error(
+              "[syncPaymentData] failed to wipe tampered server payment data",
+              e,
+            ),
+          );
+        }
       } catch (e) {
         if (!cancelled)
           error("[syncPaymentData] failed to decrypt server payment data", e);
@@ -43,16 +77,42 @@ export const useSyncPaymentDataFromServer = () => {
     return () => {
       cancelled = true;
     };
-  }, [encryptedPaymentData]);
+  }, [
+    encryptedPaymentData,
+    encryptedPaymentDataSignature,
+    myPgpPubKey,
+    setPopup,
+  ]);
 };
+
+async function wipePaymentDataOnServer(myPgpPubKey: string) {
+  const payload = JSON.stringify({});
+  const { signature, encrypted } = await signAndEncrypt(payload, myPgpPubKey);
+  await peachAPI.private.peach069.setEncryptedPaymentDataOnSelfUser69({
+    encryptedPaymentData: encrypted,
+    encryptedPaymentDataSignature: signature,
+  });
+  info("[syncPaymentData] wiped tampered server payment data");
+}
 
 export async function decryptAndApplyPaymentData(
   encryptedPaymentData: string,
-): Promise<Record<string, PaymentData>> {
+  encryptedPaymentDataSignature: string,
+): Promise<Record<string, PaymentData> | null> {
   if (encryptedPaymentData === lastAppliedCipher) {
     return usePaymentDataStore.getState().paymentData;
   }
   const decrypted = await decrypt(encryptedPaymentData);
+  const { publicKey: ownPublicKey } = useAccountStore.getState().account.pgp;
+  const isValid = await hasValidSignature({
+    signature: encryptedPaymentDataSignature,
+    message: decrypted,
+    publicKeys: [{ publicKey: ownPublicKey }],
+  });
+  if (!isValid) {
+    error("[syncPaymentData] invalid signature on server payment data");
+    return null;
+  }
   const parsed = JSON.parse(decrypted) as Record<string, unknown>;
   const cleaned = sanitizePaymentDataMap(parsed);
   info(
