@@ -79,7 +79,7 @@ export async function initUniqueId() {
 export const BUNDLEID = DeviceInfo.getBundleId();
 export const TWITTER = "https://twitter.com/peachbitcoin";
 export const INSTAGRAM = "https://www.instagram.com/peachbitcoin";
-export const TELEGRAM = "https://t.me/+vhBVLv6zoLgyYjlk";
+export const TELEGRAM = "https://t.me/+4roSpFA6jnk2M2M8";
 export const DISCORD = "https://discord.gg/ypeHz3SW54";
 export const TWITCH = "https://www.twitch.tv/peachbitcoin";
 export const NOSTR =
