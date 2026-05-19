@@ -121,3 +121,18 @@
 "notification.title.offer.newBuyOfferMatchesPreferences" = "New Buy Offer!";
 "notification.body.offer.newSellOfferMatchesPreferences" = "There is a new Offer that matches your Preferences.";
 "notification.title.offer.newSellOfferMatchesPreferences" = "New Sell Offer!";
+
+"notification.body.user.mobileAction.fundEscrow.created" = "An offer is ready to be funded.";
+"notification.title.user.mobileAction.fundEscrow.created" = "Fund your offer escrow";
+"notification.body.user.mobileAction.fundContractEscrow.created" = "A contract is waiting for escrow funding.";
+"notification.title.user.mobileAction.fundContractEscrow.created" = "Fund your contract escrow";
+"notification.body.user.mobileAction.fundMultipleEscrow.created" = "Multiple offers are ready to be funded.";
+"notification.title.user.mobileAction.fundMultipleEscrow.created" = "Fund multiple escrows";
+"notification.body.user.mobileAction.confirmPaymentBuyer.created" = "Declare the payment you made and continue the trade.";
+"notification.title.user.mobileAction.confirmPaymentBuyer.created" = "Declare your payment";
+"notification.body.user.mobileAction.signContractRelease.created" = "The buyer's payment was confirmed. Sign and release the sats.";
+"notification.title.user.mobileAction.signContractRelease.created" = "Release the sats";
+"notification.body.user.mobileAction.signEscrowRefund.created" = "Your escrow refund is ready to be signed.";
+"notification.title.user.mobileAction.signEscrowRefund.created" = "Sign your refund";
+"notification.body.user.mobileAction.signEscrowContractRefund.created" = "A contract escrow refund is ready to be signed.";
+"notification.title.user.mobileAction.signEscrowContractRefund.created" = "Sign your contract refund";

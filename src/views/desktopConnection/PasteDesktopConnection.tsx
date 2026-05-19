@@ -67,9 +67,7 @@ export const PasteDesktopConnection = () => {
     <Screen header={<PasteDesktopConnectionHeader />}>
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
-          <PeachText>
-            Paste the JSON payload from the desktop app below and press connect.
-          </PeachText>
+          <PeachText>{i18n("pasteDesktopConnection.instruction")}</PeachText>
           <TextInput
             value={jsonInput}
             onChangeText={setJsonInput}
@@ -87,14 +85,16 @@ export const PasteDesktopConnection = () => {
               disabled={!jsonInput.trim() || submitting}
               loading={submitting}
             >
-              connect
+              {i18n("pasteDesktopConnection.connect")}
             </Button>
           </View>
         </View>
         {failed && (
-          <PeachText>Something went wrong, please try again</PeachText>
+          <PeachText>{i18n("pasteDesktopConnection.failed")}</PeachText>
         )}
-        {success && <PeachText>You should be authenticated now!</PeachText>}
+        {success && (
+          <PeachText>{i18n("pasteDesktopConnection.success")}</PeachText>
+        )}
       </PeachScrollView>
     </Screen>
   );

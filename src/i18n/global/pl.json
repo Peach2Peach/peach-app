@@ -127,6 +127,7 @@
   "global": "Globalny",
   "goBackHome": "Do strony głównej",
   "goTo": "Idź do",
+  "goToAction": "przejdź do akcji",
   "goToChat": "Idź do czatu",
   "goToContract": "Idź do kontraktu",
   "goToMatch": "Idź do dopasowania",
@@ -186,5 +187,5 @@
   "country.MK": "Macedonia Północna",
   "country.BA": "Bośnia i Hercegowina",
   "messageCopied": "Wiadomość skopiowana",
-   "showContract": "Pokaż umowę"
+  "showContract": "Pokaż umowę"
 }

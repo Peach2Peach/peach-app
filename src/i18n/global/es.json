@@ -104,6 +104,7 @@
   "global": "global",
   "goBackHome": "regresar a la página principal",
   "goTo": "ir a",
+  "goToAction": "ir a la acción",
   "goToChat": "ir a chat",
   "goToContract": "ir a contrato",
   "goToMatch": "ir a emparejar",

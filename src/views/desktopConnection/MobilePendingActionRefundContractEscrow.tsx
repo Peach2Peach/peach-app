@@ -22,14 +22,14 @@ import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
 
 const ASPECT_RATIO = 0.7;
 export const MobilePendingActionRefundContractEscrow = () => {
-  const { contractId } =
+  const { id } =
     useRoute<"mobilePendingActionRefundContractEscrow">().params;
   const { width } = useWindowDimensions();
   const navigation = useStackNavigation();
   const [isConfirming, setIsConfirming] = useState(false);
 
   const { mobilePendingAction, isLoading, refetch } =
-    useMobilePendingActionRefundContractEscrow(contractId);
+    useMobilePendingActionRefundContractEscrow(id);
 
   useFocusEffect(
     useCallback(() => {
@@ -75,7 +75,7 @@ export const MobilePendingActionRefundContractEscrow = () => {
 
       const { error: err2 } =
         await peachAPI.private.peach069.postMobilePendingActionRefundContractEscrow({
-          contractId,
+          id,
           signature,
         });
       if (err2) throw new Error(err2.error);
@@ -110,21 +110,25 @@ export const MobilePendingActionRefundContractEscrow = () => {
           <PeachText
             style={tw`text-xl font-semibold text-center tracking-wide`}
           >
-            {"Refund Escrow"}
+            {i18n("connectToDesktop.mobilePendingActions.refundEscrow.title")}
           </PeachText>
           <PeachText
             style={tw`text-base text-center font-medium text-gray-500`}
           >
-            {"Slide to sign the refund transaction and get your funds back."}
+            {i18n(
+              "connectToDesktop.mobilePendingActions.refundEscrow.description",
+            )}
           </PeachText>
 
           <View style={tw`mt-6 items-center gap-3`}>
             <PeachText style={tw`text-base font-medium text-gray-500`}>
-              {"Details"}
+              {i18n("connectToDesktop.mobilePendingActions.details")}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Contract ID: " +
-                contractIdToHex(mobilePendingAction.contractId)}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.contractId",
+                contractIdToHex(mobilePendingAction.contractId),
+              )}
             </PeachText>
           </View>
         </View>
@@ -134,8 +138,12 @@ export const MobilePendingActionRefundContractEscrow = () => {
             enabled={mobilePendingAction.status === "pending"}
             onConfirm={confirmFunction}
             isCallbackRunning={isConfirming}
-            label1={"Refund"}
-            label2={"Refunded!"}
+            label1={i18n(
+              "connectToDesktop.mobilePendingActions.refundEscrow.action",
+            )}
+            label2={i18n(
+              "connectToDesktop.mobilePendingActions.refundEscrow.actionDone",
+            )}
           />
         </View>
       </View>

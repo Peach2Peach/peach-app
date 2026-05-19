@@ -387,7 +387,14 @@ type NotificationType =
   | "contract.escrowFundingTimeExpiring1hLeft"
   | "offer.expressFlowTradeRequestChatMessageReceived"
   | "offer.newBuyOfferMatchesPreferences"
-  | "offer.newSellOfferMatchesPreferences";
+  | "offer.newSellOfferMatchesPreferences"
+  | "user.mobileAction.fundEscrow.created"
+  | "user.mobileAction.fundContractEscrow.created"
+  | "user.mobileAction.fundMultipleEscrow.created"
+  | "user.mobileAction.confirmPaymentBuyer.created"
+  | "user.mobileAction.signContractRelease.created"
+  | "user.mobileAction.signEscrowRefund.created"
+  | "user.mobileAction.signEscrowContractRefund.created";
 
 type PNData = {
   type?: NotificationType;
@@ -397,6 +404,7 @@ type PNData = {
   isChat?: string;
   offerType?: "buy" | "sell";
   requestingUserId?: string;
+  mobileActionId?: string;
 };
 
 type PNNotification = {

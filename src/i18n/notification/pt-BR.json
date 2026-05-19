@@ -70,9 +70,9 @@
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "1h para financiar o escrow",
   "notification.contract.buyer.sellerCanceledBeforeFunding.text": "O vendedor cancelou a negociação. A reputação dele foi afetada.",
   "notification.offer.newBuyOfferMatchesPreferences.text": "Nova oferta de compra!",
-    "notification.offer.newBuyOfferMatchesPreferences.title": "Há uma nova oferta que corresponde às suas preferências.",
-    "notification.offer.newSellOfferMatchesPreferences.text": "Nova oferta de venda!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Há uma nova oferta que corresponde às suas preferências.",
+  "notification.offer.newBuyOfferMatchesPreferences.title": "Há uma nova oferta que corresponde às suas preferências.",
+  "notification.offer.newSellOfferMatchesPreferences.text": "Nova oferta de venda!",
+  "notification.offer.newSellOfferMatchesPreferences.title": "Há uma nova oferta que corresponde às suas preferências.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Chat de solicitação de negociação",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Você recebeu uma mensagem no chat da sua solicitação de negociação",
   "notification.offer.expressBuyTradeRequestNotChosen.text": "Seu pedido de troca não foi escolhido. Tente outra oferta de venda.",
@@ -83,10 +83,24 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "A oferta solicitada foi removida",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Tente negociar com outra oferta de compra.",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "A oferta solicitada foi removida",
-
-  "notification.body.contract.canceled": "O comprador da negociação $0 cancelou. Você pode manter sua oferta aberta para procurar uma nova correspondência, ou pode ser reembolsado.",
-  "notification.title.contract.canceled": "Cancelamento da negociação"
-
-
-  
+  "notification.contract.canceled.text": "O comprador da negociação $0 cancelou. Você pode manter sua oferta aberta para procurar uma nova correspondência, ou pode ser reembolsado.",
+  "notification.contract.canceled.title": "Cancelamento da negociação",
+  "notification.contract.cancelationRequest.text": "Por favor, abra o app para aceitar ou rejeitar o cancelamento.",
+  "notification.contract.cancelationRequest.title": "Solicitação de cancelamento",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.title": "O vendedor cancelou o contrato",
+  "notification.contract.disputeResolved.title": "Disputa",
+  "notification.user.mobileAction.fundEscrow.created.title": "Financie o depósito da oferta",
+  "notification.user.mobileAction.fundEscrow.created.text": "Uma oferta está pronta para ser financiada.",
+  "notification.user.mobileAction.fundContractEscrow.created.title": "Financie o depósito do contrato",
+  "notification.user.mobileAction.fundContractEscrow.created.text": "Um contrato está aguardando o financiamento do depósito.",
+  "notification.user.mobileAction.fundMultipleEscrow.created.title": "Financie múltiplos depósitos",
+  "notification.user.mobileAction.fundMultipleEscrow.created.text": "Várias ofertas estão prontas para serem financiadas.",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.title": "Declare seu pagamento",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.text": "Declare o pagamento efetuado e continue a negociação.",
+  "notification.user.mobileAction.signContractRelease.created.title": "Libere os sats",
+  "notification.user.mobileAction.signContractRelease.created.text": "O pagamento do comprador foi confirmado. Assine e libere os sats.",
+  "notification.user.mobileAction.signEscrowRefund.created.title": "Assine seu reembolso",
+  "notification.user.mobileAction.signEscrowRefund.created.text": "Seu reembolso do depósito está pronto para ser assinado.",
+  "notification.user.mobileAction.signEscrowContractRefund.created.title": "Assine o reembolso do contrato",
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Um reembolso do depósito do contrato está pronto para ser assinado."
 }

@@ -111,3 +111,18 @@
 "notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer" = "L'offerta che hai richiesto è stata rimossa";
 "notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer" = "Prova a fare trading con un'altra offerta di acquisto.";
 "notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer" = "L'offerta che hai richiesto è stata rimossa";
+
+"notification.body.user.mobileAction.fundEscrow.created" = "Un'offerta è pronta per essere finanziata.";
+"notification.title.user.mobileAction.fundEscrow.created" = "Finanzia il deposito dell'offerta";
+"notification.body.user.mobileAction.fundContractEscrow.created" = "Un contratto attende il finanziamento del deposito.";
+"notification.title.user.mobileAction.fundContractEscrow.created" = "Finanzia il deposito del contratto";
+"notification.body.user.mobileAction.fundMultipleEscrow.created" = "Più offerte sono pronte per essere finanziate.";
+"notification.title.user.mobileAction.fundMultipleEscrow.created" = "Finanzia più depositi";
+"notification.body.user.mobileAction.confirmPaymentBuyer.created" = "Dichiara il pagamento effettuato e prosegui lo scambio.";
+"notification.title.user.mobileAction.confirmPaymentBuyer.created" = "Dichiara il pagamento";
+"notification.body.user.mobileAction.signContractRelease.created" = "Il pagamento dell'acquirente è stato confermato. Firma e rilascia i sat.";
+"notification.title.user.mobileAction.signContractRelease.created" = "Rilascia i sat";
+"notification.body.user.mobileAction.signEscrowRefund.created" = "Il tuo rimborso del deposito è pronto per essere firmato.";
+"notification.title.user.mobileAction.signEscrowRefund.created" = "Firma il tuo rimborso";
+"notification.body.user.mobileAction.signEscrowContractRefund.created" = "Un rimborso del deposito del contratto è pronto per essere firmato.";
+"notification.title.user.mobileAction.signEscrowContractRefund.created" = "Firma il rimborso del contratto";

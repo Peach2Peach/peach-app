@@ -1,7 +1,7 @@
 import { NETWORK } from "@env";
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback, useMemo, useState } from "react";
-import { AppState, View } from "react-native";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { AppState, Pressable, View } from "react-native";
 import { useAppColorScheme } from "twrnc";
 import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
@@ -34,7 +34,12 @@ const contactUs = isProduction()
         "contact",
         "aboutPeach",
       ] as const)
-    : (["contact", "aboutPeach"] as const)
+    : ([
+        // "connectToDesktop",
+        // "mobilePendingActions",
+        "contact",
+        "aboutPeach",
+      ] as const)
   : ([
       "connectToDesktop",
       "pasteDesktopConnection",
@@ -44,11 +49,30 @@ const contactUs = isProduction()
       "aboutPeach",
     ] as const);
 
+const SECRET_TAP_COUNT = 7;
+const SECRET_TAP_WINDOW_MS = 500;
+
 export const Settings = () => {
   useI18n();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
+  const [showDebugIds, setShowDebugIds] = useState(false);
+  const versionTapCountRef = useRef(0);
+  const lastVersionTapRef = useRef(0);
+
+  const onVersionPress = useCallback(() => {
+    const now = Date.now();
+    versionTapCountRef.current =
+      now - lastVersionTapRef.current > SECRET_TAP_WINDOW_MS
+        ? 1
+        : versionTapCountRef.current + 1;
+    lastVersionTapRef.current = now;
+    if (versionTapCountRef.current >= SECRET_TAP_COUNT) {
+      setShowDebugIds(true);
+      versionTapCountRef.current = 0;
+    }
+  }, []);
 
   const navigation = useStackNavigation();
 
@@ -227,12 +251,14 @@ export const Settings = () => {
             </View>
           </View>
         ))}
-        <VersionInfo style={tw`mb-10 text-center mt-9`} />
-        {NETWORK !== "bitcoin" && (
-          <PeachText>{"UNIQUE ID: " + UNIQUEID}</PeachText>
-        )}
-        {NETWORK !== "bitcoin" && (
-          <PeachText>{"BUNDLE ID: " + BUNDLEID}</PeachText>
+        <Pressable onPress={onVersionPress}>
+          <VersionInfo style={tw`mb-10 text-center mt-9`} />
+        </Pressable>
+        {showDebugIds && (
+          <>
+            <PeachText>{"UNIQUE ID: " + UNIQUEID}</PeachText>
+            <PeachText>{"BUNDLE ID: " + BUNDLEID}</PeachText>
+          </>
         )}
       </PeachScrollView>
     </Screen>

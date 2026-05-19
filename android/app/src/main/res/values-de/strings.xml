@@ -112,4 +112,20 @@
 <string name="notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer">Versuche mit einem anderen Kaufangebot zu handeln.</string>
 <string name="notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer">Das von dir angeforderte Angebot wurde entfernt</string>
 
+
+    <string name="notification.body.user.mobileAction.fundEscrow.created">Ein Angebot ist bereit zur Aufladung.</string>
+    <string name="notification.title.user.mobileAction.fundEscrow.created">Angebots-Escrow aufladen</string>
+    <string name="notification.body.user.mobileAction.fundContractEscrow.created">Ein Vertrag wartet auf die Escrow-Aufladung.</string>
+    <string name="notification.title.user.mobileAction.fundContractEscrow.created">Vertrags-Escrow aufladen</string>
+    <string name="notification.body.user.mobileAction.fundMultipleEscrow.created">Mehrere Angebote sind bereit zur Aufladung.</string>
+    <string name="notification.title.user.mobileAction.fundMultipleEscrow.created">Mehrere Escrows aufladen</string>
+    <string name="notification.body.user.mobileAction.confirmPaymentBuyer.created">Melde die getätigte Zahlung und setze den Handel fort.</string>
+    <string name="notification.title.user.mobileAction.confirmPaymentBuyer.created">Zahlung melden</string>
+    <string name="notification.body.user.mobileAction.signContractRelease.created">Die Zahlung des Käufers wurde bestätigt. Signiere und gib die Sats frei.</string>
+    <string name="notification.title.user.mobileAction.signContractRelease.created">Sats freigeben</string>
+    <string name="notification.body.user.mobileAction.signEscrowRefund.created">Deine Escrow-Rückerstattung ist bereit zur Signatur.</string>
+    <string name="notification.title.user.mobileAction.signEscrowRefund.created">Rückerstattung signieren</string>
+
+    <string name="notification.body.user.mobileAction.signEscrowContractRefund.created">Eine Vertrags-Escrow-Rückerstattung ist bereit zur Signatur.</string>
+    <string name="notification.title.user.mobileAction.signEscrowContractRefund.created">Vertrags-Rückerstattung signieren</string>
 </resources>

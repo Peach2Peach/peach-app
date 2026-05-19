@@ -19,6 +19,12 @@ export const MobilePendingActionFundContractEscrowSuccess = () => {
       routes: [{ name: "homeScreen", params: { screen: "home" } }],
     });
   };
+  const navigateToActions = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "mobilePendingActions" }],
+    });
+  };
 
   const animationRef = useRef<LottieView>(null);
   const [showAnimation, setShowAnimation] = useState(false);
@@ -64,15 +70,17 @@ export const MobilePendingActionFundContractEscrowSuccess = () => {
             <PeachText
               style={tw`text-xl font-semibold text-center tracking-wide mt-4`}
             >
-              {"Escrow Funded!"}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.fundEscrow.successTitle",
+              )}
             </PeachText>
 
             <PeachText
               style={tw`text-base text-center font-medium text-gray-500 mt-2`}
             >
-              {
-                "The funds have been sent to the escrow address. Wait for the next block and then Buyers will interact with you!"
-              }
+              {i18n(
+                "connectToDesktop.mobilePendingActions.fundEscrow.successDescription",
+              )}
             </PeachText>
           </Animated.View>
         </View>
@@ -84,7 +92,12 @@ export const MobilePendingActionFundContractEscrowSuccess = () => {
             alignItems: "center",
           }}
         >
-          <Button onPress={navigateHome}>{"Go Home"}</Button>
+          <Button onPress={navigateToActions} style={tw`mb-3`}>
+            {i18n("connectToDesktop.mobilePendingActions.goActions")}
+          </Button>
+          <Button onPress={navigateHome}>
+            {i18n("connectToDesktop.mobilePendingActions.goHome")}
+          </Button>
         </Animated.View>
       </View>
     </Screen>

@@ -128,6 +128,7 @@
   "global": "globális",
   "goBackHome": "vissza a főoldalra",
   "goTo": "menj ide",
+  "goToAction": "menj a művelethez",
   "goToChat": "menj a chat-re",
   "goToContract": "menj a szerződéshez",
   "goToMatch": "menj a találathoz",
@@ -186,6 +187,6 @@
   "currency.JOD": "Jordán dinár",
   "country.MK": "Észak-Macedónia",
   "country.BA": "Bosznia-Hercegovina",
-  "messageCopied": "Üzenet másolva" ,
+  "messageCopied": "Üzenet másolva",
   "showContract": "Szerződés megjelenítése"
 }

@@ -24,7 +24,7 @@
   "notification.contract.seller.disputeWon.text": "Решение по спору о сделке $0 вынесено в вашу пользу. Проверьте сообщение посредника.",
   "notification.contract.seller.instantTrade.text": "Вы вступили в мгновенную сделку с покупателем!",
   "notification.contract.seller.paymentTimerHasRunOut.text": "Платёж по сделке $0 не был вовремя. Дайте время покупателю или отмените сделку.",
-  "notification.contract.tradeCompleted.text": "Поздравляем! Сатоши по сделке $0 зачислены в кошелёк \uD83C\uDF89",
+  "notification.contract.tradeCompleted.text": "Поздравляем! Сатоши по сделке $0 зачислены в кошелёк 🎉",
   "notification.contract.tradeCompleted.title": "Сделка завершена!",
   "notification.offer.buyOfferExpired.text": "Ваше предложение на покупку $0 не нашло партнёров за $1 дней и удалено.",
   "notification.offer.buyOfferExpired.title": "Предложение о покупке удалено",
@@ -69,13 +69,12 @@
   "notification.contract.escrowFundingTimeExpiring1hLeft.text": "Если не профинансируете, сделка будет отменена и репутация пострадает.",
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Остался 1 час на финансирование эскроу",
   "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Продавец отменил сделку. Репутация продавца пострадала.",
-   "notification.offer.newBuyOfferMatchesPreferences.text": "Новое предложение на покупку!",
-    "notification.offer.newBuyOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
-    "notification.offer.newSellOfferMatchesPreferences.text": "Новое предложение на продажу!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
+  "notification.offer.newBuyOfferMatchesPreferences.text": "Новое предложение на покупку!",
+  "notification.offer.newBuyOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
+  "notification.offer.newSellOfferMatchesPreferences.text": "Новое предложение на продажу!",
+  "notification.offer.newSellOfferMatchesPreferences.title": "Появилось новое предложение, соответствующее вашим предпочтениям.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Чат запроса на сделку",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Вы получили сообщение в чате по вашему запросу на сделку",
-
   "notification.offer.expressBuyTradeRequestNotChosen.text": "Ваш запрос на сделку не был выбран. Попробуйте другое предложение продажи.",
   "notification.offer.expressBuyTradeRequestNotChosen.title": "Продавец выбрал другого покупателя",
   "notification.offer.expressSellTradeRequestNotChosen.text": "Ваш запрос на сделку не был выбран. Попробуйте другое предложение покупки.",
@@ -84,10 +83,24 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Предложение, которое вы запросили, было удалено",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Попробуйте торговать с другим предложением покупки.",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Предложение, которое вы запросили, было удалено",
-
-  "notification.body.contract.canceled": "Покупатель сделки $0 отменил. Вы можете оставить предложение открытым для поиска нового совпадения или получить возврат.",
-  "notification.title.contract.canceled": "Отмена сделки"
-
-
- 
+  "notification.contract.canceled.text": "Покупатель сделки $0 отменил. Вы можете оставить предложение открытым для поиска нового совпадения или получить возврат.",
+  "notification.contract.canceled.title": "Отмена сделки",
+  "notification.contract.cancelationRequest.text": "Откройте приложение, чтобы принять или отклонить отмену.",
+  "notification.contract.cancelationRequest.title": "Запрос на отмену",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.title": "Продавец отменил сделку",
+  "notification.contract.disputeResolved.title": "Спор",
+  "notification.user.mobileAction.fundEscrow.created.title": "Пополни эскроу предложения",
+  "notification.user.mobileAction.fundEscrow.created.text": "Предложение готово к пополнению.",
+  "notification.user.mobileAction.fundContractEscrow.created.title": "Пополни эскроу контракта",
+  "notification.user.mobileAction.fundContractEscrow.created.text": "Контракт ожидает пополнения эскроу.",
+  "notification.user.mobileAction.fundMultipleEscrow.created.title": "Пополни несколько эскроу",
+  "notification.user.mobileAction.fundMultipleEscrow.created.text": "Несколько предложений готовы к пополнению.",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.title": "Сообщи о платеже",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.text": "Сообщите о совершённом платеже и продолжите сделку.",
+  "notification.user.mobileAction.signContractRelease.created.title": "Освободи сатоши",
+  "notification.user.mobileAction.signContractRelease.created.text": "Платёж покупателя подтверждён. Подпишите и освободите сатоши.",
+  "notification.user.mobileAction.signEscrowRefund.created.title": "Подпиши возврат",
+  "notification.user.mobileAction.signEscrowRefund.created.text": "Возврат из эскроу готов к подписи.",
+  "notification.user.mobileAction.signEscrowContractRefund.created.title": "Подпиши возврат по контракту",
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Возврат из эскроу контракта готов к подписи."
 }

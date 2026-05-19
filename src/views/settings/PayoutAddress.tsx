@@ -1,9 +1,11 @@
 import { shallow } from "zustand/shallow";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { CustomAddressScreen } from "./CustomAddressScreen";
 
 export const PayoutAddress = () => {
+  useRefreshPaymentDataFromServerOnMount();
   const navigation = useStackNavigation();
 
   const [payoutAddress, payoutAddressLabel] = useSettingsStore(
@@ -20,6 +22,7 @@ export const PayoutAddress = () => {
 
   return (
     <CustomAddressScreen
+      key={`${payoutAddress ?? ""}::${payoutAddressLabel ?? ""}`}
       defaultAddress={payoutAddress}
       defaultAddressLabel={payoutAddressLabel}
       onSave={onSave}

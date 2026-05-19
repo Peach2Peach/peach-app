@@ -11,6 +11,7 @@ import { peachAPI } from "../../../utils/peachAPI";
 import { decrypt } from "../../../utils/pgp/decrypt";
 import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
 import { hasValidSignature } from "../../../views/contract/helpers/hasValidSignature";
+import { useUploadRefundAddressToServer } from "./useUploadRefundAddressToServer";
 import { user69DetailsKeys } from "./useUser69";
 
 const REFRESH_INTERVAL = MSINAMINUTE * 1.5;
@@ -24,6 +25,7 @@ export const useSyncRefundAddressFromServer = () => {
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
   const setPopup = useSetPopup();
+  const uploadRefundAddressToServer = useUploadRefundAddressToServer();
 
   const { data } = useQuery({
     queryKey: user69DetailsKeys.details(),
@@ -45,13 +47,14 @@ export const useSyncRefundAddressFromServer = () => {
     if (!encryptedCustomRefundAddress || !encryptedCustomRefundAddressSignature) {
       if (lastAppliedCipher !== NO_CIPHER_SENTINEL) {
         const state = useSettingsStore.getState();
-        if (
+        const hasLocal =
           state.refundAddress !== undefined ||
-          state.refundAddressLabel !== undefined
-        ) {
-          info("[syncRefundAddress] clearing local refund address (server null)");
-          state.setRefundAddress(undefined);
-          state.setRefundAddressLabel(undefined);
+          state.refundAddressLabel !== undefined;
+        if (hasLocal) {
+          info(
+            "[syncRefundAddress] backfilling local refund address to server (server null)",
+          );
+          uploadRefundAddressToServer();
         }
         lastAppliedCipher = NO_CIPHER_SENTINEL;
       }
@@ -102,6 +105,7 @@ export const useSyncRefundAddressFromServer = () => {
     encryptedCustomRefundAddressSignature,
     myPgpPubKey,
     setPopup,
+    uploadRefundAddressToServer,
   ]);
 };
 

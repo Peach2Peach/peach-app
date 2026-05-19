@@ -19,6 +19,7 @@ type TestViews = {
 
 type DesktopConnection = {
   connectToDesktop: undefined;
+  connectToDesktopPage: undefined;
   pasteDesktopConnection: undefined;
   mobilePendingActions: undefined;
   mobilePendingActionRefund: { id: string };
@@ -31,9 +32,9 @@ type DesktopConnection = {
   mobilePendingActionFundEscrowSuccess: undefined;
   mobilePendingActionFundMultipleEscrow: { id: string };
   mobilePendingActionFundMultipleEscrowSuccess: undefined;
-  mobilePendingActionFundContractEscrow: { contractId: string };
+  mobilePendingActionFundContractEscrow: { id: string };
   mobilePendingActionFundContractEscrowSuccess: undefined;
-  mobilePendingActionRefundContractEscrow: { contractId: string };
+  mobilePendingActionRefundContractEscrow: { id: string };
   mobilePendingActionRefundContractEscrowSuccess: undefined;
 };
 

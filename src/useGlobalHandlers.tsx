@@ -5,6 +5,7 @@ import { useSetPopup } from "./components/popup/GlobalPopup";
 import { useSetToast } from "./components/toast/Toast";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
+import { useSyncPayoutAddressFromServer } from "./hooks/query/peach069/useSyncPayoutAddressFromServer";
 import { useSyncPaymentDataFromServer } from "./hooks/query/peach069/useSyncPaymentDataFromServer";
 import { useSyncRefundAddressFromServer } from "./hooks/query/peach069/useSyncRefundAddressFromServer";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
@@ -33,6 +34,7 @@ export const useGlobalHandlers = () => {
   useHandleNotifications(messageHandler);
   useSyncPaymentDataFromServer();
   useSyncRefundAddressFromServer();
+  useSyncPayoutAddressFromServer();
 
   const setPopup = useSetPopup();
   const setAnalyticsPopupSeen = useSettingsStore(

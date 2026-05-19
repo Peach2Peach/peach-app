@@ -10,6 +10,7 @@ import { Input } from "../../components/inputs/Input";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
+import { useUploadPayoutAddressToServer } from "../../hooks/query/peach069/useUploadPayoutAddressToServer";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useRoute } from "../../hooks/useRoute";
@@ -109,6 +110,7 @@ function ScreenContent({ onSubmit }: ScreenContentProps) {
       ],
       shallow,
     );
+  const uploadPayoutAddressToServer = useUploadPayoutAddressToServer();
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const message = useMemo(
     () => getMessageToSignForAddress(publicKey, address),
@@ -150,6 +152,7 @@ function ScreenContent({ onSubmit }: ScreenContentProps) {
     setPayoutAddress(address);
     setPayoutAddressLabel(addressLabel);
     setPayoutAddressSignature(signature);
+    uploadPayoutAddressToServer();
     onSubmit({ messageSignature: signature, releaseAddress: address });
     navigation.goBack();
   };

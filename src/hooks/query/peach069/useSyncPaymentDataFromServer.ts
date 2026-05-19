@@ -12,9 +12,11 @@ import { peachAPI } from "../../../utils/peachAPI";
 import { decrypt } from "../../../utils/pgp/decrypt";
 import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
 import { hasValidSignature } from "../../../views/contract/helpers/hasValidSignature";
+import { useUploadPaymentDataToServer } from "./useUploadPaymentDataToServer";
 import { user69DetailsKeys } from "./useUser69";
 
 const REFRESH_INTERVAL = MSINAMINUTE * 1.5;
+const NO_CIPHER_SENTINEL = "<<no-server-payment-data>>";
 
 let lastAppliedCipher: string | null = null;
 let lastWarnedCipher: string | null = null;
@@ -24,6 +26,7 @@ export const useSyncPaymentDataFromServer = () => {
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
   const setPopup = useSetPopup();
+  const uploadPaymentDataToServer = useUploadPaymentDataToServer();
 
   const { data } = useQuery({
     queryKey: user69DetailsKeys.details(),
@@ -33,17 +36,31 @@ export const useSyncPaymentDataFromServer = () => {
     staleTime: REFRESH_INTERVAL,
   });
 
+  const dataLoaded = data !== undefined;
   const encryptedPaymentData = data?.encryptedPaymentData ?? null;
   const encryptedPaymentDataSignature =
     data?.encryptedPaymentDataSignature ?? null;
 
   useEffect(() => {
-    if (
-      !encryptedPaymentData ||
-      !encryptedPaymentDataSignature ||
-      encryptedPaymentData === lastAppliedCipher
-    )
+    if (!dataLoaded) return;
+
+    if (!encryptedPaymentData || !encryptedPaymentDataSignature) {
+      if (lastAppliedCipher !== NO_CIPHER_SENTINEL) {
+        const localPaymentData = usePaymentDataStore.getState().paymentData;
+        const hasLocal = Object.keys(localPaymentData).length > 0;
+        if (hasLocal) {
+          info(
+            "[syncPaymentData] backfilling local payment data to server (server null)",
+          );
+          uploadPaymentDataToServer();
+        }
+        lastAppliedCipher = NO_CIPHER_SENTINEL;
+      }
       return;
+    }
+
+    if (encryptedPaymentData === lastAppliedCipher) return;
+
     let cancelled = false;
     (async () => {
       try {
@@ -78,10 +95,12 @@ export const useSyncPaymentDataFromServer = () => {
       cancelled = true;
     };
   }, [
+    dataLoaded,
     encryptedPaymentData,
     encryptedPaymentDataSignature,
     myPgpPubKey,
     setPopup,
+    uploadPaymentDataToServer,
   ]);
 };
 

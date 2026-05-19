@@ -4,13 +4,13 @@ import { peachAPI } from "../../../utils/peachAPI";
 
 export const user69MobilePendingActionRefundContractEscrowKeys = {
   all: ["peach069MobilePendingActionRefundContractEscrow"] as const,
-  details: (contractId: string) =>
-    [...user69MobilePendingActionRefundContractEscrowKeys.all, "details", contractId] as const,
+  details: (id: string) =>
+    [...user69MobilePendingActionRefundContractEscrowKeys.all, "details", id] as const,
 };
 
-export const useMobilePendingActionRefundContractEscrow = (contractId: string) => {
+export const useMobilePendingActionRefundContractEscrow = (id: string) => {
   const { data, isLoading, isFetching, refetch, error } = useQuery({
-    queryKey: user69MobilePendingActionRefundContractEscrowKeys.details(contractId),
+    queryKey: user69MobilePendingActionRefundContractEscrowKeys.details(id),
     queryFn: getMobilePendingActionRefundContractEscrow,
     refetchInterval: FIVE_SECONDS,
   });
@@ -23,10 +23,10 @@ async function getMobilePendingActionRefundContractEscrow({
 }: QueryFunctionContext<
   ReturnType<typeof user69MobilePendingActionRefundContractEscrowKeys.details>
 >) {
-  const contractId = queryKey[2];
+  const id = queryKey[2];
 
   const { result } =
-    await peachAPI.private.peach069.getMobilePendingActionRefundContractEscrow({ contractId });
+    await peachAPI.private.peach069.getMobilePendingActionRefundContractEscrow({ id });
 
   return result;
 }

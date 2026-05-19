@@ -127,6 +127,7 @@
   "global": "wereldwijd",
   "goBackHome": "terug naar home",
   "goTo": "ga naar",
+  "goToAction": "ga naar actie",
   "goToChat": "ga naar chat",
   "goToContract": "ga naar contract",
   "goToMatch": "ga naar match",
@@ -186,5 +187,5 @@
   "country.MK": "Noord-Macedonië",
   "country.BA": "Bosnië en Herzegovina",
   "messageCopied": "Bericht gekopieerd",
-   "showContract": "Contract tonen"
+  "showContract": "Contract tonen"
 }

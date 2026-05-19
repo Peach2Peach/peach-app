@@ -5,7 +5,76 @@ import { useStackNavigation } from "../useStackNavigation";
 export const useGetPNActionHandler = () => {
   const navigation = useStackNavigation();
   const getPNActionHandler = useCallback(
-    ({ type, contractId, isChat, offerId }: PNData) => {
+    ({ type, contractId, isChat, offerId, mobileActionId }: PNData) => {
+      if (type && mobileActionId) {
+        const goToAction = {
+          label: i18n("goToAction"),
+          iconId: "arrowLeftCircle" as const,
+        };
+        if (type === "user.mobileAction.fundEscrow.created") {
+          return {
+            ...goToAction,
+            onPress: () =>
+              navigation.navigate("mobilePendingActionFundEscrow", {
+                id: mobileActionId,
+              }),
+          };
+        }
+        if (type === "user.mobileAction.fundContractEscrow.created") {
+          return {
+            ...goToAction,
+            onPress: () =>
+              navigation.navigate("mobilePendingActionFundContractEscrow", {
+                id: mobileActionId,
+              }),
+          };
+        }
+        if (type === "user.mobileAction.fundMultipleEscrow.created") {
+          return {
+            ...goToAction,
+            onPress: () =>
+              navigation.navigate("mobilePendingActionFundMultipleEscrow", {
+                id: mobileActionId,
+              }),
+          };
+        }
+        if (type === "user.mobileAction.confirmPaymentBuyer.created") {
+          return {
+            ...goToAction,
+            onPress: () =>
+              navigation.navigate("mobilePendingActionRevealAddress", {
+                id: mobileActionId,
+              }),
+          };
+        }
+        if (type === "user.mobileAction.signContractRelease.created") {
+          return {
+            ...goToAction,
+            onPress: () =>
+              navigation.navigate("mobilePendingActionSignMultisig", {
+                id: mobileActionId,
+              }),
+          };
+        }
+        if (type === "user.mobileAction.signEscrowRefund.created") {
+          return {
+            ...goToAction,
+            onPress: () =>
+              navigation.navigate("mobilePendingActionRefund", {
+                id: mobileActionId,
+              }),
+          };
+        }
+        if (type === "user.mobileAction.signEscrowContractRefund.created") {
+          return {
+            ...goToAction,
+            onPress: () =>
+              navigation.navigate("mobilePendingActionRefundContractEscrow", {
+                id: mobileActionId,
+              }),
+          };
+        }
+      }
       if (contractId) {
         if (isChat) {
           return {

@@ -148,21 +148,24 @@ const MobilePendingActionItem = ({
       });
     } else if (type === "fundEscrowContract") {
       navigation.navigate("mobilePendingActionFundContractEscrow", {
-        contractId: String(item.id),
+        id: String(item.id),
       });
     } else if (type === "refundEscrowContract") {
       navigation.navigate("mobilePendingActionRefundContractEscrow", {
-        contractId: String(item.id),
+        id: String(item.id),
       });
     }
   };
 
   const title =
     type === "fundMultipleEscrow"
-      ? `Number of Offers: ${
-          (JSON.parse(item.payload) as { address: string; amount: number }[])
-            .length
-        }`
+      ? i18n(
+          "connectToDesktop.mobilePendingActions.fundMultipleEscrow.numberOfOffers",
+          String(
+            (JSON.parse(item.payload) as { address: string; amount: number }[])
+              .length,
+          ),
+        )
       : "contractId" in item && item.contractId
         ? contractIdToHex(item.contractId)
         : offerIdToHex(String((item as { offerId: number }).offerId));

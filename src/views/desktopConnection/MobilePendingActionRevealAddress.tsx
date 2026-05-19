@@ -147,12 +147,14 @@ export const MobilePendingActionRevealAddress = () => {
           <PeachText
             style={tw`text-xl font-semibold text-center tracking-wide`}
           >
-            {i18n("Have you made the payment?")}
+            {i18n("connectToDesktop.mobilePendingActions.paymentMade.title")}
           </PeachText>
           <PeachText
             style={tw`text-base text-center font-medium text-gray-500`}
           >
-            {"After you make the payment to the Seller, slide to confirm."}
+            {i18n(
+              "connectToDesktop.mobilePendingActions.paymentMade.description",
+            )}
           </PeachText>
 
           <ActionImageWithLoader
@@ -164,21 +166,33 @@ export const MobilePendingActionRevealAddress = () => {
 
           <View style={tw`mt-6 items-center`}>
             <PeachText style={tw`text-base font-medium text-gray-500`}>
-              {"Details"}
+              {i18n("connectToDesktop.mobilePendingActions.details")}
             </PeachText>
 
             <PeachText style={tw`text-sm text-center mt-1`}>
-              {"Contract ID: " +
-                contractIdToHex(mobilePendingAction.contractId)}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.contractId",
+                contractIdToHex(mobilePendingAction.contractId),
+              )}
             </PeachText>
             <PeachText style={tw`text-sm text-center mt-1`}>
-              {"You must pay: " + fiatAmount + " " + currency}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.paymentMade.youMustPay",
+                String(fiatAmount),
+                String(currency),
+              )}
             </PeachText>
             <PeachText style={tw`text-sm text-center mt-1`}>
-              {"Payment Method: " + paymentMethod}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.paymentMade.paymentMethod",
+                String(paymentMethod),
+              )}
             </PeachText>
             <PeachText style={tw`text-sm text-center mt-1`}>
-              {"You will receive: " + satsAmount + " sats"}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.paymentMade.youWillReceive",
+                String(satsAmount),
+              )}
             </PeachText>
           </View>
         </View>

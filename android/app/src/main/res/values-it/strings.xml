@@ -114,4 +114,20 @@
 <string name="notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer">Prova a fare trading con un’altra offerta di acquisto.</string>
 <string name="notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer">L’offerta che hai richiesto è stata rimossa</string>
 
+
+    <string name="notification.body.user.mobileAction.fundEscrow.created">Un\'offerta è pronta per essere finanziata.</string>
+    <string name="notification.title.user.mobileAction.fundEscrow.created">Finanzia il deposito dell\'offerta</string>
+    <string name="notification.body.user.mobileAction.fundContractEscrow.created">Un contratto attende il finanziamento del deposito.</string>
+    <string name="notification.title.user.mobileAction.fundContractEscrow.created">Finanzia il deposito del contratto</string>
+    <string name="notification.body.user.mobileAction.fundMultipleEscrow.created">Più offerte sono pronte per essere finanziate.</string>
+    <string name="notification.title.user.mobileAction.fundMultipleEscrow.created">Finanzia più depositi</string>
+    <string name="notification.body.user.mobileAction.confirmPaymentBuyer.created">Dichiara il pagamento effettuato e prosegui lo scambio.</string>
+    <string name="notification.title.user.mobileAction.confirmPaymentBuyer.created">Dichiara il pagamento</string>
+    <string name="notification.body.user.mobileAction.signContractRelease.created">Il pagamento dell\'acquirente è stato confermato. Firma e rilascia i sat.</string>
+    <string name="notification.title.user.mobileAction.signContractRelease.created">Rilascia i sat</string>
+    <string name="notification.body.user.mobileAction.signEscrowRefund.created">Il tuo rimborso del deposito è pronto per essere firmato.</string>
+    <string name="notification.title.user.mobileAction.signEscrowRefund.created">Firma il tuo rimborso</string>
+
+    <string name="notification.body.user.mobileAction.signEscrowContractRefund.created">Un rimborso del deposito del contratto è pronto per essere firmato.</string>
+    <string name="notification.title.user.mobileAction.signEscrowContractRefund.created">Firma il rimborso del contratto</string>
 </resources>

@@ -1,7 +1,9 @@
 import { NETWORK } from "@env";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
+import { Icon } from "../../components/Icon";
+import { Loading } from "../../components/Loading";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { ScanQR } from "../../components/camera/ScanQR";
@@ -58,25 +60,63 @@ export const ConnectToDesktop = () => {
   };
   const { showQRScanner, showQR, closeQR, onRead } = useQRScanner({
     onSuccess,
-    initialState: true,
   });
 
-  const [hasran, sethasran] = useState(false);
-  if (!hasran) {
-    sethasran(true);
-  }
+  useEffect(() => {
+    showQR();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (showQRScanner) return <ScanQR onRead={onRead} onCancel={closeQR} />;
 
   return (
     <Screen header={<ConnectToDesktopHeader />}>
-      <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
-        <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
-          <PeachText>It was scanned!!</PeachText>
+      <PeachScrollView
+        contentContainerStyle={[tw`grow justify-center py-sm`, tw`md:py-md`]}
+      >
+        <View style={tw`items-center gap-4 px-6`}>
+          {!failed && !success && (
+            <>
+              <Loading size="large" />
+              <PeachText style={tw`subtitle-1 text-center`}>
+                {i18n("connectToDesktop.connecting.title")}
+              </PeachText>
+              <PeachText style={tw`body-m text-black-65 text-center`}>
+                {i18n("connectToDesktop.connecting.description")}
+              </PeachText>
+            </>
+          )}
+          {success && (
+            <>
+              <Icon
+                id="checkCircle"
+                size={64}
+                color={tw.color("success-main")}
+              />
+              <PeachText style={tw`subtitle-1 text-center`}>
+                {i18n("connectToDesktop.success.title")}
+              </PeachText>
+              <PeachText style={tw`body-m text-black-65 text-center`}>
+                {i18n("connectToDesktop.success.description")}
+              </PeachText>
+            </>
+          )}
+          {failed && (
+            <>
+              <Icon
+                id="alertTriangle"
+                size={64}
+                color={tw.color("error-main")}
+              />
+              <PeachText style={tw`subtitle-1 text-center`}>
+                {i18n("connectToDesktop.failed.title")}
+              </PeachText>
+              <PeachText style={tw`body-m text-black-65 text-center`}>
+                {i18n("connectToDesktop.failed.description")}
+              </PeachText>
+            </>
+          )}
         </View>
-        {failed && (
-          <PeachText>Something went wrong, please try again</PeachText>
-        )}
-        {success && <PeachText>You should be authenticated now!</PeachText>}
       </PeachScrollView>
     </Screen>
   );
@@ -88,7 +128,7 @@ function ConnectToDesktopHeader() {
 
   return (
     <Header
-      title={i18n("desktopConnection.title")}
+      title={i18n("settings.connectToDesktop")}
       icons={[
         {
           ...headerIcons.help,

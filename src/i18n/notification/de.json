@@ -24,7 +24,7 @@
   "notification.contract.seller.disputeWon.text": "Wir haben im Streitfall für den Handel $0 zugunsten von dir entschieden. Bitte überprüfe die Nachricht von deinem Vermittler im Chat, um zu sehen, wie es weitergeht.",
   "notification.contract.seller.instantTrade.text": "Du hast gerade einen Sofortkauf mit einem Käufer gestartet!",
   "notification.contract.seller.paymentTimerHasRunOut.text": "Die Zahlung für den Handel $0 wurde nicht rechtzeitig geleistet. Gib dem Käufer mehr Zeit oder storniere den Handel.",
-  "notification.contract.tradeCompleted.text": "Glückwunsch! Die Sats für den Handel $0 befinden sich in deiner Wallet \uD83C\uDF89",
+  "notification.contract.tradeCompleted.text": "Glückwunsch! Die Sats für den Handel $0 befinden sich in deiner Wallet 🎉",
   "notification.contract.tradeCompleted.title": "Handel abgeschlossen!",
   "notification.offer.buyOfferExpired.text": "Dein Kaufangebot $0 hat nach $1 Tagen keine Match erhalten und wurde entfernt.",
   "notification.offer.buyOfferExpired.title": "Kaufangebot entfernt",
@@ -32,7 +32,7 @@
   "notification.offer.matchBuyer.title": "Matches warten auf dich.",
   "notification.offer.matchSeller.text": "Du hast neue Matches, lass sie nicht im Stich!",
   "notification.offer.matchSeller.title": "Matches warten auf dich!",
-  "notification.offer.notFunded.text": "Du hast deine Escrow nach $1 Tagen nicht aufgeladen \uD83D\uDE1E. Wir löschen dieses Angebot.",
+  "notification.offer.notFunded.text": "Du hast deine Escrow nach $1 Tagen nicht aufgeladen 😞. Wir löschen dieses Angebot.",
   "notification.offer.notFunded.title": "Angebot abgebrochen",
   "notification.offer.outsideRange.text": "Angebot $0 liegt jetzt außerhalb des Handelsbereichs und wird Käufern nicht angezeigt.\n\nDu kannst wählen, das Angebot zu stornieren und ein neues zu erstellen, oder es so zu belassen.",
   "notification.offer.outsideRange.title": "Bitcoin steigt!",
@@ -70,13 +70,11 @@
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Sie haben noch 1 Stunde, um das Escrow zu finanzieren.",
   "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Der Verkäufer hat den Handel abgebrochen.\n\nSein Ruf wurde negativ beeinflusst.",
   "notification.offer.newBuyOfferMatchesPreferences.text": "Neues Kaufangebot!",
-    "notification.offer.newBuyOfferMatchesPreferences.title": "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.",
-    "notification.offer.newSellOfferMatchesPreferences.text": "Neues Verkaufsangebot!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.",
-  
-    "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Trade-Anfrage Chat",
+  "notification.offer.newBuyOfferMatchesPreferences.title": "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.",
+  "notification.offer.newSellOfferMatchesPreferences.text": "Neues Verkaufsangebot!",
+  "notification.offer.newSellOfferMatchesPreferences.title": "Es gibt ein neues Angebot, das deinen Präferenzen entspricht.",
+  "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Trade-Anfrage Chat",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Du hast eine Chat-Nachricht zu deiner Trade-Anfrage erhalten",
-
   "notification.offer.expressBuyTradeRequestNotChosen.text": "Your Trade Request was not chosen. Try another Sell Offer.",
   "notification.offer.expressBuyTradeRequestNotChosen.title": "The Seller chose another Buyer",
   "notification.offer.expressSellTradeRequestNotChosen.text": "Your Trade Request was not chosen. Try another Buy Offer.",
@@ -85,10 +83,24 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "The Offer you requested has been removed",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Try trading with another Buy Offer.",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "The Offer you requested has been removed",
-
-  "notification.body.contract.canceled": "Der Käufer des Trades $0 hat abgebrochen. Du kannst dein Angebot weiterhin offen lassen, um einen neuen Käufer zu finden, oder eine Rückerstattung beantragen.",
-  "notification.title.contract.canceled": "Handel abgebrochen"
-
-
-
+  "notification.contract.canceled.text": "Der Käufer des Trades $0 hat abgebrochen. Du kannst dein Angebot weiterhin offen lassen, um einen neuen Käufer zu finden, oder eine Rückerstattung beantragen.",
+  "notification.contract.canceled.title": "Handel abgebrochen",
+  "notification.contract.cancelationRequest.text": "Bitte öffne die App, um die Stornierung zu akzeptieren oder abzulehnen.",
+  "notification.contract.cancelationRequest.title": "Stornierungsanfrage",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.title": "Verkäufer hat den Vertrag abgebrochen",
+  "notification.contract.disputeResolved.title": "Streitfall",
+  "notification.user.mobileAction.fundEscrow.created.title": "Angebots-Escrow aufladen",
+  "notification.user.mobileAction.fundEscrow.created.text": "Ein Angebot ist bereit zur Aufladung.",
+  "notification.user.mobileAction.fundContractEscrow.created.title": "Vertrags-Escrow aufladen",
+  "notification.user.mobileAction.fundContractEscrow.created.text": "Ein Vertrag wartet auf die Escrow-Aufladung.",
+  "notification.user.mobileAction.fundMultipleEscrow.created.title": "Mehrere Escrows aufladen",
+  "notification.user.mobileAction.fundMultipleEscrow.created.text": "Mehrere Angebote sind bereit zur Aufladung.",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.title": "Zahlung melden",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.text": "Melde die getätigte Zahlung und setze den Handel fort.",
+  "notification.user.mobileAction.signContractRelease.created.title": "Sats freigeben",
+  "notification.user.mobileAction.signContractRelease.created.text": "Die Zahlung des Käufers wurde bestätigt. Signiere und gib die Sats frei.",
+  "notification.user.mobileAction.signEscrowRefund.created.title": "Rückerstattung signieren",
+  "notification.user.mobileAction.signEscrowRefund.created.text": "Deine Escrow-Rückerstattung ist bereit zur Signatur.",
+  "notification.user.mobileAction.signEscrowContractRefund.created.title": "Vertrags-Rückerstattung signieren",
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Eine Vertrags-Escrow-Rückerstattung ist bereit zur Signatur."
 }

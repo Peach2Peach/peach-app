@@ -70,12 +70,11 @@
   "notification.contract.escrowFundingTimeExpiring1hLeft.title": "Saa 1 kufadhili escrow.",
   "notification.contract.buyer.sellerCanceledBeforeFunding.text": "Muuzaji amefuta biashara.\n\nSifa yake imepungua.",
   "notification.offer.newBuyOfferMatchesPreferences.text": "Ofa mpya ya ununuzi!",
-    "notification.offer.newBuyOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
-    "notification.offer.newSellOfferMatchesPreferences.text": "Ofa mpya ya mauzo!",
-    "notification.offer.newSellOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
+  "notification.offer.newBuyOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
+  "notification.offer.newSellOfferMatchesPreferences.text": "Ofa mpya ya mauzo!",
+  "notification.offer.newSellOfferMatchesPreferences.title": "Kuna ofa mpya inayolingana na mapendeleo yako.",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.title": "Gumzo la Ombi la Biashara",
   "notification.offer.expressFlowTradeRequestChatMessageReceived.text": "Umepokea ujumbe wa gumzo kuhusu ombi lako la biashara",
-
   "notification.offer.expressBuyTradeRequestNotChosen.text": "Ombi lako la biashara halikuchaguliwa. Jaribu ofa nyingine ya kuuza.",
   "notification.offer.expressBuyTradeRequestNotChosen.title": "Muuzaji alichagua mnunuzi mwingine",
   "notification.offer.expressSellTradeRequestNotChosen.text": "Ombi lako la biashara halikuchaguliwa. Jaribu ofa nyingine ya kununua.",
@@ -84,10 +83,24 @@
   "notification.offer.expressBuyTradeRequestRemovedAlongsideOffer.title": "Ofa uliyoomba imeondolewa",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.text": "Jaribu kufanya biashara na ofa nyingine ya kununua.",
   "notification.offer.expressSellTradeRequestRemovedAlongsideOffer.title": "Ofa uliyoomba imeondolewa",
-
-  "notification.body.contract.canceled": "Mnunuzi wa biashara $0 amefuta. Unaweza kuchagua kuendelea kutafuta kulingana mpya au kuomba marejesho.",
-  "notification.title.contract.canceled": "Biashara Imefutwa"
-
-
-  
+  "notification.contract.canceled.text": "Mnunuzi wa biashara $0 amefuta. Unaweza kuchagua kuendelea kutafuta kulingana mpya au kuomba marejesho.",
+  "notification.contract.canceled.title": "Biashara Imefutwa",
+  "notification.contract.cancelationRequest.text": "Tafadhali fungua programu ili kukubali au kukataa kufuta.",
+  "notification.contract.cancelationRequest.title": "Ombi la kufuta",
+  "notification.contract.buyer.sellerCanceledBeforeFunding.title": "Muuzaji amefuta mkataba",
+  "notification.contract.disputeResolved.title": "Mzozo",
+  "notification.user.mobileAction.fundEscrow.created.title": "Fadhili escrow ya ombi",
+  "notification.user.mobileAction.fundEscrow.created.text": "Ombi liko tayari kufadhiliwa.",
+  "notification.user.mobileAction.fundContractEscrow.created.title": "Fadhili escrow ya mkataba",
+  "notification.user.mobileAction.fundContractEscrow.created.text": "Mkataba unasubiri kufadhiliwa kwa escrow.",
+  "notification.user.mobileAction.fundMultipleEscrow.created.title": "Fadhili escrow nyingi",
+  "notification.user.mobileAction.fundMultipleEscrow.created.text": "Maombi mengi yako tayari kufadhiliwa.",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.title": "Tangaza malipo yako",
+  "notification.user.mobileAction.confirmPaymentBuyer.created.text": "Tangaza malipo uliyofanya na endelea na biashara.",
+  "notification.user.mobileAction.signContractRelease.created.title": "Toa sats",
+  "notification.user.mobileAction.signContractRelease.created.text": "Malipo ya mnunuzi yamethibitishwa. Saini na utoe sats.",
+  "notification.user.mobileAction.signEscrowRefund.created.title": "Saini marejesho yako",
+  "notification.user.mobileAction.signEscrowRefund.created.text": "Marejesho ya escrow yako tayari kusainiwa.",
+  "notification.user.mobileAction.signEscrowContractRefund.created.title": "Saini marejesho ya mkataba",
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Marejesho ya escrow ya mkataba yako tayari kusainiwa."
 }

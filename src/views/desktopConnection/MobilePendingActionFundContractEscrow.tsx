@@ -23,14 +23,14 @@ import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
 
 const ASPECT_RATIO = 0.7;
 export const MobilePendingActionFundContractEscrow = () => {
-  const { contractId } =
+  const { id } =
     useRoute<"mobilePendingActionFundContractEscrow">().params;
   const { width } = useWindowDimensions();
   const navigation = useStackNavigation();
   const [isConfirming, setIsConfirming] = useState(false);
 
   const { mobilePendingAction, isLoading, refetch } =
-    useMobilePendingActionFundContractEscrow(contractId);
+    useMobilePendingActionFundContractEscrow(id);
 
   useSyncWallet({ enabled: true });
   const balance = useWalletState((state) => state.balance);
@@ -57,6 +57,7 @@ export const MobilePendingActionFundContractEscrow = () => {
 
   const confirmFunction = async () => {
     setIsConfirming(true);
+    await new Promise((resolve) => requestAnimationFrame(() => resolve(null)));
     try {
       if (!peachWallet) throw new Error("Wallet not defined");
 
@@ -73,7 +74,7 @@ export const MobilePendingActionFundContractEscrow = () => {
 
       const { error: err } =
         await peachAPI.private.peach069.postMobilePendingActionFundContractEscrow({
-          contractId,
+          id,
           txHex,
         });
       if (err) throw new Error(err.error);
@@ -108,33 +109,46 @@ export const MobilePendingActionFundContractEscrow = () => {
           <PeachText
             style={tw`text-xl font-semibold text-center tracking-wide`}
           >
-            {"Fund the Escrow"}
+            {i18n("connectToDesktop.mobilePendingActions.fundEscrow.title")}
           </PeachText>
           <PeachText
             style={tw`text-base text-center font-medium text-gray-500`}
           >
-            {"Slide to send the funds from your wallet to the escrow address."}
+            {i18n(
+              "connectToDesktop.mobilePendingActions.fundEscrow.description",
+            )}
           </PeachText>
 
           <View style={tw`mt-6 items-center gap-3`}>
             <PeachText style={tw`text-base font-medium text-gray-500`}>
-              {"Details"}
+              {i18n("connectToDesktop.mobilePendingActions.details")}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Contract ID: " +
-                contractIdToHex(mobilePendingAction.contractId)}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.contractId",
+                contractIdToHex(mobilePendingAction.contractId),
+              )}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Escrow Address: " + address}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.escrowAddress",
+                address,
+              )}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Amount: " + amount + " sats"}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.amount",
+                String(amount),
+              )}
             </PeachText>
           </View>
 
           {!hasSufficientFunds && (
             <PeachText style={tw`text-sm text-center text-error-main mt-4`}>
-              {"Insufficient balance. You need at least " + amount + " sats."}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.insufficientBalance",
+                String(amount),
+              )}
             </PeachText>
           )}
         </View>
@@ -146,8 +160,12 @@ export const MobilePendingActionFundContractEscrow = () => {
             }
             onConfirm={confirmFunction}
             isCallbackRunning={isConfirming}
-            label1={"Fund Escrow"}
-            label2={"Funded!"}
+            label1={i18n(
+              "connectToDesktop.mobilePendingActions.fundEscrow.action",
+            )}
+            label2={i18n(
+              "connectToDesktop.mobilePendingActions.fundEscrow.actionDone",
+            )}
           />
         </View>
       </View>

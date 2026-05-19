@@ -7,7 +7,7 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { WarningPopup } from "../WarningPopup";
 
-type Source = "paymentData" | "refundAddress";
+type Source = "paymentData" | "refundAddress" | "payoutAddress";
 
 export function InvalidServerSignaturePopup({ source }: { source: Source }) {
   const closePopup = useClosePopup();

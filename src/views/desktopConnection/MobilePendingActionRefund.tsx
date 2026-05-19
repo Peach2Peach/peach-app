@@ -106,21 +106,25 @@ export const MobilePendingActionRefund = () => {
           <PeachText
             style={tw`text-xl font-semibold text-center tracking-wide`}
           >
-            {"Refund Escrow"}
+            {i18n("connectToDesktop.mobilePendingActions.refundEscrow.title")}
           </PeachText>
           <PeachText
             style={tw`text-base text-center font-medium text-gray-500`}
           >
-            {"Slide to sign the refund transaction and get your funds back."}
+            {i18n(
+              "connectToDesktop.mobilePendingActions.refundEscrow.description",
+            )}
           </PeachText>
 
           <View style={tw`mt-6 items-center gap-3`}>
             <PeachText style={tw`text-base font-medium text-gray-500`}>
-              {"Details"}
+              {i18n("connectToDesktop.mobilePendingActions.details")}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Offer ID: " +
-                offerIdToHex(String(mobilePendingAction.offerId))}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.offerId",
+                offerIdToHex(String(mobilePendingAction.offerId)),
+              )}
             </PeachText>
           </View>
         </View>
@@ -130,8 +134,12 @@ export const MobilePendingActionRefund = () => {
             enabled={mobilePendingAction.status === "pending"}
             onConfirm={confirmFunction}
             isCallbackRunning={isConfirming}
-            label1={"Refund"}
-            label2={"Refunded!"}
+            label1={i18n(
+              "connectToDesktop.mobilePendingActions.refundEscrow.action",
+            )}
+            label2={i18n(
+              "connectToDesktop.mobilePendingActions.refundEscrow.actionDone",
+            )}
           />
         </View>
       </View>

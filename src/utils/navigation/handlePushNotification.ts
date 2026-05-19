@@ -22,6 +22,39 @@ export const handlePushNotification = async (
   navigationRef: Navigation,
   { data }: { data: PNData },
 ) => {
+  if (data.type && data.mobileActionId) {
+    const id = data.mobileActionId;
+    if (data.type === "user.mobileAction.fundEscrow.created") {
+      navigationRef.navigate("mobilePendingActionFundEscrow", { id });
+      return true;
+    }
+    if (data.type === "user.mobileAction.fundContractEscrow.created") {
+      navigationRef.navigate("mobilePendingActionFundContractEscrow", {
+        id,
+      });
+      return true;
+    }
+    if (data.type === "user.mobileAction.fundMultipleEscrow.created") {
+      navigationRef.navigate("mobilePendingActionFundMultipleEscrow", { id });
+      return true;
+    }
+    if (data.type === "user.mobileAction.confirmPaymentBuyer.created") {
+      navigationRef.navigate("mobilePendingActionRevealAddress", { id });
+      return true;
+    }
+    if (data.type === "user.mobileAction.signContractRelease.created") {
+      navigationRef.navigate("mobilePendingActionSignMultisig", { id });
+      return true;
+    }
+    if (data.type === "user.mobileAction.signEscrowRefund.created") {
+      navigationRef.navigate("mobilePendingActionRefund", { id });
+      return true;
+    }
+    if (data.type === "user.mobileAction.signEscrowContractRefund.created") {
+      navigationRef.navigate("mobilePendingActionRefundContractEscrow", { id });
+      return true;
+    }
+  }
   if (shouldGoToContract(data)) {
     const { contractId } = data;
     navigationRef.navigate("contract", { contractId });

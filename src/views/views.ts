@@ -14,6 +14,7 @@ import { PatchPayoutAddress } from "./contract/PatchPayoutAddress";
 import { SignMessage } from "./contract/SignMessage";
 import { ContractChat } from "./contractChat/ContractChat";
 import { ConnectToDesktop } from "./desktopConnection/ConnectToDesktop";
+import { ConnectToDesktopIntro } from "./desktopConnection/ConnectToDesktopIntro";
 import { PasteDesktopConnection } from "./desktopConnection/PasteDesktopConnection";
 import { MobilePendingActionFundContractEscrow } from "./desktopConnection/MobilePendingActionFundContractEscrow";
 import { MobilePendingActionFundContractEscrowSuccess } from "./desktopConnection/MobilePendingActionFundContractEscrowSuccess";
@@ -251,6 +252,10 @@ const otherUserViews: ViewType[] = [
 const desktopConnection: ViewType[] = [
   {
     name: "connectToDesktop",
+    component: ConnectToDesktopIntro,
+  },
+  {
+    name: "connectToDesktopPage",
     component: ConnectToDesktop,
   },
   {

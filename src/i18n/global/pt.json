@@ -104,6 +104,7 @@
   "global": "global",
   "goBackHome": "voltar para o início",
   "goTo": "ir para",
+  "goToAction": "ir para a ação",
   "goToChat": "ir para o chat",
   "goToContract": "ir para o contrato",
   "goToMatch": "ir para a correspondência",
@@ -187,5 +188,5 @@
   "country.MK": "Macedónia do Norte",
   "country.BA": "Bósnia e Herzegovina",
   "messageCopied": "Mensagem copiada",
-   "showContract": "Mostrar contrato"
+  "showContract": "Mostrar contrato"
 }

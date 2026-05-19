@@ -111,3 +111,18 @@
 "notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer" = "La oferta que solicitaste ha sido eliminada";
 "notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer" = "Prueba a negociar con otra oferta de compra.";
 "notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer" = "La oferta que solicitaste ha sido eliminada";
+
+"notification.body.user.mobileAction.fundEscrow.created" = "Una oferta está lista para ser financiada.";
+"notification.title.user.mobileAction.fundEscrow.created" = "Financia el escrow de la oferta";
+"notification.body.user.mobileAction.fundContractEscrow.created" = "Un contrato está esperando que financies el escrow.";
+"notification.title.user.mobileAction.fundContractEscrow.created" = "Financia el escrow del contrato";
+"notification.body.user.mobileAction.fundMultipleEscrow.created" = "Varias ofertas están listas para ser financiadas.";
+"notification.title.user.mobileAction.fundMultipleEscrow.created" = "Financia múltiples escrows";
+"notification.body.user.mobileAction.confirmPaymentBuyer.created" = "Declara el pago realizado y continúa el trade.";
+"notification.title.user.mobileAction.confirmPaymentBuyer.created" = "Declara tu pago";
+"notification.body.user.mobileAction.signContractRelease.created" = "El pago del comprador fue confirmado. Firma y libera los sats.";
+"notification.title.user.mobileAction.signContractRelease.created" = "Libera los sats";
+"notification.body.user.mobileAction.signEscrowRefund.created" = "Tu reembolso del escrow está listo para ser firmado.";
+"notification.title.user.mobileAction.signEscrowRefund.created" = "Firma tu reembolso";
+"notification.body.user.mobileAction.signEscrowContractRefund.created" = "Un reembolso del escrow del contrato está listo para ser firmado.";
+"notification.title.user.mobileAction.signEscrowContractRefund.created" = "Firma el reembolso del contrato";

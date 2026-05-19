@@ -124,21 +124,27 @@ export const MobilePendingActionSignMultisig = () => {
           <PeachText
             style={tw`text-xl font-semibold text-center tracking-wide`}
           >
-            {"Send the Escrowed BTC to the Buyer"}
+            {i18n(
+              "connectToDesktop.mobilePendingActions.paymentConfirmed.title",
+            )}
           </PeachText>
           <PeachText
             style={tw`text-base text-center font-medium text-gray-500`}
           >
-            {"Slide to sign the release transaction and send the Bitcoin."}
+            {i18n(
+              "connectToDesktop.mobilePendingActions.paymentConfirmed.description",
+            )}
           </PeachText>
 
           <View style={tw`mt-6 items-center gap-3`}>
             <PeachText style={tw`text-base font-medium text-gray-500`}>
-              {"Details"}
+              {i18n("connectToDesktop.mobilePendingActions.details")}
             </PeachText>
             <PeachText style={tw`text-sm text-center`}>
-              {"Contract ID: " +
-                contractIdToHex(mobilePendingAction.contractId)}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.contractId",
+                contractIdToHex(mobilePendingAction.contractId),
+              )}
             </PeachText>
           </View>
         </View>
@@ -148,8 +154,12 @@ export const MobilePendingActionSignMultisig = () => {
             enabled={mobilePendingAction.status === "pending"}
             onConfirm={confirmFunction}
             isCallbackRunning={isConfirming}
-            label1={"Release Bitcoin"}
-            label2={"Released!"}
+            label1={i18n(
+              "connectToDesktop.mobilePendingActions.paymentConfirmed.action",
+            )}
+            label2={i18n(
+              "connectToDesktop.mobilePendingActions.paymentConfirmed.actionDone",
+            )}
           />
         </View>
       </View>

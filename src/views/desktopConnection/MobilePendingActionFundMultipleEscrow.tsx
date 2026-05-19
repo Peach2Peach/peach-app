@@ -49,6 +49,7 @@ export const MobilePendingActionFundMultipleEscrow = () => {
 
   const confirmFunction = async () => {
     setIsConfirming(true);
+    await new Promise((resolve) => requestAnimationFrame(() => resolve(null)));
     try {
       if (!peachWallet) throw new Error("Wallet not defined");
 
@@ -102,14 +103,16 @@ export const MobilePendingActionFundMultipleEscrow = () => {
             <PeachText
               style={tw`text-xl font-semibold text-center tracking-wide`}
             >
-              {"Fund Multiple Escrows"}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.fundMultipleEscrow.title",
+              )}
             </PeachText>
             <PeachText
               style={tw`text-base text-center font-medium text-gray-500 mt-1`}
             >
-              {
-                "Slide to send the funds from your wallet to the escrow addresses."
-              }
+              {i18n(
+                "connectToDesktop.mobilePendingActions.fundMultipleEscrow.description",
+              )}
             </PeachText>
           </View>
 
@@ -121,7 +124,9 @@ export const MobilePendingActionFundMultipleEscrow = () => {
 
           <View style={tw`flex-1 mt-4`}>
             <PeachText style={tw`text-base font-medium text-gray-500 mb-2`}>
-              {"Recipients"}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.fundMultipleEscrow.recipients",
+              )}
             </PeachText>
             <ScrollView
               style={tw`flex-1`}
@@ -148,7 +153,10 @@ export const MobilePendingActionFundMultipleEscrow = () => {
                     </PeachText>
                   </View>
                   <PeachText style={tw`text-sm font-medium`}>
-                    {`${recipient.amount} sats`}
+                    {i18n(
+                      "connectToDesktop.mobilePendingActions.sats",
+                      String(recipient.amount),
+                    )}
                   </PeachText>
                 </View>
               ))}
@@ -158,17 +166,25 @@ export const MobilePendingActionFundMultipleEscrow = () => {
 
         <View style={tw`pb-4`}>
           <View style={tw`flex-row items-center justify-between py-2`}>
-            <PeachText style={tw`text-base font-semibold`}>{"Total"}</PeachText>
             <PeachText style={tw`text-base font-semibold`}>
-              {`${totalAmount} sats`}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.fundMultipleEscrow.total",
+              )}
+            </PeachText>
+            <PeachText style={tw`text-base font-semibold`}>
+              {i18n(
+                "connectToDesktop.mobilePendingActions.sats",
+                String(totalAmount),
+              )}
             </PeachText>
           </View>
 
           {!hasSufficientFunds && (
             <PeachText style={tw`text-sm text-center text-error-main mb-2`}>
-              {"Insufficient balance. You need at least " +
-                totalAmount +
-                " sats."}
+              {i18n(
+                "connectToDesktop.mobilePendingActions.insufficientBalance",
+                String(totalAmount),
+              )}
             </PeachText>
           )}
 
@@ -178,8 +194,12 @@ export const MobilePendingActionFundMultipleEscrow = () => {
             }
             onConfirm={confirmFunction}
             isCallbackRunning={isConfirming}
-            label1={"Fund Escrows"}
-            label2={"Funded!"}
+            label1={i18n(
+              "connectToDesktop.mobilePendingActions.fundMultipleEscrow.action",
+            )}
+            label2={i18n(
+              "connectToDesktop.mobilePendingActions.fundEscrow.actionDone",
+            )}
           />
         </View>
       </View>

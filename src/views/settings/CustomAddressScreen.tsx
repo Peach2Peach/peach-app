@@ -11,6 +11,7 @@ import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../components/text/PeachText";
+import { useUploadPayoutAddressToServer } from "../../hooks/query/peach069/useUploadPayoutAddressToServer";
 import { useUploadRefundAddressToServer } from "../../hooks/query/peach069/useUploadRefundAddressToServer";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { ErrorPopup } from "../../popups/ErrorPopup";
@@ -168,15 +169,24 @@ function RemoveWalletPopup({
             ],
       shallow,
     );
+  const setPayoutAddressSignature = useSettingsStore(
+    (state) => state.setPayoutAddressSignature,
+  );
   const closePopup = useClosePopup();
   const uploadRefundAddressToServer = useUploadRefundAddressToServer();
+  const uploadPayoutAddressToServer = useUploadPayoutAddressToServer();
   const removeWallet = () => {
     setCustomAddress(undefined);
     setCustomAddressLabel(undefined);
     setAddressInput("");
     setAddressLabelInput("");
     setPeachWalletActive(true);
-    if (!isPayout) uploadRefundAddressToServer();
+    if (isPayout) {
+      setPayoutAddressSignature(undefined);
+      uploadPayoutAddressToServer();
+    } else {
+      uploadRefundAddressToServer();
+    }
     closePopup();
   };
   return (

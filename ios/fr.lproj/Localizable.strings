@@ -110,3 +110,18 @@
 "notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer" = "L'offre que tu as demandée a été supprimée";
 "notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer" = "Essaie de trader avec une autre offre d'achat.";
 "notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer" = "L'offre que tu as demandée a été supprimée";
+
+"notification.body.user.mobileAction.fundEscrow.created" = "Une offre est prête à être financée.";
+"notification.title.user.mobileAction.fundEscrow.created" = "Financez le coffre de l'offre";
+"notification.body.user.mobileAction.fundContractEscrow.created" = "Un contrat attend le financement du coffre.";
+"notification.title.user.mobileAction.fundContractEscrow.created" = "Financez le coffre du contrat";
+"notification.body.user.mobileAction.fundMultipleEscrow.created" = "Plusieurs offres sont prêtes à être financées.";
+"notification.title.user.mobileAction.fundMultipleEscrow.created" = "Financez plusieurs coffres";
+"notification.body.user.mobileAction.confirmPaymentBuyer.created" = "Déclarez le paiement effectué et continuez l'échange.";
+"notification.title.user.mobileAction.confirmPaymentBuyer.created" = "Déclarez votre paiement";
+"notification.body.user.mobileAction.signContractRelease.created" = "Le paiement de l'acheteur a été confirmé. Signez et libérez les sats.";
+"notification.title.user.mobileAction.signContractRelease.created" = "Libérez les sats";
+"notification.body.user.mobileAction.signEscrowRefund.created" = "Votre remboursement du coffre est prêt à être signé.";
+"notification.title.user.mobileAction.signEscrowRefund.created" = "Signez votre remboursement";
+"notification.body.user.mobileAction.signEscrowContractRefund.created" = "Un remboursement du coffre du contrat est prêt à être signé.";
+"notification.title.user.mobileAction.signEscrowContractRefund.created" = "Signez le remboursement du contrat";

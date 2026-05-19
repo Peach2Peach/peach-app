@@ -111,3 +111,18 @@
 "notification.title.offer.expressBuyTradeRequestRemovedAlongsideOffer" = "Das von dir angeforderte Angebot wurde entfernt";
 "notification.body.offer.expressSellTradeRequestRemovedAlongsideOffer" = "Versuche mit einem anderen Kaufangebot zu handeln.";
 "notification.title.offer.expressSellTradeRequestRemovedAlongsideOffer" = "Das von dir angeforderte Angebot wurde entfernt";
+
+"notification.body.user.mobileAction.fundEscrow.created" = "Ein Angebot ist bereit zur Aufladung.";
+"notification.title.user.mobileAction.fundEscrow.created" = "Angebots-Escrow aufladen";
+"notification.body.user.mobileAction.fundContractEscrow.created" = "Ein Vertrag wartet auf die Escrow-Aufladung.";
+"notification.title.user.mobileAction.fundContractEscrow.created" = "Vertrags-Escrow aufladen";
+"notification.body.user.mobileAction.fundMultipleEscrow.created" = "Mehrere Angebote sind bereit zur Aufladung.";
+"notification.title.user.mobileAction.fundMultipleEscrow.created" = "Mehrere Escrows aufladen";
+"notification.body.user.mobileAction.confirmPaymentBuyer.created" = "Melde die getätigte Zahlung und setze den Handel fort.";
+"notification.title.user.mobileAction.confirmPaymentBuyer.created" = "Zahlung melden";
+"notification.body.user.mobileAction.signContractRelease.created" = "Die Zahlung des Käufers wurde bestätigt. Signiere und gib die Sats frei.";
+"notification.title.user.mobileAction.signContractRelease.created" = "Sats freigeben";
+"notification.body.user.mobileAction.signEscrowRefund.created" = "Deine Escrow-Rückerstattung ist bereit zur Signatur.";
+"notification.title.user.mobileAction.signEscrowRefund.created" = "Rückerstattung signieren";
+"notification.body.user.mobileAction.signEscrowContractRefund.created" = "Eine Vertrags-Escrow-Rückerstattung ist bereit zur Signatur.";
+"notification.title.user.mobileAction.signEscrowContractRefund.created" = "Vertrags-Rückerstattung signieren";
