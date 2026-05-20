@@ -39,6 +39,7 @@ export type SettingsItemProps = (
   iconSize?: ViewStyle;
   warning?: boolean;
   enabled?: boolean;
+  disabled?: boolean;
 };
 
 export const SettingsItem = ({
@@ -48,6 +49,7 @@ export const SettingsItem = ({
   warning,
   enabled,
   iconSize,
+  disabled,
 }: SettingsItemProps) => {
   const navigation = useStackNavigation();
   const onPress = pressAction
@@ -66,18 +68,20 @@ export const SettingsItem = ({
     <TouchableOpacity
       style={tw`flex-row items-center justify-between`}
       onPress={onPress}
+      disabled={disabled}
     >
       <PeachText
         style={[
           tw`settings ${isDarkMode ? "text-black-25" : "text-black-65"}`,
           warning && tw`text-error-main`,
+          disabled && tw`opacity-30`,
         ]}
       >
         {i18n(`settings.${title}`)}
       </PeachText>
       <Icon
         id={iconId || "chevronRight"}
-        style={iconSize || tw`w-8 h-8`}
+        style={[iconSize || tw`w-8 h-8`, disabled && tw`opacity-30`]}
         color={iconColor}
       />
     </TouchableOpacity>
