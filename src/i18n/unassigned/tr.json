@@ -114,6 +114,8 @@
   "fundFromPeachWallet.button": "Peach cüzdanından fonla",
   "fundFromPeachWallet.confirm.confirmAndSend": "onayla & gönder",
   "fundFromPeachWallet.confirm.description": "Peach cüzdanınızdan emaneti fonluyorsunuz. Gönderiliyor:",
+  "fundFromPeachWallet.confirm.success.text": "Emanet adresine bir işlem yayınladınız. Bir bloğun onaylamasını bekleyin",
+  "fundFromPeachWallet.confirm.success.title": "İşlem Gönderildi",
   "fundFromPeachWallet.confirm.title": "emanet finanse ediliyor",
   "fundFromPeachWallet.funded": "Peach cüzdanından finanse edildi",
   "fundFromPeachWallet.insufficientFunds.description.1": "Peach cüzdanınızda:",

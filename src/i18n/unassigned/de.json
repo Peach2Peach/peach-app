@@ -112,6 +112,8 @@
   "fundFromPeachWallet.button": "Vom Peach Wallet auffüllen",
   "fundFromPeachWallet.confirm.confirmAndSend": "bestätigen und senden",
   "fundFromPeachWallet.confirm.description": "Du füllst die Escrow mit deinem Peach-Wallet auf. Du sendest:",
+  "fundFromPeachWallet.confirm.success.text": "Du hast eine Transaktion an die Escrow-Adresse übermittelt. Warte auf einen Block, der sie bestätigt",
+  "fundFromPeachWallet.confirm.success.title": "Transaktion gesendet",
   "fundFromPeachWallet.confirm.title": "Escrow aufladen",
   "fundFromPeachWallet.funded": "vom Peach Wallet aufgefüllt",
   "fundFromPeachWallet.insufficientFunds.description.1": "Dein Peach-Wallet hat:",

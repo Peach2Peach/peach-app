@@ -115,6 +115,8 @@
   "fundFromPeachWallet.button": "środki z Peach portfela",
   "fundFromPeachWallet.confirm.confirmAndSend": "potwierdź i wyślij",
   "fundFromPeachWallet.confirm.description": "Zasilasz depozyt z portfela Peach. Wysyłasz:",
+  "fundFromPeachWallet.confirm.success.text": "rozesłałeś transakcję na adres escrow. poczekaj, aż blok ją potwierdzi",
+  "fundFromPeachWallet.confirm.success.title": "transakcja wysłana",
   "fundFromPeachWallet.confirm.title": "zasil depozyt",
   "fundFromPeachWallet.funded": "zasilone z portfela Peach",
   "fundFromPeachWallet.insufficientFunds.description.1": "Twój Peach portfel posiada:",

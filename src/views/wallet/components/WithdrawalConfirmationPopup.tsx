@@ -2,6 +2,8 @@ import { PartiallySignedTransaction } from "bdk-rn";
 import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
+import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
+import { useSetToast } from "../../../components/toast/Toast";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import i18n from "../../../utils/i18n";
@@ -30,11 +32,14 @@ export function WithdrawalConfirmationPopup({
   );
   const navigation = useStackNavigation();
   const handleTransactionError = useHandleTransactionError();
+  const setToast = useSetToast();
 
   const confirm = async () => {
     if (!peachWallet) throw new Error("Peach wallet not set");
     try {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       await peachWallet.signAndBroadcastPSBT(psbt);
+      setToast({ msgKey: "wallet.confirmWithdraw.success", color: "yellow" });
     } catch (e) {
       handleTransactionError(e);
     }
@@ -61,7 +66,7 @@ export function WithdrawalConfirmationPopup({
             iconId="xCircle"
             onPress={closePopup}
           />
-          <PopupAction
+          <LoadingPopupAction
             label={i18n("wallet.confirmWithdraw.confirm")}
             iconId="arrowRightCircle"
             onPress={confirm}

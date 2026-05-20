@@ -114,6 +114,8 @@
   "fundFromPeachWallet.button": "aanvullen vanuit Peach wallet",
   "fundFromPeachWallet.confirm.confirmAndSend": "bevestig & verzend",
   "fundFromPeachWallet.confirm.description": "Je betaalt de borg met je Peach wallet. Je stuurt:",
+  "fundFromPeachWallet.confirm.success.text": "je hebt een transactie verzonden naar het escrow-adres. wacht tot een blok het bevestigt",
+  "fundFromPeachWallet.confirm.success.title": "transactie verzonden",
   "fundFromPeachWallet.confirm.title": "borg betalen",
   "fundFromPeachWallet.funded": "aangevuld vanuit Peach wallet",
   "fundFromPeachWallet.insufficientFunds.description.1": "Je Peach wallet bevat:",

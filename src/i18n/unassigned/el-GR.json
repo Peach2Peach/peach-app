@@ -111,6 +111,8 @@
   "fundFromPeachWallet.button": "χρηματοδότηση από το πορτοφόλι της Peach",
   "fundFromPeachWallet.confirm.confirmAndSend": "επιβεβαίωση & αποστολή",
   "fundFromPeachWallet.confirm.description": "Χρηματοδοτείτε την εγγύηση από το πορτοφόλι της Peach. Στέλνετε:",
+  "fundFromPeachWallet.confirm.success.text": "μεταδώσατε μια συναλλαγή στη διεύθυνση εγγύησης. περιμένετε ένα μπλοκ να την επιβεβαιώσει",
+  "fundFromPeachWallet.confirm.success.title": "η συναλλαγή στάλθηκε",
   "fundFromPeachWallet.confirm.title": "χρηματοδότηση εγγύησης",
   "fundFromPeachWallet.funded": "χρηματοδοτήθηκε από το πορτοφόλι της Peach ",
   "fundFromPeachWallet.insufficientFunds.description.1": "Το πορτοφόλι της Peach έχει:",

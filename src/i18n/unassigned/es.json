@@ -115,6 +115,8 @@
   "fundFromPeachWallet.button": "usar fondos del wallet",
   "fundFromPeachWallet.confirm.confirmAndSend": "confirmar y enviar",
   "fundFromPeachWallet.confirm.description": "Depositando desde tu cartera Peach. Envío:",
+  "fundFromPeachWallet.confirm.success.text": "has transmitido una transacción a la dirección de depósito. espera a que un bloque la confirme",
+  "fundFromPeachWallet.confirm.success.title": "transacción enviada",
   "fundFromPeachWallet.confirm.title": "depositando fondos",
   "fundFromPeachWallet.funded": "fondos depositados",
   "fundFromPeachWallet.insufficientFunds.description.1": "Tu balance es:",

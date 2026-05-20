@@ -115,6 +115,8 @@
   "fundFromPeachWallet.button": "fadhili kutoka mkoba wa Peach",
   "fundFromPeachWallet.confirm.confirmAndSend": "thibitisha & tuma",
   "fundFromPeachWallet.confirm.description": "Unafadhili escrow na mkoba wa Peach. Unatuma:",
+  "fundFromPeachWallet.confirm.success.text": "umetangaza muamala kwa anwani ya escrow. subiri kizuizi kithibitishe",
+  "fundFromPeachWallet.confirm.success.title": "muamala umetumwa",
   "fundFromPeachWallet.confirm.title": "kufadhili escrow",
   "fundFromPeachWallet.funded": "imefadhiliwa kutoka mkoba wa Peach",
   "fundFromPeachWallet.insufficientFunds.description.1": "Mkoba wako wa Peach una:",

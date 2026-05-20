@@ -115,6 +115,8 @@
   "fundFromPeachWallet.button": "financer depuis le wallet Peach",
   "fundFromPeachWallet.confirm.confirmAndSend": "confirmer et envoyer",
   "fundFromPeachWallet.confirm.description": "vous financez le coffre avec votre wallet Peach. vous envoyez :",
+  "fundFromPeachWallet.confirm.success.text": "vous avez diffusé une transaction vers l'adresse de séquestre. attendez qu'un bloc la confirme",
+  "fundFromPeachWallet.confirm.success.title": "transaction envoyée",
   "fundFromPeachWallet.confirm.title": "coffre en cours de financement",
   "fundFromPeachWallet.funded": "financé depuis le portefeuille Peach",
   "fundFromPeachWallet.insufficientFunds.description.1": "votre portefeuille Peach contient :",

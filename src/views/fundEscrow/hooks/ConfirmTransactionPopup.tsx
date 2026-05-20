@@ -4,6 +4,7 @@ import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
+import { useSetToast } from "../../../components/toast/Toast";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import i18n from "../../../utils/i18n";
 import { peachWallet } from "../../../utils/wallet/setWallet";
@@ -23,20 +24,21 @@ export function ConfirmTransactionPopup({
 }: Props) {
   const closePopup = useClosePopup();
   const handleTransactionError = useHandleTransactionError();
+  const setToast = useSetToast();
   const confirmAndSend = useCallback(async () => {
     try {
-      closePopup();
       if (!peachWallet) {
         throw new Error("PeachWallet not set");
       }
       await peachWallet.signAndBroadcastPSBT(psbt);
+      setToast({ msgKey: "fundFromPeachWallet.confirm.success", color: "yellow" });
       onSuccess();
     } catch (e) {
       handleTransactionError(e);
     } finally {
-      // closePopup();
+      closePopup();
     }
-  }, [closePopup, handleTransactionError, onSuccess, psbt]);
+  }, [closePopup, handleTransactionError, onSuccess, psbt, setToast]);
 
   return (
     <PopupComponent

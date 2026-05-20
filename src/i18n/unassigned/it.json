@@ -114,6 +114,8 @@
   "fundFromPeachWallet.button": "Deposita dal wallet Peach",
   "fundFromPeachWallet.confirm.confirmAndSend": "Conferma e invia",
   "fundFromPeachWallet.confirm.description": "Stai finanziando il deposito dal wallet Peach. Stai inviando:",
+  "fundFromPeachWallet.confirm.success.text": "Hai trasmesso una transazione all'indirizzo escrow. Attendi un blocco che la confermi",
+  "fundFromPeachWallet.confirm.success.title": "Transazione inviata",
   "fundFromPeachWallet.confirm.title": "Finanzia deposito",
   "fundFromPeachWallet.funded": "Depositato dal wallet Peach",
   "fundFromPeachWallet.insufficientFunds.description.1": "Il tuo wallet Peach ha:",

@@ -114,6 +114,8 @@
   "fundFromPeachWallet.button": "пополнить из кошелька Peach",
   "fundFromPeachWallet.confirm.confirmAndSend": "подтвердить и отправить",
   "fundFromPeachWallet.confirm.description": "Вы пополняете эскроу-счёт с кошелька Peach. Вы отправляете:",
+  "fundFromPeachWallet.confirm.success.text": "вы передали транзакцию на эскроу-адрес. подождите блок для её подтверждения",
+  "fundFromPeachWallet.confirm.success.title": "транзакция отправлена",
   "fundFromPeachWallet.confirm.title": "пополнение эскроу-счёта",
   "fundFromPeachWallet.funded": "пополнено из кошелька Peach",
   "fundFromPeachWallet.insufficientFunds.description.1": "В вашем кошельке Peach есть:",

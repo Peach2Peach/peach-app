@@ -9,6 +9,7 @@ import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
 import { PeachText } from "../../../components/text/PeachText";
+import { useSetToast } from "../../../components/toast/Toast";
 import { CENT } from "../../../constants";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import tw from "../../../styles/tailwind";
@@ -35,6 +36,7 @@ export function ConfirmRbfPopup({
 }: Props) {
   const closePopup = useClosePopup();
   const handleTransactionError = useHandleTransactionError();
+  const setToast = useSetToast();
 
   const confirmAndSend = useCallback(async () => {
     try {
@@ -44,13 +46,23 @@ export function ConfirmRbfPopup({
         peachWallet.signAndBroadcastPSBT(finishedTransaction),
       ]);
 
+      setToast({
+        msgKey: "wallet.bumpNetworkFees.confirmRbf.success",
+        color: "yellow",
+      });
       onSuccess(txId);
     } catch (e) {
       handleTransactionError(e);
     } finally {
       closePopup();
     }
-  }, [closePopup, finishedTransaction, handleTransactionError, onSuccess]);
+  }, [
+    closePopup,
+    finishedTransaction,
+    handleTransactionError,
+    onSuccess,
+    setToast,
+  ]);
 
   return (
     <PopupComponent

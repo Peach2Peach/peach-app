@@ -35,8 +35,9 @@ const contactUs = isProduction()
         "aboutPeach",
       ] as const)
     : ([
-        // "connectToDesktop",
-        // "mobilePendingActions",
+        "connectToDesktop",
+        "mobilePendingActions",
+        "pasteDesktopConnection", //
         "contact",
         "aboutPeach",
       ] as const)

@@ -118,6 +118,8 @@
   "fundFromPeachWallet.button": "fund from Peach wallet",
   "fundFromPeachWallet.confirm.confirmAndSend": "confirm & send",
   "fundFromPeachWallet.confirm.description": "You're funding the escrow with your Peach wallet. You're sending:",
+  "fundFromPeachWallet.confirm.success.text": "You have broadcast a transaction to the escrow address. Wait for a block to mine it",
+  "fundFromPeachWallet.confirm.success.title": "transaction sent",
   "fundFromPeachWallet.confirm.title": "funding escrow",
   "fundFromPeachWallet.funded": "funded from peach wallet",
   "fundFromPeachWallet.insufficientFunds.description.1": "Your Peach wallet has:",

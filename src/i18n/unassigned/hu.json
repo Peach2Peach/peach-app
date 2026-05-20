@@ -115,6 +115,8 @@
   "fundFromPeachWallet.button": "feltöltés a Peach tárcából",
   "fundFromPeachWallet.confirm.confirmAndSend": "megerősítés és küldés",
   "fundFromPeachWallet.confirm.description": "A letétet a Peach tárcádból töltöd fel. Elküldesz:",
+  "fundFromPeachWallet.confirm.success.text": "továbbítottál egy tranzakciót a letéti címre. várj egy blokkra, amely megerősíti",
+  "fundFromPeachWallet.confirm.success.title": "tranzakció elküldve",
   "fundFromPeachWallet.confirm.title": "letét feltöltése",
   "fundFromPeachWallet.funded": "feltöltve a Peach tárcából",
   "fundFromPeachWallet.insufficientFunds.description.1": "A Peach tárcádban van:",

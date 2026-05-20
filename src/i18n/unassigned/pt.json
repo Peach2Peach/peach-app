@@ -115,6 +115,8 @@
   "fundFromPeachWallet.button": "financiar da carteira Peach",
   "fundFromPeachWallet.confirm.confirmAndSend": "confirmar e enviar",
   "fundFromPeachWallet.confirm.description": "Você está financiando o depósito com a carteira Peach. Enviando:",
+  "fundFromPeachWallet.confirm.success.text": "transmitiu uma transação para o endereço de garantia. aguarde um bloco que a confirme",
+  "fundFromPeachWallet.confirm.success.title": "transação enviada",
   "fundFromPeachWallet.confirm.title": "financiando depósito",
   "fundFromPeachWallet.funded": "financiado com carteira Peach",
   "fundFromPeachWallet.insufficientFunds.description.1": "Sua carteira Peach possui:",

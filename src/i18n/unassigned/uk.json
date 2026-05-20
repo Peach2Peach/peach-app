@@ -114,6 +114,8 @@
   "fundFromPeachWallet.button": "Оплатити з Peach гаманця",
   "fundFromPeachWallet.confirm.confirmAndSend": "Підтвердити & надіслати",
   "fundFromPeachWallet.confirm.description": "Ви фінансуєте депозит через Peach гаманець. Надсилаєте:",
+  "fundFromPeachWallet.confirm.success.text": "Ви передали транзакцію на ескроу-адресу. Зачекайте, поки блок її підтвердить",
+  "fundFromPeachWallet.confirm.success.title": "Транзакція відправлена",
   "fundFromPeachWallet.confirm.title": "Оплата депозиту",
   "fundFromPeachWallet.funded": "Оплачено з Peach гаманця",
   "fundFromPeachWallet.insufficientFunds.description.1": "Ваш Peach гаманець має:",
