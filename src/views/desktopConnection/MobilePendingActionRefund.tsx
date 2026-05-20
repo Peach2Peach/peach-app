@@ -57,22 +57,20 @@ export const MobilePendingActionRefund = () => {
       const wallet = getEscrowWalletForOffer(sellOffer);
 
       signPSBT(psbt, wallet);
-      const numberOfSignatures = psbt.data.inputs[0].partialSig?.length;
-      if (!numberOfSignatures) {
-        throw Error("signatures missing");
-      }
-      const signature =
-        psbt.data.inputs[0].partialSig?.[
-          numberOfSignatures - 1
-        ].signature.toString("hex");
-      if (!signature) {
-        throw Error("signature missing");
-      }
+      const signatures = psbt.data.inputs.map((input) => {
+        const numberOfSignatures = input.partialSig?.length;
+        if (!input.partialSig || !numberOfSignatures) {
+          throw Error("signatures missing");
+        }
+        return input.partialSig[numberOfSignatures - 1].signature.toString(
+          "hex",
+        );
+      });
 
       const { error: err2 } =
         await peachAPI.private.peach069.postMobilePendingActionRefund({
           id,
-          signature,
+          signatures,
         });
       if (err2) throw new Error(err2.error);
 

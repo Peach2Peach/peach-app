@@ -5,7 +5,6 @@ import { Header } from "../../components/Header";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
-import { ActionImageWithLoader } from "./ActionImageWithLoader";
 import { useMobilePendingActionRefundContractEscrow } from "../../hooks/query/peach069/useMobilePendingActionRefundContractEscrow";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -17,13 +16,13 @@ import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { signPSBT } from "../../utils/wallet/signPSBT";
+import { ActionImageWithLoader } from "./ActionImageWithLoader";
 
 import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
 
 const ASPECT_RATIO = 0.7;
 export const MobilePendingActionRefundContractEscrow = () => {
-  const { id } =
-    useRoute<"mobilePendingActionRefundContractEscrow">().params;
+  const { id } = useRoute<"mobilePendingActionRefundContractEscrow">().params;
   const { width } = useWindowDimensions();
   const navigation = useStackNavigation();
   const [isConfirming, setIsConfirming] = useState(false);
@@ -61,23 +60,23 @@ export const MobilePendingActionRefundContractEscrow = () => {
       const wallet = getEscrowWalletForOffer(sellOffer);
 
       signPSBT(psbt, wallet);
-      const numberOfSignatures = psbt.data.inputs[0].partialSig?.length;
-      if (!numberOfSignatures) {
-        throw Error("signatures missing");
-      }
-      const signature =
-        psbt.data.inputs[0].partialSig?.[
-          numberOfSignatures - 1
-        ].signature.toString("hex");
-      if (!signature) {
-        throw Error("signature missing");
-      }
+      const signatures = psbt.data.inputs.map((input) => {
+        const numberOfSignatures = input.partialSig?.length;
+        if (!input.partialSig || !numberOfSignatures) {
+          throw Error("signatures missing");
+        }
+        return input.partialSig[numberOfSignatures - 1].signature.toString(
+          "hex",
+        );
+      });
 
       const { error: err2 } =
-        await peachAPI.private.peach069.postMobilePendingActionRefundContractEscrow({
-          id,
-          signature,
-        });
+        await peachAPI.private.peach069.postMobilePendingActionRefundContractEscrow(
+          {
+            id,
+            signatures,
+          },
+        );
       if (err2) throw new Error(err2.error);
 
       navigation.reset({
@@ -96,7 +95,13 @@ export const MobilePendingActionRefundContractEscrow = () => {
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions.refundEscrowContract")} />}
+      header={
+        <Header
+          title={i18n(
+            "connectToDesktop.mobilePendingActions.refundEscrowContract",
+          )}
+        />
+      }
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         <View style={tw`flex-1 items-center justify-center`}>
