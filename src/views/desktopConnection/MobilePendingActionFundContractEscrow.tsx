@@ -10,6 +10,7 @@ import { useMobilePendingActionFundContractEscrow } from "../../hooks/query/peac
 import { useFeeRate } from "../../hooks/useFeeRate";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import i18n from "../../utils/i18n";
@@ -42,7 +43,7 @@ export const MobilePendingActionFundContractEscrow = () => {
     }, [refetch]),
   );
 
-  if (isLoading) return <></>;
+  if (isLoading) return <LoadingScreen />;
   if (!mobilePendingAction) {
     navigation.goBack();
     return <></>;

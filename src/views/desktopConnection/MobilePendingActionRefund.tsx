@@ -9,6 +9,7 @@ import { ActionImageWithLoader } from "./ActionImageWithLoader";
 import { useMobilePendingActionRefund } from "../../hooks/query/peach069/useMobilePendingActionPaymentRefund";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import { checkRefundPSBT } from "../../utils/bitcoin/checkRefundPSBT";
 import i18n from "../../utils/i18n";
@@ -36,7 +37,7 @@ export const MobilePendingActionRefund = () => {
     }, [refetch]),
   );
 
-  if (isLoading) return <></>;
+  if (isLoading) return <LoadingScreen />;
   if (!mobilePendingAction) {
     navigation.goBack();
     return <></>;

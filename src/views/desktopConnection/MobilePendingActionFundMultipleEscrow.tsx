@@ -9,6 +9,7 @@ import { useMobilePendingActionFundMultipleEscrow } from "../../hooks/query/peac
 import { useFeeRate } from "../../hooks/useFeeRate";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
@@ -37,7 +38,7 @@ export const MobilePendingActionFundMultipleEscrow = () => {
     }, [refetch]),
   );
 
-  if (isLoading) return <></>;
+  if (isLoading) return <LoadingScreen />;
   if (!mobilePendingAction) {
     navigation.goBack();
     return <></>;

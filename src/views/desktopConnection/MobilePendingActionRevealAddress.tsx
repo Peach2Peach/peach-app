@@ -11,6 +11,7 @@ import { useMobilePendingActionPaymentMade } from "../../hooks/query/peach069/us
 import { useUser69Details } from "../../hooks/query/peach069/useUser69";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
@@ -53,7 +54,7 @@ export const MobilePendingActionRevealAddress = () => {
     }, [refetch]),
   );
 
-  if (isLoading) return <></>;
+  if (isLoading) return <LoadingScreen />;
   if (!mobilePendingAction) {
     navigation.goBack();
     return <></>;

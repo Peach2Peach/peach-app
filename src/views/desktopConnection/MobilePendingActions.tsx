@@ -14,6 +14,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { useMobilePendingActions } from "../../hooks/query/peach069/useMobilePendingActions";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import i18n from "../../utils/i18n";
@@ -49,7 +50,7 @@ export const MobilePendingActions = () => {
     }, [refetch]),
   );
 
-  if (isLoading) return <></>;
+  if (isLoading) return <LoadingScreen />;
 
   const flatActions: FlatPendingAction[] = mobilePendingActions
     ? [
