@@ -1,6 +1,7 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   TextStyle,
   TouchableOpacity,
@@ -97,12 +98,14 @@ type ChatMessageProps = {
   chatMessage: Offer69TradeRequestChatMessage;
   whoAmI: "offerOwner" | "tradeRequester";
   symmetricKey: string;
+  plaintext?: string;
 };
 
 export const TradeRequestChatMessage = ({
   chatMessage,
   whoAmI,
   symmetricKey,
+  plaintext,
 }: ChatMessageProps) => {
   const publicKey = useAccountStore((state) => state.account.publicKey);
 
@@ -118,10 +121,12 @@ export const TradeRequestChatMessage = ({
   //   toDateFormat(messageDate) !== toDateFormat(chatMessages[index - 1].date);
   const isChangeDate = false; // TODO: implement this
 
-  const [decryptedMessage, setDecryptedMessage] = useState("");
+  const [decryptedMessage, setDecryptedMessage] = useState(plaintext ?? "");
   const [failedDecrypting, setFailedDecrypting] = useState(false);
 
   useEffect(() => {
+    if (plaintext !== undefined) return;
+
     const asyncFunc = async () => {
       try {
         const result = await decryptSymmetric(
@@ -173,11 +178,19 @@ export const TradeRequestChatMessage = ({
             </PeachText>
             {chatMessage.sender === whoAmI && (
               <View style={tw`pl-1`}>
-                <Icon
-                  id={statusIcon}
-                  style={tw`relative w-4 h-4 -bottom-1`}
-                  color={statusIconColor.color}
-                />
+                {plaintext !== undefined ? (
+                  <ActivityIndicator
+                    style={tw`relative w-4 h-4 -bottom-1`}
+                    size="small"
+                    color={tw.color("black-50")}
+                  />
+                ) : (
+                  <Icon
+                    id={statusIcon}
+                    style={tw`relative w-4 h-4 -bottom-1`}
+                    color={statusIconColor.color}
+                  />
+                )}
               </View>
             )}
           </PeachText>

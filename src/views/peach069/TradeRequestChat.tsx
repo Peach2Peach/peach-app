@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Keyboard, View } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { Offer69TradeRequestChatMessage } from "../../../peach-api/src/@types/offer";
@@ -20,7 +20,10 @@ import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
-import { TradeRequestChatBox } from "../contractChat/components/TradeRequestChatBox";
+import {
+  PendingChatMessage,
+  TradeRequestChatBox,
+} from "../contractChat/components/TradeRequestChatBox";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 export const TradeRequestChat = () => {
@@ -232,9 +235,20 @@ function ChatScreen({
   refetchFunction: Function;
 }) {
   const [newMessage, setNewMessage] = useState("");
+  const [pendingMessages, setPendingMessages] = useState<PendingChatMessage[]>(
+    [],
+  );
   const [disableSend, setDisableSend] = useState(false);
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
+
+  const isMountedRef = useRef(true);
+  useEffect(
+    () => () => {
+      isMountedRef.current = false;
+    },
+    [],
+  );
 
   useEffect(() => {
     const showSub = Keyboard.addListener("keyboardDidShow", () =>
@@ -257,19 +271,45 @@ function ChatScreen({
 
     setTimeout(() => setDisableSend(false), enableDelay);
 
+    const messageToSend = newMessage;
+    const optimisticId = `${Date.now()}-${Math.random()}`;
+
+    setPendingMessages((prev) => [
+      ...prev,
+      {
+        optimisticId,
+        plaintext: messageToSend,
+        creationDate: new Date().toISOString(),
+        sender: whoAmI,
+      },
+    ]);
+    setNewMessage("");
+
     const encryptionResult = await signAndEncryptSymmetric(
-      newMessage,
+      messageToSend,
       symmetricKey,
     );
 
-    await sendMessageFunction({
-      messageEncrypted: encryptionResult.encrypted,
-      signature: encryptionResult.signature,
-    });
+    const RETRY_DELAY = 2000;
+    while (isMountedRef.current) {
+      try {
+        await sendMessageFunction({
+          messageEncrypted: encryptionResult.encrypted,
+          signature: encryptionResult.signature,
+        });
+        break;
+      } catch (e) {
+        await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY));
+      }
+    }
+
+    if (!isMountedRef.current) return;
 
     await refetchFunction();
 
-    setNewMessage("");
+    setPendingMessages((prev) =>
+      prev.filter((m) => m.optimisticId !== optimisticId),
+    );
   };
 
   return (
@@ -289,6 +329,7 @@ function ChatScreen({
         <View style={[tw`flex-1`, !keyboardVisible && { paddingBottom: 0 }]}>
           <TradeRequestChatBox
             messages={messages}
+            pendingMessages={pendingMessages}
             whoAmI={whoAmI}
             symmetricKey={symmetricKey}
           />
