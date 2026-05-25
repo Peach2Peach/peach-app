@@ -153,6 +153,12 @@ android {
             applicationIdSuffix ".mainnet"
         }
     }
+
+    packagingOptions {
+        jniLibs {
+            pickFirsts += ['**/libopenpgp_bridge.so']
+        }
+    }
 }
 
 dependencies {

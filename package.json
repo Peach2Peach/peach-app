@@ -16,7 +16,7 @@
     "start:testnet": "NODE_ENV=development react-native start --port=8081",
     "start:mainnet": "NODE_ENV=production react-native start --port=8081",
     "cache:clear": "react-native start --reset-cache",
-    "postinstall": "rn-nodeify --install buffer,stream,util --hack && patch-package",
+    "postinstall": "rn-nodeify --install buffer,stream,util --hack && patch-package && ./devUtils/applyOpenPGPBridgePatch.sh",
     "podinstall": "cd ios && pod install --repo-update",
     "build:android:testnet": "./devUtils/buildAndroidTestnet.sh",
     "build:android:mainnet": "./devUtils/buildAndroidMainnet.sh",
