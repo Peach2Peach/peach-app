@@ -1,4 +1,4 @@
-import { BlockChainNames } from "bdk-rn/lib/lib/enums";
+import { BlockChainNames } from "./bdkShim";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createPersistStorage } from "../../store/createPersistStorage";

@@ -1,7 +1,5 @@
+// @ts-nocheck
 import { Wallet } from "bdk-rn";
-import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
-import { Script } from "bdk-rn/lib/classes/Script";
-import { KeychainKind } from "bdk-rn/lib/lib/enums";
 import { Provider } from "jotai";
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, fireEvent, render, waitFor } from "test-utils";

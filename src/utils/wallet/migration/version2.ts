@@ -1,7 +1,7 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { info } from "../../log/info";
 import { omit } from "../../object/omit";
-import { WalletState } from "../walletStore";
+import type { WalletTx } from "../bdkShim";
+import { WalletStateVersion3 } from "./version3";
 
 export type ConfirmedTransaction = {
   txid: string;
@@ -24,7 +24,7 @@ export type TransactionsResponse = {
 export type WalletStateVersion2 = {
   balance: number;
   addresses: string[];
-  transactions: TransactionDetails[];
+  transactions: WalletTx[];
   pendingTransactions: Record<string, string>;
   fundedFromPeachWallet: string[];
   txOfferMap: Record<string, string[]>;
@@ -35,10 +35,10 @@ export type WalletStateVersion2 = {
   isSynced: boolean;
 };
 
-export const version2 = (persistedState: unknown): WalletState => {
+export const version2 = (persistedState: unknown): WalletStateVersion3 => {
   info("WalletStore - migrating from version 2");
 
-  const version1State = persistedState as WalletStateVersion2;
+  const version2State = persistedState as WalletStateVersion2;
 
-  return omit(version1State, "pendingTransactions");
+  return omit(version2State, "pendingTransactions");
 };

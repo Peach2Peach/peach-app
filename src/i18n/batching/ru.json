@@ -25,5 +25,6 @@
   "settings.batching.youSave": "Экономия до 23% на комиссиях блокчейна",
   "settings.batching.youSave.highlight": "Экономия до 23%",
   "offer.requiredAction.wrongAmountFundedOnContract": "Неверная сумма внесена",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Неверная сумма внесена"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Неверная сумма внесена",
+  "transactionBatching": "группировка транзакций"
 }

@@ -24,5 +24,6 @@
   "settings.batching.youSave": "Εξοικονομείτε έως και 23% στα τέλη δικτύου",
   "settings.batching.youSave.highlight": "Εξοικονομείτε έως 23%",
   "offer.requiredAction.wrongAmountFundedOnContract": "Κατατέθηκε λάθος ποσό",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Κατατέθηκε λάθος ποσό"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Κατατέθηκε λάθος ποσό",
+  "transactionBatching": "ομαδοποίηση συναλλαγών"
 }

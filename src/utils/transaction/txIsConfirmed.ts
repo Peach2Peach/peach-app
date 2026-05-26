@@ -1,4 +1,3 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import type { WalletTx } from "../wallet/bdkShim";
 
-export const txIsConfirmed = (tx: TransactionDetails) =>
-  !!tx.confirmationTime?.height;
+export const txIsConfirmed = (tx: WalletTx) => !!tx.confirmationTime?.height;

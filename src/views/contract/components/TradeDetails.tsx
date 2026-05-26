@@ -86,7 +86,7 @@ function ToggleGroupHug() {
     <>
       {user && (
         <SummaryItem
-          label={i18n("group hug")}
+          label={i18n("transactionBatching")}
           value={
             <Toggle
               enabled={isBatchingEnabled}

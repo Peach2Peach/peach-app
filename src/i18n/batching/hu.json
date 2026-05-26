@@ -25,5 +25,6 @@
   "settings.batching.youSave": "Akár 23%-ot spórolhatsz a díjakon",
   "settings.batching.youSave.highlight": "Akár 23%-ot spórolhatsz",
   "offer.requiredAction.wrongAmountFundedOnContract": "Helytelen összeg befizetve",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Helytelen összeg befizetve"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Helytelen összeg befizetve",
+  "transactionBatching": "tranzakció csoportosítás"
 }

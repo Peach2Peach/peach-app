@@ -1,29 +1,25 @@
 import { NETWORK } from "@env";
 import { useQuery } from "@tanstack/react-query";
 import { Address } from "bdk-rn";
-import { Script } from "bdk-rn/lib/classes/Script";
-import { Network } from "bdk-rn/lib/lib/enums";
+import type { ScriptInterface } from "bdk-rn";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
+import { bdkNetwork, bytesToHex } from "../../../utils/wallet/bdkShim";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { walletKeys } from "../hooks/useUTXOs";
 
 type Props = {
-  script: Script;
+  script: ScriptInterface;
 };
 
-const useUTXOAddress = (script: Script) =>
+const useUTXOAddress = (script: ScriptInterface) =>
   useQuery({
-    queryKey: walletKeys.utxoAddress(script.id),
-    queryFn: async () => {
+    queryKey: walletKeys.utxoAddress(bytesToHex(script.toBytes())),
+    queryFn: () => {
       try {
         if (!peachWallet) throw new Error("Peach wallet not defined");
-        const address = await new Address().fromScript(
-          script,
-          NETWORK as Network,
-        );
-        return await address.asString();
+        return Address.fromScript(script, bdkNetwork(NETWORK)).toString();
       } catch (e) {
         throw new Error("Error getting address");
       }
@@ -40,7 +36,7 @@ export function UTXOAddress({ script }: Props) {
   return (
     <PeachText style={tw`body-s text-black-65`}>
       <PeachText style={tw`body-s`}>
-        {addressLabel ? `${addressLabel} ‑ ` : ""}
+        {addressLabel ? `${addressLabel} ‑ ` : ""}
       </PeachText>
       {address}
     </PeachText>

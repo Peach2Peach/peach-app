@@ -8,8 +8,9 @@ const isInsufficientFundsError = (
 
 export const parseTransactionError = (
   e: Error,
-  cause: string | InsufficientFundsError,
+  cause: string | InsufficientFundsError | undefined,
 ): string[] => {
+  if (cause === undefined) return [];
   const error = parseError(e);
   if (error === "FEES_TOO_HIGH") {
     if (typeof cause === "string") {

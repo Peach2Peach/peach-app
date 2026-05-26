@@ -1,17 +1,13 @@
-import { DescriptorSecretKey, Mnemonic } from "bdk-rn";
-import { Network, WordCount } from "bdk-rn/lib/lib/enums";
+import { DescriptorSecretKey, Mnemonic, WordCount } from "bdk-rn";
+import { bdkNetworkKind } from "./bdkShim";
 
-export const getDescriptorSecretKey = async (
-  network: Network,
+export const getDescriptorSecretKey = (
+  network: string,
   seedphrase?: string,
 ) => {
-  let mnemonic = new Mnemonic();
+  const mnemonic = seedphrase
+    ? Mnemonic.fromString(seedphrase)
+    : new Mnemonic(WordCount.Words12);
 
-  if (seedphrase) {
-    mnemonic = await mnemonic.fromString(seedphrase);
-  } else {
-    mnemonic = await mnemonic.create(WordCount.WORDS12);
-  }
-
-  return new DescriptorSecretKey().create(network, mnemonic);
+  return new DescriptorSecretKey(bdkNetworkKind(network), mnemonic, undefined);
 };

@@ -23,5 +23,6 @@
   "settings.batching.youSave": "Ağ ücretlerinde %23'e kadar tasarruf sağlarsınız.",
   "settings.batching.youSave.highlight": "%23'e kadar",
   "offer.requiredAction.wrongAmountFundedOnContract": "yanlış tutar yatırıldı",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "yanlış tutar yatırıldı"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "yanlış tutar yatırıldı",
+  "transactionBatching": "işlem kümeleme"
 }

@@ -25,5 +25,6 @@
   "settings.batching.youSave": "Заощаджуєте до 23% на мережевих комісіях",
   "settings.batching.youSave.highlight": "заощаджуйте до 23%",
   "offer.requiredAction.wrongAmountFundedOnContract": "неправильна сума внесена",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "неправильна сума внесена"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "неправильна сума внесена",
+  "transactionBatching": "пакетування транзакцій"
 }

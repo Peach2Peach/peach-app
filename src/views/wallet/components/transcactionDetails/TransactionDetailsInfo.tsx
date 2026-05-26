@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import type { WalletTx } from "../../../../utils/wallet/bdkShim";
 import { Transaction } from "bitcoinjs-lib";
 import { useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
@@ -24,7 +24,7 @@ import { AddressLabelInput } from "../AddressLabelInput";
 import { TransactionETASummaryItem } from "./TransactionETASummaryItem";
 
 type Props = {
-  localTx: TransactionDetails;
+  localTx: WalletTx;
   transactionDetails: Transaction;
   transactionSummary: TransactionSummary;
 };

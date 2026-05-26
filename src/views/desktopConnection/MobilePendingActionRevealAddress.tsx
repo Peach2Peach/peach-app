@@ -1,5 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native";
-import { AddressIndex } from "bdk-rn/lib/lib/enums";
+import { AddressIndex } from "../../utils/wallet/bdkShim";
 import { useCallback, useState } from "react";
 import { useWindowDimensions, View } from "react-native";
 import { Header } from "../../components/Header";
@@ -84,12 +84,16 @@ export const MobilePendingActionRevealAddress = () => {
         if (selfUser69.lastAddressUsedIndex === undefined) {
           const getAddressResult = await peachWallet.getAddress(
             AddressIndex.New,
+            "external",
+            true,
           );
           releaseAddress = getAddressResult.address;
           index = getAddressResult.index;
         } else {
           const getAddressResult = await peachWallet.getAddress(
             AddressIndex.LastUnused,
+            "external",
+            true,
           );
           if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
             releaseAddress = getAddressResult.address;
@@ -98,6 +102,8 @@ export const MobilePendingActionRevealAddress = () => {
             while (true) {
               const getNewAddressResult = await peachWallet.getAddress(
                 AddressIndex.New,
+                "external",
+                true,
               );
               if (
                 getNewAddressResult.index > selfUser69.lastAddressUsedIndex

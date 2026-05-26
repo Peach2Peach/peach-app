@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { getTransactionFeeRate } from "../../../utils/bitcoin/getTransactionFeeRate";
+import type { WalletTx } from "../../../utils/wallet/bdkShim";
 import { walletKeys } from "./useUTXOs";
 
 type Props = {
-  transaction?: TransactionDetails;
+  transaction?: WalletTx;
 };
 
 export const useTxFeeRate = ({ transaction }: Props) =>
@@ -12,10 +12,9 @@ export const useTxFeeRate = ({ transaction }: Props) =>
     queryKey: walletKeys.transactionFeeRate(
       transaction?.transaction?.id ?? null,
     ),
-    queryFn: async () => {
+    queryFn: () => {
       if (!transaction) throw new Error("Transaction not found");
-      const feeRate = await getTransactionFeeRate(transaction);
-      return feeRate;
+      return getTransactionFeeRate(transaction);
     },
     enabled: !!transaction,
     initialData: 1,

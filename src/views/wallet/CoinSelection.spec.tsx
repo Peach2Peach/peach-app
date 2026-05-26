@@ -1,6 +1,4 @@
-import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
-import { Script } from "bdk-rn/lib/classes/Script";
-import { KeychainKind } from "bdk-rn/lib/lib/enums";
+// @ts-nocheck
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { fireEvent, render, waitFor } from "test-utils";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";

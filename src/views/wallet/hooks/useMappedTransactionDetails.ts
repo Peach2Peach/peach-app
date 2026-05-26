@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { Transaction } from "bitcoinjs-lib";
+import { hexToBytes, type WalletTx } from "../../../utils/wallet/bdkShim";
 import { walletKeys } from "./useUTXOs";
 
 type Props = {
-  localTx?: TransactionDetails;
+  localTx?: WalletTx;
 };
 
 export const useMappedTransactionDetails = ({ localTx }: Props) =>
@@ -12,11 +12,9 @@ export const useMappedTransactionDetails = ({ localTx }: Props) =>
     queryKey: walletKeys.serializedTransaction(
       localTx?.transaction?.id ?? null,
     ),
-    queryFn: async () => {
+    queryFn: () => {
       if (!localTx?.transaction) throw new Error("Transaction not found");
-
-      const serialized = await localTx.transaction.serialize();
-      return Transaction.fromBuffer(Buffer.from(serialized));
+      return Transaction.fromBuffer(Buffer.from(hexToBytes(localTx.transaction.hex)));
     },
     enabled: !!localTx?.transaction,
   });

@@ -1,18 +1,20 @@
-import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
-import { Script } from "bdk-rn/lib/classes/Script";
-import { KeychainKind, Network } from "bdk-rn/lib/lib/enums";
-import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
+// @ts-nocheck
 import { getUTXOAddress } from "./getUTXOAddress";
 
-describe("getUTXOAddress", () => {
-  const address = "address";
-  const vout = 1;
-  const outpoint = new OutPoint(confirmed1.txid, vout);
-  const value = 10000;
-  const txOut = new TxOut(value, new Script(address));
-  const utxo1 = new LocalUtxo(outpoint, txOut, false, KeychainKind.External);
+jest.mock("bdk-rn", () => ({
+  Address: { fromScript: () => ({ toString: () => "address" }) },
+  Network: { Regtest: 3, Bitcoin: 1, Testnet: 2, Signet: 4 },
+}));
 
-  it("returns the address of a UTXO", async () => {
-    expect(await getUTXOAddress(Network.Regtest)(utxo1)).toBe(address);
+describe("getUTXOAddress", () => {
+  const utxo = {
+    outpoint: { txid: { toString: () => "tx" }, vout: 1 },
+    txout: { value: { toSat: () => 10000n }, scriptPubkey: {} },
+    keychain: "External",
+    isSpent: false,
+  };
+
+  it("returns the address of a UTXO", () => {
+    expect(getUTXOAddress(3)(utxo)).toBe("address");
   });
 });

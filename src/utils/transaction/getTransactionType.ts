@@ -1,8 +1,8 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
+import type { WalletTx } from "../wallet/bdkShim";
 
 export const getTransactionType = (
-  { received, sent }: Pick<TransactionDetails, "received" | "sent">,
+  { received, sent }: Pick<WalletTx, "received" | "sent">,
   offer?: Pick<OfferSummary, "type">,
 ): TransactionType => {
   if (offer) {

@@ -2,7 +2,10 @@ import Notifee from "@notifee/react-native";
 import messaging from "@react-native-firebase/messaging";
 import { AppRegistry, LogBox } from "react-native";
 import "./shim.js";
+import { uniffiInitAsync } from "bdk-rn";
 import { App } from "./src/App";
+
+uniffiInitAsync().catch((e) => console.error("uniffiInitAsync failed", e));
 import { name as appName } from "./src/app.json";
 import { error } from "./src/utils/log/error";
 import { info } from "./src/utils/log/info";
