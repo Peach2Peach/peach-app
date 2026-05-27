@@ -88,11 +88,7 @@ function ToggleGroupHug() {
         <SummaryItem
           label={i18n("transactionBatching")}
           value={
-            <Toggle
-              enabled={isBatchingEnabled}
-              disabled={true}
-              onPress={() => {}}
-            />
+            <SummaryItem.Text value={i18n(isBatchingEnabled ? "yes" : "no")} />
           }
           infoName="grouphugContractHelp"
         />
