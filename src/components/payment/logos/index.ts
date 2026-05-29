@@ -26,10 +26,13 @@ import eversend from "./eversend.svg";
 import fasterPayments from "./fasterPayments.svg";
 import friends24 from "./friends24.svg";
 import keksPay from "./keksPay.svg";
+import krak from "./krak.svg";
 import liquid from "./liquid.svg";
+import hype from "./logo-hype-icon.svg";
 import lydia from "./lydia.svg";
 import mPesa from "./m-pesa.svg";
 import mbWay from "./mbWay.svg";
+import meru from "./meru-logo.svg";
 import mobilePay from "./mobilePay.svg";
 import moov from "./moov.svg";
 import mtn from "./mtn.svg";
@@ -65,6 +68,9 @@ export const PaymentLogos = {
   "m-pesa": mPesa,
   accrue: placeholder,
   advcash,
+  meru,
+  hype,
+  krak,
   airtelMoney,
   alias: placeholder,
   amazon,

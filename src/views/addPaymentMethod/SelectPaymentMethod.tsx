@@ -24,16 +24,17 @@ const NATIONALOPTIONS: Record<
 > = {
   EUR: {
     BE: ["wero"],
-    LU: ["wero"],
-    IT: ["satispay", "postePay"],
+    // LU: ["wero"],
+    IT: ["satispay", "postePay", "hype"],
     PT: ["mbWay"],
-    ES: ["bizum", "rebellion"],
+    ES: ["bizum", "rebellion", "halcash"],
     FI: ["mobilePay"],
     HR: ["keksPay"],
     FR: ["wero", "lydia", "satispay"],
     DE: ["satispay", "wero"],
     GR: ["iris"],
     DK: ["mobilePay"],
+    NL: ["wero"],
   },
   LATAM: {
     BR: ["pix"],
@@ -41,7 +42,7 @@ const NATIONALOPTIONS: Record<
 };
 
 const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
-  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "DK"],
+  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "DK", "NL"],
   LATAM: ["BR"],
 };
 
