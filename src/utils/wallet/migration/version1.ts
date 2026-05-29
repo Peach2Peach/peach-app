@@ -1,5 +1,5 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { info } from "../../log/info";
+import type { WalletTx } from "../bdkShim";
 import { WalletStateVersion2 } from "./version2";
 
 export type ConfirmedTransaction = {
@@ -23,7 +23,7 @@ export type TransactionsResponse = {
 export type WalletStateVersion1 = {
   balance: number;
   addresses: string[];
-  transactions: TransactionDetails[];
+  transactions: WalletTx[];
   pendingTransactions: Record<string, string>;
   fundedFromPeachWallet: string[];
   txOfferMap: Record<string, string>;

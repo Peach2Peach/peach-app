@@ -1,11 +1,13 @@
-import { TxBuilder } from "bdk-rn";
-import { LocalUtxo } from "bdk-rn/lib/classes/Bindings";
+import { Amount, FeeRate, TxBuilder } from "bdk-rn";
+import type { LocalOutput, TxBuilderInterface } from "bdk-rn";
 import { getScriptPubKeyFromAddress } from "./getScriptPubKeyFromAddress";
+
+const SAT_PER_VB_TO_SAT_PER_KWU = 250;
 
 export type BuildTxParams = {
   address?: string;
   feeRate?: number;
-  utxos?: LocalUtxo[];
+  utxos?: LocalOutput[];
 } & (
   | {
       amount: number;
@@ -19,36 +21,40 @@ export type BuildTxParams = {
       address?: undefined;
     }
 );
-export const buildTransaction = async (args: BuildTxParams) => {
-  const txBuilder = await buildTransactionBase(args.feeRate);
+
+export const buildTransaction = async (
+  args: BuildTxParams,
+): Promise<TxBuilderInterface> => {
+  let txBuilder: TxBuilderInterface = new TxBuilder();
+  if (args.feeRate) {
+    txBuilder = txBuilder.feeRate(
+      FeeRate.fromSatPerKwu(
+        BigInt(Math.round(args.feeRate * SAT_PER_VB_TO_SAT_PER_KWU)),
+      ),
+    );
+  }
 
   if (args?.utxos?.length) {
-    await txBuilder.addUtxos(args.utxos.map((utxo) => utxo.outpoint));
-    await txBuilder.manuallySelectedOnly();
+    txBuilder = txBuilder.addUtxos(args.utxos.map((utxo) => utxo.outpoint));
+    txBuilder = txBuilder.manuallySelectedOnly();
   }
 
   if (!args.address) return txBuilder;
 
-  const recipient = await getScriptPubKeyFromAddress(args.address);
-  if (args.shouldDrainWallet) {
+  const recipient = getScriptPubKeyFromAddress(args.address);
+  if ("shouldDrainWallet" in args && args.shouldDrainWallet) {
     if (args?.utxos?.length) {
-      await txBuilder.manuallySelectedOnly();
+      txBuilder = txBuilder.manuallySelectedOnly();
     } else {
-      await txBuilder.drainWallet();
+      txBuilder = txBuilder.drainWallet();
     }
-    await txBuilder.drainTo(recipient);
-  } else if (args.address) {
-    await txBuilder.addRecipient(recipient, args.amount);
+    txBuilder = txBuilder.drainTo(recipient);
+  } else if ("amount" in args && args.amount !== undefined) {
+    txBuilder = txBuilder.addRecipient(
+      recipient,
+      Amount.fromSat(BigInt(args.amount)),
+    );
   }
 
   return txBuilder;
 };
-
-async function buildTransactionBase(feeRate?: number) {
-  const txBuilder = await new TxBuilder().create();
-
-  if (feeRate) await txBuilder.feeRate(feeRate);
-  await txBuilder.enableRbf();
-
-  return txBuilder;
-}

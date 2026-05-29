@@ -1,6 +1,5 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import type { WalletTx } from "./bdkShim";
 import { useWalletState } from "./walletStore";
 
-export const transactionHasBeenMappedToOffers = ({
-  txid,
-}: TransactionDetails) => !!useWalletState.getState().txOfferMap[txid];
+export const transactionHasBeenMappedToOffers = ({ txid }: WalletTx) =>
+  !!useWalletState.getState().txOfferMap[txid];

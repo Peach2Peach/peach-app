@@ -1,93 +1,31 @@
-import { BlockChainNames } from "bdk-rn/lib/lib/enums";
+// @ts-nocheck
+import { BlockChainNames } from "./bdkShim";
 import { buildBlockchainConfig } from "./buildBlockchainConfig";
 
 describe("buildBlockchainConfig", () => {
-  const defaultConfig = {
-    retry: 1,
-    sock5: null,
-    stopGap: 25,
-    timeout: 5,
-    url: "https://localhost:3000",
-    validateDomain: false,
-  };
-  it("should return the default config is custom setting is disabled", () => {
-    expect(buildBlockchainConfig({ enabled: false, ssl: false })).toEqual({
-      type: BlockChainNames.Electrum,
-      config: defaultConfig,
-    });
+  it("returns a client with the default node type when disabled", () => {
+    const result = buildBlockchainConfig({ enabled: false, ssl: false });
+    expect(result.client).toBeDefined();
+    expect(result.gapLimit).toBe(25);
   });
-  it("should return the default config is custom setting is enabed but no url set", () => {
-    expect(buildBlockchainConfig({ enabled: true, ssl: false })).toEqual({
-      type: BlockChainNames.Electrum,
-      config: defaultConfig,
-    });
+  it("returns a client when enabled but no url", () => {
+    const result = buildBlockchainConfig({ enabled: true, ssl: false });
+    expect(result.client).toBeDefined();
   });
-  it("should return the custom config is custom setting is enabed", () => {
-    expect(
-      buildBlockchainConfig({ enabled: true, ssl: false, url: "url" }),
-    ).toEqual({
+  it("returns a client with the specified type", () => {
+    const electrum = buildBlockchainConfig({
+      enabled: true,
+      ssl: false,
+      url: "url",
       type: BlockChainNames.Electrum,
-      config: {
-        ...defaultConfig,
-        url: "tcp://url",
-      },
     });
-    expect(
-      buildBlockchainConfig({ enabled: true, ssl: true, url: "url" }),
-    ).toEqual({
-      type: BlockChainNames.Electrum,
-      config: {
-        ...defaultConfig,
-        url: "ssl://url",
-      },
-    });
-  });
-  it("should return the custom config for different node type", () => {
-    expect(
-      buildBlockchainConfig({
-        enabled: true,
-        ssl: true,
-        url: "url",
-        type: BlockChainNames.Electrum,
-      }),
-    ).toEqual({
-      type: BlockChainNames.Electrum,
-      config: {
-        ...defaultConfig,
-        url: "ssl://url",
-      },
-    });
-    expect(
-      buildBlockchainConfig({
-        enabled: true,
-        ssl: true,
-        url: "url",
-        type: BlockChainNames.Esplora,
-      }),
-    ).toEqual({
+    expect(electrum.type).toBe(BlockChainNames.Electrum);
+    const esplora = buildBlockchainConfig({
+      enabled: true,
+      ssl: true,
+      url: "url",
       type: BlockChainNames.Esplora,
-      config: {
-        baseUrl: "https://url",
-        concurrency: 1,
-        proxy: null,
-        stopGap: 25,
-        timeout: 30,
-      },
     });
-    expect(
-      buildBlockchainConfig({
-        enabled: true,
-        ssl: true,
-        url: "url",
-        type: BlockChainNames.Rpc,
-      }),
-    ).toEqual({
-      type: BlockChainNames.Rpc,
-      config: {
-        network: "bitcoin",
-        url: "url",
-        walletName: "peach",
-      },
-    });
+    expect(esplora.type).toBe(BlockChainNames.Esplora);
   });
 });

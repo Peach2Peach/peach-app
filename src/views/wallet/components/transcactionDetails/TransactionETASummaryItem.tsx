@@ -1,4 +1,4 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import type { WalletTx } from "../../../../utils/wallet/bdkShim";
 import { useSetPopup } from "../../../../components/popup/GlobalPopup";
 import { TextSummaryItem } from "../../../../components/summaryItem";
 import { useFeeEstimates } from "../../../../hooks/query/useFeeEstimates";
@@ -9,7 +9,7 @@ import { keys } from "../../../../utils/object/keys";
 import { useTxFeeRate } from "../../hooks/useTxFeeRate";
 
 type Props = {
-  transaction: TransactionDetails;
+  transaction: WalletTx;
 };
 export const TransactionETASummaryItem = ({ transaction }: Props) => {
   const setPopup = useSetPopup();

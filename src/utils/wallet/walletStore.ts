@@ -1,18 +1,20 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { createPersistStorage } from "../../store/createPersistStorage";
 import { createStorage } from "../storage/createStorage";
+import type { WalletTx } from "./bdkShim";
 import { migrateWalletStore } from "./migration/migrateWalletStore";
 
 export type WalletState = {
   balance: number;
-  transactions: TransactionDetails[];
+  transactions: WalletTx[];
   fundedFromPeachWallet: string[];
   txOfferMap: { [offerId: string]: string[] | undefined };
   addressLabelMap: { [address: string]: string | undefined };
   showBalance: boolean;
   selectedUTXOIds: string[];
+  hasScanned: boolean;
+  externalUsedIndices: number[];
 };
 
 export type FundMultipleInfo = {
@@ -23,16 +25,18 @@ export type FundMultipleInfo = {
 export type WalletStore = WalletState & {
   reset: () => void;
   setBalance: (balance: number) => void;
-  setTransactions: (txs: TransactionDetails[]) => void;
-  addTransaction: (transaction: TransactionDetails) => void;
+  setTransactions: (txs: WalletTx[]) => void;
+  addTransaction: (transaction: WalletTx) => void;
   removeTransaction: (txId: string) => void;
-  getTransaction: (txId: string) => TransactionDetails | undefined;
+  getTransaction: (txId: string) => WalletTx | undefined;
   isFundedFromPeachWallet: (address: string) => boolean;
   setFundedFromPeachWallet: (address: string) => void;
   labelAddress: (address: string, label: string) => void;
   updateTxOfferMap: (txid: string, offerIds: string[]) => void;
   toggleShowBalance: () => void;
   setSelectedUTXOIds: (utxos: string[]) => void;
+  setHasScanned: (hasScanned: boolean) => void;
+  markExternalIndexUsed: (index: number) => void;
 };
 
 export const defaultWalletState: WalletState = {
@@ -43,6 +47,8 @@ export const defaultWalletState: WalletState = {
   addressLabelMap: {},
   showBalance: true,
   selectedUTXOIds: [],
+  hasScanned: false,
+  externalUsedIndices: [],
 };
 export const walletStorage = createStorage("wallet");
 const storage = createPersistStorage(walletStorage);
@@ -85,10 +91,19 @@ export const useWalletState = create<WalletStore>()(
       toggleShowBalance: () =>
         set((state) => ({ showBalance: !state.showBalance })),
       setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
+      setHasScanned: (hasScanned) => set({ hasScanned }),
+      markExternalIndexUsed: (index) =>
+        set((state) =>
+          state.externalUsedIndices.includes(index)
+            ? state
+            : {
+                externalUsedIndices: [...state.externalUsedIndices, index],
+              },
+        ),
     }),
     {
       name: "wallet",
-      version: 2,
+      version: 4,
       storage,
       migrate: migrateWalletStore,
     },

@@ -1,5 +1,5 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { getBuyOfferIdFromContract } from "../contract/getBuyOfferIdFromContract";
+import type { WalletTx } from "./bdkShim";
 import { useWalletState } from "./walletStore";
 
 export const mapTransactionToOffer =
@@ -10,7 +10,7 @@ export const mapTransactionToOffer =
     offers: { id: string; fundingTxId?: string; txId?: string }[];
     contracts: { id: string; releaseTxId?: string }[];
   }) =>
-  ({ txid }: TransactionDetails) => {
+  ({ txid }: WalletTx) => {
     const sellOffers = offers.filter(
       (offer) => offer.txId === txid || offer.fundingTxId === txid,
     );

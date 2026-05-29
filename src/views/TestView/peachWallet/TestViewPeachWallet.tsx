@@ -45,13 +45,13 @@ export const TestViewPeachWallet = () => {
   const send = async () => {
     if (!address) throw Error("Address invalid");
     if (!peachWallet) throw Error("Peach wallet not defined");
-    const { psbt } = await peachWallet.buildFinishedTransaction({
+    const psbt = await peachWallet.buildFinishedTransaction({
       address,
       amount: 50000,
       feeRate: 3,
     });
     const result = await peachWallet.signAndBroadcastPSBT(psbt);
-    setTxId(await result.txid());
+    setTxId(result.extractTx().computeTxid().toString());
   };
   const refill = async () => {
     if (!peachWallet) throw Error("Peach wallet not defined");

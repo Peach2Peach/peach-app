@@ -1,4 +1,4 @@
-import { AddressIndex } from "bdk-rn/lib/lib/enums";
+import { AddressIndex } from "../../utils/wallet/bdkShim";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
@@ -94,12 +94,16 @@ export function PaymentMadeSlider() {
           if (selfUser69.lastAddressUsedIndex === undefined) {
             const getAddressResult = await peachWallet.getAddress(
               AddressIndex.New,
+              "external",
+              true,
             );
             releaseAddress = getAddressResult.address;
             index = getAddressResult.index;
           } else {
             const getAddressResult = await peachWallet.getAddress(
               AddressIndex.LastUnused,
+              "external",
+              true,
             );
             if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
               releaseAddress = getAddressResult.address;
@@ -108,6 +112,8 @@ export function PaymentMadeSlider() {
               while (true) {
                 const getNewAddressResult = await peachWallet.getAddress(
                   AddressIndex.New,
+                  "external",
+                  true,
                 );
                 if (
                   getNewAddressResult.index > selfUser69.lastAddressUsedIndex

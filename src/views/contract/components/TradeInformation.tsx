@@ -1,4 +1,4 @@
-import { AddressIndex } from "bdk-rn/lib/lib/enums";
+import { AddressIndex } from "../../../utils/wallet/bdkShim";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import txInMempool from "../../../assets/escrow/tx-in-mempool.png";

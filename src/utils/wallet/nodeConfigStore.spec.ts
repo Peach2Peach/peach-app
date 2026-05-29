@@ -1,4 +1,4 @@
-import { BlockChainNames } from "bdk-rn/lib/lib/enums";
+import { BlockChainNames } from "./bdkShim";
 import { NodeConfig, useNodeConfigState } from "./nodeConfigStore";
 
 describe("nodeConfigStore", () => {

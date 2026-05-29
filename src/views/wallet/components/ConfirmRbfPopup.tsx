@@ -1,4 +1,4 @@
-import { PartiallySignedTransaction } from "bdk-rn";
+import type { Psbt } from "bdk-rn";
 import { Transaction } from "bitcoinjs-lib";
 import { useCallback } from "react";
 import { View } from "react-native";
@@ -22,7 +22,7 @@ type Props = {
   newFeeRate: number;
   transaction: Transaction;
   sendingAmount: number;
-  finishedTransaction: PartiallySignedTransaction;
+  finishedTransaction: Psbt;
   onSuccess: (txId: string) => void;
 };
 
@@ -41,10 +41,8 @@ export function ConfirmRbfPopup({
   const confirmAndSend = useCallback(async () => {
     try {
       if (!peachWallet) throw new Error("PeachWallet not set");
-      const [txId] = await Promise.all([
-        finishedTransaction.txid(),
-        peachWallet.signAndBroadcastPSBT(finishedTransaction),
-      ]);
+      const signed = await peachWallet.signAndBroadcastPSBT(finishedTransaction);
+      const txId = signed.extractTx().computeTxid().toString();
 
       setToast({
         msgKey: "wallet.bumpNetworkFees.confirmRbf.success",

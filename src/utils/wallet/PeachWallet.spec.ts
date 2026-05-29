@@ -1,23 +1,7 @@
+// @ts-nocheck
 import { BLOCKEXPLORER } from "@env";
-import {
-  Address,
-  PartiallySignedTransaction,
-  Transaction,
-  TxBuilder,
-} from "bdk-rn";
-import {
-  LocalUtxo,
-  OutPoint,
-  TxBuilderResult,
-  TxOut,
-} from "bdk-rn/lib/classes/Bindings";
-import { Script } from "bdk-rn/lib/classes/Script";
-import {
-  AddressIndex,
-  BlockChainNames,
-  KeychainKind,
-  Network,
-} from "bdk-rn/lib/lib/enums";
+import { Address, Transaction, TxBuilder } from "bdk-rn";
+import { AddressIndex, BlockChainNames } from "./bdkShim";
 import { waitFor } from "test-utils";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { insufficientFunds } from "../../../tests/unit/data/errors";

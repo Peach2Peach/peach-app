@@ -13,6 +13,7 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
+import { Amount } from "bdk-rn";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { buildTransaction } from "../../utils/wallet/transaction";
 import { getScriptPubKeyFromAddress } from "../../utils/wallet/transaction/getScriptPubKeyFromAddress";
@@ -54,19 +55,20 @@ export const MobilePendingActionFundMultipleEscrow = () => {
     try {
       if (!peachWallet) throw new Error("Wallet not defined");
 
-      const txBuilder = await buildTransaction({ feeRate });
+      let txBuilder = await buildTransaction({ feeRate });
       for (const recipient of recipients) {
-        const scriptPubKey = await getScriptPubKeyFromAddress(
-          recipient.address,
+        const scriptPubKey = getScriptPubKeyFromAddress(recipient.address);
+        txBuilder = txBuilder.addRecipient(
+          scriptPubKey,
+          Amount.fromSat(BigInt(recipient.amount)),
         );
-        await txBuilder.addRecipient(scriptPubKey, recipient.amount);
       }
 
-      const { psbt } = await peachWallet.finishTransaction(txBuilder);
+      const psbt = await peachWallet.finishTransaction(txBuilder);
       if (!peachWallet.wallet) throw new Error("Wallet not ready");
-      const signedPSBT = await peachWallet.wallet.sign(psbt);
-      const tx = await signedPSBT.extractTx();
-      const txHex = Buffer.from(await tx.serialize()).toString("hex");
+      peachWallet.wallet.sign(psbt, undefined);
+      const tx = psbt.extractTx();
+      const txHex = Buffer.from(tx.serialize() as ArrayBuffer).toString("hex");
 
       const { error: err } =
         await peachAPI.private.peach069.postMobilePendingActionFundMultipleEscrow(

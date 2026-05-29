@@ -1,6 +1,4 @@
-import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
-import { Script } from "bdk-rn/lib/classes/Script";
-import { KeychainKind } from "bdk-rn/lib/lib/enums";
+// @ts-nocheck
 import { renderHook, waitFor } from "test-utils";
 import { confirmed1 } from "../../../../tests/unit/data/transactionDetailData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";

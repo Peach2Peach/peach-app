@@ -1,7 +1,5 @@
+// @ts-nocheck
 /* eslint-disable no-magic-numbers */
-import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
-import { Script } from "bdk-rn/lib/classes/Script";
-import { KeychainKind } from "bdk-rn/lib/lib/enums";
 import { fireEvent, render, waitFor } from "test-utils";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
 import {

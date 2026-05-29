@@ -23,5 +23,6 @@
   "settings.batching.youSave": "Sie sparen bis zu 23 % an Netzwerkgebühren",
   "settings.batching.youSave.highlight": "bis zu 23 % sparen",
   "offer.requiredAction.wrongAmountFundedOnContract": "Falscher Betrag eingezahlt",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Falscher Betrag eingezahlt"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Falscher Betrag eingezahlt",
+  "transactionBatching": "transaktionsstapel"
 }

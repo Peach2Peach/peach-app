@@ -25,5 +25,6 @@
   "settings.batching.youSave": "Ahorra hasta un 23% en comisiones de red",
   "settings.batching.youSave.highlight": "Ahorra hasta un 23%",
   "offer.requiredAction.wrongAmountFundedOnContract": "Monto financiado incorrecto",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Monto financiado incorrecto"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Monto financiado incorrecto",
+  "transactionBatching": "unión de transacciones"
 }
