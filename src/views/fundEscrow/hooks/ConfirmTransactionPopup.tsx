@@ -1,4 +1,4 @@
-import { PartiallySignedTransaction } from "bdk-rn";
+import type { Psbt } from "bdk-rn";
 import { type ReactElement, useCallback } from "react";
 import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
@@ -7,13 +7,14 @@ import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPop
 import { useSetToast } from "../../../components/toast/Toast";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import i18n from "../../../utils/i18n";
+import type { WalletTx } from "../../../utils/wallet/bdkShim";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 
 type Props = {
   title: string;
   content: ReactElement;
-  psbt: PartiallySignedTransaction;
-  onSuccess: () => void;
+  psbt: Psbt;
+  onSuccess: (txDetails: WalletTx) => void;
 };
 
 export function ConfirmTransactionPopup({
@@ -30,9 +31,13 @@ export function ConfirmTransactionPopup({
       if (!peachWallet) {
         throw new Error("PeachWallet not set");
       }
-      await peachWallet.signAndBroadcastPSBT(psbt);
-      setToast({ msgKey: "fundFromPeachWallet.confirm.success", color: "yellow" });
-      onSuccess();
+      const signed = await peachWallet.signAndBroadcastPSBT(psbt);
+      const txDetails = peachWallet.walletTxFromSignedPsbt(signed);
+      setToast({
+        msgKey: "fundFromPeachWallet.confirm.success",
+        color: "yellow",
+      });
+      onSuccess(txDetails);
     } catch (e) {
       handleTransactionError(e);
     } finally {

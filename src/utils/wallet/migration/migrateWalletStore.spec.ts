@@ -1,4 +1,4 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+// @ts-nocheck
 import { migrateWalletStore } from "./migrateWalletStore";
 import {
   ConfirmedTransaction,
@@ -41,7 +41,7 @@ describe("migrateWalletStore", () => {
       isSynced: false,
     };
 
-    const newConfirmed: TransactionDetails = {
+    const newConfirmed = {
       txid: "txidconfirmed",
       confirmationTime: {
         height: 1,

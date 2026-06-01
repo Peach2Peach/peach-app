@@ -22,5 +22,6 @@
   "settings.batching.youSave": "Unaokoa hadi 23% kwenye ada za mtandao",
   "settings.batching.youSave.highlight": "Okoa hadi 23%",
   "offer.requiredAction.wrongAmountFundedOnContract": "Kiasi kilichoingizwa si sahihi",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Kiasi kilichoingizwa si sahihi"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Kiasi kilichoingizwa si sahihi",
+  "transactionBatching": "kusanyiko la miamala"
 }

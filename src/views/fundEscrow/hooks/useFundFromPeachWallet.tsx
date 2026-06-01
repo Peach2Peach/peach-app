@@ -1,11 +1,6 @@
 import { NETWORK } from "@env";
-import { Address, PartiallySignedTransaction } from "bdk-rn";
-import {
-  ScriptAmount,
-  TransactionDetails,
-  TxBuilderResult,
-} from "bdk-rn/lib/classes/Bindings";
-import { Network } from "bdk-rn/lib/lib/enums";
+import { Address, Amount } from "bdk-rn";
+import type { Psbt } from "bdk-rn";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -23,6 +18,7 @@ import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isDefined } from "../../../utils/validation/isDefined";
+import { bdkNetwork, type WalletTx } from "../../../utils/wallet/bdkShim";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
   buildTransaction,
@@ -34,27 +30,27 @@ import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
 import { ConfirmTxPopup } from "./ConfirmTxPopup";
 import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
 
-const getPropsFromFinishedTransaction = async (
-  psbt: PartiallySignedTransaction,
-) => {
-  const tx = await psbt.extractTx();
-  const outputs = await tx.output();
-  const outputDetails = (
-    await Promise.all(
-      outputs.map(async (output) => ({
-        address: (await peachWallet?.wallet?.isMine(output.script))
-          ? undefined
-          : await (
-              await new Address().fromScript(output.script, NETWORK as Network)
-            ).asString(),
-        amount: output.value,
-      })),
-    )
-  ).filter((output): output is { address: string; amount: number } =>
-    isDefined(output.address),
-  );
+const getPropsFromFinishedTransaction = (psbt: Psbt) => {
+  const tx = psbt.extractTx();
+  const outputs = tx.output();
+  const network = bdkNetwork(NETWORK);
+  const outputDetails = outputs
+    .map((output) => ({
+      address: peachWallet?.wallet?.isMine(output.scriptPubkey)
+        ? undefined
+        : Address.fromScript(output.scriptPubkey, network).toString(),
+      amount: Number(output.value.toSat()),
+    }))
+    .filter((output): output is { address: string; amount: number } =>
+      isDefined(output.address),
+    );
 
-  const fee = await psbt.feeAmount();
+  let fee = 0;
+  try {
+    fee = Number(psbt.fee());
+  } catch {
+    fee = 0;
+  }
 
   const amountToConfirm =
     outputDetails.reduce((sum, { amount }) => sum + amount, 0) + fee;
@@ -76,7 +72,7 @@ type FundFromWalletParams = {
 };
 
 type OnSuccessParams = {
-  txDetails: TransactionDetails;
+  txDetails: WalletTx;
   offerId?: string;
   contractId?: string;
   address: string;
@@ -145,28 +141,34 @@ export const useFundFromPeachWallet = () => {
         );
       }
 
-      let finishedTransaction: TxBuilderResult;
+      let psbt: Psbt;
       try {
-        const transaction = await buildTransaction({ feeRate });
+        let transaction = await buildTransaction({ feeRate });
         if (addresses.length > 0) {
           const splitAmount = Math.floor(amount / addresses.length);
-          const recipients = await Promise.all(
-            addresses.map(getScriptPubKeyFromAddress),
-          );
-          await transaction.setRecipients(
-            recipients.map((script) => new ScriptAmount(script, splitAmount)),
+          const recipients = addresses.map(getScriptPubKeyFromAddress);
+          transaction = transaction.setRecipients(
+            recipients.map((script) => ({
+              script,
+              amount: Amount.fromSat(BigInt(splitAmount)),
+            })),
           );
         }
 
-        finishedTransaction = await peachWallet.finishTransaction(transaction);
+        psbt = await peachWallet.finishTransaction(transaction);
       } catch (e) {
-        const transactionError = parseError(Array.isArray(e) ? e[0] : e);
+        const cause = Array.isArray(e) ? e[0] : e;
+        const transactionError = parseError(cause);
         if (transactionError !== "INSUFFICIENT_FUNDS")
           return showErrorBanner(transactionError);
 
         if (addresses.length > 1 || !offerId) {
-          const { available } = Array.isArray(e) ? e[1] : { available: 0 };
-          return showErrorBanner("INSUFFICIENT_FUNDS", [amount, available]);
+          // BDK's error message no longer reliably carries the amounts, so show
+          // what we already know: the amount needed and the wallet's balance.
+          return showErrorBanner("INSUFFICIENT_FUNDS", [
+            String(amount),
+            String(peachWallet.balance),
+          ]);
         }
 
         // this is the case of funding a single escrow by draining the wallet
@@ -177,11 +179,9 @@ export const useFundFromPeachWallet = () => {
             feeRate,
             shouldDrainWallet: true,
           });
-          finishedTransaction =
-            await peachWallet.finishTransaction(transaction);
-          const { txDetails, psbt } = finishedTransaction;
+          const drainPsbt = await peachWallet.finishTransaction(transaction);
           const { amountToConfirm, fee, outputs } =
-            await getPropsFromFinishedTransaction(psbt);
+            getPropsFromFinishedTransaction(drainPsbt);
           return setPopup(
             <ConfirmTransactionPopup
               title={i18n("fundFromPeachWallet.insufficientFunds.title")}
@@ -197,8 +197,8 @@ export const useFundFromPeachWallet = () => {
                   )}
                 />
               }
-              psbt={psbt}
-              onSuccess={() =>
+              psbt={drainPsbt}
+              onSuccess={(txDetails) =>
                 onSuccess({
                   txDetails,
                   offerId,
@@ -211,13 +211,19 @@ export const useFundFromPeachWallet = () => {
             />,
           );
         } catch (e2) {
+          const drainError = parseError(Array.isArray(e2) ? e2[0] : e2);
+          if (drainError === "INSUFFICIENT_FUNDS") {
+            return showErrorBanner("INSUFFICIENT_FUNDS", [
+              String(amount),
+              String(peachWallet.balance),
+            ]);
+          }
           return handleTransactionError(e2);
         }
       }
 
-      const { txDetails, psbt } = finishedTransaction;
       const { amountToConfirm, fee, outputs } =
-        await getPropsFromFinishedTransaction(psbt);
+        getPropsFromFinishedTransaction(psbt);
 
       return setPopup(
         <ConfirmTransactionPopup
@@ -230,7 +236,7 @@ export const useFundFromPeachWallet = () => {
             />
           }
           psbt={psbt}
-          onSuccess={() =>
+          onSuccess={(txDetails) =>
             onSuccess({ txDetails, offerId, contractId, address, addresses })
           }
         />,

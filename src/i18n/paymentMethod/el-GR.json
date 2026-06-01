@@ -8,7 +8,7 @@
   "paymentCategory.nationalOption": "εθνικές επιλογές",
   "paymentCategory.onlineWallet": "ηλεκτρονικά πορτοφόλια",
   "paymentCategory.other": "άλλο",
-  "paymentMethod.advcash": "ADV Cash",
+  "paymentMethod.advcash": "Volet",
   "paymentMethod.airtelMoney": "Airtel Money",
   "paymentMethod.alias": "Alias",
   "paymentMethod.applePay": "ApplePay",
@@ -105,11 +105,10 @@
   "paymentMethod.nationalTransferSG": "Εθνική μεταφορά Σιγκαπούρη",
   "paymentMethod.osko": "Osko",
   "paymentMethod.paraguayBankTransfer": "Τραπεζική μεταφορά Παραγουάης",
-  "paymentMethod.payeer": "Payeer",
+
   "paymentMethod.payID": "PayID",
   "paymentMethod.payLah": "PayLah!",
   "paymentMethod.paytm": "Paytm",
-  "paymentMethod.perfectMoney": "Perfect Money",
   "paymentMethod.peruBankDeposit": "Κατάθεση τράπεζας Περού",
   "paymentMethod.spei": "SPEI",
   "paymentMethod.stp": "STP",
@@ -152,5 +151,10 @@
   "paymentMethod.baseusdt": "Base USDT",
   "paymentMethod.solanausdt": "Solana USDT",
   "paymentMethod.bnbusdt": "BNB USDT",
-  "paymentMethod.tronusdt": "TRON USDT"
+  "paymentMethod.tronusdt": "TRON USDT",
+  "paymentMethod.meru": "Meru",
+  "paymentMethod.halcash": "HalCash",
+  "paymentMethod.hype": "Hype",
+  "paymentMethod.global66": "Global66",
+  "paymentMethod.krak": "Krak"
 }

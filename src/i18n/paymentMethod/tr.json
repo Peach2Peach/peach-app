@@ -9,7 +9,7 @@
   "paymentCategory.onlineWallet": "çevrimiçi cüzdanlar",
   "paymentCategory.other": "diğer",
   "paymentMethod.accrue": "Accrue",
-  "paymentMethod.advcash": "ADV Cash",
+  "paymentMethod.advcash": "Volet",
   "paymentMethod.airtelMoney": "Airtel Money",
   "paymentMethod.alias": "Takma Ad",
   "paymentMethod.applePay": "Apple Pay",
@@ -110,11 +110,10 @@
   "paymentMethod.nationalTransferSG": "Ulusal transfer Singapur",
   "paymentMethod.osko": "Osko",
   "paymentMethod.paraguayBankTransfer": "Paraguay Banka Transferi",
-  "paymentMethod.payeer": "Payeer",
+  
   "paymentMethod.payID": "PayID",
   "paymentMethod.payLah": "PayLah!",
   "paymentMethod.paytm": "Paytm",
-  "paymentMethod.perfectMoney": "Perfect Money",
   "paymentMethod.peruBankDeposit": "Peru Banka Deposu",
   "paymentMethod.spei": "SPEI",
   "paymentMethod.stp": "STP",
@@ -157,5 +156,10 @@
   "paymentMethod.baseusdt": "Base USDT",
   "paymentMethod.solanausdt": "Solana USDT",
   "paymentMethod.bnbusdt": "BNB USDT",
-  "paymentMethod.tronusdt": "TRON USDT"
+  "paymentMethod.tronusdt": "TRON USDT",
+  "paymentMethod.meru": "Meru",
+  "paymentMethod.halcash": "HalCash",
+  "paymentMethod.hype": "Hype",
+  "paymentMethod.global66": "Global66",
+  "paymentMethod.krak": "Krak"
 }

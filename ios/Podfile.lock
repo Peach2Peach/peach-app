@@ -1,6 +1,33 @@
 PODS:
-  - bdk-rn (0.30.0):
-    - React
+  - BdkRn (1.0.0):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - uniffi-bindgen-react-native (= 0.30.0-1)
+    - Yoga
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
   - fast_float (8.0.0)
@@ -103,7 +130,7 @@ PODS:
     - hermes-engine/Pre-built (= 0.82.1)
   - hermes-engine/Pre-built (0.82.1)
   - lottie-ios (4.6.0)
-  - lottie-react-native (7.3.6):
+  - lottie-react-native (7.3.8):
     - boost
     - DoubleConversion
     - fast_float
@@ -2003,7 +2030,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-keyboard-controller (1.21.5):
+  - react-native-keyboard-controller (1.21.8):
     - boost
     - DoubleConversion
     - fast_float
@@ -2021,7 +2048,7 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-keyboard-controller/common (= 1.21.5)
+    - react-native-keyboard-controller/common (= 1.21.8)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -2032,7 +2059,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-keyboard-controller/common (1.21.5):
+  - react-native-keyboard-controller/common (1.21.8):
     - boost
     - DoubleConversion
     - fast_float
@@ -2147,7 +2174,7 @@ PODS:
     - Yoga
   - react-native-restart (0.0.27):
     - React-Core
-  - react-native-safe-area-context (5.7.0):
+  - react-native-safe-area-context (5.8.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2165,8 +2192,8 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-safe-area-context/common (= 5.7.0)
-    - react-native-safe-area-context/fabric (= 5.7.0)
+    - react-native-safe-area-context/common (= 5.8.0)
+    - react-native-safe-area-context/fabric (= 5.8.0)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -2177,7 +2204,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-safe-area-context/common (5.7.0):
+  - react-native-safe-area-context/common (5.8.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2205,7 +2232,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-safe-area-context/fabric (5.7.0):
+  - react-native-safe-area-context/fabric (5.8.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2978,7 +3005,7 @@ PODS:
     - RNFBApp
     - SocketRocket
     - Yoga
-  - RNGestureHandler (2.31.1):
+  - RNGestureHandler (2.31.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -3159,7 +3186,7 @@ PODS:
     - RNWorklets
     - SocketRocket
     - Yoga
-  - RNScreens (4.24.0):
+  - RNScreens (4.25.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -3186,10 +3213,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNScreens/common (= 4.24.0)
+    - RNScreens/common (= 4.25.2)
     - SocketRocket
     - Yoga
-  - RNScreens/common (4.24.0):
+  - RNScreens/common (4.25.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -3220,7 +3247,7 @@ PODS:
     - Yoga
   - RNSecureRandom (1.0.1):
     - React
-  - RNShare (12.2.6):
+  - RNShare (12.3.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -3248,7 +3275,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNSVG (15.15.4):
+  - RNSVG (15.15.5):
     - boost
     - DoubleConversion
     - fast_float
@@ -3274,10 +3301,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNSVG/common (= 15.15.4)
+    - RNSVG/common (= 15.15.5)
     - SocketRocket
     - Yoga
-  - RNSVG/common (15.15.4):
+  - RNSVG/common (15.15.5):
     - boost
     - DoubleConversion
     - fast_float
@@ -3395,6 +3422,8 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
+  - uniffi-bindgen-react-native (0.30.0-1):
+    - React-Core
   - VisionCamera (4.7.3):
     - VisionCamera/Core (= 4.7.3)
     - VisionCamera/React (= 4.7.3)
@@ -3404,7 +3433,7 @@ PODS:
   - Yoga (0.0.0)
 
 DEPENDENCIES:
-  - bdk-rn (from `../node_modules/bdk-rn`)
+  - BdkRn (from `../node_modules/bdk-rn`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
@@ -3539,9 +3568,10 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - SocketRocket
+    - uniffi-bindgen-react-native
 
 EXTERNAL SOURCES:
-  bdk-rn:
+  BdkRn:
     :path: "../node_modules/bdk-rn"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
@@ -3752,7 +3782,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  bdk-rn: bea5d726082976ce496f09caa25c9d53a20511c9
+  BdkRn: 8f141d0c00383a8c63c4a61b3a4167f90e6f4e8a
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
@@ -3772,7 +3802,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   hermes-engine: 273e30e7fb618279934b0b95ffab60ecedb7acf5
   lottie-ios: 8f959969761e9c45d70353667d00af0e5b9cadb3
-  lottie-react-native: 983fd0489530e8d40f173de7f04e2f88b9317a15
+  lottie-react-native: b410d8c9dcaf536198ce852ea47e73c9158ad04e
   MMKV: 43cd10be0f925bf3fd5c2bd8bea501a328037b64
   MMKVCore: 13be45a0394861b74836875ac9ec7ee939e86b78
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
@@ -3815,12 +3845,12 @@ SPEC CHECKSUMS:
   react-native-document-picker: a7929a36c2db933505f6aa5108819c40e5ab29c4
   react-native-fast-openpgp: 42a99ddfafbd132457cb7964062431fbaf666484
   react-native-get-random-values: e2acf4070fe4b7325705a05af047449637a27a21
-  react-native-keyboard-controller: e3131b90071e749034d9f2031a3ad4fa5140091e
+  react-native-keyboard-controller: d543b2ca3fd062e794b4087a3fe0340159545503
   react-native-mmkv-storage: e84980084e371a9c2230bbde071536a7e1539406
   react-native-netinfo: 57447b5a45c98808f8eae292cf641f3d91d13830
   react-native-pager-view: a0516effb17ca5120ac2113bfd21b91130ad5748
   react-native-restart: 0bc732f4461709022a742bb29bcccf6bbc5b4863
-  react-native-safe-area-context: befb5404eb8a16fdc07fa2bebab3568ecabcbb8a
+  react-native-safe-area-context: ebd2c2ece5e6e650a6963184039ec8cfd8960d86
   react-native-webview: 8407aaaf6b539b1e38b72fabb55d6885de03beaf
   React-NativeModulesApple: 46690a0fe94ec28fc6fc686ec797b911d251ded0
   React-oscompat: 95875e81f5d4b3c7b2c888d5bd2c9d83450d8bdb
@@ -3861,17 +3891,18 @@ SPEC CHECKSUMS:
   RNFBApp: 0c7f6663ca9ae2169967b36fc48ae043f9396fb7
   RNFBCrashlytics: 6d496fafa21991b2dc1d8a51ee3118cfd53075ce
   RNFBMessaging: 1e46a1ade3647bc3148c3be203e70e98bb15415e
-  RNGestureHandler: f8754f00f0e28317a1ddecc2911994fb05b234be
+  RNGestureHandler: 7c898c5cb494208385722f830e982aedcf9368af
   RNKeychain: a2c134ab796272c3d605e035ab727591000b30f3
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: 5bea870cf9714b1ce1d404ff6db781944ed5b8dd
   RNReanimated: ac06da53579693ab451941ef89f5a55afeab0dd9
-  RNScreens: 7f643ee0fd1407dc5085c7795460bd93da113b8f
+  RNScreens: 9269ab4971b2bd24917be84295d2c2ae7d06e9be
   RNSecureRandom: b64d263529492a6897e236a22a2c4249aa1b53dc
-  RNShare: 51d221e8ac06263e91168c604b94274fdcc4784f
-  RNSVG: f7d420ab4c3d766bf3e9c1a4fa7900021311a47a
+  RNShare: bf3fa119b277d4a1729553e870039427bcb80c93
+  RNSVG: 7cf280f47bb61ae1eadcbb7f4014533447f1550e
   RNWorklets: ab618bf7d1c7fd2cb793b9f0f39c3e29274b3ebf
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
+  uniffi-bindgen-react-native: 80b84792114d89b005d913b7b8d875b36111178f
   VisionCamera: 7187b3dac1ff3071234ead959ce311875748e14f
   Yoga: 689c8e04277f3ad631e60fe2a08e41d411daf8eb
 

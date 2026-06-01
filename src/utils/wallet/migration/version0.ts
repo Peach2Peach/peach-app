@@ -1,5 +1,5 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { info } from "../../log/info";
+import type { WalletTx } from "../bdkShim";
 import { WalletStateVersion1 } from "./version1";
 
 export type ConfirmedTransaction = {
@@ -34,7 +34,7 @@ export type WalletStateVersion0 = {
   isSynced: boolean;
 };
 
-const convertLegacyTxConfirmed = (tx: ConfirmedTransaction) => ({
+const convertLegacyTxConfirmed = (tx: ConfirmedTransaction): WalletTx => ({
   txid: tx.txid,
   received: tx.received,
   sent: tx.sent,
@@ -44,8 +44,7 @@ const convertLegacyTxConfirmed = (tx: ConfirmedTransaction) => ({
     timestamp: tx.block_timestamp,
   },
 });
-const convertLegacyTxPending = (tx: PendingTransaction): TransactionDetails =>
-  tx;
+const convertLegacyTxPending = (tx: PendingTransaction): WalletTx => tx;
 
 export const version0 = (persistedState: unknown): WalletStateVersion1 => {
   info("WalletStore - migrating from version 0");

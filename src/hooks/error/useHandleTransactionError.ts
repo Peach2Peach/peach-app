@@ -9,7 +9,9 @@ export const useHandleTransactionError = () => {
 
   const handleTransactionError = useCallback(
     (e: unknown) => {
-      const [err, cause] = e as [Error, string | InsufficientFundsError];
+      const [err, cause] = Array.isArray(e)
+        ? (e as [Error, string | InsufficientFundsError])
+        : [e as Error, undefined];
       const error = parseError(err);
       const bodyArgs = parseTransactionError(err, cause);
       showErrorBanner(error, bodyArgs);

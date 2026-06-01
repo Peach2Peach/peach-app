@@ -25,5 +25,6 @@
   "settings.batching.youSave": "Économise jusqu'à 23 % sur les frais Bitcoin",
   "settings.batching.youSave.highlight": "Économise jusqu'à 23 %",
   "offer.requiredAction.wrongAmountFundedOnContract": "Montant incorrect versé",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Montant incorrect versé"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Montant incorrect versé",
+  "transactionBatching": "regroupement de transactions"
 }

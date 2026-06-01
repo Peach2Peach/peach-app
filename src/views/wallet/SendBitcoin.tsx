@@ -43,7 +43,10 @@ export const SendBitcoin = () => {
   const { selectedUTXOs } = useUTXOs();
 
   const maxAmount = selectedUTXOs.length
-    ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
+    ? selectedUTXOs.reduce(
+        (acc, utxo) => acc + Number(utxo.txout.value.toSat()),
+        0,
+      )
     : peachWallet?.balance || 0;
 
   const onAmountChange = (newText: string) => {
@@ -56,14 +59,14 @@ export const SendBitcoin = () => {
   const sendTrasaction = async () => {
     if (!feeRate || !peachWallet) return;
     try {
-      const { psbt } = await peachWallet.buildFinishedTransaction({
+      const psbt = await peachWallet.buildFinishedTransaction({
         address,
         amount,
         feeRate,
         shouldDrainWallet,
         utxos: selectedUTXOs,
       });
-      const fee = await psbt.feeAmount();
+      const fee = Number(psbt.fee());
 
       setPopup(
         <WithdrawalConfirmationPopup
@@ -286,8 +289,13 @@ function SelectedUTXOs() {
       <HorizontalLine />
       <Section title={i18n("wallet.sendBitcoin.sendingFrom.coins")}>
         <View style={tw`px-10px`}>
-          {selectedUTXOs.map(({ txout: { script } }) => (
-            <UTXOAddress key={script.id} script={script} />
+          {selectedUTXOs.map(({ txout: { scriptPubkey } }) => (
+            <UTXOAddress
+              key={Buffer.from(scriptPubkey.toBytes() as ArrayBuffer).toString(
+                "hex",
+              )}
+              script={scriptPubkey}
+            />
           ))}
         </View>
       </Section>

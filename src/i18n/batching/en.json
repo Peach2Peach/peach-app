@@ -25,5 +25,6 @@
   "settings.batching.youPay": "Caution! You cover Peach's additional costs. Costs are dynamic and can spike.\nEnsure you understand this!",
   "settings.batching.youPay.highlight": "Caution!",
   "settings.batching.youSave": "Save up to 23% in network fees",
-  "settings.batching.youSave.highlight": "Save up to 23%"
+  "settings.batching.youSave.highlight": "Save up to 23%",
+  "transactionBatching": "transaction batching"
 }

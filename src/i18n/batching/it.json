@@ -25,5 +25,6 @@
   "settings.batching.youSave": "Risparmi fino al 23% sulle commissioni di rete",
   "settings.batching.youSave.highlight": "Risparmi fino al 23%",
   "offer.requiredAction.wrongAmountFundedOnContract": "Importo depositato errato",
-  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Importo depositato errato"
+  "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Importo depositato errato",
+  "transactionBatching": "transazioni aggregate"
 }

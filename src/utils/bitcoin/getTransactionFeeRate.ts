@@ -1,8 +1,8 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import type { WalletTx } from "../wallet/bdkShim";
 import { ceil } from "../math/ceil";
 
-export async function getTransactionFeeRate(transaction: TransactionDetails) {
-  const vSize = await transaction.transaction?.vsize();
+export function getTransactionFeeRate(transaction: WalletTx) {
+  const vSize = transaction.transaction?.vsize;
   if (!vSize) return 1;
   return Math.max(1, ceil((transaction.fee || 0) / vSize, 2));
 }

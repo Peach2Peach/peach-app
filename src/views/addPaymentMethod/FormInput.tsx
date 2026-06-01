@@ -23,18 +23,23 @@ export function FormInput({
   defaultValue = "",
   ...inputProps
 }: Props) {
+  const initialValue =
+    name === "userName" && !optional && !defaultValue ? "@" : defaultValue;
+
   const {
     field,
     fieldState: { error },
   } = useController({
     control,
-    defaultValue,
+    defaultValue: initialValue,
     name,
     rules: {
       required: optional ? false : getMessages().required,
       validate: getValidators(name, optional),
     },
   });
+
+  const isUntouchedUsername = name === "userName" && field.value === "@";
 
   const inputFormatter = useMemo(() => {
     const result = Formatter.safeParse(name);
@@ -59,7 +64,9 @@ export function FormInput({
       label={i18n(`form.${name}`)}
       placeholder={i18n(`form.${name}.placeholder`)}
       value={field.value}
-      errorMessage={error?.message ? [error.message] : undefined}
+      errorMessage={
+        error?.message && !isUntouchedUsername ? [error.message] : undefined
+      }
       onChangeText={field.onChange}
       keyboardType={
         name === "phone"

@@ -76,7 +76,8 @@ export const TradeRequestReceived = ({
 
   const isTradeRequestMpesa =
     tradeRequest.paymentDataHashed[selectedPaymentMethod].isMpesa;
-
+  const paymentMethodCountry =
+    tradeRequest.paymentDataHashed[selectedPaymentMethod]?.country;
   return (
     <View style={tw`justify-center flex-1`}>
       <View
@@ -120,7 +121,7 @@ export const TradeRequestReceived = ({
                 ) : (
                   <PaymentDetail
                     label={i18n("match.selectedPaymentMethod")}
-                    value={i18n(`paymentMethod.${selectedPaymentMethod}`)}
+                    value={`${i18n(`paymentMethod.${selectedPaymentMethod}`)}${paymentMethodCountry ? ` (${paymentMethodCountry})` : ""}`}
                   />
                 )}
               </>

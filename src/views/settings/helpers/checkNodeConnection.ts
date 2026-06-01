@@ -1,30 +1,23 @@
-import { Blockchain } from "bdk-rn";
-import {
-  BlockChainNames,
-  BlockchainElectrumConfig,
-  BlockchainEsploraConfig,
-} from "bdk-rn/lib/lib/enums";
+import { ElectrumClient, EsploraClient } from "bdk-rn";
 import { info } from "../../../utils/log/info";
 import { parseError } from "../../../utils/parseError";
+import { BlockChainNames } from "../../../utils/wallet/bdkShim";
 import { addProtocol } from "../../../utils/web/addProtocol";
 
-const checkElectrumConnection = async (address: string, ssl: boolean) => {
-  const config: BlockchainElectrumConfig = {
-    url: addProtocol(address, ssl ? "ssl" : "tcp"),
-    sock5: null,
-    retry: 1,
-    timeout: 5,
-    stopGap: 1,
-    validateDomain: false,
-  };
+const resolveUrl = (url: string, defaultScheme: string) =>
+  url.includes("://") ? url : addProtocol(url, defaultScheme);
 
+const checkElectrumConnection = async (address: string, ssl: boolean) => {
   try {
     info("Checking electrum connection...");
-    const blockchain = await new Blockchain().create(
-      config,
-      BlockChainNames.Electrum,
+    const client = new ElectrumClient(
+      resolveUrl(address, ssl ? "ssl" : "tcp"),
+      undefined,
+      10,
+      2,
+      true,
     );
-    await blockchain.getBlockHash();
+    await client.ping();
     return { result: BlockChainNames.Electrum };
   } catch (e) {
     info("electrum connection failed");
@@ -32,21 +25,13 @@ const checkElectrumConnection = async (address: string, ssl: boolean) => {
   }
 };
 const checkEsploraConnection = async (address: string, ssl: boolean) => {
-  const config: BlockchainEsploraConfig = {
-    baseUrl: addProtocol(address, ssl ? "https" : "http"),
-    proxy: null,
-    concurrency: 1,
-    timeout: 5,
-    stopGap: 1,
-  };
-
   try {
     info("Checking esplora connection...");
-    const blockchain = await new Blockchain().create(
-      config,
-      BlockChainNames.Esplora,
+    const client = new EsploraClient(
+      resolveUrl(address, ssl ? "https" : "http"),
+      undefined,
     );
-    await blockchain.getBlockHash();
+    await client.getHeight();
     return { result: BlockChainNames.Esplora };
   } catch (e) {
     info("esplora connection failed");

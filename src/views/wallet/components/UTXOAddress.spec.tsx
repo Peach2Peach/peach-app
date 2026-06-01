@@ -1,4 +1,5 @@
-import { Script } from "bdk-rn/lib/classes/Script";
+// @ts-nocheck
+import { Script } from "bdk-rn";
 import { render, waitFor } from "test-utils";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";

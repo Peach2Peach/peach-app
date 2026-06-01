@@ -1,4 +1,5 @@
-import { TxOut } from "bdk-rn/lib/classes/Bindings";
+import type { TxOut } from "bdk-rn";
+import { bytesToHex } from "../../utils/wallet/bdkShim";
 import { Fragment, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
@@ -83,7 +84,7 @@ function UTXOList({ selectedUTXOs, toggleSelection }: UTXOListProps) {
     >
       {utxos &&
         utxos?.map((utxo, index) => (
-          <Fragment key={utxo.txout.script.id}>
+          <Fragment key={bytesToHex(utxo.txout.scriptPubkey.toBytes())}>
             <UTXOItem
               txout={utxo.txout}
               toggleSelection={() => toggleSelection(getUTXOId(utxo))}
@@ -107,15 +108,15 @@ type UTXOItemProps = {
 };
 
 function UTXOItem({
-  txout: { value: amount, script },
+  txout: { value: amount, scriptPubkey },
   isSelected,
   toggleSelection,
 }: UTXOItemProps) {
   return (
     <View style={tw`flex-row gap-3 px-2`}>
       <View style={tw`flex-1 gap-1`}>
-        <BTCAmount size="medium" amount={amount} />
-        <UTXOAddress script={script} />
+        <BTCAmount size="medium" amount={Number(amount.toSat())} />
+        <UTXOAddress script={scriptPubkey} />
       </View>
       <Checkbox
         testID="checkbox"
