@@ -45,6 +45,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   onlineWallet: [
     "wise",
     "revolut",
+    "paypal",
     "accrue",
     "advcash",
     "airtelMoney",
@@ -79,7 +80,6 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     // "payeer",
     "payID",
     "payLah",
-    "paypal",
     "paysera",
     "paytm",
     "pix",
