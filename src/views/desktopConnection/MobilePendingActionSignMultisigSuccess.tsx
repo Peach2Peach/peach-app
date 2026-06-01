@@ -21,8 +21,11 @@ export const MobilePendingActionSignMultisigSuccess = () => {
   };
   const navigateToActions = () => {
     navigation.reset({
-      index: 0,
-      routes: [{ name: "mobilePendingActions" }],
+      index: 1,
+      routes: [
+        { name: "homeScreen", params: { screen: "home" } },
+        { name: "mobilePendingActions" },
+      ],
     });
   };
 
