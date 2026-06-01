@@ -469,7 +469,7 @@ export class PeachWallet {
     try {
       return transaction.finish(this.wallet) as Psbt;
     } catch (e) {
-      throw handleTransactionError(parseError(e));
+      throw handleTransactionError(e);
     }
   }
 
@@ -496,7 +496,7 @@ export class PeachWallet {
 
       return psbt;
     } catch (e) {
-      throw handleTransactionError(parseError(e));
+      throw handleTransactionError(e);
     }
   }
 

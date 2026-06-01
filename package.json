@@ -57,7 +57,7 @@
     "@react-navigation/native": "^7.1.14",
     "@react-navigation/stack": "^7.4.2",
     "@tanstack/react-query": "^5.90.3",
-    "bdk-rn": "file:bdk-rn-3.0.0-rc.2.tgz",
+    "bdk-rn": "file:bdk-rn-1.0.0.tgz",
     "bip174": "^2.1.1",
     "bip32": "^4.0.0",
     "bip322-js": "github:Peach2Peach/bip322-js#compile-on-npm-install-strictless",

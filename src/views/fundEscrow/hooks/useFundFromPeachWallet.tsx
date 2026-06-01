@@ -163,8 +163,12 @@ export const useFundFromPeachWallet = () => {
           return showErrorBanner(transactionError);
 
         if (addresses.length > 1 || !offerId) {
-          const { available } = Array.isArray(e) ? e[1] : { available: 0 };
-          return showErrorBanner("INSUFFICIENT_FUNDS", [amount, available]);
+          // BDK's error message no longer reliably carries the amounts, so show
+          // what we already know: the amount needed and the wallet's balance.
+          return showErrorBanner("INSUFFICIENT_FUNDS", [
+            String(amount),
+            String(peachWallet.balance),
+          ]);
         }
 
         // this is the case of funding a single escrow by draining the wallet
@@ -207,6 +211,13 @@ export const useFundFromPeachWallet = () => {
             />,
           );
         } catch (e2) {
+          const drainError = parseError(Array.isArray(e2) ? e2[0] : e2);
+          if (drainError === "INSUFFICIENT_FUNDS") {
+            return showErrorBanner("INSUFFICIENT_FUNDS", [
+              String(amount),
+              String(peachWallet.balance),
+            ]);
+          }
           return handleTransactionError(e2);
         }
       }

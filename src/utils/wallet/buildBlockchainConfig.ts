@@ -7,6 +7,8 @@ import { NodeConfig } from "./nodeConfigStore";
 export type BlockchainClient = ElectrumClient | EsploraClient;
 
 const DEFAULT_GAP_LIMIT = 25;
+const ELECTRUM_TIMEOUT_SECONDS = 30;
+const ELECTRUM_RETRY_ATTEMPTS = 3;
 
 const resolveUrl = (url: string, defaultScheme: string) =>
   url.includes("://") ? url : addProtocol(url, defaultScheme);
@@ -24,7 +26,9 @@ const clientBuilders = {
     new ElectrumClient(
       resolveUrl(url, ssl ? "ssl" : "tcp"),
       undefined,
-      false,
+      ELECTRUM_TIMEOUT_SECONDS,
+      ELECTRUM_RETRY_ATTEMPTS,
+      true,
     ),
   [BlockChainNames.Rpc]: ({
     ssl,

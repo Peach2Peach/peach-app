@@ -13,7 +13,9 @@ const checkElectrumConnection = async (address: string, ssl: boolean) => {
     const client = new ElectrumClient(
       resolveUrl(address, ssl ? "ssl" : "tcp"),
       undefined,
-      false,
+      10,
+      2,
+      true,
     );
     await client.ping();
     return { result: BlockChainNames.Electrum };
