@@ -1,20 +1,18 @@
 import { DocumentDirectoryPath, exists } from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
-import {
-  BumpFeeTxBuilder,
-  ElectrumClient,
-  EsploraClient,
-  KeychainKind,
-  Persister,
-  TxBuilder,
-  Wallet,
-} from "bdk-rn";
 import type {
   AddressInfo,
   PersisterInterface,
   Psbt,
   TxBuilderInterface,
   WalletInterface,
+} from "bdk-rn";
+import {
+  BumpFeeTxBuilder,
+  ElectrumClient,
+  KeychainKind,
+  Persister,
+  Wallet,
 } from "bdk-rn";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
@@ -36,7 +34,10 @@ import {
   transactionToInner,
   type WalletTx,
 } from "./bdkShim";
-import { buildBlockchainConfig, type BlockchainClient } from "./buildBlockchainConfig";
+import {
+  buildBlockchainConfig,
+  type BlockchainClient,
+} from "./buildBlockchainConfig";
 import { handleTransactionError } from "./error/handleTransactionError";
 import { getDescriptorsBySeedphrase } from "./getDescriptorsBySeedphrase";
 import { getUTXOAddress } from "./getUTXOAddress";
@@ -49,8 +50,8 @@ import { useWalletState } from "./walletStore";
 
 const MIN_VERSION_FOR_SQLITE = 16;
 const DEFAULT_STOP_GAP = BigInt(25);
-const DEFAULT_BATCH_SIZE = BigInt(10);
-const DEFAULT_PARALLEL_REQUESTS = BigInt(5);
+const DEFAULT_BATCH_SIZE = BigInt(25);
+const DEFAULT_PARALLEL_REQUESTS = BigInt(10);
 
 function getDbPaths(network: string, nodeType: BlockChainNames) {
   const useMemory =
@@ -254,7 +255,7 @@ export class PeachWallet {
                   fullScanRequest,
                   BigInt(this.gapLimit),
                   DEFAULT_BATCH_SIZE,
-                  true,
+                  false,
                 )
               : await client.fullScan(
                   fullScanRequest,
