@@ -29,5 +29,6 @@ export const version3 = (persistedState: unknown): WalletState => {
     showBalance: v3.showBalance,
     selectedUTXOIds: v3.selectedUTXOIds,
     hasScanned: false,
+    externalUsedIndices: [],
   };
 };

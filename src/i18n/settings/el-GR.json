@@ -155,6 +155,10 @@
     "settings.filterAlerts": "Φιλτράρισμα ειδοποιήσεων",
   "settings.filterAlerts.description": "Ενεργοποιήστε το για να λαμβάνετε push ειδοποιήσεις όταν δημοσιεύονται νέες προσφορές που ταιριάζουν στις προτιμήσεις σας",
   "offerCard.youSend": "στέλνεις",
-  "offerCard.youReceive": "λαμβάνεις"
+  "offerCard.youReceive": "λαμβάνεις",
+  "settings.walletGapLimit": "gap limit πορτοφολιού",
+  "settings.walletGapLimit.title": "gap limit πορτοφολιού",
+  "settings.walletGapLimit.description": "Υψηλότερες τιμές επιτρέπουν στον συγχρονισμό του πορτοφολιού να ελέγχει περισσότερες διευθύνσεις πέρα από την τελευταία που χρησιμοποιήθηκε.\n\nΑυξήστε αυτήν την τιμή αν υποψιάζεστε ότι λείπει υπόλοιπο.",
+  "settings.walletGapLimit.recommended": "Συνιστάται: $0"
 
 }

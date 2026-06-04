@@ -103,6 +103,7 @@
   "wallet.withdrawAll": "tuma zote",
   "wallet.withdrawTo": "tuma kwa",
   "wallet.withdrawal": "imetumwa",
-  "wallet.twelveWords.dontShare": "Usiwahi kushiriki hili na mtu yeyote, hata \"msaada wa Peach\""
+  "wallet.twelveWords.dontShare": "Usiwahi kushiriki hili na mtu yeyote, hata \"msaada wa Peach\"",
+  "wallet.missingBalance": "Je, salio lako lina hitilafu? Jaribu kuongeza gap limit kwenye Mipangilio"
 
 }

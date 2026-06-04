@@ -155,6 +155,10 @@
     "settings.filterAlerts": "Filtruj alerty",
   "settings.filterAlerts.description": "Włącz to, aby otrzymywać powiadomienia push, gdy pojawią się nowe oferty pasujące do twoich preferencji",
   "offerCard.youSend": "wysyłasz",
-  "offerCard.youReceive": "otrzymujesz"
+  "offerCard.youReceive": "otrzymujesz",
+  "settings.walletGapLimit": "limit luki portfela",
+  "settings.walletGapLimit.title": "limit luki portfela",
+  "settings.walletGapLimit.description": "Wyższe wartości pozwalają synchronizacji portfela sprawdzać więcej adresów poza ostatnio używanym.\n\nZwiększ tę wartość, jeśli podejrzewasz brakujące saldo.",
+  "settings.walletGapLimit.recommended": "Zalecane: $0"
 
 }

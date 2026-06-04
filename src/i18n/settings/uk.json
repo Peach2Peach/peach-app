@@ -151,6 +151,10 @@
     "settings.filterAlerts": "Фільтрувати сповіщення",
   "settings.filterAlerts.description": "Увімкніть це, щоб отримувати push-сповіщення, коли публікуються нові пропозиції, що відповідають вашим вподобанням",
   "offerCard.youSend": "ви надсилаєте",
-  "offerCard.youReceive": "ви отримуєте"
+  "offerCard.youReceive": "ви отримуєте",
+  "settings.walletGapLimit": "ліміт розриву гаманця",
+  "settings.walletGapLimit.title": "ліміт розриву гаманця",
+  "settings.walletGapLimit.description": "Вищі значення дозволяють синхронізації гаманця перевіряти більше адрес після останньої використаної.\n\nЗбільште це значення, якщо підозрюєте відсутній баланс.",
+  "settings.walletGapLimit.recommended": "Рекомендовано: $0"
 
 }

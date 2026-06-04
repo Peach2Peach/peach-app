@@ -105,5 +105,6 @@
   "wallet.withdrawal": "sent",
   "wallet.twelveWords.dontShare" : "Don’t ever share this with anyone, including “Peach support”",
   "slideDownToRefresh": "slide down to refresh",
-  "walletIsRefreshing": "refreshing..."
+  "walletIsRefreshing": "refreshing...",
+  "wallet.missingBalance": "are you missing some balance? try increasing the gap limit in the Settings"
 }

@@ -102,6 +102,7 @@
   "wallet.withdrawAll": "Hepsini Gönder",
   "wallet.withdrawTo": "Alıcı",
   "wallet.withdrawal": "Gönderildi",
-  "wallet.twelveWords.dontShare": "Bunu \"Peach destek\" dahil kimseyle ASLA paylaşma" 
+  "wallet.twelveWords.dontShare": "Bunu \"Peach destek\" dahil kimseyle ASLA paylaşma",
+  "wallet.missingBalance": "Bakiyeniz eksik mi? Ayarlarda gap limitini artırmayı deneyin"
 
 }

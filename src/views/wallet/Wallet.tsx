@@ -23,6 +23,8 @@ export const Wallet = () => {
   const { isDarkMode } = useThemeStore();
   if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
+  const hintColor = isDarkMode ? tw.color("black-65") : tw.color("black-25");
+
   return (
     <Screen header={<WalletHeader />}>
       <PeachScrollView
@@ -33,18 +35,18 @@ export const Wallet = () => {
           <RefreshControl refreshing={false} onRefresh={() => refetch()} />
         }
       >
-        <PeachText
-          style={[
-            tw`text-sm text-center mb-6`,
-            { color: isDarkMode ? tw.color("black-65") : tw.color("black-25") },
-          ]}
-        >
+        <PeachText style={[tw`text-sm text-center mb-6`, { color: hintColor }]}>
           {isRefetching
             ? i18n("walletIsRefreshing")
             : i18n("slideDownToRefresh")}
         </PeachText>
         <WarningFrame text={i18n("wallet.seedPhraseWarning")} />
         <TotalBalance amount={balance} isRefreshing={isRefetching} />
+        <PeachText
+          style={[tw`mt-3 text-xs text-center px-6`, { color: hintColor }]}
+        >
+          {i18n("wallet.missingBalance")}
+        </PeachText>
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />

@@ -103,5 +103,6 @@
   "wallet.withdrawAll": "Alles versturen",
   "wallet.withdrawTo": "Sturen naar",
   "wallet.withdrawal": "Verstuurd",
-   "wallet.twelveWords.dontShare": "Deel dit nooit met iemand, ook niet met \"Peach support\""
+   "wallet.twelveWords.dontShare": "Deel dit nooit met iemand, ook niet met \"Peach support\"",
+  "wallet.missingBalance": "Mis je saldo? Probeer de gap limit in de Instellingen te verhogen"
 }

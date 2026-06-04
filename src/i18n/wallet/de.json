@@ -103,5 +103,6 @@
   "wallet.withdrawAll": "Alles senden",
   "wallet.withdrawTo": "An folgende Adresse senden",
   "wallet.withdrawal": "Gesendet",
-  "wallet.twelveWords.dontShare": "Teile dies niemals mit irgendjemandem, auch nicht mit \"Peach Support\""
+  "wallet.twelveWords.dontShare": "Teile dies niemals mit irgendjemandem, auch nicht mit \"Peach Support\"",
+  "wallet.missingBalance": "Fehlt dir Guthaben? Versuche, das Gap-Limit in den Einstellungen zu erhöhen"
 }

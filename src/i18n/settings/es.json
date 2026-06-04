@@ -156,6 +156,9 @@
   "settings.filterAlerts": "Filtrar alertas",
   "settings.filterAlerts.description": "Activa esto y recibirás notificaciones push cuando se publiquen nuevas ofertas que coincidan con tus preferencias",
   "offerCard.youSend": "envías",
-  "offerCard.youReceive": "recibes"
-
+  "offerCard.youReceive": "recibes",
+  "settings.walletGapLimit": "gap limit de la cartera",
+  "settings.walletGapLimit.title": "gap limit de la cartera",
+  "settings.walletGapLimit.description": "Valores más altos permiten que la sincronización de la cartera revise más direcciones más allá de la última usada.\n\nAumenta este valor si sospechas que falta saldo.",
+  "settings.walletGapLimit.recommended": "Recomendado: $0"
 }

@@ -155,6 +155,10 @@
     "settings.filterAlerts": "Фильтр уведомлений",
   "settings.filterAlerts.description": "Включите это, чтобы получать push-уведомления, когда появляются новые предложения, соответствующие вашим предпочтениям",
   "offerCard.youSend": "вы отправляете",
-  "offerCard.youReceive": "вы получаете"
+  "offerCard.youReceive": "вы получаете",
+  "settings.walletGapLimit": "лимит разрыва кошелька",
+  "settings.walletGapLimit.title": "лимит разрыва кошелька",
+  "settings.walletGapLimit.description": "Большие значения позволяют синхронизации кошелька проверять больше адресов после последнего использованного.\n\nУвеличьте это значение, если подозреваете отсутствующий баланс.",
+  "settings.walletGapLimit.recommended": "Рекомендуется: $0"
 
 }

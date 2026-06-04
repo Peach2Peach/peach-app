@@ -154,6 +154,10 @@
     "settings.filterAlerts": "Chuja arifa",
   "settings.filterAlerts.description": "Washa hii ili upokee arifa za kusukuma pindi ofa mpya zinazoendana na mapendeleo yako zitakapotumwa",
   "offerCard.youSend": "unakutuma",
-  "offerCard.youReceive": "unakupokea"
+  "offerCard.youReceive": "unakupokea",
+  "settings.walletGapLimit": "kikomo cha mwanya cha mkoba",
+  "settings.walletGapLimit.title": "kikomo cha mwanya cha mkoba",
+  "settings.walletGapLimit.description": "Thamani za juu zaidi huruhusu usawazishaji wa mkoba kuangalia anwani zaidi zaidi ya ile uliyotumia mwisho.\n\nOngeza thamani hii ikiwa unashuku salio linalokosekana.",
+  "settings.walletGapLimit.recommended": "Imependekezwa: $0"
 
 }

@@ -1,4 +1,9 @@
-import { DocumentDirectoryPath, exists } from "@dr.pogodin/react-native-fs";
+import {
+  DocumentDirectoryPath,
+  exists,
+  mkdir,
+  moveFile,
+} from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import type {
   AddressInfo,
@@ -58,10 +63,13 @@ function getDbPaths(network: string, nodeType: BlockChainNames) {
     Platform.OS === "ios" &&
     parseInt(Platform.Version as string, 10) < MIN_VERSION_FOR_SQLITE;
   const legacyName = `peach-${network}${nodeType}`;
+  const walletDir = `${DocumentDirectoryPath}/wallet`;
   return {
     useMemory,
+    walletDir,
     legacyPath: `${DocumentDirectoryPath}/${legacyName}`,
-    sqlitePath: `${DocumentDirectoryPath}/${legacyName}.sqlite`,
+    oldSqlitePath: `${DocumentDirectoryPath}/${legacyName}.sqlite`,
+    sqlitePath: `${walletDir}/${legacyName}.sqlite`,
   };
 }
 
@@ -109,6 +117,8 @@ export class PeachWallet {
   initialized: boolean;
 
   seedphrase: string | undefined;
+
+  sqlitePath?: string;
 
   syncInProgress: Promise<void> | undefined;
 
@@ -164,10 +174,34 @@ export class PeachWallet {
           this.setBlockchain(useNodeConfigState.getState());
 
           const nodeType = this.nodeType || BlockChainNames.Esplora;
-          const { useMemory, legacyPath, sqlitePath } = getDbPaths(
-            NETWORK,
-            nodeType,
-          );
+          const {
+            useMemory,
+            walletDir,
+            legacyPath,
+            oldSqlitePath,
+            sqlitePath,
+          } = getDbPaths(NETWORK, nodeType);
+          this.sqlitePath = useMemory ? undefined : sqlitePath;
+
+          if (!useMemory) {
+            try {
+              await mkdir(walletDir, {
+                NSURLIsExcludedFromBackupKey: true,
+              });
+              if (
+                (await exists(oldSqlitePath)) &&
+                !(await exists(sqlitePath))
+              ) {
+                await moveFile(oldSqlitePath, sqlitePath);
+                info("PeachWallet - initWallet - migrated db to walletDir");
+              }
+            } catch (e) {
+              error(
+                "PeachWallet - initWallet - walletDir setup failed",
+                parseError(e),
+              );
+            }
+          }
 
           info("PeachWallet - initWallet - createPersister");
           this.persister = useMemory
@@ -235,97 +269,98 @@ export class PeachWallet {
   syncWallet() {
     if (this.syncInProgress) return this.syncInProgress;
 
-    this.syncInProgress = new Promise((resolve, reject) =>
-      callWhenInternet(async () => {
+    const run = async () => {
+      try {
+        await new Promise<void>((resolve) => callWhenInternet(() => resolve()));
+
         if (!this.wallet || !this.client || !this.persister)
-          return reject(new Error("WALLET_NOT_READY"));
+          throw new Error("WALLET_NOT_READY");
 
         info("PeachWallet - syncWallet - start");
 
-        try {
-          const wallet = this.wallet;
-          const client = this.client;
-          const persister = this.persister;
+        const wallet = this.wallet;
+        const client = this.client;
+        const persister = this.persister;
 
-          info("PeachWallet - syncWallet - full scan start");
-          const fullScanRequest = wallet.startFullScan().build();
-          const update =
-            client instanceof ElectrumClient
-              ? await client.fullScan(
-                  fullScanRequest,
-                  BigInt(this.gapLimit),
-                  DEFAULT_BATCH_SIZE,
-                  false,
-                )
-              : await client.fullScan(
-                  fullScanRequest,
-                  BigInt(this.gapLimit),
-                  DEFAULT_PARALLEL_REQUESTS,
-                );
-          wallet.applyUpdate(update);
-          wallet.persist(persister);
-          if (!this.hasScanned) {
-            this.hasScanned = true;
-            useWalletState.getState().setHasScanned(true);
-          }
-
-          const balance = wallet.balance();
-          this.balance = Number(balance.total.toSat());
-          useWalletState.getState().setBalance(this.balance);
-
-          const canonicals = wallet.transactions();
-          info(`PeachWallet - syncWallet - found ${canonicals.length} txs`);
-          this.transactions = canonicals
-            .map((canonical) => {
-              try {
-                const sr = wallet.sentAndReceived(canonical.transaction);
-                let fee: bigint | undefined;
-                try {
-                  fee = wallet.calculateFee(canonical.transaction).toSat();
-                } catch {
-                  fee = undefined;
-                }
-                return canonicalTxToWalletTx(
-                  canonical,
-                  sr.sent.toSat(),
-                  sr.received.toSat(),
-                  fee,
-                );
-              } catch (e) {
-                error(
-                  "PeachWallet - syncWallet - tx map failed",
-                  parseError(e),
-                );
-                return undefined;
-              }
-            })
-            .filter((tx): tx is WalletTx => tx !== undefined);
-          useWalletState.getState().setTransactions(this.transactions);
-
-          const { offers, contracts } = await queryClient.fetchQuery({
-            queryKey: offerKeys.summariesForWallet(),
-            queryFn: getSummariesForWalletQuery,
-          });
-          this.transactions
-            .filter((tx) => !transactionHasBeenMappedToOffers(tx))
-            .forEach(mapTransactionToOffer({ offers, contracts }));
-          this.transactions
-            .filter(transactionHasBeenMappedToOffers)
-            .forEach(labelAddressByTransaction);
-
-          this.lastUnusedAddress = undefined;
-          this.lastUnusedAddressInternal = undefined;
-          info("PeachWallet - syncWallet - synced");
-
-          this.syncInProgress = undefined;
-          return resolve();
-        } catch (e) {
-          this.syncInProgress = undefined;
-          error(parseError(e));
-          return reject(new Error(parseError(e)));
+        const gapLimit =
+          useNodeConfigState.getState().gapLimit ?? this.gapLimit;
+        this.gapLimit = gapLimit;
+        info(`PeachWallet - syncWallet - full scan start (gap=${gapLimit})`);
+        const now = BigInt(Math.floor(Date.now() / 1000));
+        const fullScanRequest = wallet.startFullScanAt(now).build();
+        const update =
+          client instanceof ElectrumClient
+            ? await client.fullScan(
+                fullScanRequest,
+                BigInt(gapLimit),
+                DEFAULT_BATCH_SIZE,
+                false,
+              )
+            : await client.fullScan(
+                fullScanRequest,
+                BigInt(gapLimit),
+                DEFAULT_PARALLEL_REQUESTS,
+              );
+        wallet.applyUpdate(update);
+        wallet.persist(persister);
+        if (!this.hasScanned) {
+          this.hasScanned = true;
+          useWalletState.getState().setHasScanned(true);
         }
-      }),
-    );
+
+        const balance = wallet.balance();
+        this.balance = Number(balance.total.toSat());
+        useWalletState.getState().setBalance(this.balance);
+
+        const canonicals = wallet.transactions();
+        info(`PeachWallet - syncWallet - found ${canonicals.length} txs`);
+        this.transactions = canonicals
+          .map((canonical) => {
+            try {
+              const sr = wallet.sentAndReceived(canonical.transaction);
+              let fee: bigint | undefined;
+              try {
+                fee = wallet.calculateFee(canonical.transaction).toSat();
+              } catch {
+                fee = undefined;
+              }
+              return canonicalTxToWalletTx(
+                canonical,
+                sr.sent.toSat(),
+                sr.received.toSat(),
+                fee,
+              );
+            } catch (e) {
+              error("PeachWallet - syncWallet - tx map failed", parseError(e));
+              return undefined;
+            }
+          })
+          .filter((tx): tx is WalletTx => tx !== undefined);
+        useWalletState.getState().setTransactions(this.transactions);
+
+        const { offers, contracts } = await queryClient.fetchQuery({
+          queryKey: offerKeys.summariesForWallet(),
+          queryFn: getSummariesForWalletQuery,
+        });
+        this.transactions
+          .filter((tx) => !transactionHasBeenMappedToOffers(tx))
+          .forEach(mapTransactionToOffer({ offers, contracts }));
+        this.transactions
+          .filter(transactionHasBeenMappedToOffers)
+          .forEach(labelAddressByTransaction);
+
+        this.lastUnusedAddress = undefined;
+        this.lastUnusedAddressInternal = undefined;
+        info("PeachWallet - syncWallet - synced");
+      } catch (e) {
+        error(parseError(e));
+        throw new Error(parseError(e));
+      } finally {
+        this.syncInProgress = undefined;
+      }
+    };
+
+    this.syncInProgress = run();
     return this.syncInProgress;
   }
 

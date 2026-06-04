@@ -151,6 +151,10 @@
     "settings.filterAlerts": "Filtra avvisi",
   "settings.filterAlerts.description": "Attiva questa opzione per ricevere notifiche push quando vengono pubblicate nuove offerte che corrispondono alle tue preferenze",
   "offerCard.youSend": "invi",
-  "offerCard.youReceive": "ricevi"
+  "offerCard.youReceive": "ricevi",
+  "settings.walletGapLimit": "gap limit del portafoglio",
+  "settings.walletGapLimit.title": "gap limit del portafoglio",
+  "settings.walletGapLimit.description": "Valori più alti permettono alla sincronizzazione del portafoglio di controllare più indirizzi oltre l'ultimo utilizzato.\n\nAumenta questo valore se sospetti che manchi del saldo.",
+  "settings.walletGapLimit.recommended": "Consigliato: $0"
 
 }

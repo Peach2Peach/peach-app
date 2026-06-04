@@ -155,6 +155,10 @@
     "settings.filterAlerts": "Filtrer les alertes",
   "settings.filterAlerts.description": "Activez ceci pour recevoir des notifications push lorsque de nouvelles offres correspondant à vos préférences sont publiées",
   "offerCard.youSend": "vous envoyez",
-  "offerCard.youReceive": "vous recevez"
+  "offerCard.youReceive": "vous recevez",
+  "settings.walletGapLimit": "limite d'écart du portefeuille",
+  "settings.walletGapLimit.title": "limite d'écart du portefeuille",
+  "settings.walletGapLimit.description": "Des valeurs plus élevées permettent à la synchronisation du portefeuille de vérifier plus d'adresses au-delà de la dernière utilisée.\n\nAugmentez cette valeur si vous soupçonnez un solde manquant.",
+  "settings.walletGapLimit.recommended": "Recommandé : $0"
 
 }

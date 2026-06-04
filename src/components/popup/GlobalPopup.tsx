@@ -1,13 +1,16 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
-import { Modal, Pressable, View } from "react-native";
+import { Keyboard, Modal, Pressable, View } from "react-native";
 import tw from "../../styles/tailwind";
 
 const popupAtom = atom<React.ReactNode | null>(null);
 export const useSetPopup = () => useSetAtom(popupAtom);
 export const useClosePopup = () => {
   const setPopup = useSetPopup();
-  const closePopup = useCallback(() => setPopup(null), [setPopup]);
+  const closePopup = useCallback(() => {
+    Keyboard.dismiss();
+    setPopup(null);
+  }, [setPopup]);
   return closePopup;
 };
 

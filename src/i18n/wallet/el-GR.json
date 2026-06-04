@@ -103,6 +103,7 @@
   "wallet.withdrawAll": "αποστολή όλων",
   "wallet.withdrawTo": "αποστολή σε",
   "wallet.withdrawal": "στάλθηκαν",
-  "wallet.twelveWords.dontShare": "Μην το μοιραστείς ποτέ με κανέναν, ούτε καν με την \"υποστήριξη Peach\"" 
+  "wallet.twelveWords.dontShare": "Μην το μοιραστείς ποτέ με κανέναν, ούτε καν με την \"υποστήριξη Peach\"",
+  "wallet.missingBalance": "Σας λείπει υπόλοιπο; Δοκιμάστε να αυξήσετε το gap limit στις Ρυθμίσεις"
 
 }

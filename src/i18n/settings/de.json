@@ -155,6 +155,9 @@
     "settings.filterAlerts": "Benachrichtigungen filtern",
   "settings.filterAlerts.description": "Aktiviere dies, um Push-Benachrichtigungen zu erhalten, wenn neue Angebote veröffentlicht werden, die deinen Präferenzen entsprechen",
    "offerCard.youSend": "du sendest",
-  "offerCard.youReceive": "du erhältst"
-    
+  "offerCard.youReceive": "du erhältst",
+  "settings.walletGapLimit": "Wallet Gap-Limit",
+  "settings.walletGapLimit.title": "Wallet Gap-Limit",
+  "settings.walletGapLimit.description": "Höhere Werte lassen den Wallet-Sync mehr Adressen über deine zuletzt verwendete hinaus prüfen.\n\nErhöhe diesen Wert, wenn du vermutest, dass Guthaben fehlt.",
+  "settings.walletGapLimit.recommended": "Empfohlen: $0"
 }

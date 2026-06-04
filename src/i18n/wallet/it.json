@@ -103,5 +103,6 @@
   "wallet.withdrawAll": "invia tutto",
   "wallet.withdrawTo": "invia a",
   "wallet.withdrawal": "inviato",
-   "wallet.twelveWords.dontShare": "Non condividere mai questo con nessuno, nemmeno con \"il supporto Peach\""
+   "wallet.twelveWords.dontShare": "Non condividere mai questo con nessuno, nemmeno con \"il supporto Peach\"",
+  "wallet.missingBalance": "Ti manca del saldo? Prova ad aumentare il gap limit nelle Impostazioni"
 }
