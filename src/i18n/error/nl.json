@@ -1,4 +1,6 @@
 {
+  "COUNTRY_BLOCKED.text": "Helaas is Peach niet beschikbaar in jouw land ($0). Toegang vanaf deze locatie is momenteel beperkt.",
+  "COUNTRY_BLOCKED.title": "land niet toegestaan",
   "CANNOT_DOUBLEMATCH.text": "Deze match is niet gelukt. Waarschijnlijk trok de koper net zijn match in, of was een andere verkoper sneller.",
   "CANNOT_DOUBLEMATCH.title": "match mislukt",
   "CREATE_ESCROW_ERROR.text": "Er ging iets mis bij het aanmaken van de borg voor je aanbod. Probeer later opnieuw of neem contact op als dit blijft gebeuren.",

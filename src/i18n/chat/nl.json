@@ -9,6 +9,8 @@
   "chat.disputeDisclaimer.5": "Vermoed je problemen? Open een geschil via de rechterbovenhoek.",
   "chat.failedToSend": "bericht kon niet verzonden worden",
   "chat.mediator": "peach bemiddelaar",
+  "chat.support.present": "De Peach-klantenservice is momenteel aanwezig in deze chat",
+  "chat.support.notPresent": "De Peach-klantenservice is momenteel niet aanwezig in deze chat",
   "chat.systemMessage": "Peach systeembericht",
   "chat.systemMessage.dispute.outcome.buyerWins": "Het geschil is gewonnen door de koper, de reputatie van de verkoper is aangetast.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Het geschil is geannuleerd, reputatie niet aangetast.",

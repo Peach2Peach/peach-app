@@ -1,4 +1,6 @@
 {
+  "COUNTRY_BLOCKED.text": "Purtroppo Peach non è disponibile nel tuo paese ($0). L'accesso da questa posizione è attualmente limitato.",
+  "COUNTRY_BLOCKED.title": "paese non consentito",
   "CANNOT_DOUBLEMATCH.text": "Non è stato possibile fare il match. Probabilmente il compratore ha ritirato la sua offerta o un altro venditore è stato più veloce.",
   "CANNOT_DOUBLEMATCH.title": "Match non riuscito",
   "CREATE_ESCROW_ERROR.text": "Si è verificato un problema durante la creazione del deposito. Riprova più tardi o contattaci se persiste.",

@@ -104,6 +104,8 @@
   "wallet.withdrawTo": "tuma kwa",
   "wallet.withdrawal": "imetumwa",
   "wallet.twelveWords.dontShare": "Usiwahi kushiriki hili na mtu yeyote, hata \"msaada wa Peach\"",
+  "wallet.scanProgress.receiving": "Anwani $0 za kupokea zimechanganuliwa...",
+  "wallet.scanProgress.change": "Anwani $0 za chenji zimechanganuliwa...",
   "wallet.missingBalance": "Je, salio lako lina hitilafu? Jaribu kuongeza gap limit kwenye Mipangilio"
 
 }

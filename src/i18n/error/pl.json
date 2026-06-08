@@ -1,4 +1,6 @@
 {
+  "COUNTRY_BLOCKED.text": "Niestety Peach nie jest dostępny w Twoim kraju ($0). Dostęp z tej lokalizacji jest obecnie ograniczony.",
+  "COUNTRY_BLOCKED.title": "kraj niedozwolony",
   "CANNOT_DOUBLEMATCH.text": "Nie udało się dopasować oferty. Kupujący wycofał się lub inny sprzedawca był szybszy.",
   "CANNOT_DOUBLEMATCH.title": "Dopasowanie nieudane",
   "CREATE_ESCROW_ERROR.text": "Błąd przy tworzeniu kaucji. Spróbuj ponownie lub skontaktuj się z supportem.",

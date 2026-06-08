@@ -104,5 +104,7 @@
   "wallet.withdrawTo": "invia a",
   "wallet.withdrawal": "inviato",
    "wallet.twelveWords.dontShare": "Non condividere mai questo con nessuno, nemmeno con \"il supporto Peach\"",
+  "wallet.scanProgress.receiving": "$0 indirizzi di ricezione scansionati...",
+  "wallet.scanProgress.change": "$0 indirizzi di resto scansionati...",
   "wallet.missingBalance": "Ti manca del saldo? Prova ad aumentare il gap limit nelle Impostazioni"
 }

@@ -265,6 +265,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
         </View>
       }
     >
+      <SupportBanner present={contract.disputeActive} />
       <KeyboardAvoidingView
         style={tw`flex-1`}
         behavior="padding"
@@ -306,6 +307,26 @@ function ChatScreen({ contract }: { contract: Contract }) {
         )}
       </KeyboardAvoidingView>
     </Screen>
+  );
+}
+
+function SupportBanner({ present }: { present: boolean }) {
+  return (
+    <View
+      style={[
+        tw`mx-4 my-2 px-4 py-2 rounded-lg`,
+        present ? tw`bg-success-mild-1-color` : tw`bg-black-10`,
+      ]}
+    >
+      <PeachText
+        style={[
+          tw`text-center body-s`,
+          present ? tw`text-success-dark-1` : tw`text-black-50`,
+        ]}
+      >
+        {i18n(present ? "chat.support.present" : "chat.support.notPresent")}
+      </PeachText>
+    </View>
   );
 }
 

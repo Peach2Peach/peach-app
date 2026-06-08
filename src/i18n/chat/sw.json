@@ -9,6 +9,8 @@
   "chat.disputeDisclaimer.5": "Ukihisi kuna tatizo, fungua mzozo upande wa juu kulia.",
   "chat.failedToSend": "Haikuwezekana kutuma ujumbe",
   "chat.mediator": "Msuluhishi wa Peach",
+  "chat.support.present": "Huduma kwa Wateja ya Peach kwa sasa ipo katika gumzo hili",
+  "chat.support.notPresent": "Huduma kwa Wateja ya Peach kwa sasa haipo katika gumzo hili",
   "chat.systemMessage": "Ujumbe wa mfumo wa Peach",
   "chat.systemMessage.dispute.outcome.buyerWins": "Mzozo umeamuliwa kwa faida ya mnunuzi; sifa ya muuzaji imeathirika.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Mzozo umeahirishwa; sifa yako haijaathirika.",

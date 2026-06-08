@@ -1,4 +1,6 @@
 {
+  "COUNTRY_BLOCKED.text": "Leider ist Peach in deinem Land ($0) nicht verfügbar. Der Zugriff von diesem Standort ist derzeit eingeschränkt.",
+  "COUNTRY_BLOCKED.title": "Land nicht erlaubt",
   "CANNOT_DOUBLEMATCH.text": "Dieser Auftrag konnte nicht ausgeführt werden. Käufer hat vermutlich zurückgezogen oder ein anderer Verkäufer war schneller.",
   "CANNOT_DOUBLEMATCH.title": "Match fehlgeschlagen",
   "CREATE_ESCROW_ERROR.text": "Fehler beim Erstellen der Escrow. Bitte später erneut versuchen oder Support kontaktieren.",

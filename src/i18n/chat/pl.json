@@ -9,6 +9,8 @@
   "chat.disputeDisclaimer.5": "W razie problemów możesz otworzyć spór w prawym górnym rogu.",
   "chat.failedToSend": "Nie można wysłać wiadomości",
   "chat.mediator": "Mediator Peach",
+  "chat.support.present": "Obsługa klienta Peach jest obecnie obecna na tym czacie",
+  "chat.support.notPresent": "Obsługa klienta Peach jest obecnie nieobecna na tym czacie",
   "chat.systemMessage": "Wiadomość systemowa Peach",
   "chat.systemMessage.dispute.outcome.buyerWins": "Spór rozstrzygnięto na korzyść kupującego, reputacja sprzedawcy nadszarpnięta.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Spór anulowany, reputacja bez zmian.",

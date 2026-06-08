@@ -104,5 +104,7 @@
   "wallet.withdrawTo": "An folgende Adresse senden",
   "wallet.withdrawal": "Gesendet",
   "wallet.twelveWords.dontShare": "Teile dies niemals mit irgendjemandem, auch nicht mit \"Peach Support\"",
+  "wallet.scanProgress.receiving": "$0 Empfangsadressen gescannt...",
+  "wallet.scanProgress.change": "$0 Wechselgeldadressen gescannt...",
   "wallet.missingBalance": "Fehlt dir Guthaben? Versuche, das Gap-Limit in den Einstellungen zu erhöhen"
 }

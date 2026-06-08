@@ -10,6 +10,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { useWalletSyncStore } from "../../utils/wallet/walletSyncStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TotalBalance, WalletHeader } from "./components";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
@@ -21,7 +22,29 @@ export const Wallet = () => {
   const [fundAddressMessage, setFundAddressMessage] = useState("");
   const { refetch, isRefetching, isLoading } = useSyncWallet({ enabled: true });
   const { isDarkMode } = useThemeStore();
-  if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
+  const externalScanProgress = useWalletSyncStore(
+    (state) => state.externalScanProgress,
+  );
+  const internalScanProgress = useWalletSyncStore(
+    (state) => state.internalScanProgress,
+  );
+  const scanProgressLines = [
+    externalScanProgress !== null
+      ? i18n("wallet.scanProgress.receiving", String(externalScanProgress))
+      : null,
+    // change addresses are only scanned once the receiving addresses are done
+    internalScanProgress !== null
+      ? i18n("wallet.scanProgress.change", String(internalScanProgress))
+      : null,
+  ].filter((line): line is string => line !== null);
+
+  if (isLoading)
+    return (
+      <BitcoinLoading
+        text={i18n("wallet.loading")}
+        subtext={scanProgressLines.join("\n") || undefined}
+      />
+    );
 
   const hintColor = isDarkMode ? tw.color("black-65") : tw.color("black-25");
 
@@ -40,6 +63,14 @@ export const Wallet = () => {
             ? i18n("walletIsRefreshing")
             : i18n("slideDownToRefresh")}
         </PeachText>
+        {scanProgressLines.map((line) => (
+          <PeachText
+            key={line}
+            style={[tw`text-xs text-center mb-1`, { color: hintColor }]}
+          >
+            {line}
+          </PeachText>
+        ))}
         <WarningFrame text={i18n("wallet.seedPhraseWarning")} />
         <TotalBalance amount={balance} isRefreshing={isRefetching} />
         <PeachText

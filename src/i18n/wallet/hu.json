@@ -104,5 +104,7 @@
   "wallet.withdrawTo": "címzett",
   "wallet.withdrawal": "küldve",
   "wallet.twelveWords.dontShare": "Soha ne oszd meg ezt senkivel, még a \"Peach ügyfélszolgálattal\" sem",
+  "wallet.scanProgress.receiving": "$0 fogadó cím beolvasva...",
+  "wallet.scanProgress.change": "$0 visszajáró cím beolvasva...",
   "wallet.missingBalance": "Hiányzik az egyenleged? Próbáld növelni a gap limitet a Beállításokban"
 }

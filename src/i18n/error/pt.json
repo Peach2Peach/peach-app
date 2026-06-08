@@ -1,4 +1,6 @@
 {
+  "COUNTRY_BLOCKED.text": "Infelizmente, o Peach não está disponível no seu país ($0). O acesso a partir desta localização está atualmente restrito.",
+  "COUNTRY_BLOCKED.title": "país não permitido",
   "CANNOT_DOUBLEMATCH.text": "Não conseguimos fazer essa correspondência. O comprador provavelmente acabou de cancelar a correspondência consigo, ou outro vendedor foi mais rápido.",
   "CANNOT_DOUBLEMATCH.title": "A correspondência falhou",
   "CREATE_ESCROW_ERROR.text": "Ops, algo deu errado ao criar o depósito para a sua oferta! Por favor, tente novamente mais tarde ou contacte-nos se o erro persistir.",

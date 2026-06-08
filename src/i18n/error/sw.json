@@ -1,4 +1,6 @@
 {
+  "COUNTRY_BLOCKED.text": "Kwa bahati mbaya, Peach haipatikani katika nchi yako ($0). Ufikiaji kutoka eneo hili umezuiwa kwa sasa.",
+  "COUNTRY_BLOCKED.title": "nchi hairuhusiwi",
   "CANNOT_DOUBLEMATCH.text": "Usawa haukufanyika. Mnunuzi labda alijiondoa au muuzaji mwingine alikuwa haraka zaidi.",
   "CANNOT_DOUBLEMATCH.title": "Usawa umeshindwa",
   "CREATE_ESCROW_ERROR.text": "Tatizo lilitokea wakati wa kuunda escrow. Jaribu tena baadaye, au wasiliana nasi ikiwa litaendelea.",

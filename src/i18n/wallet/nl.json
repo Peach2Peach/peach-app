@@ -104,5 +104,7 @@
   "wallet.withdrawTo": "Sturen naar",
   "wallet.withdrawal": "Verstuurd",
    "wallet.twelveWords.dontShare": "Deel dit nooit met iemand, ook niet met \"Peach support\"",
+  "wallet.scanProgress.receiving": "$0 ontvangstadressen gescand...",
+  "wallet.scanProgress.change": "$0 wisseladressen gescand...",
   "wallet.missingBalance": "Mis je saldo? Probeer de gap limit in de Instellingen te verhogen"
 }

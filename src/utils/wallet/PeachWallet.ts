@@ -51,6 +51,7 @@ import { mapTransactionToOffer } from "./mapTransactionToOffer";
 import { NodeConfig, useNodeConfigState } from "./nodeConfigStore";
 import { BuildTxParams, buildTransaction } from "./transaction";
 import { transactionHasBeenMappedToOffers } from "./transactionHasBeenMappedToOffers";
+import { useWalletSyncStore } from "./walletSyncStore";
 import { useWalletState } from "./walletStore";
 
 const MIN_VERSION_FOR_SQLITE = 16;
@@ -286,8 +287,28 @@ export class PeachWallet {
           useNodeConfigState.getState().gapLimit ?? this.gapLimit;
         this.gapLimit = gapLimit;
         info(`PeachWallet - syncWallet - full scan start (gap=${gapLimit})`);
+        let externalScanned = 0;
+        let internalScanned = 0;
+        useWalletSyncStore.getState().setExternalScanProgress(0);
         const now = BigInt(Math.floor(Date.now() / 1000));
-        const fullScanRequest = wallet.startFullScanAt(now).build();
+        const fullScanRequest = wallet
+          .startFullScanAt(now)
+          .inspectSpksForAllKeychains({
+            inspect: (keychain) => {
+              if (keychain === KeychainKind.Internal) {
+                internalScanned += 1;
+                useWalletSyncStore
+                  .getState()
+                  .setInternalScanProgress(internalScanned);
+              } else {
+                externalScanned += 1;
+                useWalletSyncStore
+                  .getState()
+                  .setExternalScanProgress(externalScanned);
+              }
+            },
+          })
+          .build();
         const update =
           client instanceof ElectrumClient
             ? await client.fullScan(
@@ -357,6 +378,7 @@ export class PeachWallet {
         throw new Error(parseError(e));
       } finally {
         this.syncInProgress = undefined;
+        useWalletSyncStore.getState().resetScanProgress();
       }
     };
 

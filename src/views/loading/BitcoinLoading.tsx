@@ -7,9 +7,11 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 type Props = {
   text?: string;
+  subtext?: string;
 };
-export const BitcoinLoading = ({ text }: Props) => {
+export const BitcoinLoading = ({ text, subtext }: Props) => {
   const { isDarkMode } = useThemeStore();
+  const hintColor = isDarkMode ? tw.color("black-65") : tw.color("black-25");
 
   return (
     <View style={tw`items-center justify-center flex-1 gap-8`}>
@@ -20,14 +22,21 @@ export const BitcoinLoading = ({ text }: Props) => {
           resizeMode="cover"
         />
       </View>
-      <PeachText
-        style={[
-          tw`text-center subtitle-1`,
-          isDarkMode ? tw`text-primary-mild-1` : tw`text-black-100`,
-        ]}
-      >
-        {text || i18n("loading")}
-      </PeachText>
+      <View style={tw`items-center gap-2`}>
+        <PeachText
+          style={[
+            tw`text-center subtitle-1`,
+            isDarkMode ? tw`text-primary-mild-1` : tw`text-black-100`,
+          ]}
+        >
+          {text || i18n("loading")}
+        </PeachText>
+        {!!subtext && (
+          <PeachText style={[tw`text-xs text-center`, { color: hintColor }]}>
+            {subtext}
+          </PeachText>
+        )}
+      </View>
     </View>
   );
 };

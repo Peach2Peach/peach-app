@@ -106,5 +106,7 @@
   "wallet.twelveWords.dontShare" : "Don’t ever share this with anyone, including “Peach support”",
   "slideDownToRefresh": "slide down to refresh",
   "walletIsRefreshing": "refreshing...",
+  "wallet.scanProgress.receiving": "scanned $0 receiving addresses...",
+  "wallet.scanProgress.change": "scanned $0 change addresses...",
   "wallet.missingBalance": "are you missing some balance? try increasing the gap limit in the Settings"
 }

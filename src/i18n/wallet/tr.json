@@ -103,6 +103,8 @@
   "wallet.withdrawTo": "Alıcı",
   "wallet.withdrawal": "Gönderildi",
   "wallet.twelveWords.dontShare": "Bunu \"Peach destek\" dahil kimseyle ASLA paylaşma",
+  "wallet.scanProgress.receiving": "$0 alıcı adresi tarandı...",
+  "wallet.scanProgress.change": "$0 para üstü adresi tarandı...",
   "wallet.missingBalance": "Bakiyeniz eksik mi? Ayarlarda gap limitini artırmayı deneyin"
 
 }

@@ -9,6 +9,8 @@
   "chat.disputeDisclaimer.5": "Если что-то пошло не так, откройте спор через кнопку вверху справа.",
   "chat.failedToSend": "не удалось отправить сообщение.",
   "chat.mediator": "арбитр Peach",
+  "chat.support.present": "Служба поддержки Peach сейчас присутствует в этом чате",
+  "chat.support.notPresent": "Служба поддержки Peach сейчас отсутствует в этом чате",
   "chat.systemMessage": "системное сообщение от Peach",
   "chat.systemMessage.dispute.outcome.buyerWins": "Спор решён в пользу покупателя, репутация продавца снижена.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Спор отменён, репутация не пострадала.",

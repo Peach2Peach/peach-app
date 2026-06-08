@@ -9,6 +9,8 @@
   "chat.disputeDisclaimer.5": "Si algo parece ir mal, puedes abrir una disputa desde la parte superior derecha.",
   "chat.failedToSend": "no se pudo enviar el mensaje.",
   "chat.mediator": "mediador de Peach",
+  "chat.support.present": "El Soporte al Cliente de Peach está actualmente presente en este chat",
+  "chat.support.notPresent": "El Soporte al Cliente de Peach no está actualmente presente en este chat",
   "chat.systemMessage": "mensaje del sistema Peach",
   "chat.systemMessage.dispute.outcome.buyerWins": "La disputa se resolvió a favor del comprador; la reputación del vendedor se ha visto afectada.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "La disputa se canceló, tu reputación no se ha visto afectada.",

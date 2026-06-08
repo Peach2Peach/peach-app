@@ -1,4 +1,6 @@
 {
+  "COUNTRY_BLOCKED.text": "Maalesef Peach ülkenizde ($0) kullanılamıyor. Bu konumdan erişim şu anda kısıtlanmıştır.",
+  "COUNTRY_BLOCKED.title": "ülkeye izin verilmiyor",
   "CANNOT_DOUBLEMATCH.text": "Bu eşleşme başarısız oldu. Alıcı eşleşmeyi geri çekmiş olabilir veya başka bir satıcı daha hızlı davrandı.",
   "CANNOT_DOUBLEMATCH.title": "Eşleşme başarısız",
   "CREATE_ESCROW_ERROR.text": "Teklifiniz için emanet oluşturulurken bir hata oluştu. Daha sonra tekrar deneyin veya destek ile iletişime geçin.",

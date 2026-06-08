@@ -104,6 +104,8 @@
   "wallet.withdrawTo": "αποστολή σε",
   "wallet.withdrawal": "στάλθηκαν",
   "wallet.twelveWords.dontShare": "Μην το μοιραστείς ποτέ με κανέναν, ούτε καν με την \"υποστήριξη Peach\"",
+  "wallet.scanProgress.receiving": "Σαρώθηκαν $0 διευθύνσεις λήψης...",
+  "wallet.scanProgress.change": "Σαρώθηκαν $0 διευθύνσεις ρέστων...",
   "wallet.missingBalance": "Σας λείπει υπόλοιπο; Δοκιμάστε να αυξήσετε το gap limit στις Ρυθμίσεις"
 
 }

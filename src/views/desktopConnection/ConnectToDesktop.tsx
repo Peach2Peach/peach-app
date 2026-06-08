@@ -1,16 +1,18 @@
 import { NETWORK } from "@env";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Loading } from "../../components/Loading";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
+import { Button } from "../../components/buttons/Button";
 import { ScanQR } from "../../components/camera/ScanQR";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { useQRScanner } from "../../hooks/useQRScanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import tw from "../../styles/tailwind";
@@ -22,8 +24,11 @@ import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 
 export const ConnectToDesktop = () => {
+  const navigation = useStackNavigation();
   const [failed, setFailed] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const goToSettings = () => navigation.navigate("settings");
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
   const account = useAccountStore.getState().account;
@@ -41,20 +46,34 @@ export const ConnectToDesktop = () => {
     .neutered()
     .toBase58();
 
+  // The camera native module can emit several QR frames in rapid succession
+  // before closeQR() propagates through React state, causing onSuccess to
+  // fire multiple times. Subsequent calls race the first and can fail, which
+  // would surface as a red box.
+  const processingRef = useRef(false);
+
   const onSuccess = async (data: string) => {
-    const desktopConnectionData = parseDesktopConnectionQRCode(data);
+    if (processingRef.current) return;
+    processingRef.current = true;
 
-    if (desktopConnectionData) {
-      await encryptAndSubmitDesktopConnectionData(
-        desktopConnectionData,
-        peachPGPPublicKey,
-        account.pgp.privateKey,
-        xpub,
-        multisigXpub,
-      );
+    try {
+      const desktopConnectionData = parseDesktopConnectionQRCode(data);
 
-      setSuccess(true);
-    } else {
+      if (desktopConnectionData) {
+        await encryptAndSubmitDesktopConnectionData(
+          desktopConnectionData,
+          peachPGPPublicKey,
+          account.pgp.privateKey,
+          xpub,
+          multisigXpub,
+        );
+
+        setSuccess(true);
+      } else {
+        setFailed(true);
+      }
+    } catch (err) {
+      console.log("ConnectToDesktop onSuccess failed", err);
       setFailed(true);
     }
   };
@@ -99,6 +118,9 @@ export const ConnectToDesktop = () => {
               <PeachText style={tw`body-m text-black-65 text-center`}>
                 {i18n("connectToDesktop.success.description")}
               </PeachText>
+              <Button onPress={goToSettings} style={tw`mt-2`}>
+                {i18n("done")}
+              </Button>
             </>
           )}
           {failed && (

@@ -2,8 +2,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useEffect, useState } from "react";
 import BootSplash from "react-native-bootsplash";
 import { useSetPopup } from "../components/popup/GlobalPopup";
-import { useSetToast } from "../components/toast/Toast";
+import { useSetPriorityToast, useSetToast } from "../components/toast/Toast";
 import { useStackNavigation } from "../hooks/useStackNavigation";
+import { checkBlockedCountry } from "../init/checkBlockedCountry";
 import { requestUserPermissions } from "../init/requestUserPermissions";
 import { useInitApp } from "../init/useInitApp";
 import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPopup";
@@ -43,13 +44,26 @@ export function Screens() {
   useGlobalHandlers();
 
   const setToast = useSetToast();
+  const setPriorityToast = useSetPriorityToast();
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const initApp = useInitApp();
   useEffect(() => {
     const initialize = async () => {
-      const statusResponse = await initApp();
-      if (!statusResponse || statusResponse.error) {
+      const [blockedCountry, statusResponse] = await Promise.all([
+        checkBlockedCountry(),
+        initApp(),
+      ]);
+      if (blockedCountry) {
+        // a blocked country explains any init failure, so prefer this message
+        // and use a priority toast so background errors can't override it
+        setPriorityToast({
+          msgKey: "COUNTRY_BLOCKED",
+          bodyArgs: [blockedCountry],
+          color: "red",
+          keepAlive: true,
+        });
+      } else if (!statusResponse || statusResponse.error) {
         if (statusResponse?.error === "HUMAN_VERIFICATION_REQUIRED") {
           setPopup(<VerifyYouAreAHumanPopup />);
         } else {
@@ -80,6 +94,7 @@ export function Screens() {
     setIsLoading,
     setPopup,
     setToast,
+    setPriorityToast,
   ]);
 
   return (

@@ -257,7 +257,12 @@ function InstantTrade() {
   );
   const setPopup = useSetPopup();
   const onHelpIconPress = () => {
-    setPopup(<HelpPopup id="instantTradeBuyOffer" />);
+    setPopup(
+      <HelpPopup
+        id="instantTradeBuyOffer"
+        boldFooterId="help.instantTradeBuyOffer.attention"
+      />,
+    );
     setHasSeenPopup(true);
   };
 

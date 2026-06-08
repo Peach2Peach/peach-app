@@ -9,6 +9,8 @@
   "chat.disputeDisclaimer.5": "Ha valami gyanús, a jobb felső sarokban vitát indíthatsz.",
   "chat.failedToSend": "Az üzenet küldése sikertelen.",
   "chat.mediator": "Peach közvetítő",
+  "chat.support.present": "A Peach ügyfélszolgálat jelenleg jelen van ebben a csevegésben",
+  "chat.support.notPresent": "A Peach ügyfélszolgálat jelenleg nincs jelen ebben a csevegésben",
   "chat.systemMessage": "Peach rendszerüzenet",
   "chat.systemMessage.dispute.outcome.buyerWins": "A vita a vásárló javára dőlt, az eladó hírneve csorbát szenvedett.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "A vita lezárult, a hírneved érintetlen maradt.",

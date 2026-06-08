@@ -42,6 +42,12 @@ const levelColorMap: LevelColorMap = {
 const toastAtom = atom<ToastState | null>(null);
 export const useSetToast = () => useSetAtom(toastAtom);
 
+// Takes precedence over the regular toast and is never replaced by it, so a
+// blocking warning (e.g. a blocked country) can't be overridden by background
+// toasts like network errors. It only clears when the user dismisses it.
+const priorityToastAtom = atom<ToastState | null>(null);
+export const useSetPriorityToast = () => useSetAtom(priorityToastAtom);
+
 const slideAnimation = (value: Animated.Value, toValue: number) =>
   Animated.timing(value, {
     toValue,
@@ -54,21 +60,29 @@ const MIN_SWIPE_DISTANCE = 70;
 
 export const Toast = () => {
   const toastState = useAtomValue(toastAtom);
+  const priorityToastState = useAtomValue(priorityToastAtom);
   const setToast = useSetToast();
-  const closeToast = useCallback(() => setToast(null), [setToast]);
+  const setPriorityToast = useSetPriorityToast();
+  const closeToast = useCallback(() => {
+    setToast(null);
+    setPriorityToast(null);
+  }, [setToast, setPriorityToast]);
+
+  // a priority toast always wins over a regular one
+  const activeToast = priorityToastState ?? toastState;
 
   const { height } = useWindowDimensions();
   const top = useRef(new Animated.Value(-height)).current;
 
   useEffect(() => {
     let animation: Animated.CompositeAnimation;
-    if (toastState) {
+    if (activeToast) {
       animation = Animated.sequence([
         slideAnimation(top, 0),
         Animated.delay(DELAY),
       ]);
       animation.start(({ finished }) => {
-        if (finished && !toastState.keepAlive)
+        if (finished && !activeToast.keepAlive)
           slideAnimation(top, -height).start(closeToast);
       });
     } else {
@@ -76,7 +90,7 @@ export const Toast = () => {
       animation.start();
     }
     return () => animation.stop();
-  }, [closeToast, height, toastState, top]);
+  }, [closeToast, height, activeToast, top]);
 
   const insets = useSafeAreaInsets();
   const panResponder = useRef(
@@ -95,8 +109,8 @@ export const Toast = () => {
     }),
   ).current;
 
-  if (!toastState) return null;
-  const { color: toastColor, msgKey, bodyArgs = [], action } = toastState;
+  if (!activeToast) return null;
+  const { color: toastColor, msgKey, bodyArgs = [], action } = activeToast;
 
   const icon = iconMap[msgKey];
   let title = i18n(`${msgKey}.title`);
@@ -144,6 +158,7 @@ export const Toast = () => {
             iconId="xSquare"
             label={i18n("close")}
             color={color}
+            onPress={closeToast}
             style={tw`flex-row-reverse`}
           />
         </View>

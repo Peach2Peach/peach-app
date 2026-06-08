@@ -104,6 +104,8 @@
   "wallet.withdrawTo": "Відправити на",
   "wallet.withdrawal": "Відправлено",
   "wallet.twelveWords.dontShare": "Ніколи не діліться цим ні з ким, включно зі \"службою підтримки Peach\"",
+  "wallet.scanProgress.receiving": "Проскановано $0 адрес отримання...",
+  "wallet.scanProgress.change": "Проскановано $0 адрес решти...",
   "wallet.missingBalance": "Бракує балансу? Спробуйте збільшити gap limit у Налаштуваннях"
 
 }

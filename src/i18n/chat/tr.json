@@ -9,6 +9,8 @@
   "chat.disputeDisclaimer.5": "Bir sorun olduğunu düşünüyorsanız, sağ üstten anlaşmazlık başlatabilirsiniz.",
   "chat.failedToSend": "Mesaj gönderilemedi.",
   "chat.mediator": "Peach arabulucu",
+  "chat.support.present": "Peach Müşteri Desteği şu anda bu sohbette mevcut",
+  "chat.support.notPresent": "Peach Müşteri Desteği şu anda bu sohbette mevcut değil",
   "chat.systemMessage": "Peach sistem mesajı",
   "chat.systemMessage.dispute.outcome.buyerWins": "Anlaşmazlık alıcı lehine sonuçlandı, satıcının itibarı etkilendi.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Anlaşmazlık iptal edildi, itibarınız etkilenmedi.",

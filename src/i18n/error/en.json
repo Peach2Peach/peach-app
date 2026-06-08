@@ -4,6 +4,8 @@
   "CANNOT_DOUBLEMATCH.title": "match failed",
   "CREATE_ESCROW_ERROR.text": "Oops, something went wrong while creating the escrow for your offer! Please try again later, or contact us if the error persists.",
   "CREATE_ESCROW_ERROR.title": "escrow not created",
+  "COUNTRY_BLOCKED.text": "Unfortunately, Peach is not available in your country ($0). Access from this location is currently restricted.",
+  "COUNTRY_BLOCKED.title": "country not allowed",
   "CRITICAL_UPDATE_AVAILABLE.text": "This update has some critical fixes. You cannot continue using your current version.",
   "CRITICAL_UPDATE_AVAILABLE.title": "critical update available!",
   "DAILY_TRADING_LIMIT_REACHED.text": "You've hit the daily trading limit. Check back tomorrow!",
