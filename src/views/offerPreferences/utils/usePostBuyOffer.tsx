@@ -22,7 +22,12 @@ const isForbiddenPaypalError = (
   typeof errorDetails === "object" &&
   errorDetails !== null &&
   "paymentMethod" in errorDetails &&
-  (errorDetails as { paymentMethod: unknown }).paymentMethod === "paypal";
+  (errorDetails as { paymentMethod: unknown }).paymentMethod === "paypal" &&
+  "unmetReasons" in errorDetails &&
+  Array.isArray((errorDetails as { unmetReasons: unknown }).unmetReasons) &&
+  (errorDetails as { unmetReasons: unknown[] }).unmetReasons.every(
+    (reason) => typeof reason === "string",
+  );
 
 export function usePostBuyOffer({
   amount,
