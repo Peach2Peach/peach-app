@@ -55,6 +55,8 @@ function storePeachInfo(peachInfo: GetInfoResponseBody) {
     setPaymentMethods: setPaymentMethodsStore,
     setPeachFee,
     setPeachPGPPublicKey,
+    setWebAppAvailable,
+    setShowPasteDesktopConnection,
   } = useConfigStore.getState();
 
   const paymentMethods = peachInfo.paymentMethods.filter(
@@ -64,6 +66,8 @@ function storePeachInfo(peachInfo: GetInfoResponseBody) {
   setPaymentMethodsStore(paymentMethods);
   setPaymentMethods(paymentMethods);
   setPeachFee(peachInfo.fees.escrow);
+  setWebAppAvailable(peachInfo.webAppAvailable ?? false);
+  setShowPasteDesktopConnection(peachInfo.showPasteDesktopConnection ?? false);
 }
 
 /**

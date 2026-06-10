@@ -1,5 +1,4 @@
 import { stat } from "@dr.pogodin/react-native-fs";
-import { NETWORK } from "@env";
 import { useFocusEffect } from "@react-navigation/native";
 import { KeychainKind } from "bdk-rn";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -18,6 +17,7 @@ import { BUNDLEID, UNIQUEID } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
+import { useConfigStore } from "../../store/configStore/configStore";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
@@ -30,31 +30,6 @@ import { useNodeConfigState } from "../../utils/wallet/nodeConfigStore";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { SettingsItem } from "./components/SettingsItem";
 import { VersionInfo } from "./components/VersionInfo";
-
-const contactUs = isProduction()
-  ? NETWORK === "regtest"
-    ? ([
-        "connectToDesktop",
-        "pasteDesktopConnection",
-        "mobilePendingActions",
-        "contact",
-        "aboutPeach",
-      ] as const)
-    : ([
-        // "connectToDesktop",
-        // "mobilePendingActions",
-        // "pasteDesktopConnection", //
-        "contact",
-        "aboutPeach",
-      ] as const)
-  : ([
-      "connectToDesktop",
-      "pasteDesktopConnection",
-      "mobilePendingActions",
-      "testView",
-      "contact",
-      "aboutPeach",
-    ] as const);
 
 const SECRET_TAP_COUNT = 7;
 const SECRET_TAP_WINDOW_MS = 500;
@@ -108,6 +83,26 @@ export const Settings = () => {
       ],
       shallow,
     );
+
+  const webAppAvailable = useConfigStore((state) => state.webAppAvailable);
+  const showPasteDesktopConnection = useConfigStore(
+    (state) => state.showPasteDesktopConnection,
+  );
+
+  const contactUs = useMemo(() => {
+    const showDesktopItems = webAppAvailable || showDebugIds;
+    const items = [
+      showDesktopItems && ("connectToDesktop" as const),
+      showPasteDesktopConnection && ("pasteDesktopConnection" as const),
+      showDesktopItems && ("mobilePendingActions" as const),
+      !isProduction() && ("testView" as const),
+      "contact" as const,
+      "aboutPeach" as const,
+    ];
+    return items.filter(
+      (item): item is Exclude<typeof item, false> => item !== false,
+    );
+  }, [webAppAvailable, showPasteDesktopConnection, showDebugIds]);
 
   useFocusEffect(
     useCallback(() => {

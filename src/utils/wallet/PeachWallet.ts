@@ -21,7 +21,7 @@ import {
 } from "bdk-rn";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
-import { Platform } from "react-native";
+import { InteractionManager, Platform } from "react-native";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { getSummariesForWalletQuery } from "../../hooks/query/useOfferSummaries";
 import { queryClient } from "../../queryClient";
@@ -203,6 +203,16 @@ export class PeachWallet {
               );
             }
           }
+
+          // The BDK v3 bindings below (Persister.newSqlite / Wallet.load) are
+          // synchronous JSI calls that block the JS thread for their full
+          // duration. At startup that thread is also handling the PIN overlay's
+          // first touch, so the load janks the first tap. Yield until pending
+          // interactions settle so the overlay can mount and stay responsive
+          // before we block.
+          await new Promise<void>((r) =>
+            InteractionManager.runAfterInteractions(() => r()),
+          );
 
           info("PeachWallet - initWallet - createPersister");
           this.persister = useMemory

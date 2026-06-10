@@ -2,6 +2,7 @@ import { TouchableOpacity, ViewStyle } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
+import { RainbowText } from "../../../components/text/RainbowText";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
@@ -23,7 +24,8 @@ type SettingsTitle =
   | "aboutPeach"
   | "testView"
   | "connectToDesktop"
-  | "pasteDesktopConnection";
+  | "pasteDesktopConnection"
+  | "mobilePendingActions";
 
 export type SettingsItemProps = (
   | {
@@ -67,14 +69,21 @@ export const SettingsItem = ({
       style={tw`flex-row items-center justify-between`}
       onPress={onPress}
     >
-      <PeachText
-        style={[
-          tw`settings ${isDarkMode ? "text-black-25" : "text-black-65"}`,
-          warning && tw`text-error-main`,
-        ]}
-      >
-        {i18n(`settings.${title}`)}
-      </PeachText>
+      {title === "connectToDesktop" ? (
+        <RainbowText
+          text={i18n(`settings.${title}`)}
+          style={tw`settings`}
+        />
+      ) : (
+        <PeachText
+          style={[
+            tw`settings ${isDarkMode ? "text-black-25" : "text-black-65"}`,
+            warning && tw`text-error-main`,
+          ]}
+        >
+          {i18n(`settings.${title}`)}
+        </PeachText>
+      )}
       <Icon
         id={iconId || "chevronRight"}
         style={iconSize || tw`w-8 h-8`}

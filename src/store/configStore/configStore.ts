@@ -11,6 +11,8 @@ type Config = {
   minTradingAmount: number;
   maxTradingAmount: number;
   seenDisputeDisclaimer: boolean;
+  webAppAvailable: boolean;
+  showPasteDesktopConnection: boolean;
 };
 type ConfigStore = Config & {
   reset: () => void;
@@ -20,6 +22,8 @@ type ConfigStore = Config & {
   setMinTradingAmount: (minTradingAmount: number) => void;
   setMaxTradingAmount: (maxTradingAmount: number) => void;
   setSeenDisputeDisclaimer: (seenDisputeDisclaimer: boolean) => void;
+  setWebAppAvailable: (webAppAvailable: boolean) => void;
+  setShowPasteDesktopConnection: (showPasteDesktopConnection: boolean) => void;
 };
 
 export const configStorage = createStorage("config");
@@ -32,6 +36,8 @@ export const defaultConfig: Config = {
   minTradingAmount: 0,
   maxTradingAmount: Infinity,
   seenDisputeDisclaimer: false,
+  webAppAvailable: false,
+  showPasteDesktopConnection: false,
 };
 
 export const useConfigStore = create(
@@ -46,6 +52,9 @@ export const useConfigStore = create(
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
       setSeenDisputeDisclaimer: (seenDisputeDisclaimer) =>
         set({ seenDisputeDisclaimer }),
+      setWebAppAvailable: (webAppAvailable) => set({ webAppAvailable }),
+      setShowPasteDesktopConnection: (showPasteDesktopConnection) =>
+        set({ showPasteDesktopConnection }),
     }),
     {
       name: "config",
