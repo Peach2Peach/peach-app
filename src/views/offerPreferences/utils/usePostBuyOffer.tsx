@@ -14,13 +14,15 @@ import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoi
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 
-const isForbiddenPaymentMethodError = (
+const isForbiddenPaypalError = (
   errorMessage: string | null,
   errorDetails: unknown,
-): errorDetails is PaymentMethod[] =>
-  errorMessage === "FORBIDDEN" &&
-  Array.isArray(errorDetails) &&
-  errorDetails.every((detail) => detail === "paypal");
+): errorDetails is { paymentMethod: string; unmetReasons: string[] } =>
+  errorMessage === "UNAUTHORIZED" &&
+  typeof errorDetails === "object" &&
+  errorDetails !== null &&
+  "paymentMethod" in errorDetails &&
+  (errorDetails as { paymentMethod: unknown }).paymentMethod === "paypal";
 
 export function usePostBuyOffer({
   amount,
@@ -36,10 +38,13 @@ export function usePostBuyOffer({
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
-  const showHelp = () =>
-    setPopup(
-      <InfoPopup content={i18n("FORBIDDEN_PAYMENT_METHOD.paypal.text")} />,
-    );
+  const showHelp = (unmetReasons: string[]) => {
+    const intro = i18n("FORBIDDEN_PAYMENT_METHOD.paypal.intro");
+    const reasons = unmetReasons
+      .map((r) => `• ${i18n(`FORBIDDEN_PAYMENT_METHOD.paypal.${r}`)}`)
+      .join("\n");
+    setPopup(<InfoPopup content={`${intro}\n\n${reasons}`} />);
+  };
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
     useSettingsStore(
@@ -108,9 +113,8 @@ export function usePostBuyOffer({
       });
     },
     onError: ({ message, cause }: Error) => {
-      if (isForbiddenPaymentMethodError(message, cause)) {
-        const paymentMethod = cause.pop();
-        if (paymentMethod === "paypal") showHelp();
+      if (isForbiddenPaypalError(message, cause)) {
+        showHelp(cause.unmetReasons);
       } else {
         showErrorBanner(message);
       }
