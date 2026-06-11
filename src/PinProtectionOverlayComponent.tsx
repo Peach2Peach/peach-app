@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { Modal, View } from "react-native";
+import { Modal, Platform, View } from "react-native";
+import BootSplash from "react-native-bootsplash";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PeachyBackground } from "./components/PeachyBackground";
 import { PinCodeDisplay } from "./components/pin/PinCodeDisplay";
@@ -46,6 +47,21 @@ export function PinProtectionOverlayComponent() {
 
   const insets = useSafeAreaInsets();
 
+  const showKeypad = appIsPinCodeLocked && hydrated && !!appPinCode;
+
+  // Android only: once the peach keypad is fully covering the screen, dismiss
+  // the native bootsplash instantly (no fade). On Android the splash sits on
+  // the activity window behind this transparent Modal (a separate window), so
+  // letting Screens fade it out later makes the fade bleed through the Modal as
+  // a "splash flash". Hiding it now, behind the already-painted cover, makes
+  // the handoff seamless. hide() is idempotent, so Screens' later
+  // hide({ fade }) becomes a no-op. iOS doesn't expose the splash that way, so
+  // we leave it on Screens' normal faded hide there.
+  useEffect(() => {
+    if (showKeypad && Platform.OS === "android")
+      BootSplash.hide().catch(() => {});
+  }, [showKeypad]);
+
   // The cover must be up from the very first frame so the app content never
   // flashes through. The lock atom defaults to `true`, so we start covered and
   // only lift once we can prove the app should be open: settings hydrated AND
@@ -54,8 +70,6 @@ export function PinProtectionOverlayComponent() {
   // the keypad, which reads as a brief launch splash.
   if (!appIsPinCodeLocked) return null;
   if (hydrated && !appPinCode) return null;
-
-  const showKeypad = hydrated && !!appPinCode;
 
   return (
     <Modal transparent>
