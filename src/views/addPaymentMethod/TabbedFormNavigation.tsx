@@ -72,7 +72,12 @@ export function TabbedFormNavigation({
       {row[selected].map((field) => {
         const otherColumns = row.filter((_column, index) => index !== selected);
         const hasValidColumnWithValues = otherColumns.some((column) =>
-          column.every((f) => !!getValues(f) && !getFieldState(f).invalid),
+          column.every((f) => {
+            const value = getValues(f);
+            // a bare "@" is the seeded userName placeholder, not a real value
+            const hasRealValue = !!value && value !== "@";
+            return hasRealValue && !getFieldState(f).invalid;
+          }),
         );
 
         return (
