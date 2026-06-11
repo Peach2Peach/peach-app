@@ -8,6 +8,7 @@ import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
 import { useSyncPayoutAddressFromServer } from "./hooks/query/peach069/useSyncPayoutAddressFromServer";
 import { useSyncPaymentDataFromServer } from "./hooks/query/peach069/useSyncPaymentDataFromServer";
 import { useSyncRefundAddressFromServer } from "./hooks/query/peach069/useSyncRefundAddressFromServer";
+import { usePgpKeyMigration } from "./hooks/usePgpKeyMigration";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useStackNavigation } from "./hooks/useStackNavigation";
@@ -35,6 +36,9 @@ export const useGlobalHandlers = () => {
   useSyncPaymentDataFromServer();
   useSyncRefundAddressFromServer();
   useSyncPayoutAddressFromServer();
+  // Must run after the sync hooks above: while migrating it pauses them (via the
+  // migration store) so they never decrypt/validate/wipe with a mismatched key.
+  usePgpKeyMigration();
 
   const setPopup = useSetPopup();
   const setAnalyticsPopupSeen = useSettingsStore(

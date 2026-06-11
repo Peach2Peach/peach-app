@@ -4,6 +4,7 @@ import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { MSINAMINUTE } from "../../../constants";
 import { InvalidServerSignaturePopup } from "../../../popups/warning/InvalidServerSignaturePopup";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
+import { usePgpMigrationStore } from "../../../store/usePgpMigrationStore";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { error } from "../../../utils/log/error";
@@ -23,6 +24,9 @@ let lastWarnedCipher: string | null = null;
 
 export const useSyncPaymentDataFromServer = () => {
   const isLoggedIn = useSettingsStore((state) => state.isLoggedIn);
+  const isMigratingPgp = usePgpMigrationStore(
+    (state) => state.status === "migrating",
+  );
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
   const setPopup = useSetPopup();
@@ -31,7 +35,7 @@ export const useSyncPaymentDataFromServer = () => {
   const { data } = useQuery({
     queryKey: user69DetailsKeys.details(),
     queryFn: fetchSelfUser69,
-    enabled: isLoggedIn && !!publicKey,
+    enabled: isLoggedIn && !!publicKey && !isMigratingPgp,
     refetchInterval: REFRESH_INTERVAL,
     staleTime: REFRESH_INTERVAL,
   });

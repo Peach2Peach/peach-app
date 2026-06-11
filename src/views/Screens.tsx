@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { useEffect, useState } from "react";
 import BootSplash from "react-native-bootsplash";
+import { PgpKeyMigrationScreen } from "../components/pgpMigration/PgpKeyMigrationScreen";
 import { useSetPopup } from "../components/popup/GlobalPopup";
 import { useSetPriorityToast, useSetToast } from "../components/toast/Toast";
 import { useStackNavigation } from "../hooks/useStackNavigation";
@@ -98,30 +99,33 @@ export function Screens() {
   ]);
 
   return (
-    <RootStack.Navigator
-      screenOptions={{
-        gestureEnabled: isIOS(),
-        headerShown: false,
-        cardStyle: tw`flex-1 ${backgroundStyle}`,
-      }}
-    >
-      <>
-        {(isLoggedIn ? views : onboardingViews).map(
-          ({ name, component, animation }) => (
-            <RootStack.Screen
-              {...{ name, component }}
-              key={name}
-              options={{
-                animation: animation || "default",
-                transitionSpec: {
-                  open: screenTransition,
-                  close: screenTransition,
-                },
-              }}
-            />
-          ),
-        )}
-      </>
-    </RootStack.Navigator>
+    <>
+      <RootStack.Navigator
+        screenOptions={{
+          gestureEnabled: isIOS(),
+          headerShown: false,
+          cardStyle: tw`flex-1 ${backgroundStyle}`,
+        }}
+      >
+        <>
+          {(isLoggedIn ? views : onboardingViews).map(
+            ({ name, component, animation }) => (
+              <RootStack.Screen
+                {...{ name, component }}
+                key={name}
+                options={{
+                  animation: animation || "default",
+                  transitionSpec: {
+                    open: screenTransition,
+                    close: screenTransition,
+                  },
+                }}
+              />
+            ),
+          )}
+        </>
+      </RootStack.Navigator>
+      <PgpKeyMigrationScreen />
+    </>
   );
 }

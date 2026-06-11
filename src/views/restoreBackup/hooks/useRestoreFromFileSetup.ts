@@ -5,9 +5,12 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { decryptAccount } from "../../../utils/account/decryptAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
+import { deriveDeterministicPgp } from "../../../utils/account/deriveDeterministicPgp";
 import { storeAccount } from "../../../utils/account/storeAccount";
 import { useRecoverAccount } from "../../../utils/account/useRecoverAccount";
+import { error as logError } from "../../../utils/log/error";
 import { parseError } from "../../../utils/parseError";
+import { peachAPI } from "../../../utils/peachAPI";
 import { useRegisterUser } from "../../newUser/useRegisterUser";
 import { LOGIN_DELAY } from "../../restoreReputation/LOGIN_DELAY";
 import { setupPeachAccount } from "./setupPeachAccount";
@@ -84,6 +87,22 @@ export const useRestoreFromFileSetup = () => {
     if (!authToken) {
       onError();
       return;
+    }
+
+    // If the server already holds the seed-derived (deterministic) PGP key, the
+    // backup's PGP key is stale — restore only the seed and derive the PGP key
+    // from it instead.
+    try {
+      const deterministic = deriveDeterministicPgp(mnemonic);
+      const { result: user } = await peachAPI.private.user.getSelfUser();
+      if (user?.pgpPublicKeys?.[0]?.publicKey === deterministic.publicKey) {
+        recoveredAccount.pgp = deterministic;
+      }
+    } catch (e) {
+      logError(
+        "[restoreFromFile] failed to evaluate deterministic pgp",
+        parseError(e),
+      );
     }
 
     await onSuccess();

@@ -14,6 +14,7 @@ import notification from "./notification/en.json";
 import offer from "./offer/en.json";
 import offerPreferences from "./offerPreferences/en.json";
 import paymentMethod from "./paymentMethod/en.json";
+import pgpMigration from "./pgpMigration/en.json";
 import profile from "./profile/en.json";
 import referral from "./referral/en.json";
 import sell from "./sell/en.json";
@@ -40,6 +41,7 @@ const en: Record<string, string> = {
   ...notification,
   ...offer,
   ...paymentMethod,
+  ...pgpMigration,
   ...profile,
   ...referral,
   ...sell,

@@ -1,0 +1,7 @@
+{
+  "pgpMigration.inProgress.title": "Securing your account",
+  "pgpMigration.inProgress.description": "We're upgrading your encryption to seed-derived keys and safely re-encrypting your data. This happens only once — please keep the app open.",
+  "pgpMigration.success.title": "All set!",
+  "pgpMigration.success.description": "Your account now uses seed-derived encryption keys. Your data has been re-encrypted and preserved.",
+  "pgpMigration.proceed": "Proceed"
+}
