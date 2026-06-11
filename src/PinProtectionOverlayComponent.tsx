@@ -14,21 +14,23 @@ import i18n, { useI18n } from "./utils/i18n";
 export function PinProtectionOverlayComponent() {
   useI18n();
   const { appPinCode } = useSettingsStore();
+  const [hydrated, setHydrated] = useState(() =>
+    useSettingsStore.persist.hasHydrated(),
+  );
   const [appIsPinCodeLocked, setAppIsPinCodeLocked] = useAtom(
     appPinProtectionLockAtom,
   );
   const [input, setInput] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (appIsPinCodeLocked && appPinCode) {
-      const timeout = setTimeout(() => setVisible(true), 150);
-      return () => clearTimeout(timeout);
-    } else {
-      setVisible(false);
+    if (hydrated) return undefined;
+    if (useSettingsStore.persist.hasHydrated()) {
+      setHydrated(true);
+      return undefined;
     }
-  }, [appIsPinCodeLocked, appPinCode]);
+    return useSettingsStore.persist.onFinishHydration(() => setHydrated(true));
+  }, [hydrated]);
 
   const unlock = (inputText?: string) => {
     const consideredInput = inputText === undefined ? input : inputText;
@@ -44,7 +46,16 @@ export function PinProtectionOverlayComponent() {
 
   const insets = useSafeAreaInsets();
 
-  if (!visible) return null;
+  // The cover must be up from the very first frame so the app content never
+  // flashes through. The lock atom defaults to `true`, so we start covered and
+  // only lift once we can prove the app should be open: settings hydrated AND
+  // either no PIN is set or the user has unlocked. While the settings store is
+  // still hydrating (appPinCode unknown) we keep the peachy cover up without
+  // the keypad, which reads as a brief launch splash.
+  if (!appIsPinCodeLocked) return null;
+  if (hydrated && !appPinCode) return null;
+
+  const showKeypad = hydrated && !!appPinCode;
 
   return (
     <Modal transparent>
@@ -61,42 +72,44 @@ export function PinProtectionOverlayComponent() {
       >
         <View style={tw`flex-1 justify-center items-center`}>
           <View style={[tw`items-center`, { gap: 16 }]}>
-            {
-              <PeachText
-                style={[
-                  tw`text-lg text-center`,
-                  { color: tw.color("text-primary-mild-1") },
-                ]}
-              >
-                {showErrorMessage && i18n("wrongPinTryAgain")}
-              </PeachText>
-            }
+            {showKeypad && (
+              <>
+                <PeachText
+                  style={[
+                    tw`text-lg text-center`,
+                    { color: tw.color("text-primary-mild-1") },
+                  ]}
+                >
+                  {showErrorMessage && i18n("wrongPinTryAgain")}
+                </PeachText>
 
-            <PinCodeDisplay
-              currentPin={input}
-              isOverlay
-              inputSize={appPinCode?.length}
-            />
+                <PinCodeDisplay
+                  currentPin={input}
+                  isOverlay
+                  inputSize={appPinCode?.length}
+                />
 
-            <PinCodeInput
-              currentPin={input}
-              isOverlay
-              onDigitPress={(s: string) => {
-                setShowErrorMessage(false);
+                <PinCodeInput
+                  currentPin={input}
+                  isOverlay
+                  onDigitPress={(s: string) => {
+                    setShowErrorMessage(false);
 
-                if (appPinCode && input.length < appPinCode.length) {
-                  const next = input + s;
-                  setInput(next);
+                    if (appPinCode && input.length < appPinCode.length) {
+                      const next = input + s;
+                      setInput(next);
 
-                  if (next.length === appPinCode.length) {
-                    unlock(next);
-                  }
-                }
-              }}
-              onDelete={() => {
-                setInput(input.slice(0, -1));
-              }}
-            />
+                      if (next.length === appPinCode.length) {
+                        unlock(next);
+                      }
+                    }
+                  }}
+                  onDelete={() => {
+                    setInput(input.slice(0, -1));
+                  }}
+                />
+              </>
+            )}
           </View>
         </View>
       </View>
