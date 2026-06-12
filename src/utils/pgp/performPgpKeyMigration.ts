@@ -4,6 +4,7 @@ import {
   EncryptedDataBlob,
   SubmittedEncryptedBlob,
 } from "../../../peach-api/src/@types/pgpKeyRotation";
+import { info } from "../log/info";
 import { peachAPI } from "../peachAPI";
 import { signAndEncryptToKeys } from "./signAndEncryptToKeys";
 
@@ -16,14 +17,24 @@ const reEncryptBlob = async (
   blob: EncryptedDataBlob,
   newPgp: PGPKeychain,
   oldPrivateKey: string,
-): Promise<SubmittedEncryptedBlob> => {
-  const plaintext = await OpenPGP.decrypt(blob.encrypted, oldPrivateKey, "");
+): Promise<SubmittedEncryptedBlob | null> => {
+  let plaintext: string;
+  try {
+    plaintext = await OpenPGP.decrypt(blob.encrypted, oldPrivateKey, "");
+  } catch {
+    // This piece of data is encrypted to a key that is not our current main key,
+    // so we cannot re-encrypt it. Skip it — the server accepts partial
+    // submissions and leaves the untouched data as-is.
+    info("[pgpMigration] skipping blob we cannot decrypt", blob.source);
+    return null;
+  }
 
-  // Contract blobs are shared: re-encrypt to the new key AND the current
-  // non-user recipients (counterparty, + Peach for instant trades) the server
-  // reported, or the server will reject the rotation. Other blobs are own-only.
+  // Shared blobs (contracts, performed trade requests) must be re-encrypted to
+  // the new key AND the current non-user recipients (counterparty/offer owner,
+  // + Peach for instant trades) the server reported, or the server rejects them.
+  // Own-only blobs go to the new key alone.
   const recipients =
-    blob.source === "contract"
+    "recipientPgpPublicKeys" in blob
       ? [newPgp.publicKey, ...blob.recipientPgpPublicKeys]
       : [newPgp.publicKey];
 
@@ -60,6 +71,14 @@ const reEncryptBlob = async (
         encrypted,
         signature,
       };
+    case "buyOfferTradeRequest":
+    case "sellOfferTradeRequest":
+      return {
+        source: blob.source,
+        tradeRequestId: blob.tradeRequestId,
+        encrypted,
+        signature,
+      };
     default:
       throw new Error("unknown blob source");
   }
@@ -89,10 +108,15 @@ export const performPgpKeyMigration = async ({
   }
   if (encryptedData.alreadyMigrated) return { status: "alreadyMigrated" };
 
-  const blobs = await Promise.all(
+  const reEncrypted = await Promise.all(
     encryptedData.blobs.map((blob) =>
       reEncryptBlob(blob, newPgp, oldPrivateKey),
     ),
+  );
+  // Drop blobs we couldn't decrypt (encrypted to a non-main key); the server
+  // accepts a partial submission and leaves them untouched.
+  const blobs = reEncrypted.filter(
+    (blob): blob is SubmittedEncryptedBlob => blob !== null,
   );
 
   const message = `Peach new PGP key ${new Date().getTime()}`;
