@@ -82,6 +82,12 @@ export const PaymentMethodForm = () => {
       isMpesa: Boolean(rest.mpesa_name),
     } satisfies PaymentData;
 
+    // the bare "@" is the seeded userName placeholder, not real data
+    // (e.g. when another tab like phone was submitted) — don't persist it
+    if (finalData.userName === "@") {
+      delete (finalData as PaymentDataInfo).userName;
+    }
+
     if (finalData.iban) {
       //set country to be iban
       finalData.country = finalData.iban.slice(0, 2) as PaymentMethodCountry;
