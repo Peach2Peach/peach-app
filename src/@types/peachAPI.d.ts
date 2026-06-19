@@ -96,7 +96,7 @@ type Currency =
   | "AED"
   | "ARS"
   | "AUD"
-  | "BGN"
+  // | "BGN"
   | "BRL"
   | "BRL"
   | "BTC"

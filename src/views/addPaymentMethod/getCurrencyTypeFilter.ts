@@ -14,7 +14,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "PLN",
     "NOK",
     "SEK",
-    "BGN",
+    // "BGN",
     "ISK",
     "RON",
     "TRY",
