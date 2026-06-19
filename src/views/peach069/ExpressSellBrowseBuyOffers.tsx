@@ -196,10 +196,21 @@ function BuyOfferList({
 
   const isNewUser = selfUser.trades <= 3;
 
-  const orderedBuyOffers = separateOffersByExperienceLevel({
+  const orderedByExperienceLevel = separateOffersByExperienceLevel({
     offers: buyOffers,
     isNewUser,
   });
+
+  // show offers with an existing trade request (green border) first,
+  // keeping the same relative order for both groups
+  const orderedBuyOffers = [
+    ...orderedByExperienceLevel.filter(
+      (offer) => offer.hasPerformedTradeRequest,
+    ),
+    ...orderedByExperienceLevel.filter(
+      (offer) => !offer.hasPerformedTradeRequest,
+    ),
+  ];
 
   const currencyCounted = countOffersByCurrency(buyOffers);
 

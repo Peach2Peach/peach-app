@@ -15,16 +15,15 @@ import { Button } from "../../components/buttons/Button";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
-import { MSINAMINUTE } from "../../constants";
+import { MSINAMINUTE, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRegisterPGP } from "../../hooks/useRegisterPGP";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { NEW_USER_TRADE_THRESHOLD } from "../../constants";
-import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n, { useI18n } from "../../utils/i18n";
@@ -307,24 +306,70 @@ function MarketStats() {
 
 const buttonStyle = tw`flex-1 px-1 py-1 md:py-2`;
 
+function TradeRequestBadge({
+  count,
+  color,
+}: {
+  count: number;
+  color?: string;
+}) {
+  if (count <= 0) return null;
+  return (
+    <View
+      style={[
+        tw`absolute z-10 items-center justify-center w-5 h-5 border-2 border-white rounded-full -top-2.5 -right-1`,
+        { backgroundColor: color },
+      ]}
+    >
+      <Icon
+        id="clock"
+        size={11}
+        color={tw.color("primary-background-light-color")}
+      />
+    </View>
+  );
+}
+
 function ExpressSellButton() {
   const navigation = useStackNavigation();
   const goToExpressSell = () =>
     navigation.navigate("expressSellBrowseBuyOffers");
+  // const { buyOffers } = useExpressSellBuyOffers();
+  // const tradeRequestCount =
+  //   buyOffers?.filter((offer) => offer.hasPerformedTradeRequest).length ?? 0;
   return (
-    <Button style={[buttonStyle]} onPress={goToExpressSell}>
-      {i18n("sell") + " BTC"}
-    </Button>
+    <View style={tw`relative flex-row flex-1`}>
+      <Button style={[buttonStyle]} onPress={goToExpressSell}>
+        {i18n("sell") + " BTC"}
+      </Button>
+      {/* <TradeRequestBadge
+        count={tradeRequestCount}
+        color={tw.color("primary-main")}
+      /> */}
+    </View>
   );
 }
 function ExpressBuyButton() {
   const navigation = useStackNavigation();
   const goToExpressBuy = () =>
     navigation.navigate("expressBuyBrowseSellOffers");
+  // const { sellOffers } = useExpressBuySellOffers();
+  // const tradeRequestCount =
+  //   sellOffers?.filter((offer) => offer.hasPerformedTradeRequest).length ?? 0;
+
   return (
-    <Button style={[buttonStyle, tw`bg-success-main`]} onPress={goToExpressBuy}>
-      {i18n("buy") + " BTC"}
-    </Button>
+    <View style={tw`relative flex-row flex-1`}>
+      <Button
+        style={[buttonStyle, tw`bg-success-main`]}
+        onPress={goToExpressBuy}
+      >
+        {i18n("buy") + " BTC"}
+      </Button>
+      {/* <TradeRequestBadge
+        count={tradeRequestCount}
+        color={tw.color("success-main")}
+      /> */}
+    </View>
   );
 }
 
@@ -333,8 +378,7 @@ function BuyButton() {
   const { isDarkMode } = useThemeStore();
   const setPopup = useSetPopup();
   const { user: selfUser } = useSelfUser();
-  const isExpertUser =
-    (selfUser?.trades ?? 0) >= NEW_USER_TRADE_THRESHOLD;
+  const isExpertUser = (selfUser?.trades ?? 0) >= NEW_USER_TRADE_THRESHOLD;
 
   const onPress = () => {
     if (!isExpertUser) {

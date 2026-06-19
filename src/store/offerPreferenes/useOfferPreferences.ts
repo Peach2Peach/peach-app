@@ -59,6 +59,13 @@ type OfferPreferences = {
   experienceLevel?: boolean;
   experienceLevelCriteria?: ExperienceLevel;
   hasSeenExperienceLevelPopup?: boolean;
+
+  // peach069 buy offer (kept separate from the sell offer preferences above;
+  // the "has seen popup" flags remain shared with the sell screen)
+  buyOfferInstantTrade: boolean;
+  buyOfferInstantTradeCriteria: InstantTradeCriteria;
+  buyOfferExperienceLevel?: boolean;
+  buyOfferExperienceLevelCriteria?: ExperienceLevel;
 };
 
 export const defaultPreferences: OfferPreferences = {
@@ -108,6 +115,15 @@ export const defaultPreferences: OfferPreferences = {
   experienceLevel: false,
   experienceLevelCriteria: "experiencedUsersOnly",
   hasSeenExperienceLevelPopup: false,
+
+  buyOfferInstantTrade: false,
+  buyOfferInstantTradeCriteria: {
+    minReputation: 0,
+    minTrades: 0,
+    badges: [],
+  },
+  buyOfferExperienceLevel: false,
+  buyOfferExperienceLevelCriteria: "experiencedUsersOnly",
 };
 
 type OfferPreferencesActions = {
@@ -160,6 +176,15 @@ type OfferPreferencesActions = {
   selectExperienceLevelCriteria: (experienceLevel: ExperienceLevel) => void;
   setHasSeenExperienceLevelPopup: (
     hasSeenExperienceLevelPopup: boolean,
+  ) => void;
+
+  toggleBuyOfferInstantTrade: () => void;
+  toggleBuyOfferMinTrades: () => void;
+  toggleBuyOfferMinReputation: () => void;
+  toggleBuyOfferBadge: (badge: Medal) => void;
+  toggleBuyOfferExperienceLevel: () => void;
+  selectBuyOfferExperienceLevelCriteria: (
+    experienceLevel: ExperienceLevel,
   ) => void;
 };
 
@@ -406,6 +431,101 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setHasSeenExperienceLevelPopup: (hasSeenExperienceLevelPopup) =>
         set({ hasSeenExperienceLevelPopup }),
+
+      toggleBuyOfferInstantTrade: () =>
+        set((state) => ({ buyOfferInstantTrade: !state.buyOfferInstantTrade })),
+      toggleBuyOfferMinTrades: () =>
+        set((state) => {
+          state.buyOfferInstantTradeCriteria.minTrades =
+            state.buyOfferInstantTradeCriteria.minTrades === 0
+              ? NEW_USER_TRADE_THRESHOLD
+              : 0;
+
+          if (
+            state.buyOfferInstantTradeCriteria.minTrades > 0 &&
+            state.buyOfferExperienceLevelCriteria === "newUsersOnly"
+          ) {
+            state.buyOfferExperienceLevelCriteria = "experiencedUsersOnly";
+            if (state.buyOfferExperienceLevel) {
+              state.buyOfferExperienceLevel = false;
+            }
+          }
+        }),
+      toggleBuyOfferMinReputation: () =>
+        set((state) => {
+          state.buyOfferInstantTradeCriteria.minReputation =
+            state.buyOfferInstantTradeCriteria.minReputation === 0
+              ? MIN_REPUTATION_FILTER
+              : 0;
+
+          if (
+            state.buyOfferInstantTradeCriteria.minReputation > 0 &&
+            state.buyOfferExperienceLevelCriteria === "newUsersOnly"
+          ) {
+            state.buyOfferExperienceLevelCriteria = "experiencedUsersOnly";
+            if (state.buyOfferExperienceLevel) {
+              state.buyOfferExperienceLevel = false;
+            }
+          }
+        }),
+      toggleBuyOfferBadge: (badge) =>
+        set((state) => {
+          const badges = state.buyOfferInstantTradeCriteria.badges;
+          if (badges.includes(badge)) {
+            badges.splice(badges.indexOf(badge), 1);
+          } else {
+            badges.push(badge);
+          }
+        }),
+      selectBuyOfferExperienceLevelCriteria: (
+        buyOfferExperienceLevelCriteria,
+      ) => {
+        set((state) => {
+          state.buyOfferExperienceLevelCriteria =
+            buyOfferExperienceLevelCriteria;
+
+          if (buyOfferExperienceLevelCriteria === "newUsersOnly") {
+            const { buyOfferInstantTradeCriteria, buyOfferInstantTrade } =
+              state;
+
+            if (
+              buyOfferInstantTradeCriteria.minReputation > 0 ||
+              buyOfferInstantTradeCriteria.minTrades > 0
+            ) {
+              buyOfferInstantTradeCriteria.minReputation = 0;
+              buyOfferInstantTradeCriteria.minTrades = 0;
+
+              if (buyOfferInstantTrade) {
+                state.buyOfferInstantTrade = false;
+              }
+            }
+          }
+        });
+      },
+
+      toggleBuyOfferExperienceLevel: () => {
+        set((state) => {
+          state.buyOfferExperienceLevel = !state.buyOfferExperienceLevel;
+
+          if (!state.buyOfferExperienceLevel) return;
+
+          if (state.buyOfferExperienceLevelCriteria === "newUsersOnly") {
+            const { buyOfferInstantTradeCriteria } = state;
+
+            if (
+              buyOfferInstantTradeCriteria.minReputation > 0 ||
+              buyOfferInstantTradeCriteria.minTrades > 0
+            ) {
+              buyOfferInstantTradeCriteria.minReputation = 0;
+              buyOfferInstantTradeCriteria.minTrades = 0;
+
+              if (state.buyOfferInstantTrade) {
+                state.buyOfferInstantTrade = false;
+              }
+            }
+          }
+        });
+      },
     })),
     {
       name: "offerPreferences",

@@ -9,7 +9,7 @@ describe("CurrencySelection", () => {
     "SEK",
     "NOK",
     "HUF",
-    "BGN",
+    // "BGN",
     "USD",
     "RON",
   ];

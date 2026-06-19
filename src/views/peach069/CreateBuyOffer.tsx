@@ -90,7 +90,11 @@ export function CreateBuyOffer() {
 
 function AdvancedOptions() {
   const [instantTrade, experienceLevel, buyOfferMulti] = useOfferPreferences(
-    (state) => [state.instantTrade, state.experienceLevel, state.buyOfferMulti],
+    (state) => [
+      state.buyOfferInstantTrade,
+      state.buyOfferExperienceLevel,
+      state.buyOfferMulti,
+    ],
     shallow,
   );
   const payoutToPeachWallet = useSettingsStore(
@@ -151,10 +155,10 @@ function ExperienceLevel() {
   const [enableExperienceLevel, toggle, criteria, selectExperienceLevel] =
     useOfferPreferences(
       (state) => [
-        state.experienceLevel,
-        state.toggleExperienceLevel,
-        state.experienceLevelCriteria,
-        state.selectExperienceLevelCriteria,
+        state.buyOfferExperienceLevel,
+        state.toggleBuyOfferExperienceLevel,
+        state.buyOfferExperienceLevelCriteria,
+        state.selectBuyOfferExperienceLevelCriteria,
       ],
       shallow,
     );
@@ -239,12 +243,12 @@ function InstantTrade() {
     toggleMinReputation,
   ] = useOfferPreferences(
     (state) => [
-      state.instantTrade,
-      state.toggleInstantTrade,
-      state.instantTradeCriteria,
-      state.toggleMinTrades,
-      state.toggleBadge,
-      state.toggleMinReputation,
+      state.buyOfferInstantTrade,
+      state.toggleBuyOfferInstantTrade,
+      state.buyOfferInstantTradeCriteria,
+      state.toggleBuyOfferMinTrades,
+      state.toggleBuyOfferBadge,
+      state.toggleBuyOfferMinReputation,
     ],
     shallow,
   );
@@ -684,11 +688,11 @@ function PublishOfferButton() {
 
   const { instantTradeCriteria, experienceLevelCriteria } = useOfferPreferences(
     (state) => ({
-      instantTradeCriteria: state.instantTrade
-        ? state.instantTradeCriteria
+      instantTradeCriteria: state.buyOfferInstantTrade
+        ? state.buyOfferInstantTradeCriteria
         : undefined,
-      experienceLevelCriteria: state.experienceLevel
-        ? state.experienceLevelCriteria
+      experienceLevelCriteria: state.buyOfferExperienceLevel
+        ? state.buyOfferExperienceLevelCriteria
         : undefined,
     }),
     shallow,

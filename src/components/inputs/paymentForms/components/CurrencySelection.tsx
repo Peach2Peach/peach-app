@@ -25,6 +25,15 @@ export const CurrencySelection = ({
 }: Props) => {
   useI18n();
   const { data: paymentMethodInfo } = usePaymentMethodInfo(paymentMethod);
+
+  const supportedCurrencies = paymentMethodInfo?.currencies ?? [];
+  // when editing, the payment method may hold currencies that are no longer
+  // supported. Render them too so the user can still de-select them.
+  const unsupportedSelectedCurrencies = selectedCurrencies.filter(
+    (currency) => !supportedCurrencies.includes(currency),
+  );
+  const currencies = [...supportedCurrencies, ...unsupportedSelectedCurrencies];
+
   return (
     <View style={style}>
       <View style={tw`flex-row items-center`}>
@@ -37,7 +46,7 @@ export const CurrencySelection = ({
       <View
         style={tw`flex-row flex-wrap gap-2 mt-1 ${singleCase ? "mb-4" : ""}`}
       >
-        {paymentMethodInfo?.currencies.map((currency) => (
+        {currencies.map((currency) => (
           <CurrencyItem
             key={currency}
             label={currency}

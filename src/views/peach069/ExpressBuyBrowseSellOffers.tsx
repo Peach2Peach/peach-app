@@ -193,10 +193,21 @@ function SellOfferList({
 
   const isNewUser = selfUser.trades <= 3;
 
-  const orderedSellOffers = separateOffersByExperienceLevel({
+  const orderedByExperienceLevel = separateOffersByExperienceLevel({
     offers: sellOffers,
     isNewUser,
   });
+
+  // show offers with an existing trade request (green border) first,
+  // keeping the same relative order for both groups
+  const orderedSellOffers = [
+    ...orderedByExperienceLevel.filter(
+      (offer) => offer.hasPerformedTradeRequest,
+    ),
+    ...orderedByExperienceLevel.filter(
+      (offer) => !offer.hasPerformedTradeRequest,
+    ),
+  ];
 
   const currencyCounted = countOffersByCurrency(sellOffers);
 
