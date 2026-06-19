@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "A vita a vásárló javára dőlt, az eladó hírneve csorbát szenvedett.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "A vita lezárult, a hírneved érintetlen maradt.",
   "chat.systemMessage.dispute.outcome.none": "A vita lezárult, a kereskedés folytatódik. A hírneved érintetlen.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "A vita lezárult, a hírneved érintetlen. Az eladótól a pénz felszabadítását kérték.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "A vita lezárult, a hírneved érintetlen. Az eladótól a pénz felszabadítását kérték.",
   "chat.systemMessage.dispute.outcome.sellerWins": "A vita az eladó javára dőlt, a vásárló hírneve csorbát szenvedett.",
   "chat.systemMessage.disputeStarted": "Vita indult",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Az eladó $0 vitát indított: 'bántalmazó magatartás'",

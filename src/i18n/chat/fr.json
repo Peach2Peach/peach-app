@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "La dispute a été réglée en faveur de l'acheteur, et la réputation du vendeur a été affectée.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "La dispute a été annulée, votre réputation n'a pas été affectée.",
   "chat.systemMessage.dispute.outcome.none": "La dispute est résolue, l'échange continue normalement. Votre réputation n'a pas été affectée.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "La dispute a été annulée, votre réputation n'a pas été affectée. Le vendeur a été invité à libérer les fonds.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "La dispute a été annulée, votre réputation n'a pas été affectée. Le vendeur a été invité à libérer les fonds.",
   "chat.systemMessage.dispute.outcome.sellerWins": "La dispute a été réglée en faveur du vendeur, et la réputation de l'acheteur a été affectée.",
   "chat.systemMessage.disputeStarted": "Une dispute a été lancée par $0 $1 pour : « $2 »",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Une dispute a été initiée par le vendeur $0 pour : 'comportement abusif'",

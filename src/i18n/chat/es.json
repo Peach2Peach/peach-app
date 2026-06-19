@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "La disputa se resolvió a favor del comprador; la reputación del vendedor se ha visto afectada.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "La disputa se canceló, tu reputación no se ha visto afectada.",
   "chat.systemMessage.dispute.outcome.none": "La disputa se resolvió y el intercambio continuará normalmente. Tu reputación no se ha visto afectada.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "La disputa se canceló, tu reputación no se ha visto afectada. Se solicitó al vendedor que libere los fondos.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "La disputa se canceló, tu reputación no se ha visto afectada. Se solicitó al vendedor que libere los fondos.",
   "chat.systemMessage.dispute.outcome.sellerWins": "La disputa se resolvió a favor del vendedor; la reputación del comprador se ha visto afectada.",
   "chat.systemMessage.disputeStarted": "disputa iniciada",
   "chat.systemMessage.disputeStarted.buyer.abusive": "El vendedor $0 ha iniciado una disputa: 'comportamiento abusivo'",

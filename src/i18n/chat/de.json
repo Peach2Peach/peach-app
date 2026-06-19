@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Streit zugunsten des Käufers entschieden. Ruf des Verkäufers beeinträchtigt.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Streit abgebrochen. Dein Ruf bleibt unberührt.",
   "chat.systemMessage.dispute.outcome.none": "Streit beigelegt. Handel läuft normal weiter. Dein Ruf bleibt unberührt.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Streit abgebrochen. Ruf unverändert. Verkäufer wurde zur Freigabe der Stats aufgefordert.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Streit abgebrochen. Ruf unverändert. Verkäufer wurde zur Freigabe der Stats aufgefordert.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Streit zugunsten des Verkäufers entschieden. Ruf des Käufers beeinträchtigt.",
   "chat.systemMessage.disputeStarted": "Streitfall gestartet",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Verkäufer $0 hat einen Streit wegen 'Missbrauch' gestartet",

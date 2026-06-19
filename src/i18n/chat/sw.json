@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Mzozo umeamuliwa kwa faida ya mnunuzi; sifa ya muuzaji imeathirika.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Mzozo umeahirishwa; sifa yako haijaathirika.",
   "chat.systemMessage.dispute.outcome.none": "Mzozo umeamuliwa; biashara inaendelea kama kawaida. Sifa yako haijaathirika.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Mzozo umeahirishwa; sifa yako haijaathirika. Muuzaji ameombwa kuachilia fedha.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Mzozo umeahirishwa; sifa yako haijaathirika. Muuzaji ameombwa kuachilia fedha.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Mzozo umeamuliwa kwa faida ya muuzaji; sifa ya mnunuzi imeathirika.",
   "chat.systemMessage.disputeStarted": "Mzozo umeanzishwa",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Mzozo umeanzishwa na muuzaji $0: 'tabia mbaya'",

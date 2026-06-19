@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Anlaşmazlık alıcı lehine sonuçlandı, satıcının itibarı etkilendi.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Anlaşmazlık iptal edildi, itibarınız etkilenmedi.",
   "chat.systemMessage.dispute.outcome.none": "Anlaşmazlık çözüldü, ticaret normal devam edecek. İtibarınız etkilenmedi.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Anlaşmazlık iptal edildi, itibarınız etkilenmedi. Satıcıdan ödeme serbest bırakılması istendi.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Anlaşmazlık iptal edildi, itibarınız etkilenmedi. Satıcıdan ödeme serbest bırakılması istendi.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Anlaşmazlık satıcı lehine sonuçlandı, alıcının itibarı etkilendi.",
   "chat.systemMessage.disputeStarted": "Anlaşmazlık başlatıldı",
   "chat.systemMessage.disputeStarted.buyer.abusive": "$0 satıcı tarafından kötüye kullanım nedeniyle başlatıldı.",

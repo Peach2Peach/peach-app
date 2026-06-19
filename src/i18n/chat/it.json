@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Disputa risolta a favore del compratore; la reputazione del venditore è stata influenzata.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Disputa annullata; la tua reputazione non è stata influenzata.",
   "chat.systemMessage.dispute.outcome.none": "Disputa risolta; lo scambio prosegue normalmente. La tua reputazione non è stata influenzata.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Disputa annullata; la tua reputazione non è stata influenzata. Il venditore deve rilasciare i fondi.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Disputa annullata; la tua reputazione non è stata influenzata. Il venditore deve rilasciare i fondi.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Disputa risolta a favore del venditore; la reputazione del compratore è stata influenzata.",
   "chat.systemMessage.disputeStarted": "Disputa avviata",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Il venditore $0 ha avviato una disputa: \"Comportamento scorretto\"",

@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Η διένεξη επιλύθηκε υπέρ του αγοραστή και η φήμη του πωλητή επηρεάστηκε.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Η διένεξη ακυρώθηκε, η φήμη σας δεν επηρεάστηκε.",
   "chat.systemMessage.dispute.outcome.none": "Η διένεξη επιλύθηκε, η συναλλαγή συνεχίζεται κανονικά. Η φήμη σας παραμένει ανέπαφη.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Η διένεξη ακυρώθηκε, η φήμη σας δεν επηρεάστηκε. Ο πωλητής ζητήθηκε να απελευθερώσει τα χρήματα.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Η διένεξη ακυρώθηκε, η φήμη σας δεν επηρεάστηκε. Ο πωλητής ζητήθηκε να απελευθερώσει τα χρήματα.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Η διένεξη επιλύθηκε υπέρ του πωλητή και η φήμη του αγοραστή επηρεάστηκε.",
   "chat.systemMessage.disputeStarted": "Ξεκίνησε διένεξη",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Ο πωλητής $0 ξεκίνησε διένεξη για «κακή συμπεριφορά»",

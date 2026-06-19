@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Het geschil is gewonnen door de koper, de reputatie van de verkoper is aangetast.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Het geschil is geannuleerd, reputatie niet aangetast.",
   "chat.systemMessage.dispute.outcome.none": "Het geschil is opgelost, transactie gaat door. Reputatie niet aangetast.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Het geschil is geannuleerd, reputatie niet aangetast. Verkoper is gevraagd het geld vrij te geven.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Het geschil is geannuleerd, reputatie niet aangetast. Verkoper is gevraagd het geld vrij te geven.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Het geschil is gewonnen door de verkoper, de reputatie van de koper is aangetast.",
   "chat.systemMessage.disputeStarted": "geschil gestart",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Koper $0 startte een geschil: 'ongepast gedrag'",

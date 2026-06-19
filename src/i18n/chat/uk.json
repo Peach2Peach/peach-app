@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Диспут вирішено на користь покупця, репутація продавця постраждала.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Диспут скасовано, репутація не постраждала.",
   "chat.systemMessage.dispute.outcome.none": "Диспут завершено, торгівля триває. Репутація не постраждала.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Диспут скасовано, репутація не постраждала. Продавця попросили повернути кошти.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Диспут скасовано, репутація не постраждала. Продавця попросили повернути кошти.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Диспут вирішено на користь продавця, репутація покупця постраждала.",
   "chat.systemMessage.disputeStarted": "Диспут розпочато",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Продавець $0 розпочав диспут: «образлива поведінка»",

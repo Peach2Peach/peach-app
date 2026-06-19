@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Spór rozstrzygnięto na korzyść kupującego, reputacja sprzedawcy nadszarpnięta.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Spór anulowany, reputacja bez zmian.",
   "chat.systemMessage.dispute.outcome.none": "Spór rozstrzygnięty, transakcja kontynuowana, reputacja bez zmian.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Spór anulowany, reputacja bez zmian. Sprzedawca poproszony o wypłatę środków.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Spór anulowany, reputacja bez zmian. Sprzedawca poproszony o wypłatę środków.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Spór rozstrzygnięto na korzyść sprzedawcy, reputacja kupującego nadszarpnięta.",
   "chat.systemMessage.disputeStarted": "Spór rozpoczęty",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Sprzedawca $0 rozpoczął spór: 'agresywne zachowanie'",

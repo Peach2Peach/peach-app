@@ -15,7 +15,7 @@
   "chat.systemMessage.dispute.outcome.buyerWins": "Спор решён в пользу покупателя, репутация продавца снижена.",
   "chat.systemMessage.dispute.outcome.cancelTrade": "Спор отменён, репутация не пострадала.",
   "chat.systemMessage.dispute.outcome.none": "Спор решён, сделка продолжается. Репутация не пострадала.",
-  "chat.systemMessage.dispute.outcome.payoutBuyer": "Спор отменён, репутация не пострадала. Продавцу отправлен запрос отпустить средства.",
+  "chat.systemMessage.dispute.outcome.payOutBuyer": "Спор отменён, репутация не пострадала. Продавцу отправлен запрос отпустить средства.",
   "chat.systemMessage.dispute.outcome.sellerWins": "Спор решён в пользу продавца, репутация покупателя снижена.",
   "chat.systemMessage.disputeStarted": "Начат спор: ",
   "chat.systemMessage.disputeStarted.buyer.abusive": "Продавец $0 открыл спор: «недостойное поведение».",
