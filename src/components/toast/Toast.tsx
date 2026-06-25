@@ -110,11 +110,18 @@ export const Toast = () => {
   ).current;
 
   if (!activeToast) return null;
-  const { color: toastColor, msgKey, bodyArgs = [], action } = activeToast;
+  const {
+    color: toastColor,
+    msgKey,
+    bodyArgs = [],
+    action,
+    title: rawTitle,
+    message: rawMessage,
+  } = activeToast;
 
   const icon = iconMap[msgKey];
-  let title = i18n(`${msgKey}.title`);
-  let message = i18n(`${msgKey}.text`, ...bodyArgs);
+  let title = rawTitle ?? i18n(`${msgKey}.title`);
+  let message = rawMessage ?? i18n(`${msgKey}.text`, ...bodyArgs);
 
   if (title === `${msgKey}.title`) title = "";
   if (message === `${msgKey}.text`) {

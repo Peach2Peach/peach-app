@@ -394,7 +394,8 @@ type NotificationType =
   | "user.mobileAction.confirmPaymentBuyer.created"
   | "user.mobileAction.signContractRelease.created"
   | "user.mobileAction.signEscrowRefund.created"
-  | "user.mobileAction.signEscrowContractRefund.created";
+  | "user.mobileAction.signEscrowContractRefund.created"
+  | "custom"; // PN sent from the admin dashboard to a specific user
 
 type PNData = {
   type?: NotificationType;

@@ -34,6 +34,13 @@ export const useMessageHandler = () => {
         if (initialNotification?.messageId === remoteMessage.messageId) return;
         if (offerPopupEvents[type]) {
           offerPopupEvents[type]?.(data, remoteMessage.notification);
+        } else if (type === "custom") {
+          setToast({
+            msgKey: type,
+            title: remoteMessage.notification?.title,
+            message: remoteMessage.notification?.body,
+            color: "yellow",
+          });
         } else {
           setToast({
             msgKey: `notification.${type}`,

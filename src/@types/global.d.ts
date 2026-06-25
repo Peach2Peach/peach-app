@@ -75,6 +75,9 @@ type ToastState = {
   bodyArgs?: string[];
   action?: Action;
   keepAlive?: boolean;
+  // raw title/message that bypass i18n resolution of msgKey (e.g. custom PNs)
+  title?: string;
+  message?: string;
 };
 
 type DrawerOptionType = {
