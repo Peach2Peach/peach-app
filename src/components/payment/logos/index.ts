@@ -58,6 +58,7 @@ import tron from "./tron.svg";
 import twint from "./twint.svg";
 import vipps from "./vipps.svg";
 import wave from "./wave.svg";
+import wero from "./wero.svg";
 import wise from "./wise.svg";
 
 export const PaymentLogos = {
@@ -142,6 +143,7 @@ export const PaymentLogos = {
   tron,
   base,
   solana,
+  wero,
 };
 
 export type PaymentLogoType = keyof typeof PaymentLogos;
