@@ -6,6 +6,7 @@ import es from "../../i18n/es";
 import fr from "../../i18n/fr";
 import hu from "../../i18n/hu";
 import it from "../../i18n/it";
+import nl from "../../i18n/nl";
 import pl from "../../i18n/pl";
 import pt from "../../i18n/pt";
 import ptBR from "../../i18n/pt-BR";
@@ -24,7 +25,7 @@ const localeMapping: Record<string, Record<string, string>> = {
   fr,
   hu,
   it,
-  // nl,
+  nl,
   "pt-BR": ptBR,
   pt,
   sw,
