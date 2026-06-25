@@ -1,13 +1,11 @@
 import { NETWORK } from "@env";
 import { useSyncExternalStore } from "react";
 import de from "../../i18n/de";
-import elGR from "../../i18n/el-GR";
 import en from "../../i18n/en";
 import es from "../../i18n/es";
 import fr from "../../i18n/fr";
 import hu from "../../i18n/hu";
 import it from "../../i18n/it";
-import nl from "../../i18n/nl";
 import pl from "../../i18n/pl";
 import pt from "../../i18n/pt";
 import ptBR from "../../i18n/pt-BR";
@@ -20,13 +18,13 @@ import { getLocaleLanguage } from "./getLocaleLanguage";
 
 const localeMapping: Record<string, Record<string, string>> = {
   de,
-  "el-GR": elGR,
+  // "el-GR": elGR,
   en,
   es,
   fr,
   hu,
   it,
-  nl,
+  // nl,
   "pt-BR": ptBR,
   pt,
   sw,
