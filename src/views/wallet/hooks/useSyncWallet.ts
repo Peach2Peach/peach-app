@@ -5,11 +5,16 @@ import { walletKeys } from "./useUTXOs";
 
 const MINUTES_OF_STALE_TIME = 10;
 
-type Props = { refetchInterval?: number; enabled?: boolean };
+type Props = {
+  refetchInterval?: number;
+  enabled?: boolean;
+  revealedSpksOnly?: boolean;
+};
 
 export const useSyncWallet = ({
   refetchInterval,
   enabled = false,
+  revealedSpksOnly = false,
 }: Props = {}) => {
   const queryClient = useQueryClient();
   return useQuery({
@@ -17,7 +22,7 @@ export const useSyncWallet = ({
     queryFn: async () => {
       if (!peachWallet) throw new Error("Peach wallet not defined");
       if (!peachWallet.initialized) await peachWallet.initWallet();
-      await peachWallet.syncWallet();
+      await peachWallet.syncWallet(revealedSpksOnly);
       queryClient.invalidateQueries({ queryKey: walletKeys.addresses() });
       queryClient.invalidateQueries({ queryKey: walletKeys.utxos() });
       return true;

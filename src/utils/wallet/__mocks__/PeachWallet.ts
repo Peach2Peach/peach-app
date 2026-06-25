@@ -20,6 +20,10 @@ class PeachWallet {
 
   network: string;
 
+  lastSyncedAt?: number;
+
+  potentiallyNeedsResync = true;
+
   constructor({ wallet, network = "bitcoin" }: PeachWalletProps) {
     this.wallet = wallet;
     this.balance = 0;
@@ -41,6 +45,10 @@ class PeachWallet {
   async setBlockchain() {}
 
   async syncWallet() {}
+
+  shouldResync() {
+    return true;
+  }
 
   updateStore(): void {}
 

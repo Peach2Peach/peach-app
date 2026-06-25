@@ -133,47 +133,86 @@ export const SelectPaymentMethod = () => {
     return NATIONALOPTIONCOUNTRIES.LATAM;
   };
 
-  const selectCountry = (country: FlagType, category: PaymentCategory) => {
+  // Flattened, alphabetically sorted list of every national payment method
+  // available for the selected currency's region (deduplicated across countries).
+  const getNationalOptionMethods = () => {
+    const uniqueMethods = [
+      ...new Set(Object.values(getNationalOptions()).flat()),
+    ];
+    return uniqueMethods
+      .map(mapMethodToDrawerOption)
+      .sort((a, b) => a.title.localeCompare(b.title));
+  };
+
+  const selectCountry = (country: FlagType, previousDrawer: DrawerState) => {
     const nationalOptions = getNationalOptions()[country];
-    const nationalOptionCountries = getNationalOptionCountries();
     updateDrawer({
       title: i18n(`country.${country}`),
       options: nationalOptions.map(mapMethodToDrawerOption),
-      previousDrawer: {
-        options: nationalOptionCountries.map(
-          mapCountryToDrawerOption((cntry) => selectCountry(cntry, category)),
-        ),
-        ...getDrawerConfig(category),
-      },
+      previousDrawer,
       show: true,
       onClose: unselectCategory,
     });
   };
 
+  // Optional "browse by country" flow: pick a country first, then its methods.
+  // Currently hidden (see getNationalOptionsDrawer) but kept available — the
+  // underscore prefix marks it as intentionally unused for now.
+  const _getCountriesDrawer = (
+    category: PaymentCategory,
+    previousDrawer: DrawerState,
+  ): DrawerState => {
+    const countriesDrawer: DrawerState = {
+      options: getNationalOptionCountries().map(
+        mapCountryToDrawerOption((country) =>
+          selectCountry(country, countriesDrawer),
+        ),
+      ),
+      previousDrawer,
+      ...getDrawerConfig(category),
+    };
+    return countriesDrawer;
+  };
+
+  // Default flow: show every national method alphabetically.
+  // The country-based browsing (_getCountriesDrawer) is kept available but
+  // hidden — re-add a "browse by country" entry here to expose it again:
+  //   {
+  //     title: i18n("paymentCategory.nationalOption.byCountry"),
+  //     iconRightID: "chevronRight",
+  //     onPress: () =>
+  //       updateDrawer(_getCountriesDrawer(category, nationalOptionsDrawer)),
+  //   }
+  const getNationalOptionsDrawer = (category: PaymentCategory): DrawerState => {
+    const nationalOptionsDrawer: DrawerState = {
+      options: getNationalOptionMethods(),
+      ...getDrawerConfig(category),
+    };
+    return nationalOptionsDrawer;
+  };
+
   const { data: paymentMethods } = usePaymentMethods();
 
   const getDrawerOptions = (category: PaymentCategory) =>
-    category === "nationalOption"
-      ? getNationalOptionCountries().map(
-          mapCountryToDrawerOption((country) =>
-            selectCountry(country, category),
-          ),
-        )
-      : PAYMENTCATEGORIES[category]
-          .filter((method) =>
-            paymentMethods
-              ?.find((pm) => pm.id === method)
-              ?.currencies.includes(selectedCurrency),
-          )
-          .filter(
-            (method) =>
-              category !== "giftCard" ||
-              method === "giftCard.amazon" ||
-              method === "giftCard.steam",
-          )
-          .map(mapMethodToDrawerOption);
+    PAYMENTCATEGORIES[category]
+      .filter((method) =>
+        paymentMethods
+          ?.find((pm) => pm.id === method)
+          ?.currencies.includes(selectedCurrency),
+      )
+      .filter(
+        (method) =>
+          category !== "giftCard" ||
+          method === "giftCard.amazon" ||
+          method === "giftCard.steam",
+      )
+      .map(mapMethodToDrawerOption);
 
   const showDrawer = (category: PaymentCategory) => {
+    if (category === "nationalOption") {
+      updateDrawer(getNationalOptionsDrawer(category));
+      return;
+    }
     updateDrawer({
       options: getDrawerOptions(category),
       ...getDrawerConfig(category),

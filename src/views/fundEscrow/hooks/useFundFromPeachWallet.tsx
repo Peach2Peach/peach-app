@@ -85,7 +85,9 @@ export const useFundFromPeachWallet = () => {
   const showErrorBanner = useShowErrorBanner();
   const handleTransactionError = useHandleTransactionError();
   const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate();
-  const { refetch: syncPeachWallet } = useSyncWallet();
+  const { refetch: syncPeachWallet } = useSyncWallet({
+    revealedSpksOnly: true,
+  });
 
   const feeRate = useFeeRate();
   const setFundedFromPeachWallet = useWalletState(
@@ -130,8 +132,10 @@ export const useFundFromPeachWallet = () => {
       addresses = [],
     }: FundFromWalletParams) => {
       if (!address || !amount || fundingStatus !== "NULL") return undefined;
-      await syncPeachWallet();
       if (!peachWallet) throw new Error("Peach wallet not defined");
+      // Only resync if the wallet may be stale (synced > 30min ago or flagged
+      // after a direct broadcast / at startup) — otherwise reuse cached state.
+      if (peachWallet.shouldResync()) await syncPeachWallet();
       if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
         return setPopup(
           <AmountTooLowPopup

@@ -10,6 +10,7 @@ import type {
   PersisterInterface,
   Psbt,
   TxBuilderInterface,
+  UpdateInterface,
   WalletInterface,
 } from "bdk-rn";
 import {
@@ -59,6 +60,7 @@ const MIN_VERSION_FOR_SQLITE = 16;
 const DEFAULT_STOP_GAP = BigInt(25);
 const DEFAULT_BATCH_SIZE = BigInt(25);
 const DEFAULT_PARALLEL_REQUESTS = BigInt(10);
+const RESYNC_MAX_AGE_MS = 30 * 60 * 1000;
 
 function getDbPaths(network: string, nodeType: BlockChainNames) {
   const useMemory =
@@ -137,6 +139,17 @@ export class PeachWallet {
   gapLimit: number = 25;
 
   hasScanned: boolean = false;
+
+  /** Timestamp (ms) of the last successful sync of any type, undefined if never synced this session. */
+  lastSyncedAt?: number;
+
+  /**
+   * Whether the in-memory wallet state may be stale and should be resynced
+   * before being relied on (e.g. before funding an escrow). Starts `true` at
+   * app startup, is set back to `false` on every successful sync, and is set to
+   * `true` whenever we broadcast a transaction directly to a node.
+   */
+  potentiallyNeedsResync: boolean = true;
 
   lastUnusedAddress?: Omit<AddressInfo, "address"> & { address: string };
   lastUnusedAddressInternal?: Omit<AddressInfo, "address"> & {
@@ -277,7 +290,7 @@ export class PeachWallet {
     this.gapLimit = built.gapLimit;
   }
 
-  syncWallet() {
+  syncWallet(revealedSpksOnly = false) {
     if (this.syncInProgress) return this.syncInProgress;
 
     const run = async () => {
@@ -293,45 +306,60 @@ export class PeachWallet {
         const client = this.client;
         const persister = this.persister;
 
-        const gapLimit =
-          useNodeConfigState.getState().gapLimit ?? this.gapLimit;
-        this.gapLimit = gapLimit;
-        info(`PeachWallet - syncWallet - full scan start (gap=${gapLimit})`);
-        let externalScanned = 0;
-        let internalScanned = 0;
-        useWalletSyncStore.getState().setExternalScanProgress(0);
         const now = BigInt(Math.floor(Date.now() / 1000));
-        const fullScanRequest = wallet
-          .startFullScanAt(now)
-          .inspectSpksForAllKeychains({
-            inspect: (keychain) => {
-              if (keychain === KeychainKind.Internal) {
-                internalScanned += 1;
-                useWalletSyncStore
-                  .getState()
-                  .setInternalScanProgress(internalScanned);
-              } else {
-                externalScanned += 1;
-                useWalletSyncStore
-                  .getState()
-                  .setExternalScanProgress(externalScanned);
-              }
-            },
-          })
-          .build();
-        const update =
-          client instanceof ElectrumClient
-            ? await client.fullScan(
-                fullScanRequest,
-                BigInt(gapLimit),
-                DEFAULT_BATCH_SIZE,
-                false,
-              )
-            : await client.fullScan(
-                fullScanRequest,
-                BigInt(gapLimit),
-                DEFAULT_PARALLEL_REQUESTS,
-              );
+
+        let update: UpdateInterface;
+        if (revealedSpksOnly) {
+          // Faster, partial sync: only checks already-revealed scripts and does
+          // not discover new addresses via the gap limit. Sufficient when we
+          // just need an up-to-date UTXO set / balance (e.g. funding escrow).
+          // No scan-progress reporting here: this path has no progress UI.
+          info("PeachWallet - syncWallet - revealed spks sync start");
+          const syncRequest = wallet.startSyncWithRevealedSpksAt(now).build();
+          update =
+            client instanceof ElectrumClient
+              ? await client.sync(syncRequest, DEFAULT_BATCH_SIZE, false)
+              : await client.sync(syncRequest, DEFAULT_PARALLEL_REQUESTS);
+        } else {
+          const gapLimit =
+            useNodeConfigState.getState().gapLimit ?? this.gapLimit;
+          this.gapLimit = gapLimit;
+          info(`PeachWallet - syncWallet - full scan start (gap=${gapLimit})`);
+          useWalletSyncStore.getState().setExternalScanProgress(0);
+          let externalScanned = 0;
+          let internalScanned = 0;
+          const fullScanRequest = wallet
+            .startFullScanAt(now)
+            .inspectSpksForAllKeychains({
+              inspect: (keychain) => {
+                if (keychain === KeychainKind.Internal) {
+                  internalScanned += 1;
+                  useWalletSyncStore
+                    .getState()
+                    .setInternalScanProgress(internalScanned);
+                } else {
+                  externalScanned += 1;
+                  useWalletSyncStore
+                    .getState()
+                    .setExternalScanProgress(externalScanned);
+                }
+              },
+            })
+            .build();
+          update =
+            client instanceof ElectrumClient
+              ? await client.fullScan(
+                  fullScanRequest,
+                  BigInt(gapLimit),
+                  DEFAULT_BATCH_SIZE,
+                  false,
+                )
+              : await client.fullScan(
+                  fullScanRequest,
+                  BigInt(gapLimit),
+                  DEFAULT_PARALLEL_REQUESTS,
+                );
+        }
         wallet.applyUpdate(update);
         wallet.persist(persister);
         if (!this.hasScanned) {
@@ -382,6 +410,8 @@ export class PeachWallet {
 
         this.lastUnusedAddress = undefined;
         this.lastUnusedAddressInternal = undefined;
+        this.lastSyncedAt = Date.now();
+        this.potentiallyNeedsResync = false;
         info("PeachWallet - syncWallet - synced");
       } catch (e) {
         error(parseError(e));
@@ -394,6 +424,19 @@ export class PeachWallet {
 
     this.syncInProgress = run();
     return this.syncInProgress;
+  }
+
+  /**
+   * Whether the wallet should be synced before its state is relied on: either it
+   * was explicitly flagged as potentially stale (e.g. after a broadcast or at
+   * startup) or its last successful sync is older than {@link RESYNC_MAX_AGE_MS}.
+   */
+  shouldResync(maxAgeMs = RESYNC_MAX_AGE_MS) {
+    return (
+      this.potentiallyNeedsResync ||
+      this.lastSyncedAt === undefined ||
+      Date.now() - this.lastSyncedAt > maxAgeMs
+    );
   }
 
   getAddress(
@@ -556,6 +599,10 @@ export class PeachWallet {
       }
       info("PeachWallet - signAndBroadcastPSBT - broadcasted");
 
+      // The broadcast changes our UTXO set, so any cached wallet state is now
+      // potentially stale until the next successful sync clears this flag.
+      this.potentiallyNeedsResync = true;
+
       this.syncWallet().catch((e) => {
         error(parseError(e));
       });
@@ -564,6 +611,10 @@ export class PeachWallet {
 
       return psbt;
     } catch (e) {
+      // A failed broadcast leaves our cached state uncertain (e.g. the node
+      // rejected it because some inputs were already spent), so force a resync
+      // before this wallet's state is relied on again.
+      this.potentiallyNeedsResync = true;
       throw handleTransactionError(e);
     }
   }
