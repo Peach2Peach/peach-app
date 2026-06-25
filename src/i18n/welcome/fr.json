@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach dispose d'un portefeuille intégré, vous pouvez donc commencer tout de suite. Aucune application tierce requise !",
   "welcome.aWalletYouControl.title": "un portefeuille que vous contrôlez",
+  "welcome.areYouInEurope.checkTerms": "conditions générales",
+  "welcome.areYouInEurope.description": "Si vous êtes dans l'UE/EEE, vous y accédez uniquement de votre propre initiative. Aucun service ne vous est activement fourni ni proposé.",
+  "welcome.areYouInEurope.title": "êtes-vous en Europe ?",
   "welcome.letsGetStarted.title": "Commençons ! Êtes-vous nouveau ici ?",
   "welcome.peachOfMind.description": "Nous vous garantissons la sécurité de votre échange grâce à notre système de coffre et à notre assistance client intégrée dans l'app.",
   "welcome.peachOfMind.title": "La tranquillité d'esprit avec Peach",

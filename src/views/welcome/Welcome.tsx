@@ -19,6 +19,7 @@ import { useLanguage } from "../../hooks/useLanguage";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { AreYouInEurope } from "./AreYouInEurope";
 import { AWalletYouControl } from "./AWalletYouControl";
 import { LetsGetStarted } from "./LetsGetStarted";
 import { PeachOfMind } from "./PeachOfMind";
@@ -30,6 +31,7 @@ export const screens = [
   PeachOfMind,
   PrivacyFirst,
   AWalletYouControl,
+  AreYouInEurope,
   LetsGetStarted,
 ];
 

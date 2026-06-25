@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach include un wallet integrato: inizia subito senza app esterne!",
   "welcome.aWalletYouControl.title": "un wallet che controlli tu",
+  "welcome.areYouInEurope.checkTerms": "termini e condizioni",
+  "welcome.areYouInEurope.description": "Se ti trovi nell'UE/SEE, vi accedi esclusivamente di tua iniziativa. Nessun servizio ti viene fornito o promosso attivamente.",
+  "welcome.areYouInEurope.title": "sei in Europa?",
   "welcome.letsGetStarted.title": "inizia!\nnuovo qui?",
   "welcome.peachOfMind.description": "La tua parte dello scambio è garantita dal nostro servizio di deposito e supporto in-app.",
   "welcome.peachOfMind.title": "Pace mentale con Peach",

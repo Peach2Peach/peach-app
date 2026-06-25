@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach ina mkoba wa kujengwa, hivyo unaweza kuanza mara moja. Hakuna programu za tatu zinazohitajika!",
   "welcome.aWalletYouControl.title": "mkoba unaoudhibiti",
+  "welcome.areYouInEurope.checkTerms": "sheria na masharti",
+  "welcome.areYouInEurope.description": "Ikiwa uko katika EU/EEA, unafikia hii kwa hiari yako mwenyewe pekee. Hakuna huduma zinazotolewa au kutangazwa kwako kikamilifu.",
+  "welcome.areYouInEurope.title": "uko Ulaya?",
   "welcome.letsGetStarted.title": "tuanze!\nJe, wewe ni mgeni hapa?",
   "welcome.peachOfMind.description": "Tutahakikisha unapata sehemu yako ya makubaliano kwa sababu ya dhamana yetu ya juu na msaada wa programu.",
   "welcome.peachOfMind.title": "Amani ya Peach",

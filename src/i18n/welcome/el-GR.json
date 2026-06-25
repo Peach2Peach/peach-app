@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Η Peach διαθέτει ένα ενσωματωμένο πορτοφόλι, έτσι μπορείτε να ξεκινήσετε αμέσως. Δεν απαιτούνται εφαρμογές τρίτων!",
   "welcome.aWalletYouControl.title": "ένα πορτοφόλι που ελέγχετε εσείς",
+  "welcome.areYouInEurope.checkTerms": "όροι & προϋποθέσεις",
+  "welcome.areYouInEurope.description": "Εάν βρίσκεστε στην ΕΕ/ΕΟΧ, αποκτάτε πρόσβαση αποκλειστικά με δική σας πρωτοβουλία. Δεν σας παρέχονται ούτε προωθούνται ενεργά υπηρεσίες.",
+  "welcome.areYouInEurope.title": "είστε στην Ευρώπη;",
   "welcome.letsGetStarted.title": "ας ξεκινήσουμε!\nείστε νέος εδώ;",
   "welcome.peachOfMind.description": "Θα σας εγγυηθούμε ότι θα λάβετε μέρος σας από τη συναλλαγή χάρη στην προηγμένη κατάθεση εγγύησης και την υποστήριξη εντός της εφαρμογής.",
   "welcome.peachOfMind.title": "Ασφάλεια Peach",

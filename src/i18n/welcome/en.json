@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach has a built-in wallet, so you can get started right away. No third-party apps required to use Bitcoin properly!",
   "welcome.aWalletYouControl.title": "a wallet YOU control",
+  "welcome.areYouInEurope.checkTerms": "terms & conditions",
+  "welcome.areYouInEurope.description": "If you are in the EU/EEA, you are accessing this on your own initiative only. No services are actively provided or marketed to you.",
+  "welcome.areYouInEurope.title": "are you in Europe?",
   "welcome.letsGetStarted.title": "let's start!\nare you new here?",
   "welcome.peachOfMind.description": "We'll guarantee you get your part of the deal thanks to our advanced escrow and in-app support.",
   "welcome.peachOfMind.title": "Peach of mind",

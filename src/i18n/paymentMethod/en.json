@@ -6,6 +6,7 @@
   "paymentCategory.global": "global",
   "paymentCategory.globalOptions": "global options",
   "paymentCategory.nationalOption": "national options",
+  "paymentCategory.nationalOption.byCountry": "browse by country",
   "paymentCategory.onlineWallet": "online wallets",
   "paymentCategory.other": "other",
   "paymentMethod.accrue": "Accrue",

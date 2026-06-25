@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach kendi cüzdanınıza sahip, hemen kullanmaya başlayabilirsiniz. Üçüncü taraf uygulamaya gerek yok!",
   "welcome.aWalletYouControl.title": "Kontrol Sizde",
+  "welcome.areYouInEurope.checkTerms": "şartlar ve koşullar",
+  "welcome.areYouInEurope.description": "AB/AEA bölgesindeyseniz, buraya yalnızca kendi inisiyatifinizle erişiyorsunuz. Size aktif olarak hiçbir hizmet sunulmaz veya pazarlanmaz.",
+  "welcome.areYouInEurope.title": "Avrupa'da mısınız?",
   "welcome.letsGetStarted.title": "Hadi Başlayalım!\nYeni misiniz?",
   "welcome.peachOfMind.description": "Gelişmiş güvenlik ve uygulama içi destek sayesinde işlemleriniz güvende.",
   "welcome.peachOfMind.title": "Güvende Hissedin",

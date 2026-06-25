@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach ma wbudowany portfel, więc możesz zacząć od razu. Nie są wymagane żadne aplikacje firm trzecich, aby korzystać z Bitcoina w pełni!",
   "welcome.aWalletYouControl.title": "Portfel, który TY kontrolujesz",
+  "welcome.areYouInEurope.checkTerms": "regulamin",
+  "welcome.areYouInEurope.description": "Jeśli przebywasz w UE/EOG, uzyskujesz do tego dostęp wyłącznie z własnej inicjatywy. Żadne usługi nie są Ci aktywnie świadczone ani reklamowane.",
+  "welcome.areYouInEurope.title": "Jesteś w Europie?",
   "welcome.letsGetStarted.title": "Zaczynamy! Jesteś tu nowy?",
   "welcome.peachOfMind.description": "Gwarantujemy, że dzięki zaawansowanemu systemowi depozytów i wsparciu w aplikacji otrzymasz to, co Ci się należy.",
   "welcome.peachOfMind.title": "Brzoskwiniowy spokój umysłu",

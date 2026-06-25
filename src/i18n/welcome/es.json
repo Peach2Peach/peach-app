@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach incluye una cartera integrada, lista para usar. ¡No necesitas apps externas!",
   "welcome.aWalletYouControl.title": "una cartera bajo tu control",
+  "welcome.areYouInEurope.checkTerms": "términos y condiciones",
+  "welcome.areYouInEurope.description": "Si te encuentras en la UE/EEE, accedes a esto únicamente por tu propia iniciativa. No se te ofrecen ni promocionan servicios de forma activa.",
+  "welcome.areYouInEurope.title": "¿estás en Europa?",
   "welcome.letsGetStarted.title": "¡Empecemos!\n¿Eres nuevo?",
   "welcome.peachOfMind.description": "Nuestro sistema de garantía y soporte asegura que siempre recibas tu parte del acuerdo.",
   "welcome.peachOfMind.title": "Tranquilidad con Peach",

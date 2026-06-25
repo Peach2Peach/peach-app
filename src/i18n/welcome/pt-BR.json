@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "A Peach tem uma carteira integrada, para começar imediatamente. Não é necessário outro app para usar Bitcoin!",
   "welcome.aWalletYouControl.title": "uma carteira que você controla",
+  "welcome.areYouInEurope.checkTerms": "termos e condições",
+  "welcome.areYouInEurope.description": "Se você está na UE/EEE, está acessando isto somente por iniciativa própria. Nenhum serviço é oferecido ou divulgado ativamente para você.",
+  "welcome.areYouInEurope.title": "você está na Europa?",
   "welcome.letsGetStarted.title": "vamos começar!\nvocê é novo aqui?",
   "welcome.peachOfMind.description": "Garantimos que você receba sua parte do acordo com nosso sistema de depósito de garantia e suporte no app.",
   "welcome.peachOfMind.title": "Peach of mind",

@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach hat ein integriertes Wallet, damit kannst du sofort loslegen. Keine Apps von Drittanbietern erforderlich!",
   "welcome.aWalletYouControl.title": "Ein Wallet, das du kontrollierst",
+  "welcome.areYouInEurope.checkTerms": "Geschäftsbedingungen",
+  "welcome.areYouInEurope.description": "Wenn du dich im EU-/EWR-Raum befindest, greifst du ausschließlich auf eigene Initiative darauf zu. Es werden dir keine Dienste aktiv angeboten oder vermarktet.",
+  "welcome.areYouInEurope.title": "Bist du in Europa?",
   "welcome.letsGetStarted.title": "Lass uns starten!\nBist du neu hier?",
   "welcome.peachOfMind.description": "Dank unseres fortschrittlichen Escrows und des In-App-Supports garantieren wir, dass du deinen Teil des Geschäfts erhältst.",
   "welcome.peachOfMind.title": "Peach of mind",

@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "A Peach possui uma carteira integrada, permitindo que comece imediatamente. Nenhum aplicativo externo é necessário!",
   "welcome.aWalletYouControl.title": "uma carteira sob o SEU controlo",
+  "welcome.areYouInEurope.checkTerms": "termos e condições",
+  "welcome.areYouInEurope.description": "Se está na UE/EEE, está a aceder a isto apenas por sua própria iniciativa. Nenhum serviço lhe é ativamente fornecido ou divulgado.",
+  "welcome.areYouInEurope.title": "está na Europa?",
   "welcome.letsGetStarted.title": "vamos começar! É novo aqui?",
   "welcome.peachOfMind.description": "Garantimos que receberá a sua parte do acordo através do depósito de caução e do nosso suporte avançado no aplicativo.",
   "welcome.peachOfMind.title": "Paz de Espírito Peach",

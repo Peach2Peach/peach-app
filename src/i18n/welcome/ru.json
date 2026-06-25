@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "У Peach есть встроенный кошелек, поэтому вы можете сразу начать работу. Никаких сторонних приложений не требуется!",
   "welcome.aWalletYouControl.title": "кошелек, которым вы управляете",
+  "welcome.areYouInEurope.checkTerms": "условия и положения",
+  "welcome.areYouInEurope.description": "Если вы находитесь в ЕС/ЕЭЗ, вы получаете доступ к этому исключительно по собственной инициативе. Никакие услуги вам активно не предоставляются и не рекламируются.",
+  "welcome.areYouInEurope.title": "вы в Европе?",
   "welcome.letsGetStarted.title": "давайте начнем! вы здесь впервые?",
   "welcome.peachOfMind.description": "Мы гарантируем, что вы получите свою часть сделки благодаря нашему продвинутому механизму эскроу и поддержке в приложении.",
   "welcome.peachOfMind.title": "Спокойствие да персики",

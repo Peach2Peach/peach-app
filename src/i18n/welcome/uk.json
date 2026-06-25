@@ -1,6 +1,9 @@
 {
   "welcome.aWalletYouControl.description": "Peach має вбудований гаманець, тож можна розпочати одразу без додатків-посередників!",
   "welcome.aWalletYouControl.title": "Гаманець під вашим контролем",
+  "welcome.areYouInEurope.checkTerms": "умови та положення",
+  "welcome.areYouInEurope.description": "Якщо ви перебуваєте в ЄС/ЄЕЗ, ви отримуєте доступ до цього виключно з власної ініціативи. Жодні послуги вам активно не надаються та не рекламуються.",
+  "welcome.areYouInEurope.title": "Ви в Європі?",
   "welcome.letsGetStarted.title": "Давайте розпочнемо! Ви щойно приєднались?",
   "welcome.peachOfMind.description": "Ваші угоди захищені розширеним депонуванням і підтримкою в додатку.",
   "welcome.peachOfMind.title": "Спокій з Peach",
