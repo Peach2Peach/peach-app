@@ -75,6 +75,7 @@
     "lottie-react-native": "^7.3.6",
     "micro-key-producer": "^0.8.3",
     "node-forge": "file:./__mocks__/node-forge",
+    "nym-rn": "git+https://github.com/Peach2Peach/nym-rn.git#3d964132b1a0b623f1f07b571bd428af5d585056",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "qrcode": "^1.5.1",

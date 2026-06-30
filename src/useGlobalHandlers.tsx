@@ -8,6 +8,7 @@ import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
 import { useSyncPayoutAddressFromServer } from "./hooks/query/peach069/useSyncPayoutAddressFromServer";
 import { useSyncPaymentDataFromServer } from "./hooks/query/peach069/useSyncPaymentDataFromServer";
 import { useSyncRefundAddressFromServer } from "./hooks/query/peach069/useSyncRefundAddressFromServer";
+import { useNymProxyWatcher } from "./hooks/useNymProxyWatcher";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useStackNavigation } from "./hooks/useStackNavigation";
@@ -31,6 +32,7 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder();
   useInitialNavigation();
   useShowUpdateAvailable();
+  useNymProxyWatcher();
   useHandleNotifications(messageHandler);
   useSyncPaymentDataFromServer();
   useSyncRefundAddressFromServer();

@@ -51,6 +51,8 @@ import { getUTXOAddress } from "./getUTXOAddress";
 import { labelAddressByTransaction } from "./labelAddressByTransaction";
 import { mapTransactionToOffer } from "./mapTransactionToOffer";
 import { NodeConfig, useNodeConfigState } from "./nodeConfigStore";
+import { ensureNymProxy, stopNymProxy } from "./nym/ensureNymProxy";
+import { isMixnetAllowedNode } from "./nym/isMixnetAllowedNode";
 import { BuildTxParams, buildTransaction } from "./transaction";
 import { transactionHasBeenMappedToOffers } from "./transactionHasBeenMappedToOffers";
 import { useWalletSyncStore } from "./walletSyncStore";
@@ -186,7 +188,7 @@ export class PeachWallet {
               network: NETWORK,
             });
 
-          this.setBlockchain(useNodeConfigState.getState());
+          await this.setBlockchain(useNodeConfigState.getState());
 
           const nodeType = this.nodeType || BlockChainNames.Esplora;
           const {
@@ -282,9 +284,20 @@ export class PeachWallet {
     });
   }
 
-  setBlockchain(nodeConfig: NodeConfig) {
+  async setBlockchain(nodeConfig: NodeConfig) {
     info("PeachWallet - setBlockchain - start");
-    const built = buildBlockchainConfig(nodeConfig);
+    // The mixnet is only usable with an Esplora node (others use ports public
+    // exit policies block). For an allowed node, resolve the local SOCKS5
+    // endpoint (or throw if it was requested but failed — never silently fall
+    // back to a direct, deanonymized connection). For a disallowed node, make
+    // sure any running client is torn down.
+    let proxy;
+    if (isMixnetAllowedNode(nodeConfig)) {
+      proxy = await ensureNymProxy();
+    } else {
+      await stopNymProxy();
+    }
+    const built = buildBlockchainConfig(nodeConfig, proxy);
     this.client = built.client;
     this.nodeType = built.type;
     this.gapLimit = built.gapLimit;
