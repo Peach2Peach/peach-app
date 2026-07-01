@@ -144,7 +144,7 @@ export const ChatMessage = ({
     toDateFormat(message.date) !== toDateFormat(chatMessages[index - 1].date);
 
   const isSuspicious =
-    isBuyer &&
+    !isBuyer &&
     meta.isTradingPartner &&
     !!message.message?.toLowerCase().includes("veem");
 
