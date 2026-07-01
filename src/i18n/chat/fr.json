@@ -9,6 +9,7 @@
   "chat.disputeDisclaimer.5": "Si vous suspectez un problème, ouvrez une dispute en haut à droite.",
   "chat.failedToSend": "Impossible d'envoyer le message.",
   "chat.mediator": "Médiateur Peach",
+  "chat.suspiciousMessage": "Ce message semble suspect. Les arnaqueurs demandent des méthodes de paiement alternatives.",
   "chat.support.present": "Le service client Peach est actuellement présent dans ce chat",
   "chat.support.notPresent": "Le service client Peach n'est actuellement pas présent dans ce chat",
   "chat.systemMessage": "Message système Peach",

@@ -9,6 +9,7 @@
   "chat.disputeDisclaimer.5": "Bir sorun olduğunu düşünüyorsanız, sağ üstten anlaşmazlık başlatabilirsiniz.",
   "chat.failedToSend": "Mesaj gönderilemedi.",
   "chat.mediator": "Peach arabulucu",
+  "chat.suspiciousMessage": "Bu mesaj şüpheli görünüyor. Dolandırıcılar alternatif ödeme yöntemleri ister.",
   "chat.support.present": "Peach Müşteri Desteği şu anda bu sohbette mevcut",
   "chat.support.notPresent": "Peach Müşteri Desteği şu anda bu sohbette mevcut değil",
   "chat.systemMessage": "Peach sistem mesajı",

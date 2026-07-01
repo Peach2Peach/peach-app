@@ -111,6 +111,8 @@ type ChatMessageProps = {
   item: Message;
   index: number;
   online: boolean;
+  isBuyer: boolean;
+  openDispute: () => void;
   resendMessage: (message: Message) => void;
 };
 
@@ -120,6 +122,8 @@ export const ChatMessage = ({
   item: message,
   index,
   online,
+  isBuyer,
+  openDispute,
   resendMessage,
 }: ChatMessageProps) => {
   const publicKey = useAccountStore((state) => state.account.publicKey);
@@ -138,6 +142,11 @@ export const ChatMessage = ({
   const isChangeDate =
     index === 0 ||
     toDateFormat(message.date) !== toDateFormat(chatMessages[index - 1].date);
+
+  const isSuspicious =
+    isBuyer &&
+    meta.isTradingPartner &&
+    !!message.message?.toLowerCase().includes("veem");
 
   return (
     <>
@@ -184,6 +193,13 @@ export const ChatMessage = ({
             )}
           </PeachText>
         </TouchableOpacity>
+        {isSuspicious && (
+          <TouchableOpacity onPress={openDispute}>
+            <PeachText style={tw`px-1 mt-1 body-s text-error-main`}>
+              {i18n("chat.suspiciousMessage")}
+            </PeachText>
+          </TouchableOpacity>
+        )}
         {message.failedToSend && (
           <TouchableOpacity
             onPress={() => resendMessage(message)}

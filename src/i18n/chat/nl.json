@@ -9,6 +9,7 @@
   "chat.disputeDisclaimer.5": "Vermoed je problemen? Open een geschil via de rechterbovenhoek.",
   "chat.failedToSend": "bericht kon niet verzonden worden",
   "chat.mediator": "peach bemiddelaar",
+  "chat.suspiciousMessage": "Dit bericht ziet er verdacht uit. Oplichters vragen om alternatieve betaalmethoden.",
   "chat.support.present": "De Peach-klantenservice is momenteel aanwezig in deze chat",
   "chat.support.notPresent": "De Peach-klantenservice is momenteel niet aanwezig in deze chat",
   "chat.systemMessage": "Peach systeembericht",

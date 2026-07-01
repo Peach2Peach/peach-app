@@ -9,6 +9,7 @@
   "chat.disputeDisclaimer.5": "If you think something is going wrong, you can open a dispute in the top right.",
   "chat.failedToSend": "could not send message.",
   "chat.mediator": "peach mediator",
+  "chat.suspiciousMessage": "This message looks suspicious. Scammers ask for alternative payment methods.",
   "chat.support.present": "Peach Customer Support is currently present in this chat",
   "chat.support.notPresent": "Peach Customer Support is currently not present in this chat",
   "chat.systemMessage": "Peach system message",
