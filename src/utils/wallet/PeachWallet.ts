@@ -21,6 +21,7 @@ import {
   Wallet,
 } from "bdk-rn";
 import { BIP32Interface } from "bip32";
+import { payments } from "bitcoinjs-lib";
 import { sign } from "bitcoinjs-message";
 import { Platform } from "react-native";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
@@ -47,6 +48,7 @@ import {
 } from "./buildBlockchainConfig";
 import { handleTransactionError } from "./error/handleTransactionError";
 import { getDescriptorsBySeedphrase } from "./getDescriptorsBySeedphrase";
+import { network } from "./getNetwork";
 import { getUTXOAddress } from "./getUTXOAddress";
 import { labelAddressByTransaction } from "./labelAddressByTransaction";
 import { mapTransactionToOffer } from "./mapTransactionToOffer";
@@ -625,6 +627,22 @@ export class PeachWallet {
     );
     if (!keyPair.privateKey) throw Error("Private key not found");
     return sign(message, keyPair.privateKey, true).toString("base64");
+  }
+
+  // Derives the external address at the given index directly from the JS
+  // (BIP32) wallet, independent of the BDK wallet. Used as a fallback when the
+  // BDK wallet fails to resolve an address. Mirrors the derivation path used by
+  // signMessage so the derived address matches its signature.
+  getAddressFromJsWallet(index: number) {
+    const keyPair = this.jsWallet.derivePath(
+      `m/84'/${NETWORK === "bitcoin" ? "0" : "1"}'/0'/0/${index}`,
+    );
+    const { address } = payments.p2wpkh({
+      pubkey: keyPair.publicKey,
+      network,
+    });
+    if (!address) throw Error("Could not derive address from JS wallet");
+    return address;
   }
 
   walletTxFromSignedPsbt(signedPsbt: Psbt): WalletTx {

@@ -1,4 +1,3 @@
-import { AddressIndex } from "../../utils/wallet/bdkShim";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
@@ -18,8 +17,10 @@ import { getMessageToSignForAddress } from "../../utils/account/getMessageToSign
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
+import { error } from "../../utils/log/error";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
+import { AddressIndex } from "../../utils/wallet/bdkShim";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { useContractContext } from "./context";
 import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
@@ -91,39 +92,51 @@ export function PaymentMadeSlider() {
           let releaseAddress: string;
           let index: number;
 
-          if (selfUser69.lastAddressUsedIndex === undefined) {
-            const getAddressResult = await peachWallet.getAddress(
-              AddressIndex.New,
-              "external",
-              true,
-            );
-            releaseAddress = getAddressResult.address;
-            index = getAddressResult.index;
-          } else {
-            const getAddressResult = await peachWallet.getAddress(
-              AddressIndex.LastUnused,
-              "external",
-              true,
-            );
-            if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
+          try {
+            if (selfUser69.lastAddressUsedIndex === undefined) {
+              const getAddressResult = await peachWallet.getAddress(
+                AddressIndex.New,
+                "external",
+                true,
+              );
               releaseAddress = getAddressResult.address;
               index = getAddressResult.index;
             } else {
-              while (true) {
-                const getNewAddressResult = await peachWallet.getAddress(
-                  AddressIndex.New,
-                  "external",
-                  true,
-                );
-                if (
-                  getNewAddressResult.index > selfUser69.lastAddressUsedIndex
-                ) {
-                  releaseAddress = getNewAddressResult.address;
-                  index = getNewAddressResult.index;
-                  break;
+              const getAddressResult = await peachWallet.getAddress(
+                AddressIndex.LastUnused,
+                "external",
+                true,
+              );
+              if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
+                releaseAddress = getAddressResult.address;
+                index = getAddressResult.index;
+              } else {
+                while (true) {
+                  const getNewAddressResult = await peachWallet.getAddress(
+                    AddressIndex.New,
+                    "external",
+                    true,
+                  );
+                  if (
+                    getNewAddressResult.index > selfUser69.lastAddressUsedIndex
+                  ) {
+                    releaseAddress = getNewAddressResult.address;
+                    index = getNewAddressResult.index;
+                    break;
+                  }
                 }
               }
             }
+          } catch (e) {
+            // The BDK wallet can fail to resolve an address at this step. Fall
+            // back to deriving the next address directly from the JS wallet so
+            // the buyer can still confirm payment.
+            error("PaymentMadeSlider - getAddress failed, using JS wallet", e);
+            index =
+              selfUser69.lastAddressUsedIndex === undefined
+                ? 0
+                : selfUser69.lastAddressUsedIndex + 1;
+            releaseAddress = peachWallet.getAddressFromJsWallet(index);
           }
 
           const message = getMessageToSignForAddress(
