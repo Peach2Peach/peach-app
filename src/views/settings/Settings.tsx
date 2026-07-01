@@ -14,6 +14,7 @@ import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { PeachText } from "../../components/text/PeachText";
 import { BUNDLEID, UNIQUEID } from "../../constants";
+import { useMobilePendingActions } from "../../hooks/query/peach069/useMobilePendingActions";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
@@ -89,12 +90,22 @@ export const Settings = () => {
     (state) => state.showPasteDesktopConnection,
   );
 
+  const { mobilePendingActions } = useMobilePendingActions();
+  const pendingActionsCount = useMemo(
+    () => countPendingActions(mobilePendingActions),
+    [mobilePendingActions],
+  );
+
   const contactUs = useMemo(() => {
     const showDesktopItems = webAppAvailable || showDebugIds;
     const items = [
       showDesktopItems && ("connectToDesktop" as const),
       showPasteDesktopConnection && ("pasteDesktopConnection" as const),
-      showDesktopItems && ("mobilePendingActions" as const),
+      showDesktopItems &&
+        ({
+          title: "mobilePendingActions",
+          badge: pendingActionsCount,
+        } as const),
       !isProduction() && ("testView" as const),
       "contact" as const,
       "aboutPeach" as const,
@@ -102,7 +113,12 @@ export const Settings = () => {
     return items.filter(
       (item): item is Exclude<typeof item, false> => item !== false,
     );
-  }, [webAppAvailable, showPasteDesktopConnection, showDebugIds]);
+  }, [
+    webAppAvailable,
+    showPasteDesktopConnection,
+    showDebugIds,
+    pendingActionsCount,
+  ]);
 
   useFocusEffect(
     useCallback(() => {
@@ -357,6 +373,23 @@ function GapLimitPopup({
       }
     />
   );
+}
+
+type MobilePendingActionsData = ReturnType<
+  typeof useMobilePendingActions
+>["mobilePendingActions"];
+
+function countPendingActions(data: MobilePendingActionsData): number {
+  if (!data) return 0;
+  return [
+    ...(data.paymentConfirmedPendingActions ?? []),
+    ...(data.paymentMadePendingActions ?? []),
+    ...(data.refundPendingActions ?? []),
+    ...(data.fundEscrowPendingActions ?? []),
+    ...(data.fundMultipleEscrowPendingActions ?? []),
+    ...(data.fundEscrowContractPendingActions ?? []),
+    ...(data.refundEscrowContractPendingActions ?? []),
+  ].filter((item) => item.status === "pending").length;
 }
 
 function getRecommendedGapLimit(): number | undefined {
