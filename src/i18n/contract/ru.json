@@ -169,7 +169,7 @@
   "contract.summary.youPaid": "вы заплатили",
   "contract.summary.youShouldPay": "вам нужно заплатить",
   "contract.summary.youWillGet": "вы получите",
-  "contract.timer.confirmPayment.buyer": "ждём подтверждения...",
+  "contract.timer.confirmPayment.buyer": "ждём подтверждения от продавца...",
   "contract.timer.confirmPayment.seller": "покупатель оплатил",
   "contract.timer.sendPayment.buyer": "нужно оплатить за",
   "contract.timer.sendPayment.seller": "покупатель должен оплатить за",

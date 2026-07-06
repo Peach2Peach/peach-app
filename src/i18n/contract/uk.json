@@ -167,7 +167,7 @@
   "contract.summary.youPaid": "Ви сплатили",
   "contract.summary.youShouldPay": "Ви повинні сплатити",
   "contract.summary.youWillGet": "Ви отримаєте",
-  "contract.timer.confirmPayment.buyer": "Очікування підтвердження...",
+  "contract.timer.confirmPayment.buyer": "Очікування підтвердження від продавця...",
   "contract.timer.confirmPayment.seller": "Покупець сплатив",
   "contract.timer.sendPayment.buyer": "Ви повинні сплатити протягом",
   "contract.timer.sendPayment.seller": "Покупець має сплатити у",

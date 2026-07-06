@@ -156,7 +156,7 @@
   "contract.summary.youHaveBought": "Du hast gekauft",
   "contract.summary.youHaveSold": "Du hast verkauft",
   "contract.summary.youPaid": "Du hast bezahlt",
-  "contract.timer.confirmPayment.buyer": "warte auf Bestätigung...",
+  "contract.timer.confirmPayment.buyer": "warte auf Bestätigung vom Verkäufer...",
   "contract.timer.confirmPayment.seller": "Käufer hat bezahlt",
   "contract.timer.sendPayment.buyer": "Bezahle innerhalb von",
   "contract.timer.sendPayment.seller": "Käufer muss zahlen in",

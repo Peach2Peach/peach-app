@@ -58,6 +58,7 @@
   "wallet.send": "küldés",
   "wallet.sendBitcoin.amount": "összeg",
   "wallet.sendBitcoin.fee": "tranzakciós díj",
+  "wallet.sendBitcoin.feeRate.tooLow": "A díjrátának ≥ 1 sat/vByte-nak kell lennie",
   "wallet.sendBitcoin.send": "tranzakció küldése",
   "wallet.sendBitcoin.sendMax": "mind küldése",
   "wallet.sendBitcoin.sendingFrom": "küldés innen",

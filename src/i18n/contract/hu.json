@@ -168,7 +168,7 @@
   "contract.summary.youPaid": "Fizettél",
   "contract.summary.youShouldPay": "Kell fizetned",
   "contract.summary.youWillGet": "Kapni fogsz",
-  "contract.timer.confirmPayment.buyer": "Várakozás a megerősítésre...",
+  "contract.timer.confirmPayment.buyer": "Várakozás az eladó megerősítésére...",
   "contract.timer.confirmPayment.seller": "A vevő fizetett",
   "contract.timer.sendPayment.buyer": "Fizetned kell a következő időn belül:",
   "contract.timer.sendPayment.seller": "A vevőnek fizetnie kell a következő időn belül:",

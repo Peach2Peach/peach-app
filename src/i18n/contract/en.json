@@ -177,7 +177,7 @@
   "contract.summary.youPaid": "you paid",
   "contract.summary.youShouldPay": "you should pay",
   "contract.summary.youWillGet": "you will get",
-  "contract.timer.confirmPayment.buyer": "waiting for confirmation...",
+  "contract.timer.confirmPayment.buyer": "waiting for confirmation from seller...",
   "contract.timer.confirmPayment.seller": "buyer made payment",
   "contract.timer.sendPayment.buyer": "you should pay within",
   "contract.timer.sendPayment.seller": "buyer should make payment in",

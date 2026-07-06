@@ -58,6 +58,7 @@
   "wallet.send": "enviar",
   "wallet.sendBitcoin.amount": "cantidad",
   "wallet.sendBitcoin.fee": "comisión tx",
+  "wallet.sendBitcoin.feeRate.tooLow": "La tasa de comisión debe ser ≥ 1 sat/vByte",
   "wallet.sendBitcoin.send": "enviar tx",
   "wallet.sendBitcoin.sendMax": "enviar máximo",
   "wallet.sendBitcoin.sendingFrom": "enviando desde",

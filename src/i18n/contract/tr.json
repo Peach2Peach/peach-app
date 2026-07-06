@@ -155,7 +155,7 @@
   "contract.summary.youHaveBought": "Satın aldın",
   "contract.summary.youHaveSold": "Sattın",
   "contract.summary.youPaid": "Ödeme yaptın",
-  "contract.timer.confirmPayment.buyer": "Onay bekleniyor...",
+  "contract.timer.confirmPayment.buyer": "Satıcıdan onay bekleniyor...",
   "contract.timer.confirmPayment.seller": "Alıcı ödeme yaptı",
   "contract.timer.sendPayment.buyer": "Ödemeni şu süre içinde yapmalısın:",
   "contract.timer.sendPayment.seller": "Alıcı ödemeyi şu süre içinde yapmalı:",

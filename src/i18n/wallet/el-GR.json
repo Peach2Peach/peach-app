@@ -58,6 +58,7 @@
   "wallet.send": "στείλτε",
   "wallet.sendBitcoin.amount": "ποσό",
   "wallet.sendBitcoin.fee": "τέλη συναλλαγής",
+  "wallet.sendBitcoin.feeRate.tooLow": "Ο ρυθμός τελών πρέπει να είναι ≥ 1 sat/vByte",
   "wallet.sendBitcoin.send": "αποστολή συναλλαγής",
   "wallet.sendBitcoin.sendMax": "αποστολή max",
   "wallet.sendBitcoin.sendingFrom": "αποστολή από",

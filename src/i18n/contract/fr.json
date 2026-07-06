@@ -168,7 +168,7 @@
   "contract.summary.youPaid": "Vous avez payé",
   "contract.summary.youShouldPay": "Vous devez payer",
   "contract.summary.youWillGet": "Vous recevrez",
-  "contract.timer.confirmPayment.buyer": "En attente de confirmation...",
+  "contract.timer.confirmPayment.buyer": "En attente de confirmation du vendeur...",
   "contract.timer.confirmPayment.seller": "Acheteur a payé",
   "contract.timer.sendPayment.buyer": "Vous devez payer dans",
   "contract.timer.sendPayment.seller": "Acheteur doit payer dans",

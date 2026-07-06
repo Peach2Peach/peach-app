@@ -160,7 +160,7 @@
   "contract.summary.youHaveBought": "Hai acquistato",
   "contract.summary.youHaveSold": "Hai venduto",
   "contract.summary.youPaid": "Hai pagato",
-  "contract.timer.confirmPayment.buyer": "In attesa conferma...",
+  "contract.timer.confirmPayment.buyer": "In attesa di conferma dal venditore...",
   "contract.timer.confirmPayment.seller": "L'acquirente ha effettuato il pagamento",
   "contract.timer.sendPayment.buyer": "Devi pagare entro",
   "contract.timer.sendPayment.seller": "L'acquirente deve pagare entro",

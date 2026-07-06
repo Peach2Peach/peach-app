@@ -168,7 +168,7 @@
   "contract.summary.youPaid": "je betaalde",
   "contract.summary.youShouldPay": "je moet betalen",
   "contract.summary.youWillGet": "je krijgt",
-  "contract.timer.confirmPayment.buyer": "wachten op bevestiging...",
+  "contract.timer.confirmPayment.buyer": "wachten op bevestiging van verkoper...",
   "contract.timer.confirmPayment.seller": "koper betaalde",
   "contract.timer.sendPayment.buyer": "betaal binnen",
   "contract.timer.sendPayment.seller": "koper moet betalen binnen",
