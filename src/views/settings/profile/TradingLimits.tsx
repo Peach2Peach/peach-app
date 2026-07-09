@@ -13,11 +13,14 @@ export const TradingLimits = () => {
     monthlyAnonymousAmount,
     yearlyAmount,
     yearly,
+    yearlyAmountWithoutKyc,
+    yearlyWithoutKyc,
   } = useTradingLimits();
   const limits = [
     [dailyAmount, daily],
     [monthlyAnonymousAmount, monthlyAnonymous],
     [yearlyAmount, yearly],
+    [yearlyAmountWithoutKyc, yearlyWithoutKyc],
   ];
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
 
@@ -34,7 +37,11 @@ export const TradingLimits = () => {
           />
           <TradingLimitAmount
             style={tw`pl-2 mt-1`}
-            type={(["daily", "monthly", "yearly"] as const)[index]}
+            type={
+              (["daily", "monthly", "yearly", "yearlyWithoutKyc"] as const)[
+                index
+              ]
+            }
             {...{ amount, limit, displayCurrency }}
           />
         </View>
