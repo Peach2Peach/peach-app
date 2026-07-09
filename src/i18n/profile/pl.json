@@ -18,6 +18,7 @@
   "profile.tradingLimits.monthly": "miesięczny limit anonimowy",
   "profile.tradingLimits.yearly": "roczny limit",
   "profile.tradingLimits.yearly.short": "roczny limit",
+  "profile.tradingLimits.yearlyWithoutKyc": "roczny wolumen obrotu bez KYC",
   "profile.unblockUser": "odblokuj użytkownika",
   "profile.user.title": "profil publiczny",
   "profile.user.currentOffers": "aktualne oferty",

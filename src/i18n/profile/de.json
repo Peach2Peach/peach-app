@@ -18,6 +18,7 @@
   "profile.tradingLimits.monthly": "monatliches anonymes Limit",
   "profile.tradingLimits.yearly": "jährliches Handelslimit",
   "profile.tradingLimits.yearly.short": "jährliches Limit",
+  "profile.tradingLimits.yearlyWithoutKyc": "jährliches Handelsvolumen ohne KYC",
   "profile.unblockUser": "Diesen Benutzer entsperren",
   "profile.user.title": "Öffentliches Profil",
   "profile.user.currentOffers": "current offers",

@@ -18,6 +18,7 @@
   "profile.tradingLimits.monthly": "aylık anonim limit:",
   "profile.tradingLimits.yearly": "yıllık ticaret limiti:",
   "profile.tradingLimits.yearly.short": "yıllık limit:",
+  "profile.tradingLimits.yearlyWithoutKyc": "KYC olmadan yıllık işlem hacmi:",
   "profile.unblockUser": "Bu kullanıcıyı engellemeyi kaldır",
   "profile.user.title": "genel profil",
   "profile.user.currentOffers": "mevcut teklifler",
