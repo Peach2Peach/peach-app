@@ -349,7 +349,7 @@ function GapLimitPopup({
               </>
             )}
           </PeachText>
-          <NumberInput value={value} onChangeText={setValue} />
+          <NumberInput value={value} onChangeText={setValue} ignoreDarkMode />
         </View>
       }
       actions={

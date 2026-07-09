@@ -57,6 +57,11 @@ export const NodeSetup = () => {
       <LoadingPopup title={i18n("wallet.settings.node.checkingConnection")} />,
     );
 
+    // checkNodeConnection uses bdk's synchronous clients, which block the JS
+    // thread for the duration of the connection attempt. Yield first so the
+    // loading popup actually renders before the UI freezes during the check.
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
     const { result: nodeType, error } = await checkNodeConnection(url, ssl);
     if (nodeType) {
       return setPopup(
@@ -159,7 +164,7 @@ function NodeConnectionErrorPopup({ error }: ErrorPopupProps) {
     <WarningPopup
       title={i18n("wallet.settings.node.error.title")}
       content={
-        <PeachText selectable>
+        <PeachText selectable ignoreDarkMode>
           {i18n("wallet.settings.node.error.text", error)}
         </PeachText>
       }

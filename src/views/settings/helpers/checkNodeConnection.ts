@@ -10,11 +10,13 @@ const resolveUrl = (url: string, defaultScheme: string) =>
 const checkElectrumConnection = async (address: string, ssl: boolean) => {
   try {
     info("Checking electrum connection...");
+    const TIMEOUT_SECONDS = 3;
+    const RETRY_ATTEMPTS = 1;
     const client = new ElectrumClient(
       resolveUrl(address, ssl ? "ssl" : "tcp"),
       undefined,
-      10,
-      2,
+      TIMEOUT_SECONDS,
+      RETRY_ATTEMPTS,
       true,
     );
     await client.ping();
