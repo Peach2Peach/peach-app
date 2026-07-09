@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Quel est votre problème ?",
   "contract.amount": "Montant",
   "contract.bought": "Acheté",
+  "contract.suspiciousPaymentData.seller": "Le vendeur a des informations de paiement suspectes. En cas de doute, contactez le service client Peach et n'effectuez pas d'échange.",
+  "contract.suspiciousPaymentData.buyer": "L'acheteur a des informations de paiement suspectes. En cas de doute, contactez le service client Peach et n'effectuez pas d'échange.",
   "contract.buyer.buyerCanceledCashTrade": "Vous avez annulé l'échange en espèces.",
   "contract.buyer.buyerCanceledTrade": "Vous avez annulé l'échange, votre réputation a été affectée.",
   "contract.buyer.collaborativeCancel.notResolved": "Vous devez accepter ou refuser l'annulation.",

@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Neden iletişime geçiyorsun?",
   "contract.amount": "Miktar",
   "contract.bought": "Satın alındı",
+  "contract.suspiciousPaymentData.seller": "Satıcının şüpheli ödeme bilgileri var. Şüphe durumunda Peach Müşteri Desteği ile iletişime geç ve ticaret yapma.",
+  "contract.suspiciousPaymentData.buyer": "Alıcının şüpheli ödeme bilgileri var. Şüphe durumunda Peach Müşteri Desteği ile iletişime geç ve ticaret yapma.",
   "contract.buyer.buyerCanceledCashTrade": "Bu nakit ticaretini iptal ettin.",
   "contract.buyer.buyerCanceledTrade": "Ticareti iptal ettin, itibarın etkilendi.",
   "contract.buyer.collaborativeCancel.notResolved": "İptali kabul veya reddetmelisin.",

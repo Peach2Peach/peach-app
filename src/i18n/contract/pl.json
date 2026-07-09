@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Co się dzieje?",
   "contract.amount": "Kwota",
   "contract.bought": "Kupione",
+  "contract.suspiciousPaymentData.seller": "Sprzedający ma podejrzane dane płatnicze. W razie wątpliwości skontaktuj się z obsługą klienta Peach i nie dokonuj transakcji.",
+  "contract.suspiciousPaymentData.buyer": "Kupujący ma podejrzane dane płatnicze. W razie wątpliwości skontaktuj się z obsługą klienta Peach i nie dokonuj transakcji.",
   "contract.buyer.buyerCanceledCashTrade": "Anulowałeś transakcję gotówkową.",
   "contract.buyer.buyerCanceledTrade": "Anulowałeś transakcję, reputacja nadszarpnięta.",
   "contract.buyer.collaborativeCancel.notResolved": "Sprzedawca chce anulować transakcję. Możesz odmówić, jeśli zapłaciłeś.",

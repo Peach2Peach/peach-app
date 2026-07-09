@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Was gibt's Neues?",
   "contract.amount": "Betrag",
   "contract.bought": "Gekauft",
+  "contract.suspiciousPaymentData.seller": "Der Verkäufer hat verdächtige Zahlungsdaten. Kontaktiere im Zweifelsfall den Peach-Kundensupport und handle nicht.",
+  "contract.suspiciousPaymentData.buyer": "Der Käufer hat verdächtige Zahlungsdaten. Kontaktiere im Zweifelsfall den Peach-Kundensupport und handle nicht.",
   "contract.buyer.buyerCanceledCashTrade": "Du hast diesen Barhandel abgebrochen.",
   "contract.buyer.buyerCanceledTrade": "Du hast den Handel abgebrochen, Ruf beeinträchtigt.",
   "contract.buyer.collaborativeCancel.notResolved": "Du musst der Stornierung zustimmen oder sie ablehnen.",

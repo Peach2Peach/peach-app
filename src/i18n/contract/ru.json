@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "что случилось?",
   "contract.amount": "сумма",
   "contract.bought": "куплено",
+  "contract.suspiciousPaymentData.seller": "У продавца подозрительные платёжные данные. В случае сомнений свяжитесь со службой поддержки Peach и не совершайте сделку.",
+  "contract.suspiciousPaymentData.buyer": "У покупателя подозрительные платёжные данные. В случае сомнений свяжитесь со службой поддержки Peach и не совершайте сделку.",
   "contract.buyer.buyerCanceledCashTrade": "Вы отменили сделку за наличные.",
   "contract.buyer.buyerCanceledTrade": "Вы отменили сделку, репутация пострадала.",
   "contract.buyer.collaborativeCancel.notResolved": "Продавец хочет отменить сделку. Вы можете отказать, особенно если уже оплатили.",

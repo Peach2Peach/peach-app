@@ -15,6 +15,8 @@
   "contact.whyAreYouContactingUs": "what's up?",
   "contract.amount": "amount",
   "contract.bought": "bought",
+  "contract.suspiciousPaymentData.seller": "The seller has suspicious payment details. In case of doubt, contact Peach Customer Support and don't trade.",
+  "contract.suspiciousPaymentData.buyer": "The buyer has suspicious payment details. In case of doubt, contact Peach Customer Support and don't trade.",
   "contract.buyer.buyerCanceledCashTrade": "You canceled this cash trade.",
   "contract.buyer.buyerCanceledTrade": "You canceled the trade, impacting your reputation negatively.",
   "contract.buyer.collaborativeCancel.notResolved": "The seller wants to cancel this trade.\n\nYou are free to reject the cancellation, especially if you have already made the payment.",

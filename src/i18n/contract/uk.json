@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Що трапилось?",
   "contract.amount": "Кількість",
   "contract.bought": "Придбано",
+  "contract.suspiciousPaymentData.seller": "У продавця підозрілі платіжні дані. У разі сумнівів зверніться до служби підтримки Peach і не укладайте угоду.",
+  "contract.suspiciousPaymentData.buyer": "У покупця підозрілі платіжні дані. У разі сумнівів зверніться до служби підтримки Peach і не укладайте угоду.",
   "contract.buyer.buyerCanceledCashTrade": "Ви скасували торгівлю готівкою.",
   "contract.buyer.buyerCanceledTrade": "Ви скасували обмін, це вплинуло на вашу репутацію.",
   "contract.buyer.collaborativeCancel.notResolved": "Потрібно погодитися або відхилити скасування.",

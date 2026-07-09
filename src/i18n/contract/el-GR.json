@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Τι συμβαίνει;",
   "contract.amount": "Ποσό",
   "contract.bought": "Αγοράστηκαν",
+  "contract.suspiciousPaymentData.seller": "Ο πωλητής έχει ύποπτα στοιχεία πληρωμής. Σε περίπτωση αμφιβολίας, επικοινωνήστε με την Εξυπηρέτηση Πελατών της Peach και μην συναλλάσσεστε.",
+  "contract.suspiciousPaymentData.buyer": "Ο αγοραστής έχει ύποπτα στοιχεία πληρωμής. Σε περίπτωση αμφιβολίας, επικοινωνήστε με την Εξυπηρέτηση Πελατών της Peach και μην συναλλάσσεστε.",
   "contract.buyer.buyerCanceledCashTrade": "Ακυρώσατε τη συναλλαγή με μετρητά.",
   "contract.buyer.buyerCanceledTrade": "Ακυρώσατε τη συναλλαγή. Η φήμη σας επηρεάστηκε.",
   "contract.buyer.collaborativeCancel.notResolved": "Πρέπει να συμφωνήσετε ή να απορρίψετε την ακύρωση.",

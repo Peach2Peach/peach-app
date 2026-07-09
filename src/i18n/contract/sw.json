@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Una tatizo gani?",
   "contract.amount": "Kiasi",
   "contract.bought": "Umenunua",
+  "contract.suspiciousPaymentData.seller": "Muuzaji ana taarifa za malipo zenye kutiliwa shaka. Ukiwa na shaka, wasiliana na Huduma kwa Wateja ya Peach na usifanye biashara.",
+  "contract.suspiciousPaymentData.buyer": "Mnunuzi ana taarifa za malipo zenye kutiliwa shaka. Ukiwa na shaka, wasiliana na Huduma kwa Wateja ya Peach na usifanye biashara.",
   "contract.buyer.buyerCanceledCashTrade": "Umeghairi biashara ya pesa taslimu.",
   "contract.buyer.buyerCanceledTrade": "Umegairi biashara; sifa yako imeathirika.",
   "contract.buyer.collaborativeCancel.notResolved": "Muuzaji anataka kughairi. Unaweza kukataa, hasa ikiwa tayari umefanya malipo.",

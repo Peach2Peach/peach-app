@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Miért keresel minket?",
   "contract.amount": "Összeg",
   "contract.bought": "Megvásárolt",
+  "contract.suspiciousPaymentData.seller": "Az eladónak gyanús fizetési adatai vannak. Kétség esetén vedd fel a kapcsolatot a Peach ügyfélszolgálatával, és ne kereskedj.",
+  "contract.suspiciousPaymentData.buyer": "A vevőnek gyanús fizetési adatai vannak. Kétség esetén vedd fel a kapcsolatot a Peach ügyfélszolgálatával, és ne kereskedj.",
   "contract.buyer.buyerCanceledCashTrade": "Törölted a készpénzes kereskedést.",
   "contract.buyer.buyerCanceledTrade": "Lemondtad a kereskedést, hírneved csorbult.",
   "contract.buyer.collaborativeCancel.notResolved": "Az eladó törölni szeretné a kereskedést. Dönthetsz, elfogadod-e, különösen ha fizettél már.",

@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "waarom neem je contact op?",
   "contract.amount": "bedrag",
   "contract.bought": "gekocht",
+  "contract.suspiciousPaymentData.seller": "De verkoper heeft verdachte betaalgegevens. Neem bij twijfel contact op met de Peach-klantenservice en handel niet.",
+  "contract.suspiciousPaymentData.buyer": "De koper heeft verdachte betaalgegevens. Neem bij twijfel contact op met de Peach-klantenservice en handel niet.",
   "contract.buyer.buyerCanceledCashTrade": "je hebt deze cashtransactie geannuleerd",
   "contract.buyer.buyerCanceledTrade": "je hebt de transactie geannuleerd en je reputatie is aangetast",
   "contract.buyer.collaborativeCancel.notResolved": "De verkoper wil annuleren. Je kunt weigeren, vooral als je al betaald hebt.",

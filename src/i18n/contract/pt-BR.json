@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "O que aconteceu?",
   "contract.amount": "Quantidade",
   "contract.bought": "Comprado",
+  "contract.suspiciousPaymentData.seller": "O vendedor tem dados de pagamento suspeitos. Em caso de dúvida, entre em contato com o Suporte ao Cliente da Peach e não negocie.",
+  "contract.suspiciousPaymentData.buyer": "O comprador tem dados de pagamento suspeitos. Em caso de dúvida, entre em contato com o Suporte ao Cliente da Peach e não negocie.",
   "contract.buyer.buyerCanceledCashTrade": "Você cancelou esta negociação em dinheiro.",
   "contract.buyer.buyerCanceledTrade": "Você cancelou a negociação; sua reputação foi afetada.",
   "contract.buyer.collaborativeCancel.notResolved": "O vendedor quer cancelar. Você pode recusar, especialmente se já pagou.",

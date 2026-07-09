@@ -10,6 +10,8 @@
   "contact.whyAreYouContactingUs": "Cosa succede?",
   "contract.amount": "Importo",
   "contract.bought": "Acquistato",
+  "contract.suspiciousPaymentData.seller": "Il venditore ha dati di pagamento sospetti. In caso di dubbio, contatta l'Assistenza Clienti di Peach e non fare scambi.",
+  "contract.suspiciousPaymentData.buyer": "L'acquirente ha dati di pagamento sospetti. In caso di dubbio, contatta l'Assistenza Clienti di Peach e non fare scambi.",
   "contract.buyer.buyerCanceledCashTrade": "Hai annullato questo scambio in contanti.",
   "contract.buyer.buyerCanceledTrade": "Hai annullato lo scambio; la tua reputazione ne ha risentito.",
   "contract.buyer.collaborativeCancel.notResolved": "Devi accettare o rifiutare la cancellazione.",
