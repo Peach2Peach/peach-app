@@ -35,6 +35,10 @@ type SellOfferDraft = OfferDraft & {
   type: "ask";
   amount: number;
   premium: number;
+  fixedPrice?: number;
+  /** currency code; string (not Currency) so peach-api offers stay assignable
+   * despite the diverging Currency unions */
+  fixedPriceCurrency?: string;
   returnAddress: string;
   funding: FundingStatus;
   multi?: number;

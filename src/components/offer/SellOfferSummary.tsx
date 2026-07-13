@@ -1,8 +1,13 @@
 import type { ReactElement } from "react";
 import { View } from "react-native";
+import { SATSINBTC } from "../../constants";
+import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
+import { getOfferPrice } from "../../utils/offer/getOfferPrice";
+import { priceFormat } from "../../utils/string/priceFormat";
 import { BTCAmount } from "../bitcoin/BTCAmount";
 import { EscrowLink } from "../matches/components/EscrowLink";
 import { getPremiumColor } from "../matches/utils/getPremiumColor";
@@ -16,6 +21,8 @@ type Props = {
     | "amount"
     | "tradeStatus"
     | "premium"
+    | "fixedPrice"
+    | "fixedPriceCurrency"
     | "meansOfPayment"
     | "experienceLevelCriteria"
     | "instantTradeCriteria"
@@ -51,10 +58,44 @@ export const SellOrBuyOfferSummary = ({
     tradeStatus,
     amount,
     premium,
+    fixedPrice,
+    fixedPriceCurrency,
     meansOfPayment,
     amountSats,
     paymentData,
   } = offer;
+
+  const hasFixedPrice = fixedPrice !== undefined;
+
+  const { data: priceBook } = useMarketPrices();
+  const marketPrice =
+    hasFixedPrice && priceBook && amount > 0
+      ? getOfferPrice({
+          amount,
+          premium: 0,
+          prices: priceBook,
+          currency: (fixedPriceCurrency ?? "EUR") as Currency,
+        })
+      : 0;
+  const fixedPricePremium =
+    marketPrice > 0 && fixedPrice !== undefined
+      ? round((fixedPrice / marketPrice - 1) * 100, 2)
+      : 0;
+  const fixedPriceBtcRate =
+    hasFixedPrice && fixedPrice !== undefined && amount > 0
+      ? round((fixedPrice * SATSINBTC) / amount, 2)
+      : 0;
+
+  const premiumCurrency = (keys(meansOfPayment)[0] as Currency) ?? "EUR";
+  const premiumPrice =
+    !hasFixedPrice && priceBook && amount > 0
+      ? getOfferPrice({
+          amount,
+          premium,
+          prices: priceBook,
+          currency: premiumCurrency,
+        })
+      : 0;
 
   const isInstantTrade = Boolean(
     "escrow" in offer
@@ -85,22 +126,59 @@ export const SellOrBuyOfferSummary = ({
 
       <HorizontalLine />
 
-      <SummaryCard.Section>
-        <PeachText style={tw`text-center text-black-65`}>
-          {i18n("offer.summary.withA")}
-        </PeachText>
-        <PeachText
-          style={[
-            tw`text-center subtitle-1`,
-            getPremiumColor(offer.premium, false),
-          ]}
-        >
-          <PeachText style={tw`subtitle-1`}>{Math.abs(premium)}% </PeachText>
-          {i18n(
-            premium >= 0 ? "offer.summary.premium" : "offer.summary.discount",
+      {hasFixedPrice ? (
+        <SummaryCard.Section>
+          <View style={tw`items-center`}>
+            <PeachText style={tw`text-center text-black-65`}>
+              {i18n("offer.summary.forAFixedPriceOf")}
+            </PeachText>
+            <PeachText style={tw`text-center subtitle-1`}>
+              {fixedPrice} {fixedPriceCurrency}{" "}
+              <PeachText style={tw`font-baloo`}>
+                {`(${priceFormat(fixedPriceBtcRate)} BTC${fixedPriceCurrency})`}
+              </PeachText>
+            </PeachText>
+            {marketPrice > 0 && (
+              <PeachText style={tw`text-center text-black-65`}>
+                {Math.abs(fixedPricePremium)}%{" "}
+                <PeachText style={getPremiumColor(fixedPricePremium, false)}>
+                  {i18n(
+                    fixedPricePremium >= 0
+                      ? "offer.summary.above"
+                      : "offer.summary.below",
+                  )}
+                </PeachText>{" "}
+                {i18n("offer.summary.marketPrice")}
+              </PeachText>
+            )}
+          </View>
+        </SummaryCard.Section>
+      ) : (
+        <SummaryCard.Section>
+          <PeachText style={tw`text-center text-black-65`}>
+            {i18n("offer.summary.withA")}
+          </PeachText>
+          <PeachText
+            style={[
+              tw`text-center subtitle-1`,
+              getPremiumColor(offer.premium, false),
+            ]}
+          >
+            <PeachText style={tw`subtitle-1`}>{Math.abs(premium)}% </PeachText>
+            {i18n(
+              premium >= 0 ? "offer.summary.premium" : "offer.summary.discount",
+            )}
+          </PeachText>
+          {premiumPrice > 0 && (
+            <PeachText style={tw`text-center text-black-65`}>
+              {i18n(
+                "sell.premium.currently",
+                `${priceFormat(premiumPrice)} ${premiumCurrency}`,
+              )}
+            </PeachText>
           )}
-        </PeachText>
-      </SummaryCard.Section>
+        </SummaryCard.Section>
+      )}
 
       <HorizontalLine />
 

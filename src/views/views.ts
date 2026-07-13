@@ -53,6 +53,7 @@ import { Referrals } from "./referrals/Referrals";
 import { Report } from "./report/Report";
 import { RestoreBackup } from "./restoreBackup/RestoreBackup";
 import { RestoreReputation } from "./restoreReputation/RestoreReputation";
+import { EditFixedPrice } from "./search/EditFixedPrice";
 import { EditPremium } from "./search/EditPremium";
 import { EditPremiumOfBuyOffer } from "./search/EditPremiumOfBuyOffer";
 import { Backups } from "./settings/Backups";
@@ -144,6 +145,7 @@ const sellFlow: ViewType[] = [
   { name: "fundEscrow", component: FundEscrow },
   { name: "wrongFundingAmount", component: WrongFundingAmount },
   { name: "editPremium", component: EditPremium },
+  { name: "editFixedPrice", component: EditFixedPrice },
 ];
 
 const trade: ViewType[] = [

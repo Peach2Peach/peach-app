@@ -297,14 +297,16 @@ function SearchHeader({
     [offerId, setPopup],
   );
 
-  const goToEditPremium = useCallback(
-    () =>
-      navigation.navigate("editPremium", {
-        offerId,
-        preferedDisplayCurrency: displayedCurrency,
-      }),
-    [navigation, offerId, displayedCurrency],
-  );
+  const goToEditPremium = useCallback(() => {
+    if (offer && "fixedPrice" in offer && offer.fixedPrice !== undefined) {
+      navigation.navigate("editFixedPrice", { offerId });
+      return;
+    }
+    navigation.navigate("editPremium", {
+      offerId,
+      preferedDisplayCurrency: displayedCurrency,
+    });
+  }, [navigation, offer, offerId, displayedCurrency]);
 
   const memoizedHeaderIcons = useMemo(() => {
     if (!offer) return undefined;
@@ -319,7 +321,11 @@ function SearchHeader({
         },
       ];
     }
-    return [{ ...headerIcons.percent, onPress: goToEditPremium }, ...icons];
+    const editIcon =
+      "fixedPrice" in offer && offer.fixedPrice !== undefined
+        ? headerIcons.fixedPrice
+        : headerIcons.percent;
+    return [{ ...editIcon, onPress: goToEditPremium }, ...icons];
   }, [
     offer,
     cancelOffer,

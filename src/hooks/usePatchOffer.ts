@@ -8,6 +8,7 @@ export type PatchOfferData = {
   refundAddress?: string;
   refundTx?: string;
   premium?: number;
+  fixedPrice?: number;
 } & Partial<MatchFilter>;
 
 export const usePatchOffer = () => {
