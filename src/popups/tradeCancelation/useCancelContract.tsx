@@ -4,9 +4,11 @@ import { useContractMutation } from "../../views/contract/hooks/useContractMutat
 export function useCancelContract({
   contractId,
   optimisticContract,
+  optimistic = true,
 }: {
   contractId: string;
   optimisticContract?: Partial<Contract>;
+  optimistic?: boolean;
 }) {
   return useContractMutation(
     { id: contractId, ...optimisticContract },
@@ -21,5 +23,6 @@ export function useCancelContract({
         return result;
       },
     },
+    { optimistic },
   );
 }

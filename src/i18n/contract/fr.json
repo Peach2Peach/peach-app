@@ -252,6 +252,8 @@
   "contract.payment.disputeIsActive": "Litige actif",
   "contract.seller.revolutWarning1.text": "Utilisateurs Revolut : ",
   "contract.seller.revolutWarning2.text": "assurez-vous que l’acheteur a payé via Revtag et NON par carte de crédit/débit ou Apple Pay.",
+  "contract.seller.paypalWarning1.text": "Les virements Paypal peuvent être réversibles s’ils ont été classés comme Biens et Services.",
+  "contract.seller.paypalWarning2.text": "\n\nVérifiez sur le virement si des frais Paypal ont été prélevés. Si oui, il s’agissait d’un virement Biens et Services et vous risquez que l’acheteur l’annule. Renvoyez-le et demandez à l’acheteur d’effectuer le virement avec l’option Amis et Famille.",
   "contract.summary.mpesa_name": "Nom",
   "contract.summary.mpesa_finalCurrency": "devise m-pesa",
   "contract.summary.mpesa_phone": "Tél.",

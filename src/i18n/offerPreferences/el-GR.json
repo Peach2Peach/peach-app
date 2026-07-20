@@ -18,6 +18,8 @@
   "offerPreferences.allPaymentMethods": "όλες οι μέθοδοι πληρωμής",
   "offerPreferences.amountToBuy": "ποσό για αγορά",
   "offerPreferences.amountToSell": "ποσό για πώληση",
+  "offerPreferences.priceType.premium": "ασφάλιστρο",
+  "offerPreferences.priceType.fixedPrice": "σταθερή τιμή",
   "offerPreferences.buyOffers": "$0 προσφορές αγοράς",
   "offerPreferences.competingSellOffers": "$0 ανταγωνιστικές προσφορές πώλησης",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 ανταγωνιστικές προσφορές πώλησης κάτω από αυτήν την προμήθεια",

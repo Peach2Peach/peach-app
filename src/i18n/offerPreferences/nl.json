@@ -17,6 +17,8 @@
   "offerPreferences.allPaymentMethods": "alle betaalmethoden",
   "offerPreferences.amountToBuy": "bedrag om te kopen",
   "offerPreferences.amountToSell": "bedrag om te verkopen",
+  "offerPreferences.priceType.premium": "toeslag",
+  "offerPreferences.priceType.fixedPrice": "vaste prijs",
   "offerPreferences.buyOffers": "$0 openstaande koopaanbiedingen",
   "offerPreferences.competingSellOffers": "$0 concurrerende verkoopaanbiedingen",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 verkoopaanbiedingen onder deze premie",

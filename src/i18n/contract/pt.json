@@ -252,6 +252,8 @@
   "contract.payment.disputeIsActive": "Disputa ativa",
   "contract.seller.revolutWarning1.text": "Utilizadores Revolut : ",
   "contract.seller.revolutWarning2.text": "certifica-te de que o comprador pagou através do Revtag e NÃO com cartão de crédito/débito ou Apple Pay.",
+  "contract.seller.paypalWarning1.text": "As transferências Paypal podem ser reversíveis se tiverem sido classificadas como Bens e Serviços.",
+  "contract.seller.paypalWarning2.text": "\n\nVerifica na transferência se foi cobrada uma taxa Paypal. Se sim, foi uma transferência de Bens e Serviços e corres o risco de o comprador a reverter. Devolve-a e pede ao comprador que transfira com a opção Amigos e Família.",
   "contract.summary.mpesa_name": "Nome",
   "contract.summary.mpesa_finalCurrency": "moeda m-pesa",
   "contract.summary.mpesa_phone": "Número de telefone",

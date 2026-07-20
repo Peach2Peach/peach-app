@@ -10,9 +10,11 @@ import { useContractMutation } from "./useContractMutation";
 export function useConfirmPaymentSeller({
   contract,
   optimisticContract,
+  optimistic = true,
 }: {
   contract: Contract;
   optimisticContract?: Partial<Contract>;
+  optimistic?: boolean;
 }) {
   return useContractMutation(
     {
@@ -61,6 +63,7 @@ export function useConfirmPaymentSeller({
         if (err) throw new Error(err.error);
       },
     },
+    { optimistic },
   );
 }
 

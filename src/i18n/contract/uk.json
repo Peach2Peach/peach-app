@@ -251,6 +251,8 @@
   "contract.payment.disputeIsActive": "Спір активний",
   "contract.seller.revolutWarning1.text": "Користувачі Revolut : ",
   "contract.seller.revolutWarning2.text": "переконайтеся, що покупець оплатив через Revtag, а НЕ кредитною/дебетовою карткою або Apple Pay.",
+  "contract.seller.paypalWarning1.text": "Перекази Paypal можуть бути скасовані, якщо їх було класифіковано як «Товари та послуги».",
+  "contract.seller.paypalWarning2.text": "\n\nПеревірте в переказі, чи стягувалася комісія Paypal. Якщо так, це був переказ «Товари та послуги», і ви ризикуєте тим, що покупець його скасує. Поверніть його та попросіть покупця здійснити переказ з опцією «Друзі та родина».",
   "contract.summary.mpesa_name": "Імʼя",
   "contract.summary.mpesa_finalCurrency": "валюта m-pesa",
   "contract.summary.mpesa_phone": "Телефон",

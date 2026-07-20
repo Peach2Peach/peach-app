@@ -16,6 +16,7 @@ type Props = ComponentProps & {
   onConfirm: () => void;
   enabled?: boolean;
   isCallbackRunning?: boolean;
+  isSuccess?: boolean;
 };
 
 export const ConfirmSlider = ({
@@ -25,14 +26,16 @@ export const ConfirmSlider = ({
   onConfirm,
   enabled = true,
   isCallbackRunning,
+  isSuccess,
   style,
 }: Props) => {
-  console.log("ixxxxsCallbackRunning", isCallbackRunning);
-  const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({
-    onConfirm,
-    enabled,
-    isCallbackRunning,
-  });
+  const { panResponder, pan, spin, widthToSlide, onLayout } =
+    useConfirmSliderSetup({
+      onConfirm,
+      enabled,
+      isCallbackRunning,
+      isSuccess,
+    });
 
   return (
     <View
@@ -58,7 +61,9 @@ export const ConfirmSlider = ({
         >
           {label2}
         </ConfirmSliderLabel>
-        <SliderKnob {...{ enabled, pan, iconId }} />
+        <SliderKnob
+          {...{ enabled, pan, spin, iconId, isCallbackRunning, isSuccess }}
+        />
         <ConfirmSliderLabel
           width={widthToSlide}
           opacity={getLabel1Opacity(pan)}

@@ -17,6 +17,8 @@
   "offerPreferences.allPaymentMethods": "összes fizetési mód",
   "offerPreferences.amountToBuy": "vásárolandó összeg",
   "offerPreferences.amountToSell": "eladandó összeg",
+  "offerPreferences.priceType.premium": "prémium",
+  "offerPreferences.priceType.fixedPrice": "rögzített ár",
   "offerPreferences.buyOffers": "$0 vásárlási ajánlat",
   "offerPreferences.competingSellOffers": "$0 konkuráló eladási ajánlat",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 konkuráló eladási ajánlat ezen a prémium alatt",

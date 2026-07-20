@@ -252,6 +252,8 @@
   "contract.payment.disputeIsActive": "Vita aktív",
   "contract.seller.revolutWarning1.text": "Revolut-felhasználók : ",
   "contract.seller.revolutWarning2.text": "győződj meg róla, hogy a vevő Revtagon keresztül fizetett, és NEM bankkártyával vagy Apple Pay-jel.",
+  "contract.seller.paypalWarning1.text": "A Paypal-átutalások visszafordíthatók lehetnek, ha Áruk és szolgáltatások kategóriába sorolták őket.",
+  "contract.seller.paypalWarning2.text": "\n\nEllenőrizd az átutalásban, hogy felszámítottak-e Paypal-díjat. Ha igen, akkor Áruk és szolgáltatások típusú átutalás volt, és kockáztatod, hogy a vevő visszafordítja. Küldd vissza, és kérd meg a vevőt, hogy a Barátok és család opcióval utaljon.",
   "contract.summary.mpesa_name": "Név",
   "contract.summary.mpesa_finalCurrency": "m-pesa pénznem",
   "contract.summary.mpesa_phone": "Telefonszám",

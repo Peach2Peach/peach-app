@@ -252,6 +252,8 @@
   "contract.payment.disputeIsActive": "Geschil actief",
   "contract.seller.revolutWarning1.text": "Revolut-gebruikers : ",
   "contract.seller.revolutWarning2.text": "zorg ervoor dat de koper via Revtag heeft betaald en NIET via credit-/debitkaart of Apple Pay.",
+  "contract.seller.paypalWarning1.text": "Paypal-overboekingen kunnen worden teruggedraaid als ze zijn geclassificeerd als Goederen en Diensten.",
+  "contract.seller.paypalWarning2.text": "\n\nControleer bij de overboeking of er Paypal-kosten in rekening zijn gebracht. Zo ja, dan was het een overboeking voor Goederen en Diensten en loop je het risico dat de koper deze terugdraait. Stuur hem terug en vraag de koper om over te maken met de optie Vrienden en Familie.",
   "contract.summary.mpesa_name": "naam",
   "contract.summary.mpesa_finalCurrency": "m-pesa valuta",
   "contract.summary.mpesa_phone": "telefoon #",

@@ -238,6 +238,8 @@
   "contract.payment.disputeIsActive": "Streit aktiv",
   "contract.seller.revolutWarning1.text": "Revolut-Nutzer : ",
   "contract.seller.revolutWarning2.text": "Stelle sicher, dass der Käufer über Revtag bezahlt hat und NICHT per Kredit-/Debitkarte oder Apple Pay.",
+  "contract.seller.paypalWarning1.text": "Paypal-Überweisungen können rückgängig gemacht werden, wenn sie als „Waren und Dienstleistungen“ eingestuft wurden.",
+  "contract.seller.paypalWarning2.text": "\n\nPrüfe bei der Überweisung, ob eine Paypal-Gebühr berechnet wurde. Falls ja, war es eine „Waren und Dienstleistungen“-Überweisung und du riskierst, dass der Käufer sie zurückbucht. Sende sie zurück und bitte den Käufer, mit der Option „Freunde und Familie“ zu überweisen.",
   "contract.summary.mpesa_name": "Name",
   "contract.summary.mpesa_finalCurrency": "m-pesa Währung",
   "contract.summary.mpesa_phone": "Telefonnr.",

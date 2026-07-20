@@ -17,6 +17,8 @@
   "offerPreferences.allPaymentMethods": "Tutti i metodi di pagamento",
   "offerPreferences.amountToBuy": "Importo da acquistare",
   "offerPreferences.amountToSell": "Importo da vendere",
+  "offerPreferences.priceType.premium": "premio",
+  "offerPreferences.priceType.fixedPrice": "prezzo fisso",
   "offerPreferences.buyOffers": "$0 offerte di acquisto",
   "offerPreferences.competingSellOffers": "$0 offerte di vendita concorrenti",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 offerte di vendita concorrenti al di sotto di questo premio",

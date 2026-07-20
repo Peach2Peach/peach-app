@@ -146,9 +146,8 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
       : null,
     rawStoredHashes: counterpartyHashes,
     extractedStoredHashes:
-      counterpartyHashes?.flatMap(
-        (e) => e.match(/[0-9a-f]{64}/g) ?? [],
-      ) ?? null,
+      counterpartyHashes?.flatMap((e) => e.match(/[0-9a-f]{64}/g) ?? []) ??
+      null,
   });
 
   if (

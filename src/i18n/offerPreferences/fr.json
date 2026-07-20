@@ -17,6 +17,8 @@
   "offerPreferences.allPaymentMethods": "tous les moyens de paiement",
   "offerPreferences.amountToBuy": "montant à acheter",
   "offerPreferences.amountToSell": "montant à vendre",
+  "offerPreferences.priceType.premium": "prime",
+  "offerPreferences.priceType.fixedPrice": "prix fixe",
   "offerPreferences.buyOffers": "$0 offres d'achat",
   "offerPreferences.competingSellOffers": "$0 offres concurrentes",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 ventes concurrentes sous cette prime",

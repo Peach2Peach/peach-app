@@ -252,6 +252,8 @@
   "contract.seller.confirmPaymentReceivedLastChance.text": "Please double-check that you have received the money.\n\nConfirming will irreversibly send the Bitcoin to the Buyer.",
   "contract.seller.revolutWarning1.text": "Revolut users : ",
   "contract.seller.revolutWarning2.text": "make sure the buyer has paid through Revtag, and NOT through credit/debit card or Apple pay.",
+  "contract.seller.paypalWarning1.text": "Paypal transfers might be reversible if they have been classified as Goods and Services.",
+  "contract.seller.paypalWarning2.text": "\n\nPlease check in the transfer if there was a Paypal fee charged. If yes, it was a Goods and Services transfer and you risk the Buyer reversing it. Return it, and ask the Buyer to transfer with the Friends and Family option.",
   "contract.chatAvailableOnceEscrowFunded": "the Chat will be available once the Escrow is funded"
 
 }

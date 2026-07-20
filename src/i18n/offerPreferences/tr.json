@@ -17,6 +17,8 @@
   "offerPreferences.allPaymentMethods": "tüm ödeme yöntemleri",
   "offerPreferences.amountToBuy": "satın alınacak miktar",
   "offerPreferences.amountToSell": "satılacak miktar",
+  "offerPreferences.priceType.premium": "prim",
+  "offerPreferences.priceType.fixedPrice": "sabit fiyat",
   "offerPreferences.buyOffers": "$0 açık alım teklifi",
   "offerPreferences.competingSellOffers": "$0 rekabetçi satış teklifi",
   "offerPreferences.competingSellOffersBelowThisPremium": "Bu primin altındaki $0 rekabetçi satış teklifleri",
