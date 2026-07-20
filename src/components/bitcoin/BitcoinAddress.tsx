@@ -47,7 +47,7 @@ export const BitcoinAddress = ({
   const label = `${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`;
 
   if (amount) urn.searchParams.set("amount", String(amount));
-  urn.searchParams.set("message", label);
+  // urn.searchParams.set("message", label);
   urn.searchParams.set("label", label);
 
   const addressParts = getBitcoinAddressParts(address);
