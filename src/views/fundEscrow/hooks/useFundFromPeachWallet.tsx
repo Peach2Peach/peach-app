@@ -1,6 +1,6 @@
 import { NETWORK } from "@env";
-import { Address, Amount } from "bdk-rn";
 import type { Psbt } from "bdk-rn";
+import { Address, Amount } from "bdk-rn";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -12,7 +12,6 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import { useFeeRate } from "../../../hooks/useFeeRate";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
-import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
@@ -62,6 +61,8 @@ const getPropsFromFinishedTransaction = (psbt: Psbt) => {
   };
 };
 
+const MIN_ESCROW_FUNDING_AMOUNT = 5000;
+
 type FundFromWalletParams = {
   offerId?: string;
   contractId?: string;
@@ -81,7 +82,6 @@ type OnSuccessParams = {
 };
 
 export const useFundFromPeachWallet = () => {
-  const minTradingAmount = useConfigStore((state) => state.minTradingAmount);
   const showErrorBanner = useShowErrorBanner();
   const handleTransactionError = useHandleTransactionError();
   const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate();
@@ -136,11 +136,14 @@ export const useFundFromPeachWallet = () => {
       // Only resync if the wallet may be stale (synced > 30min ago or flagged
       // after a direct broadcast / at startup) — otherwise reuse cached state.
       if (peachWallet.shouldResync()) await syncPeachWallet();
-      if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
+      if (
+        peachWallet.balance <
+        (addresses.length || 1) * MIN_ESCROW_FUNDING_AMOUNT
+      ) {
         return setPopup(
           <AmountTooLowPopup
             available={peachWallet.balance}
-            needed={(addresses.length || 1) * minTradingAmount}
+            needed={(addresses.length || 1) * MIN_ESCROW_FUNDING_AMOUNT}
           />,
         );
       }
@@ -186,6 +189,15 @@ export const useFundFromPeachWallet = () => {
           const drainPsbt = await peachWallet.finishTransaction(transaction);
           const { amountToConfirm, fee, outputs } =
             getPropsFromFinishedTransaction(drainPsbt);
+          const amountToEscrow = amountToConfirm - fee;
+          if (amountToEscrow < MIN_ESCROW_FUNDING_AMOUNT) {
+            return setPopup(
+              <AmountTooLowPopup
+                available={amountToEscrow}
+                needed={MIN_ESCROW_FUNDING_AMOUNT}
+              />,
+            );
+          }
           return setPopup(
             <ConfirmTransactionPopup
               title={i18n("fundFromPeachWallet.insufficientFunds.title")}
@@ -249,7 +261,6 @@ export const useFundFromPeachWallet = () => {
     [
       feeRate,
       handleTransactionError,
-      minTradingAmount,
       onSuccess,
       setPopup,
       showErrorBanner,
