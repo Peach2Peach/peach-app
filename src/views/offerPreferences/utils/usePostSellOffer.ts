@@ -25,10 +25,17 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
       }
     : undefined;
 
+  // A fixed-price offer is priced absolutely, so it must not carry a premium.
+  const hasFixedPrice = offerDraft.fixedPrice !== undefined;
+
   const payload = {
     type: offerDraft.type,
     amount: offerDraft.amount,
-    premium: offerDraft.premium,
+    premium: hasFixedPrice ? undefined : offerDraft.premium,
+    fixedPrice: offerDraft.fixedPrice,
+    fixedPriceCurrency: hasFixedPrice
+      ? offerDraft.fixedPriceCurrency
+      : undefined,
     meansOfPayment: offerDraft.meansOfPayment,
     paymentData: offerDraft.paymentData,
     returnAddress: offerDraft.returnAddress,

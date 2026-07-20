@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { type ReactElement, useMemo, useRef, useState } from "react";
+import { type ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -17,6 +17,7 @@ import { Icon } from "../../components/Icon";
 import { PremiumInput } from "../../components/PremiumInput";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
+import { FixedPriceCurrencyDrawer } from "../../components/FixedPriceCurrencyDrawer";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
@@ -39,6 +40,7 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
+import { enforceDecimalsFormat } from "../../utils/format/enforceDecimalsFormat";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
@@ -74,17 +76,41 @@ import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTrackWidth } from "./utils/useTrackWidth";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
+type PriceType = "premium" | "fixedPrice";
+type PriceState = ReturnType<typeof usePriceState>;
+
+/** Deliberately component state rather than the (persisted) offer preferences
+ * store: the screen must always open on the premium tab, with the fixed price
+ * seeded from the market price at the moment it opens, and nothing remembered. */
+function usePriceState() {
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment);
+  const [priceType, setPriceType] = useState<PriceType>("premium");
+  const [btcRate, setBtcRate] = useState(0);
+  const [fixedPriceCurrency, setFixedPriceCurrency] = useState<Currency>(
+    () => keys(meansOfPayment)[0] ?? "EUR",
+  );
+  return {
+    priceType,
+    setPriceType,
+    btcRate,
+    setBtcRate,
+    fixedPriceCurrency,
+    setFixedPriceCurrency,
+  };
+}
+
 export function SellOfferPreferences() {
   useRefreshPaymentDataFromServerOnMount();
   const [isSliding, setIsSliding] = useState(false);
   const [currency, setCurrency] = useState<Currency | undefined>();
+  const priceState = usePriceState();
   return (
     <PreferenceScreen
       header={<SellHeader />}
       button={
         <>
           <FundWithPeachWallet />
-          <FundEscrowButton />
+          <FundEscrowButton priceState={priceState} />
         </>
       }
       isSliding={isSliding}
@@ -92,7 +118,11 @@ export function SellOfferPreferences() {
       {/* <SellPreferenceMarketInfo /> */}
       <PreferenceMethods type="sell" setCurrency={setCurrency} />
       <CompetingOfferStats />
-      <AmountSelector currency={currency} setIsSliding={setIsSliding} />
+      <AmountSelector
+        currency={currency}
+        setIsSliding={setIsSliding}
+        priceState={priceState}
+      />
       <AdvancedOptions />
     </PreferenceScreen>
   );
@@ -164,15 +194,18 @@ function CompetingOfferStats() {
 function AmountSelector({
   setIsSliding,
   currency,
+  priceState,
 }: {
   setIsSliding: (isSliding: boolean) => void;
   currency?: Currency;
+  priceState: PriceState;
 }) {
   const trackWidth = useTrackWidth();
 
   return (
     <AmountSelectorContainer
       currency={currency}
+      priceState={priceState}
       slider={
         <SliderTrack
           slider={
@@ -199,10 +232,12 @@ function AmountSelectorContainer({
   slider,
   inputs,
   currency,
+  priceState,
 }: {
   slider?: ReactElement;
   inputs?: ReactElement;
   currency?: Currency;
+  priceState: PriceState;
 }) {
   const { isDarkMode } = useThemeStore();
   return (
@@ -215,9 +250,73 @@ function AmountSelectorContainer({
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
           {slider}
         </View>
-        <Premium currency={currency} />
+        <PriceSelector currency={currency} priceState={priceState} />
       </View>
     </Section.Container>
+  );
+}
+
+const priceTypes = ["premium", "fixedPrice"] as const;
+function PriceSelector({
+  currency,
+  priceState,
+}: {
+  currency?: Currency;
+  priceState: PriceState;
+}) {
+  return (
+    <View style={tw`self-stretch gap-4`}>
+      <PriceTypeTabs
+        priceType={priceState.priceType}
+        setPriceType={priceState.setPriceType}
+      />
+      {priceState.priceType === "premium" ? (
+        <Premium currency={currency} />
+      ) : (
+        <FixedPrice priceState={priceState} />
+      )}
+    </View>
+  );
+}
+
+/** Two inline tabs. Deliberately not TabbedNavigation: that wraps its tabs in a
+ * ScrollView, which expands and collapses the surrounding layout here. */
+function PriceTypeTabs({
+  priceType,
+  setPriceType,
+}: {
+  priceType: PriceType;
+  setPriceType: (priceType: PriceType) => void;
+}) {
+  const { isDarkMode } = useThemeStore();
+
+  return (
+    <View style={tw`flex-row items-center self-center`}>
+      {priceTypes.map((id) => {
+        const isSelected = id === priceType;
+        return (
+          <TouchableOpacity
+            key={id}
+            style={tw`px-2`}
+            onPress={() => setPriceType(id)}
+          >
+            <PeachText
+              style={[
+                tw`px-4 py-2 text-center input-label`,
+                isSelected
+                  ? isDarkMode
+                    ? tw`text-backgroundLight-light`
+                    : tw`text-black-100`
+                  : tw`text-black-65`,
+              ]}
+            >
+              {i18n(`offerPreferences.priceType.${id}`)}
+            </PeachText>
+            {isSelected && <View style={tw`w-full h-0.5 bg-primary-main`} />}
+          </TouchableOpacity>
+        );
+      })}
+    </View>
   );
 }
 
@@ -225,25 +324,32 @@ const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, ".");
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, "");
 const MIN_PREMIUM_INCREMENT = 0.01;
 function Premium({ currency }: { currency?: Currency }) {
-  const preferences = useOfferPreferences(
-    (state) => ({
-      maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
-      meansOfPayment: state.meansOfPayment,
-    }),
-    shallow,
-  );
-  const { data } = useFilteredMarketStats({ type: "ask", ...preferences });
+  const premium = useOfferPreferences((state) => state.premium);
   return (
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent />
       <CurrentPrice currency={currency} />
-      <PeachText style={tw`text-center text-primary-main subtitle-2`}>
-        {i18n(
-          "offerPreferences.competingSellOffersBelowThisPremium",
-          String(data.offersWithinRange.length),
-        )}
-      </PeachText>
+      <CompetingSellOffers premium={premium} />
     </View>
+  );
+}
+
+/** Number of competing sell offers priced below the given premium. On the fixed
+ * price tab, the premium implied by the entered price is passed in. */
+function CompetingSellOffers({ premium }: { premium: number }) {
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment);
+  const { data } = useFilteredMarketStats({
+    type: "ask",
+    maxPremium: premium - MIN_PREMIUM_INCREMENT,
+    meansOfPayment,
+  });
+  return (
+    <PeachText style={tw`text-center text-primary-main subtitle-2`}>
+      {i18n(
+        "offerPreferences.competingSellOffersBelowThisPremium",
+        String(data.offersWithinRange.length),
+      )}
+    </PeachText>
   );
 }
 
@@ -288,6 +394,169 @@ function CurrentPrice({ currency }: { currency?: Currency }) {
         `${priceWithPremium} ${currency ? currency : displayCurrency}`)
       }
     </PeachText>
+  );
+}
+
+/** Same box as the premium's PercentageInput (minus the % icon), sized to fit a
+ * 7-digit rate. Updates on every keystroke — no submit needed. */
+function BtcRateInput({
+  rate,
+  setRate,
+}: {
+  rate: number;
+  setRate: (newRate: number) => void;
+}) {
+  const { isDarkMode } = useThemeStore();
+  const [displayRate, setDisplayRate] = useState(rate.toString());
+
+  // keep showing what was typed, unless the rate changed from the outside
+  // (e.g. re-seeded after a currency switch)
+  const displayValue = useMemo(() => {
+    if (Number(displayRate) === rate) return displayRate;
+    return rate.toString();
+  }, [rate, displayRate]);
+
+  const onChange = (value: string) => {
+    const formatted = enforceDecimalsFormat(value, 2);
+    setDisplayRate(formatted);
+    const asNumber = Number(formatted);
+    setRate(isNaN(asNumber) ? 0 : asNumber);
+  };
+
+  return (
+    <View
+      style={[
+        tw`flex-row items-center px-2 py-3 overflow-hidden w-32 h-38px rounded-xl`,
+        tw`border`,
+        isDarkMode
+          ? tw`bg-transparent border-primary-mild-1`
+          : tw`bg-primary-background-light-color border-black-65`,
+      ]}
+    >
+      <TextInput
+        value={displayValue}
+        onChangeText={onChange}
+        style={[
+          tw`py-0 text-center grow h-38px input-text`,
+          isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+        ]}
+        keyboardType="decimal-pad"
+        placeholder="0.00"
+        placeholderTextColor={tw.color(isDarkMode ? "primary-mild-1" : "black-10")}
+      />
+    </View>
+  );
+}
+
+const FIXED_PRICE_PREMIUM_INCREMENT = 1;
+function FixedPrice({ priceState }: { priceState: PriceState }) {
+  const { btcRate, setBtcRate, fixedPriceCurrency, setFixedPriceCurrency } =
+    priceState;
+  const [amount, meansOfPayment] = useOfferPreferences(
+    (state) => [state.sellAmount, state.meansOfPayment],
+    shallow,
+  );
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const { bitcoinPrice: marketBtcRate } = useBitcoinPrices(
+    amount,
+    fixedPriceCurrency,
+  );
+
+  // seed from the market rate (and re-seed when the currency changes)
+  useEffect(() => {
+    if (!btcRate && marketBtcRate > 0) setBtcRate(round(marketBtcRate, 2));
+  }, [btcRate, marketBtcRate, setBtcRate]);
+
+  const fixedPrice = round((btcRate * amount) / SATSINBTC, 2);
+  const premium =
+    marketBtcRate > 0 ? round((btcRate / marketBtcRate - 1) * CENT, 2) : 0;
+
+  const onSelectCurrency = (newCurrency: Currency) => {
+    setFixedPriceCurrency(newCurrency);
+    // reset so the effect re-seeds the rate from the new currency's market rate
+    setBtcRate(0);
+  };
+
+  // The +/- move the price in 1% steps, mirroring the premium tab. A fixed
+  // price is absolute, so it is deliberately NOT clamped to the premium bounds
+  // (±35%) — only kept above zero.
+  const rateForPremium = (newPremium: number) =>
+    round(marketBtcRate * (1 + newPremium / CENT), 2);
+  const stepPremium = (delta: number) => {
+    const newRate = rateForPremium(round(premium + delta, 2));
+    if (newRate > 0) setBtcRate(newRate);
+  };
+  const canDecrement =
+    rateForPremium(round(premium - FIXED_PRICE_PREMIUM_INCREMENT, 2)) > 0;
+
+  return (
+    <View style={tw`self-stretch gap-1`}>
+      <View style={tw`flex-row items-center justify-between`}>
+        <TouchableOpacity
+          onPress={() => stepPremium(-FIXED_PRICE_PREMIUM_INCREMENT)}
+          accessibilityHint={i18n("number.decrease")}
+          disabled={!canDecrement}
+        >
+          <Icon
+            id="minusCircle"
+            size={24}
+            color={tw.color(!canDecrement ? "gray-400" : "primary-main")}
+          />
+        </TouchableOpacity>
+
+        <View style={tw`flex-row items-center justify-center gap-2 grow`}>
+          <BtcRateInput rate={btcRate} setRate={setBtcRate} />
+          <TouchableOpacity
+            style={tw`flex-row items-center gap-1`}
+            onPress={() => setIsDrawerOpen(true)}
+          >
+            <PeachText style={tw`subtitle-1 text-black-100`}>
+              BTC{fixedPriceCurrency}
+            </PeachText>
+            <Icon id="chevronDown" size={16} color={tw.color("black-100")} />
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity
+          onPress={() => stepPremium(FIXED_PRICE_PREMIUM_INCREMENT)}
+          accessibilityHint={i18n("number.increase")}
+        >
+          <Icon
+            id="plusCircle"
+            size={24}
+            color={tw.color("primary-main")}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <PeachText style={tw`text-center body-s`}>
+        {priceFormat(fixedPrice)} {fixedPriceCurrency}{" "}
+        <PeachText
+          style={[
+            tw`body-s`,
+            premium === 0
+              ? tw`text-black-50`
+              : premium > 0
+                ? tw`text-success-main`
+                : tw`text-error-main`,
+          ]}
+        >
+          ({premium > 0 ? "+" : premium < 0 ? "-" : ""}
+          {Math.abs(premium)}%)
+        </PeachText>
+      </PeachText>
+
+      <CompetingSellOffers premium={premium} />
+
+      <FixedPriceCurrencyDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        selectedCurrency={fixedPriceCurrency}
+        onSelectCurrency={onSelectCurrency}
+        preferredCurrencies={keys(meansOfPayment)}
+      />
+    </View>
   );
 }
 
@@ -719,7 +988,7 @@ function FundWithPeachWallet() {
   );
 }
 
-function FundEscrowButton() {
+function FundEscrowButton({ priceState }: { priceState: PriceState }) {
   const amountRange = useTradingAmountLimits("sell");
   const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
     (state) => [
@@ -744,7 +1013,7 @@ function FundEscrowButton() {
     shallow,
   );
 
-  const sellPreferences = useOfferPreferences(
+  const storePreferences = useOfferPreferences(
     (state) => ({
       amount: state.sellAmount,
       premium: state.premium,
@@ -761,6 +1030,20 @@ function FundEscrowButton() {
     }),
     shallow,
   );
+
+  const isFixedPrice = priceState.priceType === "fixedPrice";
+  const sellPreferences = {
+    ...storePreferences,
+    // only set on the fixed price tab; the presence of fixedPrice is what makes
+    // usePostSellOffer drop the premium from the payload
+    fixedPrice: isFixedPrice
+      ? round((priceState.btcRate * storePreferences.amount) / SATSINBTC, 2)
+      : undefined,
+    fixedPriceCurrency: isFixedPrice
+      ? priceState.fixedPriceCurrency
+      : undefined,
+  };
+
   const { data: paymentMethods } = usePaymentMethods();
   const paymentMethodsAreValid = sellPreferences.originalPaymentData.every(
     (data) => isValidPaymentData(data, paymentMethods),
