@@ -49,11 +49,15 @@ export const SendBitcoin = () => {
       )
     : peachWallet?.balance || 0;
 
-  const onAmountChange = (newText: string) => {
+  const updateAmount = (newAmount: number) => {
+    // any explicit amount replaces a previous "send max", which would otherwise
+    // keep draining the wallet while the screen shows the smaller amount
     setShouldDrainWallet(false);
-    const newNumber = Number(removeNonDigits(newText) || "0");
-    const newValue = Math.min(newNumber, maxAmount);
-    setAmount(newValue);
+    setAmount(Math.min(newAmount, maxAmount));
+  };
+
+  const onAmountChange = (newText: string) => {
+    updateAmount(Number(removeNonDigits(newText) || "0"));
   };
 
   const sendTrasaction = async () => {
@@ -91,7 +95,7 @@ export const SendBitcoin = () => {
             <BitcoinAddressInput
               value={address}
               onChangeText={setAddress}
-              onAmountScanned={(sats) => setAmount(sats)}
+              onAmountScanned={updateAmount}
             />
           </Section>
 

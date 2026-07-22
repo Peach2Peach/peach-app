@@ -1,6 +1,4 @@
-import { NETWORK } from "@env";
-import type { Psbt } from "bdk-rn";
-import { Address, Amount } from "bdk-rn";
+import { Amount, type Psbt } from "bdk-rn";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -16,11 +14,11 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
 import { peachAPI } from "../../../utils/peachAPI";
-import { isDefined } from "../../../utils/validation/isDefined";
-import { bdkNetwork, type WalletTx } from "../../../utils/wallet/bdkShim";
+import { type WalletTx } from "../../../utils/wallet/bdkShim";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
   buildTransaction,
+  getPsbtOutputs,
   getScriptPubKeyFromAddress,
 } from "../../../utils/wallet/transaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
@@ -30,19 +28,7 @@ import { ConfirmTxPopup } from "./ConfirmTxPopup";
 import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
 
 const getPropsFromFinishedTransaction = (psbt: Psbt) => {
-  const tx = psbt.extractTx();
-  const outputs = tx.output();
-  const network = bdkNetwork(NETWORK);
-  const outputDetails = outputs
-    .map((output) => ({
-      address: peachWallet?.wallet?.isMine(output.scriptPubkey)
-        ? undefined
-        : Address.fromScript(output.scriptPubkey, network).toString(),
-      amount: Number(output.value.toSat()),
-    }))
-    .filter((output): output is { address: string; amount: number } =>
-      isDefined(output.address),
-    );
+  const outputDetails = getPsbtOutputs(psbt);
 
   let fee = 0;
   try {

@@ -12,18 +12,19 @@ import { shallow } from "zustand/shallow";
 import { MeansOfPayment } from "../../../peach-api/src/@types/payment";
 import { LogoIcons } from "../../assets/logo";
 import { Badge } from "../../components/Badge";
+import { FixedPriceCurrencyDrawer } from "../../components/FixedPriceCurrencyDrawer";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { PremiumInput } from "../../components/PremiumInput";
 import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
-import { FixedPriceCurrencyDrawer } from "../../components/FixedPriceCurrencyDrawer";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { useSetToast } from "../../components/toast/Toast";
 import { CENT, SATSINBTC } from "../../constants";
+import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
@@ -31,7 +32,6 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
-import { useRefreshPaymentDataFromServerOnMount } from "../../hooks/query/peach069/useRefreshPaymentDataFromServerOnMount";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -117,7 +117,7 @@ export function SellOfferPreferences() {
     >
       {/* <SellPreferenceMarketInfo /> */}
       <PreferenceMethods type="sell" setCurrency={setCurrency} />
-      <CompetingOfferStats />
+      {/* <CompetingOfferStats /> */}
       <AmountSelector
         currency={currency}
         setIsSliding={setIsSliding}
@@ -442,7 +442,9 @@ function BtcRateInput({
         ]}
         keyboardType="decimal-pad"
         placeholder="0.00"
-        placeholderTextColor={tw.color(isDarkMode ? "primary-mild-1" : "black-10")}
+        placeholderTextColor={tw.color(
+          isDarkMode ? "primary-mild-1" : "black-10",
+        )}
       />
     </View>
   );
@@ -522,11 +524,7 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
           onPress={() => stepPremium(FIXED_PRICE_PREMIUM_INCREMENT)}
           accessibilityHint={i18n("number.increase")}
         >
-          <Icon
-            id="plusCircle"
-            size={24}
-            color={tw.color("primary-main")}
-          />
+          <Icon id="plusCircle" size={24} color={tw.color("primary-main")} />
         </TouchableOpacity>
       </View>
 
@@ -747,11 +745,7 @@ function AdvancedOptions() {
             {i18n("offerPreferences.advancedOptions")}
           </Section.Title>
           {hasAnyOption && (
-            <Icon
-              id="checkCircle"
-              size={20}
-              color={tw.color("success-main")}
-            />
+            <Icon id="checkCircle" size={20} color={tw.color("success-main")} />
           )}
         </View>
         <Icon

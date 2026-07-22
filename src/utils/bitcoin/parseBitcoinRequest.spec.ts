@@ -69,6 +69,44 @@ describe("parseBitcoinRequest", () => {
     });
   });
 
+  it("ignores addresses hidden in parameters", () => {
+    const address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq";
+    const foreignAddress = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh";
+
+    expect(
+      parseBitcoinRequest(
+        `bitcoin:${address}?amount=0.00001&label=pay:${foreignAddress}`,
+      ),
+    ).toStrictEqual({ address, amount: 0.00001 });
+    expect(
+      parseBitcoinRequest(
+        `bitcoin:${address}?message=refund for order:${foreignAddress}`,
+      ),
+    ).toStrictEqual({ address, message: `refund for order:${foreignAddress}` });
+  });
+
+  it("parses requests with a colon inside a parameter value", () => {
+    const address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq";
+    expect(
+      parseBitcoinRequest(`bitcoin:${address}?pj=https://payjoin.example.com`),
+    ).toStrictEqual({ address });
+  });
+
+  it("parses fully uppercase requests", () => {
+    const request =
+      "BITCOIN:BC1QAR0SRRR7XFKVY5L643LYDNW9RE59GTZZWF5MDQ?AMOUNT=0.00001";
+    expect(parseBitcoinRequest(request)).toStrictEqual({
+      address: "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+      amount: 0.00001,
+    });
+  });
+
+  it("should return null for addresses with trailing characters", () => {
+    expect(
+      parseBitcoinRequest("bitcoin:bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq!"),
+    ).toStrictEqual({});
+  });
+
   it("should return null for lightning invoices", () => {
     const request =
       "lnbc1u1p39dtcgpp5x4txr8dhemr6htx2ju2y7dc4v4a769qe696mp75tfgvkjwnjue5qdqlvdaxjmn08gszqar0ypqxcmn50p3x7aqsp5qt9z3r047w8em0m8c5d23mwdzdvpxemhd5l5t3cl3a86t0w02q2qxqy9gcqcqzys9qrsgqrzjqd98kxkpyw0l9tyy8r8q57k7zpy9zjmh6sez752wj6gcumqnj3yxzhdsmg6qq56utgqqqqqqqqqqqeqqjqrzjq0h9s36s2kpql0a99c6k4zfq7chcx9sjnsund8damcl96qvc4833tx69gvk26e6efsqqqqlgqqqqpjqqjqrzjqtx3k77yrrav9hye7zar2rtqlfkytl094dsp0ms5majzth6gt7ca6uhdkxl983uywgqqqqqqqqqq86qqjq9hws6jr2vvgq53k2lqm7prn2jf58wutqyhqdgerqvf4h7dtda2cknujs522v5gr2nv6r8xq3f6x7xjwtacadwe5lf3s0lkz24el5w4qq9ztru0";

@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import type { WalletTx } from "../../../../utils/wallet/bdkShim";
 import { Transaction } from "bitcoinjs-lib";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
 import { Divider } from "../../../../components/Divider";
 import { Bubble } from "../../../../components/bubble/Bubble";
@@ -18,6 +18,7 @@ import { contractIdToHex } from "../../../../utils/contract/contractIdToHex";
 import { toShortDateFormat } from "../../../../utils/date/toShortDateFormat";
 import i18n from "../../../../utils/i18n";
 import { offerIdToHex } from "../../../../utils/offer/offerIdToHex";
+import { getOutputValuesByAddress } from "../../helpers/getOutputValuesByAddress";
 import { priceFormat } from "../../../../utils/string/priceFormat";
 import { useTransactionDetailsInfoSetup } from "../../hooks/useTransactionDetailsInfoSetup";
 import { AddressLabelInput } from "../AddressLabelInput";
@@ -42,6 +43,12 @@ export const TransactionDetailsInfo = ({
     });
   const addressParts =
     receivingAddress && getBitcoinAddressParts(receivingAddress);
+  const outputValues = useMemo(
+    () => getOutputValuesByAddress(transactionDetails.outs),
+    [transactionDetails.outs],
+  );
+  const { offerData } = transactionSummary;
+  const hasMultipleOffers = offerData.length > 1;
 
   return (
     <View style={tw`gap-4`}>
@@ -54,8 +61,12 @@ export const TransactionDetailsInfo = ({
           />
         )}
 
-      {!!transactionSummary.offerData.length && (
-        <OfferData transactionSummary={transactionSummary} />
+      {!hasMultipleOffers && !!offerData.length && (
+        <PriceInfo
+          price={offerData[0].price}
+          currency={offerData[0].currency}
+          type={transactionSummary.type}
+        />
       )}
       <Divider />
 
@@ -63,8 +74,18 @@ export const TransactionDetailsInfo = ({
 
       <Divider />
 
-      <AmountSummaryItem amount={transactionSummary.amount} />
-      <AddressSummaryItem address={receivingAddress} title={i18n("to")} />
+      {hasMultipleOffers ? (
+        <OfferDataTabs
+          offerData={offerData}
+          type={transactionSummary.type}
+          outputValues={outputValues}
+        />
+      ) : (
+        <>
+          <AmountSummaryItem amount={transactionSummary.amount} />
+          <AddressSummaryItem address={receivingAddress} title={i18n("to")} />
+        </>
+      )}
 
       <Divider />
 
@@ -117,12 +138,16 @@ function getOfferDataId({ contractId, offerId }: OfferData) {
 
 const Tab = createMaterialTopTabNavigator();
 
-type OutputInfoProps = {
-  transactionSummary: TransactionSummary;
+type OfferDataTabsProps = {
+  offerData: OfferData[];
+  type: TransactionType;
+  outputValues: Record<string, number>;
 };
-export function OfferData({
-  transactionSummary: { type, offerData },
-}: OutputInfoProps) {
+export function OfferDataTabs({
+  offerData,
+  type,
+  outputValues,
+}: OfferDataTabsProps) {
   const [tabsHeight, setTabsHeight] = useState(Number(tw`h-20`.height));
   const adjustHeight = (event: LayoutChangeEvent) => {
     if (!event.nativeEvent.layout.height) return;
@@ -131,47 +156,42 @@ export function OfferData({
       Math.max(prev, Number(tw`h-12`.height) + tabHeight),
     );
   };
-  if (offerData.length > 1) {
-    return (
-      <Tab.Navigator
-        style={{ height: tabsHeight }}
-        screenOptions={{ sceneStyle: tw`pt-4` }}
-        initialRouteName={getOfferDataId(offerData[0])}
-        tabBar={TabBar}
-      >
-        {offerData.map((offer) => (
-          <Tab.Screen
-            key={`tab-screen-${getOfferDataId(offer)}`}
-            name={getOfferDataId(offer)}
-            children={() => (
+  return (
+    <Tab.Navigator
+      style={{ height: tabsHeight }}
+      screenOptions={{ sceneStyle: tw`pt-4` }}
+      initialRouteName={getOfferDataId(offerData[0])}
+      tabBar={TabBar}
+    >
+      {offerData.map((offer) => (
+        <Tab.Screen
+          key={`tab-screen-${getOfferDataId(offer)}`}
+          name={getOfferDataId(offer)}
+          children={() => (
+            <View style={tw`gap-4`} onLayout={adjustHeight}>
+              <AmountSummaryItem
+                amount={outputValues[offer.address] ?? offer.amount}
+              />
+              <AddressSummaryItem address={offer.address} title={i18n("to")} />
               <PriceInfo
-                onLayout={adjustHeight}
                 price={offer.price}
                 currency={offer.currency}
                 type={type}
               />
-            )}
-          />
-        ))}
-      </Tab.Navigator>
-    );
-  }
-  return (
-    <PriceInfo
-      price={offerData[0]?.price}
-      currency={offerData[0]?.currency}
-      type={type}
-    />
+            </View>
+          )}
+        />
+      ))}
+    </Tab.Navigator>
   );
 }
 
-type OfferDataProps = {
+type PriceInfoProps = {
   price?: number;
   currency?: Currency;
   type: TransactionType;
-  onLayout?: (event: LayoutChangeEvent) => void;
 };
-function PriceInfo({ price, currency, type }: OfferDataProps) {
+function PriceInfo({ price, currency, type }: PriceInfoProps) {
   if (!price || !currency || type === "REFUND") return null;
   return (
     <CopyableSummaryItem
