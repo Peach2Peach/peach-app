@@ -59,11 +59,11 @@ const USDTOPTIONS: NetworkOption[] = [
 ];
 
 const USDCOPTIONS: NetworkOption[] = [
-  {
-    logoID: "rootstock",
-    paymentMethodId: "rootstockusdc",
-    title: "Rootstock",
-  },
+  // {
+  //   logoID: "rootstock",
+  //   paymentMethodId: "rootstockusdc",
+  //   title: "Rootstock",
+  // },
   {
     logoID: "ethereum",
     paymentMethodId: "ethereumusdc",
@@ -79,11 +79,11 @@ const USDCOPTIONS: NetworkOption[] = [
     paymentMethodId: "baseusdc",
     title: "Base",
   },
-  {
-    logoID: "bnb",
-    paymentMethodId: "bnbusdc",
-    title: "BNB",
-  },
+  // {
+  //   logoID: "bnb",
+  //   paymentMethodId: "bnbusdc",
+  //   title: "BNB",
+  // },
   {
     logoID: "solana",
     paymentMethodId: "solanausdc",
