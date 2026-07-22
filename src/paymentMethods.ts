@@ -145,6 +145,12 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     "baseusdt",
     "bnbusdt",
     "solanausdt",
+    "ethereumusdc",
+    "rootstockusdc",
+    "arbitrumusdc",
+    "baseusdc",
+    "bnbusdc",
+    "solanausdc",
   ],
 };
 

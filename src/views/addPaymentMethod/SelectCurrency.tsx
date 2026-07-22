@@ -9,11 +9,13 @@ import i18n from "../../utils/i18n";
 import { CurrencyTabs } from "./CurrencyTabs";
 import { usePaymentMethodLabel } from "./hooks";
 
-const USDTOPTIONS: {
+type NetworkOption = {
   logoID: string;
   paymentMethodId: PaymentMethod;
   title: string;
-}[] = [
+};
+
+const USDTOPTIONS: NetworkOption[] = [
   {
     logoID: "liquid",
     paymentMethodId: "liquid",
@@ -56,6 +58,39 @@ const USDTOPTIONS: {
   },
 ];
 
+const USDCOPTIONS: NetworkOption[] = [
+  {
+    logoID: "rootstock",
+    paymentMethodId: "rootstockusdc",
+    title: "Rootstock",
+  },
+  {
+    logoID: "ethereum",
+    paymentMethodId: "ethereumusdc",
+    title: "Ethereum",
+  },
+  {
+    logoID: "arbitrum",
+    paymentMethodId: "arbitrumusdc",
+    title: "Arbitrum",
+  },
+  {
+    logoID: "base",
+    paymentMethodId: "baseusdc",
+    title: "Base",
+  },
+  {
+    logoID: "bnb",
+    paymentMethodId: "bnbusdc",
+    title: "BNB",
+  },
+  {
+    logoID: "solana",
+    paymentMethodId: "solanausdc",
+    title: "Solana",
+  },
+];
+
 export const SelectCurrency = () => {
   const navigation = useStackNavigation();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>("EUR");
@@ -79,11 +114,11 @@ export const SelectCurrency = () => {
 
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
-  const showDrawer = () => {
+  const showDrawer = (title: string, options: NetworkOption[]) => {
     updateDrawer({
       show: true,
-      title: i18n("USDT network"),
-      options: USDTOPTIONS.map((x) => ({
+      title,
+      options: options.map((x) => ({
         ...x,
         onPress: () => {
           goToPaymentMethodForm(x.paymentMethodId);
@@ -95,17 +130,16 @@ export const SelectCurrency = () => {
     });
   };
 
-  const selectPaymentCategory = () => {
-    showDrawer();
-  };
-
   //////////
   //////////
   //////////
 
   const next = () => {
     // if (selectedCurrency === "USDT") return goToPaymentMethodForm("liquid");
-    if (selectedCurrency === "USDT") return selectPaymentCategory();
+    if (selectedCurrency === "USDT")
+      return showDrawer(i18n("selectNetwork", "USDT"), USDTOPTIONS);
+    if (selectedCurrency === "USDC")
+      return showDrawer(i18n("selectNetwork", "USDC"), USDCOPTIONS);
     if (selectedCurrency === "DOC")
       return goToPaymentMethodForm("dollaronchain");
     if (selectedCurrency === "SAT") return goToPaymentMethodForm("lnurl");

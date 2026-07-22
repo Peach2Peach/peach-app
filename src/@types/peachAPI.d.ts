@@ -143,6 +143,7 @@ type Currency =
   | "UAH"
   | "USD"
   | "USD"
+  | "USDC"
   | "USDT"
   | "UYU"
   | "VEF"
