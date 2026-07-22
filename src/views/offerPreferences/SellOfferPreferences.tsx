@@ -459,6 +459,7 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
     shallow,
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { isDarkMode } = useThemeStore();
 
   const { bitcoinPrice: marketBtcRate } = useBitcoinPrices(
     amount,
@@ -513,10 +514,19 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
             style={tw`flex-row items-center gap-1`}
             onPress={() => setIsDrawerOpen(true)}
           >
-            <PeachText style={tw`subtitle-1 text-black-100`}>
+            <PeachText
+              style={[
+                tw`subtitle-1`,
+                isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+              ]}
+            >
               BTC{fixedPriceCurrency}
             </PeachText>
-            <Icon id="chevronDown" size={16} color={tw.color("black-100")} />
+            <Icon
+              id="chevronDown"
+              size={16}
+              color={tw.color(isDarkMode ? "backgroundLight-light" : "black-100")}
+            />
           </TouchableOpacity>
         </View>
 
