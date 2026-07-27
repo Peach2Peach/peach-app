@@ -9,6 +9,7 @@ import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 export function useContractMutation<TData = unknown, TVariables = void>(
   optimisticContract: Partial<Contract> & { id: string },
   options: UseMutationOptions<TData, Error, TVariables>,
+  { optimistic = true }: { optimistic?: boolean } = {},
 ) {
   const queryClient = useQueryClient();
   const showError = useShowErrorBanner();
@@ -22,17 +23,19 @@ export function useContractMutation<TData = unknown, TVariables = void>(
       const previousData = queryClient.getQueryData<Contract>(
         contractKeys.detail(optimisticContract.id),
       );
-      queryClient.setQueryData(
-        contractKeys.detail(optimisticContract.id),
-        (oldQueryData: Contract | undefined) => {
-          if (!oldQueryData) return oldQueryData;
-          return {
-            ...oldQueryData,
-            ...optimisticContract,
-            lastModified: new Date(),
-          };
-        },
-      );
+      if (optimistic) {
+        queryClient.setQueryData(
+          contractKeys.detail(optimisticContract.id),
+          (oldQueryData: Contract | undefined) => {
+            if (!oldQueryData) return oldQueryData;
+            return {
+              ...oldQueryData,
+              ...optimisticContract,
+              lastModified: new Date(),
+            };
+          },
+        );
+      }
 
       return { previousData };
     },

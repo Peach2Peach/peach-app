@@ -1,10 +1,8 @@
-import { AddressIndex } from "../../utils/wallet/bdkShim";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
-import { MSINANHOUR } from "../../constants";
 import { useUser69Details } from "../../hooks/query/peach069/useUser69";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
@@ -18,8 +16,10 @@ import { getMessageToSignForAddress } from "../../utils/account/getMessageToSign
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
+import { error } from "../../utils/log/error";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
+import { AddressIndex } from "../../utils/wallet/bdkShim";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { useContractContext } from "./context";
 import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
@@ -28,10 +28,12 @@ import { useRepublishOffer } from "./hooks/useRepublishOffer";
 
 export function RepublishOfferSlider() {
   const { contract } = useContractContext();
-  const { mutate: republishOffer } = useRepublishOffer();
+  const { mutate: republishOffer, isPending, isSuccess } = useRepublishOffer();
   return (
     <ConfirmSlider
       onConfirm={() => republishOffer(contract)}
+      isCallbackRunning={isPending}
+      isSuccess={isSuccess}
       label1={i18n("republishOffer")}
       iconId="refreshCw"
     />
@@ -61,12 +63,8 @@ export function PaymentMadeSlider() {
   const { user: selfUser } = useSelfUser();
   const { user: selfUser69 } = useUser69Details();
 
-  const { isPending, mutate } = useContractMutation(
-    {
-      id: contract.id,
-      paymentMade: new Date(),
-      tradeStatus: "confirmPaymentRequired",
-    },
+  const { isPending, isSuccess, mutate } = useContractMutation(
+    { id: contract.id },
     {
       mutationFn: async () => {
         if (contract.releaseAddress) {
@@ -91,39 +89,51 @@ export function PaymentMadeSlider() {
           let releaseAddress: string;
           let index: number;
 
-          if (selfUser69.lastAddressUsedIndex === undefined) {
-            const getAddressResult = await peachWallet.getAddress(
-              AddressIndex.New,
-              "external",
-              true,
-            );
-            releaseAddress = getAddressResult.address;
-            index = getAddressResult.index;
-          } else {
-            const getAddressResult = await peachWallet.getAddress(
-              AddressIndex.LastUnused,
-              "external",
-              true,
-            );
-            if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
+          try {
+            if (selfUser69.lastAddressUsedIndex === undefined) {
+              const getAddressResult = await peachWallet.getAddress(
+                AddressIndex.New,
+                "external",
+                true,
+              );
               releaseAddress = getAddressResult.address;
               index = getAddressResult.index;
             } else {
-              while (true) {
-                const getNewAddressResult = await peachWallet.getAddress(
-                  AddressIndex.New,
-                  "external",
-                  true,
-                );
-                if (
-                  getNewAddressResult.index > selfUser69.lastAddressUsedIndex
-                ) {
-                  releaseAddress = getNewAddressResult.address;
-                  index = getNewAddressResult.index;
-                  break;
+              const getAddressResult = await peachWallet.getAddress(
+                AddressIndex.LastUnused,
+                "external",
+                true,
+              );
+              if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
+                releaseAddress = getAddressResult.address;
+                index = getAddressResult.index;
+              } else {
+                while (true) {
+                  const getNewAddressResult = await peachWallet.getAddress(
+                    AddressIndex.New,
+                    "external",
+                    true,
+                  );
+                  if (
+                    getNewAddressResult.index > selfUser69.lastAddressUsedIndex
+                  ) {
+                    releaseAddress = getNewAddressResult.address;
+                    index = getNewAddressResult.index;
+                    break;
+                  }
                 }
               }
             }
+          } catch (e) {
+            // The BDK wallet can fail to resolve an address at this step. Fall
+            // back to deriving the next address directly from the JS wallet so
+            // the buyer can still confirm payment.
+            error("PaymentMadeSlider - getAddress failed, using JS wallet", e);
+            index =
+              selfUser69.lastAddressUsedIndex === undefined
+                ? 0
+                : selfUser69.lastAddressUsedIndex + 1;
+            releaseAddress = peachWallet.getAddressFromJsWallet(index);
           }
 
           const message = getMessageToSignForAddress(
@@ -149,12 +159,17 @@ export function PaymentMadeSlider() {
         }
       },
     },
+    // keep the slider mounted (showing the spinner) until the request actually
+    // resolves, instead of optimistically advancing to the next trade status
+    { optimistic: false },
   );
 
   return (
     <ConfirmSlider
-      enabled={!isPending && !isPaymentTooLate(contract)}
+      enabled={!isPaymentTooLate(contract)}
       onConfirm={() => mutate()}
+      isCallbackRunning={isPending}
+      isSuccess={isSuccess}
       label1={i18n("contract.payment.buyer.confirm")}
       label2={i18n("contract.payment.made")}
     />
@@ -190,15 +205,34 @@ export function PaymentReceivedSlider() {
     </>
   );
 
+  const paypalPopupContent = (
+    <>
+      <PeachText>
+        <PeachText style={tw`text-black-100 font-bold`}>
+          {i18n("contract.seller.paypalWarning1.text")}
+        </PeachText>
+        <PeachText style={tw`text-black-100`}>
+          {i18n("contract.seller.paypalWarning2.text")}
+        </PeachText>
+      </PeachText>
+
+      <PeachText style={tw`text-black-100`}>
+        {i18n(`contract.seller.confirmPaymentReceivedLastChance.text`)}
+      </PeachText>
+    </>
+  );
+
+  const getPopupContent = () => {
+    if (contract.paymentMethod === "revolut") return revolutPopupContent;
+    if (contract.paymentMethod === "paypal") return paypalPopupContent;
+    return i18n(`contract.seller.confirmPaymentReceivedLastChance.text`);
+  };
+
   const showLastConfirmationPopup = () => {
     setPopup(
       <ErrorPopup
         title={i18n(`contract.seller.confirmPaymentReceivedLastChance.title`)}
-        content={
-          contract.paymentMethod === "revolut"
-            ? revolutPopupContent
-            : i18n(`contract.seller.confirmPaymentReceivedLastChance.text`)
-        }
+        content={getPopupContent()}
         actions={
           <>
             <PopupAction
@@ -232,12 +266,11 @@ export function PaymentReceivedSlider() {
 }
 export function CancelTradeSlider() {
   const { contract } = useContractContext();
-  const { mutate } = useCancelContract({
+  const { isPending, isSuccess, mutate } = useCancelContract({
     contractId: contract.id,
-    optimisticContract: {
-      canceled: true,
-      tradeStatus: "refundOrReviveRequired",
-    },
+    // keep the slider mounted (showing the spinner) until the request actually
+    // resolves, instead of optimistically advancing to the next trade status
+    optimistic: false,
   });
 
   const cancelContract = () => {
@@ -252,20 +285,16 @@ export function CancelTradeSlider() {
     <ConfirmSlider
       iconId="xCircle"
       onConfirm={cancelContract}
+      isCallbackRunning={isPending}
+      isSuccess={isSuccess}
       label1={i18n("contract.seller.paymentTimerHasRunOut.cancelTrade")}
     />
   );
 }
-const MAX_HOURS_FOR_PAYMENT = 12;
 export function ExtendTimerSlider() {
   const { contractId } = useRoute<"contract">().params;
-  const { mutate } = useContractMutation(
-    {
-      id: contractId,
-      paymentExpectedBy: new Date(
-        Date.now() + MSINANHOUR * MAX_HOURS_FOR_PAYMENT,
-      ),
-    },
+  const { isPending, isSuccess, mutate } = useContractMutation(
+    { id: contractId },
     {
       mutationFn: async () => {
         const { result, error: err } =
@@ -274,12 +303,17 @@ export function ExtendTimerSlider() {
           throw new Error(err?.error || "Error extending payment timer");
       },
     },
+    // keep the slider mounted (showing the spinner) until the request actually
+    // resolves, instead of optimistically advancing to the next trade status
+    { optimistic: false },
   );
 
   return (
     <ConfirmSlider
       iconId="arrowRightCircle"
       onConfirm={() => mutate()}
+      isCallbackRunning={isPending}
+      isSuccess={isSuccess}
       label1={i18n("contract.seller.giveMoreTime")}
     />
   );
@@ -330,16 +364,19 @@ export function ResolveCancelRequestSliders() {
 }
 export function ReleaseEscrowSlider() {
   const { contract } = useContractContext();
-  const { mutate } = useConfirmPaymentSeller({
+  const { isPending, isSuccess, mutate } = useConfirmPaymentSeller({
     contract,
-    optimisticContract: {
-      paymentConfirmed: new Date(),
-      releaseTxId: "",
-      disputeResolvedDate: new Date(),
-    },
+    // keep the slider mounted (showing the spinner) until the request actually
+    // resolves, instead of optimistically advancing to the next trade status
+    optimistic: false,
   });
 
   return (
-    <ConfirmSlider label1={i18n("releaseEscrow")} onConfirm={() => mutate()} />
+    <ConfirmSlider
+      label1={i18n("releaseEscrow")}
+      onConfirm={() => mutate()}
+      isCallbackRunning={isPending}
+      isSuccess={isSuccess}
+    />
   );
 }

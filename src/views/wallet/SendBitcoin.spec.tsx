@@ -216,6 +216,38 @@ describe("SendBitcoin", () => {
       expect(queryByText("network fee: 1 000 sats (4 sat/vB)")).toBeTruthy();
     });
   });
+  it("should not allow a custom fee rate below 1 sat/vB", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
+    peachWallet.initialized = true;
+    peachWallet.syncWallet = jest.fn().mockResolvedValue(undefined);
+    const { getByText, getByPlaceholderText, getByTestId, queryByText } =
+      render(
+        <>
+          <SendBitcoin />
+          <GlobalPopup />
+        </>,
+      );
+    const addressInput = getByPlaceholderText("bc1q ...");
+    fireEvent.changeText(
+      addressInput,
+      "bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0",
+    );
+    const amountInput = getByText("0");
+    fireEvent.changeText(amountInput, "1234");
+    const customFeeButton = getByText("custom: ");
+    fireEvent.press(customFeeButton);
+
+    const customFeeInput = getByTestId("input-custom-fees");
+    fireEvent.changeText(customFeeInput, "0.5");
+
+    expect(queryByText(/the fee rate must be/u)).toBeTruthy();
+
+    swipeRight(getByTestId("confirmSlider"));
+
+    await waitFor(() => {
+      expect(queryByText("sending funds")).toBeFalsy();
+    });
+  });
   it('should navigate to "coinSelection" when clicking the list icon in the header', () => {
     const { getByAccessibilityHint } = render(<SendBitcoin />);
     const listButton = getByAccessibilityHint("go to select coins to send");

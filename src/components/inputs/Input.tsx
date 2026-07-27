@@ -47,6 +47,9 @@ const themes = {
 export type IconActionPair = [IconType, () => void];
 export type InputProps = TextInputProps & {
   theme?: "default" | "inverted";
+  /** Keep the default (light-surface) theme even when dark mode is active.
+   * Use for inputs on surfaces that never invert, e.g. popups. */
+  ignoreDarkMode?: boolean;
   label?: string;
   icons?: IconActionPair[];
   iconColor?: ColorValue;
@@ -69,6 +72,7 @@ export const Input = ({
   autoCapitalize = "none",
   style,
   theme = "default",
+  ignoreDarkMode = false,
   reference,
   ...inputProps
 }: InputProps) => {
@@ -76,8 +80,8 @@ export const Input = ({
   const { isDarkMode } = useThemeStore();
 
   const selectedTheme = useMemo(
-    () => (isDarkMode ? themes.inverted : themes[theme]),
-    [isDarkMode, theme],
+    () => (isDarkMode && !ignoreDarkMode ? themes.inverted : themes[theme]),
+    [isDarkMode, ignoreDarkMode, theme],
   );
 
   const {

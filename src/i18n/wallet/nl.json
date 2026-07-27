@@ -58,6 +58,7 @@
   "wallet.send": "Versturen",
   "wallet.sendBitcoin.amount": "Hoeveelheid",
   "wallet.sendBitcoin.fee": "Transactiekosten",
+  "wallet.sendBitcoin.feeRate.tooLow": "Het tarief moet ≥ 1 sat/vByte zijn",
   "wallet.sendBitcoin.send": "Stuur transactie",
   "wallet.sendBitcoin.sendMax": "Alles versturen",
   "wallet.sendBitcoin.sendingFrom": "Versturen vanaf",

@@ -44,6 +44,11 @@ function ChatScreen({ contract }: { contract: Contract }) {
   const queryClient = useQueryClient();
   const { data: decryptedData, isPending } = useDecryptedContractData(contract);
   const { contractId } = useRoute<"contractChat">().params;
+  const setPopup = useSetPopup();
+  const openDispute = useCallback(
+    () => setPopup(<OpenDisputePopup contractId={contractId} />),
+    [setPopup, contractId],
+  );
 
   const { connected, send, off, on } = useWebsocketContext();
   const { messages, isFetching, page, fetchNextPage } = useChatMessages({
@@ -280,6 +285,8 @@ function ChatScreen({ contract }: { contract: Contract }) {
         >
           <ChatBox
             tradingPartner={tradingPartner?.id || ""}
+            isBuyer={publicKey === contract.buyer.id}
+            openDispute={openDispute}
             online={connected}
             chat={chat}
             setAndSaveChat={setAndSaveChat}

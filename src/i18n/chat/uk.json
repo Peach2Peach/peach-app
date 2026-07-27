@@ -9,6 +9,7 @@
   "chat.disputeDisclaimer.5": "Якщо щось піде не так, відкрийте диспут у правому верхньому куті.",
   "chat.failedToSend": "Не вдалося надіслати повідомлення.",
   "chat.mediator": "Медіатор Peach",
+  "chat.suspiciousMessage": "Це повідомлення виглядає підозріло. Шахраї просять альтернативні способи оплати.",
   "chat.support.present": "Служба підтримки Peach зараз присутня в цьому чаті",
   "chat.support.notPresent": "Служба підтримки Peach зараз відсутня в цьому чаті",
   "chat.systemMessage": "Системне повідомлення Peach",

@@ -18,6 +18,8 @@
   "offerPreferences.allPaymentMethods": "Wszystkie metody płatności",
   "offerPreferences.amountToBuy": "Kwota do zakupu",
   "offerPreferences.amountToSell": "Kwota do sprzedaży",
+  "offerPreferences.priceType.premium": "marża",
+  "offerPreferences.priceType.fixedPrice": "stała cena",
   "offerPreferences.buyOffers": "$0 otwartych ofert zakupu",
   "offerPreferences.competingSellOffers": "$0 konkurujących ofert sprzedaży",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 konkurencyjnych ofert sprzedaży poniżej tej premii",

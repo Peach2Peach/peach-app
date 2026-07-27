@@ -25,6 +25,9 @@ export const useTradingLimits = () => {
         monthlyAnonymousAmount: exchangeRate * limits?.monthlyAnonymousAmount,
         yearlyAmount: limits.yearlyAmount * exchangeRate,
         yearly: exchangeRate * limits.yearly,
+        yearlyAmountWithoutKyc:
+          (limits.yearlyAmountWithoutKyc ?? 0) * exchangeRate,
+        yearlyWithoutKyc: exchangeRate * (limits.yearlyWithoutKyc ?? 0),
       }
     : defaultLimits;
 

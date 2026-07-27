@@ -18,6 +18,8 @@
   "offerPreferences.allPaymentMethods": "Все методы оплаты",
   "offerPreferences.amountToBuy": "Сумма к покупке",
   "offerPreferences.amountToSell": "Сумма к продаже",
+  "offerPreferences.priceType.premium": "наценка",
+  "offerPreferences.priceType.fixedPrice": "фиксированная цена",
   "offerPreferences.buyOffers": "$0 открытых предложений на покупку",
   "offerPreferences.competingSellOffers": "$0 конкурирующих предложений на продажу",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 конкурирующих предложений ниже этой премии",

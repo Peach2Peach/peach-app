@@ -8,6 +8,8 @@ export const defaultLimits = {
   monthlyAnonymousAmount: 0,
   yearly: 100000,
   yearlyAmount: 0,
+  yearlyWithoutKyc: 100000,
+  yearlyAmountWithoutKyc: 0,
 };
 
 export const defaultAccount: Account = {

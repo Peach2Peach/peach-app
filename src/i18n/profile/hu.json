@@ -18,6 +18,7 @@
   "profile.tradingLimits.monthly": "havi anonim limit",
   "profile.tradingLimits.yearly": "éves limit",
   "profile.tradingLimits.yearly.short": "éves limit",
+  "profile.tradingLimits.yearlyWithoutKyc": "éves kereskedett volumen KYC nélkül",
   "profile.unblockUser": "felhasználó tiltásának feloldása",
   "profile.user.title": "nyilvános profil",
   "profile.user.currentOffers": "aktuális ajánlatok",

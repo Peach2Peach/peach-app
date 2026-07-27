@@ -10,13 +10,11 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { Progress } from "../../components/ui/Progress";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
-import { InfoPopup } from "../../popups/InfoPopup";
 import { CustomReferralCodePopup } from "../../popups/referral/CustomReferralCodePopup";
 import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesPopup";
 import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { headerIcons } from "../../utils/layout/headerIcons";
 import { peachAPI } from "../../utils/peachAPI";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 import { ReferralCode } from "./components/ReferralCode";
@@ -35,33 +33,33 @@ export const Referrals = () => (
 );
 
 function ReferralsHeader() {
-  const setPopup = useSetPopup();
-  const showHelp = () => setPopup(<ReferralsPopup />);
+  // const setPopup = useSetPopup();
+  // const showHelp = () => setPopup(<ReferralsPopup />);
   return (
     <Header
       title={i18n("settings.referrals")}
-      icons={[{ ...headerIcons.help, onPress: showHelp }]}
+      // icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );
 }
 
-function ReferralsPopup() {
-  return (
-    <InfoPopup
-      title={i18n("help.referral.title")}
-      content={
-        <>
-          <PeachText style={tw`mb-2 text-black-100`}>
-            {i18n("help.referral.description.1")}
-          </PeachText>
-          <PeachText style={tw`text-black-100`}>
-            {i18n("help.referral.description.2")}
-          </PeachText>
-        </>
-      }
-    />
-  );
-}
+// function ReferralsPopup() {
+//   return (
+//     <InfoPopup
+//       title={i18n("help.referral.title")}
+//       content={
+//         <>
+//           <PeachText style={tw`mb-2 text-black-100`}>
+//             {i18n("help.referral.description.1")}
+//           </PeachText>
+//           <PeachText style={tw`text-black-100`}>
+//             {i18n("help.referral.description.2")}
+//           </PeachText>
+//         </>
+//       }
+//     />
+//   );
+// }
 
 function ReferralRewards() {
   const { user } = useSelfUser();

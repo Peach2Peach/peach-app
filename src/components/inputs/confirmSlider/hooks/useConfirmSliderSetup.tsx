@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Animated, LayoutChangeEvent, PanResponder } from "react-native";
+import { Animated, Easing, LayoutChangeEvent, PanResponder } from "react-native";
 import { useIsMediumScreen } from "../../../../hooks/useIsMediumScreen";
 import { getNormalized } from "../../../../utils/math/getNormalized";
 
@@ -7,6 +7,7 @@ type Props = ComponentProps & {
   onConfirm: () => void;
   enabled: boolean;
   isCallbackRunning?: boolean;
+  isSuccess?: boolean;
 };
 
 export const defaultWidth = 260;
@@ -17,8 +18,8 @@ export const useConfirmSliderSetup = ({
   enabled,
   onConfirm,
   isCallbackRunning,
+  isSuccess,
 }: Props) => {
-  console.log("isCallbackRunning", isCallbackRunning);
   const isMediumScreen = useIsMediumScreen();
   const knobWidth = isMediumScreen ? MEDIUM_KNOB_WIDTH : SMALL_KNOB_WIDTH;
   const [widthToSlide, setWidthToSlide] = useState(defaultWidth - knobWidth);
@@ -30,27 +31,47 @@ export const useConfirmSliderSetup = ({
   };
 
   const pan = useRef(new Animated.Value(0)).current;
+  const spin = useRef(new Animated.Value(0)).current;
   const wasCallbackRunning = useRef(false);
 
   useEffect(() => {
-    console.log("wasCallbackRunning", wasCallbackRunning);
     if (isCallbackRunning) {
       wasCallbackRunning.current = true;
+      // hold the knob at the end while the callback runs
       Animated.timing(pan, {
         toValue: 1,
         duration: 100,
         useNativeDriver: false,
       }).start();
     } else if (wasCallbackRunning.current) {
-      console.log("KJSDFNJKSDGFKJN");
+      // callback finished: stick at the end (green) on success, otherwise snap
+      // back so the user can retry after a failure
       wasCallbackRunning.current = false;
       Animated.timing(pan, {
-        toValue: 0,
+        toValue: isSuccess ? 1 : 0,
         duration: 100,
         useNativeDriver: false,
       }).start();
     }
-  }, [isCallbackRunning, pan]);
+  }, [isCallbackRunning, isSuccess, pan]);
+
+  useEffect(() => {
+    if (!isCallbackRunning) return undefined;
+    // spin the knob icon continuously while the callback runs
+    const loop = Animated.loop(
+      Animated.timing(spin, {
+        toValue: 1,
+        duration: 1000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+    loop.start();
+    return () => {
+      loop.stop();
+      spin.setValue(0);
+    };
+  }, [isCallbackRunning, spin]);
 
   const panResponder = useMemo(
     () =>
@@ -95,5 +116,5 @@ export const useConfirmSliderSetup = ({
     [enabled, isCallbackRunning, onConfirm, pan, widthToSlide],
   );
 
-  return { panResponder, pan, widthToSlide, onLayout };
+  return { panResponder, pan, spin, widthToSlide, onLayout };
 };

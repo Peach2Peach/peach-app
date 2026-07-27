@@ -69,6 +69,7 @@ type SellFlow = {
   };
   search: { offerId: string };
   editPremium: { offerId: string; preferedDisplayCurrency?: Currency };
+  editFixedPrice: { offerId: string };
   editPremiumOfBuyOffer: {
     offerId: string;
     preferedDisplayCurrency?: Currency;

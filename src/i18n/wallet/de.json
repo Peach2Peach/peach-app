@@ -58,6 +58,7 @@
   "wallet.send": "senden",
   "wallet.sendBitcoin.amount": "Betrag",
   "wallet.sendBitcoin.fee": "Transaktionsgebühr",
+  "wallet.sendBitcoin.feeRate.tooLow": "Die Gebührenrate muss ≥ 1 sat/vByte betragen",
   "wallet.sendBitcoin.send": "Transaktion senden",
   "wallet.sendBitcoin.sendMax": "Maximum senden",
   "wallet.sendBitcoin.sendingFrom": "Senden von",

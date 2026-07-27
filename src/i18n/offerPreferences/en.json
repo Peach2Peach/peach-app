@@ -20,6 +20,8 @@
   "offerPreferences.allPaymentMethods": "all payment methods",
   "offerPreferences.amountToBuy": "amount to buy",
   "offerPreferences.amountToSell": "amount to sell",
+  "offerPreferences.priceType.premium": "premium",
+  "offerPreferences.priceType.fixedPrice": "fixed price",
   "offerPreferences.buyOffers": "$0 buy offers",
   "offerPreferences.competingSellOffers": "$0 competing sell offers",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 competing sell offers below this premium",

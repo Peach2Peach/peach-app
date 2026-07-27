@@ -9,6 +9,7 @@
   "chat.disputeDisclaimer.5": "Ha valami gyanús, a jobb felső sarokban vitát indíthatsz.",
   "chat.failedToSend": "Az üzenet küldése sikertelen.",
   "chat.mediator": "Peach közvetítő",
+  "chat.suspiciousMessage": "Ez az üzenet gyanúsnak tűnik. A csalók alternatív fizetési módokat kérnek.",
   "chat.support.present": "A Peach ügyfélszolgálat jelenleg jelen van ebben a csevegésben",
   "chat.support.notPresent": "A Peach ügyfélszolgálat jelenleg nincs jelen ebben a csevegésben",
   "chat.systemMessage": "Peach rendszerüzenet",

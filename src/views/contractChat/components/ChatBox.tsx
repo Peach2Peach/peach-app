@@ -11,6 +11,8 @@ type Props = {
   setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void;
   resendMessage: (message: Message) => void;
   tradingPartner: User["id"];
+  isBuyer: boolean;
+  openDispute: () => void;
   page: number;
   fetchNextPage: () => void;
   isLoading: boolean;

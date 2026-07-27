@@ -8,6 +8,24 @@ type BitcoinRequest = {
   exp?: number;
 };
 
+const BITCOIN_SCHEME = /^bitcoin:/iu;
+const LIGHTNING = /^(?:lightning:)?ln/iu;
+const UPPERCASE_BECH32 = /^(?:BC1|TB1|BCRT1)/u;
+const ADDRESS = /^(?:bc1|tb1|bcrt1|[123])[a-zA-HJ-NP-Z0-9]{25,62}$/u;
+
+/**
+ * The address is the URI's path: everything between the scheme and the query.
+ * Reading any other part of the URI would let a colon inside a parameter
+ * (`?message=order:<other address>`) put a foreign address into the send field.
+ */
+const getAddress = (request: string) => {
+  const path = request.replace(BITCOIN_SCHEME, "").split("?")[0].trim();
+  // only bech32 is case insensitive, base58 addresses must be left untouched
+  const address = UPPERCASE_BECH32.test(path) ? path.toLocaleLowerCase() : path;
+
+  return ADDRESS.test(address) ? address : undefined;
+};
+
 export const parseBitcoinRequest = (request = "bitcoin:"): BitcoinRequest => {
   let urn: URL;
   const parsedRequest: BitcoinRequest = {};
@@ -17,25 +35,20 @@ export const parseBitcoinRequest = (request = "bitcoin:"): BitcoinRequest => {
   } catch (e) {
     urn = new URL("bitcoin:");
   }
-  const isLightning = /^ln/u.exec(request);
-  const address =
-    /^(?:bc1|tb1|bcrt1|BC1|TB1|BCRT1|[123])[a-zA-HJ-NP-Z0-9]{25,62}/u.exec(
-      String(request.split(":").pop()),
-    );
 
-  if (address && !isLightning) {
-    parsedRequest.address = address[0];
-    if (/BC1|TB1|BCRT1/u.test(parsedRequest.address))
-      parsedRequest.address = parsedRequest.address.toLocaleLowerCase();
-  }
-  if (urn.searchParams.get("amount"))
-    parsedRequest.amount = Number(urn.searchParams.get("amount"));
-  if (urn.searchParams.get("message"))
-    parsedRequest.message = urn.searchParams.get("message") || "";
-  if (urn.searchParams.get("time"))
-    parsedRequest.time = Number(urn.searchParams.get("time"));
-  if (urn.searchParams.get("exp"))
-    parsedRequest.exp = Number(urn.searchParams.get("exp"));
+  const address = getAddress(request);
+  if (address && !LIGHTNING.test(request)) parsedRequest.address = address;
+
+  // uppercase QR codes carry uppercase parameter names as well
+  const params = new Map<string, string>();
+  urn.searchParams.forEach((value, key) =>
+    params.set(key.toLocaleLowerCase(), value),
+  );
+
+  if (params.get("amount")) parsedRequest.amount = Number(params.get("amount"));
+  if (params.get("message")) parsedRequest.message = params.get("message");
+  if (params.get("time")) parsedRequest.time = Number(params.get("time"));
+  if (params.get("exp")) parsedRequest.exp = Number(params.get("exp"));
 
   return parsedRequest;
 };

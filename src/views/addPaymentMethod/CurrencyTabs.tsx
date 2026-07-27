@@ -19,6 +19,7 @@ const CurrencyTab = createMaterialTopTabNavigator();
 const currencyTabs: CurrencyType[] = [
   "africa",
   "asia",
+  "europe",
   "latinAmerica",
   "middleEast",
   "northAmerica",
@@ -48,11 +49,6 @@ export const CurrencyTabs = (props: Props) => {
         sceneStyle: tw`pb-2 px-sm md:px-md`,
       }}
     >
-      <CurrencyTab.Screen
-        name={"europe"}
-        options={{ title: i18n("europe") }}
-        children={() => <Currencies type={"europe"} {...props} />}
-      />
       <CurrencyTab.Screen
         name={"global"}
         options={{ title: i18n("global") }}

@@ -58,6 +58,7 @@
   "wallet.send": "Gönder",
   "wallet.sendBitcoin.amount": "Miktar",
   "wallet.sendBitcoin.fee": "İşlem Ücreti",
+  "wallet.sendBitcoin.feeRate.tooLow": "Ücret oranı ≥ 1 sat/vByte olmalıdır",
   "wallet.sendBitcoin.send": "İşlemi Gönder",
   "wallet.sendBitcoin.sendMax": "En Fazla Gönder",
   "wallet.sendBitcoin.sendingFrom": "Gönderen:",

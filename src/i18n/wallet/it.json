@@ -58,6 +58,7 @@
   "wallet.send": "Invia",
   "wallet.sendBitcoin.amount": "importo",
   "wallet.sendBitcoin.fee": "commissione",
+  "wallet.sendBitcoin.feeRate.tooLow": "La commissione deve essere ≥ 1 sat/vByte",
   "wallet.sendBitcoin.send": "invia transazione",
   "wallet.sendBitcoin.sendMax": "invia tutto",
   "wallet.sendBitcoin.sendingFrom": "invia da",

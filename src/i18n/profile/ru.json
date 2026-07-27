@@ -18,6 +18,7 @@
   "profile.tradingLimits.monthly": "месячный анонимный лимит:",
   "profile.tradingLimits.yearly": "годовой торговый лимит:",
   "profile.tradingLimits.yearly.short": "годовой лимит:",
+  "profile.tradingLimits.yearlyWithoutKyc": "годовой объём торгов без KYC:",
   "profile.unblockUser": "разблокировать этого пользователя",
   "profile.user.title": "открытый профиль",
   "profile.user.currentOffers": "текущие предложения",

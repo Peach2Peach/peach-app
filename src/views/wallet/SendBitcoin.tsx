@@ -49,11 +49,15 @@ export const SendBitcoin = () => {
       )
     : peachWallet?.balance || 0;
 
-  const onAmountChange = (newText: string) => {
+  const updateAmount = (newAmount: number) => {
+    // any explicit amount replaces a previous "send max", which would otherwise
+    // keep draining the wallet while the screen shows the smaller amount
     setShouldDrainWallet(false);
-    const newNumber = Number(removeNonDigits(newText) || "0");
-    const newValue = Math.min(newNumber, maxAmount);
-    setAmount(newValue);
+    setAmount(Math.min(newAmount, maxAmount));
+  };
+
+  const onAmountChange = (newText: string) => {
+    updateAmount(Number(removeNonDigits(newText) || "0"));
   };
 
   const sendTrasaction = async () => {
@@ -91,7 +95,7 @@ export const SendBitcoin = () => {
             <BitcoinAddressInput
               value={address}
               onChangeText={setAddress}
-              onAmountScanned={(sats) => setAmount(sats)}
+              onAmountScanned={updateAmount}
             />
           </Section>
 
@@ -190,22 +194,27 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
   const onFeeRateChange = (feeRate: (typeof feeRates)[number]) => {
     updateFee(
       feeRate === "custom"
-        ? customFeeRate === ""
-          ? undefined
-          : Number(customFeeRate)
+        ? rules.feeRate(customFeeRate)
+          ? Number(customFeeRate)
+          : undefined
         : estimatedFees[feeRate],
     );
   };
 
   const updateCustomFeeRate = (feeRate: string) => {
     setCustomFeeRate(feeRate);
-    updateFee(feeRate === "" ? undefined : Number(feeRate));
+    updateFee(rules.feeRate(feeRate) ? Number(feeRate) : undefined);
   };
 
   const onButtonPress = (feeRate: (typeof feeRates)[number]) => {
     setSelectedFeeRate(feeRate);
     onFeeRateChange(feeRate);
   };
+
+  const showCustomFeeError =
+    selectedFeeRate === "custom" &&
+    customFeeRate !== "" &&
+    !rules.feeRate(customFeeRate);
 
   const options = feeRates.map((feeRate) => ({
     value: feeRate,
@@ -225,11 +234,21 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
   }));
 
   return (
-    <RadioButtons
-      items={options}
-      selectedValue={selectedFeeRate}
-      onButtonPress={onButtonPress}
-    />
+    <>
+      <RadioButtons
+        items={options}
+        selectedValue={selectedFeeRate}
+        onButtonPress={onButtonPress}
+      />
+      {showCustomFeeError && (
+        <PeachText
+          style={tw`mt-1 ml-3 tooltip text-error-main`}
+          testID="custom-fees-error"
+        >
+          {i18n("wallet.sendBitcoin.feeRate.tooLow")}
+        </PeachText>
+      )}
+    </>
   );
 }
 

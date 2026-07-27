@@ -24,12 +24,15 @@ import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdF
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { hashPaymentData } from "../../utils/paymentMethod/hashPaymentData";
+import { paymentDataMatchesHashes } from "../../utils/paymentMethod/paymentDataMatchesHashes";
 import capitalize from "../../utils/string/capitalize";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
 import { ContractActions } from "./ContractActions";
 import { PendingPayoutInfo } from "./components/PendingPayoutInfo";
+import { SuspiciousPaymentDataBanner } from "./components/SuspiciousPaymentDataBanner";
 import { TradeInformation } from "./components/TradeInformation";
 import { ContractContext, useContractContext } from "./context";
 
@@ -118,6 +121,35 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
   const requiredAction = getRequiredAction(contract);
   const { disputeWinner } = contract;
 
+  // The user sees the counterparty's decrypted payment details. Re-hash them and
+  // compare against the hashes stored on the contract to detect tampering.
+  const counterparty: ContractViewer = view === "buyer" ? "seller" : "buyer";
+  const counterpartyPaymentData =
+    view === "buyer" ? data?.paymentData : data?.buyerPaymentData;
+  const counterpartyHashes =
+    view === "buyer"
+      ? contract.hashedPaymentData
+      : contract.buyerHashedPaymentData;
+  const hasSuspiciousPaymentData =
+    !!counterpartyPaymentData &&
+    !paymentDataMatchesHashes(counterpartyPaymentData, counterpartyHashes);
+
+  // TODO: TEMPORARY DEBUG (remove) — why doesn't a tampered hash trigger the banner?
+  console.log("[SUSPICIOUS-DEBUG]", {
+    view,
+    counterparty,
+    hasSuspiciousPaymentData,
+    hasCounterpartyPaymentData: !!counterpartyPaymentData,
+    counterpartyPaymentData,
+    computedHashes: counterpartyPaymentData
+      ? hashPaymentData(counterpartyPaymentData).map((i) => i.hash)
+      : null,
+    rawStoredHashes: counterpartyHashes,
+    extractedStoredHashes:
+      counterpartyHashes?.flatMap((e) => e.match(/[0-9a-f]{64}/g) ?? []) ??
+      null,
+  });
+
   if (
     !disputeWinner &&
     ["revolut", "wise"].includes(contract.paymentMethod) &&
@@ -180,6 +212,9 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
       }}
     >
       <Screen header={<ContractHeader />}>
+        {hasSuspiciousPaymentData && (
+          <SuspiciousPaymentDataBanner counterparty={counterparty} />
+        )}
         <PeachScrollView
           contentContainerStyle={tw`grow`}
           contentStyle={tw`grow`}

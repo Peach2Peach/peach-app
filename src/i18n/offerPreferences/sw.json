@@ -18,6 +18,8 @@
   "offerPreferences.allPaymentMethods": "njia zote za malipo",
   "offerPreferences.amountToBuy": "kiasi cha kununua",
   "offerPreferences.amountToSell": "kiasi cha kuuza",
+  "offerPreferences.priceType.premium": "malipo ya juu",
+  "offerPreferences.priceType.fixedPrice": "bei maalum",
   "offerPreferences.buyOffers": "$0 ofa za kununua zilizo wazi",
   "offerPreferences.competingSellOffers": "$0 ofa za mauzo zinazoshindana",
   "offerPreferences.competingSellOffersBelowThisPremium": "$0 ofa za mauzo zinazoshindana chini ya malipo haya ya juu",

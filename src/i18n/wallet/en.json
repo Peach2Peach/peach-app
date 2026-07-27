@@ -60,6 +60,7 @@
   "wallet.send": "send",
   "wallet.sendBitcoin.amount": "amount",
   "wallet.sendBitcoin.fee": "transaction fee",
+  "wallet.sendBitcoin.feeRate.tooLow": "the fee rate must be ≥ 1 sat/vByte",
   "wallet.sendBitcoin.send": "send transaction",
   "wallet.sendBitcoin.sendMax": "send max",
   "wallet.sendBitcoin.sendingFrom": "sending from",

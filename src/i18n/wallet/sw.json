@@ -58,6 +58,7 @@
   "wallet.send": "tuma",
   "wallet.sendBitcoin.amount": "kiwango",
   "wallet.sendBitcoin.fee": "ada ya shughuli",
+  "wallet.sendBitcoin.feeRate.tooLow": "Kiwango cha ada lazima kiwe ≥ 1 sat/vByte",
   "wallet.sendBitcoin.send": "tuma shughuli",
   "wallet.sendBitcoin.sendMax": "tuma zote",
   "wallet.sendBitcoin.sendingFrom": "inatumiwa kutoka",
