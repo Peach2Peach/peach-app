@@ -1,12 +1,17 @@
 import { useCallback, useMemo } from "react";
+import { Chain } from "../../../../peach-api/src/@types/offer";
 import { sectionContainerPadding } from "../components/Section";
 import { sliderWidth } from "../components/Slider";
 import { horizontalTrackPadding } from "../components/SliderTrack";
 import { trackMin } from "./constants";
 import { useTradingAmountLimits } from "./useTradingAmountLimits";
 
-export const useAmountInBounds = (trackWidth: number, type: "buy" | "sell") => {
-  const [minLimit, maxLimit] = useTradingAmountLimits(type);
+export const useAmountInBounds = (
+  trackWidth: number,
+  type: "buy" | "sell",
+  chain: Chain = "mainchain",
+) => {
+  const [minLimit, maxLimit] = useTradingAmountLimits(type, chain);
   const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth]);
   const trackDelta = trackMax - trackMin;
 

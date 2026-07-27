@@ -39,14 +39,20 @@ type SellOfferDraft = OfferDraft & {
   /** currency code; string (not Currency) so peach-api offers stay assignable
    * despite the diverging Currency unions */
   fixedPriceCurrency?: string;
+  /** chain-typed: a Liquid address when `chain` is "liquid" */
   returnAddress: string;
   funding: FundingStatus;
   multi?: number;
   instantTradeCriteria?: InstantTradeCriteria;
   experienceLevelCriteria?: ExperienceLevel;
+  /** omitted => "mainchain" */
+  chain?: "mainchain" | "liquid";
 };
 type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
   escrow?: string;
+  /** which chain the escrow lives on, as reported by the server. Absent on
+   * offers created before liquid support (always mainchain). */
+  escrowType?: "bitcoin" | "liquid";
   escrowNotifiedUser?: boolean;
   tx?: string;
   refundTx?: string; // base 64 encoded psbt

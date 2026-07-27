@@ -1,5 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { MSINASECOND } from "../../constants";
+import { pickFundingStatus } from "../../utils/offer/pickFundingStatus";
 import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./useOfferDetail";
 
@@ -23,6 +24,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
   return {
     fundingStatus: data?.funding,
     userConfirmationRequired: data?.userConfirmationRequired,
+    escrow: data?.escrow,
     isLoading,
     isPending,
     error: fundingStatusError,
@@ -35,11 +37,19 @@ async function getFundingStatusQuery({
 }: QueryFunctionContext<ReturnType<typeof offerKeys.fundingStatus>>) {
   const offerId = queryKey[2];
 
-  const { result: fundingStatus, error: _err } =
+  const { result, error: _err } =
     await peachAPI.private.offer.getFundingStatus({ offerId });
-  // if (!fundingStatus || err) {
+  // if (!result || err) {
   //   error("Could not fetch funding status for offer", offerId, err?.error);
   //   throw new Error(err?.error);
   // }
-  return fundingStatus;
+  if (!result) return result;
+
+  // the response carries bitcoin funding in `funding` and liquid funding in a
+  // sibling `fundingLiquid`; collapse to the active one so `funding.status`,
+  // `.amounts`, `.txIds` reads work regardless of chain
+  return {
+    ...result,
+    funding: pickFundingStatus(result.funding, result.fundingLiquid),
+  };
 }

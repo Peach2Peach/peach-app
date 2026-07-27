@@ -1,8 +1,12 @@
 import { useCallback } from "react";
+import { Chain } from "../../../../peach-api/src/@types/offer";
 import { useTradingAmountLimits } from "./useTradingAmountLimits";
 
-export const useRestrictSatsAmount = (type: "sell" | "buy") => {
-  const [minAmount, maxAmount] = useTradingAmountLimits(type);
+export const useRestrictSatsAmount = (
+  type: "sell" | "buy",
+  chain: Chain = "mainchain",
+) => {
+  const [minAmount, maxAmount] = useTradingAmountLimits(type, chain);
 
   const restrictAmount = useCallback(
     (amount: number) => {

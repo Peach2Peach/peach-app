@@ -52,5 +52,9 @@
   "help.sellingBitcoin.description": "Selling sats on Peach is free!\n\nTo publish a sell offer, send your sats to escrow to prove ownership.\n\nEscrow is a multi-signature wallet: you hold one key, Peach holds another.",
   "help.sellingBitcoin.title": "selling bitcoin",
   "help.tradingLimit.description": "Peach enforces trading limits to comply with Swiss law:\n\nDaily: up to 1,000 CHF in bitcoin\nMonthly (anonymous methods: cash or online gift cards): up to 1,000 CHF\nYearly: up to 100,000 CHF in bitcoin",
-  "help.tradingLimit.title": "trading limits"
+  "help.tradingLimit.title": "trading limits",
+  "help.escrow.liquid.title": "Liquid escrow",
+  "help.escrow.liquid.description": "Your L-BTC is locked in a 2-of-2 escrow shared between you and Peach.",
+  "help.escrow.liquid.description.2": "Fund it from any Liquid wallet with a normal, unconfidential payment.",
+  "help.escrow.liquid.description.3": "When you confirm payment received, Peach swaps the L-BTC and pays the buyer in mainchain BTC."
 }

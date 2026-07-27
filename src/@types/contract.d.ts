@@ -45,6 +45,10 @@ type Contract = {
   lastReminderSent?: PaymentReminder;
 
   escrow: string;
+  /** which chain the escrow lives on. Liquid escrows are MuSig2 2-of-2 and
+   * released through the interactive 2-request flow, not `releasePsbt`.
+   * Absent on contracts created before liquid support (always mainchain). */
+  escrowType?: "bitcoin" | "liquid";
   releaseAddress: string;
   releaseTransaction?: string;
   releaseTxId?: string;

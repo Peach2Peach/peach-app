@@ -98,7 +98,12 @@
   "error.general": "Something went wrong. Please try again later or contact the Peach support team.",
   "INVALID_TIME.text": "Peach had a problem validating your generated credentials possibly due to a slow Internet connection. Please try again.",
   "WALLET_NOT_READY.title": "Peach Wallet is not ready!",
-  "WALLET_NOT_READY.text":"Please wait a little longer and try again. If it continues, stop the app and restart it.",
+  "WALLET_NOT_READY.text": "The wallet is still loading. Please try again in a moment.",
   "SEED_NOT_USED_IN_PEACH.text": "You have introduced a valid Seed, but there isn't a Peach account associated to it. Go back and create a new account.",
-  "SEED_NOT_USED_IN_PEACH.title": "This Seed was never used in Peach"
+  "SEED_NOT_USED_IN_PEACH.title": "This Seed was never used in Peach",
+  "RELEASE_START_FAILED": "Release failed",
+  "RELEASE_START_FAILED.text": "Could not start the escrow release. Please try again.",
+  "ESCROW_ADDRESS_MISMATCH": "Escrow mismatch",
+  "ESCROW_ADDRESS_MISMATCH.text": "The escrow address could not be verified, so the release was not signed. Please contact support.",
+  "WALLET_NOT_READY": "Wallet not ready"
 }

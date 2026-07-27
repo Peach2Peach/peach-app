@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { shallow } from "zustand/shallow";
+import { Chain } from "../../../peach-api/src/@types/offer";
 import { MeansOfPayment } from "../../../peach-api/src/@types/payment";
 import { LogoIcons } from "../../assets/logo";
 import { Badge } from "../../components/Badge";
@@ -43,6 +44,7 @@ import { useAccountStore } from "../../utils/account/account";
 import { enforceDecimalsFormat } from "../../utils/format/enforceDecimalsFormat";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { getLiquidRefundAddress } from "../../utils/liquid/getLiquidRefundAddress";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
@@ -60,6 +62,11 @@ import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
 import { WalletSelector } from "./WalletSelector";
+import {
+  ChainSelector,
+  ChainState,
+  useChainState,
+} from "./components/ChainSelector";
 import { CreateMultipleOffers } from "./components/CreateMultipleOffers";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
@@ -104,13 +111,14 @@ export function SellOfferPreferences() {
   const [isSliding, setIsSliding] = useState(false);
   const [currency, setCurrency] = useState<Currency | undefined>();
   const priceState = usePriceState();
+  const chainState = useChainState();
   return (
     <PreferenceScreen
       header={<SellHeader />}
       button={
         <>
-          <FundWithPeachWallet />
-          <FundEscrowButton priceState={priceState} />
+          <FundWithPeachWallet chain={chainState.chain} />
+          <FundEscrowButton priceState={priceState} chainState={chainState} />
         </>
       }
       isSliding={isSliding}
@@ -122,8 +130,9 @@ export function SellOfferPreferences() {
         currency={currency}
         setIsSliding={setIsSliding}
         priceState={priceState}
+        chain={chainState.chain}
       />
-      <AdvancedOptions />
+      <AdvancedOptions chainState={chainState} />
     </PreferenceScreen>
   );
 }
@@ -195,10 +204,12 @@ function AmountSelector({
   setIsSliding,
   currency,
   priceState,
+  chain,
 }: {
   setIsSliding: (isSliding: boolean) => void;
   currency?: Currency;
   priceState: PriceState;
+  chain: Chain;
 }) {
   const trackWidth = useTrackWidth();
 
@@ -212,6 +223,7 @@ function AmountSelector({
             <SellAmountSlider
               setIsSliding={setIsSliding}
               trackWidth={trackWidth}
+              chain={chain}
             />
           }
           trackWidth={trackWidth}
@@ -220,8 +232,8 @@ function AmountSelector({
       }
       inputs={
         <>
-          <SatsInput />
-          <FiatInput currency={currency} />
+          <SatsInput chain={chain} />
+          <FiatInput currency={currency} chain={chain} />
         </>
       }
     />
@@ -571,15 +583,20 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
 type SellAmountSliderProps = {
   trackWidth: number;
   setIsSliding: (isSliding: boolean) => void;
+  chain: Chain;
 };
 
-function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
-  const [, maxLimit] = useTradingAmountLimits("sell");
+function SellAmountSlider({
+  trackWidth,
+  setIsSliding,
+  chain,
+}: SellAmountSliderProps) {
+  const [, maxLimit] = useTradingAmountLimits("sell", chain);
 
   const trackMax = trackWidth - sliderWidth;
   const trackDelta = trackMax - trackMin;
 
-  const getAmountInBounds = useAmountInBounds(trackWidth, "sell");
+  const getAmountInBounds = useAmountInBounds(trackWidth, "sell", chain);
 
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.sellAmount,
@@ -611,14 +628,14 @@ export const inputContainerStyle = [
   "border rounded-lg border-black-25",
 ];
 
-function SatsInput() {
+function SatsInput({ chain }: { chain: Chain }) {
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.sellAmount,
     state.setSellAmount,
   ]);
   const inputRef = useRef<TextInput>(null);
   const [inputValue, setInputValue] = useState(String(amount));
-  const restrictAmount = useRestrictSatsAmount("sell");
+  const restrictAmount = useRestrictSatsAmount("sell", chain);
 
   const onFocus = () => setInputValue("0");
 
@@ -648,7 +665,13 @@ function SatsInput() {
   );
 }
 
-function FiatInput({ currency }: { currency?: Currency }) {
+function FiatInput({
+  currency,
+  chain,
+}: {
+  currency?: Currency;
+  chain: Chain;
+}) {
   const [amount, setAmount] = useOfferPreferences((state) => [
     state.sellAmount,
     state.setSellAmount,
@@ -661,7 +684,7 @@ function FiatInput({ currency }: { currency?: Currency }) {
   );
   const [inputValue, setInputValue] = useState(fiatPrice.toString());
 
-  const restrictAmount = useRestrictSatsAmount("sell");
+  const restrictAmount = useRestrictSatsAmount("sell", chain);
 
   const onFocus = () => {
     setInputValue(fiatPrice.toString());
@@ -727,7 +750,7 @@ function FiatInput({ currency }: { currency?: Currency }) {
   );
 }
 
-function AdvancedOptions() {
+function AdvancedOptions({ chainState }: { chainState: ChainState }) {
   const [instantTrade, experienceLevel, multi] = useOfferPreferences(
     (state) => [state.instantTrade, state.experienceLevel, state.multi],
     shallow,
@@ -735,10 +758,12 @@ function AdvancedOptions() {
   const refundToPeachWallet = useSettingsStore(
     (state) => state.refundToPeachWallet,
   );
+  const isLiquid = chainState.chain === "liquid";
   const hasAnyOption =
     !!instantTrade ||
     !!experienceLevel ||
     multi !== undefined ||
+    isLiquid ||
     !refundToPeachWallet;
 
   const [isExpanded, setIsExpanded] = useState(hasAnyOption);
@@ -766,10 +791,13 @@ function AdvancedOptions() {
       </TouchableOpacity>
       {isExpanded && (
         <>
-          <CreateMultipleOffersContainer />
+          <ChainSelector chainState={chainState} />
+          {/* batching has no liquid equivalent */}
+          {!isLiquid && <CreateMultipleOffersContainer />}
           <InstantTrade />
           <ExperienceLevel />
-          <RefundWalletSelector />
+          {/* liquid can only refund to the Peach wallet's derived address */}
+          <RefundWalletSelector locked={isLiquid} />
         </>
       )}
     </View>
@@ -965,7 +993,7 @@ function ExperienceLevel() {
   );
 }
 
-function FundWithPeachWallet() {
+function FundWithPeachWallet({ chain }: { chain: Chain }) {
   const [fundWithPeachWallet, setFundWithPeachWallet] = useOfferPreferences(
     (state) => [state.fundWithPeachWallet, state.setFundWithPeachWallet],
     shallow,
@@ -978,6 +1006,10 @@ function FundWithPeachWallet() {
     typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
   const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("networkFees");
+
+  // the Peach wallet is mainchain-only; a liquid escrow is funded externally
+  if (chain === "liquid") return null;
+
   return (
     <Section.Container style={tw`flex-row justify-between`}>
       <Checkbox
@@ -992,8 +1024,16 @@ function FundWithPeachWallet() {
   );
 }
 
-function FundEscrowButton({ priceState }: { priceState: PriceState }) {
-  const amountRange = useTradingAmountLimits("sell");
+function FundEscrowButton({
+  priceState,
+  chainState,
+}: {
+  priceState: PriceState;
+  chainState: ChainState;
+}) {
+  const { chain } = chainState;
+  const isLiquid = chain === "liquid";
+  const amountRange = useTradingAmountLimits("sell", chain);
   const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
     (state) => [
       state.sellAmount,
@@ -1006,7 +1046,7 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
 
   const sellAmountIsValid =
     sellAmount >= amountRange[0] && sellAmount <= amountRange[1];
-  const restrictAmount = useRestrictSatsAmount("sell");
+  const restrictAmount = useRestrictSatsAmount("sell", chain);
   const setSellAmount = useOfferPreferences((state) => state.setSellAmount);
   if (!sellAmountIsValid) {
     setSellAmount(restrictAmount(sellAmount));
@@ -1024,6 +1064,7 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
+      // batching has no liquid equivalent
       multi: state.multi,
       instantTradeCriteria: state.instantTrade
         ? state.instantTradeCriteria
@@ -1173,9 +1214,14 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
       return;
     }
     setIsPublishing(true);
-    const address = refundToPeachWallet
-      ? (await peachWallet.getLastUnusedAddressInternal()).address
-      : refundAddress;
+    // chain-typed: a Liquid address for liquid offers, a Bitcoin address
+    // otherwise. Liquid always refunds to the Peach wallet's own derived
+    // address — there is no external option.
+    const address = isLiquid
+      ? getLiquidRefundAddress()
+      : refundToPeachWallet
+        ? (await peachWallet.getLastUnusedAddressInternal()).address
+        : refundAddress;
     if (!address) {
       setIsPublishing(false);
       return;
@@ -1199,9 +1245,11 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
     postSellOffer(
       {
         ...sellPreferences,
+        multi: isLiquid ? undefined : sellPreferences.multi,
         meansOfPayment: filteredMeansOfPayment,
         paymentData,
         type: "ask",
+        chain,
         funding: defaultFundingStatus,
         returnAddress: address,
       },
@@ -1234,7 +1282,10 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
 
           createEscrow(offerIds, {
             onSuccess: async (res) => {
-              if (fundWithPeachWallet) {
+              // the checkbox is hidden for liquid, but the store value
+              // persists — funding from the (mainchain) Peach wallet would
+              // send BTC to a Liquid address
+              if (fundWithPeachWallet && !isLiquid) {
                 const amount = getFundingAmount(offerIds, offerDraft.amount);
                 const fundingAddress = res.find(
                   (e) => e?.offerId === navigationParams.offerId,
@@ -1295,7 +1346,10 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
   );
 }
 
-function RefundWalletSelector() {
+/** `locked` pins the refund to the Peach wallet and disables the external
+ * option — used for liquid, which can only refund to a seed-derived Liquid
+ * address the app controls. */
+function RefundWalletSelector({ locked = false }: { locked?: boolean }) {
   const [
     refundToPeachWallet,
     refundAddress,
@@ -1327,11 +1381,12 @@ function RefundWalletSelector() {
       title={i18n("offerPreferences.refundTo")}
       backgroundColor={tw.color("primary-background-dark-color")}
       bubbleColor="orange"
-      peachWalletActive={refundToPeachWallet}
-      address={refundAddress}
-      addressLabel={refundAddressLabel}
-      onPeachWalletPress={onPeachWalletPress}
+      peachWalletActive={locked || refundToPeachWallet}
+      address={locked ? undefined : refundAddress}
+      addressLabel={locked ? undefined : refundAddressLabel}
+      onPeachWalletPress={locked ? undefined : onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
+      disableExternalWallet={locked}
     />
   );
 }

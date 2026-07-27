@@ -43,5 +43,10 @@
   "offerPreferences.feature.experienceLevel": "experience level",
   "offerPreferences.filters.experiencedUsersOnly": "experienced users only",
   "offerPreferences.filters.newUsersOnly": "new users only",
-  "offerPreferences.advancedOptions": "advanced options"
+  "offerPreferences.advancedOptions": "advanced options",
+  "offerPreferences.chain": "chain",
+  "offerPreferences.chain.mainchain": "Mainchain",
+  "offerPreferences.chain.mainchain.description": "Bitcoin mainchain escrow. The buyer is paid directly on-chain.",
+  "offerPreferences.chain.liquid": "Liquid",
+  "offerPreferences.chain.liquid.description": "L-BTC escrow, min. 30 000 sats. The buyer is still paid in mainchain BTC and covers the swap fee."
 }

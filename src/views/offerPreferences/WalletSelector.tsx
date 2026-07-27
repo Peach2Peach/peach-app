@@ -14,6 +14,9 @@ type Props = {
   onPeachWalletPress: NewBubbleProps["onPress"];
   onExternalWalletPress: NewBubbleProps["onPress"];
   title: string;
+  /** renders the external option as unavailable (greyed, non-pressable) — used
+   * when the offer can only refund to the Peach wallet */
+  disableExternalWallet?: boolean;
 };
 
 export function WalletSelector({
@@ -25,6 +28,7 @@ export function WalletSelector({
   onPeachWalletPress,
   onExternalWalletPress,
   title,
+  disableExternalWallet = false,
 }: Props) {
   const { isDarkMode } = useThemeStore();
 
@@ -47,9 +51,10 @@ export function WalletSelector({
         <NewBubble
           color={bubbleColor}
           ghost={peachWalletActive}
-          disabled={!peachWalletActive}
+          disabled={disableExternalWallet || !peachWalletActive}
           iconId={!address ? "plusCircle" : undefined}
-          onPress={onExternalWalletPress}
+          onPress={disableExternalWallet ? undefined : onExternalWalletPress}
+          style={disableExternalWallet ? tw`opacity-50` : undefined}
         >
           {addressLabel || i18n("externalWallet")}
         </NewBubble>

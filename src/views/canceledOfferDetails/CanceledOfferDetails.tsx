@@ -47,7 +47,7 @@ function OfferDetailsHeader({
 }
 
 function OfferDetailsScreen({ offer }: { offer: SellOffer }) {
-  const { returnAddress, escrow } = offer;
+  const { returnAddress, escrow, escrowType } = offer;
   const walletLabel = useWalletLabel({ address: returnAddress });
   return (
     <Screen header={<OfferDetailsHeader {...offer} />}>
@@ -58,7 +58,13 @@ function OfferDetailsScreen({ offer }: { offer: SellOffer }) {
       </View>
 
       <View style={tw`h-10`}>
-        {!!escrow && <EscrowButton style={tw`self-center`} escrow={escrow} />}
+        {!!escrow && (
+          <EscrowButton
+            style={tw`self-center`}
+            escrow={escrow}
+            escrowType={escrowType}
+          />
+        )}
       </View>
     </Screen>
   );

@@ -16,6 +16,9 @@ export type BTCAmountProps = {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   includeSatsUnit?: boolean;
+  /** shows the Liquid logo instead of the Bitcoin one; the amount is the same
+   * sat unit either way */
+  chain?: "mainchain" | "liquid";
 };
 
 const styles = {
@@ -62,6 +65,7 @@ export const BTCAmount = memo(
     style,
     textStyle,
     includeSatsUnit = true,
+    chain = "mainchain",
   }: BTCAmountProps) => {
     useI18n();
     const [greyText, blackText] = useMemo(
@@ -91,7 +95,13 @@ export const BTCAmount = memo(
       >
         <View style={[tw`shrink-0`, styles[size].iconContainer]}>
           <Icon
-            id={white ? "bitcoinTransparent" : "bitcoinLogo"}
+            id={
+              chain === "liquid"
+                ? "liquidLogo"
+                : white
+                  ? "bitcoinTransparent"
+                  : "bitcoinLogo"
+            }
             size={styles[size].iconSize}
           />
         </View>

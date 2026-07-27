@@ -12,20 +12,34 @@ import { CancelOfferPopup } from "../../../popups/CancelOfferPopup";
 import { HelpPopup } from "../../../popups/HelpPopup";
 import tw from "../../../styles/tailwind";
 import { showTransaction } from "../../../utils/bitcoin/showTransaction";
+import { showLiquidTransaction } from "../../../utils/liquid/showLiquidTransaction";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 
 type Props = {
   offerId: string;
-  txId: string;
+  /** absent when the funding tx id isn't known yet (e.g. a liquid offer the
+   * server reports as pending before exposing the txid); the explorer link is
+   * hidden in that case */
+  txId?: string;
+  chain?: "mainchain" | "liquid";
 };
 
 const DEFAULT_WIDTH = 300;
 const ASPECT_RATIO = 0.7;
 
-export const TransactionInMempool = ({ offerId, txId }: Props) => {
+export const TransactionInMempool = ({
+  offerId,
+  txId,
+  chain = "mainchain",
+}: Props) => {
   const [width, setWidth] = useState(DEFAULT_WIDTH);
-  const openInExplorer = () => showTransaction(txId, NETWORK);
+  const openInExplorer = () => {
+    if (!txId) return;
+    return chain === "liquid"
+      ? showLiquidTransaction(txId, NETWORK)
+      : showTransaction(txId, NETWORK);
+  };
   const onLayout = (e: LayoutChangeEvent) =>
     setWidth(e.nativeEvent.layout.width);
 
@@ -40,20 +54,22 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
             resizeMode="contain"
           />
         </View>
-        <TouchableOpacity onPress={openInExplorer}>
-          <TradeInfo
-            style={tw`self-center`}
-            text={i18n("showInExplorer")}
-            textStyle={tw`underline`}
-            IconComponent={
-              <Icon
-                id="externalLink"
-                style={tw`w-5 h-5`}
-                color={tw.color("primary-main")}
-              />
-            }
-          />
-        </TouchableOpacity>
+        {!!txId && (
+          <TouchableOpacity onPress={openInExplorer}>
+            <TradeInfo
+              style={tw`self-center`}
+              text={i18n("showInExplorer")}
+              textStyle={tw`underline`}
+              IconComponent={
+                <Icon
+                  id="externalLink"
+                  style={tw`w-5 h-5`}
+                  color={tw.color("primary-main")}
+                />
+              }
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </Screen>
   );

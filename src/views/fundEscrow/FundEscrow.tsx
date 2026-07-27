@@ -18,6 +18,7 @@ import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
 import { useFundingStatus } from "../../hooks/query/useFundingStatus";
+import { useOfferSummaries } from "../../hooks/query/useOfferSummaries";
 import {
   offerKeys,
   useMultipleOfferDetails,
@@ -31,6 +32,7 @@ import { useOfferPreferences } from "../../store/offerPreferenes";
 import tw from "../../styles/tailwind";
 import i18n, { languageState } from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { isLiquidOffer } from "../../utils/offer/isLiquidOffer";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { parseError } from "../../utils/parseError";
@@ -40,6 +42,7 @@ import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
 import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
+import { FundLiquidEscrow } from "./FundLiquidEscrow";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
@@ -64,6 +67,10 @@ export const FundEscrow = () => {
     error: fundingStatusError,
     isPending: fundingStatusIsPending,
   } = useFundingStatus(offerId, canFetchFundingStatus);
+  // the escrow poll / offer detail don't surface the funding txid for liquid;
+  // the summary (same data the trades list shows) does, via `fundingTxId`
+  const { offers: offerSummaries } = useOfferSummaries();
+  const offerSummary = offerSummaries.find((o) => o.id === offerId);
   const [multiOfferList, removeMultiOffer] = useOfferPreferences(
     (state) => [state.multiOfferList, state.removeMultiOffer],
     shallow,
@@ -101,10 +108,39 @@ export const FundEscrow = () => {
   if (!fundingStatus || !sellOffer.escrow || !sellOffer.amount)
     return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
 
-  if (fundingStatus.status === "MEMPOOL")
+  // The pending (mempool) and FUNDED transitions are chain-agnostic: the
+  // mempool screen is shared (chain only switches the explorer link), and the
+  // FUNDED navigation is driven by useHandleFundingStatus above. Only the
+  // address-display default differs per chain.
+  //
+  // We also treat the server's `escrowWaitingForConfirmation` trade status as
+  // pending: it's the same signal the trades list uses, and for liquid the
+  // escrow poll's `funding.status` can lag behind it — without this the list
+  // says "transaction pending" while the detail still shows the funding QR.
+  const transactionPending =
+    fundingStatus.status === "MEMPOOL" ||
+    sellOffer.tradeStatus === "escrowWaitingForConfirmation";
+
+  if (transactionPending) {
+    // fundingStatus now resolves the liquid funding, so its txIds are correct;
+    // keep the summary's fundingTxId and sellOffer.txId as fallbacks
+    const fundingTxId =
+      fundingStatus.txIds[0] ??
+      (offerSummary && "fundingTxId" in offerSummary
+        ? offerSummary.fundingTxId
+        : undefined) ??
+      sellOffer.txId;
     return (
-      <TransactionInMempool offerId={offerId} txId={fundingStatus.txIds[0]} />
+      <TransactionInMempool
+        offerId={offerId}
+        txId={fundingTxId}
+        chain={isLiquidOffer(sellOffer) ? "liquid" : "mainchain"}
+      />
     );
+  }
+
+  if (isLiquidOffer(sellOffer))
+    return <FundLiquidEscrow offerId={offerId} sellOffer={sellOffer} />;
 
   return (
     <Screen header={<FundEscrowHeader />}>

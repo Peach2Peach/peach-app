@@ -6,6 +6,7 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
+import { isLiquidOffer } from "../../utils/offer/isLiquidOffer";
 import { getOfferPrice } from "../../utils/offer/getOfferPrice";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BTCAmount } from "../bitcoin/BTCAmount";
@@ -29,6 +30,8 @@ type Props = {
     | "paymentData"
   > & {
     escrow?: string;
+    escrowType?: SellOffer["escrowType"];
+    chain?: SellOfferDraft["chain"];
     amountSats?: number;
   };
   numberOfOffers?: number;
@@ -120,6 +123,7 @@ export const SellOrBuyOfferSummary = ({
           <BTCAmount
             amount={type === "sell" ? amount : amountSats || 0}
             size="small"
+            chain={isLiquidOffer(offer) ? "liquid" : "mainchain"}
           />
         </View>
       </SummaryCard.Section>

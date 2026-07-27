@@ -30,6 +30,7 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
 
   const payload = {
     type: offerDraft.type,
+    chain: offerDraft.chain,
     amount: offerDraft.amount,
     premium: hasFixedPrice ? undefined : offerDraft.premium,
     fixedPrice: offerDraft.fixedPrice,

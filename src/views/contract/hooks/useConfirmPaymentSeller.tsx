@@ -5,6 +5,7 @@ import { peachAPI } from "../../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../../utils/wallet/getEscrowWalletForOffer";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { signPSBT } from "../../../utils/wallet/signPSBT";
+import { confirmPaymentSellerLiquid } from "./confirmPaymentSellerLiquid";
 import { useContractMutation } from "./useContractMutation";
 
 export function useConfirmPaymentSeller({
@@ -23,6 +24,12 @@ export function useConfirmPaymentSeller({
     },
     {
       mutationFn: async () => {
+        // a MuSig2 escrow cannot be released by signing a PSBT alone; the
+        // legacy endpoint rejects these offers outright
+        if (contract.escrowType === "liquid") {
+          return confirmPaymentSellerLiquid(contract);
+        }
+
         const sellOffer = await getSellOfferFromContract(contract);
         if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
 

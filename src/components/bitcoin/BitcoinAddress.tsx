@@ -26,6 +26,9 @@ type BitcoinAddressProps = {
   address: string;
   amount: number;
   offerId: string;
+  /** liquid escrows are funded from an external wallet and use the
+   * `liquidnetwork:` URI scheme */
+  chain?: "mainchain" | "liquid";
 };
 
 const SHORT_ANIMATION_DURATION = 200;
@@ -35,6 +38,7 @@ export const BitcoinAddress = ({
   address,
   amount,
   offerId,
+  chain = "mainchain",
 }: BitcoinAddressProps) => {
   useI18n();
   const windowDimensions = useWindowDimensions();
@@ -43,7 +47,9 @@ export const BitcoinAddress = ({
   const requestTextOpacity = useRef(new Animated.Value(0)).current;
   const addressTextOpacity = useRef(new Animated.Value(0)).current;
 
-  const urn = new URL(`bitcoin:${address}`);
+  const urn = new URL(
+    `${chain === "liquid" ? "liquidnetwork" : "bitcoin"}:${address}`,
+  );
   const label = `${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`;
 
   if (amount) urn.searchParams.set("amount", String(amount));
