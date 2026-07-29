@@ -31,6 +31,11 @@ let activeConfigKey: string | undefined;
 const configKey = (countries: string[], serviceProvider: string) =>
   JSON.stringify([[...countries].sort(), serviceProvider.trim()]);
 
+/** The endpoint of the currently-connected client (socks5 url + local
+ *  HTTP-CONNECT bridge host:port), or undefined when not connected. Exposed for
+ *  on-device diagnostics (e.g. showing whether the bridge port is set). */
+export const getNymEndpoint = (): NymProxyEndpoint | undefined => cachedEndpoint;
+
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**

@@ -1,3 +1,4 @@
+import NymProxy, { NymProxyStatus } from "nym-rn";
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -23,7 +24,10 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { parseError } from "../../utils/parseError";
 import { useNodeConfigState } from "../../utils/wallet/nodeConfigStore";
-import { ensureNymProxy } from "../../utils/wallet/nym/ensureNymProxy";
+import {
+  ensureNymProxy,
+  getNymEndpoint,
+} from "../../utils/wallet/nym/ensureNymProxy";
 import { getAllowedExitCountries } from "../../utils/wallet/nym/exitCountries";
 import { isMixnetAllowedNode } from "../../utils/wallet/nym/isMixnetAllowedNode";
 import { COUNTRY_NAMES } from "../../utils/wallet/nym/countryNames";
@@ -200,13 +204,29 @@ export const MixnetSettings = () => {
           }
         />,
       );
-    } catch {
+    } catch (e) {
+      // Surface the REAL reason on-device: in release the proxy/mixnet failure is
+      // otherwise invisible (network errors are filtered, logs are Crashlytics-
+      // only). NymProxy.lastError() carries the native/nym reason (e.g. a gateway
+      // "out of bandwidth" message); the endpoint shows whether the local bridge
+      // port is even set. status stays "Connected" even when the data path is dead.
+      const status = await NymProxy.status().catch(() => -1);
+      const nymError = await NymProxy.lastError().catch(() => null);
+      const endpoint = getNymEndpoint();
+      const diagnostics = [
+        `error: ${parseError(e)}`,
+        `status: ${NymProxyStatus[status] ?? status}`,
+        `proxy: ${endpoint?.httpProxy ?? "none"}`,
+        nymError ? `nym: ${nymError}` : undefined,
+      ]
+        .filter(Boolean)
+        .join("\n");
       setPopup(
         <WarningPopup
           title={i18n("wallet.settings.node.nym.testCountry.title")}
           content={
             <PeachText selectable>
-              {i18n("wallet.settings.node.nym.testCountry.error")}
+              {`${i18n("wallet.settings.node.nym.testCountry.error")}\n\n${diagnostics}`}
             </PeachText>
           }
           actions={
