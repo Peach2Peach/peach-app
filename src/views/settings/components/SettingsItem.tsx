@@ -66,7 +66,9 @@ export const SettingsItem = ({
   const navigation = useStackNavigation();
   const onPress = pressAction
     ? pressAction
-    : () => navigation.navigate(title, {});
+    : // Dynamic screen name from a union — RN's navigate overloads don't resolve
+      // a union first-arg, so cast (all these screens take no required params).
+      () => navigation.navigate(title as never);
   const { isDarkMode } = useThemeStore();
   const iconColor = warning
     ? tw.color("error-main")

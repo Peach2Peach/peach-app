@@ -159,6 +159,6 @@
   "settings.walletGapLimit": "tárca gap limit",
   "settings.walletGapLimit.title": "tárca gap limit",
   "settings.walletGapLimit.description": "Magasabb értékek lehetővé teszik, hogy a tárca-szinkronizálás több címet ellenőrizzen az utoljára használt címen túl.\n\nNöveld ezt az értéket, ha úgy gondolod, hogy hiányzik egyenleg.",
-  "settings.walletGapLimit.recommended": "Ajánlott: $0"
-
+  "settings.walletGapLimit.recommended": "Ajánlott: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

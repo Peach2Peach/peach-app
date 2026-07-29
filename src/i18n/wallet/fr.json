@@ -107,5 +107,10 @@
   "wallet.twelveWords.dontShare": "Ne partagez jamais ceci avec qui que ce soit, y compris avec \"le support Peach\"",
   "wallet.scanProgress.receiving": "$0 adresses de réception scannées...",
   "wallet.scanProgress.change": "$0 adresses de change scannées...",
-  "wallet.missingBalance": "Il vous manque du solde ? Essayez d'augmenter la limite d'écart dans les Paramètres"
+  "wallet.missingBalance": "Il vous manque du solde ? Essayez d'augmenter la limite d'écart dans les Paramètres",
+  "wallet.mixnet.connecting.title": "Nym mixnet",
+  "wallet.mixnet.connecting.text": "Le proxy Nym se connecte, veuillez patienter…",
+  "wallet.mixnet.connectFailed.title": "Le mixnet Nym n'a pas pu se connecter",
+  "wallet.mixnet.connectFailed.text": "Le mixnet ne s'est pas connecté en 30 secondes. Désactivez-le pour vous connecter directement à votre nœud, ou réessayez plus tard.",
+  "wallet.mixnet.disable": "désactiver le mixnet"
 }

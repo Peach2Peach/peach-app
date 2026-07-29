@@ -7,8 +7,14 @@ export type NymProxyConfig = {
   /** When true, wallet blockchain traffic is routed through the Nym mixnet. */
   enabled: boolean;
   /**
-   * Nym address of the SOCKS5 exit (network requester / exit gateway) that makes
-   * the outbound TCP connection to the configured node on our behalf.
+   * Allowed exit countries (ISO 3166-1 alpha-2, e.g. ["CH", "DE"]). When set, the
+   * mixnet exit is restricted to these countries and auto-selected among them.
+   * Empty = no country restriction.
+   */
+  countries: string[];
+  /**
+   * Nym address of a specific exit (network requester). Only used when
+   * `countries` is empty; leave blank to auto-select an exit.
    */
   serviceProvider: string;
 };
@@ -21,6 +27,7 @@ export type NymProxyStore = NymProxyConfig & {
 
 export const defaultNymProxyConfig: NymProxyConfig = {
   enabled: false,
+  countries: [],
   serviceProvider: "",
 };
 

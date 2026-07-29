@@ -107,5 +107,10 @@
   "wallet.twelveWords.dontShare": "Soha ne oszd meg ezt senkivel, még a \"Peach ügyfélszolgálattal\" sem",
   "wallet.scanProgress.receiving": "$0 fogadó cím beolvasva...",
   "wallet.scanProgress.change": "$0 visszajáró cím beolvasva...",
-  "wallet.missingBalance": "Hiányzik az egyenleged? Próbáld növelni a gap limitet a Beállításokban"
+  "wallet.missingBalance": "Hiányzik az egyenleged? Próbáld növelni a gap limitet a Beállításokban",
+  "wallet.mixnet.connecting.title": "Nym mixnet",
+  "wallet.mixnet.connecting.text": "A Nym proxy csatlakozik, kérjük, várjon…",
+  "wallet.mixnet.connectFailed.title": "A Nym mixnet nem tudott csatlakozni",
+  "wallet.mixnet.connectFailed.text": "A mixnet 30 másodpercen belül nem csatlakozott. Kapcsold ki, hogy közvetlenül a csomópontodhoz csatlakozz, vagy próbáld újra később.",
+  "wallet.mixnet.disable": "mixnet kikapcsolása"
 }

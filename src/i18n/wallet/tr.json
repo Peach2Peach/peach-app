@@ -106,6 +106,10 @@
   "wallet.twelveWords.dontShare": "Bunu \"Peach destek\" dahil kimseyle ASLA paylaşma",
   "wallet.scanProgress.receiving": "$0 alıcı adresi tarandı...",
   "wallet.scanProgress.change": "$0 para üstü adresi tarandı...",
-  "wallet.missingBalance": "Bakiyeniz eksik mi? Ayarlarda gap limitini artırmayı deneyin"
-
+  "wallet.missingBalance": "Bakiyeniz eksik mi? Ayarlarda gap limitini artırmayı deneyin",
+  "wallet.mixnet.connecting.title": "Nym mixnet",
+  "wallet.mixnet.connecting.text": "Nym proxy bağlanıyor, lütfen bekleyin…",
+  "wallet.mixnet.connectFailed.title": "Nym mixnet bağlanamadı",
+  "wallet.mixnet.connectFailed.text": "Mixnet 30 saniye içinde bağlanamadı. Doğrudan düğümünüze bağlanmak için devre dışı bırakın veya daha sonra tekrar deneyin.",
+  "wallet.mixnet.disable": "mixnet'i devre dışı bırak"
 }

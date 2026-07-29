@@ -245,6 +245,7 @@ export const Settings = () => {
             onPress: notificationClick,
           },
           "nodeSetup",
+          { title: "mixnet", onPress: () => navigation.navigate("mixnet") },
           "refundAddress",
           "payoutAddress",
           "currency",

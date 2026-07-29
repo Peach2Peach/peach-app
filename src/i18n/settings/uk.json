@@ -155,6 +155,6 @@
   "settings.walletGapLimit": "ліміт розриву гаманця",
   "settings.walletGapLimit.title": "ліміт розриву гаманця",
   "settings.walletGapLimit.description": "Вищі значення дозволяють синхронізації гаманця перевіряти більше адрес після останньої використаної.\n\nЗбільште це значення, якщо підозрюєте відсутній баланс.",
-  "settings.walletGapLimit.recommended": "Рекомендовано: $0"
-
+  "settings.walletGapLimit.recommended": "Рекомендовано: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

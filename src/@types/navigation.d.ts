@@ -138,6 +138,7 @@ type RootStackParamList = Onboarding &
   SellFlow &
   ContractFlow & {
     nodeSetup: undefined;
+    mixnet: undefined;
     pinCodeSetup: undefined;
     changePin: undefined;
     deletePin: undefined;

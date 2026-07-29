@@ -53,6 +53,9 @@
 		B76C0E222B034C75A6D0BBEB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22086F581C7460FAEA123DF /* Colors.xcassets */; };
 		D1EFEE8B3AF4BE2F5A87ACCF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5329F5BD4D4644F441E5F2A9 /* PrivacyInfo.xcprivacy */; };
 		DD4E5446C1267A9F531423D1 /* libPods-peach-peach testnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */; };
+		EB3BC8263018A31400A0C15A /* SystemProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3BC8253018A31400A0C15A /* SystemProxy.m */; };
+		EB3BC8273018A31400A0C15A /* SystemProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3BC8253018A31400A0C15A /* SystemProxy.m */; };
+		EB3BC8283018A31400A0C15A /* SystemProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3BC8253018A31400A0C15A /* SystemProxy.m */; };
 		EB7583742EB8B0740010064C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 /* End PBXBuildFile section */
@@ -108,6 +111,8 @@
 		CFCE50BCA604F16D0E14F89F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = peach/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DF3BEC74782745D1A877AA4F /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = peach/BootSplash.storyboard; sourceTree = "<group>"; };
 		E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Medium.ttf"; path = "../assets/fonts/Baloo2-Medium.ttf"; sourceTree = "<group>"; };
+		EB3BC8243018A31400A0C15A /* SystemProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SystemProxy.h; path = peach/SystemProxy.h; sourceTree = "<group>"; };
+		EB3BC8253018A31400A0C15A /* SystemProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SystemProxy.m; path = peach/SystemProxy.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F88D84630244EBFFA90177D7 /* Pods-peach mainnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet/Pods-peach mainnet.debug.xcconfig"; sourceTree = "<group>"; };
 		FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peach testnet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +261,8 @@
 				5329F5BD4D4644F441E5F2A9 /* PrivacyInfo.xcprivacy */,
 				CFCE50BCA604F16D0E14F89F /* PrivacyInfo.xcprivacy */,
 				A439BCF4C0E24CE366353F1D /* PrivacyInfo.xcprivacy */,
+				EB3BC8243018A31400A0C15A /* SystemProxy.h */,
+				EB3BC8253018A31400A0C15A /* SystemProxy.m */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -368,7 +375,13 @@
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 2630;
+					};
+					4C36D5D32DABF75A0098D9BF = {
+						LastSwiftMigration = 2630;
+					};
+					671A562A2850E9AE0058434C = {
+						LastSwiftMigration = 2630;
 					};
 				};
 			};
@@ -741,6 +754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C79EDAD2E9FC26200E67805 /* AppDelegate.swift in Sources */,
+				EB3BC8263018A31400A0C15A /* SystemProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +763,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C79EDAB2E9FC18200E67805 /* AppDelegate.swift in Sources */,
+				EB3BC8273018A31400A0C15A /* SystemProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +772,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB7583742EB8B0740010064C /* AppDelegate.swift in Sources */,
+				EB3BC8283018A31400A0C15A /* SystemProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,7 +800,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peachDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
@@ -821,7 +837,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
 				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
@@ -856,7 +872,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peachDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
@@ -893,7 +909,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
 				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
@@ -927,7 +943,7 @@
 			baseConfigurationReference = 82EF44C88FF1524E5CCC2D50 /* Pods-peach-peach mainnet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peachDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
@@ -963,7 +979,7 @@
 			baseConfigurationReference = 053AE86B4FCFEB2126C3B539 /* Pods-peach-peach mainnet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
 				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;

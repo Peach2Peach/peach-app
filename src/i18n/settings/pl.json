@@ -159,6 +159,6 @@
   "settings.walletGapLimit": "limit luki portfela",
   "settings.walletGapLimit.title": "limit luki portfela",
   "settings.walletGapLimit.description": "Wyższe wartości pozwalają synchronizacji portfela sprawdzać więcej adresów poza ostatnio używanym.\n\nZwiększ tę wartość, jeśli podejrzewasz brakujące saldo.",
-  "settings.walletGapLimit.recommended": "Zalecane: $0"
-
+  "settings.walletGapLimit.recommended": "Zalecane: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

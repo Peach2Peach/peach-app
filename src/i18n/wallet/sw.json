@@ -107,6 +107,10 @@
   "wallet.twelveWords.dontShare": "Usiwahi kushiriki hili na mtu yeyote, hata \"msaada wa Peach\"",
   "wallet.scanProgress.receiving": "Anwani $0 za kupokea zimechanganuliwa...",
   "wallet.scanProgress.change": "Anwani $0 za chenji zimechanganuliwa...",
-  "wallet.missingBalance": "Je, salio lako lina hitilafu? Jaribu kuongeza gap limit kwenye Mipangilio"
-
+  "wallet.missingBalance": "Je, salio lako lina hitilafu? Jaribu kuongeza gap limit kwenye Mipangilio",
+  "wallet.mixnet.connecting.title": "Nym mixnet",
+  "wallet.mixnet.connecting.text": "Proksi ya Nym inaunganisha, tafadhali subiri…",
+  "wallet.mixnet.connectFailed.title": "Nym mixnet haikuweza kuunganisha",
+  "wallet.mixnet.connectFailed.text": "Mixnet haikuunganisha ndani ya sekunde 30. Izime ili kuunganisha moja kwa moja kwenye nodi yako, au ujaribu tena baadaye.",
+  "wallet.mixnet.disable": "zima mixnet"
 }

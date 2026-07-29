@@ -155,6 +155,6 @@
   "settings.walletGapLimit": "wallet gap limit",
   "settings.walletGapLimit.title": "wallet gap limit",
   "settings.walletGapLimit.description": "Hogere waarden laten de wallet-synchronisatie meer adressen na je laatst gebruikte controleren.\n\nVerhoog deze waarde als je vermoedt dat er saldo ontbreekt.",
-  "settings.walletGapLimit.recommended": "Aanbevolen: $0"
-
+  "settings.walletGapLimit.recommended": "Aanbevolen: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

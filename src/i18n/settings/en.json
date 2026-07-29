@@ -105,6 +105,7 @@
   "settings.networkFees.payoutInfo": "This does not apply to payouts. See transaction batching for details.",
   "settings.networkFees.xSatsPerByte": "$0 sat/vB",
   "settings.nodeSetup": "use your own node",
+  "settings.mixnet": "VPN: Nym Mixnet",
   "settings.notifications": "notifications",
   "settings.notifications.popup": "Without notifications, you won't be informed of matches. Slow responses hurt your reputation score.",
   "settings.notifications.popup.neverMind": "no, keep them on",

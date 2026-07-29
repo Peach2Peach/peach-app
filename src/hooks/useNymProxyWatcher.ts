@@ -2,7 +2,6 @@ import NymProxy, { NymProxyStatus } from "nym-rn";
 import { useEffect, useRef } from "react";
 import { useSetToast } from "../components/toast/Toast";
 import i18n from "../utils/i18n";
-import { rotateExit } from "../utils/wallet/nym/ensureNymProxy";
 import { useNymProxyState } from "../utils/wallet/nymProxyStore";
 import { peachWallet } from "../utils/wallet/setWallet";
 
@@ -49,9 +48,8 @@ export const useNymProxyWatcher = () => {
             label: i18n("retry"),
             iconId: "refreshCw",
             onPress: () => {
-              // Prefer a different exit, then rebuild the wallet's connection
-              // through it (initWallet -> setBlockchain -> ensureNymProxy).
-              rotateExit();
+              // Rebuild the wallet's connection; the native SDK re-resolves the
+              // exit on reconnect, so this fails over to another exit.
               peachWallet?.initWallet().catch(() => undefined);
             },
           },

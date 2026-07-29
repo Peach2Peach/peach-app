@@ -159,6 +159,6 @@
   "settings.walletGapLimit": "лимит разрыва кошелька",
   "settings.walletGapLimit.title": "лимит разрыва кошелька",
   "settings.walletGapLimit.description": "Большие значения позволяют синхронизации кошелька проверять больше адресов после последнего использованного.\n\nУвеличьте это значение, если подозреваете отсутствующий баланс.",
-  "settings.walletGapLimit.recommended": "Рекомендуется: $0"
-
+  "settings.walletGapLimit.recommended": "Рекомендуется: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

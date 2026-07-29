@@ -159,5 +159,6 @@
   "settings.walletGapLimit": "Wallet Gap-Limit",
   "settings.walletGapLimit.title": "Wallet Gap-Limit",
   "settings.walletGapLimit.description": "Höhere Werte lassen den Wallet-Sync mehr Adressen über deine zuletzt verwendete hinaus prüfen.\n\nErhöhe diesen Wert, wenn du vermutest, dass Guthaben fehlt.",
-  "settings.walletGapLimit.recommended": "Empfohlen: $0"
+  "settings.walletGapLimit.recommended": "Empfohlen: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

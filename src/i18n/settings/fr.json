@@ -159,6 +159,6 @@
   "settings.walletGapLimit": "limite d'écart du portefeuille",
   "settings.walletGapLimit.title": "limite d'écart du portefeuille",
   "settings.walletGapLimit.description": "Des valeurs plus élevées permettent à la synchronisation du portefeuille de vérifier plus d'adresses au-delà de la dernière utilisée.\n\nAugmentez cette valeur si vous soupçonnez un solde manquant.",
-  "settings.walletGapLimit.recommended": "Recommandé : $0"
-
+  "settings.walletGapLimit.recommended": "Recommandé : $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

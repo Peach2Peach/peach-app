@@ -155,6 +155,6 @@
   "settings.walletGapLimit": "cüzdan gap limiti",
   "settings.walletGapLimit.title": "cüzdan gap limiti",
   "settings.walletGapLimit.description": "Daha yüksek değerler, cüzdan senkronizasyonunun son kullandığınız adresten sonra daha fazla adresi kontrol etmesini sağlar.\n\nBakiye eksikliğinden şüpheleniyorsanız bu değeri artırın.",
-  "settings.walletGapLimit.recommended": "Önerilen: $0"
-
+  "settings.walletGapLimit.recommended": "Önerilen: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }

@@ -11,6 +11,8 @@ export const iconMap: Record<string, IconType> = {
   "referrals.myFavoriteCode": "smile",
   "wallet.bumpNetworkFees.confirmRbf.success": "checkCircle",
   "wallet.confirmWithdraw.success": "checkCircle",
+  "wallet.mixnet.connecting": "activity",
+  "wallet.mixnet.connectFailed": "noNetwork",
   CANNOT_DOUBLEMATCH: "shuffle",
   CREATE_ESCROW_ERROR: "xCircle",
   CRITICAL_UPDATE_AVAILABLE: "alertOctagon",

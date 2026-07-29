@@ -159,6 +159,6 @@
   "settings.walletGapLimit": "gap limit πορτοφολιού",
   "settings.walletGapLimit.title": "gap limit πορτοφολιού",
   "settings.walletGapLimit.description": "Υψηλότερες τιμές επιτρέπουν στον συγχρονισμό του πορτοφολιού να ελέγχει περισσότερες διευθύνσεις πέρα από την τελευταία που χρησιμοποιήθηκε.\n\nΑυξήστε αυτήν την τιμή αν υποψιάζεστε ότι λείπει υπόλοιπο.",
-  "settings.walletGapLimit.recommended": "Συνιστάται: $0"
-
+  "settings.walletGapLimit.recommended": "Συνιστάται: $0",
+  "settings.mixnet": "VPN: Nym Mixnet"
 }
