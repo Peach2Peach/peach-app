@@ -59,6 +59,10 @@ export const MobilePendingActionSignMultisig = () => {
         mobilePendingAction.payload,
       );
 
+      // taproot escrows are released through the interactive MuSig2 flow,
+      // which the desktop connection does not support yet
+      if (!releasePsbt) throw Error("MISSING_RELEASE_PSBT");
+
       const psbt = Psbt.fromBase64(releasePsbt, { network: getNetwork() });
 
       const batchPsbt = batchReleasePsbt

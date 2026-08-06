@@ -45,8 +45,19 @@ type SellOfferDraft = OfferDraft & {
   instantTradeCriteria?: InstantTradeCriteria;
   experienceLevelCriteria?: ExperienceLevel;
 };
+type EscrowType = "bitcoin" | "liquid";
+
+/**
+ * escrow implementation used for an offer
+ * - 1 (or undefined): legacy P2WSH script escrow
+ * - 2: MuSig2 taproot (P2TR) escrow, bitcoin mainchain only
+ */
+type EscrowVersion = 1 | 2;
+
 type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
   escrow?: string;
+  escrowType?: EscrowType;
+  escrowVersion?: EscrowVersion;
   escrowNotifiedUser?: boolean;
   tx?: string;
   refundTx?: string; // base 64 encoded psbt

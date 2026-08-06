@@ -104,15 +104,16 @@ export function usePostBuyOffer({
 
       if (result) return result.id;
       throw new Error(err?.error || "POST_OFFER_ERROR", {
-        cause: err?.details,
+        cause: err?.details ?? err?.message,
       });
     },
-    onError: ({ message, cause }: Error) => {
+    onError: (err: Error) => {
+      const { message, cause } = err;
       if (isForbiddenPaymentMethodError(message, cause)) {
         const paymentMethod = cause.pop();
         if (paymentMethod === "paypal") showHelp();
       } else {
-        showErrorBanner(message);
+        showErrorBanner(err);
       }
     },
     onSuccess: (offerId) => {

@@ -45,11 +45,15 @@ type Contract = {
   lastReminderSent?: PaymentReminder;
 
   escrow: string;
+  escrowType?: EscrowType;
+  /** 2 = MuSig2 taproot escrow, undefined/0/1 = legacy P2WSH escrow */
+  escrowVersion?: EscrowVersion;
   releaseAddress: string;
   releaseTransaction?: string;
   releaseTxId?: string;
 
-  releasePsbt: string;
+  /** not built by the server for escrow version 2 (taproot) contracts */
+  releasePsbt?: string;
   batchId?: string;
 
   disputeActive: boolean;

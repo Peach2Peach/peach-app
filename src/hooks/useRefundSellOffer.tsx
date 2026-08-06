@@ -12,6 +12,7 @@ import i18n from "../utils/i18n";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
+import { isTaprootEscrowOffer } from "../utils/wallet/taprootEscrow/isTaprootEscrow";
 import { BackupTime } from "../views/overlays/BackupTime";
 import { contractKeys } from "./query/useContractDetail";
 import { offerKeys } from "./query/useOfferDetail";
@@ -34,8 +35,20 @@ export function useRefundSellOffer() {
       rawPSBT,
     }: {
       sellOffer: SellOffer;
-      rawPSBT: string;
+      /** not needed for taproot escrows, Peach signs those on its own */
+      rawPSBT?: string;
     }) => {
+      if (isTaprootEscrowOffer(sellOffer)) {
+        const { result, error } =
+          await peachAPI.private.offer.refundTaprootEscrow({
+            offerId: sellOffer.id,
+          });
+        if (!result) throw new Error(error?.error || "REFUND_FAILED");
+
+        return [undefined, result.txId] as const;
+      }
+
+      if (!rawPSBT) throw new Error("MISSING_REFUND_PSBT");
       const { psbt, err } = checkRefundPSBT(rawPSBT, sellOffer);
       if (!psbt || err) {
         throw new Error(err || "Invalid PSBT");
@@ -55,7 +68,7 @@ export function useRefundSellOffer() {
       if (postTXError) {
         throw new Error(postTXError.error);
       }
-      return [tx, txId];
+      return [tx, txId] as const;
     },
     onError: (error) => {
       showError(error.message);

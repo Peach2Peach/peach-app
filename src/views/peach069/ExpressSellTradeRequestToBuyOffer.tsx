@@ -14,6 +14,7 @@ import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
+import { TAPROOT_ESCROW_VERSION } from "../../utils/wallet/taprootEscrow/isTaprootEscrow";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ExpressFlowTradeRequestToOffer } from "./ExpressFlowTradeRequestToOffer";
@@ -108,6 +109,7 @@ const performTradeRequestFunction = async ({
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
       maxMiningFeeRate: maxMiningFeeRate,
+      escrowVersion: TAPROOT_ESCROW_VERSION,
       // returnAddress,
     },
   );
@@ -206,6 +208,7 @@ const performInstantTrade = async ({
         symmetricKeyEncrypted: encrypted,
         symmetricKeySignature: signature,
         maxMiningFeeRate: maxMiningFeeRate,
+        escrowVersion: TAPROOT_ESCROW_VERSION,
         // returnAddress,
       });
 

@@ -5,6 +5,8 @@ import { peachAPI } from "../../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../../utils/wallet/getEscrowWalletForOffer";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { signPSBT } from "../../../utils/wallet/signPSBT";
+import { isTaprootEscrowContract } from "../../../utils/wallet/taprootEscrow/isTaprootEscrow";
+import { releaseTaprootEscrow } from "../../../utils/wallet/taprootEscrow/releaseTaprootEscrow";
 import { useContractMutation } from "./useContractMutation";
 
 export function useConfirmPaymentSeller({
@@ -26,9 +28,16 @@ export function useConfirmPaymentSeller({
         const sellOffer = await getSellOfferFromContract(contract);
         if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
 
+        const { releaseAddress, batchReleasePsbt, releasePsbt, id } = contract;
+
+        if (isTaprootEscrowContract(contract)) {
+          await releaseTaprootEscrow({ sellOffer, releaseAddress });
+          return;
+        }
+
         const wallet = getEscrowWalletForOffer(sellOffer);
         const { txIds } = sellOffer.funding;
-        const { releaseAddress, batchReleasePsbt, releasePsbt, id } = contract;
+        if (!releasePsbt) throw new Error("MISSING_RELEASE_PSBT");
 
         const psbt = Psbt.fromBase64(releasePsbt, { network: getNetwork() });
         verifyReleasePSBT(psbt, txIds, releaseAddress);

@@ -6,6 +6,7 @@ import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import i18n from "../utils/i18n";
 import { peachAPI } from "../utils/peachAPI";
+import { isTaprootEscrowOffer } from "../utils/wallet/taprootEscrow/isTaprootEscrow";
 import { LoadingPopup } from "./LoadingPopup";
 
 export const useStartRefundPopup = () => {
@@ -17,6 +18,12 @@ export const useStartRefundPopup = () => {
   const startRefundPopup = useCallback(
     async (sellOffer: SellOffer) => {
       setPopup(<LoadingPopup title={i18n("refund.loading.title")} />);
+
+      // a taproot escrow is refunded by Peach alone through the CSV script path
+      if (isTaprootEscrowOffer(sellOffer)) {
+        refundSellOffer({ sellOffer });
+        return;
+      }
 
       const { result: refundPsbtResult, error: refundPsbtError } =
         await peachAPI.private.offer.getRefundPSBT({
