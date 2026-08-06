@@ -156,7 +156,11 @@ export const MixnetSettings = () => {
       setPopup(
         <WarningPopup
           title={i18n("wallet.settings.node.nym.error.title")}
-          content={<PeachText selectable>{parseError(e)}</PeachText>}
+          content={
+            <PeachText selectable style={tw`text-black-100`}>
+              {parseError(e)}
+            </PeachText>
+          }
           actions={
             <ClosePopupAction
               style={tw`justify-center`}
@@ -225,7 +229,7 @@ export const MixnetSettings = () => {
         <WarningPopup
           title={i18n("wallet.settings.node.nym.testCountry.title")}
           content={
-            <PeachText selectable>
+            <PeachText selectable style={tw`text-black-100`}>
               {`${i18n("wallet.settings.node.nym.testCountry.error")}\n\n${diagnostics}`}
             </PeachText>
           }
@@ -284,16 +288,8 @@ export const MixnetSettings = () => {
                     {i18n("wallet.settings.node.nym.countries.title")}
                   </PeachText>
                   <View style={tw`flex-row items-center gap-1`}>
-                    {loading ? (
+                    {loading && (
                       <Loading size="small" color={tw.color("black-50")} />
-                    ) : (
-                      <PeachText style={tw`body-s text-black-50`}>
-                        {i18n(
-                          "wallet.settings.node.nym.countries.all",
-                          `${selected.length}`,
-                          `${available.length}`,
-                        )}
-                      </PeachText>
                     )}
                     <Icon
                       id="chevronRight"
@@ -367,9 +363,11 @@ function CountrySelectDrawer({
 
   return (
     <PeachScrollView contentStyle={tw`gap-3 px-6 pb-6`}>
-      {/* Select-all header row: same indentation as a country row, no flag. */}
+      {/* Select-all header row: same indentation as a country row, no flag.
+          Toggles — selects every country, or clears the selection when all are
+          already selected (Apply is disabled on an empty selection). */}
       <TouchableOpacity
-        onPress={() => !allSelected && update(available)}
+        onPress={() => update(allSelected ? [] : available)}
         style={tw`flex-row items-center gap-3 py-1`}
       >
         <View pointerEvents="none">

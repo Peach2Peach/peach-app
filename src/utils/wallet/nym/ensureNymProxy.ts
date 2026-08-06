@@ -1,16 +1,30 @@
+/* eslint-disable no-await-in-loop -- the loops here drive a SERIAL native-client
+   protocol (poll-until-disconnected; connect→verify→retry): each step must
+   observe the previous one before the next runs, so awaiting in sequence is
+   correct, not a missed parallelization. */
+/* eslint-disable require-atomic-updates -- the module-level connection singletons
+   (cachedEndpoint / activeConfigKey / startInProgress) are serialized by the
+   startInProgress mutex: only one connect runs at a time and concurrent callers
+   await the same promise, so these reassignments across awaits are not races. */
 import { DocumentDirectoryPath, exists, mkdir } from "@dr.pogodin/react-native-fs";
+import { API_URL } from "@env";
 import NymProxy, { NymProxyStatus, type NymProxyEndpoint } from "nym-rn";
 import { error } from "../../log/error";
 import { info } from "../../log/info";
 import { parseError } from "../../parseError";
 import { useNymProxyState } from "../nymProxyStore";
-import { getAllowedExitCountries } from "./exitCountries";
+import { DEFAULT_EXIT_COUNTRIES } from "./exitCountries";
 import {
   clearNymConnectingToast,
   showNymConnectingToast,
   showNymFailedToast,
 } from "./nymToast";
-import { disableSystemProxy, enableSystemProxy } from "./systemProxy";
+import { setNymGate } from "./nymGate";
+import {
+  armSystemProxy,
+  disableSystemProxy,
+  enableSystemProxy,
+} from "./systemProxy";
 
 const NYM_STORAGE_DIR = `${DocumentDirectoryPath}/nym`;
 
@@ -20,6 +34,23 @@ const NYM_STORAGE_DIR = `${DocumentDirectoryPath}/nym`;
 // bounded so a dead gateway (which the SDK would otherwise retry forever) fails
 // cleanly instead of stalling the wallet silently in "Connecting".
 const NYM_CONNECT_TIMEOUT_MS = 30_000;
+
+// "Connected" from the SDK only means it bound the local SOCKS5 listener — it has
+// NOT verified the chosen exit is usable. The exit selector picks a network
+// requester from the Nym directory whose gateway may not be in the client's
+// routing topology; then every packet is silently dropped ("no node with identity
+// X is known") while the status stays pinned at Connected. So after each connect
+// we probe a real request through the exit. A dead exit fails the probe and we
+// reconnect — a fresh start re-resolves a DIFFERENT exit within the same allowed
+// countries — until one actually routes (or we give up and stay fail-closed).
+//
+// A large fraction of the directory's exits are advertised but not actually
+// routable (their gateway isn't in the client's routing topology), so budget
+// generously: each dead attempt costs ~one probe timeout, but exhausting the
+// budget drops the user to the "Nym failed" toast, which is far worse than
+// waiting a few extra seconds for a live exit.
+const MAX_CONNECT_ATTEMPTS = 6;
+const PROBE_TIMEOUT_MS = 8_000;
 
 let cachedEndpoint: NymProxyEndpoint | undefined;
 let startInProgress: Promise<NymProxyEndpoint | undefined> | undefined;
@@ -59,6 +90,28 @@ async function startWithTimeout(config: Parameters<typeof NymProxy.start>[0]) {
   });
   try {
     return await Promise.race([NymProxy.start(config), timeout]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Verify the mixnet actually carries data end-to-end — not just that the SDK
+ * reported "Connected". Must be called AFTER enableSystemProxy so the request
+ * rides the mixnet exit (the HTTP-CONNECT bridge), not the blackhole. ANY HTTP
+ * reply (even a 4xx/5xx) proves the request reached the Peach API through the
+ * exit; a dead/unroutable exit produces no reply at all (timeout/abort) → false,
+ * which tells the caller to reconnect to a different exit. Never throws.
+ */
+async function probeMixnetDataPath(): Promise<boolean> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), PROBE_TIMEOUT_MS);
+  try {
+    await fetch(`${API_URL}/v1/system/status`, { signal: controller.signal });
+    return true;
+  } catch (e) {
+    info(`ensureNymProxy - data-path probe failed: ${parseError(e)}`);
+    return false;
   } finally {
     clearTimeout(timer);
   }
@@ -124,6 +177,7 @@ export async function ensureNymProxy({
       await stopAndWaitDisconnected();
     }
     disableSystemProxy();
+    setNymGate("off");
     cachedEndpoint = undefined;
     return undefined;
   }
@@ -139,6 +193,7 @@ export async function ensureNymProxy({
         currentKey === activeConfigKey &&
         (await NymProxy.status()) === NymProxyStatus.Connected
       ) {
+        setNymGate("routed");
         return cachedEndpoint;
       }
     } catch (e) {
@@ -149,11 +204,12 @@ export async function ensureNymProxy({
 
   startInProgress = (async () => {
     try {
-      // Reset any stale/failed native client before connecting fresh.
-      if ((await NymProxy.status()) !== NymProxyStatus.Disconnected) {
-        info("ensureNymProxy - resetting stale native client before start");
-        await stopAndWaitDisconnected();
-      }
+      // Engage the fail-closed kill switch the instant we commit to connecting:
+      // block ALL traffic (blackhole) so nothing leaks direct while Nym connects.
+      // Stays armed if the connect fails (the failed toast's one-tap disable is
+      // the escape hatch); only a VERIFIED route or a disable lifts it.
+      armSystemProxy();
+      setNymGate("armed");
 
       if (!(await exists(NYM_STORAGE_DIR))) {
         await mkdir(NYM_STORAGE_DIR, { NSURLIsExcludedFromBackupKey: true });
@@ -161,34 +217,85 @@ export async function ensureNymProxy({
 
       // Enforce the country block: never pass an empty list when no specific
       // exit is pinned — an empty list lets the SDK pick ANY country, including
-      // blocked ones. Fall back to the full allowed set (Nym-supported minus
-      // BLOCKED_COUNTRIES). A pinned serviceProvider is an explicit override.
+      // blocked ones. Fall back to a BUNDLED default set (European exits); it must
+      // be bundled, not fetched, so the fail-closed kill switch above can't block
+      // the connect on a country lookup. A pinned serviceProvider overrides.
       let allowedCountries = countries;
       if (!allowedCountries.length && !serviceProvider.trim()) {
-        allowedCountries = await getAllowedExitCountries();
+        allowedCountries = DEFAULT_EXIT_COUNTRIES;
       }
 
-      info(
-        `ensureNymProxy - connecting (${
-          serviceProvider.trim()
-            ? "custom exit"
-            : `countries=${allowedCountries.length}`
-        })`,
-      );
       if (!silent) showNymConnectingToast();
-      const endpoint = await startWithTimeout({
-        countries: allowedCountries.length ? allowedCountries : undefined,
-        serviceProvider: serviceProvider.trim() || undefined,
-        storageDir: NYM_STORAGE_DIR,
-        httpProxy: true,
-      });
-      info(`ensureNymProxy - connected, socks5 at ${endpoint.url}`);
-      cachedEndpoint = endpoint;
-      activeConfigKey = configKey(countries, serviceProvider);
-      if (!silent) clearNymConnectingToast();
-      // Route the app's RN networking (Peach API + other fetch) through it too.
-      enableSystemProxy(endpoint);
-      return endpoint;
+
+      // Connect, then verify the exit actually routes. If it doesn't, reconnect:
+      // a fresh start re-resolves a DIFFERENT exit within the same allowed
+      // countries (we never re-pin the dead one), so a handful of attempts finds
+      // a routable exit — exactly what a manual disable/enable does by hand.
+      for (let attempt = 1; attempt <= MAX_CONNECT_ATTEMPTS; attempt++) {
+        // Reset any client left behind — a stale one from a JS reload, or the
+        // dead-exit client from the previous attempt — so start() connects fresh.
+        if ((await NymProxy.status()) !== NymProxyStatus.Disconnected) {
+          info("ensureNymProxy - resetting native client before start");
+          await stopAndWaitDisconnected();
+        }
+
+        info(
+          `ensureNymProxy - connecting attempt ${attempt}/${MAX_CONNECT_ATTEMPTS} (${
+            serviceProvider.trim()
+              ? "custom exit"
+              : `countries=${allowedCountries.length}`
+          })`,
+        );
+        const endpoint = await startWithTimeout({
+          countries: allowedCountries.length ? allowedCountries : undefined,
+          serviceProvider: serviceProvider.trim() || undefined,
+          storageDir: NYM_STORAGE_DIR,
+          httpProxy: true,
+        });
+
+        // The connect can take ~30s; if the user disabled the mixnet meanwhile,
+        // honor that — tear this fresh client down and go direct rather than
+        // routing through it (a concurrent !enabled reconcile may have raced us).
+        if (!useNymProxyState.getState().enabled) {
+          info("ensureNymProxy - disabled mid-connect; going direct");
+          NymProxy.stop().catch(() => undefined);
+          disableSystemProxy();
+          setNymGate("off");
+          if (!silent) clearNymConnectingToast();
+          return undefined;
+        }
+
+        // Point RN networking at the exit so the probe (and any concurrent
+        // request) rides the mixnet, NOT the blackhole. Safe even if this exit is
+        // dead: a bad exit drops packets inside the mixnet, it never leaks a
+        // direct/deanonymized connection. The gate stays `armed` (WebSocket still
+        // held) until the probe actually confirms a route.
+        enableSystemProxy(endpoint);
+
+        if (await probeMixnetDataPath()) {
+          info(
+            `ensureNymProxy - connected + route verified (attempt ${attempt}), socks5 at ${endpoint.url}`,
+          );
+          cachedEndpoint = endpoint;
+          activeConfigKey = configKey(countries, serviceProvider);
+          if (!silent) clearNymConnectingToast();
+          // Open the gate so the WebSocket connects (through the mixnet now).
+          setNymGate("routed");
+          return endpoint;
+        }
+
+        // Unroutable exit: back to fail-closed, then loop to re-select a
+        // different exit (the loop-top teardown + a fresh start re-resolves).
+        info(
+          `ensureNymProxy - exit did not route (attempt ${attempt}); re-selecting`,
+        );
+        armSystemProxy();
+        setNymGate("armed");
+      }
+
+      throw new Error(
+        `no routable exit found after ${MAX_CONNECT_ATTEMPTS} attempts`,
+      );
     } catch (e) {
       const reason = parseError(e);
       error("ensureNymProxy - start failed", reason);

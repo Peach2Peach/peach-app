@@ -38,6 +38,10 @@ export function clearNymConnectingToast() {
 export function showNymFailedToast() {
   store().set(toastAtom, {
     color: "red",
+    // Fail-closed: while the mixnet is armed-but-not-connected the app has no
+    // network, so keep this up (it's the one-tap escape hatch) until the user
+    // acts on it, rather than letting it auto-dismiss.
+    keepAlive: true,
     msgKey: FAILED_MSG_KEY,
     action: {
       label: i18n("wallet.mixnet.disable"),

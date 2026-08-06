@@ -18,6 +18,27 @@ type DescribedNode = {
 let cache: { countries: string[]; fetchedAt: number } | undefined;
 
 /**
+ * Default exit countries used when the user hasn't picked any — a bundled set of
+ * European countries. Bundled (not fetched) on purpose: a fail-closed connect
+ * must never depend on a network call to learn the exit list, or the kill switch
+ * would block it and deadlock the connect. {@link getAllowedExitCountries} is
+ * still used for the full, live list in the mixnet settings UI. BLOCKED_COUNTRIES
+ * are filtered out here too.
+ */
+export const DEFAULT_EXIT_COUNTRIES: string[] = [
+  "PT", // Portugal
+  "ES", // Spain
+  "FR", // France
+  "IT", // Italy
+  "DK", // Denmark
+  "BE", // Belgium
+  "DE", // Germany
+  "PL", // Poland
+  "LT", // Lithuania
+  "LV", // Latvia
+].filter((code) => !BLOCKED_COUNTRIES.includes(code));
+
+/**
  * ISO 3166-1 alpha-2 countries that currently have a Nym exit network requester,
  * with Peach's {@link BLOCKED_COUNTRIES} removed. Sorted, cached. This is the
  * universe of exit countries the mixnet is allowed to use — the mixnet must

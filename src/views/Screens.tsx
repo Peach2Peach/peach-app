@@ -15,6 +15,7 @@ import { useGlobalHandlers } from "../useGlobalHandlers";
 import i18n from "../utils/i18n";
 import { screenTransition } from "../utils/layout/screenTransition";
 import { isIOS } from "../utils/system/isIOS";
+import { isExpectedMixnetBlackhole } from "../utils/wallet/nym/nymGate";
 import { useWSQueryInvalidation } from "./useWSQueryInvalidation";
 import { onboardingViews, views } from "./views";
 
@@ -66,7 +67,12 @@ export function Screens() {
       } else if (!statusResponse || statusResponse.error) {
         if (statusResponse?.error === "HUMAN_VERIFICATION_REQUIRED") {
           setPopup(<VerifyYouAreAHumanPopup />);
-        } else {
+        } else if (
+          // Expected while the mixnet is blackholing traffic during connect
+          // (fail-closed) — its own connecting/failed toast owns the UX; a red
+          // network-error toast here would just overwrite it.
+          !isExpectedMixnetBlackhole(statusResponse?.error ?? "NETWORK_ERROR")
+        ) {
           setToast({
             msgKey: statusResponse?.error || "NETWORK_ERROR",
             color: "red",

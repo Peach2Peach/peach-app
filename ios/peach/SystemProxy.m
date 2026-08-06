@@ -1,9 +1,17 @@
 #import "SystemProxy.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 
 // Current proxy dictionary applied to RN's NSURLSession configuration, or nil
 // when routing is off. Read by the swizzled +defaultSessionConfiguration below.
 static NSDictionary *gProxyDict = nil;
+
+// The mixnet SOCKS5 endpoint (host + port); gSocksHost is nil when routing is
+// off. RN's NSURLSession path uses the HTTP-CONNECT bridge (gProxyDict) above,
+// but SocketRocket (RN WebSockets) speaks SOCKS5 directly — see the
+// SRProxyConnect swizzle below, which reads these.
+static NSString *gSocksHost = nil;
+static int gSocksPort = 0;
 
 // Weak registry of live RCTHTTPRequestHandler instances (RN's HTTP/fetch session
 // owner). Populated by swizzling its -init (see the constructor). This lets us
@@ -20,31 +28,67 @@ RCT_EXPORT_MODULE();
   return NO;
 }
 
-// iOS routes RN networking through the local HTTP-CONNECT bridge (NSURLSession
-// honors HTTP/HTTPS proxies reliably; its SOCKS support is not). The socks args
-// are ignored here (they are for Android).
+// iOS routes RN's NSURLSession (fetch/XHR) through the local HTTP-CONNECT bridge
+// (NSURLSession honors HTTP/HTTPS proxies reliably; its SOCKS support is not). RN
+// WebSockets (SocketRocket) can't use that bridge — they speak SOCKS5 — so we
+// also stash the SOCKS5 endpoint for the SRProxyConnect swizzle below.
 RCT_EXPORT_METHOD(setProxy:(NSString *)socks5Host
                   socks5Port:(double)socks5Port
                   httpHost:(NSString *)httpHost
                   httpPort:(double)httpPort)
 {
-  gProxyDict = @{
-    (NSString *)kCFNetworkProxiesHTTPEnable : @YES,
-    (NSString *)kCFNetworkProxiesHTTPProxy : httpHost,
-    (NSString *)kCFNetworkProxiesHTTPPort : @((int)httpPort),
-    // HTTPS keys are not exported as constants on iOS; the string keys work.
-    @"HTTPSEnable" : @YES,
-    @"HTTPSProxy" : httpHost,
-    @"HTTPSPort" : @((int)httpPort),
-  };
-  NSLog(@"[SystemProxy] setProxy http=%@:%d", httpHost, (int)httpPort);
+  // Written on the RN module thread, read on network threads (see swizzles) —
+  // guard with the same class lock so a reader can't observe a torn host/port
+  // pair or race the ARC release of a reassigned strong global.
+  @synchronized([SystemProxy class]) {
+    gSocksHost = socks5Host;
+    gSocksPort = (int)socks5Port;
+    gProxyDict = @{
+      (NSString *)kCFNetworkProxiesHTTPEnable : @YES,
+      (NSString *)kCFNetworkProxiesHTTPProxy : httpHost,
+      (NSString *)kCFNetworkProxiesHTTPPort : @((int)httpPort),
+      // HTTPS keys are not exported as constants on iOS; the string keys work.
+      @"HTTPSEnable" : @YES,
+      @"HTTPSProxy" : httpHost,
+      @"HTTPSPort" : @((int)httpPort),
+    };
+  }
+  NSLog(@"[SystemProxy] setProxy http=%@:%d socks=%@:%d", httpHost, (int)httpPort,
+        socks5Host, (int)socks5Port);
   [SystemProxy refreshRNSessions];
 }
 
 RCT_EXPORT_METHOD(clearProxy)
 {
-  gProxyDict = nil;
+  @synchronized([SystemProxy class]) {
+    gProxyDict = nil;
+    gSocksHost = nil;
+    gSocksPort = 0;
+  }
   NSLog(@"[SystemProxy] clearProxy");
+  [SystemProxy refreshRNSessions];
+}
+
+// Fail-closed "kill switch": point every route at a dead local port (127.0.0.1:1)
+// so all RN fetch/XHR (NSURLSession) and WebSocket (SocketRocket, via the socks
+// swizzle) connections are REFUSED instead of leaking direct while the mixnet is
+// connecting — or if it never connects. setProxy() later swaps in the real
+// endpoint; clearProxy() lifts it (only when the user disables the mixnet).
+RCT_EXPORT_METHOD(armKillSwitch)
+{
+  @synchronized([SystemProxy class]) {
+    gSocksHost = @"127.0.0.1";
+    gSocksPort = 1;
+    gProxyDict = @{
+      (NSString *)kCFNetworkProxiesHTTPEnable : @YES,
+      (NSString *)kCFNetworkProxiesHTTPProxy : @"127.0.0.1",
+      (NSString *)kCFNetworkProxiesHTTPPort : @1,
+      @"HTTPSEnable" : @YES,
+      @"HTTPSProxy" : @"127.0.0.1",
+      @"HTTPSPort" : @1,
+    };
+  }
+  NSLog(@"[SystemProxy] armKillSwitch (fail-closed blackhole 127.0.0.1:1)");
   [SystemProxy refreshRNSessions];
 }
 
@@ -58,11 +102,13 @@ RCT_EXPORT_METHOD(clearProxy)
 + (void)refreshRNSessions
 {
   NSArray *handlers;
+  BOOL proxyOn;
   @synchronized([SystemProxy class]) {
     handlers = gHandlers ? gHandlers.allObjects : @[];
+    proxyOn = (gProxyDict != nil);
   }
   NSLog(@"[SystemProxy] refreshRNSessions: %lu handler(s), proxy %@",
-        (unsigned long)handlers.count, gProxyDict ? @"ON" : @"OFF");
+        (unsigned long)handlers.count, proxyOn ? @"ON" : @"OFF");
   for (id handler in handlers) {
     [SystemProxy rebuildSessionForHandler:handler];
   }
@@ -88,8 +134,11 @@ RCT_EXPORT_METHOD(clearProxy)
                                                    delegateQueue:old.delegateQueue];
     [handler setValue:fresh forKey:@"session"];
     [old invalidateAndCancel];
-    NSLog(@"[SystemProxy] rebuilt RN session (proxy %@)",
-          gProxyDict ? @"ON" : @"OFF");
+    BOOL proxyOn;
+    @synchronized([SystemProxy class]) {
+      proxyOn = (gProxyDict != nil);
+    }
+    NSLog(@"[SystemProxy] rebuilt RN session (proxy %@)", proxyOn ? @"ON" : @"OFF");
   } @catch (NSException *e) {
     NSLog(@"[SystemProxy] rebuildSessionForHandler failed: %@", e);
   }
@@ -103,6 +152,7 @@ RCT_EXPORT_METHOD(clearProxy)
 // constructor runs at image load too — before RN makes any network request or
 // creates its HTTP handler — so both swizzles are in place in time.
 static IMP gOrigSendRequest = NULL;
+static IMP gOrigConfigureProxy = NULL;
 
 // True only if `cls` itself implements `sel` (not merely inherits it). Swizzling
 // an inherited method mutates it for the whole hierarchy — e.g. hooking -init,
@@ -137,8 +187,12 @@ __attribute__((constructor)) static void SystemProxyInstallSwizzles(void)
         imp_implementationWithBlock(^NSURLSessionConfiguration *(id self_) {
           NSURLSessionConfiguration *cfg =
               ((NSURLSessionConfiguration * (*)(id, SEL)) cfgOrig)(self_, cfgSel);
-          if (gProxyDict) {
-            cfg.connectionProxyDictionary = gProxyDict;
+          NSDictionary *proxy;
+          @synchronized([SystemProxy class]) {
+            proxy = gProxyDict;
+          }
+          if (proxy) {
+            cfg.connectionProxyDictionary = proxy;
           }
           return cfg;
         }));
@@ -163,6 +217,43 @@ __attribute__((constructor)) static void SystemProxyInstallSwizzles(void)
             }
             return ((id (*)(id, SEL, id, id)) gOrigSendRequest)(
                 self_, sendSel, request, delegate);
+          }));
+    }
+
+    // (3) Route RN WebSockets (SocketRocket) through the mixnet SOCKS5 endpoint.
+    // SocketRocket's SRProxyConnect reads only the SYSTEM proxy settings — not our
+    // NSURLSession proxy — so WebSockets would otherwise bypass the mixnet and
+    // connect on the real IP. We swizzle its private -_configureProxy: when
+    // routing is active, set its SOCKS ivars to our local SOCKS5 and open the
+    // connection (skipping the system read); otherwise fall through to the
+    // original. Guarded so an absent/renamed SocketRocket just leaves WebSockets
+    // unproxied instead of crashing.
+    Class proxyCls = NSClassFromString(@"SRProxyConnect");
+    SEL cfgProxySel = NSSelectorFromString(@"_configureProxy");
+    SEL openSel = NSSelectorFromString(@"_openConnection");
+    if (proxyCls && ClassOwnsSelector(proxyCls, cfgProxySel) &&
+        [proxyCls instancesRespondToSelector:openSel]) {
+      Method m = class_getInstanceMethod(proxyCls, cfgProxySel);
+      gOrigConfigureProxy = method_getImplementation(m);
+      method_setImplementation(
+          m, imp_implementationWithBlock(^(id self_) {
+            NSString *socksHost;
+            int socksPort;
+            @synchronized([SystemProxy class]) {
+              socksHost = gSocksHost;
+              socksPort = gSocksPort;
+            }
+            if (socksHost) {
+              @try {
+                [self_ setValue:socksHost forKey:@"socksProxyHost"];
+                [self_ setValue:@(socksPort) forKey:@"socksProxyPort"];
+                ((void (*)(id, SEL))objc_msgSend)(self_, openSel);
+                return;
+              } @catch (NSException *e) {
+                NSLog(@"[SystemProxy] WS SOCKS inject failed: %@", e);
+              }
+            }
+            ((void (*)(id, SEL))gOrigConfigureProxy)(self_, cfgProxySel);
           }));
     }
   });

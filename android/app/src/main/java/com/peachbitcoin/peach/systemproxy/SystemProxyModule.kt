@@ -28,4 +28,10 @@ class SystemProxyModule(reactContext: ReactApplicationContext) :
   fun clearProxy() {
     NymProxyHolder.clear()
   }
+
+  /** Fail-closed kill switch: block all routed traffic until the mixnet is up. */
+  @ReactMethod
+  fun armKillSwitch() {
+    NymProxyHolder.setBlackhole()
+  }
 }

@@ -12,6 +12,7 @@ import { useAppPinProtection } from "./appPinProtectionListener";
 import { Drawer } from "./components/drawer/Drawer";
 import { GlobalPopup } from "./components/popup/GlobalPopup";
 import { Toast } from "./components/toast/Toast";
+import { useNymKillSwitch } from "./hooks/useNymKillSwitch";
 import { useWebSocket } from "./init/websocket";
 import { queryClient } from "./queryClient";
 import { useThemeStore } from "./store/theme";
@@ -28,6 +29,9 @@ enableScreens();
 
 export const App = () => {
   useAppPinProtection();
+  // Engage the mixnet kill switch before the WebSocket/fetch can fire, so nothing
+  // leaks direct while Nym reconnects (fail-closed). Must run before useWebSocket.
+  useNymKillSwitch();
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket());
   useWebSocket(updatePeachWS);
 

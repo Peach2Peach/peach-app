@@ -25,6 +25,15 @@ object NymProxyHolder {
     proxy = null
   }
 
+  /**
+   * Fail-closed "kill switch": route through a dead local port so every
+   * connection is refused instead of leaking direct while the mixnet is
+   * connecting (or if it never connects). Replaced by [setSocks] once Nym is up.
+   */
+  fun setBlackhole() {
+    proxy = Proxy(Proxy.Type.SOCKS, InetSocketAddress.createUnresolved("127.0.0.1", 1))
+  }
+
   val selector: ProxySelector =
     object : ProxySelector() {
       override fun select(uri: URI?): List<Proxy> = listOf(proxy ?: Proxy.NO_PROXY)
