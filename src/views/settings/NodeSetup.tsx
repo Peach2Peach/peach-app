@@ -23,6 +23,8 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { useNodeConfigState } from "../../utils/wallet/nodeConfigStore";
+import { isMixnetAllowedNode } from "../../utils/wallet/nym/isMixnetAllowedNode";
+import { useNymProxyState } from "../../utils/wallet/nymProxyStore";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { checkNodeConnection } from "./helpers/checkNodeConnection";
 
@@ -42,6 +44,20 @@ export const NodeSetup = () => {
   );
   const canCheckConnection = enabled && isURLValid;
   const [isConnected, setIsConnected] = useState(!!node.url);
+
+  // The mixnet only works over Esplora (MixnetSettings gates it on
+  // isMixnetAllowedNode), so while it is on the user must not be able to move
+  // the wallet onto a non-Esplora node from this screen — otherwise
+  // PeachWallet.configure silently tears the proxy down. Two ways to do that,
+  // both blocked below: switching the custom node off (the config then falls
+  // back to the NODE_TYPE default, which is Electrum on mainnet) and saving a
+  // node that turns out to be Electrum.
+  const nymEnabled = useNymProxyState((state) => state.enabled);
+  // Only lock the toggle where turning it off would actually break the mixnet.
+  // On a build whose NODE_TYPE default is already Esplora the fallback is safe,
+  // so there is no reason to trap the user on their custom node.
+  const nymBlocksDisabling =
+    nymEnabled && enabled && !isMixnetAllowedNode({ type: undefined });
 
   const editConfig = () => setIsConnected(false);
   const save = (blockchainType: BlockChainNames) => {
@@ -68,6 +84,9 @@ export const NodeSetup = () => {
 
     const { result: nodeType, error } = await checkNodeConnection(url, ssl);
     if (nodeType) {
+      if (nymEnabled && !isMixnetAllowedNode({ type: nodeType })) {
+        return setPopup(<NodeBlockedByMixnetPopup />);
+      }
       return setPopup(
         <NodeConnectionSuccessPopup url={url} save={() => save(nodeType)} />,
       );
@@ -94,10 +113,16 @@ export const NodeSetup = () => {
               : "text-black-65",
           )}
           {...{ enabled }}
+          disabled={nymBlocksDisabling}
           onPress={toggleEnabled}
         >
           {i18n("wallet.settings.node.title")}
         </Toggle>
+        {!!nymEnabled && (
+          <PeachText style={tw`px-6 text-black-65 body-s`}>
+            {i18n("wallet.settings.node.lockedByNym")}
+          </PeachText>
+        )}
         <Toggle
           style={tw`justify-between px-6`}
           enabled={ssl}
@@ -170,6 +195,27 @@ function NodeConnectionErrorPopup({ error }: ErrorPopupProps) {
       content={
         <PeachText selectable ignoreDarkMode>
           {i18n("wallet.settings.node.error.text", error)}
+        </PeachText>
+      }
+      actions={
+        <ClosePopupAction
+          style={tw`justify-center`}
+          textStyle={tw`text-black-100`}
+        />
+      }
+    />
+  );
+}
+
+/** The node answered, but it is not an Esplora node and the mixnet is on — so
+ *  saving it would silently stop the proxy. Refuse instead of asking to save. */
+function NodeBlockedByMixnetPopup() {
+  return (
+    <WarningPopup
+      title={i18n("wallet.settings.node.blockedByNym.title")}
+      content={
+        <PeachText ignoreDarkMode>
+          {i18n("wallet.settings.node.blockedByNym.text")}
         </PeachText>
       }
       actions={
