@@ -52,6 +52,20 @@ const NYM_CONNECT_TIMEOUT_MS = 30_000;
 const MAX_CONNECT_ATTEMPTS = 6;
 const PROBE_TIMEOUT_MS = 8_000;
 
+// A connect can also fail by THROWING rather than by yielding a dead exit, and
+// those failures are often transient infrastructure rather than a bad exit. The
+// one that bites in practice is TLS: on Android the certificate verifier checks
+// revocation, which for Let's Encrypt certs (the Nym API among them) means
+// fetching a CRL over HTTP. Right after a fresh install — device busy with
+// dexopt, cold DNS — that fetch can fail, and the whole handshake is reported as
+// "invalid peer certificate: Revoked". Retrying a few seconds later succeeds.
+//
+// Unlike a dead exit, re-selecting instantly doesn't help here: the next attempt
+// would land in the same bad window. So back off between attempts, growing a
+// little each time and capped so six attempts stay within a sane wait.
+const START_RETRY_BACKOFF_MS = 1_500;
+const MAX_START_RETRY_BACKOFF_MS = 5_000;
+
 let cachedEndpoint: NymProxyEndpoint | undefined;
 let startInProgress: Promise<NymProxyEndpoint | undefined> | undefined;
 // The store config (countries + serviceProvider) the live connection was started
@@ -68,6 +82,14 @@ const configKey = (countries: string[], serviceProvider: string) =>
 export const getNymEndpoint = (): NymProxyEndpoint | undefined => cachedEndpoint;
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** Wait before the next attempt; no wait after the last one, which just fails. */
+const backoffBeforeRetry = (attempt: number) =>
+  sleep(
+    attempt < MAX_CONNECT_ATTEMPTS
+      ? Math.min(START_RETRY_BACKOFF_MS * attempt, MAX_START_RETRY_BACKOFF_MS)
+      : 0,
+  );
 
 /**
  * `NymProxy.start` races a timeout: the native SDK retries an unreachable
@@ -96,6 +118,21 @@ async function startWithTimeout(config: Parameters<typeof NymProxy.start>[0]) {
 }
 
 /**
+ * One connect attempt, reported as a value instead of a throw, so the retry loop
+ * can treat a thrown attempt exactly like one that produced a dead exit. Lives
+ * outside the loop so it closes over nothing mutable.
+ */
+async function attemptStart(
+  config: Parameters<typeof NymProxy.start>[0],
+): Promise<{ endpoint?: NymProxyEndpoint; error?: string }> {
+  try {
+    return { endpoint: await startWithTimeout(config) };
+  } catch (e) {
+    return { error: parseError(e) };
+  }
+}
+
+/**
  * Verify the mixnet actually carries data end-to-end — not just that the SDK
  * reported "Connected". Must be called AFTER enableSystemProxy so the request
  * rides the mixnet exit (the HTTP-CONNECT bridge), not the blackhole. ANY HTTP
@@ -115,6 +152,20 @@ async function probeMixnetDataPath(): Promise<boolean> {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * Point RN networking at a freshly connected exit and confirm it actually
+ * carries data. Returns the endpoint when the route is proven, else undefined.
+ *
+ * Enabling the proxy before the probe is required (the probe must ride the
+ * mixnet, not the blackhole) and safe even if this exit turns out to be dead: a
+ * bad exit drops packets inside the mixnet, it never leaks a direct connection.
+ * The gate stays `armed` until the caller sees a proven route.
+ */
+async function routeAndVerify(endpoint: NymProxyEndpoint) {
+  enableSystemProxy(endpoint);
+  return (await probeMixnetDataPath()) ? endpoint : undefined;
 }
 
 /**
@@ -231,6 +282,14 @@ export async function ensureNymProxy({
       // a fresh start re-resolves a DIFFERENT exit within the same allowed
       // countries (we never re-pin the dead one), so a handful of attempts finds
       // a routable exit — exactly what a manual disable/enable does by hand.
+      //
+      // An attempt can also fail by throwing (transient TLS/network), which is
+      // retried the same way; see attemptStart and backoffBeforeRetry.
+
+      // Kept so the final failure reports the REAL cause (e.g. the TLS error)
+      // rather than a generic "no routable exit", which the UI shows verbatim.
+      let lastStartError: string | undefined;
+
       for (let attempt = 1; attempt <= MAX_CONNECT_ATTEMPTS; attempt++) {
         // Reset any client left behind — a stale one from a JS reload, or the
         // dead-exit client from the previous attempt — so start() connects fresh.
@@ -246,12 +305,24 @@ export async function ensureNymProxy({
               : `countries=${allowedCountries.length}`
           })`,
         );
-        const endpoint = await startWithTimeout({
+        // A throw is a failed ATTEMPT, not a failed connect: recorded as a value
+        // so the loop retries it. Without this a single transient TLS/network
+        // failure aborted the whole connect on the first try, leaving the retry
+        // budget below entirely unused.
+        const started = await attemptStart({
           countries: allowedCountries.length ? allowedCountries : undefined,
           serviceProvider: serviceProvider.trim() || undefined,
           storageDir: NYM_STORAGE_DIR,
           httpProxy: true,
         });
+
+        if (started.error) {
+          lastStartError = started.error;
+          error(
+            `ensureNymProxy - connect attempt ${attempt}/${MAX_CONNECT_ATTEMPTS} failed`,
+            started.error,
+          );
+        }
 
         // The connect can take ~30s; if the user disabled the mixnet meanwhile,
         // honor that — tear this fresh client down and go direct rather than
@@ -265,36 +336,46 @@ export async function ensureNymProxy({
           return undefined;
         }
 
-        // Point RN networking at the exit so the probe (and any concurrent
-        // request) rides the mixnet, NOT the blackhole. Safe even if this exit is
-        // dead: a bad exit drops packets inside the mixnet, it never leaks a
-        // direct/deanonymized connection. The gate stays `armed` (WebSocket still
-        // held) until the probe actually confirms a route.
-        enableSystemProxy(endpoint);
+        // Attempt threw: wait before retrying so the next one doesn't land in
+        // the same bad window. Still fail-closed (the kill switch armed before
+        // the loop was never lifted), so waiting here leaks nothing.
+        if (!started.endpoint) {
+          await backoffBeforeRetry(attempt);
+        }
 
-        if (await probeMixnetDataPath()) {
+        // Set only once the probe proves this exit actually carries data, so it
+        // doubles as the "this attempt succeeded" flag.
+        const routedEndpoint = started.endpoint
+          ? await routeAndVerify(started.endpoint)
+          : undefined;
+
+        if (routedEndpoint) {
           info(
-            `ensureNymProxy - connected + route verified (attempt ${attempt}), socks5 at ${endpoint.url}`,
+            `ensureNymProxy - connected + route verified (attempt ${attempt}), socks5 at ${routedEndpoint.url}`,
           );
-          cachedEndpoint = endpoint;
+          cachedEndpoint = routedEndpoint;
           activeConfigKey = configKey(countries, serviceProvider);
           if (!silent) clearNymConnectingToast();
           // Open the gate so the WebSocket connects (through the mixnet now).
           setNymGate("routed");
-          return endpoint;
+          return routedEndpoint;
         }
 
         // Unroutable exit: back to fail-closed, then loop to re-select a
         // different exit (the loop-top teardown + a fresh start re-resolves).
-        info(
-          `ensureNymProxy - exit did not route (attempt ${attempt}); re-selecting`,
-        );
-        armSystemProxy();
-        setNymGate("armed");
+        if (started.endpoint) {
+          info(
+            `ensureNymProxy - exit did not route (attempt ${attempt}); re-selecting`,
+          );
+          armSystemProxy();
+          setNymGate("armed");
+        }
       }
 
       throw new Error(
-        `no routable exit found after ${MAX_CONNECT_ATTEMPTS} attempts`,
+        lastStartError
+          ? `connect failed after ${MAX_CONNECT_ATTEMPTS} attempts: ${lastStartError}`
+          : `no routable exit found after ${MAX_CONNECT_ATTEMPTS} attempts`,
       );
     } catch (e) {
       const reason = parseError(e);

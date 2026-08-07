@@ -107,9 +107,6 @@ export const MixnetSettings = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mixnetAllowed]);
 
-  const allSelected =
-    available.length > 0 && selected.length === available.length;
-
   const openCountryDrawer = () =>
     updateDrawer({
       title: i18n("wallet.settings.node.nym.countries.title"),
@@ -125,10 +122,18 @@ export const MixnetSettings = () => {
 
   const applyNymConfig = async () => {
     if (!peachWallet) throw Error("Peach wallet not defined");
-    // Store [] when every allowed country is selected — that means "all allowed"
-    // and keeps tracking Nym adding new (non-blocked) countries. A strict subset
-    // is stored explicitly.
-    const countries = allSelected ? [] : selected;
+    // Always store the selection explicitly, including when it is every country.
+    //
+    // This used to store [] for "all selected", meaning "all allowed" so that
+    // newly added Nym countries were picked up automatically. But [] is also the
+    // never-configured state, and ensureNymProxy resolves that to the bundled
+    // DEFAULT_EXIT_COUNTRIES — ten countries, not the ~65 the user just saw
+    // ticked. So "all countries" silently narrowed routing to that ten, whose
+    // first entry is PT: a user in Portugal selecting everything would keep
+    // exiting through their OWN country and reasonably conclude the mixnet was
+    // not working at all. Storing the real list keeps the UI honest; the cost is
+    // that countries Nym adds later need re-selecting.
+    const countries = selected;
     setNymConfig({ enabled: localEnabled, countries, serviceProvider: "" });
     setPopup(<LoadingPopup title={i18n("wallet.settings.node.nym.applied.title")} />);
     try {

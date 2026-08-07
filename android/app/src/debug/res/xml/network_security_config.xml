@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Debug override of the main network_security_config.xml.
+
+  Setting android:networkSecurityConfig in the manifest makes it apply to every
+  build type, and on API 24+ it takes precedence over usesCleartextTraffic. The
+  release config forbids cleartext, which would break the Metro dev server
+  (http://10.0.2.2:8081) and any local plaintext tooling, so debug builds keep
+  cleartext allowed, matching what React Native's gradle plugin sets for debug.
+-->
+<network-security-config>
+  <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
