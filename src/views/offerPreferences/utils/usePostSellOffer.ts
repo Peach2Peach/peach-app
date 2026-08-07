@@ -48,7 +48,9 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
     await peachAPI.private.offer.postSellOffer(payload);
 
   if (!result) {
-    throw new Error(err?.error || "POST_OFFER_ERROR");
+    throw new Error(err?.error || "POST_OFFER_ERROR", {
+      cause: err?.details ?? err?.message,
+    });
   }
 
   if (Array.isArray(result) && !result.every(isSellOffer)) {
