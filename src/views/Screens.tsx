@@ -50,7 +50,7 @@ export function Screens() {
   const setPopup = useSetPopup();
   const initApp = useInitApp();
   useEffect(() => {
-    const initialize = async () => {
+    const boot = async () => {
       const [blockedCountry, statusResponse] = await Promise.all([
         checkBlockedCountry(),
         initApp(),
@@ -88,8 +88,19 @@ export function Screens() {
         }
       }
       requestUserPermissions();
-      setIsLoading(false);
-      await BootSplash.hide({ fade: true });
+    };
+
+    // The bootsplash covers the whole app, so hiding it must not depend on boot
+    // succeeding: ANY failure in `boot` (a rejected init, a throwing handler)
+    // would otherwise leave the user staring at the splash forever — and
+    // release builds don't even surface the unhandled rejection.
+    const initialize = async () => {
+      try {
+        await boot();
+      } finally {
+        setIsLoading(false);
+        await BootSplash.hide({ fade: true }).catch(() => undefined);
+      }
     };
     if (isLoading || !hasHydrated) initialize();
   }, [
