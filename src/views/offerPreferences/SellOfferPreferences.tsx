@@ -1207,7 +1207,7 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
       },
       {
         onError: (error) => {
-          showErrorBanner(error.message);
+          showErrorBanner(error);
           setIsPublishing(false);
         },
         onSuccess: (result, offerDraft) => {
