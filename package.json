@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.5",
+    "@brandonblack/musig": "git+https://github.com/Peach2Peach/musig-js.git#947d6ae1039e720f9817e702f8368d43bda129d6",
     "@dr.pogodin/react-native-fs": "2.36.1",
     "@notifee/react-native": "^9.1.8",
     "@react-native-clipboard/clipboard": "^1.16.0",
