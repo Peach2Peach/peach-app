@@ -45,19 +45,14 @@ export const NodeSetup = () => {
   const canCheckConnection = enabled && isURLValid;
   const [isConnected, setIsConnected] = useState(!!node.url);
 
-  // The mixnet only works over Esplora (MixnetSettings gates it on
-  // isMixnetAllowedNode), so while it is on the user must not be able to move
-  // the wallet onto a non-Esplora node from this screen — otherwise
-  // PeachWallet.configure silently tears the proxy down. Two ways to do that,
-  // both blocked below: switching the custom node off (the config then falls
-  // back to the NODE_TYPE default, which is Electrum on mainnet) and saving a
-  // node that turns out to be Electrum.
+  // The mixnet needs Esplora, and a CUSTOM node is taken as configured — so
+  // while the mixnet is on, saving a node that turns out to be Electrum is
+  // blocked below (it would make PeachWallet.configure tear the proxy down).
+  //
+  // Switching the custom node OFF needs no such guard: that falls back to the
+  // built-in node, which buildBlockchainConfig points at the env's Esplora
+  // endpoint whenever the mixnet is routing.
   const nymEnabled = useNymProxyState((state) => state.enabled);
-  // Only lock the toggle where turning it off would actually break the mixnet.
-  // On a build whose NODE_TYPE default is already Esplora the fallback is safe,
-  // so there is no reason to trap the user on their custom node.
-  const nymBlocksDisabling =
-    nymEnabled && enabled && !isMixnetAllowedNode({ type: undefined });
 
   const editConfig = () => setIsConnected(false);
   const save = (blockchainType: BlockChainNames) => {
@@ -84,7 +79,12 @@ export const NodeSetup = () => {
 
     const { result: nodeType, error } = await checkNodeConnection(url, ssl);
     if (nodeType) {
-      if (nymEnabled && !isMixnetAllowedNode({ type: nodeType })) {
+      // Ask about the node as it would be SAVED — a custom node, in use — so the
+      // built-in-node exemption doesn't apply and the type has to be Esplora.
+      if (
+        nymEnabled &&
+        !isMixnetAllowedNode({ enabled: true, url, type: nodeType })
+      ) {
         return setPopup(<NodeBlockedByMixnetPopup />);
       }
       return setPopup(
@@ -113,12 +113,13 @@ export const NodeSetup = () => {
               : "text-black-65",
           )}
           {...{ enabled }}
-          disabled={nymBlocksDisabling}
           onPress={toggleEnabled}
         >
           {i18n("wallet.settings.node.title")}
         </Toggle>
-        {!!nymEnabled && (
+        {/* Only while a custom node is in use: the built-in node is free to
+            switch to Esplora on its own, so the restriction doesn't apply. */}
+        {!!nymEnabled && !!enabled && (
           <PeachText style={tw`px-6 text-black-65 body-s`}>
             {i18n("wallet.settings.node.lockedByNym")}
           </PeachText>
