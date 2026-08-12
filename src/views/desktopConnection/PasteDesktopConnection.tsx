@@ -9,7 +9,7 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { useConfigStore } from "../../store/configStore/configStore";
+import { usePeachPGPPublicKey } from "../../store/configStore/configStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { loadWalletFromAccount } from "../../utils/account/loadWalletFromAccount";
@@ -24,7 +24,7 @@ export const PasteDesktopConnection = () => {
   const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const peachPGPPublicKey = usePeachPGPPublicKey();
   const account = useAccountStore.getState().account;
   if (!account.mnemonic) throw Error("");
   const mnemonic = account.mnemonic;

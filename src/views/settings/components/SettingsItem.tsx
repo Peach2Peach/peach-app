@@ -64,11 +64,15 @@ export const SettingsItem = ({
   badge,
 }: SettingsItemProps) => {
   const navigation = useStackNavigation();
-  const onPress = pressAction
-    ? pressAction
-    : // Dynamic screen name from a union — RN's navigate overloads don't resolve
-      // a union first-arg, so cast (all these screens take no required params).
-      () => navigation.navigate(title as never);
+  // Dynamic screen name from a union — RN's navigate overloads don't resolve a
+  // union first-arg, so go through a cast. The empty params object is NOT
+  // redundant: without it `route.params` is undefined, and a screen that
+  // destructures it (Contact) crashes the app on entry from here.
+  const navigateToScreen = navigation.navigate as unknown as (
+    name: string,
+    params: Record<string, never>,
+  ) => void;
+  const onPress = pressAction ? pressAction : () => navigateToScreen(title, {});
   const { isDarkMode } = useThemeStore();
   const iconColor = warning
     ? tw.color("error-main")

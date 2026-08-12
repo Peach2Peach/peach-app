@@ -14,6 +14,7 @@ import { getIndexedMap } from "../utils/storage/getIndexedMap";
 import { usePaymentMethods } from "../views/addPaymentMethod/usePaymentMethodInfo";
 import { checkSupportedPaymentMethods } from "./dataMigration/checkSupportedPaymentMethods";
 import { getPeachInfo } from "./getPeachInfo";
+import { retryInitWhenNetworkReady } from "./retryInitWhenNetworkReady";
 import { useUserUpdate } from "./useUserUpdate";
 
 initEccLib(ecc);
@@ -33,7 +34,7 @@ export function useInitApp() {
       await setCookies(cfClearance);
     }
     const publicKey = storedPublicKey || (await loadAccount());
-    try {
+    const run = async () => {
       const statusResponse = await getPeachInfo();
       if (!statusResponse?.error && publicKey) {
         setIsLoggedIn(true);
@@ -42,6 +43,16 @@ export function useInitApp() {
           await checkSupportedPaymentMethods(paymentMethods);
         }
       }
+      return statusResponse;
+    };
+    try {
+      const statusResponse = await run();
+
+      // Deliberately not awaited: with the mixnet enabled this attempt was
+      // blackholed by the fail-closed kill switch, and the retry waits for the
+      // gate to open — minutes, potentially never. Awaiting it here would hold
+      // the bootsplash. See retryInitWhenNetworkReady.
+      retryInitWhenNetworkReady(run).catch(() => undefined);
 
       return statusResponse;
     } catch (err) {

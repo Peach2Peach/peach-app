@@ -8,6 +8,33 @@ import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import { error } from "../utils/log/error";
 import { shouldUsePaymentMethod } from "../utils/paymentMethod/shouldUsePaymentMethod";
 import { peachAPI } from "../utils/peachAPI";
+import { getNymGate, whenGateDecided } from "../utils/wallet/nym/nymGate";
+
+// Requests through the mixnet carry real extra latency (multi-hop, cover
+// traffic, a remote exit), so the direct-connection budgets below are too tight
+// once routed and would time out a request that was going to succeed.
+const MIXNET_TIMEOUT_MULTIPLIER = 3;
+const STATUS_TIMEOUT_SECONDS = 10;
+const INFO_TIMEOUT_SECONDS = 5;
+
+// Upper bound on waiting for the mixnet ON/OFF decision. That decision is a
+// local storage read (milliseconds), and the kill switch guarantees one within
+// its own hydration safety net, so this only ever trips on a storage failure —
+// where proceeding into the blackhole is no worse than today's behaviour.
+const GATE_DECISION_TIMEOUT_SECONDS = 5;
+const GATE_DECISION_TIMEOUT_MS = GATE_DECISION_TIMEOUT_SECONDS * MSINASECOND;
+
+const requestTimeout = (seconds: number) =>
+  seconds *
+  MSINASECOND *
+  (getNymGate() === "routed" ? MIXNET_TIMEOUT_MULTIPLIER : 1);
+
+// Whether a getInfo response has been stored since launch. Drives the retry in
+// `retryInitWhenNetworkReady` — a boot attempt that was blackholed by the
+// mixnet kill switch leaves this false and must be repeated once the gate opens.
+let infoLoaded = false;
+
+export const isPeachInfoLoaded = () => infoLoaded;
 
 const setPaymentMethodsFromStore = () => {
   setPaymentMethods(
@@ -27,6 +54,16 @@ export const getPeachInfo = async (): Promise<
     await new Promise((resolve) => setTimeout(resolve, MSINASECOND));
     return getPeachInfo();
   }
+
+  // The kill switch blackholes traffic from App's first render, BEFORE the
+  // persisted mixnet state has hydrated — so at this point a request may be
+  // certain to fail without the mixnet being enabled at all. Waiting for the
+  // decision costs milliseconds and, when the mixnet is off, means the request
+  // goes out on a live connection instead of failing and reporting a spurious
+  // "can't reach Peach" error. It deliberately does NOT wait for the mixnet to
+  // connect: that takes ~30s and would hold the bootsplash.
+  await whenGateDecided(GATE_DECISION_TIMEOUT_MS);
+
   const statusResponse = await calculateClientServerTimeDifference();
   if (!statusResponse || statusResponse.error) {
     error("Server not available", statusResponse);
@@ -34,10 +71,9 @@ export const getPeachInfo = async (): Promise<
     return statusResponse;
   }
 
-  const NUMBER_OF_SECONDS = 5;
   const { result: getInfoResponse, error: getInfoError } =
     await peachAPI.public.system.getInfo({
-      signal: getAbortWithTimeout(NUMBER_OF_SECONDS * MSINASECOND).signal,
+      signal: getAbortWithTimeout(requestTimeout(INFO_TIMEOUT_SECONDS)).signal,
     });
 
   if (getInfoError) {
@@ -45,6 +81,7 @@ export const getPeachInfo = async (): Promise<
     setPaymentMethodsFromStore();
   } else if (getInfoResponse) {
     storePeachInfo(getInfoResponse);
+    infoLoaded = true;
   }
 
   return statusResponse;
@@ -75,12 +112,11 @@ function storePeachInfo(peachInfo: GetInfoResponseBody) {
  * by dividing the round trip time in half
  * This is only an estimation as round trips are often asymmetric
  */
-const AMOUNT_OF_SECONDS = 10;
 async function calculateClientServerTimeDifference() {
   const start = Date.now();
   const { result: peachStatusResponse, error: peachStatusErr } =
     await peachAPI.public.system.getStatus({
-      signal: getAbortWithTimeout(AMOUNT_OF_SECONDS * MSINASECOND).signal,
+      signal: getAbortWithTimeout(requestTimeout(STATUS_TIMEOUT_SECONDS)).signal,
     });
   const end = Date.now();
   const roundTrip = (end - start) / 2;

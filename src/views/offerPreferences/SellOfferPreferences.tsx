@@ -34,7 +34,7 @@ import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
-import { useConfigStore } from "../../store/configStore/configStore";
+import { usePeachPGPPublicKey } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
@@ -359,8 +359,6 @@ function PremiumInputComponent() {
     state.setPremium,
   ]);
 
-  console.log("PREMIUM ", premium);
-
   const { bitcoinPrice } = useBitcoinPrices(amount, "CHF");
 
   return (
@@ -516,7 +514,9 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
             <PeachText
               style={[
                 tw`subtitle-1`,
-                isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+                isDarkMode
+                  ? tw`text-backgroundLight-light`
+                  : tw`text-black-100`,
               ]}
             >
               BTC{fixedPriceCurrency}
@@ -524,7 +524,9 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
             <Icon
               id="chevronDown"
               size={16}
-              color={tw.color(isDarkMode ? "backgroundLight-light" : "black-100")}
+              color={tw.color(
+                isDarkMode ? "backgroundLight-light" : "black-100",
+              )}
             />
           </TouchableOpacity>
         </View>
@@ -1060,7 +1062,7 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
 
   const { mutate: postSellOffer } = usePostSellOffer();
 
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const peachPGPPublicKey = usePeachPGPPublicKey();
   const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
 
   const getPaymentData = () =>

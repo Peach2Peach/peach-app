@@ -37,15 +37,24 @@ export const useNymKillSwitch = () => {
   if (engaged) return;
   engaged = true;
 
-  // Fail-closed immediately, before we know whether the mixnet is on.
+  // Fail-closed immediately, before we know whether the mixnet is on. The gate
+  // is `unknown`, not `armed`: traffic IS blackholed, but the distinction that
+  // matters to callers is that no decision has been made yet, so they can wait
+  // for one (whenGateDecided) instead of firing a request that is certain to be
+  // refused — and, if the mixnet turns out to be off, needlessly reporting it as
+  // a real "can't reach Peach" failure.
   armSystemProxy();
-  setNymGate("armed");
+  setNymGate("unknown");
 
   let decided = false;
   const decide = () => {
     if (decided) return;
     decided = true;
     if (useNymProxyState.getState().enabled) {
+      // Decision made: the blackhole is being HELD while we connect. Set it here
+      // rather than relying on ensureNymProxy's internal ordering, so the gate
+      // leaves `unknown` synchronously and waiters resume without delay.
+      setNymGate("armed");
       // Connect; ensureNymProxy re-arms, then routes and opens the gate.
       ensureNymProxy().catch(() => undefined);
     } else {
