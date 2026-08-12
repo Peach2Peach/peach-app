@@ -47,11 +47,10 @@ import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
 import { saveOffer } from "../../utils/offer/saveOffer";
-import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
+import { buildOfferPaymentData } from "../../utils/paymentMethod/buildOfferPaymentData";
 import { filterUnavailableCurrencies } from "../../utils/paymentMethod/filterUnavailableCurrencies";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
-import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { isDefined } from "../../utils/validation/isDefined";
 import { peachWallet } from "../../utils/wallet/setWallet";
@@ -1064,84 +1063,15 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
   const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
 
-  const getPaymentData = async () => {
-    const { paymentData, originalPaymentData } = sellPreferences;
-
-    // backwards compatibility for original PMs
-    originalPaymentData.forEach((payment) => {
-      if (payment.mpesa_name && paymentData[payment.type]) {
-        paymentData[payment.type]!.isMpesa = true;
-      }
-      if (payment.iban && paymentData[payment.type]) {
-        paymentData[payment.type]!.country = payment.iban.slice(
-          0,
-          2,
-        ) as PaymentMethodCountry;
-      }
+  const getPaymentData = () =>
+    // hashes are derived here, at submit time, from the same details that get
+    // encrypted - never from a snapshot taken when the payment data was saved
+    buildOfferPaymentData({
+      originalPaymentData: sellPreferences.originalPaymentData,
+      myPgpPubKey,
+      peachPGPPublicKey,
+      instantTrade,
     });
-
-    let finalPaymentData = { ...paymentData };
-
-    if (instantTrade) {
-      const selectedMethods = keys(paymentData);
-      const cleanedData = selectedMethods.map((method) => {
-        const originalData = originalPaymentData.find((e) => e.type === method);
-        return originalData ? cleanPaymentData(originalData) : null;
-      });
-
-      const encryptedData = await Promise.all(
-        cleanedData.map((data) =>
-          data ? signAndEncrypt(JSON.stringify(data), peachPGPPublicKey) : null,
-        ),
-      );
-
-      finalPaymentData = encryptedData.reduce((acc, encryptedDatum, index) => {
-        if (!encryptedDatum) return acc;
-        const { encrypted, signature } = encryptedDatum;
-        const method = selectedMethods[index];
-        return {
-          ...acc,
-          [method]: {
-            ...paymentData[method],
-            encrypted,
-            signature,
-          },
-        };
-      }, finalPaymentData);
-    }
-
-    // Always add selfEncrypted + selfEncryptedSignature
-    const selfEncryptedData = await Promise.all(
-      keys(paymentData).map(async (method) => {
-        const originalData = originalPaymentData.find((e) => e.type === method);
-        const cleaned = originalData
-          ? cleanPaymentData(originalData)
-          : paymentData[method];
-
-        const { encrypted, signature } = await signAndEncrypt(
-          JSON.stringify(cleaned),
-          myPgpPubKey,
-        );
-
-        return { encrypted, signature };
-      }),
-    );
-
-    finalPaymentData = keys(paymentData).reduce((acc, method, index) => {
-      const selfData = selfEncryptedData[index];
-
-      return {
-        ...acc,
-        [method]: {
-          ...acc[method],
-          selfEncrypted: selfData.encrypted,
-          selfEncryptedSignature: selfData.signature,
-        },
-      };
-    }, finalPaymentData);
-
-    return finalPaymentData;
-  };
 
   const showPublishingError = () => {
     let errorMessage;

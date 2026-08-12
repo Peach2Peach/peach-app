@@ -30,7 +30,7 @@ export type PaymentDataHashInfo = {
 };
 
 export const hashPaymentData = (
-  paymentData: PaymentData,
+  paymentData: PaymentDataInfo | PaymentData,
 ): PaymentDataHashInfo[] =>
   getPaymentDataInfoFields(paymentData)
     .filter(({ field }) => fieldCanBeHashed(field))

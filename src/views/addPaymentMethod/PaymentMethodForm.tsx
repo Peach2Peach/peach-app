@@ -74,6 +74,10 @@ export const PaymentMethodForm = () => {
       rest.iban = rest.iban.replace(/\s+/g, "");
     }
     const finalData = {
+      // fields of a tab that was never opened are not registered by the form,
+      // so they are missing from `rest` - keep the stored values for those
+      // instead of dropping them (a rendered field submits "" when cleared)
+      ...cleanPaymentData(paymentData),
       ...rest,
       id: id || `${paymentMethod}-${Date.now()}`,
       label: paymentMethodName,

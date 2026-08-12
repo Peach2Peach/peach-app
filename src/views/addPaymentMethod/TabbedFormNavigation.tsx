@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Control, FieldError } from "react-hook-form";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
 import { TabbedNavigation } from "../../components/navigation/TabbedNavigation";
@@ -32,7 +32,20 @@ export function TabbedFormNavigation({
   getValues,
   setActiveMandatoryField,
 }: Props) {
-  const [selected, setSelected] = useState(0);
+  // open the tab the stored data actually uses, so editing an entry shows
+  // (and re-registers) the fields it was created with
+  const [selected, setSelected] = useState(() => {
+    const columnWithData = row.findIndex((column) =>
+      column.some((field) => !!paymentData[field]),
+    );
+    return columnWithData === -1 ? 0 : columnWithData;
+  });
+
+  // keep the parent in sync with the tab we opened on
+  useEffect(() => {
+    setActiveMandatoryField(row[selected][0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const tabbedNavigationItems = row.map((column) => {
     const display = column[0] === "mpesa_name" ? "mpesa" : column[0];
