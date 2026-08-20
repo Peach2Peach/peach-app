@@ -249,7 +249,13 @@
   "contract.summary.mpesa_name": "Nome",
   "contract.summary.mpesa_finalCurrency": "valuta m-pesa",
   "contract.summary.mpesa_phone": "Telefono #",
-  "contract.chatAvailableOnceEscrowFunded": "la Chat sarà disponibile una volta che l'Escrow sarà finanziato"
-
-
+  "contract.chatAvailableOnceEscrowFunded": "la Chat sarà disponibile una volta che l'Escrow sarà finanziato",
+  "contract.cancelationRequested.agree": "accetta l'annullamento",
+  "contract.seller.buyerAgreedToCancel": "L'acquirente ha accettato di annullare lo scambio.\n\nPuoi scegliere di farti rimborsare i tuoi sats oppure di ripubblicare questa offerta.",
+  "contract.seller.buyerCanceledWithoutRequest": "L'acquirente ha annullato lo scambio.\nDovrai decidere se ripubblicare questa offerta o farti rimborsare l'escrow sul tuo $0.",
+  "contract.seller.giveMoreTime": "concedi più tempo",
+  "contract.summary.ratingSeller": "ti ha valutato",
+  "contract.summary.tradeBreakdown.show": "mostra",
+  "contract.summary.youShouldPay": "dovresti pagare",
+  "contract.summary.youWillGet": "riceverai"
 }

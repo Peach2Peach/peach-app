@@ -23,6 +23,7 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { parseError } from "../../utils/parseError";
+import { openURL } from "../../utils/web/openURL";
 import { useNodeConfigState } from "../../utils/wallet/nodeConfigStore";
 import {
   ensureNymProxy,
@@ -31,7 +32,10 @@ import {
 import { getAllowedExitCountries } from "../../utils/wallet/nym/exitCountries";
 import { isMixnetAllowedNode } from "../../utils/wallet/nym/isMixnetAllowedNode";
 import { COUNTRY_NAMES } from "../../utils/wallet/nym/countryNames";
-import { useNymProxyState } from "../../utils/wallet/nymProxyStore";
+import {
+  type NymProxyConfig,
+  useNymProxyState,
+} from "../../utils/wallet/nymProxyStore";
 import { peachWallet } from "../../utils/wallet/setWallet";
 
 /** Full country name for a 2-letter code — the app's own (localized) translation
@@ -42,6 +46,13 @@ const countryLabel = (code: string) => {
   if (translated !== `country.${code}`) return translated;
   return COUNTRY_NAMES[code] ?? code;
 };
+
+/** Same set of country codes, ignoring order — the drawer rebuilds the array on
+ *  every tick (deselect + reselect moves a code to the end), so a positional
+ *  comparison would report a change the user did not make. */
+const sameSelection = (a: string[], b: string[]) =>
+  a.length === b.length &&
+  [...a].sort().join(",") === [...b].sort().join(",");
 
 /** The app ships SVG flags for a subset of countries; exit countries outside
  *  that set (~1/3 of them) get a neutral globe placeholder so every row has one
@@ -62,6 +73,8 @@ function CountryFlag({ code }: { code: string }) {
   );
 }
 
+const NYM_URL = "https://nym.com";
+
 // Plain JSON "what's my IP" endpoint. When the mixnet is on, this fetch is routed
 // through it by the global native proxy, so the reported IP/country is the exit
 // node's — a live way to verify which country traffic is exiting from.
@@ -70,6 +83,7 @@ const IP_CHECK_TIMEOUT = 20000;
 
 export const MixnetSettings = () => {
   const setPopup = useSetPopup();
+  const { isDarkMode } = useThemeStore();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const node = useNodeConfigState((state) => state, shallow);
   // Mixnet only works with an Esplora node (others use ports public exits block).
@@ -85,6 +99,10 @@ export const MixnetSettings = () => {
   // open. Selection defaults to all; a stored empty list means "all allowed".
   const [available, setAvailable] = useState<string[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
+  // The selection as it stood when this screen opened — what Apply diffs against.
+  // Unapplied edits are intentionally discarded on leaving, so this is re-seeded
+  // per visit instead of persisted.
+  const [baseline, setBaseline] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [countriesError, setCountriesError] = useState<string | undefined>();
 
@@ -96,7 +114,9 @@ export const MixnetSettings = () => {
       .then((all) => {
         if (cancelled) return;
         setAvailable(all);
-        setSelected(nymCountries.length ? nymCountries : all);
+        const initial = nymCountries.length ? nymCountries : all;
+        setSelected(initial);
+        setBaseline(initial);
         setCountriesError(undefined);
       })
       .catch((e) => !cancelled && setCountriesError(parseError(e)))
@@ -120,23 +140,14 @@ export const MixnetSettings = () => {
       ),
     });
 
-  const applyNymConfig = async () => {
-    if (!peachWallet) throw Error("Peach wallet not defined");
-    // Always store the selection explicitly, including when it is every country.
-    //
-    // This used to store [] for "all selected", meaning "all allowed" so that
-    // newly added Nym countries were picked up automatically. But [] is also the
-    // never-configured state, and ensureNymProxy resolves that to the bundled
-    // DEFAULT_EXIT_COUNTRIES — ten countries, not the ~65 the user just saw
-    // ticked. So "all countries" silently narrowed routing to that ten, whose
-    // first entry is PT: a user in Portugal selecting everything would keep
-    // exiting through their OWN country and reasonably conclude the mixnet was
-    // not working at all. Storing the real list keeps the UI honest; the cost is
-    // that countries Nym adds later need re-selecting.
-    const countries = selected;
-    setNymConfig({ enabled: localEnabled, countries, serviceProvider: "" });
+  /** Persist a config change, reconcile the native client with it, and rebuild
+   *  the wallet on top of the result — reporting progress through the shared
+   *  Loading/Success/Warning popups. */
+  const applyConfig = async (config: Partial<NymProxyConfig>) => {
+    setNymConfig(config);
     setPopup(<LoadingPopup title={i18n("wallet.settings.node.nym.applied.title")} />);
     try {
+      if (!peachWallet) throw Error("Peach wallet not defined");
       // silent: this flow shows its own Loading/Success/Warning popup below, so
       // it opts out of the background connecting/failure toasts.
       await ensureNymProxy({ silent: true });
@@ -145,7 +156,7 @@ export const MixnetSettings = () => {
         <SuccessPopup
           title={i18n("wallet.settings.node.nym.applied.title")}
           content={i18n(
-            localEnabled
+            config.enabled
               ? "wallet.settings.node.nym.applied.countries"
               : "wallet.settings.node.nym.applied.disabled",
           )}
@@ -175,6 +186,36 @@ export const MixnetSettings = () => {
         />,
       );
     }
+  };
+
+  const applyNymConfig = () => {
+    // Always store the selection explicitly, including when it is every country.
+    //
+    // This used to store [] for "all selected", meaning "all allowed" so that
+    // newly added Nym countries were picked up automatically. But [] is also the
+    // never-configured state, and ensureNymProxy resolves that to the bundled
+    // DEFAULT_EXIT_COUNTRIES — ten countries, not the ~65 the user just saw
+    // ticked. So "all countries" silently narrowed routing to that ten, whose
+    // first entry is PT: a user in Portugal selecting everything would keep
+    // exiting through their OWN country and reasonably conclude the mixnet was
+    // not working at all. Storing the real list keeps the UI honest; the cost is
+    // that countries Nym adds later need re-selecting.
+    const countries = selected;
+    setBaseline(countries);
+    applyConfig({ enabled: localEnabled, countries, serviceProvider: "" });
+  };
+
+  const onToggleMixnet = () => {
+    const next = !localEnabled;
+    setLocalEnabled(next);
+    // Switching the mixnet OFF takes effect immediately, without waiting for
+    // Apply. There is nothing left to configure on the way down, and once the
+    // user has flipped the switch, staying on the mixnet — or, if the last
+    // connect failed, staying fail-closed behind an armed kill switch with no
+    // traffic flowing at all — is never what they meant. Switching it ON still
+    // goes through Apply, because that depends on the country selection below.
+    if (next || !nymEnabled) return;
+    applyConfig({ enabled: false });
   };
 
   const testCurrentCountry = async () => {
@@ -249,8 +290,16 @@ export const MixnetSettings = () => {
     }
   };
 
+  // Apply only lights up when it has something to do:
+  //   - switch off        -> nothing to apply; turning it OFF is immediate now.
+  //   - already on, clean -> nothing to apply; the running config is what's shown.
+  //   - empty selection   -> nothing valid to apply (once the list has loaded).
+  // Everything else means the user turned the switch ON, or edited the country
+  // list on this visit.
   const applyDisabled =
-    localEnabled && !loading && !countriesError && selected.length === 0;
+    !localEnabled ||
+    (nymEnabled && sameSelection(selected, baseline)) ||
+    (!loading && !countriesError && selected.length === 0);
 
   return (
     <Screen header={<MixnetHeader />}>
@@ -260,7 +309,7 @@ export const MixnetSettings = () => {
             style={tw`justify-between px-2`}
             enabled={localEnabled && mixnetAllowed}
             disabled={!mixnetAllowed}
-            onPress={() => setLocalEnabled((prev) => !prev)}
+            onPress={onToggleMixnet}
           >
             {i18n("wallet.settings.node.nym.title")}
           </Toggle>
@@ -306,6 +355,21 @@ export const MixnetSettings = () => {
               )}
             </>
           )}
+        </View>
+
+        {/* Fills the dead space between the settings and the buttons. The
+            wordmark ships without baked-in fills so it can follow the theme. */}
+        <View style={tw`items-center justify-center flex-1 gap-3`}>
+          <Icon
+            id="nymLogo"
+            style={tw`w-40 h-10`}
+            color={tw.color(isDarkMode ? "black-25" : "black-100")}
+          />
+          <TouchableOpacity onPress={() => openURL(NYM_URL)}>
+            <PeachText style={tw`text-center underline text-black-65 body-s`}>
+              {i18n("wallet.settings.node.nym.moreInfo")}
+            </PeachText>
+          </TouchableOpacity>
         </View>
 
         <View style={tw`self-stretch gap-3 mt-auto`}>

@@ -188,5 +188,7 @@
   "country.MK": "Noord-Macedonië",
   "country.BA": "Bosnië en Herzegovina",
   "messageCopied": "Bericht gekopieerd",
-  "showContract": "Contract tonen"
+  "showContract": "Contract tonen",
+  "currency.DOC": "Dollar on Chain",
+  "footer.home": "home"
 }

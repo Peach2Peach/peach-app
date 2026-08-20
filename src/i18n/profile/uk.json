@@ -25,6 +25,6 @@
   "profile.offersofuser.title": "поточні пропозиції",
   "profile.offersofuser.empty": "поки немає!",
   "profile.user.blockedUsers": "Заблоковані користувачі",
-  "profile.blockedUsers.empty": "Наразі ви не блокуєте жодного користувача"
-  
+  "profile.blockedUsers.empty": "Наразі ви не блокуєте жодного користувача",
+  "profile.numberOfFreeTrades": "кількість доступних безкоштовних угод"
 }

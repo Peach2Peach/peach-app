@@ -124,7 +124,6 @@
   "offer.summary.availableTo.newUsersOnly": "только для новых пользователей",
   "offer.summary.availableTo.experiencedUsersOnly": "только для опытных пользователей",
   "offer.summary.availableTo.newUsersLikeYou": "для новых пользователей, как вы",
-  "offer.summary.availableTo.experiencedUsersLikeYou": "для опытных пользователей, как вы"
-
-
+  "offer.summary.availableTo.experiencedUsersLikeYou": "для опытных пользователей, как вы",
+  "offer.requiredAction.paymentTooLate": "не оплачено вовремя!"
 }

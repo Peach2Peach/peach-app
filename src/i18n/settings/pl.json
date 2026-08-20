@@ -160,5 +160,13 @@
   "settings.walletGapLimit.title": "limit luki portfela",
   "settings.walletGapLimit.description": "Wyższe wartości pozwalają synchronizacji portfela sprawdzać więcej adresów poza ostatnio używanym.\n\nZwiększ tę wartość, jeśli podejrzewasz brakujące saldo.",
   "settings.walletGapLimit.recommended": "Zalecane: $0",
-  "settings.mixnet": "VPN: Nym Mixnet"
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "wklej połączenie z komputerem",
+  "settings.dark mode": "tryb ciemny",
+  "settings.theme": "motyw kolorystyczny",
+  "settings.theme.light": "jasny",
+  "settings.theme.dark": "ciemny",
+  "settings.theme.system": "systemowy",
+  "settings.deleteAccount.instructions.title": "Czy chcesz usunąć swoje konto?",
+  "settings.deleteAccount.instructions.text": "W Peach nie możesz usunąć swojego konta, ale bez obaw: nie przechowujemy żadnych danych osobowych, bo nigdy ich nie mieliśmy.\n\nJeśli chcesz używać Peach z innym kontem, odinstaluj aplikację i zainstaluj ją ponownie. Zostanie utworzone nowe konto."
 }

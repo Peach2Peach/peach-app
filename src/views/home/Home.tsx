@@ -121,11 +121,14 @@ function NymVpnIndicator() {
       style={tw`items-center justify-center py-px px-10px md:py-2`}
     >
       <View style={tw`relative`}>
-        <Icon id="shield" size={20} color={tw.color("primary-main")} />
-        {/* Green check badge = the VPN is currently active. Transparent middle
-            (no backdrop) so the shield shows through the ring. */}
+        {/* Nym's own mark, so the badge reads as "routed through Nym" rather
+            than a generic security indicator. Ships as a bare glyph on a
+            transparent ground, so it takes the header's tint like every other
+            icon here. */}
+        <Icon id="nymIcon" size={20} color={tw.color("primary-main")} />
+        {/* Green shield badge = the VPN is currently active. */}
         <View style={tw`absolute -bottom-1 -right-1`}>
-          <Icon id="checkCircle" size={13} color={tw.color("success-main")} />
+          <Icon id="shield" size={13} color={tw.color("success-main")} />
         </View>
       </View>
     </TouchableOpacity>

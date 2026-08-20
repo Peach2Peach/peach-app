@@ -160,5 +160,13 @@
   "settings.walletGapLimit.title": "gap limit da carteira",
   "settings.walletGapLimit.description": "Valores mais altos permitem que a sincronização da carteira verifique mais endereços além do último usado.\n\nAumente este valor se suspeitar de saldo faltante.",
   "settings.walletGapLimit.recommended": "Recomendado: $0",
-  "settings.mixnet": "VPN: Nym Mixnet"
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "colar conexão do desktop",
+  "settings.dark mode": "modo escuro",
+  "settings.theme": "tema de cores",
+  "settings.theme.light": "claro",
+  "settings.theme.dark": "escuro",
+  "settings.theme.system": "sistema",
+  "settings.deleteAccount.instructions.title": "Você quer excluir sua conta?",
+  "settings.deleteAccount.instructions.text": "No Peach, você não pode excluir sua conta, mas fique tranquilo: não guardamos nenhuma informação pessoal, porque nunca a tivemos.\n\nSe quiser usar o Peach com outra conta, desinstale o app e instale novamente. Uma nova conta será criada para você."
 }

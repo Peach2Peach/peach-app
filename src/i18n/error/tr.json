@@ -98,8 +98,9 @@
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Tüm para birimleri dahil edilmedi",
   "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Ödeme yöntemlerinizden en az biri güncel değil ve artık mevcut olmayan en az bir para birimi içeriyor. Bu para birimi filtrelendi. Lütfen Ödeme Yöntemlerinizi yakında güncelleyin.",
   "SEED_NOT_USED_IN_PEACH.text": "Geçerli bir Seed girdiniz, ancak buna bağlı bir Peach hesabı bulunmuyor. Geri dönün ve yeni bir hesap oluşturun.",
-  "SEED_NOT_USED_IN_PEACH.title": "Bu Seed Peach'te hiç kullanılmadı"
-
-
-
+  "SEED_NOT_USED_IN_PEACH.title": "Bu Seed Peach'te hiç kullanılmadı",
+  "PEACH_PGP_KEY_MISSING.title": "şifreleme anahtarı eksik",
+  "PEACH_PGP_KEY_MISSING.text": "Peach'in şifreleme anahtarı yüklenemedi, bu yüzden verileriniz şifrelenemiyor. Bağlantınızı kontrol edin, uygulamayı yeniden başlatın ve tekrar deneyin.",
+  "PLEASE_UPDATE_PAYMENT_METHOD.title": "Lütfen ödeme yönteminizi güncelleyin",
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Seçtiğiniz ödeme yöntemlerinden biri artık sunduğunuz para birimlerinin hiçbirini desteklemiyor. Yayınlamadan önce güncelleyin."
 }

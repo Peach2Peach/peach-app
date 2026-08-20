@@ -360,5 +360,10 @@
   "invalidServerSignature.title": "veri doğrulama başarısız",
   "invalidServerSignature.paymentData": "sunucudaki şifreli ödeme verisinin imzası geçersiz ve yüklenmedi. bu, kurcalama olabileceğini gösterir. lütfen destek ile iletişime geç.",
   "invalidServerSignature.refundAddress": "sunucudaki şifreli iade adresinin imzası geçersiz ve yüklenmedi. bu, kurcalama olabileceğini gösterir. lütfen destek ile iletişime geç.",
-  "invalidServerSignature.payoutAddress": "sunucudaki şifreli ödeme adresinin imzası geçersiz ve yüklenmedi. bu, kurcalama olabileceğini gösterir. lütfen destek ile iletişime geç."
+  "invalidServerSignature.payoutAddress": "sunucudaki şifreli ödeme adresinin imzası geçersiz ve yüklenmedi. bu, kurcalama olabileceğini gösterir. lütfen destek ile iletişime geç.",
+  "connectToDesktop.success.description": "Kimliğiniz doğrulandı. Peach'i dizüstü bilgisayarınızda kullanabilirsiniz.",
+  "friend": "arkadaş",
+  "google": "google",
+  "userSource.title": "son bir şey",
+  "userSource.subtitle": "bizi nereden duydun?"
 }

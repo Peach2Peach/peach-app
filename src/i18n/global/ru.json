@@ -188,5 +188,7 @@
   "country.MK": "Северная Македония",
   "country.BA": "Босния и Герцеговина",
   "messageCopied": "Сообщение скопировано",
-  "showContract": "Показать контракт"
+  "showContract": "Показать контракт",
+  "currency.DOC": "Dollar on Chain",
+  "footer.home": "главная"
 }

@@ -360,5 +360,10 @@
   "invalidServerSignature.title": "gegevensverificatie mislukt",
   "invalidServerSignature.paymentData": "de versleutelde betaalgegevens op de server hebben een ongeldige handtekening en zijn niet geladen. dit kan duiden op manipulatie. neem contact op met de ondersteuning.",
   "invalidServerSignature.refundAddress": "het versleutelde terugbetalingsadres op de server heeft een ongeldige handtekening en is niet geladen. dit kan duiden op manipulatie. neem contact op met de ondersteuning.",
-  "invalidServerSignature.payoutAddress": "het versleutelde uitbetalingsadres op de server heeft een ongeldige handtekening en is niet geladen. dit kan duiden op manipulatie. neem contact op met de ondersteuning."
+  "invalidServerSignature.payoutAddress": "het versleutelde uitbetalingsadres op de server heeft een ongeldige handtekening en is niet geladen. dit kan duiden op manipulatie. neem contact op met de ondersteuning.",
+  "connectToDesktop.success.description": "Je bent nu geauthenticeerd. Je kunt Peach op je laptop gebruiken.",
+  "friend": "vriend",
+  "google": "google",
+  "userSource.title": "nog één ding",
+  "userSource.subtitle": "hoe heb je ons gevonden?"
 }

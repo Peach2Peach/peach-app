@@ -252,5 +252,10 @@
   "contract.summary.mpesa_name": "Όνομα",
   "contract.summary.mpesa_finalCurrency": "νόμισμα m-pesa",
   "contract.summary.mpesa_phone": "Τηλέφωνο #",
-  "contract.chatAvailableOnceEscrowFunded": "η Συνομιλία θα είναι διαθέσιμη μόλις η εγγύηση χρηματοδοτηθεί"
+  "contract.chatAvailableOnceEscrowFunded": "η Συνομιλία θα είναι διαθέσιμη μόλις η εγγύηση χρηματοδοτηθεί",
+  "contract.buyer.paymentWasTooLate.waitingForSeller": "Δεν πλήρωσες εγκαίρως· ο πωλητής μπορεί τώρα να σου δώσει περισσότερο χρόνο ή να ακυρώσει τη συναλλαγή.\nΚαι στις δύο περιπτώσεις, η φήμη σου έχει επηρεαστεί.",
+  "contract.cancelationRequested.agree": "συμφωνία ακύρωσης",
+  "contract.seller.buyerAgreedToCancel": "Ο αγοραστής συμφώνησε να ακυρωθεί η συναλλαγή.\n\nΜπορείς να επιλέξεις να σου επιστραφούν τα sats σου ή να δημοσιεύσεις ξανά αυτή την προσφορά.",
+  "contract.seller.buyerCanceledWithoutRequest": "Ο αγοραστής ακύρωσε τη συναλλαγή.\nΠρέπει να αποφασίσεις αν θέλεις να δημοσιεύσεις ξανά αυτή την προσφορά ή να επιστραφεί το escrow στο $0 σου.",
+  "contract.seller.giveMoreTime": "δώσε περισσότερο χρόνο"
 }

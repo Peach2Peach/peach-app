@@ -120,7 +120,6 @@
   "offer.summary.availableTo.newUsersOnly": "nur neue Nutzer",
   "offer.summary.availableTo.experiencedUsersOnly": "nur erfahrene Nutzer",
   "offer.summary.availableTo.newUsersLikeYou": "für neue Nutzer wie dich",
-  "offer.summary.availableTo.experiencedUsersLikeYou": "für erfahrene Nutzer wie dich"
-
-
+  "offer.summary.availableTo.experiencedUsersLikeYou": "für erfahrene Nutzer wie dich",
+  "offer.requiredAction.confirmCancelation.seller": "Abbruchanfrage gesendet"
 }

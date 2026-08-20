@@ -159,5 +159,14 @@
   "settings.walletGapLimit.title": "kikomo cha mwanya cha mkoba",
   "settings.walletGapLimit.description": "Thamani za juu zaidi huruhusu usawazishaji wa mkoba kuangalia anwani zaidi zaidi ya ile uliyotumia mwisho.\n\nOngeza thamani hii ikiwa unashuku salio linalokosekana.",
   "settings.walletGapLimit.recommended": "Imependekezwa: $0",
-  "settings.mixnet": "VPN: Nym Mixnet"
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "bandika muunganisho wa kompyuta",
+  "settings.dark mode": "hali ya giza",
+  "settings.theme": "mandhari ya rangi",
+  "settings.theme.light": "angavu",
+  "settings.theme.dark": "giza",
+  "settings.theme.system": "mfumo",
+  "settings.deleteAccount.instructions.title": "Je, unataka kufuta akaunti yako?",
+  "settings.deleteAccount.instructions.text": "Katika Peach, huwezi kufuta akaunti yako, lakini usijali: hatuhifadhi taarifa zozote binafsi kwa sababu hatujawahi kuwa nazo.\n\nUkitaka kutumia Peach na akaunti nyingine, ondoa programu kisha uisakinishe tena. Akaunti mpya itaundwa kwa ajili yako.",
+  "settings.networkFees.payoutInfo": "Hii haihusu malipo. Angalia ujumuishaji wa miamala kwa maelezo zaidi."
 }

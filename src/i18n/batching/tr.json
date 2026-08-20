@@ -24,5 +24,7 @@
   "settings.batching.youSave.highlight": "%23'e kadar",
   "offer.requiredAction.wrongAmountFundedOnContract": "yanlış tutar yatırıldı",
   "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "yanlış tutar yatırıldı",
-  "transactionBatching": "işlem kümeleme"
+  "transactionBatching": "işlem kümeleme",
+  "batching.slots": "yuvalar",
+  "grouphug.announcement.text": "GroupHug ile escrow ödemelerini daha düşük ücretler için bir araya topluyoruz.\n\nKatıl, biraz bekle, daha çok tasarruf et.\n\nKontrol sende; istediğin zaman değiştirebilirsin."
 }

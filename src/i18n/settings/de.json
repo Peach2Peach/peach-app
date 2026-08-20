@@ -160,5 +160,13 @@
   "settings.walletGapLimit.title": "Wallet Gap-Limit",
   "settings.walletGapLimit.description": "Höhere Werte lassen den Wallet-Sync mehr Adressen über deine zuletzt verwendete hinaus prüfen.\n\nErhöhe diesen Wert, wenn du vermutest, dass Guthaben fehlt.",
   "settings.walletGapLimit.recommended": "Empfohlen: $0",
-  "settings.mixnet": "VPN: Nym Mixnet"
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "Desktop-Verbindung einfügen",
+  "settings.dark mode": "Dunkelmodus",
+  "settings.theme": "Farbschema",
+  "settings.theme.light": "hell",
+  "settings.theme.dark": "dunkel",
+  "settings.theme.system": "System",
+  "settings.deleteAccount.instructions.title": "Möchtest du dein Konto löschen?",
+  "settings.deleteAccount.instructions.text": "Bei Peach kannst du dein Konto nicht löschen, aber keine Sorge: Wir speichern keine persönlichen Daten, weil wir sie nie hatten.\n\nWenn du Peach mit einem anderen Konto nutzen möchtest, deinstalliere die App und installiere sie erneut. Es wird ein neues Konto für dich erstellt."
 }

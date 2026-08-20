@@ -1,5 +1,6 @@
 {
   "match.tradeRequested": "ombi la biashara limetumwa",
   "match.waitingForSeller": "inasubiri muuzaji",
-  "match.waitingForTrader": "inasubiri mfanyabiashara"
+  "match.waitingForTrader": "inasubiri mfanyabiashara",
+  "match.feeWarning": "Ada za uchimbaji hadi $0%"
 }

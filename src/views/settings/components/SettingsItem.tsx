@@ -52,6 +52,8 @@ export type SettingsItemProps = (
   warning?: boolean;
   enabled?: boolean;
   badge?: number;
+  /** Current selection, rendered on the right in place of the icon. */
+  value?: string;
 };
 
 export const SettingsItem = ({
@@ -62,6 +64,7 @@ export const SettingsItem = ({
   enabled,
   iconSize,
   badge,
+  value,
 }: SettingsItemProps) => {
   const navigation = useStackNavigation();
   // Dynamic screen name from a union — RN's navigate overloads don't resolve a
@@ -102,11 +105,15 @@ export const SettingsItem = ({
         )}
         {!!badge && badge > 0 && <BouncingBadge count={badge} />}
       </View>
-      <Icon
-        id={iconId || "chevronRight"}
-        style={iconSize || tw`w-8 h-8`}
-        color={iconColor}
-      />
+      {value !== undefined ? (
+        <PeachText style={tw`settings text-primary-main`}>{value}</PeachText>
+      ) : (
+        <Icon
+          id={iconId || "chevronRight"}
+          style={iconSize || tw`w-8 h-8`}
+          color={iconColor}
+        />
+      )}
     </TouchableOpacity>
   );
 };

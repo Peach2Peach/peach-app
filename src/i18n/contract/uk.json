@@ -256,6 +256,6 @@
   "contract.summary.mpesa_name": "Імʼя",
   "contract.summary.mpesa_finalCurrency": "валюта m-pesa",
   "contract.summary.mpesa_phone": "Телефон",
-  "contract.chatAvailableOnceEscrowFunded": "Чат буде доступний після фінансування ескроу"
-
+  "contract.chatAvailableOnceEscrowFunded": "Чат буде доступний після фінансування ескроу",
+  "contract.summary.openApp": "відкрити застосунок"
 }

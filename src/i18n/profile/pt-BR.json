@@ -25,6 +25,6 @@
   "profile.offersofuser.title": "ofertas atuais",
   "profile.offersofuser.empty": "ainda nenhuma!",
   "profile.user.blockedUsers": "Usuários bloqueados",
-  "profile.blockedUsers.empty": "Você não está bloqueando nenhum usuário no momento"
-  
+  "profile.blockedUsers.empty": "Você não está bloqueando nenhum usuário no momento",
+  "profile.numberOfFreeTrades": "número de trades gratuitos disponíveis"
 }

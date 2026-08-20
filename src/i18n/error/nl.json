@@ -98,7 +98,9 @@
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Niet alle valuta's zijn opgenomen",
   "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Minstens één van je betaalmethoden is verouderd en bevat ten minste één valuta die niet meer beschikbaar is. Die valuta is gefilterd. Werk je betaalmethoden binnenkort bij.",
   "SEED_NOT_USED_IN_PEACH.text": "Je hebt een geldige Seed ingevoerd, maar er is geen Peach-account aan gekoppeld. Ga terug en maak een nieuw account aan.",
-  "SEED_NOT_USED_IN_PEACH.title": "Deze Seed is nooit gebruikt in Peach"
-
-
+  "SEED_NOT_USED_IN_PEACH.title": "Deze Seed is nooit gebruikt in Peach",
+  "PEACH_PGP_KEY_MISSING.title": "versleutelingssleutel ontbreekt",
+  "PEACH_PGP_KEY_MISSING.text": "De versleutelingssleutel van Peach kon niet worden geladen, dus je gegevens kunnen niet worden versleuteld. Controleer je verbinding, herstart de app en probeer het opnieuw.",
+  "PLEASE_UPDATE_PAYMENT_METHOD.title": "Werk je betaalmethode bij",
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Een van je geselecteerde betaalmethoden ondersteunt geen van je aangeboden valuta's meer. Werk deze bij voordat je publiceert."
 }

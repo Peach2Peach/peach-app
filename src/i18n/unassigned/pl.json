@@ -364,5 +364,6 @@
   "invalidServerSignature.title": "weryfikacja danych nie powiodła się",
   "invalidServerSignature.paymentData": "zaszyfrowane dane płatności na serwerze mają nieprawidłowy podpis i nie zostały załadowane. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną.",
   "invalidServerSignature.refundAddress": "zaszyfrowany adres zwrotu na serwerze ma nieprawidłowy podpis i nie został załadowany. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną.",
-  "invalidServerSignature.payoutAddress": "zaszyfrowany adres wypłaty na serwerze ma nieprawidłowy podpis i nie został załadowany. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną."
+  "invalidServerSignature.payoutAddress": "zaszyfrowany adres wypłaty na serwerze ma nieprawidłowy podpis i nie został załadowany. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną.",
+  "connectToDesktop.success.description": "Jesteś już uwierzytelniony. Możesz korzystać z Peach na swoim laptopie."
 }

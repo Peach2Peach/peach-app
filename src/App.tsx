@@ -5,7 +5,6 @@ import "react-native-get-random-values";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
-import { useDeviceContext } from "twrnc";
 import { GlobalOverlay } from "./Overlay";
 import { PinProtectionOverlayComponent } from "./PinProtectionOverlayComponent";
 import { useAppPinProtection } from "./appPinProtectionListener";
@@ -13,11 +12,10 @@ import { Drawer } from "./components/drawer/Drawer";
 import { GlobalPopup } from "./components/popup/GlobalPopup";
 import { Toast } from "./components/toast/Toast";
 import { useNymKillSwitch } from "./hooks/useNymKillSwitch";
+import { useThemeSync } from "./hooks/useThemeSync";
 import { useWebSocket } from "./init/websocket";
 import { queryClient } from "./queryClient";
-import { useThemeStore } from "./store/theme";
 import { DarkTheme, LightTheme } from "./styles/navigationThemes";
-import tw from "./styles/tailwind";
 import {
   PeachWSContext,
   getWebSocket,
@@ -35,11 +33,7 @@ export const App = () => {
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket());
   useWebSocket(updatePeachWS);
 
-  const { isDarkMode } = useThemeStore();
-  useDeviceContext(tw, {
-    observeDeviceColorSchemeChanges: false,
-    initialColorScheme: isDarkMode ? "dark" : "light",
-  });
+  const isDarkMode = useThemeSync();
 
   return (
     <QueryClientProvider client={queryClient}>

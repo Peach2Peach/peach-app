@@ -25,5 +25,6 @@
   "profile.offersofuser.title": "aktuális ajánlatok",
   "profile.offersofuser.empty": "még nincs!",
   "profile.user.blockedUsers": "Letiltott felhasználók",
-  "profile.blockedUsers.empty": "Jelenleg nem tiltottál le senkit"
+  "profile.blockedUsers.empty": "Jelenleg nem tiltottál le senkit",
+  "profile.numberOfFreeTrades": "elérhető ingyenes kereskedések száma"
 }

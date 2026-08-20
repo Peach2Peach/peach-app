@@ -243,6 +243,19 @@
   "contract.summary.mpesa_name": "Name",
   "contract.summary.mpesa_finalCurrency": "m-pesa Währung",
   "contract.summary.mpesa_phone": "Telefonnr.",
-  "contract.chatAvailableOnceEscrowFunded": "der Chat wird verfügbar sein, sobald das Escrow finanziert ist"
-
+  "contract.chatAvailableOnceEscrowFunded": "der Chat wird verfügbar sein, sobald das Escrow finanziert ist",
+  "contract.buyer.paymentWasTooLate.waitingForSeller": "Du hast nicht rechtzeitig bezahlt; der Verkäufer kann dir jetzt mehr Zeit geben oder den Trade abbrechen.\nIn beiden Fällen wurde deine Reputation beeinträchtigt.",
+  "contract.cancelationRequested.agree": "Abbruch zustimmen",
+  "contract.seller.buyerAgreedToCancel": "Der Käufer hat dem Abbruch des Trades zugestimmt.\n\nDu kannst dir deine Sats zurückerstatten lassen oder dieses Angebot erneut veröffentlichen.",
+  "contract.seller.buyerCanceledWithoutRequest": "Der Käufer hat den Trade abgebrochen.\nDu musst entscheiden, ob du dieses Angebot erneut veröffentlichen oder das Escrow auf dein $0 zurückerstatten lassen möchtest.",
+  "contract.seller.giveMoreTime": "mehr Zeit geben",
+  "contract.sold": "verkauft",
+  "contract.summary.postePayNumber": "PostePay-Nummer",
+  "contract.summary.ratingBuyer": "hat dich bewertet",
+  "contract.summary.ratingSeller": "hat dich bewertet",
+  "contract.summary.tradeBreakdown.show": "anzeigen",
+  "contract.summary.youShouldPay": "du solltest zahlen",
+  "contract.summary.youWillGet": "du erhältst",
+  "contract.escrowFunded.description": "Der Käufer hat 12 Stunden Zeit, die Zahlung als erfolgt zu melden",
+  "contract.escrowFunded.title": "Das Escrow wurde finanziert!"
 }

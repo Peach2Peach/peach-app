@@ -364,5 +364,6 @@
   "invalidServerSignature.title": "verificação de dados falhou",
   "invalidServerSignature.paymentData": "os dados de pagamento criptografados no servidor têm uma assinatura inválida e não foram carregados. isso pode indicar adulteração. por favor entre em contato com o suporte.",
   "invalidServerSignature.refundAddress": "o endereço de reembolso criptografado no servidor tem uma assinatura inválida e não foi carregado. isso pode indicar adulteração. por favor entre em contato com o suporte.",
-  "invalidServerSignature.payoutAddress": "o endereço de pagamento criptografado no servidor tem uma assinatura inválida e não foi carregado. isso pode indicar adulteração. por favor entre em contato com o suporte."
+  "invalidServerSignature.payoutAddress": "o endereço de pagamento criptografado no servidor tem uma assinatura inválida e não foi carregado. isso pode indicar adulteração. por favor entre em contato com o suporte.",
+  "connectToDesktop.success.description": "Você está autenticado. Já pode usar a Peach no seu laptop."
 }

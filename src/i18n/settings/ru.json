@@ -160,5 +160,13 @@
   "settings.walletGapLimit.title": "лимит разрыва кошелька",
   "settings.walletGapLimit.description": "Большие значения позволяют синхронизации кошелька проверять больше адресов после последнего использованного.\n\nУвеличьте это значение, если подозреваете отсутствующий баланс.",
   "settings.walletGapLimit.recommended": "Рекомендуется: $0",
-  "settings.mixnet": "VPN: Nym Mixnet"
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "вставить подключение к десктопу",
+  "settings.dark mode": "тёмная тема",
+  "settings.theme": "цветовая тема",
+  "settings.theme.light": "светлая",
+  "settings.theme.dark": "тёмная",
+  "settings.theme.system": "системная",
+  "settings.deleteAccount.instructions.title": "Хотите удалить свой аккаунт?",
+  "settings.deleteAccount.instructions.text": "В Peach нельзя удалить аккаунт, но не волнуйтесь: мы не храним персональные данные, потому что никогда их не получали.\n\nЕсли вы хотите использовать Peach с другим аккаунтом, удалите приложение и установите его заново. Для вас будет создан новый аккаунт."
 }

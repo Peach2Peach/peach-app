@@ -98,8 +98,9 @@
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Si sarafu zote zilijumuishwa",
   "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Angalau mojawapo ya Mbinu zako za Malipo imepitwa na wakati na ina angalau sarafu moja ambayo haipatikani tena. Sarafu hiyo ilichujwa. Tafadhali sasisha Mbinu zako za Malipo hivi karibuni.",
   "SEED_NOT_USED_IN_PEACH.text": "Umeweka Seed halali, lakini hakuna akaunti ya Peach inayohusiana nayo. Rudi nyuma na ufungue akaunti mpya.",
-  "SEED_NOT_USED_IN_PEACH.title": "Seed hii haijawahi kutumika katika Peach"
-
-
-
+  "SEED_NOT_USED_IN_PEACH.title": "Seed hii haijawahi kutumika katika Peach",
+  "PEACH_PGP_KEY_MISSING.title": "ufunguo wa usimbaji haupo",
+  "PEACH_PGP_KEY_MISSING.text": "Ufunguo wa usimbaji wa Peach haukuweza kupakiwa, hivyo data yako haiwezi kusimbwa. Angalia muunganisho wako, anzisha upya programu, kisha ujaribu tena.",
+  "PLEASE_UPDATE_PAYMENT_METHOD.title": "Tafadhali sasisha njia yako ya malipo",
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Mojawapo ya njia zako za malipo ulizochagua haitumii tena sarafu zozote unazotoa. Tafadhali isasishe kabla ya kuchapisha."
 }

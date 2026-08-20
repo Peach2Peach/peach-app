@@ -168,5 +168,6 @@
   "paymentMethod.halcash": "HalCash",
   "paymentMethod.hype": "Hype",
   "paymentMethod.global66": "Global66",
-  "paymentMethod.krak": "Krak"
+  "paymentMethod.krak": "Krak",
+  "paymentCategory.nationalOption.byCountry": "bladeren op land"
 }

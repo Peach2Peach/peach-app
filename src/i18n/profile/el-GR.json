@@ -25,6 +25,6 @@
   "profile.offersofuser.title": "τρέχουσες προσφορές",
   "profile.offersofuser.empty": "καμία ακόμα!",
   "profile.user.blockedUsers": "Αποκλεισμένοι χρήστες",
-    "profile.blockedUsers.empty": "Δεν έχετε αποκλείσει κανέναν χρήστη αυτήν τη στιγμή"
-  
+    "profile.blockedUsers.empty": "Δεν έχετε αποκλείσει κανέναν χρήστη αυτήν τη στιγμή",
+  "profile.numberOfFreeTrades": "αριθμός διαθέσιμων δωρεάν συναλλαγών"
 }

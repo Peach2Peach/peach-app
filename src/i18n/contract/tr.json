@@ -245,7 +245,18 @@
   "contract.summary.mpesa_name": "Ad",
   "contract.summary.mpesa_finalCurrency": "m-pesa para birimi",
   "contract.summary.mpesa_phone": "Telefon #",
-  "contract.chatAvailableOnceEscrowFunded": "Escrow finanse edildikten sonra Sohbet kullanılabilir olacak"
-
-
+  "contract.chatAvailableOnceEscrowFunded": "Escrow finanse edildikten sonra Sohbet kullanılabilir olacak",
+  "contract.buyer.paymentWasTooLate.waitingForSeller": "Zamanında ödeme yapmadın; satıcı şimdi sana daha fazla süre verebilir veya takası iptal edebilir.\nHer iki durumda da itibarın etkilendi.",
+  "contract.cancelationRequested.agree": "iptali kabul et",
+  "contract.seller.buyerAgreedToCancel": "Alıcı takası iptal etmeyi kabul etti.\n\nSat'larının iade edilmesini ya da bu teklifi yeniden yayınlamayı seçebilirsin.",
+  "contract.seller.buyerCanceledWithoutRequest": "Alıcı takası iptal etti.\nBu teklifi yeniden yayınlamak mı yoksa escrow'u $0 adresine iade etmek mi istediğine karar vermelisin.",
+  "contract.seller.giveMoreTime": "daha fazla süre ver",
+  "contract.sold": "satıldı",
+  "contract.summary.postePayNumber": "PostePay numarası",
+  "contract.summary.ratingBuyer": "seni değerlendirdi",
+  "contract.summary.ratingSeller": "seni değerlendirdi",
+  "contract.summary.tradeBreakdown.show": "göster",
+  "contract.summary.youShouldPay": "ödemen gereken",
+  "contract.summary.youWillGet": "alacaksın",
+  "contract.summary.tradeId": "takas kimliği"
 }

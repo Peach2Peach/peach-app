@@ -22,6 +22,7 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { parseError } from "../../utils/parseError";
 import { useNodeConfigState } from "../../utils/wallet/nodeConfigStore";
 import { isMixnetAllowedNode } from "../../utils/wallet/nym/isMixnetAllowedNode";
 import { useNymProxyState } from "../../utils/wallet/nymProxyStore";
@@ -33,17 +34,22 @@ export const NodeSetup = () => {
   const setPopup = useSetPopup();
   const { isDarkMode } = useThemeStore();
 
-  const [node, setCustomNode, enabled, toggleEnabled] = useNodeConfigState(
-    (state) => [state, state.setCustomNode, state.enabled, state.toggleEnabled],
+  const [node, setCustomNode] = useNodeConfigState(
+    (state) => [state, state.setCustomNode],
     shallow,
   );
+  // Local until confirmed, exactly like `ssl` and `url` below: turning the
+  // toggle ON only opens the form — a saved node is not put back into use until
+  // the user connects to it again and saves the result.
+  const [enabled, setEnabled] = useState(node.enabled);
   const [ssl, toggleSSL] = useToggleBoolean(node.ssl);
   const [url, setURL, isURLValid, urlErrors] = useValidatedState<string>(
     node.url || "",
     urlRules,
   );
   const canCheckConnection = enabled && isURLValid;
-  const [isConnected, setIsConnected] = useState(!!node.url);
+  // A saved url alone is not "connected": the node also has to be switched on.
+  const [isConnected, setIsConnected] = useState(node.enabled && !!node.url);
 
   // The mixnet needs Esplora, and a CUSTOM node is taken as configured — so
   // while the mixnet is on, saving a node that turns out to be Electrum is
@@ -55,15 +61,57 @@ export const NodeSetup = () => {
   const nymEnabled = useNymProxyState((state) => state.enabled);
 
   const editConfig = () => setIsConnected(false);
+
+  // Dropping the custom node needs a full initWallet, not just setBlockchain:
+  // getDbPaths keys the wallet database on the node TYPE, so swapping only the
+  // client would leave the wallet bound to the previous node's db.
+  const revertToDefaultNode = async () => {
+    if (!peachWallet) throw Error("Peach wallet not defined");
+    setPopup(<LoadingPopup title={i18n("wallet.settings.node.title")} />);
+    // Same reason as in checkConnection: bdk blocks the JS thread while the
+    // client connects, so yield to let the loading popup render first.
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    try {
+      await peachWallet.initWallet();
+      setPopup(<DefaultNodeRestoredPopup />);
+    } catch (e) {
+      setPopup(<NodeConnectionErrorPopup error={parseError(e)} />);
+    }
+  };
+
+  const toggleUseOwnNode = () => {
+    // `enabled` still holds the pre-toggle value at this point.
+    const turningOn = !enabled;
+    setEnabled(turningOn);
+    setIsConnected(false);
+
+    // Turning ON only reopens the form with the saved address prefilled —
+    // nothing is put into use until the connection is checked and saved, so the
+    // stored config is left untouched here.
+    if (turningOn) return undefined;
+
+    // ...which also means turning it back off can be a no-op: the stored
+    // `enabled` only becomes true on save, so while it is false the built-in
+    // node is already in use and there is nothing to revert or report.
+    if (!node.enabled) return undefined;
+
+    // Turning OFF takes effect right away: there is nothing to verify about
+    // going back to the built-in node.
+    setCustomNode({ enabled: false });
+    return revertToDefaultNode();
+  };
+
   const save = (blockchainType: BlockChainNames) => {
     if (!peachWallet) throw Error("Peach wallet not defined");
-    setCustomNode({ enabled, ssl, url, type: blockchainType });
+    // Saving is the only path that puts a custom node into use, so `enabled` is
+    // written as true rather than read back from the local toggle.
+    const nodeConfig = { enabled: true, ssl, url, type: blockchainType };
+    setCustomNode(nodeConfig);
     setIsConnected(true);
     // setBlockchain is async (it may start the Nym proxy); initWallet re-runs it
     // anyway, so just guard against an unhandled rejection here.
-    peachWallet
-      .setBlockchain({ enabled, ssl, url, type: blockchainType })
-      .catch(() => {});
+    peachWallet.setBlockchain(nodeConfig).catch(() => {});
     peachWallet.initWallet();
   };
 
@@ -113,7 +161,7 @@ export const NodeSetup = () => {
               : "text-black-65",
           )}
           {...{ enabled }}
-          onPress={toggleEnabled}
+          onPress={toggleUseOwnNode}
         >
           {i18n("wallet.settings.node.title")}
         </Toggle>
@@ -219,6 +267,23 @@ function NodeBlockedByMixnetPopup() {
           {i18n("wallet.settings.node.blockedByNym.text")}
         </PeachText>
       }
+      actions={
+        <ClosePopupAction
+          style={tw`justify-center`}
+          textStyle={tw`text-black-100`}
+        />
+      }
+    />
+  );
+}
+
+/** Switching the toggle off is otherwise silent — the screen would keep looking
+ *  the same while the wallet quietly moved back to the built-in node. */
+function DefaultNodeRestoredPopup() {
+  return (
+    <SuccessPopup
+      title={i18n("wallet.settings.node.switched.default.title")}
+      content={i18n("wallet.settings.node.switched.default.text")}
       actions={
         <ClosePopupAction
           style={tw`justify-center`}

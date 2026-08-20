@@ -188,5 +188,7 @@
   "country.MK": "Macedonia Północna",
   "country.BA": "Bośnia i Hercegowina",
   "messageCopied": "Wiadomość skopiowana",
-  "showContract": "Pokaż umowę"
+  "showContract": "Pokaż umowę",
+  "currency.DOC": "Dollar on Chain",
+  "footer.home": "start"
 }

@@ -156,5 +156,17 @@
   "settings.walletGapLimit.title": "cüzdan gap limiti",
   "settings.walletGapLimit.description": "Daha yüksek değerler, cüzdan senkronizasyonunun son kullandığınız adresten sonra daha fazla adresi kontrol etmesini sağlar.\n\nBakiye eksikliğinden şüpheleniyorsanız bu değeri artırın.",
   "settings.walletGapLimit.recommended": "Önerilen: $0",
-  "settings.mixnet": "VPN: Nym Mixnet"
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "masaüstü bağlantısını yapıştır",
+  "settings.dark mode": "karanlık mod",
+  "settings.theme": "renk teması",
+  "settings.theme.light": "açık",
+  "settings.theme.dark": "koyu",
+  "settings.theme.system": "sistem",
+  "settings.deleteAccount.instructions.title": "Hesabınızı silmek istiyor musunuz?",
+  "settings.deleteAccount.instructions.text": "Peach'te hesabınızı silemezsiniz, ama endişelenmeyin: hiçbir kişisel bilgi saklamıyoruz, çünkü hiçbir zaman elimizde olmadı.\n\nPeach'i başka bir hesapla kullanmak isterseniz uygulamayı kaldırıp yeniden yükleyin. Sizin için yeni bir hesap oluşturulacaktır.",
+  "settings.payoutAddress.popup.content": "Bu özel cüzdanı kaldırmak istiyor musunuz?",
+  "settings.payoutAddress.popup.remove": "kaldır",
+  "settings.payoutAddress.popup.title": "cüzdan kaldırılsın mı?",
+  "settings.payoutAddress.removeWallet": "cüzdanı kaldır"
 }
