@@ -6,8 +6,8 @@ describe("hashPaymentData", () => {
     expect(hashPaymentData(validSEPAData)).toEqual([
       {
         field: "iban",
-        value: "IE29 AIBK 9311 5212 3456 78",
-        hash: "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3",
+        value: "IE29AIBK93115212345678",
+        hash: "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5",
       },
     ]);
     expect(hashPaymentData(twintData)).toEqual([
@@ -35,5 +35,14 @@ describe("hashPaymentData", () => {
         currencies: ["EUR"],
       }),
     ).toEqual([]);
+  });
+
+  it("hashes an IBAN saved by an older app version like a normalized one", () => {
+    expect(
+      hashPaymentData({
+        ...validSEPAData,
+        iban: "ie29 aibk 9311 5212 3456 78",
+      }),
+    ).toEqual(hashPaymentData(validSEPAData));
   });
 });

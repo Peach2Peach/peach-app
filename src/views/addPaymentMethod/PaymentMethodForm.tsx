@@ -20,6 +20,7 @@ import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
+import { normalizeIBAN } from "../../utils/format/normalizeIBAN";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { keys } from "../../utils/object/keys";
@@ -71,7 +72,7 @@ export const PaymentMethodForm = () => {
     const { paymentMethodName, ...rest } = data;
 
     if (rest.iban) {
-      rest.iban = rest.iban.replace(/\s+/g, "");
+      rest.iban = normalizeIBAN(rest.iban);
     }
     const finalData = {
       // fields of a tab that was never opened are not registered by the form,

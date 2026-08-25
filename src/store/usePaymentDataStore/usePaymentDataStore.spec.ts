@@ -25,8 +25,8 @@ describe("usePaymentDataStore", () => {
     });
     expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual({
       iban: {
-        "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3":
-          "IE29 AIBK 9311 5212 3456 78",
+        "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5":
+          "IE29AIBK93115212345678",
       },
     });
 
@@ -37,8 +37,8 @@ describe("usePaymentDataStore", () => {
     });
     expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual({
       iban: {
-        "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3":
-          "IE29 AIBK 9311 5212 3456 78",
+        "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5":
+          "IE29AIBK93115212345678",
       },
       phone: {
         c56ab971aeea3e5aa3d2e62e4ed7cb5488a63b0659e6db7b467e7f899cb7b418:
@@ -53,8 +53,8 @@ describe("usePaymentDataStore", () => {
     });
     expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual({
       iban: {
-        "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3":
-          "IE29 AIBK 9311 5212 3456 78",
+        "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5":
+          "IE29AIBK93115212345678",
       },
       phone: {
         c56ab971aeea3e5aa3d2e62e4ed7cb5488a63b0659e6db7b467e7f899cb7b418:
@@ -100,8 +100,8 @@ describe("usePaymentDataStore", () => {
     ]);
     expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual({
       iban: {
-        "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3":
-          "IE29 AIBK 9311 5212 3456 78",
+        "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5":
+          "IE29AIBK93115212345678",
       },
       phone: {},
     });

@@ -13,6 +13,7 @@ import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
 import { getOfferIdFromContract } from "../../../utils/contract/getOfferIdFromContract";
+import { groupIBAN } from "../../../utils/format/groupIBAN";
 import i18n from "../../../utils/i18n";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { cutOffAddress } from "../../../utils/string/cutOffAddress";
@@ -216,7 +217,13 @@ function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
       value={
         typeof information === "string" || typeof information === "number" ? (
           <SummaryItem.Text
-            value={String(information)}
+            // grouped for readability, but copied and stored without the spaces
+            value={
+              fieldName === "iban"
+                ? groupIBAN(String(information))
+                : String(information)
+            }
+            copyValue={String(information)}
             copyable={
               (view === "buyer" &&
                 !contract.releaseTxId &&
