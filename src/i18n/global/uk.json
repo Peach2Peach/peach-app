@@ -188,5 +188,7 @@
   "country.MK": "Північна Македонія",
   "country.BA": "Боснія і Герцеговина",
   "messageCopied": "Повідомлення скопійовано",
-  "showContract": "Показати контракт"
+  "showContract": "Показати контракт",
+  "currency.DOC": "Dollar on Chain",
+  "footer.home": "головна"
 }

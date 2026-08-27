@@ -25,7 +25,7 @@ import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
-import { useConfigStore } from "../../store/configStore/configStore";
+import { usePeachPGPPublicKey } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
@@ -34,9 +34,7 @@ import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { round } from "../../utils/math/round";
-import { keys } from "../../utils/object/keys";
-import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
-import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
+import { buildOfferPaymentData } from "../../utils/paymentMethod/buildOfferPaymentData";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeader";
 import { CreateMultipleBuyOffers } from "../offerPreferences/components/createMultipleBuyOffers";
@@ -721,72 +719,17 @@ function PublishOfferButton() {
     enabled: payoutToPeachWallet,
   });
 
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const peachPGPPublicKey = usePeachPGPPublicKey();
 
-  const getPaymentData = async () => {
-    let finalPaymentData = { ...paymentData };
-
-    // Only perform the "encrypted" transform if instantTradeCriteria is defined
-    if (instantTradeCriteria !== undefined) {
-      const selectedMethods = keys(paymentData);
-      const cleanedData = selectedMethods.map((method) => {
-        const originalData = originalPaymentData.find((e) => e.type === method);
-        return originalData ? cleanPaymentData(originalData) : null;
-      });
-
-      const encryptedData = await Promise.all(
-        cleanedData.map((data) =>
-          data ? signAndEncrypt(JSON.stringify(data), peachPGPPublicKey) : null,
-        ),
-      );
-
-      finalPaymentData = encryptedData.reduce((acc, encryptedDatum, index) => {
-        if (!encryptedDatum) return acc;
-        const { encrypted, signature } = encryptedDatum;
-        const method = selectedMethods[index];
-        return {
-          ...acc,
-          [method]: {
-            ...paymentData[method],
-            encrypted,
-            signature,
-          },
-        };
-      }, finalPaymentData);
-    }
-
-    // Always add selfEncrypted + selfEncryptedSignature
-    const selfEncryptedData = await Promise.all(
-      keys(paymentData).map(async (method) => {
-        const originalData = originalPaymentData.find((e) => e.type === method);
-        const cleaned = originalData
-          ? cleanPaymentData(originalData)
-          : paymentData[method];
-
-        const { encrypted, signature } = await signAndEncrypt(
-          JSON.stringify(cleaned),
-          myPgpPubKey,
-        );
-
-        return { encrypted, signature };
-      }),
-    );
-
-    finalPaymentData = keys(paymentData).reduce((acc, method, index) => {
-      const selfData = selfEncryptedData[index];
-
-      return {
-        ...acc,
-        [method]: {
-          ...acc[method],
-          selfEncrypted: selfData.encrypted,
-          selfEncryptedSignature: selfData.signature,
-        },
-      };
-    }, finalPaymentData);
-
-    return finalPaymentData;
-  };
+  const getPaymentData = () =>
+    // hashes are derived here, at submit time, from the same details that get
+    // encrypted - never from a snapshot taken when the payment data was saved
+    buildOfferPaymentData({
+      originalPaymentData,
+      myPgpPubKey,
+      peachPGPPublicKey,
+      instantTrade: instantTradeCriteria !== undefined,
+    });
 
   const [paymentDataToPublish, setPaymentDataToPublish] = useState(paymentData);
 
@@ -795,7 +738,7 @@ function PublishOfferButton() {
       setPaymentDataToPublish(await getPaymentData());
     };
     getPaymentDataToPublishCallback();
-  }, [instantTradeCriteria, paymentData]);
+  }, [instantTradeCriteria, originalPaymentData]);
 
   const { mutate: publishOffer, isPending: isPublishing } = useCreateBuyOffer({
     amount,

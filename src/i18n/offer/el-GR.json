@@ -124,7 +124,6 @@
   "offer.summary.availableTo.newUsersOnly": "μόνο νέους χρήστες",
   "offer.summary.availableTo.experiencedUsersOnly": "μόνο έμπειρους χρήστες",
   "offer.summary.availableTo.newUsersLikeYou": "για νέους χρήστες σαν εσένα",
-  "offer.summary.availableTo.experiencedUsersLikeYou": "για έμπειρους χρήστες σαν εσένα"
-
-
+  "offer.summary.availableTo.experiencedUsersLikeYou": "για έμπειρους χρήστες σαν εσένα",
+  "offer.requiredAction.confirmCancelation.seller": "στάλθηκε αίτημα ακύρωσης"
 }

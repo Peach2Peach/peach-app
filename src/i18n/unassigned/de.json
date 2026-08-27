@@ -361,5 +361,9 @@
   "invalidServerSignature.title": "Datenüberprüfung fehlgeschlagen",
   "invalidServerSignature.paymentData": "Die verschlüsselten Zahlungsdaten auf dem Server haben eine ungültige Signatur und wurden nicht geladen. Dies könnte auf eine Manipulation hindeuten. Bitte kontaktiere den Support.",
   "invalidServerSignature.refundAddress": "Die verschlüsselte Rückerstattungsadresse auf dem Server hat eine ungültige Signatur und wurde nicht geladen. Dies könnte auf eine Manipulation hindeuten. Bitte kontaktiere den Support.",
-  "invalidServerSignature.payoutAddress": "Die verschlüsselte Auszahlungsadresse auf dem Server hat eine ungültige Signatur und wurde nicht geladen. Dies könnte auf eine Manipulation hindeuten. Bitte kontaktiere den Support."
+  "invalidServerSignature.payoutAddress": "Die verschlüsselte Auszahlungsadresse auf dem Server hat eine ungültige Signatur und wurde nicht geladen. Dies könnte auf eine Manipulation hindeuten. Bitte kontaktiere den Support.",
+  "connectToDesktop.success.description": "Du bist jetzt authentifiziert. Du kannst Peach auf deinem Laptop verwenden.",
+  "exportTradeHistory.title": "Handelsverlauf exportieren",
+  "exportTradeHistory.tradeID": "Trade-ID",
+  "exportTradeHistory.type": "Typ (gekauft, verkauft, abgebrochen)"
 }

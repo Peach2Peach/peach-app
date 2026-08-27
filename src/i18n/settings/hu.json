@@ -159,6 +159,14 @@
   "settings.walletGapLimit": "tárca gap limit",
   "settings.walletGapLimit.title": "tárca gap limit",
   "settings.walletGapLimit.description": "Magasabb értékek lehetővé teszik, hogy a tárca-szinkronizálás több címet ellenőrizzen az utoljára használt címen túl.\n\nNöveld ezt az értéket, ha úgy gondolod, hogy hiányzik egyenleg.",
-  "settings.walletGapLimit.recommended": "Ajánlott: $0"
-
+  "settings.walletGapLimit.recommended": "Ajánlott: $0",
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "asztali kapcsolat beillesztése",
+  "settings.dark mode": "sötét mód",
+  "settings.theme": "színséma",
+  "settings.theme.light": "világos",
+  "settings.theme.dark": "sötét",
+  "settings.theme.system": "rendszer",
+  "settings.deleteAccount.instructions.title": "Törölni szeretnéd a fiókodat?",
+  "settings.deleteAccount.instructions.text": "A Peachben nem tudod törölni a fiókodat, de ne aggódj: nem tárolunk személyes adatokat, mert soha nem is voltak nálunk.\n\nHa másik fiókkal szeretnéd használni a Peachet, távolítsd el az alkalmazást, majd telepítsd újra. Új fiók jön létre számodra."
 }

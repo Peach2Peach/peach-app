@@ -34,7 +34,7 @@ import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
-import { useConfigStore } from "../../store/configStore/configStore";
+import { usePeachPGPPublicKey } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useThemeStore } from "../../store/theme";
@@ -47,11 +47,10 @@ import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
 import { saveOffer } from "../../utils/offer/saveOffer";
-import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
+import { buildOfferPaymentData } from "../../utils/paymentMethod/buildOfferPaymentData";
 import { filterUnavailableCurrencies } from "../../utils/paymentMethod/filterUnavailableCurrencies";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
-import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { isDefined } from "../../utils/validation/isDefined";
 import { peachWallet } from "../../utils/wallet/setWallet";
@@ -360,8 +359,6 @@ function PremiumInputComponent() {
     state.setPremium,
   ]);
 
-  console.log("PREMIUM ", premium);
-
   const { bitcoinPrice } = useBitcoinPrices(amount, "CHF");
 
   return (
@@ -517,7 +514,9 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
             <PeachText
               style={[
                 tw`subtitle-1`,
-                isDarkMode ? tw`text-backgroundLight-light` : tw`text-black-100`,
+                isDarkMode
+                  ? tw`text-backgroundLight-light`
+                  : tw`text-black-100`,
               ]}
             >
               BTC{fixedPriceCurrency}
@@ -525,7 +524,9 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
             <Icon
               id="chevronDown"
               size={16}
-              color={tw.color(isDarkMode ? "backgroundLight-light" : "black-100")}
+              color={tw.color(
+                isDarkMode ? "backgroundLight-light" : "black-100",
+              )}
             />
           </TouchableOpacity>
         </View>
@@ -1061,87 +1062,18 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
 
   const { mutate: postSellOffer } = usePostSellOffer();
 
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const peachPGPPublicKey = usePeachPGPPublicKey();
   const myPgpPubKey = useAccountStore((state) => state.account.pgp.publicKey);
 
-  const getPaymentData = async () => {
-    const { paymentData, originalPaymentData } = sellPreferences;
-
-    // backwards compatibility for original PMs
-    originalPaymentData.forEach((payment) => {
-      if (payment.mpesa_name && paymentData[payment.type]) {
-        paymentData[payment.type]!.isMpesa = true;
-      }
-      if (payment.iban && paymentData[payment.type]) {
-        paymentData[payment.type]!.country = payment.iban.slice(
-          0,
-          2,
-        ) as PaymentMethodCountry;
-      }
+  const getPaymentData = () =>
+    // hashes are derived here, at submit time, from the same details that get
+    // encrypted - never from a snapshot taken when the payment data was saved
+    buildOfferPaymentData({
+      originalPaymentData: sellPreferences.originalPaymentData,
+      myPgpPubKey,
+      peachPGPPublicKey,
+      instantTrade,
     });
-
-    let finalPaymentData = { ...paymentData };
-
-    if (instantTrade) {
-      const selectedMethods = keys(paymentData);
-      const cleanedData = selectedMethods.map((method) => {
-        const originalData = originalPaymentData.find((e) => e.type === method);
-        return originalData ? cleanPaymentData(originalData) : null;
-      });
-
-      const encryptedData = await Promise.all(
-        cleanedData.map((data) =>
-          data ? signAndEncrypt(JSON.stringify(data), peachPGPPublicKey) : null,
-        ),
-      );
-
-      finalPaymentData = encryptedData.reduce((acc, encryptedDatum, index) => {
-        if (!encryptedDatum) return acc;
-        const { encrypted, signature } = encryptedDatum;
-        const method = selectedMethods[index];
-        return {
-          ...acc,
-          [method]: {
-            ...paymentData[method],
-            encrypted,
-            signature,
-          },
-        };
-      }, finalPaymentData);
-    }
-
-    // Always add selfEncrypted + selfEncryptedSignature
-    const selfEncryptedData = await Promise.all(
-      keys(paymentData).map(async (method) => {
-        const originalData = originalPaymentData.find((e) => e.type === method);
-        const cleaned = originalData
-          ? cleanPaymentData(originalData)
-          : paymentData[method];
-
-        const { encrypted, signature } = await signAndEncrypt(
-          JSON.stringify(cleaned),
-          myPgpPubKey,
-        );
-
-        return { encrypted, signature };
-      }),
-    );
-
-    finalPaymentData = keys(paymentData).reduce((acc, method, index) => {
-      const selfData = selfEncryptedData[index];
-
-      return {
-        ...acc,
-        [method]: {
-          ...acc[method],
-          selfEncrypted: selfData.encrypted,
-          selfEncryptedSignature: selfData.signature,
-        },
-      };
-    }, finalPaymentData);
-
-    return finalPaymentData;
-  };
 
   const showPublishingError = () => {
     let errorMessage;

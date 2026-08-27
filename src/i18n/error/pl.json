@@ -98,8 +98,9 @@
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nie wszystkie waluty zostały uwzględnione",
   "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Co najmniej jedna z Twoich metod płatności jest nieaktualna i zawiera co najmniej jedną walutę, która nie jest już dostępna. Ta waluta została odfiltrowana. Zaktualizuj swoje metody płatności wkrótce.",
   "SEED_NOT_USED_IN_PEACH.text": "Wprowadziłeś prawidłowy Seed, ale nie ma powiązanego z nim konta Peach. Wróć i utwórz nowe konto.",
-  "SEED_NOT_USED_IN_PEACH.title": "Ten Seed nigdy nie był używany w Peach"
-
-
-
+  "SEED_NOT_USED_IN_PEACH.title": "Ten Seed nigdy nie był używany w Peach",
+  "PEACH_PGP_KEY_MISSING.title": "brak klucza szyfrowania",
+  "PEACH_PGP_KEY_MISSING.text": "Nie udało się wczytać klucza szyfrowania Peach, więc Twoje dane nie mogą zostać zaszyfrowane. Sprawdź połączenie, uruchom aplikację ponownie i spróbuj jeszcze raz.",
+  "PLEASE_UPDATE_PAYMENT_METHOD.title": "Zaktualizuj swoją metodę płatności",
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Jedna z wybranych metod płatności nie obsługuje już żadnej z oferowanych przez Ciebie walut. Zaktualizuj ją przed opublikowaniem."
 }

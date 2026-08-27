@@ -358,5 +358,12 @@
   "invalidServerSignature.title": "verifica dei dati fallita",
   "invalidServerSignature.paymentData": "i dati di pagamento cifrati sul server hanno una firma non valida e non sono stati caricati. ciò potrebbe indicare una manomissione. per favore contatta il supporto.",
   "invalidServerSignature.refundAddress": "l'indirizzo di rimborso cifrato sul server ha una firma non valida e non è stato caricato. ciò potrebbe indicare una manomissione. per favore contatta il supporto.",
-  "invalidServerSignature.payoutAddress": "l'indirizzo di prelievo cifrato sul server ha una firma non valida e non è stato caricato. ciò potrebbe indicare una manomissione. per favore contatta il supporto."
+  "invalidServerSignature.payoutAddress": "l'indirizzo di prelievo cifrato sul server ha una firma non valida e non è stato caricato. ciò potrebbe indicare una manomissione. per favore contatta il supporto.",
+  "connectToDesktop.success.description": "Ora sei autenticato. Puoi usare Peach sul tuo laptop.",
+  "friend": "amico",
+  "google": "google",
+  "nostr": "Nostr",
+  "youtube": "YouTube",
+  "userSource.title": "un'ultima cosa",
+  "userSource.subtitle": "come ci hai conosciuto?"
 }

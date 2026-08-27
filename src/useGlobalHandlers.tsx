@@ -8,6 +8,7 @@ import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
 import { useSyncPayoutAddressFromServer } from "./hooks/query/peach069/useSyncPayoutAddressFromServer";
 import { useSyncPaymentDataFromServer } from "./hooks/query/peach069/useSyncPaymentDataFromServer";
 import { useSyncRefundAddressFromServer } from "./hooks/query/peach069/useSyncRefundAddressFromServer";
+import { useNymProxyWatcher } from "./hooks/useNymProxyWatcher";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useStackNavigation } from "./hooks/useStackNavigation";
@@ -20,6 +21,7 @@ import { error } from "./utils/log/error";
 import { parseError } from "./utils/parseError";
 import { useUpdateUser } from "./utils/peachAPI/useUpdateUser";
 import { isNetworkError } from "./utils/system/isNetworkError";
+import { isExpectedMixnetBlackhole } from "./utils/wallet/nym/nymGate";
 
 export const useGlobalHandlers = () => {
   useI18n();
@@ -31,6 +33,7 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder();
   useInitialNavigation();
   useShowUpdateAvailable();
+  useNymProxyWatcher();
   useHandleNotifications(messageHandler);
   useSyncPaymentDataFromServer();
   useSyncRefundAddressFromServer();
@@ -45,6 +48,7 @@ export const useGlobalHandlers = () => {
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err);
+    if (isExpectedMixnetBlackhole(err.message)) return;
     setToast({
       msgKey: err.message || "GENERAL_ERROR",
       color: "red",
@@ -64,6 +68,7 @@ export const useGlobalHandlers = () => {
       setPopup(<VerifyYouAreAHumanPopup />);
       return;
     }
+    if (isExpectedMixnetBlackhole(errorMessage)) return;
     const errorMsgKey = isNetworkError(errorMessage)
       ? "NETWORK_ERROR"
       : errorMessage;
@@ -71,8 +76,7 @@ export const useGlobalHandlers = () => {
       msgKey: errorMsgKey || "GENERAL_ERROR",
       color: "red",
       action: {
-        onPress: () =>
-          navigation.navigate("contact", { errorMessage: errorMessage }),
+        onPress: () => navigation.navigate("contact", { errorMessage }),
         label: i18n("contactUs"),
         iconId: "mail",
       },

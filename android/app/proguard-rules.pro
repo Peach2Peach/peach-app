@@ -19,3 +19,7 @@
 # JNA has optional AWT support that doesn't exist on Android
 -dontwarn java.awt.**
 -dontnote java.awt.**
+
+# Package: nym-rn — no rules needed here. nym-rn ships consumer-rules.pro, which
+# AGP folds into this app's R8 run (keeps org.rustls.platformverifier.**, which
+# only Rust references via JNI). Requires nym-rn pinned at >= the commit adding it.

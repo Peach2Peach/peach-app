@@ -98,7 +98,9 @@
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nem minden pénznem került be",
   "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Legalább egy fizetési módod elavult, és tartalmaz legalább egy olyan pénznemet, amely már nem érhető el. Ez a pénznem ki lett szűrve. Kérjük, frissítsd a fizetési módjaidat hamarosan.",
   "SEED_NOT_USED_IN_PEACH.text": "Érvényes Seed-et adtál meg, de nincs hozzá társított Peach fiók. Menj vissza és hozz létre egy új fiókot.",
-  "SEED_NOT_USED_IN_PEACH.title": "Ez a Seed soha nem volt használva a Peach-ben"
-
-
+  "SEED_NOT_USED_IN_PEACH.title": "Ez a Seed soha nem volt használva a Peach-ben",
+  "PEACH_PGP_KEY_MISSING.title": "hiányzó titkosítási kulcs",
+  "PEACH_PGP_KEY_MISSING.text": "A Peach titkosítási kulcsa nem tölthető be, ezért az adataid nem titkosíthatók. Ellenőrizd a kapcsolatot, indítsd újra az alkalmazást, majd próbáld újra.",
+  "PLEASE_UPDATE_PAYMENT_METHOD.title": "Frissítsd a fizetési módodat",
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "A kiválasztott fizetési módjaid egyike már nem támogatja egyik felkínált pénznemedet sem. Frissítsd a közzététel előtt."
 }

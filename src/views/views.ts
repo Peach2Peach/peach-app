@@ -62,6 +62,7 @@ import { CreatePin } from "./settings/CreatePin";
 import { Currency } from "./settings/Currency";
 import { DeletePin } from "./settings/DeletePin";
 import { Language } from "./settings/Language";
+import { MixnetSettings } from "./settings/MixnetSettings";
 import { NodeSetup } from "./settings/NodeSetup";
 import { PayoutAddress } from "./settings/PayoutAddress";
 import { PinCodeSetup } from "./settings/PinCodeSetup";
@@ -185,6 +186,7 @@ const settings: ViewType[] = [
   { name: "referrals", component: Referrals },
   { name: "backups", component: Backups },
   { name: "nodeSetup", component: NodeSetup },
+  { name: "mixnet", component: MixnetSettings },
   { name: "pinCodeSetup", component: PinCodeSetup },
   { name: "deletePin", component: DeletePin },
   { name: "createPin", component: CreatePin },

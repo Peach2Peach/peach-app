@@ -364,5 +364,6 @@
   "invalidServerSignature.title": "adatellenőrzés sikertelen",
   "invalidServerSignature.paymentData": "a szerveren lévő titkosított fizetési adatok aláírása érvénytelen, és nem lettek betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal.",
   "invalidServerSignature.refundAddress": "a szerveren lévő titkosított visszatérítési cím aláírása érvénytelen, és nem lett betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal.",
-  "invalidServerSignature.payoutAddress": "a szerveren lévő titkosított kifizetési cím aláírása érvénytelen, és nem lett betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal."
+  "invalidServerSignature.payoutAddress": "a szerveren lévő titkosított kifizetési cím aláírása érvénytelen, és nem lett betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal.",
+  "connectToDesktop.success.description": "Sikeresen hitelesítetted magad. Használhatod a Peachet a laptopodon."
 }

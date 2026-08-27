@@ -24,5 +24,7 @@
   "settings.batching.youSave.highlight": "bis zu 23 % sparen",
   "offer.requiredAction.wrongAmountFundedOnContract": "Falscher Betrag eingezahlt",
   "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Falscher Betrag eingezahlt",
-  "transactionBatching": "transaktionsstapel"
+  "transactionBatching": "transaktionsstapel",
+  "help.payoutPending.description": "Transaktionen werden gebündelt ausgezahlt. Das bedeutet, dass gewartet wird, bis das Bündel voll ist oder die maximale Wartezeit erreicht ist.\n\nSpart bis zu 23 % Gebühren.",
+  "help.payoutPending.title": "Auszahlung ausstehend"
 }

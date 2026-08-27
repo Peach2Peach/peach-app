@@ -25,6 +25,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useThemeStore } from "../../store/theme";
+import { useNymProxyState } from "../../utils/wallet/nymProxyStore";
 import tw from "../../styles/tailwind";
 import i18n, { useI18n } from "../../utils/i18n";
 import { info } from "../../utils/log/info";
@@ -79,12 +80,15 @@ export function Home() {
               ) : (
                 <LogoIcons.homeLogoSmall />
               )}
-              <TouchableIcon
-                id="user"
-                onPress={goToProfile}
-                iconSize={20}
-                style={tw`items-center justify-center py-px px-10px md:py-2`}
-              />
+              <View style={tw`flex-row items-center`}>
+                <NymVpnIndicator />
+                <TouchableIcon
+                  id="user"
+                  onPress={goToProfile}
+                  iconSize={20}
+                  style={tw`items-center justify-center py-px px-10px md:py-2`}
+                />
+              </View>
             </View>
             {DEV === "false" && (
               <BTCPriceInfo onPress={() => setIsDrawerOpen(!isDrawerOpen)} />
@@ -104,6 +108,33 @@ export function Home() {
     </>
   );
 }
+/** Shown in the home header only while the Nym mixnet ("VPN") is enabled, so the
+ *  user can see at a glance that their traffic is routed through it. Tapping it
+ *  jumps to the mixnet settings. */
+function NymVpnIndicator() {
+  const enabled = useNymProxyState((state) => state.enabled);
+  const navigation = useStackNavigation();
+  if (!enabled) return null;
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate("mixnet")}
+      style={tw`items-center justify-center py-px px-10px md:py-2`}
+    >
+      <View style={tw`relative`}>
+        {/* Nym's own mark, so the badge reads as "routed through Nym" rather
+            than a generic security indicator. Ships as a bare glyph on a
+            transparent ground, so it takes the header's tint like every other
+            icon here. */}
+        <Icon id="nymIcon" size={20} color={tw.color("primary-main")} />
+        {/* Green shield badge = the VPN is currently active. */}
+        <View style={tw`absolute -bottom-1 -right-1`}>
+          <Icon id="shield" size={13} color={tw.color("success-main")} />
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
 const GROUP_SIZE = 3;
 function BTCPriceInfo({ onPress }: { onPress: () => void }) {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices();

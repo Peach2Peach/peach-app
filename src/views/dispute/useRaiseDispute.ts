@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import OpenPGP from "react-native-fast-openpgp";
-import { useConfigStore } from "../../store/configStore/configStore";
+import { usePeachPGPPublicKey } from "../../store/configStore/configStore";
 import { peachAPI } from "../../utils/peachAPI";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 
@@ -14,10 +14,14 @@ type Props = {
 
 export function useRaiseDispute(contract: Contract) {
   const { data } = useDecryptedContractData(contract);
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const peachPGPPublicKey = usePeachPGPPublicKey();
   return useMutation({
     mutationFn: async ({ email, reason, message }: Props) => {
       if (!data) throw new Error("Could not decrypt contract data");
+      // Without this, OpenPGP's own "no encryption recipient provided" is what
+      // reaches the user — unactionable, and it hides that the cause is a
+      // config fetch that never landed rather than anything about the dispute.
+      if (!peachPGPPublicKey) throw new Error("PEACH_PGP_KEY_MISSING");
       const { symmetricKey, paymentData, buyerPaymentData } = data;
       const [
         symmetricKeyEncrypted,

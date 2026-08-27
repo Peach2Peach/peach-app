@@ -167,6 +167,8 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - nym-rn (0.1.0):
+    - React-Core
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
@@ -3450,6 +3452,7 @@ DEPENDENCIES:
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - nanopb
+  - nym-rn (from `../node_modules/nym-rn`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
   - RCTRequired (from `../node_modules/react-native/Libraries/Required`)
@@ -3590,6 +3593,8 @@ EXTERNAL SOURCES:
     :tag: hermes-2025-09-01-RNv0.82.0-265ef62ff3eb7289d17e366664ac0da82303e101
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
+  nym-rn:
+    :path: "../node_modules/nym-rn"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -3806,6 +3811,7 @@ SPEC CHECKSUMS:
   MMKV: 43cd10be0f925bf3fd5c2bd8bea501a328037b64
   MMKVCore: 13be45a0394861b74836875ac9ec7ee939e86b78
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  nym-rn: a56e96f3e13f2dfad413e8e5c24b008579be42be
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669

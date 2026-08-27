@@ -122,8 +122,6 @@
   "offer.summary.availableTo.newUsersOnly": "nouveaux utilisateurs seulement",
   "offer.summary.availableTo.experiencedUsersOnly": "utilisateurs expérimentés seulement",
   "offer.summary.availableTo.newUsersLikeYou": "pour les nouveaux utilisateurs comme vous",
-  "offer.summary.availableTo.experiencedUsersLikeYou": "pour les utilisateurs expérimentés comme vous"
-
-
-
+  "offer.summary.availableTo.experiencedUsersLikeYou": "pour les utilisateurs expérimentés comme vous",
+  "offer.requiredAction.confirmCancelation.seller": "demande d'annulation envoyée"
 }

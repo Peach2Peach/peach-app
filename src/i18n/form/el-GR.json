@@ -163,5 +163,7 @@
   "form.mpesa_name": "πλήρες όνομα",
   "form.mpesa_phone": "πλήρες τηλέφωνο",
   "form.mpesa_phone.placeholder": "τηλέφωνο",
-  "form.mpesa_name.placeholder": "πλήρες όνομα"
+  "form.mpesa_name.placeholder": "πλήρες όνομα",
+  "form.pixAlias": "ψευδώνυμο pix",
+  "form.pixAlias.placeholder": "ψευδώνυμο pix"
 }

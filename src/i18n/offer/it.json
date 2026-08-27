@@ -121,7 +121,7 @@
   "offer.summary.availableTo.newUsersOnly": "solo nuovi utenti",
   "offer.summary.availableTo.experiencedUsersOnly": "solo utenti esperti",
   "offer.summary.availableTo.newUsersLikeYou": "per nuovi utenti come te",
-  "offer.summary.availableTo.experiencedUsersLikeYou": "per utenti esperti come te"
-
-
+  "offer.summary.availableTo.experiencedUsersLikeYou": "per utenti esperti come te",
+  "offer.requiredAction.confirmCancelation.seller": "richiesta di annullamento inviata",
+  "yourTrades.unknown": "sconosciuto"
 }

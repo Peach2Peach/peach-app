@@ -186,5 +186,9 @@
   "country.MK": "Nordmazedonien",
   "country.BA": "Bosnien und Herzegowina",
   "messageCopied": "Nachricht kopiert",
-  "showContract": "Vertrag anzeigen"
+  "showContract": "Vertrag anzeigen",
+  "currency.DOC": "Dollar on Chain",
+  "footer.home": "Start",
+  "form.postePayNumber": "PostePay-Nummer",
+  "form.postePayNumber.placeholder": "PostePay-Nummer eingeben"
 }

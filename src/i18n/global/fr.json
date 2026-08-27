@@ -186,5 +186,9 @@
   "country.MK": "Macédoine du Nord",
   "country.BA": "Bosnie-Herzégovine",
   "messageCopied": "Message copié",
-  "showContract": "Afficher le contrat"
+  "showContract": "Afficher le contrat",
+  "currency.DOC": "Dollar on Chain",
+  "footer.home": "accueil",
+  "form.postePayNumber": "numéro PostePay",
+  "form.postePayNumber.placeholder": "saisir le numéro PostePay"
 }

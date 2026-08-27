@@ -2,6 +2,7 @@ import { API_URL } from "@env";
 import { crypto } from "bitcoinjs-lib";
 import { info } from "../../../utils/log/info";
 import { dateTimeReviver } from "../../system/dateTimeReviver";
+import { whenNetworkReady } from "../../wallet/nym/nymGate";
 import { getAuthenticationChallenge } from "../getAuthenticationChallenge";
 import { peachAPI } from "../peachAPI";
 import { peachWS, setPeachWS, setWS, ws } from "./index";
@@ -36,7 +37,11 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
 
       peachWS.queue.push(() => peachWS.send(data));
       ws.close();
-      setPeachWS(undefined, createWebsocket(peachWS));
+      // Reopen through the Nym gate — never reconnect direct while the mixnet is
+      // armed (fail-closed). The queued data flushes once the new socket opens.
+      whenNetworkReady().then(() =>
+        setPeachWS(undefined, createWebsocket(peachWS)),
+      );
 
       return false;
     }

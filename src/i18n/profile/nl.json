@@ -25,6 +25,6 @@
   "profile.offersofuser.title": "huidige aanbiedingen",
   "profile.offersofuser.empty": "nog geen!",
   "profile.user.blockedUsers": "Geblokkeerde gebruikers",
-  "profile.blockedUsers.empty": "Je blokkeert momenteel geen gebruikers"
-  
+  "profile.blockedUsers.empty": "Je blokkeert momenteel geen gebruikers",
+  "profile.numberOfFreeTrades": "aantal beschikbare gratis trades"
 }

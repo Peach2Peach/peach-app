@@ -98,8 +98,9 @@
   "PAYMENT_METHOD_CURRENCY_FILTERED.title": "Nem todas as moedas foram incluídas",
   "PAYMENT_METHOD_CURRENCY_FILTERED.text": "Pelo menos um dos seus métodos de pagamento está desatualizado e inclui pelo menos uma moeda que não está mais disponível. Essa moeda foi filtrada. Atualize seus métodos de pagamento em breve.",
   "SEED_NOT_USED_IN_PEACH.text": "Você inseriu um Seed válido, mas não há uma conta Peach associada a ele. Volte e crie uma nova conta.",
-  "SEED_NOT_USED_IN_PEACH.title": "Este Seed nunca foi usado no Peach"
-
-
-
+  "SEED_NOT_USED_IN_PEACH.title": "Este Seed nunca foi usado no Peach",
+  "PEACH_PGP_KEY_MISSING.title": "chave de criptografia ausente",
+  "PEACH_PGP_KEY_MISSING.text": "Não foi possível carregar a chave de criptografia da Peach, então seus dados não podem ser criptografados. Verifique sua conexão, reinicie o app e tente novamente.",
+  "PLEASE_UPDATE_PAYMENT_METHOD.title": "Atualize seu método de pagamento",
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Um dos métodos de pagamento selecionados não aceita mais nenhuma das moedas que você oferece. Atualize-o antes de publicar."
 }

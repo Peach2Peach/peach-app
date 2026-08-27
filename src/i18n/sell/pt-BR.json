@@ -30,6 +30,6 @@
   "warning.incorrectFundingContract.description": "Você financiou o contrato de forma incorreta. Deve ser exatamente 1 transação com o valor indicado.\n\nVocê será reembolsado.",
   "warning.incorrectFundingContract.title": "financiamento incorreto",
    "help.mpesaConversionSeller.title": "O comprador enviou o pagamento para o M-Pesa via $0",
-  "help.mpesaConversionSeller.description": "O valor que você receberá na sua moeda local $0 pode ser menor do que o esperado devido às taxas de $1."
-
+  "help.mpesaConversionSeller.description": "O valor que você receberá na sua moeda local $0 pode ser menor do que o esperado devido às taxas de $1.",
+  "sell.escrow.createEscrow": "criar escrow"
 }

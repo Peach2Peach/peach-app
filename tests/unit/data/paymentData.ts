@@ -5,14 +5,14 @@ export const validSEPAData: PaymentData = {
   label: "SEPA EUR",
   type: "sepa",
   beneficiary: "Hal Finney",
-  iban: "IE29 AIBK 9311 5212 3456 78",
+  iban: "IE29AIBK93115212345678",
   bic: "AAAA BB CC 123",
   currencies: ["EUR"],
   hidden: false,
 };
 
 export const validSEPADataHashes = [
-  "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3",
+  "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5",
 ];
 
 export const validSEPAData2: PaymentData = {
@@ -20,7 +20,7 @@ export const validSEPAData2: PaymentData = {
   label: "SEPA 2",
   type: "sepa",
   beneficiary: "Kolge",
-  iban: "IE29 AIBK 9311 5212 3456 78",
+  iban: "IE29AIBK93115212345678",
   bic: "AAAA BB CC 123",
   currencies: ["EUR"],
   hidden: false,

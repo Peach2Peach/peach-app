@@ -155,6 +155,18 @@
   "settings.walletGapLimit": "wallet gap limit",
   "settings.walletGapLimit.title": "wallet gap limit",
   "settings.walletGapLimit.description": "Hogere waarden laten de wallet-synchronisatie meer adressen na je laatst gebruikte controleren.\n\nVerhoog deze waarde als je vermoedt dat er saldo ontbreekt.",
-  "settings.walletGapLimit.recommended": "Aanbevolen: $0"
-
+  "settings.walletGapLimit.recommended": "Aanbevolen: $0",
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "desktopverbinding plakken",
+  "settings.dark mode": "donkere modus",
+  "settings.theme": "kleurthema",
+  "settings.theme.light": "licht",
+  "settings.theme.dark": "donker",
+  "settings.theme.system": "systeem",
+  "settings.deleteAccount.instructions.title": "Wil je je account verwijderen?",
+  "settings.deleteAccount.instructions.text": "In Peach kun je je account niet verwijderen, maar geen zorgen: we bewaren geen persoonlijke gegevens, omdat we die nooit hebben gehad.\n\nWil je Peach met een ander account gebruiken? Verwijder de app en installeer hem opnieuw. Er wordt een nieuw account voor je aangemaakt.",
+  "settings.payoutAddress.popup.content": "Wil je deze aangepaste wallet verwijderen?",
+  "settings.payoutAddress.popup.remove": "verwijderen",
+  "settings.payoutAddress.popup.title": "wallet verwijderen?",
+  "settings.payoutAddress.removeWallet": "wallet verwijderen"
 }

@@ -30,6 +30,6 @@
   "warning.incorrectFundingContract.description": "Umefadhili vibaya mkataba. Inapaswa kuwa na muamala 1 wa kiasi sahihi.\n\nUtarudishiwa.",
   "warning.incorrectFundingContract.title": "Ufadhili usio sahihi",
   "help.mpesaConversionSeller.title": "Mnunuzi ametuma malipo kwenda M-Pesa kupitia $0",
-  "help.mpesaConversionSeller.description": "Kiasi utakachopokea katika sarafu yako ya ndani $0 kinaweza kuwa kidogo kuliko ulivyotarajia kutokana na ada za $1."
-
+  "help.mpesaConversionSeller.description": "Kiasi utakachopokea katika sarafu yako ya ndani $0 kinaweza kuwa kidogo kuliko ulivyotarajia kutokana na ada za $1.",
+  "sell.escrow.createEscrow": "unda escrow"
 }

@@ -3,7 +3,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import { KeychainKind } from "bdk-rn";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppState, Pressable, View } from "react-native";
-import { useAppColorScheme } from "twrnc";
 import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -72,7 +71,10 @@ export const Settings = () => {
 
   const navigation = useStackNavigation();
 
-  const { isDarkMode, toggleTheme } = useThemeStore();
+  const themePreference = useThemeStore((state) => state.themePreference);
+  const cycleThemePreference = useThemeStore(
+    (state) => state.cycleThemePreference,
+  );
 
   const [enableAnalytics, toggleAnalytics, showBackupReminder, appPinCode] =
     useSettingsStore(
@@ -200,12 +202,6 @@ export const Settings = () => {
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
-  const [, toggleColorScheme] = useAppColorScheme(tw);
-  const toggleDarkMode = useCallback(() => {
-    toggleTheme();
-    toggleColorScheme();
-  }, [toggleColorScheme, toggleTheme]);
-
   const pinCodeSetupOnClick = () => {
     if (appPinCode === undefined || appPinCode === "") {
       navigation.navigate("createPin");
@@ -245,15 +241,15 @@ export const Settings = () => {
             onPress: notificationClick,
           },
           "nodeSetup",
+          { title: "mixnet", onPress: () => navigation.navigate("mixnet") },
           "refundAddress",
           "payoutAddress",
           "currency",
           "language",
           {
-            title: "dark mode",
-            onPress: toggleDarkMode,
-            iconId: isDarkMode ? "toggleRight" : "toggleLeft",
-            enabled: isDarkMode,
+            title: "theme",
+            onPress: cycleThemePreference,
+            value: i18n(`settings.theme.${themePreference}`),
           },
           {
             title: `walletGapLimit`,
@@ -265,8 +261,8 @@ export const Settings = () => {
       onAnalyticsPress,
       enableAnalytics,
       notificationClick,
-      toggleDarkMode,
-      isDarkMode,
+      cycleThemePreference,
+      themePreference,
       currentGapLimit,
       onGapLimitPress,
     ],

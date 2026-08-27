@@ -33,7 +33,9 @@ const openTelegram = () => openURL(TELEGRAM);
 const openDiscord = () => openURL(DISCORD);
 
 export const Contact = () => {
-  const { errorMessage } = useRoute<"contact">().params;
+  // `|| {}`: this screen is reachable without params (the settings entry passes
+  // none), and destructuring undefined crashes the whole app rather than the screen
+  const { errorMessage } = useRoute<"contact">().params || {};
 
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();

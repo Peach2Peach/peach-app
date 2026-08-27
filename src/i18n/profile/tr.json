@@ -25,6 +25,6 @@
   "profile.offersofuser.title": "mevcut teklifler",
   "profile.offersofuser.empty": "henüz yok!",
    "profile.user.blockedUsers": "Engellenmiş kullanıcılar",
-    "profile.blockedUsers.empty": "Şu anda hiçbir kullanıcıyı engellemiyorsunuz"
- 
+    "profile.blockedUsers.empty": "Şu anda hiçbir kullanıcıyı engellemiyorsunuz",
+  "profile.numberOfFreeTrades": "kullanılabilir ücretsiz takas sayısı"
 }

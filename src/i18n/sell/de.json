@@ -30,6 +30,6 @@
   "warning.incorrectFundingContract.title": "Falsche Finanzierung",
   "yourTrades.search.sell.subtitle": "Verkaufsangebot für",
   "help.mpesaConversionSeller.title": "Der Käufer hat die Zahlung über $0 an M-Pesa gesendet",
-  "help.mpesaConversionSeller.description": "Der Betrag, den du in deiner lokalen Währung $0 erhältst, kann aufgrund der Gebühren von $1 niedriger sein als erwartet."
-
+  "help.mpesaConversionSeller.description": "Der Betrag, den du in deiner lokalen Währung $0 erhältst, kann aufgrund der Gebühren von $1 niedriger sein als erwartet.",
+  "sell.escrow.createEscrow": "Escrow erstellen"
 }

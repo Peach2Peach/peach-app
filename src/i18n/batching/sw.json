@@ -23,5 +23,8 @@
   "settings.batching.youSave.highlight": "Okoa hadi 23%",
   "offer.requiredAction.wrongAmountFundedOnContract": "Kiasi kilichoingizwa si sahihi",
   "offer.requiredAction.wrongAmountFundedOnContractRefundWaiting": "Kiasi kilichoingizwa si sahihi",
-  "transactionBatching": "kusanyiko la miamala"
+  "transactionBatching": "kusanyiko la miamala",
+  "batching.waitingForParticipants": "Kikapu bado hakijajaa; tunasubiri washiriki zaidi.",
+  "help.transactionBatching.description": "Escrow hulipwa katika miamala ya makundi kwa ada ya nusu saa kwa chaguo-msingi. Unaweza kujiondoa, lakini elewa hatari zake.\nPeach hupata gharama za ziada za kuunganisha, ambazo mtumiaji hulipia. Huhesabiwa kama ada ya dakika 30 × 68. Kwa kuwa ada hubadilika, gharama zinaweza kuwa sehemu kubwa ya biashara.",
+  "help.transactionBatching.title": "Ada za malipo"
 }

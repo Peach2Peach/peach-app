@@ -39,7 +39,7 @@ const levelColorMap: LevelColorMap = {
   },
 };
 
-const toastAtom = atom<ToastState | null>(null);
+export const toastAtom = atom<ToastState | null>(null);
 export const useSetToast = () => useSetAtom(toastAtom);
 
 // Takes precedence over the regular toast and is never replaced by it, so a

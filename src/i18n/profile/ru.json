@@ -25,5 +25,6 @@
   "profile.offersofuser.title": "текущие предложения",
   "profile.offersofuser.empty": "пока нет!",
   "profile.user.blockedUsers": "Заблокированные пользователи",
-  "profile.blockedUsers.empty": "В данный момент вы никого не блокируете"
+  "profile.blockedUsers.empty": "В данный момент вы никого не блокируете",
+  "profile.numberOfFreeTrades": "количество доступных бесплатных сделок"
 }

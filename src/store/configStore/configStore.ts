@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { PaymentMethodInfo } from "../../../peach-api/src/@types/payment";
+import { bundledPeachPGPPublicKey } from "../../utils/pgp/peachPGPPublicKey";
 import { createStorage } from "../../utils/storage/createStorage";
 import { createPersistStorage } from "../createPersistStorage";
 
@@ -46,7 +47,12 @@ export const useConfigStore = create(
       ...defaultConfig,
       reset: () => set(() => defaultConfig),
       setPaymentMethods: (paymentMethods) => set({ paymentMethods }),
-      setPeachPGPPublicKey: (peachPGPPublicKey) => set({ peachPGPPublicKey }),
+      // Ignore an empty key: a server response that omits it must not overwrite
+      // a good stored one, and storing "" is what leaves the app with no
+      // encryption recipient at all.
+      setPeachPGPPublicKey: (peachPGPPublicKey) => {
+        if (peachPGPPublicKey) set({ peachPGPPublicKey });
+      },
       setPeachFee: (peachFee) => set({ peachFee }),
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
@@ -63,3 +69,21 @@ export const useConfigStore = create(
     },
   ),
 );
+
+/**
+ * The key to encrypt to when sending data to Peach, falling back to the key
+ * bundled with the app when the server-provided one was never fetched.
+ *
+ * Read through this rather than `state.peachPGPPublicKey` directly: persisted
+ * state is merged OVER the store's defaults, so the many clients that already
+ * hold a stored `""` would keep it no matter what the default says. Resolving
+ * the fallback on read heals them without needing a store migration.
+ */
+const selectPeachPGPPublicKey = (state: Config) =>
+  state.peachPGPPublicKey || bundledPeachPGPPublicKey;
+
+export const usePeachPGPPublicKey = () =>
+  useConfigStore(selectPeachPGPPublicKey);
+
+export const getPeachPGPPublicKey = () =>
+  selectPeachPGPPublicKey(useConfigStore.getState());

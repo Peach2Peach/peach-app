@@ -52,6 +52,8 @@ export type SettingsItemProps = (
   warning?: boolean;
   enabled?: boolean;
   badge?: number;
+  /** Current selection, rendered on the right in place of the icon. */
+  value?: string;
 };
 
 export const SettingsItem = ({
@@ -62,11 +64,18 @@ export const SettingsItem = ({
   enabled,
   iconSize,
   badge,
+  value,
 }: SettingsItemProps) => {
   const navigation = useStackNavigation();
-  const onPress = pressAction
-    ? pressAction
-    : () => navigation.navigate(title, {});
+  // Dynamic screen name from a union — RN's navigate overloads don't resolve a
+  // union first-arg, so go through a cast. The empty params object is NOT
+  // redundant: without it `route.params` is undefined, and a screen that
+  // destructures it (Contact) crashes the app on entry from here.
+  const navigateToScreen = navigation.navigate as unknown as (
+    name: string,
+    params: Record<string, never>,
+  ) => void;
+  const onPress = pressAction ? pressAction : () => navigateToScreen(title, {});
   const { isDarkMode } = useThemeStore();
   const iconColor = warning
     ? tw.color("error-main")
@@ -96,11 +105,15 @@ export const SettingsItem = ({
         )}
         {!!badge && badge > 0 && <BouncingBadge count={badge} />}
       </View>
-      <Icon
-        id={iconId || "chevronRight"}
-        style={iconSize || tw`w-8 h-8`}
-        color={iconColor}
-      />
+      {value !== undefined ? (
+        <PeachText style={tw`settings text-primary-main`}>{value}</PeachText>
+      ) : (
+        <Icon
+          id={iconId || "chevronRight"}
+          style={iconSize || tw`w-8 h-8`}
+          color={iconColor}
+        />
+      )}
     </TouchableOpacity>
   );
 };

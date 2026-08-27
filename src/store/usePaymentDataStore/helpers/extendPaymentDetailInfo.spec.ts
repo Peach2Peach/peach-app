@@ -6,8 +6,8 @@ describe("extendPaymentDetailInfo", () => {
   const emptyObject: PaymentDetailInfo = {};
   const hashInfo: PaymentDataHashInfo = {
     field: "iban",
-    value: "IE29 AIBK 9311 5212 3456 78",
-    hash: "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3",
+    value: "IE29AIBK93115212345678",
+    hash: "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5",
   };
   const hashInfo2: PaymentDataHashInfo = {
     field: "phone",
@@ -16,14 +16,14 @@ describe("extendPaymentDetailInfo", () => {
   };
   const expected1 = {
     iban: {
-      "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3":
-        "IE29 AIBK 9311 5212 3456 78",
+      "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5":
+        "IE29AIBK93115212345678",
     },
   };
   const expected2 = {
     iban: {
-      "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3":
-        "IE29 AIBK 9311 5212 3456 78",
+      "0555f1f0ae95f1bfeac56dcab60f65639dc0e2c106eeada324717594d368a4d5":
+        "IE29AIBK93115212345678",
     },
     phone: {
       "9e425d9336fff33cbececf474fad2360fbe674b442f1adf789bb8f96234dcc87":

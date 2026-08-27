@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Release policy: no cleartext, with one narrow exception for certificate
+  revocation endpoints.
+
+  Why the exception is needed: the Rust/rustls stack inside libnym_proxy.so
+  verifies certificates through rustls-platform-verifier, whose Android backend
+  runs a PKIXRevocationChecker. Let's Encrypt ended OCSP in 2025, so its certs
+  (including validator.nymtech.net, the Nym API) carry no OCSP responder URI,
+  only a CRL at http://<x>.c.lencr.org/<n>.crl. Android tries OCSP, throws
+  "Certificate does not specify OCSP responder", then falls back to fetching
+  that CRL. With cleartext blocked the fallback cannot run, the OCSP exception
+  surfaces, and the verifier reports a perfectly valid cert as Revoked, so the
+  mixnet fails to even reach the Nym API. Release builds only, because React
+  Native's gradle plugin sets usesCleartextTraffic=false for release and true
+  for debug (see the debug/ variant of this file).
+
+  Why allowing it is safe: CRL and OCSP responses are signed by the CA and
+  carry no secrets, which is why the PKI serves them over plain HTTP by design.
+  Nothing else gains cleartext access, and revocation checking keeps working
+  rather than being skipped.
+-->
+<network-security-config>
+  <base-config cleartextTrafficPermitted="false" />
+
+  <!-- Let's Encrypt's CRL/OCSP hosts. If a Nym gateway or exit is ever served
+       by a different CA, its revocation host has to be added here too; the
+       failure shows up in logcat as the same "Revoked" error naming the host. -->
+  <domain-config cleartextTrafficPermitted="true">
+    <domain includeSubdomains="true">lencr.org</domain>
+  </domain-config>
+</network-security-config>

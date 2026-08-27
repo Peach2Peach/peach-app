@@ -159,6 +159,14 @@
   "settings.walletGapLimit": "limite d'écart du portefeuille",
   "settings.walletGapLimit.title": "limite d'écart du portefeuille",
   "settings.walletGapLimit.description": "Des valeurs plus élevées permettent à la synchronisation du portefeuille de vérifier plus d'adresses au-delà de la dernière utilisée.\n\nAugmentez cette valeur si vous soupçonnez un solde manquant.",
-  "settings.walletGapLimit.recommended": "Recommandé : $0"
-
+  "settings.walletGapLimit.recommended": "Recommandé : $0",
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "coller la connexion bureau",
+  "settings.dark mode": "mode sombre",
+  "settings.theme": "thème de couleur",
+  "settings.theme.light": "clair",
+  "settings.theme.dark": "sombre",
+  "settings.theme.system": "système",
+  "settings.deleteAccount.instructions.title": "Voulez-vous supprimer votre compte ?",
+  "settings.deleteAccount.instructions.text": "Sur Peach, vous ne pouvez pas supprimer votre compte, mais rassurez-vous : nous ne conservons aucune information personnelle, car nous ne l'avons jamais eue.\n\nSi vous souhaitez utiliser Peach avec un autre compte, désinstallez l'application puis réinstallez-la. Un nouveau compte sera créé pour vous."
 }

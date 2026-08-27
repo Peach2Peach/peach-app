@@ -152,6 +152,10 @@
   "settings.changePin.confirmNewPin": "Introduce el PIN nuevamente",
   "settings.report.shareAppLogs": "compartir información técnica de la app",
   "settings.dark mode": "Modo oscuro",
+  "settings.theme": "tema de color",
+  "settings.theme.light": "claro",
+  "settings.theme.dark": "oscuro",
+  "settings.theme.system": "sistema",
   "settings.createPin": "crear PIN",
   "settings.filterAlerts": "Filtrar alertas",
   "settings.filterAlerts.description": "Activa esto y recibirás notificaciones push cuando se publiquen nuevas ofertas que coincidan con tus preferencias",
@@ -160,5 +164,9 @@
   "settings.walletGapLimit": "gap limit de la cartera",
   "settings.walletGapLimit.title": "gap limit de la cartera",
   "settings.walletGapLimit.description": "Valores más altos permiten que la sincronización de la cartera revise más direcciones más allá de la última usada.\n\nAumenta este valor si sospechas que falta saldo.",
-  "settings.walletGapLimit.recommended": "Recomendado: $0"
+  "settings.walletGapLimit.recommended": "Recomendado: $0",
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "pegar conexión de escritorio",
+  "settings.deleteAccount.instructions.title": "¿Quieres eliminar tu cuenta?",
+  "settings.deleteAccount.instructions.text": "En Peach no puedes eliminar tu cuenta, pero no te preocupes: no guardamos ninguna información personal porque nunca la tuvimos.\n\nSi quieres usar Peach con otra cuenta, desinstala la app e instálala de nuevo. Se creará una cuenta nueva para ti."
 }

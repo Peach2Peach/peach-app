@@ -155,6 +155,18 @@
   "settings.walletGapLimit": "gap limit del portafoglio",
   "settings.walletGapLimit.title": "gap limit del portafoglio",
   "settings.walletGapLimit.description": "Valori più alti permettono alla sincronizzazione del portafoglio di controllare più indirizzi oltre l'ultimo utilizzato.\n\nAumenta questo valore se sospetti che manchi del saldo.",
-  "settings.walletGapLimit.recommended": "Consigliato: $0"
-
+  "settings.walletGapLimit.recommended": "Consigliato: $0",
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "incolla connessione desktop",
+  "settings.dark mode": "modalità scura",
+  "settings.theme": "tema colore",
+  "settings.theme.light": "chiaro",
+  "settings.theme.dark": "scuro",
+  "settings.theme.system": "sistema",
+  "settings.deleteAccount.instructions.title": "Vuoi eliminare il tuo account?",
+  "settings.deleteAccount.instructions.text": "Su Peach non puoi eliminare il tuo account, ma non preoccuparti: non conserviamo alcuna informazione personale perché non l'abbiamo mai avuta.\n\nSe vuoi usare Peach con un altro account, disinstalla l'app e reinstallala. Verrà creato un nuovo account per te.",
+  "settings.payoutAddress.popup.content": "Vuoi rimuovere questo wallet personalizzato?",
+  "settings.payoutAddress.popup.remove": "rimuovi",
+  "settings.payoutAddress.popup.title": "rimuovere il wallet?",
+  "settings.payoutAddress.removeWallet": "rimuovi wallet"
 }

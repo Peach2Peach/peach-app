@@ -363,5 +363,7 @@
   "invalidServerSignature.title": "uthibitishaji wa data umeshindwa",
   "invalidServerSignature.paymentData": "data ya malipo iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada.",
   "invalidServerSignature.refundAddress": "anwani ya marejesho iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada.",
-  "invalidServerSignature.payoutAddress": "anwani ya malipo iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada."
+  "invalidServerSignature.payoutAddress": "anwani ya malipo iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada.",
+  "connectToDesktop.success.description": "Sasa umethibitishwa. Unaweza kutumia Peach kwenye kompyuta yako ndogo.",
+  "linkedIn": "Linkedin"
 }

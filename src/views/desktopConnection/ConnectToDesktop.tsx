@@ -14,7 +14,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { useQRScanner } from "../../hooks/useQRScanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { useConfigStore } from "../../store/configStore/configStore";
+import { usePeachPGPPublicKey } from "../../store/configStore/configStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { loadWalletFromAccount } from "../../utils/account/loadWalletFromAccount";
@@ -30,7 +30,7 @@ export const ConnectToDesktop = () => {
 
   const goToSettings = () => navigation.navigate("settings");
 
-  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
+  const peachPGPPublicKey = usePeachPGPPublicKey();
   const account = useAccountStore.getState().account;
   if (!account.mnemonic) throw Error("");
   const mnemonic = account.mnemonic;

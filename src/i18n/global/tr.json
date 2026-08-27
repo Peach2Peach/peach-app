@@ -186,5 +186,9 @@
   "country.MK": "Kuzey Makedonya",
   "country.BA": "Bosna-Hersek",
   "messageCopied": "Mesaj kopyalandı",
-  "showContract": "Sözleşmeyi göster"
+  "showContract": "Sözleşmeyi göster",
+  "currency.DOC": "Dollar on Chain",
+  "footer.home": "ana sayfa",
+  "form.postePayNumber": "PostePay numarası",
+  "form.postePayNumber.placeholder": "PostePay numarasını girin"
 }

@@ -159,6 +159,14 @@
   "settings.walletGapLimit": "gap limit πορτοφολιού",
   "settings.walletGapLimit.title": "gap limit πορτοφολιού",
   "settings.walletGapLimit.description": "Υψηλότερες τιμές επιτρέπουν στον συγχρονισμό του πορτοφολιού να ελέγχει περισσότερες διευθύνσεις πέρα από την τελευταία που χρησιμοποιήθηκε.\n\nΑυξήστε αυτήν την τιμή αν υποψιάζεστε ότι λείπει υπόλοιπο.",
-  "settings.walletGapLimit.recommended": "Συνιστάται: $0"
-
+  "settings.walletGapLimit.recommended": "Συνιστάται: $0",
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "επικόλληση σύνδεσης υπολογιστή",
+  "settings.dark mode": "σκοτεινή λειτουργία",
+  "settings.theme": "χρωματικό θέμα",
+  "settings.theme.light": "φωτεινό",
+  "settings.theme.dark": "σκοτεινό",
+  "settings.theme.system": "σύστημα",
+  "settings.deleteAccount.instructions.title": "Θέλεις να διαγράψεις τον λογαριασμό σου;",
+  "settings.deleteAccount.instructions.text": "Στο Peach δεν μπορείς να διαγράψεις τον λογαριασμό σου, αλλά μην ανησυχείς: δεν κρατάμε προσωπικά στοιχεία, γιατί ποτέ δεν τα είχαμε.\n\nΑν θέλεις να χρησιμοποιήσεις το Peach με άλλον λογαριασμό, απεγκατέστησε την εφαρμογή και εγκατέστησέ την ξανά. Θα δημιουργηθεί νέος λογαριασμός για σένα."
 }

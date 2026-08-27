@@ -52,6 +52,8 @@
   "TRADING_LIMIT_OF_COUNTERPARTY_REACHED.title": "trading limit of counterparty reached",
   "PAYMENTDATA_ENCRYPTION_FAILED.text": "This most likely happens when you restored from seed and now cannot decrypt the buyer's data.\nPlease wait for a new match.",
   "PAYMENTDATA_ENCRYPTION_FAILED.title": "could not encrypt payment data",
+  "PEACH_PGP_KEY_MISSING.text": "Peach's encryption key could not be loaded, so your data can't be encrypted. Please check your connection and restart the app, then try again.",
+  "PEACH_PGP_KEY_MISSING.title": "encryption key missing",
   "PAYMENT_DATA_MISSING.action": "re-enter your details",
   "PAYMENT_DATA_MISSING.text": "Something went wrong, and this offer is missing your payment data.",
   "PAYMENT_DATA_MISSING.title": "missing payment data",

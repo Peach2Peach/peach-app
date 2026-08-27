@@ -25,7 +25,7 @@ import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { hashPaymentData } from "../../utils/paymentMethod/hashPaymentData";
-import { paymentDataMatchesHashes } from "../../utils/paymentMethod/paymentDataMatchesHashes";
+import { isSuspiciousPaymentData } from "../../utils/paymentMethod/isSuspiciousPaymentData";
 import capitalize from "../../utils/string/capitalize";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -130,9 +130,10 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
     view === "buyer"
       ? contract.hashedPaymentData
       : contract.buyerHashedPaymentData;
-  const hasSuspiciousPaymentData =
-    !!counterpartyPaymentData &&
-    !paymentDataMatchesHashes(counterpartyPaymentData, counterpartyHashes);
+  const hasSuspiciousPaymentData = isSuspiciousPaymentData(
+    counterpartyPaymentData,
+    counterpartyHashes,
+  );
 
   // TODO: TEMPORARY DEBUG (remove) — why doesn't a tampered hash trigger the banner?
   console.log("[SUSPICIOUS-DEBUG]", {

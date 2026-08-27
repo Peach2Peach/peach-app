@@ -124,8 +124,6 @@
   "offer.summary.availableTo.newUsersOnly": "sadece yeni kullanıcılar",
   "offer.summary.availableTo.experiencedUsersOnly": "sadece deneyimli kullanıcılar",
   "offer.summary.availableTo.newUsersLikeYou": "sizin gibi yeni kullanıcılar için",
-  "offer.summary.availableTo.experiencedUsersLikeYou": "sizin gibi deneyimli kullanıcılar için"
-
-
-
+  "offer.summary.availableTo.experiencedUsersLikeYou": "sizin gibi deneyimli kullanıcılar için",
+  "offer.requiredAction.confirmCancelation.seller": "iptal talebi gönderildi"
 }

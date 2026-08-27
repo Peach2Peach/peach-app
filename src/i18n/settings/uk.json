@@ -155,6 +155,18 @@
   "settings.walletGapLimit": "ліміт розриву гаманця",
   "settings.walletGapLimit.title": "ліміт розриву гаманця",
   "settings.walletGapLimit.description": "Вищі значення дозволяють синхронізації гаманця перевіряти більше адрес після останньої використаної.\n\nЗбільште це значення, якщо підозрюєте відсутній баланс.",
-  "settings.walletGapLimit.recommended": "Рекомендовано: $0"
-
+  "settings.walletGapLimit.recommended": "Рекомендовано: $0",
+  "settings.mixnet": "VPN: Nym Mixnet",
+  "settings.pasteDesktopConnection": "вставити підключення до компʼютера",
+  "settings.dark mode": "темна тема",
+  "settings.theme": "колірна тема",
+  "settings.theme.light": "світла",
+  "settings.theme.dark": "темна",
+  "settings.theme.system": "системна",
+  "settings.deleteAccount.instructions.title": "Бажаєте видалити свій обліковий запис?",
+  "settings.deleteAccount.instructions.text": "У Peach не можна видалити обліковий запис, але не хвилюйтеся: ми не зберігаємо жодної особистої інформації, бо ніколи її не мали.\n\nЯкщо хочете користуватися Peach з іншим обліковим записом, видаліть застосунок і встановіть його знову. Для вас буде створено новий обліковий запис.",
+  "settings.payoutAddress.popup.content": "Видалити цей власний гаманець?",
+  "settings.payoutAddress.popup.remove": "видалити",
+  "settings.payoutAddress.popup.title": "видалити гаманець?",
+  "settings.payoutAddress.removeWallet": "видалити гаманець"
 }
