@@ -24,7 +24,6 @@ import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdF
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { hashPaymentData } from "../../utils/paymentMethod/hashPaymentData";
 import { isSuspiciousPaymentData } from "../../utils/paymentMethod/isSuspiciousPaymentData";
 import capitalize from "../../utils/string/capitalize";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
@@ -134,22 +133,6 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
     counterpartyPaymentData,
     counterpartyHashes,
   );
-
-  // TODO: TEMPORARY DEBUG (remove) — why doesn't a tampered hash trigger the banner?
-  console.log("[SUSPICIOUS-DEBUG]", {
-    view,
-    counterparty,
-    hasSuspiciousPaymentData,
-    hasCounterpartyPaymentData: !!counterpartyPaymentData,
-    counterpartyPaymentData,
-    computedHashes: counterpartyPaymentData
-      ? hashPaymentData(counterpartyPaymentData).map((i) => i.hash)
-      : null,
-    rawStoredHashes: counterpartyHashes,
-    extractedStoredHashes:
-      counterpartyHashes?.flatMap((e) => e.match(/[0-9a-f]{64}/g) ?? []) ??
-      null,
-  });
 
   if (
     !disputeWinner &&
