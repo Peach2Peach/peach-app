@@ -14,9 +14,14 @@ import tw from "../../styles/tailwind";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import i18n from "../../utils/i18n";
+import { isSingleSigEscrow } from "../../utils/offer/isSingleSigEscrow";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { getNetwork } from "../../utils/wallet/getNetwork";
+import {
+  ReleasePendingActionPayload,
+  signEscrowPSBT,
+} from "../../utils/wallet/signEscrowPSBT";
 import { signPSBT } from "../../utils/wallet/signPSBT";
 import { ActionImageWithLoader } from "./ActionImageWithLoader";
 
@@ -55,31 +60,28 @@ export const MobilePendingActionSignMultisig = () => {
 
       const wallet = getEscrowWalletForOffer(sellOffer);
 
-      const { batchReleasePsbt, releasePsbt } = JSON.parse(
+      // the payload itself says which escrow this is - anything other than 2
+      // takes the legacy path
+      const payload: ReleasePendingActionPayload = JSON.parse(
         mobilePendingAction.payload,
       );
 
-      const psbt = Psbt.fromBase64(releasePsbt, { network: getNetwork() });
+      const psbt = Psbt.fromBase64(payload.releasePsbt, {
+        network: getNetwork(),
+      });
 
-      const batchPsbt = batchReleasePsbt
-        ? Psbt.fromBase64(batchReleasePsbt, { network: getNetwork() })
-        : undefined;
+      // batching needs Peach to co-sign, which is impossible without a Peach
+      // key, so it is off for escrowVersion 2 and nothing is sent back
+      const batchPsbt =
+        payload.batchReleasePsbt && !isSingleSigEscrow(payload)
+          ? Psbt.fromBase64(payload.batchReleasePsbt, { network: getNetwork() })
+          : undefined;
 
       if (batchPsbt) {
         signPSBT(batchPsbt, wallet);
       }
-      signPSBT(psbt, wallet);
-      const numberOfSignatures = psbt.data.inputs[0].partialSig?.length;
-      if (!numberOfSignatures) {
-        throw Error("signatures missing");
-      }
-      const signature =
-        psbt.data.inputs[0].partialSig?.[
-          numberOfSignatures - 1
-        ].signature.toString("hex");
-      if (!signature) {
-        throw Error("signature missing");
-      }
+
+      const [signature] = signEscrowPSBT(psbt, wallet, payload);
 
       const { error: err } =
         await peachAPI.private.peach069.postMobilePendingActionPaymentConfirmed(

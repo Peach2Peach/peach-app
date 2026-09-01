@@ -7,11 +7,11 @@ import { PopupComponent } from "../components/popup/PopupComponent";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
-import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
 import i18n from "../utils/i18n";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
+import { signAndFinalizeEscrowPSBT } from "../utils/wallet/signEscrowPSBT";
 import { BackupTime } from "../views/overlays/BackupTime";
 import { contractKeys } from "./query/useContractDetail";
 import { offerKeys } from "./query/useOfferDetail";
@@ -40,10 +40,15 @@ export function useRefundSellOffer() {
       if (!psbt || err) {
         throw new Error(err || "Invalid PSBT");
       }
-      const signedTx = signAndFinalizePSBT(
+
+      // sign Peach's PSBT as it stands - a taproot signature commits to
+      // nSequence, so a locally rebuilt transaction would not match the one the
+      // server validates against
+      const signedTx = signAndFinalizeEscrowPSBT(
         psbt,
         getEscrowWalletForOffer(sellOffer),
-      ).extractTransaction();
+        sellOffer,
+      );
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()];
 
       const { error: postTXError } =

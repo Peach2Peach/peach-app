@@ -32,6 +32,7 @@ import {
   getThemeForTradeItem,
 } from "../utils/getThemeForTradeItem";
 import { isContractSummary } from "../utils/isContractSummary";
+import { isLegacyEscrowSummary } from "../utils/isLegacyEscrowSummary";
 import { isPastOffer } from "../utils/isPastOffer";
 import { isTradeStatus } from "../utils/isTradeStatus";
 import { statusIcons } from "../utils/statusIcons";
@@ -348,6 +349,12 @@ function getActionLabel(
     return undefined;
   }
 
+  // a legacy escrow can no longer be traded, so waiting for a trade request is
+  // pointless - the seller needs to cancel and get their coins back
+  if (isLegacyEscrowSummary(tradeSummary)) {
+    return i18n("offer.requiredAction.cancelAndRefund");
+  }
+
   if (tradeStatusNew) {
     return i18n(`offer.requiredAction.${tradeStatusNew}`);
   }
@@ -356,7 +363,7 @@ function getActionLabel(
 }
 
 function getActionIcon(
-  tradeSummary: Pick<OfferSummary | ContractSummary, "tradeStatus" | "type">,
+  tradeSummary: OfferSummary | ContractSummary,
   isWaiting: boolean,
 ): IconType | undefined {
   if (isPastOffer(tradeSummary.tradeStatus)) {
@@ -369,6 +376,10 @@ function getActionIcon(
 
   if (tradeSummary.tradeStatus === "payoutPending")
     return statusIcons.payoutPending;
+
+  if (isLegacyEscrowSummary(tradeSummary)) {
+    return statusIcons.refundTxSignatureRequired;
+  }
 
   if (isTradeStatus(tradeSummary.tradeStatusNew)) {
     if (tradeSummary.tradeStatusNew === "waitingForTradeRequest") {

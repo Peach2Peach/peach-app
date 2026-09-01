@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "ufunguo wa usimbaji haupo",
   "PEACH_PGP_KEY_MISSING.text": "Ufunguo wa usimbaji wa Peach haukuweza kupakiwa, hivyo data yako haiwezi kusimbwa. Angalia muunganisho wako, anzisha upya programu, kisha ujaribu tena.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Tafadhali sasisha njia yako ya malipo",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Mojawapo ya njia zako za malipo ulizochagua haitumii tena sarafu zozote unazotoa. Tafadhali isasishe kabla ya kuchapisha."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Mojawapo ya njia zako za malipo ulizochagua haitumii tena sarafu zozote unazotoa. Tafadhali isasishe kabla ya kuchapisha.",
+  "APP_UPDATE_REQUIRED.title": "Sasisho linahitajika",
+  "APP_UPDATE_REQUIRED.text": "Tafadhali sasisha programu ya Peach hadi toleo jipya zaidi ili uendelee kuuza.",
+  "SELLING_NOT_ALLOWED.title": "Kuuza hakupatikani",
+  "SELLING_NOT_ALLOWED.text": "Akaunti yako kwa muda haiwezi kutengeneza oferi za kuuza. Wasiliana na huduma kwa wateja wa Peach ili kujua jinsi unavyoweza kupewa ruhusa. Asante!",
+  "ONGOING_TRADE_EXISTS.title": "Biashara moja kwa wakati",
+  "ONGOING_TRADE_EXISTS.text": "Tayari una biashara inayoendelea. Imalize au uighairi kabla ya kuanza nyingine.",
+  "SELLER_HAS_ONGOING_TRADE.title": "Muuzaji ana shughuli",
+  "SELLER_HAS_ONGOING_TRADE.text": "Muuzaji tayari ana biashara inayoendelea. Tafadhali jaribu tena baadaye au chagua oferi nyingine.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Haiwezi kuchapishwa upya",
+  "REPUBLISH_NOT_POSSIBLE.text": "Oferi hii inatumia escrow ya zamani na haiwezi tena kuchapishwa upya. Tafadhali omba urejeshwe badala yake.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Oferi haipatikani",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Oferi hii ya kuuza inatumia escrow ya zamani na haiwezi tena kufanyiwa biashara.",
+  "REFUND_ONLY_BY_SELLER.title": "Urejeshaji kutoka kwenye wallet yako",
+  "REFUND_ONLY_BY_SELLER.text": "Peach haina ufunguo wowote katika escrow hii, hivyo wallet yako pekee ndiyo inayoweza kurejesha fedha. Tafadhali jaribu tena kutoka kifaa hiki."
 }

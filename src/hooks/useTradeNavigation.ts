@@ -2,10 +2,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { ContractSummary } from "../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../peach-api/src/@types/offer";
+import { useCancelAndStartRefundPopup } from "../popups/useCancelAndStartRefundPopup";
 import { useStartRefundPopup } from "../popups/useStartRefundPopup";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { isContractSummary } from "../views/yourTrades/utils/isContractSummary";
+import { isLegacyEscrowSummary } from "../views/yourTrades/utils/isLegacyEscrowSummary";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
 import { getNavigationDestinationForPeach069BuyOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForPeach069BuyOffer";
 import { offerKeys } from "./query/useOfferDetail";
@@ -14,6 +16,7 @@ import { useStackNavigation } from "./useStackNavigation";
 export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
   const navigation = useStackNavigation();
   const showStartRefundPopup = useStartRefundPopup();
+  const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
   const queryClient = useQueryClient();
   // const { mutateAsync } = useCreateEscrow();
 
@@ -23,6 +26,19 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
       : item.amountSats //TODO: fix this
         ? getNavigationDestinationForPeach069BuyOffer(item)
         : getNavigationDestinationForOffer(item);
+    // a legacy escrow can no longer be traded: send the seller straight into
+    // cancel + refund rather than to a list of trade requests that can never
+    // arrive
+    if (isLegacyEscrowSummary(item)) {
+      const { result: sellOffer } =
+        await peachAPI.private.offer.getOfferDetails({ offerId: item.id });
+      if (sellOffer && isSellOffer(sellOffer)) {
+        queryClient.setQueryData(offerKeys.detail(sellOffer.id), sellOffer);
+        cancelAndStartRefundPopup(sellOffer);
+        return;
+      }
+    }
+
     if (item.tradeStatus === "refundTxSignatureRequired") {
       const offerId = isContractSummary(item) ? item.offerId : item.id;
       const { result: sellOffer } =
@@ -44,7 +60,13 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
     // showed up without an escrow. therefore this is now done only at that screen
 
     navigation.navigate(...destination);
-  }, [item, navigation, queryClient, showStartRefundPopup]);
+  }, [
+    cancelAndStartRefundPopup,
+    item,
+    navigation,
+    queryClient,
+    showStartRefundPopup,
+  ]);
 
   return navigateToOfferOrContract;
 };

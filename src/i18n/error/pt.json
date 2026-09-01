@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "chave de encriptação em falta",
   "PEACH_PGP_KEY_MISSING.text": "Não foi possível carregar a chave de encriptação da Peach, por isso os seus dados não podem ser encriptados. Verifique a ligação, reinicie a aplicação e tente novamente.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Atualize o seu método de pagamento",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Um dos métodos de pagamento selecionados já não suporta nenhuma das moedas que oferece. Atualize-o antes de publicar."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Um dos métodos de pagamento selecionados já não suporta nenhuma das moedas que oferece. Atualize-o antes de publicar.",
+  "APP_UPDATE_REQUIRED.title": "Atualização necessária",
+  "APP_UPDATE_REQUIRED.text": "Atualize a aplicação Peach para a versão mais recente para continuar a vender.",
+  "SELLING_NOT_ALLOWED.title": "Venda indisponível",
+  "SELLING_NOT_ALLOWED.text": "A sua conta está temporariamente sem elegibilidade para criar ofertas de venda. Contacte o apoio ao cliente da Peach para saber como pode obter acesso. Obrigado!",
+  "ONGOING_TRADE_EXISTS.title": "Uma negociação de cada vez",
+  "ONGOING_TRADE_EXISTS.text": "Já tem uma negociação em curso. Conclua-a ou cancele-a antes de iniciar outra.",
+  "SELLER_HAS_ONGOING_TRADE.title": "O vendedor está ocupado",
+  "SELLER_HAS_ONGOING_TRADE.text": "O vendedor já tem uma negociação em curso. Tente novamente mais tarde ou escolha outra oferta.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Não é possível republicar",
+  "REPUBLISH_NOT_POSSIBLE.text": "Esta oferta usa o depósito de caução antigo e já não pode ser republicada. Peça antes o reembolso.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Oferta indisponível",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Esta oferta de venda usa o depósito de caução antigo e já não pode ser negociada.",
+  "REFUND_ONLY_BY_SELLER.title": "Reembolso a partir da sua carteira",
+  "REFUND_ONLY_BY_SELLER.text": "A Peach não detém qualquer chave neste depósito de caução, por isso só a sua carteira o pode reembolsar. Tente novamente a partir deste dispositivo."
 }

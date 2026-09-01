@@ -15,8 +15,8 @@ export const useTradingAmountLimits = (type: "buy" | "sell") => {
 };
 
 const MIN_AMOUNT = 10;
-const MAX_SELL_AMOUNT = 800;
-const MAX_BUY_AMOUNT = 1000;
+const MAX_SELL_AMOUNT = 500;
+const MAX_BUY_AMOUNT = 500;
 const rangeSellInCHF = [MIN_AMOUNT, MAX_SELL_AMOUNT];
 const rangeBuyInCHF = [MIN_AMOUNT, MAX_BUY_AMOUNT];
 const digitsToRound = 4;

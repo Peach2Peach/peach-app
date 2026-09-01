@@ -1,6 +1,7 @@
 import { ContractSummary } from "../../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../../peach-api/src/@types/offer";
 import { isError } from "./isError";
+import { isLegacyEscrowSummary } from "./isLegacyEscrowSummary";
 import { isOpenAction } from "./isOpenAction";
 import { isPastOffer } from "./isPastOffer";
 import { isPrioritary } from "./isPrioritary";
@@ -19,17 +20,25 @@ export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
     {
       title: "openActions",
       data: trades.filter(
-        ({ type, tradeStatus, tradeStatusNew }) =>
-          (isOpenAction(type, tradeStatus) && tradeStatusNew === undefined) ||
-          (tradeStatusNew !== undefined && isOpenAction(type, tradeStatusNew)),
+        (trade) =>
+          // a legacy escrow is not waiting for anything - refunding it is on
+          // the seller, so it belongs with the actions they have to take
+          isLegacyEscrowSummary(trade) ||
+          (isOpenAction(trade.type, trade.tradeStatus) &&
+            trade.tradeStatusNew === undefined) ||
+          (trade.tradeStatusNew !== undefined &&
+            isOpenAction(trade.type, trade.tradeStatusNew)),
       ),
     },
     {
       title: "waiting",
       data: trades.filter(
-        ({ type, tradeStatus, tradeStatusNew }) =>
-          (isWaiting(type, tradeStatus) && tradeStatusNew === undefined) ||
-          (tradeStatusNew !== undefined && isWaiting(type, tradeStatusNew)),
+        (trade) =>
+          !isLegacyEscrowSummary(trade) &&
+          ((isWaiting(trade.type, trade.tradeStatus) &&
+            trade.tradeStatusNew === undefined) ||
+            (trade.tradeStatusNew !== undefined &&
+              isWaiting(trade.type, trade.tradeStatusNew))),
       ),
     },
     {

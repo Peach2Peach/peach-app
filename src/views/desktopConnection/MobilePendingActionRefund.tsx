@@ -17,7 +17,10 @@ import { getOffer } from "../../utils/offer/getOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
-import { signPSBT } from "../../utils/wallet/signPSBT";
+import {
+  RefundPendingActionPayload,
+  signEscrowPSBT,
+} from "../../utils/wallet/signEscrowPSBT";
 
 import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
 
@@ -43,7 +46,11 @@ export const MobilePendingActionRefund = () => {
     return <></>;
   }
 
-  const { refundPSBT } = JSON.parse(mobilePendingAction.payload);
+  // the payload itself says which escrow this is - anything other than 2 takes
+  // the legacy path
+  const payload: RefundPendingActionPayload = JSON.parse(
+    mobilePendingAction.payload,
+  );
 
   const confirmFunction = async () => {
     setIsConfirming(true);
@@ -51,22 +58,13 @@ export const MobilePendingActionRefund = () => {
       const sellOffer = (await getOffer(
         String(mobilePendingAction.offerId),
       )) as SellOffer;
-      const { psbt, err } = checkRefundPSBT(refundPSBT, sellOffer);
+      const { psbt, err } = checkRefundPSBT(payload.refundPSBT, sellOffer);
       if (!psbt || err) {
         throw new Error(err || "Invalid PSBT");
       }
       const wallet = getEscrowWalletForOffer(sellOffer);
 
-      signPSBT(psbt, wallet);
-      const signatures = psbt.data.inputs.map((input) => {
-        const numberOfSignatures = input.partialSig?.length;
-        if (!input.partialSig || !numberOfSignatures) {
-          throw Error("signatures missing");
-        }
-        return input.partialSig[numberOfSignatures - 1].signature.toString(
-          "hex",
-        );
-      });
+      const signatures = signEscrowPSBT(psbt, wallet, payload);
 
       const { error: err2 } =
         await peachAPI.private.peach069.postMobilePendingActionRefund({

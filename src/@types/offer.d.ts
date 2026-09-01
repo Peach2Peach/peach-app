@@ -56,6 +56,9 @@ type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
   released: boolean;
   fundingAmountDifferent: boolean;
   publicKey: string;
+  /** 2 = single-sig taproot escrow owned by the seller alone.
+   * 0/1/undefined = legacy 2-of-2 P2WSH escrow shared with Peach. */
+  escrowVersion?: number;
 
   oldOfferId?: string;
   newOfferId?: string;

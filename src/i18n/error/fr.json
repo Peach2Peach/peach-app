@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "clé de chiffrement manquante",
   "PEACH_PGP_KEY_MISSING.text": "La clé de chiffrement de Peach n'a pas pu être chargée, vos données ne peuvent donc pas être chiffrées. Vérifiez votre connexion, redémarrez l'application et réessayez.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Veuillez mettre à jour votre moyen de paiement",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "L'un de vos moyens de paiement sélectionnés ne prend plus en charge aucune des devises que vous proposez. Mettez-le à jour avant de publier."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "L'un de vos moyens de paiement sélectionnés ne prend plus en charge aucune des devises que vous proposez. Mettez-le à jour avant de publier.",
+  "APP_UPDATE_REQUIRED.title": "Mise à jour requise",
+  "APP_UPDATE_REQUIRED.text": "Veuillez mettre à jour l'application Peach vers la dernière version pour continuer à vendre.",
+  "SELLING_NOT_ALLOWED.title": "Vente indisponible",
+  "SELLING_NOT_ALLOWED.text": "Votre compte n'est temporairement pas autorisé à créer des offres de vente. Contactez le support client de Peach pour savoir comment obtenir l'accès. Merci.",
+  "ONGOING_TRADE_EXISTS.title": "Une transaction à la fois",
+  "ONGOING_TRADE_EXISTS.text": "Vous avez déjà une transaction en cours. Terminez-la ou annulez-la avant d'en commencer une nouvelle.",
+  "SELLER_HAS_ONGOING_TRADE.title": "Le vendeur est occupé",
+  "SELLER_HAS_ONGOING_TRADE.text": "Le vendeur a déjà une transaction en cours. Réessayez plus tard ou choisissez une autre offre.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Republication impossible",
+  "REPUBLISH_NOT_POSSIBLE.text": "Cette offre utilise l'ancien coffre et ne peut plus être republiée. Veuillez demander un remboursement à la place.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Offre indisponible",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Cette offre de vente utilise l'ancien coffre et ne peut plus être échangée.",
+  "REFUND_ONLY_BY_SELLER.title": "Remboursement depuis votre portefeuille",
+  "REFUND_ONLY_BY_SELLER.text": "Peach ne détient aucune clé de ce coffre, seul votre portefeuille peut donc le rembourser. Veuillez réessayer depuis cet appareil."
 }

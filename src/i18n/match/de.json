@@ -2,5 +2,9 @@
   "match.feeWarning": "Sie zahlen bis zu $0% an Mining-Gebühren!",
   "match.tradeRequested": "Handel angefordert",
   "match.waitingForSeller": "Warten auf Verkäufer",
-  "match.waitingForTrader": "Warten auf Händler"
+  "match.waitingForTrader": "Warten auf Händler",
+  "tradingConditionsUpdate.banner": "Peach hat die Handelsbedingungen aktualisiert, hier tippen zum Nachlesen!",
+  "tradingConditionsUpdate.title": "Handelsbedingungen aktualisiert",
+  "tradingConditionsUpdate.text": "Peach hat vorübergehend einige Änderungen an seinem Handelssystem vorgenommen.\n\nZunächst: Nur sehr vertrauenswürdige Verkäufer mit einer langen Reputation bei Peach dürfen verkaufen. Peach hat sehr strenge Kriterien festgelegt, die Verkäufer erfüllen müssen, um teilnehmen zu dürfen.\n\nVorübergehend gilt: Das Treuhandsystem von Peach unterliegt keinerlei Kontrolle seitens Peach – der Verkäufer verfügt vollständig über die hinterlegten BTC.\n\nIm Streitfall steht Peach weiterhin zur Verfügung, um zu unterstützen und zu vermitteln, und leistet im äußersten Fall vollen Beistand, wenn der Verkäufer unrechtmäßig handelt.\n\nBei Fragen kontaktiere uns bitte direkt!",
+  "tradingConditionsUpdate.text.bold": "Das Treuhandsystem von Peach unterliegt keinerlei Kontrolle seitens Peach"
 }

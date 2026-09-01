@@ -10,7 +10,7 @@ import { IconType } from "./assets/icons";
 import tw from "./styles/tailwind";
 import { sha256 } from "./utils/crypto/sha256";
 
-export const MAXIMUM_CHF_AMOUNT_OF_OFFER = 950;
+export const MAXIMUM_CHF_AMOUNT_OF_OFFER = 500;
 export const MINIMUM_CHF_AMOUNT_OF_OFFER = 1;
 
 export const PIN_CODE_MAX_SIZE = 8;

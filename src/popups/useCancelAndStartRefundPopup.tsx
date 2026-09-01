@@ -5,6 +5,7 @@ import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import i18n from "../utils/i18n";
 import { LoadingPopup } from "./LoadingPopup";
 import { useCancelOffer } from "./useCancelOffer";
+import { useStartRefundPopup } from "./useStartRefundPopup";
 
 export const useCancelAndStartRefundPopup = () => {
   const { mutate: refundSellOffer } = useRefundSellOffer();
@@ -12,6 +13,7 @@ export const useCancelAndStartRefundPopup = () => {
   const setPopup = useSetPopup();
   const showError = useShowErrorBanner();
   const { mutate: cancelOffer } = useCancelOffer();
+  const startRefund = useStartRefundPopup();
 
   const cancelAndStartRefundPopup = useCallback(
     (sellOffer: SellOffer) => {
@@ -26,11 +28,12 @@ export const useCancelAndStartRefundPopup = () => {
           if ("psbt" in result) {
             return refundSellOffer({ sellOffer, rawPSBT: result.psbt });
           }
-          return null;
+          // cancelation did not hand us a refund PSBT, so ask for one
+          return startRefund(sellOffer);
         },
       });
     },
-    [cancelOffer, closePopup, refundSellOffer, setPopup, showError],
+    [cancelOffer, closePopup, refundSellOffer, setPopup, showError, startRefund],
   );
 
   return cancelAndStartRefundPopup;

@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "falta la clave de cifrado",
   "PEACH_PGP_KEY_MISSING.text": "No se pudo cargar la clave de cifrado de Peach, así que tus datos no pueden cifrarse. Comprueba tu conexión, reinicia la app e inténtalo de nuevo.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Actualiza tu método de pago",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Uno de tus métodos de pago seleccionados ya no admite ninguna de las monedas que ofreces. Actualízalo antes de publicar."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Uno de tus métodos de pago seleccionados ya no admite ninguna de las monedas que ofreces. Actualízalo antes de publicar.",
+  "APP_UPDATE_REQUIRED.title": "actualización requerida",
+  "APP_UPDATE_REQUIRED.text": "Actualiza la app de Peach a la última versión para seguir vendiendo.",
+  "SELLING_NOT_ALLOWED.title": "venta no disponible",
+  "SELLING_NOT_ALLOWED.text": "Tu cuenta no puede crear ofertas de venta temporalmente. Ponte en contacto con el soporte de Peach para saber cómo puedes obtener acceso. ¡Gracias!",
+  "ONGOING_TRADE_EXISTS.title": "una operación a la vez",
+  "ONGOING_TRADE_EXISTS.text": "Ya tienes una operación en curso. Termínala o cancélala antes de empezar otra.",
+  "SELLER_HAS_ONGOING_TRADE.title": "el vendedor está ocupado",
+  "SELLER_HAS_ONGOING_TRADE.text": "El vendedor ya tiene una operación en curso. Inténtalo más tarde o elige otra oferta.",
+  "REPUBLISH_NOT_POSSIBLE.title": "no se puede republicar",
+  "REPUBLISH_NOT_POSSIBLE.text": "Esta oferta usa el escrow antiguo y ya no se puede volver a publicar. Solicita el reembolso en su lugar.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "oferta no disponible",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Esta oferta de venta usa el escrow antiguo y ya no se puede operar.",
+  "REFUND_ONLY_BY_SELLER.title": "reembolso desde tu cartera",
+  "REFUND_ONLY_BY_SELLER.text": "Peach no tiene ninguna clave en este escrow, así que solo tu cartera puede reembolsarlo. Inténtalo de nuevo desde este dispositivo."
 }

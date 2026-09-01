@@ -22,7 +22,7 @@ type Props = {
 };
 
 const defaultIncrement = 0.1;
-export const premiumBounds = { min: -35, max: 35 };
+export const premiumBounds = { min: -6, max: 6 };
 
 const clamp = (value: number, min: number, max: number) =>
   Math.max(min, Math.min(max, value));

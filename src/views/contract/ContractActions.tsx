@@ -17,6 +17,7 @@ import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdF
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
+import { isSingleSigEscrow } from "../../utils/offer/isSingleSigEscrow";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import {
   ChatButton,
@@ -207,7 +208,9 @@ function SellerSliders() {
   if (tradeStatus === "refundOrReviveRequired") {
     return (
       <>
-        <RepublishOfferSlider />
+        {/* republishing a legacy escrow is rejected by the server - those
+            offers can only be refunded */}
+        {isSingleSigEscrow(contract) && <RepublishOfferSlider />}
         <RefundEscrowSlider />
       </>
     );

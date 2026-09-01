@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "şifreleme anahtarı eksik",
   "PEACH_PGP_KEY_MISSING.text": "Peach'in şifreleme anahtarı yüklenemedi, bu yüzden verileriniz şifrelenemiyor. Bağlantınızı kontrol edin, uygulamayı yeniden başlatın ve tekrar deneyin.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Lütfen ödeme yönteminizi güncelleyin",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Seçtiğiniz ödeme yöntemlerinden biri artık sunduğunuz para birimlerinin hiçbirini desteklemiyor. Yayınlamadan önce güncelleyin."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Seçtiğiniz ödeme yöntemlerinden biri artık sunduğunuz para birimlerinin hiçbirini desteklemiyor. Yayınlamadan önce güncelleyin.",
+  "APP_UPDATE_REQUIRED.title": "Güncelleme gerekli",
+  "APP_UPDATE_REQUIRED.text": "Satışa devam etmek için lütfen Peach uygulamasını en son sürüme güncelleyin.",
+  "SELLING_NOT_ALLOWED.title": "Satış kullanılamıyor",
+  "SELLING_NOT_ALLOWED.text": "Hesabınız geçici olarak satış teklifi oluşturmaya uygun değil. Erişim izni alabilmek için Peach müşteri desteğiyle iletişime geçin. Teşekkürler!",
+  "ONGOING_TRADE_EXISTS.title": "Aynı anda tek işlem",
+  "ONGOING_TRADE_EXISTS.text": "Zaten devam eden bir işleminiz var. Yenisine başlamadan önce onu tamamlayın veya iptal edin.",
+  "SELLER_HAS_ONGOING_TRADE.title": "Satıcı meşgul",
+  "SELLER_HAS_ONGOING_TRADE.text": "Satıcının zaten devam eden bir işlemi var. Lütfen daha sonra tekrar deneyin veya başka bir teklif seçin.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Yeniden yayınlanamıyor",
+  "REPUBLISH_NOT_POSSIBLE.text": "Bu teklif eski escrow'u kullanıyor ve artık yeniden yayınlanamıyor. Lütfen bunun yerine iade alın.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Teklif kullanılamıyor",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Bu satış teklifi eski escrow'u kullanıyor ve artık işlem yapılamıyor.",
+  "REFUND_ONLY_BY_SELLER.title": "Cüzdanınızdan iade",
+  "REFUND_ONLY_BY_SELLER.text": "Peach'in bu escrow'da hiçbir anahtarı yok, bu yüzden iadeyi yalnızca cüzdanınız yapabilir. Lütfen bu cihazdan tekrar deneyin."
 }

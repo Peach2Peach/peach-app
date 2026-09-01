@@ -2,5 +2,9 @@
   "match.feeWarning": "Mijnbouwkosten tot $0%!",
   "match.tradeRequested": "handel aangevraagd",
   "match.waitingForSeller": "wachten op verkoper",
-  "match.waitingForTrader": "wachten op handelaar"
+  "match.waitingForTrader": "wachten op handelaar",
+  "tradingConditionsUpdate.banner": "Peach heeft de handelsvoorwaarden bijgewerkt, tik om meer te lezen!",
+  "tradingConditionsUpdate.title": "handelsvoorwaarden bijgewerkt",
+  "tradingConditionsUpdate.text": "Peach heeft tijdelijk enkele wijzigingen aangebracht in zijn handelssysteem.\n\nAllereerst: alleen zeer vertrouwde verkopers met een lange reputatie bij Peach mogen verkopen. Peach heeft een zeer strenge reeks criteria opgesteld waaraan verkopers moeten voldoen om deel te nemen.\n\nTijdelijk geldt: het escrowsysteem van Peach staat niet onder enige controle van Peach – de verkoper heeft volledige controle over de in escrow geplaatste BTC.\n\nBij een geschil blijft Peach beschikbaar om te helpen en te bemiddelen, en biedt in uiterste gevallen volledige ondersteuning als de verkoper zich misdraagt.\n\nHeb je vragen, neem dan rechtstreeks contact met ons op!",
+  "tradingConditionsUpdate.text.bold": "het escrowsysteem van Peach staat niet onder enige controle van Peach"
 }

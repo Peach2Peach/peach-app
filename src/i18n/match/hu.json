@@ -2,5 +2,9 @@
   "match.feeWarning": "Akár $0% bányászati díj!",
   "match.tradeRequested": "kereskedés kérve",
   "match.waitingForSeller": "eladóra várakozás",
-  "match.waitingForTrader": "kereskedőre várakozás"
+  "match.waitingForTrader": "kereskedőre várakozás",
+  "tradingConditionsUpdate.banner": "A Peach frissítette a kereskedési feltételeket, koppints a részletekért!",
+  "tradingConditionsUpdate.title": "kereskedési feltételek frissítve",
+  "tradingConditionsUpdate.text": "A Peach átmenetileg módosított néhány dolgot a kereskedési rendszerében.\n\nMindenekelőtt: csak nagyon megbízható, a Peachnél hosszú múltra visszatekintő eladók árulhatnak. A Peach nagyon szigorú feltételrendszert hozott létre az eladók részvételéhez.\n\nÁtmenetileg: a Peach letéti rendszere semmilyen módon nem áll a Peach ellenőrzése alatt – a letétbe helyezett BTC teljes egészében az eladó irányítása alatt van.\n\nVita esetén a Peach továbbra is rendelkezésre áll, hogy segítsen és közvetítsen, végső esetben pedig teljes támogatást nyújt, ha az eladó tisztességtelenül jár el.\n\nBármilyen kérdés esetén keress minket közvetlenül!",
+  "tradingConditionsUpdate.text.bold": "a Peach letéti rendszere semmilyen módon nem áll a Peach ellenőrzése alatt"
 }

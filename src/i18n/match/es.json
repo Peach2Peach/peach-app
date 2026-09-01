@@ -2,5 +2,9 @@
   "match.feeWarning": "Pagará hasta $0% en tasas mineras.",
   "match.tradeRequested": "Comercio solicitado",
   "match.waitingForSeller": "Esperando al vendedor",
-  "match.waitingForTrader": "Esperando al comprador"
+  "match.waitingForTrader": "Esperando al comprador",
+  "tradingConditionsUpdate.banner": "¡Peach ha actualizado las condiciones de comercio, pulsa para leer más!",
+  "tradingConditionsUpdate.title": "condiciones de comercio actualizadas",
+  "tradingConditionsUpdate.text": "Peach ha realizado algunos cambios temporales en su sistema de comercio.\n\nEn primer lugar: solo pueden vender los vendedores de máxima confianza con una larga reputación en Peach. Peach ha creado un conjunto de criterios muy exigentes para permitir que los vendedores participen.\n\nTemporalmente, el sistema de custodia de Peach no tiene ningún control por parte de Peach: el vendedor controla por completo los BTC en custodia.\n\nEn caso de disputa, Peach sigue disponible para ayudar y mediar en la disputa y, en casos extremos, ofrecer pleno respaldo si el vendedor actúa de forma indebida.\n\nSi tienes alguna pregunta, ¡contáctanos directamente!",
+  "tradingConditionsUpdate.text.bold": "el sistema de custodia de Peach no tiene ningún control por parte de Peach"
 }

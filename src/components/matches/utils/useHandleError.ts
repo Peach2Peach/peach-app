@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { getServerErrorMessageKey } from "../../../utils/error/serverErrorMessages";
 import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
 import { useSetToast } from "../../toast/Toast";
@@ -16,7 +17,10 @@ export const useHandleError = () => {
     (err: APIError | null) => {
       error("Error", err);
       if (err?.error) {
-        const msgKey = err?.error === "NOT_FOUND" ? "OFFER_TAKEN" : err?.error;
+        // some server errors arrive as plain sentences rather than codes
+        const msgKey =
+          getServerErrorMessageKey(err.error) ??
+          (err.error === "NOT_FOUND" ? "OFFER_TAKEN" : err.error);
 
         setToast({
           msgKey:

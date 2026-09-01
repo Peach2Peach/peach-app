@@ -2,5 +2,9 @@
   "match.feeWarning": "Mining fees up to $0%",
   "match.tradeRequested": "trade requested",
   "match.waitingForSeller": "waiting for seller",
-  "match.waitingForTrader": "waiting for trader"
+  "match.waitingForTrader": "waiting for trader",
+  "tradingConditionsUpdate.banner": "Peach has updated the trading conditions, press to read more!",
+  "tradingConditionsUpdate.title": "trading conditions updated",
+  "tradingConditionsUpdate.text": "Peach has some temporary changes to its trading system.\n\nFirst of all: only very highly trusted sellers with a long reputation at Peach can sell. Peach created a very demanding set of criteria to allow sellers to participate.\n\nTemporarily, Peach's escrow system doesn't have any control from Peach's part: the seller fully controls the escrowed BTC.\n\nIn case of dispute, Peach is still available to assist and mediate the dispute, and in ultimate cases provide full support if the seller is acting wrongfully.\n\nAny questions, please contact us directly!",
+  "tradingConditionsUpdate.text.bold": "Peach's escrow system doesn't have any control from Peach's part"
 }

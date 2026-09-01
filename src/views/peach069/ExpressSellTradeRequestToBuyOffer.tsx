@@ -1,3 +1,4 @@
+import { ESCROW_VERSION } from "../../../peach-api";
 import { Screen } from "../../components/Screen";
 import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
 import { useBuyOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useBuyOfferTradeRequestBySelfUser";
@@ -108,6 +109,7 @@ const performTradeRequestFunction = async ({
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
       maxMiningFeeRate: maxMiningFeeRate,
+      escrowVersion: ESCROW_VERSION,
       // returnAddress,
     },
   );
@@ -206,6 +208,7 @@ const performInstantTrade = async ({
         symmetricKeyEncrypted: encrypted,
         symmetricKeySignature: signature,
         maxMiningFeeRate: maxMiningFeeRate,
+        escrowVersion: ESCROW_VERSION,
         // returnAddress,
       });
 

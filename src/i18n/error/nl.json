@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "versleutelingssleutel ontbreekt",
   "PEACH_PGP_KEY_MISSING.text": "De versleutelingssleutel van Peach kon niet worden geladen, dus je gegevens kunnen niet worden versleuteld. Controleer je verbinding, herstart de app en probeer het opnieuw.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Werk je betaalmethode bij",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Een van je geselecteerde betaalmethoden ondersteunt geen van je aangeboden valuta's meer. Werk deze bij voordat je publiceert."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Een van je geselecteerde betaalmethoden ondersteunt geen van je aangeboden valuta's meer. Werk deze bij voordat je publiceert.",
+  "APP_UPDATE_REQUIRED.title": "update vereist",
+  "APP_UPDATE_REQUIRED.text": "Werk de Peach-app bij naar de nieuwste versie om te blijven verkopen.",
+  "SELLING_NOT_ALLOWED.title": "verkopen niet beschikbaar",
+  "SELLING_NOT_ALLOWED.text": "Je account kan tijdelijk geen verkoopaanbiedingen aanmaken. Neem contact op met de klantenservice van Peach om te horen hoe je toegang kunt krijgen. Bedankt!",
+  "ONGOING_TRADE_EXISTS.title": "één trade tegelijk",
+  "ONGOING_TRADE_EXISTS.text": "Je hebt al een lopende trade. Rond die af of annuleer hem voordat je een nieuwe start.",
+  "SELLER_HAS_ONGOING_TRADE.title": "verkoper is bezig",
+  "SELLER_HAS_ONGOING_TRADE.text": "De verkoper heeft al een lopende trade. Probeer het later opnieuw of kies een andere aanbieding.",
+  "REPUBLISH_NOT_POSSIBLE.title": "opnieuw plaatsen niet mogelijk",
+  "REPUBLISH_NOT_POSSIBLE.text": "Deze aanbieding gebruikt de oude borg en kan niet meer opnieuw geplaatst worden. Vraag in plaats daarvan terugbetaling aan.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "aanbieding niet beschikbaar",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Deze verkoopaanbieding gebruikt de oude borg en kan niet meer verhandeld worden.",
+  "REFUND_ONLY_BY_SELLER.title": "terugbetaling vanuit je wallet",
+  "REFUND_ONLY_BY_SELLER.text": "Peach heeft geen sleutel in deze borg, dus alleen jouw wallet kan terugbetalen. Probeer het opnieuw vanaf dit apparaat."
 }

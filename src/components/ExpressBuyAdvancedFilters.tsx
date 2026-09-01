@@ -690,8 +690,8 @@ export function PriceSection() {
       shallow,
     );
 
-  const MAX_PREMIUM = 35;
-  const MIN_PREMIUM = -35;
+  const MAX_PREMIUM = 6;
+  const MIN_PREMIUM = -6;
 
   const expressBuyFilterMaxPremium =
     realExpressBuyFilterMaxPremium === 9999

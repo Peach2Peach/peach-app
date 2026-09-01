@@ -2,5 +2,9 @@
   "match.feeWarning": "Frais de minage jusqu'à 0 % !",
   "match.tradeRequested": "Échange demandé",
   "match.waitingForSeller": "En attente du vendeur",
-  "match.waitingForTrader": "En attente du trader"
+  "match.waitingForTrader": "En attente du trader",
+  "tradingConditionsUpdate.banner": "Peach a mis à jour les conditions d'échange, appuyez pour en savoir plus !",
+  "tradingConditionsUpdate.title": "conditions d'échange mises à jour",
+  "tradingConditionsUpdate.text": "Peach a apporté des changements temporaires à son système d'échange.\n\nTout d'abord : seuls les vendeurs de très grande confiance, avec une longue réputation chez Peach, peuvent vendre. Peach a défini des critères très exigeants pour autoriser les vendeurs à participer.\n\nTemporairement, le système de séquestre de Peach n'est plus contrôlé par Peach : le vendeur contrôle entièrement les BTC sous séquestre.\n\nEn cas de litige, Peach reste disponible pour assister et arbitrer le litige et, en dernier recours, apporter un soutien complet si le vendeur agit de mauvaise foi.\n\nPour toute question, contactez-nous directement !",
+  "tradingConditionsUpdate.text.bold": "le système de séquestre de Peach n'est plus contrôlé par Peach"
 }

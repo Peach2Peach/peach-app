@@ -11,9 +11,7 @@ import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import tw from "../../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
-import { peachAPI } from "../../../utils/peachAPI";
-import { getPublicKeyForEscrow } from "../../../utils/wallet/getPublicKeyForEscrow";
-import { getWallet } from "../../../utils/wallet/getWallet";
+import { createEscrowForOffer } from "../../../utils/offer/createEscrowForOffer";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { FundFromPeachWalletButton } from "../../fundEscrow/FundFromPeachWalletButton";
 import { FundingAmount } from "../../fundEscrow/FundingAmount";
@@ -136,8 +134,6 @@ function SellerFundEscrow() {
 
   useEffect(() => {
     const setupEscrow = async () => {
-      const publicKey = getPublicKeyForEscrow(getWallet(), sellOfferId);
-
       if (!peachWallet) {
         throw Error("Peach Wallet not Ready");
       }
@@ -147,11 +143,7 @@ function SellerFundEscrow() {
         "internal",
       );
 
-      await peachAPI.private.offer.createEscrow({
-        offerId: sellOfferId,
-        publicKey,
-        returnAddress,
-      });
+      await createEscrowForOffer({ offerId: sellOfferId, returnAddress });
 
       await refetch();
       await refetchContract();

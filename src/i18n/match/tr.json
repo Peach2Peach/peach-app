@@ -2,5 +2,9 @@
   "match.feeWarning": "Madencilik ücretlerinde %0'a kadar ödeme yapacaksınız!",
   "match.tradeRequested": "ticaret istendi",
   "match.waitingForSeller": "satıcı bekleniyor",
-  "match.waitingForTrader": "ticaretçi bekleniyor"
+  "match.waitingForTrader": "ticaretçi bekleniyor",
+  "tradingConditionsUpdate.banner": "Peach ticaret koşullarını güncelledi, daha fazlasını okumak için dokun!",
+  "tradingConditionsUpdate.title": "ticaret koşulları güncellendi",
+  "tradingConditionsUpdate.text": "Peach, ticaret sisteminde geçici bazı değişiklikler yaptı.\n\nÖncelikle: yalnızca Peach'te uzun bir itibara sahip, çok güvenilir satıcılar satış yapabilir. Peach, satıcıların katılabilmesi için çok zorlu bir kriterler dizisi oluşturdu.\n\nGeçici olarak, Peach'in emanet sistemi üzerinde Peach'in hiçbir kontrolü yoktur: emanetteki BTC tamamen satıcının kontrolündedir.\n\nAnlaşmazlık durumunda Peach yardım etmek ve arabuluculuk yapmak için hâlâ hazırdır ve satıcının hatalı davranması hâlinde en uç durumlarda tam destek sağlar.\n\nSorularınız için lütfen bizimle doğrudan iletişime geçin!",
+  "tradingConditionsUpdate.text.bold": "Peach'in emanet sistemi üzerinde Peach'in hiçbir kontrolü yoktur"
 }

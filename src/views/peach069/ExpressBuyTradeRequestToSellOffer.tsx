@@ -14,9 +14,11 @@ import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData
 import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
+import tw from "../../styles/tailwind";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 import { ExpressFlowTradeRequestToOffer } from "./ExpressFlowTradeRequestToOffer";
+import { TradingConditionsBanner } from "./components/TradingConditionsBanner";
 
 const goToChat = async (
   navigation: StackNavigation,
@@ -347,6 +349,7 @@ export function ExpressBuyTradeRequestToSellOffer() {
     return <LoadingScreen />;
   return (
     <Screen showTradingLimit header={offerIdToHex(sellOffer.id)}>
+      <TradingConditionsBanner style={tw`mb-2`} />
       <ExpressFlowTradeRequestToOffer
         offer={sellOffer}
         onTradeRequestDisappearingFunction={onTradeRequestDisappearing}

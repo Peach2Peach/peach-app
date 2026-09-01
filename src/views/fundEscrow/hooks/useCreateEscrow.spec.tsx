@@ -26,6 +26,7 @@ describe("useCreateEscrow", () => {
       offerId: "38",
       publicKey:
         "029d3a758589d86eaeccb6bd50dd91b4846ec558bde201999c8e3dee203a892c57",
+      returnAddress: undefined,
     });
   });
   it("sends API requests to create multiple escrows", async () => {
@@ -36,11 +37,13 @@ describe("useCreateEscrow", () => {
       offerId: "38",
       publicKey:
         "029d3a758589d86eaeccb6bd50dd91b4846ec558bde201999c8e3dee203a892c57",
+      returnAddress: undefined,
     });
     expect(createEscrowMock).toHaveBeenCalledWith({
       offerId: "39",
       publicKey:
         "02290455989c5c5d4ba248a9f137ff83a6fb9961988cea868d8491e9f7e0447595",
+      returnAddress: undefined,
     });
   });
   it("shows error banner on API errors", async () => {

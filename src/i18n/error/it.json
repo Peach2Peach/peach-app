@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "chiave di cifratura mancante",
   "PEACH_PGP_KEY_MISSING.text": "Non è stato possibile caricare la chiave di cifratura di Peach, quindi i tuoi dati non possono essere cifrati. Controlla la connessione, riavvia l'app e riprova.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Aggiorna il tuo metodo di pagamento",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Uno dei metodi di pagamento selezionati non supporta più nessuna delle valute che offri. Aggiornalo prima di pubblicare."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Uno dei metodi di pagamento selezionati non supporta più nessuna delle valute che offri. Aggiornalo prima di pubblicare.",
+  "APP_UPDATE_REQUIRED.title": "Aggiornamento richiesto",
+  "APP_UPDATE_REQUIRED.text": "Aggiorna l'app Peach all'ultima versione per continuare a vendere.",
+  "SELLING_NOT_ALLOWED.title": "Vendita non disponibile",
+  "SELLING_NOT_ALLOWED.text": "Il tuo account temporaneamente non può creare offerte di vendita. Contatta l'assistenza clienti di Peach per scoprire come ottenere l'accesso. Grazie!",
+  "ONGOING_TRADE_EXISTS.title": "Un trade alla volta",
+  "ONGOING_TRADE_EXISTS.text": "Hai già un trade in corso. Completalo o annullalo prima di iniziarne uno nuovo.",
+  "SELLER_HAS_ONGOING_TRADE.title": "Il venditore è occupato",
+  "SELLER_HAS_ONGOING_TRADE.text": "Il venditore ha già un trade in corso. Riprova più tardi o scegli un'altra offerta.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Ripubblicazione non possibile",
+  "REPUBLISH_NOT_POSSIBLE.text": "Questa offerta usa il vecchio deposito e non può più essere ripubblicata. Richiedi invece il rimborso.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Offerta non disponibile",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Questa offerta di vendita usa il vecchio deposito e non è più negoziabile.",
+  "REFUND_ONLY_BY_SELLER.title": "Rimborso dal tuo wallet",
+  "REFUND_ONLY_BY_SELLER.text": "Peach non detiene alcuna chiave di questo deposito, quindi solo il tuo wallet può rimborsarlo. Riprova da questo dispositivo."
 }

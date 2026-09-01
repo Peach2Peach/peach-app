@@ -1,10 +1,13 @@
+import { BIP32Interface } from "bip32";
 import { Psbt } from "bitcoinjs-lib";
 import { txIdPartOfPSBT } from "../../../utils/bitcoin/txIdPartOfPSBT";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
+import { isSingleSigEscrow } from "../../../utils/offer/isSingleSigEscrow";
 import { peachAPI } from "../../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../../utils/wallet/getEscrowWalletForOffer";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { signPSBT } from "../../../utils/wallet/signPSBT";
+import { signSingleSigEscrowInput } from "../../../utils/wallet/singleSigEscrow";
 import { useContractMutation } from "./useContractMutation";
 
 export function useConfirmPaymentSeller({
@@ -30,29 +33,22 @@ export function useConfirmPaymentSeller({
         const { txIds } = sellOffer.funding;
         const { releaseAddress, batchReleasePsbt, releasePsbt, id } = contract;
 
-        const psbt = Psbt.fromBase64(releasePsbt, { network: getNetwork() });
-        verifyReleasePSBT(psbt, txIds, releaseAddress);
-
-        const batchPsbt = batchReleasePsbt
-          ? Psbt.fromBase64(batchReleasePsbt, { network: getNetwork() })
-          : undefined;
-
-        if (batchPsbt) {
-          verifyReleasePSBT(batchPsbt, txIds, releaseAddress);
-          signPSBT(batchPsbt, wallet);
-        }
-        signPSBT(psbt, wallet);
-        const numberOfSignatures = psbt.data.inputs[0].partialSig?.length;
-        if (!numberOfSignatures) {
-          throw Error("signatures missing");
-        }
-        const signature =
-          psbt.data.inputs[0].partialSig?.[
-            numberOfSignatures - 1
-          ].signature.toString("hex");
-        if (!signature) {
-          throw Error("signature missing");
-        }
+        const [signature, batchPsbt] = isSingleSigEscrow(contract)
+          ? [
+              await getSingleSigReleaseSignature({
+                contractId: id,
+                txIds,
+                releaseAddress,
+                wallet,
+              }),
+            ]
+          : getMultiSigReleaseSignature({
+              releasePsbt,
+              batchReleasePsbt,
+              txIds,
+              releaseAddress,
+              wallet,
+            });
 
         const { error: err } =
           await peachAPI.private.contract.confirmPaymentSeller({
@@ -65,6 +61,76 @@ export function useConfirmPaymentSeller({
     },
     { optimistic },
   );
+}
+
+/**
+ * escrowVersion 2: Peach still builds the transaction but cannot sign it. Fetch
+ * the exact PSBT it will broadcast - the server verifies our signature against
+ * it - and sign the taproot key path with the tweaked escrow key.
+ * Batching relies on Peach co-signing, so it is never used here.
+ */
+async function getSingleSigReleaseSignature({
+  contractId,
+  txIds,
+  releaseAddress,
+  wallet,
+}: {
+  contractId: string;
+  txIds: string[];
+  releaseAddress: string;
+  wallet: BIP32Interface;
+}) {
+  const { result, error: err } =
+    await peachAPI.private.contract.getContractSignedReleasePSBT({
+      contractId,
+    });
+  if (!result?.releasePsbt) throw new Error(err?.error || "MISSING_DATA");
+
+  const psbt = Psbt.fromBase64(result.releasePsbt, { network: getNetwork() });
+  verifyReleasePSBT(psbt, txIds, releaseAddress);
+
+  return signSingleSigEscrowInput(psbt, 0, wallet).toString("hex");
+}
+
+/** legacy 2-of-2 P2WSH escrow: Peach has already added its own signature */
+function getMultiSigReleaseSignature({
+  releasePsbt,
+  batchReleasePsbt,
+  txIds,
+  releaseAddress,
+  wallet,
+}: {
+  releasePsbt: string;
+  batchReleasePsbt?: string;
+  txIds: string[];
+  releaseAddress: string;
+  wallet: BIP32Interface;
+}) {
+  const psbt = Psbt.fromBase64(releasePsbt, { network: getNetwork() });
+  verifyReleasePSBT(psbt, txIds, releaseAddress);
+
+  const batchPsbt = batchReleasePsbt
+    ? Psbt.fromBase64(batchReleasePsbt, { network: getNetwork() })
+    : undefined;
+
+  if (batchPsbt) {
+    verifyReleasePSBT(batchPsbt, txIds, releaseAddress);
+    signPSBT(batchPsbt, wallet);
+  }
+  signPSBT(psbt, wallet);
+  const numberOfSignatures = psbt.data.inputs[0].partialSig?.length;
+  if (!numberOfSignatures) {
+    throw Error("signatures missing");
+  }
+  const signature =
+    psbt.data.inputs[0].partialSig?.[numberOfSignatures - 1].signature.toString(
+      "hex",
+    );
+  if (!signature) {
+    throw Error("signature missing");
+  }
+
+  return [signature, batchPsbt] as const;
 }
 
 function verifyReleasePSBT(

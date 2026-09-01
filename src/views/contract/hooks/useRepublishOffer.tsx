@@ -7,8 +7,11 @@ import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
+import { useStartRefundPopup } from "../../../popups/useStartRefundPopup";
+import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
+import { parseError } from "../../../utils/parseError";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export const useRepublishOffer = () => {
@@ -16,6 +19,7 @@ export const useRepublishOffer = () => {
   const closePopup = useClosePopup();
   const showErrorBanner = useShowErrorBanner();
   const navigation = useStackNavigation();
+  const startRefund = useStartRefundPopup();
 
   const closeAction = (contractId: string) => {
     navigation.replace("contract", { contractId });
@@ -28,9 +32,15 @@ export const useRepublishOffer = () => {
 
   return useMutation({
     mutationFn: republishOffer,
-    onError: (error) => {
+    onError: async (error, contract) => {
       showErrorBanner(error?.message);
       closePopup();
+      // legacy escrows can no longer be republished - the only way out is a
+      // refund, so take the user straight there
+      if (parseError(error) === "REPUBLISH_NOT_POSSIBLE") {
+        const sellOffer = await getSellOfferFromContract(contract);
+        if (sellOffer) startRefund(sellOffer);
+      }
     },
     onSuccess: ({ newOfferId }, { id: contractId }) => {
       setPopup(

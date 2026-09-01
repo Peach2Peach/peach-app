@@ -2,5 +2,9 @@
   "match.feeWarning": "Opłaty sieciowe mogą wynieść do $0%!",
   "match.tradeRequested": "Żądanie transakcji",
   "match.waitingForSeller": "Oczekiwanie na sprzedawcę",
-  "match.waitingForTrader": "Oczekiwanie na handlowca"
+  "match.waitingForTrader": "Oczekiwanie na handlowca",
+  "tradingConditionsUpdate.banner": "Peach zaktualizował warunki handlu, naciśnij, aby dowiedzieć się więcej!",
+  "tradingConditionsUpdate.title": "warunki handlu zaktualizowane",
+  "tradingConditionsUpdate.text": "Peach wprowadził tymczasowe zmiany w swoim systemie handlu.\n\nPrzede wszystkim: sprzedawać mogą wyłącznie sprzedawcy o bardzo wysokim zaufaniu i długiej reputacji w Peach. Peach stworzył bardzo wymagający zestaw kryteriów dopuszczających sprzedawców do udziału.\n\nTymczasowo system depozytowy Peach nie podlega żadnej kontroli ze strony Peach: sprzedawca w pełni kontroluje zdeponowane BTC.\n\nW przypadku sporu Peach nadal służy pomocą i mediacją, a w skrajnych przypadkach zapewnia pełne wsparcie, jeśli sprzedawca postępuje nieuczciwie.\n\nW razie pytań skontaktuj się z nami bezpośrednio!",
+  "tradingConditionsUpdate.text.bold": "system depozytowy Peach nie podlega żadnej kontroli ze strony Peach"
 }

@@ -52,6 +52,7 @@ import { inputContainerStyle } from "../offerPreferences/SellOfferPreferences";
 import { trackMin } from "../offerPreferences/utils/constants";
 import { enforceDigitFormat } from "../offerPreferences/utils/enforceDigitFormat";
 import { useCreateBuyOffer } from "../offerPreferences/utils/peach069/useCreateBuyOffer";
+import { TradingConditionsBanner } from "./components/TradingConditionsBanner";
 import { useAmountInBounds } from "../offerPreferences/utils/useAmountInBounds";
 import { useRestrictSatsAmount } from "../offerPreferences/utils/useRestrictSatsAmount";
 import { useTrackWidth } from "../offerPreferences/utils/useTrackWidth";
@@ -79,6 +80,7 @@ export function CreateBuyOffer() {
       header={<PreferenceHeader />}
       button={<PublishOfferButton />}
     >
+      <TradingConditionsBanner />
       <PreferenceMethods type="buy" setCurrency={setCurrency} />
       <AmountSelector setIsSliding={setIsSliding} currency={currency} />
       <AdvancedOptions />

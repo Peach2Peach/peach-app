@@ -2,5 +2,9 @@
   "match.tradeRequested": "ombi la biashara limetumwa",
   "match.waitingForSeller": "inasubiri muuzaji",
   "match.waitingForTrader": "inasubiri mfanyabiashara",
-  "match.feeWarning": "Ada za uchimbaji hadi $0%"
+  "match.feeWarning": "Ada za uchimbaji hadi $0%",
+  "tradingConditionsUpdate.banner": "Peach imesasisha masharti ya biashara, bonyeza kusoma zaidi!",
+  "tradingConditionsUpdate.title": "masharti ya biashara yamesasishwa",
+  "tradingConditionsUpdate.text": "Peach imefanya mabadiliko ya muda katika mfumo wake wa biashara.\n\nKwanza kabisa: ni wauzaji wanaoaminika sana tu, wenye sifa ndefu katika Peach, wanaoweza kuuza. Peach imeweka vigezo vikali sana ili kuruhusu wauzaji kushiriki.\n\nKwa muda, mfumo wa amana wa Peach hauna udhibiti wowote kutoka upande wa Peach: muuzaji anadhibiti kikamilifu BTC zilizowekwa kwenye amana.\n\nIwapo kutatokea mzozo, Peach bado ipo tayari kusaidia na kupatanisha, na katika hali za mwisho kutoa msaada kamili iwapo muuzaji atatenda vibaya.\n\nKwa maswali yoyote, tafadhali wasiliana nasi moja kwa moja!",
+  "tradingConditionsUpdate.text.bold": "mfumo wa amana wa Peach hauna udhibiti wowote kutoka upande wa Peach"
 }

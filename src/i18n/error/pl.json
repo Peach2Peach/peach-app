@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "brak klucza szyfrowania",
   "PEACH_PGP_KEY_MISSING.text": "Nie udało się wczytać klucza szyfrowania Peach, więc Twoje dane nie mogą zostać zaszyfrowane. Sprawdź połączenie, uruchom aplikację ponownie i spróbuj jeszcze raz.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Zaktualizuj swoją metodę płatności",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Jedna z wybranych metod płatności nie obsługuje już żadnej z oferowanych przez Ciebie walut. Zaktualizuj ją przed opublikowaniem."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Jedna z wybranych metod płatności nie obsługuje już żadnej z oferowanych przez Ciebie walut. Zaktualizuj ją przed opublikowaniem.",
+  "APP_UPDATE_REQUIRED.title": "Wymagana aktualizacja",
+  "APP_UPDATE_REQUIRED.text": "Zaktualizuj aplikację Peach do najnowszej wersji, aby dalej sprzedawać.",
+  "SELLING_NOT_ALLOWED.title": "Sprzedaż niedostępna",
+  "SELLING_NOT_ALLOWED.text": "Twoje konto tymczasowo nie może tworzyć ofert sprzedaży. Skontaktuj się z obsługą klienta Peach, aby dowiedzieć się, jak uzyskać dostęp. Dziękujemy!",
+  "ONGOING_TRADE_EXISTS.title": "Jedna transakcja naraz",
+  "ONGOING_TRADE_EXISTS.text": "Masz już trwającą transakcję. Zakończ ją lub anuluj, zanim rozpoczniesz nową.",
+  "SELLER_HAS_ONGOING_TRADE.title": "Sprzedawca jest zajęty",
+  "SELLER_HAS_ONGOING_TRADE.text": "Sprzedawca ma już trwającą transakcję. Spróbuj ponownie później lub wybierz inną ofertę.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Nie można opublikować ponownie",
+  "REPUBLISH_NOT_POSSIBLE.text": "Ta oferta korzysta ze starego depozytu i nie może już zostać ponownie opublikowana. Zamiast tego poproś o zwrot.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Oferta niedostępna",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Ta oferta sprzedaży korzysta ze starego depozytu i nie można już nią handlować.",
+  "REFUND_ONLY_BY_SELLER.title": "Zwrot z Twojego portfela",
+  "REFUND_ONLY_BY_SELLER.text": "Peach nie posiada klucza do tego depozytu, więc tylko Twój portfel może dokonać zwrotu. Spróbuj ponownie z tego urządzenia."
 }

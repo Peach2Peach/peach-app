@@ -2,5 +2,9 @@
   "match.feeWarning": "Pagherai fino allo 0% di commissioni!",
   "match.tradeRequested": "Commercio richiesto",
   "match.waitingForSeller": "In attesa del venditore",
-  "match.waitingForTrader": "In attesa del trader"
+  "match.waitingForTrader": "In attesa del trader",
+  "tradingConditionsUpdate.banner": "Peach ha aggiornato le condizioni di scambio, premi per saperne di più!",
+  "tradingConditionsUpdate.title": "condizioni di scambio aggiornate",
+  "tradingConditionsUpdate.text": "Peach ha apportato alcune modifiche temporanee al suo sistema di scambio.\n\nPrima di tutto: solo i venditori di grande fiducia con una lunga reputazione su Peach possono vendere. Peach ha creato criteri molto rigorosi per consentire ai venditori di partecipare.\n\nTemporaneamente, il sistema di deposito a garanzia di Peach non prevede alcun controllo da parte di Peach: il venditore controlla interamente i BTC depositati.\n\nIn caso di controversia, Peach resta disponibile ad assistere e mediare e, nei casi estremi, a fornire pieno supporto se il venditore agisce scorrettamente.\n\nPer qualsiasi domanda, contattaci direttamente!",
+  "tradingConditionsUpdate.text.bold": "il sistema di deposito a garanzia di Peach non prevede alcun controllo da parte di Peach"
 }

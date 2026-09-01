@@ -9,6 +9,7 @@ import form from "./form/hu.json";
 import global from "./global/hu.json";
 import help from "./help/hu.json";
 import home from "./home/hu.json";
+import match from "./match/hu.json";
 import notification from "./notification/hu.json";
 import offer from "./offer/hu.json";
 import paymentMethod from "./paymentMethod/hu.json";
@@ -33,6 +34,7 @@ const hu: Record<string, string> = {
   ...form,
   ...help,
   ...home,
+  ...match,
   ...notification,
   ...offer,
   ...paymentMethod,

@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "hiányzó titkosítási kulcs",
   "PEACH_PGP_KEY_MISSING.text": "A Peach titkosítási kulcsa nem tölthető be, ezért az adataid nem titkosíthatók. Ellenőrizd a kapcsolatot, indítsd újra az alkalmazást, majd próbáld újra.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Frissítsd a fizetési módodat",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "A kiválasztott fizetési módjaid egyike már nem támogatja egyik felkínált pénznemedet sem. Frissítsd a közzététel előtt."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "A kiválasztott fizetési módjaid egyike már nem támogatja egyik felkínált pénznemedet sem. Frissítsd a közzététel előtt.",
+  "APP_UPDATE_REQUIRED.title": "Frissítés szükséges",
+  "APP_UPDATE_REQUIRED.text": "Frissítsd a Peach alkalmazást a legújabb verzióra, hogy tovább tudj eladni.",
+  "SELLING_NOT_ALLOWED.title": "Az eladás nem érhető el",
+  "SELLING_NOT_ALLOWED.text": "A fiókod átmenetileg nem jogosult eladási ajánlatok létrehozására. Vedd fel a kapcsolatot a Peach ügyfélszolgálatával, hogy megtudd, hogyan kaphatsz hozzáférést. Köszönjük!",
+  "ONGOING_TRADE_EXISTS.title": "Egyszerre csak egy kereskedés",
+  "ONGOING_TRADE_EXISTS.text": "Már van egy folyamatban lévő kereskedésed. Fejezd be vagy vond vissza, mielőtt újat indítasz.",
+  "SELLER_HAS_ONGOING_TRADE.title": "Az eladó elfoglalt",
+  "SELLER_HAS_ONGOING_TRADE.text": "Az eladónak már van egy folyamatban lévő kereskedése. Próbáld újra később, vagy válassz másik ajánlatot.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Nem lehet újra közzétenni",
+  "REPUBLISH_NOT_POSSIBLE.text": "Ez az ajánlat a régi letétet használja, ezért már nem tehető újra közzé. Kérd inkább a visszatérítést.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Az ajánlat nem elérhető",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Ez az eladási ajánlat a régi letétet használja, ezért már nem lehet vele kereskedni.",
+  "REFUND_ONLY_BY_SELLER.title": "Visszatérítés a tárcádból",
+  "REFUND_ONLY_BY_SELLER.text": "A Peachnek nincs kulcsa ehhez a letéthez, így csak a te tárcád tudja visszatéríteni. Próbáld újra erről az eszközről."
 }

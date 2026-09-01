@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { ESCROW_VERSION } from "../../../../peach-api";
 import { interpolate } from "../../../utils/math/interpolate";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -29,6 +30,9 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
   const hasFixedPrice = offerDraft.fixedPrice !== undefined;
 
   const payload = {
+    // mandatory since the single-sig escrow release: the server rejects any
+    // sell offer that does not ask for escrow version 2
+    escrowVersion: ESCROW_VERSION,
     type: offerDraft.type,
     amount: offerDraft.amount,
     premium: hasFixedPrice ? undefined : offerDraft.premium,

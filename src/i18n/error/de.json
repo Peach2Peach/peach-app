@@ -102,5 +102,19 @@
   "PEACH_PGP_KEY_MISSING.title": "Verschlüsselungsschlüssel fehlt",
   "PEACH_PGP_KEY_MISSING.text": "Der Verschlüsselungsschlüssel von Peach konnte nicht geladen werden, daher können deine Daten nicht verschlüsselt werden. Bitte prüfe deine Verbindung, starte die App neu und versuche es erneut.",
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Bitte aktualisiere deine Zahlungsmethode",
-  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Eine deiner ausgewählten Zahlungsmethoden unterstützt keine deiner angebotenen Währungen mehr. Bitte aktualisiere sie vor dem Veröffentlichen."
+  "PLEASE_UPDATE_PAYMENT_METHOD.text": "Eine deiner ausgewählten Zahlungsmethoden unterstützt keine deiner angebotenen Währungen mehr. Bitte aktualisiere sie vor dem Veröffentlichen.",
+  "APP_UPDATE_REQUIRED.title": "Update erforderlich",
+  "APP_UPDATE_REQUIRED.text": "Bitte aktualisiere die Peach-App auf die neueste Version, um weiter verkaufen zu können.",
+  "SELLING_NOT_ALLOWED.title": "Verkaufen nicht verfügbar",
+  "SELLING_NOT_ALLOWED.text": "Dein Konto ist vorübergehend nicht berechtigt, Verkaufsangebote zu erstellen. Wende dich an den Peach-Kundensupport, um zu erfahren, wie du Zugang erhalten kannst. Vielen Dank.",
+  "ONGOING_TRADE_EXISTS.title": "Nur ein Trade gleichzeitig",
+  "ONGOING_TRADE_EXISTS.text": "Du hast bereits einen laufenden Trade. Beende oder storniere ihn, bevor du einen neuen startest.",
+  "SELLER_HAS_ONGOING_TRADE.title": "Verkäufer ist beschäftigt",
+  "SELLER_HAS_ONGOING_TRADE.text": "Der Verkäufer hat bereits einen laufenden Trade. Bitte versuche es später erneut oder wähle ein anderes Angebot.",
+  "REPUBLISH_NOT_POSSIBLE.title": "Erneutes Veröffentlichen nicht möglich",
+  "REPUBLISH_NOT_POSSIBLE.text": "Dieses Angebot nutzt das alte Escrow und kann nicht mehr erneut veröffentlicht werden. Bitte lass es dir stattdessen erstatten.",
+  "SELL_OFFER_NOT_TRADEABLE.title": "Angebot nicht verfügbar",
+  "SELL_OFFER_NOT_TRADEABLE.text": "Dieses Verkaufsangebot nutzt das alte Escrow und kann nicht mehr gehandelt werden.",
+  "REFUND_ONLY_BY_SELLER.title": "Erstattung aus deiner Wallet",
+  "REFUND_ONLY_BY_SELLER.text": "Peach besitzt keinen Schlüssel für dieses Escrow, daher kann nur deine Wallet die Erstattung durchführen. Bitte versuche es erneut von diesem Gerät aus."
 }
