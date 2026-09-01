@@ -269,14 +269,22 @@ function AmountTooLowPopup({
       title={i18n("fundFromPeachWallet.amountTooLow.title")}
       content={
         <View style={tw`gap-3`}>
-          <PeachText>
+          <PeachText style={tw`text-black-100`}>
             {i18n("fundFromPeachWallet.amountTooLow.description.1")}
           </PeachText>
-          <BTCAmount amount={available} size="medium" />
-          <PeachText>
+          <BTCAmount
+            amount={available}
+            size="medium"
+            textStyle={tw`text-black-100`}
+          />
+          <PeachText style={tw`text-black-100`}>
             {i18n("fundFromPeachWallet.amountTooLow.description.2")}
           </PeachText>
-          <BTCAmount amount={needed} size="medium" />
+          <BTCAmount
+            amount={needed}
+            size="medium"
+            textStyle={tw`text-black-100`}
+          />
         </View>
       }
       actions={<ClosePopupAction style={tw`justify-center`} />}
