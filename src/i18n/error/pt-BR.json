@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "Oferta indisponível",
   "SELL_OFFER_NOT_TRADEABLE.text": "Esta oferta de venda usa o depósito antigo e não pode mais ser negociada.",
   "REFUND_ONLY_BY_SELLER.title": "Reembolso pela sua carteira",
-  "REFUND_ONLY_BY_SELLER.text": "A Peach não tem nenhuma chave neste depósito, então apenas a sua carteira pode reembolsá-lo. Tente novamente por este dispositivo."
+  "REFUND_ONLY_BY_SELLER.text": "A Peach não tem nenhuma chave neste depósito, então apenas a sua carteira pode reembolsá-lo. Tente novamente por este dispositivo.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "reembolso não assinado",
+  "REFUND_ADDRESS_NOT_OWNED.text": "O reembolso não foi assinado devido a um endereço de reembolso estranho. Por favor, entre em contato com o suporte da Peach."
 }

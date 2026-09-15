@@ -168,5 +168,10 @@
   "settings.theme.dark": "ciemny",
   "settings.theme.system": "systemowy",
   "settings.deleteAccount.instructions.title": "Czy chcesz usunąć swoje konto?",
-  "settings.deleteAccount.instructions.text": "W Peach nie możesz usunąć swojego konta, ale bez obaw: nie przechowujemy żadnych danych osobowych, bo nigdy ich nie mieliśmy.\n\nJeśli chcesz używać Peach z innym kontem, odinstaluj aplikację i zainstaluj ją ponownie. Zostanie utworzone nowe konto."
+  "settings.deleteAccount.instructions.text": "W Peach nie możesz usunąć swojego konta, ale bez obaw: nie przechowujemy żadnych danych osobowych, bo nigdy ich nie mieliśmy.\n\nJeśli chcesz używać Peach z innym kontem, odinstaluj aplikację i zainstaluj ją ponownie. Zostanie utworzone nowe konto.",
+  "settings.validateRefunds": "weryfikuj zwroty",
+  "settings.validateRefunds.popup.title": "weryfikuj zwroty",
+  "settings.validateRefunds.popup.text": "Gdy zwracasz środki z depozytu, powinny trafić do Twojego Peach Wallet. Czy na pewno nie chcesz weryfikować zwrotów?",
+  "settings.validateRefunds.popup.yes": "tak",
+  "settings.validateRefunds.popup.no": "nie"
 }

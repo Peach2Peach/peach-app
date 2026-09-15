@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "Oferta niedostępna",
   "SELL_OFFER_NOT_TRADEABLE.text": "Ta oferta sprzedaży korzysta ze starego depozytu i nie można już nią handlować.",
   "REFUND_ONLY_BY_SELLER.title": "Zwrot z Twojego portfela",
-  "REFUND_ONLY_BY_SELLER.text": "Peach nie posiada klucza do tego depozytu, więc tylko Twój portfel może dokonać zwrotu. Spróbuj ponownie z tego urządzenia."
+  "REFUND_ONLY_BY_SELLER.text": "Peach nie posiada klucza do tego depozytu, więc tylko Twój portfel może dokonać zwrotu. Spróbuj ponownie z tego urządzenia.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "zwrot nie został podpisany",
+  "REFUND_ADDRESS_NOT_OWNED.text": "Zwrot nie został podpisany z powodu podejrzanego adresu zwrotu. Skontaktuj się ze wsparciem Peach."
 }

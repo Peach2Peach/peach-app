@@ -168,5 +168,10 @@
   "settings.theme.dark": "escuro",
   "settings.theme.system": "sistema",
   "settings.deleteAccount.instructions.title": "Deseja eliminar a sua conta?",
-  "settings.deleteAccount.instructions.text": "Na Peach não é possível eliminar a sua conta, mas não se preocupe: não guardamos qualquer informação pessoal, porque nunca a tivemos.\n\nSe quiser usar a Peach com outra conta, desinstale a aplicação e volte a instalá-la. Será criada uma nova conta para si."
+  "settings.deleteAccount.instructions.text": "Na Peach não é possível eliminar a sua conta, mas não se preocupe: não guardamos qualquer informação pessoal, porque nunca a tivemos.\n\nSe quiser usar a Peach com outra conta, desinstale a aplicação e volte a instalá-la. Será criada uma nova conta para si.",
+  "settings.validateRefunds": "validar reembolsos",
+  "settings.validateRefunds.popup.title": "validar reembolsos",
+  "settings.validateRefunds.popup.text": "Sempre que reembolsares o teu escrow, deve ir para a tua Peach Wallet. Tens a certeza de que não queres validar os reembolsos?",
+  "settings.validateRefunds.popup.yes": "sim",
+  "settings.validateRefunds.popup.no": "não"
 }

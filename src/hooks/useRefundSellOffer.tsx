@@ -12,6 +12,7 @@ import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
 import { signAndFinalizeEscrowPSBT } from "../utils/wallet/signEscrowPSBT";
+import { validateRefundAddressOwnership } from "../utils/wallet/validateRefundAddressOwnership";
 import { BackupTime } from "../views/overlays/BackupTime";
 import { contractKeys } from "./query/useContractDetail";
 import { offerKeys } from "./query/useOfferDetail";
@@ -40,6 +41,7 @@ export function useRefundSellOffer() {
       if (!psbt || err) {
         throw new Error(err || "Invalid PSBT");
       }
+      validateRefundAddressOwnership(psbt);
 
       // sign Peach's PSBT as it stands - a taproot signature commits to
       // nSequence, so a locally rebuilt transaction would not match the one the

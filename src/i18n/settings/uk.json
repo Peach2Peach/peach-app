@@ -168,5 +168,10 @@
   "settings.payoutAddress.popup.content": "Видалити цей власний гаманець?",
   "settings.payoutAddress.popup.remove": "видалити",
   "settings.payoutAddress.popup.title": "видалити гаманець?",
-  "settings.payoutAddress.removeWallet": "видалити гаманець"
+  "settings.payoutAddress.removeWallet": "видалити гаманець",
+  "settings.validateRefunds": "перевіряти повернення",
+  "settings.validateRefunds.popup.title": "перевіряти повернення",
+  "settings.validateRefunds.popup.text": "Коли ви повертаєте кошти з ескроу, вони мають надходити на ваш Peach Wallet. Ви впевнені, що не хочете перевіряти повернення?",
+  "settings.validateRefunds.popup.yes": "так",
+  "settings.validateRefunds.popup.no": "ні"
 }

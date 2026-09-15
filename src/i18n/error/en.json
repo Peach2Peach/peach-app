@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "offer unavailable",
   "SELL_OFFER_NOT_TRADEABLE.text": "This sell offer uses the old escrow and can no longer be traded.",
   "REFUND_ONLY_BY_SELLER.title": "refund from your wallet",
-  "REFUND_ONLY_BY_SELLER.text": "Peach holds no key in this escrow, so only your wallet can refund it. Please try again from this device."
+  "REFUND_ONLY_BY_SELLER.text": "Peach holds no key in this escrow, so only your wallet can refund it. Please try again from this device.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "refund not signed",
+  "REFUND_ADDRESS_NOT_OWNED.text": "The refund was not signed due to a strange refund address. Please contact the Peach Support."
 }

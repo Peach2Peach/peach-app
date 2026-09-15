@@ -168,5 +168,10 @@
   "settings.payoutAddress.popup.content": "Bu özel cüzdanı kaldırmak istiyor musunuz?",
   "settings.payoutAddress.popup.remove": "kaldır",
   "settings.payoutAddress.popup.title": "cüzdan kaldırılsın mı?",
-  "settings.payoutAddress.removeWallet": "cüzdanı kaldır"
+  "settings.payoutAddress.removeWallet": "cüzdanı kaldır",
+  "settings.validateRefunds": "iadeleri doğrula",
+  "settings.validateRefunds.popup.title": "iadeleri doğrula",
+  "settings.validateRefunds.popup.text": "Emanetinden iade aldığında, paranın Peach Cüzdanına gitmesi gerekir. İadeleri doğrulamak istemediğinden emin misin?",
+  "settings.validateRefunds.popup.yes": "evet",
+  "settings.validateRefunds.popup.no": "hayır"
 }

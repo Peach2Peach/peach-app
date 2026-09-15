@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "aanbieding niet beschikbaar",
   "SELL_OFFER_NOT_TRADEABLE.text": "Deze verkoopaanbieding gebruikt de oude borg en kan niet meer verhandeld worden.",
   "REFUND_ONLY_BY_SELLER.title": "terugbetaling vanuit je wallet",
-  "REFUND_ONLY_BY_SELLER.text": "Peach heeft geen sleutel in deze borg, dus alleen jouw wallet kan terugbetalen. Probeer het opnieuw vanaf dit apparaat."
+  "REFUND_ONLY_BY_SELLER.text": "Peach heeft geen sleutel in deze borg, dus alleen jouw wallet kan terugbetalen. Probeer het opnieuw vanaf dit apparaat.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "terugbetaling niet ondertekend",
+  "REFUND_ADDRESS_NOT_OWNED.text": "De terugbetaling is niet ondertekend vanwege een vreemd terugbetalingsadres. Neem contact op met de Peach-support."
 }

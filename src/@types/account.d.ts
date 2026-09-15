@@ -8,6 +8,8 @@ type Settings = {
   refundAddress?: string;
   refundAddressLabel?: string;
   refundToPeachWallet: boolean;
+  /** refuse to sign an escrow refund whose return address is not one of ours */
+  validateReturnAddressOwnership: boolean;
   payoutAddress?: string;
   payoutAddressLabel?: string;
   payoutAddressSignature?: string;

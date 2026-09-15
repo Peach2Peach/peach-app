@@ -107,6 +107,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     "halcash",
     "global66",
     "krak",
+    "icard",
   ],
   giftCard: [
     "giftCard.steam",

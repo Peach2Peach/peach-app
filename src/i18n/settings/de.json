@@ -168,5 +168,10 @@
   "settings.theme.dark": "dunkel",
   "settings.theme.system": "System",
   "settings.deleteAccount.instructions.title": "Möchtest du dein Konto löschen?",
-  "settings.deleteAccount.instructions.text": "Bei Peach kannst du dein Konto nicht löschen, aber keine Sorge: Wir speichern keine persönlichen Daten, weil wir sie nie hatten.\n\nWenn du Peach mit einem anderen Konto nutzen möchtest, deinstalliere die App und installiere sie erneut. Es wird ein neues Konto für dich erstellt."
+  "settings.deleteAccount.instructions.text": "Bei Peach kannst du dein Konto nicht löschen, aber keine Sorge: Wir speichern keine persönlichen Daten, weil wir sie nie hatten.\n\nWenn du Peach mit einem anderen Konto nutzen möchtest, deinstalliere die App und installiere sie erneut. Es wird ein neues Konto für dich erstellt.",
+  "settings.validateRefunds": "Rückerstattungen prüfen",
+  "settings.validateRefunds.popup.title": "Rückerstattungen prüfen",
+  "settings.validateRefunds.popup.text": "Wenn du dein Escrow zurückerstattest, sollte das Geld auf deine Peach Wallet gehen. Bist du sicher, dass du die Rückerstattungen nicht prüfen möchtest?",
+  "settings.validateRefunds.popup.yes": "ja",
+  "settings.validateRefunds.popup.no": "nein"
 }

@@ -2,6 +2,7 @@ import { checkRefundPSBT } from "../../../utils/bitcoin/checkRefundPSBT";
 import { peachAPI } from "../../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../../utils/wallet/getEscrowWalletForOffer";
 import { signPSBT } from "../../../utils/wallet/signPSBT";
+import { validateRefundAddressOwnership } from "../../../utils/wallet/validateRefundAddressOwnership";
 
 export const createRefundTx = async (
   offer: SellOffer,
@@ -10,6 +11,7 @@ export const createRefundTx = async (
   let currentRefundTx = offer.refundTx;
   const { isValid, psbt } = checkRefundPSBT(refundTx, offer);
   if (isValid && psbt) {
+    validateRefundAddressOwnership(psbt);
     const signedPSBT = signPSBT(psbt, getEscrowWalletForOffer(offer));
     const { result: patchOfferResult } =
       await peachAPI.private.offer.patchOffer({

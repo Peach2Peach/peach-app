@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "Angebot nicht verfügbar",
   "SELL_OFFER_NOT_TRADEABLE.text": "Dieses Verkaufsangebot nutzt das alte Escrow und kann nicht mehr gehandelt werden.",
   "REFUND_ONLY_BY_SELLER.title": "Erstattung aus deiner Wallet",
-  "REFUND_ONLY_BY_SELLER.text": "Peach besitzt keinen Schlüssel für dieses Escrow, daher kann nur deine Wallet die Erstattung durchführen. Bitte versuche es erneut von diesem Gerät aus."
+  "REFUND_ONLY_BY_SELLER.text": "Peach besitzt keinen Schlüssel für dieses Escrow, daher kann nur deine Wallet die Erstattung durchführen. Bitte versuche es erneut von diesem Gerät aus.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "Rückerstattung nicht signiert",
+  "REFUND_ADDRESS_NOT_OWNED.text": "Die Rückerstattung wurde wegen einer merkwürdigen Rückerstattungsadresse nicht signiert. Bitte wende dich an den Peach Support."
 }

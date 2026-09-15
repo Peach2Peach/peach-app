@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated, LayoutChangeEvent, PanResponder } from "react-native";
-import {
-  MAXIMUM_CHF_AMOUNT_OF_OFFER,
-  MINIMUM_CHF_AMOUNT_OF_OFFER,
-} from "../../../constants";
+// MAXIMUM_CHF_AMOUNT_OF_OFFER is no longer used, see maximumPremiumAllowed below
+import { MINIMUM_CHF_AMOUNT_OF_OFFER } from "../../../constants";
 import { round } from "../../../utils/math/round";
 import { premiumBounds } from "../../PremiumInput";
 
@@ -32,13 +30,16 @@ export const usePremiumSliderSetup = (
     premiumBounds.max,
   );
 
-  const maximumPremiumAllowed = clamp(
-    boundsAreComputable
-      ? Math.floor((MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
-      : premiumBounds.max,
-    premiumBounds.min,
-    premiumBounds.max,
-  );
+  // The max premium used to shrink with the price/amount so the offer stayed
+  // below MAXIMUM_CHF_AMOUNT_OF_OFFER. It is now always premiumBounds.max (6).
+  // const maximumPremiumAllowed = clamp(
+  //   boundsAreComputable
+  //     ? Math.floor((MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
+  //     : premiumBounds.max,
+  //   premiumBounds.min,
+  //   premiumBounds.max,
+  // );
+  const maximumPremiumAllowed = premiumBounds.max;
 
   const MIN = minimumPremiumAllowed;
   const MAX = maximumPremiumAllowed;

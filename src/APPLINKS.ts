@@ -75,4 +75,5 @@ export const APPLINKS: Partial<Record<PaymentMethod, string>> = {
   global66: "https://www.global66.com",
   krak: "https://www.kraken.com/en-gb/krak",
   hype: "https://www.hype.it/",
+  icard: "https://icard.com/",
 };

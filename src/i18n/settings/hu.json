@@ -168,5 +168,10 @@
   "settings.theme.dark": "sötét",
   "settings.theme.system": "rendszer",
   "settings.deleteAccount.instructions.title": "Törölni szeretnéd a fiókodat?",
-  "settings.deleteAccount.instructions.text": "A Peachben nem tudod törölni a fiókodat, de ne aggódj: nem tárolunk személyes adatokat, mert soha nem is voltak nálunk.\n\nHa másik fiókkal szeretnéd használni a Peachet, távolítsd el az alkalmazást, majd telepítsd újra. Új fiók jön létre számodra."
+  "settings.deleteAccount.instructions.text": "A Peachben nem tudod törölni a fiókodat, de ne aggódj: nem tárolunk személyes adatokat, mert soha nem is voltak nálunk.\n\nHa másik fiókkal szeretnéd használni a Peachet, távolítsd el az alkalmazást, majd telepítsd újra. Új fiók jön létre számodra.",
+  "settings.validateRefunds": "visszatérítések ellenőrzése",
+  "settings.validateRefunds.popup.title": "visszatérítések ellenőrzése",
+  "settings.validateRefunds.popup.text": "Amikor visszatérítést kérsz a letétedből, annak a Peach Walletedbe kell érkeznie. Biztosan nem szeretnéd ellenőrizni a visszatérítéseket?",
+  "settings.validateRefunds.popup.yes": "igen",
+  "settings.validateRefunds.popup.no": "nem"
 }

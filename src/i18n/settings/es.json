@@ -168,5 +168,10 @@
   "settings.mixnet": "VPN: Nym Mixnet",
   "settings.pasteDesktopConnection": "pegar conexión de escritorio",
   "settings.deleteAccount.instructions.title": "¿Quieres eliminar tu cuenta?",
-  "settings.deleteAccount.instructions.text": "En Peach no puedes eliminar tu cuenta, pero no te preocupes: no guardamos ninguna información personal porque nunca la tuvimos.\n\nSi quieres usar Peach con otra cuenta, desinstala la app e instálala de nuevo. Se creará una cuenta nueva para ti."
+  "settings.deleteAccount.instructions.text": "En Peach no puedes eliminar tu cuenta, pero no te preocupes: no guardamos ninguna información personal porque nunca la tuvimos.\n\nSi quieres usar Peach con otra cuenta, desinstala la app e instálala de nuevo. Se creará una cuenta nueva para ti.",
+  "settings.validateRefunds": "validar reembolsos",
+  "settings.validateRefunds.popup.title": "validar reembolsos",
+  "settings.validateRefunds.popup.text": "Siempre que reembolses tu escrow, debería ir a tu Peach Wallet. ¿Seguro que no quieres validar los reembolsos?",
+  "settings.validateRefunds.popup.yes": "sí",
+  "settings.validateRefunds.popup.no": "no"
 }

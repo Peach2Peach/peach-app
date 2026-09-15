@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "Oferi haipatikani",
   "SELL_OFFER_NOT_TRADEABLE.text": "Oferi hii ya kuuza inatumia escrow ya zamani na haiwezi tena kufanyiwa biashara.",
   "REFUND_ONLY_BY_SELLER.title": "Urejeshaji kutoka kwenye wallet yako",
-  "REFUND_ONLY_BY_SELLER.text": "Peach haina ufunguo wowote katika escrow hii, hivyo wallet yako pekee ndiyo inayoweza kurejesha fedha. Tafadhali jaribu tena kutoka kifaa hiki."
+  "REFUND_ONLY_BY_SELLER.text": "Peach haina ufunguo wowote katika escrow hii, hivyo wallet yako pekee ndiyo inayoweza kurejesha fedha. Tafadhali jaribu tena kutoka kifaa hiki.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "marejesho hayakutiwa saini",
+  "REFUND_ADDRESS_NOT_OWNED.text": "Marejesho hayakutiwa saini kwa sababu ya anwani ya marejesho isiyo ya kawaida. Tafadhali wasiliana na Msaada wa Peach."
 }

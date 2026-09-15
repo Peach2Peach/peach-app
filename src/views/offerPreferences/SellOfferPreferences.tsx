@@ -58,7 +58,6 @@ import { usePaymentMethods } from "../addPaymentMethod/usePaymentMethodInfo";
 import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
-import { WalletSelector } from "./WalletSelector";
 import { CreateMultipleOffers } from "./components/CreateMultipleOffers";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
@@ -733,14 +732,8 @@ function AdvancedOptions() {
     (state) => [state.instantTrade, state.experienceLevel, state.multi],
     shallow,
   );
-  const refundToPeachWallet = useSettingsStore(
-    (state) => state.refundToPeachWallet,
-  );
   const hasAnyOption =
-    !!instantTrade ||
-    !!experienceLevel ||
-    multi !== undefined ||
-    !refundToPeachWallet;
+    !!instantTrade || !!experienceLevel || multi !== undefined;
 
   const [isExpanded, setIsExpanded] = useState(hasAnyOption);
   const { isDarkMode } = useThemeStore();
@@ -770,7 +763,6 @@ function AdvancedOptions() {
           <CreateMultipleOffersContainer />
           <InstantTrade />
           <ExperienceLevel />
-          <RefundWalletSelector />
         </>
       )}
     </View>
@@ -1013,11 +1005,6 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
     setSellAmount(restrictAmount(sellAmount));
   }
 
-  const [refundToPeachWallet, refundAddress] = useSettingsStore(
-    (state) => [state.refundToPeachWallet, state.refundAddress],
-    shallow,
-  );
-
   const storePreferences = useOfferPreferences(
     (state) => ({
       amount: state.sellAmount,
@@ -1105,13 +1092,9 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
       return;
     }
     setIsPublishing(true);
-    const address = refundToPeachWallet
-      ? (await peachWallet.getLastUnusedAddressInternal()).address
-      : refundAddress;
-    if (!address) {
-      setIsPublishing(false);
-      return;
-    }
+    // sell offers always refund into the Peach Wallet - a custom refund address
+    // is no longer offered here
+    const { address } = await peachWallet.getLastUnusedAddressInternal();
     const paymentData = await getPaymentData();
 
     let filterResult;
@@ -1224,47 +1207,6 @@ function FundEscrowButton({ priceState }: { priceState: PriceState }) {
     >
       {i18n("offerPreferences.fundEscrow")}
     </Button>
-  );
-}
-
-function RefundWalletSelector() {
-  const [
-    refundToPeachWallet,
-    refundAddress,
-    refundAddressLabel,
-    setRefundToPeachWallet,
-  ] = useSettingsStore(
-    (state) => [
-      state.refundToPeachWallet,
-      state.refundAddress,
-      state.refundAddressLabel,
-      state.setRefundToPeachWallet,
-    ],
-    shallow,
-  );
-  const navigation = useStackNavigation();
-
-  const onExternalWalletPress = () => {
-    if (refundAddress) {
-      setRefundToPeachWallet(false);
-    } else {
-      navigation.navigate("refundAddress");
-    }
-  };
-
-  const onPeachWalletPress = () => setRefundToPeachWallet(true);
-
-  return (
-    <WalletSelector
-      title={i18n("offerPreferences.refundTo")}
-      backgroundColor={tw.color("primary-background-dark-color")}
-      bubbleColor="orange"
-      peachWalletActive={refundToPeachWallet}
-      address={refundAddress}
-      addressLabel={refundAddressLabel}
-      onPeachWalletPress={onPeachWalletPress}
-      onExternalWalletPress={onExternalWalletPress}
-    />
   );
 }
 

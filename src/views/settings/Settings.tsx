@@ -87,6 +87,13 @@ export const Settings = () => {
       shallow,
     );
 
+  const validateRefunds = useSettingsStore(
+    (state) => state.validateReturnAddressOwnership,
+  );
+  const setValidateRefunds = useSettingsStore(
+    (state) => state.setValidateReturnAddressOwnership,
+  );
+
   const webAppAvailable = useConfigStore((state) => state.webAppAvailable);
   const showPasteDesktopConnection = useConfigStore(
     (state) => state.showPasteDesktopConnection,
@@ -202,6 +209,41 @@ export const Settings = () => {
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
+  const onValidateRefundsPress = useCallback(() => {
+    // turning the check off means refunds can leave for an address we do not
+    // control, so make the user confirm it explicitly
+    if (!validateRefunds) {
+      setValidateRefunds(true);
+      return;
+    }
+    setPopup(
+      <WarningPopup
+        title={i18n("settings.validateRefunds.popup.title")}
+        content={i18n("settings.validateRefunds.popup.text")}
+        actions={
+          <>
+            <PopupAction
+              label={i18n("settings.validateRefunds.popup.no")}
+              textStyle={tw`text-black-100`}
+              iconId="arrowLeftCircle"
+              onPress={closePopup}
+            />
+            <PopupAction
+              label={i18n("settings.validateRefunds.popup.yes")}
+              textStyle={tw`text-black-100`}
+              iconId="slash"
+              onPress={() => {
+                closePopup();
+                setValidateRefunds(false);
+              }}
+              reverseOrder
+            />
+          </>
+        }
+      />,
+    );
+  }, [closePopup, setPopup, setValidateRefunds, validateRefunds]);
+
   const pinCodeSetupOnClick = () => {
     if (appPinCode === undefined || appPinCode === "") {
       navigation.navigate("createPin");
@@ -242,7 +284,6 @@ export const Settings = () => {
           },
           "nodeSetup",
           { title: "mixnet", onPress: () => navigation.navigate("mixnet") },
-          "refundAddress",
           "payoutAddress",
           "currency",
           "language",
@@ -255,6 +296,15 @@ export const Settings = () => {
             title: `walletGapLimit`,
             onPress: onGapLimitPress,
           },
+          // only reachable from the secret menu (tap the version 7 times)
+          showDebugIds
+            ? ({
+                title: "validateRefunds",
+                onPress: onValidateRefundsPress,
+                iconId: validateRefunds ? "toggleRight" : "toggleLeft",
+                enabled: validateRefunds,
+              } as const)
+            : undefined,
         ] as const
       ).filter(isDefined),
     [
@@ -265,6 +315,9 @@ export const Settings = () => {
       themePreference,
       currentGapLimit,
       onGapLimitPress,
+      onValidateRefundsPress,
+      validateRefunds,
+      showDebugIds,
     ],
   );
 

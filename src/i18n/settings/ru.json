@@ -168,5 +168,10 @@
   "settings.theme.dark": "тёмная",
   "settings.theme.system": "системная",
   "settings.deleteAccount.instructions.title": "Хотите удалить свой аккаунт?",
-  "settings.deleteAccount.instructions.text": "В Peach нельзя удалить аккаунт, но не волнуйтесь: мы не храним персональные данные, потому что никогда их не получали.\n\nЕсли вы хотите использовать Peach с другим аккаунтом, удалите приложение и установите его заново. Для вас будет создан новый аккаунт."
+  "settings.deleteAccount.instructions.text": "В Peach нельзя удалить аккаунт, но не волнуйтесь: мы не храним персональные данные, потому что никогда их не получали.\n\nЕсли вы хотите использовать Peach с другим аккаунтом, удалите приложение и установите его заново. Для вас будет создан новый аккаунт.",
+  "settings.validateRefunds": "проверять возвраты",
+  "settings.validateRefunds.popup.title": "проверять возвраты",
+  "settings.validateRefunds.popup.text": "Когда вы возвращаете средства из эскроу, они должны поступать на ваш Peach Wallet. Вы уверены, что не хотите проверять возвраты?",
+  "settings.validateRefunds.popup.yes": "да",
+  "settings.validateRefunds.popup.no": "нет"
 }

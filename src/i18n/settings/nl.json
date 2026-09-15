@@ -168,5 +168,10 @@
   "settings.payoutAddress.popup.content": "Wil je deze aangepaste wallet verwijderen?",
   "settings.payoutAddress.popup.remove": "verwijderen",
   "settings.payoutAddress.popup.title": "wallet verwijderen?",
-  "settings.payoutAddress.removeWallet": "wallet verwijderen"
+  "settings.payoutAddress.removeWallet": "wallet verwijderen",
+  "settings.validateRefunds": "terugbetalingen valideren",
+  "settings.validateRefunds.popup.title": "terugbetalingen valideren",
+  "settings.validateRefunds.popup.text": "Wanneer je je escrow terugbetaalt, hoort dat naar je Peach Wallet te gaan. Weet je zeker dat je de terugbetalingen niet wilt valideren?",
+  "settings.validateRefunds.popup.yes": "ja",
+  "settings.validateRefunds.popup.no": "nee"
 }

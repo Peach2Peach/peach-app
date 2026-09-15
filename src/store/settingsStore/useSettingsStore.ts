@@ -27,6 +27,9 @@ export type SettingsStore = Settings & {
   updateFileBackupDate: () => void;
   setShowBackupReminder: (showBackupReminder: boolean) => void;
   setRefundToPeachWallet: (refundToPeachWallet: boolean) => void;
+  setValidateReturnAddressOwnership: (
+    validateReturnAddressOwnership: boolean,
+  ) => void;
   setPayoutToPeachWallet: (payoutToPeachWallet: boolean) => void;
   setCloudflareChallenge: (
     cloudflareChallenge: Settings["cloudflareChallenge"],
@@ -48,7 +51,9 @@ export const useSettingsStore = create(
           locale: state.locale,
         })),
       getPureState: () => getPureSettingsState(get()),
-      updateSettings: (settings) => set({ ...settings }),
+      // a restored backup may predate refunds always going to the Peach Wallet
+      updateSettings: (settings) =>
+        set({ ...settings, refundToPeachWallet: true }),
       setEnableAnalytics: (enableAnalytics) => {
         crashlytics().setCrashlyticsCollectionEnabled(enableAnalytics);
         set({ enableAnalytics });
@@ -85,6 +90,8 @@ export const useSettingsStore = create(
         }),
       setRefundToPeachWallet: (refundToPeachWallet) =>
         set({ refundToPeachWallet }),
+      setValidateReturnAddressOwnership: (validateReturnAddressOwnership) =>
+        set({ validateReturnAddressOwnership }),
       setPayoutToPeachWallet: (payoutToPeachWallet) =>
         set({ payoutToPeachWallet }),
       setCloudflareChallenge: (cloudflareChallenge) =>
@@ -97,7 +104,7 @@ export const useSettingsStore = create(
     }),
     {
       name: "settings",
-      version: 5,
+      version: 6,
       migrate: migrateSettings,
       storage,
     },

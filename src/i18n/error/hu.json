@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "Az ajánlat nem elérhető",
   "SELL_OFFER_NOT_TRADEABLE.text": "Ez az eladási ajánlat a régi letétet használja, ezért már nem lehet vele kereskedni.",
   "REFUND_ONLY_BY_SELLER.title": "Visszatérítés a tárcádból",
-  "REFUND_ONLY_BY_SELLER.text": "A Peachnek nincs kulcsa ehhez a letéthez, így csak a te tárcád tudja visszatéríteni. Próbáld újra erről az eszközről."
+  "REFUND_ONLY_BY_SELLER.text": "A Peachnek nincs kulcsa ehhez a letéthez, így csak a te tárcád tudja visszatéríteni. Próbáld újra erről az eszközről.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "a visszatérítés nincs aláírva",
+  "REFUND_ADDRESS_NOT_OWNED.text": "A visszatérítés nem lett aláírva egy szokatlan visszatérítési cím miatt. Kérjük, vedd fel a kapcsolatot a Peach ügyfélszolgálatával."
 }

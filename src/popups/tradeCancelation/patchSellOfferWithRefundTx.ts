@@ -4,6 +4,7 @@ import { saveOffer } from "../../utils/offer/saveOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { signPSBT } from "../../utils/wallet/signPSBT";
+import { validateRefundAddressOwnership } from "../../utils/wallet/validateRefundAddressOwnership";
 
 export async function patchSellOfferWithRefundTx(
   contract: Contract,
@@ -14,6 +15,7 @@ export async function patchSellOfferWithRefundTx(
   const { isValid, psbt, err } = checkRefundPSBT(refundPSBT, sellOffer);
   if (err || !isValid || !psbt) return;
 
+  validateRefundAddressOwnership(psbt);
   const signedPSBT = signPSBT(psbt, getEscrowWalletForOffer(sellOffer));
   const { result: patchOfferResult, error: patchOfferError } =
     await peachAPI.private.offer.patchOffer({

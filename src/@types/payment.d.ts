@@ -133,4 +133,5 @@ type PaymentMethod =
   | "halcash"
   | "hype"
   | "global66"
-  | "krak";
+  | "krak"
+  | "icard";

@@ -15,12 +15,25 @@ const createPastSellTradeFields = (
   fields,
   ["buyer", "ratingSeller"],
 ];
+// Show the counterparty's payment details on completed trades (disabled for now)
+// const withoutPastSharedFields = (fields: TradeInfoField[]) =>
+//   fields.filter(
+//     (field) => field !== "reference" && field !== "paymentConfirmed",
+//   );
+
 const pastCashBuyTradeFields = createPastBuyTradeFields(["meetup"]);
 const pastBuyTradeFields = createPastBuyTradeFields([
   "via",
   "reference",
   "paymentConfirmed",
 ]);
+// const pastBuyTradeFields = (fields: TradeInfoField[]) =>
+//   createPastBuyTradeFields([
+//     "via",
+//     ...withoutPastSharedFields(fields),
+//     "reference",
+//     "paymentConfirmed",
+//   ]);
 
 const pastCashSellTradeFields = createPastSellTradeFields(["meetup"]);
 const pastSellTradeFields = createPastSellTradeFields([
@@ -28,6 +41,13 @@ const pastSellTradeFields = createPastSellTradeFields([
   "reference",
   "paymentConfirmed",
 ]);
+// const pastSellTradeFields = (fields: TradeInfoField[]) =>
+//   createPastSellTradeFields([
+//     "paidToMethod",
+//     ...withoutPastSharedFields(fields),
+//     "reference",
+//     "paymentConfirmed",
+//   ]);
 
 const createActiveBuyTradeFields = (
   fields: TradeInfoField[],

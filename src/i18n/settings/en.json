@@ -168,5 +168,10 @@
   "settings.deleteAccount.instructions.title" :"Do you want to Delete your Account?",
   "settings.deleteAccount.instructions.text" :"In Peach, you cannot delete your account, but don't worry: we do not keep any personal information because we never had it.\n\nIf you want to use Peach with another account, please uninstall the app and install it again. A new account will be created for you.",
   "offerCard.youSend": "you send",
-  "offerCard.youReceive": "you receive"
+  "offerCard.youReceive": "you receive",
+  "settings.validateRefunds": "validate refunds",
+  "settings.validateRefunds.popup.title": "validate refunds",
+  "settings.validateRefunds.popup.text": "Whenever you refund your escrow, it should go to your Peach Wallet. Are you sure you don't want to validate the refunds?",
+  "settings.validateRefunds.popup.yes": "yes",
+  "settings.validateRefunds.popup.no": "no"
 }

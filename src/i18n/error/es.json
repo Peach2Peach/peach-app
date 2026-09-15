@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "oferta no disponible",
   "SELL_OFFER_NOT_TRADEABLE.text": "Esta oferta de venta usa el escrow antiguo y ya no se puede operar.",
   "REFUND_ONLY_BY_SELLER.title": "reembolso desde tu cartera",
-  "REFUND_ONLY_BY_SELLER.text": "Peach no tiene ninguna clave en este escrow, así que solo tu cartera puede reembolsarlo. Inténtalo de nuevo desde este dispositivo."
+  "REFUND_ONLY_BY_SELLER.text": "Peach no tiene ninguna clave en este escrow, así que solo tu cartera puede reembolsarlo. Inténtalo de nuevo desde este dispositivo.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "reembolso no firmado",
+  "REFUND_ADDRESS_NOT_OWNED.text": "El reembolso no se firmó debido a una dirección de reembolso extraña. Ponte en contacto con el soporte de Peach."
 }

@@ -8,6 +8,7 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   refundAddress: state.refundAddress,
   refundAddressLabel: state.refundAddressLabel,
   refundToPeachWallet: state.refundToPeachWallet,
+  validateReturnAddressOwnership: state.validateReturnAddressOwnership,
   payoutAddress: state.payoutAddress,
   payoutAddressLabel: state.payoutAddressLabel,
   payoutAddressSignature: state.payoutAddressSignature,

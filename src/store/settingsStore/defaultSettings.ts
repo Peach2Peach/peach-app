@@ -21,6 +21,7 @@ export const defaultSettings: Settings = {
   refundAddress: undefined,
   refundAddressLabel: undefined,
   refundToPeachWallet: true,
+  validateReturnAddressOwnership: true,
   payoutAddress: undefined,
   payoutAddressLabel: undefined,
   payoutAddressSignature: undefined,

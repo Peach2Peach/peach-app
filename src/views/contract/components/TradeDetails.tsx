@@ -251,6 +251,10 @@ function getTradeInfoFields(
 ) {
   const isTradeCompleted =
     !!releaseTxId || (!!batchInfo && !batchInfo.completed);
+  const fields = [
+    ...paymentMethodFields.mandatory.flat(FIELDS_ARRAY_DEPTH),
+    ...paymentMethodFields.optional,
+  ];
   if (view === "seller") {
     if (isCashTrade(paymentMethod)) {
       return tradeFields.seller[isTradeCompleted ? "past" : "active"].cash;
@@ -258,11 +262,9 @@ function getTradeInfoFields(
 
     if (isTradeCompleted) {
       return tradeFields.seller.past.default;
+      // Show the counterparty's payment details on completed trades (disabled for now)
+      // return tradeFields.seller.past.default(fields);
     }
-    const fields = [
-      ...paymentMethodFields?.mandatory.flat(FIELDS_ARRAY_DEPTH),
-      ...paymentMethodFields?.optional,
-    ];
     return tradeFields.seller.active.default(fields) || [];
   }
 
@@ -270,12 +272,12 @@ function getTradeInfoFields(
     return tradeFields.buyer.past[
       isCashTrade(paymentMethod) ? "cash" : "default"
     ];
+    // Show the counterparty's payment details on completed trades (disabled for now)
+    // return isCashTrade(paymentMethod)
+    //   ? tradeFields.buyer.past.cash
+    //   : tradeFields.buyer.past.default(fields);
   }
 
-  const fields = [
-    ...paymentMethodFields.mandatory.flat(FIELDS_ARRAY_DEPTH),
-    ...paymentMethodFields.optional,
-  ];
   return isCashTrade(paymentMethod)
     ? tradeFields.buyer.active.cash
     : tradeFields.buyer.active.default(fields) || [];

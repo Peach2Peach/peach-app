@@ -25,6 +25,7 @@ import ethereum from "./ethereum.svg";
 import eversend from "./eversend.svg";
 import fasterPayments from "./fasterPayments.svg";
 import friends24 from "./friends24.svg";
+import icard from "./icard.svg";
 import keksPay from "./keksPay.svg";
 import krak from "./krak.svg";
 import liquid from "./liquid.svg";
@@ -72,6 +73,7 @@ export const PaymentLogos = {
   meru,
   hype,
   krak,
+  icard,
   airtelMoney,
   alias: placeholder,
   amazon,

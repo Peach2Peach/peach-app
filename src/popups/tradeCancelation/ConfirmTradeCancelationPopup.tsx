@@ -6,6 +6,7 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { MSINAMINUTE } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import tw from "../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
@@ -24,6 +25,7 @@ export function ConfirmTradeCancelationPopup({
 }) {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
+  const showError = useShowErrorBanner();
   const { mutate: cancelSeller } = useCancelContract({
     contractId: contract.id,
   });
@@ -43,7 +45,15 @@ export function ConfirmTradeCancelationPopup({
                 actions={<ClosePopupAction style={tw`justify-center`} />}
               />,
             );
-            if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
+            if (psbt) {
+              try {
+                await patchSellOfferWithRefundTx(contract, psbt);
+              } catch (e) {
+                // the refund PSBT is left unsigned when it would not pay back
+                // into our own wallet
+                showError(e instanceof Error ? e : String(e));
+              }
+            }
           },
         })
       : cancelBuyer(undefined, {

@@ -20,6 +20,7 @@ import {
   version3,
 } from "./version3";
 import { shouldMigrateToVersion5, version4 } from "./version4";
+import { shouldMigrateToVersion6, version5 } from "./version5";
 
 export type SettingsVersion4 = {
   appVersion: string;
@@ -71,6 +72,9 @@ export const migrateSettings = (persistedState: unknown, version: number) => {
   }
   if (shouldMigrateToVersion5(migratedState, version)) {
     migratedState = version4(migratedState);
+  }
+  if (shouldMigrateToVersion6(migratedState, version)) {
+    migratedState = version5(migratedState);
   }
 
   return migratedState as SettingsStore;

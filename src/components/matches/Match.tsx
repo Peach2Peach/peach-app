@@ -275,7 +275,14 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
     },
     onSuccess: async (result) => {
       if ("refundTx" in result && result.refundTx) {
-        const refundTx = await createRefundTx(offer, result.refundTx);
+        let refundTx = offer.refundTx;
+        try {
+          refundTx = await createRefundTx(offer, result.refundTx);
+        } catch (e) {
+          // a refund that would not come back to our own wallet is left
+          // unsigned - the match itself still goes through
+          handleError({ error: parseError(e) });
+        }
         saveOffer({
           ...offer,
           doubleMatched: true,

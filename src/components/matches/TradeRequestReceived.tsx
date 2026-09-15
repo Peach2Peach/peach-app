@@ -1,6 +1,6 @@
 import { TouchableOpacity, View } from "react-native";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   BuyOffer69TradeRequest,
   Offer69TradeRequestChatMessage,
@@ -36,7 +36,7 @@ export const TradeRequestReceived = ({
   tradeRequest: SellOffer69TradeRequest | BuyOffer69TradeRequest;
   offer: SellOffer | BuyOffer69;
   acceptTradeRequestFunction: () => void;
-  rejectTradeRequestFunction: () => void;
+  rejectTradeRequestFunction: () => Promise<void>;
   goToChatFunction: () => void;
   type: "sell" | "buy";
 }) => {
@@ -61,18 +61,18 @@ export const TradeRequestReceived = ({
   const { isDarkMode } = useThemeStore();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
-  const rejectTradeRequestCallback = useCallback(
-    () =>
-      setPopup(
-        <RejectTradeRequestPopup
-          rejectFunction={async () => {
-            rejectTradeRequestFunction();
+  const rejectTradeRequestCallback = () =>
+    setPopup(
+      <RejectTradeRequestPopup
+        rejectFunction={async () => {
+          try {
+            await rejectTradeRequestFunction();
+          } finally {
             closePopup();
-          }}
-        />,
-      ),
-    [setPopup, closePopup],
-  );
+          }
+        }}
+      />,
+    );
 
   const isTradeRequestMpesa =
     tradeRequest.paymentDataHashed[selectedPaymentMethod].isMpesa;

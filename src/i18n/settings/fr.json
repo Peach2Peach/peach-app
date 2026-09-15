@@ -168,5 +168,10 @@
   "settings.theme.dark": "sombre",
   "settings.theme.system": "système",
   "settings.deleteAccount.instructions.title": "Voulez-vous supprimer votre compte ?",
-  "settings.deleteAccount.instructions.text": "Sur Peach, vous ne pouvez pas supprimer votre compte, mais rassurez-vous : nous ne conservons aucune information personnelle, car nous ne l'avons jamais eue.\n\nSi vous souhaitez utiliser Peach avec un autre compte, désinstallez l'application puis réinstallez-la. Un nouveau compte sera créé pour vous."
+  "settings.deleteAccount.instructions.text": "Sur Peach, vous ne pouvez pas supprimer votre compte, mais rassurez-vous : nous ne conservons aucune information personnelle, car nous ne l'avons jamais eue.\n\nSi vous souhaitez utiliser Peach avec un autre compte, désinstallez l'application puis réinstallez-la. Un nouveau compte sera créé pour vous.",
+  "settings.validateRefunds": "valider les remboursements",
+  "settings.validateRefunds.popup.title": "valider les remboursements",
+  "settings.validateRefunds.popup.text": "Lorsque tu rembourses ton escrow, les fonds devraient arriver sur ton Peach Wallet. Es-tu sûr de ne pas vouloir valider les remboursements ?",
+  "settings.validateRefunds.popup.yes": "oui",
+  "settings.validateRefunds.popup.no": "non"
 }

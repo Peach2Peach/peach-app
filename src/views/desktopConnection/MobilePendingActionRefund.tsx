@@ -21,6 +21,7 @@ import {
   RefundPendingActionPayload,
   signEscrowPSBT,
 } from "../../utils/wallet/signEscrowPSBT";
+import { validateRefundAddressOwnership } from "../../utils/wallet/validateRefundAddressOwnership";
 
 import peerToPeer from "../../assets/onboarding/peer-to-peer.png";
 
@@ -62,6 +63,7 @@ export const MobilePendingActionRefund = () => {
       if (!psbt || err) {
         throw new Error(err || "Invalid PSBT");
       }
+      validateRefundAddressOwnership(psbt);
       const wallet = getEscrowWalletForOffer(sellOffer);
 
       const signatures = signEscrowPSBT(psbt, wallet, payload);

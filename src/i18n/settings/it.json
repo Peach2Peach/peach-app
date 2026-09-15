@@ -168,5 +168,10 @@
   "settings.payoutAddress.popup.content": "Vuoi rimuovere questo wallet personalizzato?",
   "settings.payoutAddress.popup.remove": "rimuovi",
   "settings.payoutAddress.popup.title": "rimuovere il wallet?",
-  "settings.payoutAddress.removeWallet": "rimuovi wallet"
+  "settings.payoutAddress.removeWallet": "rimuovi wallet",
+  "settings.validateRefunds": "convalida rimborsi",
+  "settings.validateRefunds.popup.title": "convalida rimborsi",
+  "settings.validateRefunds.popup.text": "Ogni volta che rimborsi il tuo escrow, i fondi dovrebbero arrivare sul tuo Peach Wallet. Sei sicuro di non voler convalidare i rimborsi?",
+  "settings.validateRefunds.popup.yes": "sì",
+  "settings.validateRefunds.popup.no": "no"
 }

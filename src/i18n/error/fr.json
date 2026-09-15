@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "Offre indisponible",
   "SELL_OFFER_NOT_TRADEABLE.text": "Cette offre de vente utilise l'ancien coffre et ne peut plus être échangée.",
   "REFUND_ONLY_BY_SELLER.title": "Remboursement depuis votre portefeuille",
-  "REFUND_ONLY_BY_SELLER.text": "Peach ne détient aucune clé de ce coffre, seul votre portefeuille peut donc le rembourser. Veuillez réessayer depuis cet appareil."
+  "REFUND_ONLY_BY_SELLER.text": "Peach ne détient aucune clé de ce coffre, seul votre portefeuille peut donc le rembourser. Veuillez réessayer depuis cet appareil.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "remboursement non signé",
+  "REFUND_ADDRESS_NOT_OWNED.text": "Le remboursement n'a pas été signé en raison d'une adresse de remboursement suspecte. Merci de contacter le support Peach."
 }

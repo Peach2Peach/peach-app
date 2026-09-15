@@ -116,5 +116,7 @@
   "SELL_OFFER_NOT_TRADEABLE.title": "Teklif kullanılamıyor",
   "SELL_OFFER_NOT_TRADEABLE.text": "Bu satış teklifi eski escrow'u kullanıyor ve artık işlem yapılamıyor.",
   "REFUND_ONLY_BY_SELLER.title": "Cüzdanınızdan iade",
-  "REFUND_ONLY_BY_SELLER.text": "Peach'in bu escrow'da hiçbir anahtarı yok, bu yüzden iadeyi yalnızca cüzdanınız yapabilir. Lütfen bu cihazdan tekrar deneyin."
+  "REFUND_ONLY_BY_SELLER.text": "Peach'in bu escrow'da hiçbir anahtarı yok, bu yüzden iadeyi yalnızca cüzdanınız yapabilir. Lütfen bu cihazdan tekrar deneyin.",
+  "REFUND_ADDRESS_NOT_OWNED.title": "iade imzalanmadı",
+  "REFUND_ADDRESS_NOT_OWNED.text": "İade, tuhaf bir iade adresi nedeniyle imzalanmadı. Lütfen Peach Destek ile iletişime geç."
 }
