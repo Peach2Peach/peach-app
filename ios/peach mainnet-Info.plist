@@ -34,25 +34,25 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>297</string>
+	<string>378</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		 <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
+		<!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
-		<true />
+		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We use your camera to scan QR codes that contain Bitcoin addresses and payment details to help you perform secure on-chain transactions.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app does not access your photo library. This permission is required by system frameworks used for camera functionality.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME) Authentication with TouchId or FaceID</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string />
+	<string>This app does not access your location. This permission is required by system frameworks used for camera functionality.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app does not access your photo library. This permission is required by system frameworks used for camera functionality.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Baloo2-Medium.ttf</string>
@@ -74,12 +74,12 @@
 		<string>arm64</string>
 	</array>
 	<key>UIStatusBarHidden</key>
-	<false />
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
 </dict>
 </plist>

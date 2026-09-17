@@ -69,5 +69,22 @@ abstract_target 'peach' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # RN only bumps pod targets; resource bundle targets (e.g. *_Privacy) keep
+    # their podspec's old minimum, which newer Xcode rejects.
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        current = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        if current.nil? || current.to_f < min_ios_version_supported.to_f
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = min_ios_version_supported
+        end
+
+        # fmt 11.0.2's consteval format strings fail to compile with newer Apple
+        # clang; building fmt as C++17 disables consteval.
+        if target.name == 'fmt'
+          config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+      end
+    end
   end
 end

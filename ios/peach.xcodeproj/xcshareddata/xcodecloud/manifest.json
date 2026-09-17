@@ -1,0 +1,13 @@
+{
+  "id" : "c5720ec7-6b41-4c3b-aff0-fe4c62ba53fc",
+  "targets" : [
+    {
+      "id" : "30EC9E6E-F21A-43B1-9235-F6CAEA889C96",
+      "name" : "Peach Bitcoin"
+    },
+    {
+      "id" : "1A5C6D83-11C1-4D14-9461-0FF2D04C2F1B",
+      "name" : "peach"
+    }
+  ]
+}
