@@ -479,7 +479,7 @@ function FixedPrice({ priceState }: { priceState: PriceState }) {
 
   // The +/- move the price in 1% steps, mirroring the premium tab. A fixed
   // price is absolute, so it is deliberately NOT clamped to the premium bounds
-  // (±35%) — only kept above zero.
+  // (±21%) — only kept above zero.
   const rateForPremium = (newPremium: number) =>
     round(marketBtcRate * (1 + newPremium / CENT), 2);
   const stepPremium = (delta: number) => {

@@ -693,7 +693,7 @@ export function PriceSection() {
       shallow,
     );
 
-  const MIN_PREMIUM = -6;
+  const MIN_PREMIUM = -21;
 
   const expressSellFilterMinPremium =
     realExpressSellFilterMinPremium === -100
@@ -702,7 +702,7 @@ export function PriceSection() {
 
   const PREMIUM_STEP = 0.1;
 
-  const MAX_PREMIUM = 6;
+  const MAX_PREMIUM = 21;
 
   const onMinusPress = () => {
     setExpressSellFilterMinPremium(

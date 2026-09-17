@@ -31,7 +31,7 @@ export const usePremiumSliderSetup = (
   );
 
   // The max premium used to shrink with the price/amount so the offer stayed
-  // below MAXIMUM_CHF_AMOUNT_OF_OFFER. It is now always premiumBounds.max (6).
+  // below MAXIMUM_CHF_AMOUNT_OF_OFFER. It is now always premiumBounds.max (21).
   // const maximumPremiumAllowed = clamp(
   //   boundsAreComputable
   //     ? Math.floor((MAXIMUM_CHF_AMOUNT_OF_OFFER / baseCHF - 1) * 100)
