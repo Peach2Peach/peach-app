@@ -1,7 +1,7 @@
 import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { OverlayComponent } from "../../OverlayComponent";
 import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -97,53 +97,39 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
 
   const [hasSeenMpesaPopup, setHasSeenMpesaPopup] = useState(false);
 
-  if (isLoadingPaymentData) return <LoadingScreen />;
-  if (
-    selfUser &&
-    contract.tradeStatus === "paymentRequired" &&
-    !hasSeenFirstTimeBuyerPopup &&
-    selfUser.id === contract.buyer.id
-  ) {
-    setPopup(<HelpPopup id="firstTimeBuyer" />);
-    setSeenFirstTimeBuyerPopup();
-  }
-  if (
-    selfUser &&
-    contract.tradeStatus === "confirmPaymentRequired" &&
-    !hasSeenFirstTimeSellerPopup &&
-    selfUser.id === contract.seller.id
-  ) {
-    setPopup(<HelpPopup id="firstTimeSeller" />);
-    setSeenFirstTimeSellerPopup();
-  }
+  // Popups are opened from an effect, never during render: setting global
+  // state mid-render can present the popup Modal at an unsafe moment on iOS.
+  useEffect(() => {
+    if (isLoadingPaymentData || !selfUser) return;
 
-  const requiredAction = getRequiredAction(contract);
-  const { disputeWinner } = contract;
+    if (
+      contract.tradeStatus === "paymentRequired" &&
+      !hasSeenFirstTimeBuyerPopup &&
+      selfUser.id === contract.buyer.id
+    ) {
+      setPopup(<HelpPopup id="firstTimeBuyer" />);
+      setSeenFirstTimeBuyerPopup();
+    }
+    if (
+      contract.tradeStatus === "confirmPaymentRequired" &&
+      !hasSeenFirstTimeSellerPopup &&
+      selfUser.id === contract.seller.id
+    ) {
+      setPopup(<HelpPopup id="firstTimeSeller" />);
+      setSeenFirstTimeSellerPopup();
+    }
 
-  // The user sees the counterparty's decrypted payment details. Re-hash them and
-  // compare against the hashes stored on the contract to detect tampering.
-  const counterparty: ContractViewer = view === "buyer" ? "seller" : "buyer";
-  const counterpartyPaymentData =
-    view === "buyer" ? data?.paymentData : data?.buyerPaymentData;
-  const counterpartyHashes =
-    view === "buyer"
-      ? contract.hashedPaymentData
-      : contract.buyerHashedPaymentData;
-  const hasSuspiciousPaymentData = isSuspiciousPaymentData(
-    counterpartyPaymentData,
-    counterpartyHashes,
-  );
+    const paymentData = data?.paymentData;
+    if (
+      contract.disputeWinner ||
+      !["revolut", "wise"].includes(contract.paymentMethod) ||
+      !paymentData?.mpesa_name ||
+      !paymentData.mpesa_finalCurrency ||
+      hasSeenMpesaPopup
+    )
+      return;
 
-  if (
-    !disputeWinner &&
-    ["revolut", "wise"].includes(contract.paymentMethod) &&
-    data &&
-    data.paymentData &&
-    data.paymentData.mpesa_name &&
-    data.paymentData.mpesa_finalCurrency &&
-    selfUser &&
-    !hasSeenMpesaPopup
-  ) {
+    const requiredAction = getRequiredAction(contract);
     if (requiredAction === "sendPayment" && contract.buyer.id === selfUser.id) {
       if (contract.paymentMethod === "wise") {
         setPopup(
@@ -151,7 +137,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
             title={i18n(`help.wiseMpesaBuyer.title`)}
             content={i18n(
               `help.wiseMpesaBuyer.description`,
-              data.paymentData.mpesa_finalCurrency,
+              paymentData.mpesa_finalCurrency,
             )}
             dontShowHelpButton={false}
           />,
@@ -173,7 +159,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
           )}
           content={i18n(
             `help.mpesaConversionSeller.description`,
-            data.paymentData.mpesa_finalCurrency,
+            paymentData.mpesa_finalCurrency,
             capitalize(contract.paymentMethod),
           )}
           dontShowHelpButton={false}
@@ -181,7 +167,34 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
       );
       setHasSeenMpesaPopup(true);
     }
-  }
+  }, [
+    contract,
+    data?.paymentData,
+    hasSeenFirstTimeBuyerPopup,
+    hasSeenFirstTimeSellerPopup,
+    hasSeenMpesaPopup,
+    isLoadingPaymentData,
+    selfUser,
+    setPopup,
+    setSeenFirstTimeBuyerPopup,
+    setSeenFirstTimeSellerPopup,
+  ]);
+
+  if (isLoadingPaymentData) return <LoadingScreen />;
+
+  // The user sees the counterparty's decrypted payment details. Re-hash them and
+  // compare against the hashes stored on the contract to detect tampering.
+  const counterparty: ContractViewer = view === "buyer" ? "seller" : "buyer";
+  const counterpartyPaymentData =
+    view === "buyer" ? data?.paymentData : data?.buyerPaymentData;
+  const counterpartyHashes =
+    view === "buyer"
+      ? contract.hashedPaymentData
+      : contract.buyerHashedPaymentData;
+  const hasSuspiciousPaymentData = isSuspiciousPaymentData(
+    counterpartyPaymentData,
+    counterpartyHashes,
+  );
 
   return (
     <ContractContext.Provider
