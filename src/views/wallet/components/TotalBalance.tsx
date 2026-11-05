@@ -5,9 +5,11 @@ import { Loading } from "../../../components/Loading";
 import { Placeholder } from "../../../components/Placeholder";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { PeachText } from "../../../components/text/PeachText";
+import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
 import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
+import { priceFormat } from "../../../utils/string/priceFormat";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 
 type Props = {
@@ -59,6 +61,31 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
         showAmount={showBalance}
         style={isRefreshing && tw`opacity-50`}
       />
+      <FiatBalance
+        amount={amount}
+        showAmount={showBalance}
+        isRefreshing={isRefreshing}
+      />
     </View>
   );
 };
+
+function FiatBalance({
+  amount,
+  showAmount,
+  isRefreshing,
+}: Props & { showAmount: boolean }) {
+  const { bitcoinPrice, fiatPrice, displayCurrency } = useBitcoinPrices(amount);
+  if (!amount || !bitcoinPrice || displayCurrency === "SAT") return null;
+
+  return (
+    <PeachText
+      style={[
+        tw`-mt-2 text-center body-m text-black-50`,
+        isRefreshing && tw`opacity-50`,
+      ]}
+    >
+      {showAmount ? priceFormat(fiatPrice) : "••••"} {displayCurrency}
+    </PeachText>
+  );
+}
