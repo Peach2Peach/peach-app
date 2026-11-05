@@ -1,6 +1,7 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
 import { Keyboard, Modal, Pressable, View } from "react-native";
+import { useIsPinOverlayBlocking } from "../../hooks/useIsPinOverlayBlocking";
 import tw from "../../styles/tailwind";
 
 const popupAtom = atom<React.ReactNode | null>(null);
@@ -17,10 +18,11 @@ export const useClosePopup = () => {
 export const GlobalPopup = () => {
   const popupComponent = useAtomValue(popupAtom);
   const closePopup = useClosePopup();
+  const isPinOverlayBlocking = useIsPinOverlayBlocking();
   return (
     <Modal
       transparent
-      visible={popupComponent !== null}
+      visible={popupComponent !== null && !isPinOverlayBlocking}
       onRequestClose={closePopup}
     >
       <View style={tw`justify-center flex-1`}>

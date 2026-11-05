@@ -3,10 +3,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PeachyBackground } from "./components/PeachyBackground";
 import tw from "./styles/tailwind";
 
-export function OverlayComponent({ children }: { children: React.ReactNode }) {
+export function OverlayComponent({
+  children,
+  visible = true,
+}: {
+  children: React.ReactNode;
+  visible?: boolean;
+}) {
   const insets = useSafeAreaInsets();
   return (
-    <Modal visible={children !== undefined}>
+    <Modal visible={visible && children !== undefined}>
       <PeachyBackground />
       <View
         style={{

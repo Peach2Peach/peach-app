@@ -1,7 +1,7 @@
 import messaging, {
   FirebaseMessagingTypes,
 } from "@react-native-firebase/messaging";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSetGlobalOverlay } from "../Overlay";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import { error } from "../utils/log/error";
@@ -24,6 +24,7 @@ const dataIsDefined = (
 export const useInitialNavigation = () => {
   const navigation = useStackNavigation();
   const setOverlay = useSetGlobalOverlay();
+  const handledInitialNotificationId = useRef<string | undefined>(undefined);
 
   const handleOverlays = useCallback(
     (
@@ -78,7 +79,12 @@ export const useInitialNavigation = () => {
       );
     }
 
-    if (initialNotification) {
+    if (
+      initialNotification &&
+      (initialNotification.messageId === undefined ||
+        initialNotification.messageId !== handledInitialNotificationId.current)
+    ) {
+      handledInitialNotificationId.current = initialNotification.messageId;
       info(
         "Notification caused app to open from quit state:",
         JSON.stringify(initialNotification),
@@ -87,7 +93,7 @@ export const useInitialNavigation = () => {
       await handleNotification(initialNotification);
     }
 
-    messaging().onNotificationOpenedApp(async (remoteMessage) => {
+    return messaging().onNotificationOpenedApp(async (remoteMessage) => {
       info(
         "Notification caused app to open from background state:",
         JSON.stringify(remoteMessage),
@@ -98,6 +104,15 @@ export const useInitialNavigation = () => {
   }, [handleNotification]);
 
   useEffect(() => {
-    initialNavigation();
+    let cancelled = false;
+    let unsubscribe: (() => void) | undefined;
+    initialNavigation().then((unsub) => {
+      if (cancelled) unsub();
+      else unsubscribe = unsub;
+    });
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
   }, [initialNavigation]);
 };
