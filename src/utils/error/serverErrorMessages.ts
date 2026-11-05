@@ -6,6 +6,8 @@
 const SERVER_ERROR_MESSAGES: Record<string, string> = {
   "please update the app to the latest version": "APP_UPDATE_REQUIRED",
   "you are not allowed to sell": "SELLING_NOT_ALLOWED",
+  "you are not allowed to sell with these payment details. please use payment details you have already used in a previous successful sale":
+    "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS",
   "you already have an ongoing trade": "ONGOING_TRADE_EXISTS",
   "the seller already has an ongoing trade": "SELLER_HAS_ONGOING_TRADE",
   "you are not able to republish. please refund": "REPUBLISH_NOT_POSSIBLE",
@@ -14,4 +16,4 @@ const SERVER_ERROR_MESSAGES: Record<string, string> = {
 };
 
 export const getServerErrorMessageKey = (message: string) =>
-  SERVER_ERROR_MESSAGES[message.trim().toLowerCase()];
+  SERVER_ERROR_MESSAGES[message.trim().toLowerCase().replace(/\.$/u, "")];

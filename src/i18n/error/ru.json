@@ -107,6 +107,8 @@
   "APP_UPDATE_REQUIRED.text": "Обновите приложение Peach до последней версии, чтобы продолжать продавать.",
   "SELLING_NOT_ALLOWED.title": "продажа недоступна",
   "SELLING_NOT_ALLOWED.text": "Ваш аккаунт временно не может создавать предложения о продаже. Свяжитесь со службой поддержки Peach, чтобы узнать, как получить доступ. Спасибо!",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "используйте другие платёжные данные",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.text": "Вы можете продавать только с платёжными данными, которые уже использовали в предыдущей успешной продаже. Выберите один из этих способов оплаты и попробуйте снова.",
   "ONGOING_TRADE_EXISTS.title": "одна сделка за раз",
   "ONGOING_TRADE_EXISTS.text": "У вас уже есть активная сделка. Завершите или отмените её, прежде чем начинать новую.",
   "SELLER_HAS_ONGOING_TRADE.title": "продавец занят",

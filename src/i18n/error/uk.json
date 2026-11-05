@@ -107,6 +107,8 @@
   "APP_UPDATE_REQUIRED.text": "Оновіть додаток Peach до останньої версії, щоб продовжити продавати.",
   "SELLING_NOT_ALLOWED.title": "Продаж недоступний",
   "SELLING_NOT_ALLOWED.text": "Ваш обліковий запис тимчасово не може створювати пропозиції продажу. Зверніться до служби підтримки Peach, щоб дізнатися, як отримати доступ. Дякуємо!",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Використайте інші платіжні дані",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.text": "Ви можете продавати лише з платіжними даними, які вже використовували в попередньому успішному продажу. Виберіть один із цих способів оплати та спробуйте ще раз.",
   "ONGOING_TRADE_EXISTS.title": "Одна угода за раз",
   "ONGOING_TRADE_EXISTS.text": "У вас уже є активна угода. Завершіть або скасуйте її, перш ніж починати нову.",
   "SELLER_HAS_ONGOING_TRADE.title": "Продавець зайнятий",

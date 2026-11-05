@@ -107,6 +107,8 @@
   "APP_UPDATE_REQUIRED.text": "Frissítsd a Peach alkalmazást a legújabb verzióra, hogy tovább tudj eladni.",
   "SELLING_NOT_ALLOWED.title": "Az eladás nem érhető el",
   "SELLING_NOT_ALLOWED.text": "A fiókod átmenetileg nem jogosult eladási ajánlatok létrehozására. Vedd fel a kapcsolatot a Peach ügyfélszolgálatával, hogy megtudd, hogyan kaphatsz hozzáférést. Köszönjük!",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Használj más fizetési adatokat",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.text": "Csak olyan fizetési adatokkal adhatsz el, amelyeket már használtál egy korábbi sikeres eladásnál. Válassz egyet ezek közül a fizetési módok közül, és próbáld újra.",
   "ONGOING_TRADE_EXISTS.title": "Egyszerre csak egy kereskedés",
   "ONGOING_TRADE_EXISTS.text": "Már van egy folyamatban lévő kereskedésed. Fejezd be vagy vond vissza, mielőtt újat indítasz.",
   "SELLER_HAS_ONGOING_TRADE.title": "Az eladó elfoglalt",

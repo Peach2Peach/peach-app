@@ -107,6 +107,8 @@
   "APP_UPDATE_REQUIRED.text": "Werk de Peach-app bij naar de nieuwste versie om te blijven verkopen.",
   "SELLING_NOT_ALLOWED.title": "verkopen niet beschikbaar",
   "SELLING_NOT_ALLOWED.text": "Je account kan tijdelijk geen verkoopaanbiedingen aanmaken. Neem contact op met de klantenservice van Peach om te horen hoe je toegang kunt krijgen. Bedankt!",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "gebruik andere betaalgegevens",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.text": "Je kunt alleen verkopen met betaalgegevens die je al eerder bij een geslaagde verkoop hebt gebruikt. Kies een van die betaalmethoden en probeer het opnieuw.",
   "ONGOING_TRADE_EXISTS.title": "één trade tegelijk",
   "ONGOING_TRADE_EXISTS.text": "Je hebt al een lopende trade. Rond die af of annuleer hem voordat je een nieuwe start.",
   "SELLER_HAS_ONGOING_TRADE.title": "verkoper is bezig",

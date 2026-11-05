@@ -107,6 +107,8 @@
   "APP_UPDATE_REQUIRED.text": "Aggiorna l'app Peach all'ultima versione per continuare a vendere.",
   "SELLING_NOT_ALLOWED.title": "Vendita non disponibile",
   "SELLING_NOT_ALLOWED.text": "Il tuo account temporaneamente non può creare offerte di vendita. Contatta l'assistenza clienti di Peach per scoprire come ottenere l'accesso. Grazie!",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Usa altri dati di pagamento",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.text": "Puoi vendere solo con dati di pagamento che hai già usato in una vendita precedente andata a buon fine. Seleziona uno di questi metodi di pagamento e riprova.",
   "ONGOING_TRADE_EXISTS.title": "Un trade alla volta",
   "ONGOING_TRADE_EXISTS.text": "Hai già un trade in corso. Completalo o annullalo prima di iniziarne uno nuovo.",
   "SELLER_HAS_ONGOING_TRADE.title": "Il venditore è occupato",

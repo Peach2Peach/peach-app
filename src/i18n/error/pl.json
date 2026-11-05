@@ -107,6 +107,8 @@
   "APP_UPDATE_REQUIRED.text": "Zaktualizuj aplikację Peach do najnowszej wersji, aby dalej sprzedawać.",
   "SELLING_NOT_ALLOWED.title": "Sprzedaż niedostępna",
   "SELLING_NOT_ALLOWED.text": "Twoje konto tymczasowo nie może tworzyć ofert sprzedaży. Skontaktuj się z obsługą klienta Peach, aby dowiedzieć się, jak uzyskać dostęp. Dziękujemy!",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Użyj innych danych płatności",
+  "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.text": "Możesz sprzedawać tylko z użyciem danych płatności, których użyłeś już w poprzedniej udanej sprzedaży. Wybierz jedną z tych metod płatności i spróbuj ponownie.",
   "ONGOING_TRADE_EXISTS.title": "Jedna transakcja naraz",
   "ONGOING_TRADE_EXISTS.text": "Masz już trwającą transakcję. Zakończ ją lub anuluj, zanim rozpoczniesz nową.",
   "SELLER_HAS_ONGOING_TRADE.title": "Sprzedawca jest zajęty",
