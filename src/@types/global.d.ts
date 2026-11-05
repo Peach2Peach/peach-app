@@ -75,6 +75,8 @@ type ToastState = {
   bodyArgs?: string[];
   action?: Action;
   keepAlive?: boolean;
+  // ms the toast stays visible before sliding out (defaults to 10s)
+  duration?: number;
   // raw title/message that bypass i18n resolution of msgKey (e.g. custom PNs)
   title?: string;
   message?: string;

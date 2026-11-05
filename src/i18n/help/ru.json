@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Чем загруженнее сеть, тем выше комиссия для быстрого подтверждения.",
   "help.networkFees.title": "Комиссии блокчейна",
   "help.paymentMethodDelete.description": "Эту операцию нельзя отменить",
+  "help.paymentMethodDelete.success.text": "Ваш метод оплаты успешно удалён.",
+  "help.paymentMethodDelete.success.title": "Метод оплаты удалён",
   "help.paymentMethodDelete.title": "Удалить метод оплаты?",
   "help.paymentMethods.description.1": "Можно добавить любое количество методов оплаты для сделки.",
   "help.paymentMethods.description.2": "Они хранятся только на вашем устройстве и видны только партнёру по сделке (если нет спора).",

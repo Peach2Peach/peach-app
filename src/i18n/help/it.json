@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Più la rete è congestionata, più pagherai per una conferma rapida.",
   "help.networkFees.title": "Commissioni rete bitcoin",
   "help.paymentMethodDelete.description": "Questa operazione non può essere annullata",
+  "help.paymentMethodDelete.success.text": "Il tuo metodo di pagamento è stato eliminato con successo.",
+  "help.paymentMethodDelete.success.title": "Metodo di pagamento eliminato",
   "help.paymentMethodDelete.title": "Eliminare metodo di pagamento?",
   "help.paymentMethods.description.1": "Puoi aggiungere e selezionare quanti metodi di pagamento vuoi per ogni scambio!",
   "help.paymentMethods.description.2": "Memorizzati solo sul tuo telefono; visibili solo al partner di scambio, salvo dispute.",

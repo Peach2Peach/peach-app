@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Mtandao ukiwa na msongamano mkubwa, ada huwa juu zaidi kwa uthibitisho wa haraka.",
   "help.networkFees.title": "ada za mtandao wa bitcoin",
   "help.paymentMethodDelete.description": "Hatua hii haiwezi kubatilishwa.",
+  "help.paymentMethodDelete.success.text": "Njia yako ya malipo imefutwa kwa mafanikio.",
+  "help.paymentMethodDelete.success.title": "njia ya malipo imefutwa",
   "help.paymentMethodDelete.title": "futa njia ya malipo?",
   "help.paymentMethods.description.1": "Unaweza kuongeza na kuchagua njia za malipo unavyotaka kwa kila biashara!",
   "help.paymentMethods.description.2": "Zinahifadhiwa kwenye simu yako, na mshirika wa biashara anaweza kuziona (isipokuwa unapowasilisha malalamiko).",

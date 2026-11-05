@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Quanto mais movimentada estiver a rede, mais precisará de pagar para obter uma confirmação rápida.",
   "help.networkFees.title": "taxas de rede bitcoin",
   "help.paymentMethodDelete.description": "Isso não pode ser desfeito",
+  "help.paymentMethodDelete.success.text": "O seu método de pagamento foi eliminado com sucesso.",
+  "help.paymentMethodDelete.success.title": "método de pagamento eliminado",
   "help.paymentMethodDelete.title": "excluir método de pagamento?",
   "help.paymentMethods.description.1": "Pode adicionar e selecionar quantos métodos de pagamento quiser para cada negociação!",
   "help.paymentMethods.description.2": "Estes são armazenados no seu telefone e apenas a pessoa com quem está a negociar poderá ver essas informações (a menos que inicie uma disputa).",

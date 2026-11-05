@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Όσο πιο απασχολημένο είναι το δίκτυο, τόσο περισσότερο θα πρέπει να πληρώσετε για να έχετε γρήγορη επιβεβαίωση.",
   "help.networkFees.title": "Τέλη δικτύου Bitcoin",
   "help.paymentMethodDelete.description": "Αυτό δεν μπορεί να αναιρεθεί.",
+  "help.paymentMethodDelete.success.text": "Η μέθοδος πληρωμής σας διαγράφηκε με επιτυχία.",
+  "help.paymentMethodDelete.success.title": "Η μέθοδος πληρωμής διαγράφηκε",
   "help.paymentMethodDelete.title": "Διαγραφή μεθόδου πληρωμής;",
   "help.paymentMethods.description.1": "Μπορείτε να προσθέσετε και να επιλέξετε όσες μεθόδους πληρωμής θέλετε για κάθε συναλλαγή!",
   "help.paymentMethods.description.2": "Αποθηκεύονται στο τηλέφωνό σας και μόνο ο παραλήπτης μπορεί να δει αυτές τις πληροφορίες (εκτός αν ξεκινήσετε μια διένεξη).",

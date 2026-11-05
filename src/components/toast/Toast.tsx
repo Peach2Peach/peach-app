@@ -79,7 +79,7 @@ export const Toast = () => {
     if (activeToast) {
       animation = Animated.sequence([
         slideAnimation(top, 0),
-        Animated.delay(DELAY),
+        Animated.delay(activeToast.duration ?? DELAY),
       ]);
       animation.start(({ finished }) => {
         if (finished && !activeToast.keepAlive)

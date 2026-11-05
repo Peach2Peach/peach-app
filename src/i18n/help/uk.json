@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Чим більше завантаженість мережі, тим більше вам доведеться заплатити, щоб отримати швидке підтвердження.",
   "help.networkFees.title": "комісія біткойн мережі",
   "help.paymentMethodDelete.description": "Це буде неможливо відмінити",
+  "help.paymentMethodDelete.success.text": "Ваш метод оплати успішно видалено.",
+  "help.paymentMethodDelete.success.title": "метод оплати видалено",
   "help.paymentMethodDelete.title": "видалите метод оплати?",
   "help.paymentMethods.description.1": "Ви можете додати та вибрати скільки завгодно способів оплати для кожної операції!",
   "help.paymentMethods.description.2": "Вони зберігаються на вашому телефоні, і лише особа, з якою ви торгуєте, може бачити цю інформацію (якщо ви не подасте спір).",

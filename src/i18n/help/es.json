@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Cuanto más ocupada esté la red, más tendrás que pagar para obtener una confirmación rápida.",
   "help.networkFees.title": "comisiones de red de bitcoin",
   "help.paymentMethodDelete.description": "Esto no se puede deshacer",
+  "help.paymentMethodDelete.success.text": "Tu método de pago se ha eliminado correctamente.",
+  "help.paymentMethodDelete.success.title": "Método de pago eliminado",
   "help.paymentMethodDelete.title": "¿Eliminar método de pago?",
   "help.paymentMethods.description.1": "¡Puedes agregar y seleccionar tantos métodos de pago como desees para cada intercambio!",
   "help.paymentMethods.description.2": "Se almacenan en tu teléfono, y solo la persona con la que estás intercambiando puede ver esta información (a menos que presentes una disputa).",

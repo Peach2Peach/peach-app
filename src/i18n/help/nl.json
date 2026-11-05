@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Druk netwerk = hogere kosten voor snelle bevestiging.",
   "help.networkFees.title": "bitcoin netwerkkosten",
   "help.paymentMethodDelete.description": "Dit kan niet ongedaan worden gemaakt",
+  "help.paymentMethodDelete.success.text": "Je betalingsmethode is succesvol verwijderd.",
+  "help.paymentMethodDelete.success.title": "betalingsmethode verwijderd",
   "help.paymentMethodDelete.title": "betalingsmethode verwijderen?",
   "help.paymentMethods.description.1": "Voeg zoveel betaalmethoden toe als je wilt voor elke transactie.",
   "help.paymentMethods.description.2": "Ze worden lokaal opgeslagen en alleen zichtbaar voor je handelspartner, tenzij er een geschil is.",

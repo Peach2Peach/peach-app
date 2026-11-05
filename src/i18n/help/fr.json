@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Plus le réseau est chargé, plus les frais pour confirmation rapide sont élevés.",
   "help.networkFees.title": "Frais réseau Bitcoin",
   "help.paymentMethodDelete.description": "Cette action est irréversible.",
+  "help.paymentMethodDelete.success.text": "Votre méthode de paiement a bien été supprimée.",
+  "help.paymentMethodDelete.success.title": "Méthode de paiement supprimée",
   "help.paymentMethodDelete.title": "Supprimer la méthode de paiement ?",
   "help.paymentMethods.description.1": "Ajoutez et sélectionnez autant de méthodes de paiement que vous voulez pour chaque transaction !",
   "help.paymentMethods.description.2": "Elles sont stockées localement et visibles uniquement par vos partenaires de transaction (sauf litige).",

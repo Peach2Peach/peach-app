@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Ağ ne kadar yoğunsa, hızlı bir onay almak için daha fazla ödeme yapmanız gerekecektir.",
   "help.networkFees.title": "bitcoin ağı ücretleri",
   "help.paymentMethodDelete.description": "Bu işlem geri alınamaz",
+  "help.paymentMethodDelete.success.text": "Ödeme yönteminiz başarıyla silindi.",
+  "help.paymentMethodDelete.success.title": "ödeme yöntemi silindi",
   "help.paymentMethodDelete.title": "ödeme yöntemi silinsin mi?",
   "help.paymentMethods.description.1": "Her işlem için istediğiniz kadar ödeme yöntemi ekleyebilir ve seçebilirsiniz!",
   "help.paymentMethods.description.2": "Bu bilgiler telefonunuzda saklanır ve yalnızca ticaret yaptığınız kişi bu bilgileri görebilir (anlaşmazlık durumunu bildirmemeniz durumunda).",

@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Je ausgelasteter das Netzwerk ist, desto mehr musst du bezahlen, um eine schnelle Bestätigung zu erhalten.",
   "help.networkFees.title": "Bitcoin-Netzwerkgebühren",
   "help.paymentMethodDelete.description": "Dies kann nicht rückgängig gemacht werden.",
+  "help.paymentMethodDelete.success.text": "Deine Zahlungsmethode wurde erfolgreich gelöscht.",
+  "help.paymentMethodDelete.success.title": "Zahlungsmethode gelöscht",
   "help.paymentMethodDelete.title": "Zahlungsmethode löschen?",
   "help.paymentMethods.description.1": "Du kannst für jeden Handel beliebig viele Zahlungsmethoden hinzufügen und auswählen!",
   "help.paymentMethods.description.2": "Sie werden auf deinem Handy gespeichert, und nur die Person, mit der du handelst, kann diese Informationen sehen (es sei denn, du beginnst einen Streitfall).",

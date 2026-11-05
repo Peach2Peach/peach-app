@@ -34,6 +34,8 @@
   "help.networkFees.description.2": "Zsúfolt hálózat esetén a gyors megerősítés többet igényel.",
   "help.networkFees.title": "bitcoin hálózati díjak",
   "help.paymentMethodDelete.description": "Ezt nem lehet visszavonni",
+  "help.paymentMethodDelete.success.text": "A fizetési módod sikeresen törölve lett.",
+  "help.paymentMethodDelete.success.title": "fizetési mód törölve",
   "help.paymentMethodDelete.title": "fizetési mód törlése?",
   "help.paymentMethods.description.1": "Annyi fizetési módot adhatsz hozzá, amennyit szeretnél!",
   "help.paymentMethods.description.2": "Telefonodon tárolódnak, és csak a kereskedő láthatja (vitánál kivétel).",
