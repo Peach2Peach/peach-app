@@ -1,5 +1,5 @@
 PODS:
-  - BdkRn (1.0.0):
+  - BdkRn (1.1.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -26,7 +26,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SocketRocket
-    - uniffi-bindgen-react-native (= 0.30.0-1)
+    - uniffi-bindgen-react-native (= 0.31.0-5)
     - Yoga
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
@@ -3424,7 +3424,7 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
-  - uniffi-bindgen-react-native (0.30.0-1):
+  - uniffi-bindgen-react-native (0.31.0-5):
     - React-Core
   - VisionCamera (4.7.3):
     - VisionCamera/Core (= 4.7.3)
@@ -3787,7 +3787,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  BdkRn: 8f141d0c00383a8c63c4a61b3a4167f90e6f4e8a
+  BdkRn: d8f165cfb75458ef454c0802ee74c010c63c47f5
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
@@ -3908,10 +3908,10 @@ SPEC CHECKSUMS:
   RNSVG: 7cf280f47bb61ae1eadcbb7f4014533447f1550e
   RNWorklets: ab618bf7d1c7fd2cb793b9f0f39c3e29274b3ebf
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  uniffi-bindgen-react-native: 80b84792114d89b005d913b7b8d875b36111178f
+  uniffi-bindgen-react-native: 598913d7e1654cc6f58d58afcbe40f4b682b7169
   VisionCamera: 7187b3dac1ff3071234ead959ce311875748e14f
   Yoga: 689c8e04277f3ad631e60fe2a08e41d411daf8eb
 
 PODFILE CHECKSUM: bc89a04f40630f224c4cd5f8f192f2f29cbb5745
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2
