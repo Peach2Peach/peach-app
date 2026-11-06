@@ -4,7 +4,7 @@ import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { SATSINBTC, THOUSANDS_GROUP } from "../../constants";
+import { CENT, SATSINBTC, THOUSANDS_GROUP } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { writeCSV } from "../../hooks/writeCSV";
 import { useThemeStore } from "../../store/theme";
@@ -61,6 +61,7 @@ function createCSVValue(tradeSummaries: (OfferSummary | ContractSummary)[]) {
     "Type",
     "Amount",
     "Price",
+    "Price without premium/discount",
     "Bitcoin Price",
     "Currency",
     "Premium",
@@ -87,6 +88,16 @@ function createCSVValue(tradeSummaries: (OfferSummary | ContractSummary)[]) {
           : "";
       const price = "price" in d ? `${tradePrice}` : "";
       return price;
+    },
+    "Price without premium/discount": (d: OfferSummary | ContractSummary) => {
+      if (!("price" in d)) return "";
+      const premium = "premium" in d ? Number(d.premium) || 0 : 0;
+      const multiplier = 1 + premium / CENT;
+      if (multiplier <= 0) return "";
+      const priceWithoutPremium = d.price / multiplier;
+      return d.currency === "SAT"
+        ? groupChars(String(Math.round(priceWithoutPremium)), THOUSANDS_GROUP)
+        : priceFormat(priceWithoutPremium);
     },
     "Bitcoin Price": (d: OfferSummary | ContractSummary) => {
       if (!("price" in d)) return "";
