@@ -6,6 +6,7 @@ import {
   MobilePendingActionFundEscrow,
   MobilePendingActionFundMultipleEscrow,
   MobilePendingActionRefund,
+  MobilePendingActionSubmitBuyOfferProof,
 } from "../../../peach-api/src/@types/mobilePendingAction";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
@@ -27,13 +28,15 @@ type ActionType =
   | "fundEscrow"
   | "fundMultipleEscrow"
   | "fundEscrowContract"
-  | "refundEscrowContract";
+  | "refundEscrowContract"
+  | "submitBuyOfferProof";
 
 type PendingAction =
   | MobilePendingActionContract
   | MobilePendingActionRefund
   | MobilePendingActionFundEscrow
-  | MobilePendingActionFundMultipleEscrow;
+  | MobilePendingActionFundMultipleEscrow
+  | MobilePendingActionSubmitBuyOfferProof;
 
 type FlatPendingAction = {
   item: PendingAction;
@@ -77,6 +80,9 @@ export const MobilePendingActions = () => {
         ),
         ...(mobilePendingActions.refundEscrowContractPendingActions ?? []).map(
           (item) => ({ item, type: "refundEscrowContract" as const }),
+        ),
+        ...(mobilePendingActions.submitBuyOfferProofPendingActions ?? []).map(
+          (item) => ({ item, type: "submitBuyOfferProof" as const }),
         ),
       ]
         .filter(({ item }) => item.status === "pending")
@@ -155,6 +161,10 @@ const MobilePendingActionItem = ({
       navigation.navigate("mobilePendingActionRefundContractEscrow", {
         id: String(item.id),
       });
+    } else if (type === "submitBuyOfferProof") {
+      navigation.navigate("mobilePendingActionSubmitBuyOfferProof", {
+        id: String(item.id),
+      });
     }
   };
 
@@ -163,13 +173,18 @@ const MobilePendingActionItem = ({
       ? i18n(
           "connectToDesktop.mobilePendingActions.fundMultipleEscrow.numberOfOffers",
           String(
-            (JSON.parse(item.payload) as { address: string; amount: number }[])
-              .length,
+            (
+              JSON.parse(
+                (item as MobilePendingActionFundMultipleEscrow).payload,
+              ) as { address: string; amount: number }[]
+            ).length,
           ),
         )
-      : "contractId" in item && item.contractId
-        ? contractIdToHex(item.contractId)
-        : offerIdToHex(String((item as { offerId: number }).offerId));
+      : "buyOfferId" in item
+        ? offerIdToHex(String(item.buyOfferId))
+        : "contractId" in item && item.contractId
+          ? contractIdToHex(item.contractId)
+          : offerIdToHex(String((item as { offerId: number }).offerId));
 
   const typeLabel = i18n(`connectToDesktop.mobilePendingActions.${type}`);
 

@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Sign your refund",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Your escrow refund is ready to be signed.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Sign your contract refund",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "A contract escrow refund is ready to be signed."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "A contract escrow refund is ready to be signed.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Approve your buy offer",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "A buy offer you created on desktop is waiting for your approval.",
+  "notification.contract.buyer.refundRequired.title": "Refund required",
+  "notification.contract.buyer.refundRequired.text": "Trade $0 was canceled. Please sign the refund so the seller gets their sats back."
 }

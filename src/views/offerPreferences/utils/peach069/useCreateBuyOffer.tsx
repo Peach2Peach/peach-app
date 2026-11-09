@@ -10,6 +10,9 @@ import { useSettingsStore } from "../../../../store/settingsStore/useSettingsSto
 import { useAccountStore } from "../../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../../utils/account/getMessageToSignForAddress";
 import i18n from "../../../../utils/i18n";
+import { error } from "../../../../utils/log/error";
+import { submitBuyOfferPublicKey } from "../../../../utils/offer/submitBuyOfferPublicKey";
+import { parseError } from "../../../../utils/parseError";
 import { filterUnavailableCurrencies } from "../../../../utils/paymentMethod/filterUnavailableCurrencies";
 import { peachAPI } from "../../../../utils/peachAPI";
 import { usePaymentMethods } from "../../../addPaymentMethod/usePaymentMethodInfo";
@@ -128,18 +131,33 @@ export function useCreateBuyOffer({
       const { result, error: err } =
         await peachAPI.private.peach069.createBuyOffer(finalizedOfferDraft);
 
-      if (result) {
-        if (didFilter) {
-          setToast({
-            msgKey: "PAYMENT_METHOD_CURRENCY_FILTERED",
-            color: "yellow",
-          });
-        }
-        return result.id;
+      if (!result) {
+        throw new Error(err?.error || "POST_OFFER_ERROR", {
+          cause: err?.details,
+        });
       }
-      throw new Error(err?.error || "POST_OFFER_ERROR", {
-        cause: err?.details,
-      });
+      if (didFilter) {
+        setToast({
+          msgKey: "PAYMENT_METHOD_CURRENCY_FILTERED",
+          color: "yellow",
+        });
+      }
+
+      // The offers exist from here on: a key failure must not surface as a
+      // creation failure, or pressing publish again would duplicate them.
+      const ids = result.ids.map(String);
+      const published = await Promise.all(
+        ids.map((id) =>
+          submitBuyOfferPublicKey(id).then(
+            () => true,
+            (e) => {
+              error("submitBuyOfferPublicKey", parseError(e));
+              return false;
+            },
+          ),
+        ),
+      );
+      return { ids, allPublished: published.every(Boolean) };
     },
     onError: ({ message, cause }: Error) => {
       if (isForbiddenPaymentMethodError(message, cause)) {
@@ -149,21 +167,34 @@ export function useCreateBuyOffer({
         showErrorBanner(message);
       }
     },
-    onSuccess: (offerId) => {
-      navigation.reset({
-        index: 1,
-        routes: [
-          { name: "homeScreen", params: { screen: "yourTrades" } },
-          { name: "browseTradeRequestsToMyBuyOffer", params: { offerId } },
-        ],
-      });
-    },
-    onSettled: async (offerId) => {
-      if (offerId) {
-        await queryClient.invalidateQueries({
-          queryKey: offerKeys.detail(String(offerId)),
+    onSuccess: ({ ids, allPublished }) => {
+      if (!allPublished) showErrorBanner("BUY_OFFER_NOT_PUBLISHED");
+      const yourTrades = {
+        name: "homeScreen",
+        params: {
+          screen: "yourTrades",
+          params: { tab: "yourTrades.69BuyOffer" },
+        },
+      } as const;
+      if (ids.length === 1) {
+        navigation.reset({
+          index: 1,
+          routes: [
+            yourTrades,
+            {
+              name: "browseTradeRequestsToMyBuyOffer",
+              params: { offerId: ids[0] },
+            },
+          ],
         });
+      } else {
+        navigation.reset({ index: 0, routes: [yourTrades] });
       }
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["peach069OwnBuyOffers"],
+      });
       return queryClient.invalidateQueries({ queryKey: offerKeys.summaries() });
     },
   });

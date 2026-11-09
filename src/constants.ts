@@ -37,6 +37,7 @@ const FIVE = 5;
 export const FIVE_SECONDS = FIVE * MSINASECOND;
 
 export const NEW_USER_TRADE_THRESHOLD = 3;
+export const CREATE_OFFER_TRADE_THRESHOLD = 25;
 
 export const APPVERSION = getVersion();
 export const BUILDNUMBER = getBuildNumber();

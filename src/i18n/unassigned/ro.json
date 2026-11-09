@@ -87,5 +87,12 @@
   "invalidServerSignature.title": "verificarea datelor a eșuat",
   "invalidServerSignature.paymentData": "datele de plată criptate de pe server au o semnătură invalidă și nu au fost încărcate. acest lucru poate indica o manipulare. te rugăm să contactezi suportul.",
   "invalidServerSignature.refundAddress": "adresa de rambursare criptată de pe server are o semnătură invalidă și nu a fost încărcată. acest lucru poate indica o manipulare. te rugăm să contactezi suportul.",
-  "invalidServerSignature.payoutAddress": "adresa de retragere criptată de pe server are o semnătură invalidă și nu a fost încărcată. acest lucru poate indica o manipulare. te rugăm să contactezi suportul."
+  "invalidServerSignature.payoutAddress": "adresa de retragere criptată de pe server are o semnătură invalidă și nu a fost încărcată. acest lucru poate indica o manipulare. te rugăm să contactezi suportul.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "publică oferta de cumpărare",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Publică oferta de cumpărare",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Glisează pentru a aproba oferta de cumpărare creată pe desktop și a o face vizibilă pentru vânzători.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Publică",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Publicată!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Oferta de cumpărare a fost publicată!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Oferta ta de cumpărare este acum vizibilă pentru vânzători."
 }

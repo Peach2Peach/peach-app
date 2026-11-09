@@ -122,5 +122,9 @@
   "offer.summary.availableTo.experiencedUsersOnly": "csak tapasztalt felhasználóknak",
   "offer.summary.availableTo.newUsersLikeYou": "új felhasználóknak, mint te",
   "offer.summary.availableTo.experiencedUsersLikeYou": "tapasztalt felhasználóknak, mint te",
-  "offer.requiredAction.cancelAndRefund": "visszavonás és visszatérítés"
+  "offer.requiredAction.cancelAndRefund": "visszavonás és visszatérítés",
+  "offer.requiredAction.finishPublishing": "közzététel befejezése",
+  "offer.unpublished.text": "Ezt az ajánlatot még senki sem látja. Fejezd be a közzétételt, vagy töröld a fenti X-szel.",
+  "offer.deleted.title": "vételi ajánlat törölve",
+  "offer.deleted.text": "A(z) $0 vételi ajánlat sikeresen törölve."
 }

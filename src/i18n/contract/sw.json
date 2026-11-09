@@ -260,5 +260,9 @@
   "contract.summary.mpesa_phone": "Nambari ya simu",
   "contract.chatAvailableOnceEscrowFunded": "Gumzo litapatikana escrow itakapofadhiliwa"
 
-
+,
+  "contract.seller.refund.waitingForBuyer": "Biashara imeghairiwa. Mnunuzi pekee ndiye anayeweza kurejesha escrow hii, kwa hivyo unasubiri saini yake.",
+  "contract.buyer.refundEscrow": "saini marejesho",
+  "contract.buyer.refundEscrow.success.title": "marejesho yametumwa",
+  "contract.buyer.refundEscrow.success.text": "Marejesho yamesainiwa na sats zinarudi kwa muuzaji."
 }

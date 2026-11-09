@@ -15,6 +15,7 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
+import { getBuyerOnlyEscrowReleaseTx } from "../../utils/contract/getBuyerOnlyEscrowReleaseTx";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { peachWallet } from "../../utils/wallet/setWallet";
@@ -128,6 +129,10 @@ export const MobilePendingActionRevealAddress = () => {
           id,
           releaseAddress,
           releaseAddressMessageSignature,
+          buyerOnlyEscrowReleaseTx: await getBuyerOnlyEscrowReleaseTx({
+            contractId: mobilePendingAction.contractId,
+            releaseAddress,
+          }),
         });
       if (err) throw new Error(err.error);
 

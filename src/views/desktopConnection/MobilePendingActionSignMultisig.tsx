@@ -14,6 +14,7 @@ import tw from "../../styles/tailwind";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import i18n from "../../utils/i18n";
+import { isBuyerOnlyEscrow } from "../../utils/offer/isBuyerOnlyEscrow";
 import { isSingleSigEscrow } from "../../utils/offer/isSingleSigEscrow";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
@@ -49,6 +50,15 @@ export const MobilePendingActionSignMultisig = () => {
     return <></>;
   }
 
+  const navigateToSuccess = () =>
+    navigation.reset({
+      index: 1,
+      routes: [
+        { name: "homeScreen", params: { screen: "home" } },
+        { name: "mobilePendingActionSignMultisigSuccess" },
+      ],
+    });
+
   const confirmFunction = async () => {
     setIsConfirming(true);
     try {
@@ -57,6 +67,17 @@ export const MobilePendingActionSignMultisig = () => {
       });
 
       if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
+
+      // the buyer already signed the release when marking the payment as made
+      if (isBuyerOnlyEscrow(sellOffer)) {
+        const { error: buyerOnlyError } =
+          await peachAPI.private.peach069.postMobilePendingActionPaymentConfirmed(
+            { id },
+          );
+        if (buyerOnlyError) throw new Error(buyerOnlyError.error);
+        navigateToSuccess();
+        return;
+      }
 
       const wallet = getEscrowWalletForOffer(sellOffer);
 
@@ -93,13 +114,7 @@ export const MobilePendingActionSignMultisig = () => {
         );
       if (err) throw new Error(err.error);
 
-      navigation.reset({
-        index: 1,
-        routes: [
-          { name: "homeScreen", params: { screen: "home" } },
-          { name: "mobilePendingActionSignMultisigSuccess" },
-        ],
-      });
+      navigateToSuccess();
     } catch (err) {
       refetch();
       setIsConfirming(false);

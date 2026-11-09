@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Aggiorna il tuo metodo di pagamento",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Uno dei metodi di pagamento selezionati non supporta più nessuna delle valute che offri. Aggiornalo prima di pubblicare.",
   "APP_UPDATE_REQUIRED.title": "Aggiornamento richiesto",
-  "APP_UPDATE_REQUIRED.text": "Aggiorna l'app Peach all'ultima versione per continuare a vendere.",
+  "APP_UPDATE_REQUIRED.text": "Aggiorna l'app Peach all'ultima versione per continuare a scambiare.",
   "SELLING_NOT_ALLOWED.title": "Vendita non disponibile",
   "SELLING_NOT_ALLOWED.text": "Il tuo account temporaneamente non può creare offerte di vendita. Contatta l'assistenza clienti di Peach per scoprire come ottenere l'accesso. Grazie!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Usa altri dati di pagamento",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Rimborso dal tuo wallet",
   "REFUND_ONLY_BY_SELLER.text": "Peach non detiene alcuna chiave di questo deposito, quindi solo il tuo wallet può rimborsarlo. Riprova da questo dispositivo.",
   "REFUND_ADDRESS_NOT_OWNED.title": "rimborso non firmato",
-  "REFUND_ADDRESS_NOT_OWNED.text": "Il rimborso non è stato firmato a causa di un indirizzo di rimborso sospetto. Contatta il supporto Peach."
+  "REFUND_ADDRESS_NOT_OWNED.text": "Il rimborso non è stato firmato a causa di un indirizzo di rimborso sospetto. Contatta il supporto Peach.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "Reputazione insufficiente",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Non hai abbastanza reputazione per creare un'offerta di acquisto. Usa invece le offerte di vendita.",
+  "BUY_OFFER_UNAVAILABLE.title": "Offerta non disponibile",
+  "BUY_OFFER_UNAVAILABLE.text": "Questa offerta di acquisto non è più disponibile.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Offerta non pubblicata",
+  "BUY_OFFER_NOT_PUBLISHED.text": "La tua offerta di acquisto è stata creata, ma non è ancora visibile agli altri. Aprila dai tuoi scambi per completare la pubblicazione."
 }

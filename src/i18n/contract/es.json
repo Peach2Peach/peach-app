@@ -259,5 +259,9 @@
   "contract.summary.mpesa_phone": "# teléfono",
   "contract.chatAvailableOnceEscrowFunded": "el Chat estará disponible una vez que el depósito en garantía esté financiado"
 
-
+,
+  "contract.seller.refund.waitingForBuyer": "La operación se canceló. Solo el comprador puede reembolsar este escrow, así que estás esperando su firma.",
+  "contract.buyer.refundEscrow": "firmar reembolso",
+  "contract.buyer.refundEscrow.success.title": "reembolso enviado",
+  "contract.buyer.refundEscrow.success.text": "El reembolso se ha firmado y los sats están volviendo al vendedor."
 }

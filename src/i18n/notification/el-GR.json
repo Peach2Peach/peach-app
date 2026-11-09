@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Υπόγραψε την επιστροφή σου",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Η επιστροφή της εγγύησής σου είναι έτοιμη για υπογραφή.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Υπόγραψε την επιστροφή της σύμβασης",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Η επιστροφή της εγγύησης της σύμβασης είναι έτοιμη για υπογραφή."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Η επιστροφή της εγγύησης της σύμβασης είναι έτοιμη για υπογραφή.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Εγκρίνετε την προσφορά αγοράς σας",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Μια προσφορά αγοράς που δημιουργήσατε στον υπολογιστή περιμένει την έγκρισή σας.",
+  "notification.contract.buyer.refundRequired.title": "Απαιτείται επιστροφή",
+  "notification.contract.buyer.refundRequired.text": "Η συναλλαγή $0 ακυρώθηκε. Υπογράψτε την επιστροφή για να λάβει ο πωλητής τα sats του."
 }

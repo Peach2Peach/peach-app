@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Firma tu reembolso",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Tu reembolso del escrow está listo para ser firmado.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Firma el reembolso del contrato",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Un reembolso del escrow del contrato está listo para ser firmado."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Un reembolso del escrow del contrato está listo para ser firmado.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Aprueba tu oferta de compra",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Una oferta de compra que creaste en el ordenador está esperando tu aprobación.",
+  "notification.contract.buyer.refundRequired.title": "Reembolso necesario",
+  "notification.contract.buyer.refundRequired.text": "La operación $0 se canceló. Firma el reembolso para que el vendedor recupere sus sats."
 }

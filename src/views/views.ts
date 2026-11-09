@@ -26,6 +26,8 @@ import { MobilePendingActionRefund } from "./desktopConnection/MobilePendingActi
 import { MobilePendingActionRefundContractEscrow } from "./desktopConnection/MobilePendingActionRefundContractEscrow";
 import { MobilePendingActionRefundContractEscrowSuccess } from "./desktopConnection/MobilePendingActionRefundContractEscrowSuccess";
 import { MobilePendingActionRefundSuccess } from "./desktopConnection/MobilePendingActionRefundSuccess";
+import { MobilePendingActionSubmitBuyOfferProof } from "./desktopConnection/MobilePendingActionSubmitBuyOfferProof";
+import { MobilePendingActionSubmitBuyOfferProofSuccess } from "./desktopConnection/MobilePendingActionSubmitBuyOfferProofSuccess";
 import { MobilePendingActionRevealAddress } from "./desktopConnection/MobilePendingActionRevealAddress";
 import { MobilePendingActionRevealAddressSuccess } from "./desktopConnection/MobilePendingActionRevealAddressSuccess";
 import { MobilePendingActionSignMultisig } from "./desktopConnection/MobilePendingActionSignMultisig";
@@ -325,6 +327,14 @@ const desktopConnection: ViewType[] = [
   {
     name: "mobilePendingActionRefundContractEscrowSuccess",
     component: MobilePendingActionRefundContractEscrowSuccess,
+  },
+  {
+    name: "mobilePendingActionSubmitBuyOfferProof",
+    component: MobilePendingActionSubmitBuyOfferProof,
+  },
+  {
+    name: "mobilePendingActionSubmitBuyOfferProofSuccess",
+    component: MobilePendingActionSubmitBuyOfferProofSuccess,
   },
 ];
 

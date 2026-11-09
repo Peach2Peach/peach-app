@@ -365,5 +365,12 @@
   "invalidServerSignature.paymentData": "a szerveren lévő titkosított fizetési adatok aláírása érvénytelen, és nem lettek betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal.",
   "invalidServerSignature.refundAddress": "a szerveren lévő titkosított visszatérítési cím aláírása érvénytelen, és nem lett betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal.",
   "invalidServerSignature.payoutAddress": "a szerveren lévő titkosított kifizetési cím aláírása érvénytelen, és nem lett betöltve. ez manipulációra utalhat. kérlek, lépj kapcsolatba az ügyfélszolgálattal.",
-  "connectToDesktop.success.description": "Sikeresen hitelesítetted magad. Használhatod a Peachet a laptopodon."
+  "connectToDesktop.success.description": "Sikeresen hitelesítetted magad. Használhatod a Peachet a laptopodon.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "vételi ajánlat közzététele",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Vételi ajánlat közzététele",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Csúsztasd el az asztali gépen létrehozott vételi ajánlat jóváhagyásához, hogy az eladók láthassák.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Közzététel",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Közzétéve!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Vételi ajánlat közzétéve!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "A vételi ajánlatodat mostantól látják az eladók."
 }

@@ -365,5 +365,12 @@
   "invalidServerSignature.paymentData": "zaszyfrowane dane płatności na serwerze mają nieprawidłowy podpis i nie zostały załadowane. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną.",
   "invalidServerSignature.refundAddress": "zaszyfrowany adres zwrotu na serwerze ma nieprawidłowy podpis i nie został załadowany. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną.",
   "invalidServerSignature.payoutAddress": "zaszyfrowany adres wypłaty na serwerze ma nieprawidłowy podpis i nie został załadowany. to może wskazywać na manipulację. skontaktuj się z pomocą techniczną.",
-  "connectToDesktop.success.description": "Jesteś już uwierzytelniony. Możesz korzystać z Peach na swoim laptopie."
+  "connectToDesktop.success.description": "Jesteś już uwierzytelniony. Możesz korzystać z Peach na swoim laptopie.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "opublikuj ofertę kupna",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Opublikuj ofertę kupna",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Przesuń, aby zatwierdzić ofertę kupna utworzoną na komputerze i udostępnić ją sprzedającym.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Opublikuj",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Opublikowano!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Oferta kupna opublikowana!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Twoja oferta kupna jest teraz widoczna dla sprzedających."
 }

@@ -15,15 +15,14 @@ import { Button } from "../../components/buttons/Button";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
-import { MSINAMINUTE, NEW_USER_TRADE_THRESHOLD } from "../../constants";
+import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
-import { useSelfUser } from "../../hooks/query/useSelfUser";
+import { useCanCreateOffers } from "../../hooks/user/useCanCreateOffers";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRegisterPGP } from "../../hooks/useRegisterPGP";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
-import { InfoPopup } from "../../popups/InfoPopup";
 import { useThemeStore } from "../../store/theme";
 import { useNymProxyState } from "../../utils/wallet/nymProxyStore";
 import tw from "../../styles/tailwind";
@@ -288,6 +287,7 @@ function useOfferStats() {
 function MarketStats() {
   const { data } = useOfferStats();
   const { isDarkMode } = useThemeStore();
+  const canCreateOffers = useCanCreateOffers();
   return (
     <RadialGradientBorder
       style={tw`self-stretch rounded-2xl`}
@@ -324,11 +324,15 @@ function MarketStats() {
               type="sell"
             />
           </View>
-          <HorizontalLine />
-          <View style={tw`flex-row pt-2 gap-10px`}>
-            <BuyButton />
-            <SellButton />
-          </View>
+          {canCreateOffers && (
+            <>
+              <HorizontalLine />
+              <View style={tw`flex-row pt-2 gap-10px`}>
+                <BuyButton />
+                <SellButton />
+              </View>
+            </>
+          )}
         </View>
       </View>
     </RadialGradientBorder>
@@ -407,23 +411,7 @@ function ExpressBuyButton() {
 function BuyButton() {
   const navigation = useStackNavigation();
   const { isDarkMode } = useThemeStore();
-  const setPopup = useSetPopup();
-  const { user: selfUser } = useSelfUser();
-  const isExpertUser = (selfUser?.trades ?? 0) >= NEW_USER_TRADE_THRESHOLD;
-
-  const onPress = () => {
-    if (!isExpertUser) {
-      setPopup(
-        <InfoPopup
-          title={i18n("offer.create.buy.expertOnly.title")}
-          content={i18n("offer.create.buy.expertOnly.text")}
-          dontShowHelpButton
-        />,
-      );
-      return;
-    }
-    navigation.navigate("createBuyOffer");
-  };
+  const goToCreateBuyOffer = () => navigation.navigate("createBuyOffer");
 
   return (
     <Button
@@ -431,10 +419,9 @@ function BuyButton() {
         buttonStyle,
         tw`border`,
         isDarkMode && tw`bg-backgroundMain-dark`,
-        !isExpertUser && tw`opacity-50`,
       ]}
       textColor={tw.color("success-main")}
-      onPress={onPress}
+      onPress={goToCreateBuyOffer}
       ghost
     >
       {i18n("offer.create.buy")}

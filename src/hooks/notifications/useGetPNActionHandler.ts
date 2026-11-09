@@ -74,6 +74,12 @@ export const useGetPNActionHandler = () => {
               }),
           };
         }
+        if (type === "user.mobileAction.submitBuyOfferProof.created") {
+          return {
+            ...goToAction,
+            onPress: () => navigation.navigate("mobilePendingActions"),
+          };
+        }
       }
       if (contractId) {
         if (isChat) {

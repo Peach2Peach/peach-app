@@ -365,5 +365,12 @@
   "invalidServerSignature.refundAddress": "anwani ya marejesho iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada.",
   "invalidServerSignature.payoutAddress": "anwani ya malipo iliyosimbwa kwenye seva ina sahihi batili na haijapakiwa. hii inaweza kuonyesha uingiliaji. tafadhali wasiliana na msaada.",
   "connectToDesktop.success.description": "Sasa umethibitishwa. Unaweza kutumia Peach kwenye kompyuta yako ndogo.",
-  "linkedIn": "Linkedin"
+  "linkedIn": "Linkedin",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "chapisha ofa ya kununua",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Chapisha ofa ya kununua",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Telezesha ili kuidhinisha ofa ya kununua uliyounda kwenye kompyuta na kuifanya ionekane kwa wauzaji.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Chapisha",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Imechapishwa!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Ofa ya kununua imechapishwa!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Ofa yako ya kununua sasa inaonekana kwa wauzaji."
 }

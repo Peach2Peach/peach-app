@@ -365,5 +365,12 @@
   "invalidServerSignature.paymentData": "os dados de pagamento encriptados no servidor têm uma assinatura inválida e não foram carregados. isto pode indicar adulteração. por favor contacta o suporte.",
   "invalidServerSignature.refundAddress": "o endereço de reembolso encriptado no servidor tem uma assinatura inválida e não foi carregado. isto pode indicar adulteração. por favor contacta o suporte.",
   "invalidServerSignature.payoutAddress": "o endereço de pagamento encriptado no servidor tem uma assinatura inválida e não foi carregado. isto pode indicar adulteração. por favor contacta o suporte.",
-  "connectToDesktop.success.description": "Já está autenticado. Pode usar a Peach no seu portátil."
+  "connectToDesktop.success.description": "Já está autenticado. Pode usar a Peach no seu portátil.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "publicar oferta de compra",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Publicar oferta de compra",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Deslize para aprovar a oferta de compra que criou no computador e torná-la visível para os vendedores.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Publicar",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Publicada!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Oferta de compra publicada!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "A sua oferta de compra já está visível para os vendedores."
 }

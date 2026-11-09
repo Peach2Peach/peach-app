@@ -259,5 +259,9 @@
   "contract.summary.mpesa_phone": "telefoon #",
   "contract.chatAvailableOnceEscrowFunded": "de Chat is beschikbaar zodra de escrow is gefinancierd"
 
-
+,
+  "contract.seller.refund.waitingForBuyer": "De trade is geannuleerd. Alleen de koper kan deze borg terugbetalen, dus je wacht op zijn handtekening.",
+  "contract.buyer.refundEscrow": "terugbetaling ondertekenen",
+  "contract.buyer.refundEscrow.success.title": "terugbetaling verzonden",
+  "contract.buyer.refundEscrow.success.text": "De terugbetaling is ondertekend en de sats zijn onderweg terug naar de verkoper."
 }

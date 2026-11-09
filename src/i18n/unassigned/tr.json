@@ -365,5 +365,12 @@
   "friend": "arkadaş",
   "google": "google",
   "userSource.title": "son bir şey",
-  "userSource.subtitle": "bizi nereden duydun?"
+  "userSource.subtitle": "bizi nereden duydun?",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "alış teklifini yayınla",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Alış teklifini yayınla",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Masaüstünde oluşturduğunuz alış teklifini onaylamak ve satıcılara görünür kılmak için kaydırın.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Yayınla",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Yayınlandı!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Alış teklifi yayınlandı!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Alış teklifiniz artık satıcılar tarafından görülebilir."
 }

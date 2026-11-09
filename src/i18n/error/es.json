@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Actualiza tu método de pago",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Uno de tus métodos de pago seleccionados ya no admite ninguna de las monedas que ofreces. Actualízalo antes de publicar.",
   "APP_UPDATE_REQUIRED.title": "actualización requerida",
-  "APP_UPDATE_REQUIRED.text": "Actualiza la app de Peach a la última versión para seguir vendiendo.",
+  "APP_UPDATE_REQUIRED.text": "Actualiza la app de Peach a la última versión para seguir operando.",
   "SELLING_NOT_ALLOWED.title": "venta no disponible",
   "SELLING_NOT_ALLOWED.text": "Tu cuenta no puede crear ofertas de venta temporalmente. Ponte en contacto con el soporte de Peach para saber cómo puedes obtener acceso. ¡Gracias!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "usa otros datos de pago",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "reembolso desde tu cartera",
   "REFUND_ONLY_BY_SELLER.text": "Peach no tiene ninguna clave en este escrow, así que solo tu cartera puede reembolsarlo. Inténtalo de nuevo desde este dispositivo.",
   "REFUND_ADDRESS_NOT_OWNED.title": "reembolso no firmado",
-  "REFUND_ADDRESS_NOT_OWNED.text": "El reembolso no se firmó debido a una dirección de reembolso extraña. Ponte en contacto con el soporte de Peach."
+  "REFUND_ADDRESS_NOT_OWNED.text": "El reembolso no se firmó debido a una dirección de reembolso extraña. Ponte en contacto con el soporte de Peach.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "reputación insuficiente",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "No tienes suficiente reputación para crear una oferta de compra. Usa las ofertas de venta en su lugar.",
+  "BUY_OFFER_UNAVAILABLE.title": "oferta no disponible",
+  "BUY_OFFER_UNAVAILABLE.text": "Esta oferta de compra ya no está disponible.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "oferta no publicada",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Tu oferta de compra se ha creado, pero aún no es visible para otros. Ábrela desde tus operaciones para terminar de publicarla."
 }

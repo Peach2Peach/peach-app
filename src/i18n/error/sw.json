@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Tafadhali sasisha njia yako ya malipo",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Mojawapo ya njia zako za malipo ulizochagua haitumii tena sarafu zozote unazotoa. Tafadhali isasishe kabla ya kuchapisha.",
   "APP_UPDATE_REQUIRED.title": "Sasisho linahitajika",
-  "APP_UPDATE_REQUIRED.text": "Tafadhali sasisha programu ya Peach hadi toleo jipya zaidi ili uendelee kuuza.",
+  "APP_UPDATE_REQUIRED.text": "Tafadhali sasisha programu ya Peach hadi toleo jipya zaidi ili uendelee kufanya biashara.",
   "SELLING_NOT_ALLOWED.title": "Kuuza hakupatikani",
   "SELLING_NOT_ALLOWED.text": "Akaunti yako kwa muda haiwezi kutengeneza oferi za kuuza. Wasiliana na huduma kwa wateja wa Peach ili kujua jinsi unavyoweza kupewa ruhusa. Asante!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Tumia maelezo mengine ya malipo",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Urejeshaji kutoka kwenye wallet yako",
   "REFUND_ONLY_BY_SELLER.text": "Peach haina ufunguo wowote katika escrow hii, hivyo wallet yako pekee ndiyo inayoweza kurejesha fedha. Tafadhali jaribu tena kutoka kifaa hiki.",
   "REFUND_ADDRESS_NOT_OWNED.title": "marejesho hayakutiwa saini",
-  "REFUND_ADDRESS_NOT_OWNED.text": "Marejesho hayakutiwa saini kwa sababu ya anwani ya marejesho isiyo ya kawaida. Tafadhali wasiliana na Msaada wa Peach."
+  "REFUND_ADDRESS_NOT_OWNED.text": "Marejesho hayakutiwa saini kwa sababu ya anwani ya marejesho isiyo ya kawaida. Tafadhali wasiliana na Msaada wa Peach.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "Sifa hazitoshi",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Huna sifa za kutosha kuunda ofa ya kununua. Tafadhali tumia ofa za kuuza badala yake.",
+  "BUY_OFFER_UNAVAILABLE.title": "Oferi haipatikani",
+  "BUY_OFFER_UNAVAILABLE.text": "Ofa hii ya kununua haipatikani tena.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Ofa haikuchapishwa",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Ofa yako ya kununua imeundwa, lakini bado haionekani kwa wengine. Ifungue kwenye biashara zako ili kukamilisha kuichapisha."
 }

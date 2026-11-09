@@ -257,5 +257,9 @@
   "contract.summary.ratingSeller": "ti ha valutato",
   "contract.summary.tradeBreakdown.show": "mostra",
   "contract.summary.youShouldPay": "dovresti pagare",
-  "contract.summary.youWillGet": "riceverai"
+  "contract.summary.youWillGet": "riceverai",
+  "contract.seller.refund.waitingForBuyer": "Lo scambio è stato annullato. Solo l'acquirente può rimborsare questo deposito, quindi sei in attesa della sua firma.",
+  "contract.buyer.refundEscrow": "firma rimborso",
+  "contract.buyer.refundEscrow.success.title": "rimborso inviato",
+  "contract.buyer.refundEscrow.success.text": "Il rimborso è stato firmato e i sats stanno tornando al venditore."
 }

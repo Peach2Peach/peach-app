@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Atualize o seu método de pagamento",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Um dos métodos de pagamento selecionados já não suporta nenhuma das moedas que oferece. Atualize-o antes de publicar.",
   "APP_UPDATE_REQUIRED.title": "Atualização necessária",
-  "APP_UPDATE_REQUIRED.text": "Atualize a aplicação Peach para a versão mais recente para continuar a vender.",
+  "APP_UPDATE_REQUIRED.text": "Atualize a aplicação Peach para a versão mais recente para continuar a negociar.",
   "SELLING_NOT_ALLOWED.title": "Venda indisponível",
   "SELLING_NOT_ALLOWED.text": "A sua conta está temporariamente sem elegibilidade para criar ofertas de venda. Contacte o apoio ao cliente da Peach para saber como pode obter acesso. Obrigado!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Use outros dados de pagamento",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Reembolso a partir da sua carteira",
   "REFUND_ONLY_BY_SELLER.text": "A Peach não detém qualquer chave neste depósito de caução, por isso só a sua carteira o pode reembolsar. Tente novamente a partir deste dispositivo.",
   "REFUND_ADDRESS_NOT_OWNED.title": "reembolso não assinado",
-  "REFUND_ADDRESS_NOT_OWNED.text": "O reembolso não foi assinado devido a um endereço de reembolso estranho. Por favor, contacta o suporte da Peach."
+  "REFUND_ADDRESS_NOT_OWNED.text": "O reembolso não foi assinado devido a um endereço de reembolso estranho. Por favor, contacta o suporte da Peach.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "Reputação insuficiente",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Não tem reputação suficiente para criar uma oferta de compra. Utilize antes as ofertas de venda.",
+  "BUY_OFFER_UNAVAILABLE.title": "Oferta indisponível",
+  "BUY_OFFER_UNAVAILABLE.text": "Esta oferta de compra já não está disponível.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Oferta não publicada",
+  "BUY_OFFER_NOT_PUBLISHED.text": "A sua oferta de compra foi criada, mas ainda não está visível para os outros. Abra-a nas suas negociações para concluir a publicação."
 }

@@ -365,5 +365,12 @@
   "nostr": "Nostr",
   "youtube": "YouTube",
   "userSource.title": "κάτι ακόμα",
-  "userSource.subtitle": "πώς μας έμαθες;"
+  "userSource.subtitle": "πώς μας έμαθες;",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "δημοσίευση προσφοράς αγοράς",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Δημοσίευση προσφοράς αγοράς",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Σύρετε για να εγκρίνετε την προσφορά αγοράς που δημιουργήσατε στον υπολογιστή και να την κάνετε ορατή στους πωλητές.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Δημοσίευση",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Δημοσιεύθηκε!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Η προσφορά αγοράς δημοσιεύθηκε!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Η προσφορά αγοράς σας είναι πλέον ορατή στους πωλητές."
 }

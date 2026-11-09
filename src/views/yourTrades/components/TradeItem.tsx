@@ -308,6 +308,11 @@ function getActionLabel(
   const { tradeStatus, tradeStatusNew, type } = tradeSummary;
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 
+  // only the owner's list can contain these; other users' offers omit the key
+  if ("publicKey" in tradeSummary && tradeSummary.publicKey === null) {
+    return i18n("offer.requiredAction.finishPublishing");
+  }
+
   if (
     !isTradeStatus(tradeSummary.tradeStatus) &&
     !isTradeStatus(tradeSummary.tradeStatusNew)

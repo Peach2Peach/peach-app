@@ -1,4 +1,8 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
+import { useSetToast } from "../../components/toast/Toast";
+import { MSINASECOND } from "../../constants";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
@@ -13,7 +17,9 @@ import { useCancelContract } from "../../popups/tradeCancelation/useCancelContra
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
 import tw from "../../styles/tailwind";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
+import { getBuyerOnlyEscrowReleaseTx } from "../../utils/contract/getBuyerOnlyEscrowReleaseTx";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
+import { refundBuyerOnlyEscrow } from "../../utils/contract/refundBuyerOnlyEscrow";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
@@ -57,6 +63,51 @@ export function RefundEscrowSlider() {
   );
 }
 
+/**
+ * @description escrowVersion 3: only the buyer can spend the escrow, so a
+ * canceled trade needs their signature to give the seller their sats back.
+ * The server is the one who knows whether a refund is still due.
+ */
+export function BuyerRefundSlider() {
+  const { contract } = useContractContext();
+  const showErrorBanner = useShowErrorBanner();
+  const setToast = useSetToast();
+  const { data: isRefundDue, refetch } = useQuery({
+    queryKey: ["buyerOnlyEscrowRefundDue", contract.id],
+    queryFn: async () => {
+      const { result } =
+        await peachAPI.private.contract.getBuyerOnlyEscrowRefundPsbt({
+          contractId: contract.id,
+        });
+      return !!result?.psbt;
+    },
+    retry: false,
+  });
+  const { mutate, isPending, isSuccess } = useMutation({
+    mutationFn: () => refundBuyerOnlyEscrow(contract),
+    onError: (err: Error) => showErrorBanner(err),
+    onSuccess: () => {
+      setToast({
+        msgKey: "contract.buyer.refundEscrow.success",
+        color: "yellow",
+        duration: MSINASECOND * 5,
+      });
+      refetch();
+    },
+  });
+
+  if (!isRefundDue) return null;
+  return (
+    <ConfirmSlider
+      onConfirm={() => mutate()}
+      isCallbackRunning={isPending}
+      isSuccess={isSuccess}
+      label1={i18n("contract.buyer.refundEscrow")}
+      iconId="rotateCounterClockwise"
+    />
+  );
+}
+
 export function PaymentMadeSlider() {
   const { contractId } = useRoute<"contract">().params;
   const { contract } = useContractContext();
@@ -71,6 +122,9 @@ export function PaymentMadeSlider() {
           const { error: err } =
             await peachAPI.private.contract.confirmPaymentBuyer({
               contractId,
+              buyerOnlyEscrowReleaseTx: await getBuyerOnlyEscrowReleaseTx({
+                contractId,
+              }),
             });
           if (err) throw new Error(err.error);
 
@@ -150,6 +204,10 @@ export function PaymentMadeSlider() {
               contractId,
               releaseAddress,
               releaseAddressMessageSignature,
+              buyerOnlyEscrowReleaseTx: await getBuyerOnlyEscrowReleaseTx({
+                contractId,
+                releaseAddress,
+              }),
             });
           if (err) throw new Error(err.error);
 

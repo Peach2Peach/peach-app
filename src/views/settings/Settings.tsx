@@ -438,6 +438,7 @@ function countPendingActions(data: MobilePendingActionsData): number {
     ...(data.fundMultipleEscrowPendingActions ?? []),
     ...(data.fundEscrowContractPendingActions ?? []),
     ...(data.refundEscrowContractPendingActions ?? []),
+    ...(data.submitBuyOfferProofPendingActions ?? []),
   ].filter((item) => item.status === "pending").length;
 }
 

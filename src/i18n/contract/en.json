@@ -255,5 +255,9 @@
   "contract.seller.paypalWarning1.text": "Paypal transfers might be reversible if they have been classified as Goods and Services.",
   "contract.seller.paypalWarning2.text": "\n\nPlease check in the transfer if there was a Paypal fee charged. If yes, it was a Goods and Services transfer and you risk the Buyer reversing it. Return it, and ask the Buyer to transfer with the Friends and Family option.",
   "contract.chatAvailableOnceEscrowFunded": "the Chat will be available once the Escrow is funded"
-
+,
+  "contract.seller.refund.waitingForBuyer": "The trade was canceled. Only the buyer can refund this escrow, so you're waiting for them to sign the refund.",
+  "contract.buyer.refundEscrow": "sign refund",
+  "contract.buyer.refundEscrow.success.title": "refund sent",
+  "contract.buyer.refundEscrow.success.text": "The refund was signed and the sats are on their way back to the seller."
 }

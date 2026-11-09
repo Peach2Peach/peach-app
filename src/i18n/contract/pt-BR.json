@@ -259,5 +259,9 @@
   "contract.summary.mpesa_phone": "Telefone",
   "contract.chatAvailableOnceEscrowFunded": "o Chat estará disponível assim que o depósito for financiado"
 
-
+,
+  "contract.seller.refund.waitingForBuyer": "A negociação foi cancelada. Somente o comprador pode reembolsar este depósito, então você está aguardando a assinatura dele.",
+  "contract.buyer.refundEscrow": "assinar reembolso",
+  "contract.buyer.refundEscrow.success.title": "reembolso enviado",
+  "contract.buyer.refundEscrow.success.text": "O reembolso foi assinado e os sats estão voltando para o vendedor."
 }

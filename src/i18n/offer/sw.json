@@ -122,5 +122,9 @@
   "offer.summary.availableTo.experiencedUsersOnly": "watumiaji wenye uzoefu tu",
   "offer.summary.availableTo.newUsersLikeYou": "kwa watumiaji wapya kama wewe",
   "offer.summary.availableTo.experiencedUsersLikeYou": "kwa watumiaji wenye uzoefu kama wewe",
-  "offer.requiredAction.cancelAndRefund": "ghairi na urejeshe"
+  "offer.requiredAction.cancelAndRefund": "ghairi na urejeshe",
+  "offer.requiredAction.finishPublishing": "kamilisha kuchapisha",
+  "offer.unpublished.text": "Ofa hii bado haionekani kwa mtu yeyote. Kamilisha kuichapisha au uifute kwa X iliyo juu.",
+  "offer.deleted.title": "ofa ya kununua imefutwa",
+  "offer.deleted.text": "Ofa ya kununua $0 imefutwa kwa mafanikio."
 }

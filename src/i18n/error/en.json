@@ -104,7 +104,7 @@
   "SEED_NOT_USED_IN_PEACH.text": "You have introduced a valid Seed, but there isn't a Peach account associated to it. Go back and create a new account.",
   "SEED_NOT_USED_IN_PEACH.title": "This Seed was never used in Peach",
   "APP_UPDATE_REQUIRED.title": "update required",
-  "APP_UPDATE_REQUIRED.text": "Please update the Peach app to the latest version to keep selling.",
+  "APP_UPDATE_REQUIRED.text": "Please update the Peach app to the latest version to keep trading.",
   "SELLING_NOT_ALLOWED.title": "selling not available",
   "SELLING_NOT_ALLOWED.text": "Your account is temporarily not eligible to create sell offers. Get in touch with the Peach customer support to learn how you can be granted access. Thank you.",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "use other payment details",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "refund from your wallet",
   "REFUND_ONLY_BY_SELLER.text": "Peach holds no key in this escrow, so only your wallet can refund it. Please try again from this device.",
   "REFUND_ADDRESS_NOT_OWNED.title": "refund not signed",
-  "REFUND_ADDRESS_NOT_OWNED.text": "The refund was not signed due to a strange refund address. Please contact the Peach Support."
+  "REFUND_ADDRESS_NOT_OWNED.text": "The refund was not signed due to a strange refund address. Please contact the Peach Support.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "not enough reputation",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "You don't have enough reputation to create a buy offer. Please interact with sell offers instead.",
+  "BUY_OFFER_UNAVAILABLE.title": "offer unavailable",
+  "BUY_OFFER_UNAVAILABLE.text": "This buy offer is no longer available.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "offer not published",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Your buy offer was created, but it isn't visible to others yet. Open it from your trades to finish publishing."
 }

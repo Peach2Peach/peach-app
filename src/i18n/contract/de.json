@@ -257,5 +257,9 @@
   "contract.summary.youShouldPay": "du solltest zahlen",
   "contract.summary.youWillGet": "du erhältst",
   "contract.escrowFunded.description": "Der Käufer hat 12 Stunden Zeit, die Zahlung als erfolgt zu melden",
-  "contract.escrowFunded.title": "Das Escrow wurde finanziert!"
+  "contract.escrowFunded.title": "Das Escrow wurde finanziert!",
+  "contract.seller.refund.waitingForBuyer": "Der Trade wurde abgebrochen. Nur der Käufer kann dieses Escrow erstatten, daher wartest du auf seine Signatur.",
+  "contract.buyer.refundEscrow": "Erstattung signieren",
+  "contract.buyer.refundEscrow.success.title": "Erstattung gesendet",
+  "contract.buyer.refundEscrow.success.text": "Die Erstattung wurde signiert und die Sats sind auf dem Weg zurück zum Verkäufer."
 }

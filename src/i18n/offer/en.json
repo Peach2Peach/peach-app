@@ -61,6 +61,8 @@
   "offer.requiredAction.waiting.buyer": "waiting for payment",
   "offer.requiredAction.waiting.seller": "waiting for seller",
   "offer.requiredAction.createEscrow": "create escrow",
+  "offer.requiredAction.finishPublishing": "finish publishing",
+  "offer.unpublished.text": "This offer isn't visible to anyone yet. Finish publishing it, or delete it with the X above.",
   "offer.sorting.bestReputation": "best reputation first",
   "offer.sorting.highestAmount": "highest amount first",
   "offer.sorting.lowestAmount": "lowest amount first",
@@ -122,5 +124,7 @@
   "offer.summary.availableTo.experiencedUsersOnly": "experienced users only",
   "offer.summary.availableTo.newUsersLikeYou": "for new users like you",
   "offer.summary.availableTo.experiencedUsersLikeYou": "for experienced users like you",
-  "offer.requiredAction.cancelAndRefund": "cancel and refund"
+  "offer.requiredAction.cancelAndRefund": "cancel and refund",
+  "offer.deleted.title": "buy offer deleted",
+  "offer.deleted.text": "Successfully deleted buy offer $0."
 }

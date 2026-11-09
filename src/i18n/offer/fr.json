@@ -122,5 +122,9 @@
   "offer.summary.availableTo.newUsersLikeYou": "pour les nouveaux utilisateurs comme vous",
   "offer.summary.availableTo.experiencedUsersLikeYou": "pour les utilisateurs expérimentés comme vous",
   "offer.requiredAction.confirmCancelation.seller": "demande d'annulation envoyée",
-  "offer.requiredAction.cancelAndRefund": "annuler et rembourser"
+  "offer.requiredAction.cancelAndRefund": "annuler et rembourser",
+  "offer.requiredAction.finishPublishing": "terminer la publication",
+  "offer.unpublished.text": "Cette offre n'est encore visible par personne. Terminez sa publication ou supprimez-la avec le X ci-dessus.",
+  "offer.deleted.title": "offre d'achat supprimée",
+  "offer.deleted.text": "L'offre d'achat $0 a bien été supprimée."
 }

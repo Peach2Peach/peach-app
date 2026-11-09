@@ -259,5 +259,9 @@
   "contract.summary.mpesa_phone": "Telefonszám",
   "contract.chatAvailableOnceEscrowFunded": "a Chat elérhető lesz, amint az escrow finanszírozva lesz"
 
-
+,
+  "contract.seller.refund.waitingForBuyer": "A kereskedés megszakadt. Ezt a letétet csak a vevő térítheti vissza, ezért az aláírására vársz.",
+  "contract.buyer.refundEscrow": "visszatérítés aláírása",
+  "contract.buyer.refundEscrow.success.title": "visszatérítés elküldve",
+  "contract.buyer.refundEscrow.success.text": "A visszatérítés alá lett írva, a satok úton vannak vissza az eladóhoz."
 }

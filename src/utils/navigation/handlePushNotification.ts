@@ -54,6 +54,11 @@ export const handlePushNotification = async (
       navigationRef.navigate("mobilePendingActionRefundContractEscrow", { id });
       return true;
     }
+    if (data.type === "user.mobileAction.submitBuyOfferProof.created") {
+      // one push per creation request, which can cover several actions
+      navigationRef.navigate("mobilePendingActions");
+      return true;
+    }
   }
   if (shouldGoToContract(data)) {
     const { contractId } = data;

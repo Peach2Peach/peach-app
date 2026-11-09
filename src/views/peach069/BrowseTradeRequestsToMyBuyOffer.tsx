@@ -1,7 +1,13 @@
+import { useMutation } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { BuyOffer69TradeRequest } from "../../../peach-api/src/@types/offer";
+import { Button } from "../../components/buttons/Button";
 import { Header } from "../../components/Header";
+import { useSetToast } from "../../components/toast/Toast";
+import { MSINASECOND } from "../../constants";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { submitBuyOfferPublicKey } from "../../utils/offer/submitBuyOfferPublicKey";
 import { TradeRequestsReceived } from "../../components/matches/TradeRequestsReceived";
 import { getPaymentDataFromOffer } from "../../components/matches/utils/getPaymentDataFromOffer";
 import { SellOrBuyOfferSummary } from "../../components/offer/SellOfferSummary";
@@ -158,7 +164,11 @@ const acceptTradeRequest = async (
 export const BrowseTradeRequestsToMyBuyOffer = () => {
   const { offerId } = useRoute<"browseTradeRequestsToMyBuyOffer">().params;
   const navigation = useStackNavigation();
-  const { buyOffer: buyOfferApiResp, isLoading } = useBuyOfferDetail(offerId);
+  const {
+    buyOffer: buyOfferApiResp,
+    isLoading,
+    refetch,
+  } = useBuyOfferDetail(offerId);
 
   const buyOffer = buyOfferApiResp;
 
@@ -224,7 +234,9 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
         contentContainerStyle={tw`justify-center grow`}
         bounces={false}
       >
-        {buyOfferTradeRequests.length ? (
+        {buyOffer.publicKey === null ? (
+          <UnpublishedBuyOffer offerId={offerId} onPublished={refetch} />
+        ) : buyOfferTradeRequests.length ? (
           <TradeRequestsReceived
             offer={buyOffer}
             tradeRequests={buyOfferTradeRequests}
@@ -249,6 +261,36 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
     </Screen>
   );
 };
+
+function UnpublishedBuyOffer({
+  offerId,
+  onPublished,
+}: {
+  offerId: string;
+  onPublished: () => void;
+}) {
+  const showErrorBanner = useShowErrorBanner();
+  const { mutate: finishPublishing, isPending } = useMutation({
+    mutationFn: () => submitBuyOfferPublicKey(String(offerId)),
+    onError: (err: Error) => showErrorBanner(err),
+    onSuccess: onPublished,
+  });
+
+  return (
+    <View style={tw`gap-8`}>
+      <PeachText style={tw`text-center subtitle-1`}>
+        {i18n("offer.unpublished.text")}
+      </PeachText>
+      <Button
+        style={tw`self-center`}
+        loading={isPending}
+        onPress={() => finishPublishing()}
+      >
+        {i18n("offer.requiredAction.finishPublishing")}
+      </Button>
+    </View>
+  );
+}
 
 function NoMatchesYet({
   offer,
@@ -298,20 +340,29 @@ function SearchHeader({
   );
 
   const closePopup = useClosePopup();
+  const setToast = useSetToast();
 
   const cancelOffer = useCallback(
     () =>
       setPopup(
         <CancelBuyOffer68Popup
           cancelFunction={async () => {
-            await peachAPI.private.peach069.deleteBuyOfferById({
-              buyOfferId: String(offerId),
-            });
+            const { error } = await peachAPI.private.peach069.deleteBuyOfferById(
+              { buyOfferId: String(offerId) },
+            );
+            if (!error) {
+              setToast({
+                msgKey: "offer.deleted",
+                bodyArgs: [offerIdToHex(String(offerId))],
+                color: "yellow",
+                duration: MSINASECOND * 5,
+              });
+            }
             closePopup();
           }}
         />,
       ),
-    [offerId, setPopup],
+    [offerId, setPopup, setToast],
   );
 
   const goToEditPremium = useCallback(() => {

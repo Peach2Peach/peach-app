@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Rückerstattung signieren",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Deine Escrow-Rückerstattung ist bereit zur Signatur.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Vertrags-Rückerstattung signieren",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Eine Vertrags-Escrow-Rückerstattung ist bereit zur Signatur."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Eine Vertrags-Escrow-Rückerstattung ist bereit zur Signatur.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Bestätige dein Kaufangebot",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Ein auf dem Desktop erstelltes Kaufangebot wartet auf deine Bestätigung.",
+  "notification.contract.buyer.refundRequired.title": "Erstattung erforderlich",
+  "notification.contract.buyer.refundRequired.text": "Trade $0 wurde abgebrochen. Bitte signiere die Erstattung, damit der Verkäufer seine Sats zurückerhält."
 }

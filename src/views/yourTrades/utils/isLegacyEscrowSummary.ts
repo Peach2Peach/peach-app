@@ -1,6 +1,7 @@
 import { ESCROW_VERSION } from "../../../../peach-api";
 import { ContractSummary } from "../../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../../peach-api/src/@types/offer";
+import { isBuyerOnlyEscrow } from "../../../utils/offer/isBuyerOnlyEscrow";
 import { isContractSummary } from "./isContractSummary";
 
 /**
@@ -19,4 +20,5 @@ export const isLegacyEscrowSummary = (
   summary.type === "ask" &&
   summary.tradeStatusNew === "waitingForTradeRequest" &&
   typeof summary.escrowVersion === "number" &&
-  summary.escrowVersion !== ESCROW_VERSION;
+  summary.escrowVersion !== ESCROW_VERSION &&
+  !isBuyerOnlyEscrow(summary);

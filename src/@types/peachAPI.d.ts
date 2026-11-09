@@ -357,6 +357,7 @@ type NotificationType =
   | "offer.expressSellTradeRequestNotChosen" // PN-69-???? TODO mark this
   | "offer.expressBuyTradeRequestRemovedAlongsideOffer" // PN-69-???? TODO mark this
   | "offer.expressSellTradeRequestRemovedAlongsideOffer" // PN-69-???? TODO mark this
+  | "contract.buyer.refundRequired"
   | "contract.buyer.paymentReminderSixHours" // PN-B04
   | "contract.buyer.paymentReminderOneHour" // PN-B05
   | "contract.buyer.paymentTimerHasRunOut" // PN-B12
@@ -396,6 +397,7 @@ type NotificationType =
   | "user.mobileAction.signContractRelease.created"
   | "user.mobileAction.signEscrowRefund.created"
   | "user.mobileAction.signEscrowContractRefund.created"
+  | "user.mobileAction.submitBuyOfferProof.created"
   | "custom"; // PN sent from the admin dashboard to a specific user
 
 type PNData = {

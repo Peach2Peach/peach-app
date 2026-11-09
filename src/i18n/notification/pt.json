@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Assine o seu reembolso",
   "notification.user.mobileAction.signEscrowRefund.created.text": "O seu reembolso do depósito está pronto para ser assinado.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Assine o reembolso do contrato",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Um reembolso do depósito do contrato está pronto para ser assinado."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Um reembolso do depósito do contrato está pronto para ser assinado.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Aprove a sua oferta de compra",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Uma oferta de compra que criou no computador aguarda a sua aprovação.",
+  "notification.contract.buyer.refundRequired.title": "Reembolso necessário",
+  "notification.contract.buyer.refundRequired.text": "A negociação $0 foi cancelada. Assine o reembolso para que o vendedor recupere os seus sats."
 }

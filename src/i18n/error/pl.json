@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Zaktualizuj swoją metodę płatności",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Jedna z wybranych metod płatności nie obsługuje już żadnej z oferowanych przez Ciebie walut. Zaktualizuj ją przed opublikowaniem.",
   "APP_UPDATE_REQUIRED.title": "Wymagana aktualizacja",
-  "APP_UPDATE_REQUIRED.text": "Zaktualizuj aplikację Peach do najnowszej wersji, aby dalej sprzedawać.",
+  "APP_UPDATE_REQUIRED.text": "Zaktualizuj aplikację Peach do najnowszej wersji, aby dalej handlować.",
   "SELLING_NOT_ALLOWED.title": "Sprzedaż niedostępna",
   "SELLING_NOT_ALLOWED.text": "Twoje konto tymczasowo nie może tworzyć ofert sprzedaży. Skontaktuj się z obsługą klienta Peach, aby dowiedzieć się, jak uzyskać dostęp. Dziękujemy!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Użyj innych danych płatności",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Zwrot z Twojego portfela",
   "REFUND_ONLY_BY_SELLER.text": "Peach nie posiada klucza do tego depozytu, więc tylko Twój portfel może dokonać zwrotu. Spróbuj ponownie z tego urządzenia.",
   "REFUND_ADDRESS_NOT_OWNED.title": "zwrot nie został podpisany",
-  "REFUND_ADDRESS_NOT_OWNED.text": "Zwrot nie został podpisany z powodu podejrzanego adresu zwrotu. Skontaktuj się ze wsparciem Peach."
+  "REFUND_ADDRESS_NOT_OWNED.text": "Zwrot nie został podpisany z powodu podejrzanego adresu zwrotu. Skontaktuj się ze wsparciem Peach.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "Niewystarczająca reputacja",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Nie masz wystarczającej reputacji, aby utworzyć ofertę kupna. Skorzystaj zamiast tego z ofert sprzedaży.",
+  "BUY_OFFER_UNAVAILABLE.title": "Oferta niedostępna",
+  "BUY_OFFER_UNAVAILABLE.text": "Ta oferta kupna nie jest już dostępna.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Oferta nie została opublikowana",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Twoja oferta kupna została utworzona, ale nie jest jeszcze widoczna dla innych. Otwórz ją w swoich transakcjach, aby dokończyć publikację."
 }

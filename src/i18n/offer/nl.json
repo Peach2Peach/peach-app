@@ -122,5 +122,9 @@
   "offer.summary.availableTo.experiencedUsersOnly": "alleen ervaren gebruikers",
   "offer.summary.availableTo.newUsersLikeYou": "voor nieuwe gebruikers zoals jij",
   "offer.summary.availableTo.experiencedUsersLikeYou": "voor ervaren gebruikers zoals jij",
-  "offer.requiredAction.cancelAndRefund": "annuleren en terugbetalen"
+  "offer.requiredAction.cancelAndRefund": "annuleren en terugbetalen",
+  "offer.requiredAction.finishPublishing": "plaatsen afronden",
+  "offer.unpublished.text": "Dit aanbod is nog voor niemand zichtbaar. Rond het plaatsen af of verwijder het met de X hierboven.",
+  "offer.deleted.title": "koopaanbod verwijderd",
+  "offer.deleted.text": "Koopaanbod $0 is succesvol verwijderd."
 }

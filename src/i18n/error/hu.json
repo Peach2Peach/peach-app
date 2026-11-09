@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Frissítsd a fizetési módodat",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "A kiválasztott fizetési módjaid egyike már nem támogatja egyik felkínált pénznemedet sem. Frissítsd a közzététel előtt.",
   "APP_UPDATE_REQUIRED.title": "Frissítés szükséges",
-  "APP_UPDATE_REQUIRED.text": "Frissítsd a Peach alkalmazást a legújabb verzióra, hogy tovább tudj eladni.",
+  "APP_UPDATE_REQUIRED.text": "Frissítsd a Peach alkalmazást a legújabb verzióra, hogy tovább tudj kereskedni.",
   "SELLING_NOT_ALLOWED.title": "Az eladás nem érhető el",
   "SELLING_NOT_ALLOWED.text": "A fiókod átmenetileg nem jogosult eladási ajánlatok létrehozására. Vedd fel a kapcsolatot a Peach ügyfélszolgálatával, hogy megtudd, hogyan kaphatsz hozzáférést. Köszönjük!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Használj más fizetési adatokat",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Visszatérítés a tárcádból",
   "REFUND_ONLY_BY_SELLER.text": "A Peachnek nincs kulcsa ehhez a letéthez, így csak a te tárcád tudja visszatéríteni. Próbáld újra erről az eszközről.",
   "REFUND_ADDRESS_NOT_OWNED.title": "a visszatérítés nincs aláírva",
-  "REFUND_ADDRESS_NOT_OWNED.text": "A visszatérítés nem lett aláírva egy szokatlan visszatérítési cím miatt. Kérjük, vedd fel a kapcsolatot a Peach ügyfélszolgálatával."
+  "REFUND_ADDRESS_NOT_OWNED.text": "A visszatérítés nem lett aláírva egy szokatlan visszatérítési cím miatt. Kérjük, vedd fel a kapcsolatot a Peach ügyfélszolgálatával.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "nincs elég hírneved",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Nincs elég hírneved vételi ajánlat létrehozásához. Használd helyette az eladási ajánlatokat.",
+  "BUY_OFFER_UNAVAILABLE.title": "Az ajánlat nem elérhető",
+  "BUY_OFFER_UNAVAILABLE.text": "Ez a vételi ajánlat már nem elérhető.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Ajánlat nem lett közzétéve",
+  "BUY_OFFER_NOT_PUBLISHED.text": "A vételi ajánlatod létrejött, de mások még nem látják. Nyisd meg a kereskedéseid között a közzététel befejezéséhez."
 }

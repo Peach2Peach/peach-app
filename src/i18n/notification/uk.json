@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Підпиши повернення",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Ваше повернення з депозиту готове до підпису.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Підпиши повернення за контрактом",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Повернення з депозиту контракту готове до підпису."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Повернення з депозиту контракту готове до підпису.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Підтвердьте пропозицію купівлі",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Пропозиція купівлі, створена на комп'ютері, чекає на ваше підтвердження.",
+  "notification.contract.buyer.refundRequired.title": "Потрібне повернення",
+  "notification.contract.buyer.refundRequired.text": "Угоду $0 скасовано. Підпишіть повернення, щоб продавець отримав свої сатоші назад."
 }

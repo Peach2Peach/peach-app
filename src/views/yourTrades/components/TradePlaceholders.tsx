@@ -3,6 +3,7 @@ import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
+import { useCanCreateOffers } from "../../../hooks/user/useCanCreateOffers";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -29,13 +30,17 @@ function GoTradeButton({
   tab: Exclude<TradeTab, "yourTrades.history">;
 }) {
   const navigation = useStackNavigation();
+  const canCreateOffers = useCanCreateOffers();
 
   const onPress = () => {
-    const destination =
-      tab === "yourTrades.69BuyOffer"
-        ? "createBuyOffer"
-        : "sellOfferPreferences";
-    navigation.navigate(destination);
+    const isBuyTab = tab === "yourTrades.69BuyOffer";
+    if (canCreateOffers) {
+      navigation.navigate(isBuyTab ? "createBuyOffer" : "sellOfferPreferences");
+      return;
+    }
+    navigation.navigate(
+      isBuyTab ? "expressBuyBrowseSellOffers" : "expressSellBrowseBuyOffers",
+    );
   };
 
   const textColor =

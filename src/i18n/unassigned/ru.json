@@ -365,5 +365,12 @@
   "friend": "друг",
   "google": "google",
   "userSource.title": "ещё кое-что",
-  "userSource.subtitle": "как вы о нас узнали?"
+  "userSource.subtitle": "как вы о нас узнали?",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "опубликовать предложение на покупку",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Опубликовать предложение на покупку",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Проведите, чтобы подтвердить предложение на покупку, созданное на компьютере, и показать его продавцам.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Опубликовать",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Опубликовано!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Предложение на покупку опубликовано!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Ваше предложение на покупку теперь видно продавцам."
 }

@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Írd alá a visszatérítést",
   "notification.user.mobileAction.signEscrowRefund.created.text": "A letét visszatérítése aláírásra vár.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Írd alá a szerződés visszatérítését",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "A szerződés letétjének visszatérítése aláírásra vár."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "A szerződés letétjének visszatérítése aláírásra vár.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Hagyd jóvá a vételi ajánlatodat",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Egy asztali gépen létrehozott vételi ajánlat a jóváhagyásodra vár.",
+  "notification.contract.buyer.refundRequired.title": "Visszatérítés szükséges",
+  "notification.contract.buyer.refundRequired.text": "A(z) $0 kereskedés megszakadt. Kérjük, írd alá a visszatérítést, hogy az eladó visszakapja a satjait."
 }

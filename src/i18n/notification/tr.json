@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "İadeyi imzalayın",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Emanet iadeniz imzalanmaya hazır.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Sözleşme iadesini imzalayın",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Sözleşme emanetinin iadesi imzalanmaya hazır."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Sözleşme emanetinin iadesi imzalanmaya hazır.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Alış teklifinizi onaylayın",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Masaüstünde oluşturduğunuz bir alış teklifi onayınızı bekliyor.",
+  "notification.contract.buyer.refundRequired.title": "İade gerekli",
+  "notification.contract.buyer.refundRequired.text": "$0 işlemi iptal edildi. Satıcının sat'larını geri alması için lütfen iadeyi imzalayın."
 }

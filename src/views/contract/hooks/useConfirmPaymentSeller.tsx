@@ -2,6 +2,7 @@ import { BIP32Interface } from "bip32";
 import { Psbt } from "bitcoinjs-lib";
 import { txIdPartOfPSBT } from "../../../utils/bitcoin/txIdPartOfPSBT";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
+import { isBuyerOnlyEscrow } from "../../../utils/offer/isBuyerOnlyEscrow";
 import { isSingleSigEscrow } from "../../../utils/offer/isSingleSigEscrow";
 import { peachAPI } from "../../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../../utils/wallet/getEscrowWalletForOffer";
@@ -26,6 +27,16 @@ export function useConfirmPaymentSeller({
     },
     {
       mutationFn: async () => {
+        // the buyer already signed the release when marking the payment as made
+        if (isBuyerOnlyEscrow(contract)) {
+          const { error: buyerOnlyError } =
+            await peachAPI.private.contract.confirmPaymentSeller({
+              contractId: contract.id,
+            });
+          if (buyerOnlyError) throw new Error(buyerOnlyError.error);
+          return;
+        }
+
         const sellOffer = await getSellOfferFromContract(contract);
         if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
 

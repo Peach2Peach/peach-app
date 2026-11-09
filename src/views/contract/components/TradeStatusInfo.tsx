@@ -8,6 +8,7 @@ import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../../utils/i18n";
+import { isBuyerOnlyEscrow } from "../../../utils/offer/isBuyerOnlyEscrow";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { useContractContext } from "../context";
@@ -143,6 +144,13 @@ function getSellerStatusText({
   }
   if (hasDisputeWinner) {
     return getSellerDisputeStatusText(contract);
+  }
+
+  if (
+    contract.tradeStatus === "refundTxSignatureRequired" &&
+    isBuyerOnlyEscrow(contract)
+  ) {
+    return i18n("contract.seller.refund.waitingForBuyer");
   }
 
   const isRepublishAvailable =

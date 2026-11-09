@@ -1,5 +1,6 @@
 import { checkRefundPSBT } from "../../utils/bitcoin/checkRefundPSBT";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
+import { isBuyerOnlyEscrow } from "../../utils/offer/isBuyerOnlyEscrow";
 import { saveOffer } from "../../utils/offer/saveOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
@@ -12,6 +13,8 @@ export async function patchSellOfferWithRefundTx(
 ) {
   const sellOffer = await getSellOfferFromContract(contract);
   if (!sellOffer) throw new Error("No sell offer found for contract");
+  // only the buyer can sign the refund of this escrow
+  if (isBuyerOnlyEscrow(sellOffer)) return;
   const { isValid, psbt, err } = checkRefundPSBT(refundPSBT, sellOffer);
   if (err || !isValid || !psbt) return;
 

@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Bitte aktualisiere deine Zahlungsmethode",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Eine deiner ausgewählten Zahlungsmethoden unterstützt keine deiner angebotenen Währungen mehr. Bitte aktualisiere sie vor dem Veröffentlichen.",
   "APP_UPDATE_REQUIRED.title": "Update erforderlich",
-  "APP_UPDATE_REQUIRED.text": "Bitte aktualisiere die Peach-App auf die neueste Version, um weiter verkaufen zu können.",
+  "APP_UPDATE_REQUIRED.text": "Bitte aktualisiere die Peach-App auf die neueste Version, um weiter handeln zu können.",
   "SELLING_NOT_ALLOWED.title": "Verkaufen nicht verfügbar",
   "SELLING_NOT_ALLOWED.text": "Dein Konto ist vorübergehend nicht berechtigt, Verkaufsangebote zu erstellen. Wende dich an den Peach-Kundensupport, um zu erfahren, wie du Zugang erhalten kannst. Vielen Dank.",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Andere Zahlungsdaten verwenden",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Erstattung aus deiner Wallet",
   "REFUND_ONLY_BY_SELLER.text": "Peach besitzt keinen Schlüssel für dieses Escrow, daher kann nur deine Wallet die Erstattung durchführen. Bitte versuche es erneut von diesem Gerät aus.",
   "REFUND_ADDRESS_NOT_OWNED.title": "Rückerstattung nicht signiert",
-  "REFUND_ADDRESS_NOT_OWNED.text": "Die Rückerstattung wurde wegen einer merkwürdigen Rückerstattungsadresse nicht signiert. Bitte wende dich an den Peach Support."
+  "REFUND_ADDRESS_NOT_OWNED.text": "Die Rückerstattung wurde wegen einer merkwürdigen Rückerstattungsadresse nicht signiert. Bitte wende dich an den Peach Support.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "nicht genug Reputation",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Du hast nicht genug Reputation, um ein Kaufangebot zu erstellen. Nutze stattdessen die Verkaufsangebote.",
+  "BUY_OFFER_UNAVAILABLE.title": "Angebot nicht verfügbar",
+  "BUY_OFFER_UNAVAILABLE.text": "Dieses Kaufangebot ist nicht mehr verfügbar.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Angebot nicht veröffentlicht",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Dein Kaufangebot wurde erstellt, ist aber für andere noch nicht sichtbar. Öffne es in deinen Trades, um die Veröffentlichung abzuschließen."
 }

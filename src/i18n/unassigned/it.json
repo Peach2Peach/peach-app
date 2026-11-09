@@ -365,5 +365,12 @@
   "nostr": "Nostr",
   "youtube": "YouTube",
   "userSource.title": "un'ultima cosa",
-  "userSource.subtitle": "come ci hai conosciuto?"
+  "userSource.subtitle": "come ci hai conosciuto?",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "pubblica offerta di acquisto",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Pubblica offerta di acquisto",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Scorri per approvare l'offerta di acquisto creata su desktop e renderla visibile ai venditori.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Pubblica",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Pubblicata!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Offerta di acquisto pubblicata!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "La tua offerta di acquisto è ora visibile ai venditori."
 }

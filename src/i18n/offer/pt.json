@@ -122,5 +122,9 @@
   "offer.summary.availableTo.experiencedUsersOnly": "apenas users experientes",
   "offer.summary.availableTo.newUsersLikeYou": "para novos users como tu",
   "offer.summary.availableTo.experiencedUsersLikeYou": "para users experientes como tu",
-  "offer.requiredAction.cancelAndRefund": "cancelar e reembolsar"
+  "offer.requiredAction.cancelAndRefund": "cancelar e reembolsar",
+  "offer.requiredAction.finishPublishing": "concluir publicação",
+  "offer.unpublished.text": "Esta oferta ainda não está visível para ninguém. Conclua a publicação ou elimine-a com o X acima.",
+  "offer.deleted.title": "oferta de compra eliminada",
+  "offer.deleted.text": "A oferta de compra $0 foi eliminada com sucesso."
 }

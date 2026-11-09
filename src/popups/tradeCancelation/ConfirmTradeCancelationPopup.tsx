@@ -10,6 +10,7 @@ import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import tw from "../../styles/tailwind";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
+import { isBuyerOnlyEscrow } from "../../utils/offer/isBuyerOnlyEscrow";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { GrayPopup } from "../GrayPopup";
@@ -104,7 +105,10 @@ function CancelPopup({ contract }: { contract: Contract }) {
   const isCash = isCashTrade(paymentMethod);
   const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
   const sellOffer = offer && isSellOffer(offer) ? offer : null;
-  const canRepublish = sellOffer ? !isOfferExpired(sellOffer) : false;
+  const canRepublish =
+    sellOffer && !isBuyerOnlyEscrow(sellOffer)
+      ? !isOfferExpired(sellOffer)
+      : false;
   const walletName = useWalletLabel({ address: sellOffer?.returnAddress });
 
   return (

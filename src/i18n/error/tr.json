@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Lütfen ödeme yönteminizi güncelleyin",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Seçtiğiniz ödeme yöntemlerinden biri artık sunduğunuz para birimlerinin hiçbirini desteklemiyor. Yayınlamadan önce güncelleyin.",
   "APP_UPDATE_REQUIRED.title": "Güncelleme gerekli",
-  "APP_UPDATE_REQUIRED.text": "Satışa devam etmek için lütfen Peach uygulamasını en son sürüme güncelleyin.",
+  "APP_UPDATE_REQUIRED.text": "İşlem yapmaya devam etmek için lütfen Peach uygulamasını en son sürüme güncelleyin.",
   "SELLING_NOT_ALLOWED.title": "Satış kullanılamıyor",
   "SELLING_NOT_ALLOWED.text": "Hesabınız geçici olarak satış teklifi oluşturmaya uygun değil. Erişim izni alabilmek için Peach müşteri desteğiyle iletişime geçin. Teşekkürler!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Başka ödeme bilgileri kullanın",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Cüzdanınızdan iade",
   "REFUND_ONLY_BY_SELLER.text": "Peach'in bu escrow'da hiçbir anahtarı yok, bu yüzden iadeyi yalnızca cüzdanınız yapabilir. Lütfen bu cihazdan tekrar deneyin.",
   "REFUND_ADDRESS_NOT_OWNED.title": "iade imzalanmadı",
-  "REFUND_ADDRESS_NOT_OWNED.text": "İade, tuhaf bir iade adresi nedeniyle imzalanmadı. Lütfen Peach Destek ile iletişime geç."
+  "REFUND_ADDRESS_NOT_OWNED.text": "İade, tuhaf bir iade adresi nedeniyle imzalanmadı. Lütfen Peach Destek ile iletişime geç.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "Yetersiz itibar",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Alış teklifi oluşturmak için yeterli itibarınız yok. Bunun yerine satış tekliflerini kullanın.",
+  "BUY_OFFER_UNAVAILABLE.title": "Teklif kullanılamıyor",
+  "BUY_OFFER_UNAVAILABLE.text": "Bu alış teklifi artık kullanılamıyor.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Teklif yayınlanmadı",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Alış teklifiniz oluşturuldu ancak henüz başkaları tarafından görülemiyor. Yayınlamayı tamamlamak için işlemlerinizden açın."
 }

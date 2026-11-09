@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Firma il tuo rimborso",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Il tuo rimborso del deposito è pronto per essere firmato.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Firma il rimborso del contratto",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Un rimborso del deposito del contratto è pronto per essere firmato."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Un rimborso del deposito del contratto è pronto per essere firmato.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Approva la tua offerta di acquisto",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Un'offerta di acquisto creata su desktop è in attesa della tua approvazione.",
+  "notification.contract.buyer.refundRequired.title": "Rimborso richiesto",
+  "notification.contract.buyer.refundRequired.text": "Lo scambio $0 è stato annullato. Firma il rimborso affinché il venditore riceva indietro i suoi sats."
 }

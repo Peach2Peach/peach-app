@@ -122,5 +122,9 @@
   "offer.summary.availableTo.newUsersLikeYou": "für neue Nutzer wie dich",
   "offer.summary.availableTo.experiencedUsersLikeYou": "für erfahrene Nutzer wie dich",
   "offer.requiredAction.confirmCancelation.seller": "Abbruchanfrage gesendet",
-  "offer.requiredAction.cancelAndRefund": "Abbrechen und erstatten"
+  "offer.requiredAction.cancelAndRefund": "Abbrechen und erstatten",
+  "offer.requiredAction.finishPublishing": "Veröffentlichung abschließen",
+  "offer.unpublished.text": "Dieses Angebot ist noch für niemanden sichtbar. Schließe die Veröffentlichung ab oder lösche es über das X oben.",
+  "offer.deleted.title": "Kaufangebot gelöscht",
+  "offer.deleted.text": "Kaufangebot $0 wurde erfolgreich gelöscht."
 }

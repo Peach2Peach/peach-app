@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Atualize seu método de pagamento",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Um dos métodos de pagamento selecionados não aceita mais nenhuma das moedas que você oferece. Atualize-o antes de publicar.",
   "APP_UPDATE_REQUIRED.title": "Atualização necessária",
-  "APP_UPDATE_REQUIRED.text": "Atualize o app Peach para a versão mais recente para continuar vendendo.",
+  "APP_UPDATE_REQUIRED.text": "Atualize o app Peach para a versão mais recente para continuar negociando.",
   "SELLING_NOT_ALLOWED.title": "Venda indisponível",
   "SELLING_NOT_ALLOWED.text": "Sua conta está temporariamente inelegível para criar ofertas de venda. Entre em contato com o suporte da Peach para saber como pode obter acesso. Obrigado!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "Use outros dados de pagamento",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "Reembolso pela sua carteira",
   "REFUND_ONLY_BY_SELLER.text": "A Peach não tem nenhuma chave neste depósito, então apenas a sua carteira pode reembolsá-lo. Tente novamente por este dispositivo.",
   "REFUND_ADDRESS_NOT_OWNED.title": "reembolso não assinado",
-  "REFUND_ADDRESS_NOT_OWNED.text": "O reembolso não foi assinado devido a um endereço de reembolso estranho. Por favor, entre em contato com o suporte da Peach."
+  "REFUND_ADDRESS_NOT_OWNED.text": "O reembolso não foi assinado devido a um endereço de reembolso estranho. Por favor, entre em contato com o suporte da Peach.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "Reputação insuficiente",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Você não tem reputação suficiente para criar uma oferta de compra. Use as ofertas de venda em vez disso.",
+  "BUY_OFFER_UNAVAILABLE.title": "Oferta indisponível",
+  "BUY_OFFER_UNAVAILABLE.text": "Esta oferta de compra não está mais disponível.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "Oferta não publicada",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Sua oferta de compra foi criada, mas ainda não está visível para outras pessoas. Abra-a em suas negociações para concluir a publicação."
 }

@@ -122,5 +122,9 @@
   "offer.summary.availableTo.experiencedUsersLikeYou": "per utenti esperti come te",
   "offer.requiredAction.confirmCancelation.seller": "richiesta di annullamento inviata",
   "yourTrades.unknown": "sconosciuto",
-  "offer.requiredAction.cancelAndRefund": "Annulla e rimborsa"
+  "offer.requiredAction.cancelAndRefund": "Annulla e rimborsa",
+  "offer.requiredAction.finishPublishing": "completa la pubblicazione",
+  "offer.unpublished.text": "Questa offerta non è ancora visibile a nessuno. Completa la pubblicazione o eliminala con la X in alto.",
+  "offer.deleted.title": "offerta di acquisto eliminata",
+  "offer.deleted.text": "L'offerta di acquisto $0 è stata eliminata con successo."
 }

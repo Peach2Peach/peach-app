@@ -365,5 +365,12 @@
   "friend": "vriend",
   "google": "google",
   "userSource.title": "nog één ding",
-  "userSource.subtitle": "hoe heb je ons gevonden?"
+  "userSource.subtitle": "hoe heb je ons gevonden?",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "koopaanbod plaatsen",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Koopaanbod plaatsen",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Schuif om het koopaanbod dat je op je computer hebt gemaakt goed te keuren en zichtbaar te maken voor verkopers.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Plaatsen",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Geplaatst!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Koopaanbod geplaatst!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Je koopaanbod is nu zichtbaar voor verkopers."
 }

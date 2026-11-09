@@ -17,6 +17,7 @@ import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdF
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
+import { isBuyerOnlyEscrow } from "../../utils/offer/isBuyerOnlyEscrow";
 import { isSingleSigEscrow } from "../../utils/offer/isSingleSigEscrow";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import {
@@ -30,6 +31,7 @@ import {
   ExtendTimerSlider,
   PaymentMadeSlider,
   PaymentReceivedSlider,
+  BuyerRefundSlider,
   RefundEscrowSlider,
   ReleaseEscrowSlider,
   RepublishOfferSlider,
@@ -161,6 +163,9 @@ function BuyerSliders() {
   if (tradeStatus === "confirmCancelation") {
     return <ResolveCancelRequestSliders />;
   }
+  if (isBuyerOnlyEscrow(contract) && contract.canceled) {
+    return <BuyerRefundSlider />;
+  }
   if (requiredAction === "sendPayment") {
     return <PaymentMadeSlider />;
   }
@@ -196,6 +201,22 @@ function SellerSliders() {
     );
   }
   if (requiredAction === "confirmPayment") return <PaymentReceivedSlider />;
+
+  // only the buyer can spend this escrow, so the seller can just wait
+  if (
+    isBuyerOnlyEscrow(contract) &&
+    (tradeStatus === "wrongAmountFundedOnContractRefundWaiting" ||
+      tradeStatus === "refundOrReviveRequired" ||
+      tradeStatus === "refundTxSignatureRequired")
+  ) {
+    return (
+      <ConfirmSlider
+        enabled={false}
+        onConfirm={() => null}
+        label1={i18n("offer.requiredAction.waiting", i18n("buyer"))}
+      />
+    );
+  }
 
   if (tradeStatus === "wrongAmountFundedOnContractRefundWaiting") {
     return (

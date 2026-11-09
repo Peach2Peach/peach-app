@@ -364,5 +364,12 @@
   "invalidServerSignature.title": "data verification failed",
   "invalidServerSignature.paymentData": "the encrypted payment data on the server has an invalid signature and was not loaded. this could indicate tampering. please contact support.",
   "invalidServerSignature.refundAddress": "the encrypted refund address on the server has an invalid signature and was not loaded. this could indicate tampering. please contact support.",
-  "invalidServerSignature.payoutAddress": "the encrypted payout address on the server has an invalid signature and was not loaded. this could indicate tampering. please contact support."
+  "invalidServerSignature.payoutAddress": "the encrypted payout address on the server has an invalid signature and was not loaded. this could indicate tampering. please contact support.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "publish buy offer",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Publish Buy Offer",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Slide to approve the buy offer you created on desktop and make it visible to sellers.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Publish",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Published!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Buy Offer Published!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Your buy offer is now visible to sellers."
 }

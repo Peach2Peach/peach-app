@@ -122,5 +122,9 @@
   "offer.summary.availableTo.experiencedUsersOnly": "лише для досвідчених користувачів",
   "offer.summary.availableTo.newUsersLikeYou": "для нових користувачів, як ви",
   "offer.summary.availableTo.experiencedUsersLikeYou": "для досвідчених користувачів, як ви",
-  "offer.requiredAction.cancelAndRefund": "скасувати та повернути"
+  "offer.requiredAction.cancelAndRefund": "скасувати та повернути",
+  "offer.requiredAction.finishPublishing": "завершити публікацію",
+  "offer.unpublished.text": "Цю пропозицію ще ніхто не бачить. Завершіть публікацію або видаліть її за допомогою X угорі.",
+  "offer.deleted.title": "пропозицію купівлі видалено",
+  "offer.deleted.text": "Пропозицію купівлі $0 успішно видалено."
 }

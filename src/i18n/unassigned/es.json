@@ -364,5 +364,12 @@
   "invalidServerSignature.paymentData": "los datos de pago cifrados en el servidor tienen una firma inválida y no se cargaron. esto podría indicar manipulación. por favor contacta con soporte.",
   "invalidServerSignature.refundAddress": "la dirección de reembolso cifrada en el servidor tiene una firma inválida y no se cargó. esto podría indicar manipulación. por favor contacta con soporte.",
   "invalidServerSignature.payoutAddress": "la dirección de retiro cifrada en el servidor tiene una firma inválida y no se cargó. esto podría indicar manipulación. por favor contacta con soporte.",
-  "connectToDesktop.success.description": "Ya estás autenticado. Puedes usar Peach en tu portátil."
+  "connectToDesktop.success.description": "Ya estás autenticado. Puedes usar Peach en tu portátil.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "publicar oferta de compra",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Publicar oferta de compra",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Desliza para aprobar la oferta de compra que creaste en el ordenador y hacerla visible para los vendedores.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Publicar",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "¡Publicada!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "¡Oferta de compra publicada!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Tu oferta de compra ya es visible para los vendedores."
 }

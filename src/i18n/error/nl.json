@@ -104,7 +104,7 @@
   "PLEASE_UPDATE_PAYMENT_METHOD.title": "Werk je betaalmethode bij",
   "PLEASE_UPDATE_PAYMENT_METHOD.text": "Een van je geselecteerde betaalmethoden ondersteunt geen van je aangeboden valuta's meer. Werk deze bij voordat je publiceert.",
   "APP_UPDATE_REQUIRED.title": "update vereist",
-  "APP_UPDATE_REQUIRED.text": "Werk de Peach-app bij naar de nieuwste versie om te blijven verkopen.",
+  "APP_UPDATE_REQUIRED.text": "Werk de Peach-app bij naar de nieuwste versie om te blijven handelen.",
   "SELLING_NOT_ALLOWED.title": "verkopen niet beschikbaar",
   "SELLING_NOT_ALLOWED.text": "Je account kan tijdelijk geen verkoopaanbiedingen aanmaken. Neem contact op met de klantenservice van Peach om te horen hoe je toegang kunt krijgen. Bedankt!",
   "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS.title": "gebruik andere betaalgegevens",
@@ -120,5 +120,11 @@
   "REFUND_ONLY_BY_SELLER.title": "terugbetaling vanuit je wallet",
   "REFUND_ONLY_BY_SELLER.text": "Peach heeft geen sleutel in deze borg, dus alleen jouw wallet kan terugbetalen. Probeer het opnieuw vanaf dit apparaat.",
   "REFUND_ADDRESS_NOT_OWNED.title": "terugbetaling niet ondertekend",
-  "REFUND_ADDRESS_NOT_OWNED.text": "De terugbetaling is niet ondertekend vanwege een vreemd terugbetalingsadres. Neem contact op met de Peach-support."
+  "REFUND_ADDRESS_NOT_OWNED.text": "De terugbetaling is niet ondertekend vanwege een vreemd terugbetalingsadres. Neem contact op met de Peach-support.",
+  "BUY_OFFER_NOT_ELIGIBLE.title": "onvoldoende reputatie",
+  "BUY_OFFER_NOT_ELIGIBLE.text": "Je hebt niet genoeg reputatie om een koopaanbod te maken. Gebruik in plaats daarvan de verkoopaanbiedingen.",
+  "BUY_OFFER_UNAVAILABLE.title": "aanbieding niet beschikbaar",
+  "BUY_OFFER_UNAVAILABLE.text": "Dit koopaanbod is niet meer beschikbaar.",
+  "BUY_OFFER_NOT_PUBLISHED.title": "aanbod niet geplaatst",
+  "BUY_OFFER_NOT_PUBLISHED.text": "Je koopaanbod is aangemaakt, maar is nog niet zichtbaar voor anderen. Open het via je trades om het plaatsen af te ronden."
 }

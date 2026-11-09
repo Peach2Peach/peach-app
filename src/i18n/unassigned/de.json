@@ -365,5 +365,12 @@
   "connectToDesktop.success.description": "Du bist jetzt authentifiziert. Du kannst Peach auf deinem Laptop verwenden.",
   "exportTradeHistory.title": "Handelsverlauf exportieren",
   "exportTradeHistory.tradeID": "Trade-ID",
-  "exportTradeHistory.type": "Typ (gekauft, verkauft, abgebrochen)"
+  "exportTradeHistory.type": "Typ (gekauft, verkauft, abgebrochen)",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof": "Kaufangebot veröffentlichen",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.title": "Kaufangebot veröffentlichen",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.description": "Schiebe, um das auf dem Desktop erstellte Kaufangebot zu bestätigen und für Verkäufer sichtbar zu machen.",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.action": "Veröffentlichen",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.actionDone": "Veröffentlicht!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successTitle": "Kaufangebot veröffentlicht!",
+  "connectToDesktop.mobilePendingActions.submitBuyOfferProof.successDescription": "Dein Kaufangebot ist jetzt für Verkäufer sichtbar."
 }

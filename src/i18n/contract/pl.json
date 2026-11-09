@@ -260,5 +260,9 @@
   "contract.summary.mpesa_phone": "Numer telefonu",
   "contract.chatAvailableOnceEscrowFunded": "Czat będzie dostępny po sfinansowaniu Escrow"
 
-
+,
+  "contract.seller.refund.waitingForBuyer": "Transakcja została anulowana. Tylko kupujący może zwrócić ten depozyt, więc czekasz na jego podpis.",
+  "contract.buyer.refundEscrow": "Podpisz zwrot",
+  "contract.buyer.refundEscrow.success.title": "Zwrot wysłany",
+  "contract.buyer.refundEscrow.success.text": "Zwrot został podpisany, a satsy wracają do sprzedającego."
 }

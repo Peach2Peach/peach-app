@@ -91,4 +91,6 @@ type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {
 
 type BuyOffer69 = Omit<BuyOffer69Draft & Offer, "originalPaymentData"> & {
   message: string;
+  /** owner only: null until submitted. Absent on other users' offers */
+  publicKey?: string | null;
 };

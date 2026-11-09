@@ -122,5 +122,9 @@
   "offer.summary.availableTo.newUsersLikeYou": "για νέους χρήστες σαν εσένα",
   "offer.summary.availableTo.experiencedUsersLikeYou": "για έμπειρους χρήστες σαν εσένα",
   "offer.requiredAction.confirmCancelation.seller": "στάλθηκε αίτημα ακύρωσης",
-  "offer.requiredAction.cancelAndRefund": "ακύρωση και επιστροφή"
+  "offer.requiredAction.cancelAndRefund": "ακύρωση και επιστροφή",
+  "offer.requiredAction.finishPublishing": "ολοκλήρωση δημοσίευσης",
+  "offer.unpublished.text": "Αυτή η προσφορά δεν είναι ακόμη ορατή σε κανέναν. Ολοκληρώστε τη δημοσίευση ή διαγράψτε την με το X επάνω.",
+  "offer.deleted.title": "η προσφορά αγοράς διαγράφηκε",
+  "offer.deleted.text": "Η προσφορά αγοράς $0 διαγράφηκε με επιτυχία."
 }

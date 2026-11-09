@@ -122,5 +122,9 @@
   "offer.summary.availableTo.newUsersLikeYou": "sizin gibi yeni kullanıcılar için",
   "offer.summary.availableTo.experiencedUsersLikeYou": "sizin gibi deneyimli kullanıcılar için",
   "offer.requiredAction.confirmCancelation.seller": "iptal talebi gönderildi",
-  "offer.requiredAction.cancelAndRefund": "iptal et ve iade al"
+  "offer.requiredAction.cancelAndRefund": "iptal et ve iade al",
+  "offer.requiredAction.finishPublishing": "yayınlamayı tamamla",
+  "offer.unpublished.text": "Bu teklif henüz kimse tarafından görülemiyor. Yayınlamayı tamamlayın veya yukarıdaki X ile silin.",
+  "offer.deleted.title": "alış teklifi silindi",
+  "offer.deleted.text": "$0 numaralı alış teklifi başarıyla silindi."
 }

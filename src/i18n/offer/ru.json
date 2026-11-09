@@ -122,5 +122,9 @@
   "offer.summary.availableTo.newUsersLikeYou": "для новых пользователей, как вы",
   "offer.summary.availableTo.experiencedUsersLikeYou": "для опытных пользователей, как вы",
   "offer.requiredAction.paymentTooLate": "не оплачено вовремя!",
-  "offer.requiredAction.cancelAndRefund": "отменить и вернуть"
+  "offer.requiredAction.cancelAndRefund": "отменить и вернуть",
+  "offer.requiredAction.finishPublishing": "завершить публикацию",
+  "offer.unpublished.text": "Это предложение пока никому не видно. Завершите публикацию или удалите его с помощью X вверху.",
+  "offer.deleted.title": "предложение на покупку удалено",
+  "offer.deleted.text": "Предложение на покупку $0 успешно удалено."
 }

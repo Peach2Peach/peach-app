@@ -13,6 +13,10 @@ const SERVER_ERROR_MESSAGES: Record<string, string> = {
   "you are not able to republish. please refund": "REPUBLISH_NOT_POSSIBLE",
   "this sell offer can no longer be traded": "SELL_OFFER_NOT_TRADEABLE",
   "this escrow can only be refunded by the seller": "REFUND_ONLY_BY_SELLER",
+  "you dont have enough reputation to create a buy offer. please interact with sell offers instead":
+    "BUY_OFFER_NOT_ELIGIBLE",
+  "buy offer does not have a valid public key": "BUY_OFFER_UNAVAILABLE",
+  "invalid public key ownership proof": "BUY_OFFER_NOT_PUBLISHED",
 };
 
 export const getServerErrorMessageKey = (message: string) =>

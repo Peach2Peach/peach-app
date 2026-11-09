@@ -102,5 +102,9 @@
   "notification.user.mobileAction.signEscrowRefund.created.title": "Подпиши возврат",
   "notification.user.mobileAction.signEscrowRefund.created.text": "Возврат из эскроу готов к подписи.",
   "notification.user.mobileAction.signEscrowContractRefund.created.title": "Подпиши возврат по контракту",
-  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Возврат из эскроу контракта готов к подписи."
+  "notification.user.mobileAction.signEscrowContractRefund.created.text": "Возврат из эскроу контракта готов к подписи.",
+  "notification.user.mobileAction.submitBuyOfferProof.created.title": "Подтвердите предложение на покупку",
+  "notification.user.mobileAction.submitBuyOfferProof.created.text": "Предложение на покупку, созданное на компьютере, ждёт вашего подтверждения.",
+  "notification.contract.buyer.refundRequired.title": "Требуется возврат",
+  "notification.contract.buyer.refundRequired.text": "Сделка $0 отменена. Подпишите возврат, чтобы продавец получил свои сатоши обратно."
 }

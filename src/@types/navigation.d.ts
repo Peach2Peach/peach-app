@@ -36,6 +36,8 @@ type DesktopConnection = {
   mobilePendingActionFundContractEscrowSuccess: undefined;
   mobilePendingActionRefundContractEscrow: { id: string };
   mobilePendingActionRefundContractEscrowSuccess: undefined;
+  mobilePendingActionSubmitBuyOfferProof: { id: string };
+  mobilePendingActionSubmitBuyOfferProofSuccess: undefined;
 };
 
 type HomeTabParamList = {
