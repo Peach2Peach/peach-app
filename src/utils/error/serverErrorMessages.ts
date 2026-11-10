@@ -8,6 +8,9 @@ const SERVER_ERROR_MESSAGES: Record<string, string> = {
   "you are not allowed to sell": "SELLING_NOT_ALLOWED",
   "you are not allowed to sell with these payment details. please use payment details you have already used in a previous successful sale":
     "SELLING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_SALES_PAYMENT_DETAILS",
+  "you are not allowed to buy": "BUYING_NOT_ALLOWED",
+  "you are not allowed to buy with these payment details. please use payment details you have already used in a previous successful purchase":
+    "BUYING_ONLY_ALLOWED_WITH_PAST_SUCCESSFUL_PURCHASES_PAYMENT_DETAILS",
   "you already have an ongoing trade": "ONGOING_TRADE_EXISTS",
   "the seller already has an ongoing trade": "SELLER_HAS_ONGOING_TRADE",
   "you are not able to republish. please refund": "REPUBLISH_NOT_POSSIBLE",
