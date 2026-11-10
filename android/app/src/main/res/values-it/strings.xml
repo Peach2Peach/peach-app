@@ -130,4 +130,7 @@
 
     <string name="notification.body.user.mobileAction.signEscrowContractRefund.created">Un rimborso del deposito del contratto è pronto per essere firmato.</string>
     <string name="notification.title.user.mobileAction.signEscrowContractRefund.created">Firma il rimborso del contratto</string>
+
+    <string name="notification.body.contract.buyer.refundRequired">Lo scambio %1$s è stato annullato. Apri Peach affinché il venditore riceva indietro i suoi sats.</string>
+    <string name="notification.title.contract.buyer.refundRequired">Rimborso richiesto</string>
 </resources>

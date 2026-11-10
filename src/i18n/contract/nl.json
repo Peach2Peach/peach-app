@@ -261,7 +261,7 @@
 
 ,
   "contract.seller.refund.waitingForBuyer": "De trade is geannuleerd. Alleen de koper kan deze borg terugbetalen, dus je wacht op zijn handtekening.",
-  "contract.buyer.refundEscrow": "terugbetaling ondertekenen",
+  "contract.seller.refund.refundedByBuyer": "De trade is geannuleerd en de koper heeft de escrow terugbetaald naar je $0.",
   "contract.buyer.refundEscrow.success.title": "terugbetaling verzonden",
   "contract.buyer.refundEscrow.success.text": "De terugbetaling is ondertekend en de sats zijn onderweg terug naar de verkoper."
 }

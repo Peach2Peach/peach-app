@@ -261,7 +261,7 @@
 
 ,
   "contract.seller.refund.waitingForBuyer": "A kereskedés megszakadt. Ezt a letétet csak a vevő térítheti vissza, ezért az aláírására vársz.",
-  "contract.buyer.refundEscrow": "visszatérítés aláírása",
+  "contract.seller.refund.refundedByBuyer": "A kereskedés megszakadt, és a vevő visszatérítette az escrow-t a(z) $0 tárcádba.",
   "contract.buyer.refundEscrow.success.title": "visszatérítés elküldve",
   "contract.buyer.refundEscrow.success.text": "A visszatérítés alá lett írva, a satok úton vannak vissza az eladóhoz."
 }

@@ -130,4 +130,7 @@
 
     <string name="notification.body.user.mobileAction.signEscrowContractRefund.created">Un reembolso del escrow del contrato está listo para ser firmado.</string>
     <string name="notification.title.user.mobileAction.signEscrowContractRefund.created">Firma el reembolso del contrato</string>
+
+    <string name="notification.body.contract.buyer.refundRequired">La operación %1$s se canceló. Abre Peach para que el vendedor recupere sus sats.</string>
+    <string name="notification.title.contract.buyer.refundRequired">Reembolso necesario</string>
 </resources>

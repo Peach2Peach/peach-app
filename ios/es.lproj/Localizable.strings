@@ -126,3 +126,5 @@
 "notification.title.user.mobileAction.signEscrowRefund.created" = "Firma tu reembolso";
 "notification.body.user.mobileAction.signEscrowContractRefund.created" = "Un reembolso del escrow del contrato está listo para ser firmado.";
 "notification.title.user.mobileAction.signEscrowContractRefund.created" = "Firma el reembolso del contrato";
+"notification.body.contract.buyer.refundRequired" = "La operación %1$@ se canceló. Abre Peach para que el vendedor recupere sus sats.";
+"notification.title.contract.buyer.refundRequired" = "Reembolso necesario";

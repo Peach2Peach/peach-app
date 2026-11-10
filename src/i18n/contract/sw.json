@@ -262,7 +262,7 @@
 
 ,
   "contract.seller.refund.waitingForBuyer": "Biashara imeghairiwa. Mnunuzi pekee ndiye anayeweza kurejesha escrow hii, kwa hivyo unasubiri saini yake.",
-  "contract.buyer.refundEscrow": "saini marejesho",
+  "contract.seller.refund.refundedByBuyer": "Biashara imeghairiwa na mnunuzi amerudisha escrow kwenye $0 yako.",
   "contract.buyer.refundEscrow.success.title": "marejesho yametumwa",
   "contract.buyer.refundEscrow.success.text": "Marejesho yamesainiwa na sats zinarudi kwa muuzaji."
 }

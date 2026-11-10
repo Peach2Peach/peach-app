@@ -129,4 +129,7 @@
 
     <string name="notification.body.user.mobileAction.signEscrowContractRefund.created">Un remboursement du coffre du contrat est prêt à être signé.</string>
     <string name="notification.title.user.mobileAction.signEscrowContractRefund.created">Signez le remboursement du contrat</string>
+
+    <string name="notification.body.contract.buyer.refundRequired">L\'échange %1$s a été annulé. Ouvrez Peach pour que le vendeur récupère ses sats.</string>
+    <string name="notification.title.contract.buyer.refundRequired">Remboursement requis</string>
 </resources>

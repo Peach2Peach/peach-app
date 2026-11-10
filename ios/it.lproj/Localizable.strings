@@ -126,3 +126,5 @@
 "notification.title.user.mobileAction.signEscrowRefund.created" = "Firma il tuo rimborso";
 "notification.body.user.mobileAction.signEscrowContractRefund.created" = "Un rimborso del deposito del contratto è pronto per essere firmato.";
 "notification.title.user.mobileAction.signEscrowContractRefund.created" = "Firma il rimborso del contratto";
+"notification.body.contract.buyer.refundRequired" = "Lo scambio %1$@ è stato annullato. Apri Peach affinché il venditore riceva indietro i suoi sats.";
+"notification.title.contract.buyer.refundRequired" = "Rimborso richiesto";

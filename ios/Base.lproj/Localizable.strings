@@ -136,3 +136,5 @@
 "notification.title.user.mobileAction.signEscrowRefund.created" = "Sign your refund";
 "notification.body.user.mobileAction.signEscrowContractRefund.created" = "A contract escrow refund is ready to be signed.";
 "notification.title.user.mobileAction.signEscrowContractRefund.created" = "Sign your contract refund";
+"notification.body.contract.buyer.refundRequired" = "Trade %1$@ was canceled. Open Peach so the seller gets their sats back.";
+"notification.title.contract.buyer.refundRequired" = "Refund required";

@@ -31,7 +31,7 @@ import {
   ExtendTimerSlider,
   PaymentMadeSlider,
   PaymentReceivedSlider,
-  BuyerRefundSlider,
+  AutoBuyerRefund,
   RefundEscrowSlider,
   ReleaseEscrowSlider,
   RepublishOfferSlider,
@@ -163,8 +163,9 @@ function BuyerSliders() {
   if (tradeStatus === "confirmCancelation") {
     return <ResolveCancelRequestSliders />;
   }
+  // the refund is signed automatically, there is nothing to press
   if (isBuyerOnlyEscrow(contract) && contract.canceled) {
-    return <BuyerRefundSlider />;
+    return <AutoBuyerRefund />;
   }
   if (requiredAction === "sendPayment") {
     return <PaymentMadeSlider />;

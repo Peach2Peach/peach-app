@@ -135,6 +135,16 @@ function getSellerStatusText({
     i18n("contract.seller.refundOrRepublish.offer", walletLabel);
   }
 
+  // escrowVersion 3: the buyer signs the refund, so once the contract has left
+  // refundTxSignatureRequired the sats are on their way back to the seller
+  if (
+    isBuyerOnlyEscrow(contract) &&
+    contract.canceled &&
+    (sellOffer?.refunded || contract.tradeStatus === "tradeCanceled")
+  ) {
+    return i18n("contract.seller.refund.refundedByBuyer", walletLabel);
+  }
+
   const isResolved = sellOffer?.refunded || sellOffer?.newOfferId;
   if (isResolved) {
     if (sellOffer.newOfferId) {

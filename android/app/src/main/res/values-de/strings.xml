@@ -128,4 +128,7 @@
 
     <string name="notification.body.user.mobileAction.signEscrowContractRefund.created">Eine Vertrags-Escrow-Rückerstattung ist bereit zur Signatur.</string>
     <string name="notification.title.user.mobileAction.signEscrowContractRefund.created">Vertrags-Rückerstattung signieren</string>
+
+    <string name="notification.body.contract.buyer.refundRequired">Trade %1$s wurde abgebrochen. Öffne Peach, damit der Verkäufer seine Sats zurückbekommt.</string>
+    <string name="notification.title.contract.buyer.refundRequired">Rückerstattung erforderlich</string>
 </resources>

@@ -263,7 +263,7 @@
 
 ,
   "contract.seller.refund.waitingForBuyer": "Сделка отменена. Вернуть этот эскроу может только покупатель, поэтому вы ожидаете его подпись.",
-  "contract.buyer.refundEscrow": "подписать возврат",
+  "contract.seller.refund.refundedByBuyer": "Сделка отменена, и покупатель вернул средства из эскроу на ваш $0.",
   "contract.buyer.refundEscrow.success.title": "возврат отправлен",
   "contract.buyer.refundEscrow.success.text": "Возврат подписан, сатоши возвращаются продавцу."
 }

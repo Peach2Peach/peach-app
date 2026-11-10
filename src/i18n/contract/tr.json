@@ -260,7 +260,7 @@
   "contract.summary.youWillGet": "alacaksın",
   "contract.summary.tradeId": "takas kimliği",
   "contract.seller.refund.waitingForBuyer": "İşlem iptal edildi. Bu emaneti yalnızca alıcı iade edebilir, bu yüzden alıcının imzasını bekliyorsunuz.",
-  "contract.buyer.refundEscrow": "iadeyi imzala",
+  "contract.seller.refund.refundedByBuyer": "İşlem iptal edildi ve alıcı emaneti $0 hesabınıza iade etti.",
   "contract.buyer.refundEscrow.success.title": "iade gönderildi",
   "contract.buyer.refundEscrow.success.text": "İade imzalandı ve sat'lar satıcıya geri dönüyor."
 }

@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
-import { useSetToast } from "../../components/toast/Toast";
-import { MSINASECOND } from "../../constants";
+import { useOnBuyerRefunded } from "../../hooks/useAutoRefundBuyerOnlyEscrows";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
@@ -66,46 +66,28 @@ export function RefundEscrowSlider() {
 /**
  * @description escrowVersion 3: only the buyer can spend the escrow, so a
  * canceled trade needs their signature to give the seller their sats back.
- * The server is the one who knows whether a refund is still due.
+ * It is signed automatically as soon as the screen opens; refundBuyerOnlyEscrow
+ * checks the fresh contract and the server first, and does nothing unless a
+ * refund is really due. Renders nothing.
  */
-export function BuyerRefundSlider() {
+export function AutoBuyerRefund() {
   const { contract } = useContractContext();
   const showErrorBanner = useShowErrorBanner();
-  const setToast = useSetToast();
-  const { data: isRefundDue, refetch } = useQuery({
-    queryKey: ["buyerOnlyEscrowRefundDue", contract.id],
-    queryFn: async () => {
-      const { result } =
-        await peachAPI.private.contract.getBuyerOnlyEscrowRefundPsbt({
-          contractId: contract.id,
-        });
-      return !!result?.psbt;
-    },
-    retry: false,
-  });
-  const { mutate, isPending, isSuccess } = useMutation({
-    mutationFn: () => refundBuyerOnlyEscrow(contract),
+  const onBuyerRefunded = useOnBuyerRefunded();
+  const { mutate } = useMutation({
+    mutationFn: (contractId: string) => refundBuyerOnlyEscrow(contractId),
     onError: (err: Error) => showErrorBanner(err),
-    onSuccess: () => {
-      setToast({
-        msgKey: "contract.buyer.refundEscrow.success",
-        color: "yellow",
-        duration: MSINASECOND * 5,
-      });
-      refetch();
+    onSuccess: (result, contractId) => {
+      if (result === "refunded") onBuyerRefunded(contractId);
     },
   });
 
-  if (!isRefundDue) return null;
-  return (
-    <ConfirmSlider
-      onConfirm={() => mutate()}
-      isCallbackRunning={isPending}
-      isSuccess={isSuccess}
-      label1={i18n("contract.buyer.refundEscrow")}
-      iconId="rotateCounterClockwise"
-    />
-  );
+  // once per screen visit, so a failure doesn't turn into a retry loop
+  useEffect(() => {
+    mutate(contract.id);
+  }, [contract.id, mutate]);
+
+  return null;
 }
 
 export function PaymentMadeSlider() {

@@ -261,7 +261,7 @@
 
 ,
   "contract.seller.refund.waitingForBuyer": "L'échange a été annulé. Seul l'acheteur peut rembourser ce coffre, vous attendez donc sa signature.",
-  "contract.buyer.refundEscrow": "signer le remboursement",
+  "contract.seller.refund.refundedByBuyer": "L'échange a été annulé et l'acheteur a remboursé l'escrow sur votre $0.",
   "contract.buyer.refundEscrow.success.title": "remboursement envoyé",
   "contract.buyer.refundEscrow.success.text": "Le remboursement a été signé et les sats retournent au vendeur."
 }

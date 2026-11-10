@@ -259,7 +259,7 @@
   "contract.chatAvailableOnceEscrowFunded": "Чат буде доступний після фінансування ескроу",
   "contract.summary.openApp": "відкрити застосунок",
   "contract.seller.refund.waitingForBuyer": "Угоду скасовано. Повернути цей ескроу може лише покупець, тому ви очікуєте на його підпис.",
-  "contract.buyer.refundEscrow": "підписати повернення",
+  "contract.seller.refund.refundedByBuyer": "Угоду скасовано, і покупець повернув кошти з ескроу на ваш $0.",
   "contract.buyer.refundEscrow.success.title": "повернення надіслано",
   "contract.buyer.refundEscrow.success.text": "Повернення підписано, сатоші повертаються продавцю."
 }

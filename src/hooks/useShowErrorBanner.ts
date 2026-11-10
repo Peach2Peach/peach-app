@@ -7,6 +7,18 @@ import { parseErrorDetails } from "../utils/parseErrorDetails";
 import { isExpectedMixnetBlackhole } from "../utils/wallet/nym/nymGate";
 import { useStackNavigation } from "./useStackNavigation";
 
+/**
+ * someone who may not create offers can still take the other side's offers,
+ * so point them there instead of to support
+ */
+const SEE_OFFERS_SCREEN: Record<
+  string,
+  "expressSellBrowseBuyOffers" | "expressBuyBrowseSellOffers" | undefined
+> = {
+  SELLING_NOT_ALLOWED: "expressSellBrowseBuyOffers",
+  BUYING_NOT_ALLOWED: "expressBuyBrowseSellOffers",
+};
+
 export const useShowErrorBanner = () => {
   const navigation = useStackNavigation();
   const setToast = useSetToast();
@@ -30,15 +42,23 @@ export const useShowErrorBanner = () => {
           .filter(Boolean)
           .join(" - "),
       );
+      const offersScreen = SEE_OFFERS_SCREEN[msgKey];
       setToast({
         msgKey,
         bodyArgs: bodyArgs ?? [details],
         color: "red",
-        action: {
-          onPress: () => navigation.navigate("contact", { errorMessage: err }),
-          label: i18n("contactUs"),
-          iconId: "mail",
-        },
+        action: offersScreen
+          ? {
+              onPress: () => navigation.navigate(offersScreen),
+              label: i18n("seeOffers"),
+              iconId: "search",
+            }
+          : {
+              onPress: () =>
+                navigation.navigate("contact", { errorMessage: err }),
+              label: i18n("contactUs"),
+              iconId: "mail",
+            },
       });
     },
     [navigation, setToast],

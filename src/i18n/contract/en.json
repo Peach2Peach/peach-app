@@ -257,7 +257,7 @@
   "contract.chatAvailableOnceEscrowFunded": "the Chat will be available once the Escrow is funded"
 ,
   "contract.seller.refund.waitingForBuyer": "The trade was canceled. Only the buyer can refund this escrow, so you're waiting for them to sign the refund.",
-  "contract.buyer.refundEscrow": "sign refund",
+  "contract.seller.refund.refundedByBuyer": "The trade was canceled and the buyer has refunded the escrow to your $0.",
   "contract.buyer.refundEscrow.success.title": "refund sent",
   "contract.buyer.refundEscrow.success.text": "The refund was signed and the sats are on their way back to the seller."
 }

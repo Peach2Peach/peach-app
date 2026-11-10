@@ -126,3 +126,5 @@
 "notification.title.user.mobileAction.signEscrowRefund.created" = "Rückerstattung signieren";
 "notification.body.user.mobileAction.signEscrowContractRefund.created" = "Eine Vertrags-Escrow-Rückerstattung ist bereit zur Signatur.";
 "notification.title.user.mobileAction.signEscrowContractRefund.created" = "Vertrags-Rückerstattung signieren";
+"notification.body.contract.buyer.refundRequired" = "Trade %1$@ wurde abgebrochen. Öffne Peach, damit der Verkäufer seine Sats zurückbekommt.";
+"notification.title.contract.buyer.refundRequired" = "Rückerstattung erforderlich";

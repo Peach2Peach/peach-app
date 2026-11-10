@@ -142,4 +142,7 @@
 
     <string name="notification.body.user.mobileAction.signEscrowContractRefund.created">A contract escrow refund is ready to be signed.</string>
     <string name="notification.title.user.mobileAction.signEscrowContractRefund.created">Sign your contract refund</string>
+
+    <string name="notification.body.contract.buyer.refundRequired">Trade %1$s was canceled. Open Peach so the seller gets their sats back.</string>
+    <string name="notification.title.contract.buyer.refundRequired">Refund required</string>
 </resources>

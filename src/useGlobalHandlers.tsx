@@ -8,6 +8,7 @@ import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
 import { useSyncPayoutAddressFromServer } from "./hooks/query/peach069/useSyncPayoutAddressFromServer";
 import { useSyncPaymentDataFromServer } from "./hooks/query/peach069/useSyncPaymentDataFromServer";
 import { useSyncRefundAddressFromServer } from "./hooks/query/peach069/useSyncRefundAddressFromServer";
+import { useAutoRefundBuyerOnlyEscrows } from "./hooks/useAutoRefundBuyerOnlyEscrows";
 import { useNymProxyWatcher } from "./hooks/useNymProxyWatcher";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
@@ -38,6 +39,7 @@ export const useGlobalHandlers = () => {
   useSyncPaymentDataFromServer();
   useSyncRefundAddressFromServer();
   useSyncPayoutAddressFromServer();
+  useAutoRefundBuyerOnlyEscrows();
 
   const setPopup = useSetPopup();
   const setAnalyticsPopupSeen = useSettingsStore(

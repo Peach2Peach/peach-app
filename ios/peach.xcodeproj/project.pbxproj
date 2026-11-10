@@ -78,6 +78,8 @@
 		6709C1062A669A0D00A5A4F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6709C1112A669A2F00A5A4F3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6709C1122A669A3600A5A4F3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6709C1132A669A4000A5A4F3 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6709C1142A669A4100A5A4F3 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		671A56452850E9AE0058434C /* Peach Bitcoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peach Bitcoin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		671A56462850E9AE0058434C /* peach mainnet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "peach mainnet-Info.plist"; path = "/Users/czino/Projects/peach-app/ios/peach mainnet-Info.plist"; sourceTree = "<absolute>"; };
 		672B1301288AF7240089147A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -397,6 +399,8 @@
 				de,
 				fr,
 				it,
+				"pt-BR",
+				"pt-PT",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -788,6 +792,8 @@
 				6709C1062A669A0D00A5A4F3 /* de */,
 				6709C1112A669A2F00A5A4F3 /* it */,
 				6709C1122A669A3600A5A4F3 /* fr */,
+				6709C1132A669A4000A5A4F3 /* pt-BR */,
+				6709C1142A669A4100A5A4F3 /* pt-PT */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

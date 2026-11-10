@@ -259,7 +259,7 @@
   "contract.seller.buyerCanceledWithoutRequest": "Ο αγοραστής ακύρωσε τη συναλλαγή.\nΠρέπει να αποφασίσεις αν θέλεις να δημοσιεύσεις ξανά αυτή την προσφορά ή να επιστραφεί το escrow στο $0 σου.",
   "contract.seller.giveMoreTime": "δώσε περισσότερο χρόνο",
   "contract.seller.refund.waitingForBuyer": "Η συναλλαγή ακυρώθηκε. Μόνο ο αγοραστής μπορεί να επιστρέψει αυτή την εγγύηση, οπότε περιμένετε την υπογραφή του.",
-  "contract.buyer.refundEscrow": "υπογραφή επιστροφής",
+  "contract.seller.refund.refundedByBuyer": "Η συναλλαγή ακυρώθηκε και ο αγοραστής επέστρεψε το escrow στο $0 σας.",
   "contract.buyer.refundEscrow.success.title": "η επιστροφή στάλθηκε",
   "contract.buyer.refundEscrow.success.text": "Η επιστροφή υπογράφηκε και τα sats επιστρέφουν στον πωλητή."
 }

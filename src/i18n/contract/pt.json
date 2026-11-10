@@ -261,7 +261,7 @@
 
 ,
   "contract.seller.refund.waitingForBuyer": "A negociação foi cancelada. Só o comprador pode reembolsar este escrow, por isso está a aguardar a assinatura dele.",
-  "contract.buyer.refundEscrow": "assinar reembolso",
+  "contract.seller.refund.refundedByBuyer": "A negociação foi cancelada e o comprador reembolsou o escrow para a sua $0.",
   "contract.buyer.refundEscrow.success.title": "reembolso enviado",
   "contract.buyer.refundEscrow.success.text": "O reembolso foi assinado e os sats estão a voltar para o vendedor."
 }
