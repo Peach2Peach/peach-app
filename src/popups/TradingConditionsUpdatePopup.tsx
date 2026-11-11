@@ -3,7 +3,18 @@ import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { InfoPopup } from "./InfoPopup";
 
-export function TradingConditionsUpdatePopup() {
+export type TradingConditionsAudience = "buyer" | "seller";
+
+const TEXT_KEY = {
+  buyer: "tradingConditionsUpdate.buyer.text",
+  seller: "tradingConditionsUpdate.seller.text",
+} as const;
+
+export function TradingConditionsUpdatePopup({
+  audience,
+}: {
+  audience: TradingConditionsAudience;
+}) {
   return (
     <InfoPopup
       title={i18n("tradingConditionsUpdate.title")}
@@ -20,7 +31,7 @@ export function TradingConditionsUpdatePopup() {
             },
           ]}
         >
-          {i18n("tradingConditionsUpdate.text")}
+          {i18n(TEXT_KEY[audience])}
         </ParsedPeachText>
       }
     />

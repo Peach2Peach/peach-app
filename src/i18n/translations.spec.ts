@@ -58,16 +58,21 @@ describe("translations", () => {
     }
   });
 
-  // the bold value is compiled into a RegExp and matched against its sibling
-  // text in TradingConditionsUpdatePopup - it has to occur there verbatim
+  // the bold value is compiled into a RegExp and matched against both the
+  // buyer and the seller text in TradingConditionsUpdatePopup - it has to
+  // occur in each of them verbatim
   test.each(Object.entries(locales))(
-    "%s highlights an existing part of the trading conditions text",
+    "%s highlights an existing part of the trading conditions texts",
     (_locale, translations) => {
-      const text = translations["tradingConditionsUpdate.text"];
       const bold = translations["tradingConditionsUpdate.text.bold"];
 
       expect(bold).toBeTruthy();
-      expect(text).toContain(bold);
+      expect(translations["tradingConditionsUpdate.buyer.text"]).toContain(
+        bold,
+      );
+      expect(translations["tradingConditionsUpdate.seller.text"]).toContain(
+        bold,
+      );
       expect(() => new RegExp(bold, "u")).not.toThrow();
     },
   );

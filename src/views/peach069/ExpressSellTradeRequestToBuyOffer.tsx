@@ -15,10 +15,12 @@ import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
 import { peachWallet } from "../../utils/wallet/setWallet";
+import tw from "../../styles/tailwind";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ExpressFlowTradeRequestToOffer } from "./ExpressFlowTradeRequestToOffer";
+import { TradingConditionsBanner } from "./components/TradingConditionsBanner";
 
 const goToChat = async (
   navigation: StackNavigation,
@@ -373,6 +375,7 @@ export function ExpressSellTradeRequestToBuyOffer() {
     return <LoadingScreen />;
   return (
     <Screen showTradingLimit header={offerIdToHex(String(buyOffer.id))}>
+      <TradingConditionsBanner audience="seller" style={tw`mb-2`} />
       <ExpressFlowTradeRequestToOffer
         offer={buyOffer}
         onTradeRequestDisappearingFunction={onTradeRequestDisappearing}

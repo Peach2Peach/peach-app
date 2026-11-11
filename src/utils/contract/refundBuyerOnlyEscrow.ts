@@ -1,10 +1,12 @@
 import { Psbt } from "bitcoinjs-lib";
 import { ESCROW_VERSION } from "../../../peach-api";
+import { Contract as ApiContract } from "../../../peach-api/src/@types/contract";
 import { useAccountStore } from "../account/account";
 import { isBuyerOnlyEscrow } from "../offer/isBuyerOnlyEscrow";
 import { peachAPI } from "../peachAPI";
 import { getNetwork } from "../wallet/getNetwork";
 import { signAndFinalizeEscrowPSBT } from "../wallet/signEscrowPSBT";
+import { markBuyerOnlyEscrowRefundSettled } from "./buyerOnlyEscrowRefundSettled";
 import { getBuyerOnlyEscrowWallet } from "./getBuyerOnlyEscrowWallet";
 import { getSellOfferIdFromContract } from "./getSellOfferIdFromContract";
 
@@ -70,6 +72,16 @@ async function signRefund(
     await peachAPI.private.contract.getContract({ contractId });
   if (!contract) throw new Error(contractError?.error || "MISSING_DATA");
 
+  const result = await refundContract(contract);
+  // refunded or never: remembered on this phone, so it isn't checked again
+  if (result !== "notDue") markBuyerOnlyEscrowRefundSettled(contract);
+  return result;
+}
+
+async function refundContract(
+  contract: ApiContract,
+): Promise<BuyerOnlyEscrowRefundResult> {
+  const contractId = contract.id;
   const { publicKey } = useAccountStore.getState().account;
   // "never" is remembered for good, so only answer it when we know for sure
   if (!publicKey) return "notDue";

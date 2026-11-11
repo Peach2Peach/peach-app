@@ -6,56 +6,43 @@ import { useSetToast } from "../components/toast/Toast";
 import { MSINAMINUTE, MSINASECOND } from "../constants";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../utils/account/account";
-import {
-  BuyerOnlyEscrowRefundResult,
-  refundBuyerOnlyEscrow,
-} from "../utils/contract/refundBuyerOnlyEscrow";
+import { isBuyerOnlyEscrowRefundSettled } from "../utils/contract/buyerOnlyEscrowRefundSettled";
+import { refundBuyerOnlyEscrow } from "../utils/contract/refundBuyerOnlyEscrow";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
 import { parseError } from "../utils/parseError";
-import { createStorage } from "../utils/storage/createStorage";
 import { getWallet } from "../utils/wallet/getWallet";
 import { contractKeys } from "./query/useContractDetail";
 import { getContractSummariesQuery } from "./query/useContractSummaries";
 
-// statuses a canceled contract can show the buyer while its refund is open
+// statuses a canceled contract can show the buyer while its refund is open.
+// The server reports a wrong funding amount before it looks at `canceled`, so
+// that status can hide a canceled contract too. Being listed here only means
+// the contract gets checked: refundBuyerOnlyEscrow decides on the fresh one.
 const CANDIDATE_STATUSES: TradeStatus[] = [
   "tradeCanceled",
   "refundTxSignatureRequired",
+  "wrongAmountFundedOnContractRefundWaiting",
 ];
 
-// contracts that were refunded or can never need a refund from us, so old
-// canceled trades aren't fetched again on every app open
-const settledStorage = createStorage("buyerOnlyEscrowRefunds");
-const SETTLED_KEY = "settledContractIds";
-
-const getSettled = () =>
-  new Set((settledStorage.getArray<string>(SETTLED_KEY) ?? []).map(String));
-const markSettled = (contractId: string) => {
-  const settled = getSettled();
-  settled.add(contractId);
-  settledStorage.setArray(SETTLED_KEY, [...settled]);
-};
-
-const isSettled = (result: BuyerOnlyEscrowRefundResult) =>
-  result === "refunded" || result === "never";
-
-type Summary = Pick<ContractSummary, "id" | "type" | "tradeStatus" | "refunded">;
+type Summary = Pick<
+  ContractSummary,
+  "id" | "type" | "tradeStatus" | "refunded" | "creationDate"
+>;
 
 // a contract that failed or wasn't due yet is tried again at most this often
 const RETRY_AFTER = MSINAMINUTE;
 const lastAttempt = new Map<string, number>();
 
 const getCandidates = (summaries: Summary[]) => {
-  const settled = getSettled();
   const now = Date.now();
   return summaries.filter(
-    ({ id, type, tradeStatus, refunded }) =>
-      type === "bid" &&
-      CANDIDATE_STATUSES.includes(tradeStatus) &&
-      !refunded &&
-      !settled.has(id) &&
-      now - (lastAttempt.get(id) ?? 0) >= RETRY_AFTER,
+    (summary) =>
+      summary.type === "bid" &&
+      CANDIDATE_STATUSES.includes(summary.tradeStatus) &&
+      !summary.refunded &&
+      !isBuyerOnlyEscrowRefundSettled(summary) &&
+      now - (lastAttempt.get(summary.id) ?? 0) >= RETRY_AFTER,
   );
 };
 
@@ -107,7 +94,6 @@ async function refundAll(
         // eslint-disable-next-line no-await-in-loop -- deliberately sequential
         const result = await refundBuyerOnlyEscrow(id);
         info("[autoBuyerRefund]", id, result);
-        if (isSettled(result)) markSettled(id);
         if (result === "refunded") {
           info("[autoBuyerRefund] refunded", id);
           onRefunded(id);
@@ -130,7 +116,6 @@ export const useOnBuyerRefunded = () => {
 
   return useCallback(
     (contractId: string) => {
-      markSettled(contractId);
       setToast({
         msgKey: "contract.buyer.refundEscrow.success",
         color: "yellow",

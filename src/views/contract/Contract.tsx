@@ -203,6 +203,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
         paymentData: data?.paymentData,
         buyerPaymentData: data?.buyerPaymentData,
         isDecryptionError: isError,
+        hasSuspiciousPaymentData,
         view,
         showBatchInfo,
         toggleShowBatchInfo,

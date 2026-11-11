@@ -5,6 +5,8 @@ type ContractContextType = {
   paymentData?: PaymentData;
   buyerPaymentData?: PaymentData;
   isDecryptionError: boolean;
+  /** the counterparty's payment details failed verification and are masked */
+  hasSuspiciousPaymentData?: boolean;
   view: ContractViewer;
   showBatchInfo: boolean;
   toggleShowBatchInfo: () => void;

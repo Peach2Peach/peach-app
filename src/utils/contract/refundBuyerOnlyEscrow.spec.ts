@@ -22,6 +22,9 @@ jest.mock("../account/account", () => ({
     getState: () => ({ account: { publicKey: mockPublicKey } }),
   },
 }));
+jest.mock("./buyerOnlyEscrowRefundSettled", () => ({
+  markBuyerOnlyEscrowRefundSettled: jest.fn(),
+}));
 jest.mock("../wallet/getNetwork", () => ({
   getNetwork: () => jest.requireActual("bitcoinjs-lib").networks.regtest,
 }));

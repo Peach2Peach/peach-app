@@ -349,7 +349,7 @@ export function ExpressBuyTradeRequestToSellOffer() {
     return <LoadingScreen />;
   return (
     <Screen showTradingLimit header={offerIdToHex(sellOffer.id)}>
-      <TradingConditionsBanner style={tw`mb-2`} />
+      <TradingConditionsBanner audience="buyer" style={tw`mb-2`} />
       <ExpressFlowTradeRequestToOffer
         offer={sellOffer}
         onTradeRequestDisappearingFunction={onTradeRequestDisappearing}

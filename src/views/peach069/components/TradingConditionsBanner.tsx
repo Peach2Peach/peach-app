@@ -3,7 +3,10 @@ import { Animated, Pressable, StyleProp, ViewStyle } from "react-native";
 import { Icon } from "../../../components/Icon";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PeachText } from "../../../components/text/PeachText";
-import { TradingConditionsUpdatePopup } from "../../../popups/TradingConditionsUpdatePopup";
+import {
+  TradingConditionsAudience,
+  TradingConditionsUpdatePopup,
+} from "../../../popups/TradingConditionsUpdatePopup";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -12,11 +15,14 @@ const PULSE_MIN_OPACITY = 0.45;
 
 /**
  * @description draws attention to the temporary trading conditions while the
- * single-sig escrow is in place, and opens the full explanation on press
+ * single-sig escrow is in place, and opens the full explanation on press.
+ * `audience` is the role the user takes in the trade, which decides the text.
  */
 export function TradingConditionsBanner({
+  audience,
   style,
 }: {
+  audience: TradingConditionsAudience;
   style?: StyleProp<ViewStyle>;
 }) {
   const setPopup = useSetPopup();
@@ -42,8 +48,8 @@ export function TradingConditionsBanner({
   }, [opacity]);
 
   const showPopup = useCallback(
-    () => setPopup(<TradingConditionsUpdatePopup />),
-    [setPopup],
+    () => setPopup(<TradingConditionsUpdatePopup audience={audience} />),
+    [setPopup, audience],
   );
 
   return (

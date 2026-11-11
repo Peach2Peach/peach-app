@@ -199,10 +199,18 @@ function ChangePayoutWallet() {
   );
 }
 
-function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
-  const { contract, view, paymentData, buyerPaymentData } =
-    useContractContext();
+const MASKED_PAYMENT_DATA = "****";
 
+function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
+  const {
+    contract,
+    view,
+    paymentData,
+    buyerPaymentData,
+    hasSuspiciousPaymentData,
+  } = useContractContext();
+
+  const isPaymentDataField = !isTradeInformationGetter(fieldName);
   const information = isTradeInformationGetter(fieldName)
     ? tradeInformationGetters[fieldName](contract)
     : view === "seller"
@@ -210,6 +218,17 @@ function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
       : paymentData?.[fieldName];
 
   if (!information) return null;
+
+  // the suspicious payment details banner tells the user not to trade, so the
+  // details themselves are hidden instead of being shown and copyable
+  if (isPaymentDataField && hasSuspiciousPaymentData) {
+    return (
+      <SummaryItem
+        label={i18n(`contract.summary.${fieldName}`)}
+        value={<SummaryItem.Text value={MASKED_PAYMENT_DATA} />}
+      />
+    );
+  }
 
   return (
     <SummaryItem
