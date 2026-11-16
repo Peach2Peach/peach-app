@@ -3,6 +3,7 @@ import {
   exists,
   mkdir,
   moveFile,
+  unlink,
 } from "@dr.pogodin/react-native-fs";
 import { NETWORK } from "@env";
 import type {
@@ -17,6 +18,7 @@ import {
   BumpFeeTxBuilder,
   ElectrumClient,
   KeychainKind,
+  LoadWithPersistError_Tags,
   Persister,
   Wallet,
 } from "bdk-rn";
@@ -79,6 +81,22 @@ function getDbPaths(network: string, nodeType: BlockChainNames) {
     oldSqlitePath: `${DocumentDirectoryPath}/${legacyName}.sqlite`,
     sqlitePath: `${walletDir}/${legacyName}.sqlite`,
   };
+}
+
+const getErrorTag = (e: unknown) =>
+  typeof e === "object" && e !== null && "tag" in e
+    ? String((e as { tag: unknown }).tag)
+    : undefined;
+
+async function deleteWalletDb(sqlitePath: string) {
+  for (const path of [
+    sqlitePath,
+    `${sqlitePath}-journal`,
+    `${sqlitePath}-wal`,
+    `${sqlitePath}-shm`,
+  ]) {
+    if (await exists(path)) await unlink(path);
+  }
 }
 
 async function migrateFromPreV1(
@@ -243,7 +261,31 @@ export class PeachWallet {
               internalDescriptor,
               this.persister,
             );
-          } catch {
+          } catch (loadError) {
+            const tag = getErrorTag(loadError);
+            if (tag !== LoadWithPersistError_Tags.CouldNotLoad) {
+              error(
+                "PeachWallet - initWallet - Wallet.load failed",
+                tag,
+                parseError(loadError),
+              );
+            }
+            if (tag === LoadWithPersistError_Tags.InvalidChangeSet) {
+              // The DB holds a wallet for different descriptors (e.g. left over
+              // from an account that was created but never stored, before the
+              // user created/restored another one). `new Wallet` would refuse
+              // it with DataAlreadyExists, bricking the wallet until reinstall.
+              // The DB is only a chain cache, so start fresh and rescan.
+              // Release the native SQLite connection before removing the file.
+              if (this.persister instanceof Persister)
+                this.persister.uniffiDestroy();
+              await deleteWalletDb(sqlitePath);
+              this.persister = Persister.newSqlite(sqlitePath);
+              info("PeachWallet - initWallet - reset mismatching wallet db");
+            } else if (tag !== LoadWithPersistError_Tags.CouldNotLoad) {
+              // Persist / unknown errors (e.g. transient I/O): don't wipe data.
+              throw loadError;
+            }
             this.wallet = new Wallet(
               externalDescriptor,
               internalDescriptor,
