@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Transakcja nieprawidłowa",
   "INVALID_OUTPUT.text": "Dane wyjściowe transakcji są nieprawidłowe. Skontaktuj się z supportem.",
   "INVALID_OUTPUT.title": "Transakcja nieprawidłowa",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Nie udało się zweryfikować adresu wypłaty kupującego. Nie zwalniaj środków i skontaktuj się z supportem Peach.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Nieprawidłowy adres wypłaty",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Osiągnięto miesięczny limit transakcyjny.",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Limit osiągnięty",
   "NAVIGATION_INIT_ERROR": "Nie udało się zainicjować nawigacji",

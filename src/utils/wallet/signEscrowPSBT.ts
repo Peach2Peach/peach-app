@@ -18,10 +18,16 @@ export type RefundPendingActionPayload = {
 };
 
 export type ReleasePendingActionPayload = {
-  releasePsbt: string;
+  /** undefined for escrowVersion 3 (buyer-only) */
+  releasePsbt?: string;
   /** never sent for escrowVersion 2 - batching needs Peach to co-sign */
   batchReleasePsbt?: string;
   escrowVersion?: number;
+  releaseAddress?: string;
+  /** signed by the release address key */
+  releaseAddressMessageSignature?: string;
+  /** same message, signed by the buyer's Peach ID key */
+  peachUserSignature?: string;
 };
 
 /**

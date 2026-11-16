@@ -164,6 +164,7 @@ async function wipePayoutAddressOnServer(myPgpPubKey: string) {
     label: null,
     confirmationPhrase: null,
     bip322Signature: null,
+    peachUserSignature: null,
   });
   const { signature, encrypted } = await signAndEncrypt(payload, myPgpPubKey);
   await peachAPI.private.peach069.setEncryptedCustomPayoutAddressOnSelfUser69({

@@ -25,6 +25,7 @@ export const iconMap: Record<string, IconType> = {
   INTERNAL_SERVER_ERROR: "peachSettings",
   INVALID_INPUT: "xCircle",
   INVALID_OUTPUT: "xCircle",
+  INVALID_RELEASE_ADDRESS_SIGNATURE: "xCircle",
   NAVIGATION_INIT_ERROR: "map",
   NETWORK_ERROR: "noNetwork",
   NOT_FOUND: "map",

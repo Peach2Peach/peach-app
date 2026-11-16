@@ -1,7 +1,8 @@
 import { BIP32Interface } from "bip32";
 import { Psbt } from "bitcoinjs-lib";
-import { txIdPartOfPSBT } from "../../../utils/bitcoin/txIdPartOfPSBT";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
+import { verifyBuyerReleaseAddress } from "../../../utils/contract/verifyBuyerReleaseAddress";
+import { verifyReleasePSBT } from "../../../utils/contract/verifyReleasePSBT";
 import { isBuyerOnlyEscrow } from "../../../utils/offer/isBuyerOnlyEscrow";
 import { isSingleSigEscrow } from "../../../utils/offer/isSingleSigEscrow";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -27,6 +28,14 @@ export function useConfirmPaymentSeller({
     },
     {
       mutationFn: async () => {
+        verifyBuyerReleaseAddress({
+          buyerId: contract.buyer.id,
+          releaseAddress: contract.releaseAddress,
+          releaseAddressMessageSignature:
+            contract.releaseAddressMessageSignature,
+          peachUserSignature: contract.peachUserSignature,
+        });
+
         // the buyer already signed the release when marking the payment as made
         if (isBuyerOnlyEscrow(contract)) {
           const { error: buyerOnlyError } =
@@ -142,22 +151,4 @@ function getMultiSigReleaseSignature({
   }
 
   return [signature, batchPsbt] as const;
-}
-
-function verifyReleasePSBT(
-  psbt: Psbt,
-  txIds: string[],
-  releaseAddress: string,
-) {
-  if (txIds.length === 0) throw Error("MISSING_DATA");
-
-  if (!txIds.every((txId) => txIdPartOfPSBT(txId, psbt))) {
-    throw Error("INVALID_INPUT");
-  }
-
-  const buyerOutput = psbt.txOutputs.find(
-    ({ address }) => address === releaseAddress,
-  );
-  if (!buyerOutput) throw Error("RETURN_ADDRESS_MISMATCH");
-  if (buyerOutput.value === 0) throw Error("INVALID_OUTPUT");
 }

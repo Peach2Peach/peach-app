@@ -13,6 +13,8 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
+import { verifyBuyerReleaseAddress } from "../../utils/contract/verifyBuyerReleaseAddress";
+import { verifyReleasePSBT } from "../../utils/contract/verifyReleasePSBT";
 import i18n from "../../utils/i18n";
 import { isBuyerOnlyEscrow } from "../../utils/offer/isBuyerOnlyEscrow";
 import { isSingleSigEscrow } from "../../utils/offer/isSingleSigEscrow";
@@ -68,6 +70,26 @@ export const MobilePendingActionSignMultisig = () => {
 
       if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
 
+      // the payload itself says which escrow this is - anything other than 2
+      // takes the legacy path
+      const payload: ReleasePendingActionPayload = JSON.parse(
+        mobilePendingAction.payload,
+      );
+
+      // the payload has no buyer id: take it from the contract
+      const { result: contract, error: contractError } =
+        await peachAPI.private.contract.getContract({
+          contractId: mobilePendingAction.contractId,
+        });
+      if (!contract) throw new Error(contractError?.error || "NOT_FOUND");
+
+      verifyBuyerReleaseAddress({
+        buyerId: contract.buyer.id,
+        releaseAddress: payload.releaseAddress,
+        releaseAddressMessageSignature: payload.releaseAddressMessageSignature,
+        peachUserSignature: payload.peachUserSignature,
+      });
+
       // the buyer already signed the release when marking the payment as made
       if (isBuyerOnlyEscrow(sellOffer)) {
         const { error: buyerOnlyError } =
@@ -81,15 +103,16 @@ export const MobilePendingActionSignMultisig = () => {
 
       const wallet = getEscrowWalletForOffer(sellOffer);
 
-      // the payload itself says which escrow this is - anything other than 2
-      // takes the legacy path
-      const payload: ReleasePendingActionPayload = JSON.parse(
-        mobilePendingAction.payload,
-      );
-
+      if (!payload.releasePsbt) throw new Error("MISSING_DATA");
       const psbt = Psbt.fromBase64(payload.releasePsbt, {
         network: getNetwork(),
       });
+
+      // the PSBT must pay the address the buyer signed for (outside the
+      // window the payload omits it, so fall back to the contract's)
+      const releaseAddress = payload.releaseAddress ?? contract.releaseAddress;
+      const { txIds } = sellOffer.funding;
+      verifyReleasePSBT(psbt, txIds, releaseAddress);
 
       // batching needs Peach to co-sign, which is impossible without a Peach
       // key, so it is off for escrowVersion 2 and nothing is sent back
@@ -99,6 +122,7 @@ export const MobilePendingActionSignMultisig = () => {
           : undefined;
 
       if (batchPsbt) {
+        verifyReleasePSBT(batchPsbt, txIds, releaseAddress);
         signPSBT(batchPsbt, wallet);
       }
 

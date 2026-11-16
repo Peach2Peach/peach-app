@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Άκυρη συναλλαγή",
   "INVALID_OUTPUT.text": "Το αποτέλεσμα της συναλλαγής δεν είναι έγκυρο. Επικοινωνήστε με υποστήριξη.",
   "INVALID_OUTPUT.title": "Άκυρη συναλλαγή",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Δεν ήταν δυνατή η επαλήθευση της διεύθυνσης πληρωμής του αγοραστή. Μην αποδεσμεύσετε τα κεφάλαια και επικοινωνήστε με την υποστήριξη της Peach.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Άκυρη διεύθυνση πληρωμής",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Φτάσατε το μηνιαίο όριο συναλλαγών. Εντυπωσιακό!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Φτάσατε τα όρια",
   "NAVIGATION_INIT_ERROR": "Αποτυχία έναρξης πλοήγησης",

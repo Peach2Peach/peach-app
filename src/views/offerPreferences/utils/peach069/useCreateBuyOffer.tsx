@@ -9,6 +9,7 @@ import { InfoPopup } from "../../../../popups/InfoPopup";
 import { useSettingsStore } from "../../../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../../utils/account/getMessageToSignForAddress";
+import { signWithPeachUserKey } from "../../../../utils/account/signWithPeachUserKey";
 import i18n from "../../../../utils/i18n";
 import { error } from "../../../../utils/log/error";
 import { submitBuyOfferPublicKey } from "../../../../utils/offer/submitBuyOfferPublicKey";
@@ -89,6 +90,7 @@ export function useCreateBuyOffer({
     mutationFn: async () => {
       let releaseAddresses: string[] = [];
       let releaseAddressMessageSignatures: string[] = [];
+      const peachUserSignatures: string[] = [];
       const howManyOffers = multi ? multi : 1;
       if (!payoutToPeachWallet) {
         for (let i = 0; i < howManyOffers; i++) {
@@ -108,6 +110,7 @@ export function useCreateBuyOffer({
           }
           releaseAddresses.push(address);
           releaseAddressMessageSignatures.push(signature);
+          peachUserSignatures.push(signWithPeachUserKey(message));
         }
       }
 
@@ -123,6 +126,7 @@ export function useCreateBuyOffer({
         releaseAddressMessageSignatures: releaseAddressMessageSignatures
           ? releaseAddressMessageSignatures
           : undefined,
+        peachUserSignatures,
         instantTradeCriteria,
         experienceLevelCriteria,
         multi,

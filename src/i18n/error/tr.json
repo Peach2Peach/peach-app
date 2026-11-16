@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Geçersiz işlem",
   "INVALID_OUTPUT.text": "Geçersiz çıktı. Destek ile iletişime geçin.",
   "INVALID_OUTPUT.title": "Geçersiz işlem",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Alıcının ödeme adresi doğrulanamadı. Fonları serbest bırakma ve Peach destek ile iletişime geçin.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Geçersiz ödeme adresi",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Aylık işlem limitine ulaştınız!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Limit doldu",
   "NAVIGATION_INIT_ERROR": "Navigasyon başlatılamadı",

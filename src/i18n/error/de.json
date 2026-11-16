@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Ungültige Transaktion",
   "INVALID_OUTPUT.text": "Ungültige Transaktionsausgabe. Support kontaktieren.",
   "INVALID_OUTPUT.title": "Ungültige Transaktion",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Die Auszahlungsadresse des Käufers konnte nicht verifiziert werden. Gib die Bitcoin nicht frei und kontaktiere den Peach Support.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Ungültige Auszahlungsadresse",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Monatliches Handelslimit erreicht.",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Limit erreicht",
   "NAVIGATION_INIT_ERROR": "Fehler beim Start der Navigation",

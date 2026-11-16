@@ -13,6 +13,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
+import { signWithPeachUserKey } from "../../utils/account/signWithPeachUserKey";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getBuyerOnlyEscrowReleaseTx } from "../../utils/contract/getBuyerOnlyEscrowReleaseTx";
 import i18n from "../../utils/i18n";
@@ -79,6 +80,7 @@ export const MobilePendingActionRevealAddress = () => {
 
       let releaseAddress: string | undefined = undefined;
       let releaseAddressMessageSignature: string | undefined = undefined;
+      let peachUserSignature: string | undefined;
       let index: number | undefined = undefined;
 
       if (needsAddress) {
@@ -92,12 +94,14 @@ export const MobilePendingActionRevealAddress = () => {
           message,
           index,
         );
+        peachUserSignature = signWithPeachUserKey(message);
       }
       const { error: err } =
         await peachAPI.private.peach069.postMobilePendingActionPaymentMade({
           id,
           releaseAddress,
           releaseAddressMessageSignature,
+          peachUserSignature,
           buyerOnlyEscrowReleaseTx: await getBuyerOnlyEscrowReleaseTx({
             contractId: mobilePendingAction.contractId,
             releaseAddress,

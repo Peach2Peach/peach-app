@@ -4,6 +4,7 @@ import { User69 } from "../../../../peach-api/src/@types/user69";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
+import { signWithPeachUserKey } from "../../../utils/account/signWithPeachUserKey";
 import { error } from "../../../utils/log/error";
 import { peachAPI } from "../../../utils/peachAPI";
 import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
@@ -26,6 +27,9 @@ export const useUploadPayoutAddressToServer = () => {
         label: payoutAddressLabel ?? null,
         confirmationPhrase,
         bip322Signature: payoutAddressSignature ?? null,
+        peachUserSignature: confirmationPhrase
+          ? signWithPeachUserKey(confirmationPhrase)
+          : null,
       });
       const { signature, encrypted } = await signAndEncrypt(
         payload,

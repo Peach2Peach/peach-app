@@ -17,6 +17,7 @@ import { useCancelContract } from "../../popups/tradeCancelation/useCancelContra
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
 import tw from "../../styles/tailwind";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
+import { signWithPeachUserKey } from "../../utils/account/signWithPeachUserKey";
 import { getBuyerOnlyEscrowReleaseTx } from "../../utils/contract/getBuyerOnlyEscrowReleaseTx";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { refundBuyerOnlyEscrow } from "../../utils/contract/refundBuyerOnlyEscrow";
@@ -134,11 +135,13 @@ export function PaymentMadeSlider() {
             message,
             index,
           );
+          const peachUserSignature = signWithPeachUserKey(message);
           const { error: err } =
             await peachAPI.private.contract.confirmPaymentBuyer({
               contractId,
               releaseAddress,
               releaseAddressMessageSignature,
+              peachUserSignature,
               buyerOnlyEscrowReleaseTx: await getBuyerOnlyEscrowReleaseTx({
                 contractId,
                 releaseAddress,

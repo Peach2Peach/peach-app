@@ -38,6 +38,8 @@
   "INVALID_INPUT.title": "transaction invalid",
   "INVALID_OUTPUT.text": "The output of your transaction is invalid. Please contact Peach support.",
   "INVALID_OUTPUT.title": "transaction invalid",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "The buyer's payout address could not be verified. Do not release the funds and please contact Peach support.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "payout address invalid",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "You've hit the monthly trading limit. That's impressive!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "pushed it to the limit",
   "NAVIGATION_INIT_ERROR": "Failed to initialize navigation",

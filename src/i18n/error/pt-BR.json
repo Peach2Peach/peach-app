@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Transação inválida",
   "INVALID_OUTPUT.text": "Saída inválida. Contate o suporte da Peach.",
   "INVALID_OUTPUT.title": "Transação inválida",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Não foi possível verificar o endereço de recebimento do comprador. Não libere os fundos e contate o suporte da Peach.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Endereço de recebimento inválido",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Você atingiu o limite mensal de negociação. Impressionante!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Limite atingido",
   "NAVIGATION_INIT_ERROR": "Falha ao iniciar a navegação",

@@ -2,6 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { useAccountStore } from "../../../utils/account/account";
+import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
+import { signWithPeachUserKey } from "../../../utils/account/signWithPeachUserKey";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export const usePatchReleaseAddress = (
@@ -10,6 +13,7 @@ export const usePatchReleaseAddress = (
 ) => {
   const queryClient = useQueryClient();
   const showErrorBanner = useShowErrorBanner();
+  const publicKey = useAccountStore((state) => state.account.publicKey);
 
   return useMutation({
     onMutate: async ({ releaseAddress }) => {
@@ -49,9 +53,16 @@ export const usePatchReleaseAddress = (
       releaseAddress: string;
       messageSignature?: string;
     }) => {
+      const peachUserSignature =
+        newData.releaseAddress && newData.releaseAddress !== "reset"
+          ? signWithPeachUserKey(
+              getMessageToSignForAddress(publicKey, newData.releaseAddress),
+            )
+          : undefined;
       const { error } = await peachAPI.private.offer.patchOffer({
         offerId,
         ...newData,
+        peachUserSignature,
       });
       if (error) throw new Error(error.error);
     },

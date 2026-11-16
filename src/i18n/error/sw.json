@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Kuingiza sio sahihi",
   "INVALID_OUTPUT.text": "Matokeo sio sahihi. Wasiliana na usaidizi wa Peach.",
   "INVALID_OUTPUT.title": "Matokeo sio sahihi",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Anwani ya malipo ya mnunuzi haikuweza kuthibitishwa. Usitoe fedha na wasiliana na usaidizi wa Peach.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Anwani ya malipo sio sahihi",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Umefikia kikomo cha kila mwezi cha biashara. Rudi mwezi ujao!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Kikomo cha kila mwezi kimefikiwa",
   "NAVIGATION_INIT_ERROR": "Kuanzisha urambazaji kimeshindwa",

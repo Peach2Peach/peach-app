@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Tranzakció érvénytelen",
   "INVALID_OUTPUT.text": "A tranzakció kimenete érvénytelen. Kérlek lépj kapcsolatba a Peach támogatással.",
   "INVALID_OUTPUT.title": "Tranzakció érvénytelen",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "A vevő kifizetési címét nem sikerült ellenőrizni. Ne engedd el a pénzt, és lépj kapcsolatba a Peach támogatással.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Kifizetési cím érvénytelen",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Elérted a havi kereskedési limitet. Szuper munka!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Elérted a havi limitet",
   "NAVIGATION_INIT_ERROR": "Sikertelen a navigáció inicializálása",

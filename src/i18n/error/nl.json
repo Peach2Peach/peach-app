@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "ongeldige transactie",
   "INVALID_OUTPUT.text": "De transactie-uitvoer is ongeldig. Neem contact op met Peach support.",
   "INVALID_OUTPUT.title": "ongeldige transactie",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Het uitbetalingsadres van de koper kon niet worden geverifieerd. Geef de fondsen niet vrij en neem contact op met Peach support.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "ongeldig uitbetalingsadres",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Je hebt je maandelijkse handelslimiet bereikt. Goed gedaan!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "limiet bereikt",
   "NAVIGATION_INIT_ERROR": "Navigatie kan niet starten",

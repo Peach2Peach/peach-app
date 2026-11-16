@@ -53,6 +53,10 @@ type Contract = {
   /** the Buy Offer the contract came from, whose key controls escrowVersion 3 */
   buyOffer69Id?: number;
   releaseAddress: string;
+  /** seller only: signed by the release address key */
+  releaseAddressMessageSignature?: string;
+  /** seller only: same message, signed by the buyer's Peach ID key */
+  peachUserSignature?: string;
   releaseTransaction?: string;
   releaseTxId?: string;
 

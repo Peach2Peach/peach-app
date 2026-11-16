@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Недійсна транзакція",
   "INVALID_OUTPUT.text": "Недійсні дані транзакції. Зверніться до підтримки.",
   "INVALID_OUTPUT.title": "Недійсна транзакція",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "Не вдалося перевірити адресу виплати покупця. Не вивільняйте кошти та зверніться до підтримки Peach.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Адреса виплати недійсна",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Ви досягли місячного ліміту торгівлі!",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Ліміт досягнуто",
   "NAVIGATION_INIT_ERROR": "Не вдалося запустити навігацію",

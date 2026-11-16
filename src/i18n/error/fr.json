@@ -31,6 +31,8 @@
   "INVALID_INPUT.title": "Transaction invalide",
   "INVALID_OUTPUT.text": "Sortie de transaction invalide. Contactez l'assistance Peach.",
   "INVALID_OUTPUT.title": "Transaction invalide",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.text": "L'adresse de paiement de l'acheteur n'a pas pu être vérifiée. Ne libérez pas les fonds et contactez l'assistance Peach.",
+  "INVALID_RELEASE_ADDRESS_SIGNATURE.title": "Adresse de paiement invalide",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "Vous avez atteint la limite de trading mensuelle. Impressionnant !",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Limite mensuelle atteinte",
   "NAVIGATION_INIT_ERROR": "Échec de l'initialisation de la navigation",
