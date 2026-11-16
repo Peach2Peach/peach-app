@@ -7,6 +7,7 @@ import { peachAPI } from "../peachAPI";
 import { getNetwork } from "../wallet/getNetwork";
 import { signAndFinalizeEscrowPSBT } from "../wallet/signEscrowPSBT";
 import { markBuyerOnlyEscrowRefundSettled } from "./buyerOnlyEscrowRefundSettled";
+import { checkBuyerOnlyEscrowRefundPsbt } from "./checkBuyerOnlyEscrowRefundPsbt";
 import { getBuyerOnlyEscrowWallet } from "./getBuyerOnlyEscrowWallet";
 import { getSellOfferIdFromContract } from "./getSellOfferIdFromContract";
 
@@ -99,23 +100,31 @@ async function refundContract(
 
   // the PSBT is fetched right before signing because the server only accepts
   // a transaction matching the latest one
-  const [{ result, error: psbtError }, { result: funding, error: fundingError }] =
-    await Promise.all([
-      peachAPI.private.contract.getBuyerOnlyEscrowRefundPsbt({ contractId }),
-      peachAPI.private.offer.getFundingStatus({
-        offerId: getSellOfferIdFromContract(contract),
-      }),
-    ]);
+  const [
+    { result, error: psbtError },
+    { result: funding, error: fundingError },
+    { result: fees },
+  ] = await Promise.all([
+    peachAPI.private.contract.getBuyerOnlyEscrowRefundPsbt({ contractId }),
+    peachAPI.private.offer.getFundingStatus({
+      offerId: getSellOfferIdFromContract(contract),
+    }),
+    peachAPI.public.bitcoin.getFeeEstimate(),
+  ]);
   // the server answers FORBIDDEN when no refund is due
   if (psbtError?.error === "FORBIDDEN") return "notDue";
   if (!result?.psbt) throw new Error(psbtError?.error || "MISSING_DATA");
   if (!funding) throw new Error(fundingError?.error || "MISSING_DATA");
+  if (!fees) throw new Error("MISSING_DATA");
 
   const psbt = Psbt.fromBase64(result.psbt, { network: getNetwork() });
-  const [output, ...otherOutputs] = psbt.txOutputs;
-  if (otherOutputs.length > 0 || output?.address !== funding.returnAddress) {
-    throw new Error("RETURN_ADDRESS_MISMATCH");
-  }
+  checkBuyerOnlyEscrowRefundPsbt({
+    psbt,
+    escrow: contract.escrow,
+    funding: funding.funding,
+    returnAddress: funding.returnAddress,
+    fastestFeeRate: fees.fastestFee,
+  });
 
   // same key path spend as a version 2 escrow, just with the buyer's key
   const tx = signAndFinalizeEscrowPSBT(psbt, wallet, {

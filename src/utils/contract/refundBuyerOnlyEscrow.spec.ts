@@ -1,6 +1,7 @@
 import { Psbt, networks, payments } from "bitcoinjs-lib";
 import { peachAPI } from "../peachAPI";
 import { signAndFinalizeEscrowPSBT } from "../wallet/signEscrowPSBT";
+import { checkBuyerOnlyEscrowRefundPsbt } from "./checkBuyerOnlyEscrowRefundPsbt";
 import { refundBuyerOnlyEscrow } from "./refundBuyerOnlyEscrow";
 
 jest.mock("../peachAPI", () => ({
@@ -13,7 +14,11 @@ jest.mock("../peachAPI", () => ({
       },
       offer: { getFundingStatus: jest.fn() },
     },
+    public: { bitcoin: { getFeeEstimate: jest.fn() } },
   },
+}));
+jest.mock("./checkBuyerOnlyEscrowRefundPsbt", () => ({
+  checkBuyerOnlyEscrowRefundPsbt: jest.fn(),
 }));
 jest.mock("../../../peach-api", () => ({ ESCROW_VERSION: 2 }));
 let mockPublicKey = "";
@@ -72,6 +77,12 @@ const postRefundMock = jest.spyOn(
   peachAPI.private.contract,
   "postBuyerOnlyEscrowRefund",
 );
+const getFeeEstimateMock = jest.spyOn(
+  peachAPI.public.bitcoin,
+  "getFeeEstimate",
+);
+const checkPsbtMock = jest.mocked(checkBuyerOnlyEscrowRefundPsbt);
+const funding = { txIds: ["aa".repeat(32)], vouts: [0], amounts: [1000] };
 const getFundingStatusMock = jest.spyOn(
   peachAPI.private.offer,
   "getFundingStatus",
@@ -92,7 +103,10 @@ describe("refundBuyerOnlyEscrow", () => {
       result: { psbt: buildPsbt([returnAddress]) },
     } as never);
     getFundingStatusMock.mockResolvedValue({
-      result: { returnAddress },
+      result: { returnAddress, funding },
+    } as never);
+    getFeeEstimateMock.mockResolvedValue({
+      result: { fastestFee: 12 },
     } as never);
     postRefundMock.mockResolvedValue({
       result: { success: true, txId: "txId" },
@@ -178,12 +192,31 @@ describe("refundBuyerOnlyEscrow", () => {
     expectNothingSigned();
   });
 
-  it("refuses a refund that does not pay the seller's return address", async () => {
-    getPsbtMock.mockResolvedValue({
-      result: { psbt: buildPsbt([returnAddress, returnAddress]) },
-    } as never);
+  it("checks the PSBT against the escrow, funding, return address and fees", async () => {
+    await refundBuyerOnlyEscrow("12-34");
+    expect(checkPsbtMock).toHaveBeenCalledWith({
+      psbt: expect.any(Psbt),
+      escrow: refundableContract.escrow,
+      funding,
+      returnAddress,
+      fastestFeeRate: 12,
+    });
+  });
+
+  it("signs nothing when the PSBT fails the checks", async () => {
+    checkPsbtMock.mockImplementationOnce(() => {
+      throw new Error("INVALID_INPUT");
+    });
     await expect(refundBuyerOnlyEscrow("12-34")).rejects.toThrow(
-      "RETURN_ADDRESS_MISMATCH",
+      "INVALID_INPUT",
+    );
+    expectNothingSigned();
+  });
+
+  it("signs nothing without a fee estimate", async () => {
+    getFeeEstimateMock.mockResolvedValue({ result: undefined } as never);
+    await expect(refundBuyerOnlyEscrow("12-34")).rejects.toThrow(
+      "MISSING_DATA",
     );
     expectNothingSigned();
   });
