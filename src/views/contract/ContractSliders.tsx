@@ -22,11 +22,9 @@ import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdF
 import { refundBuyerOnlyEscrow } from "../../utils/contract/refundBuyerOnlyEscrow";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
-import { error } from "../../utils/log/error";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
-import { AddressIndex } from "../../utils/wallet/bdkShim";
-import { saveLastAddressUsedIndex } from "../../utils/wallet/saveLastAddressUsedIndex";
+import { getNewReleaseAddress } from "../../utils/wallet/getNewReleaseAddress";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { useContractContext } from "./context";
 import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
@@ -123,55 +121,9 @@ export function PaymentMadeSlider() {
             throw Error("Self User69 is not defined");
           }
 
-          let releaseAddress: string;
-          let index: number;
-
-          try {
-            if (selfUser69.lastAddressUsedIndex === undefined) {
-              const getAddressResult = await peachWallet.getAddress(
-                AddressIndex.New,
-                "external",
-                true,
-              );
-              releaseAddress = getAddressResult.address;
-              index = getAddressResult.index;
-            } else {
-              const getAddressResult = await peachWallet.getAddress(
-                AddressIndex.LastUnused,
-                "external",
-                true,
-              );
-              if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
-                releaseAddress = getAddressResult.address;
-                index = getAddressResult.index;
-              } else {
-                while (true) {
-                  const getNewAddressResult = await peachWallet.getAddress(
-                    AddressIndex.New,
-                    "external",
-                    true,
-                  );
-                  if (
-                    getNewAddressResult.index > selfUser69.lastAddressUsedIndex
-                  ) {
-                    releaseAddress = getNewAddressResult.address;
-                    index = getNewAddressResult.index;
-                    break;
-                  }
-                }
-              }
-            }
-          } catch (e) {
-            // The BDK wallet can fail to resolve an address at this step. Fall
-            // back to deriving the next address directly from the JS wallet so
-            // the buyer can still confirm payment.
-            error("PaymentMadeSlider - getAddress failed, using JS wallet", e);
-            index =
-              selfUser69.lastAddressUsedIndex === undefined
-                ? 0
-                : selfUser69.lastAddressUsedIndex + 1;
-            releaseAddress = peachWallet.getAddressFromJsWallet(index);
-          }
+          const { address: releaseAddress, index } = getNewReleaseAddress(
+            selfUser69.lastAddressUsedIndex,
+          );
 
           const message = getMessageToSignForAddress(
             selfUser.id,
@@ -193,9 +145,6 @@ export function PaymentMadeSlider() {
               }),
             });
           if (err) throw new Error(err.error);
-
-          // the payment is confirmed: a failed save must not undo that
-          saveLastAddressUsedIndex(index);
         }
       },
     },

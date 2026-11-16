@@ -1,5 +1,4 @@
 import { useFocusEffect } from "@react-navigation/native";
-import { AddressIndex } from "../../utils/wallet/bdkShim";
 import { useCallback, useState } from "react";
 import { useWindowDimensions, View } from "react-native";
 import { Header } from "../../components/Header";
@@ -18,7 +17,7 @@ import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getBuyerOnlyEscrowReleaseTx } from "../../utils/contract/getBuyerOnlyEscrowReleaseTx";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
-import { saveLastAddressUsedIndex } from "../../utils/wallet/saveLastAddressUsedIndex";
+import { getNewReleaseAddress } from "../../utils/wallet/getNewReleaseAddress";
 import { peachWallet } from "../../utils/wallet/setWallet";
 
 import peachOfMind from "../../assets/onboarding/peach-of-mind.png";
@@ -83,40 +82,9 @@ export const MobilePendingActionRevealAddress = () => {
       let index: number | undefined = undefined;
 
       if (needsAddress) {
-        if (selfUser69.lastAddressUsedIndex === undefined) {
-          const getAddressResult = await peachWallet.getAddress(
-            AddressIndex.New,
-            "external",
-            true,
-          );
-          releaseAddress = getAddressResult.address;
-          index = getAddressResult.index;
-        } else {
-          const getAddressResult = await peachWallet.getAddress(
-            AddressIndex.LastUnused,
-            "external",
-            true,
-          );
-          if (getAddressResult.index > selfUser69.lastAddressUsedIndex) {
-            releaseAddress = getAddressResult.address;
-            index = getAddressResult.index;
-          } else {
-            while (true) {
-              const getNewAddressResult = await peachWallet.getAddress(
-                AddressIndex.New,
-                "external",
-                true,
-              );
-              if (
-                getNewAddressResult.index > selfUser69.lastAddressUsedIndex
-              ) {
-                releaseAddress = getNewAddressResult.address;
-                index = getNewAddressResult.index;
-                break;
-              }
-            }
-          }
-        }
+        ({ address: releaseAddress, index } = getNewReleaseAddress(
+          selfUser69.lastAddressUsedIndex,
+        ));
 
         const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
 
@@ -137,10 +105,6 @@ export const MobilePendingActionRevealAddress = () => {
         });
       if (err) throw new Error(err.error);
 
-      // index 0 is a real index. The payment is confirmed at this point, so a
-      // failed save must not surface as a failed confirmation.
-      if (index !== undefined) saveLastAddressUsedIndex(index);
-
       navigateToSuccess();
     } catch (err) {
       refetch();
@@ -151,7 +115,11 @@ export const MobilePendingActionRevealAddress = () => {
 
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions.paymentMade")} />}
+      header={
+        <Header
+          title={i18n("connectToDesktop.mobilePendingActions.paymentMade")}
+        />
+      }
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         {/* Center Content */}
