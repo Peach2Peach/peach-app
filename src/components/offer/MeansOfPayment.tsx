@@ -5,6 +5,7 @@ import { useThemeStore } from "../../store/theme";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { getCurrencies } from "../../utils/paymentMethod/getCurrencies";
+import { getDefaultOfferCurrency } from "../../utils/paymentMethod/getDefaultOfferCurrency";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { useCashPaymentMethodName } from "../matches/useCashPaymentMethodName";
 import { CurrencySelection } from "../navigation/CurrencySelection";
@@ -29,10 +30,8 @@ export function MeansOfPayment({
   const stateDisplayCurrency = useSettingsStore(
     (state) => state.displayCurrency,
   );
-  const [selectedCurrency, setSelectedCurrency] = useState(
-    currencies.includes(stateDisplayCurrency)
-      ? stateDisplayCurrency
-      : currencies[0],
+  const [selectedCurrency, setSelectedCurrency] = useState(() =>
+    getDefaultOfferCurrency(meansOfPayment, stateDisplayCurrency),
   );
 
   useEffect(() => {

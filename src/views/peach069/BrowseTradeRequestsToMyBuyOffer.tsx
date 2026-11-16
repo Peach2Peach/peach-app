@@ -32,6 +32,8 @@ import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData
 import { peachAPI } from "../../utils/peachAPI";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { getExpiryString } from "../../utils/string/msToLongerTimer";
+import { getDefaultOfferCurrency } from "../../utils/paymentMethod/getDefaultOfferCurrency";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -172,6 +174,7 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
 
   const buyOffer = buyOfferApiResp;
 
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const [displayedCurrency, setDisplayedCurrency] = useState<
     Currency | undefined
   >(undefined);
@@ -181,7 +184,7 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
       setDisplayedCurrency(
         buyOffer === undefined
           ? undefined
-          : (Object.keys(buyOffer?.meansOfPayment ?? {})[0] as Currency),
+          : getDefaultOfferCurrency(buyOffer.meansOfPayment, displayCurrency),
       );
     }
   }, [buyOffer]);
@@ -250,6 +253,7 @@ export const BrowseTradeRequestsToMyBuyOffer = () => {
           <NoMatchesYet
             offer={buyOffer}
             setDisplayedCurrency={setDisplayedCurrency}
+            displayedCurrency={displayedCurrency}
           />
         )}
       </PeachScrollView>
@@ -295,9 +299,11 @@ function UnpublishedBuyOffer({
 function NoMatchesYet({
   offer,
   setDisplayedCurrency,
+  displayedCurrency,
 }: {
   offer: BuyOffer69;
   setDisplayedCurrency: Function;
+  displayedCurrency: Currency;
 }) {
   return (
     <View style={tw`gap-8`}>
@@ -310,6 +316,7 @@ function NoMatchesYet({
         walletLabel={<WalletLabel address={offer.releaseAddress} />}
         type="buy"
         setDisplayedCurrency={setDisplayedCurrency}
+        displayedCurrency={displayedCurrency}
       />
     </View>
   );

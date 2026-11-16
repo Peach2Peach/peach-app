@@ -7,6 +7,7 @@ import i18n from "../../utils/i18n";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { getOfferPrice } from "../../utils/offer/getOfferPrice";
+import { getCurrencies } from "../../utils/paymentMethod/getCurrencies";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { BTCAmount } from "../bitcoin/BTCAmount";
 import { EscrowLink } from "../matches/components/EscrowLink";
@@ -35,6 +36,7 @@ type Props = {
   walletLabel: ReactElement;
   type?: "buy" | "sell";
   setDisplayedCurrency: Function;
+  displayedCurrency?: Currency;
 };
 
 const isSellOfferWithDefinedEscrow = (
@@ -52,6 +54,7 @@ export const SellOrBuyOfferSummary = ({
   numberOfOffers,
   walletLabel,
   setDisplayedCurrency,
+  displayedCurrency,
   type = "sell",
 }: Props) => {
   const {
@@ -86,7 +89,11 @@ export const SellOrBuyOfferSummary = ({
       ? round((fixedPrice * SATSINBTC) / amount, 2)
       : 0;
 
-  const premiumCurrency = (keys(meansOfPayment)[0] as Currency) ?? "EUR";
+  const premiumCurrency =
+    displayedCurrency &&
+    getCurrencies(meansOfPayment).includes(displayedCurrency)
+      ? displayedCurrency
+      : ((keys(meansOfPayment)[0] as Currency) ?? "EUR");
   const premiumPrice =
     !hasFixedPrice && priceBook && amount > 0
       ? getOfferPrice({

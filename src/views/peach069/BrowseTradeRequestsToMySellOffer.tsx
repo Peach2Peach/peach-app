@@ -26,6 +26,8 @@ import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData
 import { peachAPI } from "../../utils/peachAPI";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { getExpiryString } from "../../utils/string/msToLongerTimer";
+import { getDefaultOfferCurrency } from "../../utils/paymentMethod/getDefaultOfferCurrency";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -158,6 +160,7 @@ export const BrowseTradeRequestsToMySellOffer = () => {
   const navigation = useStackNavigation();
   const { sellOffer, isLoading } = useSellOfferDetail(offerId);
 
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const [displayedCurrency, setDisplayedCurrency] = useState<
     Currency | undefined
   >(undefined);
@@ -167,7 +170,7 @@ export const BrowseTradeRequestsToMySellOffer = () => {
       setDisplayedCurrency(
         sellOffer === undefined
           ? undefined
-          : (Object.keys(sellOffer?.meansOfPayment ?? {})[0] as Currency),
+          : getDefaultOfferCurrency(sellOffer.meansOfPayment, displayCurrency),
       );
     }
   }, [sellOffer]);
@@ -234,6 +237,7 @@ export const BrowseTradeRequestsToMySellOffer = () => {
           <NoMatchesYet
             offer={sellOffer}
             setDisplayedCurrency={setDisplayedCurrency}
+            displayedCurrency={displayedCurrency}
           />
         )}
       </PeachScrollView>
@@ -249,9 +253,11 @@ export const BrowseTradeRequestsToMySellOffer = () => {
 function NoMatchesYet({
   offer,
   setDisplayedCurrency,
+  displayedCurrency,
 }: {
   offer: SellOffer;
   setDisplayedCurrency: Function;
+  displayedCurrency: Currency;
 }) {
   return (
     <View style={tw`gap-8`}>
@@ -263,6 +269,7 @@ function NoMatchesYet({
         offer={offer}
         walletLabel={<WalletLabel address={offer.returnAddress} />}
         setDisplayedCurrency={setDisplayedCurrency}
+        displayedCurrency={displayedCurrency}
       />
     </View>
   );
