@@ -26,6 +26,7 @@ import { error } from "../../utils/log/error";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { AddressIndex } from "../../utils/wallet/bdkShim";
+import { saveLastAddressUsedIndex } from "../../utils/wallet/saveLastAddressUsedIndex";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { useContractContext } from "./context";
 import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
@@ -193,9 +194,8 @@ export function PaymentMadeSlider() {
             });
           if (err) throw new Error(err.error);
 
-          peachAPI.private.peach069.setLastAddressUsedIndexOnSelfUser69({
-            index,
-          });
+          // the payment is confirmed: a failed save must not undo that
+          saveLastAddressUsedIndex(index);
         }
       },
     },

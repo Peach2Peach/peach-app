@@ -18,6 +18,7 @@ import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getBuyerOnlyEscrowReleaseTx } from "../../utils/contract/getBuyerOnlyEscrowReleaseTx";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
+import { saveLastAddressUsedIndex } from "../../utils/wallet/saveLastAddressUsedIndex";
 import { peachWallet } from "../../utils/wallet/setWallet";
 
 import peachOfMind from "../../assets/onboarding/peach-of-mind.png";
@@ -136,10 +137,9 @@ export const MobilePendingActionRevealAddress = () => {
         });
       if (err) throw new Error(err.error);
 
-      if (index)
-        await peachAPI.private.peach069.setLastAddressUsedIndexOnSelfUser69({
-          index,
-        });
+      // index 0 is a real index. The payment is confirmed at this point, so a
+      // failed save must not surface as a failed confirmation.
+      if (index !== undefined) saveLastAddressUsedIndex(index);
 
       navigateToSuccess();
     } catch (err) {
