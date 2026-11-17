@@ -202,9 +202,17 @@ function CloseAction() {
             />,
           );
         } else {
-          navigation.navigate("homeScreen", {
-            screen: "yourTrades",
-            params: { tab: "yourTrades.history" },
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: "homeScreen",
+                params: {
+                  screen: "yourTrades",
+                  params: { tab: "yourTrades.history" },
+                },
+              },
+            ],
           });
         }
       }}

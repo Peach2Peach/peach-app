@@ -65,7 +65,10 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
                 actions={<ClosePopupAction style={tw`justify-center`} />}
               />,
             );
-            navigation.navigate("homeScreen", { screen: "home" });
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "homeScreen", params: { screen: "home" } }],
+            });
           } else {
             startRefund(offer);
           }

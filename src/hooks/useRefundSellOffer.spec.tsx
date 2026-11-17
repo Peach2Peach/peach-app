@@ -7,7 +7,10 @@ import {
   waitFor,
 } from "test-utils";
 import { sellOffer } from "../../tests/unit/data/offerData";
-import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
+import {
+  navigateMock,
+  resetMock,
+} from "../../tests/unit/helpers/NavigationWrapper";
 import { GlobalOverlay } from "../Overlay";
 import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
@@ -144,9 +147,17 @@ describe("useRefundEscrow", () => {
     });
     fireEvent.press(getByText("close"));
     expect(queryByText("escrow refunded")).toBeFalsy();
-    expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
-      screen: "yourTrades",
-      params: { tab: "yourTrades.history" },
+    expect(resetMock).toHaveBeenCalledWith({
+      index: 0,
+      routes: [
+        {
+          name: "homeScreen",
+          params: {
+            screen: "yourTrades",
+            params: { tab: "yourTrades.history" },
+          },
+        },
+      ],
     });
   });
   it("should close popup and go to backup time on close of success popup if backup is needed", async () => {
