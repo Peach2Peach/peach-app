@@ -76,15 +76,9 @@ export const MobilePendingActionSignMultisig = () => {
         mobilePendingAction.payload,
       );
 
-      // the payload has no buyer id: take it from the contract
-      const { result: contract, error: contractError } =
-        await peachAPI.private.contract.getContract({
-          contractId: mobilePendingAction.contractId,
-        });
-      if (!contract) throw new Error(contractError?.error || "NOT_FOUND");
-
       verifyBuyerReleaseAddress({
-        buyerId: contract.buyer.id,
+        mustValidate: payload.mustValidateBuyerReleaseProofs,
+        buyerId: payload.buyerId,
         releaseAddress: payload.releaseAddress,
         releaseAddressMessageSignature: payload.releaseAddressMessageSignature,
         peachUserSignature: payload.peachUserSignature,
@@ -108,9 +102,12 @@ export const MobilePendingActionSignMultisig = () => {
         network: getNetwork(),
       });
 
-      // the PSBT must pay the address the buyer signed for (outside the
-      // window the payload omits it, so fall back to the contract's)
-      const releaseAddress = payload.releaseAddress ?? contract.releaseAddress;
+      // the release address only comes (already verified above) when the
+      // server requires the proofs: only then check the PSBT pays it
+      const releaseAddress =
+        payload.mustValidateBuyerReleaseProofs === true
+          ? payload.releaseAddress
+          : undefined;
       const { txIds } = sellOffer.funding;
       verifyReleasePSBT(psbt, txIds, releaseAddress);
 

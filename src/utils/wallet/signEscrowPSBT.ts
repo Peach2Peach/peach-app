@@ -28,6 +28,11 @@ export type ReleasePendingActionPayload = {
   releaseAddressMessageSignature?: string;
   /** same message, signed by the buyer's Peach ID key */
   peachUserSignature?: string;
+  /** the buyer's Peach ID public key, to verify `peachUserSignature` */
+  buyerId?: string;
+  /** when true, the seller must validate the buyer's release address proofs
+   * before signing */
+  mustValidateBuyerReleaseProofs?: boolean;
 };
 
 /**

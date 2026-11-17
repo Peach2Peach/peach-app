@@ -57,6 +57,9 @@ type Contract = {
   releaseAddressMessageSignature?: string;
   /** seller only: same message, signed by the buyer's Peach ID key */
   peachUserSignature?: string;
+  /** seller only: when true, the seller must validate the buyer's release
+   * address proofs before confirming the payment */
+  mustValidateBuyerReleaseProofs?: boolean;
   releaseTransaction?: string;
   releaseTxId?: string;
 

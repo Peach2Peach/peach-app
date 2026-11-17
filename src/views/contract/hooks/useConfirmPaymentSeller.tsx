@@ -29,6 +29,7 @@ export function useConfirmPaymentSeller({
     {
       mutationFn: async () => {
         verifyBuyerReleaseAddress({
+          mustValidate: contract.mustValidateBuyerReleaseProofs,
           buyerId: contract.buyer.id,
           releaseAddress: contract.releaseAddress,
           releaseAddressMessageSignature:

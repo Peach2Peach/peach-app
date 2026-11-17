@@ -32,7 +32,10 @@ const isValidPeachUserSignature = (
 };
 
 type Props = {
-  buyerId: string;
+  /** set by the server: only then are the proofs checked */
+  mustValidate?: boolean;
+  /** the buyer's Peach ID public key */
+  buyerId?: string;
   releaseAddress?: string;
   releaseAddressMessageSignature?: string;
   peachUserSignature?: string;
@@ -42,19 +45,25 @@ type Props = {
  * @description checks the buyer vouched for the release address in both
  * directions before the seller confirms the payment: the address key signed
  * for the buyer's Peach ID, and the buyer's Peach ID key signed for the address.
- * Throws INVALID_RELEASE_ADDRESS_SIGNATURE when a signature doesn't verify.
- *
- * Note: validation is skipped while any of the fields is missing (old
- * contracts / clients). Make it mandatory once all buyers send both.
+ * Runs only when the server sets `mustValidateBuyerReleaseProofs`; then a
+ * missing proof fails the same way as one that doesn't verify, with
+ * INVALID_RELEASE_ADDRESS_SIGNATURE.
  */
 export const verifyBuyerReleaseAddress = ({
+  mustValidate,
   buyerId,
   releaseAddress,
   releaseAddressMessageSignature,
   peachUserSignature,
 }: Props) => {
-  if (!releaseAddress || !releaseAddressMessageSignature || !peachUserSignature)
-    return;
+  if (mustValidate !== true) return;
+  if (
+    !buyerId ||
+    !releaseAddress ||
+    !releaseAddressMessageSignature ||
+    !peachUserSignature
+  )
+    throw new Error("INVALID_RELEASE_ADDRESS_SIGNATURE");
 
   const address = normalizeAddress(releaseAddress);
   const message = getMessageToSignForAddress(buyerId, address);

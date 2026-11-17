@@ -39,6 +39,7 @@ describe("verifyBuyerReleaseAddress", () => {
   it("accepts valid signatures from both keys", () => {
     expect(() =>
       verifyBuyerReleaseAddress({
+        mustValidate: true,
         buyerId,
         releaseAddress,
         ...signFor(releaseAddress),
@@ -48,29 +49,57 @@ describe("verifyBuyerReleaseAddress", () => {
   it("normalizes uppercase bech32 addresses", () => {
     expect(() =>
       verifyBuyerReleaseAddress({
+        mustValidate: true,
         buyerId,
         releaseAddress: releaseAddress.toUpperCase(),
         ...signFor(releaseAddress),
       }),
     ).not.toThrow();
   });
-  it("skips validation while a signature is missing", () => {
+  it("skips validation unless the server requires it", () => {
+    const proofs = {
+      buyerId,
+      releaseAddress,
+      releaseAddressMessageSignature: "garbage",
+      peachUserSignature: "zz",
+    };
+    expect(() => verifyBuyerReleaseAddress(proofs)).not.toThrow();
+    expect(() =>
+      verifyBuyerReleaseAddress({ ...proofs, mustValidate: false }),
+    ).not.toThrow();
+  });
+  it("rejects missing proofs when the server requires them", () => {
     const { releaseAddressMessageSignature, peachUserSignature } =
       signFor(releaseAddress);
     expect(() =>
       verifyBuyerReleaseAddress({
+        mustValidate: true,
         buyerId,
         releaseAddress,
         releaseAddressMessageSignature,
       }),
-    ).not.toThrow();
+    ).toThrow("INVALID_RELEASE_ADDRESS_SIGNATURE");
     expect(() =>
-      verifyBuyerReleaseAddress({ buyerId, releaseAddress, peachUserSignature }),
-    ).not.toThrow();
+      verifyBuyerReleaseAddress({
+        mustValidate: true,
+        buyerId,
+        releaseAddress,
+        peachUserSignature,
+      }),
+    ).toThrow("INVALID_RELEASE_ADDRESS_SIGNATURE");
+    expect(() =>
+      verifyBuyerReleaseAddress({
+        mustValidate: true,
+        buyerId,
+        releaseAddressMessageSignature,
+        peachUserSignature,
+      }),
+    ).toThrow("INVALID_RELEASE_ADDRESS_SIGNATURE");
   });
   it("rejects a peach user signature from another key", () => {
     expect(() =>
       verifyBuyerReleaseAddress({
+        mustValidate: true,
         buyerId,
         releaseAddress,
         ...signFor(releaseAddress, ECPair.makeRandom({ network })),
@@ -84,6 +113,7 @@ describe("verifyBuyerReleaseAddress", () => {
     }).address as string;
     expect(() =>
       verifyBuyerReleaseAddress({
+        mustValidate: true,
         buyerId,
         releaseAddress: otherAddress,
         ...signFor(releaseAddress),
@@ -93,6 +123,7 @@ describe("verifyBuyerReleaseAddress", () => {
   it("rejects malformed signatures", () => {
     expect(() =>
       verifyBuyerReleaseAddress({
+        mustValidate: true,
         buyerId,
         releaseAddress,
         releaseAddressMessageSignature: "garbage",
