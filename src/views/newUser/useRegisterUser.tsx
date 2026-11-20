@@ -22,8 +22,15 @@ export function useRegisterUser() {
         },
       );
       if (!result || authError) {
+        // Registration failures otherwise surface only as a generic error
+        // screen; keep the server response visible for diagnosis.
+        console.warn(
+          "[peach] user registration failed",
+          JSON.stringify(authError),
+        );
         throw new Error(authError?.error);
       }
+      console.warn("[peach] user registration succeeded");
       return result;
     },
     onSettled: () => queryClient.invalidateQueries(),

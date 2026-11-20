@@ -17,6 +17,7 @@ import { createAccount } from "../../utils/account/createAccount";
 import { deleteAccount } from "../../utils/account/deleteAccount";
 import { storeAccount } from "../../utils/account/storeAccount";
 import { updateAccount } from "../../utils/account/updateAccount";
+import { error } from "../../utils/log/error";
 import i18n from "../../utils/i18n";
 import { parseError } from "../../utils/parseError";
 import { peachAPI } from "../../utils/peachAPI";
@@ -87,10 +88,20 @@ export const LetsGetStarted = () => {
             setIsLoading(false);
             return;
           }
-          await updateAccount(newAccount, true);
-          await userUpdate(willUseReferralCode ? referralCode : undefined);
-
+          // The account now exists server-side. Persist the seed before
+          // anything else runs, and keep going if the remaining setup fails:
+          // wiping the local account here would orphan the server-side one
+          // and lock the user out with the new-user rate limit.
           storeAccount(newAccount);
+          try {
+            await updateAccount(newAccount, true);
+            await userUpdate(willUseReferralCode ? referralCode : undefined);
+          } catch (e) {
+            error(
+              "Account setup after successful registration failed",
+              parseError(e),
+            );
+          }
           navigation.navigate("accountCreated");
           setIsLoading(false);
 
