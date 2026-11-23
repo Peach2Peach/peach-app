@@ -11,7 +11,6 @@ import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useFundingStatus } from "../../hooks/query/useFundingStatus";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
-import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/ConfirmTradeCancelationPopup";
@@ -30,7 +29,6 @@ import { useDecryptedContractData } from "../contractChat/useDecryptedContractDa
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeComplete } from "../tradeComplete/TradeComplete";
 import { ContractActions } from "./ContractActions";
-import { PendingPayoutInfo } from "./components/PendingPayoutInfo";
 import { SuspiciousPaymentDataBanner } from "./components/SuspiciousPaymentDataBanner";
 import { TradeInformation } from "./components/TradeInformation";
 import { ContractContext, useContractContext } from "./context";
@@ -77,7 +75,6 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
     isLoading: isLoadingPaymentData,
     isError,
   } = useDecryptedContractData(contract);
-  const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean();
 
   const { user: selfUser } = useSelfUser();
   const setPopup = useSetPopup();
@@ -205,8 +202,6 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
         isDecryptionError: isError,
         hasSuspiciousPaymentData,
         view,
-        showBatchInfo,
-        toggleShowBatchInfo,
       }}
     >
       <Screen header={<ContractHeader />}>
@@ -217,7 +212,7 @@ function ContractScreen({ contract, view }: ContractScreenProps) {
           contentContainerStyle={tw`grow`}
           contentStyle={tw`grow`}
         >
-          {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
+          <TradeInformation />
           <ContractActions />
         </PeachScrollView>
       </Screen>

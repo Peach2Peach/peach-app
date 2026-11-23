@@ -69,7 +69,6 @@ import { NodeSetup } from "./settings/NodeSetup";
 import { PayoutAddress } from "./settings/PayoutAddress";
 import { PinCodeSetup } from "./settings/PinCodeSetup";
 import { RefundAddress } from "./settings/RefundAddress";
-import { TransactionBatching } from "./settings/TransactionBatching";
 import { AboutPeach } from "./settings/aboutPeach/AboutPeach";
 import { BitcoinProducts } from "./settings/aboutPeach/BitcoinProducts";
 import { PeachFees } from "./settings/aboutPeach/PeachFees";
@@ -198,7 +197,6 @@ const settings: ViewType[] = [
   { name: "paymentMethods", component: PaymentMethods },
   { name: "peachFees", component: PeachFees },
   { name: "networkFees", component: NetworkFees },
-  { name: "transactionBatching", component: TransactionBatching },
   { name: "socials", component: Socials },
 ];
 

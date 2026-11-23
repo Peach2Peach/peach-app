@@ -53,19 +53,6 @@ export function NewOfferButton() {
   );
 }
 
-export function PayoutPendingButton() {
-  const { showBatchInfo, toggleShowBatchInfo } = useContractContext();
-
-  return (
-    <Button style={tw`self-center`} iconId="eye" onPress={toggleShowBatchInfo}>
-      {i18n(
-        showBatchInfo
-          ? "contract.summary.tradeDetails"
-          : "offer.requiredAction.payoutPending",
-      )}
-    </Button>
-  );
-}
 export function ProvideEmailButton() {
   const setPopup = useSetPopup();
   const { contract, view } = useContractContext();

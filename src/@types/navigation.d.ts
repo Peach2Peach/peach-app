@@ -210,7 +210,6 @@ type RootStackParamList = Onboarding &
     bitcoinProducts: undefined;
     socials: undefined;
     myProfile: undefined;
-    transactionBatching: undefined;
 
     patchPayoutAddress:
       | {

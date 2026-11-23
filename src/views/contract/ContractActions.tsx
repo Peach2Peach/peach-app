@@ -23,7 +23,6 @@ import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import {
   ChatButton,
   NewOfferButton,
-  PayoutPendingButton,
   ProvideEmailButton,
 } from "./ContractButtons";
 import {
@@ -130,28 +129,16 @@ function ContractStatusInfo() {
 }
 
 function ContractButtons() {
-  const { contract, view } = useContractContext();
-  const { isEmailRequired, batchInfo, releaseTxId } = contract;
+  const { contract } = useContractContext();
+  const { isEmailRequired } = contract;
   const { offer } = useOfferDetail(
     contract ? getOfferIdFromContract(contract) : "",
   );
   return (
     <>
-      {shouldShowPayoutPending(view, batchInfo, releaseTxId) && (
-        <PayoutPendingButton />
-      )}
       {!!isEmailRequired && <ProvideEmailButton />}
       {!!offer && isSellOffer(offer) && offer?.newOfferId && <NewOfferButton />}
     </>
-  );
-}
-function shouldShowPayoutPending(
-  view: string,
-  batchInfo: BatchInfo | undefined,
-  releaseTxId: string | undefined,
-) {
-  return (
-    view === "buyer" && !!batchInfo && !batchInfo.completed && !releaseTxId
   );
 }
 

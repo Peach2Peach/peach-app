@@ -12,7 +12,6 @@ import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useValidatedState } from "../../../hooks/useValidatedState";
 import { InfoPopup } from "../../../popups/InfoPopup";
-import { useThemeStore } from "../../../store/theme";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
@@ -36,7 +35,6 @@ export const NetworkFees = () => {
   const { estimatedFees } = useFeeEstimate();
   const { user } = useSelfUser();
   const feeRate = user?.feeRate;
-  const { isDarkMode } = useThemeStore();
 
   const defaultFeeRate = feeRate
     ? typeof feeRate === "number"
@@ -95,16 +93,6 @@ export const NetworkFees = () => {
   return (
     <Screen header={<NetworkFeesHeader />}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
-        {user?.isBatchingEnabled && (
-          <PeachText
-            style={tw.style(
-              "py-2 text-center mb-7",
-              isDarkMode ? "text-backgroundLight-light" : "text-black-100",
-            )}
-          >
-            {i18n("settings.networkFees.payoutInfo")}
-          </PeachText>
-        )}
         <RadioButtons
           items={options}
           selectedValue={displayRate}

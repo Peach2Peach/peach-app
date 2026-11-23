@@ -191,7 +191,6 @@ export const Settings = () => {
           warning: !!showBackupReminder,
         },
         "networkFees",
-        "transactionBatching",
         "paymentMethods",
       ] as const,
     [showBackupReminder],

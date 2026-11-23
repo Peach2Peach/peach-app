@@ -23,7 +23,6 @@ type SettingsTitle =
   | "referrals"
   | "backups"
   | "networkFees"
-  | "transactionBatching"
   | "paymentMethods"
   | "nodeSetup"
   | "payoutAddress"

@@ -2,14 +2,11 @@ import { renderHook } from "test-utils";
 import { ContractContext } from "./ContractContext";
 import { useContractContext } from "./useContractContext";
 
-const toggleShowBatchInfo = jest.fn();
 const wrapper = ({ children }: ComponentProps) => (
   <ContractContext.Provider
     value={{
       contract: {} as Contract,
       view: "buyer",
-      showBatchInfo: false,
-      toggleShowBatchInfo,
       isDecryptionError: false,
     }}
   >
@@ -22,8 +19,6 @@ describe("useContractContext", () => {
     expect(result.current).toEqual({
       contract: {},
       view: "buyer",
-      showBatchInfo: false,
-      toggleShowBatchInfo,
       isDecryptionError: false,
     });
   });

@@ -5,7 +5,6 @@ import { PaymentMethodInfo } from "../../../../peach-api/src/@types/payment";
 import { Toggle } from "../../../components/inputs/Toggle";
 import { ErrorBox } from "../../../components/ui/ErrorBox";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
-import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../../hooks/wallet/useIsMyAddress";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
@@ -59,7 +58,6 @@ export const TradeDetails = () => {
         <>
           <HorizontalLine />
           <ChangePayoutWallet />
-          <ToggleGroupHug />
         </>
       )}
       {!paymentData && view === "buyer" && (
@@ -75,28 +73,6 @@ export const TradeDetails = () => {
     </View>
   );
 };
-
-function ToggleGroupHug() {
-  const { contract } = useContractContext();
-  const { user } = useSelfUser();
-  const isBatchingEnabled = contract.paymentConfirmed
-    ? Boolean(contract.batchId)
-    : !!user?.isBatchingEnabled;
-
-  return (
-    <>
-      {user && (
-        <SummaryItem
-          label={i18n("transactionBatching")}
-          value={
-            <SummaryItem.Text value={i18n(isBatchingEnabled ? "yes" : "no")} />
-          }
-          infoName="grouphugContractHelp"
-        />
-      )}
-    </>
-  );
-}
 
 function ChangePayoutWallet() {
   const { contract } = useContractContext();

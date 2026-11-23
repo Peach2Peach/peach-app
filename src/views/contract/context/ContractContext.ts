@@ -8,8 +8,6 @@ type ContractContextType = {
   /** the counterparty's payment details failed verification and are masked */
   hasSuspiciousPaymentData?: boolean;
   view: ContractViewer;
-  showBatchInfo: boolean;
-  toggleShowBatchInfo: () => void;
 };
 
 export const ContractContext = createContext<ContractContextType | undefined>(

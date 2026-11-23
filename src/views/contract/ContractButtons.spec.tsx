@@ -12,8 +12,6 @@ describe("ContractButtons - ProvideEmailButton", () => {
           contract,
           view: "buyer",
           isDecryptionError: false,
-          showBatchInfo: false,
-          toggleShowBatchInfo: jest.fn(),
         }}
       >
         <GlobalPopup />
