@@ -13,6 +13,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { useSellOfferDetail } from "../../hooks/query/peach069/useSellOffer";
 import { useSellOfferTradeRequestsReceived } from "../../hooks/query/peach069/useSellOfferTradeRequests";
 import { useRoute } from "../../hooks/useRoute";
+import { useSubmitMissingInstantTradeSignature } from "../../hooks/useSubmitMissingInstantTradeSignature";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { HelpPopup } from "../../popups/HelpPopup";
@@ -159,6 +160,7 @@ export const BrowseTradeRequestsToMySellOffer = () => {
   const { offerId } = useRoute<"browseTradeRequestsToMySellOffer">().params;
   const navigation = useStackNavigation();
   const { sellOffer, isLoading } = useSellOfferDetail(offerId);
+  useSubmitMissingInstantTradeSignature([sellOffer]);
 
   const displayCurrency = useSettingsStore((state) => state.displayCurrency);
   const [displayedCurrency, setDisplayedCurrency] = useState<

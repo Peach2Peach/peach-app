@@ -11,6 +11,8 @@ import { useStartRefundPopup } from "../../../popups/useStartRefundPopup";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
+import { submitInstantTradeSignature } from "../../../utils/offer/submitInstantTradeSignature";
+import { error } from "../../../utils/log/error";
 import { parseError } from "../../../utils/parseError";
 import { peachAPI } from "../../../utils/peachAPI";
 
@@ -62,6 +64,10 @@ async function republishOffer(contract: Contract) {
   if (!reviveSellOfferResult || err) {
     throw new Error(err?.error || "Could not republish offer");
   }
+  // not awaited: a failure here must not fail the republish
+  declareInstantTrade(reviveSellOfferResult.newOfferId).catch((e) =>
+    error("instantTradeSignature: republish declaration failed", e),
+  );
   return reviveSellOfferResult;
 }
 
@@ -93,4 +99,20 @@ function RepublishedOfferPopup({
       }
     />
   );
+}
+
+/**
+ * the republished offer gets a new id, so it needs its own instant trade
+ * declaration, decided from the new offer's own payment data.
+ */
+async function declareInstantTrade(sellOfferId: string) {
+  const { result: newOffer } = await peachAPI.private.peach069.getSellOfferById(
+    { sellOfferId },
+  );
+  if (!newOffer) {
+    error("instantTradeSignature: republished offer not found");
+    return;
+  }
+  if (newOffer.instantTradeSignature) return;
+  await submitInstantTradeSignature(newOffer);
 }

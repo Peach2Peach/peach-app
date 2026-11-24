@@ -1,6 +1,7 @@
 import { Screen } from "../../components/Screen";
 import { useCanInstantTradeWithSellOffer } from "../../hooks/query/peach069/useCanInstantTradeWithSellOffer";
 import { useSellOfferDetail } from "../../hooks/query/peach069/useSellOffer";
+import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useSellOfferTradeRequestBySelfUser } from "../../hooks/query/peach069/useSellOfferTradeRequestBySelfUser";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useRoute } from "../../hooks/useRoute";
@@ -8,6 +9,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { getHashedPaymentData } from "../../store/offerPreferenes/helpers/getHashedPaymentData";
 import { getRandom } from "../../utils/crypto/getRandom";
 import { StackNavigation } from "../../utils/navigation/handlePushNotification";
+import { getOfferPrice } from "../../utils/offer/getOfferPrice";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
@@ -18,6 +20,7 @@ import tw from "../../styles/tailwind";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 import { ExpressFlowTradeRequestToOffer } from "./ExpressFlowTradeRequestToOffer";
+import { createEncryptedTradeDetails } from "./helpers/createEncryptedTradeDetails";
 import { TradingConditionsBanner } from "./components/TradingConditionsBanner";
 
 const goToChat = async (
@@ -51,7 +54,8 @@ const performTradeRequestFunction = async ({
   selectedPaymentData,
   maxMiningFeeRate,
   selectedCurrency,
-  sellOfferId,
+  sellOffer,
+  priceBook,
   selfUser,
   offerOwnerUser,
   sellOfferTradeRequestPerformedBySelfUserRefetch,
@@ -60,7 +64,8 @@ const performTradeRequestFunction = async ({
   maxMiningFeeRate?: number;
   selectedPaymentData?: PaymentData;
   selectedCurrency?: Currency;
-  sellOfferId: string;
+  sellOffer: SellOffer;
+  priceBook?: Pricebook;
   selfUser?: User;
   offerOwnerUser?: PublicUser;
   sellOfferTradeRequestPerformedBySelfUserRefetch: Function;
@@ -72,9 +77,11 @@ const performTradeRequestFunction = async ({
     !selectedCurrency ||
     // !peachWallet ||
     !selfUser ||
-    !offerOwnerUser
+    !offerOwnerUser ||
+    !priceBook
   )
     throw Error("values not ready");
+  const sellOfferId = sellOffer.id;
   // const { address: releaseAddress, index } = await peachWallet.getAddress();
 
   // const message = getMessageToSignForAddress(selfUser.id, releaseAddress);
@@ -106,6 +113,28 @@ const performTradeRequestFunction = async ({
   if (!encryptedPaymentData) throw Error("PAYMENTDATA_ENCRYPTION_FAILED");
   const hashedPaymentData = getHashedPaymentData([selectedPaymentData]);
 
+  const price = getOfferPrice({
+    amount: sellOffer.amount,
+    premium: sellOffer.premium,
+    prices: priceBook,
+    currency: selectedCurrency,
+  });
+  if (!price) throw Error("invalid price conversion for currency");
+  const { encryptedTradeDetails, encryptedTradeDetailsBuyerSignature } =
+    await createEncryptedTradeDetails(
+      {
+        buyer: selfUser.id,
+        seller: offerOwnerUser.id,
+        offerId: Number(sellOfferId),
+        paymentMethod: selectedPaymentData.type,
+        amount: String(sellOffer.amount),
+        price,
+        premium: sellOffer.premium,
+        currency: selectedCurrency,
+      },
+      offerOwnerUser.pgpPublicKeys,
+    );
+
   const { error } =
     await peachAPI.private.peach069.performSellOfferTradeRequest({
       sellOfferId,
@@ -117,6 +146,8 @@ const performTradeRequestFunction = async ({
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
       maxMiningFeeRate: maxMiningFeeRate,
+      encryptedTradeDetails,
+      encryptedTradeDetailsBuyerSignature,
       // releaseAddress,
       // releaseAddressMessageSignature,
     });
@@ -232,6 +263,7 @@ export function ExpressBuyTradeRequestToSellOffer() {
     refetch: refetchSellOffer,
   } = useSellOfferDetail(offerId, false, false);
   const navigation = useStackNavigation();
+  const { data: priceBook } = useMarketPrices();
 
   const onTradeRequestDisappearing = async () => {
     const response =
@@ -277,8 +309,10 @@ export function ExpressBuyTradeRequestToSellOffer() {
     selectedCurrency: Currency;
     handleError: Function;
   }) => {
+    if (!sellOffer) throw Error("sell offer not loaded");
     return await performTradeRequestFunction({
-      sellOfferId: offerId,
+      sellOffer,
+      priceBook,
       maxMiningFeeRate: maxMiningFeeRate,
       selectedPaymentData: selectedPaymentData,
       selectedCurrency: selectedCurrency,

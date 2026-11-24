@@ -25,6 +25,7 @@ import {
 } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useSubmitMissingInstantTradeSignature } from "../../hooks/useSubmitMissingInstantTradeSignature";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -80,6 +81,12 @@ export const FundEscrow = () => {
   if (offersToRemoveFromMulti.length > 0) {
     offersToRemoveFromMulti.forEach((o) => removeMultiOffer(o.id));
   }
+
+  // covers this offer and, for multi offers, its siblings
+  useSubmitMissingInstantTradeSignature([
+    sellOffer,
+    ...(offers ?? []).map((o) => (o && isSellOffer(o) ? o : undefined)),
+  ]);
 
   useHandleFundingStatus({
     offerId,

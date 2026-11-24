@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ESCROW_VERSION } from "../../../../peach-api";
 import { interpolate } from "../../../utils/math/interpolate";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
+import { submitInstantTradeSignature } from "../../../utils/offer/submitInstantTradeSignature";
 import { peachAPI } from "../../../utils/peachAPI";
 import {
   CLIENT_RATING_RANGE,
@@ -63,6 +64,15 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
   if (!Array.isArray(result) && !isSellOffer(result)) {
     throw new Error("OFFER IS NOT VALID");
   }
+
+  // not awaited: the offers already exist, so neither the retries nor a
+  // failure may hold up the funding flow. The offer screen re-submits it if
+  // the server still has none.
+  // Instant trade is decided from the paymentData that was just sent (the
+  // server decides the same way from what it stored), not from the response.
+  (Array.isArray(result) ? result : [result]).forEach(({ id }) =>
+    submitInstantTradeSignature({ id, paymentData: payload.paymentData }),
+  );
 
   return result;
 }

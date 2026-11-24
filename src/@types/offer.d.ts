@@ -64,6 +64,8 @@ type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
   newOfferId?: string;
   prices?: Pricebook;
   derivationPathVersion?: number;
+  /** owner only: signed instant trade declaration, null if not signed yet */
+  instantTradeSignature?: string | null;
 };
 
 type BuyOfferDraft = OfferDraft & {

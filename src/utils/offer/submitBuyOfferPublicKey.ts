@@ -10,16 +10,15 @@ const KEY_ALREADY_SUBMITTED = "Public key already submitted";
  * derived from the offer id, so every attempt submits the same one.
  */
 export const submitBuyOfferPublicKey = async (buyOfferId: string) => {
-  const { error: err } = await peachAPI.private.peach069.submitBuyOfferPublicKey(
-    {
+  const { error: err } =
+    await peachAPI.private.peach069.submitBuyOfferPublicKey({
       buyOfferId,
       ...getBuyOfferPublicKeyProof(
         getWallet(),
         useAccountStore.getState().account.publicKey,
         buyOfferId,
       ),
-    },
-  );
+    });
   if (!err) return;
 
   if (err.error === KEY_ALREADY_SUBMITTED) {
