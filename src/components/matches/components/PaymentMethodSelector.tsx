@@ -1,5 +1,5 @@
-import { ReactNode, useMemo } from "react";
-import { View } from "react-native";
+import { ReactNode, useEffect, useMemo, useRef } from "react";
+import { Animated, Easing, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
@@ -135,6 +135,47 @@ type SelectorProps = {
   origin?: keyof RootStackParamList;
 };
 
+const RUMBLE_INTERVAL = 4000;
+const RUMBLE_OFFSETS = [-4, 4, -3, 3, -2, 2, 0];
+const RUMBLE_STEP_DURATION = 50;
+
+/** shakes horizontally once every RUMBLE_INTERVAL ms while `active` */
+function useRumble(active: boolean) {
+  const translateX = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (!active) {
+      translateX.setValue(0);
+      return undefined;
+    }
+    const rumble = Animated.sequence(
+      RUMBLE_OFFSETS.map((toValue) =>
+        Animated.timing(translateX, {
+          toValue,
+          duration: RUMBLE_STEP_DURATION,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+      ),
+    );
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(
+          RUMBLE_INTERVAL - RUMBLE_OFFSETS.length * RUMBLE_STEP_DURATION,
+        ),
+        rumble,
+      ]),
+    );
+    loop.start();
+    return () => {
+      loop.stop();
+      translateX.setValue(0);
+    };
+  }, [active, translateX]);
+
+  return translateX;
+}
+
 function CustomSelector({
   items,
   selectedCurrency,
@@ -142,20 +183,25 @@ function CustomSelector({
   onPress,
   origin = "matchDetails",
 }: SelectorProps) {
+  const translateX = useRumble(!selectedPaymentData && !!items?.length);
   return (
     <View style={tw`flex-row flex-wrap justify-center gap-1`}>
       {items?.map(({ value, display, country }, i) => (
-        <PayementMethodBubble
+        <Animated.View
           key={`selector-item-${value}-${i}`}
-          paymentMethod={value}
-          onPress={onPress}
-          selectedPaymentData={selectedPaymentData}
-          selectedCurrency={selectedCurrency}
-          origin={origin}
+          style={{ transform: [{ translateX }] }}
         >
-          {display}
-          {country && " (" + country + ")"}
-        </PayementMethodBubble>
+          <PayementMethodBubble
+            paymentMethod={value}
+            onPress={onPress}
+            selectedPaymentData={selectedPaymentData}
+            selectedCurrency={selectedCurrency}
+            origin={origin}
+          >
+            {display}
+            {country && " (" + country + ")"}
+          </PayementMethodBubble>
+        </Animated.View>
       ))}
     </View>
   );
