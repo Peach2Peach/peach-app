@@ -34,6 +34,7 @@ import i18n, { languageState } from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
+import { isValidSellOfferEscrow } from "../../utils/offer/verifySellOfferEscrow";
 import { parseError } from "../../utils/parseError";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
@@ -41,6 +42,7 @@ import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { PreferenceMethods } from "../offerPreferences/components/PreferenceMethods";
 import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
+import { EscrowVerificationFailed } from "./components/EscrowVerificationFailed";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
@@ -53,9 +55,16 @@ export const FundEscrow = () => {
   useSyncWallet({ enabled: true });
   const { offer, isLoading: offerIsLoading } = useOfferDetail(offerId);
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined;
+  // the escrow comes from the server: only use it if it is the one derived
+  // from our own key for this offer
+  const escrowIsValid = useMemo(
+    () => !!sellOffer && isValidSellOfferEscrow(sellOffer, sellOffer.escrow),
+    [sellOffer],
+  );
   const canFetchFundingStatus =
     !!sellOffer &&
     !!sellOffer.escrow &&
+    escrowIsValid &&
     !sellOffer.refunded &&
     !sellOffer.released &&
     sellOffer.funding.status !== "FUNDED";
@@ -104,6 +113,13 @@ export const FundEscrow = () => {
     return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
   }
   if (!sellOffer?.escrow) return <CreateEscrowScreen offerIds={[offerId]} />;
+
+  if (!escrowIsValid)
+    return (
+      <Screen header={<FundEscrowHeader />}>
+        <EscrowVerificationFailed />
+      </Screen>
+    );
 
   if (!fundingStatus || !sellOffer.escrow || !sellOffer.amount)
     return <BitcoinLoading text={i18n("sell.escrow.loading")} />;

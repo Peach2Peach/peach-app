@@ -2,6 +2,7 @@ import { BIP32Interface } from "bip32";
 import { Psbt } from "bitcoinjs-lib";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
 import { verifyBuyerReleaseAddress } from "../../../utils/contract/verifyBuyerReleaseAddress";
+import { verifyContractTradeDetails } from "../../../utils/contract/verifyContractTradeDetails";
 import { verifyReleasePSBT } from "../../../utils/contract/verifyReleasePSBT";
 import { isBuyerOnlyEscrow } from "../../../utils/offer/isBuyerOnlyEscrow";
 import { isSingleSigEscrow } from "../../../utils/offer/isSingleSigEscrow";
@@ -49,6 +50,10 @@ export function useConfirmPaymentSeller({
 
         const sellOffer = await getSellOfferFromContract(contract);
         if (!sellOffer) throw new Error("SELL_OFFER_NOT_FOUND");
+
+        // a contract from a (non instant trade) sell offer must carry trade
+        // details naming this buyer, signed by both parties
+        await verifyContractTradeDetails({ contract, sellOffer });
 
         const wallet = getEscrowWalletForOffer(sellOffer);
         const { txIds } = sellOffer.funding;

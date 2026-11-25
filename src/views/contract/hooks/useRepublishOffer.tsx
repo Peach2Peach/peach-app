@@ -12,7 +12,8 @@ import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFr
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { submitInstantTradeSignature } from "../../../utils/offer/submitInstantTradeSignature";
-import { error } from "../../../utils/log/error";
+import { submitOldOfferIdSignature } from "../../../utils/offer/submitOldOfferIdSignature";
+import { error as logError } from "../../../utils/log/error";
 import { parseError } from "../../../utils/parseError";
 import { peachAPI } from "../../../utils/peachAPI";
 
@@ -66,8 +67,10 @@ async function republishOffer(contract: Contract) {
   }
   // not awaited: a failure here must not fail the republish
   declareInstantTrade(reviveSellOfferResult.newOfferId).catch((e) =>
-    error("instantTradeSignature: republish declaration failed", e),
+    logError("instantTradeSignature: republish declaration failed", e),
   );
+  // the revived offer declares which offer it came from (never throws)
+  submitOldOfferIdSignature(reviveSellOfferResult.newOfferId);
   return reviveSellOfferResult;
 }
 
@@ -110,7 +113,7 @@ async function declareInstantTrade(sellOfferId: string) {
     { sellOfferId },
   );
   if (!newOffer) {
-    error("instantTradeSignature: republished offer not found");
+    logError("instantTradeSignature: republished offer not found");
     return;
   }
   if (newOffer.instantTradeSignature) return;

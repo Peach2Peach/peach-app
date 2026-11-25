@@ -14,6 +14,7 @@ import tw from "../../styles/tailwind";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import { verifyBuyerReleaseAddress } from "../../utils/contract/verifyBuyerReleaseAddress";
+import { verifyContractTradeDetailsById } from "../../utils/contract/verifyContractTradeDetails";
 import { verifyReleasePSBT } from "../../utils/contract/verifyReleasePSBT";
 import i18n from "../../utils/i18n";
 import { isBuyerOnlyEscrow } from "../../utils/offer/isBuyerOnlyEscrow";
@@ -94,6 +95,13 @@ export const MobilePendingActionSignMultisig = () => {
         navigateToSuccess();
         return;
       }
+
+      // a contract from a (non instant trade) sell offer must carry trade
+      // details naming this buyer, signed by both parties
+      await verifyContractTradeDetailsById({
+        contractId: mobilePendingAction.contractId,
+        sellOffer,
+      });
 
       const wallet = getEscrowWalletForOffer(sellOffer);
 

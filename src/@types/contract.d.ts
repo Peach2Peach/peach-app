@@ -60,6 +60,12 @@ type Contract = {
   /** seller only: when true, the seller must validate the buyer's release
    * address proofs before confirming the payment */
   mustValidateBuyerReleaseProofs?: boolean;
+  /** armored PGP message of the trade details, encrypted to the seller */
+  encryptedTradeDetails?: string;
+  /** armored detached PGP signature by the buyer over the trade details plaintext */
+  encryptedTradeDetailsBuyerSignature?: string;
+  /** armored detached PGP signature by the seller over the same plaintext */
+  encryptedTradeDetailsSellerSignature?: string;
   releaseTransaction?: string;
   releaseTxId?: string;
 

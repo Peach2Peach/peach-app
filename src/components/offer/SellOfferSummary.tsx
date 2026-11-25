@@ -14,6 +14,7 @@ import { EscrowLink } from "../matches/components/EscrowLink";
 import { getPremiumColor } from "../matches/utils/getPremiumColor";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
+import { isValidSellOfferEscrow } from "../../utils/offer/verifySellOfferEscrow";
 import { SummaryCard } from "./SummaryCard";
 
 type Props = {
@@ -218,7 +219,13 @@ export const SellOrBuyOfferSummary = ({
           <HorizontalLine />
 
           <SummaryCard.Section>
-            <EscrowLink address={offer.escrow} />
+            {isValidSellOfferEscrow(offer, offer.escrow) ? (
+              <EscrowLink address={offer.escrow} />
+            ) : (
+              <PeachText style={tw`text-center subtitle-1 text-error-main`}>
+                {i18n("ESCROW_ADDRESS_MISMATCH.title")}
+              </PeachText>
+            )}
           </SummaryCard.Section>
         </>
       )}

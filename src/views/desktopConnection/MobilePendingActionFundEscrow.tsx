@@ -7,13 +7,17 @@ import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import { ActionImageWithLoader } from "./ActionImageWithLoader";
 import { useMobilePendingActionFundEscrow } from "../../hooks/query/peach069/useMobilePendingActionFundEscrow";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useFeeRate } from "../../hooks/useFeeRate";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { EscrowVerificationFailed } from "../fundEscrow/components/EscrowVerificationFailed";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
+import { isValidSellOfferEscrow } from "../../utils/offer/verifySellOfferEscrow";
 import { peachAPI } from "../../utils/peachAPI";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { buildTransaction } from "../../utils/wallet/transaction";
@@ -33,6 +37,10 @@ export const MobilePendingActionFundEscrow = () => {
   const [isConfirming, setIsConfirming] = useState(false);
   const { mobilePendingAction, isLoading, refetch } =
     useMobilePendingActionFundEscrow(id);
+  // needed to verify the escrow address relayed from the desktop
+  const { offer, isLoading: offerIsLoading } = useOfferDetail(
+    mobilePendingAction ? String(mobilePendingAction.offerId) : "",
+  );
 
   useSyncWallet({ enabled: true });
   const balance = useWalletState((state) => state.balance);
@@ -44,7 +52,7 @@ export const MobilePendingActionFundEscrow = () => {
     }, [refetch]),
   );
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading || offerIsLoading) return <LoadingScreen />;
   if (!mobilePendingAction) {
     navigation.goBack();
     return <></>;
@@ -57,11 +65,17 @@ export const MobilePendingActionFundEscrow = () => {
 
   const hasSufficientFunds = balance >= amount;
 
+  // the address comes from the desktop via the server: only fund it if it is
+  // the escrow derived from our own key for this sell offer
+  const escrowIsValid =
+    !!offer && isSellOffer(offer) && isValidSellOfferEscrow(offer, address);
+
   const confirmFunction = async () => {
     setIsConfirming(true);
     await new Promise((resolve) => requestAnimationFrame(() => resolve(null)));
     try {
       if (!peachWallet) throw new Error("Wallet not defined");
+      if (!escrowIsValid) throw new Error("ESCROW_ADDRESS_MISMATCH");
 
       const transaction = await buildTransaction({
         address,
@@ -95,9 +109,26 @@ export const MobilePendingActionFundEscrow = () => {
     }
   };
 
+  if (!escrowIsValid)
+    return (
+      <Screen
+        header={
+          <Header
+            title={i18n("connectToDesktop.mobilePendingActions.fundEscrow")}
+          />
+        }
+      >
+        <EscrowVerificationFailed />
+      </Screen>
+    );
+
   return (
     <Screen
-      header={<Header title={i18n("connectToDesktop.mobilePendingActions.fundEscrow")} />}
+      header={
+        <Header
+          title={i18n("connectToDesktop.mobilePendingActions.fundEscrow")}
+        />
+      }
     >
       <View style={tw`grow flex-1 justify-between px-4`}>
         <View style={tw`flex-1 items-center justify-center`}>

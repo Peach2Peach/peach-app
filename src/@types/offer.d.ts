@@ -66,6 +66,8 @@ type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
   derivationPathVersion?: number;
   /** owner only: signed instant trade declaration, null if not signed yet */
   instantTradeSignature?: string | null;
+  /** owner only, revived offers: PGP signature over "<oldOfferId>-<id>" */
+  oldOfferIdSignature?: string | null;
 };
 
 type BuyOfferDraft = OfferDraft & {

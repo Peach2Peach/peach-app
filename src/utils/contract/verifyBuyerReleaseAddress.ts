@@ -1,6 +1,6 @@
-import ecc from "@bitcoinerlab/secp256k1";
-import { address as addressUtils, crypto } from "bitcoinjs-lib";
+import { address as addressUtils } from "bitcoinjs-lib";
 import { getMessageToSignForAddress } from "../account/getMessageToSignForAddress";
+import { isValidPeachUserSignature } from "../account/isValidPeachUserSignature";
 import { isValidBitcoinSignature } from "../validation/isValidBitcoinSignature";
 import { getNetwork } from "../wallet/getNetwork";
 
@@ -12,22 +12,6 @@ export const normalizeAddress = (address: string) => {
     return address.toLowerCase();
   } catch {
     return address;
-  }
-};
-
-const isValidPeachUserSignature = (
-  message: string,
-  buyerId: string,
-  peachUserSignature: string,
-) => {
-  try {
-    return ecc.verify(
-      crypto.sha256(Buffer.from(message, "utf8")),
-      Buffer.from(buyerId, "hex"),
-      Buffer.from(peachUserSignature, "hex"),
-    );
-  } catch {
-    return false;
   }
 };
 

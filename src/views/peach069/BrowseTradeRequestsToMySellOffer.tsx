@@ -24,6 +24,7 @@ import { StackNavigation } from "../../utils/navigation/handlePushNotification";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
+import { error as logError } from "../../utils/log/error";
 import { peachAPI } from "../../utils/peachAPI";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { getExpiryString } from "../../utils/string/msToLongerTimer";
@@ -32,6 +33,10 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 import { LoadingScreen } from "../loading/LoadingScreen";
+import {
+  countersignEncryptedTradeDetails,
+  isInvalidTradeDetailsError,
+} from "./helpers/countersignEncryptedTradeDetails";
 
 const rejectTradeRequest = async (
   sellOfferId: string,
@@ -56,7 +61,7 @@ const goToChat = async (
 };
 
 const acceptTradeRequest = async (
-  sellOffer: Pick<SellOffer, "id" | "paymentData">,
+  sellOffer: Pick<SellOffer, "id" | "paymentData" | "amount">,
   tradeRequest: SellOffer69TradeRequest,
   selfUser: User,
   navigation: StackNavigation,
@@ -70,6 +75,32 @@ const acceptTradeRequest = async (
 
   if (!pgpPubKeysOfRequestingUser)
     throw Error("missing requesting user pgp keys");
+
+  // the seller countersigns the buyer's trade details, only after checking
+  // they are authentic and describe this exact trade
+  let encryptedTradeDetailsSellerSignature: string;
+  try {
+    encryptedTradeDetailsSellerSignature =
+      await countersignEncryptedTradeDetails({
+        encryptedTradeDetails: tradeRequest.encryptedTradeDetails,
+        encryptedTradeDetailsBuyerSignature:
+          tradeRequest.encryptedTradeDetailsBuyerSignature,
+        buyerPgpPublicKeys: pgpPubKeysOfRequestingUser,
+        expected: {
+          seller: selfUser.id,
+          buyer: tradeRequest.userId,
+          offerId: sellOffer.id,
+          amount: sellOffer.amount,
+          paymentMethod: tradeRequest.paymentMethod,
+          currency: tradeRequest.currency,
+        },
+      });
+  } catch (e) {
+    if (!isInvalidTradeDetailsError(e)) throw e;
+    logError("refusing to countersign trade details", tradeRequest.userId, e);
+    handleError({ error: "INVALID_TRADE_DETAILS" });
+    return;
+  }
 
   const selfEncryptedPaymentData =
     sellOffer.paymentData[tradeRequest.paymentMethod as PaymentMethod]
@@ -132,6 +163,7 @@ const acceptTradeRequest = async (
       userId: tradeRequest.userId,
       paymentDataEncrypted: encryptedPaymentData.encrypted,
       paymentDataSignature: encryptedPaymentData.signature,
+      encryptedTradeDetailsSellerSignature,
     });
 
   if (error) handleError(error);
