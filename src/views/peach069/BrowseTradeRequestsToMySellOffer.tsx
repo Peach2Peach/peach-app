@@ -1,3 +1,4 @@
+import { getUserProvenPgpPublicKeys } from "../../utils/account/getProvenPgpPublicKeys";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { SellOffer69TradeRequest } from "../../../peach-api/src/@types/offer";
@@ -147,7 +148,12 @@ const acceptTradeRequest = async (
   const symmetricKey = await decryptSymmetricKey(
     tradeRequest.symmetricKeyEncrypted,
     tradeRequest.symmetricKeySignature,
-    [...selfUser.pgpPublicKeys, ...pgpPubKeysOfRequestingUser],
+    // only the requesting user (the buyer) creates and signs this key: accepting
+    // our own keys too would let a key we signed in another trade be replayed
+    getUserProvenPgpPublicKeys({
+      id: tradeRequest.userId,
+      pgpPublicKeys: pgpPubKeysOfRequestingUser,
+    }),
   );
 
   if (!symmetricKey) throw Error("error decrypting symmetric key");

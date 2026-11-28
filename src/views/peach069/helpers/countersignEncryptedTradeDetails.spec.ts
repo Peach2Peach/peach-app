@@ -1,4 +1,8 @@
+import { NETWORK } from "@env";
 import OpenPGP from "react-native-fast-openpgp";
+import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
+import { getMainAccount } from "../../../utils/account/getMainAccount";
+import { signMessageWithWallet } from "../../../utils/account/signMessageWithWallet";
 import {
   countersignEncryptedTradeDetails,
   isInvalidTradeDetailsError,
@@ -14,8 +18,11 @@ jest.mock("../../../utils/account/account", () => ({
   },
 }));
 
+const buyerWallet = createTestWallet();
+const buyerId = getMainAccount(buyerWallet, NETWORK).publicKey.toString("hex");
+
 const details = {
-  buyer: "buyerId",
+  buyer: buyerId,
   seller: "sellerId",
   offerId: 52,
   paymentMethod: "wise",
@@ -26,7 +33,7 @@ const details = {
 };
 const expected = {
   seller: "sellerId",
-  buyer: "buyerId",
+  buyer: buyerId,
   offerId: "52",
   amount: 30000,
   paymentMethod: "wise",
@@ -35,7 +42,12 @@ const expected = {
 const args = {
   encryptedTradeDetails: "encrypted",
   encryptedTradeDetailsBuyerSignature: "buyerSignature",
-  buyerPgpPublicKeys: [{ publicKey: "buyerPublicKey" }],
+  buyerPgpPublicKeys: [
+    {
+      publicKey: "buyerPublicKey",
+      proof: signMessageWithWallet("buyerPublicKey", buyerWallet),
+    },
+  ],
   expected,
 };
 
@@ -87,5 +99,20 @@ describe("countersignEncryptedTradeDetails", () => {
       encryptedTradeDetails: undefined,
     }).catch((e) => e);
     expect(isInvalidTradeDetailsError(err)).toBe(true);
+  });
+
+  it("refuses when the buyer's key has no valid ownership proof", async () => {
+    jest
+      .spyOn(OpenPGP, "decrypt")
+      .mockResolvedValueOnce(JSON.stringify(details));
+    const verify = jest.spyOn(OpenPGP, "verify").mockResolvedValue(true);
+
+    const err = await countersignEncryptedTradeDetails({
+      ...args,
+      buyerPgpPublicKeys: [{ publicKey: "buyerPublicKey", proof: "abcd" }],
+    }).catch((e) => e);
+    expect(isInvalidTradeDetailsError(err)).toBe(true);
+    expect(err.message).toBe("invalid buyer signature");
+    expect(verify).not.toHaveBeenCalled();
   });
 });

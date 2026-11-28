@@ -1,3 +1,4 @@
+import { getProvenPgpPublicKeys } from "../../../utils/account/getProvenPgpPublicKeys";
 import OpenPGP from "react-native-fast-openpgp";
 import { useAccountStore } from "../../../utils/account/account";
 import { decrypt } from "../../../utils/pgp/decrypt";
@@ -41,7 +42,8 @@ export const countersignEncryptedTradeDetails = async ({
 }: {
   encryptedTradeDetails?: string;
   encryptedTradeDetailsBuyerSignature?: string;
-  buyerPgpPublicKeys: { publicKey: string }[];
+  /** the buyer's keys with their ownership proofs: unproven keys are ignored */
+  buyerPgpPublicKeys: PGPPublicKeyProofPair[];
   expected: Expected;
 }) => {
   if (!encryptedTradeDetails || !encryptedTradeDetailsBuyerSignature)
@@ -57,7 +59,10 @@ export const countersignEncryptedTradeDetails = async ({
   const buyerSignatureValid = await hasValidSignature({
     signature: encryptedTradeDetailsBuyerSignature,
     message: plaintext,
-    publicKeys: buyerPgpPublicKeys,
+    publicKeys: getProvenPgpPublicKeys({
+      userId: expected.buyer,
+      pgpPublicKeys: buyerPgpPublicKeys,
+    }),
   });
   if (!buyerSignatureValid)
     throw new InvalidTradeDetailsError("invalid buyer signature");

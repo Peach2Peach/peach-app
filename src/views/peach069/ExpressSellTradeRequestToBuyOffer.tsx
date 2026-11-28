@@ -1,3 +1,7 @@
+import {
+  getRecipientPgpPublicKeys,
+  getUserProvenPgpPublicKeys,
+} from "../../utils/account/getProvenPgpPublicKeys";
 import { ESCROW_VERSION } from "../../../peach-api";
 import { Screen } from "../../components/Screen";
 import { useBuyOfferDetail } from "../../hooks/query/peach069/useBuyOffer";
@@ -83,15 +87,12 @@ const performTradeRequestFunction = async ({
   const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
   const { encrypted, signature } = await signAndEncrypt(
     symmetricKey,
-    [
-      ...selfUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
-      ...offerOwnerUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
-    ].join("\n"),
+    getRecipientPgpPublicKeys([selfUser, offerOwnerUser]),
   );
 
   const decryptionResult = await decryptSymmetricKey(encrypted, signature, [
-    ...selfUser.pgpPublicKeys,
-    ...offerOwnerUser.pgpPublicKeys,
+    ...getUserProvenPgpPublicKeys(selfUser),
+    ...getUserProvenPgpPublicKeys(offerOwnerUser),
   ]);
   if (!decryptionResult)
     throw Error("Couldnt decrypt the created symmetric key");
@@ -183,15 +184,12 @@ const performInstantTrade = async ({
     const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
     const { encrypted, signature } = await signAndEncrypt(
       symmetricKey,
-      [
-        ...selfUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
-        ...offerOwnerUser.pgpPublicKeys.map((pgp) => pgp.publicKey),
-      ].join("\n"),
+      getRecipientPgpPublicKeys([selfUser, offerOwnerUser]),
     );
 
     const decryptionResult = await decryptSymmetricKey(encrypted, signature, [
-      ...selfUser.pgpPublicKeys,
-      ...offerOwnerUser.pgpPublicKeys,
+      ...getUserProvenPgpPublicKeys(selfUser),
+      ...getUserProvenPgpPublicKeys(offerOwnerUser),
     ]);
     if (!decryptionResult)
       throw Error("Couldnt decrypt the created symmetric key");

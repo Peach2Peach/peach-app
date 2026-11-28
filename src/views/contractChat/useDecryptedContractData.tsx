@@ -1,3 +1,4 @@
+import { getUserProvenPgpPublicKeys } from "../../utils/account/getProvenPgpPublicKeys";
 import { useQuery } from "@tanstack/react-query";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { decrypt } from "../../utils/pgp/decrypt";
@@ -28,7 +29,10 @@ async function decryptContractData(contract: Contract) {
   const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
-    [...contract.buyer.pgpPublicKeys, ...contract.seller.pgpPublicKeys],
+    [
+      ...getUserProvenPgpPublicKeys(contract.buyer),
+      ...getUserProvenPgpPublicKeys(contract.seller),
+    ],
   );
 
   let paymentData;
@@ -110,7 +114,7 @@ async function decryptPaymentData(
     hasValidSignature({
       signature: paymentDataSignature,
       message: decryptedString,
-      publicKeys: user.pgpPublicKeys,
+      publicKeys: getUserProvenPgpPublicKeys(user),
     });
 
   if (paymentDataEncryptionMethod === "asymmetric") {

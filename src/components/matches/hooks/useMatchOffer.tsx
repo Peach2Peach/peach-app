@@ -1,3 +1,4 @@
+import { getRecipientPgpPublicKeys } from "../../../utils/account/getProvenPgpPublicKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
 import { Match } from "../../../../peach-api/src/@types/match";
@@ -30,7 +31,6 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
   const handleError = useHandleError();
   const setPopup = useSetPopup();
   const { user } = useSelfUser();
-  const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? [];
   const handleMissingPaymentData = useHandleMissingPaymentData();
   const { data: paymentMethods } = usePaymentMethods();
 
@@ -83,7 +83,7 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
           match,
           currency: selectedCurrency,
           paymentData,
-          pgpPublicKeys,
+          selfUser: user,
           paymentMethodInfo,
         });
       if (!matchOfferData) throw new Error(dataError || "UNKNOWN_ERROR");
@@ -153,7 +153,7 @@ type Params = {
   match: Match;
   currency: Currency;
   paymentData: PaymentData;
-  pgpPublicKeys: string[];
+  selfUser?: User;
   paymentMethodInfo?: PaymentMethodInfo;
 };
 
@@ -163,7 +163,7 @@ async function generateMatchOfferData({
   match,
   currency,
   paymentData,
-  pgpPublicKeys,
+  selfUser,
   paymentMethodInfo,
 }: Params) {
   const paymentMethod = paymentData.type;
@@ -171,10 +171,7 @@ async function generateMatchOfferData({
   const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString("hex");
   const { encrypted, signature } = await signAndEncrypt(
     symmetricKey,
-    [
-      ...pgpPublicKeys,
-      ...match.user.pgpPublicKeys.map((pgp) => pgp.publicKey),
-    ].join("\n"),
+    getRecipientPgpPublicKeys(selfUser ? [selfUser, match.user] : [match.user]),
   );
 
   const encryptedPaymentData = await encryptPaymentData(

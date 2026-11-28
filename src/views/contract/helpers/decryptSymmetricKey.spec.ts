@@ -2,7 +2,11 @@ import OpenPGP from "react-native-fast-openpgp";
 import { decryptSymmetricKey } from "./decryptSymmetricKey";
 
 const verifyMock = jest.spyOn(OpenPGP, "verify");
-jest.mock("../../../utils/pgp/decrypt");
+// factory mocks: the real modules pull in the account store and immer's ESM
+// build, which jest cannot parse
+jest.mock("../../../utils/pgp/decrypt", () => ({ decrypt: jest.fn() }));
+jest.mock("../../../utils/log/log", () => ({ log: jest.fn() }));
+jest.mock("../../../utils/log/error", () => ({ error: jest.fn() }));
 const decryptMock = jest.requireMock("../../../utils/pgp/decrypt").decrypt;
 const errorSpy = jest.spyOn(
   jest.requireMock("../../../utils/log/error"),
@@ -49,7 +53,7 @@ describe("decryptSymmetricKey", () => {
     expect(errorSpy).not.toHaveBeenCalled();
     expect(symmetricKeyResult).toEqual(null);
   });
-  it("should handle invalid signature and still return symmetric key", async () => {
+  it("should reject the symmetric key when the signature is invalid", async () => {
     decryptMock.mockReturnValue(symmetricKey);
     verifyMock.mockResolvedValue(false);
     const symmetricKeyResult = await decryptSymmetricKey(
@@ -60,6 +64,6 @@ describe("decryptSymmetricKey", () => {
     expect(errorSpy).toHaveBeenCalledWith(
       new Error("SYMMETRIC_KEY_SIGNATURE_INVALID"),
     );
-    expect(symmetricKeyResult).toEqual(symmetricKey);
+    expect(symmetricKeyResult).toBeNull();
   });
 });

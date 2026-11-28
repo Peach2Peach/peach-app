@@ -1,3 +1,4 @@
+import { getUserProvenPgpPublicKeys } from "../../utils/account/getProvenPgpPublicKeys";
 import { useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 
@@ -334,7 +335,7 @@ async function generateMatchOfferData({
   const symmetricKey = await decryptSymmetricKey(
     symmetricKeyEncrypted,
     symmetricKeySignature,
-    user.pgpPublicKeys,
+    getUserProvenPgpPublicKeys(user),
   );
   if (!symmetricKey) return { error: "SYMMETRIC_KEY_DECRYPTION_FAILED" };
 

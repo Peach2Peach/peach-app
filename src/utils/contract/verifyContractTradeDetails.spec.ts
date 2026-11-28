@@ -1,4 +1,7 @@
 import { NETWORK } from "@env";
+import ecc from "@bitcoinerlab/secp256k1";
+import BIP32Factory from "bip32";
+import { networks } from "bitcoinjs-lib";
 import OpenPGP from "react-native-fast-openpgp";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { getInstantTradeDeclarationMessage } from "../account/getInstantTradeDeclarationMessage";
@@ -6,12 +9,6 @@ import { getMainAccount } from "../account/getMainAccount";
 import { signMessageWithWallet } from "../account/signMessageWithWallet";
 import { verifyContractTradeDetails } from "./verifyContractTradeDetails";
 
-const mockFlag = { enabled: true };
-jest.mock("./validateContractTradeDetailsFlag", () => ({
-  get VALIDATE_CONTRACT_TRADE_DETAILS() {
-    return mockFlag.enabled;
-  },
-}));
 // the real account store pulls in immer's ESM build, which jest cannot parse
 jest.mock("../account/account", () => ({
   useAccountStore: {
@@ -27,7 +24,12 @@ const sellerWallet = createTestWallet();
 const sellerId = getMainAccount(sellerWallet, NETWORK).publicKey.toString(
   "hex",
 );
-const buyerId = "02buyer";
+// any other master key stands in for the buyer
+const buyerWallet = BIP32Factory(ecc).fromSeed(
+  Buffer.alloc(32, 2),
+  networks.regtest,
+);
+const buyerId = getMainAccount(buyerWallet, NETWORK).publicKey.toString("hex");
 const offerId = "52";
 
 const declaration = (isInstantTrade: boolean) =>
@@ -50,11 +52,28 @@ const plaintext = JSON.stringify({
 const contract = {
   id: "52-7",
   amount: 30000,
-  buyer: { id: buyerId, pgpPublicKeys: [{ publicKey: "buyerPgp" }] },
-  seller: { id: sellerId, pgpPublicKeys: [{ publicKey: "sellerPgp" }] },
+  buyer: {
+    id: buyerId,
+    pgpPublicKeys: [
+      {
+        publicKey: "buyerPgp",
+        proof: signMessageWithWallet("buyerPgp", buyerWallet),
+      },
+    ],
+  },
+  seller: {
+    id: sellerId,
+    pgpPublicKeys: [
+      {
+        publicKey: "sellerPgp",
+        proof: signMessageWithWallet("sellerPgp", sellerWallet),
+      },
+    ],
+  },
   encryptedTradeDetails: "encrypted",
   encryptedTradeDetailsBuyerSignature: "buyerSig",
   encryptedTradeDetailsSellerSignature: "sellerSig",
+  validateEncryptedTradeDetails: true,
 } as Parameters<typeof verifyContractTradeDetails>[0]["contract"];
 
 const notInstantOffer = {
@@ -76,21 +95,26 @@ const mockPGP = (decrypted = plaintext) => {
 
 describe("verifyContractTradeDetails", () => {
   beforeEach(() => {
-    mockFlag.enabled = true;
     jest.restoreAllMocks();
   });
 
-  it("does nothing while the check is disabled", async () => {
-    mockFlag.enabled = false;
-    const decrypt = jest.spyOn(OpenPGP, "decrypt");
-    await expect(
-      verifyContractTradeDetails({
-        contract: { ...contract, encryptedTradeDetails: undefined },
-        sellOffer: { id: offerId, instantTradeSignature: null },
-      }),
-    ).resolves.toBeUndefined();
-    expect(decrypt).not.toHaveBeenCalled();
-  });
+  it.each([false, undefined])(
+    "does nothing when the server sets validateEncryptedTradeDetails to %s",
+    async (validateEncryptedTradeDetails) => {
+      const decrypt = jest.spyOn(OpenPGP, "decrypt");
+      await expect(
+        verifyContractTradeDetails({
+          contract: {
+            ...contract,
+            validateEncryptedTradeDetails,
+            encryptedTradeDetails: undefined,
+          },
+          sellOffer: { id: offerId, instantTradeSignature: null },
+        }),
+      ).resolves.toBeUndefined();
+      expect(decrypt).not.toHaveBeenCalled();
+    },
+  );
 
   it("skips instant trades, which carry no trade details", async () => {
     const decrypt = jest.spyOn(OpenPGP, "decrypt");
@@ -181,4 +205,25 @@ describe("verifyContractTradeDetails", () => {
       }),
     ).rejects.toThrow("INVALID_CONTRACT_TRADE_DETAILS");
   });
+
+  it.each(["buyer", "seller"] as const)(
+    "fails when the %s's PGP key has no valid ownership proof",
+    async (party) => {
+      mockPGP();
+      await expect(
+        verifyContractTradeDetails({
+          contract: {
+            ...contract,
+            [party]: {
+              ...contract[party],
+              pgpPublicKeys: [
+                { ...contract[party].pgpPublicKeys[0], proof: "abcd" },
+              ],
+            },
+          },
+          sellOffer: notInstantOffer,
+        }),
+      ).rejects.toThrow("INVALID_CONTRACT_TRADE_DETAILS");
+    },
+  );
 });

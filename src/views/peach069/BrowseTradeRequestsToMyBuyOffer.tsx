@@ -1,3 +1,4 @@
+import { getUserProvenPgpPublicKeys } from "../../utils/account/getProvenPgpPublicKeys";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
@@ -121,7 +122,12 @@ const acceptTradeRequest = async (
   const symmetricKey = await decryptSymmetricKey(
     tradeRequest.symmetricKeyEncrypted,
     tradeRequest.symmetricKeySignature,
-    [...selfUser.pgpPublicKeys, ...pgpPubKeysOfRequestingUser],
+    // only the requesting user (the seller) creates and signs this key: accepting
+    // our own keys too would let a key we signed in another trade be replayed
+    getUserProvenPgpPublicKeys({
+      id: tradeRequest.userId,
+      pgpPublicKeys: pgpPubKeysOfRequestingUser,
+    }),
   );
 
   if (!symmetricKey) throw Error("error decrypting symmetric key");
@@ -354,9 +360,10 @@ function SearchHeader({
       setPopup(
         <CancelBuyOffer68Popup
           cancelFunction={async () => {
-            const { error } = await peachAPI.private.peach069.deleteBuyOfferById(
-              { buyOfferId: String(offerId) },
-            );
+            const { error } =
+              await peachAPI.private.peach069.deleteBuyOfferById({
+                buyOfferId: String(offerId),
+              });
             if (!error) {
               setToast({
                 msgKey: "offer.deleted",

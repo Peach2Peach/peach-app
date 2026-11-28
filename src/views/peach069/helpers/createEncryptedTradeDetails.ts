@@ -1,3 +1,4 @@
+import { getRecipientPgpPublicKeys } from "../../../utils/account/getProvenPgpPublicKeys";
 import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
 
 export type TradeDetails = {
@@ -17,17 +18,15 @@ export type TradeDetails = {
 };
 
 /**
- * Serializes the trade details, encrypts them to the seller's PGP keys and
+ * Serializes the trade details, encrypts them to the seller's proven PGP keys and
  * signs the plaintext with the buyer's (self) PGP private key.
  * Keys are listed explicitly so the serialized field order is stable.
  */
 export const createEncryptedTradeDetails = async (
   details: TradeDetails,
-  sellerPgpPublicKeys: { publicKey: string }[],
+  /** the seller's keys with their ownership proofs: unproven keys are ignored */
+  sellerPgpPublicKeys: PGPPublicKeyProofPair[],
 ) => {
-  if (sellerPgpPublicKeys.length === 0)
-    throw Error("Seller has no PGP public keys");
-
   const plaintext = JSON.stringify({
     buyer: details.buyer,
     seller: details.seller,
@@ -41,7 +40,9 @@ export const createEncryptedTradeDetails = async (
 
   const { encrypted, signature } = await signAndEncrypt(
     plaintext,
-    sellerPgpPublicKeys.map((pgp) => pgp.publicKey).join("\n"),
+    getRecipientPgpPublicKeys([
+      { id: details.seller, pgpPublicKeys: sellerPgpPublicKeys },
+    ]),
   );
 
   return {
